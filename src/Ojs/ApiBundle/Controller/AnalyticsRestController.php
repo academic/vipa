@@ -2,10 +2,10 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Symfony\Component\HttpFoundation\Request;
@@ -116,11 +116,13 @@ class AnalyticsRestController extends FOSRestController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $filePath = $request->get('file_path');
         $data = $dm->getRepository('OjsAnalyticsBundle:ObjectDownload')
-            ->findBy([
-                'objectId' => (int) $id, // very interesting {.-.} {-|-} {'-'}
-                'entity' => $entity,
-                'filePath' => $filePath,
-            ]);
+            ->findBy(
+                [
+                    'objectId' => (int) $id, // very interesting {.-.} {-|-} {'-'}
+                    'entity' => $entity,
+                    'filePath' => $filePath,
+                ]
+            );
 
         return $data;
     }

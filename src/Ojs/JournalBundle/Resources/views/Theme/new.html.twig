@@ -2,19 +2,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('theme'),'title': 'theme'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('theme'),'title': 'theme'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"theme.new"|trans}}</h1>
+    <h1>{{ "theme.new"|trans }}</h1>
 
     {{ form(form) }}
 
     <a class="btn btn-default" href="{{ path('theme') }}">
-        {{"b"|trans}}
+        {{ "b"|trans }}
     </a>
 {% endblock %}

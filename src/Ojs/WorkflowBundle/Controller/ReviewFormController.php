@@ -22,8 +22,8 @@ class ReviewFormController extends OjsController
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $forms = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:ReviewForm')
-                ->findBy(array('journalId' => $selectedJournal->getId()));
+            ->getRepository('OjsWorkflowBundle:ReviewForm')
+            ->findBy(array('journalId' => $selectedJournal->getId()));
 
         return $this->render('OjsWorkflowBundle:ReviewForm:index.html.twig', array('forms' => $forms));
     }
@@ -56,8 +56,10 @@ class ReviewFormController extends OjsController
 
         $this->successFlashBag('successful.create');
 
-        return $this->redirectToRoute('ojs_review_forms', [
-            'id' => $form->getId(),
+        return $this->redirectToRoute(
+            'ojs_review_forms',
+            [
+                'id' => $form->getId(),
             ]
         );
     }
@@ -72,8 +74,11 @@ class ReviewFormController extends OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:edit.html.twig', array(
-                    'form' => $form, )
+        return $this->render(
+            'OjsWorkflowBundle:ReviewForm:edit.html.twig',
+            array(
+                'form' => $form,
+            )
         );
     }
 
@@ -124,7 +129,9 @@ class ReviewFormController extends OjsController
     {
         $form = $this->safeGet($id);
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:show.html.twig', array('form' => $form)
+        return $this->render(
+            'OjsWorkflowBundle:ReviewForm:show.html.twig',
+            array('form' => $form)
         );
     }
 
@@ -138,10 +145,13 @@ class ReviewFormController extends OjsController
     {
         $form = $this->safeGet($id);
         $formItems = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:ReviewForm')
-                ->getItemsGroupedByFieldset($form->getId());
+            ->getRepository('OjsWorkflowBundle:ReviewForm')
+            ->getItemsGroupedByFieldset($form->getId());
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:preview.html.twig', array('formitems' => $formItems, 'form' => $form));
+        return $this->render(
+            'OjsWorkflowBundle:ReviewForm:preview.html.twig',
+            array('formitems' => $formItems, 'form' => $form)
+        );
     }
 
     /**
@@ -153,10 +163,13 @@ class ReviewFormController extends OjsController
     {
         $form = $this->safeGet($id);
         $formItems = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:ReviewForm')
-                ->getItemsGroupedByFieldset($form->getId());
+            ->getRepository('OjsWorkflowBundle:ReviewForm')
+            ->getItemsGroupedByFieldset($form->getId());
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:form_items_rendered.html.twig', array('formitems' => $formItems));
+        return $this->render(
+            'OjsWorkflowBundle:ReviewForm:form_items_rendered.html.twig',
+            array('formitems' => $formItems)
+        );
     }
 
     /**

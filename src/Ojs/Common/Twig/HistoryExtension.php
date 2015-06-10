@@ -8,10 +8,10 @@ use Gedmo\Loggable\Entity\Repository\LogEntryRepository;
 
 class HistoryExtension extends \Twig_Extension
 {
-    /** @var EntityManager  */
+    /** @var EntityManager */
     private $em;
 
-    /** @var \Twig_Environment  */
+    /** @var \Twig_Environment */
     private $twig;
 
     private $template;
@@ -32,11 +32,13 @@ class HistoryExtension extends \Twig_Extension
 
     public function getLogs($entity)
     {
-        if(!is_object($entity)) {
+        if (!is_object($entity)) {
             return '';
         }
+
         return $this->twig->render($this->template, array('logEntities' => $this->logsFromEntity($entity)));
     }
+
     /**
      * @param $entity
      * @return array

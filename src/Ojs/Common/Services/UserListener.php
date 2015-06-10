@@ -11,47 +11,48 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Security\Core\User\User as SecurityUser;
+use Symfony\Component\Yaml\Parser;
 
 class UserListener
 {
-    /** @var Session  */
+    /** @var Session */
     protected $session;
-    /** @var Router  */
+    /** @var Router */
     protected $router;
-    /** @var Request  */
+    /** @var Request */
     protected $request;
-    /** @var EntityManager  */
+    /** @var EntityManager */
     protected $em;
     /** @var  string */
     protected $rootDir;
-    /** @var JournalService  */
+    /** @var JournalService */
     protected $journalService;
-    /** @var EncoderFactory  */
+    /** @var EncoderFactory */
     protected $encoderFactory;
-    /** @var AuthorizationCheckerInterface  */
+    /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
-    /** @var TokenStorage  */
+    /** @var TokenStorage */
     protected $tokenStorage;
 
     /**
-     * @param Router $router
-     * @param EntityManager $em
+     * @param Router                        $router
+     * @param EntityManager                 $em
      * @param $rootDir
-     * @param JournalService $journalService
-     * @param EncoderFactory $encoderFactory
+     * @param JournalService                $journalService
+     * @param EncoderFactory                $encoderFactory
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorage $tokenStorage
+     * @param TokenStorage                  $tokenStorage
      */
     public function __construct(
         Router $router,
-        EntityManager $em, $rootDir,
+        EntityManager $em,
+        $rootDir,
         JournalService $journalService,
         EncoderFactory $encoderFactory,
         AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorage $tokenStorage)
-    {
+        TokenStorage $tokenStorage
+    ) {
         $this->router = $router;
 
         $this->em = $em;
@@ -85,10 +86,12 @@ class UserListener
             return false;
         }
         $yamlParser = new Parser();
-        $reservedUserNames = $yamlParser->parse(file_get_contents(
-                        $this->rootDir.
-                        '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
-        ));
+        $reservedUserNames = $yamlParser->parse(
+            file_get_contents(
+                $this->rootDir.
+                '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
+            )
+        );
         $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $usernameLower));
 
         return (!$user && !in_array($usernameLower, $reservedUserNames));
@@ -111,7 +114,7 @@ class UserListener
         }
 
         $clients = $this->em->getRepository('OjsUserBundle:Proxy')->findBy(
-                array('proxyUserId' => $user->getId())
+            array('proxyUserId' => $user->getId())
         );
         $this->session->set('userClients', $clients);
     }

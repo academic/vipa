@@ -4,9 +4,9 @@ namespace Ojs\ApiBundle\Security;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\UserBundle\Entity\UserRepository;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
@@ -22,9 +22,11 @@ class ApiKeyUserProvider implements UserProviderInterface
 
         /** @var UserRepository $userRepo */
         $userRepo = $this->em->getRepository('OjsUserBundle:User');
-        $user = $userRepo->findOneBy([
-            'apiKey' => $apiKey,
-        ]);
+        $user = $userRepo->findOneBy(
+            [
+                'apiKey' => $apiKey,
+            ]
+        );
 
         if (!($user instanceof \Ojs\UserBundle\Entity\User)) {
             return false;

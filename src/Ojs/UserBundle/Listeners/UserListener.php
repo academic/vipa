@@ -2,15 +2,15 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Ojs\Common\Params\UserEventLogParams;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\User;
-use Ojs\Common\Params\UserEventLogParams;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserListener
 {
-    /** @var RequestStack  */
+    /** @var RequestStack */
     protected $request;
 
     /**
@@ -25,7 +25,7 @@ class UserListener
      * Every new user log to event log
      * @param  LifecycleEventArgs|RequestStack $args
      * @link http://docs.doctrine-project.org/en/latest/reference/events.html#postupdate-postremove-postpersist
-     * @return Response                   never null
+     * @return Response                        never null
      */
     public function postPersist(LifecycleEventArgs $args)
     {

@@ -31,10 +31,12 @@ class RoleRepository extends EntityRepository
     /**
      * @return array
      */
-    public function getAllNames() {
+    public function getAllNames()
+    {
         $result = $this->createQueryBuilder('role')
             ->select('role.name')->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
 }

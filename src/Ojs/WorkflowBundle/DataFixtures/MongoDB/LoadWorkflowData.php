@@ -2,13 +2,13 @@
 
 namespace Ojs\UserBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
-use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
  * @todo
@@ -49,10 +49,12 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step1->setMaxDays(15);
         $step1->setStatus('First Review');
         $step1->setTitle('First Review');
-        $step1->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step1->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
         $dm->persist($step1);
         $dm->flush();
 
@@ -63,10 +65,12 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step2->setStatus('Publish');
         $step2->setTitle('Publish');
         $step2->addNextStep($step1);
-        $step2->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step2->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
         $dm->persist($step2);
         $step1->addNextStep($step2);
         $dm->persist($step1);

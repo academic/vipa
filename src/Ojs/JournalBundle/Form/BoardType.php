@@ -20,25 +20,27 @@ class BoardType extends AbstractType
         /** @var Journal $journal */
         $journal = $options['journal'];
         $builder
-                ->add('journal', 'entity', array(
+            ->add(
+                'journal',
+                'entity',
+                array(
                     'attr' => array('class' => ' form-control select2-element'),
                     'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($journal) {
-                $qb = $er->createQueryBuilder('j');
-                if ($journal) {
-                    $qb->where(
-                            $qb->expr()->eq('j.id', ':journal')
-                    )->setParameter('journal', $journal);
-                }
+                        $qb = $er->createQueryBuilder('j');
+                        if ($journal) {
+                            $qb->where(
+                                $qb->expr()->eq('j.id', ':journal')
+                            )->setParameter('journal', $journal);
+                        }
 
-                return $qb;
-            },
-                        )
+                        return $qb;
+                    },
                 )
-                ->add('name', 'text', ['label' => 'name'])
-                ->add('description', 'textarea', ['label' => 'description', 'attr' => ['class' => 'editor', 'rows' => 5]])
-        ;
+            )
+            ->add('name', 'text', ['label' => 'name'])
+            ->add('description', 'textarea', ['label' => 'description', 'attr' => ['class' => 'editor', 'rows' => 5]]);
     }
 
     /**
@@ -46,10 +48,12 @@ class BoardType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'journal' => null,
-            'data_class' => 'Ojs\JournalBundle\Entity\Board',
-        ));
+        $resolver->setDefaults(
+            array(
+                'journal' => null,
+                'data_class' => 'Ojs\JournalBundle\Entity\Board',
+            )
+        );
     }
 
     /**

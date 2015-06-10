@@ -3,15 +3,15 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'article.journal'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'article.journal'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-    {{"articles_in_journal"|trans}} <strong>{{journal.title }}</strong>
+    {{ "articles_in_journal"|trans }} <strong>{{ journal.title }}</strong>
     {% set back_path = 'article' %}
     {% set create_path = 'article_new' %}
     {% include '::actionbuttons.html.twig' %}

@@ -21,10 +21,9 @@ class SubjectRepository extends NestedTreeRepository
     {
         $qb = $this->createQueryBuilder('s');
         $qb
-                ->join('s.journals', 'j', 'WITH')
-                ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
-                ->setParameter('institution', $institution)
-        ;
+            ->join('s.journals', 'j', 'WITH')
+            ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
+            ->setParameter('institution', $institution);
 
         return $qb->getQuery()->getResult();
     }
@@ -47,10 +46,12 @@ class SubjectRepository extends NestedTreeRepository
     /**
      * @return array
      */
-    public function getAllSubjects() {
+    public function getAllSubjects()
+    {
         $result = $this->createQueryBuilder('subject')
             ->select('subject.subject')->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
 }

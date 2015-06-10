@@ -32,8 +32,12 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
      * @param AccessDecisionManagerInterface $accessDecisionManager An AccessDecisionManager instance
      * @param bool                           $alwaysAuthenticate
      */
-    public function __construct(TokenStorageInterface $tokenStorage, AuthenticationManagerInterface $authenticationManager, AccessDecisionManagerInterface $accessDecisionManager, $alwaysAuthenticate = false)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        AuthenticationManagerInterface $authenticationManager,
+        AccessDecisionManagerInterface $accessDecisionManager,
+        $alwaysAuthenticate = false
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->authenticationManager = $authenticationManager;
         $this->accessDecisionManager = $accessDecisionManager;
@@ -48,7 +52,9 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
     final public function isGranted($attributes, $object = null, $field = null)
     {
         if (null === ($token = $this->tokenStorage->getToken())) {
-            throw new AuthenticationCredentialsNotFoundException('The token storage contains no authentication token. One possible reason may be that there is no firewall configured for this URL.');
+            throw new AuthenticationCredentialsNotFoundException(
+                'The token storage contains no authentication token. One possible reason may be that there is no firewall configured for this URL.'
+            );
         }
 
         if ($this->alwaysAuthenticate || !$token->isAuthenticated()) {
@@ -61,6 +67,7 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
         if (null !== $field) {
             $object = new FieldVote($object, $field);
         }
+
         return $this->accessDecisionManager->decide($token, $attributes, $object);
     }
 }

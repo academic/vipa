@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'report.plural'|trans, 'link': path('reports_index') },
-        { 'title': 'user.analytics'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'report.plural'|trans, 'link': path('reports_index') },
+    { 'title': 'user.analytics'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

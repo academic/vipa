@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('institution'),'title': 'institution.manager'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('institution'),'title': 'institution.manager'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -24,11 +24,11 @@
 
     {{ form_widget(form) }}
     <div class="form-group">
-        <label class="control-label" for="fileupload">{{"logo"|trans}}</label>
+        <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
 
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>{{"file.select"|trans}}</span>
+                <span>{{ "file.select"|trans }}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
             </span>
 
@@ -38,11 +38,11 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+        <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
 
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>{{"file.select"|trans}}</span>
+                <span>{{ "file.select"|trans }}</span>
                 <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
             </span>
 

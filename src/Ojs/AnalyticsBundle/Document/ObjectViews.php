@@ -17,6 +17,16 @@ class ObjectViews extends ObjectStatsBase
     protected $pageUrl;
 
     /**
+     * Get pageUrl
+     *
+     * @return string $pageUrl
+     */
+    public function getPageUrl()
+    {
+        return $this->pageUrl;
+    }
+
+    /**
      * Page full url with domain
      * Set pageUrl
      *
@@ -28,15 +38,5 @@ class ObjectViews extends ObjectStatsBase
         $this->pageUrl = $pageUrl;
 
         return $this;
-    }
-
-    /**
-     * Get pageUrl
-     *
-     * @return string $pageUrl
-     */
-    public function getPageUrl()
-    {
-        return $this->pageUrl;
     }
 }

@@ -53,6 +53,16 @@ class UserArticleRole
     }
 
     /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
      * Set userId
      *
      * @param  integer         $userId
@@ -66,13 +76,13 @@ class UserArticleRole
     }
 
     /**
-     * Get userId
+     * Get articleId
      *
      * @return integer
      */
-    public function getUserId()
+    public function getArticleId()
     {
-        return $this->userId;
+        return $this->articleId;
     }
 
     /**
@@ -89,13 +99,13 @@ class UserArticleRole
     }
 
     /**
-     * Get articleId
+     * Get roleId
      *
      * @return integer
      */
-    public function getArticleId()
+    public function getRoleId()
     {
-        return $this->articleId;
+        return $this->roleId;
     }
 
     /**
@@ -112,13 +122,13 @@ class UserArticleRole
     }
 
     /**
-     * Get roleId
+     * Get user
      *
-     * @return integer
+     * @return \Ojs\UserBundle\Entity\User
      */
-    public function getRoleId()
+    public function getUser()
     {
-        return $this->roleId;
+        return $this->user;
     }
 
     /**
@@ -135,13 +145,13 @@ class UserArticleRole
     }
 
     /**
-     * Get user
+     * Get article
      *
-     * @return \Ojs\UserBundle\Entity\User
+     * @return \Ojs\JournalBundle\Entity\Article
      */
-    public function getUser()
+    public function getArticle()
     {
-        return $this->user;
+        return $this->article;
     }
 
     /**
@@ -158,29 +168,6 @@ class UserArticleRole
     }
 
     /**
-     * Get article
-     *
-     * @return \Ojs\JournalBundle\Entity\Article
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
-
-    /**
-     * Set role
-     *
-     * @param  Role $role
-     * @return UserArticleRole
-     */
-    public function setRole(Role $role = null)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
      * Get role
      *
      * @return Role
@@ -188,5 +175,18 @@ class UserArticleRole
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set role
+     *
+     * @param  Role            $role
+     * @return UserArticleRole
+     */
+    public function setRole(Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }

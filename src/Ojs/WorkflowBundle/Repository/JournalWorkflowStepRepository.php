@@ -23,9 +23,9 @@ class JournalWorkflowStepRepository extends DocumentRepository
     public function findFirstStep()
     {
         return $this->createQueryBuilder()
-                        ->field('firstStep')->equals(true)
-                        ->getQuery()
-                        ->getSingleResult();
+            ->field('firstStep')->equals(true)
+            ->getQuery()
+            ->getSingleResult();
     }
 
     /**
@@ -35,16 +35,16 @@ class JournalWorkflowStepRepository extends DocumentRepository
     public function findLastStepStep()
     {
         return $this->createQueryBuilder()
-                        ->field('lastStep')->equals(true)
-                        ->getQuery()
-                        ->getSingleResult();
+            ->field('lastStep')->equals(true)
+            ->getQuery()
+            ->getSingleResult();
     }
 
     public function findAllOrderedByTitle()
     {
         return $this->createQueryBuilder()
-                        ->sort('title', 'ASC')
-                        ->getQuery()
-                        ->execute();
+            ->sort('title', 'ASC')
+            ->getQuery()
+            ->execute();
     }
 }

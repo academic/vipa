@@ -13,7 +13,7 @@ trait TimestampableTrait
     /**  @var \DateTime $created */
     protected $created;
 
-    /** @var \DateTime $updated  */
+    /** @var \DateTime $updated */
     protected $updated;
 
     /** @var \DateTime $contentChanged */

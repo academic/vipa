@@ -16,11 +16,11 @@ class UserRestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('username')
-                ->add('password')
-                ->add('email')
-                ->add('isActive')
-                ->add('status');
+            ->add('username')
+            ->add('password')
+            ->add('email')
+            ->add('isActive')
+            ->add('status');
     }
 
     /**
@@ -28,23 +28,29 @@ class UserRestType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\User',
-            'csrf_protection' => false,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'csrf_protection' => false,
+            )
+        );
     }
 
     public function getDefaultOptions(array $options)
     {
-        $collectionConstraint = new Assert\Collection(array(
-            'username' => new Assert\Length(array('min'  => 5)),
-            'password' => new Assert\Length(array('min'  => 5)),
-            'email' => new Assert\Email(array('message' => $this->get('translator')->trans('Invalid email address'))),
-        ));
+        $collectionConstraint = new Assert\Collection(
+            array(
+                'username' => new Assert\Length(array('min' => 5)),
+                'password' => new Assert\Length(array('min' => 5)),
+                'email' => new Assert\Email(
+                    array('message' => $this->get('translator')->trans('Invalid email address'))
+                ),
+            )
+        );
 
         $options['validation_constraint'] = $collectionConstraint;
         $options['attr'] = [
-                'novalidate' => 'novalidate',
+            'novalidate' => 'novalidate',
         ];
 
         return $options;

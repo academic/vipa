@@ -2,9 +2,9 @@
 {% block title %}{{ 'title.author_new'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('author'), 'title': 'author.manager'|trans},
-        {'title' : 'author.new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('author'), 'title': 'author.manager'|trans},
+    {'title' : 'author.new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

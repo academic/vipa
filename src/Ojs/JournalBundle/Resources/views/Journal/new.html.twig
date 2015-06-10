@@ -3,16 +3,16 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('journal'),'title': 'journal.manager'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('journal'),'title': 'journal.manager'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
 
-    <h1>{{"journal.new"|trans}}</h1>
+    <h1>{{ "journal.new"|trans }}</h1>
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
@@ -42,6 +42,7 @@
             <span>{{ "select.image.file"|trans }}</span>
             <input id="fileupload_logo" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
         </span>
+
         <div id="journal_logo_upload_progress" style="display: none" class="label label-info">
         </div>
     </div>

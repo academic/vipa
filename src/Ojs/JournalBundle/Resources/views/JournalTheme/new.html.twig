@@ -3,15 +3,15 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('admin_journaltheme'),'title': 'journal.theme'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('admin_journaltheme'),'title': 'journal.theme'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"journaltheme.new"|trans}}</h1>
+    <h1>{{ "journaltheme.new"|trans }}</h1>
 
     {{ form(form) }}
     {% set back_path = 'admin_journaltheme' %}

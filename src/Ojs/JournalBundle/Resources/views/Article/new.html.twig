@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('article'), 'title': 'article.manager'|trans},
-        { 'title' : 'article.new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('article'), 'title': 'article.manager'|trans},
+    { 'title' : 'article.new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

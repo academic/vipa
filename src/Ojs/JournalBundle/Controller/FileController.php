@@ -4,14 +4,14 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Form\FileType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * File controller.
@@ -25,13 +25,13 @@ class FileController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new File())) {
+        if (!$this->isGranted('VIEW', new File())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:File');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
-        
+
         $actionColumn = new ActionsColumn("actions", 'actions');
 
         $rowAction[] = $gridAction->showAction('admin_file_show', 'id');
@@ -42,18 +42,19 @@ class FileController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsJournalBundle:File:index.html.twig', $data);
     }
 
     /**
      * Creates a new File entity.
      *
-     * @param Request $request
+     * @param  Request                                            $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new File())) {
+        if (!$this->isGranted('CREATE', new File())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -73,6 +74,7 @@ class FileController extends Controller
 //            return $this->redirect($this->generateUrl('admin_file_show', array('id' => $entity->getId())));
 //        }
         $this->successFlashBag('successful.create');
+
         return $this->redirectToRoute('admin_file_show', ['id' => $file->getId()]);
     }
 
@@ -85,12 +87,15 @@ class FileController extends Controller
      */
     private function createCreateForm(File $entity)
     {
-        $form = $this->createForm(new FileType(), $entity, array(
-            'action' => $this->generateUrl('admin_file_create'),
-            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
-            'method' => 'POST',
-        ));
-
+        $form = $this->createForm(
+            new FileType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_file_create'),
+                'apiRoot' => $this->generateUrl('ojs_api_homepage'),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
@@ -101,15 +106,18 @@ class FileController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new File())) {
+        if (!$this->isGranted('CREATE', new File())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $form = $this->createCreateForm(new File());
 
-        return $this->render('OjsJournalBundle:File:new.html.twig', array(
-            //'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:File:new.html.twig',
+            array(
+                //'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -122,12 +130,17 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
-        return $this->render('OjsJournalBundle:File:show.html.twig', array(
-            'entity' => $entity));
+
+        return $this->render(
+            'OjsJournalBundle:File:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -142,15 +155,18 @@ class FileController extends Controller
         /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:File:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:File:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -162,12 +178,15 @@ class FileController extends Controller
      */
     private function createEditForm(File $entity)
     {
-        $form = $this->createForm(new FileType(), $entity, array(
-            'action' => $this->generateUrl('admin_file_update', array('id' => $entity->getId())),
-            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
-            'method' => 'POST',
-        ));
-
+        $form = $this->createForm(
+            new FileType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_file_update', array('id' => $entity->getId())),
+                'apiRoot' => $this->generateUrl('ojs_api_homepage'),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
@@ -175,7 +194,7 @@ class FileController extends Controller
     /**
      * Edits an existing File entity.
      *
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */
@@ -185,7 +204,7 @@ class FileController extends Controller
         /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
@@ -194,12 +213,12 @@ class FileController extends Controller
 
         $em->flush();
         $this->successFlashBag('successful.update');
-        return $this->redirectToRoute('admin_file_edit', ['id' => $id]);
 
+        return $this->redirectToRoute('admin_file_edit', ['id' => $id]);
     }
 
     /**
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */
@@ -207,19 +226,19 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('admin_file' . $id);
+        $token = $csrf->getToken('admin_file'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('admin_file'));
     }
-
 }

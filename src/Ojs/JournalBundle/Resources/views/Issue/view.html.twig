@@ -3,11 +3,11 @@
 
 {% block breadcrumb %}
     {% set list = [
-        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-        { 'link': path('issue_manager_index'), 'title': 'issue.manager'|trans },
-        { 'title': 'issue'|trans }
+    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+    { 'link': path('issue_manager_index'), 'title': 'issue.manager'|trans },
+    { 'title': 'issue'|trans }
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body %}
@@ -16,36 +16,38 @@
         <div class="panel">
             <h1>
                 {% if issue.special %}<span class="label label-success"><i class="fa fa-star"></i></span>{% endif %}
-                {{"issue"|trans}}
+                {{ "issue"|trans }}
                 {% if is_granted('EDIT', selectedJournal(), 'issues') %}
                     <small class="pull-right">
-                        <a href="{{path("issue_manager_issue_arrange", { "issueId": issue.id }) }}" class="">
+                        <a href="{{ path("issue_manager_issue_arrange", { "issueId": issue.id }) }}" class="">
                             <i class="fa fa-cog"></i>
                         </a>
 
-                        <a href="{{path("issue_manager_issue_edit", { "issueId": issue.id }) }}" class="">
+                        <a href="{{ path("issue_manager_issue_edit", { "issueId": issue.id }) }}" class="">
                             <i class="fa fa-edit"></i>
                         </a>
                     </small>
-                {%endif%}
+                {% endif %}
             </h1>
             {% include '::flashbag.html.twig' %}
             <ul>
-                <li>{{"volume"|trans}} : <strong>{{issue.volume}}</strong> </li>
-                <li>{{"issue.number"|trans}} : <strong>{{issue.number}}</strong></li>
-                <li>{{"title"|trans}} : <strong>{{issue.title}}</strong></li>
-                <li>{{"year"|trans}} : <strong>{{issue.year}}</strong> </li>
-                <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
-                <li>{{"full_file"|trans}} : <a href="/uploads/issuefiles/{{ filePath(issue.fullFile) }}" target="_blank">{{ issue.fullFile }}</a> </li>
+                <li>{{ "volume"|trans }} : <strong>{{ issue.volume }}</strong></li>
+                <li>{{ "issue.number"|trans }} : <strong>{{ issue.number }}</strong></li>
+                <li>{{ "title"|trans }} : <strong>{{ issue.title }}</strong></li>
+                <li>{{ "year"|trans }} : <strong>{{ issue.year }}</strong></li>
+                <li>{{ "date.publish"|trans }} : {{ issue.datePublished|date('Y-m-d') }} </li>
+                <li>{{ "full_file"|trans }} : <a href="/uploads/issuefiles/{{ filePath(issue.fullFile) }}"
+                                                 target="_blank">{{ issue.fullFile }}</a></li>
             </ul>
-                <h4>{{"articles"|trans}}</h4>
+            <h4>{{ "articles"|trans }}</h4>
             {% for article in articles %}
                 <div class="list-group">
                     <div class="list-group-item">
-                        <a title="{{"page.plural"|trans}}" class="label label-default">{{article.firstPage}} - {{article.lastPage}}</a>
+                        <a title="{{ "page.plural"|trans }}" class="label label-default">{{ article.firstPage }}
+                            - {{ article.lastPage }}</a>
                         <a target="_blank"
-                           href="{{path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } )}}">
-                            {{article.title}}
+                           href="{{ path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } ) }}">
+                            {{ article.title }}
                         </a>
                     </div>
                 </div>

@@ -3,17 +3,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'article.issue'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'article.issue'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-    {{"article.plural"|trans}} {{ 'issue.plural'|trans }} <strong>{{issue.title }}</strong> {{"journal"|trans}} <em>{{issue.journal.title }}</em>
+    {{ "article.plural"|trans }} {{ 'issue.plural'|trans }} <strong>{{ issue.title }}</strong> {{ "journal"|trans }}
+    <em>{{ issue.journal.title }}</em>
 
-        <p>{% trans with {'%title%':issue.title}%}Here you can find all articles for selected issue <strong>%title%</strong>{% endtrans %}</p>
+    <p>{% trans with {'%title%':issue.title} %}Here you can find all articles for selected issue
+        <strong>%title%</strong>{% endtrans %}</p>
 
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
     {% set back_path = 'article' %}

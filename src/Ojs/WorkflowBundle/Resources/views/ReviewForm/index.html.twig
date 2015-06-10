@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_review_forms'), 'title': 'review.form'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_review_forms'), 'title': 'review.form'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
@@ -13,19 +13,21 @@
     <div class="list-group">
         {% for entity in forms %}
             <div class="list-group-item list-group-item-default">
-                <a href="{{path('ojs_review_form_items',{'formId':entity.id})}}">{{entity.title}}</a>
+                <a href="{{ path('ojs_review_form_items',{'formId':entity.id}) }}">{{ entity.title }}</a>
                 <span class="pull-right">
                     <span class="btn-group">
-                        <a href="{{path('ojs_review_form_items',{'formId':entity.id})}}" class="btn btn-default btn-xs">
-                            <i class="fa fa-list"></i> {{"form.items"|trans}}
+                        <a href="{{ path('ojs_review_form_items',{'formId':entity.id}) }}"
+                           class="btn btn-default btn-xs">
+                            <i class="fa fa-list"></i> {{ "form.items"|trans }}
                         </a>
-                        <a href="{{path('ojs_review_forms_preview',{'id':entity.id})}}" class="btn btn-info btn-xs">
-                            <i class="fa fa-eye"></i> {{"preview"|trans}}
+                        <a href="{{ path('ojs_review_forms_preview',{'id':entity.id}) }}" class="btn btn-info btn-xs">
+                            <i class="fa fa-eye"></i> {{ "preview"|trans }}
                         </a>
-                        <a href="{{path('ojs_review_forms_edit',{'id':entity.id})}}" class="btn btn-warning btn-xs">
+                        <a href="{{ path('ojs_review_forms_edit',{'id':entity.id}) }}" class="btn btn-warning btn-xs">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a onclick="return confirm('{{"sure"|trans}}');" href="{{path('ojs_review_forms_delete',{'id':entity.id})}}"
+                        <a onclick="return confirm('{{ "sure"|trans }}');"
+                           href="{{ path('ojs_review_forms_delete',{'id':entity.id}) }}"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>
                         </a>
                     </span>
@@ -36,8 +38,8 @@
     </div>
 
     {% if is_granted('CREATE', selectedJournal()) %}
-        <a href="{{path('ojs_review_forms_new')}}" class="btn btn-success">
-            <i class="fa fa-plus"></i> {{"create"|trans}}
+        <a href="{{ path('ojs_review_forms_new') }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> {{ "create"|trans }}
         </a>
     {% endif %}
 

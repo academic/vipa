@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'article.file'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'article.file'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,14 +14,18 @@
     {% include '::flashbag.html.twig' %}
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
-        <li role="presentation" class=""><a href="{{ url('article_citations',{id: article.id}) }}">{{ "citation"|trans }}</a></li>
+        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a>
+        </li>
+        <li role="presentation" class="active"><a
+                    href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation" class=""><a
+                    href="{{ url('article_citations',{id: article.id}) }}">{{ "citation"|trans }}</a></li>
     </ul>
-{{ grid(grid) }}
+    {{ grid(grid) }}
 
 
-    <a class="btn btn-primary" href="{{ url('articlefile_new',{article: article.id}) }}">{{ "articlefile.new"|trans }}</a>
+    <a class="btn btn-primary"
+       href="{{ url('articlefile_new',{article: article.id}) }}">{{ "articlefile.new"|trans }}</a>
 
 
-    {% endblock %}
+{% endblock %}

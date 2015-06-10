@@ -3,17 +3,17 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'citation.list'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'citation.list'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"citation.list"|trans}}</h1>
+    <h1>{{ "citation.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Citation')) %}
-        <a href="{{ path('citation_new') }}">{{"citation.new"|trans}}</a>
+        <a href="{{ path('citation_new') }}">{{ "citation.new"|trans }}</a>
     {% endif %}
-    {{grid(grid)}}
+    {{ grid(grid) }}
 {% endblock %}

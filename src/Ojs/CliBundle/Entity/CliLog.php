@@ -42,6 +42,16 @@ class CliLog implements Translatable
     }
 
     /**
+     * Get command
+     *
+     * @return string
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
+    /**
      * Set command
      * @param  string $command
      * @return CliLog
@@ -54,13 +64,12 @@ class CliLog implements Translatable
     }
 
     /**
-     * Get command
-     *
+     * Get output
      * @return string
      */
-    public function getCommand()
+    public function getOutput()
     {
-        return $this->command;
+        return $this->output;
     }
 
     /**
@@ -76,12 +85,12 @@ class CliLog implements Translatable
     }
 
     /**
-     * Get output
-     * @return string
+     * Get isSuccess
+     * @return boolean
      */
-    public function getOutput()
+    public function getIsSuccess()
     {
-        return $this->output;
+        return $this->isSuccess;
     }
 
     /**
@@ -94,14 +103,5 @@ class CliLog implements Translatable
         $this->isSuccess = $isSuccess;
 
         return $this;
-    }
-
-    /**
-     * Get isSuccess
-     * @return boolean
-     */
-    public function getIsSuccess()
-    {
-        return $this->isSuccess;
     }
 }

@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'link':generateJournalUrl(journal), 'title': journal.title}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'link':generateJournalUrl(journal), 'title': journal.title}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -16,10 +16,12 @@
         {% block journalheader %}
             <div id="header">
                 {% if journal.header %}
-                {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
-                <div class="col-md-12"><img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
-                     data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef" class="width100 img-responsive" />
-                </div>
+                    {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
+                    <div class="col-md-12"><img
+                                src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
+                                class="width100 img-responsive"/>
+                    </div>
                 {% endif %}
                 <div class="col-md-12">
                     <dl class="journal-meta">
@@ -32,12 +34,12 @@
                             <dd>{{ journal.eissn }}</dd>
                         {% endif %}
                         {% if journal.languages %}
-                        <dt>{{ "journal_langs"|trans }}</dt>
-                        <dd>{% for language in journal.languages %}
-                                <span class="badge badge-success">{{ language.name }}</span>
+                            <dt>{{ "journal_langs"|trans }}</dt>
+                            <dd>{% for language in journal.languages %}
+                                    <span class="badge badge-success">{{ language.name }}</span>
                                 {% else %}
-                                <span class="badge badge-info">{{ "-"|trans}}</span>
-                            {% endfor %}</dd>
+                                    <span class="badge badge-info">{{ "-"|trans }}</span>
+                                {% endfor %}</dd>
                         {% endif %}
                         {% if journal.period %}
                             <dt>{{ "period"|trans }}</dt>
@@ -85,7 +87,9 @@
             </div>
             <div class="col-md-7">
                 {% if journal.url %}
-                    <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
+                    <a href="{{ journal.url }}" target="_blank">
+                        <small>{{ journal.url }}</small>
+                    </a>
                 {% endif %}
                 {{ journal.description|raw }}
             </div>
@@ -94,9 +98,10 @@
 
                 <div class="list-group journal-stats">
                     <div class="list-group-item ">
-                        <form   role="search" action="/search" method="get">
+                        <form role="search" action="/search" method="get">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="{{"search"|trans}}" name="q">
+                                <input type="text" class="form-control" placeholder="{{ "search"|trans }}" name="q">
+
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
@@ -104,11 +109,13 @@
                         </form>
                     </div>
 
-                    <a href="//{{base_host}}{{path('article_submission_new_with_journalId',{"journalId":journal.id})}}"
-                       class="list-group-item list-group-item-success"><h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                    <a href="//{{ base_host }}{{ path('article_submission_new_with_journalId',{"journalId":journal.id}) }}"
+                       class="list-group-item list-group-item-success"><h5><i
+                                    class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
-                    {% if last_issue%}
-                        <a class="list-group-item" href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}">
+                    {% if last_issue %}
+                        <a class="list-group-item"
+                           href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}">
                             <h5><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h5>
                         </a>
                     {% endif %}
@@ -121,19 +128,20 @@
                     </a>
 
                     <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                       class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                       class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
+                        </h5>
                     </a>
 
                     <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
 
-                    {% if enable_social is defined  %}
+                    {% if enable_social is defined %}
                         <a href="#" class="list-group-item facebook-like">
                             <h3 class="pull-right">
                                 <i class="fa fa-facebook-square"></i>
                             </h3>
                             <h5 class="list-group-item-heading count">
-                                {{random(10000)}}</h5>
+                                {{ random(10000) }}</h5>
 
                             <p class="list-group-item-text">
                                 Facebook Likes</p>
@@ -143,7 +151,7 @@
                                 <i class="fa fa-google-plus-square"></i>
                             </h3>
                             <h5 class="list-group-item-heading count">
-                                {{random(10000)}}</h5>
+                                {{ random(10000) }}</h5>
 
                             <p class="list-group-item-text">
                                 Google+</p>
@@ -166,7 +174,8 @@
                             <a href="{{ index.link }}" target="_blank">
                                 <h5>
                                     {% if index.journalIndex.logo %}
-                                    <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}" alt="{{ index.journalIndex }}"/>
+                                        <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
+                                             alt="{{ index.journalIndex }}"/>
                                     {% endif %}
                                     {{ index.journalIndex.name }}
                                 </h5>
@@ -183,6 +192,7 @@
 
             <div class="col-md-12">
                 <h5 class="page-header"><span class="panel-title">{{ "journal_index.issues"|trans }}</span></h5>
+
                 <div class="col-md-3">
 
                     <div id="issuetree">
@@ -190,18 +200,21 @@
                             {% for key, issues in years %}
                                 <li>
                                     <h4 title=" {{ "year"|trans }}"> {{ key }}
-                                        <a title="{{ "journal_index.issues"|trans }}" class="badge">{{ issues|length }} </a>
+                                        <a title="{{ "journal_index.issues"|trans }}"
+                                           class="badge">{{ issues|length }} </a>
                                     </h4>
 
                                     <ul>
                                         {% for issue in issues %}
                                             <li>
                                                 <a href="{{ url('ojs_issue_page',{journal_slug: journal.slug, institution: issue.journal.institution.slug,id: issue.id}) }}">
-                                                    {{"volume"|trans}}  {{ issue.volume }} - {{"issue.number"|trans}} {{ issue.number }}
-                                                    {% if issue.special%}
-                                                        <span class="label label-success">
-                                                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i>
-                                                            {{"special.issue"|trans}}
+                                                    {{ "volume"|trans }}  {{ issue.volume }}
+                                                    - {{ "issue.number"|trans }} {{ issue.number }}
+                                                    {% if issue.special %}
+                                                    <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                                        {{ "special.issue"|trans }}
                                                         </span>
                                                     {% endif %}&nbsp;
                                                 </a>
@@ -212,7 +225,8 @@
                             {% endfor %}
 
                         </ul>
-                        <a class="btn btn-primary " href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}">
+                        <a class="btn btn-primary "
+                           href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}">
                             <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
 
                     </div>
@@ -222,11 +236,13 @@
                     {% if last_issue %}
                         <div class="panel panel-default">
                             <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
-                              {{"issue.number"|trans}} {{last_issue.number}} {{"volume"|trans}} {{last_issue.volume}} - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}</div>
+                                {{ "issue.number"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
+                                - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}</div>
                             <div class="panel-body">
                                 <ul>
                                     {% for article in last_issue.articles[:10] %}
-                                        <li><a href="{{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}">{{ article.title }}</a>
+                                        <li>
+                                            <a href="{{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}">{{ article.title }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -253,10 +269,17 @@
     </script>
     {% if journal.googleAnalyticsId is not null %}
         <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
             ga('create', '{{ journal.googleAnalyticsId }}', 'auto');
             ga('send', 'pageview');

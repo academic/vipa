@@ -47,6 +47,16 @@ class JournalSetupProgress
     }
 
     /**
+     * Get currentStep
+     *
+     * @return int $currentStep
+     */
+    public function getCurrentStep()
+    {
+        return $this->current_step;
+    }
+
+    /**
      * Set currentStep
      *
      * @param  int  $currentStep
@@ -60,13 +70,13 @@ class JournalSetupProgress
     }
 
     /**
-     * Get currentStep
+     * Get startedDate
      *
-     * @return int $currentStep
+     * @return \DateTime $startedDate
      */
-    public function getCurrentStep()
+    public function getStartedDate()
     {
-        return $this->current_step;
+        return $this->started_date;
     }
 
     /**
@@ -83,13 +93,13 @@ class JournalSetupProgress
     }
 
     /**
-     * Get startedDate
+     * Get lastResumeDate
      *
-     * @return \DateTime $startedDate
+     * @return \DateTime $lastResumeDate
      */
-    public function getStartedDate()
+    public function getLastResumeDate()
     {
-        return $this->started_date;
+        return $this->last_resume_date;
     }
 
     /**
@@ -106,13 +116,13 @@ class JournalSetupProgress
     }
 
     /**
-     * Get lastResumeDate
+     * Get userId
      *
-     * @return \DateTime $lastResumeDate
+     * @return int $userId
      */
-    public function getLastResumeDate()
+    public function getUserId()
     {
-        return $this->last_resume_date;
+        return $this->userId;
     }
 
     /**
@@ -129,13 +139,13 @@ class JournalSetupProgress
     }
 
     /**
-     * Get userId
+     * Get journalId
      *
-     * @return int $userId
+     * @return int $journalId
      */
-    public function getUserId()
+    public function getJournalId()
     {
-        return $this->userId;
+        return $this->journalId;
     }
 
     /**
@@ -149,15 +159,5 @@ class JournalSetupProgress
         $this->journalId = $journalId;
 
         return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return int $journalId
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
     }
 }

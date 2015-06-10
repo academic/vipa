@@ -16,13 +16,16 @@ class UserFirstType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('title', 'text', ['label' => 'title'])
-                ->add('firstName', 'text', ['label' => 'firstname'])
-                ->add('lastName', 'text', ['label' => 'lastname'])
-                ->add('username', 'text', ['label' => 'username'])
-                ->add('password', 'password', array('label' => 'password', 'attr' => array('style' => 'color:#898989;font-size:80%')))
-                ->add('email', 'text', ['label' => 'email'])
-        ;
+            ->add('title', 'text', ['label' => 'title'])
+            ->add('firstName', 'text', ['label' => 'firstname'])
+            ->add('lastName', 'text', ['label' => 'lastname'])
+            ->add('username', 'text', ['label' => 'username'])
+            ->add(
+                'password',
+                'password',
+                array('label' => 'password', 'attr' => array('style' => 'color:#898989;font-size:80%'))
+            )
+            ->add('email', 'text', ['label' => 'email']);
     }
 
     /**
@@ -30,12 +33,15 @@ class UserFirstType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\User',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

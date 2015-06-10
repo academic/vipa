@@ -3,74 +3,76 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('issue'),'title': 'issue'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('issue'),'title': 'issue'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"issue"|trans}}</h1>
+    <h1>{{ "issue"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="table record_properties">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"journal.id"|trans}}</th>
-                <td>{{ entity.journalId }}</td>
-            </tr>
-            <tr>
-                <th>{{"volume"|trans}}</th>
-                <td>{{ entity.volume }}</td>
-            </tr>
-            <tr>
-                <th>{{"issue.number"|trans}}</th>
-                <td>{{ entity.number }}</td>
-            </tr>
-            <tr>
-                <th>{{"title"|trans}}</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>{{"cover"|trans}}</th>
-                <td>{{ entity.cover }}</td>
-            </tr>
-            <tr>
-                <th>{{ "full_file"|trans }}</th>
-                <td><a href="{{ asset('uploads/issuefiles/'~ filePath(entity.fullFile)) }}">{{ filePath(entity.fullFile) }}</a></td>
-            </tr>
-            <tr>
-                <th>{{"special"|trans}}</th>
-                <td>{{ entity.special }}</td>
-            </tr>
-            <tr>
-                <th>{{"desc"|trans}}</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-            <tr>
-                <th>{{"year"|trans}}</th>
-                <td>{{ entity.year }}</td>
-            </tr>
-            <tr>
-                <th>{{"publishdate"|trans}}</th>
-                <td>{{ entity.datePublished|date('Y-m-d') }}</td>
-            </tr>
-            <tr>
-                <th>{{"created"|trans}}</th>
-                <td>{{ entity.created|date('Y-m-d') }}</td>
-            </tr>
-            <tr>
-                <th>{{"updated"|trans}}</th>
-                <td>{{ entity.updated|date('Y-m-d') }}</td>
-            </tr>
-            <tr>
-                <th>{{"deleted"|trans}}</th>
-                <td>{{ entity.deletedAt|date('Y-m-d') }}</td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "journal.id"|trans }}</th>
+            <td>{{ entity.journalId }}</td>
+        </tr>
+        <tr>
+            <th>{{ "volume"|trans }}</th>
+            <td>{{ entity.volume }}</td>
+        </tr>
+        <tr>
+            <th>{{ "issue.number"|trans }}</th>
+            <td>{{ entity.number }}</td>
+        </tr>
+        <tr>
+            <th>{{ "title"|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ "cover"|trans }}</th>
+            <td>{{ entity.cover }}</td>
+        </tr>
+        <tr>
+            <th>{{ "full_file"|trans }}</th>
+            <td>
+                <a href="{{ asset('uploads/issuefiles/'~ filePath(entity.fullFile)) }}">{{ filePath(entity.fullFile) }}</a>
+            </td>
+        </tr>
+        <tr>
+            <th>{{ "special"|trans }}</th>
+            <td>{{ entity.special }}</td>
+        </tr>
+        <tr>
+            <th>{{ "desc"|trans }}</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        <tr>
+            <th>{{ "year"|trans }}</th>
+            <td>{{ entity.year }}</td>
+        </tr>
+        <tr>
+            <th>{{ "publishdate"|trans }}</th>
+            <td>{{ entity.datePublished|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>{{ "created"|trans }}</th>
+            <td>{{ entity.created|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>{{ "updated"|trans }}</th>
+            <td>{{ entity.updated|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>{{ "deleted"|trans }}</th>
+            <td>{{ entity.deletedAt|date('Y-m-d') }}</td>
+        </tr>
 
         </tbody>
     </table>

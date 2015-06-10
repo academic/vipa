@@ -2,13 +2,13 @@
 
 namespace Ojs\UserBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\WorkflowBundle\Document\ReviewForm;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Ojs\WorkflowBundle\Document\ReviewForm;
-use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
  * @todo

@@ -3,34 +3,34 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('design'),'title': 'design'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('design'),'title': 'design'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"design"|trans}}</h1>
+    <h1>{{ "design"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"name"|trans}}</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>{{"content"|trans}}</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>{{"basedesign"|trans}}</th>
-                <td>{{ entity.isPublic }}</td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "name"|trans }}</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ "content"|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ "basedesign"|trans }}</th>
+            <td>{{ entity.isPublic }}</td>
+        </tr>
         </tbody>
     </table>
     {% set back_path = 'design' %}

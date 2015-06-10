@@ -2,20 +2,12 @@
 
 namespace Ojs\JournalBundle\Controller;
 
- use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EditorController extends Controller
 {
-    /**
-     * Global index page
-     * @return Response
-     */
-    public function indexAction()
-    {
-        return $this->render('OjsJournalBundle:Editor:index.html.twig');
-    }
 
     /**
      *
@@ -24,9 +16,12 @@ class EditorController extends Controller
      */
     public function dashboardAction()
     {
-        return $this->render('OjsJournalBundle:Editor:dashboard.html.twig', [
-            'stats' => $this->getStats(),
-        ]);
+        return $this->render(
+            'OjsJournalBundle:Editor:dashboard.html.twig',
+            [
+                'stats' => $this->getStats(),
+            ]
+        );
     }
 
     /**
@@ -40,11 +35,14 @@ class EditorController extends Controller
             throw new HttpException(403, 'There is a problem while getting user information. Access denied');
         }
         $entities = $this->getDoctrine()->getRepository('OjsUserBundle:UserJournalRole')
-                ->userJournalsWithRoles($user_id);
+            ->userJournalsWithRoles($user_id);
 
-        return $this->render('OjsJournalBundle:Editor:myjournals.html.twig', array(
-                    'entities' => $entities,
-        ));
+        return $this->render(
+            'OjsJournalBundle:Editor:myjournals.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 
     /**
@@ -95,7 +93,9 @@ class EditorController extends Controller
         $now = new \DateTime('-30 days');
         $last30Day = $now->format("Y-m-d H:i:s");
         $mostViewedArticleLog = $em
-            ->createQuery('SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC')
+            ->createQuery(
+                'SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC'
+            )
             ->setParameter('event_info', \Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_VIEW)
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)
@@ -108,7 +108,9 @@ class EditorController extends Controller
         }
 
         $mostDownloadedArticleLog = $em
-            ->createQuery('SELECT a.articleId,COUNT(a) AS downloadCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY downloadCount DESC')
+            ->createQuery(
+                'SELECT a.articleId,COUNT(a) AS downloadCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY downloadCount DESC'
+            )
             ->setParameter('event_info', \Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_DOWNLOAD)
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)

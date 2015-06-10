@@ -6,12 +6,12 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\JournalSection;
+use Ojs\JournalBundle\Form\JournalSectionType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\JournalBundle\Entity\JournalSection;
-use Ojs\JournalBundle\Form\JournalSectionType;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -30,36 +30,39 @@ class JournalSectionController extends Controller
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('VIEW', $journal, 'sections')) {
+        if (!$this->isGranted('VIEW', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
         $source = new Entity('OjsJournalBundle:JournalSection');
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $ta) {
-            $qb->where(
+        $source->manipulateQuery(
+            function (QueryBuilder $qb) use ($journal, $ta) {
+                $qb->where(
                     $qb->expr()->eq($ta.'.journalId', $journal->getId())
-            );
+                );
 
-            return $qb;
-        });
-        $source->manipulateRow(function (Row $row) {
-            if ($row->getField("title") and strlen($row->getField('title')) > 20) {
-                $row->setField('title', substr($row->getField('title'), 0, 20)."...");
+                return $qb;
             }
+        );
+        $source->manipulateRow(
+            function (Row $row) {
+                if ($row->getField("title") and strlen($row->getField('title')) > 20) {
+                    $row->setField('title', substr($row->getField('title'), 0, 20)."...");
+                }
 
-            return $row;
-        });
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        
         $rowAction[] = $gridAction->showAction('manager_journal_section_show', 'id');
-        if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+        if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
             $rowAction[] = $gridAction->editAction('manager_journal_section_edit', 'id');
         }
-        if($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+        if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
             $rowAction[] = $gridAction->deleteAction('manager_journal_section_delete', 'id');
         }
 
@@ -81,7 +84,7 @@ class JournalSectionController extends Controller
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('CREATE', $journal, 'sections')) {
+        if (!$this->isGranted('CREATE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
         $entity = new JournalSection();
@@ -95,16 +98,21 @@ class JournalSectionController extends Controller
 
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('manager_journal_section_show', [
-                'id' => $entity->getId(),
+            return $this->redirectToRoute(
+                'manager_journal_section_show',
+                [
+                    'id' => $entity->getId(),
                 ]
             );
         }
 
-        return $this->render('OjsJournalBundle:JournalSection:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalSection:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -114,12 +122,16 @@ class JournalSectionController extends Controller
      */
     private function createCreateForm(JournalSection $entity)
     {
-        $form = $this->createForm(new JournalSectionType(), $entity, array(
-            'action' => $this->generateUrl('manager_journal_section_create'),
-            'method' => 'POST',
-            'user' => $this->getUser(),
-            'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
-        ));
+        $form = $this->createForm(
+            new JournalSectionType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('manager_journal_section_create'),
+                'method' => 'POST',
+                'user' => $this->getUser(),
+                'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -134,16 +146,19 @@ class JournalSectionController extends Controller
     public function newAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('CREATE', $journal, 'sections')) {
+        if (!$this->isGranted('CREATE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
         $entity = new JournalSection();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:JournalSection:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalSection:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -155,7 +170,7 @@ class JournalSectionController extends Controller
     public function showAction($id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('VIEW', $journal, 'sections')) {
+        if (!$this->isGranted('VIEW', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for view this journal's section!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -166,9 +181,12 @@ class JournalSectionController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        return $this->render('OjsJournalBundle:JournalSection:show.html.twig', array(
-                    'entity' => $entity,
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalSection:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -180,7 +198,7 @@ class JournalSectionController extends Controller
     public function editAction($id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('EDIT', $journal, 'sections')) {
+        if (!$this->isGranted('EDIT', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's section!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -193,10 +211,13 @@ class JournalSectionController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:JournalSection:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalSection:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -208,12 +229,16 @@ class JournalSectionController extends Controller
      */
     private function createEditForm(JournalSection $entity)
     {
-        $form = $this->createForm(new JournalSectionType(), $entity, array(
-            'action' => $this->generateUrl('manager_journal_section_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-            'user' => $this->getUser(),
-            'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
-        ));
+        $form = $this->createForm(
+            new JournalSectionType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('manager_journal_section_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+                'user' => $this->getUser(),
+                'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -230,7 +255,7 @@ class JournalSectionController extends Controller
     public function updateAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('EDIT', $journal, 'sections')) {
+        if (!$this->isGranted('EDIT', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's section!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -249,16 +274,21 @@ class JournalSectionController extends Controller
 
             $this->successFlashBag('Successfully updated.');
 
-            return $this->redirectToRoute('manager_journal_section_edit', [
-                'id' => $id,
+            return $this->redirectToRoute(
+                'manager_journal_section_edit',
+                [
+                    'id' => $id,
                 ]
             );
         }
 
-        return $this->render('OjsJournalBundle:JournalSection:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalSection:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -271,7 +301,7 @@ class JournalSectionController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('DELETE', $journal, 'sections')) {
+        if (!$this->isGranted('DELETE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's section!");
         }
         $em = $this->getDoctrine()->getManager();

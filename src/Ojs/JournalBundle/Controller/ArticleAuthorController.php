@@ -2,14 +2,14 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Form\ArticleAuthorType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\JournalBundle\Entity\ArticleAuthor;
-use Ojs\JournalBundle\Form\ArticleAuthorType;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -27,15 +27,18 @@ class ArticleAuthorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findAll();
 
-        return $this->render('OjsJournalBundle:ArticleAuthor:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:index.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 
     /**
      * Creates a new ArticleAuthor entity.
      *
-     * @param Request $request
+     * @param  Request          $request
      * @return RedirectResponse
      */
     public function createAction(Request $request)
@@ -68,11 +71,15 @@ class ArticleAuthorController extends Controller
     private function createCreateForm(ArticleAuthor $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createForm(new ArticleAuthorType(), $entity, array(
-            'action' => $this->generateUrl('articleauthor_create'),
-            'method' => 'POST',
-            'journal' => $journal,
-        ));
+        $form = $this->createForm(
+            new ArticleAuthorType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('articleauthor_create'),
+                'method' => 'POST',
+                'journal' => $journal,
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Create New'));
 
         return $form;
@@ -87,10 +94,13 @@ class ArticleAuthorController extends Controller
         $entity = new ArticleAuthor();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:ArticleAuthor:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -107,9 +117,12 @@ class ArticleAuthorController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        return $this->render('OjsJournalBundle:ArticleAuthor:show.html.twig', array(
-                    'entity' => $entity,
-        ));
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -128,10 +141,13 @@ class ArticleAuthorController extends Controller
         }
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:ArticleAuthor:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -145,11 +161,15 @@ class ArticleAuthorController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        $form = $this->createForm(new ArticleAuthorType(), $entity, array(
-            'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
-            'journal_id' => $journal,
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new ArticleAuthorType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
+                'journal_id' => $journal,
+                'method' => 'PUT',
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
@@ -158,7 +178,7 @@ class ArticleAuthorController extends Controller
     /**
      * Edits an existing ArticleAuthor entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -190,10 +210,13 @@ class ArticleAuthorController extends Controller
             return $this->redirect($this->generateUrl('articleauthor_edit', array('id' => $id)));
         }
 
-        return $this->render('OjsJournalBundle:ArticleAuthor:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:ArticleAuthor:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**

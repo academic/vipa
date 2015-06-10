@@ -2,13 +2,14 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation as JMS;
-use Ojs\Common\Entity\GenericEntityTrait;
-use APY\DataGridBundle\Grid\Mapping as GRID;
-use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * Authors of article and orders
  * @ExclusionPolicy("all")
@@ -149,6 +150,7 @@ class ArticleAuthor implements Translatable
 
     public function __toString()
     {
-        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor()->getLastName();
+        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor(
+        )->getLastName();
     }
 }

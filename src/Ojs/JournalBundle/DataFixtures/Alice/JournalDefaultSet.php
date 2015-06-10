@@ -5,10 +5,12 @@
  * Devs: [
  *   ]
  */
-$set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet([
-    'seed' => 1,
-    'order' => 2,
-]);
+$set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet(
+    [
+        'seed' => 1,
+        'order' => 2,
+    ]
+);
 
 $set->addFile(__DIR__.'/subject.yml', 'yaml');
 $set->addFile(__DIR__.'/lang.yml', 'yaml');

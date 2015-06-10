@@ -3,42 +3,44 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('admin_file'),'title': 'file'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('admin_file'),'title': 'file'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"file.details"|trans}}</h1>
+    <h1>{{ "file.details"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties table">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"file.path"|trans}}</th>
-                <td><small>{{ entity.path }}</small></td>
-            </tr>
-            <tr>
-                <th>{{"name"|trans}}</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>{{"mimetype"|trans}}</th>
-                <td>{{ entity.mimeType }}</td>
-            </tr>
-            <tr>
-                <th>{{"size"|trans}}</th>
-                <td>{{ entity.size }}</td>
-            </tr>
-            <tr>
-                <th>{{"file"|trans}}</th>
-                <td><a href="{{ url('ojs_file_download',{id: entity.id}) }}" target="_blank">{{ entity.name }}</a></td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "file.path"|trans }}</th>
+            <td>
+                <small>{{ entity.path }}</small>
+            </td>
+        </tr>
+        <tr>
+            <th>{{ "name"|trans }}</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ "mimetype"|trans }}</th>
+            <td>{{ entity.mimeType }}</td>
+        </tr>
+        <tr>
+            <th>{{ "size"|trans }}</th>
+            <td>{{ entity.size }}</td>
+        </tr>
+        <tr>
+            <th>{{ "file"|trans }}</th>
+            <td><a href="{{ url('ojs_file_download',{id: entity.id}) }}" target="_blank">{{ entity.name }}</a></td>
+        </tr>
         </tbody>
     </table>
     {% set back_path = 'admin_file' %}

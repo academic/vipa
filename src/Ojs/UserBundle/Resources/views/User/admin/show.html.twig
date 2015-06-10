@@ -3,26 +3,27 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('user'), 'title': 'user.manager'|trans},
-        { 'title': 'user.show'|trans},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('user'), 'title': 'user.manager'|trans},
+    { 'title': 'user.show'|trans},
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
 
 {% block body %}
     {% include '::flashbag.html.twig' %}
-<h1>{% if entity.avatar %}
-    <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
-{% endif %}
-{{entity.username}}
-    <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
+    <h1>{% if entity.avatar %}
+            <img class="thumbnail pull-left" style="margin-right:5px;"
+                 src="/uploads/avatars/thumbnail/{{ entity.avatar }}"/>
+        {% endif %}
+        {{ entity.username }}
+        <small style="color:green">{% if(entity.isActive != 0) %}<i class="fa fa-check-circle"></i>{% endif %}</small>
 
-</h1>
-<table class="record_properties  table">
-    <tbody>
+    </h1>
+    <table class="record_properties  table">
+        <tbody>
         <tr>
             <th>{{ "user.id"|trans }}</th>
             <td>{{ entity.id }}</td>
@@ -39,20 +40,20 @@
             <th>{{ "user.roles"|trans }}</th>
             <td>
                 {% for role in entity.roles %}
-                <span class="label label-info" title="{{role.role|trans}}">{{role.name|trans}}</span> <br/>
+                    <span class="label label-info" title="{{ role.role|trans }}">{{ role.name|trans }}</span> <br/>
                 {% endfor %}
             </td>
         </tr>
         <tr>
             <th>{{ "user.subjects"|trans }}</th>
             <td>
-                {% for subject in entity.subjects%}
-                <span class="label label-primary">{{subject.subject}}</span>
+                {% for subject in entity.subjects %}
+                    <span class="label label-primary">{{ subject.subject }}</span>
                 {% endfor %}
             </td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
     {% set back_path = 'user' %}
     {% if is_granted('EDIT', entity) %}
         {% set edit_path = 'user_edit' %}

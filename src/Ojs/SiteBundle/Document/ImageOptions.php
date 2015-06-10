@@ -59,6 +59,16 @@ class ImageOptions
     }
 
     /**
+     * Get height
+     *
+     * @return integer $height
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
      * Set height
      *
      * @param  integer $height
@@ -72,13 +82,13 @@ class ImageOptions
     }
 
     /**
-     * Get height
+     * Get width
      *
-     * @return integer $height
+     * @return integer $width
      */
-    public function getHeight()
+    public function getWidth()
     {
-        return $this->height;
+        return $this->width;
     }
 
     /**
@@ -95,13 +105,13 @@ class ImageOptions
     }
 
     /**
-     * Get width
+     * Get x
      *
-     * @return integer $width
+     * @return integer $x
      */
-    public function getWidth()
+    public function getX()
     {
-        return $this->width;
+        return $this->x;
     }
 
     /**
@@ -118,13 +128,13 @@ class ImageOptions
     }
 
     /**
-     * Get x
+     * Get y
      *
-     * @return integer $x
+     * @return integer $y
      */
-    public function getX()
+    public function getY()
     {
-        return $this->x;
+        return $this->y;
     }
 
     /**
@@ -141,13 +151,13 @@ class ImageOptions
     }
 
     /**
-     * Get y
+     * Get object
      *
-     * @return integer $y
+     * @return string $object
      */
-    public function getY()
+    public function getObject()
     {
-        return $this->y;
+        return $this->object;
     }
 
     /**
@@ -164,13 +174,13 @@ class ImageOptions
     }
 
     /**
-     * Get object
+     * Get objectId
      *
-     * @return string $object
+     * @return integer $objectId
      */
-    public function getObject()
+    public function getObjectId()
     {
-        return $this->object;
+        return $this->object_id;
     }
 
     /**
@@ -187,13 +197,13 @@ class ImageOptions
     }
 
     /**
-     * Get objectId
+     * Get imageType
      *
-     * @return integer $objectId
+     * @return string $imageType
      */
-    public function getObjectId()
+    public function getImageType()
     {
-        return $this->object_id;
+        return $this->image_type;
     }
 
     /**
@@ -207,16 +217,6 @@ class ImageOptions
         $this->image_type = $imageType;
 
         return $this;
-    }
-
-    /**
-     * Get imageType
-     *
-     * @return string $imageType
-     */
-    public function getImageType()
-    {
-        return $this->image_type;
     }
 
     public function init($data, $entity, $type)

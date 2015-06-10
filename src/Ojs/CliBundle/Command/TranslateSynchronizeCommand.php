@@ -2,16 +2,16 @@
 
 namespace Ojs\CliBundle\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\Dumper\YamlFileDumper;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Translation\Dumper\YamlFileDumper;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Translation\MessageCatalogue;
 
 /**
  * Helps merge two or more translations
@@ -32,15 +32,20 @@ class TranslateSynchronizeCommand extends ContainerAwareCommand
     {
         $this
             ->setName('ojs:trans:sync')
-            ->setDefinition(array(
-                new InputArgument('master', InputArgument::REQUIRED, 'The master language'),
-                new InputArgument('slave', InputArgument::REQUIRED, 'The slave language'),
-                new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle names with commas or use all'),
-                new InputOption('execute', null, InputOption::VALUE_NONE, 'Executes translation synchronize process'),
-            ))
+            ->setDefinition(
+                array(
+                    new InputArgument('master', InputArgument::REQUIRED, 'The master language'),
+                    new InputArgument('slave', InputArgument::REQUIRED, 'The slave language'),
+                    new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle names with commas or use all'),
+                    new InputOption(
+                        'execute', null, InputOption::VALUE_NONE, 'Executes translation synchronize process'
+                    ),
+                )
+            )
             ->setDescription('Helps synchronize two translations.')
-            ->setHelp(<<<EOF
-The <info>%command.name%</info> command helps synchronize two different translation.
+            ->setHelp(
+                <<<EOF
+                The <info>%command.name%</info> command helps synchronize two different translation.
 For example, you created all translations like messages.en.yml command
 will create slave translation file and key values.
 
@@ -100,7 +105,14 @@ EOF
             foreach ($finder as $filename) {
                 if (file_exists($filename)) {
                     $output->writeln($filename.' --> Master Translation File Founded.');
-                    $this->synchronize($filename->getRealpath(), $masterLanguage, $slaveLanguage, $translationPath, $execute, $output);
+                    $this->synchronize(
+                        $filename->getRealpath(),
+                        $masterLanguage,
+                        $slaveLanguage,
+                        $translationPath,
+                        $execute,
+                        $output
+                    );
                 }
             }
         }

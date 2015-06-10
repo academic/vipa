@@ -2,17 +2,19 @@
 {% block title %}{{ 'title.article_files_edit'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
-        {'title': 'edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     <ul class="nav nav-tabs">
-        <li role="presentation" class=""><a href="{{ url('article_edit',{id: entity.article.id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ url('articlefile',{article: entity.article.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation" class=""><a
+                    href="{{ url('article_edit',{id: entity.article.id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation" class="active"><a
+                    href="{{ url('articlefile',{article: entity.article.id}) }}">{{ "Article Files"|trans }}</a></li>
     </ul>
 
     <h1>ArticleFile edit</h1>
@@ -29,8 +31,9 @@
                        data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
             </span>
 
-        <progress id="articlefilesprogress" value="0" max="100" ></progress>
-        <div id="files"><a href="{{ entity.file.path }}{{ entity.file.name }}" target="_blank">{{ entity.file.name }}</a></div>
+        <progress id="articlefilesprogress" value="0" max="100"></progress>
+        <div id="files"><a href="{{ entity.file.path }}{{ entity.file.name }}"
+                           target="_blank">{{ entity.file.name }}</a></div>
         <input name="file" id="file" type="hidden" value="{{ entity.file.name }}"/>
 
     </div>
@@ -57,7 +60,7 @@
             $("#articlefileupload").fileupload({
                 done: function (e, data) {
                     var result = $.parseJSON(data.result);
-                    for(var i= 0;i<data.files.length;i++){
+                    for (var i = 0; i < data.files.length; i++) {
                         $('#files').text(data.files[i].name);
                         $('#file').val(result.files.name);
                     }

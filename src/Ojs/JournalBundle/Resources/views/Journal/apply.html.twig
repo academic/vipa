@@ -3,20 +3,20 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'apply.for.new.journal'|trans},
-        {'title': 'new.journal'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'apply.for.new.journal'|trans},
+    {'title': 'new.journal'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
 
-    <h1>{{"journal.apply"|trans}}</h1>
+    <h1>{{ "journal.apply"|trans }}</h1>
 
     <div class="record_actions">
         <a href="{{ path('dashboard') }}" class="btn btn-default">
-            <i class="fa fa-chevron-left"></i> {{"b"|trans}}
+            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
         </a>
     </div>
 {% endblock %}

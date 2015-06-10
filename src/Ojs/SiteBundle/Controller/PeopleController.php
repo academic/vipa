@@ -2,18 +2,18 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use Elastica\Aggregation;
+use Elastica\Query;
 use Ojs\Common\Controller\OjsController as Controller;
 use Pagerfanta\Adapter\ElasticaAdapter;
-use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Pagerfanta;
-use Elastica\Query;
-use Elastica\Aggregation;
+use Symfony\Component\HttpFoundation\Request;
 
 class PeopleController extends Controller
 {
     /**
-     * @param Request $request
-     * @param int $page
+     * @param  Request                                    $request
+     * @param  int                                        $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request, $page = 1)

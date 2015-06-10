@@ -1,10 +1,9 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 
@@ -166,11 +165,10 @@ class File implements Translatable
         return $this->articleFiles;
     }
 
-
     /**
      * Set articleFiles
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection $articleFiles
+     * @param  \Doctrine\Common\Collections\ArrayCollection $articleFiles
      * @return File
      */
     public function setArticleFiles(ArrayCollection $articleFiles = null)
@@ -184,6 +182,4 @@ class File implements Translatable
     {
         return $this->getName();
     }
-
-
 }

@@ -15,10 +15,9 @@ class BlockLinkType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('block_id', 'hidden', ['data' => $options['block_id']])
+            ->add('block_id', 'hidden', ['data' => $options['block_id']])
             ->add('text', 'text', ['label' => 'Text'])
-            ->add('url', 'text', ['label' => 'URI'])
-        ;
+            ->add('url', 'text', ['label' => 'URI']);
     }
 
     /**
@@ -26,13 +25,16 @@ class BlockLinkType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\SiteBundle\Entity\BlockLink',
-            'block_id' => null,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\SiteBundle\Entity\BlockLink',
+                'block_id' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

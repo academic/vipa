@@ -2,15 +2,15 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('admin_notification'),'title': 'notification'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('admin_notification'),'title': 'notification'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<h1>{{ "notification.creation"|trans }}</h1>
+    <h1>{{ "notification.creation"|trans }}</h1>
 
     {{ form(form) }}
     {% set back_path = 'admin_notification' %}

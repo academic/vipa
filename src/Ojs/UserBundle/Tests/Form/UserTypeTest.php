@@ -30,6 +30,6 @@ class UserTypeTest extends BaseTypeTestcase
               ],
               'Ojs\UserBundle\Entity\User');
         */
-     $this->assertTrue(true);
+        $this->assertTrue(true);
     }
 }

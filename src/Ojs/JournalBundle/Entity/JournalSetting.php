@@ -39,6 +39,16 @@ class JournalSetting implements Translatable
     }
 
     /**
+     * Get setting
+     *
+     * @return string
+     */
+    public function getSetting()
+    {
+        return $this->setting;
+    }
+
+    /**
      * Set setting
      *
      * @param  string         $setting
@@ -52,13 +62,13 @@ class JournalSetting implements Translatable
     }
 
     /**
-     * Get setting
+     * Get value
      *
      * @return string
      */
-    public function getSetting()
+    public function getValue()
     {
-        return $this->setting;
+        return $this->value;
     }
 
     /**
@@ -75,13 +85,13 @@ class JournalSetting implements Translatable
     }
 
     /**
-     * Get value
+     * Get journal
      *
-     * @return string
+     * @return Journal
      */
-    public function getValue()
+    public function getJournal()
     {
-        return $this->value;
+        return $this->journal;
     }
 
     /**
@@ -95,15 +105,5 @@ class JournalSetting implements Translatable
         $this->journal = $journal;
 
         return $this;
-    }
-
-    /**
-     * Get journal
-     *
-     * @return Journal
-     */
-    public function getJournal()
-    {
-        return $this->journal;
     }
 }

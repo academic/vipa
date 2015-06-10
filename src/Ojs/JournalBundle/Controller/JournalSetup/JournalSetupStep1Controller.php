@@ -4,9 +4,9 @@ namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\JournalSetupProgress;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Form\JournalSetup\Step1;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class JournalSetupStep1Controller extends Controller
 {
@@ -21,7 +21,7 @@ class JournalSetupStep1Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
+        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
         $step1Form = $this->createForm(new Step1(), $journal);
         $step1Form->handleRequest($request);
@@ -30,11 +30,17 @@ class JournalSetupStep1Controller extends Controller
             $dm->flush();
             $em->flush();
 
-            return new JsonResponse(array(
-                'success' => '1', ));
+            return new JsonResponse(
+                array(
+                    'success' => '1',
+                )
+            );
         } else {
-            return new JsonResponse(array(
-                'success' => '0', ));
+            return new JsonResponse(
+                array(
+                    'success' => '0',
+                )
+            );
         }
     }
 
@@ -52,11 +58,17 @@ class JournalSetupStep1Controller extends Controller
         if ($step1Form->isValid()) {
             $em->flush();
 
-            return new JsonResponse(array(
-                'success' => '1', ));
+            return new JsonResponse(
+                array(
+                    'success' => '1',
+                )
+            );
         } else {
-            return new JsonResponse(array(
-                'success' => '0', ));
+            return new JsonResponse(
+                array(
+                    'success' => '0',
+                )
+            );
         }
     }
 }

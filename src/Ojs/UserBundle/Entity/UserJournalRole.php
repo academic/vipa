@@ -2,8 +2,9 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Ojs\JournalBundle\Entity\Journal;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\JournalBundle\Entity\Journal;
+
 /**
  * UserJournalRole
  * @GRID\Source(columns="id,user.username,user.email,journal.title,role.name")
@@ -49,6 +50,7 @@ class UserJournalRole
      * @GRID\Column(field="role.name",title="user.journalrole.role")
      */
     private $role;
+
     /**
      * Get id
      *
@@ -57,6 +59,16 @@ class UserJournalRole
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     /**
@@ -73,13 +85,13 @@ class UserJournalRole
     }
 
     /**
-     * Get userId
+     * Get journalId
      *
      * @return integer
      */
-    public function getUserId()
+    public function getJournalId()
     {
-        return $this->userId;
+        return $this->journalId;
     }
 
     /**
@@ -96,13 +108,13 @@ class UserJournalRole
     }
 
     /**
-     * Get journalId
+     * Get roleId
      *
      * @return integer
      */
-    public function getJournalId()
+    public function getRoleId()
     {
-        return $this->journalId;
+        return $this->roleId;
     }
 
     /**
@@ -119,13 +131,13 @@ class UserJournalRole
     }
 
     /**
-     * Get roleId
+     * Get user
      *
-     * @return integer
+     * @return User
      */
-    public function getRoleId()
+    public function getUser()
     {
-        return $this->roleId;
+        return $this->user;
     }
 
     /**
@@ -142,13 +154,13 @@ class UserJournalRole
     }
 
     /**
-     * Get user
+     * Get journal
      *
-     * @return User
+     * @return Journal
      */
-    public function getUser()
+    public function getJournal()
     {
-        return $this->user;
+        return $this->journal;
     }
 
     /**
@@ -165,13 +177,13 @@ class UserJournalRole
     }
 
     /**
-     * Get journal
+     * Get role
      *
-     * @return Journal
+     * @return Role
      */
-    public function getJournal()
+    public function getRole()
     {
-        return $this->journal;
+        return $this->role;
     }
 
     /**
@@ -185,15 +197,5 @@ class UserJournalRole
         $this->role = $role;
 
         return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return Role
-     */
-    public function getRole()
-    {
-        return $this->role;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
@@ -9,7 +10,6 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Okulbilisim\LocationBundle\Entity\Location;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Institution
@@ -815,7 +815,7 @@ class Institution implements Translatable
 
     public function __toString()
     {
-        return  $this->name;
+        return $this->name;
     }
 
     /**

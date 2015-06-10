@@ -33,6 +33,16 @@ class ReviewForm
     }
 
     /**
+     * Get journalId
+     *
+     * @return int $journalId
+     */
+    public function getJournalId()
+    {
+        return $this->journalId;
+    }
+
+    /**
      * Set journalId
      *
      * @param  int  $journalId
@@ -46,13 +56,13 @@ class ReviewForm
     }
 
     /**
-     * Get journalId
+     * Get title
      *
-     * @return int $journalId
+     * @return string $title
      */
-    public function getJournalId()
+    public function getTitle()
     {
-        return $this->journalId;
+        return $this->title;
     }
 
     /**
@@ -66,15 +76,5 @@ class ReviewForm
         $this->title = $title;
 
         return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string $title
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 }

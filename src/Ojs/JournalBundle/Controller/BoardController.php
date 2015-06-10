@@ -2,20 +2,20 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Ojs\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\QueryBuilder;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
-use Ojs\JournalBundle\Form\BoardType;
 use Ojs\JournalBundle\Entity\BoardMember;
+use Ojs\JournalBundle\Form\BoardType;
+use Ojs\UserBundle\Entity\User;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Board controller.
@@ -49,7 +49,7 @@ class BoardController extends Controller
         }
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
-        
+
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('admin_board_show', 'id');
         if ($this->isGranted('EDIT', $journal, 'boards')) {
@@ -89,10 +89,13 @@ class BoardController extends Controller
             return $this->redirectToRoute('admin_board_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:Board:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Board:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -104,10 +107,14 @@ class BoardController extends Controller
      */
     private function createCreateForm(Board $entity)
     {
-        $form = $this->createForm(new BoardType(), $entity, array(
-            'action' => $this->generateUrl('admin_board_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new BoardType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_board_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -127,10 +134,13 @@ class BoardController extends Controller
         $entity = new Board();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:Board:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Board:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -154,11 +164,14 @@ class BoardController extends Controller
         $board = $em->getRepository('OjsJournalBundle:Board')->find($id);
         $members = $em->getRepository('OjsJournalBundle:BoardMember')->findBy(array('board' => $board));
 
-        return $this->render('OjsJournalBundle:Board:show.html.twig', array(
-            'members' => $members,
-            'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
-            'entity' => $board,
-        ));
+        return $this->render(
+            'OjsJournalBundle:Board:show.html.twig',
+            array(
+                'members' => $members,
+                'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
+                'entity' => $board,
+            )
+        );
     }
 
     /**
@@ -184,10 +197,13 @@ class BoardController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Board:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -199,10 +215,14 @@ class BoardController extends Controller
      */
     private function createEditForm(Board $entity)
     {
-        $form = $this->createForm(new BoardType(), $entity, array(
-            'action' => $this->generateUrl('admin_board_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new BoardType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_board_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         return $form;
     }
@@ -237,10 +257,13 @@ class BoardController extends Controller
             return $this->redirectToRoute('admin_board_edit', ['id' => $id]);
         }
 
-        return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Board:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -317,10 +340,12 @@ class BoardController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
-        $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(array(
-            'user' => $user,
-            'board' => $board,
-        ));
+        $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(
+            array(
+                'user' => $user,
+                'board' => $board,
+            )
+        );
         $this->throw404IfNotFound($boardMember);
         $em->remove($boardMember);
         $em->flush();

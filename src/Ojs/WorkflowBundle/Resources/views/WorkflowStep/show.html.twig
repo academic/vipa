@@ -132,8 +132,8 @@
                 {% endif %}
             </div>
             {% if is_granted('DELETE', selectedJournal()) %}
-            <a class="btn btn-danger pull-right" onclick="return confirm('{{ "sure"|trans }}');"
-               href="{{ path('workflowsteps_delete',{'id':step.id}) }}">{{ "d"|trans }}</a>
+                <a class="btn btn-danger pull-right" onclick="return confirm('{{ "sure"|trans }}');"
+                   href="{{ path('workflowsteps_delete',{'id':step.id}) }}">{{ "d"|trans }}</a>
             {% endif %}
         </div>
     </div>

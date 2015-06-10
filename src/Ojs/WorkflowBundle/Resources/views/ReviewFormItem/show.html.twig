@@ -2,22 +2,23 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
-        {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'form.items'|trans },
-        {'title': 'review.form.item.detail'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+    {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'form.items'|trans },
+    {'title': 'review.form.item.detail'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
 
-    <h2><small>{{ 'title'|trans }}: </small> {{formItem.title}}</h2>
+    <h2>
+        <small>{{ 'title'|trans }}:</small> {{ formItem.title }}</h2>
     {% include '::flashbag.html.twig' %}
     <table class="table table-responsive">
         <tr>
             <td>{{ 'input_type'|trans }}</td>
-            <td>{{formItem.inputtype}}</td>
+            <td>{{ formItem.inputtype }}</td>
         </tr>
         <tr>
             <td>
@@ -29,7 +30,7 @@
                         {{ 'Yes'|trans }}
                         <i class="fa fa-warning"></i>
                     </span>
-                {%else%}
+                {% else %}
                     <span class="label label-info">
                         {{ 'optional'|trans }}
                         <i class="fa fa-check"></i>
@@ -45,26 +46,26 @@
             <td>
                 {% if formItem.confidential %}
                     <span class="label label-warning">Yes <i class="fa fa-warning"></i></span>
-                    {%else%}
+                {% else %}
                     <span class="label label-info"> No <i class="fa fa-check"></i></span>
-                    {% endif %}
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td>{{ 'fields'|trans }}</td>
             <td>
-                {%if formItem.fields %}
+                {% if formItem.fields %}
                     <ul>
-                        {% for field in formItem.fields%}
-                            <li>{{field}}</li>
-                            {%endfor%}
+                        {% for field in formItem.fields %}
+                            <li>{{ field }}</li>
+                        {% endfor %}
                     </ul>
-                {%endif%}
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td>{{ 'fieldset'|trans }}</td>
-            <td>{{formItem.fieldset}}</td>
+            <td>{{ formItem.fieldset }}</td>
         </tr>
     </table>
 {% endblock %}

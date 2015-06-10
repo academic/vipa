@@ -3,14 +3,14 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'journal.theme'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'journal.theme'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"journaltheme.list"|trans}}</h1>
+    <h1>{{ "journaltheme.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'theme') %}

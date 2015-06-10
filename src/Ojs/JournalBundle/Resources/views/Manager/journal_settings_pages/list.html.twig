@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.journal_page_list'|trans }} {{ parent() }}{% endblock %}
 {% block  stylesheets %}
-    {{parent()}}
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
-{%endblock%}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}"/>
+{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('journal'), 'title': 'journal.manager'|trans},
-        { 'title': 'journal.update'|trans},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('journal'), 'title': 'journal.manager'|trans},
+    { 'title': 'journal.update'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

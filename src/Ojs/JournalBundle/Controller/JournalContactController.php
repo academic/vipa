@@ -5,16 +5,16 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\JournalContact;
+use Ojs\JournalBundle\Form\JournalContactType;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\JournalContact;
-use Ojs\JournalBundle\Form\JournalContactType;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * JournalContact controller.
@@ -32,16 +32,16 @@ class JournalContactController extends Controller
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         /** @var User $user */
         $user = $this->getUser();
-        if(!$this->isGranted('VIEW', $journal, 'contacts')) {
+        if (!$this->isGranted('VIEW', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalContact');
         if ($journal) {
             $tableAlias = $source->getTableAlias();
             $source->manipulateQuery(
-                    function (QueryBuilder $query) use ($tableAlias, $journal) {
-                $query->andWhere($tableAlias.'.journalId = '.$journal->getId());
-            }
+                function (QueryBuilder $query) use ($tableAlias, $journal) {
+                    $query->andWhere($tableAlias.'.journalId = '.$journal->getId());
+                }
             );
         }
 
@@ -64,9 +64,12 @@ class JournalContactController extends Controller
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalContact:index.html.twig', array(
-                    'grid' => $grid,
-        ));
+        return $grid->getGridResponse(
+            'OjsJournalBundle:JournalContact:index.html.twig',
+            array(
+                'grid' => $grid,
+            )
+        );
     }
 
     /**
@@ -92,7 +95,7 @@ class JournalContactController extends Controller
 
         /** @var User $user */
         $user = $this->getUser();
-        if(!$this->isGranted('CREATE', $journal, 'contacts')) {
+        if (!$this->isGranted('CREATE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalContact();
@@ -106,16 +109,21 @@ class JournalContactController extends Controller
 
             $this->successFlashBag('Successfully created');
 
-            return $this->redirectToRoute($user->isAdmin() ? 'journalcontact_show' : 'manager_journalcontact_show', [
-                'id' => $entity->getId(),
+            return $this->redirectToRoute(
+                $user->isAdmin() ? 'journalcontact_show' : 'manager_journalcontact_show',
+                [
+                    'id' => $entity->getId(),
                 ]
             );
         }
 
-        return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalContact:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -129,11 +137,16 @@ class JournalContactController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
-        $options = array_merge(array(
-            'action' => $this->generateUrl($user->isAdmin() ? 'journalcontact_create' : 'manager_journalcontact_create'),
-            'method' => 'POST',
-            'user' => $this->getUser(),
-                ), $optionsArray);
+        $options = array_merge(
+            array(
+                'action' => $this->generateUrl(
+                    $user->isAdmin() ? 'journalcontact_create' : 'manager_journalcontact_create'
+                ),
+                'method' => 'POST',
+                'user' => $this->getUser(),
+            ),
+            $optionsArray
+        );
         $form = $this->createForm(new JournalContactType(), $entity, $options);
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -156,7 +169,7 @@ class JournalContactController extends Controller
     public function newAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('CREATE', $journal, 'contacts')) {
+        if (!$this->isGranted('CREATE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $options['user'] = $this->getUser();
@@ -164,26 +177,32 @@ class JournalContactController extends Controller
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity, $options);
 
-        return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalContact:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Finds and displays a JournalContact entity.
-     * @param JournalContact $entity
+     * @param  JournalContact $entity
      * @return Response
      */
     public function showAction(JournalContact $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('VIEW', $journal, 'contacts')) {
+        if (!$this->isGranted('VIEW', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        return $this->render('OjsJournalBundle:JournalContact:show.html.twig', array(
-                    'entity' => $entity
+
+        return $this->render(
+            'OjsJournalBundle:JournalContact:show.html.twig',
+            array(
+                'entity' => $entity,
             )
         );
     }
@@ -191,20 +210,23 @@ class JournalContactController extends Controller
     /**
      * Displays a form to edit an existing JournalContact entity.
      *
-     * @param JournalContact $entity
+     * @param  JournalContact $entity
      * @return Response
      */
     public function editAction(JournalContact $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('EDIT', $journal, 'contacts')) {
+        if (!$this->isGranted('EDIT', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+
+        return $this->render(
+            'OjsJournalBundle:JournalContact:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
             )
         );
     }
@@ -218,11 +240,15 @@ class JournalContactController extends Controller
      */
     private function createEditForm(JournalContact $entity)
     {
-        $form = $this->createForm(new JournalContactType(), $entity, array(
-            'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-            'user' => $this->getUser(),
-        ));
+        $form = $this->createForm(
+            new JournalContactType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+                'user' => $this->getUser(),
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -232,8 +258,8 @@ class JournalContactController extends Controller
     /**
      * Edits an existing JournalContact entity.
      *
-     * @param Request $request
-     * @param JournalContact $entity
+     * @param  Request                   $request
+     * @param  JournalContact            $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, JournalContact $entity)
@@ -242,7 +268,7 @@ class JournalContactController extends Controller
         $user = $this->getUser();
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('EDIT', $journal, 'contacts')) {
+        if (!$this->isGranted('EDIT', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
 
@@ -254,22 +280,27 @@ class JournalContactController extends Controller
             $em->flush();
             $this->successFlashBag('Successfully updated');
 
-            return $this->redirectToRoute($user->isAdmin() ? 'journalcontact_edit' : 'manager_journalcontact_edit', [
-                'id' => $entity->getId(),
+            return $this->redirectToRoute(
+                $user->isAdmin() ? 'journalcontact_edit' : 'manager_journalcontact_edit',
+                [
+                    'id' => $entity->getId(),
                 ]
             );
         }
 
-        return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalContact:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
      * Deletes a JournalContact entity.
-     * @param Request $request
-     * @param JournalContact $entity
+     * @param  Request          $request
+     * @param  JournalContact   $entity
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, JournalContact $entity)
@@ -278,7 +309,7 @@ class JournalContactController extends Controller
         $user = $this->getUser();
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('DELETE', $journal, 'contacts')) {
+        if (!$this->isGranted('DELETE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -287,11 +318,11 @@ class JournalContactController extends Controller
             $token = $csrf->getToken('journalcontact'.$entity->getId());
         } elseif ($this->get('ojs.journal_service')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
             $token = $csrf->getToken('manager_journalcontact'.$entity->getId());
-        }else{
+        } else {
             $token = $csrf->getToken('journalcontact'.$entity->getId());
         }
 
-        if($token!=$request->get('_token')) {
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
         $em->remove($entity);

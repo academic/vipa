@@ -3,15 +3,15 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\Common\Params\UserEventLogParams;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
-use Ojs\Common\Params\UserEventLogParams;
 
 class LogoutListener implements LogoutSuccessHandlerInterface
 {
@@ -48,7 +48,7 @@ class LogoutListener implements LogoutSuccessHandlerInterface
 
             $this->em->flush();
         }
-        $response =  new RedirectResponse($this->router->generate('login'));
+        $response = new RedirectResponse($this->router->generate('login'));
 
         return $response;
     }

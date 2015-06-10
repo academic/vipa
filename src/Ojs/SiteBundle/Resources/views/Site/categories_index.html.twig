@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.categories'|trans }} {{ parent() }}{% endblock %}
-{% set hideleft = 1%}
+{% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'categories'}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'categories'}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,34 +14,46 @@
 
     <div class="container" id="categories-index">
         <h1 class="page-header">Categories</h1>
+
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span
+                                    class="glyphicon glyphicon-folder-close">
                             </span>Content</a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse">
                     <ul class="list-group">
-                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">Articles</a>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a
+                                    href="#">Articles</a>
                             <ul class="list-group">
-                                <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">Articles</a></li>
+                                <li class="list-group-item"><span
+                                            class="glyphicon glyphicon-pencil text-primary"></span><a
+                                            href="#">Articles</a></li>
 
-                                <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">News</a></li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a
+                                            href="#">News</a></li>
 
-                                <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a href="#">Newsletters</a></li>
+                                <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a
+                                            href="#">Newsletters</a></li>
 
-                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="#">Comments</a><span class="badge">42</span></li>
+                                <li class="list-group-item"><span
+                                            class="glyphicon glyphicon-comment text-success"></span><a
+                                            href="#">Comments</a><span class="badge">42</span></li>
 
                             </ul>
                         </li>
 
-                        <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">News</a></li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a
+                                    href="#">News</a></li>
 
-                        <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a href="#">Newsletters</a></li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a href="#">Newsletters</a>
+                        </li>
 
-                        <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="#">Comments</a><span class="badge">42</span></li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-comment text-success"></span><a
+                                    href="#">Comments</a><span class="badge">42</span></li>
 
                     </ul>
                 </div>
@@ -49,7 +61,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span
+                                    class="glyphicon glyphicon-file">
                             </span>Reports</a>
                     </h4>
                 </div>
@@ -58,6 +71,7 @@
                         <a href="#" class="list-group-item">
                             Cras justo odio
                         </a>
+
                         <div class="list-group">
                             <a href="#" class="list-group-item">
                                 Cras justo odio
@@ -77,7 +91,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-heart">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span
+                                    class="glyphicon glyphicon-heart">
                             </span>Reports</a>
                     </h4>
                 </div>
@@ -85,19 +100,25 @@
                     <div class="list-group">
                         <a href="#" class="list-group-item">
                             <h4 class="list-group-item-heading">List group item heading</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas
+                                sed diam eget risus varius blandit.</p>
                         </a>
                     </div>
                     <div class="list-group">
                         <a href="#" class="list-group-item active">
                             <h4 class="list-group-item-heading">List group item heading</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas
+                                sed diam eget risus varius blandit.</p>
                         </a>
                     </div>
                     <div class="list-group">
                         <a href="#" class="list-group-item">
                             <h4 class="list-group-item-heading">List group item heading</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas
+                                sed diam eget risus varius blandit.</p>
                         </a>
                     </div>
                 </div>

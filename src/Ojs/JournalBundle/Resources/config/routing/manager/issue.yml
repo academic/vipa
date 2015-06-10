@@ -18,18 +18,6 @@ issue_manager_issue_remove_article:
     pattern:  /{id}/removeArticle/{articleId}
     defaults: { _controller: OjsJournalBundle:Issue:removeArticle }
 
-issue_manager_issue_moveup_article:
-    pattern:  /{id}/moveArticleUp/{articleId}
-    defaults: { _controller: OjsJournalBundle:Issue:moveArticleUp }
-
-issue_manager_issue_movedown_article:
-    pattern:  /{id}/moveArticleDown/{articleId}
-    defaults: { _controller: OjsJournalBundle:Issue:moveArticleDown }
-
-issue_manager_article_move:
-    pattern:  /article/{articleId}/toc/move/{direction}
-    defaults: { _controller: OjsJournalBundle:Issue:move }
-
 issue_manager_issue_new:
     pattern:  /new
     defaults: { _controller: OjsJournalBundle:Issue:new }

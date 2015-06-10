@@ -11,70 +11,78 @@
                     <div id="stats">
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body number">{{stats.institution}}</div>
+                                <div class="panel-body number">{{ stats.institution }}</div>
                                 <div class="panel-footer">{{ "institution"|trans }}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body number">{{stats.journal}}</div>
+                                <div class="panel-body number">{{ stats.journal }}</div>
                                 <div class="panel-footer">{{ "journal"|trans }}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body number">{{stats.article}}</div>
+                                <div class="panel-body number">{{ stats.article }}</div>
                                 <div class="panel-footer">{{ "article"|trans }}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body number">{{stats.user}}</div>
+                                <div class="panel-body number">{{ stats.user }}</div>
                                 <div class="panel-footer">{{ "user"|trans }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    {{'landingPage.text'|trans|raw}}
+                    {{ 'landingPage.text'|trans|raw }}
 
                     <div class="col-md-12">
 
                         <div id="search-box-1">
-                            <form action="/search" id="search-form-1"  method="get">
-                                <input id="search-text-1" name="q" placeholder="{{'search.main'|trans}}" class=" pull-left" type="text">
-                                <button class=" pull-right" id="search-button-1" type="submit">{{"search"|trans}}</button>
+                            <form action="/search" id="search-form-1" method="get">
+                                <input id="search-text-1" name="q" placeholder="{{ 'search.main'|trans }}"
+                                       class=" pull-left" type="text">
+                                <button class=" pull-right" id="search-button-1"
+                                        type="submit">{{ "search"|trans }}</button>
                             </form>
                         </div>
 
                     </div>
-                    <hr><br><br>
+                    <hr>
+                    <br><br>
+
                     <div class="col-md-12">
                         <p class="text-center">
                             {% if not app.user %}
                                 <a href="{{ path("register") }}" class="btn btn-default btn-lg btn-labeled"><span
-                                        class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}</a>
+                                            class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}
+                                </a>
                             {% endif %}
                             <!--
                             <a href="{{ url("ojs_apply_institution") }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
                                             class="fa fa-institution"></i></span> {{ 'institute.register'|trans }}</a>
                             -->
-                            <a href="{{ url('ojs_apply_journal') }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
-                                        class="fa fa-book"></i></span> {{ "journal.register"|trans }}</a>
-                            <a href="{{ url('article_submission_new') }}" class="btn btn-default btn-lg btn-labeled"><span
-                                    class="btn-label"><i class="fa fa-file-pdf-o"></i></span>{{ 'article.submit'|trans }}</a>
+                            <a href="{{ url('ojs_apply_journal') }}" class="btn btn-default btn-lg btn-labeled"><span
+                                        class="btn-label"><i
+                                            class="fa fa-book"></i></span> {{ "journal.register"|trans }}</a>
+                            <a href="{{ url('article_submission_new') }}"
+                               class="btn btn-default btn-lg btn-labeled"><span
+                                        class="btn-label"><i
+                                            class="fa fa-file-pdf-o"></i></span>{{ 'article.submit'|trans }}</a>
                         </p>
                     </div>
                 </div>
             </div>
         </section>
         <section role="featured">
-            <!-- <h3 class="page-header">{{'featured'|trans}}</h3> -->
+            <!-- <h3 class="page-header">{{ 'featured'|trans }}</h3> -->
 
             <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <p class="lead">
-                        {{"featured.desc"|trans}}
+                        {{ "featured.desc"|trans }}
                     </p>
                 </div>
                 <div class="col-md-8 col-xs-12">
@@ -85,14 +93,15 @@
                             {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
 
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
-                                <a href="{{generateJournalUrl(journal)}}">
+                                <a href="{{ generateJournalUrl(journal) }}">
                                     <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop": {"start":[imageoptions.x, imageoptions.y], "size":[imageoptions.width,imageoptions.height]}}) }}"
                                          width="96" height="128"
-                                         data-src="holder.js/96x128/random/text:{{ journal.title }}" class="img-rounded"/>
+                                         data-src="holder.js/96x128/random/text:{{ journal.title }}"
+                                         class="img-rounded"/>
                                     <small>{{ journal.title }}</small>
-                                    <br />
+                                    <br/>
                                     {% if journal.issn %}
-                                    <small>{{ journal.issn }}</small>
+                                        <small>{{ journal.issn }}</small>
                                     {% endif %}
                                 </a>
                             </div>

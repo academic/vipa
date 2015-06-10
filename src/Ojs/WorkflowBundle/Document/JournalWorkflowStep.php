@@ -2,9 +2,10 @@
 
 namespace Ojs\WorkflowBundle\Document;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
 /**
  *
  * @MongoDb\Document(collection="journal_workflow_steps",repositoryClass="Ojs\WorkflowBundle\Repository\JournalWorkflowStepRepository")
@@ -60,7 +61,7 @@ class JournalWorkflowStep
     protected $introduction;
 
     /**
-     *  @MongoDb\ReferenceMany(targetDocument="ReviewForm",nullable=true)
+     * @MongoDb\ReferenceMany(targetDocument="ReviewForm",nullable=true)
      */
     private $reviewForms;
 
@@ -73,16 +74,16 @@ class JournalWorkflowStep
     /**
      *
      *  {
-     * 	"0" : {
-     * 		"id" : 7,
-     * 		"name" : "Editor",
-     * 		"role" : "ROLE_EDITOR"
-     * 	},
-     * 	"1" : {
-     * 		"id" : 11,
-     * 		"name" : "Copyeditor",
-     * 		"role" : "ROLE_COPYEDITOR"
-     * 	}
+     *    "0" : {
+     *        "id" : 7,
+     *        "name" : "Editor",
+     *        "role" : "ROLE_EDITOR"
+     *    },
+     *    "1" : {
+     *        "id" : 11,
+     *        "name" : "Copyeditor",
+     *        "role" : "ROLE_COPYEDITOR"
+     *    }
      * },
      * @MongoDB\Hash
      */

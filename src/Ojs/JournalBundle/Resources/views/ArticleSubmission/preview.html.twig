@@ -4,27 +4,28 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
 
 {% block body -%}
-    <input type="hidden" name="journalId" value="{%if journal.id %}{{ journal.id }}{%endif%}"/>
-    <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
+    <input type="hidden" name="journalId" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
+    <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
-        <li id="submission-progress-step1"><span class="badge">1</span> {{"article.singular"|trans}}</li>
-        <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
-        <li id="submission-progress-step3"><span class="badge">3</span> {{"article.citations"|trans}}</li>
-        <li id="submission-progress-step4"><span class="badge">4</span>  {{"article.files"|trans}}</li>
-        <li class="lastStep" class="active"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
+        <li id="submission-progress-step1"><span class="badge">1</span> {{ "article.singular"|trans }}</li>
+        <li id="submission-progress-step2"><span class="badge">2</span> {{ "author.plural"|trans }}</li>
+        <li id="submission-progress-step3"><span class="badge">3</span> {{ "article.citations"|trans }}</li>
+        <li id="submission-progress-step4"><span class="badge">4</span>  {{ "article.files"|trans }}</li>
+        <li class="lastStep" class="active"><span class="badge">5</span> {{ "preview"|trans }} & {{ "submit"|trans }}
+        </li>
     </ul>
 
     <div class="col-md-12">
-        <h1>{{"preview"|trans}}
+        <h1>{{ "preview"|trans }}
             <small class="pull-right">
                 <a class="btn btn-link"><i class="fa fa-print"></i></a>
             </small>
@@ -32,7 +33,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">{{"article.metadata"|trans}}</h4>
+                <h4 class="panel-title">{{ "article.metadata"|trans }}</h4>
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-striped">
@@ -41,30 +42,30 @@
                         <tr>
                             <td colspan="2">
                                 <br>
-                                <span class="label label-info">{{key}}</span>
+                                <span class="label label-info">{{ key }}</span>
                             </td>
                         </tr>
                         <tr>
-                            <td>{{"title"|trans}}</td>
-                            <td>{{article.title}}</td>
+                            <td>{{ "title"|trans }}</td>
+                            <td>{{ article.title }}</td>
                         </tr>
                         <tr>
-                            <td>{{"subtitle"|trans}}</td>
-                            <td>{{article.subtitle}}</td>
+                            <td>{{ "subtitle"|trans }}</td>
+                            <td>{{ article.subtitle }}</td>
                         </tr>
                         <tr>
-                            <td>{{"keywords"|trans}}</td>
-                            <td>{{article.keywords}}</td>
+                            <td>{{ "keywords"|trans }}</td>
+                            <td>{{ article.keywords }}</td>
                         </tr>
                         <tr>
-                            <td>{{"subjects"|trans}}</td>
-                            <td>{{article.subjects}}</td>
+                            <td>{{ "subjects"|trans }}</td>
+                            <td>{{ article.subjects }}</td>
                         </tr>
                         <tr>
-                            <td>{{"abstract"|trans}}</td>
-                            <td>{{article.abstract|raw}}</td>
+                            <td>{{ "abstract"|trans }}</td>
+                            <td>{{ article.abstract|raw }}</td>
                         </tr>
-                    {%endfor%}
+                    {% endfor %}
                 </table>
 
             </div>
@@ -73,7 +74,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">{{"article.authors"|trans}}</h4>
+                <h4 class="panel-title">{{ "article.authors"|trans }}</h4>
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-condensed">
@@ -81,61 +82,61 @@
                         <tr>
                             <td colspan="2">
                                 <br>
-                                <span class="label label-info">{{author.order}}</span></td>
+                                <span class="label label-info">{{ author.order }}</span></td>
                         </tr>
                         <tr>
-                            <td>{{"author.initials"|trans}}</td>
-                            <td>{{author.initials}}</td>
+                            <td>{{ "author.initials"|trans }}</td>
+                            <td>{{ author.initials }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.firstname"|trans}}</td>
-                            <td>{{author.firstName}}</td>
+                            <td>{{ "author.firstname"|trans }}</td>
+                            <td>{{ author.firstName }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.middlename"|trans}}</td>
-                            <td>{{author.middleName}}</td>
+                            <td>{{ "author.middlename"|trans }}</td>
+                            <td>{{ author.middleName }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.lastname"|trans}}</td>
-                            <td>{{author.lastName}}</td>
+                            <td>{{ "author.lastname"|trans }}</td>
+                            <td>{{ author.lastName }}</td>
                         </tr>
                         <tr>
-                            <td>{{"email"|trans}}</td>
-                            <td>{{author.email}}</td>
+                            <td>{{ "email"|trans }}</td>
+                            <td>{{ author.email }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.orcid"|trans}}</td>
-                            <td>{{author.orcid}}</td>
+                            <td>{{ "author.orcid"|trans }}</td>
+                            <td>{{ author.orcid }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.summary"|trans}}</td>
-                            <td>{{author.summary}}</td>
+                            <td>{{ "author.summary"|trans }}</td>
+                            <td>{{ author.summary }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.institution"|trans}}</td>
-                            <td>{{author.institution}}</td>
+                            <td>{{ "author.institution"|trans }}</td>
+                            <td>{{ author.institution }}</td>
                         </tr>
                         <tr>
-                            <td>{{"author.phone"|trans}}</td>
-                            <td>{{author.phone}}</td>
+                            <td>{{ "author.phone"|trans }}</td>
+                            <td>{{ author.phone }}</td>
                         </tr>
 
 
-                    {%endfor%}
+                    {% endfor %}
                 </table>
             </div>
             <div class="panel-footer"></div>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">{{"article.citations"|trans}}</div>
+            <div class="panel-heading">{{ "article.citations"|trans }}</div>
             <div class="panel panel-body">
                 <table class="table">
                     {% for key,citation  in submissionData.citations %}
                         <tr>
-                            <td><span class="badge">{{citation.orderNum}}</span> {{citation.raw}}</td>
+                            <td><span class="badge">{{ citation.orderNum }}</span> {{ citation.raw }}</td>
                         </tr>
-                    {%endfor%}
+                    {% endfor %}
                 </table>
             </div>
             <div class="panel-footer"></div>
@@ -143,7 +144,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">{{"article.files"|trans}}</h4>
+                <h4 class="panel-title">{{ "article.files"|trans }}</h4>
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table">
@@ -152,15 +153,16 @@
                         <tr>
                             <td>
 
-                                <a class="label label-info" target="_blank" href="/uploads/journalfiles/{{filePath(file.article_file)}}">
-                                    {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{file.lang}}) {% endif %}
+                                <a class="label label-info" target="_blank"
+                                   href="/uploads/journalfiles/{{ filePath(file.article_file) }}">
+                                    {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{ file.lang }}) {% endif %}
                                     <i class="fa fa-download"></i>
                                 </a>
 
                                 {% if file.title is defined %}
                                     <br>
                                     <small><b>{{ "title"|trans }} : </b>
-                                        {{file.title}}
+                                        {{ file.title }}
                                     </small>
                                 {% endif %}
                                 {% if file.desc is defined %}
@@ -182,7 +184,7 @@
                             </td>
                         </tr>
 
-                    {%endfor%}
+                    {% endfor %}
 
                 </table>
             </div>
@@ -192,26 +194,27 @@
         {% if submissionData.competingOfInterest %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4 class="panel-title">{{"competingOfInterest"|trans}}</h4>
+                    <h4 class="panel-title">{{ "competingOfInterest"|trans }}</h4>
                 </div>
                 <div class="panel panel-body table-responsive">
-                    {{submissionData.competingOfInterest |raw}}
+                    {{ submissionData.competingOfInterest |raw }}
                 </div>
             </div>
-        {%endif%}
+        {% endif %}
 
         <form action="{{ path('article_submission_finish') }}" method="POST">
             <div class="panel panel-warning">
-                <div class="panel-heading"><h4 class="panel-title">{{"notes_to_editor"|trans}}</h4></div>
+                <div class="panel-heading"><h4 class="panel-title">{{ "notes_to_editor"|trans }}</h4></div>
                 <div class="panel panel-body table-responsive">
                     <textarea class="editor form-control" name="notes"></textarea>
                 </div>
             </div>
 
 
-            <input type="hidden" name="submissionId" value="{{submissionId}}">
+            <input type="hidden" name="submissionId" value="{{ submissionId }}">
+
             <div class="alert alert-danger" id="alertSubmission" style="display:none">
-                {{"submission.attention"|trans|raw}}
+                {{ "submission.attention"|trans|raw }}
                 <hr>
                 <div class="btn-group">
                     <button class="btn btn-warning btn-lg"
@@ -223,7 +226,8 @@
                 </div>
             </div>
             <div class="btn-group pull-right" id="btnSubmissionGroup">
-                <a class="btn btn-lg btn-default" href="{{path('article_submission_resume',{'submissionId':submissionId})}}">
+                <a class="btn btn-lg btn-default"
+                   href="{{ path('article_submission_resume',{'submissionId':submissionId}) }}">
                     <i class="fa fa-backward"></i> {{ 'Back & Continue Editing'|trans }}
                 </a>
                 <button class="btn btn-success btn-lg"
@@ -252,9 +256,9 @@
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
-        {% endjavascripts %}
+    {% endjavascripts %}
 
 
-        {% endblock %}
+{% endblock %}

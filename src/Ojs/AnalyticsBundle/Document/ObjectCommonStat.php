@@ -23,7 +23,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *   Yayınlanmış sayılar - PublishedIssueCount
  * @MongoDb\Document(collection="analytics_common_stats")
  */
-
 class ObjectCommonStat
 {
 
@@ -75,7 +74,7 @@ class ObjectCommonStat
     /**
      * @var \DateTime
      * @MongoDB\Date
-     *          Count date
+     *                Count date
      */
     public $date;
 
@@ -183,13 +182,13 @@ class ObjectCommonStat
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return $this
      */
     public function setDate($date)
     {
         $this->date = $date;
+
         return $this;
     }
-
 }

@@ -3,31 +3,34 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ojs\UserBundle\Entity\User;
 
 class IssueType extends AbstractType
 {
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $journal = $options['journal'];
         $user = $options['user'];
         $builder
-            ->add('journal', 'entity', array(
+            ->add(
+                'journal',
+                'entity',
+                array(
                     'attr' => array('class' => ' form-control select2-element'),
                     'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($user, $journal) {
                         /** @var User $user $qb */
                         $qb = $er->createQueryBuilder('j');
-                        if($user->isAdmin()) {
+                        if ($user->isAdmin()) {
                             return $qb;
                         }
                         if ($journal) {
@@ -50,7 +53,10 @@ class IssueType extends AbstractType
             ->add('title', 'text', array('label' => 'title'))
             ->add('description', 'text', array('label' => 'description'))
             ->add('year', 'text', array('label' => 'year'))
-            ->add('datePublished', 'collot_datetime', array(
+            ->add(
+                'datePublished',
+                'collot_datetime',
+                array(
 
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [
@@ -63,14 +69,17 @@ class IssueType extends AbstractType
                     ],
                 )
             )
-            ->add('tags', 'text', array(
+            ->add(
+                'tags',
+                'text',
+                array(
                     'label' => 'tags',
                     'attr' => [
                         'class' => ' form-control input-xxl',
-                        'data-role' =>  'tagsinputautocomplete',
+                        'data-role' => 'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['tagEndPoint']
-                    ]
+                        'data-list' => $options['tagEndPoint'],
+                    ],
                 )
             )
             ->add('published', 'checkbox', ['label' => 'published'])
@@ -84,15 +93,18 @@ class IssueType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Issue',
-            'user' => null,
-            'journal' => null,
-            'tagEndPoint' => '/',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Issue',
+                'user' => null,
+                'journal' => null,
+                'tagEndPoint' => '/',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

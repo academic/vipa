@@ -2,11 +2,11 @@
 
 namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
- use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ArticlePreSubmissionController
@@ -57,8 +57,11 @@ class ArticlePreSubmissionController extends Controller
         $dm->persist($articleSubmission);
         $dm->flush();
 
-        return new JsonResponse([
-            'submissionId' => $articleSubmission->getId(),
-            'locale' => $locale, ]);
+        return new JsonResponse(
+            [
+                'submissionId' => $articleSubmission->getId(),
+                'locale' => $locale,
+            ]
+        );
     }
 }

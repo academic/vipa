@@ -33,7 +33,8 @@ class InstallCommand extends ContainerAwareCommand
         $webDir = $options['symfony-web-dir'];
 
         if (!is_dir($webDir)) {
-            echo 'The symfony-web-dir (' . $webDir . ') specified in composer.json was not found in ' . getcwd() . ', can not install assets.' . PHP_EOL;
+            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd(
+                ).', can not install assets.'.PHP_EOL;
 
             return;
         }
@@ -43,11 +44,14 @@ class InstallCommand extends ContainerAwareCommand
 
     protected static function getOptions(CommandEvent $event)
     {
-        $options = array_merge(array(
-            'symfony-app-dir' => 'app',
-            'symfony-web-dir' => 'web',
-            'symfony-assets-install' => 'hard',
-        ), $event->getComposer()->getPackage()->getExtra());
+        $options = array_merge(
+            array(
+                'symfony-app-dir' => 'app',
+                'symfony-web-dir' => 'web',
+                'symfony-assets-install' => 'hard',
+            ),
+            $event->getComposer()->getPackage()->getExtra()
+        );
 
         $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ?: $options['symfony-assets-install'];
 
@@ -59,17 +63,21 @@ class InstallCommand extends ContainerAwareCommand
     protected static function executeCommand(CommandEvent $event, $appDir, $cmd, $timeout = 300)
     {
         $php = escapeshellarg(self::getPhp());
-        $console = escapeshellarg($appDir . '/console');
+        $console = escapeshellarg($appDir.'/console');
         if ($event->getIO()->isDecorated()) {
             $console .= ' --ansi';
         }
 
-        $process = new Process($php . ' ' . $console . ' ' . $cmd, null, null, null, $timeout);
-        $process->run(function ($type, $buffer) {
-            echo $buffer;
-        });
+        $process = new Process($php.' '.$console.' '.$cmd, null, null, null, $timeout);
+        $process->run(
+            function ($type, $buffer) {
+                echo $buffer;
+            }
+        );
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException(sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd)));
+            throw new \RuntimeException(
+                sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd))
+            );
         }
     }
 
@@ -77,7 +85,9 @@ class InstallCommand extends ContainerAwareCommand
     {
         $phpFinder = new PhpExecutableFinder();
         if (!$phpPath = $phpFinder->find()) {
-            throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
+            throw new \RuntimeException(
+                'The php executable could not be found, add it to your PATH environment variable and try again'
+            );
         }
 
         return $phpPath;
@@ -111,14 +121,18 @@ class InstallCommand extends ContainerAwareCommand
         $application->setAutoExit(false);
         //$translator->setLocale('tr_TR');
         $output->writeln($this->printWelcome());
-        $output->writeln('<info>' .
-            $translator->trans('ojs.install.title') .
-            '</info>');
+        $output->writeln(
+            '<info>'.
+            $translator->trans('ojs.install.title').
+            '</info>'
+        );
 
         if (!$dialog->askConfirmation(
-            $output, '<question>' .
-            $translator->trans("ojs.install.confirm") .
-            ' (y/n) : </question>', true
+            $output,
+            '<question>'.
+            $translator->trans("ojs.install.confirm").
+            ' (y/n) : </question>',
+            true
         )
         ) {
             return;
@@ -129,48 +143,60 @@ class InstallCommand extends ContainerAwareCommand
         $application->run(new StringInput($command2));
 
         if (!$input->getOption('no-location')) {
-            $location = $this->getContainer()->get('kernel')->getRootDir() . '/../src/Okulbilisim/LocationBundle/Resources/data/location.sql';
+            $location = $this->getContainer()->get('kernel')->getRootDir(
+                ).'/../src/Okulbilisim/LocationBundle/Resources/data/location.sql';
             $locationSql = file_get_contents($location);
-            $command3 = 'doctrine:query:sql "' . $locationSql . '"';
+            $command3 = 'doctrine:query:sql "'.$locationSql.'"';
             $application->run(new StringInput($command3));
             $output->writeln("Locations inserted.");
         }
 
         if (!$input->getOption('no-role')) {
-            $output->writeln($sb . 'Inserting roles to db' . $se);
+            $output->writeln($sb.'Inserting roles to db'.$se);
             $this->insertRoles($output);
 
             if (!$input->getOption('no-admin')) {
                 $admin_username = $dialog->ask(
-                    $output, '<info>Set system admin username (admin) : </info>', 'admin');
+                    $output,
+                    '<info>Set system admin username (admin) : </info>',
+                    'admin'
+                );
                 $admin_email = $dialog->ask(
-                    $output, '<info>Set system admin email' .
-                    ' (root@localhost.com) : </info>', 'root@localhost.com');
+                    $output,
+                    '<info>Set system admin email'.
+                    ' (root@localhost.com) : </info>',
+                    'root@localhost.com'
+                );
                 $admin_password = $dialog->ask(
-                    $output, '<info>Set system admin password (admin) </info>', 'admin');
+                    $output,
+                    '<info>Set system admin password (admin) </info>',
+                    'admin'
+                );
 
-                $output->writeln($sb . 'Inserting system admin user to db' . $se);
+                $output->writeln($sb.'Inserting system admin user to db'.$se);
                 $this->insertAdmin($admin_username, $admin_email, $admin_password);
             }
         }
 
         if (!$input->getOption('no-theme')) {
-            $output->writeln($sb . 'Inserting default theme record' . $se);
+            $output->writeln($sb.'Inserting default theme record'.$se);
             $this->insertTheme();
         }
         if (!$input->getOption('no-acl')) {
-            $output->writeln($sb . 'Inserting default ACL records' . $se);
+            $output->writeln($sb.'Inserting default ACL records'.$se);
             $this->insertAcls();
         }
         if ($input->getOption('fix-acl')) {
-            $output->writeln($sb . 'Fixing ACL Records' . $se);
+            $output->writeln($sb.'Fixing ACL Records'.$se);
             $this->fixAcls($output);
         }
 
         $output->writeln("\nDONE\n");
-        $output->writeln("You can run "
-            . "<info>php app/console ojs:install:initial-data </info> "
-            . "to add initial data\n");
+        $output->writeln(
+            "You can run "
+            ."<info>php app/console ojs:install:initial-data </info> "
+            ."to add initial data\n"
+        );
     }
 
     protected function printWelcome()
@@ -191,11 +217,13 @@ class InstallCommand extends ContainerAwareCommand
             $new_role = new Role();
             $check = $role_repo->findOneBy(array('role' => $role['role']));
             if (!empty($check)) {
-                $output->writeln('<error> This role record already exists on db </error> : <info>' .
-                    $role['role'] . '</info>');
+                $output->writeln(
+                    '<error> This role record already exists on db </error> : <info>'.
+                    $role['role'].'</info>'
+                );
                 continue;
             }
-            $output->writeln('<info>Added : ' . $role['role'] . '</info>');
+            $output->writeln('<info>Added : '.$role['role'].'</info>');
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
 
@@ -289,7 +317,8 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->field('theme')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('index')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('checklist')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('mailTemplate')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($journalClass)->field('mailTemplate')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save(
+        );
         $aclManager->on($journalClass)->field('report')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('userRole')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -329,34 +358,60 @@ class InstallCommand extends ContainerAwareCommand
         /** @var Journal[] $journals */
         $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
         foreach ($journals as $journal) {
-            $output->writeln($sb . 'Journal fix for : ' . $journal->getTitle() . $se);
+            $output->writeln($sb.'Journal fix for : '.$journal->getTitle().$se);
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('boards')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('design')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('index')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('index')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('report')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('report')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('userRole')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('userRole')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+            $aclManager->on($journal)->field('articles')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
                 ->permit($viewEditDelete)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
@@ -381,7 +436,9 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit($viewEditDelete)->save();
@@ -393,120 +450,204 @@ class InstallCommand extends ContainerAwareCommand
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('boards')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('index')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+            $aclManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+            $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+            $aclManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('index')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('boards')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('index')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('index')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+            $aclManager->on($journal)->field('design')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('boards')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('design')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('index')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('index')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+            $aclManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
                 ->permit($viewEdit)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('boards')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('design')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('index')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('index')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('checklist')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
-            $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+            $aclManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
                 ->permit($viewEdit)->save();
         }
         /** @var Article[] $articles */
         $articles = $em->getRepository('OjsJournalBundle:Article')->findAll();
         $articles = [];
         foreach ($articles as $article) {
-            $output->writeln($sb . 'Article fix for : ' . $article->getTitle() . $se);
+            $output->writeln($sb.'Article fix for : '.$article->getTitle().$se);
             $journal = $article->getJournal();
 
             $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
@@ -538,15 +679,24 @@ class InstallCommand extends ContainerAwareCommand
 
         $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
 
-        $userJournalRoles = $em->getRepository('OjsUserBundle:UserJournalRole')->findAllByJournalRole(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
+        $userJournalRoles = $em->getRepository('OjsUserBundle:UserJournalRole')->findAllByJournalRole(
+            array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR')
+        );
         foreach ($userJournalRoles as $userJournalRole) {
-            if (!$em->getRepository('OjsUserBundle:User')->hasJournalRole($userJournalRole->getUser(), $authorRole, $userJournalRole->getJournal())) {
+            if (!$em->getRepository('OjsUserBundle:User')->hasJournalRole(
+                $userJournalRole->getUser(),
+                $authorRole,
+                $userJournalRole->getJournal()
+            )
+            ) {
                 $newUserJournalRole = new UserJournalRole();
                 $newUserJournalRole->setRole($authorRole);
                 $newUserJournalRole->setUser($userJournalRole->getUser());
                 $newUserJournalRole->setJournal($userJournalRole->getJournal());
                 $em->persist($newUserJournalRole);
-                $output->writeln($sb . 'Author added : ' . $userJournalRole->getUser() . ' - ' . $userJournalRole->getJournal() . $se);
+                $output->writeln(
+                    $sb.'Author added : '.$userJournalRole->getUser().' - '.$userJournalRole->getJournal().$se
+                );
             }
         }
 

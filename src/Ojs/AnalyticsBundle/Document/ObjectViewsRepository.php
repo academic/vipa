@@ -13,19 +13,20 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 class ObjectViewsRepository extends DocumentRepository
 {
     /**
-     * @param \DateTime $date
+     * @param  \DateTime                              $date
      * @param $entity
      * @param $id
      * @return mixed
      * @throws \Doctrine\ODM\MongoDB\MongoDBException
      */
-    public function getAfterFrom(\DateTime $date,$entity,$id)
+    public function getAfterFrom(\DateTime $date, $entity, $id)
     {
         $qb = $this->createQueryBuilder();
         $qb->select(["id"]);
         $qb->field('logDate')->gte($date)
             ->field('entity')->equals($entity)
             ->field('objectId')->equals($id);
+
         return $qb->getQuery()->execute();
     }
 }

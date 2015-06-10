@@ -3,40 +3,44 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'article.author'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'article.author'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"article_author_list"|trans}}</h1>
-    <a class="btn btn-success" href="{{ path('articleauthor_new') }}">{{"articleauthor_new"|trans}}</a>
+    <h1>{{ "article_author_list"|trans }}</h1>
+    <a class="btn btn-success" href="{{ path('articleauthor_new') }}">{{ "articleauthor_new"|trans }}</a>
     <table class="table records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>{{"author_order"|trans}}</th>
-                <th>{{"author_id"|trans}}</th>
-                <th>{{"article_id"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>{{ "author_order"|trans }}</th>
+            <th>{{ "author_id"|trans }}</th>
+            <th>{{ "article_id"|trans }}</th>
+            <th>{{ "actions"|trans }}</th>
+        </tr>
         </thead>
         <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('articleauthor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.authorOrder }}</td>
-                    <td><a href="{{path('author_show',{id:entity.author.Id })}}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}</td>
-                    <td><a href="{{path('article_show',{id:entity.article.Id })}}">#{{ entity.article.Id }}</a> {{ entity.article.title }}</td>
-                    <td>
-                        {% set show_path = 'articleauthor_show' %}
-                        {% set edit_path = 'articleauthor_edit' %}
-                        {% set delete_path = 'articleauthor_delete' %}
-                        {% include '::actionbuttons.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('articleauthor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.authorOrder }}</td>
+                <td>
+                    <a href="{{ path('author_show',{id:entity.author.Id }) }}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}
+                </td>
+                <td>
+                    <a href="{{ path('article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                </td>
+                <td>
+                    {% set show_path = 'articleauthor_show' %}
+                    {% set edit_path = 'articleauthor_edit' %}
+                    {% set delete_path = 'articleauthor_delete' %}
+                    {% include '::actionbuttons.html.twig' %}
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

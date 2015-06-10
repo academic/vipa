@@ -4,12 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Symfony\Component\HttpFoundation\Request;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Form\LangType;
-use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Lang controller.
@@ -24,7 +24,7 @@ class LangController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Lang())) {
+        if (!$this->isGranted('VIEW', new Lang())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:Lang');
@@ -48,12 +48,12 @@ class LangController extends Controller
     /**
      * Creates a new Lang entity.
      *
-     * @param Request $request
+     * @param  Request                                                                                       $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('VIEW', new Lang())) {
+        if (!$this->isGranted('VIEW', new Lang())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Lang();
@@ -69,10 +69,13 @@ class LangController extends Controller
             return $this->redirectToRoute('lang_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:Lang:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Lang:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -84,10 +87,14 @@ class LangController extends Controller
      */
     private function createCreateForm(Lang $entity)
     {
-        $form = $this->createForm(new LangType(), $entity, array(
-            'action' => $this->generateUrl('lang_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new LangType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('lang_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -102,44 +109,56 @@ class LangController extends Controller
     {
         $entity = new Lang();
         $form = $this->createCreateForm($entity);
-        return $this->render('OjsJournalBundle:Lang:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+
+        return $this->render(
+            'OjsJournalBundle:Lang:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Finds and displays a Lang entity.
-     * @param Lang $entity
+     * @param  Lang                                       $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        return $this->render('OjsJournalBundle:Lang:show.html.twig', array(
-                    'entity' => $entity,
-        ));
+
+        return $this->render(
+            'OjsJournalBundle:Lang:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
      * Displays a form to edit an existing Lang entity.
-     * @param Lang $entity
+     * @param  Lang                                       $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjsJournalBundle:Lang:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+
+        return $this->render(
+            'OjsJournalBundle:Lang:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -151,10 +170,14 @@ class LangController extends Controller
      */
     private function createEditForm(Lang $entity)
     {
-        $form = $this->createForm(new LangType(), $entity, array(
-            'action' => $this->generateUrl('lang_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new LangType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('lang_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -163,14 +186,14 @@ class LangController extends Controller
 
     /**
      * Edits an existing Lang entity.
-     * @param Request $request
-     * @param Lang $entity
+     * @param  Request                                                                                       $request
+     * @param  Lang                                                                                          $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -184,28 +207,32 @@ class LangController extends Controller
             return $this->redirectToRoute('lang_edit', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:Lang:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Lang:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-     * @param Request $request
-     * @param Lang $entity
+     * @param  Request                                            $request
+     * @param  Lang                                               $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('lang'.$entity->getId());
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

@@ -18,6 +18,7 @@ class ProxyTypeTest extends BaseTypeTestcase
                 'proxyUserId' => 1,
                 'clientUserId' => 1,
             ],
-            'Ojs\UserBundle\Entity\Proxy');
+            'Ojs\UserBundle\Entity\Proxy'
+        );
     }
 }

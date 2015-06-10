@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'journal.setup'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'journal.setup'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -13,24 +13,27 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission_css.css" filter="cssrewrite" %}
-        <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
+    <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
     {% endstylesheets %}
     {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     {{ form_stylesheet(steps.step2) }}
 
 {% endblock %}
 
 {% block body -%}
-    <input type="hidden" id="journalSetupUrl" value="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}"/>
+    <input type="hidden" id="journalSetupUrl"
+           value="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}"/>
     <input type="hidden" name="journalId" id="journalIdInput" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
     <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
 
-    <h1>Journal Setup <small>{{journal.title}}</small></h1>
+    <h1>Journal Setup
+        <small>{{ journal.title }}</small>
+    </h1>
     {% include '::flashbag.html.twig' %}
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
@@ -141,16 +144,18 @@
                 <div id="step4">
                     <form action="">
                         {% for page in default_pages %}
-                        <div class="form-group">
-                            <label for="page_title_{{ loop.index }}">{{ 'title'|trans }}</label>
-                            <input class="form-control" name="page[{{ loop.index }}][title]" type="text" id="page_title_{{ loop.index }}" value="{{ page.title }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="page_content_{{ loop.index }}">{{ 'content'|trans }}</label>
-                            <textarea class="form-control" name="page[{{ loop.index }}][content]" id="page_content_{{ loop.index }}">
+                            <div class="form-group">
+                                <label for="page_title_{{ loop.index }}">{{ 'title'|trans }}</label>
+                                <input class="form-control" name="page[{{ loop.index }}][title]" type="text"
+                                       id="page_title_{{ loop.index }}" value="{{ page.title }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="page_content_{{ loop.index }}">{{ 'content'|trans }}</label>
+                            <textarea class="form-control" name="page[{{ loop.index }}][content]"
+                                      id="page_content_{{ loop.index }}">
                                 {{ page.content|raw }}
                             </textarea>
-                        </div>
+                            </div>
                             <hr/>
                         {% endfor %}
                     </form>
@@ -181,9 +186,11 @@
 
                         <div id="preview_image_logo" style="width:200px">
                             <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.logo)) | imagine_filter('wide_200') }}"
-                                 data-src="holder.js/200x200/random/text:{{ journal.title }}" id="preview_image_logo_img"/>
+                                 data-src="holder.js/200x200/random/text:{{ journal.title }}"
+                                 id="preview_image_logo_img"/>
                             {% set imageoptions=getImageOptions(journal,'logo','journal_logo') %}
-                            <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>
+                            <input id="logo_height" name="logo[height]" type="hidden"
+                                   value="{{ imageoptions.height }}"/>
                             <input id="logo_width" name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
                             <input id="logo_x" name="logo[x]" type="hidden" value="{{ imageoptions.x }}"/>
                             <input id="logo_y" name="logo[y]" type="hidden" value="{{ imageoptions.y }}"/>
@@ -200,11 +207,13 @@
 
                     <div class="form-group">
                         <label class="control-label" for="fileupload">{{ "cover"|trans }}</label>
+
                         <div id="preview_image_cover" style="width:200px">
                             <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image)) | imagine_filter('wide_200') }}"
                                  data-src="holder.js/200x300/random/text:{{ journal.title }}"/>
                             {% set imageoptions=getImageOptions(journal,'cover','wide_200') %}
-                            <input id="cover_height" name="cover[height]" type="hidden" value="{{ imageoptions.height }}"/>
+                            <input id="cover_height" name="cover[height]" type="hidden"
+                                   value="{{ imageoptions.height }}"/>
                             <input id="cover_width" name="cover[width]" type="hidden" value="{{ imageoptions.width }}"/>
                             <input id="cover_x" name="cover[x]" type="hidden" value="{{ imageoptions.x }}"/>
                             <input id="cover_y" name="cover[y]" type="hidden" value="{{ imageoptions.y }}"/>
@@ -212,28 +221,34 @@
                         <span class="btn btn-success fileinput-button form-control">
                             <i class="fa fa-plus"></i>
                             <span>{{ "select.image.file"|trans }}</span>
-                            <input id="fileupload_cover" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}" />
+                            <input id="fileupload_cover" type="file"
+                                   data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
                         </span>
+
                         <div id="journal_cover_upload_progress" style="display: none" class="label label-info"></div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
+
                         <div id="preview_image_header">
                             <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header)) | imagine_filter('wide_960') }}"
                                  data-src="holder.js/960x200/random/text:{{ journal.title }}" alt=""/>
                             {% set imageoptions=getImageOptions(journal,'header','wide_960') %}
                             <input id="header_height" name="header[height]" type="hidden"
                                    value="{{ imageoptions.height }}"/>
-                            <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
+                            <input id="header_width" name="header[width]" type="hidden"
+                                   value="{{ imageoptions.width }}"/>
                             <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
                             <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
                         </div>
                         <span class="btn btn-success fileinput-button form-control">
                             <i class="fa fa-plus"></i>
                             <span>{{ "select.image.file"|trans }}</span>
-                            <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                            <input id="fileupload_header" type="file"
+                                   data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
                         </span>
+
                         <div id="journal_header_upload_progress" style="display: none" class="label label-info"></div>
                     </div>
                 </div>
@@ -281,7 +296,7 @@
 
 {% block javascripts %}
     <script>
-        window.onSetup=true;
+        window.onSetup = true;
     </script>
     {{ parent() }}
     {% javascripts  '@submission_js'
@@ -306,8 +321,17 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-             $("textarea").wysihtml5({
-                toolbar: {  "font-styles": false,  "emphasis": true,  "lists": false, "html": false,   "link": true,  "image": false,  "color": false,  "blockquote": true}
+            $("textarea").wysihtml5({
+                toolbar: {
+                    "font-styles": false,
+                    "emphasis": true,
+                    "lists": false,
+                    "html": false,
+                    "link": true,
+                    "image": false,
+                    "color": false,
+                    "blockquote": true
+                }
             });
             var uploadPath = '{{ app.request.uriForPath(asset('/uploads/journalfiles/')) }}'.replace("?v3", "").replace("/app_dev.php", "");
             $('#fileupload_cover').fileupload({});
@@ -347,7 +371,7 @@
                 aspectRatio: 960 / 200,
                 maxWidth: 960,
                 maxHeight: 200,
-        {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
+                {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -366,7 +390,7 @@
                 aspectRatio: 200 / 300,
                 maxWidth: 200,
                 maxHeight: 300,
-        {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
+                {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -385,7 +409,7 @@
                 aspectRatio: 200 / 200,
                 maxWidth: 200,
                 maxHeight: 200,
-        {% set imageoptions=getImageOptions(journal,'logo','journal_logo') %}
+                {% set imageoptions=getImageOptions(journal,'logo','journal_logo') %}
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},

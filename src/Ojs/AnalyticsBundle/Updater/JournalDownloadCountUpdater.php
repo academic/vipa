@@ -41,7 +41,7 @@ class JournalDownloadCountUpdater extends Updater implements UpdaterInterface
                 }
             }
 
-            if (count($views)<1) {
+            if (count($views) < 1) {
                 continue;
             }
             $journals[$r->getId()] = $views;

@@ -2,10 +2,10 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations\Get;
 use Elastica\Query;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 
 class SearchRestController extends FOSRestController
@@ -30,7 +30,6 @@ class SearchRestController extends FOSRestController
      *          "description"="Apikey"
      *      }
      *  }
-
      * )
      * @Get("/search/journal/{journalId}/users")
      * @TODO elasticsearch will be better for performance. "like" query should be removed
@@ -43,9 +42,9 @@ class SearchRestController extends FOSRestController
         $q = $request->get('q');
         $repo = $this->getDoctrine()->getManager()->getRepository('OjsUserBundle:User');
         $query = $repo->createQueryBuilder('u')
-                ->where('u.username LIKE :search OR u.firstName LIKE :search OR u.lastName LIKE :search')
-                ->setParameter('search', '%'.$q.'%')
-                ->getQuery();
+            ->where('u.username LIKE :search OR u.firstName LIKE :search OR u.lastName LIKE :search')
+            ->setParameter('search', '%'.$q.'%')
+            ->getQuery();
 
         return $query->getResult();
     }

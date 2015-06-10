@@ -68,7 +68,7 @@ class SearchManager
          */
         $results = $search->search($query);
         foreach ($results as $result) {
-            /** @var Result $result  */
+            /** @var Result $result */
             if (!isset($return_data[$result->getType()])) {
                 $return_data[$result->getType()] = ['type', 'data'];
             }
@@ -130,7 +130,7 @@ class SearchManager
 
         $query = new Query();
         $query->setQuery($bool);
-        $query->setFrom(($this->getPage()-1) * $this->getLimit());
+        $query->setFrom(($this->getPage() - 1) * $this->getLimit());
         $query->setSize($this->getLimit());
 
         $aggregation = new Terms('institution');
@@ -157,14 +157,26 @@ class SearchManager
 
         $result = $search->getResults();
         $connection = $em->getConnection();
-        $manager = new Registry($this->container, ['default' => $connection], ['default' => 'doctrine.orm.entity_manager'], 'default', 'default');
+        $manager = new Registry(
+            $this->container,
+            ['default' => $connection],
+            ['default' => 'doctrine.orm.entity_manager'],
+            'default',
+            'default'
+        );
         $transformer = new ElasticaToModelTransformer($manager, 'OjsJournalBundle:Journal');
         $transformer->setPropertyAccessor($this->container->get('property_accessor'));
         $this->result = $transformer->transform($result);
 
         $this->setCount($search->getTotalHits());
-        $this->addAggregation('institution', $this->transform($search->getAggregation('institution')['buckets'], 'OjsJournalBundle:InstitutionTypes'));
-        $this->addAggregation('subject', $this->transform($search->getAggregation('subject')['buckets'], 'OjsJournalBundle:Subject'));
+        $this->addAggregation(
+            'institution',
+            $this->transform($search->getAggregation('institution')['buckets'], 'OjsJournalBundle:InstitutionTypes')
+        );
+        $this->addAggregation(
+            'subject',
+            $this->transform($search->getAggregation('subject')['buckets'], 'OjsJournalBundle:Subject')
+        );
 
         return $this;
     }
@@ -178,7 +190,9 @@ class SearchManager
 
         $bool = new Bool();
         $multiMatch = new MultiMatch();
-        $multiMatch->setFields(['subjects', 'title', 'keywords', 'subtitle', 'citations.raw', 'journal.title', 'journal.subtitle']);
+        $multiMatch->setFields(
+            ['subjects', 'title', 'keywords', 'subtitle', 'citations.raw', 'journal.title', 'journal.subtitle']
+        );
         $multiMatch->setType('phrase_prefix');
         $multiMatch->setQuery($this->getParam('term'));
         $bool->addMust($multiMatch);
@@ -232,14 +246,26 @@ class SearchManager
         $result = $search->getResults();//$search->getResults();
         $this->pager = $pagerFanta;
         $connection = $em->getConnection();
-        $manager = new Registry($this->container, ['default' => $connection], ['default' => 'doctrine.orm.entity_manager'], 'default', 'default');
+        $manager = new Registry(
+            $this->container,
+            ['default' => $connection],
+            ['default' => 'doctrine.orm.entity_manager'],
+            'default',
+            'default'
+        );
         $transformer = new ElasticaToModelTransformer($manager, 'OjsJournalBundle:Article');
         $transformer->setPropertyAccessor($this->container->get('property_accessor'));
         $this->result = $transformer->transform($result);
 
         $this->setCount($pagerFanta->getNbResults());
-        $this->addAggregation('journal', $this->transform($search->getAggregation('journals')['buckets'], 'OjsJournalBundle:Journal'));
-        $this->addAggregation('author', $this->transform($search->getAggregation('authors')['buckets'], 'OjsJournalBundle:Author'));
+        $this->addAggregation(
+            'journal',
+            $this->transform($search->getAggregation('journals')['buckets'], 'OjsJournalBundle:Journal')
+        );
+        $this->addAggregation(
+            'author',
+            $this->transform($search->getAggregation('authors')['buckets'], 'OjsJournalBundle:Author')
+        );
 
         return $this;
     }

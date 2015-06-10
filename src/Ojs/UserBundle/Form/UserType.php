@@ -19,44 +19,71 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('username', 'text', [
+            ->add(
+                'username',
+                'text',
+                [
                     'label' => 'username',
                     'attr' => [
                         'class' => 'validate[required]',
                     ],
-                ])
-                ->add('password', 'password', [
+                ]
+            )
+            ->add(
+                'password',
+                'password',
+                [
                     'label' => 'password',
                     'attr' => [
 
                         'class' => 'validate[minSize[6]]',
                     ],
-                ])
-                ->add('email', 'email', [
+                ]
+            )
+            ->add(
+                'email',
+                'email',
+                [
                     'label' => 'email',
                     'attr' => [
                         'class' => 'validate[required,custom[email]]',
                     ],
-                ])
-                ->add('title', 'text', ['label' => 'user.title'])
-                ->add('firstName', 'text', [
+                ]
+            )
+            ->add('title', 'text', ['label' => 'user.title'])
+            ->add(
+                'firstName',
+                'text',
+                [
                     'label' => 'firstname',
                     'attr' => [
                         'class' => 'validate[required]',
                     ],
-                ])
-                ->add('lastName', 'text', [
+                ]
+            )
+            ->add(
+                'lastName',
+                'text',
+                [
                     'label' => 'lastname',
                     'attr' => [
                         'class' => 'validate[required]',
                     ],
-                ])
-                ->add('isActive', 'checkbox', [ 'label' => 'user.isActive'])
-                ->add('status', 'choice', [
+                ]
+            )
+            ->add('isActive', 'checkbox', ['label' => 'user.isActive'])
+            ->add(
+                'status',
+                'choice',
+                [
                     'label' => 'status',
                     'choices' => CommonParams::$userStatusArray,
-                ])
-                ->add('subjects', 'entity', array(
+                ]
+            )
+            ->add(
+                'subjects',
+                'entity',
+                array(
                     'label' => 'subjects',
                     'class' => 'Ojs\JournalBundle\Entity\Subject',
                     'property' => 'subject',
@@ -64,20 +91,27 @@ class UserType extends AbstractType
                     'expanded' => false,
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                     'required' => false,
-                ))
-                ->add('tags', 'text', array(
-                        'label' => 'tags',
-                        'attr' => [
-                            'class' => ' form-control input-xxl',
-                            'data-role' =>  'tagsinputautocomplete',
-                            'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => '/api/public/search/tags'
-                        ]
-                    )
                 )
-                ->add('avatar', 'hidden')
-                ->add('header', 'hidden')
-                ->add('country', 'entity', [
+            )
+            ->add(
+                'tags',
+                'text',
+                array(
+                    'label' => 'tags',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' => 'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => '/api/public/search/tags',
+                    ],
+                )
+            )
+            ->add('avatar', 'hidden')
+            ->add('header', 'hidden')
+            ->add(
+                'country',
+                'entity',
+                [
                     'label' => 'country',
                     'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                     'attr' => [
@@ -88,7 +122,8 @@ class UserType extends AbstractType
                         return $em->createQueryBuilder('c')
                             ->where("c.type=0");
                     },
-        ]);
+                ]
+            );
         /** @var FormHelper $helper */
         $helper = $options['helper'];
         $helper->addCityField($builder, 'Ojs\UserBundle\Entity\User');
@@ -99,14 +134,16 @@ class UserType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => 'Ojs\UserBundle\Entity\User',
-            'helper' => null,
-            'attr' => [
-                'class' => 'validate-form',
-                'novalidate' => 'novalidate',
-            ],
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'helper' => null,
+                'attr' => [
+                    'class' => 'validate-form',
+                    'novalidate' => 'novalidate',
+                ],
+            ]
+        );
     }
 
     /**

@@ -3,18 +3,18 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'board'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'board'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1> {{"boards"|trans}}</h1>
+    <h1> {{ "boards"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', selectedJournal(), 'boards') %}
         <a href="{{ path('admin_board_new') }}">
-            {{"c"| trans}}
+            {{ "c"| trans }}
         </a>
     {% endif %}
     <hr>

@@ -20,6 +20,7 @@ class InstitutionRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder("i");
         $qb->select("i.name,i.slug,i.verified");
+
         return $qb->getQuery()->getResult(Query::HYDRATE_OBJECT);
     }
 }

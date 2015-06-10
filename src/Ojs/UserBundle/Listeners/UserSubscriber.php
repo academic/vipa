@@ -8,21 +8,21 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\Common\Params\UserEventLogParams;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Ojs\Common\Params\UserEventLogParams;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserSubscriber implements EventSubscriberInterface
 {
-    /** @var \Swift_Mailer  */
+    /** @var \Swift_Mailer */
     protected $mailer;
-    /** @var \Twig_Environment  */
+    /** @var \Twig_Environment */
     protected $twig;
-    /** @var EntityManager  */
+    /** @var EntityManager */
     protected $em;
-    /** @var RequestStack  */
+    /** @var RequestStack */
     protected $request;
     /** @var  string */
     protected $systemEmail;
@@ -31,11 +31,16 @@ class UserSubscriber implements EventSubscriberInterface
      * @param \Swift_Mailer     $mailer
      * @param \Twig_Environment $twig
      * @param EntityManager     $em
-     * @param RequestStack           $request
+     * @param RequestStack      $request
      * @param $systemEmail
      */
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, EntityManager $em, RequestStack $request, $systemEmail)
-    {
+    public function __construct(
+        \Swift_Mailer $mailer,
+        \Twig_Environment $twig,
+        EntityManager $em,
+        RequestStack $request,
+        $systemEmail
+    ) {
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->em = $em;
@@ -64,6 +69,7 @@ class UserSubscriber implements EventSubscriberInterface
             ->setContentType('text/html');
         $this->mailer->send($message);
     }
+
     public function onPasswordChange(UserEvent $event)
     {
         $message = $this->mailer->createMessage()
@@ -71,7 +77,10 @@ class UserSubscriber implements EventSubscriberInterface
             ->setFrom($this->systemEmail)
             ->setTo($event->getUser()->getEmail())
             ->setBody(
-                $this->twig->render('OjsUserBundle:Mails:User/password_changed.html.twig', ['user' => $event->getUser()])
+                $this->twig->render(
+                    'OjsUserBundle:Mails:User/password_changed.html.twig',
+                    ['user' => $event->getUser()]
+                )
             )
             ->setContentType('text/html');
         $this->mailer->send($message);
@@ -88,6 +97,7 @@ class UserSubscriber implements EventSubscriberInterface
         } catch (\Exception $e) {
         }
     }
+
     public function onPasswordReset(UserEvent $event)
     {
         $message = $this->mailer->createMessage()
@@ -95,7 +105,10 @@ class UserSubscriber implements EventSubscriberInterface
             ->setFrom($this->systemEmail)
             ->setTo($event->getUser()->getEmail())
             ->setBody(
-                $this->twig->render('OjsUserBundle:Mails:User/password_reset_successful.html.twig', ['user' => $event->getUser()])
+                $this->twig->render(
+                    'OjsUserBundle:Mails:User/password_reset_successful.html.twig',
+                    ['user' => $event->getUser()]
+                )
             )
             ->setContentType('text/html');
         $this->mailer->send($message);

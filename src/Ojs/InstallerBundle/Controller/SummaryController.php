@@ -2,7 +2,7 @@
 
 namespace Ojs\InstallerBundle\Controller;
 
- use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 
 class SummaryController extends Controller
 {

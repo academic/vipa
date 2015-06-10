@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('author'), 'title': 'author.manager'|trans},
-        {'title' : 'author.edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('author'), 'title': 'author.manager'|trans},
+    {'title' : 'author.edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -17,7 +17,7 @@
     {% if is_granted('DELETE', edit_form.vars.data) %}
         {% set delete_path = 'author_delete' %}
     {% endif %}
-{% include '::actionbuttons.html.twig' %}
+    {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
 {% endblock %}

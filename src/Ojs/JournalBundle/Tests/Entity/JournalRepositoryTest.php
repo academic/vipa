@@ -26,6 +26,7 @@ class JournalRepositoryTest extends BaseTestCase
         $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
         $this->assertFalse($journalRepo->checkUserPermit($user, $journal));
     }
+
     public function testRemoveBanUser()
     {
         $user = $this->em->find('OjsUserBundle:User', 1);

@@ -21,9 +21,13 @@ class SubmissionChecklistType extends AbstractType
         $builder
             ->add('label', 'text', ['label' => 'submission_checklist.label'])
             ->add('detail', 'textarea', ['label' => 'submission_checklist.detail'])
-            ->add('locale', 'choice', [
-                'choices' => $options['languages'],
-            ])
+            ->add(
+                'locale',
+                'choice',
+                [
+                    'choices' => $options['languages'],
+                ]
+            )
             ->add('visible', 'checkbox', ['label' => 'submission_checklist.visible']);
     }
 
@@ -32,16 +36,19 @@ class SubmissionChecklistType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
-            'languages' => array(
-                array('tr' => 'Türkçe'),
-                array('en' => 'English')
-            ),
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
+                'languages' => array(
+                    array('tr' => 'Türkçe'),
+                    array('en' => 'English'),
+                ),
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

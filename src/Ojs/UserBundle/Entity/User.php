@@ -2,21 +2,21 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
 use Okulbilisim\LocationBundle\Entity\Location;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use JMS\Serializer\Annotation\Expose;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * User
@@ -87,7 +87,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      * @var boolean
      * @Expose
      */
-    protected $isAdmin =  false;
+    protected $isAdmin = false;
 
     /**
      * @var string
@@ -407,11 +407,13 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function serialize()
     {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-        ));
+        return serialize(
+            array(
+                $this->id,
+                $this->username,
+                $this->password,
+            )
+        );
     }
 
     /**
@@ -421,10 +423,10 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function unserialize($serialized)
     {
         list(
-                $this->id,
-                $this->username,
-                $this->password
-                ) = unserialize($serialized);
+            $this->id,
+            $this->username,
+            $this->password
+            ) = unserialize($serialized);
     }
 
     /**
@@ -434,9 +436,10 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function getRoles()
     {
         $this->roles[] = static::ROLE_DEFAULT;
-        if($this->isAdmin()) {
+        if ($this->isAdmin()) {
             $this->roles[] = static::ROLE_ADMIN;
         }
+
         return array_unique($this->roles);
     }
 
@@ -448,19 +451,21 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function addRole($role)
     {
-        if($role === static::ROLE_DEFAULT) {
+        if ($role === static::ROLE_DEFAULT) {
             return $this;
         }
-        if($role === static::ROLE_ADMIN) {
+        if ($role === static::ROLE_ADMIN) {
             $this->setAdmin(true);
+
             return $this;
         }
-        if(!in_array($role, $this->roles, true)) {
+        if (!in_array($role, $this->roles, true)) {
             $this->roles[] = strtoupper($role);
         }
 
         return $this;
     }
+
     /**
      *
      * @param  string  $role
@@ -477,7 +482,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function removeRole($role)
     {
-        if($role === static::ROLE_ADMIN) {
+        if ($role === static::ROLE_ADMIN) {
             $this->setAdmin(false);
         }
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
@@ -710,11 +715,13 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @param boolean $isAdmin
+     * @param  boolean $isAdmin
      * @return boolean $this
      */
-    public function setAdmin($isAdmin) {
+    public function setAdmin($isAdmin)
+    {
         $this->isAdmin = !!$isAdmin;
+
         return $this;
     }
 
@@ -722,7 +729,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     {
         return $this->getFirstName().' '.$this->getLastName();
     }
-
 
     /**
      * @return mixed
@@ -1021,6 +1027,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
         return $this;
     }
+
     /**
      * @return string
      */
@@ -1208,9 +1215,8 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         $this->userJournalRoles = $userJournalRoles;
     }
 
-
     /**
-     * @param Journal $journal
+     * @param  Journal           $journal
      * @return UserJournalRole[]
      */
     public function getUserJournalRolesFromJournal(Journal $journal)

@@ -18,10 +18,9 @@ class JournalSectionType extends AbstractType
         //$journal = $options['journal'];
         //$user = $options['user'];
         $builder
-                ->add('title')
-                ->add('allowIndex')
-                ->add('hideTitle')
-        ;
+            ->add('title')
+            ->add('allowIndex')
+            ->add('hideTitle');
     }
 
     /**
@@ -29,14 +28,17 @@ class JournalSectionType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalSection',
-            'user' => null,
-            'journal' => null,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalSection',
+                'user' => null,
+                'journal' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

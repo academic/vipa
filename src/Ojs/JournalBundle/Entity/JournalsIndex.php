@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * JournalsIndex
  * @GRID\Source(columns="id,journal.title,journal_index.name,link")
@@ -30,6 +31,16 @@ class JournalsIndex
      * @GRID\Column(title="link")
      */
     private $link;
+    /**
+     * @var Journal
+     * @GRID\Column(title="Journal",field="journal.title")
+     */
+    private $journal;
+    /**
+     * @var JournalIndex
+     * @GRID\Column(title="Journal Index", field="journal_index.name")
+     */
+    private $journal_index;
 
     /**
      * Get id
@@ -39,6 +50,16 @@ class JournalsIndex
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get journal_index_id
+     *
+     * @return integer
+     */
+    public function getJournalIndexId()
+    {
+        return $this->journal_index_id;
     }
 
     /**
@@ -55,13 +76,13 @@ class JournalsIndex
     }
 
     /**
-     * Get journal_index_id
+     * Get journal_id
      *
      * @return integer
      */
-    public function getJournalIndexId()
+    public function getJournalId()
     {
-        return $this->journal_index_id;
+        return $this->journal_id;
     }
 
     /**
@@ -78,13 +99,13 @@ class JournalsIndex
     }
 
     /**
-     * Get journal_id
+     * Get link
      *
-     * @return integer
+     * @return string
      */
-    public function getJournalId()
+    public function getLink()
     {
-        return $this->journal_id;
+        return $this->link;
     }
 
     /**
@@ -101,25 +122,14 @@ class JournalsIndex
     }
 
     /**
-     * Get link
+     * Get journal
      *
-     * @return string
+     * @return Journal
      */
-    public function getLink()
+    public function getJournal()
     {
-        return $this->link;
+        return $this->journal;
     }
-    /**
-     * @var Journal
-     * @GRID\Column(title="Journal",field="journal.title")
-     */
-    private $journal;
-
-    /**
-     * @var JournalIndex
-     * @GRID\Column(title="Journal Index", field="journal_index.name")
-     */
-    private $journal_index;
 
     /**
      * Set journal
@@ -135,13 +145,13 @@ class JournalsIndex
     }
 
     /**
-     * Get journal
+     * Get journal_index
      *
-     * @return Journal
+     * @return JournalIndex
      */
-    public function getJournal()
+    public function getJournalIndex()
     {
-        return $this->journal;
+        return $this->journal_index;
     }
 
     /**
@@ -155,15 +165,5 @@ class JournalsIndex
         $this->journal_index = $journalIndex;
 
         return $this;
-    }
-
-    /**
-     * Get journal_index
-     *
-     * @return JournalIndex
-     */
-    public function getJournalIndex()
-    {
-        return $this->journal_index;
     }
 }

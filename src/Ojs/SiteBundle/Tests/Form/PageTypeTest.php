@@ -20,6 +20,7 @@ class PageTypeTest extends BaseTypeTestcase
                 'tags' => $this->faker->text(),
                 'image' => '',
             ],
-            'Ojs\SiteBundle\Entity\Page');
+            'Ojs\SiteBundle\Entity\Page'
+        );
     }
 }

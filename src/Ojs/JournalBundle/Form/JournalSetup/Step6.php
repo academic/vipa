@@ -17,7 +17,10 @@ class Step6 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('theme', 'entity', array(
+            ->add(
+                'theme',
+                'entity',
+                array(
                     'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
                     'multiple' => false,
@@ -29,7 +32,8 @@ class Step6 extends AbstractType
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                             ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
-                    }, )
+                    },
+                )
             );
     }
 
@@ -38,12 +42,15 @@ class Step6 extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

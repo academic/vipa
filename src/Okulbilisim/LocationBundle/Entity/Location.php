@@ -2,8 +2,6 @@
 
 namespace Okulbilisim\LocationBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Location
  */
@@ -33,6 +31,10 @@ class Location
      * @var \Okulbilisim\LocationBundle\Entity\Location
      */
     private $parent;
+    /**
+     * @var integer
+     */
+    private $parent_id;
 
     /**
      * Constructor
@@ -45,7 +47,7 @@ class Location
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -53,32 +55,19 @@ class Location
     }
 
     /**
-     * Set name
+     * Get type
      *
-     * @param string $name
-     * @return Location
+     * @return integer
      */
-    public function setName($name)
+    public function getType()
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
+        return $this->type;
     }
 
     /**
      * Set type
      *
-     * @param integer $type
+     * @param  integer  $type
      * @return Location
      */
     public function setType($type)
@@ -89,19 +78,9 @@ class Location
     }
 
     /**
-     * Get type
-     *
-     * @return integer 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Add childrens
      *
-     * @param \Okulbilisim\LocationBundle\Entity\Location $childrens
+     * @param  \Okulbilisim\LocationBundle\Entity\Location $childrens
      * @return Location
      */
     public function addChildren(\Okulbilisim\LocationBundle\Entity\Location $childrens)
@@ -124,7 +103,7 @@ class Location
     /**
      * Get childrens
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChildrens()
     {
@@ -132,9 +111,19 @@ class Location
     }
 
     /**
+     * Get parent
+     *
+     * @return \Okulbilisim\LocationBundle\Entity\Location
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
      * Set parent
      *
-     * @param \Okulbilisim\LocationBundle\Entity\Location $parent
+     * @param  \Okulbilisim\LocationBundle\Entity\Location $parent
      * @return Location
      */
     public function setParent(\Okulbilisim\LocationBundle\Entity\Location $parent = null)
@@ -145,24 +134,19 @@ class Location
     }
 
     /**
-     * Get parent
+     * Get parent_id
      *
-     * @return \Okulbilisim\LocationBundle\Entity\Location 
+     * @return integer
      */
-    public function getParent()
+    public function getParentId()
     {
-        return $this->parent;
+        return $this->parent_id;
     }
-    /**
-     * @var integer
-     */
-    private $parent_id;
-
 
     /**
      * Set parent_id
      *
-     * @param integer $parentId
+     * @param  integer  $parentId
      * @return Location
      */
     public function setParentId($parentId)
@@ -172,18 +156,31 @@ class Location
         return $this;
     }
 
-    /**
-     * Get parent_id
-     *
-     * @return integer 
-     */
-    public function getParentId()
-    {
-        return $this->parent_id;
-    }
-
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string   $name
+     * @return Location
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

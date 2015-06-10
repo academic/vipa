@@ -16,8 +16,8 @@ class WorkflowStepController extends OjsController
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $steps = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findBy(array('journalid' => $selectedJournal->getId()));
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findBy(array('journalid' => $selectedJournal->getId()));
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:index.html.twig', array('steps' => $steps));
     }
@@ -27,16 +27,16 @@ class WorkflowStepController extends OjsController
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $data['steps'] = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findBy(array('journalid' => $selectedJournal->getId()));
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findBy(array('journalid' => $selectedJournal->getId()));
 
         $data['firstStep'] = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firstStep' => true));
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firstStep' => true));
 
         $data['lastStep'] = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findOneBy(array('journalid' => $selectedJournal->getId(), 'lastStep' => true));
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findOneBy(array('journalid' => $selectedJournal->getId(), 'lastStep' => true));
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:graph.html.twig', $data);
     }
@@ -52,23 +52,32 @@ class WorkflowStepController extends OjsController
         $em = $this->getDoctrine();
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findBy(array('journalid' => $selectedJournal->getId()));
-        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
+            ->findBy(array('journalid' => $selectedJournal->getId()));
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms(
+            $selectedJournal->getId()
+        );
         $yamlParser = new Yaml\Parser();
-        $ciTemplates = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir').
-                        '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
-        ));
+        $ciTemplates = $yamlParser->parse(
+            file_get_contents(
+                $this->container->getParameter('kernel.root_dir').
+                '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
+            )
+        );
+
         /**
-         *  @todo merge edit and new templates into one tpl.
+         * @todo merge edit and new templates into one tpl.
          */
-        return $this->render('OjsWorkflowBundle:WorkflowStep:new.html.twig', array(
-                    'roles' => $roles,
-                    'nextSteps' => $nextSteps,
-                    'journal' => $selectedJournal,
-                    'forms' => $journalReviewForms,
-                    'ciTemplates' => $ciTemplates,
-        ));
+
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep:new.html.twig',
+            array(
+                'roles' => $roles,
+                'nextSteps' => $nextSteps,
+                'journal' => $selectedJournal,
+                'forms' => $journalReviewForms,
+                'ciTemplates' => $ciTemplates,
+            )
+        );
     }
 
     /**
@@ -118,8 +127,10 @@ class WorkflowStepController extends OjsController
 
         $this->successFlashBag('Successfully created');
 
-        return $this->redirectToRoute('workflowsteps_show', [
-            'id' => $step->getId(),
+        return $this->redirectToRoute(
+            'workflowsteps_show',
+            [
+                'id' => $step->getId(),
             ]
         );
     }
@@ -143,7 +154,8 @@ class WorkflowStepController extends OjsController
         if ($roles) {
             foreach ($roles as $role) {
                 $rolesArray[] = json_decode(
-                        $serializer->serialize($role, 'json'));
+                    $serializer->serialize($role, 'json')
+                );
             }
         }
 
@@ -155,26 +167,32 @@ class WorkflowStepController extends OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms(
+            $selectedJournal->getId()
+        );
 
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findBy(array('journalid' => $selectedJournal->getId()));
+            ->findBy(array('journalid' => $selectedJournal->getId()));
         $yamlParser = new Yaml\Parser();
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
-                    'roles' => $roles,
-                    'nextSteps' => $nextSteps,
-                    'journal' => $journal,
-                    'step' => $step,
-                    'forms' => $journalReviewForms,
-                    'ciTemplates' => $yamlParser->parse(file_get_contents(
-                                    $this->container->getParameter('kernel.root_dir').
-                                    '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
-                    )),
-                        )
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep:edit.html.twig',
+            array(
+                'roles' => $roles,
+                'nextSteps' => $nextSteps,
+                'journal' => $journal,
+                'step' => $step,
+                'forms' => $journalReviewForms,
+                'ciTemplates' => $yamlParser->parse(
+                    file_get_contents(
+                        $this->container->getParameter('kernel.root_dir').
+                        '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
+                    )
+                ),
+            )
         );
     }
 
@@ -190,10 +208,10 @@ class WorkflowStepController extends OjsController
         // get where entity added as next step
         /** @var JournalWorkflowStep[] $steps */
         $steps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->createQueryBuilder()
-                ->field('nextSteps.$id')
-                ->equals(new \MongoId($entity->getId()))
-                ->getQuery()
-                ->execute();
+            ->field('nextSteps.$id')
+            ->equals(new \MongoId($entity->getId()))
+            ->getQuery()
+            ->execute();
         //remove where step is added as next step.
         foreach ($steps as $step) {
             $step->getNextSteps()->removeElement($entity);
@@ -210,7 +228,7 @@ class WorkflowStepController extends OjsController
     public function showAction($id)
     {
         $step = $this->get('doctrine_mongodb')->getManager()
-                        ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:show.html.twig', array('step' => $step));
     }
@@ -219,7 +237,7 @@ class WorkflowStepController extends OjsController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
-        /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep  */
+        /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep */
         $step = $repo->find($id);
         $step->setTitle($request->get('title'));
         $step->setFirststep($request->get('firstStep') ? true : false);
@@ -260,8 +278,10 @@ class WorkflowStepController extends OjsController
 
         $this->successFlashBag('Successfully updated');
 
-        return $this->redirectToRoute('workflowsteps_show', [
-            'id' => $id,
+        return $this->redirectToRoute(
+            'workflowsteps_show',
+            [
+                'id' => $id,
             ]
         );
     }

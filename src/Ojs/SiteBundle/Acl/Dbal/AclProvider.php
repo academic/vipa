@@ -14,7 +14,6 @@ namespace Ojs\SiteBundle\Acl\Dbal;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\FieldEntry;
@@ -24,6 +23,7 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
 use Symfony\Component\Security\Acl\Model\AclCacheInterface;
+use Symfony\Component\Security\Acl\Model\AclInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
 use Symfony\Component\Security\Acl\Model\PermissionGrantingStrategyInterface;
@@ -65,8 +65,12 @@ class AclProvider implements AclProviderInterface
      * @param array                               $options
      * @param AclCacheInterface                   $cache
      */
-    public function __construct(Connection $connection, PermissionGrantingStrategyInterface $permissionGrantingStrategy, array $options, AclCacheInterface $cache = null)
-    {
+    public function __construct(
+        Connection $connection,
+        PermissionGrantingStrategyInterface $permissionGrantingStrategy,
+        array $options,
+        AclCacheInterface $cache = null
+    ) {
         $this->cache = $cache;
         $this->connection = $connection;
         $this->options = $options;
@@ -95,9 +99,8 @@ class AclProvider implements AclProviderInterface
     {
         try {
             $acl = $this->findAcls(array($oid), $sids)->offsetGet($oid);
-        }
-        catch(AclNotFoundException $e) {
-            if($oid->getIdentifier() === 'CLASS') {
+        } catch (AclNotFoundException $e) {
+            if ($oid->getIdentifier() === 'CLASS') {
                 throw $e;
             }
             $new = new ObjectIdentity('CLASS', $oid->getType());
@@ -155,7 +158,9 @@ class AclProvider implements AclProviderInterface
                             $parentOid = $parentAcl->getObjectIdentity();
 
                             if (isset($this->loadedAcls[$parentOid->getType()][$parentOid->getIdentifier()])) {
-                                $acl->setParentAcl($this->loadedAcls[$parentOid->getType()][$parentOid->getIdentifier()]);
+                                $acl->setParentAcl(
+                                    $this->loadedAcls[$parentOid->getType()][$parentOid->getIdentifier()]
+                                );
                                 break;
                             } else {
                                 $this->loadedAcls[$parentOid->getType()][$parentOid->getIdentifier()] = $parentAcl;
@@ -191,7 +196,9 @@ class AclProvider implements AclProviderInterface
                     $loadedBatch = $this->lookupObjectIdentities($currentBatch, $sids, $oidLookup);
                 } catch (AclNotFoundException $aclNotFoundException) {
                     if ($result->count()) {
-                        $partialResultException = new NotAllAclsFoundException('The provider could not find ACLs for all object identities.');
+                        $partialResultException = new NotAllAclsFoundException(
+                            'The provider could not find ACLs for all object identities.'
+                        );
                         $partialResultException->setPartialResult($result);
                         throw $partialResultException;
                     } else {
@@ -222,7 +229,9 @@ class AclProvider implements AclProviderInterface
                     throw new AclNotFoundException(sprintf('No ACL found for %s.', $objectName));
                 }
 
-                $partialResultException = new NotAllAclsFoundException('The provider could not find ACLs for all object identities.');
+                $partialResultException = new NotAllAclsFoundException(
+                    'The provider could not find ACLs for all object identities.'
+                );
                 $partialResultException->setPartialResult($result);
 
                 throw $partialResultException;
@@ -266,7 +275,8 @@ class AclProvider implements AclProviderInterface
                 {$this->options['oid_table_name']} o
             INNER JOIN {$this->options['class_table_name']} c ON c.id = o.class_id
             LEFT JOIN {$this->options['entry_table_name']} e ON (
-                e.class_id = o.class_id AND (e.object_identity_id = o.id OR {$this->connection->getDatabasePlatform()->getIsNullExpression('e.object_identity_id')})
+                e.class_id = o.class_id AND (e.object_identity_id = o.id OR {$this->connection->getDatabasePlatform(
+        )->getIsNullExpression('e.object_identity_id')})
             )
             LEFT JOIN {$this->options['sid_table_name']} s ON (
                 s.id = e.security_identity_id
@@ -542,27 +552,27 @@ QUERY;
         // but it is faster
         foreach ($stmt->fetchAll(\PDO::FETCH_NUM) as $data) {
             list($aclId,
-                 $objectIdentifier,
-                 $parentObjectIdentityId,
-                 $entriesInheriting,
-                 $classType,
-                 $aceId,
-                 $objectIdentityId,
-                 $fieldName,
-                 $aceOrder,
-                 $mask,
-                 $granting,
-                 $grantingStrategy,
-                 $auditSuccess,
-                 $auditFailure,
-                 $username,
-                 $securityIdentifier) = array_values($data);
+                $objectIdentifier,
+                $parentObjectIdentityId,
+                $entriesInheriting,
+                $classType,
+                $aceId,
+                $objectIdentityId,
+                $fieldName,
+                $aceOrder,
+                $mask,
+                $granting,
+                $grantingStrategy,
+                $auditSuccess,
+                $auditFailure,
+                $username,
+                $securityIdentifier) = array_values($data);
 
             // has the ACL been hydrated during this hydration cycle?
             if (isset($acls[$aclId])) {
                 $acl = $acls[$aclId];
-            // has the ACL been hydrated during any previous cycle, or was possibly loaded
-            // from cache?
+                // has the ACL been hydrated during any previous cycle, or was possibly loaded
+                // from cache?
             } elseif (isset($loadedAcls[$classType][$objectIdentifier])) {
                 $acl = $loadedAcls[$classType][$objectIdentifier];
 
@@ -577,7 +587,7 @@ QUERY;
                     $oidCache[$oidCacheKey] = $acl->getObjectIdentity();
                 }
                 $result->attach($oidCache[$oidCacheKey], $acl);
-            // so, this hasn't been hydrated yet
+                // so, this hasn't been hydrated yet
             } else {
                 // create object identity if we haven't done so yet
                 $oidLookupKey = $objectIdentifier.$classType;
@@ -585,7 +595,13 @@ QUERY;
                     $oidCache[$oidLookupKey] = new ObjectIdentity($objectIdentifier, $classType);
                 }
 
-                $acl = new Acl((int) $aclId, $oidCache[$oidLookupKey], $permissionGrantingStrategy, $emptyArray, !!$entriesInheriting);
+                $acl = new Acl(
+                    (int) $aclId,
+                    $oidCache[$oidLookupKey],
+                    $permissionGrantingStrategy,
+                    $emptyArray,
+                    !!$entriesInheriting
+                );
 
                 // keep a local, and global reference to this ACL
                 $loadedAcls[$classType][$objectIdentifier] = $acl;
@@ -616,10 +632,9 @@ QUERY;
                 // some ACEs are shared between ACL instances
                 if (!isset($loadedAces[$aceId])) {
                     if (!isset($sids[$key = ($username ? '1' : '0').$securityIdentifier])) {
-                        if(JournalRoleSecurityIdentity::determine($securityIdentifier)){
+                        if (JournalRoleSecurityIdentity::determine($securityIdentifier)) {
                             $sids[$key] = JournalRoleSecurityIdentity::fromIdentifier($securityIdentifier);
-                        }
-                        else if ($username) {
+                        } elseif ($username) {
                             $sids[$key] = new UserSecurityIdentity(
                                 substr($securityIdentifier, 1 + $pos = strpos($securityIdentifier, '-')),
                                 substr($securityIdentifier, 0, $pos)
@@ -630,9 +645,28 @@ QUERY;
                     }
 
                     if (null === $fieldName) {
-                        $loadedAces[$aceId] = new Entry((int) $aceId, $acl, $sids[$key], $grantingStrategy, (int) $mask, !!$granting, !!$auditFailure, !!$auditSuccess);
+                        $loadedAces[$aceId] = new Entry(
+                            (int) $aceId,
+                            $acl,
+                            $sids[$key],
+                            $grantingStrategy,
+                            (int) $mask,
+                            !!$granting,
+                            !!$auditFailure,
+                            !!$auditSuccess
+                        );
                     } else {
-                        $loadedAces[$aceId] = new FieldEntry((int) $aceId, $acl, $fieldName, $sids[$key], $grantingStrategy, (int) $mask, !!$granting, !!$auditFailure, !!$auditSuccess);
+                        $loadedAces[$aceId] = new FieldEntry(
+                            (int) $aceId,
+                            $acl,
+                            $fieldName,
+                            $sids[$key],
+                            $grantingStrategy,
+                            (int) $mask,
+                            !!$granting,
+                            !!$auditFailure,
+                            !!$auditSuccess
+                        );
                     }
                 }
                 $ace = $loadedAces[$aceId];

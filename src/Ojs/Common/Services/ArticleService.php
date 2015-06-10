@@ -3,11 +3,12 @@
 namespace Ojs\Common\Services;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\Common\Model\Meta;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleFile;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Ojs\JournalBundle\Entity\ArticleFileRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Ojs\Common\Model\Meta;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Common methods for article
@@ -58,12 +59,30 @@ class ArticleService
             $meta->meta('DC.Source.URI', $this->journalService->generateUrl($article->getJournal()));
             !is_null($article->getIssue()) && $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
 
-            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.created', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.dateSubmitted', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.issued', $article->getPubdate()->format('Y-m-d')); //scheme="ISO8601"
-            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.modified', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-            !is_null($article->getPubdate()) && $meta->rawMeta('article:modified_time', '<meta content="'.$article->getPubdate()->format('Y-m-d').'" property="article:modified_time"/>');
-            !is_null($article->getPubdate()) && $meta->rawMeta('article:publish_time', '<meta content="'.$article->getPubdate()->format('Y-m-d').'" property="article:publish_time"/>');
+            !is_null($article->getPubdate()) && $meta->rawMeta(
+                'DC.Date.created',
+                $article->getPubdate()->format('Y-m-d')
+            ); // scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta(
+                'DC.Date.dateSubmitted',
+                $article->getPubdate()->format('Y-m-d')
+            ); // scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta(
+                'DC.Date.issued',
+                $article->getPubdate()->format('Y-m-d')
+            ); //scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta(
+                'DC.Date.modified',
+                $article->getPubdate()->format('Y-m-d')
+            ); // scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta(
+                'article:modified_time',
+                '<meta content="'.$article->getPubdate()->format('Y-m-d').'" property="article:modified_time"/>'
+            );
+            !is_null($article->getPubdate()) && $meta->rawMeta(
+                'article:publish_time',
+                '<meta content="'.$article->getPubdate()->format('Y-m-d').'" property="article:publish_time"/>'
+            );
             $meta->rawMeta('og:url', '<meta content="'.$this->generateUrl($article).'" property="og:url"/>');
             $meta->rawMeta('og:title', '<meta content="'.$article->getTitle().'" property="og:title"/>');
             $meta->rawMeta('og:type', '<meta content="article" property="og:type"/>');
@@ -111,9 +130,9 @@ class ArticleService
      */
     public function getFullTextFiles(Article $article)
     {
-        $files = $this->em
-                ->getRepository('OjsJournalBundle:ArticleFile')
-                ->getArticleFullTextFiles($article->getId());
+        /** @var ArticleFileRepository $repo */
+        $repo = $this->em->getRepository('OjsJournalBundle:ArticleFile');
+        $files = $repo->getArticleFullTextFiles($article->getId());
 
         return $files;
     }

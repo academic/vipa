@@ -2,23 +2,23 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('role'),'title': 'role'|trans},
-        {'title': 'list'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('role'),'title': 'role'|trans},
+    {'title': 'list'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<div class="col-md-12">
-    <div class="panel">
-        <h1>{{ "role.list"|trans }}</h1>
-        {% include '::flashbag.html.twig' %}
-        {{ grid(grid) }}
-        {% if is_granted('CREATE', getEntity('OjsUserBundle:Role')) %}
-            {% set create_path = 'role_new' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
+    <div class="col-md-12">
+        <div class="panel">
+            <h1>{{ "role.list"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+            {{ grid(grid) }}
+            {% if is_granted('CREATE', getEntity('OjsUserBundle:Role')) %}
+                {% set create_path = 'role_new' %}
+            {% endif %}
+            {% include '::actionbuttons.html.twig' %}
+        </div>
     </div>
-</div>
-    {% endblock %}
+{% endblock %}

@@ -19,6 +19,7 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
      * @var integer
      */
     private $journal;
+
     /**
      * @param $journal
      * @param $role
@@ -35,7 +36,7 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
             $journal = $journal->getId();
         }
         if ($role instanceof Role) {
-            $role = (string)$role;
+            $role = (string) $role;
         }
         $this->journal = $journal;
         $this->role = $role;

@@ -3,10 +3,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('institution_application'),'title': 'application.institute'|trans},
-        {'title': 'show'|trans},
-        {'title': entity.name}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('institution_application'),'title': 'application.institute'|trans},
+    {'title': 'show'|trans},
+    {'title': entity.name}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -33,7 +33,7 @@
                 <tr>
                     <th>{{ "institute.name"|trans }}</th>
                     <td>{{ entity.name }}</td>
-                    </tr>
+                </tr>
                 <tr>
                     <th>{{ 'institution.slug'|trans }}</th>
                     <td>{{ entity.slug }}</td>
@@ -95,7 +95,8 @@
                     <td>{{ entity.user|user }}</td>
                 </tr>
             </table>
-            <a class="btn btn-primary" href="{{ url('application_institution_saveasnew',{id: entity.id}) }}">{{ "institute.merge_as_new_institute"|trans }}</a>
+            <a class="btn btn-primary"
+               href="{{ url('application_institution_saveasnew',{id: entity.id}) }}">{{ "institute.merge_as_new_institute"|trans }}</a>
         </div>
     </div>
 {% endblock %}

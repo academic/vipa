@@ -66,58 +66,6 @@ class Meta
      * @param  string $value
      * @return string
      */
-    public function meta($key, $value = null)
-    {
-        return $this->set($key, $value);
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
-    public function rawMeta($key, $value = null)
-    {
-        return $this->setRaw($key, $value);
-    }
-
-    /**
-     * @param  string $key
-     * @return string
-     */
-    public function get($key)
-    {
-        if (empty($this->metas[$key])) {
-            return;
-        }
-
-        return $this->metas[$key];
-    }
-
-    public function getRaw($key)
-    {
-        if (empty($this->rawMetas[$key])) {
-            return;
-        }
-
-        return $this->rawMetas[$key];
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
-    public function setRaw($key, $value = null)
-    {
-        return $this->rawMetas[$key] = $value;
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
     public function set($key, $value = null)
     {
         if (is_array($value)) {
@@ -134,96 +82,6 @@ class Meta
         }
 
         return $this->metas[$key] = self::cut($value, $key);
-    }
-
-    public function tagRaw($key)
-    {
-        return isset($this->rawMetas[$key]) ? $this->rawMetas[$key] : null;
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
-    public function tag($key, $value = null)
-    {
-        if (($value === null) && empty($this->metas[$key])) {
-            return '';
-        }
-
-        $method = 'tag'.ucfirst($key);
-
-        if (method_exists($this, $method)) {
-            return $this->$method($value);
-        }
-
-        return $this->tagDefault($key, $value);
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
-    private function tagDefault($key, $value = null)
-    {
-        return $this->tagMetaName($key, $value).$this->tagString('property', $key, $value);
-    }
-
-    /**
-     * @param  mixed  $images
-     * @return string
-     */
-    public function tagImage($images = null)
-    {
-        $html = '';
-
-        foreach ((array) ($images ?: $this->metas['image']) as $image) {
-            $html .= $this->tagDefault('image', $image)
-                    .'<link rel="image_src" href="'.$image.'" />';
-        }
-
-        return $html;
-    }
-
-    /**
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
-    public function tagMetaName($key, $value = null)
-    {
-        $metaString = '';
-        if (is_array($value)) {
-            foreach ($value as $item) {
-                $metaString .= $this->tagString('name', $key, $item);
-            }
-        } else {
-            $metaString = $this->tagString('name', $key, $value);
-        }
-
-        return $metaString;
-    }
-
-    /**
-     * @param  string $name
-     * @param  string $key
-     * @param  string $value
-     * @return string
-     */
-    private function tagString($name, $key, $value = null)
-    {
-        $metaStr = '';
-        if (isset($this->metas[$key]) && is_array($this->metas[$key])) {
-            foreach ($this->metas[$key] as $item) {
-                $metaStr .= '<meta '.$name.'="'.$key.'" content="'.$item.'" />';
-            }
-        } else {
-            $metaStr = '<meta '.$name.'="'.$key.'" content="'.($value ?: $this->metas[$key]).'" />';
-        }
-
-        return $metaStr;
     }
 
     /**
@@ -266,5 +124,147 @@ class Meta
         }
 
         return $text.'...';
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function meta($key, $value = null)
+    {
+        return $this->set($key, $value);
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function rawMeta($key, $value = null)
+    {
+        return $this->setRaw($key, $value);
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function setRaw($key, $value = null)
+    {
+        return $this->rawMetas[$key] = $value;
+    }
+
+    /**
+     * @param  string $key
+     * @return string
+     */
+    public function get($key)
+    {
+        if (empty($this->metas[$key])) {
+            return;
+        }
+
+        return $this->metas[$key];
+    }
+
+    public function getRaw($key)
+    {
+        if (empty($this->rawMetas[$key])) {
+            return;
+        }
+
+        return $this->rawMetas[$key];
+    }
+
+    public function tagRaw($key)
+    {
+        return isset($this->rawMetas[$key]) ? $this->rawMetas[$key] : null;
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function tag($key, $value = null)
+    {
+        if (($value === null) && empty($this->metas[$key])) {
+            return '';
+        }
+
+        $method = 'tag'.ucfirst($key);
+
+        if (method_exists($this, $method)) {
+            return $this->$method($value);
+        }
+
+        return $this->tagDefault($key, $value);
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    private function tagDefault($key, $value = null)
+    {
+        return $this->tagMetaName($key, $value).$this->tagString('property', $key, $value);
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function tagMetaName($key, $value = null)
+    {
+        $metaString = '';
+        if (is_array($value)) {
+            foreach ($value as $item) {
+                $metaString .= $this->tagString('name', $key, $item);
+            }
+        } else {
+            $metaString = $this->tagString('name', $key, $value);
+        }
+
+        return $metaString;
+    }
+
+    /**
+     * @param  string $name
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    private function tagString($name, $key, $value = null)
+    {
+        $metaStr = '';
+        if (isset($this->metas[$key]) && is_array($this->metas[$key])) {
+            foreach ($this->metas[$key] as $item) {
+                $metaStr .= '<meta '.$name.'="'.$key.'" content="'.$item.'" />';
+            }
+        } else {
+            $metaStr = '<meta '.$name.'="'.$key.'" content="'.($value ?: $this->metas[$key]).'" />';
+        }
+
+        return $metaStr;
+    }
+
+    /**
+     * @param  mixed  $images
+     * @return string
+     */
+    public function tagImage($images = null)
+    {
+        $html = '';
+
+        foreach ((array) ($images ?: $this->metas['image']) as $image) {
+            $html .= $this->tagDefault('image', $image)
+                .'<link rel="image_src" href="'.$image.'" />';
+        }
+
+        return $html;
     }
 }

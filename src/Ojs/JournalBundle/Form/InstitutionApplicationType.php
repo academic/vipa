@@ -29,7 +29,7 @@ class InstitutionApplicationType extends AbstractType
             'countries' => [],
         ];
         foreach ($institutionTypes as $choice) {
-            /** @var InstitutionTypes $choice*/
+            /** @var InstitutionTypes $choice */
             $choices['types'][$choice->getId()] = $choice->getName();
         }
         $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type' => 0]);
@@ -40,10 +40,14 @@ class InstitutionApplicationType extends AbstractType
         $builder
             ->add('name', null, ['label' => 'institution.name'])
             ->add('slug', null, ['label' => 'institution.slug'])
-            ->add('type', 'choice', [
-                'label' => 'institution.type',
-                'choices' => $choices['types'],
-            ])
+            ->add(
+                'type',
+                'choice',
+                [
+                    'label' => 'institution.type',
+                    'choices' => $choices['types'],
+                ]
+            )
             ->add('about', null, ['label' => 'institution.about'])
             ->add('address', null, ['label' => 'institution.address'])
             ->add('lat', null, ['label' => 'institution.lat'])
@@ -56,14 +60,18 @@ class InstitutionApplicationType extends AbstractType
             ->add('tags', null, ['label' => 'institution.tags'])
             ->add('logo_image', 'hidden')
             ->add('header_image', 'hidden')
-            ->add('country', 'choice', [
-                'choices' => $choices['countries'],
-                'attr' => [
-                    'label' => 'institution.country',
-                    'class' => 'select2-element  bridged-dropdown',
-                    'data-to' => '#'.$this->getName().'_city',
-                ],
-            ]);
+            ->add(
+                'country',
+                'choice',
+                [
+                    'choices' => $choices['countries'],
+                    'attr' => [
+                        'label' => 'institution.country',
+                        'class' => 'select2-element  bridged-dropdown',
+                        'data-to' => '#'.$this->getName().'_city',
+                    ],
+                ]
+            );
         $helper->addCityField($builder, 'Ojs\JournalBundle\Document\InstitutionApplication', true);
     }
 
@@ -72,14 +80,17 @@ class InstitutionApplicationType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Document\InstitutionApplication',
-            'em' => null,
-            'helper' => null,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Document\InstitutionApplication',
+                'em' => null,
+                'helper' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

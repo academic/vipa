@@ -18,12 +18,12 @@ var okulbilisimlocation = {
         })
     },
     getCities: function (country) {
-        var cities='';
+        var cities = '';
         $.ajax({
-            url: '/location/cities/'+country,
+            url: '/location/cities/' + country,
             dataType: 'json',
             method: 'GET',
-            success: function(d){
+            success: function (d) {
                 cities = d;
             },
             async: false

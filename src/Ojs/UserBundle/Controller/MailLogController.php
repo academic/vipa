@@ -2,15 +2,15 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\MailLog;
 use Ojs\UserBundle\Form\MailLogType;
-use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -24,7 +24,7 @@ class MailLogController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new MailLog())) {
+        if (!$this->isGranted('VIEW', new MailLog())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsUserBundle:MailLog');
@@ -32,7 +32,7 @@ class MailLogController extends Controller
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        
+
         $rowAction[] = $gridAction->showAction('admin_maillog_show', 'id');
         $rowAction[] = $gridAction->editAction('admin_maillog_edit', 'id');
         $rowAction[] = $gridAction->deleteAction('admin_maillog_delete', 'id');
@@ -40,6 +40,7 @@ class MailLogController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsUserBundle:MailLog:index.html.twig', $data);
     }
 
@@ -51,7 +52,7 @@ class MailLogController extends Controller
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new MailLog())) {
+        if (!$this->isGranted('CREATE', new MailLog())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new MailLog();
@@ -67,10 +68,13 @@ class MailLogController extends Controller
             return $this->redirect($this->generateUrl('admin_maillog_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsUserBundle:MailLog:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:MailLog:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -81,10 +85,14 @@ class MailLogController extends Controller
      */
     private function createCreateForm(MailLog $entity)
     {
-        $form = $this->createForm(new MailLogType(), $entity, array(
-            'action' => $this->generateUrl('admin_maillog_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new MailLogType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_maillog_create'),
+                'method' => 'POST',
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -97,50 +105,61 @@ class MailLogController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new MailLog())) {
+        if (!$this->isGranted('CREATE', new MailLog())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new MailLog();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsUserBundle:MailLog:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:MailLog:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Finds and displays a MailLog entity.
-     * @param MailLog $entity
+     * @param  MailLog  $entity
      * @return Response
      */
     public function showAction(MailLog $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        return $this->render('OjsUserBundle:MailLog:show.html.twig', array(
-            'entity' => $entity,
-        ));
+
+        return $this->render(
+            'OjsUserBundle:MailLog:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
      * Displays a form to edit an existing MailLog entity.
-     * @param MailLog $entity
+     * @param  MailLog  $entity
      * @return Response
      */
     public function editAction(MailLog $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjsUserBundle:MailLog:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+
+        return $this->render(
+            'OjsUserBundle:MailLog:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -150,10 +169,14 @@ class MailLogController extends Controller
      */
     private function createEditForm(MailLog $entity)
     {
-        $form = $this->createForm(new MailLogType(), $entity, array(
-            'action' => $this->generateUrl('admin_maillog_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new MailLogType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_maillog_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
@@ -161,14 +184,14 @@ class MailLogController extends Controller
 
     /**
      * Edits an existing MailLog entity.
-     * @param Request $request
-     * @param MailLog $entity
+     * @param  Request                   $request
+     * @param  MailLog                   $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, MailLog $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -177,29 +200,35 @@ class MailLogController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('admin_maillog_edit', ['id' => $entity->getId()]);
         }
-        return $this->render('OjsUserBundle:MailLog:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+
+        return $this->render(
+            'OjsUserBundle:MailLog:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
      * Deletes a MailLog entity.
-     * @param MailLog $entity
+     * @param  MailLog          $entity
      * @return RedirectResponse
      */
     public function deleteAction(MailLog $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('admin_maillog'));
     }
 }

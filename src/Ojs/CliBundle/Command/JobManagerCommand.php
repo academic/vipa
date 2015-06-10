@@ -13,11 +13,10 @@ class JobManagerCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:jobqueue:add')
-                ->setDescription('Add a new job to queue')
-                ->addArgument('action', InputArgument::OPTIONAL, 'app/console command')
-                ->addArgument('options', InputArgument::IS_ARRAY, 'options')
-        ;
+            ->setName('ojs:jobqueue:add')
+            ->setDescription('Add a new job to queue')
+            ->addArgument('action', InputArgument::OPTIONAL, 'app/console command')
+            ->addArgument('options', InputArgument::IS_ARRAY, 'options');
     }
 
     /**

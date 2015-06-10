@@ -4,163 +4,163 @@
 {% block title %}{{ "title.people_directory"|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': 'title.home'|trans},
-        {'title': 'title.people_directory'|trans}
+    {'link': path('ojs_public_index'), 'title': 'title.home'|trans},
+    {'title': 'title.people_directory'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body %}
-<div class="text-center">
-    <ul class="pagination">
-        {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-    </ul>
-</div>
-<div class="container">
-    <div class="col-sm-3">
-        <div class="panel-group">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><h4>{{ 'subjects'|trans }}</h4></div>
-                <ul class="list-group">
-                    {% for subject in subjects %}
-                        <li class="list-group-item">
-                            {% if subject_filters is empty %}
-                                {% set parameter = subject.key %}
-                                <a href="{{ path('people_index', {
-                                    subject_filters: subject.key,
-                                    role_filters: app.request.get('role_filters'),
-                                    journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
-                            {% else %}
-                                {% if subject.key in subject_filters %}
-                                    {% set parameter = subject_filters|pop(subject.key) %}
-                                    {{ subject.key }}
+    <div class="text-center">
+        <ul class="pagination">
+            {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+        </ul>
+    </div>
+    <div class="container">
+        <div class="col-sm-3">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>{{ 'subjects'|trans }}</h4></div>
+                    <ul class="list-group">
+                        {% for subject in subjects %}
+                            <li class="list-group-item">
+                                {% if subject_filters is empty %}
+                                    {% set parameter = subject.key %}
                                     <a href="{{ path('people_index', {
-                                        subject_filters: parameter|join(','),
-                                        role_filters: app.request.get('role_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">
-                                        <span class="label label-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </span>
-                                    </a>
-                                {% else %}
-                                    {% set parameter = subject_filters|merge([subject.key]) %}
-                                    <a href="{{ path('people_index', {
-                                        subject_filters: parameter|join(','),
+                                        subject_filters: subject.key,
                                         role_filters: app.request.get('role_filters'),
                                         journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
-                                {% endif %}
-                            {% endif %}
-                            <span class="badge">{{ subject.doc_count }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="panel panel-primary">
-                <div class="panel-heading"><h4>{{ 'journals'|trans }}</h4></div>
-                <ul class="list-group">
-                    {% for journal in journals %}
-                        <li class="list-group-item">
-                            {% if journal_filters is empty %}
-                                {% set parameter = journal.key %}
-                                <a href="{{ path('people_index', {
-                                    journal_filters: journal.key,
-                                    role_filters: app.request.get('role_filters'),
-                                    subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
-                            {% else %}
-                                {% if journal.key in journal_filters %}
-                                    {% set parameter = journal_filters|pop(journal.key) %}
-                                    {{ journal.key }}
-                                    <a href="{{ path('people_index', {
-                                        journal_filters: parameter|join(','),
-                                        role_filters: app.request.get('role_filters'),
-                                        subject_filters: app.request.get('subject_filters')}) }}">
+                                {% else %}
+                                    {% if subject.key in subject_filters %}
+                                        {% set parameter = subject_filters|pop(subject.key) %}
+                                        {{ subject.key }}
+                                        <a href="{{ path('people_index', {
+                                            subject_filters: parameter|join(','),
+                                            role_filters: app.request.get('role_filters'),
+                                            journal_filters: app.request.get('journal_filters')}) }}">
                                         <span class="label label-danger">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </span>
-                                    </a>
-                                {% else %}
-                                    {% set parameter = journal_filters|merge([journal.key]) %}
+                                        </a>
+                                    {% else %}
+                                        {% set parameter = subject_filters|merge([subject.key]) %}
+                                        <a href="{{ path('people_index', {
+                                            subject_filters: parameter|join(','),
+                                            role_filters: app.request.get('role_filters'),
+                                            journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                    {% endif %}
+                                {% endif %}
+                                <span class="badge">{{ subject.doc_count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>{{ 'journals'|trans }}</h4></div>
+                    <ul class="list-group">
+                        {% for journal in journals %}
+                            <li class="list-group-item">
+                                {% if journal_filters is empty %}
+                                    {% set parameter = journal.key %}
                                     <a href="{{ path('people_index', {
-                                        journal_filters: parameter|join(','),
+                                        journal_filters: journal.key,
                                         role_filters: app.request.get('role_filters'),
                                         subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
-                                {% endif %}
-                            {% endif %}
-                            <span class="badge">{{ journal.doc_count }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="panel panel-primary">
-                <div class="panel-heading"><h4>{{ 'roles'|trans }}</h4></div>
-                <ul class="list-group">
-                    {% for role in roles %}
-                        <li class="list-group-item">
-                            {% if role_filters is empty %}
-                                {% set parameter = role.key %}
-                                <a href="{{ path('people_index', {
-                                    role_filters: role.key,
-                                    subject_filters: app.request.get('subject_filters'),
-                                    journal_filters: app.request.get('journal_filters') }) }}">{{ role.key|trans }}</a>
-                            {% else %}
-                                {% if role.key in role_filters %}
-                                    {% set parameter = role_filters|pop(role.key) %}
-                                    {{ role.key|trans }}
-                                    <a href="{{ path('people_index', {
-                                        role_filters: parameter|join(','),
-                                        subject_filters: app.request.get('subject_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">
+                                {% else %}
+                                    {% if journal.key in journal_filters %}
+                                        {% set parameter = journal_filters|pop(journal.key) %}
+                                        {{ journal.key }}
+                                        <a href="{{ path('people_index', {
+                                            journal_filters: parameter|join(','),
+                                            role_filters: app.request.get('role_filters'),
+                                            subject_filters: app.request.get('subject_filters')}) }}">
                                         <span class="label label-danger">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </span>
-                                    </a>
-                                {% else %}
-                                    {% set parameter = role_filters|merge([role.key]) %}
-                                    <a href="{{ path('people_index', {
-                                        role_filters: parameter|join(','),
-                                        subject_filters: app.request.get('subject_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">{{ role.key|trans }}</a>
+                                        </a>
+                                    {% else %}
+                                        {% set parameter = journal_filters|merge([journal.key]) %}
+                                        <a href="{{ path('people_index', {
+                                            journal_filters: parameter|join(','),
+                                            role_filters: app.request.get('role_filters'),
+                                            subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                            <span class="badge">{{ role.doc_count }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
+                                <span class="badge">{{ journal.doc_count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>{{ 'roles'|trans }}</h4></div>
+                    <ul class="list-group">
+                        {% for role in roles %}
+                            <li class="list-group-item">
+                                {% if role_filters is empty %}
+                                    {% set parameter = role.key %}
+                                    <a href="{{ path('people_index', {
+                                        role_filters: role.key,
+                                        subject_filters: app.request.get('subject_filters'),
+                                        journal_filters: app.request.get('journal_filters') }) }}">{{ role.key|trans }}</a>
+                                {% else %}
+                                    {% if role.key in role_filters %}
+                                        {% set parameter = role_filters|pop(role.key) %}
+                                        {{ role.key|trans }}
+                                        <a href="{{ path('people_index', {
+                                            role_filters: parameter|join(','),
+                                            subject_filters: app.request.get('subject_filters'),
+                                            journal_filters: app.request.get('journal_filters')}) }}">
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                        </a>
+                                    {% else %}
+                                        {% set parameter = role_filters|merge([role.key]) %}
+                                        <a href="{{ path('people_index', {
+                                            role_filters: parameter|join(','),
+                                            subject_filters: app.request.get('subject_filters'),
+                                            journal_filters: app.request.get('journal_filters')}) }}">{{ role.key|trans }}</a>
+                                    {% endif %}
+                                {% endif %}
+                                <span class="badge">{{ role.doc_count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-9">
-    {% for person in people %}
-        <div class="well col-sm-3" style="height: 20em; margin: 0 0 10px 10px;">
-            <div class="text-center">
-                <a href="/@{{ person.username }}" class="thumbnail">
-                    <img class="img-circle"
-                         src="{{ person.avatar is defined ? '/uploads/avatarfiles/' ~ imagePath(person.avatar) : '#' }}"
-                         alt="{{ person.username|default('image'|trans) }}"
-                         data-src="holder.js/100x100/random"
-                         style="width: 100px; height: 100px;">
-                </a>
+        <div class="col-sm-9">
+            {% for person in people %}
+                <div class="well col-sm-3" style="height: 20em; margin: 0 0 10px 10px;">
+                    <div class="text-center">
+                        <a href="/@{{ person.username }}" class="thumbnail">
+                            <img class="img-circle"
+                                 src="{{ person.avatar is defined ? '/uploads/avatarfiles/' ~ imagePath(person.avatar) : '#' }}"
+                                 alt="{{ person.username|default('image'|trans) }}"
+                                 data-src="holder.js/100x100/random"
+                                 style="width: 100px; height: 100px;">
+                        </a>
 
-                <h3>
-                    <a href="/@{{ person.username|default('') }}">
-                    {% if person.firstName is defined and person.lastName is defined  %}
-                        {{ person.firstName|default('') }} {{ person.lastName|default('') }}
-                    {% else %}
-                        {{ person.username }}
-                    {% endif %}
-                    </a>
-                </h3>
-            </div>
+                        <h3>
+                            <a href="/@{{ person.username|default('') }}">
+                                {% if person.firstName is defined and person.lastName is defined %}
+                                    {{ person.firstName|default('') }} {{ person.lastName|default('') }}
+                                {% else %}
+                                    {{ person.username }}
+                                {% endif %}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
     </div>
-</div>
-<div class="text-center">
-    <ul class="pagination">
-        {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-    </ul>
-</div>
+    <div class="text-center">
+        <ul class="pagination">
+            {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+        </ul>
+    </div>
 {% endblock %}

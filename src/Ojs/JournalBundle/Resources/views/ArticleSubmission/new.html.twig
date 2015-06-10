@@ -253,23 +253,33 @@
     <script id="step2_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
 
+
+
     </script>
 
     <script id="step3_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
+
+
 
     </script>
 
     <script id="step4_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
 
+
+
     </script>
     <script id="step3_cite_item_must_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}
 
+
+
     </script>
     <script id="step3_cite_item_should_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}
+
+
 
     </script>
 
@@ -311,8 +321,8 @@
             }
         });
         $(document).ready(function () {
-            $('.submission-progress>li>a').click(function(event){
-                window.location.hash.replace(/^#/,$(this).prop('href'));
+            $('.submission-progress>li>a').click(function (event) {
+                window.location.hash.replace(/^#/, $(this).prop('href'));
                 event.preventDefault();
             })
             OjsArticleSubmission.setupUi();

@@ -2,17 +2,18 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\Common\Params\ArticleParams;
 use Ojs\UserBundle\Entity\UserArticleRole;
-use APY\DataGridBundle\Grid\Mapping as GRID;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+
 /**
  * Article
  * @JMS\ExclusionPolicy("all")

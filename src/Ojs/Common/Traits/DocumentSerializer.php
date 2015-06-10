@@ -26,30 +26,6 @@ trait DocumentSerializer
     }
 
     /**
-     * Convert Doctrine\ODM Document to Array
-     *
-     * @return string
-     */
-    public function toJSON()
-    {
-        $document = $this->toStdClass();
-
-        return json_encode($document);
-    }
-
-    /**
-     * Set properties to ignore when serializing
-     *
-     * @example  $this->setIgnoredFields(array('createdDate', 'secretFlag'));
-     *
-     * @param array $fields
-     */
-    public function setIgnoredFields(array $fields)
-    {
-        $this->_ignoreFields = $fields;
-    }
-
-    /**
      * Convert Doctrine\ODM Document to plain simple stdClass
      *
      * @return \stdClass
@@ -112,5 +88,29 @@ trait DocumentSerializer
         } else {
             return 'Not formatted in DocumentSerializer: '.get_class($value);
         }
+    }
+
+    /**
+     * Convert Doctrine\ODM Document to Array
+     *
+     * @return string
+     */
+    public function toJSON()
+    {
+        $document = $this->toStdClass();
+
+        return json_encode($document);
+    }
+
+    /**
+     * Set properties to ignore when serializing
+     *
+     * @example  $this->setIgnoredFields(array('createdDate', 'secretFlag'));
+     *
+     * @param array $fields
+     */
+    public function setIgnoredFields(array $fields)
+    {
+        $this->_ignoreFields = $fields;
     }
 }

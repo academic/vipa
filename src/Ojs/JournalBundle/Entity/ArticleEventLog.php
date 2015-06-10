@@ -35,7 +35,7 @@ class ArticleEventLog
     /**
      *
      */
-    function __construct()
+    public function __construct()
     {
         $this->eventDate = new \DateTime();
     }
@@ -48,6 +48,16 @@ class ArticleEventLog
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get eventInfo
+     *
+     * @return string
+     */
+    public function getEventInfo()
+    {
+        return $this->eventInfo;
     }
 
     /**
@@ -64,13 +74,13 @@ class ArticleEventLog
     }
 
     /**
-     * Get eventInfo
+     * Get eventDate
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getEventInfo()
+    public function getEventDate()
     {
-        return $this->eventInfo;
+        return $this->eventDate;
     }
 
     /**
@@ -87,13 +97,13 @@ class ArticleEventLog
     }
 
     /**
-     * Get eventDate
+     * Get ip
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getEventDate()
+    public function getIp()
     {
-        return $this->eventDate;
+        return $this->ip;
     }
 
     /**
@@ -110,13 +120,13 @@ class ArticleEventLog
     }
 
     /**
-     * Get ip
+     * Get articleId
      *
-     * @return string
+     * @return integer
      */
-    public function getIp()
+    public function getArticleId()
     {
-        return $this->ip;
+        return $this->articleId;
     }
 
     /**
@@ -130,15 +140,5 @@ class ArticleEventLog
         $this->articleId = $articleId;
 
         return $this;
-    }
-
-    /**
-     * Get articleId
-     *
-     * @return integer
-     */
-    public function getArticleId()
-    {
-        return $this->articleId;
     }
 }

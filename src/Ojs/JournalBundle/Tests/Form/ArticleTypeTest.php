@@ -9,8 +9,8 @@ use Ojs\Common\Tests\BaseTypeTestcase;
 
 class ArticleTypeTest extends BaseTypeTestcase
 {
- public function testSubmitValidData()
- {
-     $this->assertTrue(true);
- }
+    public function testSubmitValidData()
+    {
+        $this->assertTrue(true);
+    }
 }

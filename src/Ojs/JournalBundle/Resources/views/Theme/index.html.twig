@@ -2,19 +2,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'theme'|trans},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'theme'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"theme.list"|trans}}</h1>
+    <h1>{{ "theme.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Theme')) %}
         <a href="{{ path('theme_new') }}" class="btn btn-success">
-            {{"c"|trans}}
+            {{ "c"|trans }}
         </a>
     {% endif %}
 {% endblock %}

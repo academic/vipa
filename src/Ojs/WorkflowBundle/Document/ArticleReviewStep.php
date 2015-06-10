@@ -347,7 +347,11 @@ class ArticleReviewStep
      */
     public function setOwnerUser($user)
     {
-        $this->ownerUser = !$user ? null : array('id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail());
+        $this->ownerUser = !$user ? null : array(
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+        );
 
         return $this;
     }

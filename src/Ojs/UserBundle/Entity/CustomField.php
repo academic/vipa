@@ -2,7 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-
 /**
  * CustomField
  */
@@ -49,6 +48,16 @@ class CustomField
     }
 
     /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
      * Set label
      *
      * @param  string      $label
@@ -62,13 +71,13 @@ class CustomField
     }
 
     /**
-     * Get label
+     * Get value
      *
      * @return string
      */
-    public function getLabel()
+    public function getValue()
     {
-        return $this->label;
+        return $this->value;
     }
 
     /**
@@ -85,13 +94,13 @@ class CustomField
     }
 
     /**
-     * Get value
+     * Get is_url
      *
-     * @return string
+     * @return boolean
      */
-    public function getValue()
+    public function getIsUrl()
     {
-        return $this->value;
+        return $this->is_url;
     }
 
     /**
@@ -108,13 +117,13 @@ class CustomField
     }
 
     /**
-     * Get is_url
+     * Get user_id
      *
-     * @return boolean
+     * @return integer
      */
-    public function getIsUrl()
+    public function getUserId()
     {
-        return $this->is_url;
+        return $this->user_id;
     }
 
     /**
@@ -131,29 +140,6 @@ class CustomField
     }
 
     /**
-     * Get user_id
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set user
-     *
-     * @param  User $user
-     * @return CustomField
-     */
-    public function setUser(User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
      * Get user
      *
      * @return User
@@ -161,5 +147,18 @@ class CustomField
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param  User        $user
+     * @return CustomField
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

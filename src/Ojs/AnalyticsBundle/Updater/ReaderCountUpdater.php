@@ -16,10 +16,10 @@ class ReaderCountUpdater extends Updater implements UpdaterInterface
 
     public function count()
     {
-        $readerRole = $this->em->getRepository("OjsUserBundle:Role")->findOneBy(['role'=>'ROLE_READER']);
+        $readerRole = $this->em->getRepository("OjsUserBundle:Role")->findOneBy(['role' => 'ROLE_READER']);
         /** @var UserRepository $ue */
         $ue = $this->em->getRepository('Ojs\UserBundle\Entity\UserJournalRole');
-        $all = $ue->findBy(['roleId'=>$readerRole->getId()]);
+        $all = $ue->findBy(['roleId' => $readerRole->getId()]);
         $journalUsers = [];
         foreach ($all as $r) {
             /** @var UserJournalRole $r */

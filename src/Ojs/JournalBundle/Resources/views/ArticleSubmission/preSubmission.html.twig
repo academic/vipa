@@ -3,13 +3,13 @@
     <div class="panel panel-default">
         <div class="panel-body">
             {% if selectedJournal() %}
-                <div class="col-md-3 col-xs-12"><label> {%trans%}Select journal to submit{%endtrans%}</label></div>
+                <div class="col-md-3 col-xs-12"><label> {% trans %}Select journal to submit{% endtrans %}</label></div>
                 <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
                     <select id="changeSelectedJournal" class="form-control select2-element">
                         {% for journal in userjournals %}
                             <option value="{{ path('change_selected_journal',{'journal_id':journal.id}) }}?submission=1"
-                                    {% if journal.id == selected_journal_id  %}selected="selected" {% endif %}>
-                                {{ journal.title }} {% if journal.id == selected_journal_id  %} {{ "(selected)"|trans }} {% endif %}
+                                    {% if journal.id == selected_journal_id %}selected="selected" {% endif %}>
+                                {{ journal.title }} {% if journal.id == selected_journal_id %} {{ "(selected)"|trans }} {% endif %}
                             </option>
                         {% endfor %}
                     </select>
@@ -17,7 +17,7 @@
             {% endif %}
         </div>
         <div class="panel-heading panel-warning">
-            {{"help.preSubmission.header"|trans|raw}}
+            {{ "help.preSubmission.header"|trans|raw }}
         </div>
 
         {% for item in journal.submissionChecklist %}
@@ -26,11 +26,12 @@
                     <fieldset>
                         <legend>
                             <label for="item_{{ item.id }}">
-                                <input type="checkbox" name="checklistItems[{{ item.id }}]" id="item_{{ item.id }}" {% if item.id in checklist|keys %} checked="checked" {% endif %}/>
+                                <input type="checkbox" name="checklistItems[{{ item.id }}]"
+                                       id="item_{{ item.id }}" {% if item.id in checklist|keys %} checked="checked" {% endif %}/>
                                 {{ item.label |raw }}
                             </label>
                         </legend>
-                        {% if item.detail and item.detail != null%}
+                        {% if item.detail and item.detail != null %}
                             <div style="height: 100px;overflow: scroll">
                                 {{ item.detail|raw }}
                             </div>
@@ -44,9 +45,10 @@
         {% if firstStep and firstStep.shouldFileCi %}
             <div class="panel-body">
                 <fieldset>
-                    <legend>{{"competingOfInterest"|trans}} </legend>
-                    <h4>{{"Guidelines"|trans}}</h4>
-                    <p>{{firstStep.ciText|raw}}</p>
+                    <legend>{{ "competingOfInterest"|trans }} </legend>
+                    <h4>{{ "Guidelines"|trans }}</h4>
+
+                    <p>{{ firstStep.ciText|raw }}</p>
                     <hr>
                     <textarea class="editor form-control" name="competingOfInterest"
                               placeholder="You can write your competing of interest statement.
@@ -58,7 +60,7 @@
     <div class="row">
         <div class="step1_actions record_actions">
             <div class="col-sm-12">
-                <hr />
+                <hr/>
                 <a class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
                    href="{{ path('article_submission_new') }}">
                     <i class="fa fa-repeat"></i>

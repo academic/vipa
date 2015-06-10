@@ -22,7 +22,10 @@ class ArticleType extends AbstractType
         /** @var User $user */
         $user = $options['user'];
         $builder
-                ->add('issue', 'entity', array(
+            ->add(
+                'issue',
+                'entity',
+                array(
                     'label' => 'issue',
                     'class' => 'Ojs\JournalBundle\Entity\Issue',
                     'required' => false,
@@ -33,30 +36,52 @@ class ArticleType extends AbstractType
                             return $qb;
                         }
                         $qb->where(
-                                $qb->expr()->eq('i.journal', ':journal')
+                            $qb->expr()->eq('i.journal', ':journal')
                         )->setParameter('journal', $journal['selected']);
 
                         return $qb;
                     },
-                ))
-                ->add('status', 'choice', array(
+                )
+            )
+            ->add(
+                'status',
+                'choice',
+                array(
                     'label' => 'status',
                     'attr' => array('class' => ' form-control'),
                     'choices' => CommonParams::statusText(),
-                ))
-                ->add('doi', 'text', array(
+                )
+            )
+            ->add(
+                'doi',
+                'text',
+                array(
                     'label' => 'doi',
-                    'required' => false, 'attr' => array('class' => ' form-control'), )
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('otherId', 'text', array(
+            )
+            ->add(
+                'otherId',
+                'text',
+                array(
                     'label' => 'otherid',
-                    'required' => false, 'attr' => array('class' => ' form-control'), )
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('keywords', 'text', array(
+            )
+            ->add(
+                'keywords',
+                'text',
+                array(
                     'label' => 'keywords',
-                    'attr' => array('class' => ' form-control'), )
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('journal', 'entity', array(
+            )
+            ->add(
+                'journal',
+                'entity',
+                array(
                     'label' => 'journal',
                     'attr' => array('class' => ' form-control select2-element'),
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
@@ -68,30 +93,52 @@ class ArticleType extends AbstractType
                         }
 
                         $qb
-                        ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                        ->setParameter('user', $user)
-                        ;
+                            ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                            ->setParameter('user', $user);
 
                         return $qb;
                     },
-                ))
-                ->add('title', 'text', array(
+                )
+            )
+            ->add(
+                'title',
+                'text',
+                array(
                     'label' => 'title',
-                    'attr' => array('class' => ' form-control'), )
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('titleTransliterated', 'text', array(
+            )
+            ->add(
+                'titleTransliterated',
+                'text',
+                array(
                     'label' => 'titleTransliterated',
-                    'required' => false, 'attr' => array('class' => ' form-control'), )
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('subtitle', 'text', array(
+            )
+            ->add(
+                'subtitle',
+                'text',
+                array(
                     'label' => 'subtitle',
-                    'required' => false, 'attr' => array('class' => ' form-control'), )
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('isAnonymous', 'radio', array(
-                    'label' => 'isAnonymous', 'required' => false, )
+            )
+            ->add(
+                'isAnonymous',
+                'radio',
+                array(
+                    'label' => 'isAnonymous',
+                    'required' => false,
                 )
-                ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
-                ->add('pubdate', 'collot_datetime', array(
+            )
+            ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
+            ->add(
+                'pubdate',
+                'collot_datetime',
+                array(
                     'label' => 'pubdate',
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [
@@ -102,50 +149,97 @@ class ArticleType extends AbstractType
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',
                     ],
-                ))
-                ->add('submissionDate', 'collot_datetime', array(
-                        'label' => 'submissionDate',
-                        'date_format' => 'dd-MM-yyyy',
-                        'pickerOptions' => [
-                            'format' => 'dd-mm-yyyy',
-                            'startView' => 'month',
-                            'minView' => 'month',
-                            'todayBtn' => 'true',
-                            'todayHighlight' => 'true',
-                            'autoclose' => 'true',
-                        ],
-                    )
                 )
-                ->add('pubdateSeason', 'text', array(
-                    'label' => 'Pubdateseason', 'required' => false, 'attr' => array('class' => ' form-control'), )
+            )
+            ->add(
+                'submissionDate',
+                'collot_datetime',
+                array(
+                    'label' => 'submissionDate',
+                    'date_format' => 'dd-MM-yyyy',
+                    'pickerOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'startView' => 'month',
+                        'minView' => 'month',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
                 )
-                ->add('part', 'text', array(
-                    'label' => 'part', 'required' => false, 'attr' => array('class' => ' form-control'), )
+            )
+            ->add(
+                'pubdateSeason',
+                'text',
+                array(
+                    'label' => 'Pubdateseason',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('firstPage', 'integer', array('label' => 'first_page', 'required' => false, 'attr' => array('class' => ' form-control'))
+            )
+            ->add(
+                'part',
+                'text',
+                array(
+                    'label' => 'part',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('lastPage', 'integer', array(
-                    'label' => 'last_page', 'required' => false, 'attr' => array('class' => ' form-control'), )
+            )
+            ->add(
+                'firstPage',
+                'integer',
+                array('label' => 'first_page', 'required' => false, 'attr' => array('class' => ' form-control'))
+            )
+            ->add(
+                'lastPage',
+                'integer',
+                array(
+                    'label' => 'last_page',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('uri', 'text', array(
-                    'label' => 'url', 'required' => false, 'attr' => array('class' => ' form-control'), )
+            )
+            ->add(
+                'uri',
+                'text',
+                array(
+                    'label' => 'url',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-                ->add('abstract', 'textarea', array(
-                    'label' => 'abstract', 'required' => false, 'attr' => array('class' => ' form-control wysihtml5'), )
+            )
+            ->add(
+                'abstract',
+                'textarea',
+                array(
+                    'label' => 'abstract',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control wysihtml5'),
                 )
-                ->add('abstractTransliterated', 'textarea', array('label' => 'abstractTransliterated', 'required' => false, 'attr' => array('class' => ' form-control')))
-                ->add('header', 'hidden')
-                ->add('tags', 'text', array(
-                        'label' => 'tags',
-                        'attr' => [
-                            'class' => ' form-control input-xxl',
-                            'data-role' =>  'tagsinputautocomplete',
-                            'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => '/api/public/search/tags'
-                        ]
-                    )
+            )
+            ->add(
+                'abstractTransliterated',
+                'textarea',
+                array(
+                    'label' => 'abstractTransliterated',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
                 )
-        ;
+            )
+            ->add('header', 'hidden')
+            ->add(
+                'tags',
+                'text',
+                array(
+                    'label' => 'tags',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' => 'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => '/api/public/search/tags',
+                    ],
+                )
+            );
     }
 
     /**
@@ -153,14 +247,17 @@ class ArticleType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Article',
-            'journal' => array('all' => false, 'selected' => 0),
-            'user' => null,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Article',
+                'journal' => array('all' => false, 'selected' => 0),
+                'user' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

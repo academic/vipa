@@ -3,20 +3,20 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'issue'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'issue'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"issue.list"|trans}}</h1>
+    <h1>{{ "issue.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     <hr>
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Issue')) %}
-        <a href="{{path('issue_manager_issue_new')}}" class="btn btn-info">
-            <i class="fa fa-plus"></i> {{"create"|trans}}
+        <a href="{{ path('issue_manager_issue_new') }}" class="btn btn-info">
+            <i class="fa fa-plus"></i> {{ "create"|trans }}
         </a>
     {% endif %}
 

@@ -2,15 +2,14 @@
 
 namespace Ojs\UserBundle\Form;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\ORM\EntityRepository;
 
 class NotificationType extends AbstractType
 {
-    /** @var ContainerInterface  */
+    /** @var ContainerInterface */
     private $container;
 
     public function __construct(ContainerInterface $container)
@@ -25,7 +24,10 @@ class NotificationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('sender', 'autocomplete', [
+            ->add(
+                'sender',
+                'autocomplete',
+                [
                     'class' => 'Ojs\UserBundle\Entity\User',
                     'label' => 'Sender User',
                     'attr' => [
@@ -34,8 +36,12 @@ class NotificationType extends AbstractType
                         'data-get' => $this->container->get('router')->generate('ojs_api_homepage').'public/user/get/',
                         "placeholder" => "type a username",
                     ],
-                ])
-                ->add('recipient', 'autocomplete', [
+                ]
+            )
+            ->add(
+                'recipient',
+                'autocomplete',
+                [
                     'class' => 'Ojs\UserBundle\Entity\User',
                     'label' => 'Recipient User',
                     'attr' => [
@@ -44,14 +50,14 @@ class NotificationType extends AbstractType
                         'data-get' => $this->container->get('router')->generate('ojs_api_homepage').'public/user/get/',
                         "placeholder" => "type a username",
                     ],
-                ])
-                ->add('entityId')
-                ->add('entityName')
-                ->add('isRead')
-                ->add('text')
-                ->add('action')
-                ->add('level')
-        ;
+                ]
+            )
+            ->add('entityId')
+            ->add('entityName')
+            ->add('isRead')
+            ->add('text')
+            ->add('action')
+            ->add('level');
     }
 
     /**
@@ -59,12 +65,15 @@ class NotificationType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\Notification',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\UserBundle\Entity\Notification',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

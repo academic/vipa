@@ -16,9 +16,8 @@ class RoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('name', 'text', ['label' => 'name'])
-                ->add('role', 'text', ['label' => 'role.singular'])
-        ;
+            ->add('name', 'text', ['label' => 'name'])
+            ->add('role', 'text', ['label' => 'role.singular']);
     }
 
     /**
@@ -26,12 +25,15 @@ class RoleType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\Role',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\UserBundle\Entity\Role',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

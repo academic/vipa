@@ -2,17 +2,17 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Ojs\UserBundle\Entity\User;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Ojs\UserBundle\Entity\Proxy;
-use Ojs\UserBundle\Form\ProxyType;
-use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\HttpFoundation\Response;
-use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\UserBundle\Entity\Proxy;
+use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Form\ProxyType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -37,7 +37,7 @@ class ProxyController extends Controller
         /** @var User $proxyUser */
         $proxyUser = $this->getDoctrine()->getRepository('OjsUserBundle:User')->find($proxyUserId);
         $check = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-                array('proxyUserId' => $proxyUserId, 'clientUserId' => $currentUser->getId())
+            array('proxyUserId' => $proxyUserId, 'clientUserId' => $currentUser->getId())
         );
         if ($check) {
             $this->errorFlashBag('Already assigned');
@@ -50,8 +50,13 @@ class ProxyController extends Controller
         $em->persist($proxy);
         $em->flush();
         $this->successFlashBag('Successfully added as proxy user. This user now can login as you.');
-        $this->get('session')->getFlashBag()->add('warning', 'You can add "end date" for this proxy user. '
-                .'<a href="'.$this->generateUrl('user_my_proxy_parents').'" class="bt btn-sm btn-default">Click</a> to update your proxy users.');
+        $this->get('session')->getFlashBag()->add(
+            'warning',
+            'You can add "end date" for this proxy user. '
+            .'<a href="'.$this->generateUrl(
+                'user_my_proxy_parents'
+            ).'" class="bt btn-sm btn-default">Click</a> to update your proxy users.'
+        );
 
         return new RedirectResponse($url);
     }
@@ -79,9 +84,10 @@ class ProxyController extends Controller
         $em->flush();
 
         return new JsonResponse(
-                array(
-            'id' => $proxy->getId(),
-            'ttl' => $proxy->getTtl(), )
+            array(
+                'id' => $proxy->getId(),
+                'ttl' => $proxy->getTtl(),
+            )
         );
     }
 
@@ -100,7 +106,7 @@ class ProxyController extends Controller
         // check if already assigned
         $proxyUser = $this->getDoctrine()->getRepository('OjsUserBundle:User')->find($proxyUserId);
         $proxy = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findOneBy(
-                array('proxyUserId' => $proxyUser, 'clientUserId' => $currentUser)
+            array('proxyUserId' => $proxyUser, 'clientUserId' => $currentUser)
         );
         if ($proxy) {
             $em->remove($proxy);
@@ -116,7 +122,7 @@ class ProxyController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Proxy())) {
+        if (!$this->isGranted('VIEW', new Proxy())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsUserBundle:Proxy');
@@ -131,6 +137,7 @@ class ProxyController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsUserBundle:Proxy:admin/index.html.twig', $data);
     }
 
@@ -146,13 +153,18 @@ class ProxyController extends Controller
             $userId = $this->getUser()->getId();
         }
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsUserBundle:Proxy')->findBy(array(
-            'proxyUserId' => $userId,
-        ));
+        $entities = $em->getRepository('OjsUserBundle:Proxy')->findBy(
+            array(
+                'proxyUserId' => $userId,
+            )
+        );
 
-        return $this->render('OjsUserBundle:Proxy:clients.html.twig', array(
-                    'entities' => $entities,
-        ));
+        return $this->render(
+            'OjsUserBundle:Proxy:clients.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 
     /**
@@ -167,13 +179,18 @@ class ProxyController extends Controller
             $userId = $this->getUser()->getId();
         }
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsUserBundle:Proxy')->findBy(array(
-            'clientUserId' => $userId,
-        ));
+        $entities = $em->getRepository('OjsUserBundle:Proxy')->findBy(
+            array(
+                'clientUserId' => $userId,
+            )
+        );
 
-        return $this->render('OjsUserBundle:Proxy:parents.html.twig', array(
-                    'entities' => $entities,
-        ));
+        return $this->render(
+            'OjsUserBundle:Proxy:parents.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 
     /**
@@ -184,7 +201,7 @@ class ProxyController extends Controller
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new Proxy())) {
+        if (!$this->isGranted('CREATE', new Proxy())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Proxy();
@@ -200,10 +217,13 @@ class ProxyController extends Controller
             return $this->redirect($this->generateUrl('admin_proxy_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsUserBundle:Proxy:admin/new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:Proxy:admin/new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -215,10 +235,14 @@ class ProxyController extends Controller
      */
     private function createCreateForm(Proxy $entity)
     {
-        $form = $this->createForm(new ProxyType($this->container), $entity, array(
-            'action' => $this->generateUrl('admin_proxy_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new ProxyType($this->container),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_proxy_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -231,51 +255,61 @@ class ProxyController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new Proxy())) {
+        if (!$this->isGranted('CREATE', new Proxy())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Proxy();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsUserBundle:Proxy:admin/new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:Proxy:admin/new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Finds and displays a Proxy entity.
      *
-     * @param Proxy $entity
+     * @param  Proxy    $entity
      * @return Response
      */
     public function showAction(Proxy $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        return $this->render('OjsUserBundle:Proxy:admin/show.html.twig', array(
-                    'entity' => $entity,
-        ));
+
+        return $this->render(
+            'OjsUserBundle:Proxy:admin/show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
      * Displays a form to edit an existing Proxy entity.
      *
-     * @param Proxy $entity
+     * @param  Proxy    $entity
      * @return Response
      */
     public function editAction(Proxy $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjsUserBundle:Proxy:admin/edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+
+        return $this->render(
+            'OjsUserBundle:Proxy:admin/edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
             )
         );
     }
@@ -289,10 +323,14 @@ class ProxyController extends Controller
      */
     private function createEditForm(Proxy $entity)
     {
-        $form = $this->createForm(new ProxyType($this->container), $entity, array(
-            'action' => $this->generateUrl('admin_proxy_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new ProxyType($this->container),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_proxy_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -302,14 +340,14 @@ class ProxyController extends Controller
     /**
      * Edits an existing Proxy entity.
      *
-     * @param Request $request
-     * @param Proxy $entity
+     * @param  Request                   $request
+     * @param  Proxy                     $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, Proxy $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -323,22 +361,25 @@ class ProxyController extends Controller
             return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsUserBundle:Proxy:admin/edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:Proxy:admin/edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
      * Deletes a Proxy entity.
      *
-     * @param Proxy $entity
+     * @param  Proxy            $entity
      * @return RedirectResponse
      */
     public function deleteAction(Proxy $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();

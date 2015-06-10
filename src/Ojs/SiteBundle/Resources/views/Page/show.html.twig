@@ -2,9 +2,9 @@
 {% block title %}{{ 'title.page_show'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'pages.management'|trans  },
-        { 'title': 'pages.detail'|trans  }
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    {'title': 'pages.management'|trans  },
+    { 'title': 'pages.detail'|trans  }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -15,26 +15,26 @@
     {% include '::flashbag.html.twig' %}
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Body</th>
-                <td>{{ entity.body }}</td>
-            </tr>
-            <tr>
-                <th>Tags</th>
-                <td>{{ entity.tags }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ entity.image }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Body</th>
+            <td>{{ entity.body }}</td>
+        </tr>
+        <tr>
+            <th>Tags</th>
+            <td>{{ entity.tags }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>{{ entity.image }}</td>
+        </tr>
         </tbody>
     </table>
     {% set back_path = 'admin_page' %}

@@ -2,15 +2,15 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\SiteBundle\Entity\Page;
+use Ojs\SiteBundle\Form\PageType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\SiteBundle\Entity\Page;
-use Ojs\SiteBundle\Form\PageType;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
-use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
 
 /**
  * Page controller.
@@ -37,8 +37,10 @@ class PageController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsSiteBundle:Page:index.html.twig', $data);
     }
+
     /**
      * Creates a new Page entity.
      *
@@ -60,10 +62,13 @@ class PageController extends Controller
             return $this->redirect($this->generateUrl('admin_page_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsSiteBundle:Page:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsSiteBundle:Page:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -75,10 +80,14 @@ class PageController extends Controller
      */
     private function createCreateForm(Page $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('admin_page_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new PageType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_page_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -92,12 +101,15 @@ class PageController extends Controller
     public function newAction()
     {
         $entity = new Page();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsSiteBundle:Page:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsSiteBundle:Page:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -116,9 +128,12 @@ class PageController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        return $this->render('OjsSiteBundle:Page:show.html.twig', array(
-            'entity'      => $entity,
-        ));
+        return $this->render(
+            'OjsSiteBundle:Page:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -139,10 +154,13 @@ class PageController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsSiteBundle:Page:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -154,15 +172,20 @@ class PageController extends Controller
      */
     private function createEditForm(Page $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('admin_page_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new PageType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_page_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing Page entity.
      *
@@ -191,10 +214,13 @@ class PageController extends Controller
             return $this->redirect($this->generateUrl('admin_page_edit', array('id' => $id)));
         }
 
-        return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsSiteBundle:Page:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**

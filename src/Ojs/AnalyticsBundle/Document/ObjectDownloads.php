@@ -33,6 +33,16 @@ class ObjectDownloads extends ObjectStatsBase
     protected $transferSize;
 
     /**
+     * Get transferSize
+     *
+     * @return int $transferSize
+     */
+    public function getTransferSize()
+    {
+        return $this->transferSize;
+    }
+
+    /**
      * Set transferSize
      *
      * @param  int  $transferSize
@@ -46,13 +56,13 @@ class ObjectDownloads extends ObjectStatsBase
     }
 
     /**
-     * Get transferSize
+     * Get filePath
      *
-     * @return int $transferSize
+     * @return string $filePath
      */
-    public function getTransferSize()
+    public function getFilePath()
     {
-        return $this->transferSize;
+        return $this->filePath;
     }
 
     /**
@@ -67,15 +77,5 @@ class ObjectDownloads extends ObjectStatsBase
         $this->filePath = $filePath;
 
         return $this;
-    }
-
-    /**
-     * Get filePath
-     *
-     * @return string $filePath
-     */
-    public function getFilePath()
-    {
-        return $this->filePath;
     }
 }

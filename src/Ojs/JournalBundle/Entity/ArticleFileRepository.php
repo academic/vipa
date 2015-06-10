@@ -24,11 +24,11 @@ class ArticleFileRepository extends EntityRepository
     public function getArticleFullTextFiles($articleId)
     {
         $q = $this
-                ->createQueryBuilder('a')
-                ->select('a')
-                ->where('a.articleId = :article_id AND a.type= 0')
-                ->setParameter('article_id', $articleId)
-                ->getQuery();
+            ->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.articleId = :article_id AND a.type= 0')
+            ->setParameter('article_id', $articleId)
+            ->getQuery();
         try {
             // The Query::getResult() method throws an exception
             // if there is no record matching the criteria.

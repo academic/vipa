@@ -1,7 +1,5 @@
 <?php
-/**
- * www
- */
+
 namespace Ojs\AnalyticsBundle\Updater;
 
 use Ojs\UserBundle\Entity\UserJournalRole;
@@ -9,7 +7,7 @@ use Ojs\UserBundle\Entity\UserRepository;
 
 class UserCountUpdater extends Updater implements UpdaterInterface
 {
-    private $object;
+
     public function update()
     {
         // TODO: Implement update() method.

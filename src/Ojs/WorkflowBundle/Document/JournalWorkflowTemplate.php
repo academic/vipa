@@ -39,6 +39,16 @@ class JournalWorkflowTemplate
     }
 
     /**
+     * Get title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Set title
      *
      * @param  string $title
@@ -52,13 +62,13 @@ class JournalWorkflowTemplate
     }
 
     /**
-     * Get title
+     * Get description
      *
-     * @return string $title
+     * @return string $description
      */
-    public function getTitle()
+    public function getDescription()
     {
-        return $this->title;
+        return $this->description;
     }
 
     /**
@@ -75,13 +85,13 @@ class JournalWorkflowTemplate
     }
 
     /**
-     * Get description
+     * Get isSystemTemplate
      *
-     * @return string $description
+     * @return string $isSystemTemplate
      */
-    public function getDescription()
+    public function getIsSystemTemplate()
     {
-        return $this->description;
+        return $this->isSystemTemplate;
     }
 
     /**
@@ -98,13 +108,13 @@ class JournalWorkflowTemplate
     }
 
     /**
-     * Get isSystemTemplate
+     * Get journalId
      *
-     * @return string $isSystemTemplate
+     * @return int $journalId
      */
-    public function getIsSystemTemplate()
+    public function getJournalId()
     {
-        return $this->isSystemTemplate;
+        return $this->journalId;
     }
 
     /**
@@ -118,15 +128,5 @@ class JournalWorkflowTemplate
         $this->journalId = $journalId;
 
         return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return int $journalId
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
     }
 }

@@ -3,11 +3,11 @@
 
 {% block breadcrumb %}
     {% set list = [
-        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-        { 'link': path('issue_manager_index'), 'title': 'issue.manager'|trans },
-        { 'title': 'arrange'|trans }
+    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+    { 'link': path('issue_manager_index'), 'title': 'issue.manager'|trans },
+    { 'title': 'arrange'|trans }
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body %}
@@ -16,31 +16,32 @@
         <h1>{{ "issue.edit"|trans }} </h1>
         <ul>
             <li>
-                <small>{{"journal"|trans}} : <strong>{{ journal.title }}</strong></small>
+                <small>{{ "journal"|trans }} : <strong>{{ journal.title }}</strong></small>
             </li>
             <li>
-                <small>{{"volume"|trans}} : <strong>{{ issue.volume }}</strong></small>
+                <small>{{ "volume"|trans }} : <strong>{{ issue.volume }}</strong></small>
             </li>
             <li>
-                <small>{{"issue.number"|trans}} : <strong>{{ issue.number }}</strong></small>
+                <small>{{ "issue.number"|trans }} : <strong>{{ issue.number }}</strong></small>
             </li>
             <li>
-                <small>{{"title"|trans}}  : <strong>{{ issue.title }}</strong></small>
+                <small>{{ "title"|trans }}  : <strong>{{ issue.title }}</strong></small>
             </li>
             <li>
-                <small>{{"year"|trans}} : <strong>{{ issue.year }}</strong></small>
+                <small>{{ "year"|trans }} : <strong>{{ issue.year }}</strong></small>
             </li>
             <li>
                 <small>{{ "date.publish"|trans }} : {{ issue.datePublished|date('Y-m-d') }} </small>
             </li>
         </ul>
         <div class="panel panel-info">
-            <div class="panel-heading">{{"issue.add.articles"|trans}}</div>
+            <div class="panel-heading">{{ "issue.add.articles"|trans }}</div>
             <div class="panel-body">
                 <form class="form">
                     <input type="hidden" name="issue_id" value="{{ issue.id }}">
+
                     <div class="form-group">
-                        <label>{{"article"|trans}} </label>
+                        <label>{{ "article"|trans }} </label>
                         <select name="unissued_article_id" id="unissuedArticles" class="select2  form-control">
                             <option></option>
                             {% for article in articlesUnissued %}
@@ -52,7 +53,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>{{"section"|trans}} </label>
+                        <label>{{ "section"|trans }} </label>
                         <select name="section" id="section" class="select2  form-control">
                             {% for section in sections %}
                                 <option value="{{ section.id }}">
@@ -63,10 +64,10 @@
                     </div>
                     <div class="form-row">
                         <a class="btn btn-primary" id="issueManagerAddArticle">
-                            <i class="fa fa-plus-circle"></i> {{"article.add"|trans}}
+                            <i class="fa fa-plus-circle"></i> {{ "article.add"|trans }}
                         </a>
                         <a class="btn btn-default" id="issueManagerPreviewArticle">
-                            <i class="fa fa-external-link"></i> {{"article.preview"|trans}}
+                            <i class="fa fa-external-link"></i> {{ "article.preview"|trans }}
                         </a>
                     </div>
                 </form>
@@ -79,10 +80,10 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>{{"order"|trans}}</th>
-                            <th>{{"article.singular"|trans}}</th>
-                            <th>{{"page.first"|trans}}</th>
-                            <th>{{"page.last"|trans}}</th>
+                            <th>{{ "order"|trans }}</th>
+                            <th>{{ "article.singular"|trans }}</th>
+                            <th>{{ "page.first"|trans }}</th>
+                            <th>{{ "page.last"|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -92,31 +93,33 @@
                                     <tr>
                                         <td>
                                             <input name="articleId[]"
-                                                   value="{{article.id}}" type="hidden" />
+                                                   value="{{ article.id }}" type="hidden"/>
 
                                             <input name="order[]"
                                                    class="form-control input-sm"
-                                                   value="{{article.orderNum}}"
-                                                   type="number" style="width:50px" min="1" max="10000" >
+                                                   value="{{ article.orderNum }}"
+                                                   type="number" style="width:50px" min="1" max="10000">
                                         </td>
                                         <td>
                                             <a class="btn btn-danger btn-xs"
-                                               href="{{path('issue_manager_issue_remove_article',{'id':issue.id,'articleId':article.id})}}">
+                                               href="{{ path('issue_manager_issue_remove_article',{'id':issue.id,'articleId':article.id}) }}">
                                                 <i class="fa fa-remove"></i>
                                             </a>
-                                            <a href="{{path('ojs_article_page', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } )}}">
-                                                <small>{{article.title}}</small>
+                                            <a href="{{ path('ojs_article_page', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } ) }}">
+                                                <small>{{ article.title }}</small>
                                             </a>
                                         </td>
                                         <td>
                                             <input name="firstPage[]"
-                                                   value="{{article.firstPage}}"
-                                                   class="input-sm form-control" style="width:80px" type="number" min="1" max="10000" >
+                                                   value="{{ article.firstPage }}"
+                                                   class="input-sm form-control" style="width:80px" type="number"
+                                                   min="1" max="10000">
                                         </td>
                                         <td>
                                             <input name="lastPage[]"
-                                                   value="{{article.lastPage}}"
-                                                   class="input-sm form-control" style="width:80px" type="number"  min="1" max="10000" >
+                                                   value="{{ article.lastPage }}"
+                                                   class="input-sm form-control" style="width:80px" type="number"
+                                                   min="1" max="10000">
                                         </td>
                                     </tr>
                                 {% endif %}
@@ -130,9 +133,9 @@
 
             <hr>
             <button type="submit" href="#" class="btn btn-primary">
-                <i class="fa fa-save"></i> {{"save"|trans}}
+                <i class="fa fa-save"></i> {{ "save"|trans }}
             </button>
-            <a href="#" class="btn btn-warning">{{"cancel"|trans}}</a>
+            <a href="#" class="btn btn-warning">{{ "cancel"|trans }}</a>
         </form>
     </div>
     <hr>
@@ -158,7 +161,7 @@
                 var selectedSection = $("#section option:selected").val()
 
                 if (redirectUrl.length > 0) {
-                    window.location.href = redirectUrl + '?section=' + selectedSection ;
+                    window.location.href = redirectUrl + '?section=' + selectedSection;
                 }
             });
         });

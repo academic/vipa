@@ -10,10 +10,12 @@ class DefaultControllerTest extends BaseTestCase
     {
         $this->assertTrue($this->isAccessible(['ojs_oai_homepage']));
     }
+
     public function testIdentify()
     {
         $this->assertTrue($this->isAccessible(['ojs_oai_identify']));
     }
+
     public function testListRecords()
     {
         $this->assertTrue($this->isAccessible(['ojs_oai_list_records']));
@@ -28,6 +30,7 @@ class DefaultControllerTest extends BaseTestCase
     {
         $this->assertTrue($this->isAccessible(['ojs_oai_list_metadata_formats']));
     }
+
     public function testListIdentifiers()
     {
         $this->assertTrue($this->isAccessible(['ojs_oai_list_identifiers']));

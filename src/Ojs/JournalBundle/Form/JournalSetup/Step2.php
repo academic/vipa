@@ -17,43 +17,58 @@ class Step2 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('issn', null, [
-                'attr' => [
-                    'class' => 'validate[required]',
-                ],
-            ])
+            ->add(
+                'issn',
+                null,
+                [
+                    'attr' => [
+                        'class' => 'validate[required]',
+                    ],
+                ]
+            )
             ->add('eissn', null)
-            ->add('firstPublishDate', 'collot_datetime', array(
+            ->add(
+                'firstPublishDate',
+                'collot_datetime',
+                array(
 
-                'date_format' => 'dd-MM-yyyy',
-                'pickerOptions' => [
-                    'format' => 'dd-mm-yyyy',
-                    'startView' => 'month',
-                    'minView' => 'month',
-                    'todayBtn' => 'true',
-                    'todayHighlight' => 'true',
-                    'autoclose' => 'true',
-                ],
-            ))
+                    'date_format' => 'dd-MM-yyyy',
+                    'pickerOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'startView' => 'month',
+                        'minView' => 'month',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
+                )
+            )
             ->add('footer_text', 'textarea')
             ->add('period')
-            ->add('country', 'entity', [
-                'class' => 'Okulbilisim\LocationBundle\Entity\Location',
-                'attr' => [
-                    'class' => 'select2-element',
-                ],
-                'query_builder' => function (EntityRepository $em) {
-                    return $em->createQueryBuilder('c')
-                        ->where("c.type=0");
-                },
-            ])
-            ->add('Institution', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\Institution',
-                'attr' => [
-                    'class' => 'select2-element',
-                ],
-            ])
-        ;
+            ->add(
+                'country',
+                'entity',
+                [
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'attr' => [
+                        'class' => 'select2-element',
+                    ],
+                    'query_builder' => function (EntityRepository $em) {
+                        return $em->createQueryBuilder('c')
+                            ->where("c.type=0");
+                    },
+                ]
+            )
+            ->add(
+                'Institution',
+                'entity',
+                [
+                    'class' => 'Ojs\JournalBundle\Entity\Institution',
+                    'attr' => [
+                        'class' => 'select2-element',
+                    ],
+                ]
+            );
     }
 
     /**
@@ -61,12 +76,15 @@ class Step2 extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

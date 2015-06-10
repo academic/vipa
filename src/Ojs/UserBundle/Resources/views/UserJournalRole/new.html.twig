@@ -2,20 +2,20 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ujr'),'title': 'user.journalrole'|trans},
-        {'title': 'user.journalrole.creation'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ujr'),'title': 'user.journalrole'|trans},
+    {'title': 'user.journalrole.creation'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>{{ "user.journalrole.creation"|trans }}</h1>
-        {{ form(form) }}
-        {% set back_path = 'ujr' %}
-        {% include '::actionbuttons.html.twig' %}
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "user.journalrole.creation"|trans }}</h1>
+            {{ form(form) }}
+            {% set back_path = 'ujr' %}
+            {% include '::actionbuttons.html.twig' %}
+        </div>
     </div>
-</div>
 {% endblock %}

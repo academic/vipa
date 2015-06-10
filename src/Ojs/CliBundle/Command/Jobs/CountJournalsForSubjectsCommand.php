@@ -13,8 +13,10 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:count:journals:subjects')
-                ->setDescription('Count journals for all subjects and update all Subject entities\' total_journal_count field.');
+            ->setName('ojs:count:journals:subjects')
+            ->setDescription(
+                'Count journals for all subjects and update all Subject entities\' total_journal_count field.'
+            );
     }
 
     /**
@@ -25,7 +27,6 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln("<info>Counting all journals grouped by Subjects</info>\n");
-        $kernel = $this->getContainer()->get('kernel');
 
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getManager();

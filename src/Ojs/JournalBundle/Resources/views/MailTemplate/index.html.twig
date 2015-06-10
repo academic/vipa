@@ -2,19 +2,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'mail.template'|trans},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'mail.template'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-    <h1>{{ 'mailtemplate.list'|trans }}</h1>
-    {{ grid(db_templates) }}
+<h1>{{ 'mailtemplate.list'|trans }}</h1>
+{{ grid(db_templates) }}
 
-    <h1>{{ 'mailtemplate.default.list'|trans }}</h1>
-    {{ grid(default_templates) }}
+<h1>{{ 'mailtemplate.default.list'|trans }}</h1>
+{{ grid(default_templates) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:File')) %}
     {% set create_path = 'mailtemplate_manager_new' %}
     {% include '::actionbuttons.html.twig' %}

@@ -16,12 +16,13 @@ use Ojs\AnalyticsBundle\Document\ObjectCommonStat;
 use Ojs\AnalyticsBundle\Document\ObjectDownload;
 use Ojs\AnalyticsBundle\Document\ObjectView;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\AnalyticsBundle\Updater;
 use Ojs\AnalyticsBundle\Updater\UpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Ojs\AnalyticsBundle\Updater;
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Class UpdateCommand
  * @package Ojs\AnalyticsBundle\Command
@@ -46,7 +47,7 @@ class UpdateCommand extends ContainerAwareCommand
     /** @var  EntityManager $em */
     private $em;
 
-    /** @var  OutputInterface $output*/
+    /** @var  OutputInterface $output */
     public $output;
 
     protected function configure()
@@ -111,7 +112,10 @@ class UpdateCommand extends ContainerAwareCommand
                     $counts[$view->getPageUrl()]->total = 1;
                     $counts[$view->getPageUrl()]->id = $view->getObjectId();
                     $counts[$view->getPageUrl()]->entity = $view->getEntity();
-                    $counts[$view->getPageUrl()]->rawData = $this->serializer->serialize($this->getObject($view), 'json');
+                    $counts[$view->getPageUrl()]->rawData = $this->serializer->serialize(
+                        $this->getObject($view),
+                        'json'
+                    );
                 }
             }
             $progress->start($output, count($counts));
@@ -192,10 +196,10 @@ class UpdateCommand extends ContainerAwareCommand
     {
         $updates = [
             'JournalViewCount',
-         //   'DailyReviewCount',
-         //   'AcceptedArticleCount',
-         //   'DeclinedArticleCount',
-         //   'RevisedArticleCount',
+            //   'DailyReviewCount',
+            //   'AcceptedArticleCount',
+            //   'DeclinedArticleCount',
+            //   'RevisedArticleCount',
             'UserCount',
             'ReaderCount',
             'MemberCount',
@@ -205,15 +209,18 @@ class UpdateCommand extends ContainerAwareCommand
         foreach ($updates as $update) {
             $updater = 'Ojs\\AnalyticsBundle\\Updater\\'.$update.'Updater';
             /** @var UpdaterInterface $statObject */
-            $statObject = new $updater($this->em, $this->dm,$this->getContainer()->get('okulbilisimcmsbundle.twig.post_extension'));
-            foreach ($statObject->count() as $objectId=>$stat) {
+            $statObject = new $updater(
+                $this->em,
+                $this->dm,
+                $this->getContainer()->get('okulbilisimcmsbundle.twig.post_extension')
+            );
+            foreach ($statObject->count() as $objectId => $stat) {
                 $object = new ObjectCommonStat();
                 $object->setDate(new \DateTime())
                     ->setCount(count($stat))
                     ->setEntity($statObject->getObject($objectId))
                     ->setObject($objectId)
-                    ->setStatType(constant("Ojs\\AnalyticsBundle\\Document\\ObjectCommonStat::".$update))
-                    ;
+                    ->setStatType(constant("Ojs\\AnalyticsBundle\\Document\\ObjectCommonStat::".$update));
                 $this->dm->persist($object);
                 $this->dm->flush();
             }

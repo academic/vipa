@@ -10,6 +10,7 @@
  */
 
 namespace Ojs\SiteBundle\Acl\Dbal;
+
 use Doctrine\Common\PropertyChangedListener;
 use Doctrine\DBAL\Connection;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
@@ -38,8 +39,12 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     /**
      * {@inheritdoc}
      */
-    public function __construct(Connection $connection, PermissionGrantingStrategyInterface $permissionGrantingStrategy, array $options, AclCacheInterface $cache = null)
-    {
+    public function __construct(
+        Connection $connection,
+        PermissionGrantingStrategyInterface $permissionGrantingStrategy,
+        array $options,
+        AclCacheInterface $cache = null
+    ) {
         parent::__construct($connection, $permissionGrantingStrategy, $options, $cache);
 
         $this->propertyChanges = new \SplObjectStorage();
@@ -167,7 +172,9 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
     public function propertyChanged($sender, $propertyName, $oldValue, $newValue)
     {
         if (!$sender instanceof MutableAclInterface && !$sender instanceof EntryInterface) {
-            throw new \InvalidArgumentException('$sender must be an instance of MutableAclInterface, or EntryInterface.');
+            throw new \InvalidArgumentException(
+                '$sender must be an instance of MutableAclInterface, or EntryInterface.'
+            );
         }
 
         if ($sender instanceof EntryInterface) {
@@ -202,7 +209,9 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
                 $propertyChanges['aces'] = new \SplObjectStorage();
             }
 
-            $acePropertyChanges = $propertyChanges['aces']->contains($ace) ? $propertyChanges['aces']->offsetGet($ace) : array();
+            $acePropertyChanges = $propertyChanges['aces']->contains($ace) ? $propertyChanges['aces']->offsetGet(
+                $ace
+            ) : array();
 
             if (isset($acePropertyChanges[$propertyName])) {
                 $oldValue = $acePropertyChanges[$propertyName][0];
@@ -249,7 +258,9 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
         $this->connection->beginTransaction();
         try {
             if (isset($propertyChanges['entriesInheriting'])) {
-                $sets[] = 'entries_inheriting = '.$this->connection->getDatabasePlatform()->convertBooleans($propertyChanges['entriesInheriting'][1]);
+                $sets[] = 'entries_inheriting = '.$this->connection->getDatabasePlatform()->convertBooleans(
+                        $propertyChanges['entriesInheriting'][1]
+                    );
             }
 
             if (isset($propertyChanges['parentAcl'])) {
@@ -310,21 +321,34 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
             if (count($sharedPropertyChanges) > 0) {
                 $classAcesProperty = new \ReflectionProperty('Symfony\Component\Security\Acl\Domain\Acl', 'classAces');
                 $classAcesProperty->setAccessible(true);
-                $classFieldAcesProperty = new \ReflectionProperty('Symfony\Component\Security\Acl\Domain\Acl', 'classFieldAces');
+                $classFieldAcesProperty = new \ReflectionProperty(
+                    'Symfony\Component\Security\Acl\Domain\Acl',
+                    'classFieldAces'
+                );
                 $classFieldAcesProperty->setAccessible(true);
 
                 foreach ($this->loadedAcls[$acl->getObjectIdentity()->getType()] as $sameTypeAcl) {
                     if (isset($sharedPropertyChanges['classAces'])) {
-                        if ($acl !== $sameTypeAcl && $classAcesProperty->getValue($sameTypeAcl) !== $sharedPropertyChanges['classAces'][0]) {
-                            throw new ConcurrentModificationException('The "classAces" property has been modified concurrently.');
+                        if ($acl !== $sameTypeAcl && $classAcesProperty->getValue(
+                                $sameTypeAcl
+                            ) !== $sharedPropertyChanges['classAces'][0]
+                        ) {
+                            throw new ConcurrentModificationException(
+                                'The "classAces" property has been modified concurrently.'
+                            );
                         }
 
                         $classAcesProperty->setValue($sameTypeAcl, $sharedPropertyChanges['classAces'][1]);
                     }
 
                     if (isset($sharedPropertyChanges['classFieldAces'])) {
-                        if ($acl !== $sameTypeAcl && $classFieldAcesProperty->getValue($sameTypeAcl) !== $sharedPropertyChanges['classFieldAces'][0]) {
-                            throw new ConcurrentModificationException('The "classFieldAces" property has been modified concurrently.');
+                        if ($acl !== $sameTypeAcl && $classFieldAcesProperty->getValue(
+                                $sameTypeAcl
+                            ) !== $sharedPropertyChanges['classFieldAces'][0]
+                        ) {
+                            throw new ConcurrentModificationException(
+                                'The "classFieldAces" property has been modified concurrently.'
+                            );
                         }
 
                         $classFieldAcesProperty->setValue($sameTypeAcl, $sharedPropertyChanges['classFieldAces'][1]);
@@ -456,8 +480,18 @@ class MutableAclProvider extends AclProvider implements MutableAclProviderInterf
      *
      * @return string
      */
-    protected function getInsertAccessControlEntrySql($classId, $objectIdentityId, $field, $aceOrder, $securityIdentityId, $strategy, $mask, $granting, $auditSuccess, $auditFailure)
-    {
+    protected function getInsertAccessControlEntrySql(
+        $classId,
+        $objectIdentityId,
+        $field,
+        $aceOrder,
+        $securityIdentityId,
+        $strategy,
+        $mask,
+        $granting,
+        $auditSuccess,
+        $auditFailure
+    ) {
         $query = <<<QUERY
             INSERT INTO %s (
                 class_id,
@@ -570,7 +604,9 @@ QUERY;
             $identifier = $sid->getIdentifier();
             $username = false;
         } else {
-            throw new \InvalidArgumentException('$sid must either be an instance of UserSecurityIdentity, JournalRoleSecurityIdentity or RoleSecurityIdentity.');
+            throw new \InvalidArgumentException(
+                '$sid must either be an instance of UserSecurityIdentity, JournalRoleSecurityIdentity or RoleSecurityIdentity.'
+            );
         }
 
         return sprintf(
@@ -580,7 +616,6 @@ QUERY;
             $this->connection->getDatabasePlatform()->convertBooleans($username)
         );
     }
-
 
     /**
      * Constructs the SQL for selecting an ACE.
@@ -649,7 +684,9 @@ QUERY;
             $identifier = $sid->getIdentifier();
             $username = false;
         } else {
-            throw new \InvalidArgumentException('$sid must either be an instance of UserSecurityIdentity, JournalRoleSecurityIdentity or RoleSecurityIdentity.');
+            throw new \InvalidArgumentException(
+                '$sid must either be an instance of UserSecurityIdentity, JournalRoleSecurityIdentity or RoleSecurityIdentity.'
+            );
         }
 
         return sprintf(
@@ -795,11 +832,13 @@ QUERY;
      */
     private function createOrRetrieveSecurityIdentityId(SecurityIdentityInterface $sid)
     {
-        if (false !== $id = $this->connection->executeQuery($this->getSelectSecurityIdentityIdSql($sid))->fetchColumn()) {
+        if (false !== $id = $this->connection->executeQuery($this->getSelectSecurityIdentityIdSql($sid))->fetchColumn()
+        ) {
             return $id;
         }
 
         $this->connection->executeQuery($this->getInsertSecurityIdentitySql($sid));
+
         return $this->connection->executeQuery($this->getSelectSecurityIdentityIdSql($sid))->fetchColumn();
     }
 
@@ -882,8 +921,23 @@ QUERY;
 
                     $objectIdentityId = $name === 'classFieldAces' ? null : $ace->getAcl()->getId();
 
-                    $this->connection->executeQuery($this->getInsertAccessControlEntrySql($classId, $objectIdentityId, $field, $i, $sid, $ace->getStrategy(), $ace->getMask(), $ace->isGranting(), $ace->isAuditSuccess(), $ace->isAuditFailure()));
-                    $aceId = $this->connection->executeQuery($this->getSelectAccessControlEntryIdSql($classId, $objectIdentityId, $field, $i))->fetchColumn();
+                    $this->connection->executeQuery(
+                        $this->getInsertAccessControlEntrySql(
+                            $classId,
+                            $objectIdentityId,
+                            $field,
+                            $i,
+                            $sid,
+                            $ace->getStrategy(),
+                            $ace->getMask(),
+                            $ace->isGranting(),
+                            $ace->isAuditSuccess(),
+                            $ace->isAuditFailure()
+                        )
+                    );
+                    $aceId = $this->connection->executeQuery(
+                        $this->getSelectAccessControlEntryIdSql($classId, $objectIdentityId, $field, $i)
+                    )->fetchColumn();
                     $this->loadedAces[$aceId] = $ace;
 
                     $aceIdProperty = new \ReflectionProperty('Symfony\Component\Security\Acl\Domain\Entry', 'id');
@@ -956,8 +1010,23 @@ QUERY;
 
                 $objectIdentityId = $name === 'classAces' ? null : $ace->getAcl()->getId();
 
-                $this->connection->executeQuery($this->getInsertAccessControlEntrySql($classId, $objectIdentityId, null, $i, $sid, $ace->getStrategy(), $ace->getMask(), $ace->isGranting(), $ace->isAuditSuccess(), $ace->isAuditFailure()));
-                $aceId = $this->connection->executeQuery($this->getSelectAccessControlEntryIdSql($classId, $objectIdentityId, null, $i))->fetchColumn();
+                $this->connection->executeQuery(
+                    $this->getInsertAccessControlEntrySql(
+                        $classId,
+                        $objectIdentityId,
+                        null,
+                        $i,
+                        $sid,
+                        $ace->getStrategy(),
+                        $ace->getMask(),
+                        $ace->isGranting(),
+                        $ace->isAuditSuccess(),
+                        $ace->isAuditFailure()
+                    )
+                );
+                $aceId = $this->connection->executeQuery(
+                    $this->getSelectAccessControlEntryIdSql($classId, $objectIdentityId, null, $i)
+                )->fetchColumn();
                 $this->loadedAces[$aceId] = $ace;
 
                 $aceIdProperty = new \ReflectionProperty($ace, 'id');
@@ -1015,7 +1084,8 @@ QUERY;
 
         if (isset($propertyChanges['aceOrder'])
             && $propertyChanges['aceOrder'][1] > $propertyChanges['aceOrder'][0]
-            && $propertyChanges == $aces->offsetGet($ace)) {
+            && $propertyChanges == $aces->offsetGet($ace)
+        ) {
             $aces->next();
             if ($aces->valid()) {
                 $this->updateAce($aces, $aces->current());
@@ -1032,13 +1102,18 @@ QUERY;
             $sets[] = sprintf('ace_order = %d', $propertyChanges['aceOrder'][1]);
         }
         if (isset($propertyChanges['auditSuccess'])) {
-            $sets[] = sprintf('audit_success = %s', $this->connection->getDatabasePlatform()->convertBooleans($propertyChanges['auditSuccess'][1]));
+            $sets[] = sprintf(
+                'audit_success = %s',
+                $this->connection->getDatabasePlatform()->convertBooleans($propertyChanges['auditSuccess'][1])
+            );
         }
         if (isset($propertyChanges['auditFailure'])) {
-            $sets[] = sprintf('audit_failure = %s', $this->connection->getDatabasePlatform()->convertBooleans($propertyChanges['auditFailure'][1]));
+            $sets[] = sprintf(
+                'audit_failure = %s',
+                $this->connection->getDatabasePlatform()->convertBooleans($propertyChanges['auditFailure'][1])
+            );
         }
 
         $this->connection->executeQuery($this->getUpdateAccessControlEntrySql($ace->getId(), $sets));
     }
 }
-

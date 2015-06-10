@@ -24,11 +24,15 @@ class GridAction
     private $postExtension;
 
     /**
-     * @param CsrfTokenManager $csrfTokenManager
+     * @param CsrfTokenManager    $csrfTokenManager
      * @param TranslatorInterface $translator
-     * @param PostExtension $postExtension
+     * @param PostExtension       $postExtension
      */
-    public function __construct(CsrfTokenManager $csrfTokenManager, TranslatorInterface $translator, PostExtension $postExtension) {
+    public function __construct(
+        CsrfTokenManager $csrfTokenManager,
+        TranslatorInterface $translator,
+        PostExtension $postExtension
+    ) {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->translator = $translator;
         $this->postExtension = $postExtension;
@@ -37,7 +41,7 @@ class GridAction
     /**
      * @param $route
      * @param $key
-     * @param  null $role
+     * @param  null      $role
      * @return RowAction
      */
     public function deleteAction($route, $key = 'id', $role = null)
@@ -48,18 +52,22 @@ class GridAction
         $rowAction->setConfirmMessage($this->translator->trans("sure"));
         $translator = $this->translator;
         $csrfTokenManager = $this->csrfTokenManager;
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route) {
-            $route = str_replace('_delete', '', $route);
-            $token = $csrfTokenManager->refreshToken($route . $row->getPrimaryFieldValue());
-            $action->setAttributes([
-                    'class' => 'btn btn-danger btn-xs delete',
-                    'data-toggle' => 'tooltip',
-                    'title' => $translator->trans("delete"),
-                    'data-token' => $token
-                ]
-            );
-            return $action;
-        });
+        $rowAction->manipulateRender(
+            function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route) {
+                $route = str_replace('_delete', '', $route);
+                $token = $csrfTokenManager->refreshToken($route.$row->getPrimaryFieldValue());
+                $action->setAttributes(
+                    [
+                        'class' => 'btn btn-danger btn-xs delete',
+                        'data-toggle' => 'tooltip',
+                        'title' => $translator->trans("delete"),
+                        'data-token' => $token,
+                    ]
+                );
+
+                return $action;
+            }
+        );
         if ($role) {
             $rowAction->setRole($role);
         }
@@ -67,15 +75,20 @@ class GridAction
         return $rowAction;
     }
 
-
     /**
-     * @param  null $role
+     * @param  null      $role
      * @return RowAction
      */
     public function userBanAction($role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-ban"></i>', 'user_block');
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans('block')]);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-warning btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans('block'),
+            ]
+        );
         $rowAction->setRouteParameters('id');
         $rowAction->setConfirm(true);
         $rowAction->setConfirmMessage($this->translator->trans('block'));
@@ -83,15 +96,17 @@ class GridAction
             $rowAction->setRole($role);
         }
         $translator = $this->translator;
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($translator) {
-            if (!$row->getField('status')) {
-                $action->setRoute('user_unblock');
-                $action->setTitle('<i class="fa fa-check"></i>');
-                $action->setConfirmMessage($translator->trans('sure.ban'));
-            }
+        $rowAction->manipulateRender(
+            function (RowAction $action, Row $row) use ($translator) {
+                if (!$row->getField('status')) {
+                    $action->setRoute('user_unblock');
+                    $action->setTitle('<i class="fa fa-check"></i>');
+                    $action->setConfirmMessage($translator->trans('sure.ban'));
+                }
 
-            return $action;
-        });
+                return $action;
+            }
+        );
 
         return $rowAction;
     }
@@ -99,14 +114,20 @@ class GridAction
     /**
      * @param $route
      * @param $key
-     * @param  null $role
+     * @param  null      $role
      * @param $mapping_key
      * @return RowAction
      */
     public function switchUserAction($route, $key = 'id', $role = null, $mapping_key = 'username')
     {
         $rowAction = new RowAction('<i class="fa fa-sign-in"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans('login_as')]);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-info btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans('login_as'),
+            ]
+        );
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping([$mapping_key => '_su']);
         if ($role) {
@@ -119,13 +140,19 @@ class GridAction
     /**
      * @param $route
      * @param $key
-     * @param  null $role
+     * @param  null      $role
      * @return RowAction
      */
     public function showAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-info-circle"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-success btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans("show")]);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-success btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("show"),
+            ]
+        );
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -137,13 +164,19 @@ class GridAction
     /**
      * @param $route
      * @param $key
-     * @param  null $role
+     * @param  null      $role
      * @return RowAction
      */
     public function editAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-pencil"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans("edit")]);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-warning btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("edit"),
+            ]
+        );
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -161,7 +194,13 @@ class GridAction
     public function copyAction($route, $key = 'id', $role = '')
     {
         $rowAction = new RowAction('<i class="fa fa-copy"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans("copy")]);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-info btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("copy"),
+            ]
+        );
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -173,13 +212,19 @@ class GridAction
     /**
      * @param $route
      * @param $key
-     * @param  null $role
+     * @param  null      $role
      * @return RowAction
      */
     public function submissionResumeAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-reply"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans('Back & Continue Editing')]);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-warning btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans('Back & Continue Editing'),
+            ]
+        );
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping(['id' => 'submissionId']);
         if ($role) {
@@ -190,7 +235,7 @@ class GridAction
     }
 
     /**
-     * @param  null $role
+     * @param  null      $role
      * @return RowAction
      */
     public function cmsAction($role = null)
@@ -205,15 +250,16 @@ class GridAction
             $rowAction->setRole($role);
         }
         $postExtension = $this->postExtension;
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($postExtension) {
-            $entity = $row->getEntity();
-            $object = $postExtension->cmsobject($entity);
-            $action->setRouteParameters(['id', 'object' => $object]);
+        $rowAction->manipulateRender(
+            function (RowAction $action, Row $row) use ($postExtension) {
+                $entity = $row->getEntity();
+                $object = $postExtension->cmsobject($entity);
+                $action->setRouteParameters(['id', 'object' => $object]);
 
-            return $action;
-        });
+                return $action;
+            }
+        );
 
         return $rowAction;
     }
 }
-

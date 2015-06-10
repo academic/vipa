@@ -1,16 +1,14 @@
 <?php
-/**
- * Date: 8.12.14
- * Time: 10:50
- */
 namespace Ojs\SiteBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\Subject;
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;
@@ -33,42 +31,63 @@ class SitemapController extends Controller
                 ->add(
                     $request->getSchemeAndHttpHost()
                     .$router->generate($map, ['_format' => 'xml']),
-                    (new \DateTime())->format('Y-m-d'));
+                    (new \DateTime())->format('Y-m-d')
+                );
         }
 
         return $this->response($siteMap);
     }
 
-    public function subjectAction(Request $request, $subject, $institution = 'www', $_format = 'xml')
+    private function response($content)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
+        $response = new Response();
+        $response->headers->add(['content-type' => 'text/xml']);
+        $response->setContent($content);
+
+        return $response;
+    }
+
+    public function subjectAction($subject, $institution = 'www')
+    {
         $em = $this->getDoctrine()->getManager();
+        /** @var Subject $subject */
         $subject = $em->getRepository('OjsJournalBundle:Subject')->findOneBy(['slug' => $subject]);
 
         if ($institution == 'www' || empty($institution)) {
             $journals = $subject->getJournals();
             $institution = null;
         } else {
-            /** @var Subject $subject */
-            $journals = $em->getRepository('OjsJournalBundle:Journal')->getByInstitutionAndSubject($institution, $subject);
+            /** @var JournalRepository $journalRepo */
+            $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
+            $journals = $journalRepo->getByInstitutionAndSubject(
+                $institution,
+                $subject
+            );
         }
         $siteMap = new Sitemap();
         $router = $this->get('router');
         $siteMap->add(
-            $router->generate('ojs_journals_index',
+            $router->generate(
+                'ojs_journals_index',
                 [
                     'subject' => $subject->getSlug(),
                     'institution' => $institution,
                 ],
-                Router::ABSOLUTE_URL)
+                Router::ABSOLUTE_URL
+            )
         );
 
         foreach ($journals as $journal) {
             /** @var Journal $journal */
             $siteMap->add(
-                $router->generate('ojs_journal_index', ['slug' => $journal->getSlug(),
-                    'institution' => $journal->getInstitution()->getSlug(), ],
-                    Router::ABSOLUTE_URL),
+                $router->generate(
+                    'ojs_journal_index',
+                    [
+                        'slug' => $journal->getSlug(),
+                        'institution' => $journal->getInstitution()->getSlug(),
+                    ],
+                    Router::ABSOLUTE_URL
+                ),
                 $journal->getUpdated()->format('Y-m-d')
             );
         }
@@ -80,19 +99,23 @@ class SitemapController extends Controller
     {
         $siteMapIndex = new SitemapIndex();
         $router = $this->get('router');
-        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        /** @var SubjectRepository $subjectRepo */
+        $subjectRepo = $em->getRepository('OjsJournalBundle:Subject');
         if ($institution == 'www' || empty($institution)) {
-            $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
+            $subjects = $subjectRepo->findAll();
         } else {
-            /** @var Subject $subject */
-            $subjects = $em->getRepository('OjsJournalBundle:Subject')->getByInstitution($institution);
+            $subjects = $subjectRepo->getByInstitution($institution);
         }
+
         foreach ($subjects as $subject) {
-            /** @var Subject $subject */
             $siteMapIndex->add(
                 $request->getSchemeAndHttpHost().
-                $router->generate('ojs_subject_sitemap', ['subject' => $subject->getSlug(), 'institution' => $institution, '_format' => 'xml']), $subject->getUpdated()->format('Y-m-d')
+                $router->generate(
+                    'ojs_subject_sitemap',
+                    ['subject' => $subject->getSlug(), 'institution' => $institution, '_format' => 'xml']
+                ),
+                $subject->getUpdated()->format('Y-m-d')
             );
         }
 
@@ -120,20 +143,23 @@ class SitemapController extends Controller
         foreach ($maps as $map) {
             $siteMapIndex->add(
                 $request->getSchemeAndHttpHost()
-                .$router->generate($map, [
+                .$router->generate(
+                    $map,
+                    [
                         'journal' => $journal->getSlug(),
                         'institution' => $journal->getInstitution()->getSlug(),
-                        '_format' => $_format, ]
-                ), $journal->getUpdated()->format('Y-m-d')
+                        '_format' => $_format,
+                    ]
+                ),
+                $journal->getUpdated()->format('Y-m-d')
             );
         }
 
         return $this->response($siteMapIndex);
     }
 
-    public function journalDetailAction(Request $request, $journal, $_format = 'xml')
+    public function journalDetailAction(Request $request, $journal)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Journal $journal */
         $journal = $em->getRepository("OjsJournalBundle:Journal")->findOneBy(['slug' => $journal]);
@@ -150,14 +176,18 @@ class SitemapController extends Controller
         foreach ($maps as $map) {
             $siteMap->add(
                 $request->getSchemeAndHttpHost()
-                .$router->generate($map, ['slug' => $journal->getSlug(), 'institution' => $journal->getInstitution()->getSlug()]), $journal->getUpdated()->format('Y-m-d')
+                .$router->generate(
+                    $map,
+                    ['slug' => $journal->getSlug(), 'institution' => $journal->getInstitution()->getSlug()]
+                ),
+                $journal->getUpdated()->format('Y-m-d')
             );
         }
 
         return $this->response($siteMap);
     }
 
-    public function lastIssueAction(Request $request, $journal, $_format = 'xml')
+    public function lastIssueAction(Request $request, $journal)
     {
 
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -173,11 +203,14 @@ class SitemapController extends Controller
             /** @var Article $article */
             $siteMap->add(
                 $request->getSchemeAndHttpHost().
-                $router->generate('ojs_article_page', [
-                    'slug' => $article->getJournal()->getSlug(),
-                    'article_id' => $article->getId(),
-                    'institution' => $journal->getInstitution()->getSlug(),
-                ]),
+                $router->generate(
+                    'ojs_article_page',
+                    [
+                        'slug' => $article->getJournal()->getSlug(),
+                        'article_id' => $article->getId(),
+                        'institution' => $journal->getInstitution()->getSlug(),
+                    ]
+                ),
                 $article->getUpdated()->format('Y-m-d')
             );
         }
@@ -185,18 +218,18 @@ class SitemapController extends Controller
         return $this->response($siteMap);
     }
 
-    public function issuesAction(Request $request, $journal, $_format = 'xml')
+    public function issuesAction($journal)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal]);
-
         $siteMap = new  Sitemap();
-        $router = $this->get('router');
 
+        /*
         foreach ($journal->getIssues() as $issue) {
             //@todo
         }
+        */
 
         return $this->response($siteMap);
     }
@@ -205,13 +238,12 @@ class SitemapController extends Controller
     {
         $siteMap = new Sitemap();
         $router = $this->get('router');
-        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Journal[] $journals */
         $journals = $em->getRepository('OjsJournalBundle:Journal')->findBy(['institutionId' => $institution]);
 
         foreach ($journals as $journal) {
-            /** @var Journal $journal */
             $siteMap->add(
                 $request->getSchemeAndHttpHost()
                 .$router->generate(
@@ -228,7 +260,7 @@ class SitemapController extends Controller
         return $this->response($siteMap);
     }
 
-    public function institutionAction(Request $request, $institution, $_format = 'xml')
+    public function institutionAction(Request $request, $institution)
     {
         $siteMap = new SitemapIndex();
         $router = $this->get('router');
@@ -237,7 +269,8 @@ class SitemapController extends Controller
         /** @var Institution $institution */
         $institution = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $institution]);
         $journals = $institution->getJournals();
-        $siteMap->add($request->getSchemeAndHttpHost()
+        $siteMap->add(
+            $request->getSchemeAndHttpHost()
             .
             $router->generate(
                 'ojs_subjects_sitemap',
@@ -267,7 +300,7 @@ class SitemapController extends Controller
         return $this->response($siteMap);
     }
 
-    public function institutionsAction(Request $request, $_format = 'xml')
+    public function institutionsAction(Request $request)
     {
         $siteMapIndex = new SitemapIndex();
         $router = $this->get('router');
@@ -281,7 +314,6 @@ class SitemapController extends Controller
                     'ojs_institution_sitemap',
                     [
                         'institution' => $institution->getSlug(),
-
                         '_format' => 'xml',
                     ]
                 ),
@@ -292,7 +324,7 @@ class SitemapController extends Controller
         return $this->response($siteMapIndex);
     }
 
-    public function articleAction(Request $request, $journal, $_format = 'xml')
+    public function articleAction(Request $request, $journal)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -305,17 +337,23 @@ class SitemapController extends Controller
         foreach ($articles as $article) {
             /** @var Article $article */
             $siteMap
-                ->add($request->getSchemeAndHttpHost().$router->generate('ojs_article_page', [
-                        'slug' => $journal->getSlug(),
-                        'article_id' => $article->getId(),
-                        'institution' => $journal->getInstitution()->getSlug(),
-                    ]), $article->getUpdated()->format('Y-m-d'));
+                ->add(
+                    $request->getSchemeAndHttpHost().$router->generate(
+                        'ojs_article_page',
+                        [
+                            'slug' => $journal->getSlug(),
+                            'article_id' => $article->getId(),
+                            'institution' => $journal->getInstitution()->getSlug(),
+                        ]
+                    ),
+                    $article->getUpdated()->format('Y-m-d')
+                );
         }
 
         return $this->response($siteMap);
     }
 
-    public function staticAction(Request $request, $_format = 'xml')
+    public function staticAction(Request $request)
     {
         $siteMap = new Sitemap();
         $router = $this->get('router');
@@ -339,14 +377,5 @@ class SitemapController extends Controller
         }
 
         return $this->response($siteMap);
-    }
-
-    private function response($content)
-    {
-        $response = new Response();
-        $response->headers->add(['content-type' => 'text/xml']);
-        $response->setContent($content);
-
-        return $response;
     }
 }

@@ -20,6 +20,7 @@ class EventLogTypeTest extends BaseTypeTestcase
                 'ip' => $this->faker->ipv4,
                 'userId' => 1,
             ],
-            'Ojs\UserBundle\Entity\EventLog');
+            'Ojs\UserBundle\Entity\EventLog'
+        );
     }
 }

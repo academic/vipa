@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'article.manager'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'article.manager'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -12,7 +12,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
 
@@ -20,7 +20,7 @@
     {% if isSystemAdmin() %}
         <p>
             <a href="{{ path('article_new') }}" id="create-new-article" class="btn btn-success">
-                {{"article.new"|trans}}
+                {{ "article.new"|trans }}
             </a>
         </p>
     {% endif %}
@@ -35,6 +35,7 @@
     {% endjavascripts %}
 
     {% javascripts  '@OjsJournalBundle/Resources/public/js/tour/article_admin_tour.js' output="c/article_admin_tour.js" %}
-    {% if app.user.setting('tour.admin.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
+    {% if app.user.setting('tour.admin.article') == FALSE %}
+        <script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
     {% endjavascripts %}
 {% endblock %}

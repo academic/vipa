@@ -16,19 +16,22 @@ class SubjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('subject')
-                ->add('description')
-                ->add('tags', 'text', array(
-                        'label' => 'tags',
-                        'attr' => [
-                            'class' => ' form-control input-xxl',
-                            'data-role' =>  'tagsinputautocomplete',
-                            'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => $options['tagEndPoint']
-                        ]
-                    )
+            ->add('subject')
+            ->add('description')
+            ->add(
+                'tags',
+                'text',
+                array(
+                    'label' => 'tags',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' => 'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => $options['tagEndPoint'],
+                    ],
                 )
-                ->add('parent');
+            )
+            ->add('parent');
     }
 
     /**
@@ -36,13 +39,16 @@ class SubjectType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Subject',
-            'tagEndPoint' => '/',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Subject',
+                'tagEndPoint' => '/',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

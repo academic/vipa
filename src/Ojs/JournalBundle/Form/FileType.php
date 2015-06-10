@@ -16,25 +16,35 @@ class FileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name','hidden',[
-                'label'=>'name'
-            ])
-            ->add('tags', 'text', array(
+            ->add(
+                'name',
+                'hidden',
+                [
+                    'label' => 'name',
+                ]
+            )
+            ->add(
+                'tags',
+                'text',
+                array(
                     'label' => 'tags',
                     'attr' => [
                         'class' => ' form-control input-xxl',
-                        'data-role' =>  'tagsinputautocomplete',
+                        'data-role' => 'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['apiRoot'].'api/public/search/tags'
-                    ]
+                        'data-list' => $options['apiRoot'].'api/public/search/tags',
+                    ],
                 )
             )
-            ->add('path','hidden',[
-                'label'=>'path'
-            ])
-            ->add('mimeType','hidden')
-            ->add('size','hidden')
-        ;
+            ->add(
+                'path',
+                'hidden',
+                [
+                    'label' => 'path',
+                ]
+            )
+            ->add('mimeType', 'hidden')
+            ->add('size', 'hidden');
     }
 
     /**
@@ -42,13 +52,16 @@ class FileType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\File',
-            'apiRoot' => '/',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\File',
+                'apiRoot' => '/',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

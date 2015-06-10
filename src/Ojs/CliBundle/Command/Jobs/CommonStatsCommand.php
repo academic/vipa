@@ -2,10 +2,10 @@
 
 namespace Ojs\CliBundle\Command\Jobs;
 
+use Ojs\JournalBundle\Entity\Sums;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Ojs\JournalBundle\Entity\Sums;
 
 class CommonStatsCommand extends ContainerAwareCommand
 {
@@ -13,8 +13,10 @@ class CommonStatsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:count:common')
-                ->setDescription('Count save results for common entities like  Journal, Article, Institution, Subject and User');
+            ->setName('ojs:count:common')
+            ->setDescription(
+                'Count save results for common entities like  Journal, Article, Institution, Subject and User'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -59,9 +61,9 @@ class CommonStatsCommand extends ContainerAwareCommand
     {
         $output->write("<info>Counting ".$entityName."</info> ");
         $count = $em->createQueryBuilder()
-                        ->select('count(entity.id)')
-                        ->from($entityName, 'entity')
-                        ->getQuery()->getSingleScalarResult();
+            ->select('count(entity.id)')
+            ->from($entityName, 'entity')
+            ->getQuery()->getSingleScalarResult();
         $output->writeln(" <info> Result : ".$count."</info>");
         $output->writeln("<info>Saving count result to OjsJournalBundle:Sums");
         $this->saveSum($em, $entityName, $count);

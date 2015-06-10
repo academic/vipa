@@ -3,19 +3,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('manager_journal_section'),'title': 'journal.section'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('manager_journal_section'),'title': 'journal.section'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"journalsection.new"|trans}}</h1>
+    <h1>{{ "journalsection.new"|trans }}</h1>
 
     {{ form(form) }}
 
     <a href="{{ path('manager_journal_section') }}">
-        {{"b"|trans}}
+        {{ "b"|trans }}
     </a>
 {% endblock %}

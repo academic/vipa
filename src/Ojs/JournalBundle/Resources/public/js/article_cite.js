@@ -1,5 +1,5 @@
 var CitationEditor = {
-    
+
     addCitationTpl: function (params) {
         $("#citationContainer").append(Mustache.render($("#step3_tpl").html(), params));
     },
@@ -53,14 +53,14 @@ var CitationEditor = {
                 }
             }
         })
-                .done(function () {
-                    CitationEditor.refreshCitationOrders();
-                    OjsCommon.hideallModals();
-                })
-                .error(function () {
-                    OjsCommon.errorModal("We can't parse your citation for now. Please add your citation details below.");
-                    CitationEditor.parseAndAppendByNewLine(txt);
-                });
+            .done(function () {
+                CitationEditor.refreshCitationOrders();
+                OjsCommon.hideallModals();
+            })
+            .error(function () {
+                OjsCommon.errorModal("We can't parse your citation for now. Please add your citation details below.");
+                CitationEditor.parseAndAppendByNewLine(txt);
+            });
     },
     parseAndAppendByNewLine: function (txt) {
         items = txt.split("\n");
@@ -78,17 +78,17 @@ var CitationEditor = {
     citationTypeSelected: function ($el) {
         var $mustFields = $($("option:selected", $el)).data("must");
         var $shouldFields = $($("option:selected", $el)).data("should");
-        var $targetElm = $('.citationDetailsFields',$el.parent().parent());
+        var $targetElm = $('.citationDetailsFields', $el.parent().parent());
         $targetElm.html("");
         for (var i in $mustFields) {
             $targetElm.append(
-                    '<input type="text" class="form-control input-sm has-warning" placeholder="' +
-                    $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
+                '<input type="text" class="form-control input-sm has-warning" placeholder="' +
+                $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
         }
         for (var i in $shouldFields) {
             $targetElm.append(
-                    '<input type="text" class="form-control input-sm " placeholder="' +
-                    $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
+                '<input type="text" class="form-control input-sm " placeholder="' +
+                $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
         }
     }
 };
@@ -101,7 +101,7 @@ $(document).ready(function () {
         e.preventDefault();
         CitationEditor.newCitationField();
     });
-    
+
     $("#clearAllCitations").click(function (e) {
         e.preventDefault();
         $(".cite-item").slideUp();

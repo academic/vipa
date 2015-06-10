@@ -33,4 +33,3 @@ user_block:
 user_unblock:
     pattern: /{id}/unblock
     defaults: { _controller: "OjsUserBundle:User:unblock" }
-

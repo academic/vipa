@@ -2,10 +2,10 @@
 
 namespace Ojs\JournalBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 
 class JournalThemeType extends AbstractType
 {
@@ -17,19 +17,26 @@ class JournalThemeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('journal', 'entity', array(
+            ->add(
+                'journal',
+                'entity',
+                array(
                     'class' => 'OjsJournalBundle:Journal',
                     'property' => 'title',
-                ))
-                ->add('theme', 'entity', array(
+                )
+            )
+            ->add(
+                'theme',
+                'entity',
+                array(
                     'class' => 'OjsJournalBundle:Theme',
                     'property' => 'title',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                                ->where('t.isPublic = FALSE');
-                    }, )
+                            ->where('t.isPublic = FALSE');
+                    },
                 )
-        ;
+            );
     }
 
     /**
@@ -37,12 +44,15 @@ class JournalThemeType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalTheme',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalTheme',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace Ojs\InstallerBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\UserFirstType;
- use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -30,10 +30,14 @@ class SetupController extends Controller
         $user = new User();
         $data['schema_update'] = $query;
         $data['role_insert'] = $this->insertRoles();
-        $data['user_form'] = $this->createForm(new UserFirstType(), $user, [
-            'method' => 'POST',
-            'action' => $this->get('router')->generate('ojs_installer_create_admin'),
-        ])->createView();
+        $data['user_form'] = $this->createForm(
+            new UserFirstType(),
+            $user,
+            [
+                'method' => 'POST',
+                'action' => $this->get('router')->generate('ojs_installer_create_admin'),
+            ]
+        )->createView();
 
         return $this->render("OjsInstallerBundle:Default:setup.html.twig", $data);
     }
@@ -43,10 +47,14 @@ class SetupController extends Controller
         $user = new User();
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new UserFirstType(), $user, [
-            'method' => 'POST',
-            'action' => $this->get('router')->generate('ojs_installer_create_admin'),
-        ]);
+        $form = $this->createForm(
+            new UserFirstType(),
+            $user,
+            [
+                'method' => 'POST',
+                'action' => $this->get('router')->generate('ojs_installer_create_admin'),
+            ]
+        );
         $form->handleRequest($request);
         if ($form->isValid()) {
             $factory = $this->get('security.encoder_factory');

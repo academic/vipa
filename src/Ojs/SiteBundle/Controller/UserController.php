@@ -7,6 +7,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Exception\NotFoundException;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\CustomField;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
@@ -14,7 +15,6 @@ use Ojs\UserBundle\Entity\UserRepository;
 use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CustomFieldType;
 use Ojs\UserBundle\Form\UpdateUserType;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -182,7 +182,8 @@ class UserController extends Controller
         }
         $orcid = $this->get('ojs.orcid_service');
         $code = $request->get('code');
-        $orcid->setRedirectUri('http://'
+        $orcid->setRedirectUri(
+            'http://'
             .$this->container->getParameter('base_host')
             .$this->get('router')->generate('ojs_user_add_orcid_account')
         );
@@ -239,12 +240,22 @@ class UserController extends Controller
                     ->setSubject('Password Reset')
                     ->setFrom($this->container->getParameter('system_email'))
                     ->setTo($user->getEmail())
-                    ->setBody($this->renderView('OjsUserBundle:Mails/User:reset_password.html.twig', [
-                        'token' => $user->getToken(), ]))
+                    ->setBody(
+                        $this->renderView(
+                            'OjsUserBundle:Mails/User:reset_password.html.twig',
+                            [
+                                'token' => $user->getToken(),
+                            ]
+                        )
+                    )
                     ->setContentType('text/html');
                 $mailer->send($message);
-                $session->getFlashBag()->add('success', $this->get('translator')
-                        ->trans('We will send reset token to your registered email address. Please check in a few minutes')
+                $session->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')
+                        ->trans(
+                            'We will send reset token to your registered email address. Please check in a few minutes'
+                        )
                 );
             }
         }

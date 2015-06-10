@@ -2,9 +2,9 @@
 {% block title %}{{ 'title.create_custom_field'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'user'|trans},
-        { 'link': path('user'), 'title': 'user.update_profile'|trans},
-        { 'title': 'user.custom_field.create'|trans},
+    {'link': path('dashboard'), 'title': 'user'|trans},
+    { 'link': path('user'), 'title': 'user.update_profile'|trans},
+    { 'title': 'user.custom_field.create'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

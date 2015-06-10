@@ -18,6 +18,13 @@ class ArticleAttribute implements Translatable
     private $article_id;
     private $id;
 
+    public function __construct($name = null, $value = null, $article = null)
+    {
+        $name != null && $this->attribute = $name;
+        $value != null && $this->value = $value;
+        $article != null && $this->article = $article;
+    }
+
     /**
      * @return integer
      */
@@ -53,11 +60,14 @@ class ArticleAttribute implements Translatable
         return $this;
     }
 
-    public function __construct($name = null, $value = null, $article = null)
+    /**
+     * Get attribute
+     *
+     * @return string
+     */
+    public function getAttribute()
     {
-        $name != null && $this->attribute = $name;
-        $value != null && $this->value = $value;
-        $article != null && $this->article = $article;
+        return $this->attribute;
     }
 
     /**
@@ -74,13 +84,13 @@ class ArticleAttribute implements Translatable
     }
 
     /**
-     * Get attribute
+     * Get value
      *
      * @return string
      */
-    public function getAttribute()
+    public function getValue()
     {
-        return $this->attribute;
+        return $this->value;
     }
 
     /**
@@ -97,13 +107,13 @@ class ArticleAttribute implements Translatable
     }
 
     /**
-     * Get value
+     * Get article
      *
-     * @return string
+     * @return Article
      */
-    public function getValue()
+    public function getArticle()
     {
-        return $this->value;
+        return $this->article;
     }
 
     /**
@@ -117,15 +127,5 @@ class ArticleAttribute implements Translatable
         $this->article = $article;
 
         return $this;
-    }
-
-    /**
-     * Get article
-     *
-     * @return Article
-     */
-    public function getArticle()
-    {
-        return $this->article;
     }
 }

@@ -10,28 +10,36 @@ use Doctrine\Common\Collections\Collection;
  */
 class JournalIndex
 {
+    /** @var  string */
+    protected $logo_options;
     /**
      * @var integer
      */
     private $id;
-
     /**
      * @var string
      */
     private $name;
-
     /**
      * @var string
      */
     private $logo;
-
     /**
      * @var boolean
      */
     private $status;
+    /**
+     * @var Collection
+     */
+    private $journals_indexs;
 
-    /** @var  string */
-    protected $logo_options;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->journals_indexs = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -44,26 +52,13 @@ class JournalIndex
     }
 
     /**
-     * Set name
-     *
-     * @param  string       $name
-     * @return JournalIndex
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
+     * Get logo
      *
      * @return string
      */
-    public function getName()
+    public function getLogo()
     {
-        return $this->name;
+        return $this->logo;
     }
 
     /**
@@ -80,13 +75,13 @@ class JournalIndex
     }
 
     /**
-     * Get logo
+     * Get status
      *
-     * @return string
+     * @return boolean
      */
-    public function getLogo()
+    public function getStatus()
     {
-        return $this->logo;
+        return $this->status;
     }
 
     /**
@@ -100,28 +95,6 @@ class JournalIndex
         $this->status = $status;
 
         return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-    /**
-     * @var Collection
-     */
-    private $journals_indexs;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->journals_indexs = new ArrayCollection();
     }
 
     /**
@@ -176,5 +149,28 @@ class JournalIndex
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string       $name
+     * @return JournalIndex
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

@@ -2,16 +2,16 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'articles.rejected'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    {'title': 'articles.rejected'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>{{"article.plural"|trans}} / {{"status.rejected"|trans}}</h1>
+            <h1>{{ "article.plural"|trans }} / {{ "status.rejected"|trans }}</h1>
         </div>
 
         <div class="panel-body">

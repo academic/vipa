@@ -16,21 +16,33 @@ class Step1 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, [
-                'attr' => [
-                    'class' => 'validate[required]',
-                ],
-            ])
-            ->add('titleAbbr', null, [
-                'attr' => [
-                    'class' => 'validate[required]',
-                ],
-            ])
-            ->add('subtitle', null, [
-                'attr' => [
-                    'class' => 'validate[required]',
-                ],
-            ])
+            ->add(
+                'title',
+                null,
+                [
+                    'attr' => [
+                        'class' => 'validate[required]',
+                    ],
+                ]
+            )
+            ->add(
+                'titleAbbr',
+                null,
+                [
+                    'attr' => [
+                        'class' => 'validate[required]',
+                    ],
+                ]
+            )
+            ->add(
+                'subtitle',
+                null,
+                [
+                    'attr' => [
+                        'class' => 'validate[required]',
+                    ],
+                ]
+            )
             ->add('titleTransliterated');
     }
 
@@ -39,12 +51,15 @@ class Step1 extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

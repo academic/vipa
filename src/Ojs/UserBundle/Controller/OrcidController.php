@@ -2,9 +2,9 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -32,13 +32,16 @@ class OrcidController extends Controller
             return $this->redirect($this->get('router')->generate('ojs_public_index'));
         }
         $session = $this->get('session');
-        $session->set('oauth_login', [
-            'provider' => 'orcid',
-            'access_token' => $post->access_token,
-            'refresh_token' => $post->refresh_token,
-            'user_id' => $post->orcid,
-            'full_name' => $post->name,
-        ]);
+        $session->set(
+            'oauth_login',
+            [
+                'provider' => 'orcid',
+                'access_token' => $post->access_token,
+                'refresh_token' => $post->refresh_token,
+                'user_id' => $post->orcid,
+                'full_name' => $post->name,
+            ]
+        );
         $session->save();
 
         return $this->redirect($this->get('router')->generate('register'));
