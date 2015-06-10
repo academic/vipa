@@ -12,7 +12,9 @@
 {% block body -%}
     <h1>{{"citation.setting.list"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
-    <a href="{{ path('citationsetting_new') }}">{{"citation.setting.new"|trans}}</a>
+    {% if is_granted('CREATE', getEntity('OjsJournalBundle:CitationSetting')) %}
+        <a href="{{ path('citationsetting_new') }}">{{"citation.setting.new"|trans}}</a>
+    {% endif %}
 
     {{ grid(grid) }}
 {% endblock %}
