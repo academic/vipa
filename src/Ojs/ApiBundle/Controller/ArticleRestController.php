@@ -48,7 +48,7 @@ class ArticleRestController extends FOSRestController
      * )
      * @Get("/article/{id}")
      */
-    public function getArticleAction($id)
+    public function getArticleDetailAction($id)
     {
         $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->find($id);
         if (!is_object($article)) {
