@@ -30,6 +30,8 @@ class Issue implements Translatable
 
     /**
      * @var integer
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $journalId;
 
