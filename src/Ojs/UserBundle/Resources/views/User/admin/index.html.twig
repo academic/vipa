@@ -10,9 +10,11 @@
     <div class="row">
         <div class="col-sm-12">
             {% include '::flashbag.html.twig' %}
-            <a href="{{ path('user_new') }}" class="btn btn-info pull-right">
-                <i class="fa fa-plus"></i> {{ "user.new"|trans }}
-            </a>
+            {% if is_granted('CREATE', getEntity('OjsUserBundle:User')) %}
+                <a href="{{ path('user_new') }}" class="btn btn-info pull-right">
+                    <i class="fa fa-plus"></i> {{ "user.new"|trans }}
+                </a>
+            {% endif %}
             <h1>{{ "user.list"|trans }}</h1>
 
             {{ grid(grid) }}

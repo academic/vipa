@@ -18,7 +18,9 @@
         {{ form(edit_form) }}
 
         {% set back_path = 'role' %}
-        {% set delete_path = 'role_delete' %}
+        {% if is_granted('DELETE', edit_form.vars.data) %}
+            {% set delete_path = 'role_delete' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
 
         {{ getLogs(entity) }}

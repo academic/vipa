@@ -48,8 +48,12 @@
         </table>
 
         {% set back_path = 'role' %}
-        {% set edit_path = 'role_edit' %}
-        {% set delete_path = 'role_delete' %}
+        {% if is_granted('EDIT', entity) %}
+            {% set edit_path = 'role_edit' %}
+        {% endif %}
+        {% if is_granted('DELETE', entity) %}
+            {% set delete_path = 'role_delete' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
