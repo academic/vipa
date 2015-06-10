@@ -11,7 +11,9 @@
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-    <a href="{{ path('institution_new') }}"  class="btn btn-success">{{"c"|trans}}</a>
+    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Institution')) %}
+        <a href="{{ path('institution_new') }}"  class="btn btn-success">{{"c"|trans}}</a>
+    {% endif %}
     {{ grid(grid) }}
 
 {% endblock %}
