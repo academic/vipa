@@ -13,7 +13,8 @@
     <h1>{{"journaltheme.list"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
-
-    {% set create_path = 'admin_journaltheme_new' %}
+    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Journal'), 'theme') %}
+        {% set create_path = 'admin_journaltheme_new' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
