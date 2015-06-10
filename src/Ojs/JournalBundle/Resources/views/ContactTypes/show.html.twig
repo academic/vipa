@@ -30,6 +30,8 @@
         </tbody>
     </table>
     {% set back_path = 'contacttypes' %}
-    {% set delete_path = 'contacttypes_delete' %}
+    {% if is_granted('DELETE', entity) %}
+        {% set delete_path = 'contacttypes_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
