@@ -235,6 +235,10 @@ contact.edit: 'Edit Contact'
 firstname: Firstname
 lastname: Lastname
 phone: Phone
+article.types: 'Article Types'
+article.type: 'Article Type'
+article.type.list: 'Article Type List'
+article.type.new: 'New Article Type'
 contact.new: 'New Contact'
 contact.detail: 'Contact Detail'
 contact: Contact

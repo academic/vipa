@@ -239,6 +239,10 @@ contact.edit: 'İletişim Düzenle'
 firstname: Ad
 lastname: Soyad
 phone: Telefon
+article.types: 'Makale Türleri'
+article.type: 'Makale Türü'
+article.type.list: 'Makale Türünü Listele'
+article.type.new: 'Yeni Makale Türü'
 contact.new: 'Yeni İletişim'
 contact.detail: 'İletişim Detayı'
 contact: İletişim
