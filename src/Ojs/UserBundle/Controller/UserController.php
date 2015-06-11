@@ -237,7 +237,7 @@ class UserController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
-                'method' => 'POST',
+                'method' => 'PUT',
                 'helper' => $this->get('okulbilisim_location.form.helper'),
             )
         );

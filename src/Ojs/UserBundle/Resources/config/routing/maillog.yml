@@ -22,7 +22,7 @@ admin_maillog_edit:
 admin_maillog_update:
     path:     /{id}/update
     defaults: { _controller: "OjsUserBundle:MailLog:update" }
-    requirements: { _method: post|put }
+    methods:  [PUT]
 
 admin_maillog_delete:
     path:     /{id}/delete

@@ -32,7 +32,7 @@ ujr_edit:
 ujr_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsUserBundle:UserJournalRole:update" }
-    requirements: { _method: post|put }
+    methods:  [PUT]
 
 ujr_delete:
     pattern:  /{id}/delete
