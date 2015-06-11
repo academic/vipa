@@ -21,7 +21,7 @@ user_edit:
 user_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsUserBundle:User:update" }
-    requirements: { _method: post|put }
+    methods:  [PUT]
 
 user_delete:
     pattern:  /{id}/delete
