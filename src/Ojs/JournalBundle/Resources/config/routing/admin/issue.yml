@@ -22,7 +22,7 @@ issue_edit:
 issue_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:Issue:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 issue_delete:
     path:     /{id}/delete

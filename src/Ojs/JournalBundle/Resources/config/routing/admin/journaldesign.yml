@@ -22,7 +22,7 @@ admin_journaldesign_edit:
 admin_journaldesign_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalDesign:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 admin_journaldesign_delete:
     path:     /{id}/delete

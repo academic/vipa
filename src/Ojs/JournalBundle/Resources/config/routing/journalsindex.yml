@@ -24,7 +24,7 @@ manager_journals_indexes_edit:
 manager_journals_indexes_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:update" }
-    methods:  [POST, PUT]
+    methods: [PUT]
 
 manager_journals_indexes_delete:
     path:     /{id}/delete

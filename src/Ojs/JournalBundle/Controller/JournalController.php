@@ -220,7 +220,7 @@ class JournalController extends Controller
             array(
                 'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
-                'method' => 'POST',
+                'method' => 'PUT',
             )
         );
 

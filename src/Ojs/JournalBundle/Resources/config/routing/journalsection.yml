@@ -22,7 +22,7 @@ manager_journal_section_edit:
 manager_journal_section_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalSection:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 manager_journal_section_delete:
     path:     /{id}/delete

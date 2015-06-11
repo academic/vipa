@@ -182,7 +182,7 @@ class JournalIndexController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('admin_journalindex_update', array('id' => $entity->getId())),
-                'method' => 'POST',
+                'method' => 'PUT',
             )
         );
 

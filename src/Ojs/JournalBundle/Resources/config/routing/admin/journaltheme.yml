@@ -22,7 +22,7 @@ admin_journaltheme_edit:
 admin_journaltheme_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalTheme:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 admin_journaltheme_delete:
     path:     /{id}/delete

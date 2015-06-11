@@ -31,7 +31,7 @@ board_manager_edit:
 board_manager_update:
    path:     /{id}/update
    defaults: { _controller: "OjsJournalBundle:Board:update" }
-   methods:  [POST, PUT]
+   methods: [PUT]
 
 board_manager_delete:
     path:     /{id}/delete
