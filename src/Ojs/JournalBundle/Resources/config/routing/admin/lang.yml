@@ -22,7 +22,7 @@ lang_edit:
 lang_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:Lang:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 lang_delete:
     path:     /{id}/delete

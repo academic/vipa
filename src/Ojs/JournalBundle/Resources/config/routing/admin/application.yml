@@ -31,6 +31,7 @@ application_institution_edit:
 application_institution_update:
   pattern: /institution/update/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:institutionUpdate'}
+  methods: [PUT]
 application_institution_delete:
   pattern: /institution/delete/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:institutionDelete'}

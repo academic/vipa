@@ -22,7 +22,7 @@ articletypes_edit:
 articletypes_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:ArticleTypes:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 articletypes_delete:
     pattern:  /{id}/delete

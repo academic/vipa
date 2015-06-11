@@ -184,7 +184,7 @@ class FileController extends Controller
             array(
                 'action' => $this->generateUrl('admin_file_update', array('id' => $entity->getId())),
                 'apiRoot' => $this->generateUrl('ojs_api_homepage'),
-                'method' => 'POST',
+                'method' => 'PUT',
             )
         );
 

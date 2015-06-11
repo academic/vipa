@@ -22,7 +22,7 @@ manager_journalcontact_edit:
 manager_journalcontact_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalContact:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 manager_journalcontact_delete:
     pattern:  /{id}/delete

@@ -22,7 +22,7 @@ institution_types_edit:
 institution_types_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:InstitutionTypes:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 institution_types_delete:
     pattern:  /{id}/delete

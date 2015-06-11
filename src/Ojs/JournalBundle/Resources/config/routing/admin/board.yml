@@ -22,7 +22,7 @@ admin_board_edit:
 admin_board_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:Board:update" }
-    methods:  [POST, PUT]
+    methods: [PUT]
 
 admin_board_delete:
     path:     /{id}/delete

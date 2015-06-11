@@ -22,7 +22,7 @@ articlefile_edit:
 articlefile_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:ArticleFile:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 articlefile_delete:
     path:     /{id}/delete

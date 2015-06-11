@@ -196,7 +196,7 @@ class InstitutionController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
-                'method' => 'POST',
+                'method' => 'PUT',
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
                 'institutionEndPoint' => $this->generateUrl('api_get_institution'),

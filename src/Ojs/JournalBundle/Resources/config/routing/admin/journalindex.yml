@@ -22,7 +22,7 @@ admin_journalindex_edit:
 admin_journalindex_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalIndex:update" }
-    methods:  [POST, PUT]
+    methods: [PUT]
 
 admin_journalindex_delete:
     path:     /{id}/delete

@@ -216,7 +216,7 @@ class IssueController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
-                'method' => 'POST',
+                'method' => 'PUT',
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'user' => $user,
             )

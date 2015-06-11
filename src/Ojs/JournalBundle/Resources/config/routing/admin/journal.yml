@@ -22,7 +22,7 @@ journal_edit:
 journal_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:Journal:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 journal_delete:
     pattern:  /{id}/delete

@@ -22,7 +22,7 @@ admin_file_edit:
 admin_file_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:File:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 admin_file_delete:
     pattern:  /{id}/delete

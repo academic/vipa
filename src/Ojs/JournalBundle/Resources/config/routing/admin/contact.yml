@@ -22,7 +22,7 @@ contact_edit:
 contact_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:Contact:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 contact_delete:
     pattern:  /{id}/delete

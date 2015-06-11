@@ -352,7 +352,7 @@ class ArticleController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
-                'method' => 'POST',
+                'method' => 'PUT',
                 'journal' => array('all' => $allJournals, 'selected' => $journal),
                 'user' => $this->getUser(),
             )

@@ -22,7 +22,7 @@ theme_edit:
 theme_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:Theme:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 theme_delete:
     pattern:  /{id}/delete

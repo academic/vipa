@@ -22,7 +22,7 @@ mailtemplate_manager_edit:
 mailtemplate_manager_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:MailTemplate:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 mailtemplate_manager_delete:
     path:     /{id}/delete

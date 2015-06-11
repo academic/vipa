@@ -22,7 +22,7 @@ citationsetting_edit:
 citationsetting_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:CitationSetting:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 citationsetting_delete:
     pattern:  /{id}/delete

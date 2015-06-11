@@ -22,7 +22,7 @@ articleauthor_edit:
 articleauthor_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 articleauthor_delete:
     path:     /{id}/delete

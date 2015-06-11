@@ -22,7 +22,7 @@ design_edit:
 design_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:Design:update" }
-    requirements: { _method: post|put }
+    methods: [PUT]
 
 design_delete:
     pattern:  /{id}/delete
