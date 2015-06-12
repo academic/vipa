@@ -1428,6 +1428,7 @@ title.author_new: "New Authors"
 title.author_edit: "Edit Authors"
 title.author_show: "Show Authors"
 title.people_directory: "People Directory"
+title.api: "API Home"
 
 tag.search.results: "Tag Search Result"
 tags.cloud: "Tag Cloud"
