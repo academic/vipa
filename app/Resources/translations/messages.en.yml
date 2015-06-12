@@ -1429,6 +1429,8 @@ title.author_edit: "Edit Authors"
 title.author_show: "Show Authors"
 title.people_directory: "People Directory"
 title.api: "API Home"
+title.event_logs: "Event Logs"
+title.event_log_show: "Show Event Log"
 
 tag.search.results: "Tag Search Result"
 tags.cloud: "Tag Cloud"
