@@ -1445,6 +1445,10 @@ title.proxy_new: "New Proxy"
 title.proxy_show: "Show Proxy"
 title.proxy_parents: "Proxy Parents"
 title.proxy_clients: "Proxy Clients"
+title.roles: "Roles"
+title.role_edit: "Edit Role"
+title.role_new: "New Role"
+title.role_show: "Show Role"s
 
 tag.search.results: "Tag Search Result"
 tags.cloud: "Tag Cloud"
