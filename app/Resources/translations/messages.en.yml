@@ -1448,7 +1448,9 @@ title.proxy_clients: "Proxy Clients"
 title.roles: "Roles"
 title.role_edit: "Edit Role"
 title.role_new: "New Role"
-title.role_show: "Show Role"s
+title.role_show: "Show Role"
+title.password_create: "Create Password"
+title.unconfirmed_user: "Unconfirmed User"
 
 tag.search.results: "Tag Search Result"
 tags.cloud: "Tag Cloud"
