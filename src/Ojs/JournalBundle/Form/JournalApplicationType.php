@@ -50,27 +50,28 @@ class JournalApplicationType extends AbstractType
         }
 
         $builder
-            ->add('title', null, ['label' => 'journal.title'])
-            ->add('titleAbbr', null, ['label' => 'journal.titleAbbr'])
-            ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated'])
-            ->add('subtitle', null, ['label' => 'journal.subtitle'])
-            ->add('domain', null, ['label' => 'journal.domain'])
+            ->add('title', null, ['label' => 'journal.title', 'attr' => ['class' => 'validate[required]']])
+            ->add('titleAbbr', null, ['label' => 'journal.titleAbbr', 'attr' => ['class' => 'validate[required]']])
+            ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
+            ->add('subtitle', null, ['label' => 'journal.subtitle', 'attr' => ['class' => 'validate[required]']])
+            ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'country',
                 'choice',
                 [
-                    'choices' => $choices['countries'],
-                    'attr' => ['class' => 'select2-element'],
                     'label' => 'journal.country',
+                    'choices' => $choices['countries'],
+                    'attr' => ['class' => 'select2-element validate[required]'],
                 ]
             )
-            ->add('issn', null, ['label' => 'journal.issn'])
-            ->add('eissn', null, ['label' => 'journal.eissn'])
+            ->add('issn', null, ['label' => 'journal.issn', 'attr' => ['class' => 'validate[required] maskissn']])
+            ->add('eissn', null, ['label' => 'journal.eissn', 'attr' => ['class' => 'validate[required] maskissn']])
             ->add(
                 'firstPublishDate',
                 'collot_datetime',
                 [
                     'label' => 'journal.firstPublishDate',
+                    'attr' => ['class' => 'validate[required]'],
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [
                         'format' => 'dd-mm-yyyy',
@@ -79,18 +80,18 @@ class JournalApplicationType extends AbstractType
                         'todayBtn' => 'true',
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',
-                    ],
+                    ]
                 ]
             )
-            ->add('period', null, ['label' => 'journal.period'])
-            ->add('tags', null, ['attr' => ['class' => 'tags form-control', 'label' => 'journal.tags']])
-            ->add('url', null, ['label' => 'journal.url'])
+            ->add('period', null, ['label' => 'journal.period', 'attr' => ['class' => 'validate[required]']])
+            ->add('tags', null, ['attr' => ['class' => 'tags form-control validate[required]', 'label' => 'journal.tags']])
+            ->add('url', null, ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'institution',
                 'choice',
                 [
                     'choices' => $choices['institutions'],
-                    'attr' => ['class' => 'select2-element'],
+                    'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.institution',
                 ]
             )
@@ -100,7 +101,7 @@ class JournalApplicationType extends AbstractType
                 [
                     'choices' => $choices['languages'],
                     'multiple' => true,
-                    'attr' => ['class' => 'select2-element'],
+                    'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.languages',
                 ]
             )
@@ -110,27 +111,27 @@ class JournalApplicationType extends AbstractType
                 [
                     'choices' => $choices['subjects'],
                     'multiple' => true,
-                    'attr' => ['class' => 'select2-element'],
+                    'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.subjects',
                 ]
             )
             ->add('coverimage', 'hidden')
             ->add('headerimage', 'hidden')
-            ->add('address', null, ['label' => 'journal.address'])
-            ->add('phone', null, ['label' => 'journal.phone'])
-            ->add('email', null, ['label' => 'journal.email'])
-            ->add('editorName', null, ['label' => 'journal.editor_name'])
-            ->add('editorSurname', null, ['label' => 'journal.editor_surname'])
-            ->add('editorPhone', null, ['label' => 'journal.editor_phone'])
-            ->add('editorEmail', null, ['label' => 'journal.editor_email'])
-            ->add('assistantEditorName', null, ['label' => 'journal.assistant_editor_name'])
-            ->add('assistantEditorSurname', null, ['label' => 'journal.assistant_editor_surname'])
-            ->add('assistantEditorPhone', null, ['label' => 'journal.assistant_editor_phone'])
-            ->add('assistantEditorEmail', null, ['label' => 'journal.assistant_editor_email'])
-            ->add('techContactName', null, ['label' => 'journal.tech_contact_name'])
-            ->add('techContactSurname', null, ['label' => 'journal.tech_contact_surname'])
-            ->add('techContactPhone', null, ['label' => 'journal.tech_contact_phone'])
-            ->add('techContactEmail', null, ['label' => 'journal.tech_contact_email']);
+            ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])
+            ->add('phone', null, ['label' => 'journal.phone', 'attr' => ['class' => 'validate[required,custom[email]]']])
+            ->add('email', null, ['label' => 'journal.email', 'attr' => ['class' => 'validate[required,custom[email]]']])
+            ->add('editorName', null, ['label' => 'journal.editor_name', 'attr' => ['class' => 'validate[required]']])
+            ->add('editorSurname', null, ['label' => 'journal.editor_surname', 'attr' => ['class' => 'validate[required]']])
+            ->add('editorPhone', null, ['label' => 'journal.editor_phone', 'attr' => ['class' => 'validate[required]']])
+            ->add('editorEmail', null, ['label' => 'journal.editor_email', 'attr' => ['class' => 'validate[required,custom[email]]']])
+            ->add('assistantEditorName', null, ['label' => 'journal.assistant_editor_name', 'attr' => ['class' => 'validate[required]']])
+            ->add('assistantEditorSurname', null, ['label' => 'journal.assistant_editor_surname', 'attr' => ['class' => 'validate[required]']])
+            ->add('assistantEditorPhone', null, ['label' => 'journal.assistant_editor_phone', 'attr' => ['class' => 'validate[required]']])
+            ->add('assistantEditorEmail', null, ['label' => 'journal.assistant_editor_email', 'attr' => ['class' => 'validate[required,custom[email]]']])
+            ->add('techContactName', null, ['label' => 'journal.tech_contact_name', 'attr' => ['class' => 'validate[required]']])
+            ->add('techContactSurname', null, ['label' => 'journal.tech_contact_surname', 'attr' => ['class' => 'validate[required]']])
+            ->add('techContactPhone', null, ['label' => 'journal.tech_contact_phone', 'attr' => ['class' => 'validate[required]']])
+            ->add('techContactEmail', null, ['label' => 'journal.tech_contact_email', 'attr' => ['class' => 'validate[required,custom[email]]']]);
     }
 
     /**
@@ -142,10 +143,7 @@ class JournalApplicationType extends AbstractType
             array(
                 'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
                 'em' => null,
-                'attr' => [
-                    'novalidate' => 'novalidate',
-                    'class' => 'form-validate',
-                ],
+                'attr' => ['class' => 'form-validate'],
             )
         );
     }
