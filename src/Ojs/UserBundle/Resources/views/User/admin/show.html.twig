@@ -1,5 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
-
+{% block title %}{{ 'title.user_show'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
