@@ -2,9 +2,9 @@
 
 namespace Okulbilisim\LocationBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
-use Okulbilisim\LocationBundle\Entity\CityRepository;
+use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\LocationRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,12 +16,12 @@ class DefaultController extends Controller
         if (!$request->isXmlHttpRequest()) {
             throw new NotFoundHttpException();
         }
-        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var CityRepository $cityRepo */
-        $cityRepo = $em->getRepository('OkulbilisimLocationBundle:City');
+        /** @var LocationRepository $cityRepo */
+        $cityRepo = $em->getRepository('OkulbilisimLocationBundle:Location');
 
-        $cities = $cityRepo->findBy(['country_id' => $country]);
+        /** @var Location[] $cities */
+        $cities = $cityRepo->findBy(['parent_id' => $country, 'type' => '1']);
 
         $cities_array = [];
         foreach ($cities as $city) {
