@@ -16,11 +16,15 @@ class InstitutionRepository extends EntityRepository
     /**
      * @return array
      */
-    public function getOnlyNames()
+    public function getAllWithDefaultTranslation()
     {
         $qb = $this->createQueryBuilder("i");
-        $qb->select("i.name,i.slug,i.verified");
 
-        return $qb->getQuery()->getResult(Query::HYDRATE_OBJECT);
+        $query = $qb->getQuery();
+        $query->setHint(
+            Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+        return $query->getResult();
     }
 }
