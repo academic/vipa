@@ -2,8 +2,7 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityManager;
-use Ojs\JournalBundle\Entity\InstitutionTypes;
+use Doctrine\ORM\EntityRepository;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,32 +20,17 @@ class InstitutionApplicationType extends AbstractType
 
         /** @var FormHelper $helper */
         $helper = $options['helper'];
-        /** @var EntityManager $em */
-        $em = $options['em'];
-        $institutionTypes = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
-        $choices = [
-            'types' => [],
-            'countries' => [],
-        ];
-        foreach ($institutionTypes as $choice) {
-            /** @var InstitutionTypes $choice */
-            $choices['types'][$choice->getId()] = $choice->getName();
-        }
-        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type' => 0]);
-        foreach ($countries as $country) {
-            $choices['countries'][$country->getId()] = $country->getName();
-        }
 
         $builder
             ->add('name', null, ['label' => 'institution.name'])
             ->add('slug', null, ['label' => 'institution.slug'])
             ->add(
                 'type',
-                'choice',
-                [
+                'entity',
+                array(
+                    'class' => 'OjsJournalBundle:InstitutionTypes',
                     'label' => 'institution.type',
-                    'choices' => $choices['types'],
-                ]
+                )
             )
             ->add('about', null, ['label' => 'institution.about'])
             ->add('address', null, ['label' => 'institution.address'])
@@ -62,17 +46,28 @@ class InstitutionApplicationType extends AbstractType
             ->add('header_image', 'hidden')
             ->add(
                 'country',
-                'choice',
-                [
-                    'choices' => $choices['countries'],
+                'entity',
+                array(
+                    'class' => 'OkulbilisimLocationBundle:Location',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('l')->andWhere('l.type = 0');
+                    },
+                    'label' => 'institution.country',
                     'attr' => [
-                        'label' => 'institution.country',
                         'class' => 'select2-element  bridged-dropdown',
                         'data-to' => '#'.$this->getName().'_city',
                     ],
-                ]
+                )
             );
         $helper->addCityField($builder, 'Ojs\JournalBundle\Document\InstitutionApplication', true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'ojs_journalbundle_institutionapplication';
     }
 
     /**
@@ -83,7 +78,6 @@ class InstitutionApplicationType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Document\InstitutionApplication',
-                'em' => null,
                 'helper' => null,
                 'attr' => [
                     'novalidate' => 'novalidate',
@@ -91,13 +85,5 @@ class InstitutionApplicationType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_institutionapplication';
     }
 }

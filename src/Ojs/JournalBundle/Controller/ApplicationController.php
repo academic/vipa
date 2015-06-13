@@ -200,7 +200,6 @@ class ApplicationController extends Controller
             new InstitutionApplicationType(),
             $document,
             [
-                'em' => $this->getDoctrine()->getManager(),
                 'helper' => $this->get('okulbilisim_location.form.helper'),
                 'action' => $this->generateUrl('application_institution_update', array('id' => $document->getId())),
             ]
@@ -244,7 +243,6 @@ class ApplicationController extends Controller
             new InstitutionApplicationType(),
             $document,
             [
-                'em' => $this->getDoctrine()->getManager(),
                 'helper' => $this->get('okulbilisim_location.form.helper'),
             ]
         );
