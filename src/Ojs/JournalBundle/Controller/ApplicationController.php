@@ -180,8 +180,7 @@ class ApplicationController extends Controller
             new JournalApplicationType(),
             $document,
             [
-                'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId())),
-                'em' => $this->getDoctrine()->getManager(),
+                'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId()))
             ]
         );
 
@@ -221,8 +220,7 @@ class ApplicationController extends Controller
 
         $form = $this->createForm(
             new JournalApplicationType(),
-            $document,
-            ['em' => $this->getDoctrine()->getManager()]
+            $document
         );
         $form->handleRequest($request);
 

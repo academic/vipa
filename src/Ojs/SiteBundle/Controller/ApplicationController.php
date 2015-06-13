@@ -25,8 +25,7 @@ class ApplicationController extends Controller
         $application = new JournalApplication();
         $form = $this->createForm(
             new JournalApplicationType(),
-            $application,
-            ['em' => $this->getDoctrine()->getManager()]
+            $application
         );
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);

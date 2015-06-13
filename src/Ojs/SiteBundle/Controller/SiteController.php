@@ -7,11 +7,14 @@ use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\File;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
+use Ojs\JournalBundle\Entity\Sums;
+use Ojs\JournalBundle\Entity\SumsRepository;
 use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,11 +58,17 @@ class SiteController extends Controller
         ];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
+        /** @var SumsRepository $sumRepo */
         $sumRepo = $em->getRepository('OjsJournalBundle:Sums');
+        /** @var Sums $journalSum */
         $journalSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Journal']);
+        /** @var Sums $articleSum */
         $articleSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Article']);
+        /** @var Sums $subjectSum */
         $subjectSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Subject']);
+        /** @var Sums $institutionSum */
         $institutionSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Institution']);
+        /** @var Sums $userSum */
         $userSum = $sumRepo->findOneBy(['entity' => 'OjsUserBundle:User']);
         $data['stats'] = [
             'journal' => $journalSum ? $journalSum->getSum() : 0,
@@ -114,7 +123,7 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var InstitutionRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Institution');
-        $data['entities'] = $repo->getOnlyNames();
+        $data['entities'] = $repo->getAllWithDefaultTranslation();
         $data['page'] = 'institution';
 
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
@@ -135,6 +144,7 @@ class SiteController extends Controller
         $searchManager->setPage($page);
         $filter = $request->get('filter', []);
         if ($institution) {
+            /** @var Institution $institutionObj */
             $institutionObj = $this->getDoctrine()->getManager()->getRepository(
                 'OjsJournalBundle:Institution'
             )->findOneBy(['slug' => $institution]);

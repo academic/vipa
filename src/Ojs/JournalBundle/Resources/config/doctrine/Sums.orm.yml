@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\Sums:
     type: entity
     table: sums
+    repositoryClass: Ojs\JournalBundle\Entity\SumsRepository
     id:
         id:
             type: integer
