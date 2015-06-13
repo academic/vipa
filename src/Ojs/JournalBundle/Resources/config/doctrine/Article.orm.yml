@@ -35,7 +35,6 @@ Ojs\JournalBundle\Entity\Article:
           joinColumn:
             name: article_type_id
             referencedColumnName: id
-          inversedBy: articles
           fetch: EXTRA_LAZY
   oneToMany:
     attributes:
