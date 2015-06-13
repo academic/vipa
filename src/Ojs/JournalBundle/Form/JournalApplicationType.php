@@ -69,12 +69,9 @@ class JournalApplicationType extends AbstractType
             ->add('url', null, ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'institution',
-                'entityWithoutTrans',
+                'entity',
                 array(
                     'class' => 'OjsJournalBundle:Institution',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('i');
-                    },
                     'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.institution',
                 )
@@ -84,9 +81,6 @@ class JournalApplicationType extends AbstractType
                 'entity',
                 array(
                     'class' => 'OjsJournalBundle:Lang',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('l');
-                    },
                     'multiple' => true,
                     'label' => 'journal.languages',
                     'attr' => ['class' => 'select2-element validate[required]'],
@@ -94,12 +88,9 @@ class JournalApplicationType extends AbstractType
             )
             ->add(
                 'subjects',
-                'entityWithoutTrans',
+                'entity',
                 array(
                     'class' => 'OjsJournalBundle:Subject',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('s');
-                    },
                     'multiple' => true,
                     'label' => 'journal.subjects',
                     'attr' => ['class' => 'select2-element validate[required]'],

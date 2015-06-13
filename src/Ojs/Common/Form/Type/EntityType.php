@@ -6,7 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\Common\Form\ChoiceList\ORMQueryBuilderLoader;
 use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
 
-class EntityWithoutTransType extends DoctrineType
+class EntityType extends DoctrineType
 {
     /**
      * Return the default loader object.
@@ -28,6 +28,6 @@ class EntityWithoutTransType extends DoctrineType
 
     public function getName()
     {
-        return 'entityWithoutTrans';
+        return 'entity';
     }
 }
