@@ -69,7 +69,7 @@ class JournalApplicationType extends AbstractType
             ->add('url', null, ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'institution',
-                'entity',
+                'entityWithoutTrans',
                 array(
                     'class' => 'OjsJournalBundle:Institution',
                     'query_builder' => function (EntityRepository $er) {
@@ -94,7 +94,7 @@ class JournalApplicationType extends AbstractType
             )
             ->add(
                 'subjects',
-                'entity',
+                'entityWithoutTrans',
                 array(
                     'class' => 'OjsJournalBundle:Subject',
                     'query_builder' => function (EntityRepository $er) {

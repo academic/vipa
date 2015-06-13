@@ -152,3 +152,8 @@ services:
     grid_action:
         class: Ojs\Common\Services\GridAction
         arguments: [@security.csrf.token_manager, @translator, @okulbilisimcmsbundle.twig.post_extension]
+    form.type.entityWithoutTrans:
+        class: Ojs\Common\Form\Type\EntityWithoutTransType
+        arguments: [@doctrine]
+        tags:
+            - { name: form.type, alias: entityWithoutTrans }
