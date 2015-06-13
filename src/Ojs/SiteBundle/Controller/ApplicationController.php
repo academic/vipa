@@ -60,7 +60,6 @@ class ApplicationController extends Controller
             new InstitutionApplicationType(),
             $application,
             [
-                'em' => $this->getDoctrine()->getManager(),
                 'helper' => $this->get('okulbilisim_location.form.helper'),
             ]
         );
