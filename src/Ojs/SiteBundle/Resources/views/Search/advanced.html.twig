@@ -81,3 +81,10 @@
         </form>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts "@advanced_search_js" output="c/advanced_search_js.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

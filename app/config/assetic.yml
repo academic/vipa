@@ -80,7 +80,10 @@ assetic:
             inputs:
                 - @OjsUserBundle/Resources/public/js/user.js
                 - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
-                
+        advanced_search_js:
+            inputs:
+                - @OjsSearchBundle/Resources/public/js/search.js
+
         submission_js:
             inputs:
                 - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js
