@@ -15,11 +15,21 @@ use Okulbilisim\LocationBundle\Entity\Location;
  * Institution
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,name,address,email,verified")
+ * @GRID\Source(columns="id,name,country.name,status", groups={"application"})
  */
 class Institution implements Translatable
 {
     use GenericEntityTrait;
 
+    public $statusTexts = array(0 => 'application.status.onhold', 1 => 'application.status.rejected');
+    /**
+     * @var string
+     */
+    protected $logo_options;
+    /**
+     * @var string
+     */
+    protected $header_options;
     /**
      * @var integer
      * @Expose
@@ -27,123 +37,151 @@ class Institution implements Translatable
      */
     private $id;
     private $lft;
-    private $lvl;
-    private $rgt;
-    private $root;
 
     /*
      * @var Institution
      * @Expose
      * @GRID\Column(title="parent")
      */
+    private $lvl;
+    private $rgt;
+    private $root;
     private $parent;
-
     /**
      * @var Collection
      */
     private $children;
-
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="name")
      */
     private $name;
-
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="address")
      */
     private $address;
-
     /**
      * @var string
      * @Expose
      */
     private $about;
-
     /**
      * @var Location
      * @Expose
+     * @GRID\Column(field="city.name",title="city")
      */
     private $city;
-
     /**
      * @var integer
      * @Expose
      */
     private $city_id;
-
     /**
      * @var Location
      * @Expose
+     * @GRID\Column(field="country.name",title="country")
      */
     private $country;
-
     /**
      * @var string
      * @Expose
      */
     private $country_id;
-
     /**
      * @var string
      * @Expose
      */
     private $addressLat;
-
     /**
      * @var string
      * @Expose
      */
     private $addressLong;
-
     /**
      * @var string
      * @Expose
      */
     private $phone;
-
     /**
      * @var string
      * @Expose
      */
     private $fax;
-
     /**
      * @var string
      * @Expose
      */
     private $email;
-
     /**
      * @var string
      * @Expose
      */
     private $url;
-
     /**
      * @var string
      * @Expose
      */
     private $wiki;
-
     /**
      * @var string
      * @Expose
      */
     private $logo;
-
     /**
      * @var string
      * @Expose
      */
     private $header;
+    /**
+     * @var Collection
+     */
+    private $journals;
+    /**
+     * @var Collection
+     */
+    private $authors;
+    private $slug;
+    private $institution_type;
+    private $institution_type_id;
+    /**
+     * @var boolean
+     * @GRID\Column(title="verified")
+     */
+    private $verified = false;
+    private $status = 0;
 
-    public function setParent(Institution $parent = null)
+    public function __construct()
     {
-        $this->parent = $parent;
+        $this->journals = new ArrayCollection();
+        $this->authors = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return string
+     * @GRID\Column(field="statusText",title="status")
+     */
+    public function getStatusText()
+    {
+        return array_key_exists($this->status, $this->statusTexts) ? $this->statusTexts[$this->status] : "-";
     }
 
     /**
@@ -155,6 +193,11 @@ class Institution implements Translatable
         return $this->parent;
     }
 
+    public function setParent(Institution $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
     public function getChildren()
     {
         return $this->children;
@@ -163,6 +206,19 @@ class Institution implements Translatable
     public function getRoot()
     {
         return $this->root;
+    }
+
+    /**
+     * Set root
+     *
+     * @param  integer $root
+     * @return Institution
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+
+        return $this;
     }
 
     /**
@@ -185,24 +241,8 @@ class Institution implements Translatable
     }
 
     /**
-     * @var Collection
-     */
-    private $journals;
-
-    /**
-     * @var Collection
-     */
-    private $authors;
-
-    public function __construct()
-    {
-        $this->journals = new ArrayCollection();
-        $this->authors = new ArrayCollection();
-    }
-
-    /**
      * Add journal
-     * @param  Journal     $journal
+     * @param  Journal $journal
      * @return Institution
      */
     public function addJournal(Journal $journal)
@@ -241,20 +281,6 @@ class Institution implements Translatable
     }
 
     /**
-     * Set city
-     *
-     * @param  Location    $city
-     * @return Institution
-     */
-    public function setCity(Location $city)
-    {
-        $this->city = $city;
-        $this->city_id = $city->getId();
-
-        return $this;
-    }
-
-    /**
      * Get city
      *
      * @return Location
@@ -265,14 +291,15 @@ class Institution implements Translatable
     }
 
     /**
-     * Set name
+     * Set city
      *
-     * @param  string      $name
+     * @param  Location $city
      * @return Institution
      */
-    public function setName($name)
+    public function setCity(Location $city)
     {
-        $this->name = $name;
+        $this->city = $city;
+        $this->city_id = $city->getId();
 
         return $this;
     }
@@ -288,14 +315,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set address
+     * Set name
      *
-     * @param  string      $address
+     * @param  string $name
      * @return Institution
      */
-    public function setAddress($address)
+    public function setName($name)
     {
-        $this->address = $address;
+        $this->name = $name;
 
         return $this;
     }
@@ -311,14 +338,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set about
+     * Set address
      *
-     * @param  string      $about
+     * @param  string $address
      * @return Institution
      */
-    public function setAbout($about)
+    public function setAddress($address)
     {
-        $this->about = $about;
+        $this->address = $address;
 
         return $this;
     }
@@ -334,15 +361,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set country
+     * Set about
      *
-     * @param  Location    $country
+     * @param  string $about
      * @return Institution
      */
-    public function setCountry(Location $country)
+    public function setAbout($about)
     {
-        $this->country = $country;
-        $this->country_id = $country->getId();
+        $this->about = $about;
 
         return $this;
     }
@@ -358,14 +384,15 @@ class Institution implements Translatable
     }
 
     /**
-     * Set addressLat
+     * Set country
      *
-     * @param  string      $addressLat
+     * @param  Location $country
      * @return Institution
      */
-    public function setAddressLat($addressLat)
+    public function setCountry(Location $country)
     {
-        $this->addressLat = $addressLat;
+        $this->country = $country;
+        $this->country_id = $country->getId();
 
         return $this;
     }
@@ -381,14 +408,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set addressLong
+     * Set addressLat
      *
-     * @param  string      $addressLong
+     * @param  string $addressLat
      * @return Institution
      */
-    public function setAddressLong($addressLong)
+    public function setAddressLat($addressLat)
     {
-        $this->addressLong = $addressLong;
+        $this->addressLat = $addressLat;
 
         return $this;
     }
@@ -404,14 +431,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set phone
+     * Set addressLong
      *
-     * @param  string      $phone
+     * @param  string $addressLong
      * @return Institution
      */
-    public function setPhone($phone)
+    public function setAddressLong($addressLong)
     {
-        $this->phone = $phone;
+        $this->addressLong = $addressLong;
 
         return $this;
     }
@@ -427,14 +454,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set fax
+     * Set phone
      *
-     * @param  string      $fax
+     * @param  string $phone
      * @return Institution
      */
-    public function setFax($fax)
+    public function setPhone($phone)
     {
-        $this->fax = $fax;
+        $this->phone = $phone;
 
         return $this;
     }
@@ -450,14 +477,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set email
+     * Set fax
      *
-     * @param  string      $email
+     * @param  string $fax
      * @return Institution
      */
-    public function setEmail($email)
+    public function setFax($fax)
     {
-        $this->email = $email;
+        $this->fax = $fax;
 
         return $this;
     }
@@ -473,14 +500,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set url
+     * Set email
      *
-     * @param  string      $url
+     * @param  string $email
      * @return Institution
      */
-    public function setUrl($url)
+    public function setEmail($email)
     {
-        $this->url = $url;
+        $this->email = $email;
 
         return $this;
     }
@@ -496,14 +523,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set wiki
+     * Set url
      *
-     * @param  string      $wiki
+     * @param  string $url
      * @return Institution
      */
-    public function setWiki($wiki)
+    public function setUrl($url)
     {
-        $this->wiki = $wiki;
+        $this->url = $url;
 
         return $this;
     }
@@ -519,14 +546,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set logo
+     * Set wiki
      *
-     * @param  string      $logo
+     * @param  string $wiki
      * @return Institution
      */
-    public function setLogo($logo)
+    public function setWiki($wiki)
     {
-        $this->logo = $logo;
+        $this->wiki = $wiki;
 
         return $this;
     }
@@ -541,7 +568,18 @@ class Institution implements Translatable
         return $this->logo;
     }
 
-    private $slug;
+    /**
+     * Set logo
+     *
+     * @param  string $logo
+     * @return Institution
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -562,8 +600,6 @@ class Institution implements Translatable
         return $this;
     }
 
-    private $institution_type;
-
     /**
      * @return mixed
      */
@@ -583,8 +619,6 @@ class Institution implements Translatable
 
         return $this;
     }
-
-    private $institution_type_id;
 
     /**
      * @return mixed
@@ -614,7 +648,7 @@ class Institution implements Translatable
     }
 
     /**
-     * @param  int   $city_id
+     * @param  int $city_id
      * @return $this
      */
     public function setCityId($city_id)
@@ -644,15 +678,19 @@ class Institution implements Translatable
     }
 
     /**
-     * @var boolean
-     * @GRID\Column(title="verified")
-     */
-    private $verified;
-
-    /**
      * @return boolean
      */
     public function isVerified()
+    {
+        return $this->verified;
+    }
+
+    /**
+     * Get verified
+     *
+     * @return boolean
+     */
+    public function getVerified()
     {
         return $this->verified;
     }
@@ -666,19 +704,6 @@ class Institution implements Translatable
     }
 
     /**
-     * Set lft
-     *
-     * @param  integer     $lft
-     * @return Institution
-     */
-    public function setLft($lft)
-    {
-        $this->lft = $lft;
-
-        return $this;
-    }
-
-    /**
      * Get lft
      *
      * @return integer
@@ -689,14 +714,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set rgt
+     * Set lft
      *
-     * @param  integer     $rgt
+     * @param  integer $lft
      * @return Institution
      */
-    public function setRgt($rgt)
+    public function setLft($lft)
     {
-        $this->rgt = $rgt;
+        $this->lft = $lft;
 
         return $this;
     }
@@ -712,27 +737,14 @@ class Institution implements Translatable
     }
 
     /**
-     * Set root
+     * Set rgt
      *
-     * @param  integer     $root
+     * @param  integer $rgt
      * @return Institution
      */
-    public function setRoot($root)
+    public function setRgt($rgt)
     {
-        $this->root = $root;
-
-        return $this;
-    }
-
-    /**
-     * Set lvl
-     *
-     * @param  integer     $lvl
-     * @return Institution
-     */
-    public function setLvl($lvl)
-    {
-        $this->lvl = $lvl;
+        $this->rgt = $rgt;
 
         return $this;
     }
@@ -748,19 +760,22 @@ class Institution implements Translatable
     }
 
     /**
-     * Get verified
+     * Set lvl
      *
-     * @return boolean
+     * @param  integer $lvl
+     * @return Institution
      */
-    public function getVerified()
+    public function setLvl($lvl)
     {
-        return $this->verified;
+        $this->lvl = $lvl;
+
+        return $this;
     }
 
     /**
      * Add authors
      *
-     * @param  Author      $authors
+     * @param  Author $authors
      * @return Institution
      */
     public function addAuthor(Author $authors)
@@ -817,15 +832,6 @@ class Institution implements Translatable
     {
         return $this->name;
     }
-
-    /**
-     * @var string
-     */
-    protected $logo_options;
-    /**
-     * @var string
-     */
-    protected $header_options;
 
     /**
      * @return string

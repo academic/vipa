@@ -81,8 +81,8 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             unique: true
             gedmo:
-                - versioned
-                - slug:
+                versioned : ~
+                slug:
                     seperator: _
                     fields:
                       - name
@@ -210,9 +210,11 @@ Ojs\JournalBundle\Entity\Institution:
                   - versioned
         verified:
             type: boolean
-            nullable: true
             gedmo:
                   - versioned
+        status:
+            type: integer
+
     gedmo:
         soft_deleteable:
           field_name: deletedAt

@@ -30,7 +30,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.name, form.slug, form.type, form.about, form.tags,] %}
+                        {% for field in [form.name, form.institution_type, form.about, form.tags,] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>
@@ -40,7 +40,7 @@
                     <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
                     <div class="panel-body">
                         {% for field in [form.phone, form.fax, form.email, form.address, form.country, form.city,
-                        form.lat, form.lon, form.url, form.wiki_url,] %}
+                        form.addressLat, form.addressLong, form.url, form.wiki,] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>
@@ -109,7 +109,7 @@
                 $('#institution_logo_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
                 $('#institution_logo_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_institutionapplication_logo_image').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_journalbundle_institutionapplication_logo').attr('value', JSON.parse(data.result).files.name);
             });
             $('#fileupload_header').fileupload({});
             $('#fileupload_header').bind('fileuploadsend', function (e, data) {
@@ -117,7 +117,7 @@
                 $('#institution_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
                 $('#institution_header_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_institutionapplication_header_image').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_journalbundle_institutionapplication_header').attr('value', JSON.parse(data.result).files.name);
             });
             okulbilisimlocation.bridge('.bridged-dropdown');
         });

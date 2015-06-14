@@ -5,11 +5,12 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Document;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\CommonParams;
-use Ojs\JournalBundle\Document\InstitutionApplication;
 use Ojs\JournalBundle\Document\JournalApplication;
 use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Entity\Institution;
@@ -36,30 +37,27 @@ class ApplicationController extends Controller
      */
     public function institutionIndexAction()
     {
-        $source = new Document('OjsJournalBundle:InstitutionApplication');
+        $translator = $this->get('translator');
+        $source = new Entity('OjsJournalBundle:Institution', 'application');
+        $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
-            function (Builder $query) {
-                $query->where("typeof(this.merged) == 'undefined'");
+            function (QueryBuilder $query) use ($tableAlias) {
+                $query->andWhere($tableAlias.".verified = :verified")
+                    ->setParameter('verified', false);
 
                 return $query;
             }
         );
 
-        $repository = $this->get('doctrine_mongodb')->getManager()
-            ->getRepository('OjsJournalBundle:InstitutionApplication');
+        $grid = $this->get('grid')->setSource($source);
+        $grid->getColumn('status')->manipulateRenderCell(
+            function ($value, Row $row) use ($translator) {
+                /** @var Institution $entity */
+                $entity = $row->getEntity();
 
-        $source->manipulateRow(
-            function (Row $row) use ($repository) {
-                $row->setRepository($repository);
-                $status = $row->getField('status');
-                $text = $this->get('translator')->trans(CommonParams::institutionApplicationStatus($status));
-                $row->setField('status', $text);
-
-                return $row;
+                return $translator->trans($entity->getStatusText());
             }
         );
-
-        $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
         $rowAction[] = $gridAction->editAction('application_institution_edit', 'id');
@@ -155,16 +153,18 @@ class ApplicationController extends Controller
 
     public function institutionDetailAction($id)
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(
+            array(
+                'verified' => false,
+                'id' => $id,
+            )
+        );
         if (!$entity) {
             throw new NotFoundHttpException();
         }
 
-        $data = [];
-        $data['entity'] = $entity;
-
-        return $this->render('OjsJournalBundle:Application:institution_detail.html.twig', $data);
+        return $this->render('OjsJournalBundle:Application:institution_detail.html.twig', array('entity' => $entity));
     }
 
     public function journalEditAction($id)
@@ -180,7 +180,7 @@ class ApplicationController extends Controller
             new JournalApplicationType(),
             $document,
             [
-                'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId()))
+                'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId())),
             ]
         );
 
@@ -189,25 +189,26 @@ class ApplicationController extends Controller
 
     public function institutionEditAction($id)
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $document = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
+        $em = $this->getDoctrine()->getManager();
+        /** @var Institution $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
 
-        if (!$document) {
+        if (!$entity) {
             throw new NotFoundHttpException();
         }
 
         $form = $this->createForm(
             new InstitutionApplicationType(),
-            $document,
+            $entity,
             [
                 'helper' => $this->get('okulbilisim_location.form.helper'),
-                'action' => $this->generateUrl('application_institution_update', array('id' => $document->getId())),
+                'action' => $this->generateUrl('application_institution_update', array('id' => $entity->getId())),
             ]
         );
 
         return $this->render(
             'OjsJournalBundle:Application:institution_edit.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $form->createView(), 'entity' => $entity]
         );
     }
 
@@ -235,13 +236,15 @@ class ApplicationController extends Controller
 
     public function institutionUpdateAction(Request $request, $id)
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $document = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
-        $this->throw404IfNotFound($document);
+        $em = $this->getDoctrine()->getManager();
+        /** @var Institution $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
+
+        $this->throw404IfNotFound($entity);
 
         $form = $this->createForm(
             new InstitutionApplicationType(),
-            $document,
+            $entity,
             [
                 'helper' => $this->get('okulbilisim_location.form.helper'),
             ]
@@ -249,7 +252,7 @@ class ApplicationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $dm->flush();
+            $em->flush();
             $this->successFlashBag('successful.update');
 
             return $this->redirect($this->generateUrl('institution_application'));
@@ -257,7 +260,7 @@ class ApplicationController extends Controller
 
         return $this->render(
             'OjsJournalBundle:Application:institution_edit.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $form->createView(), 'entity' => $entity]
         );
     }
 
@@ -282,19 +285,20 @@ class ApplicationController extends Controller
 
     public function institutionDeleteAction(Request $request, $id)
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
+        $em = $this->getDoctrine()->getManager();
+        /** @var Institution $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
+
+        $this->throw404IfNotFound($entity);
+
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('application_institution'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
 
-        $dm->remove($entity);
-        $dm->flush();
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->get('router')->generate('institution_application'));
     }
@@ -416,50 +420,14 @@ class ApplicationController extends Controller
 
     public function institutionSaveAction($id)
     {
-        try {
-            $dm = $this->get('doctrine.odm.mongodb.document_manager');
-            /** @var InstitutionApplication $entity */
-            $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
-            if (!$entity) {
-                throw new NotFoundHttpException();
-            }
-            /** @var EntityManager $em */
-            $em = $this->getDoctrine()->getManager();
-            /** @var \Ojs\UserBundle\Entity\User $user */
-            $user = $em->find('OjsUserBundle:User', $entity->getUser());
-            $institute = new Institution();
-            $institute
-                ->setAbout($entity->getAbout())
-                ->setAddress($entity->getAddress())
-                ->setAddressLat($entity->getLat())
-                ->setAddressLong($entity->getLon())
-                ->setCityId($entity->getCity())
-                ->setCountryId($entity->getCountry())
-                ->setCreatedBy($user->getUsername())
-                ->setEmail($entity->getEmail())
-                ->setFax($entity->getFax())
-                ->setHeader($entity->getHeaderImage())
-                ->setInstitutionTypeId($entity->getType())
-                ->setLogo($entity->getLogoImage())
-                ->setName($entity->getName())
-                ->setPhone($entity->getPhone())
-                ->setSlug($entity->getSlug())
-                ->setTags($entity->getTags())
-                ->setUrl($entity->getUrl())
-                ->setWiki($entity->getWikiUrl());
-            $em->persist($institute);
-            $em->flush();
-            $entity->setMerged(true);
-            $dm->persist($entity);
-            $dm->flush();
-
-            return $this->redirect($this->get('router')->generate('institution_edit', ['id' => $institute->getId()]));
-        } catch (\Exception $e) {
-            $session = $this->get('session');
-            $session->getFlashBag()->add('error', $e->getMessage());
-            $session->save();
-
-            return $this->redirect($this->get('router')->generate('application_institution_show', ['id' => $id]));
+        $em = $this->getDoctrine()->getManager();
+        /** @var Institution $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
+        if (!$entity) {
+            throw new NotFoundHttpException();
         }
+        $entity->setVerified(true);
+
+        return $this->redirect($this->get('router')->generate('institution_edit', ['id' => $entity->getId()]));
     }
 }

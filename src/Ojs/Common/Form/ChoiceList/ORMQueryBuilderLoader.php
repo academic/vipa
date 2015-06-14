@@ -3,13 +3,14 @@
 namespace Ojs\Common\Form\ChoiceList;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bridge\Doctrine\Form\ChoiceList\ORMQueryBuilderLoader as BaseORMQueryBuilderLoader;
+use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-class ORMQueryBuilderLoader extends BaseORMQueryBuilderLoader
+class ORMQueryBuilderLoader implements EntityLoaderInterface
 {
 
     /** @var QueryBuilder */
@@ -60,5 +61,30 @@ class ORMQueryBuilderLoader extends BaseORMQueryBuilderLoader
         );
 
         return $query->execute();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEntitiesByIds($identifier, array $values)
+    {
+        $qb = clone ($this->queryBuilder);
+        $alias = current($qb->getRootAliases());
+        $parameter = 'ORMQueryBuilderLoader_getEntitiesByIds_'.$identifier;
+        $where = $qb->expr()->in($alias.'.'.$identifier, ':'.$parameter);
+
+        // Guess type
+        $entity = current($qb->getRootEntities());
+        $metadata = $qb->getEntityManager()->getClassMetadata($entity);
+        if (in_array($metadata->getTypeOfField($identifier), array('integer', 'bigint', 'smallint'))) {
+            $parameterType = Connection::PARAM_INT_ARRAY;
+        } else {
+            $parameterType = Connection::PARAM_STR_ARRAY;
+        }
+
+        return $qb->andWhere($where)
+            ->getQuery()
+            ->setParameter($parameter, $values, $parameterType)
+            ->getResult();
     }
 }

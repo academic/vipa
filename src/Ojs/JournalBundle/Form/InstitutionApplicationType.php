@@ -23,27 +23,26 @@ class InstitutionApplicationType extends AbstractType
 
         $builder
             ->add('name', null, ['label' => 'institution.name'])
-            ->add('slug', null, ['label' => 'institution.slug'])
             ->add(
-                'type',
+                'institution_type',
                 'entity',
                 array(
-                    'class' => 'OjsJournalBundle:InstitutionTypes',
+                    'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes',
                     'label' => 'institution.type',
                 )
             )
             ->add('about', null, ['label' => 'institution.about'])
             ->add('address', null, ['label' => 'institution.address'])
-            ->add('lat', null, ['label' => 'institution.lat'])
-            ->add('lon', null, ['label' => 'institution.lon'])
+            ->add('addressLat', null, ['label' => 'institution.lat'])
+            ->add('addressLong', null, ['label' => 'institution.lon'])
             ->add('email', null, ['label' => 'institution.email'])
             ->add('fax', null, ['label' => 'institution.fax'])
             ->add('phone', null, ['label' => 'institution.phone'])
             ->add('url', null, ['label' => 'institution.url'])
-            ->add('wiki_url', null, ['label' => 'institution.wiki_url'])
+            ->add('wiki', null, ['label' => 'institution.wiki_url'])
             ->add('tags', null, ['label' => 'institution.tags'])
-            ->add('logo_image', 'hidden')
-            ->add('header_image', 'hidden')
+            ->add('logo', 'hidden')
+            ->add('header', 'hidden')
             ->add(
                 'country',
                 'entity',
@@ -59,7 +58,7 @@ class InstitutionApplicationType extends AbstractType
                     ],
                 )
             );
-        $helper->addCityField($builder, 'Ojs\JournalBundle\Document\InstitutionApplication', true);
+        $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution', true);
     }
 
     /**
@@ -77,7 +76,7 @@ class InstitutionApplicationType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Document\InstitutionApplication',
+                'data_class' => 'Ojs\JournalBundle\Entity\Institution',
                 'helper' => null,
                 'attr' => [
                     'novalidate' => 'novalidate',
