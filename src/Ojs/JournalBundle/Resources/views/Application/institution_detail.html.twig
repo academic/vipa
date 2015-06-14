@@ -52,7 +52,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'institute.lat-lon' }}</th>
-                    <td>{{ entity.lat }}, {{ entity.lon }}</td>
+                    <td>{{ entity.addressLat }}, {{ entity.addressLong }}</td>
                 </tr>
                 <tr>
                     <th>{{ 'institute.phone' }}</th>
@@ -72,15 +72,15 @@
                 </tr>
                 <tr>
                     <th>{{ 'institute.wiki_url' }}</th>
-                    <td><a href="{{ entity.wikiUrl }}" target="_blank">{{ entity.wikiUrl }}</a></td>
+                    <td><a href="{{ entity.wiki }}" target="_blank">{{ entity.wiki }}</a></td>
                 </tr>
                 <tr>
                     <th>{{ 'institute.logo' }}</th>
-                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.logoImage) }}" alt=""/></td>
+                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.logo) }}" alt=""/></td>
                 </tr>
                 <tr>
                     <th>{{ 'institute.header' }}</th>
-                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.headerImage) }}" alt=""/></td>
+                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.header) }}" alt=""/></td>
                 </tr>
                 <tr>
                     <th>{{ 'institute.tags' }}</th>
@@ -88,11 +88,11 @@
                 </tr>
                 <tr>
                     <th>{{ 'institute.createdAt' }}</th>
-                    <td>{{ entity.createdAt|date('d-m-y') }}</td>
+                    <td>{{ entity.created|date('d-m-y') }}</td>
                 </tr>
                 <tr>
                     <th>{{ 'institute.user' }}</th>
-                    <td>{{ entity.user|user }}</td>
+                    <td>{{ entity.createdBy|user }}</td>
                 </tr>
             </table>
             <a class="btn btn-primary"

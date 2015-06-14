@@ -69,8 +69,8 @@ class ArticleSubmissionController extends Controller
                         $row->setColor($currentStep->getStep()->getColor());
                         $row->setField(
                             'status',
-                            "<span style='display:block;background: " .
-                            ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>"
+                            "<span style='display:block;background: ".
+                            ";display: block'>".$currentStep->getStep()->getStatus()."</span>"
                         );
                     }
                 }
@@ -82,8 +82,7 @@ class ArticleSubmissionController extends Controller
         $source2 = new Document('OjsJournalBundle:ArticleSubmissionProgress');
         $em = $this->getDoctrine()->getManager();
         $router = $this->get('router');
-        $repository = $this->get('doctrine_mongodb')->getManager()
-            ->getRepository('OjsJournalBundle:InstitutionApplication');
+        $repository = $em->getRepository('OjsJournalBundle:Institution');
 
         $source2->manipulateRow(
             function (Row $row) use ($repository, $em, $router) {
@@ -94,7 +93,7 @@ class ArticleSubmissionController extends Controller
                     $_d = [];
 
                     foreach ($data as $key => $value) {
-                        $_d[] = $key . ": " . $value['title'];
+                        $_d[] = $key.": ".$value['title'];
                     }
                     $row->setField('article_data', $_d);
                 }
@@ -111,8 +110,8 @@ class ArticleSubmissionController extends Controller
         if ($all) {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($ta, $currentJournal) {
-                    $qb->where($ta . '.status = 0');
-                    $qb->andWhere($ta . '.journalId = ' . $currentJournal->getId());
+                    $qb->where($ta.'.status = 0');
+                    $qb->andWhere($ta.'.journalId = '.$currentJournal->getId());
 
                     return $qb;
                 }
@@ -120,7 +119,7 @@ class ArticleSubmissionController extends Controller
             $source2->manipulateQuery(
                 function (Builder $query) use ($ta, $currentJournal) {
                     $query->where(
-                        "typeof(this.submitted)=='undefined' || this.submitted===false " .
+                        "typeof(this.submitted)=='undefined' || this.submitted===false ".
                         "&& this.journal_id == {$currentJournal->getId()}"
                     );
 
@@ -132,11 +131,11 @@ class ArticleSubmissionController extends Controller
                 function (QueryBuilder $qb) use ($ta, $user, $currentJournal) {
                     $qb->where(
                         $qb->expr()->andX(
-                            $qb->expr()->eq($ta . '.status', '0'),
-                            $qb->expr()->eq($ta . '.submitterId', $user->getId())
+                            $qb->expr()->eq($ta.'.status', '0'),
+                            $qb->expr()->eq($ta.'.submitterId', $user->getId())
                         )
                     );
-                    $qb->andWhere($ta . '.journalId = ' . $currentJournal->getId());
+                    $qb->andWhere($ta.'.journalId = '.$currentJournal->getId());
 
                     return $qb;
                 }
@@ -144,7 +143,7 @@ class ArticleSubmissionController extends Controller
             $source2->manipulateQuery(
                 function (Builder $query) use ($user, $currentJournal) {
                     $query->where(
-                        "(typeof(this.submitted)=='undefined' || this.submitted===false) " .
+                        "(typeof(this.submitted)=='undefined' || this.submitted===false) ".
                         "&& this.userId=={$user->getId()} && this.journal_id == {$currentJournal->getId()}"
                     );
 
@@ -460,7 +459,7 @@ class ArticleSubmissionController extends Controller
             );
 
             $deadline = new \DateTime();
-            $deadline->modify("+" . $firstStep->getMaxDays() . " day");
+            $deadline->modify("+".$firstStep->getMaxDays()." day");
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
             $reviewStep->setStep($firstStep);

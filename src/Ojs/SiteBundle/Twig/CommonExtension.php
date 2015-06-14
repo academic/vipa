@@ -8,6 +8,7 @@
 namespace Ojs\SiteBundle\Twig;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManager;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +32,7 @@ class CommonExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('user', [$this, 'getUserById']),
+            new \Twig_SimpleFilter('user', [$this, 'getUserByIdOrUsername']),
 
         ];
     }
@@ -126,12 +127,25 @@ class CommonExtension extends \Twig_Extension
         return $orcid->loginUrl();
     }
 
-    public function getUserById($id, $object = false)
+    public function getUserByIdOrUsername($id, $object = false)
     {
-        /** @var User $user */
-        $user = $this->container->get('doctrine')->getManager()->find('OjsUserBundle:User', $id);
+        if(empty($id)) {
+            return '';
+        }
+        /** @var EntityManager $em */
+        $em = $this->container->get('doctrine')->getManager();
+
+        if(is_numeric($id)) {
+            /** @var User $user */
+            $user = $em->getRepository('OjsUserBundle:User')->find($id);
+        }
+        else {
+            /** @var User $user */
+            $user = $em->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $id));
+        }
+
         if (!$user) {
-            return;
+            return '';
         }
         if ($object) {
             return $user;

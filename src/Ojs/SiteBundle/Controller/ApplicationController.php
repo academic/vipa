@@ -3,11 +3,13 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Document\InstitutionApplication;
 use Ojs\JournalBundle\Document\JournalApplication;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Ojs\JournalBundle\Form\JournalApplicationType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Application controller.
@@ -16,8 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 class ApplicationController extends Controller
 {
     /**
-     * @param  Request                                                                                       $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function journalAction(Request $request)
     {
@@ -54,8 +56,9 @@ class ApplicationController extends Controller
 
     public function institutionAction(Request $request)
     {
-        $data = [];
-        $application = new InstitutionApplication();
+        $em = $this->getDoctrine()->getManager();
+        $application = new Institution();
+
         $form = $this->createForm(
             new InstitutionApplicationType(),
             $application,
@@ -66,26 +69,22 @@ class ApplicationController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $dm = $this->get('doctrine.odm.mongodb.document_manager');
-                $application->setStatus("0");
-                $application->setUser($this->getUser()->getId());
-                $application->setCreatedAt(new \DateTime());
-                $dm->persist($application);
-                $dm->flush();
+                $em->persist($application);
+                $em->flush();
 
                 return $this->redirect($this->get('router')->generate('ojs_apply_institute_success'));
+            } else {
             }
+
             $session = $this->get('session');
             $session->getFlashBag()
                 ->add(
                     'error',
                     $this->get('translator')->trans('An error has occured. Please check form and resubmit.')
                 );
-            $session->save();
         }
-        $data['form'] = $form->createView();
 
-        return $this->render('OjsSiteBundle:Application:institution.html.twig', $data);
+        return $this->render('OjsSiteBundle:Application:institution.html.twig', array('form' => $form->createView()));
     }
 
     public function instituteSuccessAction()

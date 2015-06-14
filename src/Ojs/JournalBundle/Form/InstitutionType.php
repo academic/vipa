@@ -85,7 +85,7 @@ class InstitutionType extends AbstractType
                         'class' => ' form-control input-xxl',
                         'data-role' => 'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['apiRoot'],
+                        'data-list' => $options['tagEndPoint'],
                     ],
                 )
             )
