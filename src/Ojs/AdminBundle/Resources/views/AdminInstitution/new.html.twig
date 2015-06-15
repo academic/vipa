@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('institution'),'title': 'institution.manager'|trans},
+    { 'link': path('ojs_admin_institution_index'),'title': 'institution.manager'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -56,7 +56,7 @@
         {{ "c"|trans }}
     </button>
     {{ form_end(form) }}
-    {% set back_path = 'institution' %}
+    {% set back_path = 'ojs_admin_institution_index' %}
     {% include '::actionbuttons.html.twig' %}
 
 {% endblock %}

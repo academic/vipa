@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * Institution controller.
  *
  */
-class InstitutionController extends Controller
+class AdminInstitutionController extends Controller
 {
     /**
      * Lists all Institution entities.
@@ -34,9 +34,9 @@ class InstitutionController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('institution_show', 'id');
-        $rowAction[] = $gridAction->editAction('institution_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('institution_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_institution_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_institution_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_institution_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -44,7 +44,7 @@ class InstitutionController extends Controller
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Institution:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminInstitution:index.html.twig', $data);
     }
 
     /**
@@ -75,11 +75,11 @@ class InstitutionController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('institution_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_institution_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Institution:new.html.twig',
+            'OjsAdminBundle:AdminInstitution:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -100,7 +100,7 @@ class InstitutionController extends Controller
             new InstitutionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('institution_create'),
+                'action' => $this->generateUrl('ojs_admin_institution_create'),
                 'method' => 'POST',
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
@@ -125,7 +125,7 @@ class InstitutionController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Institution:new.html.twig',
+            'OjsAdminBundle:AdminInstitution:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -149,7 +149,7 @@ class InstitutionController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render(
-            'OjsJournalBundle:Institution:show.html.twig',
+            'OjsAdminBundle:AdminInstitution:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -166,7 +166,7 @@ class InstitutionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Institution $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
+        $entity = $em->getRepository('OjsAdminBundle:AdminInstitution')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -174,7 +174,7 @@ class InstitutionController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Institution:edit.html.twig',
+            'OjsAdminBundle:AdminInstitution:edit.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $editForm->createView(),
@@ -195,7 +195,7 @@ class InstitutionController extends Controller
             new InstitutionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_institution_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
@@ -238,11 +238,11 @@ class InstitutionController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('institution_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_admin_institution_edit', ['id' => $id]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Institution:edit.html.twig',
+            'OjsAdminBundle:AdminInstitution:edit.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $editForm->createView(),
