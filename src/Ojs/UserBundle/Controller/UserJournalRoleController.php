@@ -179,25 +179,20 @@ class UserJournalRoleController extends Controller
 
     /**
      * Finds and displays a Users of a Journal with roles  (ungrouped).
-     * @param $journal_id
      * @return Response
      */
-    public function showUsersOfJournalAction($journal_id)
+    public function showUsersOfJournalAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $source = new Entity('OjsUserBundle:UserJournalRole');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal_id, $ta) {
-                $qb->andWhere(
-                    $qb->expr()->andX(
-                        $qb->expr()->eq($ta.'.journalId', ':jid')
-                    )
-                )->setParameter('jid', $journal_id);
+            function (QueryBuilder $qb) use ($journal, $ta) {
+                $qb->andWhere($ta.'.journal = :journal')
+                    ->setParameter('journal', $journal);
             }
         );
         $grid = $this->get('grid');
