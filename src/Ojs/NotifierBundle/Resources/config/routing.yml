@@ -1,3 +1,0 @@
-ojs_notifier_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: OjsNotifierBundle:Default:index }
