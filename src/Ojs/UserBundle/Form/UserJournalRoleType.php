@@ -3,7 +3,6 @@
 namespace Ojs\UserBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;

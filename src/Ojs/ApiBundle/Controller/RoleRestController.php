@@ -5,7 +5,9 @@ namespace Ojs\ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RoleRestController extends FOSRestController
@@ -26,13 +28,14 @@ class RoleRestController extends FOSRestController
      */
     public function getRoleAction($id)
     {
-        $user = $this->getDoctrine()->getRepository('OjsUserBundle:Role')->find($id);
-        if (!is_object($user)) {
+        $role = $this->getDoctrine()->getRepository('OjsUserBundle:Role')->find($id);
+        if (!is_object($role)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
 
-        return $user;
+        return $role;
     }
+
     /**
      * @todo not implemented yet
      * @ApiDoc(
@@ -63,16 +66,17 @@ class RoleRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Get("/role/{roleId}/journal/{journalId}/users")
+     * @Get("/role/{role}/journal/{journal}/users")
      *
-     * @param $roleId
-     * @param $journalId
-     * @return array
+     * @param  Role              $role
+     * @param  Journal           $journal
+     * @return UserJournalRole[]
      */
-    public function getJournalRoleUsersAction($roleId, $journalId)
+    public function getJournalRoleUsersAction(Role $role, Journal $journal)
     {
+        /** @var UserJournalRole[] $result */
         $result = $this->getDoctrine()->getRepository('OjsUserBundle:UserJournalRole')->findBy(
-            array('journalId' => $journalId, 'roleId' => $roleId)
+            array('journal' => $journal, 'role' => $role)
         );
         if (!is_array($result)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');

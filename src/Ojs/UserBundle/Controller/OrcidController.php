@@ -7,7 +7,6 @@ use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class OrcidController extends Controller
