@@ -19,15 +19,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 }
 
-//require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ApcClassLoader.php';
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
-$cachedLoader = new \Symfony\Component\ClassLoader\ApcClassLoader(sha1(__FILE__), $loader);
-
-// register the cached class loader
-$cachedLoader->register();
-
-// deactivate the original, non-cached loader if it was registered previously
-$loader->unregister();
 Debug::enable();
 
 require_once __DIR__.'/../app/AppKernel.php';
