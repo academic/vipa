@@ -58,7 +58,7 @@ var OJSAdvancedSearch = {
     redirectToSearch: function(){
         var searchQuery = $('#searchQueryInput').val();
         if(searchQuery.length>0){
-            window.location = window.location.href+'?term='+searchQuery;
+            window.location = window.location.href+'/result?term='+searchQuery;
         }
     }
 };
