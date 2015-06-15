@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -65,6 +66,11 @@ class JournalApplicationType extends AbstractType
                 'entity',
                 array(
                     'class' => 'OjsJournalBundle:Institution',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('i')
+                                    ->andWhere('i.verified = :verified')
+                                    ->setParameter('verified', true);
+                    },
                     'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.institution',
                 )

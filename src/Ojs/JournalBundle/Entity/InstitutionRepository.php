@@ -14,13 +14,20 @@ use Doctrine\ORM\Query;
 class InstitutionRepository extends EntityRepository
 {
     /**
+     * @param bool $all
      * @return array
      */
-    public function getAllWithDefaultTranslation()
+    public function getAllWithDefaultTranslation($all = false)
     {
         $qb = $this->createQueryBuilder("i");
+        if($all) {
+            $qb->andWhere('i.verified = :verified')
+                ->setParameter('verified', true);
+        }
+
 
         $query = $qb->getQuery();
+
         $query->setHint(
             Query::HINT_CUSTOM_OUTPUT_WALKER,
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
