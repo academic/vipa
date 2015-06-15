@@ -1,32 +1,52 @@
 <?php
-/**
- * Date: 18.11.14
- * Time: 13:12
- * Devs: [
- *   ]
- */
 namespace Ojs\SiteBundle\Twig;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
+use Ojs\Common\Services\OrcidService;
 use Ojs\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class CommonExtension extends \Twig_Extension
 {
 
-    private $container;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
     /**
      * @var DocumentManager
      */
     private $dm;
 
-    public function __construct(ContainerInterface $container, DocumentManager $documentManager)
-    {
+    /**
+     * @var OrcidService
+     */
+    private $orcidService;
+
+    /**
+     * @var FilterManager
+     */
+    private $filterManager;
+
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @param DocumentManager        $documentManager
+     * @param OrcidService           $orcidService
+     * @param FilterManager          $filterManager
+     */
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        DocumentManager $documentManager,
+        OrcidService $orcidService,
+        FilterManager $filterManager
+    ) {
+        $this->em = $entityManager;
         $this->dm = $documentManager;
-        $this->container = $container;
+        $this->orcidService = $orcidService;
+        $this->filterManager = $filterManager;
     }
 
     public function getFilters()
@@ -46,6 +66,11 @@ class CommonExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * @param $key
+     * @param $value
+     * @return string
+     */
     public function addFilters($key = null, $value = null)
     {
         $request = Request::createFromGlobals();
@@ -60,11 +85,19 @@ class CommonExtension extends \Twig_Extension
         return $this->convertToUrl($filters);
     }
 
-    public function getName()
+    /**
+     * @param $filter
+     * @return array
+     */
+    private function parseFilters($filter)
     {
-        return 'common_extension';
+        return explode('|', $filter);
     }
 
+    /**
+     * @param  array  $filters
+     * @return string
+     */
     private function convertToUrl($filters = [])
     {
         $data = [];
@@ -78,11 +111,12 @@ class CommonExtension extends \Twig_Extension
         return implode('&', $data);
     }
 
-    private function parseFilters($filter)
-    {
-        return explode('|', $filter);
-    }
-
+    /**
+     * @param $entity
+     * @param $type
+     * @param  null        $filter
+     * @return array|mixed
+     */
     public function getImageOptions($entity, $type, $filter = null)
     {
         $options = $entity->{'get'.ucfirst($type).'Options'}();
@@ -98,10 +132,9 @@ class CommonExtension extends \Twig_Extension
                 'x' => 0,
                 'y' => 0,
             ];
-            /** @var FilterManager $filterManager */
-            $filterManager = $this->container->get('liip_imagine.filter.manager');
+
             if ($filter) {
-                $config = $filterManager->getFilterConfiguration()->get($filter);
+                $config = $this->filterManager->getFilterConfiguration()->get($filter);
                 if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['size'])) {
                     $size = $config['filters']['crop']['size'];
                     $defaultConfig['height'] = $size[1];
@@ -120,28 +153,31 @@ class CommonExtension extends \Twig_Extension
         return $options;
     }
 
+    /**
+     * @return string
+     */
     public function orcidLoginUrl()
     {
-        $orcid = $this->container->get('ojs.orcid_service');
-
-        return $orcid->loginUrl();
+        return $this->orcidService->loginUrl();
     }
 
+    /**
+     * @param $id
+     * @param  bool        $object
+     * @return User|string
+     */
     public function getUserByIdOrUsername($id, $object = false)
     {
-        if(empty($id)) {
+        if (empty($id)) {
             return '';
         }
-        /** @var EntityManager $em */
-        $em = $this->container->get('doctrine')->getManager();
 
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             /** @var User $user */
-            $user = $em->getRepository('OjsUserBundle:User')->find($id);
-        }
-        else {
+            $user = $this->em->getRepository('OjsUserBundle:User')->find($id);
+        } else {
             /** @var User $user */
-            $user = $em->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $id));
+            $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $id));
         }
 
         if (!$user) {
@@ -152,5 +188,10 @@ class CommonExtension extends \Twig_Extension
         }
 
         return "{$user->getUsername()} ~ {$user->getEmail()} - {$user->getFirstName()} {$user->getLastName()}";
+    }
+
+    public function getName()
+    {
+        return 'common_extension';
     }
 }
