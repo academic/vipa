@@ -1,11 +1,13 @@
 {% set hideleft=true %}
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.working_step_preview'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'},
-    {'title': 'preview.working.step'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'},
+        {'title': 'title.working_step_preview'|trans}
     ] %}
+
     {{ breadcrumb(list) }}
 {% endblock %}
 
