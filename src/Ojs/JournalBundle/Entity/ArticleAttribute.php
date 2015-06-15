@@ -20,9 +20,9 @@ class ArticleAttribute implements Translatable
 
     public function __construct($name = null, $value = null, $article = null)
     {
-        $name != null && $this->attribute = $name;
-        $value != null && $this->value = $value;
-        $article != null && $this->article = $article;
+        $name !== null && $this->attribute = $name;
+        $value !== null && $this->value = $value;
+        $article !== null && $this->article = $article;
     }
 
     /**

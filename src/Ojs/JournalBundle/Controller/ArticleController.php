@@ -67,7 +67,7 @@ class ArticleController extends Controller
     public function indexAction()
     {
         $selectedJournal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('VIEW', new Journal(), 'articles') && ($selectedJournal == false || !$this->isGranted(
+        if (!$this->isGranted('VIEW', new Journal(), 'articles') && ($selectedJournal === false || !$this->isGranted(
                     'VIEW',
                     $selectedJournal,
                     'articles'
@@ -171,7 +171,7 @@ class ArticleController extends Controller
     public function createAction(Request $request)
     {
         $selectedJournal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', new Journal(), 'articles') && ($selectedJournal == false || !$this->isGranted(
+        if (!$this->isGranted('CREATE', new Journal(), 'articles') && ($selectedJournal === false || !$this->isGranted(
                     'CREATE',
                     $selectedJournal,
                     'articles'
@@ -241,7 +241,7 @@ class ArticleController extends Controller
     public function newAction()
     {
         $selectedJournal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', new Journal(), 'articles') && ($selectedJournal == false || !$this->isGranted(
+        if (!$this->isGranted('CREATE', new Journal(), 'articles') && ($selectedJournal === false || !$this->isGranted(
                     'CREATE',
                     $selectedJournal,
                     'articles'
