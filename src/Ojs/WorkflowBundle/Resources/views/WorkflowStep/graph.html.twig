@@ -1,4 +1,5 @@
 {% extends '::ojsbase_modal.html.twig' %}
+{% block title %}{{ 'title.workflow_step_graph'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
