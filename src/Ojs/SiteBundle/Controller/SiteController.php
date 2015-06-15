@@ -82,34 +82,6 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
     }
 
-    public function browseIndexAction()
-    {
-        $data['page'] = 'browse';
-
-        return $this->render('OjsSiteBundle::Site/browse_index.html.twig', $data);
-    }
-
-    public function categoriesIndexAction()
-    {
-        $data['page'] = 'categories';
-
-        return $this->render('OjsSiteBundle::Site/categories_index.html.twig', $data);
-    }
-
-    public function topicsIndexAction()
-    {
-        $data['page'] = 'topics';
-
-        return $this->render('OjsSiteBundle::Site/topics_index.html.twig', $data);
-    }
-
-    public function profileIndexAction()
-    {
-        $data['page'] = 'profile';
-
-        return $this->render('OjsSiteBundle::Site/profile_index.html.twig', $data);
-    }
-
     public function staticPagesAction($page = 'static')
     {
         $data['page'] = $page;
