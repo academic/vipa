@@ -8,7 +8,7 @@
 namespace Okulbilisim\LocationBundle\Helper;
 
 use Doctrine\ORM\EntityManager;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -51,9 +51,9 @@ class FormHelper
         $refreshTown = function (FormInterface $form, $country) use ($factory, $em, $isMongo) {
             $childs = [];
             if (!empty($country)) {
-                $country = $em->find('OkulbilisimLocationBundle:Location', $country);
-                foreach ($country->getChildrens() as $child) {
-                    /** @var Location $child */
+                /** @var Country $country */
+                $country = $em->find('OkulbilisimLocationBundle:Country', $country);
+                foreach ($country->getProvinces() as $child) {
                     if ($child->getType() == 1) {
                         $childs[$child->getId()] = $isMongo === false ? $child : $child->getName();
                     }
@@ -69,7 +69,7 @@ class FormHelper
                 ],
             ];
             if ($isMongo === false) {
-                $options['class'] = 'Okulbilisim\LocationBundle\Entity\Location';
+                $options['class'] = 'Okulbilisim\LocationBundle\Entity\Province';
             }
 
             if (empty($cities)) {
@@ -89,7 +89,7 @@ class FormHelper
                     return;
                 }
                 if (is_a($data, $dataClass)) {
-                    if ($data->getCountry() instanceof Location) {
+                    if ($data->getCountry() instanceof Country) {
                         $refreshTown($form, $data->getCountry());
                     } else {
                         $refreshTown($form, null);

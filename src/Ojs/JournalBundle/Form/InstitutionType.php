@@ -2,9 +2,7 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Institution;
-use Okulbilisim\LocationBundle\Entity\Location;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -106,18 +104,22 @@ class InstitutionType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',
                         'data-to' => '#'.$this->getName().'_city',
                     ],
-                    'query_builder' => function (EntityRepository $em) {
-                        return $em->createQueryBuilder('c')
-                            ->where("c.type=0");
-                    },
                 ]
             );
         $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution');
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'ojs_journalbundle_institution';
     }
 
     /**
@@ -138,13 +140,5 @@ class InstitutionType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_institution';
     }
 }

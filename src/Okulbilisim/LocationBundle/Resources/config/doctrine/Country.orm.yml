@@ -1,0 +1,20 @@
+Okulbilisim\LocationBundle\Entity\Country:
+  type: entity
+  table: country
+  repositoryClass: Okulbilisim\LocationBundle\Entity\CountryRepository
+  id:
+    id:
+      type: integer
+      nullable: false
+      id: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    name:
+      type: string
+      length: 255
+  oneToMany:
+    provinces:
+      targetEntity: Okulbilisim\LocationBundle\Entity\Province
+      mappedBy: country
+      fetch: EXTRA_LAZY

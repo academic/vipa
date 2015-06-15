@@ -154,12 +154,23 @@ fos_elastica:
                         finder: ~
                         provider:
                             debug_logging: false
-                location:
+                country:
                     mappings:
                         name: ~
                     persistence:
                         driver: orm
-                        model: Okulbilisim\LocationBundle\Entity\Location
+                        model: Okulbilisim\LocationBundle\Entity\Country
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                        provider:
+                            debug_logging: false
+                province:
+                    mappings:
+                        name: ~
+                    persistence:
+                        driver: orm
+                        model: Okulbilisim\LocationBundle\Entity\Province
                         provider: ~
                         listener: ~
                         finder: ~

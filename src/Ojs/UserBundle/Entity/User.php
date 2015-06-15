@@ -12,7 +12,8 @@ use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Province;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -166,25 +167,13 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     private $settings;
 
     /**
-     * @var integer
-     * @Expose
-     */
-    private $country_id;
-
-    /**
-     * @var Location
+     * @var Country
      * @Expose
      */
     private $country;
 
     /**
-     * @var integer
-     * @Expose
-     */
-    private $city_id;
-
-    /**
-     * @var Location
+     * @var Province
      * @Expose
      */
     private $city;
@@ -193,6 +182,20 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      * @var Collection|UserJournalRole[]
      */
     private $userJournalRoles;
+    /**
+     * @var string
+     */
+    private $header;
+    /**
+     * @var Collection
+     */
+    private $customFields;
+    /**
+     * @var Collection
+     */
+    private $oauthAccounts;
+    /** @var  boolean */
+    private $privacy;
 
     public function __construct()
     {
@@ -238,25 +241,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function setSettings($settings)
     {
         $this->settings = json_encode($settings);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * @param  string $avatar
-     * @return User
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
 
         return $this;
     }
@@ -319,24 +303,9 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getToken()
     {
-        return $this->firstName;
-    }
-
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
+        return $this->token;
     }
 
     /*     * get
@@ -345,25 +314,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      * @param  string $firstName
      * @return User
      */
-
-    /**
-     * @param  string $lastName
-     * @return $this
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
 
     /**
      * @param  String $token
@@ -430,20 +380,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     *
-     * @return Role[]
-     */
-    public function getRoles()
-    {
-        $this->roles[] = static::ROLE_DEFAULT;
-        if ($this->isAdmin()) {
-            $this->roles[] = static::ROLE_ADMIN;
-        }
-
-        return array_unique($this->roles);
-    }
-
-    /**
      * Add role
      *
      * @param  Role $role
@@ -467,6 +403,17 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
+     * @param  boolean $isAdmin
+     * @return boolean $this
+     */
+    public function setAdmin($isAdmin)
+    {
+        $this->isAdmin = !!$isAdmin;
+
+        return $this;
+    }
+
+    /**
      *
      * @param  string  $role
      * @return boolean
@@ -474,6 +421,28 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    /**
+     *
+     * @return Role[]
+     */
+    public function getRoles()
+    {
+        $this->roles[] = static::ROLE_DEFAULT;
+        if ($this->isAdmin()) {
+            $this->roles[] = static::ROLE_ADMIN;
+        }
+
+        return array_unique($this->roles);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
     }
 
     /**
@@ -707,78 +676,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @return bool
-     */
-    public function isAdmin()
-    {
-        return $this->isAdmin;
-    }
-
-    /**
-     * @param  boolean $isAdmin
-     * @return boolean $this
-     */
-    public function setAdmin($isAdmin)
-    {
-        $this->isAdmin = !!$isAdmin;
-
-        return $this;
-    }
-
-    public function getFullName()
-    {
-        return $this->getFirstName().' '.$this->getLastName();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param  mixed $title
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @var string
-     */
-    private $header;
-
-    /**
-     * @return string
-     */
-    public function getHeader()
-    {
-        return $this->header;
-    }
-
-    /**
-     * @param  string $header
-     * @return $this
-     */
-    public function setHeader($header)
-    {
-        $this->header = $header;
-
-        return $this;
-    }
-
-    /**
-     * @var Collection
-     */
-    private $customFields;
-
-    /**
      * Add customFields
      *
      * @param  CustomField $customFields
@@ -810,11 +707,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     {
         return $this->customFields;
     }
-
-    /**
-     * @var Collection
-     */
-    private $oauthAccounts;
 
     /**
      * Add oauthAccounts
@@ -880,85 +772,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     {
         return $this->oauthAccounts;
     }
-
-    /**
-     * @return Location
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param  Location $city
-     * @return User
-     */
-    public function setCity(Location $city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCityId()
-    {
-        return $this->city_id;
-    }
-
-    /**
-     * @param  int  $city_id
-     * @return User
-     */
-    public function setCityId($city_id)
-    {
-        $this->city_id = $city_id;
-
-        return $this;
-    }
-
-    /**
-     * @return Location
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param  Location $country
-     * @return User
-     */
-    public function setCountry(Location $country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountryId()
-    {
-        return $this->country_id;
-    }
-
-    /**
-     * @param  int  $country_id
-     * @return User
-     */
-    public function setCountryId($country_id)
-    {
-        $this->country_id = $country_id;
-
-        return $this;
-    }
-
-    /** @var  boolean */
-    private $privacy;
 
     /**
      * @return boolean
@@ -1236,6 +1049,45 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
     }
 
+    public function getFullName()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param  string $lastName
+     * @return $this
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
     public function toJson()
     {
         $data = [
@@ -1248,13 +1100,108 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
             'header' => $this->getHeader(),
             'title' => $this->getTitle(),
         ];
-        if ($this->getCountry() instanceof Location) {
+        if ($this->getCountry() instanceof Country) {
             $data['country'] = $this->getCountry()->getName();
         }
-        if ($this->getCity() instanceof Location) {
+        if ($this->getCity() instanceof Province) {
             $data['city'] = $this->getCity()->getName();
         }
 
         return json_encode($data);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param  string $avatar
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param  string $header
+     * @return $this
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param  mixed $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param  Country $country
+     * @return User
+     */
+    public function setCountry(Country $country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Province
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param  Province $city
+     * @return User
+     */
+    public function setCity(Province $city)
+    {
+        $this->city = $city;
+
+        return $this;
     }
 }

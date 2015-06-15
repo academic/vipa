@@ -11,6 +11,7 @@ use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
+use Okulbilisim\LocationBundle\Entity\Province;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -382,7 +383,7 @@ class PublicSearchRestController extends FOSRestController
      * @param  Request $request
      * @ApiDoc(
      *                          resource=true,
-     *                          description="search locations",
+     *                          description="search provinces",
      *                          parameters={
      *                          {
      *                          "name"="q",
@@ -398,13 +399,13 @@ class PublicSearchRestController extends FOSRestController
      *                          }
      *                          }
      *                          )
-     * @Get("/public/search/location")
+     * @Get("/public/search/province")
      * @return array
      */
-    public function getLocationsAction(Request $request)
+    public function getProvincesAction(Request $request)
     {
         $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.location');
+        $search = $this->container->get('fos_elastica.index.search.province');
 
         $prefix = new Query\Prefix();
         $prefix->setPrefix('name', strtolower($q));
@@ -431,18 +432,18 @@ class PublicSearchRestController extends FOSRestController
      * @throws \Doctrine\ORM\TransactionRequiredException
      * @ApiDoc(
      *                                                    resource=true,
-     *                                                    description="get location by id"
+     *                                                    description="get province by id"
      *                                                    )
-     * @Get("/public/location/get/{id}")
+     * @Get("/public/province/get/{id}")
      */
-    public function getLocationAction($id)
+    public function getProvinceAction($id)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Journal $journal */
-        $location = $em->find('OkulbilisimLocationBundle:Location', $id);
-        if ($location) {
-            return JsonResponse::create(['id' => $id, 'name' => $location->getName()]);
+        /** @var Province $province */
+        $province = $em->find('OkulbilisimLocationBundle:Province', $id);
+        if ($province) {
+            return JsonResponse::create(['id' => $id, 'name' => $province->getName()]);
         }
         throw new NotFoundHttpException();
     }

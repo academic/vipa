@@ -5,7 +5,8 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Province;
 
 /**
  * Contact
@@ -15,63 +16,50 @@ class Contact implements Translatable
 {
     use GenericEntityTrait;
 
+    /** @var  Country */
+    protected $country;
+    /** @var  Province */
+    protected $city;
+    /** @var  string */
+    protected $affiliation;
     /**
      * @var integer
      * @GRID\Column(title="id")
      */
     private $id;
-
     /**
      * @var string
      * @GRID\Column(title="title")
      */
     private $title;
-
     /**
      * @var string
      * @GRID\Column(title="firstname")
      */
     private $firstName;
-
     /**
      * @var string
      * @GRID\Column(title="lastname")
      */
     private $lastName;
-
-    /**
-     *
-     * @var string
-     */
-    private $fullName;
-
     /**
      * @var string
      */
     private $address;
-
     /**
      * @var string
      * @GRID\Column(title="phone")
      */
     private $phone;
-
     /**
      * @var string
      */
     private $fax;
-
     /**
      * @var string
      * @GRID\Column(title="email")
      */
     private $email;
-
-    /** @var  Location */
-    protected $country;
-
-    /** @var  Location */
-    protected $city;
 
     /**
      * Get id
@@ -81,6 +69,16 @@ class Contact implements Translatable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -97,13 +95,13 @@ class Contact implements Translatable
     }
 
     /**
-     * Get title
+     * Get firstName
      *
      * @return string
      */
-    public function getTitle()
+    public function getFirstName()
     {
-        return $this->title;
+        return $this->firstName;
     }
 
     /**
@@ -120,23 +118,13 @@ class Contact implements Translatable
     }
 
     /**
-     * Get firstName
+     * Get lastName
      *
      * @return string
      */
-    public function getFirstName()
+    public function getLastName()
     {
-        return $this->firstName;
-    }
-
-    /**
-     * Get firstName+lastName
-     *
-     * @return string
-     */
-    public function getFullName()
-    {
-        return $this->firstName." ".$this->lastName;
+        return $this->lastName;
     }
 
     /**
@@ -153,13 +141,13 @@ class Contact implements Translatable
     }
 
     /**
-     * Get lastName
+     * Get address
      *
      * @return string
      */
-    public function getLastName()
+    public function getAddress()
     {
-        return $this->lastName;
+        return $this->address;
     }
 
     /**
@@ -176,17 +164,7 @@ class Contact implements Translatable
     }
 
     /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @return Location
+     * @return Country
      */
     public function getCountry()
     {
@@ -194,10 +172,10 @@ class Contact implements Translatable
     }
 
     /**
-     * @param  Location $country
+     * @param  Country $country
      * @return $this
      */
-    public function setCountry($country)
+    public function setCountry(Country $country)
     {
         $this->country = $country;
 
@@ -205,10 +183,18 @@ class Contact implements Translatable
     }
 
     /**
-     * @param  Location $city
+     * @return Province
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param  Province $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(Province $city)
     {
         $this->city = $city;
 
@@ -216,11 +202,13 @@ class Contact implements Translatable
     }
 
     /**
-     * @return Location
+     * Get phone
+     *
+     * @return string
      */
-    public function getCity()
+    public function getPhone()
     {
-        return $this->city;
+        return $this->phone;
     }
 
     /**
@@ -237,13 +225,13 @@ class Contact implements Translatable
     }
 
     /**
-     * Get phone
+     * Get fax
      *
      * @return string
      */
-    public function getPhone()
+    public function getFax()
     {
-        return $this->phone;
+        return $this->fax;
     }
 
     /**
@@ -260,13 +248,13 @@ class Contact implements Translatable
     }
 
     /**
-     * Get fax
+     * Get email
      *
      * @return string
      */
-    public function getFax()
+    public function getEmail()
     {
-        return $this->fax;
+        return $this->email;
     }
 
     /**
@@ -282,23 +270,20 @@ class Contact implements Translatable
         return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
     public function __toString()
     {
         return $this->getFullName();
     }
 
-    /** @var  string */
-    protected $affiliation;
+    /**
+     * Get firstName+lastName
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstName." ".$this->lastName;
+    }
 
     /**
      * @return string
