@@ -1,10 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.review_form_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
-    {'title': 'review.form.update'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+        {'title': 'review.form.update'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
