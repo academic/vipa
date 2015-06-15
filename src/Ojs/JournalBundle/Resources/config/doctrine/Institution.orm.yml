@@ -32,12 +32,12 @@ Ojs\JournalBundle\Entity\Institution:
                 referencedColumnName: id
             inversedBy: institutions
         country:
-            targetEntity: Okulbilisim\LocationBundle\Entity\Location
+            targetEntity: Okulbilisim\LocationBundle\Entity\Country
             joinColumn:
                   name: country_id
                   referencedColumnName: id
         city:
-            targetEntity: Okulbilisim\LocationBundle\Entity\Location
+            targetEntity: Okulbilisim\LocationBundle\Entity\Province
             joinColumn:
                   name: city_id
                   referencedColumnName: id
@@ -98,16 +98,6 @@ Ojs\JournalBundle\Entity\Institution:
             gedmo:
                 - translatable
                 - versioned
-        city_id:
-            type: integer
-            nullable: TRUE
-            gedmo:
-                  - versioned
-        country_id:
-            type: integer
-            nullable: TRUE
-            gedmo:
-                  - versioned
         addressLat:
             type: string
             length: 255

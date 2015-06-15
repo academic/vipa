@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form\JournalSetup;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -49,14 +48,10 @@ class Step2 extends AbstractType
                 'country',
                 'entity',
                 [
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element',
                     ],
-                    'query_builder' => function (EntityRepository $em) {
-                        return $em->createQueryBuilder('c')
-                            ->where("c.type=0");
-                    },
                 ]
             )
             ->add(

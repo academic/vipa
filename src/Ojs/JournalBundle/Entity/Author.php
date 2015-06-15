@@ -12,7 +12,8 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Province;
 
 /**
  * Author
@@ -23,6 +24,20 @@ class Author implements Translatable
 {
     use GenericEntityTrait;
 
+    /** @var  Country */
+    protected $country;
+    /** @var  Province */
+    protected $city;
+    /** @var  string */
+    protected $url;
+    /** @var  string */
+    protected $phone;
+    /** @var  string */
+    protected $fax;
+    /** @var  string */
+    protected $billing_address;
+    /** @var  string */
+    protected $locales;
     /**
      * @var integer
      * @Expose
@@ -30,7 +45,6 @@ class Author implements Translatable
      * @GRID\Column(title="id")
      */
     private $id;
-
     /**
      * @var string
      * @Expose
@@ -38,7 +52,6 @@ class Author implements Translatable
      * @GRID\Column(title="firstname")
      */
     private $firstName;
-
     /**
      * @var string
      * @Expose
@@ -46,7 +59,6 @@ class Author implements Translatable
      * @GRID\Column(title="middlename")
      */
     private $middleName;
-
     /**
      * @var string
      * @Expose
@@ -54,32 +66,27 @@ class Author implements Translatable
      * @GRID\Column(title="lastname")
      */
     private $lastName;
-
     /**
      * @var string
      * @JMS\Expose
      * @GRID\Column(title="email")
      */
     private $email;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $firstNameTransliterated;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $middleNameTransliterated;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $lastNameTransliterated;
-
     /**
      * @var string
      * @Expose
@@ -87,50 +94,42 @@ class Author implements Translatable
      * @GRID\Column(title="initials")
      */
     private $initials;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $address;
-
     /**
      * @var integer
      * @JMS\Expose
      */
     private $institutionId;
-
     /**
      * @var Institution
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $institution;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $summary;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $authorDetails;
-
     /**
      * @var integer
      * @JMS\Expose
      */
     private $userId;
-
     /**
      * @var User
      * @JMS\Expose
      */
     private $user;
-
     /**
      * title + firstname + middlename + lastname
      * @var string
@@ -139,13 +138,28 @@ class Author implements Translatable
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
-
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
+    /**
+     * @var Collection
+     * @Jms\Expose
+     */
+    private $articleAuthors;
+    /**
+     * @var string
+     *
+     * @GRID\Column(title="title")
+     */
+    private $title;
+
+    public function __construct()
+    {
+        $this->articleAuthors = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -167,22 +181,21 @@ class Author implements Translatable
     }
 
     /**
-     * @var Collection
-     * @Jms\Expose
-     */
-    private $articleAuthors;
-
-    public function __construct()
-    {
-        $this->articleAuthors = new ArrayCollection();
-    }
-
-    /**
      * @return Collection
      */
     public function getArticleAuthors()
     {
         return $this->articleAuthors;
+    }
+
+    /**
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -199,16 +212,6 @@ class Author implements Translatable
     }
 
     /**
-     * Get user
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -216,6 +219,16 @@ class Author implements Translatable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
     }
 
     /**
@@ -232,13 +245,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get firstName
+     * Get middleName
      *
      * @return string
      */
-    public function getFirstName()
+    public function getMiddleName()
     {
-        return $this->firstName;
+        return $this->middleName;
     }
 
     /**
@@ -255,13 +268,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get middleName
+     * Get lastName
      *
      * @return string
      */
-    public function getMiddleName()
+    public function getLastName()
     {
-        return $this->middleName;
+        return $this->lastName;
     }
 
     /**
@@ -278,13 +291,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get lastName
+     * Get email
      *
      * @return string
      */
-    public function getLastName()
+    public function getEmail()
     {
-        return $this->lastName;
+        return $this->email;
     }
 
     /**
@@ -298,16 +311,6 @@ class Author implements Translatable
         $this->email = $email;
 
         return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**
@@ -331,6 +334,16 @@ class Author implements Translatable
     }
 
     /**
+     * Get firstNameTransliterated
+     *
+     * @return string
+     */
+    public function getFirstNameTransliterated()
+    {
+        return $this->firstNameTransliterated;
+    }
+
+    /**
      * Set firstNameTransliterated
      *
      * @param  string $firstNameTransliterated
@@ -344,13 +357,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get firstNameTransliterated
+     * Get middleNameTransliterated
      *
      * @return string
      */
-    public function getFirstNameTransliterated()
+    public function getMiddleNameTransliterated()
     {
-        return $this->firstNameTransliterated;
+        return $this->middleNameTransliterated;
     }
 
     /**
@@ -367,13 +380,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get middleNameTransliterated
+     * Get lastNameTransliterated
      *
      * @return string
      */
-    public function getMiddleNameTransliterated()
+    public function getLastNameTransliterated()
     {
-        return $this->middleNameTransliterated;
+        return $this->lastNameTransliterated;
     }
 
     /**
@@ -390,13 +403,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get lastNameTransliterated
+     * Get initials
      *
      * @return string
      */
-    public function getLastNameTransliterated()
+    public function getInitials()
     {
-        return $this->lastNameTransliterated;
+        return $this->initials;
     }
 
     /**
@@ -413,13 +426,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get initials
+     * Get address
      *
      * @return string
      */
-    public function getInitials()
+    public function getAddress()
     {
-        return $this->initials;
+        return $this->address;
     }
 
     /**
@@ -436,13 +449,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get address
+     * Get institutionId
      *
-     * @return string
+     * @return integer
      */
-    public function getAddress()
+    public function getInstitutionId()
     {
-        return $this->address;
+        return $this->institutionId;
     }
 
     /**
@@ -459,13 +472,13 @@ class Author implements Translatable
     }
 
     /**
-     * Get institutionId
+     * Get summary
      *
-     * @return integer
+     * @return string
      */
-    public function getInstitutionId()
+    public function getSummary()
     {
-        return $this->institutionId;
+        return $this->summary;
     }
 
     /**
@@ -479,16 +492,6 @@ class Author implements Translatable
         $this->summary = $summary;
 
         return $this;
-    }
-
-    /**
-     * Get summary
-     *
-     * @return string
-     */
-    public function getSummary()
-    {
-        return $this->summary;
     }
 
     /**
@@ -513,13 +516,6 @@ class Author implements Translatable
     {
         $this->articleAuthors->removeElement($articleAuthors);
     }
-
-    /**
-     * @var string
-     *
-     * @GRID\Column(title="title")
-     */
-    private $title;
 
     /**
      * @return mixed
@@ -553,6 +549,16 @@ class Author implements Translatable
     }
 
     /**
+     * Get institution
+     *
+     * @return Institution
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
      * Set institution
      *
      * @param  Institution $institution
@@ -564,33 +570,6 @@ class Author implements Translatable
 
         return $this;
     }
-
-    /**
-     * Get institution
-     *
-     * @return Institution
-     */
-    public function getInstitution()
-    {
-        return $this->institution;
-    }
-
-    /** @var  Location */
-    protected $country;
-    /** @var  Location */
-    protected $city;
-
-    /** @var  string */
-    protected $url;
-    /** @var  string */
-    protected $phone;
-    /** @var  string */
-    protected $fax;
-
-    /** @var  string */
-    protected $billing_address;
-    /** @var  string */
-    protected $locales;
 
     /**
      * @return string
@@ -612,7 +591,7 @@ class Author implements Translatable
     }
 
     /**
-     * @return Location
+     * @return Province
      */
     public function getCity()
     {
@@ -620,10 +599,10 @@ class Author implements Translatable
     }
 
     /**
-     * @param  Location $city
+     * @param  Province $city
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(Province $city)
     {
         $this->city = $city;
 
@@ -631,7 +610,7 @@ class Author implements Translatable
     }
 
     /**
-     * @return Location
+     * @return Country
      */
     public function getCountry()
     {
@@ -639,10 +618,10 @@ class Author implements Translatable
     }
 
     /**
-     * @param  Location $country
+     * @param  Country $country
      * @return $this
      */
-    public function setCountry($country)
+    public function setCountry(Country $country)
     {
         $this->country = $country;
 

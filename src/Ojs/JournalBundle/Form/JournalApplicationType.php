@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -30,13 +29,7 @@ class JournalApplicationType extends AbstractType
                 'country',
                 'entity',
                 array(
-                    'class' => 'OkulbilisimLocationBundle:Location',
-                    'query_builder' => function (EntityRepository $er) {
-                        $qb = $er->createQueryBuilder('l')
-                            ->andWhere('l.type = 0');
-
-                        return $qb;
-                    },
+                    'class' => 'OkulbilisimLocationBundle:Country',
                     'label' => 'journal.country',
                     'attr' => ['class' => 'select2-element validate[required]'],
                 )

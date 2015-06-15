@@ -1,0 +1,22 @@
+Okulbilisim\LocationBundle\Entity\Province:
+  type: entity
+  table: province
+  repositoryClass: Okulbilisim\LocationBundle\Entity\ProvinceRepository
+  id:
+    id:
+      type: integer
+      nullable: false
+      id: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    name:
+      type: string
+      length: 255
+  manyToOne:
+    country:
+      targetEntity: Okulbilisim\LocationBundle\Entity\Country
+      inversedBy: provinces
+      joinColumn:
+        name: country_id
+        referencedColumnName: id

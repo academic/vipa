@@ -104,14 +104,10 @@ class JournalType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element ',
                     ],
-                    'query_builder' => function (EntityRepository $em) {
-                        return $em->createQueryBuilder('c')
-                            ->where("c.type=0");
-                    },
                 ]
             )
             ->add(

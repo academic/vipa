@@ -9,7 +9,8 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Province;
 
 /**
  * Institution
@@ -48,7 +49,7 @@ class Institution implements Translatable
     private $root;
     private $parent;
     /**
-     * @var Collection
+     * @var ArrayCollection|Institution[]
      */
     private $children;
     /**
@@ -69,27 +70,19 @@ class Institution implements Translatable
      */
     private $about;
     /**
-     * @var Location
+     * @var Province
      * @Expose
      * @GRID\Column(field="city.name",title="city")
      */
     private $city;
+
     /**
-     * @var integer
-     * @Expose
-     */
-    private $city_id;
-    /**
-     * @var Location
+     * @var Country
      * @Expose
      * @GRID\Column(field="country.name",title="country")
      */
     private $country;
-    /**
-     * @var string
-     * @Expose
-     */
-    private $country_id;
+
     /**
      * @var string
      * @Expose
@@ -186,7 +179,7 @@ class Institution implements Translatable
 
     /**
      *
-     * @return Institution
+     * @return $this
      */
     public function getParent()
     {
@@ -212,7 +205,7 @@ class Institution implements Translatable
      * Set root
      *
      * @param  integer $root
-     * @return Institution
+     * @return $this
      */
     public function setRoot($root)
     {
@@ -243,7 +236,7 @@ class Institution implements Translatable
     /**
      * Add journal
      * @param  Journal $journal
-     * @return Institution
+     * @return $this
      */
     public function addJournal(Journal $journal)
     {
@@ -283,7 +276,7 @@ class Institution implements Translatable
     /**
      * Get city
      *
-     * @return Location
+     * @return Province
      */
     public function getCity()
     {
@@ -293,13 +286,12 @@ class Institution implements Translatable
     /**
      * Set city
      *
-     * @param  Location $city
-     * @return Institution
+     * @param  Country $city
+     * @return $this
      */
-    public function setCity(Location $city)
+    public function setCity(Country $city)
     {
         $this->city = $city;
-        $this->city_id = $city->getId();
 
         return $this;
     }
@@ -318,7 +310,7 @@ class Institution implements Translatable
      * Set name
      *
      * @param  string $name
-     * @return Institution
+     * @return $this
      */
     public function setName($name)
     {
@@ -341,7 +333,7 @@ class Institution implements Translatable
      * Set address
      *
      * @param  string $address
-     * @return Institution
+     * @return $this
      */
     public function setAddress($address)
     {
@@ -364,7 +356,7 @@ class Institution implements Translatable
      * Set about
      *
      * @param  string $about
-     * @return Institution
+     * @return $this
      */
     public function setAbout($about)
     {
@@ -376,7 +368,7 @@ class Institution implements Translatable
     /**
      * Get country
      *
-     * @return Location
+     * @return Country
      */
     public function getCountry()
     {
@@ -386,13 +378,12 @@ class Institution implements Translatable
     /**
      * Set country
      *
-     * @param  Location $country
-     * @return Institution
+     * @param  Country $country
+     * @return $this
      */
-    public function setCountry(Location $country)
+    public function setCountry(Country $country)
     {
         $this->country = $country;
-        $this->country_id = $country->getId();
 
         return $this;
     }
@@ -411,7 +402,7 @@ class Institution implements Translatable
      * Set addressLat
      *
      * @param  string $addressLat
-     * @return Institution
+     * @return $this
      */
     public function setAddressLat($addressLat)
     {
@@ -434,7 +425,7 @@ class Institution implements Translatable
      * Set addressLong
      *
      * @param  string $addressLong
-     * @return Institution
+     * @return $this
      */
     public function setAddressLong($addressLong)
     {
@@ -457,7 +448,7 @@ class Institution implements Translatable
      * Set phone
      *
      * @param  string $phone
-     * @return Institution
+     * @return $this
      */
     public function setPhone($phone)
     {
@@ -480,7 +471,7 @@ class Institution implements Translatable
      * Set fax
      *
      * @param  string $fax
-     * @return Institution
+     * @return $this
      */
     public function setFax($fax)
     {
@@ -503,7 +494,7 @@ class Institution implements Translatable
      * Set email
      *
      * @param  string $email
-     * @return Institution
+     * @return $this
      */
     public function setEmail($email)
     {
@@ -526,7 +517,7 @@ class Institution implements Translatable
      * Set url
      *
      * @param  string $url
-     * @return Institution
+     * @return $this
      */
     public function setUrl($url)
     {
@@ -549,7 +540,7 @@ class Institution implements Translatable
      * Set wiki
      *
      * @param  string $wiki
-     * @return Institution
+     * @return $this
      */
     public function setWiki($wiki)
     {
@@ -572,7 +563,7 @@ class Institution implements Translatable
      * Set logo
      *
      * @param  string $logo
-     * @return Institution
+     * @return $this
      */
     public function setLogo($logo)
     {
@@ -640,44 +631,6 @@ class Institution implements Translatable
     }
 
     /**
-     * @return int
-     */
-    public function getCityId()
-    {
-        return $this->city_id;
-    }
-
-    /**
-     * @param  int $city_id
-     * @return $this
-     */
-    public function setCityId($city_id)
-    {
-        $this->city_id = $city_id;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountryId()
-    {
-        return $this->country_id;
-    }
-
-    /**
-     * @param  string $country_id
-     * @return $this
-     */
-    public function setCountryId($country_id)
-    {
-        $this->country_id = $country_id;
-
-        return $this;
-    }
-
-    /**
      * @return boolean
      */
     public function isVerified()
@@ -717,7 +670,7 @@ class Institution implements Translatable
      * Set lft
      *
      * @param  integer $lft
-     * @return Institution
+     * @return $this
      */
     public function setLft($lft)
     {
@@ -740,7 +693,7 @@ class Institution implements Translatable
      * Set rgt
      *
      * @param  integer $rgt
-     * @return Institution
+     * @return $this
      */
     public function setRgt($rgt)
     {
@@ -763,7 +716,7 @@ class Institution implements Translatable
      * Set lvl
      *
      * @param  integer $lvl
-     * @return Institution
+     * @return $this
      */
     public function setLvl($lvl)
     {
@@ -776,7 +729,7 @@ class Institution implements Translatable
      * Add authors
      *
      * @param  Author $authors
-     * @return Institution
+     * @return $this
      */
     public function addAuthor(Author $authors)
     {
@@ -809,7 +762,7 @@ class Institution implements Translatable
      * Add children
      *
      * @param  Institution $children
-     * @return Institution
+     * @return $this
      */
     public function addChild(Institution $children)
     {

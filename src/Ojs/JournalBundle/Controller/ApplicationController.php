@@ -20,7 +20,7 @@ use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Ojs\JournalBundle\Form\JournalApplicationType;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -37,7 +37,6 @@ class ApplicationController extends Controller
      */
     public function institutionIndexAction()
     {
-        $translator = $this->get('translator');
         $source = new Entity('OjsJournalBundle:Institution', 'application');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
@@ -50,14 +49,7 @@ class ApplicationController extends Controller
         );
 
         $grid = $this->get('grid')->setSource($source);
-        $grid->getColumn('status')->manipulateRenderCell(
-            function ($value, Row $row) use ($translator) {
-                /** @var Institution $entity */
-                $entity = $row->getEntity();
 
-                return $translator->trans($entity->getStatusText());
-            }
-        );
         $gridAction = $this->get('grid_action');
 
         $rowAction[] = $gridAction->editAction('application_institution_edit', 'id');
@@ -139,8 +131,8 @@ class ApplicationController extends Controller
         /** @var Institution $institution */
         $institution = $em->find('OjsJournalBundle:Institution', $entity->getInstitution());
 
-        /** @var Location $country */
-        $country = $em->find('OkulbilisimLocationBundle:Location', $entity->getCountry());
+        /** @var Country $country */
+        $country = $em->find('OkulbilisimLocationBundle:Country', $entity->getCountry());
 
         $data['entity'] = $entity;
         $data['languages'] = implode(',', $languages);
@@ -321,10 +313,12 @@ class ApplicationController extends Controller
             /** @var \Ojs\UserBundle\Entity\User $user */
             $user = $em->find('OjsUserBundle:User', $entity->getUser());
 
+
+
             $journal = new Journal();
             $journal->setUrl($entity->getUrl())
                 ->setTags($entity->getTags())
-                ->setCountryId($entity->getCountry())
+                ->setCountry($em->find('OkulbilisimLocationBundle:Country', $entity->getCountry()))
                 ->setCreatedBy($user->getUsername())
                 ->setDomain($entity->getDomain())
                 ->setEissn($entity->getEissn())

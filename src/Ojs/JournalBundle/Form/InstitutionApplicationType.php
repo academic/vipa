@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,10 +46,7 @@ class InstitutionApplicationType extends AbstractType
                 'country',
                 'entity',
                 array(
-                    'class' => 'OkulbilisimLocationBundle:Location',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('l')->andWhere('l.type = 0');
-                    },
+                    'class' => 'OkulbilisimLocationBundle:Country',
                     'label' => 'institution.country',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',

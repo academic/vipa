@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
-use Okulbilisim\LocationBundle\Entity\Location;
+use Okulbilisim\LocationBundle\Entity\Country;
 
 /**
  * Journal
@@ -23,113 +23,105 @@ class Journal implements Translatable
 {
     use GenericEntityTrait;
 
+    protected $logo_options;
+    protected $header_options;
+    protected $image_options;
+    /** @var  boolean */
+    protected $setup_status;
+    /** @var  string */
+    protected $footer_text;
     /**
      * @var integer
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $id;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $titleAbbr;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $titleTransliterated;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $subtitle;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $path;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $domain;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $issn;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $eissn;
-
     /**
      * @var \DateTime
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $firstPublishDate;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $period;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $url;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $address;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $phone;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $email;
-
     /**
-     * @var Location
+     * @var Country
      * @Expose
      * @Groups({"JournalDetail"})
      * @Grid\Column(field="country.name", title="country")
@@ -137,118 +129,96 @@ class Journal implements Translatable
     private $country;
 
     /**
-     * @var integer
-     */
-    private $country_id;
-
-    /**
      * @var boolean
      * @Expose
      */
     private $published;
-
     /**
      * @var integer
      * @Expose
      */
     private $status;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $image;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $header;
-
     /**
      * @var string
      * @Expose
      */
     private $googleAnalyticsId;
-
     /**
      * @var string
      * @Expose
      */
     private $slug;
-
     /**
      * @var integer
      * @Expose
      */
     private $themeId;
-
     /**
      * @var Theme
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $theme;
-
     /**
      * @var boolean
      * @Expose
      */
     private $isConfigured;
-
     /**
      * @var Collection
      */
     private $users;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"IssueDetail"})
      */
     private $articles;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $issues;
-
     /**
      * @var Collection
      */
     private $boards;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $languages;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $subjects;
-
     /**
      * @var Collection
      * @Groups({"JournalDetail"})
      */
     private $sections;
-
     /**
      *
      * arbitrary settings
      * @var ArrayCollection|JournalSetting[]
      */
     private $settings;
-
     /**
      * @var Institution
      * @Expose
@@ -256,30 +226,62 @@ class Journal implements Translatable
      * @Grid\Column(field="institution.name", title="institution")
      */
     private $institution;
-
     /**
      * @var Collection
      * @Expose
      */
     private $journalThemes;
-
     /**
      * @var integer
      */
     private $institutionId;
-
     /**
      * @var Collection
      */
     private $bannedUsers;
     private $userRoles;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
+    /**
+     * @var string
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $logo;
+    /**
+     * @var Collection
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $journals_indexs;
+    /**
+     * @var Collection
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $submissionChecklist;
+    /**
+     * @var int
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
+     */
+    private $view_count;
+    /**
+     * @var int
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
+     */
+    private $download_count;
+    /**
+     * @var boolean
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
+     */
+    private $printed;
 
     /**
      * Constructor
@@ -349,9 +351,9 @@ class Journal implements Translatable
      * @param  string                 $settingName
      * @return JournalSetting|boolean
      */
-    public function getSetting($settingName)
+    public function getAttribute($settingName)
     {
-        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
+        return $this->getSetting($settingName);
     }
 
     /**
@@ -359,9 +361,9 @@ class Journal implements Translatable
      * @param  string                 $settingName
      * @return JournalSetting|boolean
      */
-    public function getAttribute($settingName)
+    public function getSetting($settingName)
     {
-        return $this->getSetting($settingName);
+        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
     }
 
     /**
@@ -470,39 +472,6 @@ class Journal implements Translatable
     public function getSubjects()
     {
         return $this->subjects;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set title
-     *
-     * @param  string  $title
-     * @return Journal
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     /**
@@ -825,7 +794,7 @@ class Journal implements Translatable
     /**
      * Get country
      *
-     * @return Location
+     * @return Country
      */
     public function getCountry()
     {
@@ -834,32 +803,12 @@ class Journal implements Translatable
 
     /**
      * Set country
-     * @param  Location $country
+     * @param  Country $country
      * @return Journal
      */
-    public function setCountry(Location $country)
+    public function setCountry(Country $country)
     {
         $this->country = $country;
-        $this->country_id = $country->getId();
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCountryId()
-    {
-        return $this->country_id;
-    }
-
-    /**
-     * @param  int   $country_id
-     * @return $this
-     */
-    public function setCountryId($country_id)
-    {
-        $this->country_id = $country_id;
 
         return $this;
     }
@@ -875,6 +824,14 @@ class Journal implements Translatable
     }
 
     /**
+     * @return boolean
+     */
+    public function isPublished()
+    {
+        return $this->published ? true : false;
+    }
+
+    /**
      * Set published
      *
      * @param  boolean $published
@@ -885,14 +842,6 @@ class Journal implements Translatable
         $this->published = $published;
 
         return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isPublished()
-    {
-        return $this->published ? true : false;
     }
 
     /**
@@ -942,6 +891,16 @@ class Journal implements Translatable
     }
 
     /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Set slug
      *
      * @param  string  $slug
@@ -952,16 +911,6 @@ class Journal implements Translatable
         $this->slug = $slug;
 
         return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -1280,6 +1229,39 @@ class Journal implements Translatable
     }
 
     /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set title
+     *
+     * @param  string  $title
+     * @return Journal
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return mixed
      */
     public function getUserRoles()
@@ -1310,13 +1292,6 @@ class Journal implements Translatable
     }
 
     /**
-     * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
-     */
-    private $logo;
-
-    /**
      * @return string
      */
     public function getLogo()
@@ -1334,13 +1309,6 @@ class Journal implements Translatable
 
         return $this;
     }
-
-    /**
-     * @var Collection
-     * @Expose
-     * @Groups({"JournalDetail"})
-     */
-    private $journals_indexs;
 
     /**
      * Add journalThemes
@@ -1399,13 +1367,6 @@ class Journal implements Translatable
     }
 
     /**
-     * @var Collection
-     * @Expose
-     * @Groups({"JournalDetail"})
-     */
-    private $submissionChecklist;
-
-    /**
      * Add submission checklist item
      *
      * @param  SubmissionChecklist $checklistItem
@@ -1436,26 +1397,6 @@ class Journal implements Translatable
     public function getSubmissionChecklist()
     {
         return $this->submissionChecklist;
-    }
-
-    protected $logo_options;
-    protected $header_options;
-    protected $image_options;
-
-    /**
-     * @return mixed
-     */
-    public function getImageOptions()
-    {
-        return $this->image_options;
-    }
-
-    /**
-     * @param mixed $image_options
-     */
-    public function setImageOptions($image_options)
-    {
-        $this->image_options = $image_options;
     }
 
     /**
@@ -1502,6 +1443,22 @@ class Journal implements Translatable
     /**
      * @return mixed
      */
+    public function getImageOptions()
+    {
+        return $this->image_options;
+    }
+
+    /**
+     * @param mixed $image_options
+     */
+    public function setImageOptions($image_options)
+    {
+        $this->image_options = $image_options;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDescription()
     {
         return $this->description;
@@ -1514,9 +1471,6 @@ class Journal implements Translatable
     {
         $this->description = $description;
     }
-
-    /** @var  boolean */
-    protected $setup_status;
 
     /**
      * @return boolean
@@ -1534,9 +1488,6 @@ class Journal implements Translatable
         $this->setup_status = $setup_status;
     }
 
-    /** @var  string */
-    protected $footer_text;
-
     /**
      * @return string
      */
@@ -1552,20 +1503,6 @@ class Journal implements Translatable
     {
         $this->footer_text = $footer_text;
     }
-
-    /**
-     * @var int
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
-     */
-    private $view_count;
-
-    /**
-     * @var int
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
-     */
-    private $download_count;
 
     /**
      * @return int
@@ -1604,13 +1541,6 @@ class Journal implements Translatable
 
         return $this;
     }
-
-    /**
-     * @var boolean
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
-     */
-    private $printed;
 
     /**
      * @return boolean

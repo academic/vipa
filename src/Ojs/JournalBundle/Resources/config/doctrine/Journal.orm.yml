@@ -16,7 +16,7 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
           inversedBy: journals
         country:
-          targetEntity: Okulbilisim\LocationBundle\Entity\Location
+          targetEntity: Okulbilisim\LocationBundle\Entity\Country
           joinColumn:
             name: country_id
             referencedColumnName: id
@@ -204,11 +204,6 @@ Ojs\JournalBundle\Entity\Journal:
         email:
             type: string
             length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        country_id:
-            type: integer
             nullable: true
             gedmo:
                   - versioned

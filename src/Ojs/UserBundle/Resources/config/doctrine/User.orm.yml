@@ -110,16 +110,6 @@ Ojs\UserBundle\Entity\User:
             nullable: true
             gedmo:
                 - versioned
-        city_id:
-            type: integer
-            nullable: true
-            gedmo:
-                - versioned
-        country_id:
-            type: integer
-            nullable: true
-            gedmo:
-                - versioned
         isActive:
             type: boolean
             length: null
@@ -212,13 +202,8 @@ Ojs\UserBundle\Entity\User:
           targetEntity: Ojs\UserBundle\Entity\UserJournalRole
           mappedBy: user
     manyToOne:
-        country:
-          targetEntity: Okulbilisim\LocationBundle\Entity\Location
-          joinColumn:
-            name: country_id
-            referencedColumnName: id
         city:
-          targetEntity: Okulbilisim\LocationBundle\Entity\Location
+          targetEntity: Okulbilisim\LocationBundle\Entity\Province
           joinColumn:
             name: city_id
             referencedColumnName: id

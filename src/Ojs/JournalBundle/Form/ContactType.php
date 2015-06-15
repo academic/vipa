@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,26 +25,22 @@ class ContactType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => "select2-element validate[required]",
                     ],
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('t')
-                            ->where('t.parent_id = 0');
-                    },
                 ]
             )
             ->add(
                 'city',
                 'autocomplete',
                 [
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Province',
                     'label' => 'city',
                     'attr' => [
                         'class' => 'autocomplete',
-                        'data-list' => $options['apiRoot']."public/search/location",
-                        'data-get' => $options['apiRoot']."public/location/get/",
+                        'data-list' => $options['apiRoot']."public/search/province",
+                        'data-get' => $options['apiRoot']."public/province/get/",
                         "placeholder" => "type a journal name",
                     ],
                 ]
