@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\JournalTheme:
     type: entity
     table: journal_theme
+    repositoryClass: Ojs\JournalBundle\Entity\JournalThemeRepository
     id:
         id:
             type: integer

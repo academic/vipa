@@ -1,6 +1,7 @@
 Ojs\UserBundle\Entity\Notification:
     type: entity
     table: notification
+    repositoryClass: Ojs\UserBundle\Entity\NotificationRepository
     id:
         id:
             type: integer

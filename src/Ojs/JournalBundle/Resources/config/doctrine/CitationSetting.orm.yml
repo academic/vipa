@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\CitationSetting:
     type: entity
     table: citation_setting
-    #repositoryClass: Ojs\JournalBundle\Entity\CitationSettingRepository
+    repositoryClass: Ojs\JournalBundle\Entity\CitationSettingRepository
     manyToOne:
         citation:
             targetEntity: Ojs\JournalBundle\Entity\Citation

@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\Lang:
     type: entity
     table: lang
+    repositoryClass: Ojs\JournalBundle\Entity\LangRepository
     id:
         id:
             type: integer

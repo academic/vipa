@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\JournalDesign:
     type: entity
     table: journal_design
+    repositoryClass: Ojs\JournalBundle\Entity\JournalDesignRepository
     id:
         id:
             type: integer

@@ -1,6 +1,7 @@
 Ojs\CliBundle\Entity\CliLog:
     type: entity
     table: cli_log
+    repositoryClass: Ojs\CliBundle\Entity\CliLogRepository
     id:
         id:
             type: integer

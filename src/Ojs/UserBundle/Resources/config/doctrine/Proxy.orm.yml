@@ -4,6 +4,7 @@ Ojs\UserBundle\Entity\Proxy:
           columns: proxy_user_id,client_user_id
     type: entity
     table: proxy
+    repositoryClass: Ojs\UserBundle\Entity\ProxyRepository
     manyToOne:
         clientUser:
             targetEntity: User
