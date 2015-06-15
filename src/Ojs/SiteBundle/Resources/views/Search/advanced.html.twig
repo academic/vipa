@@ -14,71 +14,23 @@
     <div class="container-fluid">
         <h1>{{ "search.advanced"|trans }}</h1>
 
-        <form action="" class="form-horizontal">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="">Query</label>
-                    <input class="form-control" type="text" name="query" readonly/>
-                    <small>
-                        <a href="#">edit</a>
-                        <a href="#">clear</a>
-                    </small>
-                </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="">Query</label>
+                <input class="form-control" type="text" name="query" placeholder="Use query builder"  id="searchQueryInput" readonly/>
+                <small>
+                    <a href="javascript:void(0)" onclick="location.reload()">clear</a>
+                </small>
             </div>
-            <div class="row-fluid">
-                <div class="col-md-2 col-md-offset-1">
-                    <div class="form-group">
-                        <label for="">Field</label>
-                        <select name="field" id="field" class="form-control">
-                            <option value="title">title</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group">
-                        <label for="">Value</label>
-                        <input class="form-control" type="text"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row-fluid" id="row-template">
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <label for=""> &nbsp;</label>
-                        <select name="condition" id="condition" class="form-control">
-                            <option value="and">AND</option>
-                            <option value="or">OR</option>
-                            <option value="not">NOT</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="">Field</label>
-                        <select name="field" id="field" class="form-control">
-                            <option value="title">title</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group">
-                        <label for="">Value</label>
-
-                        <div class="input-group">
-                            <input class="form-control" type="text"/>
-
-                            <div class="input-group-addon ">
-                                <a href="#"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <input class="btn bnt-success" type="button" value="Search"/>
-            </div>
-        </form>
+        </div>
+        <div id="advanced-search-fields-area">
+        </div>
+        <div class="row-fluid">
+            <input class="btn btn-success" type="button" value="Search" onclick="OJSAdvancedSearch.redirectToSearch()"/>
+        </div>
+    </div>
+    <div class="hidden" id="search-field-template">
+        {% include "OjsSiteBundle:Search:temps/set_search_field.html.twig" %}
     </div>
 {% endblock %}
 
