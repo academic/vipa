@@ -27,7 +27,7 @@ class MemberCountUpdater extends Updater implements UpdaterInterface
         foreach ($all as $r) {
             /** @var UserJournalRole $r */
             if (isset($journalUsers[$r->getJournalId()])
-                and in_array($r->getUserId(), $journalUsers[$r->getJournalId()])
+                && in_array($r->getUserId(), $journalUsers[$r->getJournalId()])
             ) {
                 continue;
             }

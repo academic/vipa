@@ -135,12 +135,12 @@ class CommonExtension extends \Twig_Extension
 
             if ($filter) {
                 $config = $this->filterManager->getFilterConfiguration()->get($filter);
-                if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['size'])) {
+                if (isset($config['filters']) && isset($config['filters']['crop']) && isset($config['filters']['crop']['size'])) {
                     $size = $config['filters']['crop']['size'];
                     $defaultConfig['height'] = $size[1];
                     $defaultConfig['width'] = $size[0];
                 }
-                if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['start'])) {
+                if (isset($config['filters']) && isset($config['filters']['crop']) && isset($config['filters']['crop']['start'])) {
                     $start = $config['filters']['crop']['start'];
                     $defaultConfig['x'] = $start[0];
                     $defaultConfig['y'] = $start[1];

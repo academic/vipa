@@ -42,7 +42,7 @@ class MailTemplateController extends Controller
         $source = new Entity('OjsJournalBundle:MailTemplate');
         $source->manipulateRow(
             function (Row $row) {
-                if ($row->getField("title") and strlen($row->getField('title')) > 20) {
+                if ($row->getField("title") && strlen($row->getField('title')) > 20) {
                     $row->setField('title', substr($row->getField('title'), 0, 20)."...");
                 }
 
