@@ -345,7 +345,7 @@ class ArticleReviewStep
      * @param  User|bool $user
      * @return self
      */
-    public function setOwnerUser($user)
+    public function setOwnerUser(User $user = false)
     {
         $this->ownerUser = !$user ? null : array(
             'id' => $user->getId(),
