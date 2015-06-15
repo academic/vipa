@@ -2,10 +2,6 @@ admin_maillog:
     resource: "@OjsUserBundle/Resources/config/routing/maillog.yml"
     prefix:   /admin/maillog
 
-admin_role:
-    resource: "@OjsUserBundle/Resources/config/routing/role_admin.yml"
-    prefix:   /admin/role
-
 admin_userjournalrole:
     resource: "@OjsUserBundle/Resources/config/routing/userjournalrole_admin.yml"
     prefix:   /admin/userjournalrole
