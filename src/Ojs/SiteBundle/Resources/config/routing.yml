@@ -50,27 +50,9 @@ ojs_public_index:
     host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:index }
 
-ojs_browse_index:
-    pattern:  /browse
-    defaults: { _controller: OjsSiteBundle:Site:browseIndex }
-
-
 ojs_institutions_index:
     pattern:  /institutions
     defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
-
-ojs_categories_index:
-    pattern:  /categories
-    defaults: { _controller: OjsSiteBundle:Site:categoriesIndex }
-
-ojs_topic_index:
-    pattern:  /topics
-    defaults: { _controller: OjsSiteBundle:Site:topicsIndex }
-
-
-ojs_profile_index:
-    pattern:  /profile
-    defaults: { _controller: OjsSiteBundle:Site:profileIndex }
 
 ojs_journals_index:
     pattern:  /journals/{page}
