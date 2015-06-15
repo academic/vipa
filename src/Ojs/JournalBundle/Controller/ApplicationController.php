@@ -20,7 +20,7 @@ use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Ojs\JournalBundle\Form\JournalApplicationType;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -132,7 +132,7 @@ class ApplicationController extends Controller
         $institution = $em->find('OjsJournalBundle:Institution', $entity->getInstitution());
 
         /** @var Country $country */
-        $country = $em->find('OkulbilisimLocationBundle:Country', $entity->getCountry());
+        $country = $em->find('OjsLocationBundle:Country', $entity->getCountry());
 
         $data['entity'] = $entity;
         $data['languages'] = implode(',', $languages);
@@ -193,7 +193,7 @@ class ApplicationController extends Controller
             new InstitutionApplicationType(),
             $entity,
             [
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
                 'action' => $this->generateUrl('application_institution_update', array('id' => $entity->getId())),
             ]
         );
@@ -238,7 +238,7 @@ class ApplicationController extends Controller
             new InstitutionApplicationType(),
             $entity,
             [
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
             ]
         );
         $form->handleRequest($request);
@@ -318,7 +318,7 @@ class ApplicationController extends Controller
             $journal = new Journal();
             $journal->setUrl($entity->getUrl())
                 ->setTags($entity->getTags())
-                ->setCountry($em->find('OkulbilisimLocationBundle:Country', $entity->getCountry()))
+                ->setCountry($em->find('OjsLocationBundle:Country', $entity->getCountry()))
                 ->setCreatedBy($user->getUsername())
                 ->setDomain($entity->getDomain())
                 ->setEissn($entity->getEissn())

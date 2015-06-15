@@ -105,7 +105,7 @@ class InstitutionController extends Controller
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
                 'institutionEndPoint' => $this->generateUrl('api_get_institution'),
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
             )
         );
 
@@ -200,7 +200,7 @@ class InstitutionController extends Controller
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
                 'institutionEndPoint' => $this->generateUrl('api_get_institution'),
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
             )
         );
 

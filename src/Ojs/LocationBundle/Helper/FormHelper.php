@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emreyilmaz
- * Date: 12.02.15
- * Time: 02:47
- */
-namespace Okulbilisim\LocationBundle\Helper;
+
+namespace Ojs\LocationBundle\Helper;
 
 use Doctrine\ORM\EntityManager;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Country;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -52,7 +47,7 @@ class FormHelper
             $childs = [];
             if (!empty($country)) {
                 /** @var Country $country */
-                $country = $em->find('OkulbilisimLocationBundle:Country', $country);
+                $country = $em->find('OjsLocationBundle:Country', $country);
                 foreach ($country->getProvinces() as $child) {
                     if ($child->getType() == 1) {
                         $childs[$child->getId()] = $isMongo === false ? $child : $child->getName();
@@ -69,7 +64,7 @@ class FormHelper
                 ],
             ];
             if ($isMongo === false) {
-                $options['class'] = 'Okulbilisim\LocationBundle\Entity\Province';
+                $options['class'] = 'Ojs\LocationBundle\Entity\Province';
             }
 
             if (empty($cities)) {

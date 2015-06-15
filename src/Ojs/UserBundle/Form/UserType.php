@@ -3,7 +3,7 @@
 namespace Ojs\UserBundle\Form;
 
 use Ojs\Common\Params\CommonParams;
-use Okulbilisim\LocationBundle\Helper\FormHelper;
+use Ojs\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -112,7 +112,7 @@ class UserType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                    'class' => 'Ojs\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',
                         'data-to' => '#'.$this->getName().'_city',

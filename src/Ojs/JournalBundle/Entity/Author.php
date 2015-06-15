@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
-use Okulbilisim\LocationBundle\Entity\Country;
-use Okulbilisim\LocationBundle\Entity\Province;
+use Ojs\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Province;
 
 /**
  * Author

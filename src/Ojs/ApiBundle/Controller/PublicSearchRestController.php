@@ -11,7 +11,7 @@ use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
-use Okulbilisim\LocationBundle\Entity\Province;
+use Ojs\LocationBundle\Entity\Province;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -441,7 +441,7 @@ class PublicSearchRestController extends FOSRestController
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Province $province */
-        $province = $em->find('OkulbilisimLocationBundle:Province', $id);
+        $province = $em->find('OjsLocationBundle:Province', $id);
         if ($province) {
             return JsonResponse::create(['id' => $id, 'name' => $province->getName()]);
         }

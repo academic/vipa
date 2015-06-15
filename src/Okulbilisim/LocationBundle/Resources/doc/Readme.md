@@ -1,2 +1,0 @@
-# OkulBilisim Location Bundle
-

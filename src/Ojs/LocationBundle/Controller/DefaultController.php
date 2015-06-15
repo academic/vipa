@@ -1,9 +1,9 @@
 <?php
 
-namespace Okulbilisim\LocationBundle\Controller;
+namespace Ojs\LocationBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         /** @var Country $country */
-        $country = $em->getRepository('OkulbilisimLocationBundle:Country')->find($country);
+        $country = $em->getRepository('OjsLocationBundle:Country')->find($country);
         $this->throw404IfNotFound($country);
 
         $cities_array = [];

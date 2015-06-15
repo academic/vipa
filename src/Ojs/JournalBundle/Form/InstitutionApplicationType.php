@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Okulbilisim\LocationBundle\Helper\FormHelper;
+use Ojs\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -46,7 +46,7 @@ class InstitutionApplicationType extends AbstractType
                 'country',
                 'entity',
                 array(
-                    'class' => 'OkulbilisimLocationBundle:Country',
+                    'class' => 'OjsLocationBundle:Country',
                     'label' => 'institution.country',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',

@@ -63,7 +63,7 @@ class ApplicationController extends Controller
             new InstitutionApplicationType(),
             $application,
             [
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
             ]
         );
         if ($request->isMethod('POST')) {

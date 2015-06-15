@@ -1,3 +1,0 @@
-okulbilisim_location_cities:
-  path: /location/cities/{country}
-  defaults: { _controller: OkulbilisimLocationBundle:Default:cities }
