@@ -139,10 +139,10 @@ class ArticleService
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $article
+     * @param  Article $article
      * @return string
      */
-    public function generateUrl($article)
+    public function generateUrl(Article $article)
     {
         $journalUrl = $this->journalService->generateUrl($article->getJournal());
 

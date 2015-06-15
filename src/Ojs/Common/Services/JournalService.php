@@ -176,7 +176,7 @@ class JournalService
      * @param  Journal $journal
      * @return boolean
      */
-    public function generateUrl($journal)
+    public function generateUrl(Journal $journal)
     {
         $institution = $journal->getInstitution();
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
