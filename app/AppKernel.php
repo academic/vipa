@@ -1,9 +1,9 @@
 <?php
 
-use Unifik\DatabaseConfigBundle\DependencyInjection\Compiler\ContainerBuilder;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
+use Unifik\DatabaseConfigBundle\DependencyInjection\Compiler\ContainerBuilder;
 
 class AppKernel extends Kernel
 {
@@ -49,7 +49,6 @@ class AppKernel extends Kernel
             new Ojs\InstallerBundle\OjsInstallerBundle(),
             new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
             new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
-            new Ojs\NotifierBundle\OjsNotifierBundle(),
             new Okulbilisim\LocationBundle\OkulbilisimLocationBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
