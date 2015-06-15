@@ -2,15 +2,11 @@
 
 namespace Ojs\SearchBundle\Controller;
 
+use Elastica\Index;
 use Elastica\Query;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Elastica\Aggregation\Terms;
-use Elastica\Query\Bool;
-use Elastica\Query\MultiMatch;
-use Elastica\Result;
-use Elastica\Index;
 
 class DefaultController extends Controller
 {
@@ -88,8 +84,12 @@ class DefaultController extends Controller
     {
         $search = $this->container->get('fos_elastica.index.search');
         $mapping = $search->getMapping();
-        return $this->render("OjsSiteBundle:Search:advanced.html.twig", [
-            'mapping' => $mapping
-        ]);
+
+        return $this->render(
+            "OjsSiteBundle:Search:advanced.html.twig",
+            [
+                'mapping' => $mapping,
+            ]
+        );
     }
 }

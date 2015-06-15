@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

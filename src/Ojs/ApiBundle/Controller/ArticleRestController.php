@@ -2,12 +2,16 @@
 
 namespace Ojs\ApiBundle\Controller;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\UserBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleRepository;
+use Ojs\JournalBundle\Entity\Citation;
+use Ojs\JournalBundle\Entity\CitationSetting;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -24,15 +28,15 @@ class ArticleRestController extends FOSRestController
      *
      * @param  int   $page
      * @param  int   $limit
-     * @return mixed
+     * @return Article[]|array
      */
     public function getArticlesAction($page = 0, $limit = 10)
     {
-        $articles = $this->getDoctrine()->getManager()
-            ->createQuery('SELECT a FROM OjsJournalBundle:Article a')
-            ->setFirstResult($page)
-            ->setMaxResults($limit)
-            ->getResult();
+        /** @var ArticleRepository $articleRepo */
+        $articleRepo = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Article');
+
+
+        $articles = $articleRepo->findAllByLimits($page, $limit);
         if (!is_array($articles)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -41,6 +45,9 @@ class ArticleRestController extends FOSRestController
     }
 
     /**
+     *
+     * @param $id
+     * @return object
      *
      * @ApiDoc(
      *  resource=true,
@@ -59,6 +66,8 @@ class ArticleRestController extends FOSRestController
     }
 
     /**
+     * @param $id
+     * @param Request $request
      *
      * @ApiDoc(
      *  resource=true,
@@ -77,7 +86,7 @@ class ArticleRestController extends FOSRestController
      *  }
      * )
      */
-    public function postArticleBulkcitationAction($id, Request $request)
+    public function postArticleBulkCitationAction($id, Request $request)
     {
         $citesStr = $request->get('cites');
         if (empty($citesStr)) {
@@ -88,7 +97,7 @@ class ArticleRestController extends FOSRestController
             throw new HttpException(400, 'Missing parameter : cites ');
         }
         foreach ($cites as $cite) {
-            $citation = new \Ojs\JournalBundle\Entity\Citation();
+            $citation = new Citation();
             $citation->setRaw($cite['raw']);
             $citation->setOrderNum(isset($cite['orderNum']) ? $cite['orderNum'] : 0);
             $citation->setType($cite['type']);
@@ -98,6 +107,49 @@ class ArticleRestController extends FOSRestController
     }
 
     /**
+     *
+     * @param  integer  $id
+     * @param  Citation $citation
+     * @param  Request  $request
+     * @return Article
+     */
+    private function addCitation2Article($id, Citation $citation, $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($citation);
+        $em->flush();
+        $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
+        // check and insert citation
+        /* @var $article Article */
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
+        if (!$article) {
+            return array();
+        }
+        $article->addCitation($citation);
+        $em->persist($citation);
+        $em->flush();
+        foreach ($citationSettingKeys as $key => $desc) {
+            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get(
+                'setting_'.$key
+            );
+            if (!empty($param)) {
+                $citationSetting = new CitationSetting();
+                $citationSetting->setCitation($citation);
+                $citationSetting->setSetting($key);
+                $citationSetting->setValue($param);
+                $em->persist($citationSetting);
+                $em->flush();
+            }
+        }
+
+        return $article;
+    }
+
+    /**
+     * @param $id
+     * @param  Request $request
+     * @return Article
+     *
      *
      * @ApiDoc(
      *  resource=true,
@@ -115,7 +167,7 @@ class ArticleRestController extends FOSRestController
      */
     public function postArticleCitationAction($id, Request $request)
     {
-        $citation = new \Ojs\JournalBundle\Entity\Citation();
+        $citation = new Citation();
         $citation->setRaw($request->get('raw'));
         $citation->setOrderNum($request->get('orderNum', 0));
         $citation->setType($request->get('type'));
@@ -125,6 +177,8 @@ class ArticleRestController extends FOSRestController
     }
 
     /**
+     * @param $id
+     * @return Collection|Citation[]|void
      *
      * @ApiDoc(
      *  resource=true,
@@ -135,54 +189,19 @@ class ArticleRestController extends FOSRestController
     public function getArticleCitationsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
         if (!$article) {
-            return;
+            return array();
         }
 
         return $article->getCitations();
     }
 
     /**
-     *
-     * @param  integer                            $id
-     * @param  \Ojs\JournalBundle\Entity\Citation $citation
-     * @param  Request|array                      $request
-     * @return \Ojs\JournalBundle\Entity\Article
-     */
-    private function addCitation2Article($id, \Ojs\JournalBundle\Entity\Citation $citation, $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($citation);
-        $em->flush();
-        $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
-        // check and insert citation
-        /* @var $article \Ojs\JournalBundle\Entity\Article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        if (!$article) {
-            return;
-        }
-        $article->addCitation($citation);
-        $em->persist($citation);
-        $em->flush();
-        foreach ($citationSettingKeys as $key => $desc) {
-            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get(
-                'setting_'.$key
-            );
-            if (!empty($param)) {
-                $citationSetting = new \Ojs\JournalBundle\Entity\CitationSetting();
-                $citationSetting->setCitation($citation);
-                $citationSetting->setSetting($key);
-                $citationSetting->setValue($param);
-                $em->persist($citationSetting);
-                $em->flush();
-            }
-        }
-
-        return $article;
-    }
-
-    /**
+     * @param  Request $request
+     * @param $article_id
+     * @return object
      *
      * @ApiDoc(
      *  description="Change article 'orderNum'",
@@ -204,6 +223,38 @@ class ArticleRestController extends FOSRestController
     }
 
     /**
+     * @param $field
+     * @param $article_id
+     * @param  Request $request
+     * @return object
+     */
+    protected function patch($field, $article_id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->find($article_id);
+        if (!is_object($article)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+        switch ($field) {
+            case 'orderNum':
+                $article->setOrderNum($request->get('orderNum'));
+                break;
+            case
+            'status':
+                $article->setStatus($request->get('status'));
+                break;
+            default:
+                break;
+        }
+        $em->flush();
+
+        return $article;
+    }
+
+    /**
+     * @param $articleId
+     * @return Article
+     *
      *
      * @ApiDoc(
      *  description="Increment Article 'orderNum'",
@@ -212,12 +263,29 @@ class ArticleRestController extends FOSRestController
      * @RestView()
      * @Patch("/articles/{articleId}/order/up")
      */
-    public function incrementOrderumArticlesAction($articleId)
+    public function incrementOrderNumArticlesAction($articleId)
     {
         return $this->upDownOrder($articleId, true);
     }
 
+    protected function upDownOrder($articleId, $up = true)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Article $article */
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        if (!is_object($article)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+        $o = $article->getOrderNum();
+        $article->setOrderNum($up ? ($o + 1) : ($o - 1));
+        $em->flush();
+
+        return $article;
+    }
+
     /**
+     * @param $articleId
+     * @return Article
      *
      * @ApiDoc(
      *  description="Increment Article 'orderNum'",
@@ -226,12 +294,16 @@ class ArticleRestController extends FOSRestController
      * @RestView()
      * @Patch("/articles/{articleId}/order/down")
      */
-    public function decrementOrderumArticlesAction($articleId)
+    public function decrementOrderNumArticlesAction($articleId)
     {
         return $this->upDownOrder($articleId, false);
     }
 
     /**
+     *
+     * @param  Request $request
+     * @param $article_id
+     * @return object
      *
      * @ApiDoc(
      *  description="Change article 'status'",
@@ -250,44 +322,5 @@ class ArticleRestController extends FOSRestController
     public function statusArticlesAction(Request $request, $article_id)
     {
         return $this->patch('status', $article_id, $request);
-    }
-
-    protected function patch($field, $article_id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->findOneById($article_id);
-        if (!is_object($article)) {
-            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
-        }
-        /* @var  $user \Ojs\UserBundle\Entity\User */
-        switch ($field) {
-            case 'orderNum':
-                $article->setOrderNum($request->get('orderNum'));
-                break;
-            case
-            'status':
-                $article->setStatus($request->get('status'));
-                break;
-            default:
-                break;
-        }
-        $em->flush();
-
-        return $article;
-    }
-
-    protected function upDownOrder($articleId, $up = true)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->findOneById($articleId);
-        if (!is_object($article)) {
-            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
-        }
-        /* @var  $user \Ojs\UserBundle\Entity\User */
-        $o = $article->getOrderNum();
-        $article->setOrderNum($up ? ($o + 1) : ($o - 1));
-        $em->flush();
-
-        return $article;
     }
 }

@@ -45,4 +45,13 @@ class ArticleRepository extends EntityRepository
 
         return $articles;
     }
+
+    public function findAllByLimits($page, $limit) {
+        $result = $this->createQueryBuilder('a')
+            ->setFirstResult($page)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+        return $result;
+    }
 }
