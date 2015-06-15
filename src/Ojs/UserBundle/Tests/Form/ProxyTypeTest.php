@@ -6,7 +6,7 @@
 namespace Ojs\UserBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\UserBundle\Form\ProxyType;
+use Ojs\UserBundle\Form\Type\ProxyType;
 
 class ProxyTypeTest extends BaseTypeTestcase
 {

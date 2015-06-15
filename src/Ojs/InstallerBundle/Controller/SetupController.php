@@ -5,7 +5,7 @@ namespace Ojs\InstallerBundle\Controller;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Form\UserFirstType;
+use Ojs\UserBundle\Form\Type\UserFirstType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;

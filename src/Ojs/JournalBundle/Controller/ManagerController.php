@@ -7,7 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
-use Ojs\JournalBundle\Form\JournalType;
+use Ojs\JournalBundle\Form\Type\JournalType;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;

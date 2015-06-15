@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\JournalSetupProgress;
 use Ojs\JournalBundle\Entity\JournalSection;
-use Ojs\JournalBundle\Form\JournalSetup\Step6;
+use Ojs\JournalBundle\Form\Type\JournalSetup\Step6;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Symfony\Component\HttpFoundation\JsonResponse;

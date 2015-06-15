@@ -6,7 +6,7 @@
 namespace Ojs\UserBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\UserBundle\Form\EventLogType;
+use Ojs\UserBundle\Form\Type\EventLogType;
 
 class EventLogTypeTest extends BaseTypeTestcase
 {

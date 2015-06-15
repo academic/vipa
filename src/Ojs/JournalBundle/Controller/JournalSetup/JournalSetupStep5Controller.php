@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\JournalSetupProgress;
-use Ojs\JournalBundle\Form\JournalSetup\Step5;
+use Ojs\JournalBundle\Form\Type\JournalSetup\Step5;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

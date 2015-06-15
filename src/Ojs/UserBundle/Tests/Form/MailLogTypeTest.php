@@ -6,7 +6,7 @@
 namespace Ojs\UserBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\UserBundle\Form\MailLogType;
+use Ojs\UserBundle\Form\Type\MailLogType;
 
 class MailLogTypeTest extends BaseTypeTestcase
 {
