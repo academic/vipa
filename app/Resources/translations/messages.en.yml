@@ -1506,3 +1506,5 @@ admin.log.history: "Changelog"
 admin.log.field: "Changed field"
 admin.log.oldValue: "old value"
 admin.log.newValue: "new value"
+
+search.result.headline: "Total %total% item for %term% query."
