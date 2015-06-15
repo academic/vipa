@@ -11,7 +11,7 @@ use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\File;
-use Ojs\JournalBundle\Form\ArticleFileType;
+use Ojs\JournalBundle\Form\Type\ArticleFileType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;

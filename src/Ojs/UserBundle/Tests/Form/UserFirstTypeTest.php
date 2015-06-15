@@ -6,7 +6,7 @@
 namespace Ojs\UserBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\UserBundle\Form\UserFirstType;
+use Ojs\UserBundle\Form\Type\UserFirstType;
 
 class UserFirstTypeTest extends BaseTypeTestcase
 {

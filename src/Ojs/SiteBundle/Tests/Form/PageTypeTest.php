@@ -6,7 +6,7 @@
 namespace Ojs\SiteBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\SiteBundle\Form\PageType;
+use Ojs\SiteBundle\Form\Type\PageType;
 
 class PageTypeTest extends BaseTypeTestcase
 {

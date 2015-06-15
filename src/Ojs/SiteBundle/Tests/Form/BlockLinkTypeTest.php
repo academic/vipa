@@ -6,7 +6,7 @@
 namespace Ojs\SiteBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\SiteBundle\Form\BlockLinkType;
+use Ojs\SiteBundle\Form\Type\BlockLinkType;
 
 class BlockLinkTypeTest extends BaseTypeTestcase
 {

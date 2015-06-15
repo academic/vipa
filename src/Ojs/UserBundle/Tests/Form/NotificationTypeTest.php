@@ -6,7 +6,7 @@
 namespace Ojs\UserBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\UserBundle\Form\NotificationType;
+use Ojs\UserBundle\Form\Type\NotificationType;
 
 class NotificationTypeTest extends BaseTypeTestcase
 {

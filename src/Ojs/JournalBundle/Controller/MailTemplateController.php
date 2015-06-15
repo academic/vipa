@@ -11,7 +11,7 @@ use APY\DataGridBundle\Grid\Source\Vector;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
-use Ojs\JournalBundle\Form\MailTemplateType;
+use Ojs\JournalBundle\Form\Type\MailTemplateType;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;

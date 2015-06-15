@@ -12,7 +12,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
-use Ojs\UserBundle\Form\UserJournalRoleType;
+use Ojs\UserBundle\Form\Type\UserJournalRoleType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

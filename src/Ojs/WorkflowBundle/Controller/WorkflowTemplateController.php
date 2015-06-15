@@ -6,7 +6,7 @@ use Ojs\Common\Controller\OjsController;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowTemplate;
 use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
-use Ojs\WorkflowBundle\Form\TemplateType;
+use Ojs\WorkflowBundle\Form\Type\TemplateType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
