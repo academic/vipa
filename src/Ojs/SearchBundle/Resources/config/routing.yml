@@ -1,6 +1,11 @@
 ojs_search_advanced:
     path: /search/advanced
-    defaults: { _controller: OjsSearchBundle:Default:advanced, page: 1 }
+    defaults: { _controller: OjsSearchBundle:Default:advanced }
+
+ojs_search_advanced_result:
+    path: /search/advanced/result
+    defaults: { _controller: OjsSearchBundle:Default:advancedResult }
+
 ojs_search_index:
     path:     /search/{page}
     defaults: { _controller: OjsSearchBundle:Default:index,page: 1 }

@@ -524,4 +524,29 @@ class SearchManager
 
         return $this;
     }
+
+    public function parseSearchQuery($searchTerm)
+    {
+        $searchTermsParsed = [];
+        $searchTerms = array_slice(explode(')', $searchTerm), 0, -1);
+        foreach($searchTerms as $term){
+            $termParse = [];
+            $termText = preg_replace('/\(/','',trim($term));
+            $condition = explode(' ', $termText)[0];
+            if(in_array($condition, ['OR','NOT','AND'])){
+                $termParse['condition'] = $condition;
+            }else{
+                $termParse['condition'] = 'OR';
+            }
+            if(isset($termParse['condition'])){
+                $searchText = preg_replace('/'.$termParse['condition'].' /','',$termText);
+            }else{
+                $searchText = $termText;
+            }
+            $termParse['searchText'] = explode('[', $searchText)[0];
+            $termParse['searchField'] = explode('[', preg_replace('/]/', '', $searchText))[1];
+            $searchTermsParsed[] = $termParse;
+        }
+        return $searchTermsParsed;
+    }
 }
