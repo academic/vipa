@@ -1209,3 +1209,5 @@ admin.log.history: "Değişiklik Geçmişi"
 admin.log.field: "değişen alan"
 admin.log.oldValue: "eski değer"
 admin.log.newValue: "yeni değer"
+
+search.result.headline: "%term% için toplam %total% sonuç."

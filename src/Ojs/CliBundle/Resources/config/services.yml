@@ -1,7 +1,0 @@
-parameters:
-#    ojs_cli.example.class: Ojs\CliBundle\Example
-
-services:
-#    ojs_cli.example:
-#        class: %ojs_cli.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
