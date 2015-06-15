@@ -1,9 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.articles_waiting'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'},
-    {'title': 'articles.waiting'|trans}
+    {'title': 'title.articles_waiting'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
