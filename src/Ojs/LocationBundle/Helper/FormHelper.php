@@ -80,7 +80,7 @@ class FormHelper
                 $form = $event->getForm();
                 $data = $event->getData();
 
-                if ($data == null) {
+                if ($data === null) {
                     return;
                 }
                 if (is_a($data, $dataClass)) {
