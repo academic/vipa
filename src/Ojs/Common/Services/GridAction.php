@@ -81,7 +81,7 @@ class GridAction
      */
     public function userBanAction($role = null)
     {
-        $rowAction = new RowAction('<i class="fa fa-ban"></i>', 'user_block');
+        $rowAction = new RowAction('<i class="fa fa-ban"></i>', 'ojs_admin_user_block');
         $rowAction->setAttributes(
             [
                 'class' => 'btn btn-warning btn-xs  ',
@@ -99,7 +99,7 @@ class GridAction
         $rowAction->manipulateRender(
             function (RowAction $action, Row $row) use ($translator) {
                 if (!$row->getField('status')) {
-                    $action->setRoute('user_unblock');
+                    $action->setRoute('ojs_admin_user_unblock');
                     $action->setTitle('<i class="fa fa-check"></i>');
                     $action->setConfirmMessage($translator->trans('sure.ban'));
                 }

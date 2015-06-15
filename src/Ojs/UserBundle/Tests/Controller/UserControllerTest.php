@@ -9,7 +9,7 @@ class UserControllerTest extends BaseTestCase
     public function testUserList()
     {
         $this->logIn();
-        $this->isAccessible(['user']);
+        $this->isAccessible(['ojs_admin_user_index']);
         $result = $this->crawler->filter('html:contains("User List")')->count();
         $this->assertEquals(1, $result);
     }
@@ -17,7 +17,7 @@ class UserControllerTest extends BaseTestCase
     public function testUserShow()
     {
         $this->logIn();
-        $this->isAccessible(['user_show', ['id' => 1]]);
+        $this->isAccessible(['ojs_admin_user_show', ['id' => 1]]);
         $result = $this->crawler->filter('html:contains("Show User")')->count();
         $this->assertEquals(1, $result);
     }
@@ -25,7 +25,7 @@ class UserControllerTest extends BaseTestCase
     public function testUserNew()
     {
         $this->logIn();
-        $this->isAccessible(['user_new']);
+        $this->isAccessible(['ojs_admin_user_new']);
         $form = $this->crawler->selectButton('Create')->form();
         $form['ojs_userbundle_user[username]'] = 'demo_new_user';
         $form['ojs_userbundle_user[password]'] = 'password';
@@ -50,7 +50,7 @@ class UserControllerTest extends BaseTestCase
     public function testUserEdit()
     {
         $this->logIn();
-        $this->isAccessible(['user_edit', ['id' => 1]]);
+        $this->isAccessible(['ojs_admin_user_edit', ['id' => 1]]);
         $form = $this->crawler->selectButton('Edit')->form();
         $form['ojs_userbundle_user[title]'] = 'Doc';
         $form['ojs_userbundle_user[firstName]'] = 'Aybars';
@@ -65,7 +65,7 @@ class UserControllerTest extends BaseTestCase
     public function testUserDelete()
     {
         $this->logIn();
-        $this->isAccessible(['user_delete', ['id' => 50]]);
+        $this->isAccessible(['ojs_admin_user_delete', ['id' => 50]]);
         $follow = $this->client->followRedirect();
         $this->assertEquals(1, $follow->filter('html:contains("User List")')->count());
     }
@@ -73,7 +73,7 @@ class UserControllerTest extends BaseTestCase
     public function testBlockUser()
     {
         $this->logIn();
-        $this->isAccessible(['user_block', ['id' => 40]]);
+        $this->isAccessible(['ojs_admin_user_block', ['id' => 40]]);
         $follow = $this->client->followRedirect();
         $this->assertEquals(1, $follow->filter('html:contains("User List")')->count());
     }
@@ -81,7 +81,7 @@ class UserControllerTest extends BaseTestCase
     public function testUnBlockUser()
     {
         $this->logIn();
-        $this->isAccessible(['user_unblock', ['id' => 40]]);
+        $this->isAccessible(['ojs_admin_user_unblock', ['id' => 40]]);
         $follow = $this->client->followRedirect();
         $this->assertEquals(1, $follow->filter('html:contains("User List")')->count());
     }

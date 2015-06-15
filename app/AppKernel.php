@@ -55,7 +55,7 @@ class AppKernel extends Kernel
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new Ojs\AdminBundle\AdminBundle(),
+            new Ojs\AdminBundle\OjsAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
