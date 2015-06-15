@@ -1,5 +1,6 @@
 {% set hideleft=true %}
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.invitation_preview'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
