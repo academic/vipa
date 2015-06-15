@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('role'),'title': 'role'|trans},
+    {'link': path('ojs_admin_role_index'),'title': 'role'|trans},
     {'title': 'create'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -16,7 +16,7 @@
             <h1>{{ "role.new"|trans }}</h1>
 
             {{ form(form) }}
-            {% set back_path = 'role' %}
+            {% set back_path = 'ojs_admin_role_index' %}
             {% include '::actionbuttons.html.twig' %}
         </div>
     </div>

@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('role'),'title': 'role'|trans},
+    {'link': path('ojs_admin_role_index'),'title': 'role'|trans},
     {'title': 'list'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,7 +17,7 @@
             {% include '::flashbag.html.twig' %}
             {{ grid(grid) }}
             {% if is_granted('CREATE', getEntity('OjsUserBundle:Role')) %}
-                {% set create_path = 'role_new' %}
+                {% set create_path = 'ojs_admin_role_new' %}
             {% endif %}
             {% include '::actionbuttons.html.twig' %}
         </div>

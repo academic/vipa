@@ -1,0 +1,30 @@
+ojs_admin_role_index:
+    pattern:  /
+    defaults: { _controller: OjsAdminBundle:AdminRole:index }
+
+ojs_admin_role_show:
+    pattern:  /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminRole:show }
+
+ojs_admin_role_new:
+    pattern:  /new
+    defaults: { _controller: OjsAdminBundle:AdminRole:new }
+
+ojs_admin_role_create:
+    pattern:  /create
+    defaults: { _controller: OjsAdminBundle:AdminRole:create }
+    requirements: { _method: post }
+
+ojs_admin_role_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminRole:edit }
+
+ojs_admin_role_update:
+    pattern:  /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminRole:update }
+    methods:  [PUT]
+
+ojs_admin_role_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: OjsAdminBundle:AdminRole:delete }
+    methods:  [DELETE]

@@ -6,3 +6,7 @@ ojs_admin_user:
     resource: "@OjsAdminBundle/Resources/config/routing/user.yml"
     prefix:   user
 
+ojs_admin_role:
+    resource: "@OjsAdminBundle/Resources/config/routing/role.yml"
+    prefix:   role
+

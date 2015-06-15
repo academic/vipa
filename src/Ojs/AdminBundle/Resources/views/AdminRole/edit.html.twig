@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('role'),'title': 'role'|trans},
+    {'link': path('ojs_admin_role_index'),'title': 'ojs_admin_role_index'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -18,9 +18,9 @@
 
             {{ form(edit_form) }}
 
-            {% set back_path = 'role' %}
+            {% set back_path = 'ojs_admin_role_index' %}
             {% if is_granted('DELETE', edit_form.vars.data) %}
-                {% set delete_path = 'role_delete' %}
+                {% set delete_path = 'ojs_admin_role_delete' %}
             {% endif %}
             {% include '::actionbuttons.html.twig' %}
 
