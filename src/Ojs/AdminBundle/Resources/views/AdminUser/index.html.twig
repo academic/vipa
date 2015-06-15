@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             {% include '::flashbag.html.twig' %}
             {% if is_granted('CREATE', getEntity('OjsUserBundle:User')) %}
-                <a href="{{ path('user_new') }}" class="btn btn-info pull-right">
+                <a href="{{ path('ojs_admin_user_new') }}" class="btn btn-info pull-right">
                     <i class="fa fa-plus"></i> {{ "user.new"|trans }}
                 </a>
             {% endif %}

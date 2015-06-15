@@ -35,7 +35,7 @@
                     <th>{{ "role.users"|trans }}</th>
                     <td>
                         {% for user in entity.users %}
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">
+                            <a href="{{ path('ojs_admin_user_show', { 'id': user.id }) }}">
                                 {{ user.username }}</a>
                             <a href="mailto:{{ user.email }}">
                                 (<strong>{{ user.email }}</strong>)
