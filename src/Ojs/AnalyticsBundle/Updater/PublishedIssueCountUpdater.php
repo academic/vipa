@@ -21,7 +21,7 @@ class PublishedIssueCountUpdater extends Updater implements UpdaterInterface
         foreach ($all as $r) {
             /** @var Issue $r */
             if (isset($issues[$r->getJournalId()])
-                and in_array($r->getId(), $issues[$r->getJournalId()])
+                && in_array($r->getId(), $issues[$r->getJournalId()])
             ) {
                 continue;
             }

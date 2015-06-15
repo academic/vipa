@@ -24,7 +24,7 @@ class DailyReviewCountUpdater extends Updater implements UpdaterInterface
             /** @var ArticleReviewStep $r */
             $journal = $this->em->find('OjsJournalBundle:Article', $r->getArticleId())->getJournal();
             if (isset($revises[$journal->getId()])
-                and in_array($r->getArticleId(), $revises[$journal->getId()])
+                && in_array($r->getArticleId(), $revises[$journal->getId()])
             ) {
                 continue;
             }
