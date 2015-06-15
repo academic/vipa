@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\Design:
     type: entity
     table: design
-    #repositoryClass: Ojs\JournalBundle\Entity\DesignRepository
+    repositoryClass: Ojs\JournalBundle\Entity\DesignRepository
     oneToMany:
         journalDesigns:
             targetEntity: Ojs\JournalBundle\Entity\JournalDesign

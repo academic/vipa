@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\File:
     type: entity
     table: file
-    #repositoryClass: Ojs\JournalBundle\Entity\FileRepository
+    repositoryClass: Ojs\JournalBundle\Entity\FileRepository
     id:
         id:
             type: integer

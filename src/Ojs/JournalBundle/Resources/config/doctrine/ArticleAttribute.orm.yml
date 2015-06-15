@@ -2,6 +2,7 @@ Ojs\JournalBundle\Entity\ArticleAttribute:
   lifecycleCallbacks: {}
   type: entity
   table: article_attribute
+  repositoryClass: Ojs\JournalBundle\Entity\ArticleAttributeRepository
   id:
     id:
       type: integer

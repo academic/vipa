@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\ContactTypes:
     type: entity
     table: contact_types
+    repositoryClass: Ojs\JournalBundle\Entity\ContactTypesRepository
     id:
         id:
             type: integer
