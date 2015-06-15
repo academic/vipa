@@ -28,7 +28,7 @@ doctrine:
         # path:     "%database_path%"
 
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_generate_proxy_classes: false
         auto_mapping: true
         resolve_target_entities:
             Symfony\Component\Security\Core\User\UserInterface: Ojs\UserBundle\Entity\User
@@ -67,4 +67,4 @@ doctrine:
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true 
+                enabled: true

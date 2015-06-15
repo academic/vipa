@@ -49,7 +49,7 @@ class AppKernel extends Kernel
             new Ojs\InstallerBundle\OjsInstallerBundle(),
             new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
             new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
-            new Okulbilisim\LocationBundle\OkulbilisimLocationBundle(),
+            new Ojs\LocationBundle\OjsLocationBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),

@@ -1,5 +1,5 @@
 <?php
-namespace Okulbilisim\LocationBundle\Entity;
+namespace Ojs\LocationBundle\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 

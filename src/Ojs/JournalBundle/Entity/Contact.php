@@ -5,8 +5,8 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
-use Okulbilisim\LocationBundle\Entity\Country;
-use Okulbilisim\LocationBundle\Entity\Province;
+use Ojs\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Province;
 
 /**
  * Contact

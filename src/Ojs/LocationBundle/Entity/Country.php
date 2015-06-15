@@ -1,6 +1,6 @@
 <?php
 
-namespace Okulbilisim\LocationBundle\Entity;
+namespace Ojs\LocationBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;

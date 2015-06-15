@@ -104,7 +104,7 @@ class JournalType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                    'class' => 'Ojs\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element ',
                     ],

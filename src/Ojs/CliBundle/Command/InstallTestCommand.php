@@ -33,7 +33,7 @@ class InstallTestCommand extends ContainerAwareCommand
         $se = '</fg=black;bg=green>';
 
         $location = $this->getContainer()->get('kernel')->getRootDir(
-            ).'/../src/Okulbilisim/LocationBundle/Resources/data/location.sql';
+            ).'/../src/Ojs/LocationBundle/Resources/data/location.sql';
         $locationSql = \file_get_contents($location);
         $command3 = 'doctrine:query:sql "'.$locationSql.'"';
         $application->run(new \Symfony\Component\Console\Input\StringInput($command3));

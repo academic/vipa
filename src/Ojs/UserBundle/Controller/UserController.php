@@ -115,7 +115,7 @@ class UserController extends Controller
             array(
                 'action' => $this->generateUrl('user_create'),
                 'method' => 'POST',
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
             )
         );
 
@@ -238,7 +238,7 @@ class UserController extends Controller
             array(
                 'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'helper' => $this->get('ojs_location.form.helper'),
             )
         );
 

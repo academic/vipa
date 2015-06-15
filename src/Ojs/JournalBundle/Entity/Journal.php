@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Country;
 
 /**
  * Journal

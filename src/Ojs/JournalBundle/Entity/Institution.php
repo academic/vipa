@@ -9,8 +9,8 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
-use Okulbilisim\LocationBundle\Entity\Country;
-use Okulbilisim\LocationBundle\Entity\Province;
+use Ojs\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Province;
 
 /**
  * Institution

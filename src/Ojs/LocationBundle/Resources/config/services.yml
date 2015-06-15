@@ -1,0 +1,4 @@
+services:
+  ojs_location.form.helper:
+    class: Ojs\LocationBundle\Helper\FormHelper
+    arguments: [@service_container]

@@ -16,7 +16,7 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
           inversedBy: journals
         country:
-          targetEntity: Okulbilisim\LocationBundle\Entity\Country
+          targetEntity: Ojs\LocationBundle\Entity\Country
           joinColumn:
             name: country_id
             referencedColumnName: id

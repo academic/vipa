@@ -9,12 +9,12 @@ Ojs\JournalBundle\Entity\Contact:
                 strategy: AUTO
     manyToOne:
           country:
-                targetEntity: Okulbilisim\LocationBundle\Entity\Country
+                targetEntity: Ojs\LocationBundle\Entity\Country
                 joinColumn:
                   name: country_id
                   referencedColumnName: id
           city:
-                targetEntity: Okulbilisim\LocationBundle\Entity\Province
+                targetEntity: Ojs\LocationBundle\Entity\Province
                 joinColumn:
                   name: city_id
                   referencedColumnName: id

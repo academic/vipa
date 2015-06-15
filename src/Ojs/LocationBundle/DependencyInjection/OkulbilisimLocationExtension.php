@@ -1,6 +1,6 @@
 <?php
 
-namespace Okulbilisim\LocationBundle\DependencyInjection;
+namespace Ojs\LocationBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class OkulbilisimLocationExtension extends Extension
+class OjsLocationExtension extends Extension
 {
     /**
      * {@inheritdoc}

@@ -25,7 +25,7 @@ class ContactType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                    'class' => 'Ojs\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => "select2-element validate[required]",
                     ],
@@ -35,7 +35,7 @@ class ContactType extends AbstractType
                 'city',
                 'autocomplete',
                 [
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Province',
+                    'class' => 'Ojs\LocationBundle\Entity\Province',
                     'label' => 'city',
                     'attr' => [
                         'class' => 'autocomplete',
