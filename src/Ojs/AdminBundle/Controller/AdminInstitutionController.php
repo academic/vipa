@@ -166,7 +166,7 @@ class AdminInstitutionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Institution $entity */
-        $entity = $em->getRepository('OjsAdminBundle:AdminInstitution')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
