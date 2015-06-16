@@ -8,10 +8,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Entity\UserRepository;
 use Ojs\UserBundle\Form\Type\UserType;
 use Symfony\Component\Form\Form;
@@ -354,60 +351,6 @@ class AdminUserController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('user'));
-    }
-
-    /**
-     * @param  null|int                  $journalId
-     * @return RedirectResponse|Response
-     */
-    public function registerAsAuthorAction($journalId = null)
-    {
-        $userId = $this->getUser()->getId();
-        $doc = $this->getDoctrine();
-        $em = $doc->getManager();
-        // a  journal id passed so register session user as author to this journal
-        if ($journalId) {
-            /** @var User $user */
-            $user = $doc->getRepository('OjsUserBundle:User')->find($userId);
-            /** @var Journal $journal */
-            $journal = $doc->getRepository('OjsJournalBundle:Journal')->find($journalId);
-            /** @var Role $role */
-            $role = $doc->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
-            // check that we have already have the link
-            $ujr = $doc->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
-                array(
-                    'userId' => $user->getId(),
-                    'journalId' => $journal->getId(),
-                    'roleId' => $role->getId(),
-                )
-            );
-            $ujr = !$ujr ? new UserJournalRole() : $ujr;
-            $ujr->setUser($user);
-            $ujr->setJournal($journal);
-            $ujr->setRole($role);
-            $em->persist($ujr);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('user_join_journal'));
-        }
-        /** @var Journal[] $myJournals */
-        $myJournals = $doc->getRepository('OjsUserBundle:UserJournalRole')
-            ->userJournalsWithRoles($userId, true); // only ids
-        $entities = array();
-        /** @var Journal[] $journals */
-        $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
-        foreach ($journals as $journal) {
-            $jid = $journal->getId();
-            $roles = isset($myJournals[$jid]) ? $myJournals[$jid]['roles'] : null;
-            $entities[] = array('journal' => $journal, 'roles' => $roles);
-        }
-
-        return $this->render(
-            'OjsUserBundle:User:registerAuthor.html.twig',
-            array(
-                'entities' => $entities,
-            )
-        );
     }
 
     /**
