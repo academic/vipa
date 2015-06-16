@@ -246,27 +246,6 @@ $(document).ready(function () {
             modal: false
         });
     };
-
-    $(".delete[data-token]").on('click',function(){
-        var form = $("<form/>").hide();
-        var action = $(this).attr('href');
-        var token = $(this).data('token');
-        form.attr({
-            action: action,
-            method: 'post'
-        });
-        form.append($("<input/>",{
-            type: "hidden",
-            name: "_method"
-        }).val('DELETE'));
-        form.append($("<input/>",{
-            type: "hidden",
-            name: "_token"
-        }).val(token));
-        $(this).parent().append(form);
-        form.submit();
-        return false;
-    });
 });
 
 
@@ -337,6 +316,29 @@ $(document).ready(function () {
         });
 
     };
+    function deleteSubmit(link) {
+        var form = $(document.createElement('form')),
+            object = $(link);
+        object.after(
+            form.attr({
+                method: 'post',
+                action: object.attr('href')
+            })
+                .append('<input type="hidden" name="_method" value="delete" />')
+                .append('<input type="hidden" name="_token" value="' + object.data('token') + '" />')
+        );
+        form.submit();
+    }
+    $('a[data-method=delete]').click(function() {
+        if($(this).data('confirm')) {
+            if(confirm($(this).data('confirm'))) {
+                deleteSubmit(this);
+            }
+            return false;
+        }
+        deleteSubmit(this);
+        return false;
 
+    });
 
 }(jQuery));

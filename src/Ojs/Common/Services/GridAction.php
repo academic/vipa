@@ -48,8 +48,6 @@ class GridAction
     {
         $rowAction = new RowAction('<i class="fa fa-trash-o"></i>', $route);
         $rowAction->setRouteParameters($key);
-        $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage($this->translator->trans("sure"));
         $translator = $this->translator;
         $csrfTokenManager = $this->csrfTokenManager;
         $rowAction->manipulateRender(
@@ -62,6 +60,8 @@ class GridAction
                         'data-toggle' => 'tooltip',
                         'title' => $translator->trans("delete"),
                         'data-token' => $token,
+                        'data-method' => 'delete',
+                        'data-confirm' => $this->translator->trans("sure")
                     ]
                 );
 
