@@ -17,3 +17,7 @@ ojs_admin_institution:
 ojs_admin_institution_type:
     resource: "@OjsAdminBundle/Resources/config/routing/institutiontype.yml"
     prefix:   institution_type
+
+ojs_admin_subject:
+    resource: "@OjsAdminBundle/Resources/config/routing/subject.yml"
+    prefix:   subject
