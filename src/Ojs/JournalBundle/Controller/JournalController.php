@@ -290,7 +290,7 @@ class JournalController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('journal'.$id);
-        if ($token != $request->get('_token')) {
+        if ($token->getValue() !== $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
         $em->remove($entity);
