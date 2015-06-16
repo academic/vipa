@@ -87,7 +87,7 @@ class UserJournalRoleController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->successFlashBag('Successfully created');
+            $this->successFlashBag('successful.create');
 
             return $this->redirectToRoute(
                 'ujr_show',
