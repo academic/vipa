@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('subject'),'title': 'subject'|trans},
+    {'link': path('ojs_admin_subject_index'),'title': 'subject'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,9 +14,9 @@
     <h1>{{ "subject.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'subject' %}
+    {% set back_path = 'ojs_admin_subject_index' %}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'subject_delete' %}
+        {% set delete_path = 'ojs_admin_subject_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 

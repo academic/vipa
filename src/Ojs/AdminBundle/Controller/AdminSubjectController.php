@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
  * Subject controller.
  *
  */
-class SubjectController extends Controller
+class AdminSubjectController extends Controller
 {
 
     /**
@@ -35,9 +35,9 @@ class SubjectController extends Controller
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('subject_show', 'id');
-        $rowAction[] = $gridAction->editAction('subject_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('subject_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_subject_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_subject_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_subject_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -56,14 +56,14 @@ class SubjectController extends Controller
             'idField' => true,
             'nodeDecorator' => function ($node) {
                 return '<a href="'.$this->generateUrl(
-                    'subject_show',
+                    'ojs_admin_subject_show',
                     array('id' => $node['id'])
                 ).'">'.$node['subject'].'</a>';
             },
         );
         $data['htmlTree'] = $repo->childrenHierarchy(null, false, $options);
 
-        return $grid->getGridResponse('OjsJournalBundle:Subject:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminSubject:index.html.twig', $data);
     }
 
     /**
@@ -87,11 +87,11 @@ class SubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('subject_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_subject_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Subject:new.html.twig',
+            'OjsAdminBundle:AdminSubject:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -112,7 +112,7 @@ class SubjectController extends Controller
             new SubjectType(),
             $entity,
             array(
-                'action' => $this->generateUrl('subject_create'),
+                'action' => $this->generateUrl('ojs_admin_subject_create'),
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'method' => 'POST',
             )
@@ -135,7 +135,7 @@ class SubjectController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Subject:new.html.twig',
+            'OjsAdminBundle:AdminSubject:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -157,7 +157,7 @@ class SubjectController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:Subject:show.html.twig',
+            'OjsAdminBundle:AdminSubject:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -179,7 +179,7 @@ class SubjectController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Subject:edit.html.twig',
+            'OjsAdminBundle:AdminSubject:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -200,7 +200,7 @@ class SubjectController extends Controller
             new SubjectType(),
             $entity,
             array(
-                'action' => $this->generateUrl('subject_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_subject_update', array('id' => $entity->getId())),
                 'apiRoot' => $this->generateUrl('ojs_api_homepage'),
                 'method' => 'PUT',
             )
@@ -230,11 +230,11 @@ class SubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('subject_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_subject_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Subject:edit.html.twig',
+            'OjsAdminBundle:AdminSubject:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -265,6 +265,6 @@ class SubjectController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('subject');
+        return $this->redirectToRoute('ojs_admin_subject_index');
     }
 }
