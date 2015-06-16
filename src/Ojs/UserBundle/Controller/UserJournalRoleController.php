@@ -63,7 +63,7 @@ class UserJournalRoleController extends Controller
     /**
      * Creates a new UserJournalRole entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -191,7 +191,7 @@ class UserJournalRoleController extends Controller
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb->andWhere($ta.'.journal = :journal')
+                $qb->andWhere($ta . '.journal = :journal')
                     ->setParameter('journal', $journal);
             }
         );
@@ -236,7 +236,7 @@ class UserJournalRoleController extends Controller
      * Finds and displays a Journals of a user with roles.
      *
      * @param $user_id
-     * @param  string   $tpl
+     * @param  string $tpl
      * @return Response
      */
     public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig')
@@ -255,7 +255,7 @@ class UserJournalRoleController extends Controller
         }
 
         return $this->render(
-            'OjsUserBundle:UserJournalRole:'.$tpl,
+            'OjsUserBundle:UserJournalRole:' . $tpl,
             array(
                 'entities' => $_data,
             )
@@ -313,8 +313,8 @@ class UserJournalRoleController extends Controller
     /**
      * Edits an existing UserJournalRole entity.
      *
-     * @param  Request                   $request
-     * @param  UserJournalRole           $entity
+     * @param  Request $request
+     * @param  UserJournalRole $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, UserJournalRole $entity)
@@ -359,7 +359,7 @@ class UserJournalRoleController extends Controller
     /**
      * Deletes a UserJournalRole entity.
      *
-     * @param  UserJournalRole  $entity
+     * @param  UserJournalRole $entity
      * @return RedirectResponse
      */
     public function deleteAction(UserJournalRole $entity)
@@ -385,10 +385,64 @@ class UserJournalRoleController extends Controller
     }
 
     /**
+     * @param  null|int $journalId
+     * @return RedirectResponse|Response
+     */
+    public function registerAsAuthorAction($journalId = null)
+    {
+        $userId = $this->getUser()->getId();
+        $doc = $this->getDoctrine();
+        $em = $doc->getManager();
+        // a  journal id passed so register session user as author to this journal
+        if ($journalId) {
+            /** @var User $user */
+            $user = $doc->getRepository('OjsUserBundle:User')->find($userId);
+            /** @var Journal $journal */
+            $journal = $doc->getRepository('OjsJournalBundle:Journal')->find($journalId);
+            /** @var Role $role */
+            $role = $doc->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+            // check that we have already have the link
+            $ujr = $doc->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
+                array(
+                    'userId' => $user->getId(),
+                    'journalId' => $journal->getId(),
+                    'roleId' => $role->getId(),
+                )
+            );
+            $ujr = !$ujr ? new UserJournalRole() : $ujr;
+            $ujr->setUser($user);
+            $ujr->setJournal($journal);
+            $ujr->setRole($role);
+            $em->persist($ujr);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('user_join_journal'));
+        }
+        /** @var Journal[] $myJournals */
+        $myJournals = $doc->getRepository('OjsUserBundle:UserJournalRole')
+            ->userJournalsWithRoles($userId, true); // only ids
+        $entities = array();
+        /** @var Journal[] $journals */
+        $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
+        foreach ($journals as $journal) {
+            $jid = $journal->getId();
+            $roles = isset($myJournals[$jid]) ? $myJournals[$jid]['roles'] : null;
+            $entities[] = array('journal' => $journal, 'roles' => $roles);
+        }
+
+        return $this->render(
+            'OjsUserBundle:User:registerAuthor.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
+    }
+
+    /**
      * Function no needs for extra acl permission checks. Because user is grabbed from session.
      *
-     * @param  Journal          $journal
-     * @param  Role             $role
+     * @param  Journal $journal
+     * @param  Role $role
      * @return RedirectResponse
      */
     public function leaveAction(Journal $journal, Role $role)
