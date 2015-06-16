@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('institution_types'),'title': 'institutiontype'|trans},
+    {'link': path('ojs_admin_institution_type_index'),'title': 'institutiontype'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,9 +14,9 @@
     <h1>{{ "institutiontype.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'institution_types' %}
+    {% set back_path = 'ojs_admin_institution_type_index' %}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'institution_types_delete' %}
+        {% set delete_path = 'ojs_admin_institution_type_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 

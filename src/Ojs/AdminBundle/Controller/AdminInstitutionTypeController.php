@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * InstitutionTypes controller.
  *
  */
-class InstitutionTypesController extends Controller
+class AdminInstitutionTypeController extends Controller
 {
     /**
      * Lists all InstitutionTypes entities.
@@ -34,16 +34,16 @@ class InstitutionTypesController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('institution_types_show', 'id');
-        $rowAction[] = $gridAction->editAction('institution_types_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('institution_types_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_institution_type_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_institution_type_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_institution_type_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:InstitutionTypes:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminInstitutionType:index.html.twig', $data);
     }
 
     /**
@@ -66,11 +66,11 @@ class InstitutionTypesController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('institution_types_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_institution_type_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:InstitutionTypes:new.html.twig',
+            'OjsAdminBundle:AdminInstitutionType:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -91,7 +91,7 @@ class InstitutionTypesController extends Controller
             new InstitutionTypesType(),
             $entity,
             array(
-                'action' => $this->generateUrl('institution_types_create'),
+                'action' => $this->generateUrl('ojs_admin_institution_type_create'),
                 'method' => 'POST',
             )
         );
@@ -113,7 +113,7 @@ class InstitutionTypesController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:InstitutionTypes:new.html.twig',
+            'OjsAdminBundle:AdminInstitutionType:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -137,7 +137,7 @@ class InstitutionTypesController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:InstitutionTypes:show.html.twig',
+            'OjsAdminBundle:AdminInstitutionType:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -162,7 +162,7 @@ class InstitutionTypesController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:InstitutionTypes:edit.html.twig',
+            'OjsAdminBundle:AdminInstitutionType:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -183,7 +183,7 @@ class InstitutionTypesController extends Controller
             new InstitutionTypesType(),
             $entity,
             array(
-                'action' => $this->generateUrl('institution_types_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_institution_type_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -214,11 +214,11 @@ class InstitutionTypesController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('institution_types_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_admin_institution_type_edit', ['id' => $id]);
         }
 
         return $this->render(
-            'OjsJournalBundle:InstitutionTypes:edit.html.twig',
+            'OjsAdminBundle:AdminInstitutionType:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -249,6 +249,6 @@ class InstitutionTypesController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('institution_types');
+        return $this->redirectToRoute('ojs_admin_institution_type_index');
     }
 }

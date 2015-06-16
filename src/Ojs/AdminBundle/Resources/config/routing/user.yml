@@ -2,6 +2,10 @@ ojs_admin_user_index:
     path:     /
     defaults: { _controller: OjsAdminBundle:AdminUser:index }
 
+ojs_admin_user_show:
+    pattern:  /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminUser:show }
+
 ojs_admin_user_new:
     pattern:  /new
     defaults: { _controller: OjsAdminBundle:AdminUser:new }
@@ -9,10 +13,6 @@ ojs_admin_user_new:
 ojs_admin_user_create:
     pattern:  /create
     defaults: { _controller: OjsAdminBundle:AdminUser:create }
-
-ojs_admin_user_show:
-    pattern:  /{id}/show
-    defaults: { _controller: OjsAdminBundle:AdminUser:show }
 
 ojs_admin_user_edit:
     pattern:  /{id}/edit
