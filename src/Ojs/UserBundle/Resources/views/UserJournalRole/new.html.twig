@@ -14,6 +14,10 @@
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "user.journalrole.creation"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+            {% if isSystemAdmin() != true %}
+                <a href="{{ path('ojs_admin_user_new') }}" class="btn btn-default">{{ 'user.create'|trans }}</a>
+            {% endif %}
             {{ form(form) }}
             {% set back_path = 'ujr' %}
             {% include '::actionbuttons.html.twig' %}
