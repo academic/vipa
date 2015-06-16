@@ -187,6 +187,34 @@ class GridAction
 
     /**
      * @param $route
+     * @param  null      $role
+     * @return RowAction
+     */
+    public function sendMailAction($route, $role = null)
+    {
+        $rowAction = new RowAction('<i class="fa fa-envelope-o"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn-xs btn btn-primary',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("send.mail"),
+            ]
+        );
+        $rowAction->setRouteParameters(['id']);
+        $rowAction->setRouteParametersMapping(
+            [
+                'id' => 'user',
+            ]
+        );
+        if ($role) {
+            $rowAction->setRole($role);
+        }
+
+        return $rowAction;
+    }
+
+    /**
+     * @param $route
      * @param $key
      * @param $role
      * @return RowAction

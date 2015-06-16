@@ -39,7 +39,7 @@ class UserJournalRoleController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         if (!$user->isAdmin()) {
-            return $this->redirectToRoute('ujr_show_users_ofjournal', ['journal_id' => $journal->getId()]);
+            return $this->redirectToRoute('journal_users');
         }
         $source = new Entity('OjsUserBundle:UserJournalRole');
         $grid = $this->get('grid')->setSource($source);
@@ -173,51 +173,6 @@ class UserJournalRoleController extends Controller
             'OjsUserBundle:UserJournalRole:show.html.twig',
             array(
                 'entity' => $entity,
-            )
-        );
-    }
-
-    /**
-     * Finds and displays a Users of a Journal with roles  (ungrouped).
-     * @return Response
-     */
-    public function showUsersOfJournalAction()
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('VIEW', $journal, 'userRole')) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
-        $source = new Entity('OjsUserBundle:UserJournalRole');
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb->andWhere($ta . '.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
-        $grid = $this->get('grid');
-
-        $grid->setSource($source);
-
-        $rowAction = new RowAction('<i class="fa fa-envelope-o"></i>', 'user_send_mail');
-        $rowAction->setAttributes(['class' => 'btn-xs btn btn-primary']);
-        $rowAction->setRouteParameters(['id']);
-        $rowAction->setRouteParametersMapping(
-            [
-                'id' => 'user',
-            ]
-        );
-        $rowAction->setColumn('actions');
-        $column = new ActionsColumn('actions', 'user.journalrole.send_email');
-        $column->setSafe(false);
-
-        $grid->addColumn($column);
-        $grid->addRowAction($rowAction);
-
-        return $grid->getGridResponse(
-            'OjsUserBundle:UserJournalRole:show_users.html.twig',
-            array(
-                'grid' => $grid,
             )
         );
     }
