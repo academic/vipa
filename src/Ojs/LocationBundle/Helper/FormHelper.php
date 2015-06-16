@@ -49,9 +49,7 @@ class FormHelper
                 /** @var Country $country */
                 $country = $em->find('OjsLocationBundle:Country', $country);
                 foreach ($country->getProvinces() as $child) {
-                    if ($child->getType() == 1) {
-                        $childs[$child->getId()] = $isMongo === false ? $child : $child->getName();
-                    }
+                    $childs[$child->getId()] = $isMongo === false ? $child : $child->getName();
                 }
             }
             $options = [
