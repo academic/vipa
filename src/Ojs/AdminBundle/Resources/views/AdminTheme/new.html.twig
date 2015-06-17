@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('theme'),'title': 'theme'|trans},
+    {'link': path('ojs_admin_theme_index'),'title': 'theme'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
 
     {{ form(form) }}
 
-    <a class="btn btn-default" href="{{ path('theme') }}">
+    <a class="btn btn-default" href="{{ path('ojs_admin_theme_index') }}">
         {{ "b"|trans }}
     </a>
 {% endblock %}

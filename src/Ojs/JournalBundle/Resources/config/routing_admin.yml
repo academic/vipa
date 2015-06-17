@@ -23,10 +23,6 @@ ojs_issue:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/issue.yml"
     prefix:   /admin/issue
 
-ojs_theme:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/theme.yml"
-    prefix:   /admin/theme
-
 ojs_application_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/application.yml"
     prefix: /admin/application

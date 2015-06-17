@@ -1,0 +1,30 @@
+ojs_admin_theme_index:
+    pattern:  /
+    defaults: { _controller: OjsAdminBundle:AdminTheme:index }
+
+ojs_admin_theme_show:
+    pattern:  /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminTheme:show }
+
+ojs_admin_theme_new:
+    pattern:  /new
+    defaults: { _controller: OjsAdminBundle:AdminTheme:new }
+
+ojs_admin_theme_create:
+    pattern:  /create
+    defaults: { _controller: OjsAdminBundle:AdminTheme:create }
+    requirements: { _method: post }
+
+ojs_admin_theme_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminTheme:edit }
+
+ojs_admin_theme_update:
+    pattern:  /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminTheme:update }
+    methods:  [PUT]
+
+ojs_admin_theme_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: OjsAdminBundle:AdminTheme:delete }
+    methods:  [DELETE]
