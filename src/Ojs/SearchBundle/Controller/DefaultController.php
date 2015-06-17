@@ -37,7 +37,7 @@ class DefaultController extends Controller
         $data['aggregations'] = $searchManager->getAggregations();
         $data['filter'] = $filter;
 
-        return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
+        return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
 
     /**
@@ -61,7 +61,7 @@ class DefaultController extends Controller
         $data['tag'] = $tag;
         $data['total_count'] = $searchManager->getCount();
 
-        return $this->render('OjsSiteBundle:Search:tags.html.twig', $data);
+        return $this->render('OjsSearchBundle:Search:tags.html.twig', $data);
     }
 
     public function tagCloudAction()
@@ -80,14 +80,14 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('OjsSiteBundle:Search:tags_cloud.html.twig', $data);
+        return $this->render('OjsSearchBundle:Search:tags_cloud.html.twig', $data);
     }
 
     public function advancedAction()
     {
         $search = $this->container->get('fos_elastica.index.search');
         $mapping = $search->getMapping();
-        return $this->render("OjsSiteBundle:Search:advanced.html.twig", [
+        return $this->render("OjsSearchBundle:Search:advanced.html.twig", [
             'mapping' => $mapping
         ]);
     }
@@ -139,7 +139,7 @@ class DefaultController extends Controller
                 $return_data[$result->getType()]['data'] = [$searchManager->getObject($result)];
             endif;
         }
-        return $this->render("OjsSiteBundle:Search:advanced_result.html.twig", [
+        return $this->render("OjsSearchBundle:Search:advanced_result.html.twig", [
             'results' => $return_data,
             'searchQuery' => $term,
             'total_count' => $data->getTotalHits()
