@@ -2,6 +2,10 @@ ojs_admin_dashboard:
     path:     dashboard
     defaults: { _controller: OjsAdminBundle:Admin:dashboard }
 
+ojs_admin_stats:
+    pattern:  stats
+    defaults: { _controller: OjsAdminBundle:Admin:stats }
+
 ojs_admin_user:
     resource: "@OjsAdminBundle/Resources/config/routing/user.yml"
     prefix:   user
