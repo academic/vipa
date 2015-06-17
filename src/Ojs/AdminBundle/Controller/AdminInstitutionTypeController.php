@@ -241,7 +241,7 @@ class AdminInstitutionTypeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('institution_types'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_institution_type'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
