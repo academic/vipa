@@ -1,30 +1,30 @@
 ojs_admin_institution_index:
     pattern:  /
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:index" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:index }
 
 ojs_admin_institution_show:
     pattern:  /{id}/show
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:show" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:show }
 
 ojs_admin_institution_new:
     pattern:  /new
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:new" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:new }
 
 ojs_admin_institution_create:
     pattern:  /create
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:create" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:create }
     requirements: { _method: post }
 
 ojs_admin_institution_edit:
     pattern:  /{id}/edit
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:edit" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:edit }
 
 ojs_admin_institution_update:
     pattern:  /{id}/update
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:update" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:update }
     methods:  [PUT]
 
 ojs_admin_institution_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminInstitution:delete" }
+    defaults: { _controller: OjsAdminBundle:AdminInstitution:delete }
     methods:  [DELETE]
