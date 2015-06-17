@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
-use Ojs\JournalBundle\Form\Type\InstitutionType;
+use Ojs\AdminBundle\Form\Type\InstitutionType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -274,6 +274,6 @@ class AdminInstitutionController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('institution'));
+        return $this->redirect($this->generateUrl('ojs_admin_institution_index'));
     }
 }

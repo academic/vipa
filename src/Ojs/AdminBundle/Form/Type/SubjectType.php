@@ -1,13 +1,14 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InstitutionTypesType extends AbstractType
+class SubjectType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -15,8 +16,22 @@ class InstitutionTypesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description');
+            ->add('subject')
+            ->add('description')
+            ->add(
+                'tags',
+                'text',
+                array(
+                    'label' => 'tags',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' => 'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => $options['tagEndPoint'],
+                    ],
+                )
+            )
+            ->add('parent');
     }
 
     /**
@@ -26,7 +41,8 @@ class InstitutionTypesType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\InstitutionTypes',
+                'data_class' => 'Ojs\JournalBundle\Entity\Subject',
+                'tagEndPoint' => '/',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -40,6 +56,6 @@ class InstitutionTypesType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_institutiontypes';
+        return 'ojs_journalbundle_subject';
     }
 }

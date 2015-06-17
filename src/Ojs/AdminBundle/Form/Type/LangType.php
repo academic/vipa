@@ -1,13 +1,14 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ArticleTypesType extends AbstractType
+class LangType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -15,8 +16,16 @@ class ArticleTypesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('code', 'text', array('attr' => array('placeholder' => 'Do not use special characters')))
             ->add('name')
-            ->add('description');
+            ->add(
+                'rtl',
+                'checkbox',
+                array(
+                    'label' => 'Right to left?',
+                    'required' => false,
+                )
+            );
     }
 
     /**
@@ -26,7 +35,7 @@ class ArticleTypesType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
+                'data_class' => 'Ojs\JournalBundle\Entity\Lang',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -40,6 +49,6 @@ class ArticleTypesType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_articletypes';
+        return 'ojs_journalbundle_lang';
     }
 }
