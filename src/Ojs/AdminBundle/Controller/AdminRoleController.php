@@ -237,7 +237,7 @@ class AdminRoleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('role'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_role'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -245,6 +245,6 @@ class AdminRoleController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('role');
+        return $this->redirectToRoute('ojs_admin_role_index');
     }
 }
