@@ -14,6 +14,6 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:ArticleTypes')) %}
-        <a href="{{ path('articletypes_new') }}" class="btn btn-success">{{ "c"|trans }}</a>
+        <a href="{{ path('ojs_admin_article_type_new') }}" class="btn btn-success">{{ "c"|trans }}</a>
     {% endif %}
 {% endblock %}

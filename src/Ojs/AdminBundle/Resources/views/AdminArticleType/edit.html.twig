@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('articletypes'),'title': 'article.types'|trans},
+    { 'link': path('ojs_admin_article_type_index'),'title': 'article.types'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,9 +15,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'articletypes' %}
+    {% set back_path = 'ojs_admin_article_type_index' %}
     {% if is_granted('DELETE', entity) %}
-        {% set delete_path = 'articletypes_delete' %}
+        {% set delete_path = 'ojs_admin_article_type_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 

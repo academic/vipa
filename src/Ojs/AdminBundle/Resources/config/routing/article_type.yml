@@ -1,0 +1,30 @@
+ojs_admin_article_type_index:
+    pattern:  /
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:index }
+
+ojs_admin_article_type_show:
+    pattern:  /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:show }
+
+ojs_admin_article_type_new:
+    pattern:  /new
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:new }
+
+ojs_admin_article_type_create:
+    pattern:  /create
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:create }
+    requirements: { _method: post }
+
+ojs_admin_article_type_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:edit }
+
+ojs_admin_article_type_update:
+    pattern:  /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:update }
+    methods:  [PUT]
+
+ojs_admin_article_type_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: OjsAdminBundle:AdminArticleType:delete }
+    methods:  [DELETE]
