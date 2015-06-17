@@ -30,7 +30,7 @@ class AdminController extends Controller
     public function dashboardAction()
     {
         if ($this->isGranted('VIEW', new Journal())) {
-            return $this->render('OjsJournalBundle:Admin:dashboard.html.twig');
+            return $this->render('OjsAdminBundle:Admin:dashboard.html.twig');
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         }
@@ -43,7 +43,7 @@ class AdminController extends Controller
     {
         if ($this->isGranted('VIEW', new Journal())) {
             return $this->render(
-                'OjsJournalBundle:Admin:stats.html.twig',
+                'OjsAdminBundle:Admin:stats.html.twig',
                 [
                     'stats' => $this->getStats(),
                 ]
