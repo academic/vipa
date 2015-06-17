@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * Institution controller.
  *
  */
-class ApplicationController extends Controller
+class AdminApplicationController extends Controller
 {
     /**
      * Lists all Institution entities.
@@ -52,16 +52,16 @@ class ApplicationController extends Controller
 
         $gridAction = $this->get('grid_action');
 
-        $rowAction[] = $gridAction->editAction('application_institution_edit', 'id');
-        $rowAction[] = $gridAction->showAction('application_institution_show', 'id');
-        $rowAction[] = $gridAction->deleteAction('application_institution_delete', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_application_institution_edit', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_application_institution_show', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_application_institution_delete', 'id');
         $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
 
         $grid->addColumn($actionColumn);
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Application:institution.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminApplication:institution.html.twig', $data);
     }
 
     public function journalIndexAction()
@@ -91,16 +91,16 @@ class ApplicationController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
-        $rowAction[] = $gridAction->editAction('application_journal_edit', 'id');
-        $rowAction[] = $gridAction->showAction('application_journal_show', 'id');
-        $rowAction[] = $gridAction->deleteAction('application_journal_delete', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_application_journal_edit', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_application_journal_show', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_application_journal_delete', 'id');
         $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
 
         $grid->addColumn($actionColumn);
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Application:journal.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminApplication:journal.html.twig', $data);
     }
 
     public function journalDetailAction($id)
@@ -140,7 +140,7 @@ class ApplicationController extends Controller
         $data['country'] = $country->getName();
         $data['subjects'] = implode(',', $subjects);
 
-        return $this->render('OjsJournalBundle:Application:journal_detail.html.twig', $data);
+        return $this->render('OjsAdminBundle:AdminApplication:journal_detail.html.twig', $data);
     }
 
     public function institutionDetailAction($id)
@@ -156,7 +156,7 @@ class ApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return $this->render('OjsJournalBundle:Application:institution_detail.html.twig', array('entity' => $entity));
+        return $this->render('OjsAdminBundle:AdminApplication:institution_detail.html.twig', array('entity' => $entity));
     }
 
     public function journalEditAction($id)
@@ -172,11 +172,11 @@ class ApplicationController extends Controller
             new JournalApplicationType(),
             $document,
             [
-                'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId())),
+                'action' => $this->generateUrl('ojs_admin_application_journal_update', array('id' => $document->getId())),
             ]
         );
 
-        return $this->render('OjsJournalBundle:Application:journal_edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['form' => $form->createView()]);
     }
 
     public function institutionEditAction($id)
@@ -194,12 +194,12 @@ class ApplicationController extends Controller
             $entity,
             [
                 'helper' => $this->get('ojs_location.form.helper'),
-                'action' => $this->generateUrl('application_institution_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_application_institution_update', array('id' => $entity->getId())),
             ]
         );
 
         return $this->render(
-            'OjsJournalBundle:Application:institution_edit.html.twig',
+            'OjsAdminBundle:AdminApplication:institution_edit.html.twig',
             ['form' => $form->createView(), 'entity' => $entity]
         );
     }
@@ -220,10 +220,10 @@ class ApplicationController extends Controller
             $dm->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('journal_application'));
+            return $this->redirect($this->generateUrl('ojs_admin_application_journal_index'));
         }
 
-        return $this->render('OjsJournalBundle:Application:journal_edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['form' => $form->createView()]);
     }
 
     public function institutionUpdateAction(Request $request, $id)
@@ -247,11 +247,11 @@ class ApplicationController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('institution_application'));
+            return $this->redirect($this->generateUrl('ojs_admin_application_institution_index'));
         }
 
         return $this->render(
-            'OjsJournalBundle:Application:institution_edit.html.twig',
+            'OjsAdminBundle:AdminApplication:institution_edit.html.twig',
             ['form' => $form->createView(), 'entity' => $entity]
         );
     }
@@ -264,7 +264,7 @@ class ApplicationController extends Controller
             throw new NotFoundHttpException();
         }
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('application_journal'.$id);
+        $token = $csrf->getToken('ojs_admin_application'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -272,7 +272,7 @@ class ApplicationController extends Controller
         $dm->remove($entity);
         $dm->flush();
 
-        return $this->redirect($this->get('router')->generate('journal_application'));
+        return $this->redirect($this->get('router')->generate('ojs_admin_application_journal_index'));
     }
 
     public function institutionDeleteAction(Request $request, $id)
@@ -284,7 +284,7 @@ class ApplicationController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('application_institution'.$id);
+        $token = $csrf->getToken('ojs_admin_application'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -292,7 +292,7 @@ class ApplicationController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->get('router')->generate('institution_application'));
+        return $this->redirect($this->get('router')->generate('ojs_admin_application_institution_index'));
     }
 
     public function journalSaveAction($id)
@@ -408,7 +408,7 @@ class ApplicationController extends Controller
             $session->getFlashBag()->add('error', $e->getMessage());
             $session->save();
 
-            return $this->redirect($this->get('router')->generate('application_journal_show', ['id' => $id]));
+            return $this->redirect($this->get('router')->generate('ojs_admin_application_journal_show', ['id' => $id]));
         }
     }
 

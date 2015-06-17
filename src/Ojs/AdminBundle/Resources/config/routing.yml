@@ -46,3 +46,7 @@ ojs_admin_design:
     resource: "@OjsAdminBundle/Resources/config/routing/design.yml"
     prefix:   design
 
+ojs_admin_application:
+    resource: "@OjsAdminBundle/Resources/config/routing/application.yml"
+    prefix:   design
+

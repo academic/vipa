@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('journal_application'),'title': 'application.journal'|trans},
+    { 'link': path('ojs_admin_application_journal_index'),'title': 'application.journal'|trans},
     {'title': 'show'|trans},
     {'title': entity.title}
     ] %}
@@ -112,7 +112,7 @@
                 </tr>
             </table>
             <a class="btn btn-primary"
-               href="{{ url('application_journal_saveasnew',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
+               href="{{ url('ojs_admin_application_journal_save',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
         </div>
     </div>
 {% endblock %}
