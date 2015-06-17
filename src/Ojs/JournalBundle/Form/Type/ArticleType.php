@@ -31,7 +31,7 @@ class ArticleType extends AbstractType
                     'attr' => array('class' => ' form-control select2-element'),
                     'query_builder' => function (EntityRepository $er) use ($journal) {
                         $qb = $er->createQueryBuilder('i');
-                        $qb->where('i.journal', ':journal')
+                        $qb->where('i.journal = :journal')
                             ->setParameter('journal', $journal);
 
                         return $qb;
