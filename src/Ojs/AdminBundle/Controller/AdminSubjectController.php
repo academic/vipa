@@ -256,7 +256,7 @@ class AdminSubjectController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('subject'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_subject'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
