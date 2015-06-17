@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Ojs\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;

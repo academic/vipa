@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DesignType extends AbstractType
+class ThemeType extends AbstractType
 {
 
     /**
@@ -18,7 +18,6 @@ class DesignType extends AbstractType
         $builder
             ->add('name')
             ->add('title')
-            ->add('content')
             ->add('isPublic');
     }
 
@@ -29,7 +28,7 @@ class DesignType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Design',
+                'data_class' => 'Ojs\JournalBundle\Entity\Theme',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -43,6 +42,6 @@ class DesignType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_design';
+        return 'ojs_journalbundle_theme';
     }
 }
