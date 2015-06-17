@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Params\CommonParams;
-use Ojs\UserBundle\Entity\User;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -18,9 +18,8 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Journal $journal */
         $journal = $options['journal'];
-        /** @var User $user */
-        $user = $options['user'];
         $builder
             ->add(
                 'issue',
@@ -32,12 +31,8 @@ class ArticleType extends AbstractType
                     'attr' => array('class' => ' form-control select2-element'),
                     'query_builder' => function (EntityRepository $er) use ($journal) {
                         $qb = $er->createQueryBuilder('i');
-                        if ($journal['all']) {
-                            return $qb;
-                        }
-                        $qb->where(
-                            $qb->expr()->eq('i.journal', ':journal')
-                        )->setParameter('journal', $journal['selected']);
+                        $qb->where('i.journal', ':journal')
+                            ->setParameter('journal', $journal);
 
                         return $qb;
                     },
@@ -85,28 +80,6 @@ class ArticleType extends AbstractType
                 array(
                     'label' => 'keywords',
                     'attr' => array('class' => ' form-control'),
-                )
-            )
-            ->add(
-                'journal',
-                'entity',
-                array(
-                    'label' => 'journal',
-                    'attr' => array('class' => ' form-control select2-element'),
-                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' => function (EntityRepository $er) use ($journal, $user) {
-                        $qb = $er->createQueryBuilder('j');
-
-                        if ($journal['all']) {
-                            return $qb;
-                        }
-
-                        $qb
-                            ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                            ->setParameter('user', $user);
-
-                        return $qb;
-                    },
                 )
             )
             ->add(
@@ -259,8 +232,7 @@ class ArticleType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
-                'journal' => array('all' => false, 'selected' => 0),
-                'user' => null,
+                'journal' => new Journal(),
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
