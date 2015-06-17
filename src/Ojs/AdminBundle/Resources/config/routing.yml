@@ -33,3 +33,7 @@ ojs_admin_theme:
 ojs_admin_language:
     resource: "@OjsAdminBundle/Resources/config/routing/language.yml"
     prefix:   language
+
+ojs_admin_article_type:
+    resource: "@OjsAdminBundle/Resources/config/routing/article_type.yml"
+    prefix:   article-type
