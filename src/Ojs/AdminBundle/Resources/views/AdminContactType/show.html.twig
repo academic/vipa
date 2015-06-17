@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('contacttypes'),'title': 'contact.types'|trans},
+    {'link': path('ojs_admin_contact_type_index'),'title': 'contact.types'|trans},
     {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -29,9 +29,9 @@
         </tr>
         </tbody>
     </table>
-    {% set back_path = 'contacttypes' %}
+    {% set back_path = 'ojs_admin_contact_type_index' %}
     {% if is_granted('DELETE', entity) %}
-        {% set delete_path = 'contacttypes_delete' %}
+        {% set delete_path = 'ojs_admin_contact_type_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
