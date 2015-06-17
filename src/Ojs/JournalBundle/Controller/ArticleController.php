@@ -180,6 +180,7 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $entity = new Article();
+        $entity = $entity->setJournal($selectedJournal);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -219,15 +220,13 @@ class ArticleController extends Controller
     private function createCreateForm(Article $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $allJournals = $this->isGranted('VIEW', new Journal());
         $form = $this->createForm(
             new ArticleType(),
             $entity,
             array(
                 'action' => $this->generateUrl('article_create'),
                 'method' => 'POST',
-                'journal' => array('all' => $allJournals, 'selected' => $journal),
-                'user' => $this->getUser(),
+                'journal' => $journal,
             )
         );
 
@@ -345,7 +344,6 @@ class ArticleController extends Controller
     private function createEditForm(Article $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $allJournals = $this->isGranted('VIEW', new Journal());
 
         $form = $this->createForm(
             new ArticleType(),
@@ -353,8 +351,7 @@ class ArticleController extends Controller
             array(
                 'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'journal' => array('all' => $allJournals, 'selected' => $journal),
-                'user' => $this->getUser(),
+                'journal' => $journal,
             )
         );
 
@@ -435,6 +432,7 @@ class ArticleController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Article $entity */
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
