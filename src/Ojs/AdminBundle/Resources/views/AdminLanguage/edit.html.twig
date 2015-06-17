@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('lang'),'title': 'language'|trans},
+    {'link': path('ojs_admin_language_index'),'title': 'language'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,9 +15,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     <hr>
-    {% set back_path = 'lang' %}
+    {% set back_path = 'ojs_admin_language_index' %}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'lang_delete' %}
+        {% set delete_path = 'ojs_admin_language_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
