@@ -34,10 +34,6 @@ ojs_author_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/author.yml"
     prefix:   /admin/author
 
-ostr_aadmin_file:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/file.yml"
-    prefix:   /admin/file
-
 ojs_journalcontact:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/journalcontact.yml"
     prefix:   /admin/journalcontact
