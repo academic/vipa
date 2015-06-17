@@ -18,26 +18,6 @@ class PeopleController extends Controller
      */
     public function indexAction(Request $request, $page = 1)
     {
-        /** @var \Symfony\Component\Routing\Router $router */
-        $router = $this->container->get('router');
-        /** @var \Symfony\Component\Routing\RouteCollection $collection */
-        $collection = $router->getRouteCollection();
-        /** @var array $allRoutes */
-        $allRoutes = $collection->all();
-
-        echo "<table border='1'>";
-
-        /** @var \Symfony\Component\Routing\Route $route */
-        foreach ($allRoutes as $route) {
-            echo "<tr>";
-            echo "<td>".$route->getHost()."</td>";
-            echo "<td>".$route->getRequirement('_method')."</td>";
-            echo "<td>".$route->getPath()."</td>";
-            echo "<td>".$route->getDefault('_controller')."</td>";
-            echo "</tr>";
-        }
-
-        echo "</table>";die();
         $getRoles = $request->query->get('role_filters');
         $getSubjects = $request->query->get('subject_filters');
         $getJournals = $request->query->get('journal_filters');
