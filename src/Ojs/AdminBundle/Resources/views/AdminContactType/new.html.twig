@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('contacttypes'),'title': 'contact.types'|trans},
+    { 'link': path('ojs_admin_contact_type_index'),'title': 'contact.types'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,6 +14,6 @@
     <h1>{{ "contact.type.new"|trans }}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'contacttypes' %}
+    {% set back_path = 'ojs_admin_contact_type_index' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

@@ -1,0 +1,30 @@
+ojs_admin_contact_type_index:
+    pattern:  /
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:index" }
+
+ojs_admin_contact_type_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:show" }
+
+ojs_admin_contact_type_new:
+    pattern:  /new
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:new" }
+
+ojs_admin_contact_type_create:
+    pattern:  /create
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:create" }
+    requirements: { _method: post }
+
+ojs_admin_contact_type_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:edit" }
+
+ojs_admin_contact_type_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:update" }
+    methods:  [PUT]
+
+ojs_admin_contact_type_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsAdminBundle:AdminContactType:delete" }
+    methods:  [DELETE]

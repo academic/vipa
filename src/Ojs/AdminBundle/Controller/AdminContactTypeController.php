@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * ContactTypes controller.
  *
  */
-class ContactTypesController extends Controller
+class AdminContactTypeController extends Controller
 {
     /**
      * Lists all ContactTypes entities.
@@ -36,16 +36,16 @@ class ContactTypesController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('contacttypes_show', 'id');
-        $rowAction[] = $gridAction->editAction('contacttypes_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('contacttypes_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_contact_type_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_contact_type_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_contact_type_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:ContactTypes:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminContactType:index.html.twig', $data);
     }
 
     /**
@@ -68,11 +68,11 @@ class ContactTypesController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirect($this->generateUrl('contacttypes_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_admin_contact_type_show', array('id' => $entity->getId())));
         }
 
         return $this->render(
-            'OjsJournalBundle:ContactTypes:new.html.twig',
+            'OjsAdminBundle:AdminContactType:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -93,7 +93,7 @@ class ContactTypesController extends Controller
             new ContactTypesType(),
             $entity,
             array(
-                'action' => $this->generateUrl('contacttypes_create'),
+                'action' => $this->generateUrl('ojs_admin_contact_type_create'),
                 'method' => 'POST',
             )
         );
@@ -116,7 +116,7 @@ class ContactTypesController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:ContactTypes:new.html.twig',
+            'OjsAdminBundle:AdminContactType:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -140,7 +140,7 @@ class ContactTypesController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render(
-            'OjsJournalBundle:ContactTypes:show.html.twig',
+            'OjsAdminBundle:AdminContactType:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -164,7 +164,7 @@ class ContactTypesController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:ContactTypes:edit.html.twig',
+            'OjsAdminBundle:AdminContactType:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -185,7 +185,7 @@ class ContactTypesController extends Controller
             new ContactTypesType(),
             $entity,
             array(
-                'action' => $this->generateUrl('contacttypes_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_contact_type_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -215,11 +215,11 @@ class ContactTypesController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('contacttypes_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_admin_contact_type_edit', array('id' => $id)));
         }
 
         return $this->render(
-            'OjsJournalBundle:ContactTypes:edit.html.twig',
+            'OjsAdminBundle:AdminContactType:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -244,7 +244,7 @@ class ContactTypesController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('contacttypes'.$id);
+        $token = $csrf->getToken('ojs_admin_contact_type'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -252,6 +252,6 @@ class ContactTypesController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('contacttypes'));
+        return $this->redirect($this->generateUrl('ojs_admin_contact_type_index'));
     }
 }
