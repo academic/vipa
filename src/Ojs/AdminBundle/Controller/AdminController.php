@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function dashboardCheckAction()
     {
         if ($this->isGranted('VIEW', new Journal())) {
-            return $this->redirect($this->generateUrl('dashboard_admin'));
+            return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
         } elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         } else {

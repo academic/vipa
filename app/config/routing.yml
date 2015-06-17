@@ -2,6 +2,10 @@ ojs_admin:
     resource: "@OjsAdminBundle/Resources/config/routing.yml"
     prefix:   admin
 
+ojs_admin_root:
+    resource: "@OjsAdminBundle/Resources/config/routing_root.yml"
+    prefix:   /
+
 ojs_installer:
     resource: "@OjsInstallerBundle/Resources/config/routing.yml"
     prefix:   /
