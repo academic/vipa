@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * Theme controller.
  *
  */
-class ThemeController extends Controller
+class AdminThemeController extends Controller
 {
     /**
      * Lists all Theme entities.
@@ -32,16 +32,16 @@ class ThemeController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('theme_show', 'id');
-        $rowAction[] = $gridAction->editAction('theme_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('theme_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_theme_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_theme_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_theme_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Theme:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminTheme:index.html.twig', $data);
     }
 
     /**
@@ -64,11 +64,11 @@ class ThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('theme_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_theme_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Theme:new.html.twig',
+            'OjsAdminBundle:AdminTheme:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -89,7 +89,7 @@ class ThemeController extends Controller
             new ThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('theme_create'),
+                'action' => $this->generateUrl('ojs_admin_theme_create'),
                 'method' => 'POST',
             )
         );
@@ -111,7 +111,7 @@ class ThemeController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Theme:new.html.twig',
+            'OjsAdminBundle:AdminTheme:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -133,7 +133,7 @@ class ThemeController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:Theme:show.html.twig',
+            'OjsAdminBundle:AdminTheme:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -155,7 +155,7 @@ class ThemeController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Theme:edit.html.twig',
+            'OjsAdminBundle:AdminTheme:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -176,7 +176,7 @@ class ThemeController extends Controller
             new ThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('theme_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_theme_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -205,11 +205,11 @@ class ThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('theme_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_theme_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Theme:edit.html.twig',
+            'OjsAdminBundle:AdminTheme:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -231,7 +231,7 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('theme'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_theme'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -240,6 +240,6 @@ class ThemeController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('theme');
+        return $this->redirectToRoute('ojs_admin_theme_index');
     }
 }
