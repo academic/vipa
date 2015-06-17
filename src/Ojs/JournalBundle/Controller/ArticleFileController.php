@@ -41,10 +41,8 @@ class ArticleFileController extends Controller
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($article, $tableAlias) {
-                return $qb->where(
-                    $qb->expr()->eq("$tableAlias.article", ':article')
-                )
-                    ->setParameter('id', $article);
+                return $qb->where($tableAlias . '.article = :article')
+                    ->setParameter('article', $article);
             }
         );
         $grid = $this->get('grid')->setSource($source);
