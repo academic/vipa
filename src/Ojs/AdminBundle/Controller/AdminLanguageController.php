@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * Lang controller.
  *
  */
-class LangController extends Controller
+class AdminLanguageController extends Controller
 {
 
     /**
@@ -33,16 +33,16 @@ class LangController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('lang_show', 'id');
-        $rowAction[] = $gridAction->editAction('lang_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('lang_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_language_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_language_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_language_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Lang:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminLanguage:index.html.twig', $data);
     }
 
     /**
@@ -66,11 +66,11 @@ class LangController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('lang_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_language_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Lang:new.html.twig',
+            'OjsAdminBundle:AdminLanguage:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -91,7 +91,7 @@ class LangController extends Controller
             new LangType(),
             $entity,
             array(
-                'action' => $this->generateUrl('lang_create'),
+                'action' => $this->generateUrl('ojs_admin_language_create'),
                 'method' => 'POST',
             )
         );
@@ -111,7 +111,7 @@ class LangController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Lang:new.html.twig',
+            'OjsAdminBundle:AdminLanguage:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -132,7 +132,7 @@ class LangController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:Lang:show.html.twig',
+            'OjsAdminBundle:AdminLanguage:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -153,7 +153,7 @@ class LangController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Lang:edit.html.twig',
+            'OjsAdminBundle:AdminLanguage:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -174,7 +174,7 @@ class LangController extends Controller
             new LangType(),
             $entity,
             array(
-                'action' => $this->generateUrl('lang_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_language_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -204,11 +204,11 @@ class LangController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('lang_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_language_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Lang:edit.html.twig',
+            'OjsAdminBundle:AdminLanguage:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -229,7 +229,7 @@ class LangController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('lang'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_language'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -237,6 +237,6 @@ class LangController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('lang');
+        return $this->redirectToRoute('ojs_admin_language_index');
     }
 }
