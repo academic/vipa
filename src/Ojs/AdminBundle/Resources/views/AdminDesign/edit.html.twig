@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.design_new'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.design_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('design'),'title': 'design'|trans},
-    {'title': 'new'|trans}
+    {'link': path('ojs_admin_design_index'),'title': 'design'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -19,7 +19,7 @@
         .column {
             width: 170px;
             float: left;
-            padding-bottom: 5px;
+            padding-bottom: 100px;
         }
 
         .portlet {
@@ -52,61 +52,57 @@
     </style>
 
 {% endblock %}
-
 {% block body -%}
-    <h1>{{ "design.new"|trans }}</h1>
-
-    {{ form(form) }}
+    <h1>{{ "design.edit"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
 
     {% block portlets -%}
-        <div class="row">
-            <div class="column">
+        <div class="column">
 
-                <div class="portlet">
-                    <div class="portlet-header">Feeds</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-                </div>
-
-                <div class="portlet">
-                    <div class="portlet-header">News</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-                </div>
-
+            <div class="portlet">
+                <div class="portlet-header">Feeds</div>
+                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
             </div>
 
-            <div class="column">
-
-                <div class="portlet">
-                    <div class="portlet-header">Shopping</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-                </div>
-
+            <div class="portlet">
+                <div class="portlet-header">News</div>
+                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
             </div>
 
-            <div class="column">
-
-                <div class="portlet">
-                    <div class="portlet-header">Links</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-                </div>
-
-                <div class="portlet">
-                    <div class="portlet-header">Images</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-                </div>
-
-            </div>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
+
+        <div class="column">
+
+            <div class="portlet">
+                <div class="portlet-header">Shopping</div>
+                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            </div>
+
+        </div>
+
+        <div class="column">
+
+            <div class="portlet">
+                <div class="portlet-header">Links</div>
+                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            </div>
+
+            <div class="portlet">
+                <div class="portlet-header">Images</div>
+                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            </div>
+
         </div>
     {% endblock %}
 
-    {% set back_path = 'design' %}
+    {% set back_path = 'ojs_admin_design_index' %}
+    {% if is_granted('DELETE', edit_form.vars.data) %}
+        {% set delete_path = 'ojs_admin_design_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}
 
 {% block javascripts -%}

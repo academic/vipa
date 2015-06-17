@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * Design controller.
  *
  */
-class DesignController extends Controller
+class AdminDesignController extends Controller
 {
     /**
      * Lists all Design entities.
@@ -31,16 +31,16 @@ class DesignController extends Controller
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('design_show', 'id');
-        $rowAction[] = $gridAction->editAction('design_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('design_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_design_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_design_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_design_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Design:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminDesign:index.html.twig', $data);
     }
 
     /**
@@ -62,11 +62,11 @@ class DesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('design_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_design_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Design:new.html.twig',
+            'OjsAdminBundle:AdminDesign:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -87,7 +87,7 @@ class DesignController extends Controller
             new DesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('design_create'),
+                'action' => $this->generateUrl('ojs_admin_design_create'),
                 'method' => 'POST',
             )
         );
@@ -109,7 +109,7 @@ class DesignController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Design:new.html.twig',
+            'OjsAdminBundle:AdminDesign:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -130,7 +130,7 @@ class DesignController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:Design:show.html.twig',
+            'OjsAdminBundle:AdminDesign:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -151,7 +151,7 @@ class DesignController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:Design:edit.html.twig',
+            'OjsAdminBundle:AdminDesign:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -172,7 +172,7 @@ class DesignController extends Controller
             new DesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('design_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_design_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -200,11 +200,11 @@ class DesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('design_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_design_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:Design:edit.html.twig',
+            'OjsAdminBundle:AdminDesign:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -226,7 +226,7 @@ class DesignController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('design'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_design'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -234,6 +234,6 @@ class DesignController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('design');
+        return $this->redirectToRoute('ojs_admin_design_index');
     }
 }

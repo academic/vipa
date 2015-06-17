@@ -1,0 +1,30 @@
+ojs_admin_design_index:
+    pattern:  /
+    defaults: { _controller: OjsAdminBundle:AdminDesign:index }
+
+ojs_admin_design_show:
+    pattern:  /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminDesign:show }
+
+ojs_admin_design_new:
+    pattern:  /new
+    defaults: { _controller: OjsAdminBundle:AdminDesign:new }
+
+ojs_admin_design_create:
+    pattern:  /create
+    defaults: { _controller: OjsAdminBundle:AdminDesign:create }
+    requirements: { _method: post }
+
+ojs_admin_design_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminDesign:edit }
+
+ojs_admin_design_update:
+    pattern:  /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminDesign:update }
+    methods:  [PUT]
+
+ojs_admin_design_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: OjsAdminBundle:AdminDesign:delete }
+    methods:  [DELETE]
