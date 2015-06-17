@@ -39,10 +39,6 @@ ojs_admin_journaldesign:
     prefix:   /admin/journaldesign/
     resource: "@OjsJournalBundle/Resources/config/routing/admin/journaldesign.yml"
 
-ojs_admin_design:
-    prefix:   /admin/design/
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/design.yml"
-
 ojs_manager_journal_setup:
     prefix:   /manager/journal/setup
     resource: "@OjsJournalBundle/Resources/config/routing/manager/journalsetup.yml"
