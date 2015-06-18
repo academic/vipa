@@ -149,6 +149,9 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     /** @var  ArrayCollection */
     protected $authorDetails;
 
+    /** @var  ArrayCollection */
+    protected $journalRoles;
+
     protected $header_options;
 
     private $title;
@@ -202,6 +205,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
         $this->authorDetails = new ArrayCollection();
+        $this->journalRoles = new ArrayCollection();
     }
 
     /**
@@ -526,6 +530,25 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getJournalRoles()
+    {
+        return $this->journalRoles;
+    }
+
+    /**
+     * @param  array $journalRoles
+     * @return User
+     */
+    public function setJournalRoles($journalRoles)
+    {
+        $this->journalRoles = $journalRoles;
 
         return $this;
     }

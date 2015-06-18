@@ -8,10 +8,11 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Form\Type\UserType;
+use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Ojs\UserBundle\Entity\UserJournalRole;
 
 /**
  * JournalUsers controller.
@@ -96,16 +97,28 @@ class JournalUsersController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $formData = $form->getData();
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
             $entity->setAvatar($request->get('user_avatar'));
             $em->persist($entity);
+
+            //add user journal roles
+            if(count($formData->getJournalRoles())>0){
+                foreach($formData->getJournalRoles() as $role){
+                    $userJournalRole = new UserJournalRole();
+                    $userJournalRole->setJournal($journal);
+                    $userJournalRole->setRole($role);
+                    $userJournalRole->setUser($entity);
+                    $em->persist($userJournalRole);
+                }
+            }
             $em->flush();
 
             $this->successFlashBag('successful.create');
-            return $this->redirectToRoute('ujr_new');
+            return $this->redirectToRoute('journal_users');
         }
 
         return $this->render(
@@ -119,13 +132,13 @@ class JournalUsersController extends Controller
 
     /**
      * Creates a form to create a User entity.
-     * @param  User $entity The entity
+     * @param  User $entity
      * @return Form The form
      */
     private function createCreateForm(User $entity)
     {
         $form = $this->createForm(
-            new UserType(),
+            new JournalUserType(),
             $entity,
             array(
                 'action' => $this->generateUrl('journal_users_create_user'),
