@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Form\Type\RoleType;
+use Ojs\AdminBundle\Form\Type\RoleType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

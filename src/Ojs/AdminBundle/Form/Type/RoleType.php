@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\UserBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EventLogType extends AbstractType
+class RoleType extends AbstractType
 {
 
     /**
@@ -16,10 +16,8 @@ class EventLogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('eventInfo', 'text', ['label' => 'event.info'])
-            ->add('eventDate', 'text', ['label' => 'event.date'])
-            ->add('ip', 'text', ['label' => 'event.ip'])
-            ->add('userId', 'text', ['label' => 'event.user.id']);
+            ->add('name', 'text', ['label' => 'name'])
+            ->add('role', 'text', ['label' => 'role.singular']);
     }
 
     /**
@@ -29,7 +27,7 @@ class EventLogType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\UserBundle\Entity\EventLog',
+                'data_class' => 'Ojs\UserBundle\Entity\Role',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -43,6 +41,6 @@ class EventLogType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_userbundle_eventlog';
+        return 'ojs_userbundle_role';
     }
 }

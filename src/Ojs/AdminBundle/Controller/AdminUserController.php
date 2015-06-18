@@ -10,7 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
-use Ojs\UserBundle\Form\Type\UserType;
+use Ojs\AdminBundle\Form\Type\UserType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

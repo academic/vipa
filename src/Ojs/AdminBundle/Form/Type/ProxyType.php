@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\UserBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;

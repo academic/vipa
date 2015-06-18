@@ -8,7 +8,6 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\UserBundle\Entity\User;
-use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
