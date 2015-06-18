@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\UserBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * MailLog controller.
  *
  */
-class MailLogController extends Controller
+class AdminMailLogController extends Controller
 {
     /**
      * @return Response
@@ -33,15 +33,15 @@ class MailLogController extends Controller
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
 
-        $rowAction[] = $gridAction->showAction('admin_maillog_show', 'id');
-        $rowAction[] = $gridAction->editAction('admin_maillog_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('admin_maillog_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_mail_log_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_mail_log_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_mail_log_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsUserBundle:MailLog:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminMailLog:index.html.twig', $data);
     }
 
     /**
@@ -65,11 +65,11 @@ class MailLogController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirect($this->generateUrl('admin_maillog_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_admin_mail_log_show', array('id' => $entity->getId())));
         }
 
         return $this->render(
-            'OjsUserBundle:MailLog:new.html.twig',
+            'OjsAdminBundle:AdminMailLog:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -89,7 +89,7 @@ class MailLogController extends Controller
             new MailLogType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_maillog_create'),
+                'action' => $this->generateUrl('ojs_admin_mail_log_create'),
                 'method' => 'POST',
             )
         );
@@ -112,7 +112,7 @@ class MailLogController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsUserBundle:MailLog:new.html.twig',
+            'OjsAdminBundle:AdminMailLog:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -133,7 +133,7 @@ class MailLogController extends Controller
         }
 
         return $this->render(
-            'OjsUserBundle:MailLog:show.html.twig',
+            'OjsAdminBundle:AdminMailLog:show.html.twig',
             array(
                 'entity' => $entity,
             )
@@ -154,7 +154,7 @@ class MailLogController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsUserBundle:MailLog:edit.html.twig',
+            'OjsAdminBundle:AdminMailLog:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -173,7 +173,7 @@ class MailLogController extends Controller
             new MailLogType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_maillog_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_mail_log_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -201,11 +201,11 @@ class MailLogController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('admin_maillog_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_mail_log_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsUserBundle:MailLog:edit.html.twig',
+            'OjsAdminBundle:AdminMailLog:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -229,6 +229,6 @@ class MailLogController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('admin_maillog'));
+        return $this->redirect($this->generateUrl('ojs_admin_mail_log_index'));
     }
 }

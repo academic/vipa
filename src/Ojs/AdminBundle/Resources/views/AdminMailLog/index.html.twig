@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('admin_maillog'),'title': 'maillog.singular'|trans},
+    {'link': path('ojs_admin_mail_log_index'),'title': 'maillog.singular'|trans},
     {'title': 'list'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsUserBundle:MailLog')) %}
-        {% set create_path = 'admin_maillog_new' %}
+        {% set create_path = 'ojs_admin_mail_log_new' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
