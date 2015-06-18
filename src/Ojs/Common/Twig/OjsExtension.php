@@ -449,7 +449,7 @@ class OjsExtension extends \Twig_Extension
             case 'Ojs\SiteBundle\Entity\Page':
                 /** @var Page $object */
                 $data['name'] = $object->getTitle();
-                $data['route'] = $this->router->generate('admin_file_show', ['id' => $object->getId()]);
+                $data['route'] = '#';
                 break;
             default:
                 $data['name'] = 'Result Item';
