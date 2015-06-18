@@ -14,6 +14,10 @@ ojs_admin_role:
     resource: "@OjsAdminBundle/Resources/config/routing/role.yml"
     prefix:   role
 
+ojs_admin_journal:
+    resource: "@OjsAdminBundle/Resources/config/routing/journal.yml"
+    prefix:   journal
+
 ojs_admin_institution:
     resource: "@OjsAdminBundle/Resources/config/routing/institution.yml"
     prefix:   institution

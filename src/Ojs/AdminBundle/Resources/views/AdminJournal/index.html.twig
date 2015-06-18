@@ -22,11 +22,11 @@
             <h1>{{ "journal.list"|trans }}</h1>
             {% include '::flashbag.html.twig' %}
             <div class="panel">
-                <a class="btn btn-info" href="{{ path('journal') }}">
+                <a class="btn btn-info" href="{{ path('ojs_admin_journal_index') }}">
                     <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{ "journal.all"|trans }}</a>
                 <a class="btn btn-default" id="link-admin-my-journals" href="{{ path('user_show_my_journals') }}">
                     <i class="fa fa-user"></i> {{ "journal.my"|trans }}</a>
-                <a href="{{ path('journal_new') }}" class="btn btn-success">
+                <a href="{{ path('ojs_admin_journal_new') }}" class="btn btn-success">
                     {{ "c"|trans }}
                 </a>
             </div>

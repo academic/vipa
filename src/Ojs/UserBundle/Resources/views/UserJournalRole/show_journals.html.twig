@@ -27,7 +27,7 @@
                 {% for entity in entities %}
                     <tr>
                         <td>
-                            <a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">{{ entity.journal.id }}</a>
+                            <a href="{{ path('ojs_admin_journal_show', { 'id': entity.journal.id }) }}">{{ entity.journal.id }}</a>
                         </td>
                         <td>{{ entity.journal.title }} / {{ entity.journal.titleTransliterated }}</td>
                         <td>{{ entity.role.name }} </td>

@@ -16,7 +16,7 @@
             <h1>{{ "user.journalrole.myjournals"|trans }}</h1>
 
             {% if isSystemAdmin() %}
-                <a class="btn btn-default" href="{{ path('journal') }}">
+                <a class="btn btn-default" href="{{ path('ojs_admin_journal_index') }}">
                     <i class="fa fa-asterisk"></i> {{ "user.journalrole.alljournals"|trans }}</a>
             {% endif %}
             <a class="btn btn-info" href="{{ path('user_show_my_journals') }}">

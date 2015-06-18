@@ -402,7 +402,7 @@ class AdminApplicationController extends Controller
             $dm->persist($entity);
             $dm->flush();
 
-            return $this->redirect($this->get('router')->generate('journal_edit', ['id' => $journal->getId()]));
+            return $this->redirect($this->get('router')->generate('ojs_admin_journal_edit', ['id' => $journal->getId()]));
         } catch (\Exception $e) {
             $session = $this->get('session');
             $session->getFlashBag()->add('error', $e->getMessage());

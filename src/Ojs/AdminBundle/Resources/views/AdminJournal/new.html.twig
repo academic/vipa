@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('journal'),'title': 'journal.manager'|trans},
+    { 'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -96,7 +96,7 @@
     </button>
     {{ form_end(form) }}
     <div class="record_actions">
-        {% set back_path = 'journal' %}
+        {% set back_path = 'ojs_admin_journal_index' %}
         {% include '::actionbuttons.html.twig' %}
     </div>
 {% endblock %}

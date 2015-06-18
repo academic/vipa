@@ -7,7 +7,7 @@ journal.show tpl for reviewers
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('journal'),'title': 'journal.manager'|trans},
+    {'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
     {'title': 'show.reviewer'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -90,10 +90,10 @@ journal.show tpl for reviewers
         </tbody>
     </table>
     <div class="record_actions">
-        <a href="{{ path('journal') }}" class="btn btn-primary">
+        <a href="{{ path('ojs_admin_journal_index') }}" class="btn btn-primary">
             {{ "b"|trans }}
         </a>
-        <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
+        <a href="{{ path('ojs_admin_journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
             {{ 'e'|trans }}
         </a>
         <hr>
