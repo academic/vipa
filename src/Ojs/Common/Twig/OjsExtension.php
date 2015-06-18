@@ -467,14 +467,14 @@ class OjsExtension extends \Twig_Extension
     {
         $institution = $article->getJournal()->getInstitution();
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
-
+        $issueId = $article->getIssue()? $article->getIssueId(): 0;
         return $this->router
             ->generate(
                 'ojs_article_page',
                 [
                     'slug' => $article->getJournal()->getSlug(),
                     'article_id' => $article->getId(),
-                    'issue_id' => $article->getIssueId(),
+                    'issue_id' => $issueId,
                     'institution' => $institutionSlug,
                 ],
                 Router::ABSOLUTE_URL
