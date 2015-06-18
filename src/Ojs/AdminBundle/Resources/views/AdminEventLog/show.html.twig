@@ -4,14 +4,14 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('eventlog'),'title': 'eventlog'|trans},
+    {'link': path('ojs_admin_event_log_index'),'title': 'eventlog'|trans},
     {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "eventlog"|trans }}</h1>
+    <h1>{{ 'eventlog'|trans }}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -45,7 +45,7 @@
     </table>
 
 
-    <a class="btn btn-default" href="{{ path('eventlog') }}">
+    <a class="btn btn-default" href="{{ path('ojs_admin_event_log_index') }}">
         {{ "b"|trans }}
     </a>
 {% endblock %}

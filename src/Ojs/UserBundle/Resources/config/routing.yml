@@ -6,11 +6,6 @@ admin_userjournalrole:
     resource: "@OjsUserBundle/Resources/config/routing/userjournalrole_admin.yml"
     prefix:   /admin/userjournalrole
 
-
-admin_eventlog:
-    resource: "@OjsUserBundle/Resources/config/routing/eventlog_admin.yml"
-    prefix:   /admin/eventlog
-
 eventlog:
     resource: "@OjsUserBundle/Resources/config/routing/eventlog.yml"
     prefix:   /user/eventlog
@@ -18,7 +13,6 @@ eventlog:
 admin_proxy:
     resource: "@OjsUserBundle/Resources/config/routing/proxy_admin.yml"
     prefix:   /admin/proxy
-
 
 proxy:
     resource: "@OjsUserBundle/Resources/config/routing/proxy.yml"
@@ -33,7 +27,6 @@ user:
     resource: "@OjsUserBundle/Resources/config/routing/user.yml"
     prefix:   /user
 
-
 confirm_email_warning:
     pattern:  /unconfirmed
     defaults: { _controller: "OjsUserBundle:Security:unconfirmed" }
@@ -41,6 +34,7 @@ confirm_email_warning:
 tos:
     pattern: /tos
     defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' }
+
 privacy:
     pattern: /privacy
     defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'privacy'}
@@ -48,17 +42,22 @@ privacy:
 login:
     path: /login
     defaults: { _controller: OjsUserBundle:Security:login }
+
 orcid_login:
     path: /orcid_login
     defaults: { _controller: OjsUserBundle:Orcid:login }
+
 register:
     path: /register
     defaults: { _controller: OjsUserBundle:Security:register }
+
 email_confirm:
     path: /confirm/email/{code}
     defaults: { _controller: OjsUserBundle:Security:confirmEmail }
+
 logout:
     path: /logout
+
 login_check:
     path: /login_check
 
