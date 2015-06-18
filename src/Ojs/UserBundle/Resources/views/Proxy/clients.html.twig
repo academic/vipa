@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('admin_proxy'),'title': 'proxy'|trans},
+    {'link': path('user_my_proxy_clients'),'title': 'proxy'|trans},
     {'title': 'clients'|trans}
     ] %}
     {{ breadcrumb(list) }}

@@ -58,3 +58,8 @@ ojs_admin_mail_log:
     resource: "@OjsAdminBundle/Resources/config/routing/mail_log.yml"
     prefix:   mail-log
 
+ojs_admin_proxy:
+    resource: "@OjsAdminBundle/Resources/config/routing/proxy.yml"
+    prefix:   proxy
+
+

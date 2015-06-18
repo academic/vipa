@@ -130,9 +130,9 @@ class ProxyController extends Controller
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        $rowAction[] = $gridAction->showAction('admin_proxy_show', 'id');
-        $rowAction[] = $gridAction->editAction('admin_proxy_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('admin_proxy_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_proxy_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_proxy_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_proxy_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
@@ -214,7 +214,7 @@ class ProxyController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirect($this->generateUrl('admin_proxy_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_admin_proxy_show', array('id' => $entity->getId())));
         }
 
         return $this->render(
@@ -239,7 +239,7 @@ class ProxyController extends Controller
             new ProxyType($this->container),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_proxy_create'),
+                'action' => $this->generateUrl('ojs_admin_proxy_create'),
                 'method' => 'POST',
             )
         );
@@ -327,7 +327,7 @@ class ProxyController extends Controller
             new ProxyType($this->container),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_proxy_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_proxy_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -358,7 +358,7 @@ class ProxyController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_admin_proxy_edit', array('id' => $entity->getId())));
         }
 
         return $this->render(
@@ -387,6 +387,6 @@ class ProxyController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('admin_proxy'));
+        return $this->redirect($this->generateUrl('ojs_admin_proxy_index'));
     }
 }

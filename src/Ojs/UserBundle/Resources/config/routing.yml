@@ -6,10 +6,6 @@ eventlog:
     resource: "@OjsUserBundle/Resources/config/routing/eventlog.yml"
     prefix:   /user/eventlog
 
-admin_proxy:
-    resource: "@OjsUserBundle/Resources/config/routing/proxy_admin.yml"
-    prefix:   /admin/proxy
-
 proxy:
     resource: "@OjsUserBundle/Resources/config/routing/proxy.yml"
     prefix:   /manager/proxy
