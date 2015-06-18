@@ -138,7 +138,7 @@
                                 </li>
                                 <li>
                                     {% if isSystemAdmin() %}
-                                        {% set activity_log_path = "eventlog" %}
+                                        {% set activity_log_path = 'ojs_admin_event_log_index' %}
                                     {% else %}
                                         {% set activity_log_path = "user_eventlog" %}
                                     {% endif %}

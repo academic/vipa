@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('eventlog'),'title': 'eventlog'|trans},
+    {'link': path('ojs_admin_event_log_index'),'title': 'eventlog'|trans},
     {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}

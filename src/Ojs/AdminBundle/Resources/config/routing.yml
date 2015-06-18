@@ -50,3 +50,7 @@ ojs_admin_application:
     resource: "@OjsAdminBundle/Resources/config/routing/application.yml"
     prefix:   design
 
+ojs_admin_event_log:
+    resource: "@OjsAdminBundle/Resources/config/routing/event_log.yml"
+    prefix:   event-log
+
