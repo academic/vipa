@@ -18,7 +18,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('journal'),'title': 'journal.manager'|trans},
+    { 'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -107,7 +107,7 @@
             </div>
             <div class="btn-group">
                 {% block cancelbtn %}
-                    <button class="btn btn-default" href="{{ path("journal") }}">
+                    <button class="btn btn-default" href="{{ path('ojs_admin_journal_index') }}">
                         <i class="fa fa-backward"></i> {{ "cancel"|trans }}
                     </button>
                 {% endblock %}

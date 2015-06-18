@@ -8,7 +8,7 @@ journal.show tpl for editors
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('journal'),'title': 'journal.manager'|trans},
+    {'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
     {'title': 'show.editor'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -90,7 +90,7 @@ journal.show tpl for editors
         </tr>
         </tbody>
     </table>
-    {% set back_path = 'journal' %}
-    {% set edit_path = 'journal_edit' %}
+    {% set back_path = 'ojs_admin_journal_index' %}
+    {% set edit_path = 'ojs_admin_journal_edit' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

@@ -8,7 +8,7 @@ journal.show tpl for authors
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('journal'),'title': 'journal.manager'|trans},
+    {'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
     {'title': 'show.author'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -90,7 +90,7 @@ journal.show tpl for authors
         </tbody>
     </table>
 
-    <a href="{{ path('journal') }}" class="btn btn-primary">
+    <a href="{{ path('ojs_admin_journal_index') }}" class="btn btn-primary">
         {{ "b"|trans }}
     </a>
 {% endblock %}
