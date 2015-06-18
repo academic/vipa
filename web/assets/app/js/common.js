@@ -340,5 +340,11 @@ $(document).ready(function () {
         return false;
 
     });
+    $('.select-search-type').click(function(){
+        var searchType = $(this).attr('data-type');
+        var searchTypeText = $(this).text();
+        $('#search-type-text').html(searchTypeText);
+        $('#search-type').val(searchType);
+    });
 
 }(jQuery));

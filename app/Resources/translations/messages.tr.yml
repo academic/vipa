@@ -1211,3 +1211,6 @@ admin.log.oldValue: "eski değer"
 admin.log.newValue: "yeni değer"
 
 search.result.headline: "%term% için toplam %total% sonuç."
+tagsearch: 'Etiket Arama'
+basicsearch: 'Basit Arama'
+advancedsearch: 'Gelişmiş Arama'

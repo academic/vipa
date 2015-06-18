@@ -6,47 +6,32 @@ use Elastica\Exception\NotFoundException;
 use Elastica\Index;
 use \Elastica\Query;
 use Elastica\Query\Bool;
-use \Elastica\Query\MoreLikeThis;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Elastica\ResultSet;
 
 class DefaultController extends Controller
 {
-    /**
-     * @param  Request $request
-     * @param  int $page
-     * @return Response
-     */
     public function indexAction(Request $request, $page = 1)
     {
-        $data = [];
-        $term = $request->get('q');
-        $filter = $request->get('filter', []);
-        $searchManager = $this->get('ojs_search_manager');
-        $searchManager->addParam('term', $term);
-        $searchManager->setPage($page);
-        $searchManager->addFilters($filter);
-        $result = $searchManager->search()->getResult();
-        $data['pager'] = $searchManager->getPager();
-        $data['result'] = $result;
-        $data['total_count'] = $searchManager->getCount();
-        $data['page'] = $page;
-        $data['page_count'] = $searchManager->getPageCount();
-        $data['term'] = $term;
-        $data['aggregations'] = $searchManager->getAggregations();
-        $data['filter'] = $filter;
+        $queryType = $request->query->has('type')?$request->get('type'): 'basic';
+        $query = $request->get('q');
 
+        if($queryType == 'basic'){
+
+            $data = $this->basicSearch($request,$query, $page);
+        }elseif($queryType == 'advanced'){
+
+            $data = $this->advancedSearch($request,$query, $page);
+        }elseif($queryType == 'tag'){
+
+            $data = $this->tagSearch($request,$query, $page);
+        }
         return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
 
-    /**
-     *
-     * @param $tag
-     * @param  int $page
-     * @return Response
-     */
-    public function tagAction($tag, $page = 1)
+
+    private function tagSearch(Request $request ,$tag, $page = 1)
     {
         $data = [];
         /**
@@ -58,41 +43,42 @@ class DefaultController extends Controller
         $result = $searchManager->tagSearch();
         $data['results'] = $result;
 
-        $data['tag'] = $tag;
+        $data['query'] = $tag;
         $data['total_count'] = $searchManager->getCount();
-
-        return $this->render('OjsSearchBundle:Search:tags.html.twig', $data);
+        $data['queryType'] = 'tag';
+        return $data;
     }
 
-    public function tagCloudAction()
+    private function basicSearch(Request $request,$query, $page)
     {
-        $search = $this->container->get('fos_elastica.index.search');
-        $prefix = new Query\Prefix();
-        $prefix->setPrefix('tags', '');
-        $qe = new Query();
-        $qe->setQuery($prefix);
-
-        $results = $search->search($prefix);
-        $data['tags'] = [];
-        foreach ($results as $result) {
-            foreach (explode(',', $result->getData()['tags']) as $tag) {
-                $data['tags'][] = $tag;
+        /**
+         * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
+         */
+        $searchManager = $this->get('ojs_search_manager');
+        $finder = $this->container->get('fos_elastica.index.search');
+        /**
+         * @var ResultSet $resultData
+         */
+        $resultData = $finder->search($query);
+        foreach ($resultData as $result) {
+            /** @var Result $result */
+            if (!isset($return_data[$result->getType()])) {
+                $return_data[$result->getType()] = ['type', 'data'];
             }
+            $return_data[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
+            if (isset($return_data[$result->getType()]['data'])):
+                $return_data[$result->getType()]['data'][] = $searchManager->getObject($result); else:
+                $return_data[$result->getType()]['data'] = [$searchManager->getObject($result)];
+            endif;
         }
-
-        return $this->render('OjsSearchBundle:Search:tags_cloud.html.twig', $data);
+        $data['results'] = $return_data;
+        $data['query'] = $query;
+        $data['queryType'] = 'basic';
+        $data['total_count'] = $resultData->count();
+        return $data;
     }
 
-    public function advancedAction()
-    {
-        $search = $this->container->get('fos_elastica.index.search');
-        $mapping = $search->getMapping();
-        return $this->render("OjsSearchBundle:Search:advanced.html.twig", [
-            'mapping' => $mapping
-        ]);
-    }
-
-    public function advancedResultAction(Request $request)
+    private function advancedSearch(Request $request, $query, $page)
     {
         /**
          * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
@@ -103,10 +89,9 @@ class DefaultController extends Controller
          */
         $search = $this->container->get('fos_elastica.index.search');
         $boolQuery = new Bool();
-        $term = $request->get('term');
-        if (empty($term))
+        if (empty($query))
             throw new NotFoundException('You must specify an term to search!');
-        $parseQuery =$searchManager->parseSearchQuery($term);
+        $parseQuery =$searchManager->parseSearchQuery($query);
         if(count($parseQuery)<1)
             throw new NotFoundException('We found anything!');
 
@@ -139,10 +124,40 @@ class DefaultController extends Controller
                 $return_data[$result->getType()]['data'] = [$searchManager->getObject($result)];
             endif;
         }
-        return $this->render("OjsSearchBundle:Search:advanced_result.html.twig", [
+        $rData = [
             'results' => $return_data,
-            'searchQuery' => $term,
-            'total_count' => $data->getTotalHits()
+            'query' => $query,
+            'total_count' => $data->getTotalHits(),
+            'queryType' => 'advanced'
+        ];
+        return $rData;
+    }
+
+    public function advancedAction()
+    {
+        $search = $this->container->get('fos_elastica.index.search');
+        $mapping = $search->getMapping();
+        return $this->render("OjsSearchBundle:Search:advanced.html.twig", [
+            'mapping' => $mapping
         ]);
+    }
+
+    public function tagCloudAction()
+    {
+        $search = $this->container->get('fos_elastica.index.search');
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('tags', '');
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+        $data['tags'] = [];
+        foreach ($results as $result) {
+            foreach (explode(',', $result->getData()['tags']) as $tag) {
+                $data['tags'][] = $tag;
+            }
+        }
+
+        return $this->render('OjsSearchBundle:Search:tags_cloud.html.twig', $data);
     }
 }

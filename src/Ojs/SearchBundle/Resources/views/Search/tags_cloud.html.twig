@@ -20,7 +20,7 @@
 
         <section class="col-xs-6 col-sm-6 col-md-9">
             {% for tag in tags %}
-                <a href="{{ path('ojs_search_tags', {tag:tag}) }}" class="btn btn-default">#{{ tag }}</a>
+                <a href="/search?q={{ tag }}&type=tag" class="btn btn-default">#{{ tag }}</a>
             {% endfor %}
         </section>
     </div>

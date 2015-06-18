@@ -39,16 +39,23 @@
                     {{ 'landingPage.text'|trans|raw }}
 
                     <div class="col-md-12">
-
-                        <div id="search-box-1">
-                            <form action="/search" id="search-form-1" method="get">
-                                <input id="search-text-1" name="q" placeholder="{{ 'search.main'|trans }}"
-                                       class=" pull-left" type="text">
-                                <button class=" pull-right" id="search-button-1"
-                                        type="submit">{{ "search"|trans }}</button>
-                            </form>
-                        </div>
-
+                        <form action="/search" method="get">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search-type-text">{{ 'basicsearch'|trans }}</span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" class="select-search-type" data-type="basic">{{ ('basicsearch')|trans }}</a></li>
+                                        <li><a href="javascript:void(0)" class="select-search-type" data-type="advanced">{{ ('advancedsearch')|trans }}</a></li>
+                                        <li><a href="javascript:void(0)" class="select-search-type" data-type="tag">{{ ('tagsearch')|trans }}</a></li>
+                                    </ul>
+                                </div>
+                                <input type="text" name="q" class="form-control" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">{{ "search"|trans }}</button>
+                                </span>
+                            </div>
+                            <input type="hidden" name="type" value="basic" id="search-type">
+                        </form>
                     </div>
                     <hr>
                     <br><br>

@@ -1,93 +1,99 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.search_tags'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.search'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'title': 'search'|trans}
+    {'title': 'search.results'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body %}
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <form action="/search" method="get">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search-type-text">{{ (queryType~'search')|trans }}</span> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:void(0)" class="select-search-type" data-type="basic">{{ ('basicsearch')|trans }}</a></li>
+                                <li><a href="javascript:void(0)" class="select-search-type" data-type="advanced">{{ ('advancedsearch')|trans }}</a></li>
+                                <li><a href="javascript:void(0)" class="select-search-type" data-type="tag">{{ ('tagsearch')|trans }}</a></li>
+                            </ul>
+                        </div>
+                        <input type="text" name="q" class="form-control" value="{{ query }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">{{ "search"|trans }}</button>
+                        </span>
+                    </div>
+                    <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
+                </form>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
         <hgroup class="page-header">
-            <h1>{{ "search.results"|trans }}</h1>
-
             <h2 class="lead">
-                {% trans with {'%total%':total_count, '%term%':term} %}search.result.headline{% endtrans %}
-
+                {% trans with {'%total%':total_count, '%term%':query} %}
+                <strong class="text-danger">%total%</strong> results for <strong
+                        class="text-danger">%term%</strong>
+                {% endtrans %}
             </h2>
+            <a href="{{ path('ojs_search_advanced') }}" class="btn btn-default">{{ 'advanced.search.builder'|trans }}</a>
+            <a href="{{ path('ojs_tags_cloud') }}" class="btn btn-default">{{ 'tags.cloud'|trans }}</a>
         </hgroup>
-        {% if total_count > 0 %}
-            <nav class="col-xs-12 col-sm-6 col-md-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ "journal.plural"|trans }}</div>
-                    <ul class="list-group">
-                        {% for journal in aggregations.journal %}
-                            <li class="list-group-item">
-                                <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({journal:journal.data.id})}) }}">
-                                    <i class="fa fa-book"></i> {{ journal.data.title }}
+
+        <section class="col-xs-12 col-sm-12 col-md-12">
+            <div role="tabpanel" class="col-sm-3">
+                <ul class="nav nav-stacked" role="tablist">
+                    {% for key,result in results %}
+                        {% if result.data|length > 0 %}
+                            <li role="presentation" class="{% if loop.first %}in active{% endif %}">
+                                <a href="#content_{{ key }}" aria-controls="content_{{ key }}" role="tab"
+                                   data-toggle="tab">
+                                    {{ result.type }}
+                                    <span class="badge">{{ result.data|length }}</span>
                                 </a>
-                                <span class="badge">{{ journal.bucket.doc_count }}</span>
-                                {% if filter['journal'] is defined and filter['journal']==journal.data.id %}
-                                    <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({journal:null})}) }}"><i
-                                                class="fa fa-close"></i></a>
-                                {% endif %}
                             </li>
-                        {% endfor %}
-                    </ul>
-                    <div class="panel-heading">{{ "author.plural"|trans }}</div>
-
-                    <ul class="list-group">
-                        {% for author in aggregations.author %}
-                            <li class="list-group-item">
-
-                                <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({author:author.data.id})}) }}">
-                                    <i class="fa fa-user"></i> {{ author.data.fullName }}
-                                </a>
-                                <span class="badge">{{ author.bucket.doc_count }}</span>
-                                {% if filter['author'] is defined and filter['author']==author.data.id %}
-                                    <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({author:null})}) }}"><i
-                                                class="fa fa-close"></i></a>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </nav>
-            <section class="col-xs-12 col-sm-12 col-md-9">
-                <ul>
-                    {% for article in result %}
-                        <li>
-                            <article>
-                                <h4>
-                                    {% if article.issue!=null %}
-                                        <a href="{{ url('ojs_article_page',{article_id: article.id,issue_id: article.issue.id, slug: article.journal.slug,institution: article.journal.institution.slug}) }}">{{ article.title }}</a>
-                                    {% else %}
-                                    {% endif %}
-                                </h4>
-
-                                <p>
-                                    {% for author in article.articleAuthors %}
-                                        <a href="">{{ author.author.lastName }}, {{ author.author.firstName }}</a>
-                                    {% endfor %}
-                                </p>
-
-                                <p class="text-muted">DOI: {{ article.doi }}</p>
-                            </article>
-                        </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
-                <nav>
+            </div>
 
-                </nav>
-                <ul class="pagination ">
-                    {{ pagerfanta(pager,'twitter_bootstrap3') }}
-                </ul>
+            <div class="tab-content col-sm-9">
+                {% for key,result in results %}
+                    <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %}"
+                         id="content_{{ key }}">
+                        <table class="table table-bordered">
+                            <thead>
 
-            </section>
-        {% endif %}
+                            </thead>
+                            <tbody>
+                            {% for res in result.data %}
+                                <tr>
+                                    <td>
+                                        <h4>
+                                            <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
+                                        </h4>
+                                        {% if queryType == 'tag' %}
+                                            <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                                            {% set tags = res.tags|split(',') %}
+                                            {% for tag in tags %}
+                                                <a href="/search?q={{ tag }}&type=tag"><span
+                                                            class="badge">{{ tag }}</span></a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
     </div>
 {% endblock %}
