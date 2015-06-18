@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('admin_maillog'),'title': 'maillog.singular'|trans},
+    {'link': path('ojs_admin_mail_log_index'),'title': 'maillog.singular'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'admin_maillog_delete' %}
+        {% set delete_path = 'ojs_admin_mail_log_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
