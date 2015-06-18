@@ -1,0 +1,37 @@
+ojs_admin_proxy_index:
+    path:     /
+    defaults: { _controller: OjsAdminBundle:AdminProxy:index }
+
+ojs_admin_proxy_show:
+    path:     /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminProxy:show }
+
+ojs_admin_proxy_new:
+    path:     /new
+    defaults: { _controller: OjsAdminBundle:AdminProxy:new }
+
+ojs_admin_proxy_create:
+    path:     /create
+    defaults: { _controller: OjsAdminBundle:AdminProxy:create }
+    requirements: { _method: post }
+
+ojs_admin_proxy_edit:
+    path:     /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminProxy:edit }
+
+ojs_admin_proxy_update:
+    path:     /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminProxy:update }
+    methods:  [PUT]
+
+ojs_admin_proxy_delete:
+    path:     /{id}/delete
+    defaults: { _controller: OjsAdminBundle:AdminProxy:delete }
+
+ojs_admin_proxy_children:
+    path:     /client/{userId}
+    defaults: { _controller: OjsAdminBundle:AdminProxy:proxyChildren }
+
+ojs_admin_proxy_parent:
+    path:     /parent/{userId}
+    defaults: { _controller: OjsAdminBundle:AdminProxy:proxyParents }

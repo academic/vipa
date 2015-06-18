@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('admin_proxy'),'title': 'proxy'|trans},
+    {'link': path('ojs_admin_proxy_index'),'title': 'proxy'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,7 +17,7 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('admin_proxy') }}">
+            <a href="{{ path('ojs_admin_proxy_index') }}">
                 {{ "b"|trans }}
             </a>
         </li>
