@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\UserBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Ojs\Common\Params\CommonParams;
 use Ojs\LocationBundle\Helper\FormHelper;

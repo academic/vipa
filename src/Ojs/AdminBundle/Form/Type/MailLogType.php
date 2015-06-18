@@ -1,14 +1,13 @@
 <?php
 
-namespace Ojs\UserBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RoleType extends AbstractType
+class MailLogType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -16,8 +15,8 @@ class RoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', ['label' => 'name'])
-            ->add('role', 'text', ['label' => 'role.singular']);
+            ->add('mailObject')
+            ->add('recipientEmail');
     }
 
     /**
@@ -27,7 +26,7 @@ class RoleType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\UserBundle\Entity\Role',
+                'data_class' => 'Ojs\UserBundle\Entity\MailLog',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -41,6 +40,6 @@ class RoleType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_userbundle_role';
+        return 'ojs_userbundle_maillog';
     }
 }

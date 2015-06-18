@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Proxy;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Form\Type\ProxyType;
+use Ojs\AdminBundle\Form\Type\ProxyType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
