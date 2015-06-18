@@ -443,7 +443,8 @@ class OjsExtension extends \Twig_Extension
             case 'Ojs\JournalBundle\Entity\File':
                 /** @var File $object */
                 $data['name'] = $object->getName();
-                $data['route'] = $this->router->generate('admin_file_show', ['id' => $object->getId()]);
+                #file have no public view page
+                $data['route'] = '#';
                 break;
             case 'Ojs\SiteBundle\Entity\Page':
                 /** @var Page $object */
