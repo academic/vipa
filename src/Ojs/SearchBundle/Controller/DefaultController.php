@@ -27,6 +27,7 @@ class DefaultController extends Controller
 
             $data = $this->tagSearch($request,$query, $page);
         }
+        $this->addQueryToHistory($request, $query, $queryType, $data['total_count']);
         return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
 
@@ -131,6 +132,24 @@ class DefaultController extends Controller
             'queryType' => 'advanced'
         ];
         return $rData;
+    }
+
+    private function addQueryToHistory(Request $request, $query, $queryType, $totalCount)
+    {
+        $session = $request->getSession();
+        if(!$session->has('_query_history')){
+            $session->set('_query_history', []);
+        }
+        $queryHistory = $session->get('_query_history');
+        $queryCount = count($queryHistory);
+        $setQuery['type'] = $queryType;
+        $setQuery['time'] = date("H:i:s");
+        $setQuery['id'] = $queryCount+1;
+        $setQuery['query'] = $query;
+        $setQuery['totalHits'] = $totalCount;
+        $queryHistory[] = $setQuery;
+        $session->set('_query_history', $queryHistory);
+        return true;
     }
 
     public function advancedAction()

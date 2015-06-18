@@ -48,7 +48,7 @@
 
         <section class="col-xs-12 col-sm-12 col-md-12">
             <div role="tabpanel" class="col-sm-3">
-                <ul class="nav nav-stacked" role="tablist">
+                <ul class="nav nav-pills nav-stacked" role="tablist">
                     {% for key,result in results %}
                         {% if result.data|length > 0 %}
                             <li role="presentation" class="{% if loop.first %}in active{% endif %}">
@@ -68,9 +68,6 @@
                     <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %}"
                          id="content_{{ key }}">
                         <table class="table table-bordered">
-                            <thead>
-
-                            </thead>
                             <tbody>
                             {% for res in result.data %}
                                 <tr>
@@ -95,5 +92,40 @@
                 {% endfor %}
             </div>
         </section>
+        <div class="col-sm-12">
+            <h2>{{ 'search.history' }}</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <td>{{ 'search'|trans }}</td>
+                    <td>{{ 'query'|trans }}</td>
+                    <td>{{ 'items.found'|trans }}</td>
+                    <td>{{ 'type'|trans }}</td>
+                    <td>{{ 'time'|trans }}</td>
+                </thead>
+                <tbody>
+                {% for queryLog in app.session.get('_query_history') %}
+                    <tr>
+                        <td>
+                            <a href="/search?q={{ queryLog.query }}&type={{ queryLog.type }}">
+                                #{{ queryLog.id }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ queryLog.query }}
+                        </td>
+                        <td>
+                            {{ queryLog.totalHits }}
+                        </td>
+                        <td>
+                            {{ queryLog.type }}
+                        </td>
+                        <td>
+                            {{ queryLog.time }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
