@@ -62,10 +62,7 @@ class AdminUserController extends Controller
      */
     public function createAction(Request $request)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $isAdmin = $this->getUser()->isAdmin();
-        if (!$this->isGranted('CREATE', new User())
-            && !$this->isGranted('CREATE', $journal, 'userRole')) {
+        if (!$this->isGranted('CREATE', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
@@ -82,10 +79,6 @@ class AdminUserController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
-
-            if(!$isAdmin){
-                return $this->redirectToRoute('ujr_new');
-            }
             return $this->redirectToRoute(
                 'ojs_admin_user_show',
                 [
@@ -110,9 +103,7 @@ class AdminUserController extends Controller
      */
     public function newAction()
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', new User())
-            && !$this->isGranted('CREATE', $journal, 'userRole')) {
+        if (!$this->isGranted('CREATE', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
