@@ -47,13 +47,15 @@
         </hgroup>
 
         <section class="col-xs-12 col-sm-12 col-md-12">
-            <div role="tabpanel" class="col-sm-3">
-                <ul class="nav nav-pills nav-stacked" role="tablist">
+            <div class="col-sm-3">
+                <ul class="nav nav-pills nav-stacked">
                     {% for key,result in results %}
                         {% if result.data|length > 0 %}
-                            <li role="presentation" class="{% if loop.first %}in active{% endif %}">
-                                <a href="#content_{{ key }}" aria-controls="content_{{ key }}" role="tab"
-                                   data-toggle="tab">
+                            <li class="{% if key == section %}in active{% endif %}">
+                                <a href="{{ path('ojs_search_index', {
+                                    q:app.request.get('q'),
+                                    type: queryType,
+                                    section: key }) }}">
                                     {{ result.type }}
                                     <span class="badge">{{ result.data|length }}</span>
                                 </a>
@@ -65,30 +67,31 @@
 
             <div class="tab-content col-sm-9">
                 {% for key,result in results %}
-                    <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %}"
-                         id="content_{{ key }}">
-                        <table class="table table-bordered">
-                            <tbody>
-                            {% for res in result.data %}
-                                <tr>
-                                    <td>
-                                        <h4>
-                                            <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
-                                        </h4>
-                                        {% if queryType == 'tag' %}
-                                            <i class="fa fa-tags"></i> {{ "tags"|trans }}
-                                            {% set tags = res.tags|split(',') %}
-                                            {% for tag in tags %}
-                                                <a href="/search?q={{ tag }}&type=tag"><span
-                                                            class="badge">{{ tag }}</span></a>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                    {% if section == key %}
+                        <div role="tabpanel" class="tab-pane fade in active">
+                            <table class="table table-bordered">
+                                <tbody>
+                                {% for res in result.data %}
+                                    <tr>
+                                        <td>
+                                            <h4>
+                                                <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
+                                            </h4>
+                                            {% if queryType == 'tag' %}
+                                                <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                                                {% set tags = res.tags|split(',') %}
+                                                {% for tag in tags %}
+                                                    <a href="/search?q={{ tag }}&type=tag"><span
+                                                                class="badge">{{ tag }}</span></a>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </section>

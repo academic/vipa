@@ -16,6 +16,7 @@ class DefaultController extends Controller
     {
         $queryType = $request->query->has('type')?$request->get('type'): 'basic';
         $query = $request->get('q');
+        $section = $request->get('section');
 
         if($queryType == 'basic'){
 
@@ -28,6 +29,13 @@ class DefaultController extends Controller
             $data = $this->tagSearch($request,$query, $page);
         }
         $this->addQueryToHistory($request, $query, $queryType, $data['total_count']);
+        if(empty($section)){
+            $section = array_keys($data['results'])[0];
+            $redirectParams = array_merge($request->query->all(), ['section' => $section]);
+            return $this->redirectToRoute('ojs_search_index', $redirectParams);
+        }else{
+            $data['section'] = $section;
+        }
         return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
 
