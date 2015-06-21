@@ -13,7 +13,7 @@ use Elastica\Aggregation;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Pagerfanta\Pagerfanta;
 
-class DefaultController extends Controller
+class SearchController extends Controller
 {
     public function indexAction(Request $request, $page = 1)
     {
