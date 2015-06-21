@@ -386,7 +386,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     /**
      * Add role
      *
-     * @param  Role $role
+     * @param string $role
      * @return User
      */
     public function addRole($role)

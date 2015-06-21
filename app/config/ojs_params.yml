@@ -48,3 +48,6 @@ parameters:
         - 
             role: ROLE_READER
             desc: Reader
+        -
+            role: ROLE_USER
+            desc: User

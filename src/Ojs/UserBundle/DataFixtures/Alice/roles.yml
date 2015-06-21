@@ -1,31 +1,34 @@
 \Ojs\UserBundle\Entity\Role:
-  role3:
+  role1:
     role: ROLE_JOURNAL_MANAGER
     name: Journal Manager
-  role4:
+  role2:
     role: ROLE_SUBSCRIPTION_MANAGER
     name: Subscription Manager
-  role6:
+  role3:
     role: ROLE_SECTION_EDITOR
     name: Section Editor
-  role7:
+  role4:
     role: ROLE_LAYOUT_EDITOR
     name: Layout Editor
-  role9:
+  role5:
     role: ROLE_COPYEDITOR
     name: Copyeditor
-  role10:
+  role6:
     role: ROLE_PROOFREADER
     name: Proofreader
-  role11:
+  role7:
     role: ROLE_AUTHOR
     name: Author
-  role12:
+  role8:
     role: ROLE_READER
     name: Reader
-  role13:
+  role9:
     role: ROLE_REVIEWER
     name: Reviewer
-  role14:
+  role10:
     role: ROLE_EDITOR
     name: Editor
+  role11:
+    role: ROLE_USER
+    name: User

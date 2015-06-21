@@ -1,15 +1,15 @@
 Ojs\UserBundle\Entity\UserJournalRole:
   manager_journal_role:
       user: @user_journal_manager
-      role: @role3
+      role: @role1
       journal: @journal1
   author_journal_role:
       user: @user_author
-      role: @role11
+      role: @role7
       journal: @journal1
   editor_journal_role:
       user: @user_demo_editor
-      role: @role14
+      role: @role10
       journal: @journal1
   random_role_{1..75}:
       user: @random_user_*
