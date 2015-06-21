@@ -774,7 +774,7 @@ class ArticleSubmissionController extends Controller
             ->setLastResumeDate(new \DateTime())
             ->setLanguages($languages)
             ->setSection($articleData['section'])
-            ->setArticleTypeId($articleData['article_type']);
+            ->setArticleTypeId(isset($articleData['article_type'])?$articleData['article_type']:0);
         $dm->persist($articleSubmission);
         $dm->flush();
 
