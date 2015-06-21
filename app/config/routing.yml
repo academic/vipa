@@ -16,7 +16,7 @@ ojs_report:
 
 ojs_oai:
     resource: "@OjsOAIBundle/Resources/config/routing.yml"
-    prefix:   /oai
+    prefix:   /api/oai
 
 ojs_analytics:
     resource: "@OjsAnalyticsBundle/Resources/config/routing.yml"

@@ -40,6 +40,11 @@ security:
             stateless: true
             security: false
             anonymous: true
+        api_oai:
+            pattern: ^/api/oai
+            stateless: true
+            security: false
+            anonymous: true
         api:
             pattern: ^/api/
             stateless: true
