@@ -9,6 +9,9 @@ use Elastica\Query\Bool;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Elastica\ResultSet;
+use Elastica\Aggregation;
+use Pagerfanta\Adapter\ElasticaAdapter;
+use Pagerfanta\Pagerfanta;
 
 class DefaultController extends Controller
 {
@@ -64,11 +67,69 @@ class DefaultController extends Controller
          * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
          */
         $searchManager = $this->get('ojs_search_manager');
-        $finder = $this->container->get('fos_elastica.index.search');
-        /**
-         * @var ResultSet $resultData
-         */
-        $resultData = $finder->search($query);
+        $getRoles = $request->query->get('role_filters');
+        $getSubjects = $request->query->get('subject_filters');
+        $getJournals = $request->query->get('journal_filters');
+        $roleFilters = !empty($getRoles) ? explode(',', $getRoles) : [];
+        $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
+        $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
+
+        $searcher = $this->get('fos_elastica.index.search');
+        $searchQuery = new Query('_all');
+
+        $boolQuery = new Query\Bool();
+
+        $fieldQuery = new Query\Prefix();
+        $fieldQuery->setPrefix('_all', $query);
+        $boolQuery->addMust($fieldQuery);
+
+        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters)) {
+
+            foreach ($roleFilters as $role) {
+                $match = new Query\Match();
+                $match->setField('user.userJournalRoles.role.name', $role);
+                $boolQuery->addMust($match);
+            }
+
+            foreach ($subjectFilters as $subject) {
+                $match = new Query\Match();
+                $match->setField('subjects', $subject);
+                $boolQuery->addMust($match);
+            }
+
+            foreach ($journalFilters as $journal) {
+                $match = new Query\Match();
+                $match->setField('user.userJournalRoles.journal.title', $journal);
+                $boolQuery->addMust($match);
+            }
+        }
+        $searchQuery->setQuery($boolQuery);
+
+        $roleAgg = new Aggregation\Terms('roles');
+        $roleAgg->setField('userJournalRoles.role.name');
+        $roleAgg->setOrder('_term', 'asc');
+        $roleAgg->setSize(0);
+        $searchQuery->addAggregation($roleAgg);
+
+        $subjectAgg = new Aggregation\Terms('subjects');
+        $subjectAgg->setField('subjects');
+        $subjectAgg->setOrder('_term', 'asc');
+        $subjectAgg->setSize(0);
+        $searchQuery->addAggregation($subjectAgg);
+
+        $journalAgg = new Aggregation\Terms('journals');
+        $journalAgg->setField('userJournalRoles.journal.title');
+        $journalAgg->setOrder('_term', 'asc');
+        $journalAgg->setSize(0);
+        $searchQuery->addAggregation($journalAgg);
+
+        $resultData = $searcher->search($searchQuery);
+
+        $roles = $resultData->getAggregation('roles')['buckets'];
+        $subjects = $resultData->getAggregation('subjects')['buckets'];
+        $journals = $resultData->getAggregation('journals')['buckets'];
+
+        $return_data = [];
         foreach ($resultData as $result) {
             /** @var Result $result */
             if (!isset($return_data[$result->getType()])) {
@@ -80,10 +141,18 @@ class DefaultController extends Controller
                 $return_data[$result->getType()]['data'] = [$searchManager->getObject($result)];
             endif;
         }
-        $data['results'] = $return_data;
-        $data['query'] = $query;
-        $data['queryType'] = 'basic';
-        $data['total_count'] = $resultData->count();
+        $data = [
+            'results' => $return_data,
+            'query' => $query,
+            'queryType' => 'basic',
+            'total_count' => $resultData->count(),
+            'roles' => $roles,
+            'subjects' => $subjects,
+            'journals' => $journals,
+            'role_filters' => $roleFilters,
+            'subject_filters' => $subjectFilters,
+            'journal_filters' => $journalFilters,
+        ];
         return $data;
     }
 
