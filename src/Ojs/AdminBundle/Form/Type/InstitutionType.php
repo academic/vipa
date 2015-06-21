@@ -2,7 +2,8 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Ojs\LocationBundle\Helper\FormHelper;
+use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
+use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,8 +16,6 @@ class InstitutionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var FormHelper $helper */
-        $helper = $options['helper'];
         $builder
             ->add(
                 'name',
@@ -98,19 +97,8 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
-            ->add(
-                'country',
-                'entity',
-                [
-                    'label' => 'country',
-                    'class' => 'Ojs\LocationBundle\Entity\Country',
-                    'attr' => [
-                        'class' => 'select2-element  bridged-dropdown',
-                        'data-to' => '#'.$this->getName().'_city',
-                    ],
-                ]
-            );
-        $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution');
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }
 
     /**
@@ -129,7 +117,6 @@ class InstitutionType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Institution',
-                'helper' => null,
                 'tagEndPoint' => '/',
                 'institutionsEndPoint' => '/',
                 'institutionEndPoint' => '/',

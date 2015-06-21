@@ -193,7 +193,6 @@ class AdminApplicationController extends Controller
             new InstitutionApplicationType(),
             $entity,
             [
-                'helper' => $this->get('ojs_location.form.helper'),
                 'action' => $this->generateUrl('ojs_admin_application_institution_update', array('id' => $entity->getId())),
             ]
         );
@@ -236,10 +235,7 @@ class AdminApplicationController extends Controller
 
         $form = $this->createForm(
             new InstitutionApplicationType(),
-            $entity,
-            [
-                'helper' => $this->get('ojs_location.form.helper'),
-            ]
+            $entity
         );
         $form->handleRequest($request);
 
@@ -422,6 +418,6 @@ class AdminApplicationController extends Controller
         }
         $entity->setVerified(true);
 
-        return $this->redirect($this->get('router')->generate('institution_edit', ['id' => $entity->getId()]));
+        return $this->redirect($this->get('router')->generate('ojs_admin_application_institution_edit', ['id' => $entity->getId()]));
     }
 }

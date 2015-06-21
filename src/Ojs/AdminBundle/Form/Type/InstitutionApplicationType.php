@@ -2,7 +2,8 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Ojs\LocationBundle\Helper\FormHelper;
+use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
+use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,10 +17,6 @@ class InstitutionApplicationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        /** @var FormHelper $helper */
-        $helper = $options['helper'];
-
         $builder
             ->add('name', null, ['label' => 'institution.name'])
             ->add(
@@ -42,19 +39,9 @@ class InstitutionApplicationType extends AbstractType
             ->add('tags', null, ['label' => 'institution.tags'])
             ->add('logo', 'hidden')
             ->add('header', 'hidden')
-            ->add(
-                'country',
-                'entity',
-                array(
-                    'class' => 'OjsLocationBundle:Country',
-                    'label' => 'institution.country',
-                    'attr' => [
-                        'class' => 'select2-element  bridged-dropdown',
-                        'data-to' => '#'.$this->getName().'_city',
-                    ],
-                )
-            );
-        $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution', true);
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
+        ;
     }
 
     /**
@@ -73,7 +60,6 @@ class InstitutionApplicationType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Institution',
-                'helper' => null,
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

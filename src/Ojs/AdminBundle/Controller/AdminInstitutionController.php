@@ -104,8 +104,7 @@ class AdminInstitutionController extends Controller
                 'method' => 'POST',
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
-                'institutionEndPoint' => $this->generateUrl('api_get_institution'),
-                'helper' => $this->get('ojs_location.form.helper'),
+                'institutionEndPoint' => $this->generateUrl('api_get_institution')
             )
         );
 
@@ -199,8 +198,7 @@ class AdminInstitutionController extends Controller
                 'method' => 'PUT',
                 'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
-                'institutionEndPoint' => $this->generateUrl('api_get_institution'),
-                'helper' => $this->get('ojs_location.form.helper'),
+                'institutionEndPoint' => $this->generateUrl('api_get_institution')
             )
         );
 

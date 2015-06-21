@@ -6,6 +6,8 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Form\Type\JournalUserType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -142,7 +144,6 @@ class JournalUsersController extends Controller
             array(
                 'action' => $this->generateUrl('journal_users_create_user'),
                 'method' => 'POST',
-                'helper' => $this->get('ojs_location.form.helper'),
             )
         );
 
