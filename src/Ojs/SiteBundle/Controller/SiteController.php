@@ -49,11 +49,11 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="'.$this->generateUrl(
+                return '<a href="' . $this->generateUrl(
                     'ojs_journals_index',
                     ['filter' => ['subject' => $node['id']]]
-                ).'">'
-                .$node['subject'].' ('.$node['totalJournalCount'].')</a>';
+                ) . '">'
+                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
             },
         ];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
@@ -86,7 +86,7 @@ class SiteController extends Controller
     {
         $data['page'] = $page;
 
-        return $this->render('OjsSiteBundle:Site:static/'.$page.'.html.twig', $data);
+        return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
     }
 
     public function institutionsIndexAction()
@@ -97,6 +97,10 @@ class SiteController extends Controller
         $repo = $em->getRepository('OjsJournalBundle:Institution');
         $data['entities'] = $repo->getAllWithDefaultTranslation();
         $data['page'] = 'institution';
+        /*
+         * @todo implement string from db
+         * $data['design']
+         */
 
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
     }
@@ -154,6 +158,11 @@ class SiteController extends Controller
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
+
+        /**
+         * @todo implement string from db
+         * $data['design']
+         */
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
@@ -301,22 +310,22 @@ class SiteController extends Controller
 
         $fileHelper = new FileHelper();
 
-        $file = $fileHelper->generatePath($file->getName(), false).$file->getName();
+        $file = $fileHelper->generatePath($file->getName(), false) . $file->getName();
 
-        $uploaddir = $this->get('kernel')->getRootDir().'/../web/uploads/';
+        $uploaddir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
 
         $yamlParser = new Parser();
         $vars = $yamlParser->parse(
             file_get_contents(
-                $this->container->getParameter('kernel.root_dir').
+                $this->container->getParameter('kernel.root_dir') .
                 '/config/media.yml'
             )
         );
         $mappings = $vars['oneup_uploader']['mappings'];
         $url = false;
         foreach ($mappings as $key => $value) {
-            if (is_file($uploaddir.$key.'/'.$file)) {
-                $url = '/uploads/'.$key.'/'.$file;
+            if (is_file($uploaddir . $key . '/' . $file)) {
+                $url = '/uploads/' . $key . '/' . $file;
                 break;
             }
         }
