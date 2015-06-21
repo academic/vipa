@@ -14,3 +14,8 @@ services:
     security.acl.security_identity_retrieval_strategy:
         class: %security.acl.security_identity_retrieval_strategy.class%
         arguments: [@security.role_hierarchy, @security.authentication.trust_resolver, @ojs.journal_service]
+
+    twig.extension.loader:
+        class:        Twig_Extension_StringLoader
+        tags:
+             - { name: 'twig.extension' }
