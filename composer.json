@@ -1,107 +1,110 @@
 {
-    "name": "okulbilisim/ojs",
-    "license": "MIT",
-    "type": "project",
-    "description": "Open Journal System",
-    "version": "0.1.0",
-    "keywords": ["ojs", "journal system", "open journal system"],
-    "support": {
-        "email": "info@okulbilisim.com"
-    },
-    "autoload": {
-        "psr-0": {
-            "": "src/"
-        }
-    },
-    "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "2.6.8",
-        "doctrine/orm": "~2.4.7",
-        "doctrine/doctrine-bundle": "~1.2",
-        "twig/extensions": "1.2.*",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~2.3",
-        "sensio/framework-extra-bundle": "~3.0",
-        "sensio/generator-bundle": "~2.3",
-        "symfony/security-bundle": "*",
-        "incenteev/composer-parameter-handler": "~2.0",
-        "doctrine/doctrine-fixtures-bundle": "2.2.*",
-        "symfony/console": "*",
-        "friendsofsymfony/rest-bundle": "@dev",
-        "jms/serializer-bundle": "@dev",
-        "nelmio/api-doc-bundle": "@dev",
-        "stof/doctrine-extensions-bundle": "~1.1@dev",
-        "oneup/uploader-bundle": "1.3.*@dev",
-        "liip/imagine-bundle": "1.2.3",
-        "caseyamcl/Phpoaipmh": ">=v2.0",
-        "knplabs/knp-paginator-bundle": "2.4.*@dev",
-        "doctrine/mongodb-odm": "1.0.*@dev",
-        "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "friendsofsymfony/elastica-bundle": "3.1.3",
-        "braincrafted/bootstrap-bundle": "~2.0",
-        "ircmaxell/password-compat": "~1.0",
-        "jms/job-queue-bundle": "1.1.0",
-        "pagerfanta/pagerfanta": "1.0.3",
-        "white-october/pagerfanta-bundle": "1.0.*@dev",
-        "fzaninotto/faker": "dev-master",
-        "nelmio/alice": "1.7.2",
-        "h4cc/alice-fixtures-bundle": "~0.5",
-        "apy/datagrid-bundle": "dev-master",
-        "tackk/cartographer": "1.0.*",
-        "unifik/database-config-bundle": "dev-master",
-
-        "okulbilisim/feedback-bundle": "dev-master",
-        "okulbilisim/cms-bundle": "dev-master",
-        "okulbilisim/citation-parser": "dev-master",
-        "okulbilisim/ojs-tools-bundle": "dev-master",
-        "jms/di-extra-bundle": "~1.5",
-        "stephanecollot/datetimepicker-bundle": "~1.0",
-        "problematic/acl-manager-bundle": "dev-master"
-    },
-    "require-dev": {
-        "okulbilisim/ojs-message-bundle": "dev-master",
-        "pugx/autocompleter-bundle": "dev-master"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/okulbilisim/OjsMessageBundle.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/okulbilisim/PUGXAutoCompleterBundle.git"
-        }
-    ],
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Ojs\\CliBundle\\Command\\InstallCommand::composer"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ]
-    },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "1.2.0-dev"
-        }
+  "name": "okulbilisim/ojs",
+  "license": "MIT",
+  "type": "project",
+  "description": "Open Journal Software",
+  "version": "0.1.0",
+  "keywords": [
+    "ojs",
+    "journal software",
+    "open journal software"
+  ],
+  "support": {
+    "email": "info@okulbilisim.com"
+  },
+  "autoload": {
+    "psr-0": {
+      "": "src/"
     }
+  },
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/symfony": "2.6.8",
+    "doctrine/orm": "~2.4.7",
+    "doctrine/doctrine-bundle": "~1.2",
+    "twig/extensions": "1.2.*",
+    "symfony/assetic-bundle": "~2.3",
+    "symfony/swiftmailer-bundle": "~2.3",
+    "symfony/monolog-bundle": "~2.4",
+    "sensio/distribution-bundle": "~2.3",
+    "sensio/framework-extra-bundle": "~3.0",
+    "sensio/generator-bundle": "~2.3",
+    "symfony/security-bundle": "*",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "doctrine/doctrine-fixtures-bundle": "2.2.*",
+    "symfony/console": "*",
+    "friendsofsymfony/rest-bundle": "@dev",
+    "jms/serializer-bundle": "@dev",
+    "nelmio/api-doc-bundle": "@dev",
+    "stof/doctrine-extensions-bundle": "~1.1@dev",
+    "oneup/uploader-bundle": "1.3.*@dev",
+    "liip/imagine-bundle": "1.2.3",
+    "caseyamcl/Phpoaipmh": ">=v2.0",
+    "knplabs/knp-paginator-bundle": "2.4.*@dev",
+    "doctrine/mongodb-odm": "1.0.*@dev",
+    "doctrine/mongodb-odm-bundle": "3.0.*@dev",
+    "friendsofsymfony/elastica-bundle": "3.1.3",
+    "braincrafted/bootstrap-bundle": "~2.0",
+    "ircmaxell/password-compat": "~1.0",
+    "jms/job-queue-bundle": "1.1.0",
+    "pagerfanta/pagerfanta": "1.0.3",
+    "white-october/pagerfanta-bundle": "1.0.*@dev",
+    "fzaninotto/faker": "dev-master",
+    "nelmio/alice": "1.7.2",
+    "h4cc/alice-fixtures-bundle": "~0.5",
+    "apy/datagrid-bundle": "dev-master",
+    "tackk/cartographer": "1.0.*",
+    "unifik/database-config-bundle": "dev-master",
+    "okulbilisim/feedback-bundle": "dev-master",
+    "okulbilisim/cms-bundle": "dev-master",
+    "okulbilisim/citation-parser": "dev-master",
+    "okulbilisim/ojs-tools-bundle": "dev-master",
+    "jms/di-extra-bundle": "~1.5",
+    "stephanecollot/datetimepicker-bundle": "~1.0",
+    "problematic/acl-manager-bundle": "dev-master"
+  },
+  "require-dev": {
+    "okulbilisim/ojs-message-bundle": "dev-master",
+    "pugx/autocompleter-bundle": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/okulbilisim/OjsMessageBundle.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/okulbilisim/PUGXAutoCompleterBundle.git"
+    }
+  ],
+  "scripts": {
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Ojs\\CliBundle\\Command\\InstallCommand::composer"
+    ],
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-web-dir": "web",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    },
+    "branch-alias": {
+      "dev-master": "1.2.0-dev"
+    }
+  }
 }
