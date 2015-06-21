@@ -41,7 +41,7 @@ class InstallTestCommand extends ContainerAwareCommand
 
         $output->writeln($sb.'Inserting roles to db'.$se);
         $installCommand = new InstallCommand();
-        $installCommand->insertRoles($this->getContainer(), $output);
+        $installCommand->insertRoles($output);
         $output->writeln($sb.'Inserting system admin user to db'.$se);
         $installCommand->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
