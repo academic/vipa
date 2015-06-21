@@ -211,8 +211,7 @@ class AdminUserController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_user_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
-                'helper' => $this->get('ojs_location.form.helper'),
+                'method' => 'PUT'
             )
         );
 
@@ -326,7 +325,7 @@ class AdminUserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('user'));
+        return $this->redirect($this->generateUrl('ojs_admin_user_index'));
     }
 
     /**
@@ -349,7 +348,7 @@ class AdminUserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('user'));
+        return $this->redirect($this->generateUrl('ojs_admin_user_unblock'));
     }
 
     /**
@@ -440,8 +439,7 @@ class AdminUserController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_user_create'),
-                'method' => 'POST',
-                'helper' => $this->get('ojs_location.form.helper'),
+                'method' => 'POST'
             )
         );
 

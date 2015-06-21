@@ -3,7 +3,8 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Ojs\Common\Params\CommonParams;
-use Ojs\LocationBundle\Helper\FormHelper;
+use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
+use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -107,21 +108,8 @@ class UserType extends AbstractType
             )
             ->add('avatar', 'hidden')
             ->add('header', 'hidden')
-            ->add(
-                'country',
-                'entity',
-                [
-                    'label' => 'country',
-                    'class' => 'Ojs\LocationBundle\Entity\Country',
-                    'attr' => [
-                        'class' => 'select2-element  bridged-dropdown',
-                        'data-to' => '#'.$this->getName().'_city',
-                    ],
-                ]
-            );
-        /** @var FormHelper $helper */
-        $helper = $options['helper'];
-        $helper->addCityField($builder, 'Ojs\UserBundle\Entity\User');
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }
 
     /**
@@ -140,7 +128,6 @@ class UserType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => 'Ojs\UserBundle\Entity\User',
-                'helper' => null,
                 'attr' => [
                     'class' => 'validate-form',
                     'novalidate' => 'novalidate',

@@ -286,10 +286,10 @@ class Institution implements Translatable
     /**
      * Set city
      *
-     * @param  Country $city
+     * @param  Province $city
      * @return $this
      */
-    public function setCity(Country $city)
+    public function setCity(Province $city = null)
     {
         $this->city = $city;
 
@@ -381,7 +381,7 @@ class Institution implements Translatable
      * @param  Country $country
      * @return $this
      */
-    public function setCountry(Country $country)
+    public function setCountry(Country $country = null)
     {
         $this->country = $country;
 

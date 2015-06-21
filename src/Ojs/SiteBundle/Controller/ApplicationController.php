@@ -61,10 +61,7 @@ class ApplicationController extends Controller
 
         $form = $this->createForm(
             new InstitutionApplicationType(),
-            $application,
-            [
-                'helper' => $this->get('ojs_location.form.helper'),
-            ]
+            $application
         );
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
