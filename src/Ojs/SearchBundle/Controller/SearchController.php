@@ -10,12 +10,10 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Elastica\ResultSet;
 use Elastica\Aggregation;
-use Pagerfanta\Adapter\ElasticaAdapter;
-use Pagerfanta\Pagerfanta;
 
 class SearchController extends Controller
 {
-    public function indexAction(Request $request, $page = 1)
+    public function indexAction(Request $request)
     {
         $queryType = $request->query->has('type')?$request->get('type'): 'basic';
         $query = $request->get('q');
