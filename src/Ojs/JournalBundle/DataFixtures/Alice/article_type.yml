@@ -1,0 +1,35 @@
+\Ojs\JournalBundle\Entity\ArticleTypes:
+  at_0:
+    name: Research
+  at_1:
+    name: Analysis
+  at_2:
+    name: Clinical Review
+  at_3:
+    name: Practice
+  at_4:
+    name: Research Methods and Reporting
+  at_5:
+    name: Christmas issue
+  at_6:
+    name: Editorials
+  at_7:
+    name: Blogs
+  at_8:
+    name: Case Reports
+  at_9:
+    name: Letters (rapid responses)
+  at_10:
+    name: Obituaries
+  at_11:
+    name: Personal Views
+  at_12:
+    name: Fillers
+  at_13:
+    name: Minerva pictures
+  at_14:
+    name: Endgames
+  at_15:
+    name: What Your Patient Is Thinking
+  at_16:
+    name: Other
