@@ -4,19 +4,19 @@ ojs_admin_application_journal_index:
 
 ojs_admin_application_journal_show:
   pattern:  /journal/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:journalDetail'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:journalDetail}
 
 ojs_admin_application_journal_edit:
   pattern:  /journal/edit/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:journalEdit'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:journalEdit}
 
 ojs_admin_application_journal_update:
   pattern:  /journal/update/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:journalUpdate'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:journalUpdate}
 
 ojs_admin_application_journal_delete:
   pattern:  /journal/delete/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:journalDelete'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:journalDelete}
   methods:  [DELETE]
 
 ojs_admin_application_journal_save:
