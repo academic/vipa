@@ -1,17 +1,19 @@
 {% extends 'OjsOAIBundle:Default:layout.html.twig' %}
 {% block content %}
-    <request verb="ListRecords" metadataPrefix="oai_dc">>http://ojs.dev/oai</request>
+    <request verb="ListRecords" metadataPrefix="oai_dc">>http://{{ base_host }}/oai</request>
     <ListRecords>
         {% for record in records %}
             <record>
                 <header>
-                    <identifier>oai:ojs.dev:article/{{ record.id }}</identifier>
+                    <identifier>oai:{{ base_host }}:article/{{ record.id }}</identifier>
                     <datestamp>{{ record.pubdate|date("Y-m-d") }}</datestamp>
                     <setSpec>:Articles</setSpec>
                 </header>
                 <metadata>
                     <{{ metadataPrefix() }}:dc
-                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/  http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
                             >
                         <dc:title xml:lang="en-US">{{ record.title }}</dc:title>
                         {% for author in record.articleAuthors %}
@@ -19,18 +21,26 @@
                         {% endfor %}
                         <dc:subject>{{ record.subjects }}</dc:subject>
                         <dc:description>{{ record.subtitle }}</dc:description>
-                        <dc:publisher></dc:publisher>
+                        <dc:publisher>{{ record.journal.institution.name }}</dc:publisher>
                         <dc:date>{{ record.pubDate|date('Y-m-d') }}</dc:date>
                         <dc:type>info:eu-repo/semantics/article</dc:type>
                         <dc:type xml:lang="en-US"></dc:type>
                         <dc:format>application/pdf</dc:format>
-                        <dc:identifier>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147</dc:identifier>
-                        <dc:identifier>10.15824/actamedica.86518</dc:identifier>
-                        <dc:source xml:lang="en-US">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
-                        <dc:source xml:lang="tr-TR">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
-                        <dc:source>2148-2357</dc:source>
+                        {% if record.issue %}
+                        <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: record.issue.id, slug: record.journal.slug,institution:record.journal.institution.slug}) }}</dc:identifier>
+                        {% else %}
+                        <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: 0, slug: record.journal.slug, institution:record.journal.institution.slug}) }}</dc:identifier>
+                        {% endif %}
+                        <dc:identifier>{{ record.doi }}</dc:identifier>
+                        {% if record.issue %}
+
+                        <dc:source xml:lang="en-US">{{ record.issue.title }}</dc:source>
+                        {% endif %}
+                        <dc:source>{{ record.journal.eissn }}</dc:source>
                         <dc:language>{{ record.primaryLanguage }}</dc:language>
-                        <dc:relation>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147/pdf_47</dc:relation>
+                        {% for file in record.articleFiles %}
+                        <dc:relation>http://{{ base_host~download(file.file) }}</dc:relation>
+                        {% endfor %}
                         <dc:rights xml:lang="en-US">
                         </dc:rights>
                     </{{ metadataPrefix() }}:dc>
