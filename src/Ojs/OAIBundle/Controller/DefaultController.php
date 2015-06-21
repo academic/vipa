@@ -32,8 +32,9 @@ class DefaultController extends Controller
                 return $this->listIdentifierAction($request);
                 break;
         }
-
-        return $this->render('OjsOAIBundle:Default:index.html.twig');
+        $response = new Response();
+        $response->headers->set('content-type','text/xml');
+        return $this->render('OjsOAIBundle:Default:index.html.twig',[],$response);
     }
 
     /**
@@ -85,7 +86,9 @@ class DefaultController extends Controller
         $records = $qb->getQuery()->getResult();
         $data['records'] = $records;
 
-        return $this->render('OjsOAIBundle:Default:records.html.twig', $data);
+        $response = new Response();
+        $response->headers->set('content-type','text/xml');
+        return $this->render('OjsOAIBundle:Default:records.html.twig', $data,$response);
     }
 
     /**
@@ -128,7 +131,9 @@ class DefaultController extends Controller
         $sets = $qb->getQuery()->getResult();
         $data['records'] = $sets;
 
-        return $this->render('OjsOAIBundle:Default:sets.html.twig', $data);
+        $response = new Response();
+        $response->headers->set('content-type','text/xml');
+        return $this->render('OjsOAIBundle:Default:sets.html.twig', $data,$response);
     }
 
     /**
