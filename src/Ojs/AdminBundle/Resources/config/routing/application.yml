@@ -29,20 +29,20 @@ ojs_admin_application_institution_index:
 
 ojs_admin_application_institution_show:
   pattern:  /institution/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionDetail'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionDetail}
 
 ojs_admin_application_institution_edit:
   pattern:  /institution/edit/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionEdit'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionEdit}
   
 ojs_admin_application_institution_update:
   pattern:  /institution/update/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionUpdate'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionUpdate}
   methods:  [PUT]
 
 ojs_admin_application_institution_delete:
   pattern:  /institution/delete/{id}
-  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionDelete'}
+  defaults: { _controller: OjsAdminBundle:AdminApplication:institutionDelete}
   methods:  [DELETE]
 
 ojs_admin_application_institution_save:
