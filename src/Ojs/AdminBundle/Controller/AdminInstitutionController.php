@@ -263,7 +263,7 @@ class AdminInstitutionController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('institution'.$id);
+        $token = $csrf->getToken('ojs_admin_institution'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
