@@ -71,7 +71,7 @@
     {% if is_granted('EDIT', entity) %}
         {% set edit_path = 'ojs_admin_institution_edit' %}
     {% endif %}
-    {% set show_path = 'ojs_admin_institution_show' %}
+    {% set back_path = 'ojs_admin_institution_show' %}
     {% if is_granted('DELETE', entity) %}
         {% set delete_path = 'ojs_admin_institution_delete' %}
     {% endif %}
