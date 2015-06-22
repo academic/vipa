@@ -2,69 +2,28 @@
 
 namespace Ojs\SearchBundle\Controller;
 
-use Elastica\Exception\NotFoundException;
 use Elastica\Index;
-use \Elastica\Query;
-use Elastica\Query\Bool;
-use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Elastica\Query;
+use Elastica\Result;
 use Elastica\ResultSet;
 use Elastica\Aggregation;
+use Symfony\Component\HttpFoundation\Request;
+use Ojs\Common\Controller\OjsController as Controller;
 
 class SearchController extends Controller
 {
+    /**
+     * search page index controller
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request)
     {
-        $queryType = $request->query->has('type')?$request->get('type'): 'basic';
-        $query = $request->get('q');
-        $section = $request->get('section');
-
-        if($queryType == 'basic'){
-
-            $data = $this->basicSearch($request,$query, $page);
-        }elseif($queryType == 'advanced'){
-
-            $data = $this->advancedSearch($request,$query, $page);
-        }elseif($queryType == 'tag'){
-
-            $data = $this->tagSearch($request,$query, $page);
-        }
-        $this->addQueryToHistory($request, $query, $queryType, $data['total_count']);
-        if(empty($section)){
-            $section = array_keys($data['results'])[0];
-            $redirectParams = array_merge($request->query->all(), ['section' => $section]);
-            return $this->redirectToRoute('ojs_search_index', $redirectParams);
-        }else{
-            $data['section'] = $section;
-        }
-        return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
-    }
-
-
-    private function tagSearch(Request $request ,$tag, $page = 1)
-    {
-        $data = [];
         /**
          * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
          */
         $searchManager = $this->get('ojs_search_manager');
-        $searchManager->addParam('term', $tag);
-        $searchManager->setPage($page);
-        $result = $searchManager->tagSearch();
-        $data['results'] = $result;
 
-        $data['query'] = $tag;
-        $data['total_count'] = $searchManager->getCount();
-        $data['queryType'] = 'tag';
-        return $data;
-    }
-
-    private function basicSearch(Request $request,$query, $page)
-    {
-        /**
-         * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
-         */
-        $searchManager = $this->get('ojs_search_manager');
         $getRoles = $request->query->get('role_filters');
         $getSubjects = $request->query->get('subject_filters');
         $getJournals = $request->query->get('journal_filters');
@@ -72,15 +31,44 @@ class SearchController extends Controller
         $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
         $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
 
+        $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
+        $query = $request->get('q');
+
+        $section = $request->get('section');
+
         $searcher = $this->get('fos_elastica.index.search');
         $searchQuery = new Query('_all');
-
         $boolQuery = new Query\Bool();
 
-        $fieldQuery = new Query\Prefix();
-        $fieldQuery->setPrefix('_all', $query);
-        $boolQuery->addMust($fieldQuery);
+        //set query according to query type
+        if ($queryType == 'basic') {
 
+            $fieldQuery = new Query\Prefix();
+            $fieldQuery->setPrefix('_all', $query);
+            $boolQuery->addMust($fieldQuery);
+        } elseif ($queryType == 'advanced') {
+
+            $parseQuery = $searchManager->parseSearchQuery($query);
+            foreach ($parseQuery as $searchTerm) {
+                $condition = $searchTerm['condition'];
+                $advancedFieldQuery = new Query\Prefix();
+                $advancedFieldQuery->setPrefix($searchTerm['searchField'], $searchTerm['searchText']);
+                if ($condition == 'AND') {
+                    $boolQuery->addMust($advancedFieldQuery);
+                } elseif ($condition == 'OR') {
+                    $boolQuery->addShould($advancedFieldQuery);
+                } elseif ($condition == 'NOT') {
+                    $boolQuery->addMustNot($advancedFieldQuery);
+                }
+            }
+        } elseif ($queryType == 'tag') {
+
+            $matchQuery = new Query\Match();
+            $matchQuery->setField('tags', $query);
+            $boolQuery->addMust($matchQuery);
+        }
+
+        //set aggregations if requested
         if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters)) {
 
             foreach ($roleFilters as $role) {
@@ -101,48 +89,87 @@ class SearchController extends Controller
                 $boolQuery->addMust($match);
             }
         }
+        //set our boolean query
         $searchQuery->setQuery($boolQuery);
 
+        //get role aggregation
         $roleAgg = new Aggregation\Terms('roles');
         $roleAgg->setField('userJournalRoles.role.name');
         $roleAgg->setOrder('_term', 'asc');
         $roleAgg->setSize(0);
         $searchQuery->addAggregation($roleAgg);
 
+        //get subject aggregation
         $subjectAgg = new Aggregation\Terms('subjects');
         $subjectAgg->setField('subjects');
         $subjectAgg->setOrder('_term', 'asc');
         $subjectAgg->setSize(0);
         $searchQuery->addAggregation($subjectAgg);
 
+        //get journal aggregation
         $journalAgg = new Aggregation\Terms('journals');
         $journalAgg->setField('userJournalRoles.journal.title');
         $journalAgg->setOrder('_term', 'asc');
         $journalAgg->setSize(0);
         $searchQuery->addAggregation($journalAgg);
 
+        /**
+         * @var ResultSet $resultData
+         */
         $resultData = $searcher->search($searchQuery);
 
         $roles = $resultData->getAggregation('roles')['buckets'];
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
 
-        $return_data = [];
+        /**
+         * manipulate result data for easily use on template
+         */
+        $results = [];
         foreach ($resultData as $result) {
             /** @var Result $result */
-            if (!isset($return_data[$result->getType()])) {
-                $return_data[$result->getType()] = ['type', 'data'];
+            if (!isset($results[$result->getType()])) {
+                $results[$result->getType()] = ['type', 'data'];
             }
-            $return_data[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
-            if (isset($return_data[$result->getType()]['data'])):
-                $return_data[$result->getType()]['data'][] = $searchManager->getObject($result); else:
-                $return_data[$result->getType()]['data'] = [$searchManager->getObject($result)];
-            endif;
+            $results[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
+            if (isset($results[$result->getType()]['data'])) {
+                $results[$result->getType()]['data'][] = $searchManager->getObject($result);
+            } else {
+                $results[$result->getType()]['data'] = [$searchManager->getObject($result)];
+            }
         }
+
+        /**
+         * if search section is not defined or empty redirect to first result section
+         */
+        if (empty($section)) {
+            $section = array_keys($results)[0];
+            $redirectParams = array_merge($request->query->all(), ['section' => $section]);
+            return $this->redirectToRoute('ojs_search_index', $redirectParams);
+        } else {
+            /**
+             * if section result is empty redirect to first that have result section
+             */
+            if (!isset($results[$section])) {
+                foreach ($results as $resultKey => $result) {
+                    if (count($results[$resultKey]['data']) > 0) {
+
+                        $redirectParams = array_merge($request->query->all(), ['section' => $resultKey]);
+                        return $this->redirectToRoute('ojs_search_index', $redirectParams);
+                    }
+                }
+            }
+        }
+        /**
+         * add search query to query history
+         * history data stores on session
+         */
+        $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
         $data = [
-            'results' => $return_data,
+            'results' => $results,
             'query' => $query,
-            'queryType' => 'basic',
+            'queryType' => $queryType,
+            'section' => $section,
             'total_count' => $resultData->count(),
             'roles' => $roles,
             'subjects' => $subjects,
@@ -151,75 +178,28 @@ class SearchController extends Controller
             'subject_filters' => $subjectFilters,
             'journal_filters' => $journalFilters,
         ];
-        return $data;
+        return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
 
-    private function advancedSearch(Request $request, $query, $page)
-    {
-        /**
-         * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
-         */
-        $searchManager = $this->get('ojs_search_manager');
-        /**
-         * @var \FOS\ElasticaBundle\Elastica\Index $search
-         */
-        $search = $this->container->get('fos_elastica.index.search');
-        $boolQuery = new Bool();
-        if (empty($query))
-            throw new NotFoundException('You must specify an term to search!');
-        $parseQuery =$searchManager->parseSearchQuery($query);
-        if(count($parseQuery)<1)
-            throw new NotFoundException('We found anything!');
-
-        foreach($parseQuery as $searchTerm){
-            $condition = $searchTerm['condition'];
-            $fieldQuery = new Query\Prefix();
-            $fieldQuery->setPrefix($searchTerm['searchField'], $searchTerm['searchText']);
-            if($condition == 'AND'){
-                $boolQuery->addMust($fieldQuery);
-            }elseif($condition == 'OR'){
-                $boolQuery->addShould($fieldQuery);
-            }elseif($condition == 'NOT'){
-                $boolQuery->addMustNot($fieldQuery);
-            }
-        }
-        /**
-         * @var \Elastica\ResultSet $data
-         */
-        $data = $search->search($boolQuery);
-        $return_data = [];
-
-        foreach ($data as $result) {
-            /** @var Result $result */
-            if (!isset($return_data[$result->getType()])) {
-                $return_data[$result->getType()] = ['type', 'data'];
-            }
-            $return_data[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
-            if (isset($return_data[$result->getType()]['data'])):
-                $return_data[$result->getType()]['data'][] = $searchManager->getObject($result); else:
-                $return_data[$result->getType()]['data'] = [$searchManager->getObject($result)];
-            endif;
-        }
-        $rData = [
-            'results' => $return_data,
-            'query' => $query,
-            'total_count' => $data->getTotalHits(),
-            'queryType' => 'advanced'
-        ];
-        return $rData;
-    }
-
+    /**
+     * store query to query history for future searches
+     * @param Request $request
+     * @param $query
+     * @param $queryType
+     * @param $totalCount
+     * @return bool
+     */
     private function addQueryToHistory(Request $request, $query, $queryType, $totalCount)
     {
         $session = $request->getSession();
-        if(!$session->has('_query_history')){
+        if (!$session->has('_query_history')) {
             $session->set('_query_history', []);
         }
         $queryHistory = $session->get('_query_history');
         $queryCount = count($queryHistory);
         $setQuery['type'] = $queryType;
         $setQuery['time'] = date("H:i:s");
-        $setQuery['id'] = $queryCount+1;
+        $setQuery['id'] = $queryCount + 1;
         $setQuery['query'] = $query;
         $setQuery['totalHits'] = $totalCount;
         $queryHistory[] = $setQuery;
@@ -227,6 +207,10 @@ class SearchController extends Controller
         return true;
     }
 
+    /**
+     * advanced search builder page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function advancedAction()
     {
         $search = $this->container->get('fos_elastica.index.search');
@@ -236,6 +220,10 @@ class SearchController extends Controller
         ]);
     }
 
+    /**
+     * Tag cloud page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function tagCloudAction()
     {
         $search = $this->container->get('fos_elastica.index.search');
@@ -251,7 +239,6 @@ class SearchController extends Controller
                 $data['tags'][] = $tag;
             }
         }
-
         return $this->render('OjsSearchBundle:Search:tags_cloud.html.twig', $data);
     }
 }
