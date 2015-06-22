@@ -262,7 +262,7 @@ class ManagerController extends Controller
             ->findBy(array('userId' => $user->getId(), 'accept' => null));
 
         if ($user->isAdmin()) {
-            return $this->redirect($this->generateUrl('dashboard_admin'));
+            return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
         }
 
         return $this->render(
