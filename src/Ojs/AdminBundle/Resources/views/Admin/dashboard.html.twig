@@ -5,15 +5,20 @@
     <!-- TODO: Place this elsewhere -->
     <div style="text-align: center">
         <h1>{{ "dashboard.admin"|trans }}</h1>
+
+        {% if selectedJournal() %}
+            <a href="{{ path("dashboard_editor") }}">
+                <button class="btn btn-primary">
+                    {{ selectedJournal().title }} {{ "dashboard.editor"|trans }}
+                </button>
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block body %}
     {% include '::flashbag.html.twig' %}
     <div class="col-md-6">
-        {% if selectedJournal() %}
-            <a href="{{ path("dashboard_editor") }}"><strong>{{ selectedJournal().title }} {{ "dashboard.editor"|trans }}</strong></a>
-        {% endif %}
 
         <div class="panel panel-primary">
             <div class="panel-heading">
