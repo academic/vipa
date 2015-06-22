@@ -122,40 +122,42 @@ class SearchController extends Controller
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
 
-        /**
-         * manipulate result data for easily use on template
-         */
         $results = [];
-        foreach ($resultData as $result) {
-            /** @var Result $result */
-            if (!isset($results[$result->getType()])) {
-                $results[$result->getType()] = ['type', 'data'];
-            }
-            $results[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
-            if (isset($results[$result->getType()]['data'])) {
-                $results[$result->getType()]['data'][] = $searchManager->getObject($result);
-            } else {
-                $results[$result->getType()]['data'] = [$searchManager->getObject($result)];
-            }
-        }
-
-        /**
-         * if search section is not defined or empty redirect to first result section
-         */
-        if (empty($section)) {
-            $section = array_keys($results)[0];
-            $redirectParams = array_merge($request->query->all(), ['section' => $section]);
-            return $this->redirectToRoute('ojs_search_index', $redirectParams);
-        } else {
+        if($resultData->count()>0){
             /**
-             * if section result is empty redirect to first that have result section
+             * manipulate result data for easily use on template
              */
-            if (!isset($results[$section])) {
-                foreach ($results as $resultKey => $result) {
-                    if (count($results[$resultKey]['data']) > 0) {
+            foreach ($resultData as $result) {
+                /** @var Result $result */
+                if (!isset($results[$result->getType()])) {
+                    $results[$result->getType()] = ['type', 'data'];
+                }
+                $results[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
+                if (isset($results[$result->getType()]['data'])) {
+                    $results[$result->getType()]['data'][] = $searchManager->getObject($result);
+                } else {
+                    $results[$result->getType()]['data'] = [$searchManager->getObject($result)];
+                }
+            }
 
-                        $redirectParams = array_merge($request->query->all(), ['section' => $resultKey]);
-                        return $this->redirectToRoute('ojs_search_index', $redirectParams);
+            /**
+             * if search section is not defined or empty redirect to first result section
+             */
+            if (empty($section)) {
+                $section = array_keys($results)[0];
+                $redirectParams = array_merge($request->query->all(), ['section' => $section]);
+                return $this->redirectToRoute('ojs_search_index', $redirectParams);
+            } else {
+                /**
+                 * if section result is empty redirect to first that have result section
+                 */
+                if (!isset($results[$section])) {
+                    foreach ($results as $resultKey => $result) {
+                        if (count($results[$resultKey]['data']) > 0) {
+
+                            $redirectParams = array_merge($request->query->all(), ['section' => $resultKey]);
+                            return $this->redirectToRoute('ojs_search_index', $redirectParams);
+                        }
                     }
                 }
             }
