@@ -671,7 +671,7 @@ user_page: 'Kullanıcı Sayfası'
 profile: Profil
 log_out: 'Oturumu Kapat'
 proxy_users: 'Vekil Kullanıcılar'
-login_as: 'Gibi Oturum Aç'
+login_as: 'Kullanıcının Hesabıyla Giriş Yap'
 list_my_proxys: 'Vekil Kullanıcılarım'
 privacy: Gizlilik
 tos: 'Kullanım Şartları'
