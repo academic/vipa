@@ -16,16 +16,9 @@ class LangType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code', 'text', array('attr' => array('placeholder' => 'Do not use special characters')))
-            ->add('name')
-            ->add(
-                'rtl',
-                'checkbox',
-                array(
-                    'label' => 'Right to left?',
-                    'required' => false,
-                )
-            );
+            ->add('code', 'text', ['attr' => ['placeholder' => 'Do not use special characters'], 'label' => 'lang.code'])
+            ->add('name', 'text', ['label' => 'lang.name'])
+            ->add('rtl', 'checkbox', ['label' => 'lang.rtl', 'required' => false]);
     }
 
     /**
