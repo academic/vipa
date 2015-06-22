@@ -14,7 +14,7 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     <hr>
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Issue')) %}
+    {% if is_granted('CREATE', selectedJournal(), 'issues') %}
         <a href="{{ path('issue_manager_issue_new') }}" class="btn btn-info">
             <i class="fa fa-plus"></i> {{ "create"|trans }}
         </a>

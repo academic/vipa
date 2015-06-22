@@ -402,7 +402,7 @@ class Article implements Translatable
      * @param  Issue $issue
      * @return $this
      */
-    public function setIssue(Issue $issue)
+    public function setIssue(Issue $issue = null)
     {
         $this->issue = $issue;
 
