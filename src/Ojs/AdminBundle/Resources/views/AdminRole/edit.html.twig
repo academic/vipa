@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_role_index'),'title': 'ojs_admin_role_index'|trans},
-    {'title': 'edit'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_admin_role_index'),'title': 'title.roles'|trans},
+        {'title': 'title.role_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,7 +14,7 @@
     <div class="large-12 columns">
         <div class="panel">
             {% include '::flashbag.html.twig' %}
-            <h1>{{ "role.edit"|trans }} #{{ entity.id }}</h1>
+            <h1>{{ "role.edit"|trans }}</h1>
 
             {{ form(edit_form) }}
 
