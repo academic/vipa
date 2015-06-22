@@ -1223,6 +1223,8 @@ admin.dashboard.applications: "Başvurular"
 
 
 # TODO: Use a key-value pair
+'ID': "Sıra No"
+'Name': "İsim"
+'Content': "İçerik"
 'Update': "Güncelle"
-'Is Public?': 'Görünür mü?'
-'Name': 'İsim'
+'Is Public?': "Görünür mü?"

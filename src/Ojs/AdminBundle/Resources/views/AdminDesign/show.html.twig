@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_design_index'),'title': 'design'|trans},
-    {'title': 'show'|trans}
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_admin_design_index'),'title': 'title.designs'|trans},
+        {'title': 'title.design_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -16,19 +16,19 @@
     <table class="record_properties  table">
         <tbody>
         <tr>
-            <th>{{ 'id'|trans }}</th>
+            <th>{{ 'ID'|trans }}</th>
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>{{ "name"|trans }}</th>
+            <th>{{ "Name"|trans }}</th>
             <td>{{ entity.name }}</td>
         </tr>
         <tr>
-            <th>{{ "content"|trans }}</th>
+            <th>{{ "Content"|trans }}</th>
             <td>{{ entity.title }}</td>
         </tr>
         <tr>
-            <th>{{ "basedesign"|trans }}</th>
+            <th>{{ "Is Public?"|trans }}</th>
             <td>{{ entity.isPublic }}</td>
         </tr>
         </tbody>
