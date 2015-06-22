@@ -47,12 +47,15 @@ class HistoryExtension extends \Twig_Extension
     {
         /** @var LogEntryRepository $repo */
         $repo = $this->em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        /** @var LogEntry[] $logs */
         $logs = array_reverse($repo->getLogEntries($entity));
         $logsArray = array();
         $logLastData = array();
         if (is_array($logs)) {
             foreach ($logs as $log) {
-                /** @var LogEntry $log */
+                if(!$log instanceof LogEntry){
+                    continue;
+                }
                 $logRow = new \stdClass();
                 $logRow->id = $log->getId();
                 $logRow->loggedAt = $log->getLoggedAt();

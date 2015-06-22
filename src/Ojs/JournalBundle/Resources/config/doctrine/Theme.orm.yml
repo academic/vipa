@@ -19,14 +19,20 @@ Ojs\JournalBundle\Entity\Theme:
         name:
             type: string
             length: 255
+            gedmo:
+              - versioned
         title:
             type: string
             length: 255
             nullable: true
+            gedmo:
+              - versioned
         isPublic:
             column: is_public
             type: boolean
             nullable: true
+            gedmo:
+                - versioned
             options:
                 default: true
         created:
