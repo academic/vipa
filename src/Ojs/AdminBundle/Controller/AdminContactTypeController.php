@@ -190,7 +190,7 @@ class AdminContactTypeController extends Controller
             )
         );
 
-        $form->add('submit', 'submit', array('label' => $this->get('translator')->trans('update')));
+        $form->add('submit', 'submit', ['label' => 'Update']);
 
         return $form;
     }

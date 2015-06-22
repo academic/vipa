@@ -1222,4 +1222,4 @@ admin.dashboard.journal_settings: "Dergi Ayarları"
 admin.dashboard.applications: "Başvurular"
 
 # TODO: Use a key-value pair
-'update': "Güncelle"
+'Update': "Güncelle"
