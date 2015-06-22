@@ -201,7 +201,6 @@ class AdminSubjectController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_subject_update', array('id' => $entity->getId())),
-                'apiRoot' => $this->generateUrl('ojs_api_homepage'),
                 'method' => 'PUT',
             )
         );

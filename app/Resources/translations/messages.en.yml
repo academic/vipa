@@ -1498,6 +1498,8 @@ title.workflow_template: "Workflow Template"
 title.workflow_templates: "Workflow Templates"
 title.working_step_preview: "Preview Working Step"
 
+button.toggle_tree: "Toggle Tree"
+
 tag.search.results: "Tag Search Result"
 tags.cloud: "Tag Cloud"
 journal.articles: "Journal Articles"
