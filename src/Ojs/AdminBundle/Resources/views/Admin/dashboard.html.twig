@@ -33,6 +33,13 @@
                     {{ "users"|trans }}
                 </a>
 
+                <a class="list-group-item" href="{{ path('ojs_admin_journal_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-newspaper-o"></i>
+                    </span>
+                    {{ "user.journalrole.alljournals"|trans }}
+                </a>
+
                 <a class="list-group-item" href="{{ path('ojs_admin_role_index') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
                         <i class="fa fa-key"></i>
@@ -104,12 +111,6 @@
             </div>
 
             <div class="list-group">
-                <a class="list-group-item" href="{{ path('ojs_admin_journal_index') }}">
-                    <span style="color: #337ab7; margin-right: 3px;">
-                        <i class="fa fa-asterisk"></i>
-                    </span>
-                    {{ "user.journalrole.alljournals"|trans }}
-                </a>
 
                 <a class="list-group-item" href="{{ path('ujr') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
