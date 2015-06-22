@@ -53,7 +53,7 @@ class HistoryExtension extends \Twig_Extension
         $logLastData = array();
         if (is_array($logs)) {
             foreach ($logs as $log) {
-                if(!$log instanceof LogEntry){
+                if(!$log instanceof LogEntry || !is_array($log->getData())){
                     continue;
                 }
                 $logRow = new \stdClass();
