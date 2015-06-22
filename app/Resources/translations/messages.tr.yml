@@ -548,7 +548,7 @@ mailtemplate.default_template: Varsayılan mail şablonu
 dashboard.general.stats: 'Genel İstatistik'
 stats.most.viewed.article: 'En Çok Görüntülenen Makale'
 stats.most.downloaded.article: 'En Çok İndirilen Makale'
-dashboard.admin: 'Admin Paneli'
+dashboard.admin: 'Yönetim Paneli'
 dashboard.editor: 'Editör Paneli'
 dashboard.objects: Nesneler
 dashboard.operations: Operasyonlar
@@ -1214,3 +1214,8 @@ search.result.headline: "%term% için toplam %total% sonuç."
 tagsearch: 'Etiket Arama'
 basicsearch: 'Basit Arama'
 advancedsearch: 'Gelişmiş Arama'
+
+admin.dashboard.system_settings: "Sistem Ayarları"
+admin.dashboard.journal_settings: "Dergi Ayarları"
+admin.dashboard.applications: "Başvurular"
+

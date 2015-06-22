@@ -1514,3 +1514,7 @@ search.result.headline: "Total %total% item for %term% query."
 tagsearch: 'Tag Search'
 basicsearch: 'Basic Search'
 advancedsearch: 'Advanced Search'
+
+admin.dashboard.system_settings: "System Settings"
+admin.dashboard.journal_settings: "Journal Settings"
+admin.dashboard.applications: "Applications"

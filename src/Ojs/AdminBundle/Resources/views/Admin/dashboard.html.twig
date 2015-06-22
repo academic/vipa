@@ -2,84 +2,204 @@
 {% block title %}{{ 'title.manager_dashboard'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
-    {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'title': 'dashboard'|trans}
-    ] %}
-    {{ breadcrumb(list) }}
+    <!-- TODO: Place this elsewhere -->
+    <div style="text-align: center">
+        <h1>{{ "dashboard.admin"|trans }}</h1>
+    </div>
 {% endblock %}
 
 {% block body %}
-    <h1>{{ "dashboard.admin"|trans }}</h1>
-
     {% include '::flashbag.html.twig' %}
     <div class="col-md-6">
         {% if selectedJournal() %}
             <a href="{{ path("dashboard_editor") }}"><strong>{{ selectedJournal().title }} {{ "dashboard.editor"|trans }}</strong></a>
         {% endif %}
-        <h2>{{ "dashboard.objects"|trans }}</h2>
 
-        <div class="list-group">
-            <a class="list-group-item" href="{{ path('ojs_admin_user_index') }}"><i class="fa fa-cogs"></i> {{ "users"|trans }}</a>
-            <a class="list-group-item" href="{{ path('ojs_admin_role_index') }}">
-                <i class="fa fa-cogs"></i> {{ "roles"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_journal_index') }}">
-                <i class="fa fa-asterisk"></i> {{ "user.journalrole.alljournals"|trans }}</a>
-            <a class="list-group-item" href="{{ path('ujr') }}">
-                <i class="fa fa-cogs"></i> {{ "User Journal Roles"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('article') }}">
-                <i class="fa fa-cogs"></i> {{ "articles"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_article_type_index') }}">
-                <i class="fa fa-cogs"></i> {{ "article.types"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_language_index') }}">
-                <i class="fa fa-cogs"></i> {{ "languages"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('issue') }}">
-                <i class="fa fa-cogs"></i> {{ "issue"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_institution_index') }}">
-                <i class="fa fa-cogs"></i> {{ "institution"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_institution_type_index') }}">
-                <i class="fa fa-cogs"></i> {{ "institutiontype.plural"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('citation') }}">
-                <i class="fa fa-cogs"></i> {{ "citations"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('contact') }}">
-                <i class="fa fa-cogs"></i>  {{ "contact"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_contact_type_index') }}">{{ "contacttype.plural"|trans }}</a>
-            <a class="list-group-item" href="{{ path('admin_journalindex') }}">
-                <i class="fa fa-cogs"></i>  {{ "journalsindex.plural"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_subject_index') }}"><i class="fa fa-cogs"></i>
-                {{ "subject.plural"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('admin_board') }}">
-                <i class="fa fa-cogs"></i>  {{ "boards"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('okulbilisim_feedback_homepage') }}"><i
-                        class="fa fa-envelope"></i>  {{ "feedback"|trans }}
-            </a>
-            <a class="list-group-item" href="{{ path('ojs_admin_theme_index') }}">{{ "theme.plural"|trans }}</a>
-            <a class="list-group-item" href="{{ path('admin_journaltheme') }}">{{ "journal.theme"|trans }}</a>
-            <a class="list-group-item" href="{{ path('admin_journaldesign') }}">{{ "journal.design"|trans }}</a>
-            <a class="list-group-item" href="{{ path('ojs_admin_design_index') }}">{{ "design"|trans }}</a>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span style="font-size: 24px">{{ 'admin.dashboard.system_settings'|trans }}</span>
+            </div>
+
+            <div class="list-group">
+                <a class="list-group-item" href="{{ path('ojs_admin_user_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-users"></i>
+                    </span>
+                    {{ "users"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_role_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-key"></i>
+                    </span>
+                    {{ "roles"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_language_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-language"></i>
+                    </span>
+                    {{ "languages"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_institution_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-university"></i>
+                    </span>
+                    {{ "institution"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_institution_type_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-building"></i>
+                    </span>
+                    {{ "institutiontype.plural"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_article_type_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-file-text"></i>
+                    </span>
+                    {{ "article.types"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_contact_type_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    {{ "contacttype.plural"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_subject_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-bookmark"></i>
+                    </span>
+                    {{ "subject.plural"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_theme_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-th-large"></i>
+                    </span>
+                    {{ "theme.plural"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_design_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-navicon"></i>
+                    </span>
+                    {{ "design"|trans }}
+                </a>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span style="font-size: 24px">{{ 'admin.dashboard.journal_settings'|trans }}</span>
+            </div>
+
+            <div class="list-group">
+                <a class="list-group-item" href="{{ path('ojs_admin_journal_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-asterisk"></i>
+                    </span>
+                    {{ "user.journalrole.alljournals"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ujr') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-key"></i>
+                    </span>
+                    {{ "User Journal Roles"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('article') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-file-text"></i>
+                    </span>
+                    {{ "articles"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('issue') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-newspaper-o"></i>
+                    </span>
+                    {{ "issue"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('citation') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-quote-right"></i>
+                    </span>
+                    {{ "citations"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('contact') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    {{ "contact"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('admin_journalindex') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-sitemap"></i>
+                    </span>
+                    {{ "journalsindex.plural"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('admin_board') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-users"></i>
+                    </span>
+                    {{ "boards"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('okulbilisim_feedback_homepage') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                    {{ "feedback"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('admin_journaltheme') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-th-large"></i>
+                    </span>
+                    {{ "journal.theme"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('admin_journaldesign') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-navicon"></i>
+                    </span>
+                    {{ "journal.design"|trans }}
+                </a>
+            </div>
         </div>
     </div>
+
     <div class="col-md-6">
-        <h2>{{ "dashboard.application"|trans }}</h2>
-        <ul class="list-group">
-            <li class="list-group-item"><a
-                        href="{{ path('ojs_admin_application_journal_index') }}">{{ "application.journal"|trans }}</a></li>
-            <li class="list-group-item"><a
-                        href="{{ path('ojs_admin_application_institution_index') }}">{{ "application.institute"|trans }}</a></li>
-        </ul>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span style="font-size: 24px">{{ 'admin.dashboard.applications'|trans }}</span>
+            </div>
+            <div class="list-group">
+                <a class="list-group-item" href="{{ path('ojs_admin_application_journal_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-newspaper-o"></i>
+                    </span>
+                    {{ "application.journal"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_application_institution_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-university"></i>
+                    </span>
+                    {{ "application.institute"|trans }}
+                </a>
+            </div>
+        </div>
     </div>
     <div class="col-md-12">
         {{ getLogs(selectedJournal()) }}
