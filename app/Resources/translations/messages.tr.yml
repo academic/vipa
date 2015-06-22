@@ -1199,6 +1199,8 @@ institution.edit: "Kurumu Düzenle"
 institution.detail: "Kurum Detayları"
 journal.articles: "Dergi Makaleleri"
 
+button.toggle_tree: "Ağaç Şeklinde Göster"
+
 tag.search.results: "Etiket Arama Sonuçları"
 tags.cloud: "Etiket Bulutu"
 printed: "Basıldı mı?"
