@@ -6,7 +6,7 @@ services:
     #kernel.listener.domain_listener:
     #   class: Ojs\Common\Services\DomainListener
     #   arguments:
-    #        [@doctrine.orm.entity_manager, %base_host%, @service_container]
+    #        [@doctrine.orm.entity_manager, %base_host%]
     #   tags:
     #        -
     #            name: kernel.event_listener
@@ -87,7 +87,7 @@ services:
         arguments: ["@api_key_user_provider"]
     ojs_search_manager:
         class: Ojs\SearchBundle\Manager\SearchManager
-        arguments: [@service_container]
+        arguments: [@fos_elastica.index.search, @doctrine.orm.entity_manager, @doctrine, @property_accessor, @translator]
 
     ojs.twig.common_extension:
         class: Ojs\SiteBundle\Twig\CommonExtension
