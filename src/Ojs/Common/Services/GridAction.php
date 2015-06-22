@@ -91,7 +91,7 @@ class GridAction
         );
         $rowAction->setRouteParameters('id');
         $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage($this->translator->trans('block'));
+        $rowAction->setConfirmMessage($this->translator->trans('Are you sure?'));
         if ($role) {
             $rowAction->setRole($role);
         }

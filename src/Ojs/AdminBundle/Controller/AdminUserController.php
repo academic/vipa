@@ -292,7 +292,7 @@ class AdminUserController extends Controller
         }
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('user'.$id);
+        $token = $csrf->getToken('ojs_admin_user'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -303,7 +303,7 @@ class AdminUserController extends Controller
 
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('user');
+        return $this->redirectToRoute('ojs_admin_user_index');
     }
 
     /**
