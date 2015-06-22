@@ -33,7 +33,6 @@ class JournalTheme implements Translatable
     /**
      *
      * @var Journal
-     * @GRID\Column(title="journal",field="journal.title")
      */
     private $journal;
 
