@@ -3,7 +3,6 @@
 namespace Ojs\Common\Services;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class DomainListener
@@ -11,13 +10,11 @@ class DomainListener
 
     private $em;
     private $baseHost;
-    private $container;
 
-    public function __construct(EntityManager $em, $baseHost, ContainerInterface $container)
+    public function __construct(EntityManager $em, $baseHost)
     {
         $this->em = $em;
         $this->baseHost = $baseHost;
-        $this->container = $container;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -27,7 +24,7 @@ class DomainListener
           $currentHost = $request->getHttpHost();
           $subdomain = str_replace('.' . $this->baseHost, '', $currentHost);
           if ($this->baseHost === $subdomain) {
-          $request = $this->container->get('request');
+          $request = $event->getRequest();
           $routeName = $request->get('_route');
           if ($routeName == 'ojs_institution_page') {
           $params = $request->attributes->get('_route_params');
