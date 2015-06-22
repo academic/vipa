@@ -179,7 +179,7 @@ class AdminLanguageController extends Controller
             )
         );
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => $this->get('translator')->trans('update')));
 
         return $form;
     }
