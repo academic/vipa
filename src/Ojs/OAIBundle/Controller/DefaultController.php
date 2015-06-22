@@ -42,7 +42,7 @@ class DefaultController extends Controller
      */
     public function identifyAction()
     {
-        return new Response();
+        return $this->response("OjsOAIBundle:Default:identify.html.twig");
     }
 
     /**
@@ -86,9 +86,7 @@ class DefaultController extends Controller
         $records = $qb->getQuery()->getResult();
         $data['records'] = $records;
 
-        $response = new Response();
-        $response->headers->set('content-type','text/xml');
-        return $this->render('OjsOAIBundle:Default:records.html.twig', $data,$response);
+        return $this->response('OjsOAIBundle:Default:records.html.twig', $data);
     }
 
     /**
@@ -131,9 +129,7 @@ class DefaultController extends Controller
         $sets = $qb->getQuery()->getResult();
         $data['records'] = $sets;
 
-        $response = new Response();
-        $response->headers->set('content-type','text/xml');
-        return $this->render('OjsOAIBundle:Default:sets.html.twig', $data,$response);
+        return $this->response('OjsOAIBundle:Default:sets.html.twig', $data);
     }
 
     /**
@@ -150,5 +146,12 @@ class DefaultController extends Controller
     public function listIdentifierAction()
     {
         return new Response();
+    }
+
+    public function response($template, $data=[])
+    {
+        $response = new Response();
+        $response->headers->set('content-type','text/xml');
+        return $this->render($template,$data,$response);
     }
 }
