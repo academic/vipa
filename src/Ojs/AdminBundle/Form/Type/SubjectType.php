@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -31,7 +32,14 @@ class SubjectType extends AbstractType
                     ],
                 )
             )
-            ->add('parent');
+            ->add(
+                'parent',
+                'entity',
+                array(
+                    'class' => 'OjsJournalBundle:Subject',
+                    'label' => 'parent',
+                )
+            );
     }
 
     /**
