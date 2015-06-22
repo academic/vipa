@@ -227,17 +227,22 @@ class SearchController extends Controller
     public function tagCloudAction()
     {
         $search = $this->container->get('fos_elastica.index.search');
-        $prefix = new Query\Prefix();
-        $prefix->setPrefix('tags', '');
-        $qe = new Query();
-        $qe->setQuery($prefix);
+        $searchQuery = new Query('_all');
 
-        $results = $search->search($prefix);
+        //get tags aggregation
+        $tagsAgg = new Aggregation\Terms('tags');
+        $tagsAgg->setField('tags');
+        $tagsAgg->setOrder('_term', 'asc');
+        $tagsAgg->setSize(0);
+        $searchQuery->addAggregation($tagsAgg);
+        /**
+         * @var ResultSet $results
+         */
+        $results = $search->search($searchQuery);
+
         $data['tags'] = [];
-        foreach ($results as $result) {
-            foreach (explode(',', $result->getData()['tags']) as $tag) {
-                $data['tags'][] = $tag;
-            }
+        foreach ($results->getAggregations()['tags']['buckets'] as $result) {
+            $data['tags'][] = $result['key'];
         }
         return $this->render('OjsSearchBundle:Search:tags_cloud.html.twig', $data);
     }
