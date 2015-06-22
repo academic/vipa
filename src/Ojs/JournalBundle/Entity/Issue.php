@@ -38,7 +38,6 @@ class Issue implements Translatable
     /**
      *
      * @var Journal
-     * @GRID\Column(field="journal.title",title="Journal")
      * @Groups({"IssueDetail"})
      */
     private $journal;

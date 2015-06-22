@@ -13,9 +13,8 @@
 {% block body -%}
     <h1>{{ "issue.new"|trans }}</h1>
 
-    {% if isSystemAdmin() %}
-        <a class="btn btn-default" href="{{ path('issue') }}">{{ "back"|trans }}</a>
-    {% endif %}
+    <a class="btn btn-default" href="{{ path('issue') }}">{{ "back"|trans }}</a>
+
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}

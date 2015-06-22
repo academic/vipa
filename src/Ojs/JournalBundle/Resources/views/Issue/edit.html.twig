@@ -78,13 +78,12 @@
     </button>
     {{ form_end(edit_form) }}
     <hr>
-    {% if isSystemAdmin() %}
-        {% set back_path = 'issue' %}
-        {% if is_granted('DELETE', edit_form.vars.data) %}
-            {% set delete_path = 'issue_delete' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
+
+    {% set back_path = 'issue' %}
+    {% if is_granted('DELETE', selectedJournal(), 'issues') %}
+        {% set delete_path = 'issue_delete' %}
     {% endif %}
+    {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
 
