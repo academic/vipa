@@ -189,7 +189,8 @@ class AdminContactTypeController extends Controller
                 'method' => 'PUT',
             )
         );
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        
+        $form->add('submit', 'submit', array('label' => $this->get('translator')->trans('update')));
 
         return $form;
     }
