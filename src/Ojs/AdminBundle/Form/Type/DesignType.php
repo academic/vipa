@@ -16,10 +16,10 @@ class DesignType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('title')
-            ->add('content')
-            ->add('isPublic');
+            ->add('name', 'text', ['label' => 'Name'])
+            ->add('title', 'text', ['label' => 'Title'])
+            ->add('content', 'textarea', ['label' => 'Content'])
+            ->add('isPublic', 'checkbox', ['label' => 'Is Public?']);
     }
 
     /**
