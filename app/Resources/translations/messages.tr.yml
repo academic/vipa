@@ -1221,5 +1221,8 @@ admin.dashboard.system_settings: "Sistem Ayarları"
 admin.dashboard.journal_settings: "Dergi Ayarları"
 admin.dashboard.applications: "Başvurular"
 
+
 # TODO: Use a key-value pair
 'Update': "Güncelle"
+'Is Public?': 'Görünür mü?'
+'Name': 'İsim'

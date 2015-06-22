@@ -16,9 +16,9 @@ class ThemeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('title')
-            ->add('isPublic');
+            ->add('name', 'text', ['label' => 'Name'])
+            ->add('title', 'text', ['label' => 'Title'])
+            ->add('isPublic', 'checkbox', ['label' => 'Is Public?']);
     }
 
     /**
