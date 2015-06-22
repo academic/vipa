@@ -178,13 +178,8 @@ class AdminRoleController extends Controller
                 'method' => 'PUT',
             )
         );
-        $form->add(
-            'submit',
-            'submit',
-            array(
-                'attr' => array('label ' => $this->get('translator')->trans('update')),
-            )
-        );
+
+        $form->add('submit', 'submit', array('label' => $this->get('translator')->trans('update')));
 
         return $form;
     }
