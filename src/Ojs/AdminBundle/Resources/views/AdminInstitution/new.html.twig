@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_institution_index'),'title': 'institution.manager'|trans},
-    {'title': 'new'|trans}
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('ojs_admin_institution_index'),'title': 'title.institutions'|trans},
+        {'title': 'title.institution_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
