@@ -86,15 +86,13 @@ class ArticleController extends Controller
             }
         );
         $tableAlias = $source->getTableAlias();
-        //if user not admin show only selected journal articles
-        if (!$this->isGranted('VIEW', new Journal(), 'articles')) {
-            $source->manipulateQuery(
-                function (QueryBuilder $query) use ($tableAlias, $selectedJournal) {
-                    $query->andWhere($tableAlias.'.journal = :selectedJournal')
-                        ->setParameter('selectedJournal', $selectedJournal);
-                }
-            );
-        }
+
+        $source->manipulateQuery(
+            function (QueryBuilder $query) use ($tableAlias, $selectedJournal) {
+                $query->andWhere($tableAlias.'.journal = :selectedJournal')
+                    ->setParameter('selectedJournal', $selectedJournal);
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
