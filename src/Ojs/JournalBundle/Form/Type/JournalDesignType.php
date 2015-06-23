@@ -18,14 +18,6 @@ class JournalDesignType extends AbstractType
     {
         $builder
             ->add(
-                'journal',
-                'entity',
-                array(
-                    'class' => 'OjsJournalBundle:Journal',
-                    'property' => 'title',
-                )
-            )
-            ->add(
                 'design',
                 'entity',
                 array(

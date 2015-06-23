@@ -4,10 +4,14 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalDesign;
 use Ojs\JournalBundle\Form\Type\JournalDesignType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
@@ -26,9 +30,16 @@ class JournalDesignController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'design')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+            throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
         $source = new Entity('OjsJournalBundle:JournalDesign');
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(
+            function (QueryBuilder $qb) use ($journal, $ta) {
+                $qb->andWhere($ta.'.journal = :journal')
+                    ->setParameter('journal', $journal);
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -49,19 +60,22 @@ class JournalDesignController extends Controller
     /**
      * Creates a new JournalDesign entity.
      *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'design')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+            throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
         $entity = new JournalDesign();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $entity->setJournal($journal);
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -83,7 +97,7 @@ class JournalDesignController extends Controller
      *
      * @param JournalDesign $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(JournalDesign $entity)
     {
@@ -104,12 +118,13 @@ class JournalDesignController extends Controller
     /**
      * Displays a form to create a new JournalDesign entity.
      *
+     * @return Response
      */
     public function newAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'design')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+            throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
         $entity = new JournalDesign();
         $form = $this->createCreateForm($entity);
@@ -125,16 +140,20 @@ class JournalDesignController extends Controller
 
     /**
      * Finds and displays a JournalDesign entity.
-     * @param  JournalDesign                              $entity
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  integer  $id
+     * @return Response
      */
-    public function showAction(JournalDesign $entity)
+    public function showAction($id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', $journal, 'design')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+        if (!$this->isGranted('VIEW', $journal, 'design')) {
+            throw new AccessDeniedException("You are not authorized for view this journal's design!");
         }
+        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:show.html.twig',
@@ -147,16 +166,22 @@ class JournalDesignController extends Controller
     /**
      * Displays a form to edit an existing JournalDesign entity.
      *
-     * @param  JournalDesign                              $entity
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  integer  $id
+     * @return Response
      */
-    public function editAction(JournalDesign $entity)
+    public function editAction($id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'design')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+            throw new AccessDeniedException("You are not authorized for edit this journal's design!");
         }
+        /** @var JournalDesign $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -173,7 +198,7 @@ class JournalDesignController extends Controller
      *
      * @param JournalDesign $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(JournalDesign $entity)
     {
@@ -194,18 +219,23 @@ class JournalDesignController extends Controller
     /**
      * Edits an existing JournalDesign entity.
      *
-     * @param  Request                                                                                       $request
-     * @param  JournalDesign                                                                                 $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param  Request                   $request
+     * @param  integer                   $id
+     * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, JournalDesign $entity)
+    public function updateAction(Request $request, $id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
-        $em = $this->getDoctrine()->getManager();
+        /** @var JournalDesign $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -225,19 +255,24 @@ class JournalDesignController extends Controller
     }
 
     /**
-     * @param  Request                                            $request
-     * @param  JournalDesign                                      $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param  Request                $request
+     * @param  integer                $id
+     * @return RedirectResponse
      * @throws TokenNotFoundException
      */
-    public function deleteAction(Request $request, JournalDesign $entity)
+    public function deleteAction(Request $request, $id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('DELETE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
-        $em = $this->getDoctrine()->getManager();
+        /** @var JournalDesign $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('admin_journaldesign'.$entity->getId());
         if ($token != $request->get('_token')) {
