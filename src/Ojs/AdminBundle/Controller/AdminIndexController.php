@@ -1,21 +1,21 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalIndex;
-use Ojs\JournalBundle\Form\Type\JournalIndexType;
+use Ojs\AdminBundle\Form\Type\JournalIndexType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * JournalIndex controller.
+ * AdminIndexController controller.
  *
  */
-class JournalIndexController extends Controller
+class AdminIndexController extends Controller
 {
 
     /**
@@ -33,16 +33,16 @@ class JournalIndexController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('admin_journalindex_show', 'id');
-        $rowAction[] = $gridAction->editAction('admin_journalindex_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('admin_journalindex_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_index_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_index_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_index_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminIndex:index.html.twig', $data);
     }
 
     /**
@@ -70,11 +70,11 @@ class JournalIndexController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('admin_journalindex_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_index_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsJournalBundle:JournalIndex:new.html.twig',
+            'OjsAdminBundle:AdminIndex:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -95,7 +95,7 @@ class JournalIndexController extends Controller
             new JournalIndexType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_journalindex_create'),
+                'action' => $this->generateUrl('ojs_admin_index_create'),
                 'method' => 'POST',
             )
         );
@@ -116,7 +116,7 @@ class JournalIndexController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:JournalIndex:new.html.twig',
+            'OjsAdminBundle:AdminIndex:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -133,15 +133,16 @@ class JournalIndexController extends Controller
     public function showAction(JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for view this page!");
-        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_index'.$entity->getId());
 
         return $this->render(
-            'OjsJournalBundle:JournalIndex:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            'OjsAdminBundle:AdminIndex:show.html.twig',
+            ['entity' => $entity, 'token' => $token]
         );
     }
 
@@ -160,7 +161,7 @@ class JournalIndexController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:JournalIndex:edit.html.twig',
+            'OjsAdminBundle:AdminIndex:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -181,7 +182,7 @@ class JournalIndexController extends Controller
             new JournalIndexType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_journalindex_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_index_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -215,11 +216,11 @@ class JournalIndexController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_admin_index_edit', array('id' => $entity->getId())));
         }
 
         return $this->render(
-            'OjsJournalBundle:JournalIndex:edit.html.twig',
+            'OjsAdminBundle:AdminIndex:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -242,7 +243,7 @@ class JournalIndexController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('admin_journalindex'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_index'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -250,6 +251,6 @@ class JournalIndexController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('admin_journalindex');
+        return $this->redirectToRoute('ojs_admin_index_index');
     }
 }

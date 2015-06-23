@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'title': 'journal.index'|trans}
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'title.journal_indexes'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,7 +14,7 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'index') %}
-        <a href="{{ path('admin_journalindex_new') }}" class="btn btn-success">
+        <a href="{{ path('ojs_admin_index_new') }}" class="btn btn-success">
             {{ 'c'|trans }}
         </a>
     {% endif %}

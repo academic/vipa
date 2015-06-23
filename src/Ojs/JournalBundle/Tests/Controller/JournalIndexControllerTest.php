@@ -13,7 +13,7 @@ class JournalIndexControllerTest extends BaseTestCase
     public function testCreate()
     {
         $this->logIn();
-        $crawler = $this->client->request('GET', $this->router->generate('admin_journalindex_new'));
+        $crawler = $this->client->request('GET', $this->router->generate('ojs_admin_index_new'));
         $form = $crawler->selectButton('Create')->form();
         $form['ojs_journalbundle_journalindex[name]'] = "Demo Index";
         $form['ojs_journalbundle_journalindex[status]'] = "1";
