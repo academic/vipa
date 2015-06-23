@@ -10,10 +10,6 @@ ojs_journal_admin_journaltheme:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/journaltheme.yml"
     prefix:   /admin/journaltheme
 
-ojs_journal_mailtemplate_admin:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/mailtemplate.yml"
-    prefix:   /admin/mailtemplate
-
 ojs_issue:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/issue.yml"
     prefix:   /admin/issue
