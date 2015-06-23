@@ -132,11 +132,13 @@ class AdminMailLogController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_mail_log'.$entity->getId());
+
         return $this->render(
             'OjsAdminBundle:AdminMailLog:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

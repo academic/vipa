@@ -125,15 +125,16 @@ class AdminDesignController extends Controller
     public function showAction(Design $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', new Design())) {
+        if (!$this->isGranted('VIEW', new Design()))
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_design'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminDesign:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

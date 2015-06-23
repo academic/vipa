@@ -152,15 +152,16 @@ class AdminSubjectController extends Controller
     public function showAction(Subject $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_subject'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminSubject:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

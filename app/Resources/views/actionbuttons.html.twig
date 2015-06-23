@@ -32,8 +32,11 @@
         </a>
     {% endif %}
     {% if delete_path is defined %}
-        <form action="{{ path(delete_path, { 'id': entity.id}) }}" method="post" style="display: inline;">
+        <form action="{{ path(delete_path, {'id': entity.id}) }}" method="post" style="display: inline;">
             <input type="hidden" name="_method" value="delete">
+            {% if token is defined %}
+                <input type="hidden" name="_token" value="{{ token }}">
+            {% endif %}
             <button class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');">
                 <i class="fa fa-trash-o"></i>
             </button>

@@ -132,15 +132,16 @@ class AdminInstitutionTypeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:InstitutionTypes')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_institution_type'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminInstitutionType:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

@@ -128,15 +128,16 @@ class AdminThemeController extends Controller
     public function showAction(Theme $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_theme'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminTheme:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 
