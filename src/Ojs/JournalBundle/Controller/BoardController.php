@@ -31,22 +31,18 @@ class BoardController extends Controller
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        /** @var User $user */
-        $user = $this->getUser();
+
         if (!$this->isGranted('VIEW', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
         $source = new Entity('OjsJournalBundle:Board');
-        //if user is not admin show only selected journal
-        if (!$user->isAdmin()) {
-            $ta = $source->getTableAlias();
-            $source->manipulateQuery(
-                function (QueryBuilder $query) use ($ta, $journal) {
-                    $query->andWhere($ta.'.journal = :journal')
-                        ->setParameter('journal', $journal);
-                }
-            );
-        }
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(
+            function (QueryBuilder $query) use ($ta, $journal) {
+                $query->andWhere($ta.'.journal = :journal')
+                    ->setParameter('journal', $journal);
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -72,6 +68,7 @@ class BoardController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
@@ -81,7 +78,7 @@ class BoardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $entity->setJournal($journal);
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -161,14 +158,16 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        $board = $em->getRepository('OjsJournalBundle:Board')->find($id);
+        $board = $em->getRepository('OjsJournalBundle:Board')->find(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($board);
         $members = $em->getRepository('OjsJournalBundle:BoardMember')->findBy(array('board' => $board));
 
         return $this->render(
             'OjsJournalBundle:Board:show.html.twig',
             array(
                 'members' => $members,
-                'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
                 'entity' => $board,
             )
         );
@@ -189,11 +188,11 @@ class BoardController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         /** @var Board $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
 
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
+        $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
 
@@ -242,11 +241,11 @@ class BoardController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         /** @var Board $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
 
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -280,10 +279,10 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for delete this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
+        $entity = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('admin_board'.$id); //@todo amin_board \ admin_board
@@ -314,7 +313,9 @@ class BoardController extends Controller
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $this->throw404IfNotFound($user);
         /** @var Board $board */
-        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+        $board = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
+            array('id' => $boardId, 'journal' => $journal)
+        );
         $seq = (int) $req->get('seq');
         $boardMember = new BoardMember();
         $boardMember->setBoard($board);
@@ -339,7 +340,13 @@ class BoardController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
-        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+        $this->throw404IfNotFound($user);
+
+        $board = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
+            array('id' => $boardId, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($board);
+
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(
             array(
                 'user' => $user,
