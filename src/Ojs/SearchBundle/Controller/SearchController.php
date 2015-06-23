@@ -43,16 +43,22 @@ class SearchController extends Controller
         //set query according to query type
         if ($queryType == 'basic') {
 
-            $fieldQuery = new Query\Prefix();
-            $fieldQuery->setPrefix('_all', $query);
+            $fieldQuery = new Query\MultiMatch();
+            $fieldQuery->setFields(['_all']);
+            $fieldQuery->setType('phrase_prefix');
+            $fieldQuery->setQuery($query);
             $boolQuery->addMust($fieldQuery);
         } elseif ($queryType == 'advanced') {
 
             $parseQuery = $searchManager->parseSearchQuery($query);
             foreach ($parseQuery as $searchTerm) {
                 $condition = $searchTerm['condition'];
-                $advancedFieldQuery = new Query\Prefix();
-                $advancedFieldQuery->setPrefix($searchTerm['searchField'], $searchTerm['searchText']);
+                $advancedFieldQuery = new Query\MultiMatch();
+                $advancedFieldQuery->setFields(
+                    [$searchTerm['searchField']]
+                );
+                $advancedFieldQuery->setType('phrase_prefix');
+                $advancedFieldQuery->setQuery($searchTerm['searchText']);
                 if ($condition == 'AND') {
                     $boolQuery->addMust($advancedFieldQuery);
                 } elseif ($condition == 'OR') {
@@ -91,6 +97,8 @@ class SearchController extends Controller
         }
         //set our boolean query
         $searchQuery->setQuery($boolQuery);
+        //get all result
+        $searchQuery->setSize(1000);
 
         //get role aggregation
         $roleAgg = new Aggregation\Terms('roles');
