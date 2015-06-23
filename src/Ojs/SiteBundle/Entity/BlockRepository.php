@@ -13,16 +13,4 @@ use Ojs\JournalBundle\Entity\Journal;
  */
 class BlockRepository extends EntityRepository
 {
-    public function journalBlocks(Journal $journal)
-    {
-        return $this->findBy(
-            [
-                'object_type' => 'journal',
-                'object_id' => $journal->getId(),
-            ],
-            [
-                'block_order' => 'asc',
-            ]
-        );
-    }
 }

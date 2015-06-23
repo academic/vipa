@@ -18,12 +18,12 @@ class Block
     /**
      * @var string
      */
-    private $object_type;
+    private $objectType;
 
     /**
      * @var integer
      */
-    private $object_id;
+    private $objectId;
 
     /**
      * @var string
@@ -78,7 +78,7 @@ class Block
      */
     public function getObjectType()
     {
-        return $this->object_type;
+        return $this->objectType;
     }
 
     /**
@@ -89,7 +89,7 @@ class Block
      */
     public function setObjectType($objectType)
     {
-        $this->object_type = $objectType;
+        $this->objectType = $objectType;
 
         return $this;
     }
@@ -101,7 +101,7 @@ class Block
      */
     public function getObjectId()
     {
-        return $this->object_id;
+        return $this->objectId;
     }
 
     /**
@@ -112,7 +112,7 @@ class Block
      */
     public function setObjectId($objectId)
     {
-        $this->object_id = $objectId;
+        $this->objectId = $objectId;
 
         return $this;
     }

@@ -157,7 +157,15 @@ class SiteController extends Controller
         $data['years'] = $journalRepo->getIssuesByYear($journal);
         $data['journal'] = $journal;
         $data['page'] = 'journal';
-        $data['blocks'] = $blockRepo->journalBlocks($journal);
+        $data['blocks'] = $blockRepo->findBy(
+            [
+                'objectType' => 'journal',
+                'objectId' => $journal->getId(),
+            ],
+            [
+                'block_order' => 'asc',
+            ]
+        );
 
         /**
          * @todo implement string from db
