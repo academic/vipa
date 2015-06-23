@@ -17,7 +17,7 @@ use Ojs\UserBundle\Entity\UserArticleRole;
 /**
  * Article
  * @GRID\Source(columns="id ,title, issue.title, doi, journal.title, pubdate, section.title")
- * @GRID\Source(columns="id ,status,title, journal.title",groups={"submission"})
+ * @GRID\Source(columns="id, status, title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
 class Article implements Translatable

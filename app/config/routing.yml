@@ -46,7 +46,10 @@ ojs_user:
     type:     annotation
     prefix:   /
   
-    
+ojs_journal_panel:
+    resource: "@OjsJournalBundle/Resources/config/routing_panel.yml"
+    prefix:   /journal
+
 oneup_uploader:
     resource: .
     type: uploader
