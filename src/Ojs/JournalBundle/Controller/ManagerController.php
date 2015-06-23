@@ -39,7 +39,6 @@ class ManagerController extends Controller
             $journal,
             array(
                 'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $journal->getId())),
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'method' => 'PUT',
             )
         );

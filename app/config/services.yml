@@ -157,3 +157,8 @@ services:
         arguments: [@doctrine]
         tags:
             - { name: form.type, alias: entity }
+    form.type.tags:
+        class: Ojs\Common\Form\Type\TagsType
+        arguments: [ @router, @translator ]
+        tags:
+            - { name: form.type, alias: tags }

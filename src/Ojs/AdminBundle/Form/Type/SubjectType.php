@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -19,19 +18,7 @@ class SubjectType extends AbstractType
         $builder
             ->add('subject')
             ->add('description')
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['tagEndPoint'],
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->add(
                 'parent',
                 'entity',

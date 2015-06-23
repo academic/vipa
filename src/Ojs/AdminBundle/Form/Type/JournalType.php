@@ -134,19 +134,7 @@ class JournalType extends AbstractType
             ->add('header', 'hidden')
             ->add('logo', 'hidden')
             ->add('slug', 'text', ['label' => 'journal.slug'])
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['tagEndPoint'],
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->add('description', 'textarea', ['label' => 'description', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'theme',
@@ -174,7 +162,6 @@ class JournalType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-                'tagEndPoint' => '/',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'validate-form',

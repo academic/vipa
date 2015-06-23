@@ -17,19 +17,7 @@ class PageType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags',
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->add('image');
     }
 
