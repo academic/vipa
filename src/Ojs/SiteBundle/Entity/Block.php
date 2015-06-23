@@ -72,7 +72,7 @@ class Block
     }
 
     /**
-     * Get object_type
+     * Get objectType
      *
      * @return string
      */
@@ -82,7 +82,7 @@ class Block
     }
 
     /**
-     * Set object_type
+     * Set objectType
      *
      * @param  string $objectType
      * @return Block
@@ -95,7 +95,7 @@ class Block
     }
 
     /**
-     * Get object_id
+     * Get objectId
      *
      * @return integer
      */
@@ -105,7 +105,7 @@ class Block
     }
 
     /**
-     * Set object_id
+     * Set objectId
      *
      * @param  integer $objectId
      * @return Block
