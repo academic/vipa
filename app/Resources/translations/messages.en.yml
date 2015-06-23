@@ -1262,6 +1262,7 @@ institution.edit: "Edit Institution"
 institution.detail: "Institution Detail"
 
 # Title strings
+title.admin_dashboard: "Admin Dashboard"
 title.announcements: "Announcements"
 title.api: "API Home"
 title.archives: "Archives"

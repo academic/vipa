@@ -1201,6 +1201,9 @@ journal.articles: "Dergi Makaleleri"
 
 button.toggle_tree: "Ağaç Şeklinde Göster"
 
+# Title strings
+title.admin_dashboard: "Yönetim Paneli"
+
 tag.search.results: "Etiket Arama Sonuçları"
 tags.cloud: "Etiket Bulutu"
 printed: "Basıldı mı?"
