@@ -35,8 +35,8 @@ class BlockType extends AbstractType
                     'required' => false,
                 ]
             )
-            ->add('object_id', 'hidden', ['data' => $options['object_id']])
-            ->add('object_type', 'hidden', ['data' => $options['object_type']])
+            ->add('objectId', 'hidden', ['data' => $options['object_id']])
+            ->add('objectType', 'hidden', ['data' => $options['object_type']])
             ->add(
                 'color',
                 'choice',

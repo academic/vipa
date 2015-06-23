@@ -16,10 +16,12 @@ Ojs\SiteBundle\Entity\Block:
       generator:
         strategy: AUTO
   fields:
-    object_type:
+    objectType:
       type: string
-    object_id:
+      column: object_type
+    objectId:
       type: integer
+      column: object_id
     title:
       type: string
     type:
