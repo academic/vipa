@@ -12,7 +12,6 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\Type\MailTemplateType;
-use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,19 +48,12 @@ class MailTemplateController extends Controller
                 return $row;
             }
         );
-        /** @var User $user */
-        $user = $this->getUser();
+
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $user, $ta) {
-                if ($user->isAdmin()) {
-                    return $qb;
-                }
-
-                return $qb->andWhere(
-                    $qb->expr()->eq("$ta.journalId", ':journal')
-                )
-                    ->setParameter('journal', $journal->getId());
+            function (QueryBuilder $qb) use ($journal, $ta) {
+                return $qb->andWhere($ta.'.journal = :journal')
+                    ->setParameter('journal', $journal);
             }
         );
         $grid = $this->get('grid.manager');
@@ -131,6 +123,7 @@ class MailTemplateController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
@@ -139,7 +132,7 @@ class MailTemplateController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $entity->setJournal($journal);
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -166,7 +159,7 @@ class MailTemplateController extends Controller
      *
      * @param MailTemplate $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(MailTemplate $entity)
     {
@@ -176,7 +169,6 @@ class MailTemplateController extends Controller
             array(
                 'action' => $this->generateUrl('mailtemplate_manager_create'),
                 'method' => 'POST',
-                'user' => $this->getUser(),
             )
         );
 
@@ -192,8 +184,6 @@ class MailTemplateController extends Controller
      */
     public function newAction()
     {
-        /** @var User $user */
-        $user = $this->getUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
@@ -202,7 +192,7 @@ class MailTemplateController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:MailTemplate:'.($user->isAdmin() ? 'admin/' : '').'new.html.twig',
+            'OjsJournalBundle:MailTemplate:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -213,16 +203,20 @@ class MailTemplateController extends Controller
     /**
      * Finds and displays a MailTemplate entity.
      *
-     * @param  MailTemplate $entity
+     * @param  integer  $id
      * @return Response
      */
-    public function showAction(MailTemplate $entity)
+    public function showAction($id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
 
         return $this->render(
             'OjsJournalBundle:MailTemplate:show.html.twig',
@@ -235,16 +229,22 @@ class MailTemplateController extends Controller
     /**
      * Displays a form to edit an existing MailTemplate entity.
      *
-     * @param  MailTemplate $entity
+     * @param  integer  $id
      * @return Response
      */
-    public function editAction(MailTemplate $entity)
+    public function editAction($id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var MailTemplate $entity */
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -271,7 +271,6 @@ class MailTemplateController extends Controller
             array(
                 'action' => $this->generateUrl('mailtemplate_manager_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'user' => $this->getUser(),
             )
         );
 
@@ -284,17 +283,22 @@ class MailTemplateController extends Controller
      * Edits an existing MailTemplate entity.
      *
      * @param  Request                   $request
-     * @param  MailTemplate              $entity
+     * @param  integer                   $id
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, MailTemplate $entity)
+    public function updateAction(Request $request, $id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $em = $this->getDoctrine()->getManager();
+        /** @var MailTemplate $entity */
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -321,19 +325,21 @@ class MailTemplateController extends Controller
 
     /**
      * @param  Request          $request
-     * @param  MailTemplate     $entity
+     * @param  integer          $id
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, MailTemplate $entity)
+    public function deleteAction(Request $request, $id)
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('DELETE', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $em = $this->getDoctrine()->getManager();
+        /** @var MailTemplate $entity */
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('mailtemplate_manager'.$entity->getId());
@@ -346,7 +352,7 @@ class MailTemplateController extends Controller
 
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl($user->isAdmin() ? 'mailtemplate' : 'mailtemplate_manager'));
+        return $this->redirectToRoute('mailtemplate_manager');
     }
 
     /**
@@ -356,10 +362,10 @@ class MailTemplateController extends Controller
      */
     public function copyAction(Request $request, $id)
     {
-        /** @var User $user */
-        $user = $this->getUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
+        if (!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $entity = new MailTemplate();
 
         $yamlParser = new Parser();
@@ -381,10 +387,9 @@ class MailTemplateController extends Controller
             ->setLang($template['lang'])
             ->setSubject($template['subject'])
             ->setTemplate(str_replace('<br>', "\n", $template['template']))
-            ->setType($template['type']);
-        if (!$user->isAdmin()) {
-            $entity->setJournal($journal);
-        }
+            ->setType($template['type'])
+            ->setJournal($journal);
+
         $form = $this->createCreateForm($entity);
 
         $form->handleRequest($request);
@@ -396,14 +401,14 @@ class MailTemplateController extends Controller
 
             return $this->redirect(
                 $this->generateUrl(
-                    'mailtemplate'.($user->isAdmin() ? '' : '_manager').'_show',
+                    'mailtemplate_manager_show',
                     array('id' => $entity->getId())
                 )
             );
         }
 
         return $this->render(
-            'OjsJournalBundle:MailTemplate:'.($user->isAdmin() ? 'admin/' : '').'new.html.twig',
+            'OjsJournalBundle:MailTemplate:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),

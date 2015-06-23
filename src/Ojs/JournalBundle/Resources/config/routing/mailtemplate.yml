@@ -1,33 +1,33 @@
 mailtemplate_manager:
     path:     /
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:index" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:index }
 
 mailtemplate_manager_show:
     path:     /{id}/show
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:show" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:show }
 
 mailtemplate_manager_new:
     path:     /new
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:new" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:new }
 
 mailtemplate_manager_create:
     path:     /create
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:create" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:create }
     requirements: { _method: post }
 
 mailtemplate_manager_edit:
     path:     /{id}/edit
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:edit" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:edit }
 
 mailtemplate_manager_update:
     path:     /{id}/update
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:update" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:update }
     methods: [PUT]
 
 mailtemplate_manager_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:delete" }
+    defaults: { _controller: OjsJournalBundle:MailTemplate:delete }
     methods: [DELETE]
 mailtemplate_manager_copy:
     path:  /{id}/copy
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:copy"}
+    defaults: { _controller: OjsJournalBundle:MailTemplate:copy"}
