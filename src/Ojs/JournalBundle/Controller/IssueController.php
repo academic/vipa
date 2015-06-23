@@ -131,7 +131,6 @@ class IssueController extends Controller
             array(
                 'action' => $this->generateUrl('issue_create'),
                 'method' => 'POST',
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
             )
         );
 
@@ -227,7 +226,6 @@ class IssueController extends Controller
             array(
                 'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
             )
         );
 

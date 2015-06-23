@@ -93,19 +93,7 @@ class UserType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags',
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->add('avatar', 'hidden')
             ->add('header', 'hidden')
             ->addEventSubscriber(new AddProvinceFieldSubscriber())

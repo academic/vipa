@@ -108,7 +108,6 @@ class AdminJournalController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_journal_create'),
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'method' => 'POST',
             )
         );
@@ -199,7 +198,6 @@ class AdminJournalController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $entity->getId())),
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'method' => 'PUT',
             )
         );

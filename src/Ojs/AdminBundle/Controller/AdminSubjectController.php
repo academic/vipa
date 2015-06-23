@@ -113,7 +113,6 @@ class AdminSubjectController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_subject_create'),
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'method' => 'POST',
             )
         );

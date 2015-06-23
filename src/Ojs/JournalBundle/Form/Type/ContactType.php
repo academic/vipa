@@ -25,19 +25,7 @@ class ContactType extends AbstractType
             ->add('phone', 'text', ['label' => 'phone'])
             ->add('fax', 'text', ['label' => 'fax'])
             ->add('email', 'email', ['label' => 'email'])
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags',
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->addEventSubscriber(new AddProvinceFieldSubscriber())
             ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }

@@ -39,19 +39,7 @@ class IssueType extends AbstractType
                     ],
                 )
             )
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['tagEndPoint'],
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->add('published', 'checkbox', ['label' => 'published'])
             ->add('full_file', 'hidden')
             ->add('cover', 'hidden')

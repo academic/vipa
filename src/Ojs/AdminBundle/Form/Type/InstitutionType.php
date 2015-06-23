@@ -72,19 +72,7 @@ class InstitutionType extends AbstractType
             ->add('email', 'email', ['label' => 'email'])
             ->add('url', 'url', ['label' => 'url'])
             ->add('wiki')
-            ->add(
-                'tags',
-                'text',
-                array(
-                    'label' => 'tags',
-                    'attr' => [
-                        'class' => ' form-control input-xxl',
-                        'data-role' => 'tagsinputautocomplete',
-                        'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => $options['tagEndPoint'],
-                    ],
-                )
-            )
+            ->add('tags', 'tags')
             ->add('logo', 'hidden')
             ->add('header', 'hidden')
             ->add(
@@ -117,7 +105,6 @@ class InstitutionType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Institution',
-                'tagEndPoint' => '/',
                 'institutionsEndPoint' => '/',
                 'institutionEndPoint' => '/',
                 'attr' => [
