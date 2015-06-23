@@ -34,14 +34,6 @@ ojs_journalcontact:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/journalcontact.yml"
     prefix:   /admin/journalcontact
 
-ojs_citation:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/citation.yml"
-    prefix:   /admin/citation
-
-ojs_citationsetting:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/citationsetting.yml"
-    prefix:   /admin/citationsetting
-
 ojs_articleauthor:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/articleauthor.yml"
     prefix:   /admin/articleauthor
