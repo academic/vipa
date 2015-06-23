@@ -1,29 +1,23 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.journal_index_new'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.journal_index_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('admin_journalindex'),'title': 'journal.index'|trans},
-    {'title': 'new'|trans}
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_admin_index_index'),'title': 'title.journal_indexes'|trans},
+        {'title': 'title.journal_index_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'journalindex.create' }}</h1>
+    <h1>{{ 'journalsindex.edit'|trans }}</h1>
 
-    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <div class="alert alert-{{ label }}">
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% include '::flashbag.html.twig' %}
 
-    {{ form_errors(form) }}
-    {{ form_widget(form) }}
+    {{ form_errors(edit_form) }}
+    {{ form_widget(edit_form) }}
     <div class="form-group">
         <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
 
@@ -47,14 +41,15 @@
     </div>
 
     <button type="submit" id="ojs_journalbundle_journalindex_submit" class="btn btn-primary">
-        {{ "c"|trans }}
+        {{ "save"|trans }}
     </button>
-    {{ form_end(form) }}
+    {{ form_end(edit_form) }}
 
-    <a href="{{ path('admin_journalindex') }}" class="btn btn-warning">
+    <a href="{{ path('ojs_admin_index_index') }}" class="btn btn-warning">
         <i class="fa fa-arrow-left"></i> {{ 'b'|trans }}
     </a>
 
+    {{ getLogs(entity) }}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
