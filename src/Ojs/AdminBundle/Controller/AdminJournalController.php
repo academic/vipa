@@ -146,15 +146,16 @@ class AdminJournalController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You not authorized for view this journal!");
-        }
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_journal'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminJournal:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

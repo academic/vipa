@@ -164,12 +164,13 @@ class AdminProxyController extends Controller
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_proxy'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminProxy:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

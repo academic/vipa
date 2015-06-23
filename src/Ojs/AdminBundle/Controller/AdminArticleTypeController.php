@@ -134,16 +134,18 @@ class AdminArticleTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleTypes')->find($id);
-        if (!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
+
         $this->throw404IfNotFound($entity);
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_article_type'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminArticleType:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
+            ['entity' => $entity, 'token' => $token]
         );
     }
 

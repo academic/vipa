@@ -58,7 +58,14 @@ class AdminEventLogController extends Controller
         if (!$entity)
             throw $this->createNotFoundException('notFound');
 
-        return $this->render('OjsAdminBundle:AdminEventLog:show.html.twig', ['entity' => $entity]);
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_event_log'.$entity->getId());
+
+        return $this->render(
+            'OjsAdminBundle:AdminEventLog:show.html.twig',
+            ['entity' => $entity, 'token' => $token]
+        );
     }
 
     /**
