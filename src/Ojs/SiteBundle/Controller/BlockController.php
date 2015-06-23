@@ -15,22 +15,21 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BlockController extends Controller
 {
     /**
-     * @param  Request                                                                                       $request
+     * @param Request $request
      * @param $object
      * @param $type
-     * @param  int                                                                                           $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param int $id
+     * @return RedirectResponse|Response
+     * @throws AccessDeniedException
      */
     public function createAction(Request $request, $object, $type, $id = 0)
     {
-        $data = [];
         $em = $this->getDoctrine()->getManager();
-        $Block = $id ? $em->find('OjsSiteBundle:Block', $id) : new Block();
-        $form = $this->createForm(new BlockType(), $Block, ['object_id' => $object, 'object_type' => $type]);
         switch ($type) {
             case 'journal':
                 $object = $em->find('OjsJournalBundle:Journal', $object);
@@ -38,6 +37,12 @@ class BlockController extends Controller
             default:
                 throw new NotFoundHttpException();
         }
+        if (!$this->isGranted('CREATE', $object, 'block')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
+        $data = [];
+        $Block = $id ? $em->find('OjsSiteBundle:Block', $id) : new Block();
+        $form = $this->createForm(new BlockType(), $Block, ['object_id' => $object->getId(), 'object_type' => $type]);
         if ($request->isMethod('POST')) {
             $form->submit($request);
             if ($form->isValid()) {
@@ -94,13 +99,17 @@ class BlockController extends Controller
      */
     public function deleteAction($object, $type, Block $block)
     {
+
         $em = $this->getDoctrine()->getManager();
-        $em->remove($block);
-        $em->flush();
         /**
          * only journals has blocks for now
          */
         $journal = $em->find('OjsJournalBundle:Journal', $object);
+        if (!$this->isGranted('DELETE', $journal, 'block')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
+        $em->remove($block);
+        $em->flush();
 
         return $this->redirect($this->get('ojs.journal_service')->generateUrl($journal));
     }
