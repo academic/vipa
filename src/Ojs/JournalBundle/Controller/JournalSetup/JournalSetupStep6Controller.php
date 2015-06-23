@@ -81,8 +81,8 @@ class JournalSetupStep6Controller extends Controller
                 $checkPagesBlock = $blockRepo->findOneBy(
                     [
                         'type' => 'link',
-                        'object_type' => 'journal',
-                        'object_id' => $currentJournal->getId(),
+                        'objectType' => 'journal',
+                        'objectId' => $currentJournal->getId(),
                         'title' => 'Pages',
                     ]
                 );
