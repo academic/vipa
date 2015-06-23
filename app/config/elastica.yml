@@ -92,6 +92,7 @@ fos_elastica:
                     mappings:
                         tags: ~
                         name: ~
+                        slug: ~
                         verified: ~
                     persistence:
                         driver: orm
