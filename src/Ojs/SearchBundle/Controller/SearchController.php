@@ -32,7 +32,7 @@ class SearchController extends Controller
         $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
-        $query = strtolower($request->get('q'));
+        $query = $request->get('q');
 
         $section = $request->get('section');
 
