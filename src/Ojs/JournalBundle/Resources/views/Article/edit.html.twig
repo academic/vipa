@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('article'), 'title': 'article.manager'|trans},
-    {'title': 'edit'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_journal_article_index'), 'title': 'article.manager'|trans},
+        {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,16 +14,13 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class=""><a
-                    href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
-        <li role="presentation" class=""><a
-                    href="{{ url('article_citations',{id: entity.id}) }}">{{ "citation"|trans }}</a></li>
+        <li role="presentation" class=""><a href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
     </ul>
 
-    {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% include '::flashbag.html.twig' %}
-    {{ form_errors(edit_form) }}
-    {{ form_widget(edit_form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
 
     <div class="form-group">
         <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
@@ -53,11 +50,11 @@
     <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
         {{ "u"|trans }}
     </button>
-    {{ form_end(edit_form) }}
+    {{ form_end(form) }}
     <div class="record_actions">
-        {% set back_path = 'article' %}
+        {% set back_path = 'ojs_journal_article_index' %}
         {% if is_granted('DELETE', selectedJournal(), 'articles') %}
-            {% set delete_path = 'article_delete' %}
+            {% set delete_path = 'ojs_journal_article_delete' %}
         {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>
@@ -123,7 +120,7 @@
             })
         });
     </script>
-    {{ form_javascript(edit_form) }}
+    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -136,6 +133,6 @@
             margin: 0 !important;
         }
     </style>
-    {{ form_stylesheet(edit_form) }}
+    {{ form_stylesheet(form) }}
 
 {% endblock %}

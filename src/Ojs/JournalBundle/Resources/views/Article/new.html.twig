@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('article'), 'title': 'article.manager'|trans},
-    { 'title' : 'article.new'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('ojs_journal_article_index', {'journalId': selectedJournal().id}), 'title': 'article.manager'|trans},
+        { 'title' : 'article.new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -34,24 +34,24 @@
             <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
             <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
             <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
-
         </div>
-    <span class="btn btn-success fileinput-button form-control">
+
+        <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
                 <span>{{ "select.image.file"|trans }}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
             </span>
 
-        <div id="article_header_upload_progress" style="display: none" class="label label-info">
-
-        </div>
+        <div id="article_header_upload_progress" style="display: none" class="label label-info"></div>
     </div>
+
     <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
         {{ "issue.new"|trans }}
     </button>
     {{ form_end(form) }}
+
     <div class="record_actions">
-        <a class="button success" href="{{ path('article') }}">
+        <a class="button success" href="{{ path('ojs_journal_article_index') }}">
             {{ "b"|trans }}
         </a>
     </div>
