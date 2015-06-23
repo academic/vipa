@@ -1,13 +1,13 @@
-{% extends 'OjsOAIBundle:Default:layout.html.twig' %}
+{% extends 'OjsOAIBundle:Default:layout.xml.twig' %}
 {% block content %}
-    <request verb="ListRecords" metadataPrefix="oai_dc">>http://{{ base_host }}/oai</request>
+    <request verb="ListRecords" metadataPrefix="oai_dc">http://{{ base_host }}/oai</request>
     <ListRecords>
         {% for record in records %}
             <record>
                 <header>
                     <identifier>oai:{{ base_host }}:article/{{ record.id }}</identifier>
-                    <datestamp>{{ record.pubdate|date("Y-m-d") }}</datestamp>
-                    <setSpec>:Articles</setSpec>
+                    <datestamp>{{ record.pubdate|date("Y-m-d\\TH:i:s\\Z") }}</datestamp>
+                    <setSpec>{{ record.slug }}</setSpec>
                 </header>
                 <metadata>
                     <{{ metadataPrefix() }}:dc
@@ -22,7 +22,7 @@
                         <dc:subject>{{ record.subjects }}</dc:subject>
                         <dc:description>{{ record.subtitle }}</dc:description>
                         <dc:publisher>{{ record.journal.institution.name }}</dc:publisher>
-                        <dc:date>{{ record.pubDate|date('Y-m-d') }}</dc:date>
+                        <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
                         <dc:type>info:eu-repo/semantics/article</dc:type>
                         <dc:type xml:lang="en-US"></dc:type>
                         <dc:format>application/pdf</dc:format>
