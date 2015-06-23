@@ -19,9 +19,17 @@ fos_elastica:
                         userJournalRoles:
                             type: object
                             properties:
-                                journal: {type: object, properties: {id: ~, title: {"index": "not_analyzed"}}}
-                                role: {type: object, properties: {id: ~, name: {"index": "not_analyzed"}}}
-
+                                journal:
+                                    type: object
+                                    include_in_all: false
+                                    properties:
+                                        id: ~
+                                        title: {"index": "not_analyzed"}
+                                role:
+                                    type: object
+                                    properties:
+                                        id: ~
+                                        name: {"index": "not_analyzed"}
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
@@ -60,6 +68,7 @@ fos_elastica:
                                 value: ~
                         journal:
                             type: "object"
+                            include_in_all: false
                             properties:
                                 id: ~
                                 title: ~
