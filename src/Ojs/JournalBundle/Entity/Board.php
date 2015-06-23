@@ -41,7 +41,6 @@ class Board implements Translatable
 
     /**
      * @var Journal
-     * @GRID\Column(field="journal.title", title="journal")
      */
     private $journal;
 
