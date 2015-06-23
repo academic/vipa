@@ -129,6 +129,7 @@ fos_elastica:
                           type: object
                           properties:
                             tags: ~
+                            slug: ~
                             name: ~
                             institution_type:
                               type: object
