@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
+use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -20,31 +22,6 @@ class ContactType extends AbstractType
             ->add('firstName', 'text', ['label' => 'firstname'])
             ->add('lastName', 'text', ['label' => 'lastname'])
             ->add('address', 'text', ['label' => 'address'])
-            ->add(
-                'country',
-                'entity',
-                [
-                    'label' => 'country',
-                    'class' => 'Ojs\LocationBundle\Entity\Country',
-                    'attr' => [
-                        'class' => "select2-element validate[required]",
-                    ],
-                ]
-            )
-            ->add(
-                'city',
-                'autocomplete',
-                [
-                    'class' => 'Ojs\LocationBundle\Entity\Province',
-                    'label' => 'city',
-                    'attr' => [
-                        'class' => 'autocomplete',
-                        'data-list' => $options['apiRoot']."public/search/province",
-                        'data-get' => $options['apiRoot']."public/province/get/",
-                        "placeholder" => "type a journal name",
-                    ],
-                ]
-            )
             ->add('phone', 'text', ['label' => 'phone'])
             ->add('fax', 'text', ['label' => 'fax'])
             ->add('email', 'email', ['label' => 'email'])
@@ -60,7 +37,9 @@ class ContactType extends AbstractType
                         'data-list' => '/api/public/search/tags',
                     ],
                 )
-            );
+            )
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }
 
     /**
