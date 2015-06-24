@@ -12,6 +12,9 @@ Ojs\JournalBundle\Entity\File:
         articleFiles:
             targetEntity: ArticleFile
             mappedBy: file
+        issueFiles:
+            targetEntity: IssueFile
+            mappedBy: file
     fields:
         path:
             type: string

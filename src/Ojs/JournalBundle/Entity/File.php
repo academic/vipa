@@ -182,4 +182,69 @@ class File implements Translatable
     {
         return $this->getName();
     }
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $issueFiles;
+
+
+
+
+    /**
+     * Add articleFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @return File
+     */
+    public function addArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    {
+        $this->articleFiles[] = $articleFiles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     */
+    public function removeArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    {
+        $this->articleFiles->removeElement($articleFiles);
+    }
+
+    /**
+     * Add issueFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\IssueFile $issueFiles
+     * @return File
+     */
+    public function addIssueFile(\Ojs\JournalBundle\Entity\IssueFile $issueFiles)
+    {
+        $this->issueFiles[] = $issueFiles;
+
+        return $this;
+    }
+
+    /**
+     * Remove issueFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\IssueFile $issueFiles
+     */
+    public function removeIssueFile(\Ojs\JournalBundle\Entity\IssueFile $issueFiles)
+    {
+        $this->issueFiles->removeElement($issueFiles);
+    }
+
+    /**
+     * Get issueFiles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIssueFiles()
+    {
+        return $this->issueFiles;
+    }
 }
