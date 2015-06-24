@@ -2,11 +2,9 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
@@ -63,7 +61,7 @@ class UserJournalRoleController extends Controller
     /**
      * Creates a new UserJournalRole entity.
      *
-     * @param  Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -116,12 +114,13 @@ class UserJournalRoleController extends Controller
     private function createCreateForm(UserJournalRole $entity)
     {
         $form = $this->createForm(
-            new UserJournalRoleType($this->container),
+            new UserJournalRoleType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ujr_create'),
                 'method' => 'POST',
-                'user' => $this->getUser(),
+                'usersEndPoint' => $this->generateUrl('api_get_users'),
+                'userEndPoint' => $this->generateUrl('api_get_user'),
             )
         );
 
@@ -158,16 +157,20 @@ class UserJournalRoleController extends Controller
     /**
      * Finds and displays a UserJournalRole entity.
      *
-     * @param  UserJournalRole $entity
+     * @param  integer  $id
      * @return Response
      */
-    public function showAction(UserJournalRole $entity)
+    public function showAction($id)
     {
-        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
+        $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
 
         return $this->render(
             'OjsUserBundle:UserJournalRole:show.html.twig',
@@ -191,7 +194,7 @@ class UserJournalRoleController extends Controller
      * Finds and displays a Journals of a user with roles.
      *
      * @param $user_id
-     * @param  string $tpl
+     * @param  string   $tpl
      * @return Response
      */
     public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig')
@@ -210,7 +213,7 @@ class UserJournalRoleController extends Controller
         }
 
         return $this->render(
-            'OjsUserBundle:UserJournalRole:' . $tpl,
+            'OjsUserBundle:UserJournalRole:'.$tpl,
             array(
                 'entities' => $_data,
             )
@@ -220,16 +223,21 @@ class UserJournalRoleController extends Controller
     /**
      * Displays a form to edit an existing UserJournalRole entity.
      *
-     * @param  UserJournalRole $entity
+     * @param  integer  $id
      * @return Response
      */
-    public function editAction(UserJournalRole $entity)
+    public function editAction($id)
     {
-        $this->throw404IfNotFound($entity);
-        $journal = $entity->getJournal();
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
+        $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -256,7 +264,8 @@ class UserJournalRoleController extends Controller
             array(
                 'action' => $this->generateUrl('ujr_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'user' => $this->getUser(),
+                'usersEndPoint' => $this->generateUrl('api_get_users'),
+                'userEndPoint' => $this->generateUrl('api_get_user'),
             )
         );
 
@@ -268,19 +277,23 @@ class UserJournalRoleController extends Controller
     /**
      * Edits an existing UserJournalRole entity.
      *
-     * @param  Request $request
-     * @param  UserJournalRole $entity
+     * @param  Request                   $request
+     * @param  integer                   $id
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, UserJournalRole $entity)
+    public function updateAction(Request $request, $id)
     {
-        $this->throw404IfNotFound($entity);
-        $journal = $entity->getJournal();
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
+        $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
+
         /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -314,17 +327,20 @@ class UserJournalRoleController extends Controller
     /**
      * Deletes a UserJournalRole entity.
      *
-     * @param  UserJournalRole $entity
+     * @param  integer          $id
      * @return RedirectResponse
      */
-    public function deleteAction(UserJournalRole $entity)
+    public function deleteAction($id)
     {
-        $this->throw404IfNotFound($entity);
-        $journal = $entity->getJournal();
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('DELETE', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
+            array('id' => $id, 'journal' => $journal)
+        );
+        $this->throw404IfNotFound($entity);
 
         // TODO: Protect against CSRF
         // $csrf = $this->get('security.csrf.token_manager');
@@ -340,7 +356,7 @@ class UserJournalRoleController extends Controller
     }
 
     /**
-     * @param  null|int $journalId
+     * @param  null|int                  $journalId
      * @return RedirectResponse|Response
      */
     public function registerAsAuthorAction($journalId = null)
@@ -396,8 +412,8 @@ class UserJournalRoleController extends Controller
     /**
      * Function no needs for extra acl permission checks. Because user is grabbed from session.
      *
-     * @param  Journal $journal
-     * @param  Role $role
+     * @param  Journal          $journal
+     * @param  Role             $role
      * @return RedirectResponse
      */
     public function leaveAction(Journal $journal, Role $role)

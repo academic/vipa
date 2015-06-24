@@ -51,7 +51,6 @@ class JournalUsersController extends Controller
         $rowAction[] = $gridAction->sendMailAction('user_send_mail');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
-        $grid->showColumns(['journal.title']);
         $data = [];
         $data['grid'] = $grid;
 
