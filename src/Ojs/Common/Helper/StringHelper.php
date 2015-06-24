@@ -1,14 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emreyilmaz
- * Date: 24.06.15
- * Time: 09:24
- */
-
 namespace Ojs\Common\Helper;
-
-
 /**
  * Class StringHelper
  * @package Ojs\Common\Helper
