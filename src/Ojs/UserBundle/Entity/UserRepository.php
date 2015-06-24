@@ -108,4 +108,22 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
         return $result;
     }
+
+    /**
+     * Return user count by condition
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function getCountBy($field, $value)
+    {
+        $qb = $this->createQueryBuilder("u");
+        $qb->select("count(u.id)")
+            ->where(
+                $qb->expr()->eq("u.$field", ':value')
+            )
+            ->setParameter("value", $value)
+        ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
