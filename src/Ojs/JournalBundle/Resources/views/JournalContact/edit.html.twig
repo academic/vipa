@@ -2,11 +2,7 @@
 {% block title %}{{ 'title.journal_contact_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
-    {% if isSystemAdmin() %}
-        {% set index_path = 'journalcontact' %}
-    {% else %}
-        {% set index_path = 'manager_journalcontact' %}
-    {% endif %}
+    {% set index_path = 'ojs_journal_journal_contact_index' %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
     {'link': path(index_path),'title': 'journal.contact'|trans},
@@ -22,16 +18,9 @@
 
 
     <div class="record_actions">
-        {% if isSystemAdmin() %}
-            {% set back_path = 'journalcontact' %}
-            {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
-                {% set delete_path = 'journalcontact_delete' %}
-            {% endif %}
-        {% else %}
-            {% set back_path = 'manager_journalcontact' %}
-            {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
-                {% set delete_path = 'manager_journalcontact_delete' %}
-            {% endif %}
+        {% set back_path = 'ojs_journal_journal_contact_index' %}
+        {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
+            {% set delete_path = 'ojs_journal_journal_contact_delete' %}
         {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>

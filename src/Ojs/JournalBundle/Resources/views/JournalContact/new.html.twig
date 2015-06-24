@@ -2,14 +2,9 @@
 {% block title %}{{ 'title.journal_contact_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
-    {% if isSystemAdmin() %}
-        {% set index_path = 'journalcontact' %}
-    {% else %}
-        {% set index_path = 'manager_journalcontact' %}
-    {% endif %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path(index_path),'title': 'journal.contact'|trans},
+    {'link': path('ojs_journal_journal_contact_index'),'title': 'journal.contact'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -20,20 +15,13 @@
 
     {{ form(form) }}
 
-
-    {% if is_granted('EDIT', selectedJournal()) %}
-        <div class="alert alert-warning">
-            <h4>Not listed here?</h4>
-            <a class="btn btn-warning" href="">Add new contact details</a>
-        </div>
-    {% endif %}
-
     <div class="record_actions">
-        {% if is_granted('VIEW', selectedJournal(), 'contacts') %}
-            {% set back_path = 'journalcontact' %}
-        {% elseif is_granted('VIEW', selectedJournal(), 'contacts') %}
-            {% set back_path = 'manager_journalcontact' %}
-        {% endif %}
+        {% set back_path = 'ojs_journal_journal_contact_index' %}
         {% include '::actionbuttons.html.twig' %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/bundles/ojslocation/js/location.js') }}"></script>
 {% endblock %}

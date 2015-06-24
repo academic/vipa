@@ -2,40 +2,95 @@ Ojs\JournalBundle\Entity\JournalContact:
     type: entity
     table: journal_contact
     repositoryClass: Ojs\JournalBundle\Entity\JournalContactRepository
-    manyToOne:
-        journal:
-          targetEntity: Ojs\JournalBundle\Entity\Journal
-          joinColumn:
-            name: journal_id
-            referencedColumnName: id
-        contact:
-          targetEntity: Ojs\JournalBundle\Entity\Contact
-          joinColumn:
-            name: contact_id
-            referencedColumnName: id
-        contactType:
-          targetEntity: Ojs\JournalBundle\Entity\ContactTypes
-          joinColumn:
-            name: contact_type_id
-            referencedColumnName: id
     id:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
+    manyToOne:
+          country:
+                targetEntity: Ojs\LocationBundle\Entity\Country
+                joinColumn:
+                  name: country_id
+                  referencedColumnName: id
+          city:
+                targetEntity: Ojs\LocationBundle\Entity\Province
+                joinColumn:
+                  name: city_id
+                  referencedColumnName: id
+          journal:
+                targetEntity: Ojs\JournalBundle\Entity\Journal
+                joinColumn:
+                  name: journal_id
+                  referencedColumnName: id
+          contactType:
+                targetEntity: Ojs\JournalBundle\Entity\ContactTypes
+                joinColumn:
+                  name: contact_type_id
+                  referencedColumnName: id
     fields:
-        journalId:
-            type: integer
-            column: journal_id
-        contactId:
-            type: integer
-            column: contact_id
+        title:
+            type: string
+            length: 255
+            nullable: TRUE
             gedmo:
-                  - versioned
-        contactTypeId:
-            type: integer
-            column: contact_type_id
+                - versioned
+        affiliation:
+            type: text
+            nullable: true
+            gedmo:
+                - versioned
+        firstName:
+            type: string
+            length: 255
+            column: first_name
+            gedmo:
+                - versioned
+            nullable: true
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+            gedmo:
+                - versioned
+            nullable: true
+        address:
+            type: text
+            nullable: TRUE
+            gedmo:
+                - versioned
+        phone:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        fax:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
+        email:
+            type: string
+            length: 255
+            gedmo:
+                - versioned
+            nullable: true
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
         createdBy:
            type: string
            gedmo:
@@ -46,6 +101,16 @@ Ojs\JournalBundle\Entity\JournalContact:
            gedmo:
              blameable:
                on: update
-    lifecycleCallbacks: {  }
+        tags:
+            type: string
+            nullable: true
+            gedmo:
+                - versioned
     gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        translation:
+            locale: locale
         loggable: true
+    lifecycleCallbacks: {  }
