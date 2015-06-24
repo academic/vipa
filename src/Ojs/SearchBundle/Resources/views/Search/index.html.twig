@@ -53,7 +53,7 @@
                         {% if result.total_item > 0 %}
                             <li class="{% if key == section %}in active{% endif %}">
                                 <a href="{{ path('ojs_search_index',
-                                    app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'section': key }))) }}">
+                                    app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'section': key,'page': 1}))) }}">
                                     {{ result.type }}
                                     <span class="badge">{{ result.total_item }}</span>
                                 </a>
