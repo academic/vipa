@@ -47,5 +47,10 @@
                 </metadata>
             </record>
         {% endfor %}
+        {% if isLast != false %}
+        <resumptionToken expirationDate="2015-06-24T07:12:22Z"
+                         completeListSize="{{ records.getTotalItemCount }}"
+                         cursor="{{ currentPage }}">{{ resumptionToken }}</resumptionToken>
+        {% endif %}
     </ListRecords>
 {% endblock %}

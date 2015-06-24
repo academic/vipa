@@ -4,6 +4,7 @@ namespace Ojs\OAIBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -54,6 +55,8 @@ class DefaultController extends Controller
      */
     public function recordsAction(Request $request)
     {
+        $session = $this->get('session');
+
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -86,9 +89,24 @@ class DefaultController extends Controller
             }
             $qb->setParameter('until', $_until);
         }
-        $records = $qb->getQuery()->getResult();
+        $paginator = $this->get('knp_paginator');
+        $resumptionToken = $request->get('resumptionToken');
+        if($resumptionToken){
+            $currentPage = (int)$session->get($resumptionToken);
+        }else{
+            $currentPage = 1;
+        }
+        $records = $paginator->paginate(
+            $qb->getQuery(),
+            $currentPage,
+            100
+        );
         $data['records'] = $records;
-
+        $key = md5(StringHelper::generateKey());
+        $session->set($key, $currentPage+1);
+        $data['resumptionToken'] = $key;
+        $data['isLast'] = $records->getTotalItemCount()>=$currentPage*100?true:false;
+        $data['currentPage'] = $currentPage;
         return $this->response('OjsOAIBundle:Default:records.xml.twig', $data);
     }
 
