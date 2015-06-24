@@ -231,6 +231,31 @@ fos_elastica:
                         middleName: ~
                         email: ~
                         tags: ~
+                        user:
+                            type: object
+                            properties:
+                                id: ~
+                                username: ~
+                        articleAuthors:
+                            type: object
+                            properties:
+                                article:
+                                    type: object
+                                    properties:
+                                        id: ~
+                                        issue:
+                                            type: "object"
+                                            properties:
+                                                id: ~
+                                        journal:
+                                            type: object
+                                            properties:
+                                                id: ~
+                                                slug: ~
+                                                institution:
+                                                    type: object
+                                                    properties:
+                                                        slug: ~
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Author
