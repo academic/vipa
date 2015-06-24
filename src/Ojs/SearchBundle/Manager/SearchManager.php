@@ -718,10 +718,10 @@ class SearchManager
                     true
                 );
         }else{
-            if(!isset($source['articleAuthors'][0])){
+            if(!isset($source['articleAuthors'][0]['article'])){
                 return false;
             }
-            $article = $source['articleAuthors'][0];
+            $article = $source['articleAuthors'][0]['article'];
             if(!isset($article['issue']['id'])){
                 return false;
             }
