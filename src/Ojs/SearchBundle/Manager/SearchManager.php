@@ -606,8 +606,8 @@ class SearchManager
                 break;
             case 'subject':
                 $data['name'] = $source['subject'];
-                #subject have no public view page
-                $data['route'] = '#';
+                $filterParam['filter'] = ['subject'=>$object->getId()];
+                $data['route'] = $this->router->generate('ojs_journals_index', $filterParam);
                 break;
             case 'institution':
                 $data['name'] = $source['name'];
