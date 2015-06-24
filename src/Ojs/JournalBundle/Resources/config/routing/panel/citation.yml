@@ -1,30 +1,30 @@
-journal_citation:
+ojs_journal_citation_index:
     path:     /
     defaults: { _controller: "OjsJournalBundle:Citation:index" }
 
-journal_citation_show:
+ojs_journal_citation_show:
     path:     /{id}/show
     defaults: { _controller: "OjsJournalBundle:Citation:show" }
 
-journal_citation_new:
+ojs_journal_citation_new:
     path:     /new
     defaults: { _controller: "OjsJournalBundle:Citation:new" }
 
-journal_citation_create:
+ojs_journal_citation_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:Citation:create" }
     methods:  POST
 
-journal_citation_edit:
+ojs_journal_citation_edit:
     path:     /{id}/edit
     defaults: { _controller: "OjsJournalBundle:Citation:edit" }
 
-journal_citation_update:
+ojs_journal_citation_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:Citation:update" }
-    methods:  [POST, PUT]
+    methods:  [PUT]
 
-journal_citation_delete:
+ojs_journal_citation_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Citation:delete" }
-    methods:  [POST, DELETE]
+    methods:  [DELETE]

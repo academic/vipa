@@ -1,15 +1,20 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.citation_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_journal_citation_index'), 'title': 'title.citations'|trans},
+        {'title': 'title.citation_new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Citation creation</h1>
+    <h2>{{ 'title.citation_new'|trans }}</h2>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('journal_citation') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    {% set create_path = 'ojs_journal_article_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
