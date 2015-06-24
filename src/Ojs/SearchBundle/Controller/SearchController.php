@@ -4,18 +4,10 @@ namespace Ojs\SearchBundle\Controller;
 
 use Elastica\Index;
 use Elastica\Query;
-use Elastica\Result;
 use Elastica\ResultSet;
 use Elastica\Aggregation;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Author;
-use Ojs\JournalBundle\Entity\File;
-use Ojs\JournalBundle\Entity\Institution;
-use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\Subject;
 
 class SearchController extends Controller
 {
