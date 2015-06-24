@@ -7,7 +7,7 @@ use Ojs\JournalBundle\Entity\Journal;
 
 /**
  * UserJournalRole
- * @GRID\Source(columns="id,user.username,user.email,journal.title,role.name")
+ * @GRID\Source(columns="id,user.username,user.email,role.name")
  */
 class UserJournalRole
 {
@@ -41,7 +41,6 @@ class UserJournalRole
 
     /**
      * @var Journal
-     * @GRID\Column(field="journal.title",title="Journal",type="text",visible="false")
      */
     private $journal;
 
