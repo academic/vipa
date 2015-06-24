@@ -19,5 +19,10 @@
                 </setDescription>
             </set>
         {% endfor %}
+        {% if isLast != false %}
+            <resumptionToken expirationDate="{{ "+1 days"|date("Y-m-d\\TH:i:s\\Z") }}"
+                             completeListSize="{{ records.getTotalItemCount }}"
+                             cursor="{{ currentPage }}">{{ resumptionToken }}</resumptionToken>
+        {% endif %}
     </ListSets>
 {% endblock %}

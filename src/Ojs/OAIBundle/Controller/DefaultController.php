@@ -63,6 +63,7 @@ class DefaultController extends Controller
 
         $from = $request->get('from', false);
         $until = $request->get('until', false);
+        $set = $request->get('set',false);
         $qb = $em->createQueryBuilder();
         $qb->select("a")
             ->from("OjsJournalBundle:Article", 'a');
@@ -89,6 +90,15 @@ class DefaultController extends Controller
             }
             $qb->setParameter('until', $_until);
         }
+
+        if($set){
+            $qb->join('a.journal','j','WITH');
+            $qb->andWhere(
+                $qb->expr()->eq('j.slug',':slug')
+            )
+                ->setParameter('slug',$set);
+        }
+
         $paginator = $this->get('knp_paginator');
         $resumptionToken = $request->get('resumptionToken');
         if($resumptionToken){
@@ -116,6 +126,8 @@ class DefaultController extends Controller
      */
     public function listSetsAction(Request $request)
     {
+        $session = $this->get('session');
+
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -147,8 +159,24 @@ class DefaultController extends Controller
             }
             $qb->setParameter('until', $_until);
         }
-        $sets = $qb->getQuery()->getResult();
+        $paginator = $this->get('knp_paginator');
+        $resumptionToken = $request->get('resumptionToken');
+        if($resumptionToken){
+            $currentPage = (int)$session->get($resumptionToken);
+        }else{
+            $currentPage = 1;
+        }
+        $sets = $paginator->paginate(
+            $qb->getQuery(),
+            $currentPage,
+            100
+        );
         $data['records'] = $sets;
+        $key = md5(StringHelper::generateKey());
+        $session->set($key, $currentPage+1);
+        $data['resumptionToken'] = $key;
+        $data['isLast'] = $sets->getTotalItemCount()>=$currentPage*100?true:false;
+        $data['currentPage'] = $currentPage;
 
         return $this->response('OjsOAIBundle:Default:sets.xml.twig', $data);
     }
@@ -158,7 +186,7 @@ class DefaultController extends Controller
      */
     public function listMetadataFormatsAction()
     {
-        return new Response();
+        return $this->response('OjsOAIBundle:Default:metadata_formats.xml.twig');
     }
 
     /**
@@ -185,6 +213,11 @@ class DefaultController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getRecordAction(Request $request)
     {
         $data = [];

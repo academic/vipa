@@ -6,7 +6,7 @@
     <ListIdentifiers>
         {% for record in articles %}
             <header>
-                <identifier>oai:dergipark.ulakbim.gov.tr:record/{{ record.id }}</identifier>
+                <identifier>oai:{{ base_host }}:record/{{ record.id }}</identifier>
                 <datestamp>{{ record.submissionDate|date }}2015-06-22T16:19:54Z</datestamp>
                 <setSpec>{{ record.journal.slug }}</setSpec>
             </header>

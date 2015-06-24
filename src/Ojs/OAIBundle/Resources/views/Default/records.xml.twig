@@ -7,7 +7,7 @@
                 <header>
                     <identifier>oai:{{ base_host }}:article/{{ record.id }}</identifier>
                     <datestamp>{{ record.pubdate|date("Y-m-d\\TH:i:s\\Z") }}</datestamp>
-                    <setSpec>{{ record.slug }}</setSpec>
+                    <setSpec>{{ record.journal.slug }}</setSpec>
                 </header>
                 <metadata>
                     <{{ metadataPrefix() }}:dc
@@ -48,7 +48,7 @@
             </record>
         {% endfor %}
         {% if isLast != false %}
-        <resumptionToken expirationDate="2015-06-24T07:12:22Z"
+        <resumptionToken expirationDate="{{ "+1 days"|date("Y-m-d\\TH:i:s\\Z") }}"
                          completeListSize="{{ records.getTotalItemCount }}"
                          cursor="{{ currentPage }}">{{ resumptionToken }}</resumptionToken>
         {% endif %}
