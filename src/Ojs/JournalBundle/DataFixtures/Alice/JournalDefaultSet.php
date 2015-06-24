@@ -26,8 +26,8 @@ $set->addFile(__DIR__ . '/article_type.yml', 'yaml'); //Article Types
 $set->addFile(__DIR__.'/file.yml', 'yaml');
 $set->addFile(__DIR__.'/article_file.yml', 'yaml'); //Article File
 $set->addFile(__DIR__.'/citation.yml', 'yaml');
-$set->addFile(__DIR__.'/contact.yml', 'yaml');
-$set->addFile(__DIR__.'/contact_type.yml', 'yaml'); //Contact Types
+#$set->addFile(__DIR__.'/contact.yml', 'yaml');
+#$set->addFile(__DIR__.'/contact_type.yml', 'yaml'); //Contact Types
 $set->addFile(__DIR__.'/theme.yml', 'yaml'); //themes
 $set->addFile(__DIR__.'/submission_checklist.yml', 'yaml'); //submission checklist
 $set->addFile(__DIR__.'/journal_index.yml', 'yaml'); // indexes
