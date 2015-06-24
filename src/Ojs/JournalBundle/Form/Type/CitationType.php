@@ -18,7 +18,8 @@ class CitationType extends AbstractType
         $builder
             ->add('raw')
             ->add('type')
-            ->add('orderNum');
+            ->add('orderNum')
+            ->add('articles');
     }
 
     /**

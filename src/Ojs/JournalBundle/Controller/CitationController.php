@@ -2,11 +2,13 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
-use Ojs\JournalBundle\Form\CitationType;
+use Ojs\JournalBundle\Form\Type\CitationType;
 
 /**
  * Citation controller.
@@ -21,13 +23,23 @@ class CitationController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
 
-        $entities = $em->getRepository('OjsJournalBundle:Citation')->findAll();
+        //if (!$this->isGranted('VIEW', $journal, 'citation'))
+        //    throw new AccessDeniedException("You not authorized for this page!");
 
-        return $this->render('OjsJournalBundle:Citation:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $source = new Entity('OjsJournalBundle:Citation');
+        $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = $gridAction->showAction('ojs_journal_citation_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_citation_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_citation_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        return $grid->getGridResponse('OjsJournalBundle:Citation:index.html.twig');
     }
     /**
      * Creates a new Citation entity.
@@ -44,7 +56,7 @@ class CitationController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('journal_citation_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_journal_citation_show', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:Citation:new.html.twig', array(
@@ -63,7 +75,7 @@ class CitationController extends Controller
     private function createCreateForm(Citation $entity)
     {
         $form = $this->createForm(new CitationType(), $entity, array(
-            'action' => $this->generateUrl('journal_citation_create'),
+            'action' => $this->generateUrl('ojs_journal_citation_create'),
             'method' => 'POST',
         ));
 
@@ -143,7 +155,7 @@ class CitationController extends Controller
     private function createEditForm(Citation $entity)
     {
         $form = $this->createForm(new CitationType(), $entity, array(
-            'action' => $this->generateUrl('journal_citation_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('ojs_journal_citation_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +184,7 @@ class CitationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('journal_citation_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_citation_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
@@ -202,7 +214,7 @@ class CitationController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('journal_citation'));
+        return $this->redirect($this->generateUrl('ojs_journal_citation_index'));
     }
 
     /**
@@ -215,7 +227,7 @@ class CitationController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('journal_citation_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('ojs_journal_citation_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
