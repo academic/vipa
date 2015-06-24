@@ -68,22 +68,17 @@ fos_elastica:
                                 value: ~
                         journal:
                             type: "object"
-                            include_in_all: false
                             properties:
                                 id: ~
-                                title: ~
-                                titleAbbr: ~
-                                subtitle: ~
-                                issn: ~
-                                eissn: ~
-
+                                slug: ~
+                                institution:
+                                    type: object
+                                    properties:
+                                        slug: ~
                         issue:
                             type: "object"
                             properties:
-                                title: ~
-                                cover: ~
-                                description: ~
-                                year: ~
+                                id: ~
                         section:
                             type: "object"
                             properties:
@@ -113,7 +108,18 @@ fos_elastica:
                             debug_logging: false
                 issue:
                     mappings:
+                        title: ~
                         tags: ~
+                        journal:
+                            type: "object"
+                            properties:
+                                slug: ~
+                                id: ~
+                                titleAbbr: ~
+                                institution:
+                                    type: object
+                                    properties:
+                                        slug: ~
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Issue
@@ -125,27 +131,22 @@ fos_elastica:
                 journal:
                     mappings:
                         title: ~
+                        slug: ~
                         subtitle: ~
                         description: ~
                         tags: ~
                         status: { "index": "not_analyzed" }
                         published: { "index": "not_analyzed" }
                         subjects:
-                          type: object
-                          properties:
-                            id: ~
-                            subject: ~
+                            type: object
+                            properties:
+                                id: ~
+                                subject: ~
                         institution:
-                          type: object
-                          properties:
-                            tags: ~
-                            slug: ~
-                            name: ~
-                            institution_type:
-                              type: object
-                              properties:
+                            type: object
+                            properties:
+                                slug: ~
                                 name: ~
-                                id:
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Journal
@@ -157,6 +158,7 @@ fos_elastica:
                             debug_logging: false
                 subject:
                     mappings:
+                        subject: ~
                         tags: ~
                     persistence:
                         driver: orm
@@ -195,19 +197,6 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Citation
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                contact:
-                    mappings:
-                        id: ~
-                        firstName: ~
-                        lastName: ~
-                        title: ~
-                        tags: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Contact
                         provider: ~
                         listener: ~
                         finder: ~

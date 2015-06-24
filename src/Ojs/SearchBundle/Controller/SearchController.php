@@ -9,6 +9,13 @@ use Elastica\ResultSet;
 use Elastica\Aggregation;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\File;
+use Ojs\JournalBundle\Entity\Institution;
+use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\Subject;
 
 class SearchController extends Controller
 {
@@ -135,19 +142,7 @@ class SearchController extends Controller
             /**
              * manipulate result data for easily use on template
              */
-            foreach ($resultData as $result) {
-                /** @var Result $result */
-                if (!isset($results[$result->getType()])) {
-                    $results[$result->getType()] = ['type', 'data'];
-                }
-                $results[$result->getType()]['type'] = $searchManager->getTypeText($result->getType());
-                if (isset($results[$result->getType()]['data'])) {
-                    $results[$result->getType()]['data'][] = $searchManager->getObject($result);
-                } else {
-                    $results[$result->getType()]['data'] = [$searchManager->getObject($result)];
-                }
-            }
-
+            $results = $searchManager->buildResultsObject($resultData, $section);
             /**
              * if search section is not defined or empty redirect to first result section
              */
@@ -161,7 +156,7 @@ class SearchController extends Controller
                  */
                 if (!isset($results[$section])) {
                     foreach ($results as $resultKey => $result) {
-                        if (count($results[$resultKey]['data']) > 0) {
+                        if ($result['total_item'] > 0) {
 
                             $redirectParams = array_merge($request->query->all(), ['section' => $resultKey]);
                             return $this->redirectToRoute('ojs_search_index', $redirectParams);

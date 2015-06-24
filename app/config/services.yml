@@ -87,7 +87,7 @@ services:
         arguments: ["@api_key_user_provider"]
     ojs_search_manager:
         class: Ojs\SearchBundle\Manager\SearchManager
-        arguments: [@fos_elastica.index.search, @doctrine.orm.entity_manager, @doctrine, @property_accessor, @translator]
+        arguments: [@fos_elastica.index.search, @doctrine.orm.entity_manager, @doctrine, @property_accessor, @translator,@router]
 
     ojs.twig.common_extension:
         class: Ojs\SiteBundle\Twig\CommonExtension

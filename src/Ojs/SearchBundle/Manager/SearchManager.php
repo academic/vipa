@@ -14,6 +14,7 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * Class $this
@@ -48,13 +49,16 @@ class SearchManager
 
     /** @var  Pagerfanta */
     private $pager;
+    /** @var Router */
+    private $router;
 
     public function __construct(
         Index $index,
         EntityManagerInterface $em,
         RegistryInterface $registry,
         PropertyAccessorInterface $propertyAccessor,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Router $router = null
     ) {
         $this->index = $index;
         $this->em = $em;
@@ -64,6 +68,7 @@ class SearchManager
         $this->finder = $this->search = new \stdClass();
         $this->aggregations = [];
         $this->filter = [];
+        $this->router = $router;
     }
 
     public function tagSearch()
@@ -120,23 +125,6 @@ class SearchManager
     public function getTypeText($type)
     {
         return $this->translator->trans($type);
-    }
-
-    public function getObject(Result $result)
-    {
-        $mapping = $this->index->getMapping();
-        $model = $mapping[$result->getType()]['_meta']['model'];
-        $qb = $this->em->createQueryBuilder();
-        $data = $qb->from($model, 'd')
-            ->select('d')
-            ->where($qb->expr()->eq('d.id', ':id'))
-            ->setParameter('id', $result->getId());
-        $cache = $data->getQuery()->getQueryCacheDriver();
-        if (!$cache->contains($result->getId()."-".$model)) {
-            $cache->save($result->getId()."-".$model, $data->getQuery()->getOneOrNullResult());
-        }
-
-        return $cache->fetch($result->getId()."-".$model);
     }
 
     /**
@@ -534,5 +522,148 @@ class SearchManager
         }
 
         return $searchTermsParsed;
+    }
+
+    /**
+     * @param ResultSet $resultSet
+     * @param $section
+     * @return array
+     */
+    public function buildResultsObject(ResultSet $resultSet, $section)
+    {
+        $results = [];
+        /**
+         * @var Result $object
+         */
+        foreach($resultSet as $object) {
+            $objectType = $object->getType();
+            if (!isset($results[$objectType])) {
+                $results[$objectType]['total_item'] = 1;
+                $results[$objectType]['type'] = $this->translator->trans($object->getType());
+            }else{
+                $results[$objectType]['total_item']++;
+            }
+            if($section == $objectType){
+                $result['detail'] = $this->getObjectDetail($object);
+                $result['source'] = $object->getSource();
+                $results[$objectType]['data'][] = $result;
+
+            }
+
+        }
+        return $results;
+    }
+
+    /**
+     * @param Result $object
+     * @return mixed
+     */
+    private function getObjectDetail(Result $object)
+    {
+        $objectType = $object->getType();
+        $source = $object->getSource();
+        switch ($objectType) {
+            case 'issue':
+                $data['name'] = $source['title'];
+                $data['route'] = $this->generateIssueUrl($object);
+                break;
+            case 'journal':
+                $data['name'] = $source['title'];
+                $data['route'] = $this->generateJournalUrl($object);
+                break;
+            case 'articles':
+                $data['name'] = $source['title'];
+                $data['route'] = $this->generateArticleUrl($object);
+                break;
+            case 'subject':
+                $data['name'] = $source['subject'];
+                #subject have no public view page
+                $data['route'] = '#';
+                break;
+            case 'institution':
+                $data['name'] = $source['name'];
+                $data['route'] = $this->router->generate('ojs_institution_page', ['slug' => $source['slug']], true);
+                break;
+            case 'user':
+                $data['name'] = $source['firstName'].' '.$source['lastName'];
+                $data['route'] = $this->router->generate('ojs_user_profile', ['slug' => $source['username']], true);
+                break;
+            case 'author':
+                $data['name'] = $source['firstName'].' '.$source['lastName'];
+                #author have no public view page
+                $data['route'] = '#';
+                break;
+            case 'file':
+                $data['name'] = $source['name'];
+                #file have no public view page
+                $data['route'] = '#';
+                break;
+            case 'page':
+                $data['name'] = $source['title'];
+                $data['route'] = '#';
+                break;
+            default:
+                $data['name'] = $objectType;
+                $data['route'] = '#';
+                break;
+        }
+        return $data;
+    }
+
+    /**
+     * @param  Result $issueObject
+     * @return string
+     */
+    private function generateIssueUrl(Result $issueObject)
+    {
+        $source = $issueObject->getSource();
+        return $this->router
+            ->generate(
+                'ojs_issue_page',
+                [
+                    'id' => $issueObject->getId(),
+                    'journal_slug' => $source['journal']['slug'],
+                    'institution' => $source['journal']['institution']['slug'],
+                ],
+                true
+            );
+    }
+
+    /**
+     * @param  Result $journalObject
+     * @return string
+     */
+    private function generateJournalUrl(Result $journalObject)
+    {
+        $source = $journalObject->getSource();
+        return $this->router
+            ->generate(
+                'ojs_journal_index',
+                [
+                    'slug' => $source['slug'],
+                    'institution' => $source['institution']['slug']
+                ],
+                true
+            );
+    }
+
+    /**
+     * @param  Result $articleObject
+     * @return string
+     */
+    private function generateArticleUrl(Result $articleObject)
+    {
+        $source = $articleObject->getSource();
+        return $this->router
+            ->generate(
+                'ojs_article_page',
+                [
+                    'slug' => $source['journal']['slug'],
+                    'article_id' => $articleObject->getId(),
+                    'issue_id' => $source['issue']['id'],
+                    'institution' => $source['journal']['institution']['slug'],
+                ],
+                true
+            );
     }
 }
