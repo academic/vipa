@@ -1,0 +1,89 @@
+Ojs\JournalBundle\Entity\IssueFile:
+    type: entity
+    table: issue_file
+    repositoryClass: Ojs\JournalBundle\Entity\IssueFileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        issue:
+            targetEntity: Issue
+            inversedBy: issueFiles
+            joinColumn:
+                name: issue_id
+                referencedColumnName: id
+        file:
+            targetEntity: File
+            inversedBy: issueFiles
+            joinColumn:
+                name: file_id
+                referencedColumnName: id
+
+    fields:
+        type:
+            type: integer
+            nullable: TRUE
+        fileId:
+            type: integer
+            column: file_id
+            gedmo:
+                - versioned
+        issueId:
+            type: integer
+            column: issue_id
+        version:
+            type: integer
+        keywords:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
+        description:
+            type: text
+            nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
+        title:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
+        langCode:
+            column: lang_code
+            type: string
+            length: 50
+            nullable: TRUE
+            gedmo:
+                - versioned
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }
