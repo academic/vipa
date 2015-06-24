@@ -3,7 +3,7 @@ ojs_search_advanced:
     defaults: { _controller: OjsSearchBundle:Search:advanced }
 
 ojs_search_index:
-    path:     /search
+    path:     /search/{page}
     defaults: { _controller: OjsSearchBundle:Search:index,page: 1 }
 
 ojs_tags_cloud:
