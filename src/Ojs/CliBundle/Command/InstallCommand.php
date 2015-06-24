@@ -207,7 +207,7 @@ class InstallCommand extends ContainerAwareCommand
     /**
      * @param OutputInterface $output
      */
-    protected function insertRoles(OutputInterface $output)
+    public function insertRoles(OutputInterface $output)
     {
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getManager();
@@ -237,7 +237,7 @@ class InstallCommand extends ContainerAwareCommand
      * @param $email
      * @param $password
      */
-    protected function insertAdmin($username, $email, $password)
+    public function insertAdmin($username, $email, $password)
     {
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getManager();
