@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 class PeopleController extends Controller
 {
     /**
-     * @param  Request                                    $request
-     * @param  int                                        $page
+     * @param  Request   $request
+     * @param  int       $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request, $page = 1)

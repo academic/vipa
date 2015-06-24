@@ -564,7 +564,7 @@ class SearchManager
         $source = $object->getSource();
         switch ($objectType) {
             case 'issue':
-                $data['name'] = $source['title'];
+                $data['name'] = empty($source['title'])? $this->generateIssueUrl($object): $source['title'];
                 $data['route'] = $this->generateIssueUrl($object);
                 break;
             case 'journal':
@@ -600,6 +600,10 @@ class SearchManager
                 break;
             case 'page':
                 $data['name'] = $source['title'];
+                $data['route'] = '#';
+                break;
+            case 'citation':
+                $data['name'] = $source['raw'];
                 $data['route'] = '#';
                 break;
             default:

@@ -163,7 +163,6 @@ class SearchController extends Controller
             $pagerfanta->setMaxPerPage(10);
             $pagerfanta->setCurrentPage($page);
             $results[$section]['data'] = $pagerfanta->getCurrentPageResults();
-            var_dump($results[$section]['data']);exit();
         }
         /**
          * add search query to query history
@@ -182,7 +181,7 @@ class SearchController extends Controller
             'role_filters' => $roleFilters,
             'subject_filters' => $subjectFilters,
             'journal_filters' => $journalFilters,
-            'pagerfanta' => $pagerfanta,
+            'pagerfanta' => $pagerfanta
         ];
         return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
