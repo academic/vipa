@@ -607,7 +607,7 @@ class SearchManager
             case 'subject':
                 $data['name'] = $source['subject'];
                 $filterParam['filter'] = ['subject'=>$object->getId()];
-                $data['route'] = $this->router->generate('ojs_journals_index', $filterParam);
+                $data['route'] = $this->router->generate('ojs_journals_index', $filterParam, true);
                 break;
             case 'institution':
                 $data['name'] = $source['name'];
@@ -619,13 +619,11 @@ class SearchManager
                 break;
             case 'author':
                 $data['name'] = $source['firstName'].' '.$source['lastName'];
-                #author have no public view page
-                $data['route'] = '#';
+                $data['route'] = $this->generateAuthorUrl($object);
                 break;
             case 'file':
                 $data['name'] = $source['name'];
-                #file have no public view page
-                $data['route'] = '#';
+                $data['route'] = $this->router->generate('ojs_file_download', ['id'=> $object->getId()], true);
                 break;
             case 'page':
                 $data['name'] = $source['title'];
@@ -701,5 +699,43 @@ class SearchManager
                 ],
                 true
             );
+    }
+
+    /**
+     * @param  Result $authorObject
+     * @return string
+     */
+    private function generateAuthorUrl(Result $authorObject)
+    {
+        $source = $authorObject->getSource();
+        if(!empty($source['user'])){
+            return $this->router
+                ->generate(
+                    'ojs_user_profile',
+                    [
+                        'slug' => $source['user']['username']
+                    ],
+                    true
+                );
+        }else{
+            if(!isset($source['articleAuthors'][0])){
+                return false;
+            }
+            $article = $source['articleAuthors'][0];
+            if(!isset($article['issue']['id'])){
+                return false;
+            }
+            return $this->router
+                ->generate(
+                    'ojs_article_page',
+                    [
+                        'slug' => $article['journal']['slug'],
+                        'article_id' => $article['id'],
+                        'issue_id' => $article['issue']['id'],
+                        'institution' => $article['journal']['institution']['slug'],
+                    ],
+                    true
+                );
+        }
     }
 }
