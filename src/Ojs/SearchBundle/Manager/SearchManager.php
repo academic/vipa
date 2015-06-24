@@ -39,6 +39,8 @@ class SearchManager
 
     private $page = 0, $limit = 12, $result = null, $count = 0;
 
+    private $totalHit = 0;
+
     private $param = [];
 
     /** @var Array */
@@ -407,6 +409,24 @@ class SearchManager
     }
 
     /**
+     * @return mixed
+     */
+    public function getTotalHit()
+    {
+        return $this->totalHit;
+    }
+
+    /**
+     * @param $totalHit
+     * @return $this
+     */
+    public function setTotalHit($totalHit)
+    {
+        $this->totalHit = $totalHit;
+        return $this;
+    }
+
+    /**
      * @param  int   $limit
      * @return $this
      */
@@ -551,6 +571,11 @@ class SearchManager
                 }
             }
 
+        }
+        //set only acceptable count for selected section
+        $results[$section]['total_item'] = count($results[$section]['data']);
+        foreach($results as $result){
+            $this->setTotalHit($this->getTotalHit()+$result['total_item']);
         }
         return $results;
     }

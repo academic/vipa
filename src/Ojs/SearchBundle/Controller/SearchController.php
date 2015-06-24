@@ -174,7 +174,7 @@ class SearchController extends Controller
             'query' => $query,
             'queryType' => $queryType,
             'section' => $section,
-            'total_count' => $resultData->count(),
+            'total_count' => $searchManager->getTotalHit(),
             'roles' => $roles,
             'subjects' => $subjects,
             'journals' => $journals,
