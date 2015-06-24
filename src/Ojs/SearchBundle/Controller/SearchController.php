@@ -164,8 +164,6 @@ class SearchController extends Controller
             $pagerfanta->setCurrentPage($page);
             $results[$section]['data'] = $pagerfanta->getCurrentPageResults();
         }
-        echo '<pre>';
-        print_r($results);exit();
         /**
          * add search query to query history
          * history data stores on session
