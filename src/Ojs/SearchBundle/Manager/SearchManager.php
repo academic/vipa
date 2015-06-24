@@ -546,8 +546,9 @@ class SearchManager
             if($section == $objectType){
                 $result['detail'] = $this->getObjectDetail($object);
                 $result['source'] = $object->getSource();
-                $results[$objectType]['data'][] = $result;
-
+                if($result['detail']['route']){
+                    $results[$objectType]['data'][] = $result;
+                }
             }
 
         }
@@ -658,6 +659,9 @@ class SearchManager
     private function generateArticleUrl(Result $articleObject)
     {
         $source = $articleObject->getSource();
+        if(!isset($source['issue']['id'])){
+            return false;
+        }
         return $this->router
             ->generate(
                 'ojs_article_page',
