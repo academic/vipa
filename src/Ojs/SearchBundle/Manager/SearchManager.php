@@ -558,6 +558,7 @@ class SearchManager
         foreach($resultSet as $object) {
             $objectType = $object->getType();
             if (!isset($results[$objectType])) {
+                $results[$objectType]['data'] = [];
                 $results[$objectType]['total_item'] = 1;
                 $results[$objectType]['type'] = $this->translator->trans($object->getType());
             }else{
@@ -573,7 +574,9 @@ class SearchManager
 
         }
         //set only acceptable count for selected section
-        $results[$section]['total_item'] = count($results[$section]['data']);
+        if(!empty($section) && isset($results[$section])){
+            $results[$section]['total_item'] = count($results[$section]['data']);
+        }
         foreach($results as $result){
             $this->setTotalHit($this->getTotalHit()+$result['total_item']);
         }
