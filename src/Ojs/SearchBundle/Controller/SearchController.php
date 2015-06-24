@@ -6,6 +6,8 @@ use Elastica\Index;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\Aggregation;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 
@@ -16,7 +18,7 @@ class SearchController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $page = 1)
     {
         /**
          * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
@@ -156,6 +158,12 @@ class SearchController extends Controller
                     }
                 }
             }
+            $adapter = new ArrayAdapter($results[$section]['data']);
+            $pagerfanta = new Pagerfanta($adapter);
+            $pagerfanta->setMaxPerPage(10);
+            $pagerfanta->setCurrentPage($page);
+            $results[$section]['data'] = $pagerfanta->getCurrentPageResults();
+            var_dump($results[$section]['data']);exit();
         }
         /**
          * add search query to query history
@@ -174,6 +182,7 @@ class SearchController extends Controller
             'role_filters' => $roleFilters,
             'subject_filters' => $subjectFilters,
             'journal_filters' => $journalFilters,
+            'pagerfanta' => $pagerfanta,
         ];
         return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
