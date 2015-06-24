@@ -1,30 +1,30 @@
-manager_journalcontact:
+ojs_journal_journal_contact_index:
     pattern:  /
-    defaults: { _controller: "OjsJournalBundle:JournalContact:indexManager" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:index }
 
-manager_journalcontact_show:
+ojs_journal_journal_contact_show:
     pattern:  /{id}/show
-    defaults: { _controller: "OjsJournalBundle:JournalContact:show" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:show }
 
-manager_journalcontact_new:
+ojs_journal_journal_contact_new:
     pattern:  /new
-    defaults: { _controller: "OjsJournalBundle:JournalContact:newManager" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:new }
 
-manager_journalcontact_create:
+ojs_journal_journal_contact_create:
     pattern:  /create
-    defaults: { _controller: "OjsJournalBundle:JournalContact:create" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:create }
     requirements: { _method: post }
 
-manager_journalcontact_edit:
+ojs_journal_journal_contact_edit:
     pattern:  /{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalContact:edit" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:edit }
 
-manager_journalcontact_update:
+ojs_journal_journal_contact_update:
     pattern:  /{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalContact:update" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:update }
     methods: [PUT]
 
-manager_journalcontact_delete:
+ojs_journal_journal_contact_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalContact:delete" }
+    defaults: { _controller: OjsJournalBundle:JournalContact:delete }
     methods: [DELETE]

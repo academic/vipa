@@ -5,40 +5,59 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\LocationBundle\Entity\Country;
+use Ojs\LocationBundle\Entity\Province;
 
 /**
  * JournalContact
- * @GRID\Source(columns="id,journal.title,contact.email,contactType.name")
+ * @GRID\Source(columns="id,title,firstName,lastName,contactType.name")
  */
 class JournalContact implements Translatable
 {
     use GenericEntityTrait;
 
+    /** @var  Country */
+    protected $country;
+    /** @var  Province */
+    protected $city;
+    /** @var  string */
+    protected $affiliation;
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
-
     /**
-     * @var integer
+     * @var string
+     * @GRID\Column(title="title")
      */
-    private $journalId;
-
+    private $title;
     /**
-     * @var integer
+     * @var string
+     * @GRID\Column(title="firstname")
      */
-    private $contactId;
-
+    private $firstName;
     /**
-     * @var integer
+     * @var string
+     * @GRID\Column(title="lastname")
      */
-    private $contactTypeId;
-
+    private $lastName;
     /**
-     * @var Contact
-     * @GRID\Column(field="contact.email",title="Contact")
+     * @var string
      */
-    private $contact;
+    private $address;
+    /**
+     * @var string
+     */
+    private $phone;
+    /**
+     * @var string
+     */
+    private $fax;
+    /**
+     * @var string
+     */
+    private $email;
 
     /**
      *
@@ -50,7 +69,6 @@ class JournalContact implements Translatable
     /**
      *
      * @var Journal
-     * @GRID\Column(field="journal.title",title="Journal")
      */
     private $journal;
 
@@ -65,106 +83,234 @@ class JournalContact implements Translatable
     }
 
     /**
-     * Set journalId
+     * Get title
      *
-     * @param  integer $journalId
-     * @return $this
+     * @return string
      */
-    public function setJournalId($journalId)
+    public function getTitle()
     {
-        $this->journalId = $journalId;
+        return $this->title;
+    }
+
+    /**
+     * Set title
+     *
+     * @param  string         $title
+     * @return JournalContact
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get journalId
+     * Get firstName
      *
-     * @return integer
+     * @return string
      */
-    public function getJournalId()
+    public function getFirstName()
     {
-        return $this->journalId;
+        return $this->firstName;
     }
 
     /**
-     * Set contactId
+     * Set firstName
      *
-     * @param  integer $contactId
-     * @return $this
+     * @param  string         $firstName
+     * @return JournalContact
      */
-    public function setContactId($contactId)
+    public function setFirstName($firstName)
     {
-        $this->contactId = $contactId;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     /**
-     * Get contactId
+     * Get lastName
      *
-     * @return integer
+     * @return string
      */
-    public function getContactId()
+    public function getLastName()
     {
-        return $this->contactId;
+        return $this->lastName;
     }
 
     /**
-     * Set contactTypeId
+     * Set lastName
      *
-     * @param  integer $contactTypeId
-     * @return $this
+     * @param  string         $lastName
+     * @return JournalContact
      */
-    public function setContactTypeId($contactTypeId)
+    public function setLastName($lastName)
     {
-        $this->contactTypeId = $contactTypeId;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     /**
-     * Get contactTypeId
+     * Get address
      *
-     * @return integer
+     * @return string
      */
-    public function getContactTypeId()
+    public function getAddress()
     {
-        return $this->contactTypeId;
+        return $this->address;
     }
 
     /**
+     * Set address
      *
-     * @param  ContactTypes $contactType
-     * @return $this
+     * @param  string         $address
+     * @return JournalContact
      */
-    public function setContactType(ContactTypes $contactType)
+    public function setAddress($address)
     {
-        $this->contactType = $contactType;
+        $this->address = $address;
 
         return $this;
     }
 
     /**
-     *
-     * @param  Contact $contact
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param  Country $country
      * @return $this
      */
-    public function setContact(Contact $contact)
+    public function setCountry(Country $country)
     {
-        $this->contact = $contact;
+        $this->country = $country;
 
         return $this;
     }
 
     /**
-     *
-     * @param  Journal $journal
+     * @return Province
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param  Province $city
      * @return $this
      */
-    public function setJournal(Journal $journal)
+    public function setCity(Province $city)
     {
-        $this->journal = $journal;
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param  string         $phone
+     * @return JournalContact
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param  string         $fax
+     * @return JournalContact
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set email
+     *
+     * @param  string         $email
+     * @return JournalContact
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
+
+    /**
+     * Get firstName+lastName
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstName." ".$this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAffiliation()
+    {
+        return $this->affiliation;
+    }
+
+    /**
+     * @param  string $affiliation
+     * @return $this
+     */
+    public function setAffiliation($affiliation)
+    {
+        $this->affiliation = $affiliation;
 
         return $this;
     }
@@ -180,11 +326,14 @@ class JournalContact implements Translatable
 
     /**
      *
-     * @return Contact
+     * @param  Journal $journal
+     * @return $this
      */
-    public function getContact()
+    public function setJournal(Journal $journal)
     {
-        return $this->contact;
+        $this->journal = $journal;
+
+        return $this;
     }
 
     /**
@@ -195,5 +344,17 @@ class JournalContact implements Translatable
     public function getContactType()
     {
         return $this->contactType;
+    }
+
+    /**
+     *
+     * @param  ContactTypes $contactType
+     * @return $this
+     */
+    public function setContactType(ContactTypes $contactType)
+    {
+        $this->contactType = $contactType;
+
+        return $this;
     }
 }

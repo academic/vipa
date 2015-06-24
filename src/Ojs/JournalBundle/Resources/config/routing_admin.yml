@@ -9,18 +9,14 @@ ojs_journal_admin_journaltheme:
 ojs_issue:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/issue.yml"
     prefix:   /admin/issue
-
-ojs_contact_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/contact.yml"
-    prefix:   /admin/contact
-
+    
 ojs_author_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/author.yml"
     prefix:   /admin/author
 
 ojs_journalcontact:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/journalcontact.yml"
-    prefix:   /admin/journalcontact
+    resource: "@OjsJournalBundle/Resources/config/routing/journalcontact.yml"
+    prefix:   /journal/journalcontact
 
 ojs_articleauthor:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/articleauthor.yml"

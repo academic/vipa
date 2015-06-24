@@ -4,21 +4,15 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'title': 'journal.contact'|trans}
+    {'title': 'journalcontact.list'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     <h1>{{ 'journalcontact.list'|trans }}
-        {% if isSystemAdmin() %}
-            {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
-                {% set create_path = 'journalcontact_new' %}
-            {% endif %}
-        {% else %}
-            {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
-                {% set create_path = 'manager_journalcontact_new' %}
-            {% endif %}
+        {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
+            {% set create_path = 'ojs_journal_journal_contact_new' %}
         {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </h1>
