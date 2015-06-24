@@ -50,12 +50,12 @@
             <div class="col-sm-3">
                 <ul class="nav nav-pills nav-stacked">
                     {% for key,result in results %}
-                        {% if result.data|length > 0 %}
+                        {% if result.total_item > 0 %}
                             <li class="{% if key == section %}in active{% endif %}">
                                 <a href="{{ path('ojs_search_index',
                                     app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'section': key }))) }}">
                                     {{ result.type }}
-                                    <span class="badge">{{ result.data|length }}</span>
+                                    <span class="badge">{{ result.total_item }}</span>
                                 </a>
                             </li>
                         {% endif %}
@@ -174,15 +174,15 @@
                         <div role="tabpanel" class="tab-pane fade in active">
                             <table class="table table-bordered">
                                 <tbody>
-                                {% for res in result.data %}
+                                {% for resultData in result.data %}
                                     <tr>
                                         <td>
                                             <h4>
-                                                <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
+                                                <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a>
                                             </h4>
                                             {% if queryType == 'tag' %}
                                                 <i class="fa fa-tags"></i> {{ "tags"|trans }}
-                                                {% set tags = res.tags|split(',') %}
+                                                {% set tags = resultData.source.tags|split(',') %}
                                                 {% for tag in tags %}
                                                     <a href="/search?q={{ tag }}&type=tag"><span
                                                                 class="badge">{{ tag }}</span></a>

@@ -10,22 +10,14 @@ use Ojs\Common\Params\ArticleFileParams;
 use Ojs\Common\Params\CommonParams;
 use Ojs\Common\Services\JournalService;
 use Ojs\Common\Services\UserListener;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Author;
-use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Entity\File;
-use Ojs\JournalBundle\Entity\Institution;
-use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
-use Ojs\JournalBundle\Entity\Subject;
-use Ojs\SiteBundle\Entity\Page;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Util\ClassUtils;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class OjsExtension extends \Twig_Extension
@@ -389,118 +381,6 @@ class OjsExtension extends \Twig_Extension
         $user = $this->userListener->checkUser();
 
         return $user ? $user->getApiKey() : null;
-    }
-
-    /**
-     * Get object definition field by object type.
-     * @param $object
-     * @return string
-     */
-    public function getTagDefinition($object)
-    {
-        $objectClass = ClassUtils::getRealClass($object);
-        switch ($objectClass) {
-            case 'Ojs\JournalBundle\Entity\Issue':
-                /** @var Issue $object */
-                $data['name'] = $object->getTitle();
-                $data['route'] = $this->generateIssueUrl($object);
-                break;
-            case 'Ojs\JournalBundle\Entity\Journal':
-                /** @var Journal $object */
-                $data['name'] = $object->getTitle();
-                $data['route'] = $this->generateJournalUrl($object);
-                break;
-            case 'Ojs\JournalBundle\Entity\Article':
-                /** @var Article $object */
-                $data['name'] = $object->getTitle();
-                $data['route'] = $this->generateArticleUrl($object);
-                break;
-            case 'Ojs\JournalBundle\Entity\Subject':
-                /** @var Subject $object */
-                $data['name'] = $object->getSubject();
-                $data['route'] = $this->router->generate('ojs_journals_index', ['subject' => $object->getSlug()]);
-                break;
-            case 'Ojs\JournalBundle\Entity\Institution':
-                /** @var Institution $object */
-                $data['name'] = $object->getName();
-                $data['route'] = $this->router->generate('ojs_institution_page', ['slug' => $object->getSlug()]);
-                break;
-            case 'Ojs\UserBundle\Entity\User':
-                /** @var User $object */
-                $data['name'] = $object->getUsername();
-                $data['route'] = $this->router->generate('ojs_user_profile', ['slug' => $object->getUsername()]);
-                break;
-            case 'Ojs\JournalBundle\Entity\Author':
-                /** @var Author $object */
-                $data['name'] = $object->getFullName();
-                $data['route'] = $this->router->generate('author_show', ['id' => $object->getId()]);
-                break;
-            case 'Ojs\JournalBundle\Entity\Contact':
-                /** @var Contact $object */
-                $data['name'] = $object->getFullName();
-                $data['route'] = $this->router->generate('contact_show', ['id' => $object->getId()]);
-                break;
-            case 'Ojs\JournalBundle\Entity\File':
-                /** @var File $object */
-                $data['name'] = $object->getName();
-                #file have no public view page
-                $data['route'] = '#';
-                break;
-            case 'Ojs\SiteBundle\Entity\Page':
-                /** @var Page $object */
-                $data['name'] = $object->getTitle();
-                $data['route'] = '#';
-                break;
-            default:
-                $data['name'] = 'Result Item';
-                $data['route'] = '#';
-                break;
-        }
-
-        return $data;
-    }
-
-    /**
-     * @param  Article $article
-     * @return string
-     */
-    private function generateArticleUrl(Article $article)
-    {
-        $institution = $article->getJournal()->getInstitution();
-        $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
-        $issueId = $article->getIssue()? $article->getIssueId(): 0;
-        return $this->router
-            ->generate(
-                'ojs_article_page',
-                [
-                    'slug' => $article->getJournal()->getSlug(),
-                    'article_id' => $article->getId(),
-                    'issue_id' => $issueId,
-                    'institution' => $institutionSlug,
-                ],
-                Router::ABSOLUTE_URL
-            );
-    }
-
-    /**
-     * @param  Issue  $issue
-     * @return string
-     */
-    private function generateIssueUrl(Issue $issue)
-    {
-        $institution = $issue->getJournal()->getInstitution();
-        $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
-
-        return $this->router
-            ->generate(
-                'ojs_issue_page',
-                [
-                    'id' => $issue->getId(),
-                    'journal_slug' => $issue->getJournal()->getSlug(),
-                    'institution' => $institutionSlug,
-                ],
-                Router::ABSOLUTE_URL
-            );
     }
 
     /**
