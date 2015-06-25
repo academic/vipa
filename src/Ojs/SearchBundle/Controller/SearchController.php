@@ -2,14 +2,14 @@
 
 namespace Ojs\SearchBundle\Controller;
 
+use Elastica\Aggregation;
 use Elastica\Index;
 use Elastica\Query;
 use Elastica\ResultSet;
-use Elastica\Aggregation;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
 
 class SearchController extends Controller
 {
@@ -132,7 +132,7 @@ class SearchController extends Controller
         $journals = $resultData->getAggregation('journals')['buckets'];
 
         $results = [];
-        if($resultData->count()>0){
+        if ($resultData->count() > 0) {
             /**
              * manipulate result data for easily use on template
              */
@@ -163,26 +163,33 @@ class SearchController extends Controller
             $pagerfanta->setMaxPerPage(10);
             $pagerfanta->setCurrentPage($page);
             $results[$section]['data'] = $pagerfanta->getCurrentPageResults();
+            /**
+             * add search query to query history
+             * history data stores on session
+             */
+            $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
+            $data = [
+                'results' => $results,
+                'query' => $query,
+                'queryType' => $queryType,
+                'section' => $section,
+                'total_count' => $searchManager->getTotalHit(),
+                'roles' => $roles,
+                'subjects' => $subjects,
+                'journals' => $journals,
+                'role_filters' => $roleFilters,
+                'subject_filters' => $subjectFilters,
+                'journal_filters' => $journalFilters,
+                'pagerfanta' => $pagerfanta
+            ];
+
+        } else {
+            $data = [
+                'query' => $query,
+                'queryType' => $queryType,
+                'total_count' => $searchManager->getTotalHit()
+            ];
         }
-        /**
-         * add search query to query history
-         * history data stores on session
-         */
-        $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
-        $data = [
-            'results' => $results,
-            'query' => $query,
-            'queryType' => $queryType,
-            'section' => $section,
-            'total_count' => $searchManager->getTotalHit(),
-            'roles' => $roles,
-            'subjects' => $subjects,
-            'journals' => $journals,
-            'role_filters' => $roleFilters,
-            'subject_filters' => $subjectFilters,
-            'journal_filters' => $journalFilters,
-            'pagerfanta' => $pagerfanta
-        ];
         return $this->render('OjsSearchBundle:Search:index.html.twig', $data);
     }
 
