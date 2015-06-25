@@ -203,6 +203,7 @@
                 </div>
             </div>
         </section>
+        {% if search_history_enabled is defined %}
         <div class="col-sm-12">
             <h2>{{ 'search.history' }}</h2>
             <table class="table table-bordered">
@@ -238,5 +239,6 @@
                 </tbody>
             </table>
         </div>
+        {% endif %}
     </div>
 {% endblock %}
