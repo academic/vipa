@@ -1,31 +1,30 @@
-#user journal role
-ujr:
+ojs_journal_role_index:
     pattern:  /
     defaults: { _controller: "OjsJournalBundle:JournalRole:index" }
 
-ujr_show:
+ojs_journal_role_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjsJournalBundle:JournalRole:show" }
 
-ujr_new:
+ojs_journal_role_new:
     pattern:  /new
     defaults: { _controller: "OjsJournalBundle:JournalRole:new" }
 
-ujr_create:
+ojs_journal_role_create:
     pattern:  /create
     defaults: { _controller: "OjsJournalBundle:JournalRole:create" }
     requirements: { _method: post }
 
-ujr_edit:
+ojs_journal_role_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "OjsJournalBundle:JournalRole:edit" }
 
-ujr_update:
+ojs_journal_role_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalRole:update" }
     methods:  [PUT]
 
-ujr_delete:
+ojs_journal_role_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalRole:delete" }
     methods: [DELETE]

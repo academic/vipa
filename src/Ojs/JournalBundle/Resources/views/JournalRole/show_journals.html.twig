@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ujr'),'title': 'user.journalrole'|trans},
+    {'link': path('ojs_journal_role_index'),'title': 'user.journalrole'|trans},
     {'title': 'user.journalrole.journals.of.user'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -36,7 +36,7 @@
                 </tbody>
             </table>
 
-            <a class="btn  btn-success" href="{{ path('ujr_new') }}">
+            <a class="btn  btn-success" href="{{ path('ojs_journal_role_new') }}">
                 {{ "c"|trans }}
             </a>
         </div>

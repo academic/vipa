@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ujr'),'title': 'user.journalrole'|trans},
+    {'link': path('ojs_journal_role_index'),'title': 'user.journalrole'|trans},
     {'title': 'user.journalrole.edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,9 +17,9 @@
             {% include '::flashbag.html.twig' %}
             {{ form(edit_form) }}
 
-            {% set back_path = 'ujr' %}
+            {% set back_path = 'ojs_journal_role_index' %}
             {% if is_granted('DELETE', selectedJournal(), 'userRole') %}
-                {% set delete_path = 'ujr_delete' %}
+                {% set delete_path = 'ojs_journal_role_delete' %}
             {% endif %}
             {% include '::actionbuttons.html.twig' %}
 

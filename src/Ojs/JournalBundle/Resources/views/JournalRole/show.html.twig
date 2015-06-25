@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ujr'),'title': 'user.journalrole'|trans},
+    {'link': path('ojs_journal_role_index'),'title': 'user.journalrole'|trans},
     {'title': 'user.journalrole.singular'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -36,12 +36,12 @@
                 </tbody>
             </table>
 
-            {% set back_path = 'ujr' %}
+            {% set back_path = 'ojs_journal_role_index' %}
             {% if is_granted('EDIT', selectedJournal(), 'userRole') %}
-                {% set edit_path = 'ujr_edit' %}
+                {% set edit_path = 'ojs_journal_role_edit' %}
             {% endif %}
             {% if is_granted('DELETE', selectedJournal(), 'userRole') %}
-                {% set delete_path = 'ujr_delete' %}
+                {% set delete_path = 'ojs_journal_role_delete' %}
             {% endif %}
             {% include '::actionbuttons.html.twig' %}
         </div>
