@@ -68,7 +68,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function hasJournalRole(User $user, Role $role, Journal $journal)
     {
         $data = $this->getEntityManager()->createQuery(
-            'SELECT u FROM OjsUserBundle:UserJournalRole u
+            'SELECT u FROM OjsJournalBundle:JournalRole u
               WHERE u.userId = :user_id
               AND u.roleId = :role_id
               AND u.journalId = :journal_id

@@ -6,11 +6,11 @@ use Composer\Script\CommandEvent;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Theme;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\SiteBundle\Acl\AclChainManager;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Helper\DialogHelper;
@@ -709,7 +709,7 @@ class InstallCommand extends ContainerAwareCommand
 
         $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
 
-        $userJournalRoles = $em->getRepository('OjsUserBundle:UserJournalRole')->findAllByJournalRole(
+        $userJournalRoles = $em->getRepository('OjsUserBundle:JournalRole')->findAllByJournalRole(
             array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR')
         );
         foreach ($userJournalRoles as $userJournalRole) {
@@ -719,11 +719,11 @@ class InstallCommand extends ContainerAwareCommand
                 $userJournalRole->getJournal()
             )
             ) {
-                $newUserJournalRole = new UserJournalRole();
-                $newUserJournalRole->setRole($authorRole);
-                $newUserJournalRole->setUser($userJournalRole->getUser());
-                $newUserJournalRole->setJournal($userJournalRole->getJournal());
-                $em->persist($newUserJournalRole);
+                $newJournalRole = new JournalRole();
+                $newJournalRole->setRole($authorRole);
+                $newJournalRole->setUser($userJournalRole->getUser());
+                $newJournalRole->setJournal($userJournalRole->getJournal());
+                $em->persist($newJournalRole);
                 $output->writeln(
                     $sb.'Author added : '.$userJournalRole->getUser().' - '.$userJournalRole->getJournal().$se
                 );

@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\UserBundle\Form\Type;
+namespace Ojs\JournalBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserJournalRoleType extends AbstractType
+class JournalRoleType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -49,7 +49,7 @@ class UserJournalRoleType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\UserBundle\Entity\UserJournalRole',
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalRole',
                 'usersEndPoint' => '/',
                 'userEndPoint' => '/',
                 'attr' => [

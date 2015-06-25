@@ -12,7 +12,7 @@ Ojs\UserBundle\Entity\User:
         email:
             - NotBlank: ~
             - Email: ~
-Ojs\UserBundle\Entity\UserJournalRole:
+Ojs\JournalBundle\Entity\JournalRole:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [role, user, journal]

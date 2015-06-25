@@ -130,7 +130,7 @@ class JournalService
             return array();
         }
         $user = $token->getUser();
-        $userJournalRoleRepo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
+        $userJournalRoleRepo = $this->em->getRepository('OjsJournalBundle:JournalRole');
         $roles = $userJournalRoleRepo->findAllByJournalAndUser($journal, $user);
 
         return $roles;
@@ -198,7 +198,7 @@ class JournalService
      */
     public function getUsers($journalId, $page, $limit)
     {
-        $users = $this->em->getRepository('OjsUserBundle:UserJournalRole')
+        $users = $this->em->getRepository('OjsJournalBundle:JournalRole')
             ->createQueryBuilder('j')
             ->where('j.journalId = :id')
             ->setParameter('id', $journalId)

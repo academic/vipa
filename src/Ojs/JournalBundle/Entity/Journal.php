@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\LocationBundle\Entity\Country;
 
 /**
@@ -1270,10 +1270,10 @@ class Journal implements Translatable
     }
 
     /**
-     * @param  UserJournalRole $role
+     * @param  JournalRole $role
      * @return $this
      */
-    public function addUserRole(UserJournalRole $role)
+    public function addUserRole(JournalRole $role)
     {
         $this->userRoles->add($role);
 
@@ -1281,10 +1281,10 @@ class Journal implements Translatable
     }
 
     /**
-     * @param  UserJournalRole $role
+     * @param  JournalRole $role
      * @return $this
      */
-    public function removeUserRole(UserJournalRole $role)
+    public function removeUserRole(JournalRole $role)
     {
         $this->userRoles->removeElement($role);
 

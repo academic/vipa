@@ -18,7 +18,7 @@ class UserJournalRoleTypeTest extends BaseTypeTestcase
                 'journalId' => 1,
                 'roleId' => 1,
             ],
-            'Ojs\UserBundle\Entity\UserJournalRole');*/
+            'Ojs\JournalBundle\Entity\JournalRole');*/
         $this->assertTrue(true);
     }
 }
