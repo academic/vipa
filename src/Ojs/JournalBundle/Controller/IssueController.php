@@ -49,7 +49,7 @@ class IssueController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('issue_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_issue_show', 'id');
 
         $articleAction = new RowAction('<i class="fa fa-file-text"></i>', 'issue_manager_issue_view');
         $articleAction->setAttributes(
@@ -61,10 +61,10 @@ class IssueController extends Controller
         );
         $rowAction[] = $articleAction;
         if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->editAction('issue_edit', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_issue_edit', 'id');
         }
         if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->deleteAction('issue_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);
@@ -106,7 +106,7 @@ class IssueController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('issue_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_issue_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
@@ -131,7 +131,7 @@ class IssueController extends Controller
             new IssueType(),
             $entity,
             array(
-                'action' => $this->generateUrl('issue_create'),
+                'action' => $this->generateUrl('ojs_journal_issue_create'),
                 'method' => 'POST',
             )
         );
@@ -249,7 +249,7 @@ class IssueController extends Controller
             new IssueType(),
             $entity,
             array(
-                'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_issue_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -291,7 +291,7 @@ class IssueController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('issue_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_journal_issue_edit', ['id' => $id]);
         }
 
         return $this->render(
@@ -321,7 +321,7 @@ class IssueController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('issue' . $id);
+        $token = $csrf->getToken('ojs_journal_issue_index' . $id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -329,7 +329,7 @@ class IssueController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('issue');
+        return $this->redirectToRoute('ojs_journal_issue_index');
     }
 
     /**

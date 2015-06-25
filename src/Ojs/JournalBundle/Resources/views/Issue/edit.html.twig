@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('issue'),'title': 'issue'|trans},
+    {'link': path('ojs_journal_issue_index'),'title': 'issue'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -73,9 +73,9 @@
     <a class="btn btn-primary" href="{{ url('admin_issuefile_new',{issue: entity.id}) }}">{{ "issuefile.new" }}</a>
     <hr>
 
-    {% set back_path = 'issue' %}
+    {% set back_path = 'ojs_journal_issue_index' %}
     {% if is_granted('DELETE', selectedJournal(), 'issues') %}
-        {% set delete_path = 'issue_delete' %}
+        {% set delete_path = 'ojs_journal_issue_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
