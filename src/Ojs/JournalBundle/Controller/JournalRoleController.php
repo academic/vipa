@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
  * JournalRole controller.
@@ -162,17 +163,16 @@ class JournalRoleController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $entity = $em->getRepository('OjsJournalBundle:JournalRole')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_role'.$id);
+
+        $entity = $em->getRepository('OjsJournalBundle:JournalRole')->findOneBy(['id' => $id, 'journal' => $journal]);
         $this->throw404IfNotFound($entity);
 
-        return $this->render(
-            'OjsJournalBundle:JournalRole:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
-        );
+        return $this->render('OjsJournalBundle:JournalRole:show.html.twig',
+            ['entity' => $entity, 'token'  => $token]);
     }
 
     /**
@@ -322,10 +322,12 @@ class JournalRoleController extends Controller
     /**
      * Deletes a JournalRole entity.
      *
-     * @param  integer          $id
-     * @return RedirectResponse
+     * @param   Request $request
+     * @param   integer $id
+     * @throws  TokenNotFoundException
+     * @return  RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -337,11 +339,10 @@ class JournalRoleController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
-        // TODO: Protect against CSRF
-        // $csrf = $this->get('security.csrf.token_manager');
-        // $token = $csrf->getToken('ojs_journal_role_index'.$entity->getId());
-        // if($token!=$request->get('_token'))
-        //    throw new TokenNotFoundException("Token Not Found!");
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('ojs_journal_role'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
 
         $em->remove($entity);
         $em->flush();
