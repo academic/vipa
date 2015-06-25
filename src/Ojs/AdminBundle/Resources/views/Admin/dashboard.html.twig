@@ -118,27 +118,6 @@
                 </a>
             </div>
         </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <span style="font-size: 24px">{{ 'admin.dashboard.applications'|trans }}</span>
-            </div>
-            <div class="list-group">
-                <a class="list-group-item" href="{{ path('ojs_admin_application_journal_index') }}">
-                    <span style="color: #337ab7; margin-right: 3px;">
-                        <i class="fa fa-newspaper-o"></i>
-                    </span>
-                    {{ "application.journal"|trans }}
-                </a>
-
-                <a class="list-group-item" href="{{ path('ojs_admin_application_institution_index') }}">
-                    <span style="color: #337ab7; margin-right: 3px;">
-                        <i class="fa fa-university"></i>
-                    </span>
-                    {{ "application.institute"|trans }}
-                </a>
-            </div>
-        </div>
     </div>
 
     <div class="col-md-6">
@@ -189,6 +168,27 @@
                         <i class="fa fa-navicon"></i>
                     </span>
                     {{ "journal.design"|trans }}
+                </a>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span style="font-size: 24px">{{ 'admin.dashboard.applications'|trans }}</span>
+            </div>
+            <div class="list-group">
+                <a class="list-group-item" href="{{ path('ojs_admin_application_journal_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-newspaper-o"></i>
+                    </span>
+                    {{ "application.journal"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_admin_application_institution_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-university"></i>
+                    </span>
+                    {{ "application.institute"|trans }}
                 </a>
             </div>
         </div>
