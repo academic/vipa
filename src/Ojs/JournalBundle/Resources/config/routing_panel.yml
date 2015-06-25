@@ -2,10 +2,14 @@ ojs_journal_article:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article.yml"
     prefix:   /article
 
-ojs_journal_journal_contact:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/journal_contact.yml"
-    prefix:   /journal-contact
-
 ojs_journal_citation:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/citation.yml"
     prefix:   /citation
+
+ojs_journal_article_file:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/article_file.yml"
+    prefix:   /article-file
+
+ojs_journal_journal_contact:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/journal_contact.yml"
+    prefix:   /journal-contact

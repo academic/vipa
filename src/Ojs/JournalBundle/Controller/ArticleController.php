@@ -115,7 +115,7 @@ class ArticleController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
-            return $this->redirectToRoute('articlefile', ['article' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_article_file_index', ['article' => $entity->getId()]);
         }
 
         return $this->render(
