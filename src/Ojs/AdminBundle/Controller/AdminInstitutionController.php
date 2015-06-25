@@ -102,7 +102,6 @@ class AdminInstitutionController extends Controller
             array(
                 'action' => $this->generateUrl('ojs_admin_institution_create'),
                 'method' => 'POST',
-                'tagEndPoint' => $this->generateUrl('api_get_tags'),
                 'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
                 'institutionEndPoint' => $this->generateUrl('api_get_institution')
             )
