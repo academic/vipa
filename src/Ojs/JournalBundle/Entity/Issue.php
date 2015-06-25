@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\JournalBundle\Entity\IssueFile;
 
 /**
  * Issue
@@ -127,6 +128,7 @@ class Issue implements Translatable
     {
         $this->articles = new ArrayCollection();
         $this->sections = new ArrayCollection();
+        $this->issueFiles = new ArrayCollection();
     }
 
     /**
@@ -576,6 +578,48 @@ class Issue implements Translatable
     {
         $this->full_file = $full_file;
 
+        return $this;
+    }
+
+    /**
+     * @var array|Collection|IssueFile[]
+     * @Expose
+     */
+    private $issueFiles;
+
+    /**
+     * @return array|Collection|IssueFile[]
+     */
+    public function getIssueFiles()
+    {
+        return $this->issueFiles;
+    }
+
+    /**
+     * @param IssueFile $issueFile
+     * @return $this
+     */
+    public function addIssueFile(IssueFile $issueFile)
+    {
+        $this->issueFiles->add($issueFile);
+        return $this;
+    }
+
+    /**
+     * @param IssueFile $issueFile
+     */
+    public function removeIssueFile(IssueFile $issueFile)
+    {
+        $this->issueFiles->removeElement($issueFile);
+    }
+
+    /**
+     * @param array|Collection|IssueFile[] $issueFiles
+     * @return $this
+     */
+    public function setIssueFiles($issueFiles)
+    {
+        $this->issueFiles = $issueFiles;
         return $this;
     }
 }

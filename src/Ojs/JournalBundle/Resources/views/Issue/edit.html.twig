@@ -16,18 +16,7 @@
     {% include '::flashbag.html.twig' %}
     {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}
-    <div class="form-group">
-        <label class="control-label" for="fileupload_full_file">{{ "full_file"|trans }}</label>
-        <span class="btn btn-success fileinput-button form-control">
-            <i class="fa fa-plus"></i>
-            <span>{{ "select.full.file"|trans }}</span>
-            <input id="fileupload_full_file" type="file" data-url="{{ oneup_uploader_endpoint('issuefiles') }}">
-        </span>
 
-        <div id="issue_full_file_upload_progress" style="display: none" class="label label-info">
-
-        </div>
-    </div>
     <div class="form-group">
         <label class="control-label" for="fileupload">{{ "cover"|trans }}</label>
 
@@ -77,6 +66,11 @@
         {{ "save"|trans }}
     </button>
     {{ form_end(edit_form) }}
+    <hr/>
+    <h3>{{ "issuefile.list"|trans }}</h3>
+    {{ grid(grid) }}
+    <br/>
+    <a class="btn btn-primary" href="{{ url('admin_issuefile_new',{issue: entity.id}) }}">{{ "issuefile.new" }}</a>
     <hr>
 
     {% set back_path = 'issue' %}
