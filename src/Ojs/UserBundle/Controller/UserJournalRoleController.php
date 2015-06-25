@@ -33,26 +33,22 @@ class UserJournalRoleController extends Controller
         /** @var User $user */
         $user = $this->getUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('VIEW', $journal, 'userRole')) {
+        if (!$this->isGranted('VIEW', $journal, 'userRole'))
             throw new AccessDeniedException("You are not authorized for view this page");
-        }
-        if (!$user->isAdmin()) {
+
+        if (!$user->isAdmin())
             return $this->redirectToRoute('journal_users');
-        }
+
         $source = new Entity('OjsUserBundle:UserJournalRole');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
-        $rowAction = [];
-
         $rowAction[] = $gridAction->switchUserAction('ojs_public_index', ['user.username'], null, 'user.username');
         $rowAction[] = $gridAction->showAction('ujr_show', 'id');
         $rowAction[] = $gridAction->editAction('ujr_edit', 'id');
         $rowAction[] = $gridAction->deleteAction('ujr_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
-        $grid->showColumns(['journal.title']);
-        $data = [];
         $data['grid'] = $grid;
 
         return $grid->getGridResponse('OjsUserBundle:UserJournalRole:index.html.twig', $data);

@@ -7,15 +7,6 @@ ujr_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjsUserBundle:UserJournalRole:show" }
 
-
-ujr_show_journals_of_user:
-    pattern:  /user/{user_id}/show/journals
-    defaults: { _controller: "OjsUserBundle:UserJournalRole:showJournalsOfUser" }
-
-ujr_show_users_ofjournal:
-    pattern:  /journal/{journal_id}/show/users
-    defaults: { _controller: "OjsUserBundle:UserJournalRole:showUsersOfJournal" }
-
 ujr_new:
     pattern:  /new
     defaults: { _controller: "OjsUserBundle:UserJournalRole:new" }
@@ -38,3 +29,12 @@ ujr_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsUserBundle:UserJournalRole:delete" }
     methods: [DELETE]
+
+
+#ujr_show_journals_of_user:
+#    pattern:  /user/{user_id}/show/journals
+#    defaults: { _controller: "OjsUserBundle:UserJournalRole:showJournalsOfUser" }
+
+#ujr_show_users_ofjournal:
+#    pattern:  /journal/{journal_id}/show/users
+#    defaults: { _controller: "OjsUserBundle:UserJournalRole:showUsersOfJournal" }
