@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block body -%}
+    {% if app.request.get('article') is not null %}
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="{{ path('ojs_journal_article_show', {id: app.request.get('article')}) }}">{{ "Info"|trans }}</a></li>
+            <li role="presentation"><a href="{{ path('articlefile', {article: app.request.get('article')}) }}">{{ "Article Files"|trans }}</a></li>
+            <li role="presentation" class="active"><a href="#">{{ "title.citations"|trans }}</a></li>
+        </ul>
+    {% endif %}
+    
     <h2>{{ 'title.citations'|trans }}</h2>
 
     {{ grid(grid) }}

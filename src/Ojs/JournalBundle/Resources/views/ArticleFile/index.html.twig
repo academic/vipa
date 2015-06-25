@@ -14,8 +14,9 @@
     {% include '::flashbag.html.twig' %}
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class=""><a href="{{ url('ojs_journal_article_show', {id: article.id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ url('articlefile', {article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_article_show', {id: article.id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="{{ path('articlefile', {article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {article: article.id}) }} }}">{{ "title.citations"|trans }}</a></li>
     </ul>
     {{ grid(grid) }}
 
