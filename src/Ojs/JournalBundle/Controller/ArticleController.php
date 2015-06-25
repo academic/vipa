@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
@@ -38,6 +39,7 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
 
         $source = new Entity('OjsJournalBundle:Article');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($alias, $journal) {
