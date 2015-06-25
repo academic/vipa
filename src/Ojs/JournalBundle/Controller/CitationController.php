@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
 
 use Ojs\Common\Controller\OjsController as Controller;
@@ -20,8 +21,10 @@ class CitationController extends Controller
     /**
      * Lists all Citation entities.
      *
+     * @param   Request $request
+     * @return  Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -30,6 +33,18 @@ class CitationController extends Controller
         //    throw new AccessDeniedException("You not authorized for this page!");
 
         $source = new Entity('OjsJournalBundle:Citation');
+        if($request->query->get('article') != null) {
+            $alias = $source->getTableAlias();
+            $source->manipulateQuery(
+                function (QueryBuilder $query) use ($alias, $request) {
+                    $query
+                        ->join($alias.'.articles', 'a')
+                        ->where('a.id = :articleId')
+                        ->setParameter('articleId', $request->query->get('article'));
+                }
+            );
+        }
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
