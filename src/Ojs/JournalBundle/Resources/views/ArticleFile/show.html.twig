@@ -1,10 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.article_files_show'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
-    {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
-    {'title': 'show'|trans}
+        {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_journal_article_file_index', {article: entity.article.id}),'title': 'title.article_files'|trans},
+        {'title': 'title.article_files_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -51,7 +51,7 @@
         </tr>
         </tbody>
     </table>
-    {% set back_path = 'articlefile' %}
-    {% set edit_path = 'articlefile_edit' %}
+    {% set back_path = 'ojs_journal_article_file_index' %}
+    {% set edit_path = 'ojs_journal_article_file_edit' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

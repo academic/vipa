@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -29,30 +30,40 @@ class ArticleFileController extends Controller
     /**
      * Lists all ArticleFile entities.
      *
-     * @param  Article  $article
-     * @return Response
+     * @param   Request     $request
+     * @return  Response
      */
-    public function indexAction(Article $article)
+    public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', $article->getJournal(), 'articles') && !$this->isGranted('VIEW', $article)) {
+        if ($request->query->get('article') == null)
+            throw new NotFoundHttpException("Not found");
+
+        $article = $this->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->find($request->query->get('article'));
+
+        $this->throw404IfNotFound($article);
+
+        if (!$this->isGranted('VIEW', $article->getJournal(), 'articles') &&
+            !$this->isGranted('VIEW', $article))
             throw new AccessDeniedException("You not authorized for this page!");
-        }
+
         $source = new Entity('OjsJournalBundle:ArticleFile');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($article, $tableAlias) {
-                return $qb->where($tableAlias . '.article = :article')
+                return $qb
+                    ->where($tableAlias . '.article = :article')
                     ->setParameter('article', $article);
             }
         );
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
-
         $actionColumn = new ActionsColumn("actions", 'actions');
-
-        $rowAction[] = $gridAction->showAction('articlefile_show', 'id');
-        $rowAction[] = $gridAction->editAction('articlefile_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('articlefile_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_article_file_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_article_file_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_article_file_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -109,7 +120,7 @@ class ArticleFileController extends Controller
 
             $this->successFlashBag('Successfully created.');
 
-            return $this->redirect($this->generateUrl('articlefile', array('article' => $article->getId())));
+            return $this->redirect($this->generateUrl('ojs_journal_article_file_index', array('article' => $article->getId())));
         }
 
         return $this->render(
@@ -124,9 +135,9 @@ class ArticleFileController extends Controller
     /**
      * Creates a form to create a ArticleFile entity.
      *
-     * @param  ArticleFile $entity
-     * @param $article
-     * @return Form
+     * @param   ArticleFile $entity
+     * @param   Article     $article
+     * @return  Form
      */
     private function createCreateForm(ArticleFile $entity, $article)
     {
@@ -134,10 +145,10 @@ class ArticleFileController extends Controller
             new ArticleFileType(),
             $entity,
             array(
-                'action' => $this->generateUrl('articlefile_create', ['article' => $article]),
+                'action' => $this->generateUrl('ojs_journal_article_file_create', ['article' => $article]),
                 'method' => 'POST',
-                'articlesEndPoint' => $this->generateUrl('api_get_articles'),
-                'articleEndPoint' => $this->generateUrl('api_get_article'),
+                'articlesEndPoint' => $this->generateUrl('api_get_articles', ['id' => $entity->getArticleId()]),
+                'articleEndPoint' => $this->generateUrl('api_get_article', ['id' => $entity->getArticleId()]),
             )
         );
 
@@ -251,7 +262,7 @@ class ArticleFileController extends Controller
             new ArticleFileType(),
             $entity,
             array(
-                'action' => $this->generateUrl('articlefile_update', ['id' => $entity->getId()]),
+                'action' => $this->generateUrl('ojs_journal_article_file_update', ['id' => $entity->getId()]),
                 'method' => 'PUT',
                 'articlesEndPoint' => $this->generateUrl('api_get_articles', ['id' => $entity->getId()]),
                 'articleEndPoint' => $this->generateUrl('api_get_article', ['id' => $entity->getId()]),
@@ -307,7 +318,7 @@ class ArticleFileController extends Controller
 
             $this->successFlashBag('Successfully updated.');
 
-            return $this->redirect($this->generateUrl('articlefile_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_article_file_edit', array('id' => $id)));
         }
 
         return $this->render(
@@ -331,7 +342,7 @@ class ArticleFileController extends Controller
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('articlefile'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_article_file_index'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -347,6 +358,6 @@ class ArticleFileController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('articlefile', ['article' => $entity->getArticleId()]);
+        return $this->redirectToRoute('ojs_journal_article_file_index', ['article' => $entity->getArticleId()]);
     }
 }

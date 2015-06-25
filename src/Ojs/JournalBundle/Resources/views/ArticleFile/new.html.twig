@@ -2,20 +2,14 @@
 {% block title %}{{ 'title.article_files_new'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
-    {'title': 'new'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_journal_article_file_index', {article: entity.article.id}),'title': 'title.article_files'|trans},
+        {'title': 'title.article_files_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <ul class="nav nav-tabs">
-        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a>
-        </li>
-        <li role="presentation" class="active"><a
-                    href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
-    </ul>
     <h1>ArticleFile creation</h1>
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
@@ -49,7 +43,7 @@
     {{ form_end(form) }}
     <ul class="record_actions">
         <li>
-            <a href="{{ path('articlefile',{article: article.id}) }}">
+            <a href="{{ path('ojs_journal_article_file_index',{article: article.id}) }}">
                 Back to the list
             </a>
         </li>

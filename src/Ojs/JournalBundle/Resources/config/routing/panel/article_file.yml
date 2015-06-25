@@ -1,30 +1,30 @@
-articlefile:
-    path:     /edit/{article}
+ojs_journal_article_file_index:
+    path:     /
     defaults: { _controller: "OjsJournalBundle:ArticleFile:index" }
 
-articlefile_show:
+ojs_journal_article_file_show:
     path:     /{id}/show
     defaults: { _controller: "OjsJournalBundle:ArticleFile:show" }
 
-articlefile_new:
+ojs_journal_article_file_new:
     path:     /new/{article}
     defaults: { _controller: "OjsJournalBundle:ArticleFile:new" }
 
-articlefile_create:
+ojs_journal_article_file_create:
     path:     /create/{article}
     defaults: { _controller: "OjsJournalBundle:ArticleFile:create" }
     requirements: { _method: post }
 
-articlefile_edit:
+ojs_journal_article_file_edit:
     path:     /{id}/edit
     defaults: { _controller: "OjsJournalBundle:ArticleFile:edit" }
 
-articlefile_update:
+ojs_journal_article_file_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:ArticleFile:update" }
-    methods: [PUT]
+    methods:  [PUT]
 
-articlefile_delete:
+ojs_journal_article_file_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:ArticleFile:delete" }
-    requirements: { _method: post|delete|get }
+    methods:  [DELETE]
