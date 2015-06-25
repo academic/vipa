@@ -1,3 +1,7 @@
+ojs_journal_role:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/role.yml"
+    prefix:   /role
+
 ojs_journal_article:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article.yml"
     prefix:   /article
