@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Doctrine\ORM\Query;
 
 /**
  * JournalUsers controller.
@@ -32,6 +33,7 @@ class JournalUsersController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $source = new Entity('OjsUserBundle:UserJournalRole');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($journal, $ta) {

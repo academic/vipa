@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -32,6 +33,7 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $source = new Entity('OjsJournalBundle:JournalTheme');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

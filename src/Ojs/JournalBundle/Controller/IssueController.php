@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -36,6 +37,7 @@ class IssueController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's issues!");
         }
         $source = new Entity('OjsJournalBundle:Issue');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($ta, $journal) {
