@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('admin_board'),'title': 'board'|trans},
+    { 'link': path('ojs_journal_board_index'),'title': 'board'|trans},
     {'title': 'board.edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -19,11 +19,11 @@
     {{ form_end(edit_form) }}
 
 
-    <a href="{{ path('admin_board') }}">
+    <a href="{{ path('ojs_journal_board_index') }}">
         {{ "b"|trans }}
     </a>
     {% if is_granted('DELETE', selectedJournal(), 'boards') %}
-        <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
+        <a href="{{ path('ojs_journal_board_delete',{id: entity.id}) }}">
             {{ "d"|trans }}
         </a>
     {% endif %}

@@ -21,3 +21,7 @@ ojs_journal_journal_contact:
 ojs_journal_issue:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/issue.yml"
     prefix:   /issue
+
+ojs_journal_admin_board:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/board.yml"
+    prefix:   /board
