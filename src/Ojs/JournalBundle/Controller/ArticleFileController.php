@@ -251,10 +251,10 @@ class ArticleFileController extends Controller
             new ArticleFileType(),
             $entity,
             array(
-                'action' => $this->generateUrl('articlefile_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('articlefile_update', ['id' => $entity->getId()]),
                 'method' => 'PUT',
-                'articlesEndPoint' => $this->generateUrl('api_get_articles'),
-                'articleEndPoint' => $this->generateUrl('api_get_article'),
+                'articlesEndPoint' => $this->generateUrl('api_get_articles', ['id' => $entity->getId()]),
+                'articleEndPoint' => $this->generateUrl('api_get_article', ['id' => $entity->getId()]),
             )
         );
 

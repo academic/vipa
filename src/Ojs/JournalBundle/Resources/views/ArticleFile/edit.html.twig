@@ -10,13 +10,6 @@
 {% endblock %}
 
 {% block body -%}
-    <ul class="nav nav-tabs">
-        <li role="presentation" class=""><a
-                    href="{{ url('article_edit',{id: entity.article.id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a
-                    href="{{ url('articlefile',{article: entity.article.id}) }}">{{ "Article Files"|trans }}</a></li>
-    </ul>
-
     <h1>ArticleFile edit</h1>
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% include '::flashbag.html.twig' %}
