@@ -1,10 +1,4 @@
 <?php
-/**
- * Date: 21.11.14
- * Time: 15:07
- * Devs: [
- *   ]
- */
 $set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet(
     [
         'seed' => 1,
@@ -22,12 +16,11 @@ $set->addFile(__DIR__.'/issue.yml', 'yaml');
 $set->addFile(__DIR__.'/article.yml', 'yaml');
 $set->addFile(__DIR__.'/author.yml', 'yaml');
 $set->addFile(__DIR__.'/article_author.yml', 'yaml'); //Article Author
-$set->addFile(__DIR__ . '/article_type.yml', 'yaml'); //Article Types
+$set->addFile(__DIR__ .'/article_type.yml', 'yaml'); //Article Types
 $set->addFile(__DIR__.'/file.yml', 'yaml');
 $set->addFile(__DIR__.'/article_file.yml', 'yaml'); //Article File
 $set->addFile(__DIR__.'/citation.yml', 'yaml');
-#$set->addFile(__DIR__.'/contact.yml', 'yaml');
-#$set->addFile(__DIR__.'/contact_type.yml', 'yaml'); //Contact Types
+$set->addFile(__DIR__.'/contact_type.yml', 'yaml'); //Contact Types
 $set->addFile(__DIR__.'/theme.yml', 'yaml'); //themes
 $set->addFile(__DIR__.'/submission_checklist.yml', 'yaml'); //submission checklist
 $set->addFile(__DIR__.'/journal_index.yml', 'yaml'); // indexes
