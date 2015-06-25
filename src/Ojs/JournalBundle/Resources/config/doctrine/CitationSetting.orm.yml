@@ -22,7 +22,6 @@ Ojs\JournalBundle\Entity\CitationSetting:
         value:
             type: text
             gedmo:
-                - translatable
                 - versioned
         created:
             type: datetime

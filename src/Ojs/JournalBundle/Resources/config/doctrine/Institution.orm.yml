@@ -90,7 +90,6 @@ Ojs\JournalBundle\Entity\Institution:
             type: text
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         about:
             type: text
@@ -117,21 +116,18 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         fax:
             type: string
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         email:
             type: string
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         url:
             type: string
@@ -152,7 +148,6 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         logo_options:
             type: string
@@ -162,7 +157,6 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             nullable: true
             gedmo:
-                - translatable
                 - versioned
         header_options:
             type: string
