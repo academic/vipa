@@ -1,3 +1,7 @@
+ojs_journal_admin_issuefile:
+    resource: "@OjsJournalBundle/Resources/config/routing/issuefile.yml"
+    prefix:   /admin/issuefile
+
 ojs_journal_manager_submission_checklist:
     resource: "@OjsJournalBundle/Resources/config/routing/submissionchecklist.yml"
     prefix:   /manager/checklist

@@ -1,0 +1,30 @@
+admin_issuefile:
+    path:     /
+    defaults: { _controller: "OjsJournalBundle:IssueFile:index" }
+
+admin_issuefile_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsJournalBundle:IssueFile:show" }
+
+admin_issuefile_new:
+    path:     /new/{issue}
+    defaults: { _controller: "OjsJournalBundle:IssueFile:new" }
+
+admin_issuefile_create:
+    path:     /create
+    defaults: { _controller: "OjsJournalBundle:IssueFile:create" }
+    methods:  POST
+
+admin_issuefile_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:IssueFile:edit" }
+
+admin_issuefile_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsJournalBundle:IssueFile:update" }
+    methods:  [POST, PUT]
+
+admin_issuefile_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:IssueFile:delete" }
+    methods:  [POST, DELETE]

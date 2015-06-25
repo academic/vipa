@@ -5,8 +5,14 @@ namespace Ojs\JournalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Ojs\Common\Entity\GenericEntityTrait;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Groups;
 /**
  * IssueFile
+ * @GRID\Source(columns="id,title,langCode,file.name")
+ * @ExclusionPolicy("all")
  */
 class IssueFile
 {
@@ -14,6 +20,7 @@ class IssueFile
 
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -49,11 +56,13 @@ class IssueFile
 
     /**
      * @var string
+     * @GRID\Column(title="title")
      */
     private $title;
 
     /**
      * @var string
+     * @GRID\Column(title="langcode")
      */
     private $langCode;
 
@@ -64,6 +73,7 @@ class IssueFile
 
     /**
      * @var \Ojs\JournalBundle\Entity\File
+     * @GRID\Column(title="file", field="file.name")
      */
     private $file;
 

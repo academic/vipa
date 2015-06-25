@@ -22,6 +22,9 @@ Ojs\JournalBundle\Entity\Issue:
           mappedBy: issue
           cascade: ["persist", "merge"]
           fetch: LAZY
+        issueFiles:
+          targetEntity: IssueFile
+          mappedBy: issue
     manyToOne:
       journal:
           targetEntity: Journal

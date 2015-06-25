@@ -39,7 +39,7 @@ class IssueController extends Controller
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($ta, $journal) {
-                $query->andWhere($ta.'.journalId = :journal_id')
+                $query->andWhere($ta . '.journalId = :journal_id')
                     ->setParameter('journal_id', $journal->getId());
             }
         );
@@ -76,7 +76,7 @@ class IssueController extends Controller
     /**
      * Creates a new Issue entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -204,18 +204,41 @@ class IssueController extends Controller
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
-        return $this->render(
+        $source = new Entity('OjsJournalBundle:IssueFile');
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(
+            function (QueryBuilder $query) use ($ta, $entity) {
+                $query->andWhere($ta . '.issueId = :issue_id')
+                    ->setParameter('issue_id', $entity->getId());
+            }
+        );
+        $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = $gridAction->showAction('admin_issuefile_show', 'id');
+
+        if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            $rowAction[] = $gridAction->editAction('admin_issuefile_edit', 'id');
+        }
+        if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            $rowAction[] = $gridAction->deleteAction('admin_issuefile_delete', 'id');
+        }
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        return $grid->getGridResponse(
             'OjsJournalBundle:Issue:edit.html.twig',
-            array(
+            [
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
-            )
-        );
+                'grid' => $grid
+            ]);
     }
 
     /**
      * Creates a form to edit a Issue entity.
-     * @param  Issue                        $entity The entity
+     * @param  Issue $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Issue $entity)
@@ -235,7 +258,7 @@ class IssueController extends Controller
     /**
      * Edits an existing Issue entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -279,7 +302,7 @@ class IssueController extends Controller
     }
 
     /**
-     * @param  Request          $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse
      */
@@ -296,7 +319,7 @@ class IssueController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('issue'.$id);
+        $token = $csrf->getToken('issue' . $id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -309,7 +332,7 @@ class IssueController extends Controller
 
     /**
      * show issue manager view page
-     * @param  integer               $id
+     * @param  integer $id
      * @return Response
      * @throws NotFoundHttpException
      */
@@ -341,8 +364,8 @@ class IssueController extends Controller
 
     /**
      * show issue manager arrange issue page , arrange and update
-     * @param  Request               $request
-     * @param  integer               $issueId
+     * @param  Request $request
+     * @param  integer $issueId
      * @return Response
      * @throws NotFoundHttpException
      */
@@ -395,7 +418,7 @@ class IssueController extends Controller
 
     /**
      * add article to this issue
-     * @param  Request               $request
+     * @param  Request $request
      * @param $id
      * @param $articleId
      * @return RedirectResponse
@@ -451,7 +474,7 @@ class IssueController extends Controller
 
     /**
      * Remove article fro this issue
-     * @param  Request               $request
+     * @param  Request $request
      * @param $id
      * @param $articleId
      * @return RedirectResponse
