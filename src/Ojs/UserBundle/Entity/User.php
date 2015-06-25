@@ -12,6 +12,7 @@ use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -182,7 +183,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     private $city;
 
     /**
-     * @var Collection|UserJournalRole[]
+     * @var Collection|JournalRole[]
      */
     private $userJournalRoles;
     /**
@@ -1036,7 +1037,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @return Collection|UserJournalRole[]
+     * @return Collection|JournalRole[]
      */
     public function getUserJournalRoles()
     {
@@ -1044,7 +1045,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @param Collection|UserJournalRole[] $userJournalRoles
+     * @param Collection|JournalRole[] $userJournalRoles
      */
     public function setUserJournalRoles($userJournalRoles)
     {
@@ -1053,7 +1054,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      * @param  Journal           $journal
-     * @return UserJournalRole[]
+     * @return JournalRole[]
      */
     public function getUserJournalRolesFromJournal(Journal $journal)
     {

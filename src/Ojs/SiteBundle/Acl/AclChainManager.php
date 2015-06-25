@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Acl;
 
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Problematic\AclManagerBundle\Domain\AclManager;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -126,7 +126,7 @@ class AclChainManager extends AclManager
         if (
             !$identity instanceof UserInterface &&
             !$identity instanceof TokenInterface &&
-            !$identity instanceof UserJournalRole &&
+            !$identity instanceof JournalRole &&
             !$identity instanceof RoleInterface &&
             !is_string($identity)
         ) {
@@ -144,7 +144,7 @@ class AclChainManager extends AclManager
             $securityIdentity = UserSecurityIdentity::fromAccount($identity);
         } elseif ($identity instanceof TokenInterface) {
             $securityIdentity = UserSecurityIdentity::fromToken($identity);
-        } elseif ($identity instanceof UserJournalRole) {
+        } elseif ($identity instanceof JournalRole) {
             $securityIdentity = JournalRoleSecurityIdentity::fromUserJournalRole($identity);
         } elseif ($identity instanceof RoleInterface || is_string($identity)) {
             $securityIdentity = new RoleSecurityIdentity($identity);

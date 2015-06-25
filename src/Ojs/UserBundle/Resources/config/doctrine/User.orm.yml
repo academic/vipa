@@ -199,7 +199,7 @@ Ojs\UserBundle\Entity\User:
           targetEntity: Ojs\JournalBundle\Entity\Author
           mappedBy: user
         userJournalRoles:
-          targetEntity: Ojs\UserBundle\Entity\UserJournalRole
+          targetEntity: Ojs\JournalBundle\Entity\JournalRole
           mappedBy: user
     manyToOne:
         country:

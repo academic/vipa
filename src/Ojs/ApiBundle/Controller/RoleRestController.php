@@ -7,7 +7,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RoleRestController extends FOSRestController
@@ -70,12 +70,12 @@ class RoleRestController extends FOSRestController
      *
      * @param  Role              $role
      * @param  Journal           $journal
-     * @return UserJournalRole[]
+     * @return JournalRole[]
      */
     public function getJournalRoleUsersAction(Role $role, Journal $journal)
     {
-        /** @var UserJournalRole[] $result */
-        $result = $this->getDoctrine()->getRepository('OjsUserBundle:UserJournalRole')->findBy(
+        /** @var JournalRole[] $result */
+        $result = $this->getDoctrine()->getRepository('OjsUserBundle:JournalRole')->findBy(
             array('journal' => $journal, 'role' => $role)
         );
         if (!is_array($result)) {

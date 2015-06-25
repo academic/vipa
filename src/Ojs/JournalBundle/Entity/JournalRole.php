@@ -1,15 +1,17 @@
 <?php
 
-namespace Ojs\UserBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\Role;
 
 /**
  * UserJournalRole
  * @GRID\Source(columns="id,user.username,user.email,role.name")
  */
-class UserJournalRole
+class JournalRole
 {
     /**
      * @var integer
@@ -74,7 +76,7 @@ class UserJournalRole
      * Set userId
      *
      * @param  integer         $userId
-     * @return UserJournalRole
+     * @return JournalRole
      */
     public function setUserId($userId)
     {
@@ -97,7 +99,7 @@ class UserJournalRole
      * Set journalId
      *
      * @param  integer         $journalId
-     * @return UserJournalRole
+     * @return JournalRole
      */
     public function setJournalId($journalId)
     {
@@ -120,7 +122,7 @@ class UserJournalRole
      * Set roleId
      *
      * @param  integer         $roleId
-     * @return UserJournalRole
+     * @return JournalRole
      */
     public function setRoleId($roleId)
     {
@@ -143,7 +145,7 @@ class UserJournalRole
      * Set user
      *
      * @param  User            $user
-     * @return UserJournalRole
+     * @return JournalRole
      */
     public function setUser(User $user = null)
     {
@@ -166,7 +168,7 @@ class UserJournalRole
      * Set journal
      *
      * @param  Journal         $journal
-     * @return UserJournalRole
+     * @return JournalRole
      */
     public function setJournal(Journal $journal = null)
     {
@@ -189,7 +191,7 @@ class UserJournalRole
      * Set role
      *
      * @param  Role            $role
-     * @return UserJournalRole
+     * @return JournalRole
      */
     public function setRole(Role $role = null)
     {

@@ -429,7 +429,7 @@ class AdminUserController extends Controller
             $defaultTemplates[$tplKey]
         ) : null) : null;
 
-        return $this->render('OjsUserBundle:UserJournalRole:send_mail.html.twig', $data);
+        return $this->render('OjsJournalBundle:JournalRole:send_mail.html.twig', $data);
     }
 
     /**

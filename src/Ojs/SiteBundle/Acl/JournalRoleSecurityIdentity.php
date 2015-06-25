@@ -4,7 +4,7 @@ namespace Ojs\SiteBundle\Acl;
 
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
@@ -59,7 +59,7 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
         return new self($journal, $role);
     }
 
-    public static function fromUserJournalRole(UserJournalRole $userJournalRole)
+    public static function fromUserJournalRole(JournalRole $userJournalRole)
     {
         return new self($userJournalRole->getJournal(), $userJournalRole->getRole());
     }

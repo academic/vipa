@@ -51,7 +51,7 @@ Ojs\JournalBundle\Entity\Journal:
             targetEntity: JournalTheme
             mappedBy: journal
         userRoles:
-          targetEntity: \Ojs\UserBundle\Entity\UserJournalRole
+          targetEntity: \Ojs\JournalBundle\Entity\JournalRole
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY

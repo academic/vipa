@@ -13,7 +13,7 @@ use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Doctrine\ORM\Query;
 
 /**
@@ -32,7 +32,8 @@ class JournalUsersController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $source = new Entity('OjsUserBundle:UserJournalRole');
+
+        $source = new Entity('OjsJournalBundle:JournalRole');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
@@ -57,7 +58,7 @@ class JournalUsersController extends Controller
         $data['grid'] = $grid;
 
         return $grid->getGridResponse(
-            'OjsUserBundle:UserJournalRole:index.html.twig',
+            'OjsJournalBundle:JournalRole:index.html.twig',
             [
                 'grid' => $grid
             ]
@@ -110,7 +111,7 @@ class JournalUsersController extends Controller
             //add user journal roles
             if(count($formData->getJournalRoles())>0){
                 foreach($formData->getJournalRoles() as $role){
-                    $userJournalRole = new UserJournalRole();
+                    $userJournalRole = new JournalRole();
                     $userJournalRole->setJournal($journal);
                     $userJournalRole->setRole($role);
                     $userJournalRole->setUser($entity);

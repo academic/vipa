@@ -9,7 +9,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -285,8 +285,8 @@ class ManagerController extends Controller
         foreach ($myRoles as $myRole) {
             foreach ((array) $stepRoles as $stepRole) {
                 /**
-                 * @var UserJournalRole $stepRole
-                 * @var UserJournalRole $myRole
+                 * @var JournalRole $stepRole
+                 * @var JournalRole $myRole
                  */
                 if ($stepRole['role'] === $myRole) {
                     return true;
@@ -305,7 +305,7 @@ class ManagerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
-        $data['entities'] = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
+        $data['entities'] = $em->getRepository('OjsJournalBundle:JournalRole')->findAll();
 
         return $this->render('OjsJournalBundle:Manager:users.html.twig', $data);
     }

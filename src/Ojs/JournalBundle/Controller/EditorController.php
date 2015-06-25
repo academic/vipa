@@ -34,7 +34,7 @@ class EditorController extends Controller
         if (!$user_id) {
             throw new HttpException(403, 'There is a problem while getting user information. Access denied');
         }
-        $entities = $this->getDoctrine()->getRepository('OjsUserBundle:UserJournalRole')
+        $entities = $this->getDoctrine()->getRepository('OjsJournalBundle:JournalRole')
             ->userJournalsWithRoles($user_id);
 
         return $this->render(
@@ -73,7 +73,7 @@ class EditorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $stats['userCount'] = $em
-            ->createQuery('SELECT COUNT(a) FROM OjsUserBundle:UserJournalRole a WHERE a.journalId = :journal_id')
+            ->createQuery('SELECT COUNT(a) FROM OjsJournalBundle:JournalRole a WHERE a.journalId = :journal_id')
             ->setParameter('journal_id', $journal->getId())
             ->getSingleScalarResult();
         $stats['articleCount'] = $em

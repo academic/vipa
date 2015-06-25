@@ -23,7 +23,7 @@ use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -205,7 +205,7 @@ class ArticleSubmissionController extends Controller
     /**
      *
      * @param  Journal $journal
-     * @return UserJournalRole
+     * @return JournalRole
      */
     private function checkAndRegisterUserAuthorRole(Journal $journal)
     {
@@ -220,7 +220,7 @@ class ArticleSubmissionController extends Controller
             $user = $this->getUser();
             /** @var Role $role */
             $role = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
-            $userJournalRole = new UserJournalRole();
+            $userJournalRole = new JournalRole();
             $userJournalRole->setUser($user);
             $userJournalRole->setJournal($journal);
             $userJournalRole->setRole($role);
