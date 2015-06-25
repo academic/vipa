@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
@@ -40,6 +41,7 @@ class UserJournalRoleController extends Controller
             return $this->redirectToRoute('journal_users');
 
         $source = new Entity('OjsUserBundle:UserJournalRole');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
