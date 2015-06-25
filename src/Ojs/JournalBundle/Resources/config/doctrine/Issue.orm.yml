@@ -70,7 +70,6 @@ Ojs\JournalBundle\Entity\Issue:
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         cover_options:
             type: string

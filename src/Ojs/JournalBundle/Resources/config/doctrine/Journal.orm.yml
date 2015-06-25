@@ -144,7 +144,6 @@ Ojs\JournalBundle\Entity\Journal:
             column: path
             nullable: true
             gedmo:
-                - translatable
                 - versioned
         domain:
             type: string
@@ -152,7 +151,6 @@ Ojs\JournalBundle\Entity\Journal:
             column: domain
             nullable: true
             gedmo:
-                - translatable
                 - versioned
         subtitle:
             type: string
