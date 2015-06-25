@@ -53,7 +53,7 @@ class IssueFileController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('issue_edit', array('id' => $entity->getIssueId())));
+            return $this->redirect($this->generateUrl('ojs_journal_issue_edit', array('id' => $entity->getIssueId())));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:new.html.twig', array(

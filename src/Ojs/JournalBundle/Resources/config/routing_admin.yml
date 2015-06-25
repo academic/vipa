@@ -6,9 +6,6 @@ ojs_journal_admin_journaltheme:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/journaltheme.yml"
     prefix:   /admin/journaltheme
 
-ojs_issue:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/issue.yml"
-    prefix:   /admin/issue
 ojs_author_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/author.yml"
     prefix:   /admin/author
