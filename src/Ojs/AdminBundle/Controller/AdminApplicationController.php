@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Document;
@@ -47,6 +48,7 @@ class AdminApplicationController extends Controller
                 return $query;
             }
         );
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
         $grid = $this->get('grid')->setSource($source);
 
