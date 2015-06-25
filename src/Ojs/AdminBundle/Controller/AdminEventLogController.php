@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
@@ -26,6 +27,7 @@ class AdminEventLogController extends Controller
         $logTypes = EventLogParams::adminLevelEventLogs();
 
         $source = new Entity('OjsUserBundle:EventLog');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($tableAlias, $logTypes) {

@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -29,6 +30,7 @@ class AdminJournalController extends Controller
             throw new AccessDeniedException("You not authorized for list journals!");
         }
         $source = new Entity('OjsJournalBundle:Journal');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
