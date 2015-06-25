@@ -29,10 +29,10 @@ ojs_journal_role_delete:
     defaults: { _controller: "OjsJournalBundle:JournalRole:delete" }
     methods: [DELETE]
 
-#ujr_show_journals_of_user:
-#    pattern:  /user/{user_id}/show/journals
-#    defaults: { _controller: "OjsJournalBundle:JournalRole:showJournalsOfUser" }
+ujr_show_journals_of_user:
+    pattern:  /user/{user_id}/show/journals
+    defaults: { _controller: "OjsJournalBundle:JournalRole:showJournalsOfUser" }
 
-#ujr_show_users_ofjournal:
-#    pattern:  /journal/{journal_id}/show/users
-#    defaults: { _controller: "OjsJournalBundle:JournalRole:showUsersOfJournal" }
+ujr_show_users_ofjournal:
+    pattern:  /journal/{journal_id}/show/users
+    defaults: { _controller: "OjsJournalBundle:JournalRole:showUsersOfJournal" }
