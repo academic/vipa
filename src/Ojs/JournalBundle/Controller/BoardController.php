@@ -47,10 +47,10 @@ class BoardController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('admin_board_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', 'id');
         if ($this->isGranted('EDIT', $journal, 'boards')) {
-            $rowAction[] = $gridAction->editAction('admin_board_edit', 'id');
-            $rowAction[] = $gridAction->deleteAction('admin_board_delete', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_board_delete', 'id');
         }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -83,7 +83,7 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('admin_board_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_board_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
@@ -108,7 +108,7 @@ class BoardController extends Controller
             new BoardType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_board_create'),
+                'action' => $this->generateUrl('ojs_journal_board_create'),
                 'method' => 'POST',
             )
         );
@@ -218,7 +218,7 @@ class BoardController extends Controller
             new BoardType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_board_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_board_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -253,7 +253,7 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('admin_board_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_journal_board_edit', ['id' => $id]);
         }
 
         return $this->render(
@@ -285,7 +285,7 @@ class BoardController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('admin_board'.$id); //@todo amin_board \ admin_board
+        $token = $csrf->getToken('ojs_journal_board_index'.$id); //@todo amin_board \ admin_board
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -293,7 +293,7 @@ class BoardController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('admin_board');
+        return $this->redirectToRoute('ojs_journal_board_index');
     }
 
     /**
@@ -324,7 +324,7 @@ class BoardController extends Controller
         $em->persist($boardMember);
         $em->flush();
 
-        return $this->redirectToRoute('board_manager_show', ['id' => $boardId]);
+        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId]);
     }
 
     /**
@@ -357,6 +357,6 @@ class BoardController extends Controller
         $em->remove($boardMember);
         $em->flush();
 
-        return $this->redirectToRoute('board_manager_show', ['id' => $boardId]);
+        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId]);
     }
 }
