@@ -578,6 +578,10 @@ roles: Roller
 actions: Aksiyonlar
 search.results: 'Arama Sonuçları'
 search.result.headline:  "Toplam <strong class=\"text-danger\">%total%</strong> adet sonuç mevcut.\n Arama Kelimesi <strong class=\"text-danger\">%term%</strong>"
+search.builder: 'Gelişmiş Arama'
+pagerfanta.previous : Önceki
+pagerfanta.nex: Sonraki
+
 period: Periyot
 back: 'Listeye geri dön'
 b: Geri
