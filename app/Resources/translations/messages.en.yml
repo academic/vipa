@@ -618,6 +618,7 @@ about: About
 'Link Ekle': 'Link Ekle'
 list: List 
 search.results: Search Results
+search.builder: Advanced Search Builder
 article: Article 
 landingPage.text: ""
 search.main: 'Search Journal, Article and Author'
@@ -1517,6 +1518,8 @@ search.result.headline: "Total %total% item for %term% query."
 tagsearch: 'Tag Search'
 basicsearch: 'Basic Search'
 advancedsearch: 'Advanced Search'
+pagerfanta.previous : Previous
+pagerfanta.nex: Next
 
 admin.dashboard.system_settings: "System Settings"
 admin.dashboard.journal_settings: "Journal Settings"
