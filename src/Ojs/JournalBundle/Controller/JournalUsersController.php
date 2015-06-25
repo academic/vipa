@@ -48,9 +48,9 @@ class JournalUsersController extends Controller
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
 
-        $rowAction[] = $gridAction->showAction('ujr_show', 'id');
-        $rowAction[] = $gridAction->editAction('ujr_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ujr_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_role_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_role_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_role_delete', 'id');
         $rowAction[] = $gridAction->sendMailAction('user_send_mail');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

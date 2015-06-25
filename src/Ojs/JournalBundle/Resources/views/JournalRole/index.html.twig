@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ujr'),'title': 'user.journalrole'|trans},
+    {'link': path('ojs_journal_role_index'),'title': 'user.journalrole'|trans},
     {'title': 'user.journalrole.list'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,7 +17,7 @@
             {% include '::flashbag.html.twig' %}
             {{ grid(grid) }}
             {% if is_granted('CREATE', selectedJournal(), 'userRole') %}
-                {% set create_path = 'ujr_new' %}
+                {% set create_path = 'ojs_journal_role_new' %}
             {% endif %}
             {% include '::actionbuttons.html.twig' %}
         </div>

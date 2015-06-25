@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ujr'),'title': 'user.journalrole'|trans},
+    {'link': path('ojs_journal_role_index'),'title': 'user.journalrole'|trans},
     {'title': 'user.journalrole.creation'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,7 +17,7 @@
             {% include '::flashbag.html.twig' %}
             <a href="{{ path('journal_users_new_user') }}" class="btn btn-default">{{ 'user.create'|trans }}</a>
             {{ form(form) }}
-            {% set back_path = 'ujr' %}
+            {% set back_path = 'ojs_journal_role_index' %}
             {% include '::actionbuttons.html.twig' %}
         </div>
     </div>
