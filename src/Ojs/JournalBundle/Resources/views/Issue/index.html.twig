@@ -15,7 +15,7 @@
     {{ grid(grid) }}
     <hr>
     {% if is_granted('CREATE', selectedJournal(), 'issues') %}
-        <a href="{{ path('issue_manager_issue_new') }}" class="btn btn-info">
+        <a href="{{ path('ojs_journal_issue_new') }}" class="btn btn-info">
             <i class="fa fa-plus"></i> {{ "create"|trans }}
         </a>
     {% endif %}

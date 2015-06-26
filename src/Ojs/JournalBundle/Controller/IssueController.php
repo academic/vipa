@@ -51,7 +51,7 @@ class IssueController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_journal_issue_show', 'id');
 
-        $articleAction = new RowAction('<i class="fa fa-file-text"></i>', 'issue_manager_issue_view');
+        $articleAction = new RowAction('<i class="fa fa-file-text"></i>', 'ojs_journal_issue_view');
         $articleAction->setAttributes(
             [
                 'class' => 'btn btn-success btn-xs  ',
@@ -369,11 +369,11 @@ class IssueController extends Controller
     /**
      * show issue manager arrange issue page , arrange and update
      * @param  Request $request
-     * @param  integer $issueId
+     * @param  integer $id
      * @return Response
      * @throws NotFoundHttpException
      */
-    public function arrangeAction(Request $request, $issueId)
+    public function arrangeAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
@@ -382,7 +382,7 @@ class IssueController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $issue */
         $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $issueId, 'journal' => $journal)
+            array('id' => $id, 'journal' => $journal)
         );
         $this->throw404IfNotFound($issue);
         /** @var ArticleRepository $articleRepo */

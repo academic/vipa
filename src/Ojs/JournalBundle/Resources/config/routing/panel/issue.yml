@@ -28,3 +28,19 @@ ojs_journal_issue_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Issue:delete" }
     methods: [DELETE]
+
+ojs_journal_issue_arrange:
+    pattern:  /{id}/arrange
+    defaults: { _controller: "OjsJournalBundle:Issue:arrange" }
+
+ojs_journal_issue_article_add:
+    pattern:  /{id}/article/add/{articleId}
+    defaults: { _controller: "OjsJournalBundle:Issue:addArticle" }
+
+ojs_journal_issue_article_remove:
+    pattern:  /{id}/article/remove/{articleId}
+    defaults: { _controller: "OjsJournalBundle:Issue:removeArticle" }
+
+ojs_journal_issue_view:
+    pattern:  /{id}/article
+    defaults: { _controller: "OjsJournalBundle:Issue:view" }

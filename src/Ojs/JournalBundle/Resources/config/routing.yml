@@ -33,10 +33,6 @@ manager_journal_section:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsection.yml"
     prefix:   /manager/journal/section
 
-ojs_manager_issue:
-    resource: "@OjsJournalBundle/Resources/config/routing/manager/issue.yml"
-    prefix:   /manager/issue
-
 ojs_manager_journal_users:
     resource: "@OjsJournalBundle/Resources/config/routing/journalusers.yml"
     prefix:   /manager/journalusers
