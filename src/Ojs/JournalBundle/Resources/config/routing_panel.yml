@@ -41,3 +41,7 @@ ojs_journal_issue_file:
 ojs_journal_section:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/section.yml"
     prefix:   /section
+
+ojs_journal_index:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/index.yml"
+    prefix:   /index

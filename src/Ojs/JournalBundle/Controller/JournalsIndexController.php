@@ -54,9 +54,9 @@ class JournalsIndexController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('manager_journals_indexes_show', 'id');
-        $rowAction[] = $gridAction->editAction('manager_journals_indexes_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('manager_journals_indexes_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_index_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_index_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_index_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -98,7 +98,7 @@ class JournalsIndexController extends Controller
             $this->successFlashBag('successful.create');
 
             return $this->redirect(
-                $this->generateUrl('manager_journals_indexes_show', array('id' => $entity->getId()))
+                $this->generateUrl('ojs_journal_index_show', array('id' => $entity->getId()))
             );
         }
         $this->successFlashBag('successful.create');
@@ -126,7 +126,7 @@ class JournalsIndexController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl(
-                    'manager_journals_indexes_create',
+                    'ojs_journal_index_create',
                     ['journal' => $entity->getJournalId()]
                 ),
                 'method' => 'POST',
@@ -225,7 +225,7 @@ class JournalsIndexController extends Controller
             new JournalsIndexType(),
             $entity,
             array(
-                'action' => $this->generateUrl('manager_journals_indexes_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_index_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
                 'user' => $this->getUser(),
             )
@@ -259,7 +259,7 @@ class JournalsIndexController extends Controller
             $this->successFlashBag('successful.update');
 
             return $this->redirect(
-                $this->generateUrl('manager_journals_indexes_edit', array('id' => $entity->getId()))
+                $this->generateUrl('ojs_journal_index_edit', array('id' => $entity->getId()))
             );
         }
 
@@ -286,7 +286,7 @@ class JournalsIndexController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('manager_journals_indexes'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_index_index'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -294,6 +294,6 @@ class JournalsIndexController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('manager_journals_indexes');
+        return $this->redirectToRoute('ojs_journal_index_index');
     }
 }

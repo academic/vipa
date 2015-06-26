@@ -15,7 +15,7 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'index') %}
-        <a class="btn btn-success" href="{{ path('manager_journals_indexes_new',{journal: journal_id}) }}">
+        <a class="btn btn-success" href="{{ path('ojs_journal_index_new',{journal: journal_id}) }}">
             {{ 'add'|trans }}
         </a>
     {% endif %}
