@@ -89,7 +89,7 @@
                         </a>
                     {% endif %}
                     {% if is_granted('VIEW', selectedJournal(), 'sections') %}
-                        <a class="list-group-item" href="{{ path('manager_journal_section') }}">
+                        <a class="list-group-item" href="{{ path('ojs_journal_section_index') }}">
                             <i class="fa fa-apple"></i>
                             {{ "journalsection"|trans }}
                         </a>
