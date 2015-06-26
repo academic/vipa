@@ -99,7 +99,7 @@
                         {{ "reports.title"|trans }}
                     </a>
                     {% if is_granted('VIEW', selectedJournal(), 'issues') %}
-                        <a class="list-group-item" href="{{ path('issue_manager_index') }}">
+                        <a class="list-group-item" href="{{ path('ojs_journal_issue_index') }}">
                             <i class="fa fa-cog"></i>
                             {{ "issue.manager"|trans }}
                         </a>
