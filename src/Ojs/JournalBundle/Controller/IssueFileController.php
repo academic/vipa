@@ -62,7 +62,7 @@ class IssueFileController extends Controller
         }
 
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('ojs_journal_issuefile_create'),
+            'action' => $this->generateUrl('ojs_journal_issue_file_create'),
             'method' => 'POST',
             'languages' => $langs,
         ]);
@@ -155,7 +155,7 @@ class IssueFileController extends Controller
             $langs[$lang['code']] = $lang['name'];
         }
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('ojs_journal_issuefile_update', ['id' => $entity->getId()]),
+            'action' => $this->generateUrl('ojs_journal_issue_file_update', ['id' => $entity->getId()]),
             'method' => 'PUT',
             'languages' => $langs,
         ]);
@@ -189,7 +189,7 @@ class IssueFileController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_issuefile_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:edit.html.twig', array(
@@ -225,7 +225,7 @@ class IssueFileController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('ojs_journal_issuefile_list'));
+        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index'));
     }
 
     /**
@@ -238,7 +238,7 @@ class IssueFileController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ojs_journal_issuefile_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('ojs_journal_issue_file_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
