@@ -1499,6 +1499,7 @@ title.workflow_template_step_show: "Show Workflow Template Step"
 title.workflow_template: "Workflow Template"
 title.workflow_templates: "Workflow Templates"
 title.working_step_preview: "Preview Working Step"
+title.issuefile.new: "New Issue File"
 
 button.toggle_tree: "Toggle Tree"
 
@@ -1525,3 +1526,9 @@ pagerfanta.nex: Next
 admin.dashboard.system_settings: "System Settings"
 admin.dashboard.journal_settings: "Journal Settings"
 admin.dashboard.applications: "Applications"
+
+issuefile.list: "Issue Files"
+issuefile.langcode: "Language"
+issuefile.new: "New Issue File"
+issuefile.title: "Title"
+issuefile.file:  "File"

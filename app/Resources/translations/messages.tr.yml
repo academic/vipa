@@ -1236,3 +1236,10 @@ admin.dashboard.applications: "Başvurular"
 'Content': "İçerik"
 'Update': "Güncelle"
 'Is Public?': "Görünür mü?"
+
+
+issuefile.list: "Sayı Dosyaları"
+issuefile.langcode: "Dil"
+issuefile.new: "Yeni Sayı Dosyası"
+issuefile.title: "Başlık"
+issuefile.file:  "Dosya"
