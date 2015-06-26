@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('manager_journals_indexes'),'title': 'journals.index'|trans},
+    {'link': path('ojs_journal_index_index'),'title': 'journals.index'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -17,11 +17,11 @@
     {{ form(edit_form) }}
 
 
-    <a href="{{ path('manager_journals_indexes') }}">
+    <a href="{{ path('ojs_journal_index_index') }}">
         {{ 'b'|trans }}
     </a>
     {% if is_granted('DELETE', selectedJournal(), 'index') %}
-        <a href="{{ path('manager_journals_indexes') }}">
+        <a href="{{ path('ojs_journal_index_index') }}">
             {{ 'd'|trans }}
         </a>
     {% endif %}
