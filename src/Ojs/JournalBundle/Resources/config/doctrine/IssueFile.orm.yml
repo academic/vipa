@@ -15,7 +15,7 @@ Ojs\JournalBundle\Entity\IssueFile:
             joinColumn:
                 name: issue_id
                 referencedColumnName: id
-            cascade: ["persist", "merge"]
+            cascade: ["persist"]
         file:
             targetEntity: File
             inversedBy: issueFiles

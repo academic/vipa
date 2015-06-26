@@ -56,13 +56,13 @@ class IssueFile
 
     /**
      * @var string
-     * @GRID\Column(title="title")
+     * @GRID\Column(title="issuefile.title")
      */
     private $title;
 
     /**
      * @var string
-     * @GRID\Column(title="langcode")
+     * @GRID\Column(title="issuefile.langcode")
      */
     private $langCode;
 
@@ -73,7 +73,7 @@ class IssueFile
 
     /**
      * @var \Ojs\JournalBundle\Entity\File
-     * @GRID\Column(title="file", field="file.name")
+     * @GRID\Column(title="issuefile.file", field="file.name")
      */
     private $file;
 

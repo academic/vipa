@@ -25,6 +25,7 @@ Ojs\JournalBundle\Entity\Issue:
         issueFiles:
           targetEntity: IssueFile
           mappedBy: issue
+          fetch: EXTRA_LAZY
     manyToOne:
       journal:
           targetEntity: Journal
