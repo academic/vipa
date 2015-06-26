@@ -60,10 +60,10 @@ class IssueController extends Controller
             ]
         );
         $rowAction[] = $articleAction;
-        if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if ($this->isGranted('EDIT', $journal, 'issues')) {
             $rowAction[] = $gridAction->editAction('ojs_journal_issue_edit', 'id');
         }
-        if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if ($this->isGranted('DELETE', $journal, 'issues')) {
             $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_delete', 'id');
         }
 
@@ -207,6 +207,8 @@ class IssueController extends Controller
         $editForm = $this->createEditForm($entity);
 
         $source = new Entity('OjsJournalBundle:IssueFile');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($ta, $entity) {
@@ -218,13 +220,13 @@ class IssueController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('admin_issuefile_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_issuefile_show', 'id');
 
         if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->editAction('admin_issuefile_edit', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_issuefile_edit', 'id');
         }
         if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->deleteAction('admin_issuefile_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_issuefile_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);

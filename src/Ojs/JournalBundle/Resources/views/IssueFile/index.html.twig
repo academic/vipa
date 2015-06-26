@@ -25,7 +25,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('admin_issuefile_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('ojs_journal_issuefile_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.type }}</td>
                 <td>{{ entity.fileId }}</td>
                 <td>{{ entity.issueId }}</td>
@@ -41,10 +41,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('admin_issuefile_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('ojs_journal_issuefile_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('admin_issuefile_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('ojs_journal_issuefile_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -55,7 +55,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('admin_issuefile_new') }}">
+            <a href="{{ path('ojs_journal_issuefile_new') }}">
                 Create a new entry
             </a>
         </li>

@@ -5,7 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Form\Type\IssueFileType;
 
@@ -15,32 +15,16 @@ use Ojs\JournalBundle\Form\Type\IssueFileType;
 class IssueFileController extends Controller
 {
     /**
-     * Lists all IssueFile entities.
-     *
-     */
-    public function indexAction()
-    {
-
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('VIEW', $journal, 'issuefiles')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's issue files!");
-        }
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('OjsJournalBundle:IssueFile')->findAll();
-
-        return $this->render('OjsJournalBundle:IssueFile:index.html.twig', array(
-            'entities' => $entities,
-        ));
-    }
-
-    /**
      * Creates a new IssueFile entity.
      *
      */
     public function createAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('CREATE', $journal, 'issuefiles')) {
+            throw new AccessDeniedException("You are not authorized for create  issue file for this journal!");
+        }
         $entity = new IssueFile();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -93,6 +77,12 @@ class IssueFileController extends Controller
      */
     public function newAction(Request $request, $issue)
     {
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('CREATE', $journal, 'issuefiles')) {
+            throw new AccessDeniedException("You are not authorized for create  issue file for this journal!");
+        }
         $entity = new IssueFile();
         $entity->setIssueId($issue);
 
@@ -110,13 +100,16 @@ class IssueFileController extends Controller
      */
     public function showAction($id)
     {
+
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find IssueFile entity.');
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for view this issue file!");
         }
+        $this->throw404IfNotFound($entity);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -132,13 +125,16 @@ class IssueFileController extends Controller
      */
     public function editAction($id)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find IssueFile entity.');
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for edit this  issue file!");
         }
+
+        $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -164,11 +160,11 @@ class IssueFileController extends Controller
         foreach ($languages as $key => $lang) {
             $langs[$lang['code']] = $lang['name'];
         }
-        $form = $this->createForm(new IssueFileType(), $entity, array(
-            'action' => $this->generateUrl('admin_issuefile_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new IssueFileType(), $entity, [
+            'action' => $this->generateUrl('ojs_journal_issuefile_update', ['id' => $entity->getId()]),
             'method' => 'PUT',
             'languages' => $langs
-        ));
+        ]);
 
 
         return $form;
@@ -184,6 +180,10 @@ class IssueFileController extends Controller
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for edit this issue file!");
+        }
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find IssueFile entity.');
         }
@@ -195,7 +195,7 @@ class IssueFileController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_issuefile_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_issuefile_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:edit.html.twig', array(
@@ -218,6 +218,10 @@ class IssueFileController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
+            if (!$this->isGranted('DELETE', $entity)) {
+                throw new AccessDeniedException("You are not authorized for delete this issue file!");
+            }
+
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find IssueFile entity.');
             }
@@ -226,7 +230,7 @@ class IssueFileController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_issuefile'));
+        return $this->redirect($this->generateUrl('ojs_journal_issuefile_list'));
     }
 
     /**
@@ -239,7 +243,7 @@ class IssueFileController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_issuefile_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('ojs_journal_issuefile_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
