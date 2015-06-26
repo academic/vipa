@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('manager_journal_section'),'title': 'journal.section'|trans},
+    {'link': path('ojs_journal_section_index'),'title': 'journal.section'|trans},
     {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -43,19 +43,19 @@
     </table>
 
     <div class="btn-group">
-        <a class="btn btn-default btn-sm" href="{{ path("manager_journal_section", { 'id': entity.id }) }}"
+        <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_section_index', { 'id': entity.id }) }}"
            title="{{ "b"|trans }}">
             <i class="fa fa-arrow-left"></i>
         </a>
         {% if is_granted('EDIT', selectedJournal(), 'sections') %}
-            <a class="btn btn-warning btn-sm" href="{{ path("manager_journal_section_edit", { 'id': entity.id }) }}"
+            <a class="btn btn-warning btn-sm" href="{{ path("ojs_journal_section_edit", { 'id': entity.id }) }}"
                title="{{ "edit"|trans }}">
                 <i class="fa fa-pencil"></i>
             </a>
         {% endif %}
         {% if is_granted('DELETE', selectedJournal(), 'sections') %}
             <a class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');"
-               href="{{ path("manager_journal_section_delete", { 'id': entity.id}) }}" title="{{ "delete"|trans }}">
+               href="{{ path("ojs_journal_section_delete", { 'id': entity.id}) }}" title="{{ "delete"|trans }}">
                 <i class="fa fa-trash-o"></i>
             </a>
         {% endif %}

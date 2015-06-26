@@ -60,12 +60,12 @@ class JournalSectionController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('manager_journal_section_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_section_show', 'id');
         if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
-            $rowAction[] = $gridAction->editAction('manager_journal_section_edit', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_section_edit', 'id');
         }
         if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
-            $rowAction[] = $gridAction->deleteAction('manager_journal_section_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_section_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);
@@ -101,7 +101,7 @@ class JournalSectionController extends Controller
             $this->successFlashBag('successful.create');
 
             return $this->redirectToRoute(
-                'manager_journal_section_show',
+                'ojs_journal_section_show',
                 [
                     'id' => $entity->getId(),
                 ]
@@ -128,7 +128,7 @@ class JournalSectionController extends Controller
             new JournalSectionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('manager_journal_section_create'),
+                'action' => $this->generateUrl('ojs_journal_section_create'),
                 'method' => 'POST',
                 'user' => $this->getUser(),
                 'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
@@ -235,7 +235,7 @@ class JournalSectionController extends Controller
             new JournalSectionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('manager_journal_section_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_section_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
                 'user' => $this->getUser(),
                 'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
@@ -277,7 +277,7 @@ class JournalSectionController extends Controller
             $this->successFlashBag('Successfully updated.');
 
             return $this->redirectToRoute(
-                'manager_journal_section_edit',
+                'ojs_journal_section_edit',
                 [
                     'id' => $id,
                 ]
@@ -313,7 +313,7 @@ class JournalSectionController extends Controller
         }
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('manager_journal_section'.$id);
+        $token = $csrf->getToken('ojs_journal_section_index'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -322,6 +322,6 @@ class JournalSectionController extends Controller
         $em->flush();
         $this->successFlashBag('Successfully removed.');
 
-        return $this->redirectToRoute('manager_journal_section');
+        return $this->redirectToRoute('ojs_journal_section_index');
     }
 }

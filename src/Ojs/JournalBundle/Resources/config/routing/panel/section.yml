@@ -1,30 +1,30 @@
-manager_journal_section:
+ojs_journal_section_index:
     path:     /
     defaults: { _controller: "OjsJournalBundle:JournalSection:index" }
 
-manager_journal_section_show:
+ojs_journal_section_show:
     path:     /{id}/show
     defaults: { _controller: "OjsJournalBundle:JournalSection:show" }
 
-manager_journal_section_new:
+ojs_journal_section_new:
     path:     /new
     defaults: { _controller: "OjsJournalBundle:JournalSection:new" }
 
-manager_journal_section_create:
+ojs_journal_section_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:JournalSection:create" }
     requirements: { _method: post }
 
-manager_journal_section_edit:
+ojs_journal_section_edit:
     path:     /{id}/edit
     defaults: { _controller: "OjsJournalBundle:JournalSection:edit" }
 
-manager_journal_section_update:
+ojs_journal_section_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalSection:update" }
     methods: [PUT]
 
-manager_journal_section_delete:
+ojs_journal_section_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalSection:delete" }
     methods: [DELETE]

@@ -37,3 +37,7 @@ ojs_journal_design:
 ojs_journal_admin_issuefile:
     resource: "@OjsJournalBundle/Resources/config/routing/issuefile.yml"
     prefix:   /issuefile
+
+manager_journal_section:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/section.yml"
+    prefix:   /section

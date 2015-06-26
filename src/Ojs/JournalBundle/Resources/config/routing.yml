@@ -29,10 +29,6 @@ journal_apply:
     pattern:  /journal/apply
     defaults: { _controller: "OjsJournalBundle:Journal:apply" }
 
-manager_journal_section:
-    resource: "@OjsJournalBundle/Resources/config/routing/journalsection.yml"
-    prefix:   /manager/journal/section
-
 ojs_manager_journal_users:
     resource: "@OjsJournalBundle/Resources/config/routing/journalusers.yml"
     prefix:   /manager/journalusers
