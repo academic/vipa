@@ -24,7 +24,6 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 class InstallCommand extends ContainerAwareCommand
 {
-
     public static function composer(CommandEvent $event)
     {
         $options = self::getOptions($event);
@@ -32,8 +31,7 @@ class InstallCommand extends ContainerAwareCommand
         $webDir = $options['symfony-web-dir'];
 
         if (!is_dir($webDir)) {
-            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd(
-                ).', can not install assets.'.PHP_EOL;
+            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd().', can not install assets.'.PHP_EOL;
 
             return;
         }
@@ -129,7 +127,7 @@ class InstallCommand extends ContainerAwareCommand
         if (!$dialog->askConfirmation(
             $output,
             '<question>'.
-            $translator->trans("ojs.install.confirm").
+            $translator->trans('ojs.install.confirm').
             ' (y/n) : </question>',
             true
         )
@@ -142,12 +140,11 @@ class InstallCommand extends ContainerAwareCommand
         $application->run(new StringInput($command2));
 
         if (!$input->getOption('no-location')) {
-            $location = $this->getContainer()->get('kernel')->getRootDir(
-                ).'/../src/Ojs/LocationBundle/Resources/data/location.sql';
+            $location = $this->getContainer()->get('kernel')->getRootDir().'/../src/Ojs/LocationBundle/Resources/data/location.sql';
             $locationSql = file_get_contents($location);
             $command3 = 'doctrine:query:sql "'.$locationSql.'"';
             $application->run(new StringInput($command3));
-            $output->writeln("Locations inserted.");
+            $output->writeln('Locations inserted.');
         }
 
         if (!$input->getOption('no-role')) {
@@ -192,8 +189,8 @@ class InstallCommand extends ContainerAwareCommand
 
         $output->writeln("\nDONE\n");
         $output->writeln(
-            "You can run "
-            ."<info>php app/console ojs:install:initial-data </info> "
+            'You can run '
+            .'<info>php app/console ojs:install:initial-data </info> '
             ."to add initial data\n"
         );
     }
@@ -273,7 +270,7 @@ class InstallCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $theme = new Theme();
-        $theme->setName("default");
+        $theme->setName('default');
         $theme->setTitle('Ojs');
         $em->persist($theme);
         $em->flush();
@@ -282,59 +279,33 @@ class InstallCommand extends ContainerAwareCommand
     protected function insertAcls()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        /**
-         * @var AclChainManager $aclManager
+        /*
+         * @var AclChainManager
          */
         $aclManager = $this->getContainer()->get('problematic.acl_manager');
 
-        $journalClass = $em->getRepository('OjsJournalBundle:Journal')->getClassName();
-        $userClass = $em->getRepository('OjsUserBundle:User')->getClassName();
-        $institutionClass = $em->getRepository('OjsJournalBundle:Institution')->getClassName();
-        $institutionTypeClass = $em->getRepository('OjsJournalBundle:InstitutionTypes')->getClassName();
-        $roleClass = $em->getRepository('OjsUserBundle:Role')->getClassName();
-        $contactTypesClass = $em->getRepository('OjsJournalBundle:ContactTypes')->getClassName();
-        $themeClass = $em->getRepository('OjsJournalBundle:Theme')->getClassName();
-        $journalIndexClass = $em->getRepository('OjsJournalBundle:JournalIndex')->getClassName();
-        $authorClass = $em->getRepository('OjsJournalBundle:Author')->getClassName();
-        $fileClass = $em->getRepository('OjsJournalBundle:File')->getClassName();
-        $langClass = $em->getRepository('OjsJournalBundle:Lang')->getClassName();
-        $mailLogClass = $em->getRepository('OjsUserBundle:MailLog')->getClassName();
-        $designClass = $em->getRepository('OjsJournalBundle:Design')->getClassName();
-        $subjectClass = $em->getRepository('OjsJournalBundle:Subject')->getClassName();
-        $proxyClass = $em->getRepository('OjsUserBundle:Proxy')->getClassName();
-        $notificationClass = $em->getRepository('OjsUserBundle:Notification')->getClassName();
-        $articleTypesClass = $em->getRepository('OjsJournalBundle:ArticleTypes')->getClassName();
-        $aclManager->on($journalClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('adminMenu')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('boards')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('sections')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('issues')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('articles')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('design')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('contacts')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('block')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('theme')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('index')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('checklist')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('mailTemplate')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('report')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('userRole')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($institutionTypeClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($roleClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($contactTypesClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($themeClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalIndexClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($authorClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($fileClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($langClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($mailLogClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($designClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($subjectClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($proxyClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($notificationClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($articleTypesClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $classes = [
+            'OjsJournalBundle:Journal' => [
+                'adminMenu','boards','sections','issues','articles','design','contacts','block','theme','index',
+                'checklist','mailTemplate','report','userRole','citation',
+            ],
+            'OjsUserBundle:User' => null, 'OjsJournalBundle:Institution' => null, 'OjsJournalBundle:InstitutionTypes' => null,
+            'OjsUserBundle:Role' => null, 'OjsJournalBundle:JournalContact' => null, 'OjsJournalBundle:ContactTypes' => null,
+            'OjsJournalBundle:Theme' => null, 'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null,
+            'OjsJournalBundle:File' => null, 'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null,
+            'OjsJournalBundle:Design' => null, 'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null,
+            'OjsJournalBundle:Subject' => null, 'OjsUserBundle:Proxy' => null, 'OjsUserBundle:Notification' => null,
+            'OjsJournalBundle:ArticleTypes' => null,
+        ];
+        foreach ($classes as $className => $fields) {
+            $realClassName = $em->getRepository($className)->getClassName();
+            $aclManager->on($realClassName)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+            if (is_array($fields) && !empty($fields)) {
+                foreach ($fields as $field) {
+                    $aclManager->on($realClassName)->field($field)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+                }
+            }
+        }
     }
 
     protected function fixAcls(OutputInterface $output)
@@ -669,7 +640,7 @@ class InstallCommand extends ContainerAwareCommand
         // Every JOURNAL MANAGER and EDITOR must be AUTHOR
 
         $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
-        /** @var JournalRole[] $userJournalRoles */
+        /* @var JournalRole[] $userJournalRoles */
         $journalRoles = $em->getRepository('OjsJournalBundle:JournalRole')->findAllByJournalRole(
             array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR')
         );
