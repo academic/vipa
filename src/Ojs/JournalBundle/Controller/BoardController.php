@@ -164,11 +164,16 @@ class BoardController extends Controller
         $this->throw404IfNotFound($board);
         $members = $em->getRepository('OjsJournalBundle:BoardMember')->findBy(array('board' => $board));
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_board'.$id);
+
         return $this->render(
             'OjsJournalBundle:Board:show.html.twig',
             array(
                 'members' => $members,
                 'entity' => $board,
+                'token' => $token
             )
         );
     }
@@ -285,7 +290,7 @@ class BoardController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_board_index'.$id); //@todo amin_board \ admin_board
+        $token = $csrf->getToken('ojs_journal_board'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
