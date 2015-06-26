@@ -39,9 +39,9 @@ class JournalThemeController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('admin_journaltheme_show', 'id');
-        $rowAction[] = $gridAction->editAction('admin_journaltheme_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('admin_journaltheme_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_theme_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_theme_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_theme_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -74,7 +74,7 @@ class JournalThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('admin_journaltheme_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_theme_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
@@ -99,7 +99,7 @@ class JournalThemeController extends Controller
             new JournalThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_journaltheme_create'),
+                'action' => $this->generateUrl('ojs_journal_theme_create'),
                 'method' => 'POST',
             )
         );
@@ -205,7 +205,7 @@ class JournalThemeController extends Controller
             new JournalThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_journaltheme_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_theme_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -243,7 +243,7 @@ class JournalThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('admin_journaltheme_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_theme_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
@@ -277,7 +277,7 @@ class JournalThemeController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('admin_journaltheme'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_theme'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -285,6 +285,6 @@ class JournalThemeController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('admin_journaltheme');
+        return $this->redirectToRoute('ojs_journal_theme_index');
     }
 }

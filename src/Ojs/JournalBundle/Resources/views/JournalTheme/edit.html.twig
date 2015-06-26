@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('admin_journaltheme'),'title': 'journal.theme'|trans},
+    {'link': path('ojs_journal_theme_index'),'title': 'journal.theme'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,9 +15,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'admin_journaltheme' %}
+    {% set back_path = 'ojs_journal_theme_index' %}
     {% if is_granted('DELETE', selectedJournal(), 'theme') %}
-        {% set delete_path = 'admin_journaltheme_delete' %}
+        {% set delete_path = 'ojs_journal_theme_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
