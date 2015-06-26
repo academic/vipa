@@ -1,25 +1,25 @@
-admin_journaldesign:
+ojs_journal_design_index:
     path:     /
     defaults: { _controller: "OjsJournalBundle:JournalDesign:index" }
 
-admin_journaldesign_show:
+ojs_journal_design_show:
     path:     /{id}/show
     defaults: { _controller: "OjsJournalBundle:JournalDesign:show" }
 
-admin_journaldesign_new:
+ojs_journal_design_new:
     path:     /new
     defaults: { _controller: "OjsJournalBundle:JournalDesign:new" }
 
-admin_journaldesign_create:
+ojs_journal_design_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:JournalDesign:create" }
     requirements: { _method: post }
 
-admin_journaldesign_edit:
+ojs_journal_design_edit:
     path:     /{id}/edit
     defaults: { _controller: "OjsJournalBundle:JournalDesign:edit" }
 
-admin_journaldesign_update:
+ojs_journal_design_update:
     path:     /{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalDesign:update" }
     methods: [PUT]
