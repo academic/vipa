@@ -67,9 +67,9 @@ class MailTemplateController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
 
-        $rowAction[] = $gridAction->showAction('mailtemplate_manager_show', 'id');
-        $rowAction[] = $gridAction->editAction('mailtemplate_manager_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('mailtemplate_manager_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_mail_template_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_mail_template_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_mail_template_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $db_templates->addColumn($actionColumn);
 
@@ -108,7 +108,7 @@ class MailTemplateController extends Controller
         $defaultTemplates->setSource($source);
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        $rowAction[] = $gridAction->copyAction('mailtemplate_manager_copy', 'id');
+        $rowAction[] = $gridAction->copyAction('ojs_journal_mail_template_copy', 'id');
         $actionColumn->setRowActions($rowAction);
         $defaultTemplates->addColumn($actionColumn);
 
@@ -140,7 +140,7 @@ class MailTemplateController extends Controller
             $this->successFlashBag('successful.create');
 
             return $this->redirectToRoute(
-                'mailtemplate_manager_show',
+                'ojs_journal_mail_template_show',
                 [
                     'id' => $entity->getId(),
                 ]
@@ -169,7 +169,7 @@ class MailTemplateController extends Controller
             new MailTemplateType(),
             $entity,
             array(
-                'action' => $this->generateUrl('mailtemplate_manager_create'),
+                'action' => $this->generateUrl('ojs_journal_mail_template_create'),
                 'method' => 'POST',
             )
         );
@@ -271,7 +271,7 @@ class MailTemplateController extends Controller
             new MailTemplateType(),
             $entity,
             array(
-                'action' => $this->generateUrl('mailtemplate_manager_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_mail_template_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -309,7 +309,7 @@ class MailTemplateController extends Controller
             $this->successFlashBag('successful.update');
 
             return $this->redirectToRoute(
-                'mailtemplate_manager_edit',
+                'ojs_journal_mail_template_edit',
                 [
                     'id' => $entity->getId(),
                 ]
@@ -344,7 +344,7 @@ class MailTemplateController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('mailtemplate_manager'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_mail_template_index'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -354,7 +354,7 @@ class MailTemplateController extends Controller
 
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('mailtemplate_manager');
+        return $this->redirectToRoute('ojs_journal_mail_template_index');
     }
 
     /**
@@ -403,7 +403,7 @@ class MailTemplateController extends Controller
 
             return $this->redirect(
                 $this->generateUrl(
-                    'mailtemplate_manager_show',
+                    'ojs_journal_mail_template_show',
                     array('id' => $entity->getId())
                 )
             );

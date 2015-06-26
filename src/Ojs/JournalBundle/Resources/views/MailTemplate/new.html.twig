@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('mailtemplate'),'title': 'mail.template'|trans},
+    {'link': path('ojs_journal_mail_template_index'),'title': 'mail.template'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -67,7 +67,7 @@
     {{ form_row(form.subject) }}
     {{ form_row(form.lang) }}
     {{ form_end(form) }}
-    {% set back_path = 'mailtemplate' %}
+    {% set back_path = 'ojs_journal_mail_template_index' %}
     {% include '::actionbuttons.html.twig' %}
 
 {% endblock %}
