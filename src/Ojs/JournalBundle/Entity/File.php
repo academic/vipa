@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 
@@ -44,7 +45,7 @@ class File implements Translatable
     private $size;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $articleFiles;
 
@@ -60,7 +61,7 @@ class File implements Translatable
 
     public function __construct()
     {
-        $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleFiles = new ArrayCollection();
     }
 
     /**
@@ -190,8 +191,6 @@ class File implements Translatable
     private $issueFiles;
 
 
-
-
     /**
      * Add articleFiles
      *
@@ -208,9 +207,9 @@ class File implements Translatable
     /**
      * Remove articleFiles
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @param ArticleFile $articleFiles
      */
-    public function removeArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    public function removeArticleFile(ArticleFile $articleFiles)
     {
         $this->articleFiles->removeElement($articleFiles);
     }
@@ -218,10 +217,10 @@ class File implements Translatable
     /**
      * Add issueFiles
      *
-     * @param \Ojs\JournalBundle\Entity\IssueFile $issueFiles
+     * @param IssueFile $issueFiles
      * @return File
      */
-    public function addIssueFile(\Ojs\JournalBundle\Entity\IssueFile $issueFiles)
+    public function addIssueFile(IssueFile $issueFiles)
     {
         $this->issueFiles[] = $issueFiles;
 
@@ -231,9 +230,9 @@ class File implements Translatable
     /**
      * Remove issueFiles
      *
-     * @param \Ojs\JournalBundle\Entity\IssueFile $issueFiles
+     * @param IssueFile $issueFiles
      */
-    public function removeIssueFile(\Ojs\JournalBundle\Entity\IssueFile $issueFiles)
+    public function removeIssueFile(IssueFile $issueFiles)
     {
         $this->issueFiles->removeElement($issueFiles);
     }
@@ -241,7 +240,7 @@ class File implements Translatable
     /**
      * Get issueFiles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getIssueFiles()
     {
