@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
@@ -30,11 +31,14 @@ class CitationController extends Controller
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
 
-        //if (!$this->isGranted('VIEW', $journal, 'citation'))
-        //    throw new AccessDeniedException("You not authorized for this page!");
+        if (!$this->isGranted('VIEW', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
 
         $source = new Entity('OjsJournalBundle:Citation');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
         if($request->query->get('article') != null) {
             $alias = $source->getTableAlias();
             $source->manipulateQuery(
@@ -64,6 +68,13 @@ class CitationController extends Controller
      */
     public function createAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
+
+        if (!$this->isGranted('CREATE', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
         $entity = new Citation();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -107,6 +118,13 @@ class CitationController extends Controller
      */
     public function newAction()
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
+
+        if (!$this->isGranted('VIEW', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
         $entity = new Citation();
         $form   = $this->createCreateForm($entity);
 
@@ -122,8 +140,14 @@ class CitationController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
 
+        if (!$this->isGranted('VIEW', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
 
         if (!$entity) {
@@ -144,8 +168,14 @@ class CitationController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
 
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
 
         if (!$entity) {
@@ -186,8 +216,14 @@ class CitationController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
 
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
 
         if (!$entity) {
@@ -216,6 +252,14 @@ class CitationController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
+
+        // Because when we delete a citation, that means we are editing an article.
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
