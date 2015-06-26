@@ -300,8 +300,6 @@ class InstallCommand extends ContainerAwareCommand
         $langClass = $em->getRepository('OjsJournalBundle:Lang')->getClassName();
         $mailLogClass = $em->getRepository('OjsUserBundle:MailLog')->getClassName();
         $designClass = $em->getRepository('OjsJournalBundle:Design')->getClassName();
-        $citationClass = $em->getRepository('OjsJournalBundle:Citation')->getClassName();
-        $citationSettingsClass = $em->getRepository('OjsJournalBundle:CitationSetting')->getClassName();
         $subjectClass = $em->getRepository('OjsJournalBundle:Subject')->getClassName();
         $proxyClass = $em->getRepository('OjsUserBundle:Proxy')->getClassName();
         $notificationClass = $em->getRepository('OjsUserBundle:Notification')->getClassName();
@@ -321,7 +319,6 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->field('mailTemplate')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('report')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('userRole')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($journalClass)->field('citation')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($institutionTypeClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -334,8 +331,6 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($langClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($mailLogClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($designClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($citationClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($citationSettingsClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($subjectClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($proxyClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($notificationClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
