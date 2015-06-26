@@ -47,9 +47,9 @@ class JournalDesignController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('admin_journaldesign_show', 'id');
-        $rowAction[] = $gridAction->editAction('admin_journaldesign_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('admin_journaldesign_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_design_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_design_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_design_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -82,7 +82,7 @@ class JournalDesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('admin_journaldesign_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_design_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
@@ -107,7 +107,7 @@ class JournalDesignController extends Controller
             new JournalDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_journaldesign_create'),
+                'action' => $this->generateUrl('ojs_journal_design_create'),
                 'method' => 'POST',
             )
         );
@@ -208,7 +208,7 @@ class JournalDesignController extends Controller
             new JournalDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('admin_journaldesign_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_design_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -244,7 +244,7 @@ class JournalDesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('admin_journaldesign_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_design_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render(
@@ -276,7 +276,7 @@ class JournalDesignController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('admin_journaldesign'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_design'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -284,6 +284,6 @@ class JournalDesignController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('admin_JournalDesign');
+        return $this->redirectToRoute('ojs_journal_design_index');
     }
 }
