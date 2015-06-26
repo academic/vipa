@@ -17,26 +17,24 @@ class IssueFileController extends Controller
 {
     /**
      * Creates a new IssueFile entity.
-     *
      */
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        if (!$this->isGranted('CREATE', $journal, 'issuefiles')) {
-            throw new AccessDeniedException("You are not authorized for create  issue file for this journal!");
+        if (!$this->isGranted('CREATE', $journal, 'issues')) {
+            throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
+
         $entity = new IssueFile();
         $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            /** @var Issue $issue */
-            $issue = $em->getReference("OjsJournalBundle:Issue",$entity->getIssueId());
-            $entity->setIssue($issue);
             $em->persist($entity);
+            var_dump($em->getUnitOfWork()->getScheduledEntityInsertions());exit;
             $em->flush();
 
             return $this->redirect($this->generateUrl('ojs_journal_issue_edit', array('id' => $entity->getIssueId())));
@@ -64,26 +62,23 @@ class IssueFileController extends Controller
         }
 
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('admin_issuefile_create'),
+            'action' => $this->generateUrl('ojs_journal_issuefile_create'),
             'method' => 'POST',
-            "languages" => $langs
+            'languages' => $langs,
         ]);
-
 
         return $form;
     }
 
     /**
      * Displays a form to create a new IssueFile entity.
-     *
      */
     public function newAction(Request $request, $issue)
     {
-
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        if (!$this->isGranted('CREATE', $journal, 'issuefiles')) {
-            throw new AccessDeniedException("You are not authorized for create  issue file for this journal!");
+        if (!$this->isGranted('CREATE', $journal, 'issues')) {
+            throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
         $entity = new IssueFile();
         $entity->setIssueId($issue);
@@ -98,18 +93,15 @@ class IssueFileController extends Controller
 
     /**
      * Finds and displays a IssueFile entity.
-     *
      */
     public function showAction($id)
     {
-
-
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
         if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this issue file!");
+            throw new AccessDeniedException('You are not authorized for view this issue file!');
         }
         $this->throw404IfNotFound($entity);
 
@@ -123,17 +115,17 @@ class IssueFileController extends Controller
 
     /**
      * Displays a form to edit an existing IssueFile entity.
-     *
      */
     public function editAction($id)
     {
-
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for edit this  issue file!");
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('EDIT', $journal, 'issues')) {
+            throw new AccessDeniedException('You are not authorized for edit this  issue file!');
         }
 
         $this->throw404IfNotFound($entity);
@@ -165,16 +157,14 @@ class IssueFileController extends Controller
         $form = $this->createForm(new IssueFileType(), $entity, [
             'action' => $this->generateUrl('ojs_journal_issuefile_update', ['id' => $entity->getId()]),
             'method' => 'PUT',
-            'languages' => $langs
+            'languages' => $langs,
         ]);
-
 
         return $form;
     }
 
     /**
      * Edits an existing IssueFile entity.
-     *
      */
     public function updateAction(Request $request, $id)
     {
@@ -182,8 +172,10 @@ class IssueFileController extends Controller
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for edit this issue file!");
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('EDIT', $journal, 'issues')) {
+            throw new AccessDeniedException('You are not authorized for edit this issue file!');
         }
 
         if (!$entity) {
@@ -209,7 +201,6 @@ class IssueFileController extends Controller
 
     /**
      * Deletes a IssueFile entity.
-     *
      */
     public function deleteAction(Request $request, $id)
     {
@@ -220,8 +211,10 @@ class IssueFileController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
-            if (!$this->isGranted('DELETE', $entity)) {
-                throw new AccessDeniedException("You are not authorized for delete this issue file!");
+            $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+            if (!$this->isGranted('DELETE', $journal, 'issues')) {
+                throw new AccessDeniedException('You are not authorized for delete this issue file!');
             }
 
             if (!$entity) {
