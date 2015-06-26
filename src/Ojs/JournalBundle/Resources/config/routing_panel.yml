@@ -34,10 +34,10 @@ ojs_journal_design:
     prefix:   /design
     resource: "@OjsJournalBundle/Resources/config/routing/panel/design.yml"
 
-ojs_journal_admin_issuefile:
-    resource: "@OjsJournalBundle/Resources/config/routing/issuefile.yml"
-    prefix:   /issuefile
+ojs_journal_issue_file:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/issue_file.yml"
+    prefix:   /issue-file
 
-manager_journal_section:
+ojs_journal_section:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/section.yml"
     prefix:   /section

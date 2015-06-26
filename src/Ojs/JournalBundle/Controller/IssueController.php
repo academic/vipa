@@ -220,13 +220,13 @@ class IssueController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_issuefile_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_issue_file_show', 'id');
 
         if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->editAction('ojs_journal_issuefile_edit', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_issue_file_edit', 'id');
         }
         if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_issuefile_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_file_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);

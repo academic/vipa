@@ -70,7 +70,7 @@
     <h3>{{ "issuefile.list"|trans }}</h3>
     {{ grid(grid) }}
     <br/>
-    <a class="btn btn-primary" href="{{ url('ojs_journal_issuefile_new',{issue: entity.id}) }}">{{ "issuefile.new"|trans }}</a>
+    <a class="btn btn-primary" href="{{ url('ojs_journal_issue_file_new',{issue: entity.id}) }}">{{ "issuefile.new"|trans }}</a>
     <hr>
 
     {% set back_path = 'ojs_journal_issue_index' %}
