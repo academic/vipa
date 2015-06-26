@@ -582,7 +582,7 @@ class Issue implements Translatable
     }
 
     /**
-     * @var array|Collection|IssueFile[]
+     * @var Collection|IssueFile[]
      * @Expose
      */
     private $issueFiles;
