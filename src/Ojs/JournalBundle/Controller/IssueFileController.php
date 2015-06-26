@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +31,10 @@ class IssueFileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             /** @var Issue $issue */
-            $issue = $em->find("OjsJournalBundle:Issue",$entity->getIssueId());
+            $issue = $em->getReference("OjsJournalBundle:Issue",$entity->getIssueId());
             $entity->setIssue($issue);
             $em->persist($entity);
             $em->flush();
