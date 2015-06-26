@@ -3,7 +3,6 @@
 namespace Ojs\CliBundle\Command;
 
 use Composer\Script\CommandEvent;
-use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Theme;
 use Ojs\JournalBundle\Entity\JournalRole;
@@ -293,7 +292,6 @@ class InstallCommand extends ContainerAwareCommand
         $institutionClass = $em->getRepository('OjsJournalBundle:Institution')->getClassName();
         $institutionTypeClass = $em->getRepository('OjsJournalBundle:InstitutionTypes')->getClassName();
         $roleClass = $em->getRepository('OjsUserBundle:Role')->getClassName();
-        $contactClass = $em->getRepository('OjsJournalBundle:Contact')->getClassName();
         $contactTypesClass = $em->getRepository('OjsJournalBundle:ContactTypes')->getClassName();
         $themeClass = $em->getRepository('OjsJournalBundle:Theme')->getClassName();
         $journalIndexClass = $em->getRepository('OjsJournalBundle:JournalIndex')->getClassName();
@@ -328,7 +326,6 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($institutionTypeClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($roleClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
-        $aclManager->on($contactClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($contactTypesClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($themeClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalIndexClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -673,59 +670,28 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit($viewEdit)->save();
         }
-        /** @var Article[] $articles */
-        $articles = $em->getRepository('OjsJournalBundle:Article')->findAll();
-        $articles = [];
-        foreach ($articles as $article) {
-            $output->writeln($sb.'Article fix for : '.$article->getTitle().$se);
-            $journal = $article->getJournal();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
-                ->permit(MaskBuilder::MASK_OWNER)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
-                ->permit(MaskBuilder::MASK_OWNER)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
-                ->permit(MaskBuilder::MASK_VIEW)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
-                ->permit($viewEdit)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
-                ->permit($viewEdit)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
-                ->permit($viewEdit)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
-                ->permit($viewEdit)->save();
-
-            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
-                ->permit($viewEdit)->save();
-        }
 
         // Every JOURNAL MANAGER and EDITOR must be AUTHOR
 
         $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
-
-        $userJournalRoles = $em->getRepository('OjsUserBundle:JournalRole')->findAllByJournalRole(
+        /** @var JournalRole[] $userJournalRoles */
+        $journalRoles = $em->getRepository('OjsJournalBundle:JournalRole')->findAllByJournalRole(
             array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR')
         );
-        foreach ($userJournalRoles as $userJournalRole) {
+        foreach ($journalRoles as $journalRole) {
             if (!$em->getRepository('OjsUserBundle:User')->hasJournalRole(
-                $userJournalRole->getUser(),
+                $journalRole->getUser(),
                 $authorRole,
-                $userJournalRole->getJournal()
+                $journalRole->getJournal()
             )
             ) {
                 $newJournalRole = new JournalRole();
                 $newJournalRole->setRole($authorRole);
-                $newJournalRole->setUser($userJournalRole->getUser());
-                $newJournalRole->setJournal($userJournalRole->getJournal());
+                $newJournalRole->setUser($journalRole->getUser());
+                $newJournalRole->setJournal($journalRole->getJournal());
                 $em->persist($newJournalRole);
                 $output->writeln(
-                    $sb.'Author added : '.$userJournalRole->getUser().' - '.$userJournalRole->getJournal().$se
+                    $sb.'Author added : '.$journalRole->getUser().' - '.$journalRole->getJournal().$se
                 );
             }
         }
