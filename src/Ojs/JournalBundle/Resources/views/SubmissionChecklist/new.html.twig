@@ -9,7 +9,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('manager_submission_checklist'),'title': 'submission_checklist.show'|trans},
+    {'link': path('ojs_journal_checklist_index'),'title': 'submission_checklist.show'|trans},
     {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -22,7 +22,7 @@
 
     {{ form(form) }}
 
-    {% set back_path = 'manager_submission_checklist' %}
+    {% set back_path = 'ojs_journal_checklist_index' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
 

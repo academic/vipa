@@ -9,7 +9,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('manager_submission_checklist'),'title': 'submission_checklist.show'|trans},
+    {'link': path('ojs_journal_checklist_index'),'title': 'submission_checklist.show'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -20,9 +20,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'manager_submission_checklist' %}
+    {% set back_path = 'ojs_journal_checklist_index' %}
     {% if is_granted('DELETE', selectedJournal(), 'checklist') %}
-        {% set delete_path = 'manager_submission_checklist_delete' %}
+        {% set delete_path = 'ojs_journal_checklist_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
