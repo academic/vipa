@@ -296,17 +296,4 @@ class ManagerController extends Controller
 
         return false;
     }
-
-    /**
-     * list journal users
-     * @return Response
-     */
-    public function usersAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
-        $data['entities'] = $em->getRepository('OjsJournalBundle:JournalRole')->findAll();
-
-        return $this->render('OjsJournalBundle:Manager:users.html.twig', $data);
-    }
 }
