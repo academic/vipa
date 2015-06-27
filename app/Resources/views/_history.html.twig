@@ -2,64 +2,69 @@
 app.request.attributes.get('_route_params')) %}
 <hr/>
 <h2>{{ 'admin.log.history'|trans }}</h2>
-<ul class="accordion">
+<div id="adminLogHistory" class="panel-group" role="tablist" aria-multiselectable="true">
     {% for log in logEntities %}
-        <li id="{{ log.id }}" class="files">
-
-            <a href="{{ currentPath }}#{{ log.id }}">{{ log.loggedAt|localizeddate('long') }}
-                <span>{{ log.username }}</span></a>
-
-            <div class="sub-menu">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>{{ 'admin.log.field'|trans }}</th>
-                        <th>{{ 'admin.log.oldValue'|trans }}</th>
-                        <th>{{ 'admin.log.newValue'|trans }}</th>
-                    </tr>
-                    {% for data in log.data %}
-                        <tr>
-                            <th>{{ data.name }}</th>
-                            <td>
-                                {% if data.old is same as(true) %}
-                                    TRUE
-                                {% elseif data.old is same as(false) %}
-                                    FALSE
-                                {% elseif data.old.timezone is defined %}
-                                    {{ data.old|localizeddate('long') }}
-                                {% elseif data.old is iterable %}
-                                    {% for subdata in data.old %}
-                                        {{ subdata|trans }}
-                                        {% if not loop.last %},{% endif %}
-                                    {% else %}
-                                        -
-                                    {% endfor %}
-                                {% else %}
-                                    {{ data.old|default('-') }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if data.new is same as(true) %}
-                                    TRUE
-                                {% elseif data.new is same as(false) %}
-                                    FALSE
-                                {% elseif data.new.timezone is defined %}
-                                    {{ data.new|localizeddate('long') }}
-                                {% elseif data.new is iterable %}
-                                    {% for subdata in data.new %}
-                                        {{ subdata|trans }}
-                                        {% if not loop.last %},{% endif %}
-                                    {% else %}
-                                        -
-                                    {% endfor %}
-                                {% else %}
-                                    {{ data.new|default('-') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
+        <div class="panel panel-default">
+            <div id="logHeading{{ log.id }}" class="panel-heading" role="button" data-toggle="collapse">
+                <a role="button" data-toggle="collapse" data-parent="#adminLogHistory" href="#adminLogs{{ log.id }}" aria-expanded="false" aria-controls="adminLogs{{ log.id }}">
+                    {{ log.loggedAt|localizeddate('long') }}
+                </a>
+                {% if log.username is not null %}
+                    <kbd class="pull-right">{{ log.username }}</kbd>
+                {% endif %}
             </div>
-
-        </li>
+            <div id="adminLogs{{ log.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="logHeading{{ log.id }}">
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>{{ 'admin.log.field'|trans }}</th>
+                            <th>{{ 'admin.log.oldValue'|trans }}</th>
+                            <th>{{ 'admin.log.newValue'|trans }}</th>
+                        </tr>
+                        {% for data in log.data %}
+                            <tr>
+                                <th>{{ data.name }}</th>
+                                <td>
+                                    {% if data.old is same as(true) %}
+                                        TRUE
+                                    {% elseif data.old is same as(false) %}
+                                        FALSE
+                                    {% elseif data.old.timezone is defined %}
+                                        {{ data.old|localizeddate('long') }}
+                                    {% elseif data.old is iterable %}
+                                        {% for subdata in data.old %}
+                                            {{ subdata|trans }}
+                                            {% if not loop.last %},{% endif %}
+                                        {% else %}
+                                            -
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ data.old|default('-') }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if data.new is same as(true) %}
+                                        TRUE
+                                    {% elseif data.new is same as(false) %}
+                                        FALSE
+                                    {% elseif data.new.timezone is defined %}
+                                        {{ data.new|localizeddate('long') }}
+                                    {% elseif data.new is iterable %}
+                                        {% for subdata in data.new %}
+                                            {{ subdata|trans }}
+                                            {% if not loop.last %},{% endif %}
+                                        {% else %}
+                                            -
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ data.new|default('-') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-</ul>
+</div>
