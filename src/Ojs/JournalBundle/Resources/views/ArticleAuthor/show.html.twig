@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('articleauthor'),'title': 'article.author'|trans},
+    { 'link': path('ojs_journal_article_author_index'),'title': 'article.author'|trans},
     {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -31,15 +31,15 @@
         <tr>
             <th>{{ "article.singular"|trans }}</th>
             <td>
-                <a href="{{ path('article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                <a href="{{ path('ojs_journal_article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
             </td>
         </tr>
         </tbody>
     </table>
 
-    {% set back_path = 'articleauthor' %}
-    {% set edit_path = 'articleauthor_edit' %}
-    {% set delete_path = 'articleauthor_delete' %}
+    {% set back_path = 'ojs_journal_article_author_index' %}
+    {% set edit_path = 'ojs_journal_article_author_edit' %}
+    {% set delete_path = 'ojs_journal_article_author_delete' %}
     {% include '::actionbuttons.html.twig' %}
 
 {% endblock %}

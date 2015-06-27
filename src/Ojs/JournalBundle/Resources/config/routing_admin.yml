@@ -1,7 +1,0 @@
-ojs_author_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/author.yml"
-    prefix:   /admin/author
-
-ojs_articleauthor:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/articleauthor.yml"
-    prefix:   /admin/articleauthor

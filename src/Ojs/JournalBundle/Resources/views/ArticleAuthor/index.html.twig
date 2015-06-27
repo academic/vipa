@@ -11,7 +11,7 @@
 
 {% block body -%}
     <h1>{{ "article_author_list"|trans }}</h1>
-    <a class="btn btn-success" href="{{ path('articleauthor_new') }}">{{ "articleauthor_new"|trans }}</a>
+    <a class="btn btn-success" href="{{ path('ojs_journal_article_author_new') }}">{{ "articleauthor_new"|trans }}</a>
     <table class="table records_list">
         <thead>
         <tr>
@@ -25,18 +25,18 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('articleauthor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('ojs_journal_article_author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.authorOrder }}</td>
                 <td>
-                    <a href="{{ path('author_show',{id:entity.author.Id }) }}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}
+                    <a href="{{ path('ojs_journal_author_show',{id:entity.author.Id }) }}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}
                 </td>
                 <td>
-                    <a href="{{ path('article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                    <a href="{{ path('ojs_journal_article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
                 </td>
                 <td>
-                    {% set show_path = 'articleauthor_show' %}
-                    {% set edit_path = 'articleauthor_edit' %}
-                    {% set delete_path = 'articleauthor_delete' %}
+                    {% set show_path = 'ojs_journal_article_author_show' %}
+                    {% set edit_path = 'ojs_journal_article_author_edit' %}
+                    {% set delete_path = 'ojs_journal_article_author_delete' %}
                     {% include '::actionbuttons.html.twig' %}
                 </td>
             </tr>

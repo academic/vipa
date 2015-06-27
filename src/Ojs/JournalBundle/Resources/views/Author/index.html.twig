@@ -13,7 +13,7 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Author')) %}
-        {% set create_path = 'author_new' %}
+        {% set create_path = 'ojs_journal_author_new' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

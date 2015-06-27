@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('articleauthor'),'title': 'article.author'|trans},
+    { 'link': path('ojs_journal_article_author_index'),'title': 'article.author'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,8 +14,8 @@
     <h1>{{ "article_author_edit"|trans }}</h1>
     {{ form(edit_form) }}
     <hr>
-    {% set back_path = 'articleauthor' %}
-    {% set delete_path = 'articleauthor_delete' %}
+    {% set back_path = 'ojs_journal_article_author_index' %}
+    {% set delete_path = 'ojs_journal_article_author_delete' %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

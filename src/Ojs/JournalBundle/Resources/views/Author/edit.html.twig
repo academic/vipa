@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('author'), 'title': 'author.manager'|trans},
+    {'link': path('ojs_journal_author_index'), 'title': 'author.manager'|trans},
     {'title' : 'author.edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,9 +13,9 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'author' %}
+    {% set back_path = 'ojs_journal_author_index' %}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'author_delete' %}
+        {% set delete_path = 'ojs_journal_author_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 

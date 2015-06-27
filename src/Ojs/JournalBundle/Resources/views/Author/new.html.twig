@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('author'), 'title': 'author.manager'|trans},
+    {'link': path('ojs_journal_author_index'), 'title': 'author.manager'|trans},
     {'title' : 'author.new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,6 +13,6 @@
     <h1>{{ 'author.creation'|trans }}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'author' %}
+    {% set back_path = 'ojs_journal_author_index' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

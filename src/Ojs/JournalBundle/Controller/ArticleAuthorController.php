@@ -58,7 +58,7 @@ class ArticleAuthorController extends Controller
         $em->flush();
         $this->successFlashBag('successful.create');
 
-        return $this->redirect($this->generateUrl('articleauthor_show', array('id' => $entity->getId())));
+        return $this->redirect($this->generateUrl('ojs_journal_article_author_show', array('id' => $entity->getId())));
     }
 
     /**
@@ -75,7 +75,7 @@ class ArticleAuthorController extends Controller
             new ArticleAuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('articleauthor_create'),
+                'action' => $this->generateUrl('ojs_journal_article_author_create'),
                 'method' => 'POST',
                 'journal' => $journal,
             )
@@ -165,7 +165,7 @@ class ArticleAuthorController extends Controller
             new ArticleAuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_article_author_update', array('id' => $entity->getId())),
                 'journal_id' => $journal,
                 'method' => 'PUT',
             )
@@ -207,7 +207,7 @@ class ArticleAuthorController extends Controller
 
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('articleauthor_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_article_author_edit', array('id' => $id)));
         }
 
         return $this->render(
@@ -236,6 +236,6 @@ class ArticleAuthorController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('articleauthor'));
+        return $this->redirect($this->generateUrl('ojs_journal_article_author_index'));
     }
 }
