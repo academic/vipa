@@ -9,7 +9,7 @@ app.request.attributes.get('_route_params')) %}
                 <a role="button" data-toggle="collapse" data-parent="#adminLogHistory" href="#adminLogs{{ log.id }}" aria-expanded="false" aria-controls="adminLogs{{ log.id }}">
                     {{ log.loggedAt|localizeddate('long') }}
                 </a>
-                {% if log.username is defined %}
+                {% if log.username is not null %}
                     <kbd class="pull-right">{{ log.username }}</kbd>
                 {% endif %}
             </div>
