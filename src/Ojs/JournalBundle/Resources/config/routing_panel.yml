@@ -57,3 +57,7 @@ ojs_journal_checklist:
 manager_actions:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/settings.yml"
     prefix:   /settings
+
+ojs_journal_users:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/users.yml"
+    prefix:   /users

@@ -1,11 +1,11 @@
-journal_users:
+ojs_journal_user_index:
     pattern:  /
     defaults: { _controller: OjsJournalBundle:JournalUsers:index }
 
-journal_users_new_user:
-    pattern:  /new/user
+ojs_journal_user_new:
+    pattern:  /new
     defaults: { _controller: OjsJournalBundle:JournalUsers:newUser }
 
-journal_users_create_user:
-    pattern:  /create/user
+ojs_journal_user_create:
+    pattern:  /create
     defaults: { _controller: OjsJournalBundle:JournalUsers:createUser }

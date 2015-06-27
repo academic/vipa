@@ -121,7 +121,7 @@ class JournalUsersController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
-            return $this->redirectToRoute('journal_users');
+            return $this->redirectToRoute('ojs_journal_user_index');
         }
 
         return $this->render(
@@ -144,7 +144,7 @@ class JournalUsersController extends Controller
             new JournalUserType(),
             $entity,
             array(
-                'action' => $this->generateUrl('journal_users_create_user'),
+                'action' => $this->generateUrl('ojs_journal_user_create'),
                 'method' => 'POST',
             )
         );
