@@ -35,12 +35,12 @@ class AuthorController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('author_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_author_show', 'id');
         if ($this->isGranted('EDIT', new Author())) {
-            $rowAction[] = $gridAction->editAction('author_edit', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_author_edit', 'id');
         }
         if ($this->isGranted('DELETE', new Author())) {
-            $rowAction[] = $gridAction->deleteAction('author_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_author_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);
@@ -71,7 +71,7 @@ class AuthorController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirect($this->generateUrl('author_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_journal_author_show', array('id' => $entity->getId())));
         }
 
         return $this->render(
@@ -96,7 +96,7 @@ class AuthorController extends Controller
             new AuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('author_create'),
+                'action' => $this->generateUrl('ojs_journal_author_create'),
                 'method' => 'POST',
             )
         );
@@ -189,7 +189,7 @@ class AuthorController extends Controller
             new AuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('author_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_author_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -220,7 +220,7 @@ class AuthorController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('author_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_author_edit', array('id' => $id)));
         }
 
         return $this->render(
@@ -249,7 +249,7 @@ class AuthorController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('author'.$id);
+        $token = $csrf->getToken('ojs_journal_author'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -257,6 +257,6 @@ class AuthorController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('author'));
+        return $this->redirect($this->generateUrl('ojs_journal_author_index'));
     }
 }
