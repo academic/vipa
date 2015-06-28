@@ -150,7 +150,7 @@ class IssueFile
     /**
      * Get issueId
      *
-     * @return integer 
+     * @return integer
      */
     public function getIssueId()
     {
