@@ -32,11 +32,13 @@
                         {{ "special.issue"|trans }}
                         </span> &nbsp;
                 {% endif %}
-                {{ "issue.number"|trans }}: {{ issue.number }} - {{ "volume"|trans }} : {{ issue.volume }}</h4>
+                {{ "issue.number"|trans }}: {{ issue.number }} - {{ "volume"|trans }} : {{ issue.volume }}
+
+            </h4>
         </div>
 
 
-        <div class="col-md-12">
+        <div class="col-md-9">
 
             <div class="panel panel-default">
 
@@ -61,6 +63,18 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <span class="panel-title">{{ "issuefile.list"|trans }}</span>
+                </div>
+                <ul class="list-group">
+                    {% for file in issue.issueFiles %}
+                        <li class="list-group-item">
+                            <a href="{{ asset("/uploads/issuefiles/"~filePath(file.file.name)) }}"><i class="fa fa-download "></i> {{ file.title }} </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% set journal = issue.journal %}
             {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
         </div>
