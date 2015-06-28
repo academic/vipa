@@ -2,6 +2,7 @@ Ojs\JournalBundle\Entity\Subject:
     type: entity
     table: subject
     repositoryClass: Ojs\JournalBundle\Entity\SubjectRepository
+    translationClass: Ojs\JournalBundle\Entity\SubjectTranslation
     id:
         id:
             type: integer
@@ -100,7 +101,10 @@ Ojs\JournalBundle\Entity\Subject:
           time_aware: false
         loggable: true
         tree:
-             type: nested
+            type: nested
+        translation:
+            locale: locale
+            entity: Ojs\JournalBundle\Entity\SubjectTranslation
     lifecycleCallbacks: {  }
     manyToOne:
         parent:
@@ -119,3 +123,9 @@ Ojs\JournalBundle\Entity\Subject:
             mappedBy: parent
             orderBy:
                 lft: ASC
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\SubjectTranslation
+            mappedBy: object
+            onPersist: CASCADE
+            onRemove: CASCADE
+

@@ -7,6 +7,10 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 class SubjectTranslation extends AbstractPersonalTranslation
 {
+    private $subject;
+
+    private $description;
+
     /**
      * Convinient constructor
      *
@@ -19,6 +23,28 @@ class SubjectTranslation extends AbstractPersonalTranslation
         $this->setLocale($locale);
         $this->setField($field);
         $this->setContent($value);
+    }
+
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    public  function getSubject()
+    {
+        return $this->subject;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public  function getDescription()
+    {
+        return $this->description;
     }
 
     protected $object;
