@@ -69,7 +69,8 @@ class Meta
     public function set($key, $value = null)
     {
         if (is_array($value)) {
-            for ($i = 0; $i < count($value); $i++) {
+            $count = count($value);
+            for ($i = 0; $i < $count; ++$i) {
                 $value[$i] = $this->fix($value[$i]);
             }
         } else {
