@@ -56,6 +56,7 @@ class AppKernel extends Kernel
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
