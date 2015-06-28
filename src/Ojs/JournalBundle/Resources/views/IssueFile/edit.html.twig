@@ -1,16 +1,69 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>IssueFile edit</h1>
+    <h1>{{ "issuefile.edit"|trans }}</h1>
+    {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_errors(edit_form) }}
+    {{ form_widget(edit_form) }}
 
-    {{ form(edit_form) }}
+    <div class="form-group">
+        <label class="control-label" for="fileupload_full_file">{{ "full_file"|trans }}</label>
+        <a href="{{ asset("/uploads/issuefiles/"~filePath(entity.file.name)) }}">{{ "preview"|trans }}</a>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{ "select.full.file"|trans }}</span>
+            <input id="fileupload_full_file" type="file" data-url="{{ oneup_uploader_endpoint('issuefiles') }}">
+        </span>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('ojs_journal_issue_file_index') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <div id="issue_full_file_upload_progress" style="display: none" class="label label-info">
+
+        </div>
+    </div>
+    <button type="submit" id="ojs_journalbundle_issuefile_submit" class="btn btn-primary">
+        {{ "e"|trans }}
+    </button>
+    {{ form_end(edit_form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fileupload_full_file').fileupload({});
+            $('#fileupload_full_file').bind('fileuploadsend', function (e, data) {
+                $('#issue_full_file_upload_progress').show();
+                $('#issue_full_file_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
+                $('#issue_full_file_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_journalbundle_issuefile_file_path').attr('value', result.files.path);
+                $('#ojs_journalbundle_issuefile_file_mimeType').attr('value', result.files.mimeType);
+                $('#ojs_journalbundle_issuefile_file_name').attr('value', result.files.name);
+                $('#ojs_journalbundle_issuefile_file_size').attr('value', result.files.size);
+
+            });
+
+        });
+    </script>
+    {{ form_javascript(edit_form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@upload_css'   output="c/upload.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {{ form_stylesheet(edit_form) }}
 {% endblock %}

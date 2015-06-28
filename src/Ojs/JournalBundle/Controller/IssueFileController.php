@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Form\Type\IssueFileType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * IssueFile controller.
@@ -33,7 +34,7 @@ class IssueFileController extends Controller
         if ($form->isValid()) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            $entity->setIssue($em->getReference('OjsJournalBundle:Issue',$entity->getIssueId()));
+            $entity->setIssue($em->getReference('OjsJournalBundle:Issue', $entity->getIssueId()));
             $em->persist($entity);
             $em->flush();
 
@@ -206,26 +207,27 @@ class IssueFileController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
+        $issue = null;
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
+        $issue = $entity->getIssue()->getId();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
+        if (!$this->isGranted('DELETE', $journal, 'issues')) {
+            throw new AccessDeniedException('You are not authorized for delete this issue file!');
+        }
+        $this->throw404IfNotFound($entity);
 
-            $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-            if (!$this->isGranted('DELETE', $journal, 'issues')) {
-                throw new AccessDeniedException('You are not authorized for delete this issue file!');
-            }
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find IssueFile entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('ojs_journal_issue_index' . $id);
+        if ($token != $request->get('_token')) {
+            throw new TokenNotFoundException("Token Not Found!");
         }
 
-        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index'));
+        $em->remove($entity);
+        $em->flush();
+        $this->successFlashBag('successful.remove');
+        return $this->redirect($this->generateUrl('ojs_journal_issue_edit', ['id' => $issue]));
     }
 
     /**
