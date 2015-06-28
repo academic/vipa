@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
+use Ojs\JournalBundle\Entity\SubjectTranslation;
 
 /**
  * Subject
@@ -74,10 +75,26 @@ class Subject implements Translatable
      */
     private $slug;
 
+    private $translations;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->journas = new ArrayCollection();
+        $this->journals = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(SubjectTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
     }
 
     public function setParent(Subject $parent = null)
