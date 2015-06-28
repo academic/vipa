@@ -184,8 +184,8 @@ class UserController extends Controller
         $code = $request->get('code');
         $orcid->setRedirectUri(
             'http://'
-            .$this->container->getParameter('base_host')
-            .$this->get('router')->generate('ojs_user_add_orcid_account')
+            . $this->container->getParameter('base_host')
+            . $this->get('router')->generate('ojs_user_add_orcid_account')
         );
         if (!$code) {
             return new RedirectResponse($orcid->loginUrl());

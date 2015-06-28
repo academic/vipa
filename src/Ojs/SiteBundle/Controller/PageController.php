@@ -44,7 +44,7 @@ class PageController extends Controller
     /**
      * Creates a new Page entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -189,7 +189,7 @@ class PageController extends Controller
     /**
      * Edits an existing Page entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -225,7 +225,7 @@ class PageController extends Controller
 
     /**
      * Deletes a Page entity.
-     * @param  Page             $entity
+     * @param  Page $entity
      * @return RedirectResponse
      */
     public function deleteAction(Page $entity)
