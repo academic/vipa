@@ -342,7 +342,7 @@ class ArticleFileController extends Controller
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_article_file_index'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_article_file'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

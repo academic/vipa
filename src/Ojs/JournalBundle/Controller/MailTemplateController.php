@@ -344,7 +344,7 @@ class MailTemplateController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_mail_template_index'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_mail_template'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

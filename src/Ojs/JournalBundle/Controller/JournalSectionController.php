@@ -313,7 +313,7 @@ class JournalSectionController extends Controller
         }
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_section_index'.$id);
+        $token = $csrf->getToken('ojs_journal_section'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

@@ -286,7 +286,7 @@ class JournalsIndexController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_index_index'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_index'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
