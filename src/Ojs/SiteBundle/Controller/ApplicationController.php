@@ -2,11 +2,11 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use Ojs\AdminBundle\Form\Type\InstitutionApplicationType;
+use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\JournalApplication;
 use Ojs\JournalBundle\Entity\Institution;
-use Ojs\AdminBundle\Form\Type\InstitutionApplicationType;
-use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ApplicationController extends Controller
 {
     /**
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function journalAction(Request $request)

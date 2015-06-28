@@ -12,8 +12,8 @@ class RedirectController extends Controller
 
     /**
      * /redirect/{type}/id  will redirect to related page after checking user login status
-     * @param  string            $type
-     * @param  string|integer    $id
+     * @param  string $type
+     * @param  string|integer $id
      * @return RedirectResponse
      * @throws NoResultException
      */
@@ -34,8 +34,8 @@ class RedirectController extends Controller
 
     /**
      *
-     * @param  Registry          $doctrine
-     * @param  string|integer    $id
+     * @param  Registry $doctrine
+     * @param  string|integer $id
      * @return RedirectResponse
      * @throws NoResultException
      */
@@ -58,8 +58,8 @@ class RedirectController extends Controller
 
     /**
      *
-     * @param  Registry          $doctrine
-     * @param  string|integer    $id
+     * @param  Registry $doctrine
+     * @param  string|integer $id
      * @return RedirectResponse
      * @throws NoResultException
      */

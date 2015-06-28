@@ -30,7 +30,7 @@ class SitemapController extends Controller
             $siteMap
                 ->add(
                     $request->getSchemeAndHttpHost()
-                    .$router->generate($map, ['_format' => 'xml']),
+                    . $router->generate($map, ['_format' => 'xml']),
                     (new \DateTime())->format('Y-m-d')
                 );
         }
@@ -110,7 +110,7 @@ class SitemapController extends Controller
 
         foreach ($subjects as $subject) {
             $siteMapIndex->add(
-                $request->getSchemeAndHttpHost().
+                $request->getSchemeAndHttpHost() .
                 $router->generate(
                     'ojs_subject_sitemap',
                     ['subject' => $subject->getSlug(), 'institution' => $institution, '_format' => 'xml']
@@ -143,7 +143,7 @@ class SitemapController extends Controller
         foreach ($maps as $map) {
             $siteMapIndex->add(
                 $request->getSchemeAndHttpHost()
-                .$router->generate(
+                . $router->generate(
                     $map,
                     [
                         'journal' => $journal->getSlug(),
@@ -176,7 +176,7 @@ class SitemapController extends Controller
         foreach ($maps as $map) {
             $siteMap->add(
                 $request->getSchemeAndHttpHost()
-                .$router->generate(
+                . $router->generate(
                     $map,
                     ['slug' => $journal->getSlug(), 'institution' => $journal->getInstitution()->getSlug()]
                 ),
@@ -202,7 +202,7 @@ class SitemapController extends Controller
         foreach ($issue->getArticles() as $article) {
             /** @var Article $article */
             $siteMap->add(
-                $request->getSchemeAndHttpHost().
+                $request->getSchemeAndHttpHost() .
                 $router->generate(
                     'ojs_article_page',
                     [
@@ -246,7 +246,7 @@ class SitemapController extends Controller
         foreach ($journals as $journal) {
             $siteMap->add(
                 $request->getSchemeAndHttpHost()
-                .$router->generate(
+                . $router->generate(
                     'ojs_journal_sitemap',
                     [
                         'journal' => $journal->getId(),
@@ -285,7 +285,7 @@ class SitemapController extends Controller
             /** @var Journal $journal */
             $siteMap->add(
                 $request->getSchemeAndHttpHost()
-                .$router->generate(
+                . $router->generate(
                     'ojs_journal_sitemap',
                     [
                         'journal' => $journal->getSlug(),
@@ -310,7 +310,7 @@ class SitemapController extends Controller
         foreach ($institutions as $institution) {
             /** @var Institution $institution */
             $siteMapIndex->add(
-                $request->getScheme().':'.$router->generate(
+                $request->getScheme() . ':' . $router->generate(
                     'ojs_institution_sitemap',
                     [
                         'institution' => $institution->getSlug(),
@@ -338,7 +338,7 @@ class SitemapController extends Controller
             /** @var Article $article */
             $siteMap
                 ->add(
-                    $request->getSchemeAndHttpHost().$router->generate(
+                    $request->getSchemeAndHttpHost() . $router->generate(
                         'ojs_article_page',
                         [
                             'slug' => $journal->getSlug(),
@@ -367,7 +367,7 @@ class SitemapController extends Controller
         ];
         foreach ($maps as $map) {
             $siteMap->add(
-                $request->getSchemeAndHttpHost().
+                $request->getSchemeAndHttpHost() .
                 $router->generate($map),
                 (new \DateTime())->format('Y-m-d')
             );

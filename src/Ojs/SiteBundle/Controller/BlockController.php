@@ -60,9 +60,9 @@ class BlockController extends Controller
     }
 
     /**
-     * @param  Request                   $request
-     * @param  Block                     $block
-     * @param  int                       $id
+     * @param  Request $request
+     * @param  Block $block
+     * @param  int $id
      * @return RedirectResponse|Response
      */
     public function newLinkAction(Request $request, Block $block, $id = 0)
@@ -94,7 +94,7 @@ class BlockController extends Controller
     /**
      * @param $object
      * @param $type
-     * @param  Block            $block
+     * @param  Block $block
      * @return RedirectResponse
      */
     public function deleteAction($object, $type, Block $block)
@@ -117,7 +117,7 @@ class BlockController extends Controller
     /**
      * @param $object
      * @param $type
-     * @param  BlockLink        $block_link
+     * @param  BlockLink $block_link
      * @return RedirectResponse
      */
     public function deleteLinkAction($object, $type, BlockLink $block_link)
@@ -130,7 +130,7 @@ class BlockController extends Controller
     }
 
     /**
-     * @param  Block    $block
+     * @param  Block $block
      * @param $order
      * @return Response
      */
@@ -146,7 +146,7 @@ class BlockController extends Controller
     }
 
     /**
-     * @param  BlockLink       $block_link
+     * @param  BlockLink $block_link
      * @param $order
      * @return Response|static
      */
@@ -154,7 +154,7 @@ class BlockController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $block_link->setLinkOrder((int) $order);
+        $block_link->setLinkOrder((int)$order);
         $em->persist($block_link);
         $em->flush();
 
