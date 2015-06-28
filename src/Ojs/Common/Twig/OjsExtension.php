@@ -44,15 +44,15 @@ class OjsExtension extends \Twig_Extension
     private $defaultInstitutionSlug;
 
     /**
-     * @param EntityManager         $em
-     * @param Router                $router
-     * @param TranslatorInterface   $translator
-     * @param JournalService        $journalService
-     * @param UserListener          $userListener
+     * @param EntityManager $em
+     * @param Router $router
+     * @param TranslatorInterface $translator
+     * @param JournalService $journalService
+     * @param UserListener $userListener
      * @param TokenStorageInterface $tokenStorage
-     * @param Session               $session
-     * @param null                  $cmsShowRoutes
-     * @param null                  $avatarUploadBaseUrl
+     * @param Session $session
+     * @param null $cmsShowRoutes
+     * @param null $avatarUploadBaseUrl
      * @param $defaultInstitutionSlug
      */
     public function __construct(
@@ -66,7 +66,8 @@ class OjsExtension extends \Twig_Extension
         $cmsShowRoutes = null,
         $avatarUploadBaseUrl = null,
         $defaultInstitutionSlug
-    ) {
+    )
+    {
         $this->em = $em;
         $this->router = $router;
         $this->journalService = $journalService;
@@ -131,17 +132,18 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
-     * @param  null   $list
+     * @param  null $list
      * @return string
      */
     public function generateBreadcrumb($list = null)
     {
         $html = '<ol class="breadcrumb">';
-        for ($i = 0; $i < count($list); ++$i) {
+        $count = count($list);
+        for ($i = 0; $i < $count; ++$i) {
             $item = $list[$i];
             $html .= !isset($item['link']) ?
-                '<li class="active">'.$this->translator->trans($item['title']).'</li>' :
-                '<li><a  href = "'.$item['link'].'">'.$this->translator->trans($item['title']).'</a></li>';
+                '<li class="active">' . $this->translator->trans($item['title']) . '</li>' :
+                '<li><a  href = "' . $item['link'] . '">' . $this->translator->trans($item['title']) . '</a></li>';
         }
         $html .= '</ol> ';
 
@@ -150,8 +152,8 @@ class OjsExtension extends \Twig_Extension
 
     /**
      *
-     * @param  mixed   $needle
-     * @param  array   $haystack
+     * @param  mixed $needle
+     * @param  array $haystack
      * @return boolean
      */
     public function hasId($needle, $haystack)
@@ -281,7 +283,7 @@ class OjsExtension extends \Twig_Extension
     {
         $fileHelper = new FileHelper();
 
-        return $this->avatarUploadBaseUrl.$fileHelper->generatePath($fileName, false).'thumbnail2/'.$fileName;
+        return $this->avatarUploadBaseUrl . $fileHelper->generatePath($fileName, false) . 'thumbnail2/' . $fileName;
     }
 
     /**
@@ -292,7 +294,7 @@ class OjsExtension extends \Twig_Extension
     {
         $fileHelper = new FileHelper();
 
-        return $fileHelper->generatePath($file, false).$file;
+        return $fileHelper->generatePath($file, false) . $file;
     }
 
     /**
@@ -303,7 +305,7 @@ class OjsExtension extends \Twig_Extension
     {
         $fileHelper = new FileHelper();
 
-        return $fileHelper->generatePath($file, false).$file;
+        return $fileHelper->generatePath($file, false) . $file;
     }
 
     /**
@@ -313,11 +315,11 @@ class OjsExtension extends \Twig_Extension
      */
     public function printYesNo($arg)
     {
-        return ''.
-        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> '.$this->translator->trans(
+        return '' .
+        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $this->translator->trans(
                 'yes'
-            ).'</i></span>' :
-            '<span class="label label-danger"><i class="fa fa-ban"> '.$this->translator->trans('no').'</i></span>');
+            ) . '</i></span>' :
+            '<span class="label label-danger"><i class="fa fa-ban"> ' . $this->translator->trans('no') . '</i></span>');
     }
 
     /**
@@ -369,7 +371,7 @@ class OjsExtension extends \Twig_Extension
         return (strpos($daysFormatted, '+') !== false ?
             '<span class="label label-info"  style="background-color: #69f;font-size:10px">' :
             '<span class="label label-danger"  style="background-color: #69f;font-size:10px">')
-        .$daysFormatted.' '.$this->translator->trans('days').'</span>';
+        . $daysFormatted . ' ' . $this->translator->trans('days') . '</span>';
     }
 
     /**
@@ -395,7 +397,22 @@ class OjsExtension extends \Twig_Extension
         $object = $this->em->find($objectClass, $id);
         $route = $this->router->generate($this->cmsShowRoutes[$objectClass], ['id' => $id]);
 
-        return '<a href="'.$route.'" target="_blank" title="'.$object.'">'.substr($object, 0, 20).'</a>';
+        return '<a href="' . $route . '" target="_blank" title="' . $object . '">' . substr($object, 0, 20) . '</a>';
+    }
+
+    /**
+     * Basic encoding
+     * @param $string
+     * @return string
+     */
+    public function decode($string)
+    {
+        $len = strlen($string);
+        $piece = $len / 2;
+        $string = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
+        $decoded = base64_decode($string);
+
+        return $decoded;
     }
 
     /**
@@ -408,28 +425,13 @@ class OjsExtension extends \Twig_Extension
         $string = base64_encode($string);
         $len = strlen($string);
         $piece = $len / 2;
-        $encoded = substr($string, $piece, $len - 1).substr($string, 0, $piece);
+        $encoded = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
 
         return $encoded;
     }
 
     /**
-     * Basic encoding
-     * @param $string
-     * @return string
-     */
-    public function decode($string)
-    {
-        $len = strlen($string);
-        $piece = $len / 2;
-        $string = substr($string, $piece, $len - 1).substr($string, 0, $piece);
-        $decoded = base64_decode($string);
-
-        return $decoded;
-    }
-
-    /**
-     * @param  File   $file
+     * @param  File $file
      * @return string
      */
     public function downloadArticleFile(File $file)
