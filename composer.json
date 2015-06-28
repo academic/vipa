@@ -61,7 +61,8 @@
     "okulbilisim/ojs-tools-bundle": "dev-master",
     "jms/di-extra-bundle": "~1.5",
     "stephanecollot/datetimepicker-bundle": "~1.0",
-    "problematic/acl-manager-bundle": "dev-master"
+    "problematic/acl-manager-bundle": "dev-master",
+    "a2lix/translation-form-bundle": "^2.0"
   },
   "require-dev": {
     "okulbilisim/ojs-message-bundle": "dev-master",

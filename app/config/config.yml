@@ -128,3 +128,12 @@ jms_di_extra:
 #            setRouter: ["@router"]
 sc_datetimepicker:
     picker: ~
+
+# app/config/config.yml
+a2lix_translation_form:
+    locale_provider: default       # [1]
+    locales: [tr, en, fr]          # [1-a]
+    default_locale: "%locale%"
+    required_locales: [tr]         # [1-c]
+    manager_registry: doctrine      # [2]
+    templating: "A2lixTranslationFormBundle::default.html.twig"      # [3]
