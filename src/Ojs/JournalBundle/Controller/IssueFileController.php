@@ -219,7 +219,7 @@ class IssueFileController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_issue_index' . $id);
+        $token = $csrf->getToken('ojs_journal_issue_file' . $id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
