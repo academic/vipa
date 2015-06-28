@@ -131,7 +131,7 @@ class SearchController extends Controller
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
 
-        $results = [];
+
         if ($resultData->count() > 0) {
             /**
              * manipulate result data for easily use on template

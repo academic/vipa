@@ -21,22 +21,16 @@ class DefaultController extends Controller
         switch ($verb) {
             case 'Identify':
                 return $this->identifyAction($request);
-                break;
             case 'ListRecords':
                 return $this->recordsAction($request);
-                break;
             case 'ListSets':
                 return $this->listSetsAction($request);
-                break;
             case 'ListMetadataFormats':
                 return $this->listMetadataFormatsAction($request);
-                break;
             case 'ListIdentifiers':
                 return $this->listIdentifierAction($request);
-                break;
             case 'GetRecord':
                 return $this->getRecordAction($request);
-                break;
         }
         return $this->response('OjsOAIBundle:Default:index.xml.twig');
     }
