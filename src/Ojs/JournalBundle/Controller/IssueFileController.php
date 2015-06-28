@@ -33,8 +33,8 @@ class IssueFileController extends Controller
         if ($form->isValid()) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
+            $entity->setIssue($em->getReference('OjsJournalBundle:Issue',$entity->getIssueId()));
             $em->persist($entity);
-            var_dump($em->getUnitOfWork()->getScheduledEntityInsertions());exit;
             $em->flush();
 
             return $this->redirect($this->generateUrl('ojs_journal_issue_edit', array('id' => $entity->getIssueId())));
