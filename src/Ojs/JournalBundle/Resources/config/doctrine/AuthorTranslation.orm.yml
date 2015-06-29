@@ -1,0 +1,27 @@
+Ojs\JournalBundle\Entity\AuthorTranslation:
+    type: entity
+    table: author_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        locale:
+            type: string
+            length: 8
+        field:
+            type: string
+            length: 32
+        content:
+            type: text
+            nullable: true
+    manyToOne:
+        object:
+            targetEntity: Author
+            inversedBy: translations
+            joinColumn:
+                name: object_id
+                referencedColumnName: id
+

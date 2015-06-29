@@ -127,4 +127,3 @@ Ojs\JournalBundle\Entity\Subject:
             targetEntity: Ojs\JournalBundle\Entity\SubjectTranslation
             mappedBy: object
             cascade: ["persist"]
-

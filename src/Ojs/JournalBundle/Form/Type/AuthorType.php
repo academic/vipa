@@ -16,6 +16,9 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\Author'
+            ])
             ->add('title')
             ->add('firstName')
             ->add('middleName')
@@ -28,7 +31,6 @@ class AuthorType extends AbstractType
             ->add('address')
             ->add('institution')
             ->add('country')
-            ->add('summary')
             ->add('authorDetails')
             ->add('tags', 'tags');
     }
