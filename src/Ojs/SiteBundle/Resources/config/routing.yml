@@ -122,3 +122,11 @@ ojs_file_download:
 ojs_people:
     resource: "@OjsSiteBundle/Resources/config/routing/people.yml"
     prefix: /people
+
+tos:
+    pattern: /tos
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' }
+
+privacy:
+    pattern: /privacy
+    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'privacy'}

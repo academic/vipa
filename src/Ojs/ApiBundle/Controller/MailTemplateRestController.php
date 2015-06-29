@@ -15,7 +15,7 @@ class MailTemplateRestController extends FOSRestController
      *  resource=true,
      *  description="Get Mail Templates",
      * )
-     * @Get("/mail_templates")
+     * @Get("/public/mail_templates")
      */
     public function getMailTemplatesAction()
     {
@@ -35,7 +35,7 @@ class MailTemplateRestController extends FOSRestController
      *      {"name"="journal", "dataType"="string"}
      *    }
      * )
-     * @Get("/mail_templates/{journal}")
+     * @Get("/public/mail_templates/{journal}")
      * @param $journal
      * @return array
      */
@@ -57,7 +57,7 @@ class MailTemplateRestController extends FOSRestController
      *       {"name"="id", "dataType"="string"}
      *    }
      * )
-     * @Get("/mail_template/{id}")
+     * @Get("/public/mail_template/{id}")
      *
      * @param $id
      * @return object

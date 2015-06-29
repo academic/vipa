@@ -19,14 +19,6 @@ confirm_email_warning:
     pattern:  /unconfirmed
     defaults: { _controller: "OjsUserBundle:Security:unconfirmed" }
 
-tos:
-    pattern: /tos
-    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' }
-
-privacy:
-    pattern: /privacy
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'privacy'}
-
 login:
     path: /login
     defaults: { _controller: OjsUserBundle:Security:login }

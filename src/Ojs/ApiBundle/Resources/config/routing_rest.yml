@@ -1,5 +1,3 @@
-
-
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
