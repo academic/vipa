@@ -21,7 +21,11 @@ Ojs\JournalBundle\Entity\ArticleFile:
             joinColumn:
                 name: file_id
                 referencedColumnName: id
-
+    oneToMany:
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\ArticleFileTranslation
+            mappedBy: object
+            cascade: ["persist"]
     fields:
         type:
             type: integer
@@ -86,4 +90,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
+            entity: Ojs\JournalBundle\Entity\ArticleFileTranslation
     lifecycleCallbacks: {  }
