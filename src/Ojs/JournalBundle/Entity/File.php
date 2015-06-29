@@ -49,6 +49,8 @@ class File implements Translatable
      */
     private $articleFiles;
 
+    protected $translations;
+
     /**
      * Get id
      *
@@ -62,6 +64,27 @@ class File implements Translatable
     public function __construct()
     {
         $this->articleFiles = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(FileTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**

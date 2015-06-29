@@ -15,6 +15,9 @@ class FileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\File'
+            ])
             ->add('path', 'hidden')
             ->add('name','text',[
                 'attr'=>[
