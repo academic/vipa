@@ -16,7 +16,7 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api_doc:
-            pattern: /api/doc
+            pattern: ^/api/public
             stateless: true
             security: false
             anonymous: true
@@ -25,23 +25,8 @@ security:
             stateless: true
             security: false
             anonymous: true
-        api_analytics:
-            pattern: ^/api/analytics
-            stateless: true
-            security: false
-            anonymous: true
-        api_public:
-            pattern: ^/api/public/
-            stateless: true
-            security: false
-            anonymous: true
         api_mail_template:
             pattern: ^/api/mail_template*
-            stateless: true
-            security: false
-            anonymous: true
-        api_oai:
-            pattern: ^/api/oai
             stateless: true
             security: false
             anonymous: true
