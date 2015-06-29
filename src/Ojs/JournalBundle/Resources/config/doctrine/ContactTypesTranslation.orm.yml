@@ -1,0 +1,26 @@
+Ojs\JournalBundle\Entity\ContactTypesTranslation:
+    type: entity
+    table: contact_types_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        locale:
+            type: string
+            length: 8
+        field:
+            type: string
+            length: 32
+        content:
+            type: text
+            nullable: true
+    manyToOne:
+        object:
+            targetEntity: ContactTypes
+            inversedBy: translations
+            joinColumn:
+                name: object_id
+                referencedColumnName: id
