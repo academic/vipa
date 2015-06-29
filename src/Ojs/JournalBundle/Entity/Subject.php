@@ -75,7 +75,7 @@ class Subject implements Translatable
      */
     private $slug;
 
-    private $translations;
+    protected $translations;
 
     public function __construct()
     {
@@ -94,6 +94,13 @@ class Subject implements Translatable
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;
             $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
         }
     }
 

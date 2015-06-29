@@ -126,6 +126,5 @@ Ojs\JournalBundle\Entity\Subject:
         translations:
             targetEntity: Ojs\JournalBundle\Entity\SubjectTranslation
             mappedBy: object
-            onPersist: CASCADE
-            onRemove: CASCADE
+            cascade: ["persist"]
 
