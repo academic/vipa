@@ -44,11 +44,17 @@ Ojs\JournalBundle\Entity\ArticleTypes:
            gedmo:
              blameable:
                on: update
+    oneToMany:
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\ArticleTypesTranslation
+            mappedBy: object
+            cascade: ["persist"]
     gedmo:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
         translation:
             locale: locale
+            entity: Ojs\JournalBundle\Entity\ArticleTypesTranslation
         loggable: true
     lifecycleCallbacks: {  }

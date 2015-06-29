@@ -95,7 +95,7 @@ class ArticleFile implements Translatable
         return $this->translations;
     }
 
-    public function addTranslation(SubjectTranslation $t)
+    public function addTranslation(ArticleFileTranslation $t)
     {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;
