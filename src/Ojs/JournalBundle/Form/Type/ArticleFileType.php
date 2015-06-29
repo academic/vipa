@@ -17,9 +17,9 @@ class ArticleFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('keywords')
-            ->add('description')
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\ArticleFile'
+            ])
             ->add(
                 'type',
                 'choice',
