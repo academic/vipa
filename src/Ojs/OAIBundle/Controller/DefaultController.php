@@ -85,6 +85,15 @@ class DefaultController extends Controller
             $qb->setParameter('until', $_until);
         }
 
+        $resumptionToken = $request->get('resumptionToken');
+        if($resumptionToken){
+            $token = $session->get($resumptionToken);
+            $currentPage = (int)$token['page'];
+            $set = $token['set'];
+        }else{
+            $currentPage = 1;
+        }
+
         if($set){
             $qb->join('a.journal','j','WITH');
             $qb->andWhere(
@@ -94,12 +103,7 @@ class DefaultController extends Controller
         }
 
         $paginator = $this->get('knp_paginator');
-        $resumptionToken = $request->get('resumptionToken');
-        if($resumptionToken){
-            $currentPage = (int)$session->get($resumptionToken);
-        }else{
-            $currentPage = 1;
-        }
+
         $records = $paginator->paginate(
             $qb->getQuery(),
             $currentPage,
@@ -107,7 +111,10 @@ class DefaultController extends Controller
         );
         $data['records'] = $records;
         $key = md5(StringHelper::generateKey());
-        $session->set($key, $currentPage+1);
+        $session->set($key, [
+            'page'=>$currentPage+1,
+            'set' => $set
+        ]);
         $data['resumptionToken'] = $key;
         $data['isLast'] = $records->getTotalItemCount()>=$currentPage*100?true:false;
         $data['currentPage'] = $currentPage;
