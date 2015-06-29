@@ -16,8 +16,9 @@ class SubjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('subject')
-            ->add('description')
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\Subject'
+            ])
             ->add('tags', 'tags')
             ->add(
                 'parent',

@@ -24,5 +24,4 @@ Ojs\JournalBundle\Entity\SubjectTranslation:
             joinColumn:
                 name: object_id
                 referencedColumnName: id
-                onDelete: CASCADE
 
