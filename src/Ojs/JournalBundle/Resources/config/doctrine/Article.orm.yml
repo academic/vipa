@@ -53,6 +53,10 @@ Ojs\JournalBundle\Entity\Article:
       mappedBy: article
       cascade: ["all"]
       fetch: EXTRA_LAZY
+    translations:
+        targetEntity: Ojs\JournalBundle\Entity\ArticleTranslation
+        mappedBy: object
+        cascade: ["persist"]
   manyToMany:
     languages:
       targetEntity: Lang
@@ -283,6 +287,7 @@ Ojs\JournalBundle\Entity\Article:
         time_aware: false
     translation:
         locale: locale
+        entity: Ojs\JournalBundle\Entity\ArticleTranslation
     loggable: true
   indexes:
     doix:
