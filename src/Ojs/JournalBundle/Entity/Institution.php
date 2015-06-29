@@ -146,10 +146,33 @@ class Institution implements Translatable
     private $verified = false;
     private $status = 0;
 
+    protected $translations;
+
     public function __construct()
     {
         $this->journals = new ArrayCollection();
         $this->authors = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(InstitutionTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**
