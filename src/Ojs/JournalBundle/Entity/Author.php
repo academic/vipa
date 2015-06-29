@@ -149,6 +149,7 @@ class Author implements Translatable
      * @Jms\Expose
      */
     private $articleAuthors;
+
     /**
      * @var string
      *
@@ -156,9 +157,33 @@ class Author implements Translatable
      */
     private $title;
 
+    protected $translations;
+
+
     public function __construct()
     {
         $this->articleAuthors = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(AuthorTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**

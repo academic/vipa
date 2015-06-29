@@ -6,6 +6,10 @@ Ojs\JournalBundle\Entity\Author:
         articleAuthors:
             targetEntity: ArticleAuthor
             mappedBy: author
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\AuthorTranslation
+            mappedBy: object
+            cascade: ["persist"]
     manyToOne:
           institution:
                 targetEntity: Institution
@@ -182,5 +186,6 @@ Ojs\JournalBundle\Entity\Author:
           time_aware: false
         translation:
             locale: locale
+            entity: Ojs\JournalBundle\Entity\AuthorTranslation
         loggable: true
     lifecycleCallbacks: {  }
