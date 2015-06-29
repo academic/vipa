@@ -17,6 +17,9 @@ class InstitutionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\Institution'
+            ])
             ->add(
                 'name',
                 'text',
@@ -63,14 +66,12 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
-            ->add('about', 'textarea', ['label' => 'about'])
             ->add('address', 'textarea', ['label' => 'address'])
             ->add('addressLat', 'text', ['label' => 'addressLat'])
             ->add('addressLong', 'text', ['label' => 'addressLong'])
             ->add('phone', 'text', ['label' => 'phone'])
             ->add('fax', 'text', ['label' => 'fax'])
             ->add('email', 'email', ['label' => 'email'])
-            ->add('url', 'url', ['label' => 'url'])
             ->add('wiki')
             ->add('tags', 'tags')
             ->add('logo', 'hidden')

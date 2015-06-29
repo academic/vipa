@@ -24,6 +24,10 @@ Ojs\JournalBundle\Entity\Institution:
             mappedBy: parent
             orderBy:
                   lft: ASC
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\InstitutionTranslation
+            mappedBy: object
+            cascade: ["persist"]
     manyToOne:
         institution_type:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
@@ -205,6 +209,7 @@ Ojs\JournalBundle\Entity\Institution:
           time_aware: false
         translation:
             locale: locale
+            entity: Ojs\JournalBundle\Entity\InstitutionTranslation
         loggable: true
         tree:
              type: nested
