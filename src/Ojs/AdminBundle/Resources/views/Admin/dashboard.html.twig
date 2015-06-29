@@ -19,7 +19,6 @@
 {% block body %}
     {% include '::flashbag.html.twig' %}
     <div class="col-md-6">
-
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <span style="font-size: 24px">{{ 'admin.dashboard.system_settings'|trans }}</span>
@@ -127,33 +126,60 @@
             </div>
 
             <div class="list-group">
+                <a class="list-group-item" href="{{ path('ojs_journal_settings_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-cog"></i>
+                    </span>
+                    {{ "settings"|trans }}
+                </a>
 
                 <a class="list-group-item" href="{{ path('ojs_journal_role_index') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
                         <i class="fa fa-key"></i>
                     </span>
-                    {{ "User Journal Roles"|trans }}
+                    {{ "journal.users"|trans }}
                 </a>
 
                 <a class="list-group-item" href="{{ path('ojs_journal_article_index') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
                         <i class="fa fa-file-text"></i>
                     </span>
-                    {{ "articles"|trans }}
+                    {{"journal.articles"|trans}}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_journal_section_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-square"></i>
+                    </span>
+                    {{ "journalsection"|trans }}
                 </a>
 
                 <a class="list-group-item" href="{{ path('ojs_journal_issue_index') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
                         <i class="fa fa-newspaper-o"></i>
                     </span>
-                    {{ "issue"|trans }}
+                    {{ "issue.manager"|trans }}
                 </a>
 
-                <a class="list-group-item" href="{{ path('ojs_journal_board_index') }}">
+                <a class="list-group-item" href="{{ path('ojs_journal_journal_contact_index') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-credit-card"></i>
                     </span>
-                    {{ "boards"|trans }}
+                    {{ "contact.plural"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_journal_mail_template_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                    {{"mail.templates"|trans}}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_journal_design_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-navicon"></i>
+                    </span>
+                    {{ "journal.design"|trans }}
                 </a>
 
                 <a class="list-group-item" href="{{ path('ojs_journal_theme_index') }}">
@@ -163,11 +189,32 @@
                     {{ "journal.theme"|trans }}
                 </a>
 
-                <a class="list-group-item" href="{{ path('ojs_journal_design_index') }}">
+                <a class="list-group-item" href="{{ path('ojs_journal_board_index') }}">
                     <span style="color: #337ab7; margin-right: 3px;">
-                        <i class="fa fa-navicon"></i>
+                        <i class="fa fa-users"></i>
                     </span>
-                    {{ "journal.design"|trans }}
+                    {{ "boards"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('reports_index') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-file"></i>
+                    </span>
+                    {{ "reports.title"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-recycle"></i>
+                    </span>
+                    {{ "workflow"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('ojs_review_forms') }}">
+                    <span style="color: #337ab7; margin-right: 3px;">
+                        <i class="fa fa-pencil-square-o "></i>
+                    </span>
+                    {{ "review.forms"|trans }}
                 </a>
             </div>
         </div>
@@ -193,6 +240,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-12">
         {{ getLogs(selectedJournal()) }}
     </div>
