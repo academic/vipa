@@ -282,6 +282,7 @@ class Article implements Translatable
     /** @var ArrayCollection|UserArticleRole[] */
     private $userRoles;
 
+    protected $translations;
     /**
      * Constructor
      */
@@ -292,6 +293,27 @@ class Article implements Translatable
         $this->articleAuthors = new ArrayCollection();
         $this->articleFiles = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(SubjectTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**
