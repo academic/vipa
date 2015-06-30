@@ -424,7 +424,8 @@ class JournalRepository extends EntityRepository
         $query = $this->createQueryBuilder('j')
             ->select('partial j.{id,slug,issn,title,image,image_options}, partial i.{id,slug}')
             ->join('j.institution', 'i')
-            ->andWhere('j.status = 1')
+            ->andWhere('j.status = :status')
+            ->setParameter('status', 1)
             ->setMaxResults(12)->getQuery();
 
         return $query->useResultCache(true)->getResult(Query::HYDRATE_OBJECT);
