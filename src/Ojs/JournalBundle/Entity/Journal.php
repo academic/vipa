@@ -283,6 +283,8 @@ class Journal implements Translatable
      */
     private $printed;
 
+    protected $translations;
+
     /**
      * Constructor
      */
@@ -298,6 +300,27 @@ class Journal implements Translatable
         $this->subjects = new ArrayCollection();
         $this->journalThemes = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(JournalTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**
