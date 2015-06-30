@@ -18,14 +18,18 @@ Ojs\JournalBundle\Entity\Issue:
               fetch: LAZY
     oneToMany:
         articles:
-          targetEntity: Article
-          mappedBy: issue
-          cascade: ["persist", "merge"]
-          fetch: LAZY
+            targetEntity: Article
+            mappedBy: issue
+            cascade: ["persist", "merge"]
+            fetch: LAZY
         issueFiles:
-          targetEntity: IssueFile
-          mappedBy: issue
-          fetch: EXTRA_LAZY
+            targetEntity: IssueFile
+            mappedBy: issue
+            fetch: EXTRA_LAZY
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\IssueTranslation
+            mappedBy: object
+            cascade: ["persist"]
     manyToOne:
       journal:
           targetEntity: Journal
@@ -165,5 +169,6 @@ Ojs\JournalBundle\Entity\Issue:
           time_aware: false
         translation:
             locale: locale
+            entity: Ojs\JournalBundle\Entity\IssueTranslation
         loggable: true
     lifecycleCallbacks: {  }

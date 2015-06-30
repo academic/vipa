@@ -16,12 +16,13 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\Issue'
+            ])
             ->add('volume', 'text', array('label' => 'volume'))
             ->add('number', 'text', array('label' => 'number'))
             ->add('special', 'checkbox', array('label' => 'special'))
             ->add('supplement', 'checkbox', array('label' => 'supplement'))
-            ->add('title', 'text', array('label' => 'title'))
-            ->add('description', 'text', array('label' => 'description'))
             ->add('year', 'text', array('label' => 'year'))
             ->add(
                 'datePublished',
