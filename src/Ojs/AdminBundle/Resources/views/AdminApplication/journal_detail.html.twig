@@ -92,11 +92,11 @@
                 </tr>
                 <tr>
                     <th>{{ 'journal.cover_image'|trans }}</th>
-                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.coverImage) }}" alt=""/></td>
+                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.image) }}" alt=""/></td>
                 </tr>
                 <tr>
                     <th>{{ 'journal.header_image'|trans }}</th>
-                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.headerImage) }}" alt=""/></td>
+                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.header) }}" alt=""/></td>
                 </tr>
                 <tr>
                     <th>{{ 'journal.tags'|trans }}</th>
@@ -104,11 +104,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'journal.createdAt'|trans }}</th>
-                    <td>{{ entity.createdAt|date('d-m-y') }}</td>
-                </tr>
-                <tr>
-                    <th>{{ 'journal.user'|trans }}</th>
-                    <td>{{ entity.user|user }}</td>
+                    <td>{{ entity.created|date('d-m-y') }}</td>
                 </tr>
             </table>
             <a class="btn btn-primary"
