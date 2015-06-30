@@ -18,16 +18,31 @@ class JournalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'title',
-                'text',
-                [
-                    'label' => 'title',
-                    'attr' => [
-                        'class' => 'validate[required]',
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'fields' => [
+                    'title' => [
+                        'label' => 'title',
+                        'attr' => [
+                            'class' => 'validate[required]'
+                        ]
                     ],
+                    'subtitle' => [
+                        'locale_options' => [
+                            'tr' => [
+                                'display' => false
+                            ],
+                            'en' => [
+                                'display' => false
+                            ],
+                            'fr' => [
+                                'display' => false
+                            ]
+
+                        ]
+                    ]
                 ]
-            )
+            ])
             ->add('titleAbbr', 'text', ['label' => 'titleabbr'])
             ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated'])
             ->add(
