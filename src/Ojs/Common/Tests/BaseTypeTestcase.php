@@ -1,8 +1,5 @@
 <?php
-/**
- * Date: 13.01.15
- * Time: 17:24
- */
+
 namespace Ojs\Common\Tests;
 
 use Symfony\Component\Form\Test\TypeTestCase;

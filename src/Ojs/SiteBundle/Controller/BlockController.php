@@ -1,8 +1,5 @@
 <?php
-/**
- * Date: 28.11.14
- * Time: 10:26
- */
+
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;

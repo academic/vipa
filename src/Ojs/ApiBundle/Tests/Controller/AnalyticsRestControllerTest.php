@@ -1,11 +1,5 @@
 <?php
-/**
- * Date: 12.11.14
- * Time: 18:30
- * Devs: [
- * ]
- * \note "test not work correctly for commands"
- */
+
 namespace Ojs\AnalyticsBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;

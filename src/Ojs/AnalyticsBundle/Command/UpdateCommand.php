@@ -1,12 +1,5 @@
 <?php
-/**
- * Date: 12.11.14
- * Time: 09:33
- * Company: OkulBilişim
- * Devs: [
- *
- *   ]
- */
+
 namespace Ojs\AnalyticsBundle\Command;
 
 use Doctrine\ODM\MongoDB\DocumentManager;

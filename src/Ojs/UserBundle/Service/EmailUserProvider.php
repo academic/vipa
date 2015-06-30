@@ -1,10 +1,5 @@
 <?php
-/**
- * Date: 20.11.14
- * Time: 23:21
- * Devs: [
- *   ]
- */
+
 namespace Ojs\UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;

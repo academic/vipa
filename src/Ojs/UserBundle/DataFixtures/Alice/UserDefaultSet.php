@@ -1,10 +1,5 @@
 <?php
-/**
- * Date: 21.11.14
- * Time: 13:50
- * Devs: [
- *   ]
- */
+
 $set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet(
     [
         'locale' => 'en_US',

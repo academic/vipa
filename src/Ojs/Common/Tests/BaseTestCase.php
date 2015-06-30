@@ -1,10 +1,5 @@
 <?php
-/**
- * Date: 15.11.14
- * Time: 23:26
- * Devs: [
- *   ]
- */
+
 namespace Ojs\Common\Tests;
 
 ini_set('session.save_handler', 'files');

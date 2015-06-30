@@ -1,8 +1,5 @@
 <?php
-/**
- * Date: 13.01.15
- * Time: 16:48
- */
+
 namespace Ojs\UserBundle\Tests\Form;
 
 use Ojs\Common\Tests\BaseTypeTestcase;

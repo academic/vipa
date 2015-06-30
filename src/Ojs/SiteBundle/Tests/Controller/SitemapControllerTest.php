@@ -1,8 +1,5 @@
 <?php
-/**
- * Date: 8.12.14
- * Time: 11:53
- */
+
 namespace Ojs\SiteBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;

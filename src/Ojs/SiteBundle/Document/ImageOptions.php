@@ -1,8 +1,5 @@
 <?php
-/**
- * Date: 16.12.14
- * Time: 22:13
- */
+
 namespace Ojs\SiteBundle\Document;
 
 class ImageOptions

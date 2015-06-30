@@ -1,10 +1,5 @@
 <?php
-/**
- * Date: 17.11.14
- * Time: 10:56
- * Devs: [
- *   ]
- */
+
 namespace Ojs\ApiBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;

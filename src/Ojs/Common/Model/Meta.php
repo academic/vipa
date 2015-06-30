@@ -3,7 +3,6 @@
 namespace Ojs\Common\Model;
 
 /**
- * @author Hasan Tayyar BESIK <tayyar.besik@okulbilisim.com>
  * @abstract
  *  a lightweight class to stack and manage meta tags
  *  extended from eusonlito/laravel-Meta
