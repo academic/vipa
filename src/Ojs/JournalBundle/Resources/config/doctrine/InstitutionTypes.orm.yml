@@ -8,6 +8,10 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
             mappedBy: institution_type
             fetch: EXTRA_LAZY
             cascade: ["all"]
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\InstitutionTypesTranslation
+            mappedBy: object
+            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -63,5 +67,6 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
           time_aware: false
         translation:
           locale: locale
+          entity: Ojs\JournalBundle\Entity\InstitutionTypesTranslation
         loggable: true
     lifecycleCallbacks: {  }
