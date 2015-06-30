@@ -37,7 +37,6 @@ class SiteController extends Controller
         $searchManager->setPage(1);
         $journals = $searchManager->searchJournal()->getResult();
         $data["journals"] = $journals;
-        $data['institutions'] = $em->getRepository('OjsJournalBundle:Institution')->findBy(array(), array(), 6);
         /** @var SubjectRepository $repo */
         $repo = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject');
         $options = [
