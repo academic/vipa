@@ -1,10 +1,5 @@
 <?php
-/**
- * Date: 12.11.14
- * Time: 22:59
- * Devs: [
- *   ]
- */
+
 namespace Ojs\SiteBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;

@@ -1,10 +1,5 @@
 <?php
-/**
- * Date: 15.11.14
- * Time: 12:40
- * Devs: [
- *   ]
- */
+
 namespace Ojs\AnalyticsBundle\Tests\Command;
 
 use Ojs\Common\Tests\BaseTestCase;

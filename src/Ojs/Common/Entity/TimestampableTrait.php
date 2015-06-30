@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ismailbaskin
- * Date: 22/05/15
- * Time: 04:15
- */
+
 namespace Ojs\Common\Entity;
 
+/**
+ * Class TimestampableTrait.
+ */
 trait TimestampableTrait
 {
-
     /**  @var \DateTime $created */
     protected $created;
 
@@ -19,16 +16,25 @@ trait TimestampableTrait
     /** @var \DateTime $contentChanged */
     protected $contentChanged;
 
+    /**
+     * @return \DateTime
+     */
     public function getUpdated()
     {
         return $this->updated;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreated()
     {
         return $this->created;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getContentChanged()
     {
         return $this->contentChanged;

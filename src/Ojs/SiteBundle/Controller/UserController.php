@@ -1,9 +1,6 @@
 <?php
 
-/**
- * Date: 12.12.14
- * Time: 10:25
- */
+
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Exception\NotFoundException;

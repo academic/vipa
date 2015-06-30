@@ -1,8 +1,5 @@
 <?php
-/**
- * Date: 30.12.14
- * Time: 15:39
- */
+
 namespace Ojs\OAIBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
