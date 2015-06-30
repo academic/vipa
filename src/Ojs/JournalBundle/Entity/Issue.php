@@ -124,11 +124,34 @@ class Issue implements Translatable
      */
     private $sections;
 
+    protected $translations;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->issueFiles = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(IssueTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**
