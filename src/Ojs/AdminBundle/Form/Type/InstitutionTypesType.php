@@ -15,8 +15,10 @@ class InstitutionTypesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description');
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\InstitutionTypes'
+            ])
+        ;
     }
 
     /**

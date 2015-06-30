@@ -43,9 +43,32 @@ class InstitutionTypes implements Translatable
      */
     private $institutions;
 
+    protected $translations;
+
     public function __construct()
     {
         $this->institutions = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(InstitutionTypesTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**
