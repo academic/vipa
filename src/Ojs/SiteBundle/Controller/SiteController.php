@@ -32,13 +32,11 @@ class SiteController extends Controller
     {
         $data['page'] = 'index';
         $em = $this->getDoctrine()->getManager();
-        $searchManager = $this->get('ojs_search_manager');
-        $searchManager->setLimit(12);
-        $searchManager->setPage(1);
-        $journals = $searchManager->searchJournal()->getResult();
+
+        $journals = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList();
         $data["journals"] = $journals;
         /** @var SubjectRepository $repo */
-        $repo = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject');
+        $repo = $em->getRepository('OjsJournalBundle:Subject');
         $options = [
             'decorate' => true,
             'rootOpen' => '<ul>',
