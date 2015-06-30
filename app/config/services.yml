@@ -50,6 +50,14 @@ services:
             - "::_history.html.twig"
         tags:
             - { name: twig.extension }
+
+    ojs.twig.action_extension:
+        class: Ojs\Common\Twig\ActionExtension
+        arguments:
+            - @translator
+        tags:
+            - { name: twig.extension }
+
     ojs.loginlistener:
         class: Ojs\UserBundle\Listeners\LoginListener
         arguments: [@doctrine.orm.entity_manager]
