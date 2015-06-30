@@ -23,7 +23,11 @@ Ojs\JournalBundle\Entity\IssueFile:
             joinColumn:
                 name: file_id
                 referencedColumnName: id
-
+    oneToMany:
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\IssueFileTranslation
+            mappedBy: object
+            cascade: ["persist"]
     fields:
         type:
             type: integer
@@ -86,6 +90,9 @@ Ojs\JournalBundle\Entity\IssueFile:
     gedmo:
         loggable: true
         soft_deleteable:
-          field_name: deletedAt
-          time_aware: false
+            field_name: deletedAt
+            time_aware: false
+        translation:
+            locale: locale
+            entity: Ojs\JournalBundle\Entity\IssueFileTranslation
     lifecycleCallbacks: {  }

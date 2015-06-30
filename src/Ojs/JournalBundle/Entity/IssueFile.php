@@ -9,6 +9,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Groups;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * IssueFile
  * @GRID\Source(columns="id,title,langCode,file.name")
@@ -77,6 +78,32 @@ class IssueFile
      */
     private $file;
 
+    protected $translations;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(IssueFileTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
+    }
 
     /**
      * Get id

@@ -18,15 +18,15 @@ class IssueFileType extends AbstractType
         $languages = $options["languages"];
 
         $builder
-            ->add('title')
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\IssueFile'
+            ])
             ->add('type',
                 'choice',
                 [
                     'choices' => ArticleFileParams::$FILE_TYPES,
                 ])
             ->add('version')
-            ->add('keywords')
-            ->add('description')
             ->add('langCode','choice',[
                 'choices'=>$languages
             ])
