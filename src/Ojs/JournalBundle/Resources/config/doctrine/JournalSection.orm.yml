@@ -11,10 +11,14 @@ Ojs\JournalBundle\Entity\JournalSection:
           inversedBy: sections
     oneToMany:
         articles:
-          targetEntity: Article
-          mappedBy: section
-          cascade: ["persist", "merge"]
-          fetch: LAZY
+            targetEntity: Article
+            mappedBy: section
+            cascade: ["persist", "merge"]
+            fetch: LAZY
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\JournalSectionTranslation
+            mappedBy: object
+            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -58,3 +62,6 @@ Ojs\JournalBundle\Entity\JournalSection:
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true
+        translation:
+            locale: locale
+            entity: Ojs\JournalBundle\Entity\JournalSectionTranslation

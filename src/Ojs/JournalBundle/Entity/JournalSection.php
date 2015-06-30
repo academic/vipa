@@ -55,9 +55,32 @@ class JournalSection implements Translatable
      */
     private $journal;
 
+    protected $translations;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(JournalSectionTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 
     /**
