@@ -36,10 +36,12 @@
         </tbody>
     </table>
 
-    {{ actions([
-            {'name': 'back', 'href': path('ojs_admin_language_index')},
-            {'name': 'edit', 'href': path('ojs_admin_language_edit', {'id': entity.id})},
-            {'name': 'delete', 'href': path('ojs_admin_language_delete', {'id': entity.id}), 'attributes': {'data-token': token, 'data-method': 'delete'}}
-        ])
+    {{
+        actions({
+            'back': {'href': path('ojs_admin_language_index')},
+            'edit': {'href': path('ojs_admin_language_edit', {'id': entity.id})},
+            'delete': {'href': path('ojs_admin_language_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+            'dumb': {},
+        })
     }}
 {% endblock %}
