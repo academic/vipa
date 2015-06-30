@@ -1,0 +1,27 @@
+Ojs\SiteBundle\Entity\PageTranslation:
+    type: entity
+    table: page_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        locale:
+            type: string
+            length: 8
+        field:
+            type: string
+            length: 32
+        content:
+            type: text
+            nullable: true
+    manyToOne:
+        object:
+            targetEntity: Page
+            inversedBy: translations
+            joinColumn:
+                name: object_id
+                referencedColumnName: id
+

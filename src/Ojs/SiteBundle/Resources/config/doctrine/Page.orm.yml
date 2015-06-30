@@ -2,6 +2,11 @@ Ojs\SiteBundle\Entity\Page:
     type: entity
     table: page
     repositoryClass: Ojs\SiteBundle\Entity\PageRepository
+    oneToMany:
+        translations:
+            targetEntity: Ojs\SiteBundle\Entity\PageTranslation
+            mappedBy: object
+            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -21,8 +26,6 @@ Ojs\SiteBundle\Entity\Page:
         tags:
             type: string
             length: 255
-            gedmo:
-                - translatable
         image:
             type: string
             length: 255
@@ -44,5 +47,7 @@ Ojs\SiteBundle\Entity\Page:
             field_name: deletedAt
             time_aware: false
         loggable: true
-
+        translation:
+            locale: locale
+            entity: Ojs\SiteBundle\Entity\PageTranslation
     lifecycleCallbacks: {  }
