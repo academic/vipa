@@ -3,6 +3,8 @@
 namespace Ojs\SiteBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Doctrine\Common\Collections\ArrayCollection;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Page
@@ -10,6 +12,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class Page
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      */
@@ -28,24 +31,37 @@ class Page
     /**
      * @var string
      */
-    private $tags;
+    private $image;
+
+    protected $translations;
 
     /**
-     * @var string
+     * Constructor
      */
-    private $image;
-    /**
-     * @var \DateTime
-     */
-    private $created;
-    /**
-     * @var \DateTime
-     */
-    private $updated;
-    /**
-     * @var \DateTime
-     */
-    private $deletedAt;
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    public function addTranslation(PageTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
+    }
 
     /**
      * Get id
@@ -104,29 +120,6 @@ class Page
     }
 
     /**
-     * Get tags
-     *
-     * @return string
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Set tags
-     *
-     * @param  string $tags
-     * @return Page
-     */
-    public function setTags($tags)
-    {
-        $this->tags = $tags;
-
-        return $this;
-    }
-
-    /**
      * Get image
      *
      * @return string
@@ -145,75 +138,6 @@ class Page
     public function setImage($image)
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set created
-     *
-     * @param  \DateTime $created
-     * @return Page
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param  \DateTime $updated
-     * @return Page
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    /**
-     * Set deletedAt
-     *
-     * @param  \DateTime $deletedAt
-     * @return Page
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
 
         return $this;
     }
