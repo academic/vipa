@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title><![CDATA[<b>OJS</b>]]></title>
+
+    <parser>
+        <target>docs/phpdoc</target>
+    </parser>
+    <transformer>
+        <target>docs/phpdoc</target>
+    </transformer>
+    <files>
+        <directory>./src/Ojs</directory>
+    </files>
+    <logging>
+        <level>warn</level>
+        <paths>
+            <default>./app/logs/phpdoc.{DATE}.log</default>
+            <errors>./app/logs/phpdoc.errors.{DATE}.log</errors>
+        </paths>
+    </logging>
+    <transformations>
+        <template name="clean" />
+    </transformations>
+</phpdoc>
