@@ -14,7 +14,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\Sums;
-use Ojs\JournalBundle\Entity\SumsRepository;
 use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,34 +48,48 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="' . $this->generateUrl(
+                return '<a href="'.$this->generateUrl(
                     'ojs_journals_index',
                     ['filter' => ['subject' => $node['id']]]
-                ) . '">'
-                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
+                ).'">'
+                .$node['subject'].' ('.$node['totalJournalCount'].')</a>';
             },
         ];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
-        /** @var SumsRepository $sumRepo */
-        $sumRepo = $em->getRepository('OjsJournalBundle:Sums');
-        /** @var Sums $journalSum */
-        $journalSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Journal']);
-        /** @var Sums $articleSum */
-        $articleSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Article']);
-        /** @var Sums $subjectSum */
-        $subjectSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Subject']);
-        /** @var Sums $institutionSum */
-        $institutionSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Institution']);
-        /** @var Sums $userSum */
-        $userSum = $sumRepo->findOneBy(['entity' => 'OjsUserBundle:User']);
+
         $data['stats'] = [
-            'journal' => $journalSum ? $journalSum->getSum() : 0,
-            'article' => $articleSum ? $articleSum->getSum() : 0,
-            'subject' => $subjectSum ? $subjectSum->getSum() : 0,
-            'institution' => $institutionSum ? $institutionSum->getSum() : 0,
-            'user' => $userSum ? $userSum->getSum() : 0,
+            'journal' => 0,
+            'article' => 0,
+            'subject' => 0,
+            'institution' => 0,
+            'user' => 0,
         ];
+        /** @var Sums[] $sums */
+        $sums = $em->getRepository('OjsJournalBundle:Sums')->findAll();
+        foreach ($sums as $sum) {
+            $total = $sum->getSum();
+            if ($sum->getEntity() === 'OjsJournalBundle:Journal') {
+                $data['stats']['journal'] = $total;
+                continue;
+            }
+            if ($sum->getEntity() === 'OjsJournalBundle:Article') {
+                $data['stats']['article'] = $total;
+                continue;
+            }
+            if ($sum->getEntity() === 'OjsJournalBundle:Subject') {
+                $data['stats']['subject'] = $total;
+                continue;
+            }
+            if ($sum->getEntity() === 'OjsJournalBundle:Institution') {
+                $data['stats']['institution'] = $total;
+                continue;
+            }
+            if ($sum->getEntity() === 'OjsUserBundle:User') {
+                $data['stats']['user'] = $total;
+                continue;
+            }
+        }
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
@@ -86,7 +99,7 @@ class SiteController extends Controller
     {
         $data['page'] = $page;
 
-        return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
+        return $this->render('OjsSiteBundle:Site:static/'.$page.'.html.twig', $data);
     }
 
     public function institutionsIndexAction()
@@ -97,6 +110,7 @@ class SiteController extends Controller
         $repo = $em->getRepository('OjsJournalBundle:Institution');
         $data['entities'] = $repo->getAllWithDefaultTranslation();
         $data['page'] = 'institution';
+
         /*
          * @todo implement string from db
          * $data['design']
@@ -310,22 +324,22 @@ class SiteController extends Controller
 
         $fileHelper = new FileHelper();
 
-        $file = $fileHelper->generatePath($file->getName(), false) . $file->getName();
+        $file = $fileHelper->generatePath($file->getName(), false).$file->getName();
 
-        $uploaddir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
+        $uploaddir = $this->get('kernel')->getRootDir().'/../web/uploads/';
 
         $yamlParser = new Parser();
         $vars = $yamlParser->parse(
             file_get_contents(
-                $this->container->getParameter('kernel.root_dir') .
+                $this->container->getParameter('kernel.root_dir').
                 '/config/media.yml'
             )
         );
         $mappings = $vars['oneup_uploader']['mappings'];
         $url = false;
         foreach ($mappings as $key => $value) {
-            if (is_file($uploaddir . $key . '/' . $file)) {
-                $url = '/uploads/' . $key . '/' . $file;
+            if (is_file($uploaddir.$key.'/'.$file)) {
+                $url = '/uploads/'.$key.'/'.$file;
                 break;
             }
         }
