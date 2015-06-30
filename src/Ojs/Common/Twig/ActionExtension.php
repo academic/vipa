@@ -46,49 +46,97 @@ class ActionExtension extends \Twig_Extension {
      */
     public function actions($actions)
     {
-        $baseLink = '<a class="btn btn-sm %s" href="%s" title="%s" %s><i class="fa %s"></i></a>';
-        $container = '<div class="btn-group">%s</div>';
+        $container = '<div class="action-group btn-group">%s</div>';
+        $baseLink = '<a href="%s" class="btn btn-sm %s" title="%s"%s><i class="fa %s"></i></a>';
         $links = '';
 
-        foreach ($actions as $action) {
-            $attributes = '';
+        $templates = [
+            'back' => [
+                'options' => [
+                    'class' => 'btn-default',
+                    'icon'  => 'fa-arrow-left',
+                    'title' => $this->translator->trans('back')
+                ],
 
-            if ($action['name'] == 'back') {
-                $class = !empty($action['class']) ? $action['class'] :'btn-default';
-                $icon = !empty($action['icon']) ? $action['icon'] :'fa-arrow-left';
-                $title = !empty($action['title']) ? $action['title'] : $this->translator->trans('back');
-                $this->translator->trans('delete');
-            } elseif ($action['name'] == 'create') {
-                $class = !empty($action['class']) ? $action['class'] :'btn-primary';
-                $icon = !empty($action['icon']) ? $action['icon'] :'fa-plus-circle';
-                $title = !empty($action['title']) ? $action['title'] : $this->translator->trans('create');
-            } elseif ($action['name'] == 'show') {
-                $class = !empty($action['class']) ? $action['class'] :'btn-success';
-                $icon = !empty($action['icon']) ? $action['icon'] :'fa-info-circle';
-                $title = !empty($action['title']) ? $action['title'] : $this->translator->trans('show');
-            } elseif ($action['name'] == 'edit') {
-                $class = !empty($action['class']) ? $action['class'] :'btn-warning';
-                $icon = !empty($action['icon']) ? $action['icon'] :'fa-pencil';
-                $title = !empty($action['title']) ? $action['title'] : $this->translator->trans('edit');
-            } elseif ($action['name'] == 'delete') {
-                $class = !empty($action['class']) ? $action['class'] :'btn-danger';
-                $icon = !empty($action['icon']) ? $action['icon'] :'fa-trash-o';
-                $title = !empty($action['title']) ? $action['title'] : $this->translator->trans('delete');
+                'attributes' => [],
+            ],
 
-            } else {
-                $class = !empty($action['class']) ? $action['class'] :'btn-default';
-                $icon = !empty($action['icon']) ? $action['icon'] :'fa-square-o';
-                $title = !empty($action['title']) ? $action['title'] : $this->translator->trans('button');
+            'show' => [
+                'options' => [
+                    'class' => 'btn-primary',
+                    'icon'  => 'fa-info-circle',
+                    'title' => $this->translator->trans('show')
+                ],
+
+                'attributes' => [],
+            ],
+
+            'create' => [
+                'options' => [
+                    'class' => 'btn-success',
+                    'icon'  => 'fa-plus-circle',
+                    'title' => $this->translator->trans('create')
+                ],
+
+                'attributes' => [],
+            ],
+
+            'edit' => [
+                'options' => [
+                    'class' => 'btn-warning',
+                    'icon'  => 'fa-pencil',
+                    'title' => $this->translator->trans('edit')
+                ],
+
+                'attributes' => [],
+            ],
+
+            'delete' => [
+                'options' => [
+                    'class' => 'btn-danger',
+                    'icon'  => 'fa-trash-o',
+                    'title' => $this->translator->trans('delete')
+                ],
+
+                'attributes' => [
+                    'data-method'   => 'delete',
+                    'data-role'     => 'delete',
+                ],
+            ],
+        ];
+
+        foreach ($actions as $name => $parameters) {
+            $href = '#';
+            $attributes = array();
+            $atrributesAsString = '';
+            $options = [
+                'class' => null,
+                'title' => null,
+                'icon' => null
+            ];
+
+            if (array_key_exists('href', $parameters)) {
+                $href = $parameters['href'];
             }
 
-            if (!empty($action['attributes']) && is_array($action['attributes'])) {
-                $baseAttribute = '%s="%s"';
-                foreach ($action['attributes'] as $key => $value) {
-                    $attributes .= sprintf($baseAttribute, $key, $value);
-                }
+            if (array_key_exists($name, $templates)) {
+                $template = array_merge_recursive($templates[$name], $parameters);
+                $options = $template['options'];
+                $attributes = $template['attributes'];
             }
 
-            $links .= sprintf($baseLink, $class, $action['href'], $title, $attributes, $icon);
+            foreach ($attributes as $key => $value) {
+                $atrributesAsString .= sprintf(' %s="%s"', $key, $value);
+            }
+
+            $links .= sprintf(
+                $baseLink,
+                $href,
+                $options['class'],
+                $options['title'],
+                $atrributesAsString,
+                $options['icon']
+            );
         }
 
         return sprintf($container, $links);
