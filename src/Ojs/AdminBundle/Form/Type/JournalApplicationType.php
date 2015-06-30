@@ -95,8 +95,8 @@ class JournalApplicationType extends AbstractType
                     'attr' => ['class' => 'select2-element validate[required]'],
                 )
             )
-            ->add('coverimage', 'hidden')
-            ->add('headerimage', 'hidden')
+            ->add('image', 'hidden')
+            ->add('header', 'hidden')
             ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'phone',
@@ -108,57 +108,57 @@ class JournalApplicationType extends AbstractType
                 'email',
                 ['label' => 'journal.email', 'attr' => ['class' => 'validate[required,custom[email]]']]
             )
-            ->add('editorName', null, ['label' => 'journal.editor_name', 'attr' => ['class' => 'validate[required]']])
+            ->add('editorName', null, ['mapped' => false, 'label' => 'journal.editor_name', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'editorSurname',
                 null,
-                ['label' => 'journal.editor_surname', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.editor_surname', 'attr' => ['class' => 'validate[required]']]
             )
-            ->add('editorPhone', null, ['label' => 'journal.editor_phone', 'attr' => ['class' => 'validate[required]']])
+            ->add('editorPhone', null, ['mapped' => false, 'label' => 'journal.editor_phone', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'editorEmail',
                 'email',
-                ['label' => 'journal.editor_email', 'attr' => ['class' => 'validate[required,custom[email]]']]
+                ['mapped' => false, 'label' => 'journal.editor_email', 'attr' => ['class' => 'validate[required,custom[email]]']]
             )
             ->add(
                 'assistantEditorName',
                 null,
-                ['label' => 'journal.assistant_editor_name', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.assistant_editor_name', 'attr' => ['class' => 'validate[required]']]
             )
             ->add(
                 'assistantEditorSurname',
                 null,
-                ['label' => 'journal.assistant_editor_surname', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.assistant_editor_surname', 'attr' => ['class' => 'validate[required]']]
             )
             ->add(
                 'assistantEditorPhone',
                 null,
-                ['label' => 'journal.assistant_editor_phone', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.assistant_editor_phone', 'attr' => ['class' => 'validate[required]']]
             )
             ->add(
                 'assistantEditorEmail',
                 null,
-                ['label' => 'journal.assistant_editor_email', 'attr' => ['class' => 'validate[required,custom[email]]']]
+                ['mapped' => false, 'label' => 'journal.assistant_editor_email', 'attr' => ['class' => 'validate[required,custom[email]]']]
             )
             ->add(
                 'techContactName',
                 null,
-                ['label' => 'journal.tech_contact_name', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.tech_contact_name', 'attr' => ['class' => 'validate[required]']]
             )
             ->add(
                 'techContactSurname',
                 null,
-                ['label' => 'journal.tech_contact_surname', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.tech_contact_surname', 'attr' => ['class' => 'validate[required]']]
             )
             ->add(
                 'techContactPhone',
                 null,
-                ['label' => 'journal.tech_contact_phone', 'attr' => ['class' => 'validate[required]']]
+                ['mapped' => false, 'label' => 'journal.tech_contact_phone', 'attr' => ['class' => 'validate[required]']]
             )
             ->add(
                 'techContactEmail',
                 null,
-                ['label' => 'journal.tech_contact_email', 'attr' => ['class' => 'validate[required,custom[email]]']]
+                ['mapped' => false, 'label' => 'journal.tech_contact_email', 'attr' => ['class' => 'validate[required,custom[email]]']]
             );
     }
 
@@ -169,7 +169,7 @@ class JournalApplicationType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
+                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'attr' => ['class' => 'form-validate'],
             )
         );
