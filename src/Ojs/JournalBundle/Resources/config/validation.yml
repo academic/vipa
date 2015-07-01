@@ -6,3 +6,10 @@ Ojs\JournalBundle\Entity\Institution:
       - NotBlank: ~
     email:
       - Email: ~
+
+Ojs\JournalBundle\Entity\Journal:
+  properties:
+    title:
+      - NotBlank: ~
+    email:
+      - Email: ~
