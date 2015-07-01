@@ -12,12 +12,13 @@
 {% block body -%}
     <h1>{{ 'title.issues'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
-    <hr>
     {% if is_granted('CREATE', selectedJournal(), 'issues') %}
-        <a href="{{ path('ojs_journal_issue_new') }}" class="btn btn-info">
-            <i class="fa fa-plus"></i> {{ "create"|trans }}
+        <a href="{{ path('ojs_journal_issue_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
         </a>
     {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
 
 {% endblock %}

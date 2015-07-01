@@ -11,8 +11,13 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     <h2>{{ 'title.submissions'|trans }}</h2>
-    <a href="{{ path('article_submission_new') }}"
-       class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>
+    {% if is_granted('CREATE', selectedJournal()) %}
+        <a href="{{ path('article_submission_new') }}" class="btn btn-success">
+            {{ "article.submit"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
     <div class="btn-group">
         <a class="btn btn-default" href="{{ path('article_submissions_me') }}">{{ "article.mysubmits"|trans }}</a>
         {% if is_granted('EDIT', selectedJournal()) %}

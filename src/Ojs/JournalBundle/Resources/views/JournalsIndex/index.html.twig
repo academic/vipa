@@ -13,10 +13,12 @@
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
     <h1>{{ 'title.journals_indexes'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'index') %}
-        <a class="btn btn-success" href="{{ path('ojs_journal_index_new',{journal: journal_id}) }}">
-            {{ 'add'|trans }}
+        <a href="{{ path('ojs_journal_index_new',{journal: journal_id}) }}" class="btn btn-success">
+            {{ "add"|trans }}
         </a>
     {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}

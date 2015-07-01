@@ -15,11 +15,14 @@
         <div class="panel">
             <h1>{{ 'title.journal_roles'|trans }}</h1>
             {% include '::flashbag.html.twig' %}
-            {{ grid(grid) }}
             {% if is_granted('CREATE', selectedJournal(), 'userRole') %}
-                {% set create_path = 'ojs_journal_role_new' %}
+                <a href="{{ path('ojs_journal_role_new') }}" class="btn btn-success">
+                    {{ "c"|trans }}
+                </a>
             {% endif %}
-            {% include '::actionbuttons.html.twig' %}
+
+            <hr>
+            {{ grid(grid) }}
         </div>
     </div>
 {% endblock %}

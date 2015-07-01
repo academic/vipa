@@ -13,9 +13,12 @@
     {% include '::flashbag.html.twig' %}
     <h2>{{ journal.title }}</h2>
     <h3>{{ 'title.articles'|trans }}</h3>
+    {% if is_granted('CREATE', selectedJournal(), 'articles') %}
+        <a href="{{ path('ojs_journal_article_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
 
+    <hr>
     {{ grid(grid) }}
-
-    {% set create_path = 'ojs_journal_article_new' %}
-    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

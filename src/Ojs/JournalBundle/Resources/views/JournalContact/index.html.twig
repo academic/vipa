@@ -10,13 +10,14 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'title.journal_contacts'|trans }}
-        {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
-            {% set create_path = 'ojs_journal_journal_contact_new' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
-    </h1>
+    <h1>{{ 'title.journal_contacts'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
+    {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
+        <a href="{{ path('ojs_journal_journal_contact_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
 
+    <hr>
     {{ grid(grid) }}
 {% endblock %}
