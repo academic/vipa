@@ -283,7 +283,7 @@ class ArticleController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_journal_article_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_article_edit', array('id' => $id, 'journalId' => $journalId)));
         }
 
         return $this->render(
@@ -346,6 +346,6 @@ class ArticleController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('ojs_journal_article_index'));
+        return $this->redirect($this->generateUrl('ojs_journal_article_index', ['journalId' => $journalId]));
     }
 }
