@@ -26,7 +26,7 @@
         <tr>
             <th>{{ "article"|trans }}</th>
             <td><a target="_blank"
-                   href="{{ url('article_edit',{id: entity.articleId}) }}">{{ entity.article.title }}</a></td>
+                   href="{{ path('ojs_journal_article_edit', {'id': entity.id, 'journalId': entity.article.journal.id}) }}">{{ entity.article.title }}</a></td>
         </tr>
         <tr>
             <th>{{ "articlefile.version"|trans }}</th>
