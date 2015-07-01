@@ -14,7 +14,7 @@
     <h2>{{ journal.title }}</h2>
     <h3>{{ 'title.articles'|trans }}</h3>
     {% if is_granted('CREATE', selectedJournal(), 'articles') %}
-        <a href="{{ path('ojs_journal_article_new') }}" class="btn btn-success">
+        <a href="{{ path('ojs_journal_article_new', {'journalId': app.request.get('journalId')}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

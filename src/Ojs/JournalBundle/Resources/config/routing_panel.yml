@@ -4,7 +4,6 @@ ojs_journal_role:
 
 ojs_journal_article:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article.yml"
-    prefix:   /article
 
 ojs_journal_citation:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/citation.yml"
