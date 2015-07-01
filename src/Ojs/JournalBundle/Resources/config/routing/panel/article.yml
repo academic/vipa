@@ -1,30 +1,30 @@
 ojs_journal_article_index:
-    pattern:  /
+    pattern:  /{journalId}/article
     defaults: { _controller: OjsJournalBundle:Article:index }
 
 ojs_journal_article_new:
-    pattern:  /new
+    pattern:  /{journalId}/article/new
     defaults: { _controller: OjsJournalBundle:Article:new }
 
 ojs_journal_article_create:
-    pattern:  /create
+    pattern:  /{journalId}/article/create
     defaults: { _controller: OjsJournalBundle:Article:create }
     requirements: { _method: post }
 
 ojs_journal_article_show:
-    pattern:  /{id}
+    pattern:  /{journalId}/article/{id}
     defaults: { _controller: OjsJournalBundle:Article:show }
 
 ojs_journal_article_edit:
-    pattern:  /{id}/edit
+    pattern:  /{journalId}/article/{id}/edit
     defaults: { _controller: OjsJournalBundle:Article:edit }
 
 ojs_journal_article_update:
-    pattern:  /{id}/update
+    pattern:  /{journalId}/article/{id}/update
     defaults: { _controller: OjsJournalBundle:Article:update }
     methods:  [PUT]
 
 ojs_journal_article_delete:
-    pattern:  /{id}/delete
+    pattern:  /{journalId}/article/{id}/delete
     defaults: { _controller: OjsJournalBundle:Article:delete }
     methods:  [DELETE]

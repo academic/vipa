@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_index'), 'title': 'article.manager'|trans},
+        {'link': path('ojs_journal_article_index', {'journalId': entity.journal.id}), 'title': 'article.manager'|trans},
         {'title': 'title.article_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -46,11 +46,11 @@
     </button>
     {{ form_end(form) }}
     <div class="record_actions">
-        {% set back_path = 'ojs_journal_article_index' %}
-        {% if is_granted('DELETE', selectedJournal(), 'articles') %}
-            {% set delete_path = 'ojs_journal_article_delete' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
+        {{
+            actions({
+                'back': {'href': path('ojs_journal_article_index', {'journalId': entity.journal.id})},
+            })
+        }}
     </div>
 
     {{ getLogs(entity) }}

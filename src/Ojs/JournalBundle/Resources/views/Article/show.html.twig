@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_index'), 'title': 'article.manager'|trans},
+        {'link': path('ojs_journal_article_index', {'journalId': entity.journal.id}), 'title': 'article.manager'|trans},
         {'title' : 'title.article_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -163,16 +163,18 @@
                 {% for citation in entity.citations %}
                 <p>
                     <span class="badge">{{ loop.index }}</span> {{ citation.raw }}<br>
-
                 <p>
-                    {% endfor %}
+                {% endfor %}
             </td>
         </tr>
         </tbody>
     </table>
 
-    {% set back_path = 'ojs_journal_article_index' %}
-    {% set edit_path = 'ojs_journal_article_edit' %}
-    {% set delete_path = 'ojs_journal_article_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+        actions({
+            'back': {'href': path('ojs_journal_article_index', {'journalId': entity.journal.id})},
+            'edit': {'href': path('ojs_journal_article_edit', {'id': entity.id, 'journalId': entity.journal.id})},
+            'delete': {'href': path('ojs_journal_article_delete', {'id': entity.id, 'journalId': entity.journal.id}), 'attributes': {'data-token': token}},
+        })
+    }}
 {% endblock %}
