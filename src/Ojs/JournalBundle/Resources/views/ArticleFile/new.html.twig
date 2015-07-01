@@ -4,7 +4,7 @@
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
         {'link': path('ojs_journal_article_file_index', {article: entity.article.id}),'title': 'title.article_files'|trans},
-        {'title': 'title.article_files_show'|trans}
+        {'title': 'title.article_files_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

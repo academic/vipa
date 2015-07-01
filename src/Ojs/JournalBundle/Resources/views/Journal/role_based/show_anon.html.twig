@@ -9,7 +9,7 @@ journal.show tpl for anonymous users
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
-    {'title': 'show.anon'|trans}
+    {'title': 'title.journal_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
