@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "journal.design.list"|trans }}</h1>
+    <h1>{{ 'title.journal_designs'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'design') %}

@@ -11,7 +11,7 @@
 
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
-    <h1>{{ 'journalsindex.list'|trans }}</h1>
+    <h1>{{ 'title.journals_indexes'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'index') %}

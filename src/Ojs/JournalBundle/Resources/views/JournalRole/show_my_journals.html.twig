@@ -13,7 +13,7 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{ "user.journalrole.myjournals"|trans }}</h1>
+            <h1>{{ 'title.journal_role_myjournals'|trans }}</h1>
 
             {% if isSystemAdmin() %}
                 <a class="btn btn-default" href="{{ path('ojs_admin_journal_index') }}">

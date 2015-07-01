@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "author.list"|trans }}</h1>
+    <h1>{{ 'title.authors'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Author')) %}

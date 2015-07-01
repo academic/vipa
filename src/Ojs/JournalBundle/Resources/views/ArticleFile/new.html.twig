@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>ArticleFile creation</h1>
+    <h1>{{ 'title.article_files_new'|trans }}</h1>
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
