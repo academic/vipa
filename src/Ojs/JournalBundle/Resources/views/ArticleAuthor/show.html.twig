@@ -31,7 +31,7 @@
         <tr>
             <th>{{ "article.singular"|trans }}</th>
             <td>
-                <a href="{{ path('ojs_journal_article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                <a href="{{ path('ojs_journal_article_show',{id:entity.article.Id, journalId: entity.article.journal.id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
             </td>
         </tr>
         </tbody>
