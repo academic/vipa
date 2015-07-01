@@ -37,7 +37,7 @@
                     <a href="{{ path('ojs_journal_author_show',{id:entity.author.Id }) }}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}
                 </td>
                 <td>
-                    <a href="{{ path('ojs_journal_article_show',{id:entity.article.Id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                    <a href="{{ path('ojs_journal_article_show', {id:entity.article.Id, journalId: entity.article.journal.id}) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
                 </td>
                 <td>
                     {% set show_path = 'ojs_journal_article_author_show' %}
