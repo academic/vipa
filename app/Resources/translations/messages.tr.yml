@@ -1,878 +1,971 @@
 ojs.title: OJS
-api: Uygulama Geliştirme Arayüzü
+api: 'Uygulama Geliştirme Arayüzü'
 api_motto: 'OJS geliştiriciler için tam bir api sağlar.'
 ojs:
     install:
         title: Ojs Kurulumu
         confirm: Ojs kurulumu gerçekleşecek. Onaylıyor musunuz?
 save: Kaydet
-installer.welcome.title: OJS Kurulumuna Hoşgeldiniz
-installer.welcome.message: Hoşgeldiniz Mesajı
-installer.check_configuration: Ayarları Kontrol Et
+installer.welcome.title: 'OJS Kurulumuna Hoşgeldiniz'
+installer.welcome.message: 'Hoşgeldiniz Mesajı'
+installer.check_configuration: 'Ayarları Kontrol Et'
 installer.setup: Kurulum
-installer.congrat: Tebrikler! Kurulum Tamamlandı
-OJS Setup: OJS Kurulumu
+installer.congrat: 'Tebrikler! Kurulum Tamamlandı'
+'OJS Setup': 'OJS Kurulumu'
 installer.menu.home: Başlangıç
 installer.menu.check: Kontrol
 installer.menu.configure: Ayarlar
 installer.menu.setup: Kurulum
 installer.menu.summary: Özet
-installer.gohome: Siteye Git
-installer.update.welcome.title: Ojs Güncelleyici
-installer.update.welcome.message: Veritabanı farkları sisteminize uygulanacaktır.
+installer.gohome: 'Siteye Git'
+installer.update.welcome.title: 'Ojs Güncelleyici'
+installer.update.welcome.message: 'Veritabanı farkları sisteminize uygulanacaktır.'
 installer.update: Güncelle
-OJS Updater: OJS Güncelleyici
+'OJS Updater': 'OJS Güncelleyici'
 installer.menu.update: Güncelleyici
 installer.menu.update_confirm: Tamamlandı
 installer.update.congrat: __installer.update.congrat
 University: Üniversite
-Government: Kamu Kurumu
+Government: Kamu
 Association: Dernek
 Foundation: Vakıf
 Hospital: Hastane
-Chamber: Komisyon
+Chamber: 'Meslek Odası'
 Private: Özel
 Other: Diğer
-ROLE_JOURNAL_MANAGER: Dergi Yöneticisi
+ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
 ROLE_EDITOR: Editör
 scope: Kapsam
 mission: Amaç
 archive: Arşiv
 citations: Referanslar
 editorial: Editoryal
-sure_data_lost: Bu sayfadan ayrılmak istiyor musunuz?\n\nYaptığınız değişiklikler kaybolabilir.
+sure_data_lost: 'Bu sayfadan ayrılmak istiyor musunuz?\n\nYaptığınız değişiklikler kaybolabilir.'
 messages: Mesajlar
 settings: Ayarlar
 mail: Mail
-mail.templates: Mail Şablonları
+mail.templates: 'Mail Şablonları'
 journals: Dergiler
-first_page: İlk Sayfa
-last_page: Son Sayfa
-workflow: İş Akışı
-workflows: İş Akışları
-workflow.templates: İş Akışı Şablonları
-workflow.steps: İş Akışı Adımları
-workflow.step.detail: İş Akışı Adımı Detayı
-firstStep: İlk Adım
-lastStep: Son Adım
-nextSteps: Sonraki Adımları
-nextSteps.possible: Olası Sonraki Adımlar
-step.new: Yeni Adım
-step.edit: Adım düzenle
-canOnlyReply: Kullanıcı sonraki adıma karar veremez. Sadece cevap verebilir.
-Is visible to author?: Yazar tarafından görülebilir mi?
-Must be assigned to someone?: Birisine atanması gerekir mi?
-can.edit?: Düzenleyebilir mi?
-can.review?: Değerlendirebilir mi?
-can.seeAuthor?: Yazar bilgisini görebilir mi?
-can.rejectSubmission?: Gönderiyi reddebilir mi?
-suggestedMaxDays: Tavsiye edilen en fazla gün sayısı
+first_page: 'İlk Sayfa'
+last_page: 'Son Sayfa'
+workflow: 'İş Akışı'
+workflows: 'İş Akışları'
+workflow.templates: 'İş Akışı Şablonları'
+workflow.steps: 'İş Akışı Adımları'
+workflow.step.detail: 'İş Akışı Adımı Detayı'
+firstStep: 'İlk Adım'
+lastStep: 'Son Adım'
+nextSteps: 'Sonraki Adımlar'
+nextSteps.possible: 'Olası Sonraki Adımlar'
+step.new: 'Yeni adım ekle'
+step.edit: 'Adım düzenle'
+canOnlyReply: 'Kullanıcı sonraki adıma karar veremez. Sadece cevap verebilir.'
+'Is visible to author?': 'Yazar tarafından görülebilir mi?'
+'Must be assigned to someone?': 'Birisine atanması gerekir mi?'
+'can.edit?': 'Düzenleyebilir mi?'
+'can.review?': 'Değerlendirebilir mi?'
+'can.seeAuthor?': 'Yazar bilgisini görebilir mi?'
+'can.rejectSubmission?': 'Gönderiyi reddebilir mi?'
+suggestedMaxDays: 'Tavsiye edilen en fazla gün sayısı'
 admin: Yönetim
 dashboard: Panel
 title: Başlık
-titleTransliterated: Paralel Başlık
-subtitle: Alt Başlık
-keywords: Anahtar Sözcükler
+Title: Başlık
+titleTransliterated: 'Paralel Başlık'
+subtitle: 'Alt Başlık'
+keywords: 'Anahtar Sözcükler'
+Keywords: Anahtar Kelimeler
 description: Açıklama
+Description: Açıklama
 subjects: Konular
 abstract: Öz
-date.publish: Yayımlanma Tarihi
-trans: Başka Alfabeyle Yazma
+date.publish: 'Yayımlanma Tarihi'
+trans: 'Başka Alfabeyle Yazma'
 email: E-posta
-address: Ares
+address: Adres
 country: Ülke
 summary: Özet
-haveNoJournals: Hiç derginiz yok
-createOne: Bir tane oluşturun.
-read.lastissue: Son Sayıyı Oku
-read.article: Makaleyi Oku
-new.link: Yeni Link
-new.block: Yeni Blok
-for.readers: Okuyucular İçin
-for.authors: Yazarlar İçin
-for.author_editor: Yazarlar ve Editörler için
-status.waiting: Beklemede
-status.published: Yayımda
-status.unpublished: Yayımlanmammış
-status.rejected: Reddedilmiş
-status.inreview: Görüşme
+haveNoJourals: 'Hiç derginiz bulunmuyor.'
+createOne: 'Bir tane oluşturun.'
+read.lastissue: 'Son Sayıyı Oku'
+read.article: 'Makaleyi Oku'
+new.link: 'Yeni Link'
+new.block: 'Yeni Blok'
+for.readers: 'Okuyucular İçin'
+for.authors: 'Yazarlar İçin'
+for.author_editor: 'Yazarlar ve Editörler için'
+status.waiting: Bekliyor
+status.published: Yayımlanmış
+status.unpublished: Yayımlanmamış
+status.rejected: Reddedildi
+status.inreview: İncelemede
 status.spam: Spam
 status.not_submitted: Gönderilmemiş
 status.editing: Düzenleniyor
 reports.title: Raporlar
-reports.journal: Dergi Raporları
-reports.article: Makale Raporları
-reports.author: Yazar Raporları
-reports.user: Kullanıcı Raporları
-reports.analytics: İstatistik Raporları
+reports.journal: 'Dergi Raporları'
+reports.article: 'Makale Raporları'
+reports.author: 'Yazar Raporları'
+reports.user: 'Kullanıcı Raporları'
+reports.analytics: 'İstatistik Raporları'
 journal.singular: Dergi
 journal.plural: Dergiler
-journal.about: Dergi Hakkında
-journal.all: Tüm Dergiler
-journal.users: Dergi Kullanıcıları
-journal.theme: Dergi Teması
-journal.design: Dergi Yerleşimi
-journal.manager: Dergi Yöneticisi
+journal.about: 'Dergi Hakkında'
+journal.all: 'Tüm Dergiler'
+journal.users: 'Dergi Kullanıcıları'
+journal.theme: 'Dergi Teması'
+journal.design: 'Dergi Yerleşimi'
+journal.manager: 'Dergi Yöneticisi'
 citation.citation: Referans
-citation.add: Referans Ekle
-citation.new: Yeni Referans
-citation.paste_extract: Yapıştır ve Referansları Ayrıştır
-citation.type: Referans Tipi
-article.fulltext: Tam Metin
-article.plural: Makaleler
+citation.add: 'Referans Ekle'
+citation.new: 'Yeni Referans'
+citation.paste_extract: 'Yapıştır ve Referansları Ayrıştır'
+citation.type: 'Referans Tipi'
+article.fulltext: 'Tam Metin' 
 article.singular: Makale
 article.licensing: Önşart
-articles.needAction: İşlem Bekleyen Makaleler
+articles.needAction: 'İşlem Bekleyen Makaleler'
 submission.starting: Başlarken
-article.submit: Makale gönder
-article.files: Makale Dosyaları
-article.authors: Makalenin Yazarları
-article.citations: Makale Referansları
-article.metadata: Makale Üst Bilgisi
-article.titleTransliterated: Makale Paralel Başlığı
-article.title: Makale Başlığı
-article.subtitle: Makale Alt Başlığı
-article.language.primary: Makalenin Birincil Dili
-article.language.other: Makalenin Diğer Dilleri
-article.add: Makale Ekle
-article.preview: Makale Önizleme
-suppfiles.resins: Araştırma Araçları
-suppfiles.resmat: Araştırma Malzemeleri
-suppfiles.resres: Araştırma Sonuçları
-suppfiles.data: Veri Analizi
+article.submit: 'Makale Gönder'
+journalcontact.singular: Dergi İletişim Kaydı
+journalcontact.list: Dergi İletişim Bilgileri
+article.files: 'Makale Dosyaları'
+article.authors: 'Makalenin Yazarları'
+article.citations: 'Makale Referansları'
+article.metadata: 'Makale Üst Bilgisi'
+article.titleTransliterated: 'Makale Paralel Başlığı'
+article.title: 'Makale Başlığı'
+article.subtitle: 'Makale Alt Başlığı'
+article.language.primary: 'Makalenin Birincil Dili'
+article.language.other: 'Makalenin Diğer Dilleri'
+article.add: 'Makale Ekle'
+article.preview: 'Makale Önizleme'
+suppfiles.resins: 'Araştırma Araçları'
+suppfiles.resmat: 'Araştırma Malzemeleri'
+suppfiles.resres: 'Araştırma Sonuçları'
+suppfiles.data: 'Veri Analizi'
 suppfiles.trans: Kopyalar
-suppfiles.set: Veri Seti
-suppfiles.source: Kaynak Metin
-suppfiles.supp: Ek Dosya
-author.firstname: İlk adı
-author.middlename: İkinci adı
-author.lastname: Soyadı
-author.initials: Baş harfler
+suppfiles.set: 'Veri Seti'
+suppfiles.source: 'Kaynak Metin'
+suppfiles.supp: 'Ek Dosya'
+author.firstname: Ad
+author.middlename: 'İkinci Ad'
+author.lastname: Soyad
+author.initials: Başharfler
 author.title: Ünvan
-user.title: Ünvan
+author.order: Sıra
 author.plural: Yazarlar
 author.singular: Yazar
-author.summary: Yazar Özeti
-author.orcid: Orcid Id
-author.add: Yazar Ekle
-user.new: Yeni Kullanıcı
+author.summary: 'Yazar Özeti'
+author.orcid: ORCID
+author.add: 'Yazar Ekle'
+user.new: 'Yeni Kullanıcı'
 details: Detaylar
-article.manager: Makale Yöneticisi
-article.detail: Makale Detayı
-title.transliterated: Dönüştürülmüş Başlık
+article.manager: 'Makale Yöneticisi'
+article.detail: 'Makale Detayı'
+title.transliterated: 'Dönüştürülmüş Başlık'
 author: Yazar
 journal: Dergi
 section: Bölüm
 languages: Diller
-primaly_language: Birincil Dil
+primaly_language: 'Öncelikli Dil'
 status: Durum
 doi: DOI
 check: Kontrol
-otherid: Diğer ID
-journalid: Dergi ID
-isAnonymous: Anonim mi?
-Pubdateseason: Yayın Tarihi Sezonu
+otherid: 'Diğer ID'
+journalid: 'Dergi ID'
+isAnonymous: 'Anonim mi?'
+Pubdateseason: 'Yayın Tarihi Sezonu'
 pubdate: Yayın tarihi
 part: Parça
-url: Bağlantı
-abstract.transliterated: Dönüştürülmüş Öz
-citation.editor: Alıntı Editörü
-preview: Önzileme
-submit: Makale Gönder
-back.continue.editing: Geri Git & Düzenlemeye Devam Et
+url: URL
+abstract.transliterated: 'Dönüştürülmüş Öz'
+citation.editor: 'Alıntı Editörü'
+preview: Önizleme
+submit: Gönder
+back.continue.editing: 'Geri Git & Düzenlemeye Devam Et'
 issue: Sayı
 issue.plural: Sayılar
-issue.manager: Sayı Yöneticisi
-Here you can find all articles for selected issue <strong>%title%</strong>: Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>
-articles_in_journal: Dergideki Makaleler
-article.new: Yeni Makale
-article_author_edit: Yazarı Düzenle
-article_author_list: Yazar Listele
-articleauthor_new: Yeni Makale Yazarı
-author_order: Yazar Sırası
-author_id: Yazar ID
-article_id: Makale ID
-articleauthor_create: Makale Yazarı Oluştur
-back: Listeye geri dön
-articleauthor: Makale Yazarı
+issue.manager: 'Sayı Yöneticisi'
+'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
+articles_in_journal: 'Dergideki Makaleler'
+article.new: 'Yeni Makale'
+article_author_edit: 'Yazarı Düzenle'
+article_author_list: 'Yazar Listele'
+articleauthor_new: 'Yeni Makale Yazarı'
+author_order: 'Yazar Sırası'
+author_id: 'Yazar ID'
+article_id: 'Makale ID'
+articleauthor_create: 'Makale Yazarı Oluştur'
+back: Geri
+articleauthor: 'Makale Yazarı'
 article.mysubmits: Gönderilerim
-article.all: Tüm Makaleler
-add.language: Dil ekle
-res: Yeniden Başlat
-select_article_file: Makale Dosyası Seç
-Supplementary.File: Ek Dosya
+article.all: 'Tüm Makaleler'
+add.language: 'Dil ekle'
+res: Res
+select_article_file: 'Makale Dosyası Seç'
+Supplementary.File: 'Ek Dosya'
 remove: Kaldır
 order: Sıra
 citation: Alıntı
-select_supplementary_article_file: Ek Makale Dosyası Seç
-author.manager: Yazar Yöneticisi
-author.list: Yazar Listesi
-author.new: Yeni Yazar
-fullname: Tam İsim
-initials: Baş Harfler
-author.creation: Yazar Oluşturma
-author.details: Yazar Detayı
-linked.user: Bağlı Kullanıcı
+select_supplementary_article_file: 'Ek Makale Dosyası Seç'
+author.manager: 'Yazar Yöneticisi'
+author.list: 'Yazar Listesi'
+author.new: 'Yeni Yazar'
+fullname: 'Tam İsim'
+initials: 'Baş Harfler'
+author.creation: 'Yazar Oluşturma'
+author.details: 'Yazar Detayı'
+linked.user: 'Bağlı Kullanıcı'
 id: ID
-author.firstnametransliterated: Dönüştürülmüş İsim
-author.middlenametransliterated: Dönüştürülmüş İkinci İsim
-author.lastnametransliterated: Dönüştürülmüş Soyisim
+author.firstnametransliterated: 'Dönüştürülmüş İsim'
+author.middlenametransliterated: 'Dönüştürülmüş İkinci İsim'
+author.lastnametransliterated: 'Dönüştürülmüş Soyisim'
 adress: Adres
-citation.edit: Alıntı Düzenle
-citation.list: Alıntı Listesi
+citation.edit: 'Alıntı Düzenle'
+citation.list: 'Alıntı Listesi'
 source: Kaynak
 type: Tür
-citation.create: Alıntı Oluştur
+citation.create: 'Alıntı Oluştur'
 setting: Ayar
-citation.setting.edit: Alıntı Ayarı Düzenle
-citation.setting.list: Alıntı Ayarı Listesi
-citation.setting.new: Yeni Alıntı Ayarı
-citation.id: Alıntı ID
-citation.setting: Alıntı Ayarı
+citation.setting.edit: 'Alıntı Ayarı Düzenle'
+citation.setting.list: 'Alıntı Ayarı Listesi'
+citation.setting.new: 'Yeni Alıntı Ayarı'
+citation.id: 'Alıntı ID'
+citation.setting: 'Alıntı Ayarı'
 value: Değer
-contact.manager: İletişim Yöneticisi
-contact.edit: İletişim Düzenle
+contact.manager: 'İletişim Yöneticisi'
+contact.edit: 'İletişim Düzenle'
 firstname: Ad
 lastname: Soyad
 phone: Telefon
-article.types: Makale Türleri
-article.type: Makale Türü
-article.type.list: Makale Türünü Listele
-article.type.new: Yeni Makale Türü
-contact.new: Yeni İletişim
-contact.detail: İletişim Detayı
+article.types: 'Makale Türleri'
+article.type: 'Makale Türü'
+article.type.list: 'Makale Türünü Listele'
+article.type.new: 'Yeni Makale Türü'
+contact.new: 'Yeni İletişim'
+contact.detail: 'İletişim Detayı'
 contact: İletişim
-contact.plural: İletişim Kaydı
+contact.plural: 'İletişim Kişileri'
 city: Şehir
-fax: Fax
-contact.type: İletişim Türü
-contact.type.list: İletişim Türünü Listele
+fax: Faks
+contact.type: 'İletişim Türü'
+contact.type.list: 'İletişim Türünü Listele'
 name: İsim
-contact.type.new: Yeni İletişim Türü
-contacttype.plural: İletişim Türleri
-file.edit: Dosya Düzenle
-file.list: Dosya Listesi
-file.new: Yeni Dosya
-file.select: Dosya Seç
-file.details: Dosya Detayları
-file.path: Dosya Yolu
+contact.type.new: 'Yeni İletişim Türü'
+contacttype.plural: 'İletişim Türleri'
+file.edit: 'Dosya Düzenle'
+file.list: 'Dosya Listesi'
+file.new: 'Yeni Dosya'
+file.select: 'Dosya Seç'
+file.details: 'Dosya Detayları'
+file.path: 'Dosya Yolu'
 file.type: Dosya türü
 file.language: Dosya dili
-mimetype: MIME Türü
+mimetype: 'MIME Türü'
 size: Boyut
 logo: Logo
-address_lat: Adres Enlem
-address_long: Adres Boylam
+address_lat: 'Adres Enlem'
+address_long: 'Adres Boylam'
 institutiontype: Kurum Türü
-institutiontype.new: Yeni Kurum Türü
-institutiontype.edit: Kurum Türü Düzenle
-institutiontype.list: Kurum Türü Listesi
-institutiontype.plural: Kurum Türleri
-issue.new: Yeni Sayı
-issue.edit: Sayı Düzenle
-issue.list: Sayı Listesi
-issue.add.articles: Bu sayıya makale ekle
+institutiontype.new: 'Yeni Kurum Türü'
+institutiontype.edit: 'Kurum Türü Düzenle'
+institutiontype.list: 'Kurum Türü Listesi'
+institutiontype.plural: 'Kurum Türleri'
+issue.new: 'Yeni Sayı'
+issue.edit: 'Sayı Düzenle'
+issue.list: 'Sayı Listesi'
+issue.add.articles: 'Bu sayıya makale ekle'
 journal.id: ID
 volume: Cilt
 number: Numara
 cover: Kapak
 special: Özel
 year: Yıl
-datePublished: Yayınlanma tarihi
-publishdate: Yayım Tarihi
+datePublished: 'Yayınlanma tarihi'
+publishdate: 'Yayım Tarihi'
 desc: Açıklama
 created: Oluşturulma
 updated: Güncelleme
 deleted: Silinme
-apply.for.new.journal: Yeni Dergi Başvurusu
-journal.new: Yeni Dergi
-journal.apply: Dergiyi Uygulamaya Koy
-journal.update: Dergi Güncelle
-journal.edit: Dergi Düzenle
+apply.for.new.journal: 'Yeni Dergi Başvurusu'
+journal.new: 'Yeni Dergi'
+journal.apply: 'Dergiyi Uygulamaya Koy'
+journal.update: 'Dergi Güncelle'
+journal.edit: 'Dergi Düzenle'
 update: Güncelle
 cancel: İptal
-journal.list: Dergileri Listele
+journal.list: 'Dergileri Listele'
 journal.my: Dergim
 ISSN: ISSN
 eISSN: eISSN
-titleabbr: Başlık Kısaltması
-titletransliterated: Dönüştürülmüş Başlık
-journal.langs: Dergi Dilleri
-firstpublishdate: İlk Yayım Tarihi
+titleabbr: 'Başlık Kısaltması'
+titletransliterated: 'Dönüştürülmüş Başlık'
+journal.langs: 'Dergi Dilleri'
+firstpublishdate: 'İlk Yayım Tarihi'
 period: Periyot
 published: Yayımda
 image: Resim
-theme.id: Tema ID
+theme.id: 'Tema ID'
 users: Kullanıcılar
-editor.dashboard: Editör Yönetim Ekranı
-journal.detail: Dergi Detayı
+editor.dashboard: 'Editör Yönetim Ekranı'
+journal.detail: 'Dergi Detayı'
 URL: URL
 journalContact:
-  edit: Dergi İletişim Düzenle
-  list: Dergi İletişim Listesi
-  journal.id: Dergi ID
-  contact.id: Dergi İletişim ID
-  contact.type.id: Dergi İletişim Tür ID
-  creation: Dergi İletişim Oluşturma
-  singular: Dergi İletişim
-allow_index: Dizine İzin Ver
-hide_title: Başlığı Gizle
-allow_index.list: Dizin Listesine İzin Ver
-journaltheme.edit: Dergi Teması Düzenle
-journaltheme.list: Dergi Teması Listesi
+  edit: 'Dergi İletişim Düzenle'
+  list: 'Dergi İletişim Listesi'
+  journal.id: 'Dergi ID'
+  contact.id: 'Dergi İletişim ID'
+  contact.type.id: 'Dergi İletişim Tür ID'
+  creation: 'Dergi İletişim Oluşturma'
+  singular: 'Dergi İletişim'
+allow_index: 'Dizine İzin Ver'
+hide_title: 'Başlığı Gizle'
+allow_index.list: 'Dizin Listesine İzin Ver'
+journaltheme.edit: 'Dergi Teması Düzenle'
+journaltheme.list: 'Dergi Teması Listesi'
 theme: Tema
 theme.plural: Temalar
 design: Yerleşim
 design.list: Yerleşim Listesi
 design.new: Yeni Yerleşim
-journaltheme.new: Yeni Dergi Teması
-journaltheme: Dergi Teması
-lang.edit: Dil Düzenle
-lang.list: Dil Listesi
+journaltheme.new: 'Yeni Dergi Teması'
+journaltheme: 'Dergi Teması'
+lang.edit: 'Dil Düzenle'
+lang.list: 'Dil Listesi'
 lang.code: Kod
 lang.name: İsim
-lang.rtl: Sağdan Sola
-lang.new: Yeni Dil
-lang.isTranslated: Çevrildi mi?
+lang.rtl: 'Sağdan Sola'
+lang.new: 'Yeni Dil'
+lang.isTranslated: 'Çevrildi mi?'
 lang: Dil
-lang.plural: Dil
-subject.edit: Konu Düzenle
-subject.list: Konu Listesi
+lang.plural: Diller
+subject.edit: 'Konu Düzenle'
+subject.list: 'Konu Listesi'
 subject: Konu
-subject.new: Yeni Konu
+Subject: Konu
+subject.new: 'Yeni Konu'
+theme.edit: 'Konu Düzenle'
 subject.plural: Konular
-theme.edit: Tema Düzenle
-theme.list: Tema Listesi
+theme.edit: 'Tema Düzenle'
+theme.list: 'Tema Listesi'
 content: İçerik
-basetheme: Orjinal Tema
-theme.new: Yeni Tema
-special.issue: Özel Sayı
-select.article.file: Dosya Seç
-notes_to_editor: Editöre Notlar
+basetheme: 'Orjinal Tema'
+theme.new: 'Yeni Tema'
+special.issue: 'Özel Sayı'
+select.article.file: 'Dosya Seç'
+notes_to_editor: 'Editöre Notlar'
 review: Değerlendirme
-review.form: Değerlendirme Formu
-review.forms: Değerlendirme Formları
-review.form.preview: Formu Önizle
-reviewForms.manage: Değerlendirme formlarını yönet
+review.form: 'Değerlendirme Formu'
+review.forms: 'Değerlendirme Formları'
+review.form.preview: 'Değerlenirme Formu Önizleme'
+reviewForms.manage: 'Değerlendirme formlarını yönet'
 template: Şablon
 templates: Şablonlar
-template.name: Şablon Adı
-template.loadDefault: Varsayılan şablonu yükle
-useThisTemplate: Bu temayı kullan
+template.name: 'Tema Adı'
+template.loadDefault: 'Varsayılan şablonu yükle'
+useThisTemplate: 'Bu Şablonu Kullan'
 reviewResultCodes.0: Ret
-reviewResultCodes.1: Tekrar Yazılmalı
-reviewResultCodes.2: Major Revizyon
-reviewResultCodes.3: Minor Revizyon
+reviewResultCodes.1: 'Tekrar Yazılmalı'
+reviewResultCodes.2: 'Major Revizyon'
+reviewResultCodes.3: 'Minor Revizyon'
 reviewResultCodes.4: Kabul
 page.singular: Sayfa
 page.plural: Sayfalar
-page.last: Son Sayfa
-page.first: İlk Sayfa
-articlefile: Makale dosyası
+page.last: 'Son Sayfa'
+page.first: 'İlk Sayfa'
+articlefile: "Makale dosyası"
 articlefile.id: ID
 articlefile.title: Dosya başlığı
 articlefile.type: Makale dosya türü
 articlefile.version: Dosya sürümü
 articlefile.langcode: Dosya dili
 articlefile.actions: İşlemler
-application.institute: Kurum Başvurusu
-application.institute.list: Kurum Başvuruları
+application.institute: 'Kurum Başvurusu'
+application.institute.list: 'Kurum Başvuruları'
 institute.id: ID
 institute.name: İsim
 institute.country: Ülke
 application.institute.detail: Detay
-institute.merge_as_new_institute: Yeni Kurum Olarak Birleştir
-application.journal: Dergi Başvurusu
-application.journal.list: Dergi Başvuruları
+institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
+application.journal: 'Dergi Başvurusu'
+application.journal.list: 'Dergi Başvuruları'
 application.journal.detail: Detay
-journal.merge_as_new_journal: Yeni Dergi Olarak Kaydet
+journal.google.analytics.id: 'Google Analytics Id'
+tags: Etiketler
+journal.createdAt: Oluşturulma
+journal.user: Kullanıcı
+journal.merge_as_new_journal: 'Yeni Dergi Olarak Kaydet'
 dashboard.application: Başvurular
-journalsindex.create: Yeni Dizin Ekle
-journalsindex.edit: Dizin Düzenle
-journalsindex.list: Dizinleri Listele
+journalsindex.create: 'Yeni Dizin Ekle'
+journalsindex.edit: 'Dizin Düzenle'
+journalsindex.list: 'Dizinleri Listele'
 journalsindex.singular: Dizin
 journalsindex.plural: Dizinler
 journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
-journalsindex.link: Dergi Dizin Linki
-journal.settings.submission.copyrightnotice: Telif Hakkı Bildirimi
-journal.settings.submission.copyrightnotice.desc: "Aşağıdaki \"Telif Hakkı Bildirimi\" makale gönderme formunda ve yayımlanmış her çalışmanın üst verisinde görüntülenecektir. \n\"Telif Hakkı Bildirimi\" metnine dergiler karar verir. \nYeni bir metin oluşturmaktansa <a href=\"http://creativecommons.org/\">CREATIVE COMMONS</a> lisansı kullanmanızı öneririz.<br>\nÖnceden tanımlanmış şablonları yukardaki butonlara tıklayarak kullanabilirsiniz.\n"
-journal.settings.submission.language: Makale Gönderim Dilleri
-journal.settings.submission.language.text: Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.
-journal.settings.submission: Makale Gönderim Ayarları
-journal.settings.submission.abstractTemplate: Makale Gönderimi Öz Şablonu
-journal.settings.abstractTemplate.desc: Önceden tanımlanmış temaları, üstteki butonları kullanarak yükleyebilirsiniz.
-journal.settings.mail: E-posta Ayarları
-journal.settings.page: Sayfa Ayarları
-journal.settings.mail.signature: Email imzası
+journalsindex.link: 'Dergi Dizin Linki'
+journal.settings.submission.copyrightnotice: "Telif Hakkı Bildirimi"
+journal.settings.submission.copyrightnotice.desc: |
+                                                            Aşağıdaki "Telif Hakkı Bildirimi" makale gönderme formunda ve yayımlanmış her çalışmanın üst verisinde görüntülenecektir. 
+                                                            "Telif Hakkı Bildirimi" metnine dergiler karar verir. 
+                                                            Yeni bir metin oluşturmaktansa <a href="http://creativecommons.org/">CREATIVE COMMONS</a> lisansı kullanmanızı öneririz.<br>
+                                                            Önceden tanımlanmış şablonları yukardaki butonlara tıklayarak kullanabilirsiniz.
+journal.settings.submission.language: 'Makale Gönderim Dilleri'
+journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.'
+journal.settings.submission: 'Makale Gönderim Ayarları'
+journal.settings.submission.abstractTemplate: 'Makale Gönderimi Öz Şablonu'
+journal.settings.abstractTemplate.desc: 'Önceden tanımlanmış temaları, üstteki butonları kullanarak yükleyebilirsiniz.'
+journal.settings.mail: 'E-posta Ayarları'
+journal.settings.page: 'Sayfa Ayarları'
+journal.settings.mail.signature: 'Email imzası'
 setup.step: 'Adım #number'
-save.finish: Kaydet ve Bitir
+save.finish: 'Kaydet ve Bitir'
 mailtemplate.journal: Dergi
 mailtemplate.type: Tür
 mailtemplate.subject: Konu
 mailtemplate.language: Dil
 mailtemplate.template: Şablon
-mailtemplate.edit: E-posta Şablonu Düzenle
-mailtemplate.list: E-posta Şablonları
-mailtemplate.new: E-posta Şablonu Oluştur
+mailtemplate.edit: 'E-posta Şablonu Düzenle'
+mailtemplate.list: 'E-posta Şablonları'
+mailtemplate.new: 'E-posta Şablonu Oluştur'
 mailtemplate.languages: Dil
 mailtemplate.title: Başlık
-mailtemplate.default.list: Öntanımlı Şablonlar
+mailtemplate.default.list: 'Öntanımlı Şablonlar'
 mailtemplate.show: Görüntüle
-mailtemplate.default_template: Varsayılan mail şablonu
+mailtemplate.default_template: 'Default Templates'
 submission_checklist: Gönderi Kontrol Listesi
 submission_checklist.create: Yeni liste elemanı
 submission_checklist.detail: Detay
-submission_checklist.visible: Görünür mü?
+submission_checklist.visible: 'Görünür mü?'
 submission_checklist.label: Tanım
 submission_checklist.show: Görüntüle
 journal_licence.singular: Lisanslar
-journal_licence.create: Yeni Lisans
+journal_licence.create: 'Yeni Lisans'
 journal_licence.licence: Lisans
-journal_licence.visible: Görünür mü?
+journal_licence.visible: 'Görünür mü?'
 journal_licence.label: Tanım
 journal_licence.show: Görüntüle
-journalsection.edit: Dergi Bölümü Düzenle
-journalsection.list: Dergi Bölümü Listesi
-journalsection.new: Yeni Dergi Bölümü
-journalsection: Dergi Bölümü
+journalsection.edit: 'Dergi Bölümü Düzenle'
+journalsection.list: 'Dergi Bölümü Listesi'
+journalsection.new: 'Yeni Dergi Bölümü'
+journalsection: 'Dergi Bölümü'
 journalsection.show: Görüntüle
 journalsection.label: Tanım
 journalsection.title: Başlık
-journalsection.allow_index: Dizine İzin Ver
-journalsection.hide_title: Başlığı Gizle
+journalsection.allow_index: 'Dizine İzin Ver'
+journalsection.hide_title: 'Başlığı Gizle'
 journalsection.journal: Dergi
+haveNoJournals: 'Hiç derginiz yok'
+save: Kaydet
 Info: Bilgi
-Article Files: Makale Dosyaları
-Header Image: Üst Görsel
-File: Dosya
+'Article Files': 'Makale Dosyaları'
+'Header Image': 'Üst Resim'
+File: 'Dosya'
 file: Dosya
 empty: Boş
 common: Genel
 detailed: Detay
 tools: Araçlar
-application.journal.apply: Yeni Dergi Gönder
-loggedAs: Giriş yapılan kullanıcı
+application.journal.apply: 'Yeni Dergi Gönder'
+loggedAs: 'Giriş yapılan kullanıcı'
 you: Siz
-controlPanel: Kontrol Paneli
-visualize: Görselleştir
+controlPanel: 'Kontrol Paneli'
+visualize: Görüntüle
 color: Renk
-color.generate: Renk oluştur
-statusText: Durum Başlığı
+color.generate: 'Renk oluştur'
+statusText: 'Durum Başlığı'
 introduction: Tanıtım
-helptext.authors.wont.see: Yazarlar bu alanı <strong>göremeyeceklertir</strong>.
-helptext.authors.will.see: Yazarlar bu alanı <strong>görebileceklerdir</strong>.
-These articlese submitted but waiting to be assigned.: Bu makaleler gönderilmiş ancak atanmayı bekliyor
-accepted: Kabul edildi
+helptext.authors.wont.see: "Yazarlar bu alanı <strong>göremezler</strong>"
+helptext.authors.will.see: "Yazarlar bu alanı <strong>görürler</strong>"
+'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş fakat ilgili kişiye atanmayı bekliyor'
+accepted: Kabul Edildi
 rejected: Reddedildi
 waiting: Bekliyor
 Subjects: Konular
-Keywords: Anahtar Kelimeler
-Abstract: Öz
 Section: Bölüm
 Authors: Yazarlar
 Files: Dosyalar
 update.article.file: Makale dosyasını güncelle
-Review Notes: Değerlendirme notlarıs
-competingOfInterest: Çıkar çatışması
-Previous Review Report: Önceki değerlendirme raporu
-sendmail: __sendmail
-Review Report: Değerlendirme Raporu
-review.form.update: Değerlendirme Formu Güncelle
-b: Geri Gön
+'Review Notes': 'Hakem notları'
+competingOfInterest: TODO Competing of Interest
+'Previous Review Report': 'Önceki Hakem Raporu'
+sendmail: e-Posta gönder
+'Review Report': 'Hakem Raporu'
+review.form.update: Hakem Raporunu Güncelle
+b: Geri
 done: Tamamlandı
-review.form.new: Yeni değerlendirme formu
-review.form.item.new: Yeni form elemanı
-review.form.detail: Form detayı
-review.form.item.update: Form elemanı güncelle
+review.form.new: Yeni Hakem Formu
+review.form.item.new: Yeni Hakem Formu Elemanı
+review.form.detail: Hakem Formu Detayı
+review.form.item.update: Hakem Formu Elemanını Güncelle
 review.form.item.detail: Hakem Formu Elemanı Detayı
-form.item.update: Form Elemanı Güncelle
+form.item.update: Hakem Formunu Güncelle
 mandatory: Zorunlu
-Is this question mandatory?: Bu soru zorunlu mu?
-confidential: Gizli bilgi
-If this question's answer may contain confidential data please check.: Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz
+'Is this question mandatory?': 'Bu soru zorunlu mu?'
+confidential: Gizli
+"If this question's answer may contain confidential data please check.": "Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz"
 fields: Alanlar
-Add each field text as one line: Yeni satırlar halinde giriş yapınız.
-Fieldset: Set
-Questions will be grouped under fieldset names.: Sorular set  adları altında gruplanacaklardır.
-form.items: Form Elemanları
-All your form items for this form will be deleted and default items will be inserted. Are you sure?: Bu formdaki bütün elemanlar silinip varsayılan elemanlar eklenecektir. Emin misiniz?
-form.item.new: Yeni form elemanı
-fieldset: Set
-optional: İsteğe bağlı
-workflow.step.update: İş Akışı Adımı Güncelle
-role.plural: Roller
-ROLE_SUBSCRIPTION_MANAGER: Abonelik Yöneticisi
-ROLE_SECTION_EDITOR: Bölüm Editörü
-ROLE_LAYOUT_EDITOR: Mizanpaj Editörü
-ROLE_COPYEDITOR: Baskı Editörü
-ROLE_PROOFREADER: Proofreader
-ROLE_AUTHOR: Yazar
-ROLE_READER: Okuyucu
-User must send a competing of interest statement.: Kullanıcı çıkar çatışması ifadesi göndermelidir..
-Guidelines for filling a <i>competing of Interest</i> statement.: <i>Çıkar çatışması</i> ifadesi oluşturmak için rehber.
-'[No review form]': '[Değerlendirme formu yok]'
-workflow.step.graph: İş akışı grafiği
-review.result: Değerlendirme Sonucu
-workflow.step.new: İş Akışı Yeni Adım
-Advanced Settings: Gelişmiş Ayarlar
-Template: Şablon
-Can reject the submission completely?: Gönderiyi tamamen reddedebilir mi?
-Competing of interest statement: Çıkar çatışması ifadesi
-first_step: İlk Adım
-last_step: Son Adım
-Your existing workflow design will be overwritten! Are you sure?: Eski iş akışı tasarımınız silinicektir! Bunu yapmak istediğinize emin misiniz?
-user.manager: Kullanıcı Yöneticisi
-event.user.id: Kullanıcı ID
-event.affectedUser.id: Etkilenen Kullanıcı ID
-flush.all.log: Logları Sil
-maillog.edit: E-posta Kaydı Düzenle
-maillog.id: ID
-maillog.mailobject: E-posta Nesnesi
-maillog.recipientemail: Alıcı E-postası
-You've joined to OJS: OJS`ye katıldınız.
-One More Step: Bir Adım Daha
-To protect your privacy, please confirm your email address by clicking the activation link: Gizliliğinizi koruyabilmemiz için lütfen e-posta adresinize gönderdiğimiz etkinleştirme bağlantısına tıklayınız.
-If the clicking the button below doesn't work try copying and pasting this URL to your browser window.: Eğer bağlantı tıklanamaz ise, lütfen kopyalayıp tarayıcınızın adres çubuğuna yapıştırınız.
-Activate Now: Şimdi Etkinleştir
-view this in your browser: Tarayıcınızda görüntüleyin
-You've invited to OJS: Ojs'ye davet edildiniz
-Review invitation from: Değerlendirme davet formu
-Click link below for login to ojs if you are accept invitation: Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız
-Accept: Kabul et
-Decline: Reddet
-Password Change: Şifre Değiştirme
-Information: Bilgilendirme
-Your password has been changed: Şifreniz Değiştirildi
-Password Reset: Şifre Sıfırla
-Your password has been reset: Şifreniz Sıfırlandı
-You are request password reset: Şifre sıfırlama isteği gönderdiniz
-Password Reset Process: Şifre Sıfırlama İşlemi
-Click link below for reset to ojs account password: untranslated
-Reset Now: Şimdi Sıfırla
-user.anonym.create_password: Şifre oluştur
-username.or.email: Kullanıcı Adı veya E-posta
-username: Kullanıcı Adı
-password: Şifre
-forgot.password: Şifremi Unuttum
-orcid.login: ORCID Hesabı İle Giriş Yap
-register: Kayıt
-This will be your unique short name in application: Bu uygulamada sizin kısa adınız olacak
-By registering you accept <a target="_blank" href="%tos%">terms of use</a>.: <a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.
-unconfirmed.user: Etkinleştirilmemiş Kullanıcı
-user.edit: Kullanıcı Düzenle
-Avatar: Avatar
-user.list: Kullanıcı Listesi
-user.show: Kullanıcıyı Göster
-user.id: ID
-user.username: Kullanıcı Adı
-user.email: E-posta
-user.roles: Roller
-user.isActive: Kullanıcı aktivasyonunu tamamladı mı?
-user.apikey: API Anahtarı
-user.journalrole: Dergi Rolleri
+'Add each field text as one line': 'Her alan için bir satır ekleyiniz'
+'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'Bu formdaki bütün elemanlar silinip varsayılan elemanlar eklenecektir. Emin misiniz?'
+form.item.new: Yeni Form Elemanı
+actions: Eylemler
+sure: Emin misiniz?
 articlefile.new: Yeni makale dosyası
 Submissions: Gönderiler
 Drafts: Taslaklar
-restart: Yeniden Başlat
-save.next: Kaydet ve Devam Et
+restart: Yeniden Başlat 
 citation.clear: Referansları Temizle
 (selected): (seçili)
 Guidelines: Rehberler
-Preview Article Before Submit: Gönderi Öncesi Makale Önizleme
+'Preview Article Before Submit': 'Gönderi Öncesi Makale Önizleme'
 author.institution: Yazar kurumu
 author.phone: Yazar telefonu
-Back & Continue Editing: Geri Dön ve Düzenlemeye Devam Et
-This field is required!: Bu alan gereklidir!
+'Back & Continue Editing': 'Geri Dön ve Düzenlemeye Devam Et'
+'This field is required!': 'Bu alan gereklidir!'
 institution: Kurum
-institutions: Kurumlar
 parse: Ayrıştır
-authors: Yazarlar
+authors: "Yazarlar"
 author.edit: Yazar Düzenle
 authors.count: Yazar sayısı
 parent: Üst
+Parent: Üst
 children: Alt
+Children: Alt
+searchon:
+  doaj: "Doaj'da ara"
+  crossref: Crossref'de ara
+  wikipedia: "Wikipedia'da Ara"
+  google: "Google Akademik'de Ara"
+  pubmed: "Pubmed'de ara"
 journalindex.list: Dergi Dizin Listesi
 journal_licence.edit: Dergi Lisans Düzenle
 journal.setup: Dergi Kurulumu
+d: Sil
 add: Ekle
-journal.issn: Dergi ISSN
-journal.eissn: Dergi eISSN
-home: Ana Sayfa
-tags: Etiketler
-more: Daha fazlası
-journal_home: Dergi Ana Sayfa
-announcements: Duyurular
-No Content: Hiç içerik yok
-articles: Makaleler
-search: Ara
-about: Hakkında
-Link Ekle: untranslated
-list: Liste
-search.results: Arama sonuçları
-search.builder: Gelişmiş Arama
+username: Kullanıcı adı
+mailtemplate.default_template: Varsayılan mail şablonu
+dashboard.general.stats: 'Genel İstatistik'
+stats.most.viewed.article: 'En Çok Görüntülenen Makale'
+stats.most.downloaded.article: 'En Çok İndirilen Makale'
+dashboard.admin: 'Yönetim Paneli'
+dashboard.editor: 'Editör Paneli'
+dashboard.objects: Nesneler
+dashboard.operations: Operasyonlar
+total.user: 'Toplam Kullanıcı'
+total.article: 'Toplam Makale'
+total.issue: 'Toplam Sayı'
+article.plural: Makaleler
+contact.plural: İletişim Kaydı 
+lang.plural: Dil
+user.plural: Kullanıcı
+'Any article viewed yet': 'Henüz hiçbir makale gösterilmedi'
+'Any article downloaded yet': 'Henüz hiçbir makale indirilmedi'
+"You don't have any journals!":  Hiç derginiz yok!
+issue.number: Sayı
+year: Yıl
 article: Makale
-landingPage.text: ''
-search.main: Makale, Dergi ve Yazar Ara
-institute.register: Kurum Kaydet
-journal.register: Dergi Başvuru
-featured: Öne Çıkanlar
-featured.desc: Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz.
-apply: Başvur
-Your application saved successfully.: Başvurunuz başarıyla kaydedildi.
-Cover Image: Kapak Görseli
-User: Kullanıcı
-This account is private.: Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.
-You can allow this user to login as you, by clicking this button: Bu butonu tıklayarak bu kullanıcının sizin yerinize giriş yapabilmesine izin verebilirsiniz.
+section: Bölüm
+article.add: Makale Ekle
+article.preview: Makale Önizleme
+order: Sıra
+article.singular: Makale
+cancel: İptal Et
+role.forusers: __role.forusers
+username: Kullanıcı adı
+email: E-posta
+roles: Roller
+actions: Aksiyonlar
+search.results: 'Arama Sonuçları'
+search.result.headline:  "Toplam <strong class=\"text-danger\">%total%</strong> adet sonuç mevcut.\n Arama Kelimesi <strong class=\"text-danger\">%term%</strong>"
+search.builder: 'Gelişmiş Arama'
+pagerfanta.previous : Önceki
+pagerfanta.nex: Sonraki
+
+period: Periyot
+back: 'Listeye geri dön'
+b: Geri
+d: Sil
+remove: Kaldır
+c: 'Yeni Oluştur'
+s: Göster
+e: Düzenle
+add: Ekle
+added: Eklendi
 u: Güncelle
+api: Uygulama Geliştirme Arayüzü
+api_motto: __api_motto
 edit: Düzenle
 cms: İçerik Yönetim Sistemi
 delete: Sil
 copy: Kopyala
-Order by: Sırala
+'Order by': 'Sırala'
 Filters: Filtrele
 collapse: +/-
 Search: Ara
 Reset: Sıfırla
 '%count% Results,': '%count% sonuç,'
 Page: Sayfa
-of %count%: / %count%
-Items per page: Sayfada adet
-Select visible: Görünenleri seç
-Deselect visible: Görünenleri seçme
-Select all: Hepsini seç
-Deselect all: Hiçbirini seç
+'No data': Veri Yok
+'of %count%': '/ %count%'
+'Items per page': 'Sayfada adet'
+'Select visible': 'Görünenleri seç'
+'Deselect visible': 'Görünenleri seçme'
+'Select all': 'Hepsini seç'
+'Deselect all': 'Hiçbirini seç'
 Action: Aksiyon
-Submit Action: Gönderme Aksiyonu
+'Submit Action': 'Gönderme Aksiyonu'
 Export: Dışarı Aktar
-Tweaks: untranslated
-Tweak: untranslated
-Go: untranslated
-You've a message from Ojs: untranslated
-privacy: Gizlilik
-tos: Kullanım Şartları
+404: Bulunamadı
+error: Hata
+list: Liste
+error.oops: 'Olamaz! Bir hata meydana geldi!'
+summary: Özet
+res: 'Yeniden Başlat'
+preview: 'Ön izleme'
+submit: 'Makale Gönder'
+onlineSubmission: 'Online Makale Gönder'
+journal_home: 'Dergi Ana Sayfa'
+topics: Konular
+save.next: 'Kaydet ve Devam Et'
+part: Parça
+url: Bağlantı
+username: 'Kullanıcı Adı'
+book: Kitap 
+conference: Konferans
+article: Makale
+mastersthesis: 'Yüksek Lisans Tezi'
+phdthesis: 'Doktora Tezi'
+proceedings: Bildiri
+techreport: 'Teknik Rapor'
+unpublished: Yayımlanmamış
+inproceedings: 'Bildiri Olarak Yayımlanmış Makale'
+incollection: 'Koleksiyon Hakkında Makale'
+inbook: 'Kitap Bölümü'
+booklet: Kitapçık
+manual: Kılavuz
+misc: Çeşitli/Diğer
+primaly_language: 'Birincil Dil'
+read.lastissue: 'Son Sayıyı Oku'
+ojs: OJS
 wiki: Wiki
 support: Destek
-faq: Sıkça Sorulan Sorular
+toggle_navigation: 'Yönlendiriciyi Aç'
+home: 'Ana Sayfa'
+institutions: Kurumlar
+journals: Dergiler
+register_journal: 'Dergi Kaydet'
+send_article: 'Makale Gönder'
+featured: Öne Çıkanlar
+featured.desc: "Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz."
+landingPage.text: ""
+globalFooter.text :  |
+                       '<p>
+                             DergiPark, dergi yayımlama sürecinin daha <mark>kolay</mark>  ve  <mark>hızlı</mark> gerçekleştirilebilmesine imkan sunan
+                             <ins>Açık Dergi Sistemleri</ins> (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
+                             geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
+                         </p>
+                         <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>'
+search: Ara
+search.main: 'Makale, Dergi ve Yazar Ara'
+search_query: 'Anahtar Sözcükleri Girin'
+login: Giriş
+log_out_from_user: 'Kullanıcı Oturumunu Kapat'
+user_page: 'Kullanıcı Sayfası'
+profile: Profil
+log_out: 'Oturumu Kapat'
+proxy_users: 'Vekil Kullanıcılar'
+login_as: 'Kullanıcının Hesabıyla Giriş Yap'
+list_my_proxys: 'Vekil Kullanıcılarım'
+privacy: Gizlilik
+tos: 'Kullanım Şartları'
+articles: Makaleler
+ujs: UJS
+about: Hakkında
 blog: Blog
+'contact & help': 'İletişim & Yardım'
+faq: 'Sıkça Sorulan Sorular'
 documents: Dökümanlar
 presentations: Sunumlar
 videos: Videolar
 photos: Fotoğraflar
 ulakbim: ULAKBİM
 discovery: Keşif
-toggle_navigation: Yönlendiriciyi Aç
-user_page: Kullanıcı Sayfası
-user.profile.edit: Kullanıcı Profili Düzenle
-proxy_users: Vekil Kullanıcılar
-log_out_from_user: Kullanıcı Oturumunu Kapat
-login_as: Kullanıcının Hesabıyla Giriş Yap
-list_my_proxys: Vekil Kullanıcılarım
-log_out: Oturumu Kapat
-login: Giriş
-journal.join: untranslated
-Articles: untranslated
-Admin: untranslated
-dashboard.general.stats: Genel İstatistik
-stats.most.viewed.article: En Çok Görüntülenen Makale
-stats.most.downloaded.article: En Çok İndirilen Makale
-dashboard.admin: Yönetim Paneli
-dashboard.editor: Editör Paneli
-dashboard.objects: Nesneler
-dashboard.operations: Operasyonlar
-total.user: Toplam Kullanıcı
-total.article: Toplam Makale
-total.issue: Toplam Sayı
-Any article viewed yet: Henüz hiçbir makale gösterilmedi
-Any article downloaded yet: Henüz hiçbir makale indirilmedi
-You don't have any journals!: Hiç derginiz yok!
-issue.number: Sayı
-role.forusers: __role.forusers
-roles: Roller
-actions: İşlemler
-sure: Emin misiniz?
-search.resutls: untranslated
-journal_langs: Dergi dilleri
-d: Sil
-c: Yeni Oluştur
-s: Göster
-e: Düzenle
-added: Eklendi
-404: Bulunamadı
-error: Hata
-error.oops: Olamaz! Bir hata meydana geldi!
-onlineSubmission: Online Makale Gönder
-topics: Konular
-book: Kitap
-conference: Konferans
-mastersthesis: Yüksek Lisans Tezi
-phdthesis: Doktora Tezi
-proceedings: Bildiri
-techreport: Teknik Rapor
-unpublished: Yayımlanmamış
-inproceedings: Bildiri Olarak Yayımlanmış Makale
-incollection: Koleksiyon Hakkında Makale
-inbook: Kitap Bölümü
-booklet: Kitapçık
-manual: Kılavuz
-misc: Çeşitli/Diğer
-register_journal: Dergi Kaydet
-send_article: Makale Gönder
-globalFooter.text: | '<p>       DergiPark, dergi yayımlama sürecinin daha <mark>kolay</mark>  ve  <mark>hızlı</mark> gerçekleştirilebilmesine imkan sunan       <ins>Açık Dergi Sistemleri</ins> (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar       geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.   </p>   <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>'
-search_query: Anahtar Sözcükleri Girin
-profile: Profil
-ujs: UJS
-contact & help: İletişim & Yardım
+announcements: Duyurular
 tubitak: TÜBİTAK
-tubitak_journals: TÜBİTAK Dergileri
-true: Evet
-false: Hayır
-role.singular: Rol
-user.update_profile: Profilimi Güncelle
-user.custom_fields: Özel Alanlar
+tubitak_journals: 'TÜBİTAK Dergileri'
+Yes: Evet
+No: Hayır
+role.plural: Roller
+ROLE_JOURNAL_MANAGER : Dergi Yöneticisi
+ROLE_SUBSCRIPTION_MANAGER : Abonelik Yöneticisi
+ROLE_SECTION_EDITOR : Bölüm Editörü
+ROLE_LAYOUT_EDITOR : Mizanpaj Editörü
+ROLE_COPYEDITOR : Baskı Editörü
+ROLE_PROOFREADER : Proofreader
+ROLE_AUTHOR : Yazar
+ROLE_READER : Okuyucu
+user.update_profile: 'Profilimi Güncelle'
+user.custom_fields: 'Özel Alanlar'
 user.custom_field.label: Tanım
 user.custom_field.value: Değer
-user.custom_field.is_url: Link mi?
+user.custom_field.is_url: 'Link mi?'
 user.custom_field.action: İşlemler
-Add Link: Link Ekle
-user.connected_accounts: Bağlı Hesaplar
-user.connected_accounts.add_orcid_account: ORCID Hesabına Bağlan
-user.connected_accounts.add: Hesap Bağla
+'Add Link': 'Link Ekle'
+user.connected_accounts: 'Bağlı Hesaplar'
+user.connected_accounts.add_orcid_account: 'ORCID Hesabına Bağlan'
+user.connected_accounts.add: 'Hesap Bağla'
 user.connected_accounts.provider: Sağlayıcı
-user.connected_accounts.provider_user_id: Sağlayıcı Kullanıcı Hesabı
+user.connected_accounts.provider_user_id: 'Sağlayıcı Kullanıcı Hesabı'
 user.connected_accounts.action: İşlemler
 user.custom_field.create: Oluştur
-user.forgot_password: Şifreyi Unuttum
-user.reset_password: Şifremi Sıfırla
-user.new_password: Yeni Şifre
-user.new_password_confirm: Yeni Şifre (doğrulama)
-user.private_account: Gizli Hesap
-You are requested password reset: Şifre Sıfırlama Talebiniz Var
-Click link below for reset to OJS account password: OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın
-user.change_password: Şifreyi Değiştir
-user.old_password: Eski Şifre
+Avatar: Avatar
+User: Kullanıcı
+user.forgot_password: 'Şifreyi Unuttum'
+username.or.email: 'Kullanıcı Adı / Eposta'
+user.reset_password: 'Şifremi Sıfırla'
+user.new_password: 'Yeni Şifre'
+user.new_password_confirm: 'Yeni Şifre (doğrulama)'
+user.private_account: 'Gizli Hesap'
+'This account is private.': 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
+'Password Change': 'Şifre Değiştirme'
+Information: Bilgilendirme
+'Your password has been changed': 'Şifreniz Değiştirildi'
+'Password Reset': 'Şifre Sıfırla'
+'Your password has been reset': 'Şifreniz Sıfırlandı'
+'You are request password reset': 'Şifre sıfırlama isteği gönderdiniz'
+'You are requested password reset': 'Şifre Sıfırlama Talebiniz Var'
+'Password Reset Process': 'Şifre Sıfırlama İşlemi'
+'Click link below for reset to OJS account password': 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
+'Reset Now': 'Şimdi Sıfırla'
+forgot.password: 'Şifremi Unuttum'
+institute.register: 'Kurum Kaydet'
+journal.register: 'Dergi Başvuru'
+user.change_password: 'Şifreyi Değiştir'
+user.old_password: 'Eski Şifre'
 journal_index.issues: Sayılar
 journal_index.volume: Cilt
+more: Daha fazlası
 Issue: Sayı
-journalcontact.singular: Dergi İletişim Kaydı
-journalcontact.list: Dergi İletişim Bilgileri
-filter.remove: Filtreyi Kaldır
-pages.management: Sayfa Yönetimi
-pages.edit: Sayfa Düzenle
-pages.all: Tüm sayfalar
-pages.new: Yeni sayfa
-pages.detail: Sayfa detayı
-<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>: ''
+'No Content': 'Hiç içerik yok'
+article.submit: Makale gönder
+journal_langs: Dergi dilleri
+'Add Link': 'Link Ekle'
+filter.remove: "Filtreyi Kaldır"
+name: "İsim"
+email: E-posta
+phone: Telefon
+fax: Fax
+address: Ares
+pages.management: "Sayfa Yönetimi"
+pages.edit: "Sayfa Düzenle"
+pages.all: "Tüm sayfalar"
+actions: "Eylemler"
+pages.new: "Yeni sayfa"
+pages.detail: "Sayfa detayı"
+search.results: "Arama sonuçları"
+"<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>": ""
 user: Kullanıcı
-suggest: untranslated
-application.institution.apply: Kurum Başvurusu Yap
-user.profile: Kullanıcı Profili
-user.lastlogin: Son Giriş
-user.activitylog: Kullanıcı Hareket Kayıtları
+register: Kayıt Ol
+application.institution.apply: "Kurum Başvurusu Yap"
+logo: Logo
+'Header Image': 'Üst Görsel'
+apply: Başvur
+'Your application saved successfully.': 'Başvurunuz başarıyla kaydedildi.'
+'Cover Image': 'Kapak Görseli'
+user.new: Yeni Kullanıcı
+orcid.login: Orcid ile giriş
+drop.proxy.user: Vekil kullanıcıyı sil.
+'You can allow this user to login as you, by clicking this button': 'Bu butonu tıklayarak bu kullanıcının sizin yerinize giriş yapabilmesine izin verebilirsiniz.'
+add.as.proxy: Vekil kullanıcı ata
+user.profile: 'Kullanıcı Profili'
+user.profile.edit: 'Kullanıcı Profili Düzenle'
+user.lastlogin: 'Son Giriş'
+user.activitylog: 'Kullanıcı Hareket Kayıtları'
 event.id: ID
-event.info: Olay Bilgisi
-event.date: Olay Tarihi
+event.info: 'Olay Bilgisi'
+event.date: 'Olay Tarihi'
 event.ip: Olay IP
-eventlog: Olay Kayıtları
-eventlog.list: Olay Kayıt Listesi
-notification.edit: Hatırlatma Düzenle
-notification.list: Hatırlatmaları Listele
+event.user.id: 'Kullanıcı ID'
+event.affectedUser.id: 'Etkilenen Kullanıcı ID'
+actions: İşlemler
+eventlog: 'Olay Kayıtları'
+eventlog.list: 'Olay Kayıt Listesi'
+maillog.edit: 'E-posta Kaydı Düzenle'
+maillog.id: ID
+maillog.mailobject: 'E-posta Nesnesi'
+maillog.recipientemail: 'Alıcı E-postası'
+'You''ve joined to OJS': 'OJS`ye katıldınız.'
+'One More Step': 'Bir Adım Daha'
+'To protect your privacy, please confirm your email address by clicking the activation link': 'Gizliliğinizi koruyabilmemiz için lütfen e-posta adresinize gönderdiğimiz etkinleştirme bağlantısına tıklayınız.'
+'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'Eğer bağlantı tıklanamaz ise, lütfen kopyalayıp tarayıcınızın adres çubuğuna yapıştırınız.'
+'Activate Now': 'Şimdi Etkinleştir'
+'view this in your browser': 'Tarayıcınızda görüntüleyin'
+notification.edit: 'Hatırlatma Düzenle'
+notification.list: 'Hatırlatmaları Listele'
 notification.id: ID
-notification.sender.id: Gönderen ID
-notification.recipient.id: Alıcı ID
-notification.test: Hatırlatma Testi
-notification.isread: Okundu mu?
+notification.sender.id: 'Gönderen ID'
+notification.recipient.id: 'Alıcı ID'
+notification.test: 'Hatırlatma Testi'
+notification.isread: 'Okundu mu?'
 notification.level: Seviye
-notification.creation: Hatırlatıcı Oluşturma
+notification.creation: 'Hatırlatıcı Oluşturma'
 notification.singular: Hatırlatma
-notification.entity.id: Girdi ID
-notification.entity.name: Girdi Adı
+notification.entity.id: 'Girdi ID'
+notification.entity.name: 'Girdi Adı'
 notification.subject: Konu
 notification.verb: Fiil
-proxy.edit: Vekil Düzenle
-proxy.list: Vekil Listesi
+proxy.edit: 'Vekil Düzenle'
+proxy.list: 'Vekil Listesi'
 proxy.id: ID
-proxy.proxy.user.id: Vekil Kullanıcı ID
-proxy.client.user.id: İstemci Kullanıcı ID
-proxy.creation: Vekil Oluşturma
+proxy.proxy.user.id: 'Vekil Kullanıcı ID'
+proxy.client.user.id: 'İstemci Kullanıcı ID'
+proxy.creation: 'Vekil Oluşturma'
 proxy.singular: Vekil
-proxy.clients.list: Vekil Kullanıcıları Listele
-proxy.target.user.username: Hedef Kullanıcı Adı
-proxy.target.user.email: Hedef Kullanıcı E-postası
-proxy.lastlogin: Son Giriş
-proxy.your.proxy.user.list: Sizin Vekil Kullanıcı Listeniz
-proxy.your.client.user.list: Giriş yapabileceğiniz kullanıcılar
-proxy.username: Kullanıcı Adı
+proxy.clients.list: 'Vekil Kullanıcıları Listele'
+proxy.target.user.username: 'Hedef Kullanıcı Adı'
+proxy.target.user.email: 'Hedef Kullanıcı E-postası'
+proxy.lastlogin: 'Son Giriş'
+proxy.your.proxy.user.list: 'Sizin Vekil Kullanıcı Listeniz'
+proxy.your.client.user.list : 'Giriş yapabileceğiniz kullanıcılar'
+proxy.username: 'Kullanıcı Adı'
 proxy.user.email: E-posta
-proxy.end.time: Sonlanma Zamanı
+proxy.end.time: 'Sonlanma Zamanı'
 drop: Düşür
-update.ttl: TTL`i güncelle
-update.end.time: Bitiş tarihini güncelle
+update.ttl: 'TTL`i güncelle'
+update.end.time: 'Bitiş tarihini güncelle'
 Enter number as day count: Gün sayısı olarak bir rakam giriniz
-role.edit: Rol Düzenle
-role.list: Rol Listesi
+cancel: İptal
+role.edit: 'Rol Düzenle'
+role.list: 'Rol Listesi'
 role.id: ID
 role.name: Tanım
 role.role: Rol
-role.issystemrole: Sistem Rolü mü?
-role.new: Yeni Rol
-role.users: Role sahip kullanıcılar
+role.issystemrole: 'Sistem Rolü mü?'
+role.new: 'Yeni Rol'
+role.singular: Rol
+role.users: 'Role sahip kullanıcılar'
 sign.in: Giriş
+username.or.email: 'Kullanıcı Adı veya E-posta'
+username: 'Kullanıcı Adı'
+password: Şifre
 Password: Şifre
 Repeat Password: Şifre Tekrar
+forgot.password: 'Şifremi Unuttum'
+user.new: 'Yeni Kullanıcı'
 user.plural: Kullanıcılar
-uploading: Yükleniyor
+register: Kayıt
+'This will be your unique short name in application': 'Bu uygulamada sizin kısa adınız olacak'
+'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': '<a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.'
+unconfirmed.user: 'Etkinleştirilmemiş Kullanıcı'
+user.manager: 'Kullanıcı Yöneticisi'
+user.edit: 'Kullanıcı Düzenle'
+uploading: Yükleniyor...
+user.list: 'Kullanıcı Listesi'
+user.username: 'Kullanıcı Adı'
+user.email: "E-posta"
 user.status: Durum
+user.roles: Roller
+user.isActive: Kullanıcı aktivasyonunu tamamladı mı?
+Is Active?: Aktif mi?
 block: Engelle
-sure.ban: Bu kullanıcıyı engellemek istediğinize emin misiniz?
-select.image.file: Resim dosyası seç...
+sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
+select.image.file: 'Resim dosyası seç...'
 show: Göster
+user.show: 'Kullanıcıyı Göster'
+user.id: ID
 user.subjects: Konular
-drop.proxy.user: Vekil Kullanıcıyı Düşür
-add.as.proxy: Vekil Olarak Ata
-regenerate.apikey: API Anahtarını Güncelle
-register.yourself.as.author: Yazar Olarak Kaydol
-user.journalrole.edit: Dergi Rolü Düzenle
-user.journalrole.list: Dergi Rolleri Listesi
+drop.proxy.user: 'Vekil Kullanıcıyı Düşür'
+add.as.proxy: 'Vekil Olarak Ata'
+user.apikey: 'API Anahtarı'
+regenerate.apikey: 'API Anahtarını Güncelle'
+register.yourself.as.author: 'Yazar Olarak Kaydol'
+user.journalrole: 'Dergi Rolleri'
+user.journalrole.edit: 'Dergi Rolü Düzenle'
+user.journalrole.list: 'Dergi Rolleri Listesi'
 user.journalrole.id: ID
 user.journalrole.user: Kullanıcı
 user.journalrole.journal: Dergi
 user.journalrole.role: Rol
-user.journalrole.creation: Dergi Rolü Oluşturma
-user.journalrole.singular: Dergi Rolü
-user.journalrole.journals.of.user: Kullanıcının Dergileri
+user.journalrole.creation: 'Dergi Rolü Oluşturma'
+user.journalrole.singular: 'Dergi Rolü'
+user.journalrole.journals.of.user: 'Kullanıcının Dergileri'
 user.journalrole.journal.id: ID
-user.journalrole.journal.name: Dergi Adı
+user.journalrole.journal.name: 'Dergi Adı'
 user.journalrole.myjournals: Dergilerim
-user.journalrole.alljournals: Tüm Dergiler
-user.journalrole.youhavenojournal: Hiç Derginiz Yok
-user.journalrole.usersofjournal: Derginin Kullanıcıları
+user.journalrole.alljournals: 'Tüm Dergiler'
+journal.singular: Dergi
+user.journalrole.youhavenojournal: 'Hiç Derginiz Yok'
+user.journalrole.usersofjournal: 'Derginin Kullanıcıları'
 user.journalrole.user.id: ID
-user.journalrole.user.username: Kullanıcı Adı
+user.journalrole.user.username: 'Kullanıcı Adı'
 user.journalrole.email: E-posta
-user.journalrole.thisjournalhasnouser: Bu derginin hiç kullanıcısı yok!
-orcid:
-  login: untranslated
-user.journalrole.send_email: Kullanıcıya Eposta Gönder
+user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
+user.journalrole.send_email: 'Kullanıcıya Eposta Gönder'
 user.journalrole.mail.template: Şablon
 user.journalrole.mail.to: Alıcı
 user.journalrole.mail.subject: Konu
 user.journalrole.mail.body: Mesaj
 user.journalrole.mail.send: Gönder
-flush:
-  all.log: untranslated
-workflow.template.create: Şablon Oluştur
-workflow.template.addStep: Adım Ekle
-workflow.template.update: Şablonu Güncelle
-workflow.template.updateStep: Adımı Güncelle
+orcid.login: 'ORCID Hesabı İle Giriş Yap'
+flush.all.log: 'Logları Sil'
+'You''ve invited to OJS': "Ojs'ye davet edildiniz"
+'Review invitation from': 'Değerlendirme davet formu'
+'Click link below for login to ojs if you are accept invitation': 'Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız' 
+Accept: Kabul et
+Decline: Reddet
+user.anonym.create_password: 'Şifre oluştur'
+Avatar: Avatar
+useThisTemplate: 'Bu temayı kullan'
+status.inreview: Görüşme
+status.published: Yayımda
+status.rejected: Reddedilmiş
+status.unpublished: Yayımlanmammış
+status.waiting: Beklemede
+workflow.template.create: 'Şablon Oluştur'
+workflow.template.addStep: 'Adım Ekle'
+workflow.template.update: 'Şablonu Güncelle'
+workflow.template.updateStep: 'Adımı Güncelle'
+workflow: İş Akışı 
 articles.waiting: Bekleyen Makaleler
-searchon:
-  google: Google Akademik'de Ara
-  wikipedia: Wikipedia'da Ara
-  pubmed: Pubmed'de ara
-  doaj: Doaj'da ara
-  crossref: Crossref'de ara
+'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş ancak atanmayı bekliyor'
+accepted: Kabul edildi
+rejected: Reddedildi
+waiting: Bekliyor
+Subjects: Konular
+Abstract: Öz
+Section: Bölüm
+Authors: Yazarlar
+author.orcid: Orcid Id
+author.order: Yazar sırası
+author.title: Ünvan
+user.title: Ünvan
+author.initials: Baş harfler
+author.firstname: İlk adı
+author.middlename: İkinci adı
+author.lastname: Soyadı
+email: E-posta
+Files: Dosyalar
+'Review Notes': 'Değerlendirme notlarıs'
+competingOfInterest: Çıkar çatışması
+'Previous Review Report': 'Önceki değerlendirme raporu'
+sendmail: __sendmail
+preview: Önzileme
+'Review Report': 'Değerlendirme Raporu'
+review.forms: Değerlendirme Formları
+review.form.update: Değerlendirme Formu Güncelle
+b: Geri Gön
+review.form: Değerlendirme Formu
 create: Oluştur
+review.form.new:  Yeni değerlendirme formu
+review.form.item.new: Yeni form elemanı
+review.form.preview: Formu Önizle
+review.form.detail: Form detayı
+review.form.item.update: Form elemanı güncelle
+form.item.update: Form Elemanı Güncelle
+mandatory: Zorunlu
+'Is this question mandatory?': 'Bu soru zorunlu mu?'
+confidential: Gizli bilgi
 input_type: Giriş türü
 input_types: Giriş türleri
 input_types.textbox: Çok satır metin alanı
@@ -881,35 +974,93 @@ input_types.checkboxes: Checkboxes
 input_types.radiobutton: Radio Butonu
 input_types.dropdown: Dropdown
 input_types.scale_1_5: scale_1_5
+fields: Alanlar
+'Add each field text as one line': 'Yeni satırlar halinde giriş yapınız.'
+Fieldset: Set
+'Questions will be grouped under fieldset names.': 'Sorular set  adları altında gruplanacaklardır.'
+form.items: Form Elemanları
+details: Detaylar
+form.item.new: Yeni form elemanı
+fieldset: Set
+optional: İsteğe bağlı
 confidentail: Gizli
-workflow.template.edit: İş Akışı Şablonu Düzenle
+workflow.step.update: İş Akışı Adımı Güncelle
+'First Step': 'İlk Adım'
+'Last Step': 'Son Adım'
+'User must send a competing of interest statement.': 'Kullanıcı çıkar çatışması ifadesi göndermelidir..'
+'Guidelines for filling a <i>competing of Interest</i> statement.': '<i>Çıkar çatışması</i> ifadesi oluşturmak için rehber.'
+'[No review form]': '[Değerlendirme formu yok]'
+workflow.step.graph: İş akışı grafiği
+review.result: Değerlendirme Sonucu
+accept: Kabul Et
+nextSteps: Sonraki Adımları
+templates: Şablonlar
+visualize: Görselleştir
+workflow.step.new: İş Akışı Yeni Adım
+helptext.authors.wont.see: "Yazarlar bu alanı <strong>göremeyeceklertir</strong>."
+helptext.authors.will.see: "Yazarlar bu alanı <strong>görebileceklerdir</strong>."
+'Advanced Settings': 'Gelişmiş Ayarlar'
+Template: Şablon
+'Can reject the submission completely?': 'Gönderiyi tamamen reddedebilir mi?'
+'Competing of interest statement': 'Çıkar çatışması ifadesi'
+workflow.template.edit: 'İş Akışı Şablonu Düzenle'
 workflow.step.template.edit: İş Akışı Şablon Düzenle
+step.new: Yeni Adım
 temaplate.name: Şablon Adı
 workflow.step.template.new: İş Akışı Şablonu Yeni Adım
 workflow.templates.create: İş Akışı Şablonu Oluştur
 workflow.template.new: Yeni İş Akışı Şablonu Oluştur
+template.name: Şablon Adı
+first_step: İlk Adım
+last_step: Son Adım
 workflow.template.step.detail: İş Akışı Şablon Adımı Detayı
-workflow.template.details: İş Akışı Şablonu Detayları
+workflow.template.details: İş Akışı Şablonu Detayları 
+'Your existing workflow design will be overwritten! Are you sure?': 'Eski iş akışı tasarımınız silinicektir! Bunu yapmak istediğinize emin misiniz?'
 system.templates: Sistem Şablonları
 created.templates: Oluşturulmuş Şablonlar
 success: Başarılı
-successful.create: Başarıyla oluşturuldu.
-successful.update: Başarıyla güncellendi.
-successful.remove: Başarıyla silindi.
-You should remove author forms by clicking 'Remove' button on left bottom corner of every form.: Her yazar bilgi formalarının sol alt köşesinde bulunan 'Kaldır' butonuna basarak yazar formlarını kaldırmalısınız.
-Remove all author forms!: Tüm yazar bilgi formlarını kaldır
-User Journal Roles: Kullanıcı Dergi Rolleri
-submitRoles: Gönderi yapabilecek roller
+successful.create: 'Başarıyla oluşturuldu.'
+successful.update: 'Başarıyla güncellendi.'
+successful.remove: 'Başarıyla silindi.'
+"You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "Her yazar bilgi formalarının sol alt köşesinde bulunan 'Kaldır' butonuna basarak yazar formlarını kaldırmalısınız."
+"Remove all author forms!": Tüm yazar bilgi formlarını kaldır
+"User Journal Roles": Kullanıcı Dergi Rolleri
+submitRoles : Gönderi yapabilecek roller
+Create: Oluştur
 footer_text: Alt metin
 verified: Onaylı
 submissionDate: Gönderi tarihi
 addressLat: Adres Enlem
 addressLong: Adres Boylam
-Select journal to submit: Makale göndereceğiniz dergiyi seçiniz
-help.preSubmission.header: Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz.
-It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>: Dergi kurulumunuzu tamamlamadığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin.
+"Select journal to submit": Makale göndereceğiniz dergiyi seçiniz
+
+help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
+"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamlamadığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
 Access Denied: Bu sayfayı görebilmek için gerekli izniniz bulunmuyor.
-You don't have submission privilege.: Makale gönderme yetkisine sahip değilsiniz.
+You don't have submission privilege. : Makale gönderme yetkisine sahip değilsiniz.
+Turkish: Türkçe
+English: İngilizce
+German: Almanca
+Polish: Lehçe
+Russian: Rusça
+French: Fransızca
+Arabic: Arapça
+Italian: İtalyanca
+
+
+Full Text: Tam Metin
+Supplementary File: Ek Dosya
+Research Materials: Araştıra Materyalleri
+Research Results: Araştırma Sonuçları
+Transcripts: Suretler 
+Data Analysis: Veri Analizleri
+Data Set: Veri Seti
+Source Text: Kaynak Metin
+Pictures: Görseller
+Tables: Tablolar
+Copyright Transfer Form: Telif Hakkı Devir Formu
+Competing of Interest File: Çıkar Çatışması Dosyası
+
 journal.boards: Dergi Kurulları
 boards: Kurullar
 board: Kurul
@@ -921,8 +1072,9 @@ board.name: Kurul Adı
 board.manager: Kurul Yönetimi
 board.addUser: Kurula Kullanıcı Ekle
 board.hasNoMember: Kurula kayıtlı kullanıcı yok
-You can add member from your journal's users only.: Sadece derginizin kullanıcılarından üye ekleyebilirsiniz.
-You can <a href='%path%'>manage</a> journal's users.: Dergi kullanıcılarınız <a href='%path%'>yönetebilirsiniz</a>.
+"You can add member from your journal's users only.": Sadece derginizin kullanıcılarından üye ekleyebilirsiniz. 
+"You can <a href='%path%'>manage</a> journal's users." : "Dergi kullanıcılarınız <a href='%path%'>yönetebilirsiniz</a>."
+
 notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.
 Hide my account: Hesabımı gizli tut
 This username  is already taken: Bu kullanıcı adı daha önce alınmış
@@ -930,395 +1082,166 @@ This username  is not available.: Bu kullanıcı adı uygun <strong>değildir</s
 This username is available: Bu kullanıcı adı uygun.
 Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...
 submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolmayacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.
-Successfully deleted.: Başarıyla silindi.
+"Successfully deleted.": "Başarıyla silindi."
 Confirm to register yourself as author.: Bu derginin bir yazarı değilsiniz. Kendiniz yazar olarak kaydetmek için onay veriniz.
-Current roles: Mevcut roller
+Current roles : Mevcut roller
 Register yourself as author: Kendinizi yazar olarka kaydedin
-Confirm: Onayla
+Confirm : Onayla
+
+#evetn log translations
 USER_LOGOUT_EVENT: Kullanıcı çıkış olayı
 USER_LOGIN_EVENT: Kullanıcı giriş olayı
-submission.success: Talebiniz gönderildi.
-Default registered user: Kullanıcı
-System Super Administrator: Süper Yönetici
-Editor: Editör
-Reviewer: Hakem
-Journal Manager: Dergi Yöneticisi
-Subscription Manager: Abonelik Yöneticisi
-Section Editor: Bölüm Editörü
-Layout Editor: Şablon Editörü
-Copyeditor: Copyeditor
-Proofreader: Proofreader
-Author: Yazar
-Reader: Okur
-application.basic: Temel
-application.graphics: Grafikler
-application.contact: İletişim
-application.journal.institution: Kurum
-application.journal.new_institution: Kurum Olarak Başvur
-application.journal.new_institution_help: Eğer üstte kurumunuzu bulamadıysanız lütfen aşağıdakı buton vasıtası ile kurum olarak başvurunuz.
-application.journal.edit: Dergi Başvurusunu Düzenle
-application.institution.edit: Kurum Başvurusunu Düzenle
-application.status.waiting: Aktarım Bekleniyor
-application.status.complete: Aktarım Tamamlandı
-application.status.onhold: Beklemede
-application.status.rejected: Reddedildi
-application.status.deleted: Silindi
-journal.title: Başlık
-journal.subtitle: Alt Başlık
-journal.slug: Dergi web erişim yolu ( ojs-adresi/<i>dergi_yolu</i> )
-journal.titleAbbr: Başlık Kısaltması
-journal.titleTransliterated: Dönüştürülmüş Başlık
-journal.domain: Alan Adı
-journal.path: Dergi Yolu
-journal.firstPublishDate: İlk Yayım Tarihi
-journal.period: Sıklık
-journal.url: URL
-journal.country: Ülke
-journal.scope: Kapsam
-journal.mission: Amaç
-journal.languages: Diller
-journal.institution: Kurum
-journal.subjects: Konular
-journal.cover_image: Kapak Resmi
-journal.header_image: Üst Resim
-journal.google.analytics.id: Google Analytics Id
-journal.createdAt: Oluşturulma
-journal.user: Kullanıcı
-journal.address: Derginin posta adresi
-journal.phone: Derginin iletişim telefonu
-journal.email: Derginin e-posta adresi
-journal.editor: Editör
-journal.editor_name: Editör adı
-journal.editor_surname: Editör soyadı
-journal.editor_phone: Editör telefonu
-journal.editor_email: Editör e-postası
-journal.assistant_editor: Asistan Editör
-journal.assistant_editor_name: Asistan editör adı
-journal.assistant_editor_surname: Asistan editör soyadı
-journal.assistant_editor_phone: Asistan editör telefonu
-journal.assistant_editor_email: Asistan editör e-postası
-journal.tech_contact: Teknik Sorumlu
-journal.tech_contact_name: Teknik sorumlu adı
-journal.tech_contact_surname: Teknik sorumlu soyadı
-journal.tech_contact_phone: Teknik sorumlu telefonu
-journal.tech_contact_email: Teknik sorumlu e-postası
-institution.plural: Kurumlar
-institution.id: Kurum Nosu
-institution.name: İsim
-institution.slug: Yol İsmi
-institution.type: Tür
-institution.address: Adres
-institution.lat: Enlem
-institution.lon: Boylam
-institution.email: E-Posta
-institution.phone: Telefon Numarası
-institution.fax: Faks Numarası
-institution.url: URL
-institution.wiki_url: Viki URL'i
-institution.tags: Etiketler
-institution.country: Ülke
-institution.about: Kurum Hakkında
-institution.manager: Kurum Yöneticisi
-institution.new: Yeni Kurum
-institution.edit: Kurumu Düzenle
-institution.detail: Kurum Detayları
-title.admin_dashboard: Yönetim Paneli
-title.announcements: untranslated
-title.api: untranslated
-title.archives: untranslated
-title.article_authors_edit: untranslated
-title.article_authors_new: untranslated
-title.article_authors_show: untranslated
-title.article_authors: untranslated
-title.article_edit: untranslated
-title.article_files_edit: untranslated
-title.article_files_new: untranslated
-title.article_files_show: untranslated
-title.article_files: untranslated
-title.article_new: untranslated
-title.article_show: untranslated
-title.article_type_edit: untranslated
-title.article_type_new: untranslated
-title.article_type_show: untranslated
-title.article_types: untranslated
-title.article: untranslated
-title.articles_assign: untranslated
-title.articles_assigned: untranslated
-title.articles_published: untranslated
-title.articles_rejected: untranslated
-title.articles_uncomplete: untranslated
-title.articles_unpublished: untranslated
-title.articles_waiting: untranslated
-title.articles: untranslated
-title.author_edit: untranslated
-title.author_new: untranslated
-title.author_preview: untranslated
-title.author_show: untranslated
-title.authors: untranslated
-title.block_create: untranslated
-title.block_link_create: untranslated
-title.board_edit: untranslated
-title.board_new: untranslated
-title.board_show: untranslated
-title.boards: untranslated
-title.browse: untranslated
-title.categories: untranslated
-title.citation_edit: untranslated
-title.citation_new: untranslated
-title.citation_setting_edit: untranslated
-title.citation_setting_new: untranslated
-title.citation_setting_show: untranslated
-title.citation_settings: untranslated
-title.citation_show: untranslated
-title.citation: untranslated
-title.citations: untranslated
-title.connected_account_add: untranslated
-title.connected_account: untranslated
-title.contact_edit: untranslated
-title.contact_new: untranslated
-title.contact_show: untranslated
-title.contact_type_edit: untranslated
-title.contact_type_new: untranslated
-title.contact_type_show: untranslated
-title.contact_types: untranslated
-title.contacts: untranslated
-title.create_custom_field: untranslated
-title.custom_field: untranslated
-title.design_edit: untranslated
-title.design_new: untranslated
-title.design_show: untranslated
-title.designs: untranslated
-title.editor_dashboard: untranslated
-title.editor_myjournals: untranslated
-title.event_log_show: untranslated
-title.event_logs: untranslated
-title.file_edit: untranslated
-title.file_new: untranslated
-title.file_show: untranslated
-title.files: untranslated
-title.home: untranslated
-title.institution_application: untranslated
-title.institution_detail: untranslated
-title.institution_edit: untranslated
-title.institution_new: untranslated
-title.institution_show: untranslated
-title.institution_type_edit: untranslated
-title.institution_type_new: untranslated
-title.institution_type_show: untranslated
-title.institution_types: untranslated
-title.institution: untranslated
-title.institutions: untranslated
-title.invitation_preview: untranslated
-title.issue_arrange: untranslated
-title.issue_articles: untranslated
-title.issue_detail: untranslated
-title.issue_edit: untranslated
-title.issue_new: untranslated
-title.issue_show: untranslated
-title.issue_view: untranslated
-title.issues: untranslated
-title.journal_application: untranslated
-title.journal_apply: untranslated
-title.journal_articles: untranslated
-title.journal_authors: untranslated
-title.journal_contact_edit: untranslated
-title.journal_contact_new: untranslated
-title.journal_contact_show: untranslated
-title.journal_contact: untranslated
-title.journal_contacts: untranslated
-title.journal_design_edit: untranslated
-title.journal_design_new: untranslated
-title.journal_design_show: untranslated
-title.journal_designs: untranslated
-title.journal_detail: untranslated
-title.journal_edit: untranslated
-title.journal_index_edit: untranslated
-title.journal_index_new: untranslated
-title.journal_index_show: untranslated
-title.journal_indexes: untranslated
-title.journal_new: untranslated
-title.journal_page_list: untranslated
-title.journal_role_edit: untranslated
-title.journal_role_myjournals: untranslated
-title.journal_role_new: untranslated
-title.journal_role_send_mail: untranslated
-title.journal_role_show_journals: untranslated
-title.journal_role_show_users: untranslated
-title.journal_role_show: untranslated
-title.journal_roles: untranslated
-title.journal_section_edit: untranslated
-title.journal_section_new: untranslated
-title.journal_section_show: untranslated
-title.journal_sections: untranslated
-title.journal_settings_mail: untranslated
-title.journal_settings_submission: untranslated
-title.journal_setup: untranslated
-title.journal_show: untranslated
-title.journal_theme_edit: untranslated
-title.journal_theme_new: untranslated
-title.journal_theme_show: untranslated
-title.journal_themes: untranslated
-title.journal: untranslated
-title.journals_index_edit: untranslated
-title.journals_index_new: untranslated
-title.journals_index_show: untranslated
-title.journals_indexes: untranslated
-title.journals: untranslated
-title.language_edit: untranslated
-title.language_new: untranslated
-title.language_show: untranslated
-title.languages: untranslated
-title.last_articles: untranslated
-title.login: untranslated
-title.mail_log_edit: untranslated
-title.mail_log_new: untranslated
-title.mail_log_show: untranslated
-title.mail_logs: untranslated
-title.manager_dashboard: untranslated
-title.notification_edit: untranslated
-title.notification_new: untranslated
-title.notification_show: untranslated
-title.notifications: untranslated
-title.page_detail: untranslated
-title.page_edit: untranslated
-title.page_new: untranslated
-title.page_show: untranslated
-title.pages: untranslated
-title.password_change: untranslated
-title.password_create: untranslated
-title.password_forgot: untranslated
-title.password_reset: untranslated
-title.people_directory: untranslated
-title.privacy: untranslated
-title.private_account: untranslated
-title.profile_update: untranslated
-title.profile: untranslated
-title.proxies: untranslated
-title.proxy_clients: untranslated
-title.proxy_edit: untranslated
-title.proxy_new: untranslated
-title.proxy_parents: untranslated
-title.proxy_show: untranslated
-title.register: untranslated
-title.review_form_edit: untranslated
-title.review_form_item_edit: untranslated
-title.review_form_item_new: untranslated
-title.review_form_item_show: untranslated
-title.review_form_items: untranslated
-title.review_form_new: untranslated
-title.review_form_preview: untranslated
-title.review_form_show: untranslated
-title.review_forms: untranslated
-title.role_edit: untranslated
-title.role_new: untranslated
-title.role_show: untranslated
-title.role_users: untranslated
-title.roles: untranslated
-title.search_tags: untranslated
-title.search: untranslated
-title.subject_edit: untranslated
-title.subject_new: untranslated
-title.subject_show: untranslated
-title.subjects: untranslated
-title.submission_author_confirm: untranslated
-title.submission_checklist_edit: untranslated
-title.submission_checklist_new: untranslated
-title.submission_checklist_show: untranslated
-title.submission_checklists: untranslated
-title.submission_edit: untranslated
-title.submission_new: untranslated
-title.submission_preview: untranslated
-title.submissions: untranslated
-title.theme_edit: untranslated
-title.theme_new: untranslated
-title.theme_show: untranslated
-title.themes: untranslated
-title.topics: untranslated
-title.tos: untranslated
-title.unconfirmed_user: untranslated
-title.user_author_register: untranslated
-title.user_edit: untranslated
-title.user_new: untranslated
-title.user_show: untranslated
-title.user_welcome: untranslated
-title.users: untranslated
-title.workflow_step_edit: untranslated
-title.workflow_step_graph: untranslated
-title.workflow_step_new: untranslated
-title.workflow_step_show: untranslated
-title.workflow_steps: untranslated
-title.workflow_template_edit: untranslated
-title.workflow_template_new: untranslated
-title.workflow_template_step_edit: untranslated
-title.workflow_template_step_new: untranslated
-title.workflow_template_step_show: untranslated
-title.workflow_template: untranslated
-title.workflow_templates: untranslated
-title.working_step_preview: untranslated
-title.issuefile.new: untranslated
-button.toggle_tree: Ağaç Şeklinde Göster
-tag.search.results: Etiket Arama Sonuçları
-tags.cloud: Etiket Bulutu
-journal.articles: Dergi Makaleleri
-printed: Basıldı mı?
-supplement: Ek mi?
-full_file: Tam Sayı Dosyası
-admin.log.history: Değişiklik Geçmişi
-admin.log.field: değişen alan
-admin.log.oldValue: eski değer
-admin.log.newValue: yeni değer
-search.result.headline: '%term% için toplam %total% sonuç.'
+
+
+#institution types
+Other: Diğer
+University: Üniversite
+Government: Kamu Kurumu
+Association: Dernek
+Foundation: Vakıf
+Hospital: Hastane
+Chamber: Komisyon
+Private: Özel
+submission.success: "Talebiniz gönderildi."
+Default registered user: 'Kullanıcı'
+System Super Administrator: 'Süper Yönetici'
+Editor: 'Editör'
+Reviewer: 'Hakem'
+Journal Manager: 'Dergi Yöneticisi'
+Subscription Manager: 'Abonelik Yöneticisi'
+Section Editor: 'Bölüm Editörü'
+Layout Editor: 'Şablon Editörü'
+Copyeditor: 'Copyeditor'
+Proofreader: 'Proofreader'
+Author: 'Yazar'
+Reader: 'Okur'
+
+# Common Words
+uploading: "Yükleniyor"
+
+# Journal and institution application
+application.basic: "Temel"
+application.graphics: "Grafikler"
+application.contact: "İletişim"
+application.journal.institution: "Kurum"
+application.journal.new_institution: "Kurum Olarak Başvur"
+application.journal.new_institution_help: "Eğer üstte kurumunuzu bulamadıysanız lütfen aşağıdakı buton vasıtası ile kurum olarak başvurunuz."
+application.journal.edit: "Dergi Başvurusunu Düzenle"
+application.institution.edit: "Kurum Başvurusunu Düzenle"
+application.status.waiting: "Aktarım Bekleniyor"
+application.status.complete: "Aktarım Tamamlandı"
+application.status.onhold: "Beklemede"
+application.status.rejected: "Reddedildi"
+application.status.deleted: "Silindi"
+
+# Journal strings
+journal.title: "Başlık"
+journal.subtitle: "Alt Başlık"
+journal.slug: "Dergi web erişim yolu ( ojs-adresi/<i>dergi_yolu</i> )"
+journal.titleAbbr: "Başlık Kısaltması"
+journal.titleTransliterated: "Dönüştürülmüş Başlık"
+journal.domain: "Alan Adı"
+journal.path: "Dergi Yolu"
+journal.firstPublishDate: "İlk Yayım Tarihi"
+journal.period: "Sıklık"
+journal.url: "URL"
+journal.country: "Ülke"
+journal.scope: "Kapsam"
+journal.mission: "Amaç"
+journal.languages: "Diller"
+journal.institution: "Kurum"
+journal.subjects: "Konular"
+journal.cover_image: "Kapak Resmi"
+journal.header_image: "Üst Resim"
+journal.tags: "Etiketler"
+journal.issn: "Dergi ISSN"
+journal.eissn: "Dergi eISSN"
+
+# Journal contact strings
+journal.address: "Derginin posta adresi"
+journal.phone: "Derginin iletişim telefonu"
+journal.email: "Derginin e-posta adresi"
+
+journal.editor: "Editör"
+journal.editor_name: "Editör adı"
+journal.editor_surname: "Editör soyadı"
+journal.editor_phone: "Editör telefonu"
+journal.editor_email: "Editör e-postası"
+
+journal.assistant_editor: "Asistan Editör"
+journal.assistant_editor_name: "Asistan editör adı"
+journal.assistant_editor_surname: "Asistan editör soyadı"
+journal.assistant_editor_phone: "Asistan editör telefonu"
+journal.assistant_editor_email: "Asistan editör e-postası"
+
+journal.tech_contact: "Teknik Sorumlu"
+journal.tech_contact_name: "Teknik sorumlu adı"
+journal.tech_contact_surname: "Teknik sorumlu soyadı"
+journal.tech_contact_phone: "Teknik sorumlu telefonu"
+journal.tech_contact_email: "Teknik sorumlu e-postası"
+
+# Institution strings
+institution.plural: "Kurumlar"
+institution.id: "Kurum Nosu"
+institution.name: "İsim"
+institution.slug: "Yol İsmi"
+institution.type: "Tür"
+institution.address: "Adres"
+institution.lat: "Enlem"
+institution.lon: "Boylam"
+institution.email: "E-Posta"
+institution.phone: "Telefon Numarası"
+institution.fax: "Faks Numarası"
+institution.url: "URL"
+institution.wiki_url: "Viki URL'i"
+institution.tags: "Etiketler"
+institution.country: "Ülke"
+institution.about: "Kurum Hakkında"
+institution.manager: "Kurum Yöneticisi"
+institution.new: "Yeni Kurum"
+institution.edit: "Kurumu Düzenle"
+institution.detail: "Kurum Detayları"
+journal.articles: "Dergi Makaleleri"
+
+button.toggle_tree: "Ağaç Şeklinde Göster"
+
+# Title strings
+title.admin_dashboard: "Yönetim Paneli"
+
+tag.search.results: "Etiket Arama Sonuçları"
+tags.cloud: "Etiket Bulutu"
+printed: "Basıldı mı?"
+supplement: "Ek mi?"
+full_file: "Tam Sayı Dosyası"
+
+admin.log.history: "Değişiklik Geçmişi"
+admin.log.field: "değişen alan"
+admin.log.oldValue: "eski değer"
+admin.log.newValue: "yeni değer"
+
+search.result.headline: "%term% için toplam %total% sonuç."
 search.noresult: İlgili arama terimine ait bir sonuç bulunamadı.
-tagsearch: Etiket Arama
-basicsearch: Basit Arama
-advancedsearch: Gelişmiş Arama
-pagerfanta.previous: Önceki
-pagerfanta.nex: Sonraki
-admin.dashboard.system_settings: Sistem Ayarları
-admin.dashboard.journal_settings: Dergi Ayarları
-admin.dashboard.applications: Başvurular
-issuefile.list: Sayı Dosyaları
-issuefile.langcode: Dil
-issuefile.new: Yeni Sayı Dosyası
-issuefile.title: Başlık
-issuefile.file: Dosya
-issuefile.edit: Sayı Dosyası Güncelle
-Title: Başlık
-Description: Açıklama
-haveNoJourals: Hiç derginiz bulunmuyor.
-author.order: Yazar sırası
-Subject: Konu
-Parent: Üst
-Children: Alt
-No data: Veri Yok
-Is Active?: Aktif mi?
-First Step: İlk Adım
-Last Step: Son Adım
-accept: Kabul Et
-Create: Oluştur
-Turkish: Türkçe
-English: İngilizce
-German: Almanca
-Polish: Lehçe
-Russian: Rusça
-French: Fransızca
-Arabic: Arapça
-Italian: İtalyanca
-Full Text: Tam Metin
-Supplementary File: Ek Dosya
-Research Materials: Araştıra Materyalleri
-Research Results: Araştırma Sonuçları
-Transcripts: Suretler
-Data Analysis: Veri Analizleri
-Data Set: Veri Seti
-Source Text: Kaynak Metin
-Pictures: Görseller
-Tables: Tablolar
-Copyright Transfer Form: Telif Hakkı Devir Formu
-Competing of Interest File: Çıkar Çatışması Dosyası
-journal.tags: Etiketler
-ID: Sıra No
-Name: İsim
-Content: İçerik
-Update: Güncelle
-Is Public?: Görünür mü?
+tagsearch: 'Etiket Arama'
+basicsearch: 'Basit Arama'
+advancedsearch: 'Gelişmiş Arama'
+
+admin.dashboard.system_settings: "Sistem Ayarları"
+admin.dashboard.journal_settings: "Dergi Ayarları"
+admin.dashboard.applications: "Başvurular"
+
+
+# TODO: Use a key-value pair
+'ID': "Sıra No"
+'Name': "İsim"
+'Content': "İçerik"
+'Update': "Güncelle"
+'Is Public?': "Görünür mü?"
+
+
+issuefile.list: "Sayı Dosyaları"
+issuefile.langcode: "Dil"
+issuefile.new: "Yeni Sayı Dosyası"
+issuefile.title: "Başlık"
+issuefile.file:  "Dosya"
+issuefile.edit: "Sayı Dosyası Güncelle"
+issuefile.new: "Yeni Sayı Dosyası"
