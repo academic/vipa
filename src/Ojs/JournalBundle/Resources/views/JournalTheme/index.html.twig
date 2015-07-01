@@ -12,9 +12,12 @@
 {% block body -%}
     <h1>{{ 'title.journal_themes'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
     {% if is_granted('CREATE', selectedJournal(), 'theme') %}
-        {% set create_path = 'ojs_journal_theme_new' %}
+        <a href="{{ path('ojs_journal_theme_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
     {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}

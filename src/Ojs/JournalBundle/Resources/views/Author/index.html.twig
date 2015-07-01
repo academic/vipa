@@ -11,9 +11,12 @@
 {% block body -%}
     <h1>{{ 'title.authors'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Author')) %}
-        {% set create_path = 'ojs_journal_author_new' %}
+        <a href="{{ path('ojs_journal_author_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
     {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}

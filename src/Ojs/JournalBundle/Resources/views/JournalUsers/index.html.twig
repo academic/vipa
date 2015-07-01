@@ -16,10 +16,14 @@
             <h1>{{ "user.journalrole.usersofjournal"|trans }}</h1>
             <hr/>
             {% include '::flashbag.html.twig' %}
+            {% if is_granted('CREATE', selectedJournal(), 'users') %}
+                <a href="{{ path('ojs_journal_role_new') }}" class="btn btn-success">
+                    {{ "c"|trans }}
+                </a>
+            {% endif %}
+
+            <hr>
             {{ grid(grid) }}
-            <a class="button btn btn-primary" href="{{ path('ojs_journal_role_new') }}">
-                {{ "c"|trans }}
-            </a>
         </div>
     </div>
 {% endblock %}

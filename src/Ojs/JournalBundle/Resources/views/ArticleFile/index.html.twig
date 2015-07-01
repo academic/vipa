@@ -11,6 +11,13 @@
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
+    {% if is_granted('CREATE', selectedJournal(), 'article_files') %}
+        <a href="{{ url('ojs_journal_article_file_new', {article: article.id}) }}" class="btn btn-success">
+            {{ "articlefile.new"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="{{ path('ojs_journal_article_show', {id: article.id}) }}">{{ "Info"|trans }}</a></li>
@@ -18,6 +25,4 @@
         <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {article: article.id}) }}">{{ "title.citations"|trans }}</a></li>
     </ul>
     {{ grid(grid) }}
-
-    <a class="btn btn-primary" href="{{ url('ojs_journal_article_file_new', {article: article.id}) }}">{{ "articlefile.new"|trans }}</a>
 {% endblock %}

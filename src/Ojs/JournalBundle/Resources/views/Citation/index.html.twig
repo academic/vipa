@@ -19,9 +19,10 @@
     {% endif %}
     
     <h2>{{ 'title.citations'|trans }}</h2>
+    <a href="{{ path('ojs_journal_citation_new') }}" class="btn btn-success">
+        {{ "c"|trans }}
+    </a>
 
+    <hr>
     {{ grid(grid) }}
-
-    {% set create_path = 'ojs_journal_citation_new' %}
-    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

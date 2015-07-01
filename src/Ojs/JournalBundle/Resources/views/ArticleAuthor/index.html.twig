@@ -11,7 +11,13 @@
 
 {% block body -%}
     <h1>{{ 'title.article_authors'|trans }}</h1>
-    <a class="btn btn-success" href="{{ path('ojs_journal_article_author_new') }}">{{ "articleauthor_new"|trans }}</a>
+    {% if is_granted('CREATE', selectedJournal(), 'article_authors') %}
+        <a href="{{ path('ojs_journal_article_author_new') }}" class="btn btn-success">
+            {{ "articleauthor_new"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
     <table class="table records_list">
         <thead>
         <tr>

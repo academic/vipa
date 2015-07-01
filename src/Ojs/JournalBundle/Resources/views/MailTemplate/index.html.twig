@@ -14,9 +14,12 @@
     {{ grid(db_templates) }}
 
     <h1>{{ 'mailtemplate.default.list'|trans }}</h1>
-    {{ grid(default_templates) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:File')) %}
-        {% set create_path = 'ojs_journal_mail_template_new' %}
+        <a href="{{ path('ojs_journal_mail_template_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
     {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <hr>
+    {{ grid(default_templates) }}
 {% endblock %}
