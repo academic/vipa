@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>ArticleFile edit</h1>
+    <h1>{{ 'title.article_files_edit'|trans }}</h1>
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% include '::flashbag.html.twig' %}
     {{ form_errors(edit_form) }}

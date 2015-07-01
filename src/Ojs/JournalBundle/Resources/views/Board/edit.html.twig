@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "board.edit"|trans }}</h1>
+    <h1>{{ 'title.board_edit'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}

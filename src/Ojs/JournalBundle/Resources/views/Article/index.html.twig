@@ -12,7 +12,7 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     <h2>{{ journal.title }}</h2>
-    <h3>{{ "articles_in_journal"|trans }}</h3>
+    <h3>{{ 'title.articles'|trans }}</h3>
 
     {{ grid(grid) }}
 

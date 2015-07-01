@@ -13,7 +13,7 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{ "user.journalrole.creation"|trans }}</h1>
+            <h1>{{ 'title.journal_role_new'|trans }}</h1>
             {% include '::flashbag.html.twig' %}
             <a href="{{ path('ojs_journal_user_new') }}" class="btn btn-default">{{ 'user.create'|trans }}</a>
             {{ form(form) }}

@@ -13,7 +13,7 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{ "user.journalrole.list"|trans }}</h1>
+            <h1>{{ 'title.journal_roles'|trans }}</h1>
             {% include '::flashbag.html.twig' %}
             {{ grid(grid) }}
             {% if is_granted('CREATE', selectedJournal(), 'userRole') %}

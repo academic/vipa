@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "issue.list"|trans }}</h1>
+    <h1>{{ 'title.issues'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     <hr>

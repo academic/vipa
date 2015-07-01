@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'journalcontact.list'|trans }}
+    <h1>{{ 'title.journal_contacts'|trans }}
         {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
             {% set create_path = 'ojs_journal_journal_contact_new' %}
         {% endif %}
