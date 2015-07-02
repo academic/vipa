@@ -1512,6 +1512,14 @@ class Journal implements Translatable
     }
 
     /**
+     * @return boolean
+     */
+    public function getSetupStatus()
+    {
+        return $this->setup_status;
+    }
+
+    /**
      * @return string
      */
     public function getFooterText()
