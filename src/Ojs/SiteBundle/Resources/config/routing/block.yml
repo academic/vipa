@@ -13,6 +13,8 @@ ojs_block_link_new:
 ojs_block_link_order:
     pattern: /link/order/{block_link}/{order}
     defaults: { _controller: OjsSiteBundle:Block:orderLink }
+    options:
+      expose: true
 ojs_block_link_delete:
     pattern: /link/delete/{object}/{type}/{block_link}
     defaults: { _controller: OjsSiteBundle:Block:deleteLink }
