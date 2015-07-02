@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Document\JournalSetupProgress;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,12 +25,10 @@ class JournalSetupController extends Controller
         if (!$this->isGranted('CREATE', new Journal())) {
             throw new AccessDeniedException();
         }
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $dm = $this->get('doctrine_mongodb')->getManager();
         /** @var JournalSetupProgress $userSetup */
-        $userSetup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneBy(
-            array('userId' => $user->getId())
-        );
+        $userSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUser($user);
 
         //if user have an journal setup progress resume journal setup. Else create an journal setup progress
         if ($userSetup) {
@@ -44,7 +42,6 @@ class JournalSetupController extends Controller
                 $userSetup->getCurrentStep()
             );
         } else {
-            $em = $this->getDoctrine()->getManager();
             $newJournal = new Journal();
             $newJournal->setTitle('');
             $newJournal->setTitleAbbr('');
@@ -53,11 +50,11 @@ class JournalSetupController extends Controller
             $em->flush();
 
             $newSetup = new JournalSetupProgress();
-            $newSetup->setUserId($user->getId());
+            $newSetup->setUser($user);
             $newSetup->setCurrentStep(1);
-            $newSetup->setJournalId($newJournal->getId());
-            $dm->persist($newSetup);
-            $dm->flush();
+            $newSetup->setJournal($newJournal);
+            $em->persist($newSetup);
+            $em->flush();
 
             return $this->redirect(
                 $this->generateUrl(
@@ -77,11 +74,10 @@ class JournalSetupController extends Controller
      */
     public function resumeAction($setupId)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
+        $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
 
         $stepsForms = array();
         //for 6 step create update forms

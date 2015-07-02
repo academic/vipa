@@ -3,10 +3,11 @@
 namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Document\JournalSetupProgress;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step5;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Ojs\JournalBundle\Entity\Journal;
 
 class JournalSetupStep5Controller extends Controller
 {
@@ -18,16 +19,15 @@ class JournalSetupStep5Controller extends Controller
      */
     public function updateAction(Request $request, $setupId)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
+        $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
         $step5Form = $this->createForm(new Step5(), $journal);
         $step5Form->handleRequest($request);
         if ($step5Form->isValid()) {
             $setup->setCurrentStep(6);
-            $dm->flush();
             $em->flush();
 
             return new JsonResponse(
