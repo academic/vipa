@@ -73,6 +73,7 @@ class Step2 extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'validation_groups' => ['setupStep2'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'attr' => [
                     'novalidate' => 'novalidate',

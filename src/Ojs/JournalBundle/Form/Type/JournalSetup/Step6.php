@@ -25,7 +25,7 @@ class Step6 extends AbstractType
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
-                    'required' => false,
+                    'required' => true,
                     'attr' => [
                         'class' => 'validate[required]',
                     ],
@@ -44,6 +44,7 @@ class Step6 extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'validation_groups' => ['setupStep6'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'attr' => [
                     'novalidate' => 'novalidate',
