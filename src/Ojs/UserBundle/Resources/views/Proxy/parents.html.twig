@@ -62,7 +62,7 @@
     {{ parent() }}
     <script>
         function showUpdateTtlForm($action) {
-            $html = '<p>{{"Enter number as day count"|trans}}</p><br><input class="form-control" id="ttl" name="ttl" />';
+            $html = '<p>{{"workflow.remaining_day"|trans}}</p><br><input class="form-control" id="ttl" name="ttl" />';
             BootstrapDialog.show({
                 title: '{{ "update.end.time"|trans }}',
                 message: $html,

@@ -87,7 +87,7 @@
 
                 <div class="form-inline">
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        {% trans %}Is visible to author?{% endtrans %}
+                        {% trans %}workflow.is_visible_author{% endtrans %}
                         <input type="checkbox" name="isVisible" value="1" checked="checked">
                     </label>
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
@@ -103,7 +103,7 @@
                         <input type="checkbox" name="canReview" value="1" checked="checked">
                     </label>
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        {% trans %}Must be assigned to someone?{% endtrans %}
+                        {% trans %}workflow.must_assigned_someone{% endtrans %}
                         <input type="checkbox" name="mustBeAssigned" value="1">
                     </label>
 
@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <label>{{ "review.forms"|trans }}</label>
                     <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
-                        <option>{{ '[No review form]'|trans }}</option>
+                        <option>{{ workflow.no_review|trans }}</option>
                         {% for form in forms %}
                             <option value="{{ form.id }}">{{ form.title }}</option>
                         {% endfor %}

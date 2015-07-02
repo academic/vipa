@@ -62,16 +62,16 @@
                 </tr>
                 {% if step.shouldFileCi %}
                     <tr>
-                        <th>{{ 'Competing of interest statement'|trans }}</th>
+                        <th>{{ workflow.competing_interest|trans }}</th>
                         <td>{{ step.ciText|raw }}</td>
                     </tr>
                 {% endif %}
                 <tr>
-                    <th>{% trans %}Is visible to author?{% endtrans %}</th>
+                    <th>{% trans %}workflow.is_visible_author{% endtrans %}</th>
                     <td>{{ printYesNo(step.isVisible) }}</td>
                 </tr>
                 <tr>
-                    <th>{% trans %}Must be assigned to someone?{% endtrans %}</th>
+                    <th>{% trans %}workflow.must_assigned_someone{% endtrans %}</th>
                     <td>{{ printYesNo(step.mustBeAssigned) }}</td>
                 </tr>
                 <tr>

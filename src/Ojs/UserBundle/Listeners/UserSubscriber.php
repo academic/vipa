@@ -73,7 +73,7 @@ class UserSubscriber implements EventSubscriberInterface
     public function onPasswordChange(UserEvent $event)
     {
         $message = $this->mailer->createMessage()
-            ->setSubject('Password Change')
+            ->setSubject(ojs . change_password)
             ->setFrom($this->systemEmail)
             ->setTo($event->getUser()->getEmail())
             ->setBody(

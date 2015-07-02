@@ -219,7 +219,7 @@
 
     {% if articleStep.reviewNotes %}
         <div>
-            <h2>{{ 'Review Notes'|trans }}</h2>
+            <h2>{{ workflow.review_notes|trans }}</h2>
             {{ articleStep.reviewNotes|raw }}
         </div>
     {% endif %}
@@ -227,7 +227,7 @@
     <hr>
 
     <div class="jumbotron">
-        <h3>{{ 'Review Report'|trans }}</h3>
+        <h3>{{ workflow.review_report|trans }}</h3>
         {{ articleStep.reviewFormResults|raw }}
         <hr>
         <br>
