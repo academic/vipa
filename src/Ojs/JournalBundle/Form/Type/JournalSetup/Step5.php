@@ -18,7 +18,8 @@ class Step5 extends AbstractType
         $builder
             ->add('image', 'hidden')
             ->add('header', 'hidden')
-            ->add('logo', 'hidden');
+            ->add('logo', 'hidden')
+        ;
     }
 
     /**
@@ -28,6 +29,7 @@ class Step5 extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'validation_groups' => ['setupStep5'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'attr' => [
                     'novalidate' => 'novalidate',

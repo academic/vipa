@@ -9,7 +9,15 @@ Ojs\JournalBundle\Entity\Institution:
 
 Ojs\JournalBundle\Entity\Journal:
   properties:
-    title:
-      - NotBlank: ~
-    email:
-      - Email: ~
+      title:
+          - NotBlank: { groups: [setupStep1] }
+      titleAbbr:
+          - NotBlank: { groups: [setupStep1] }
+      subtitle:
+          - NotBlank: { groups: [setupStep1] }
+      issn:
+          - NotBlank: { groups: [setupStep2] }
+      languages:
+          - NotBlank: { groups: [setupStep3] }
+      theme:
+          - NotBlank: { groups: [setupStep6] }

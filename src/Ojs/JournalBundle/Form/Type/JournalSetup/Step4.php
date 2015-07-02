@@ -24,6 +24,7 @@ class Step4 extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'validation_groups' => ['setupStep4'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'attr' => [
                     'novalidate' => 'novalidate',
