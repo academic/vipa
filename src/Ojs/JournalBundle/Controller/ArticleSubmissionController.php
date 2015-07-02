@@ -22,8 +22,8 @@ use Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\UserBundle\Entity\Role;
 use Ojs\JournalBundle\Entity\JournalRole;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -307,7 +307,7 @@ class ArticleSubmissionController extends Controller
             throw $this->createNotFoundException('No submission found');
         }
         if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $data = [
@@ -362,7 +362,7 @@ class ArticleSubmissionController extends Controller
                 throw $this->createNotFoundException('No submission found');
             }
             if (!$this->isGranted('EDIT', $articleSubmission)) {
-                throw $this->createAccessDeniedException("Access Denied");
+                throw $this->createAccessDeniedException("ojs.403");
             }
         }
         $articleSubmission->setUserId($this->getUser()->getId());
@@ -393,7 +393,7 @@ class ArticleSubmissionController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         if ($articleSubmission->getSubmitted()) {
             throw $this->createAccessDeniedException("Access Denied This submission has already been submitted.");
@@ -433,7 +433,7 @@ class ArticleSubmissionController extends Controller
             throw $this->createNotFoundException('Submission not found.');
         }
         if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
@@ -691,7 +691,7 @@ class ArticleSubmissionController extends Controller
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'articles')) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         $getAuthor = null;
         if ($request->get('orcidAuthorId')) {
@@ -714,13 +714,13 @@ class ArticleSubmissionController extends Controller
             throw new NotFoundHttpException();
         }
         if (!$this->isGranted('EDIT', $as)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         $dm->remove($as);
         $dm->flush();
         $session = $this->get('session');
         $flashBag = $session->getFlashBag();
-        $flashBag->add('success', $this->get('translator')->trans("Successfully deleted."));
+        $flashBag->add('success', $this->get('translator')->trans(deleted));
 
         return RedirectResponse::create($this->get('router')->generate('article_submissions_me'));
     }
@@ -763,7 +763,7 @@ class ArticleSubmissionController extends Controller
                 throw $this->createNotFoundException('No submission found');
             }
             if (!$this->isGranted('EDIT', $articleSubmission)) {
-                throw $this->createAccessDeniedException("Access Denied");
+                throw $this->createAccessDeniedException("ojs.403");
             }
         }
         $articleSubmission->setArticleData($articleSubmissionData)
@@ -826,7 +826,7 @@ class ArticleSubmissionController extends Controller
             throw $this->createNotFoundException('No submission found');
         }
         if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         $articleSubmission->setAuthors($authorsData);
         $dm->persist($articleSubmission);
@@ -854,7 +854,7 @@ class ArticleSubmissionController extends Controller
             throw $this->createNotFoundException('No submission found');
         }
         if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         for ($i = 0; $i < count($citeData); $i++) {
             if (strlen($citeData[$i]->raw) < 1) {
@@ -883,7 +883,7 @@ class ArticleSubmissionController extends Controller
             throw $this->createNotFoundException('No submission found');
         }
         if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("Access Denied");
+            throw $this->createAccessDeniedException("ojs.403");
         }
         if (empty($filesData) || !$submissionId || !$articleSubmission) {
             return new Response('Missing argument', 400);

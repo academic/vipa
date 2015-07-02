@@ -56,7 +56,7 @@ class UpdateUserType extends AbstractType
                 'privacy',
                 'checkbox',
                 [
-                    'label' => 'Hide my account',
+                    'label' => 'user.hide_account',
                     'required' => false,
                 ]
             )

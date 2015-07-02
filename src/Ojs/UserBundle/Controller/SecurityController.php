@@ -181,7 +181,7 @@ class SecurityController extends Controller
             /** @var User $user */
             $user = $this->getUser();
             if (!$user) {
-                throw new AccessDeniedException("Access Denied");
+                throw new AccessDeniedException("ojs.403");
             }
             $user->generateApiKey();
             $user->setIsActive(true);
