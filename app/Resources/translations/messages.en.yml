@@ -1132,6 +1132,7 @@ board.name: Board Name
 board.manager: Board Manager
 board.addUser: Add User to Board
 board.hasNoMember: Board has no members
+board.members: Members
 "You can add member from your journal's users only.": You can add member from your journal's users only. 
 "You can <a href='%path%'>manage</a> journal's users." : "You can <a href='%path%'>manage</a> journal's users."
 
