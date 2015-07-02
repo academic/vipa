@@ -201,7 +201,7 @@
         {% for key, value in grid.limits %}
             <option value="{{ key }}"{% if (key == grid.limit) %} selected="selected"{% endif %}>{{ value }}</option>
         {% endfor %}
-    </select> {{ items_per_page|trans }}
+    </select> {{ 'items_per_page'|trans }}
 {% endblock grid_pager_results_perpage %}
 {# --------------------------------------------------- grid_actions ------------------------------------------------- #}
 {% block grid_actions %}
