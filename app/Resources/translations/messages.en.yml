@@ -1,1036 +1,941 @@
-ojs.title: OJS
+'%count% Results,': '%count% Results,'
+Abstract: Abstract
+Accept: Accept
+Action: Action
+Admin: Admin
+Arabic: 'TODO: Arapça'
+Articles: Articles
+Association: Association
+Author: Author
+Authors: Authors
+Avatar: Avatar
+Chamber: Chamber
+'Competing of Interest File': 'TODO: Çıkar Çatışması Dosyası'
+Confirm: Confirm
+Content: 'TODO: İçerik'
+Copyeditor: Copyeditor
+'Copyright Transfer Form': 'TODO: Telif Hakkı Devir Formu'
+Create: 'TODO: Oluştur'
+'Data Analysis': 'TODO: Veri Analizleri'
+'Data Set': 'TODO: Veri Seti'
+Decline: Decline
+'Default registered user': 'Default registered user'
+Description: 'TODO: Açıklama'
+Drafts: Drafts
+Editor: Editor
+English: 'TODO: İngilizce'
+Export: Export
+Fieldset: Fieldset
+File: File
+Files: Files
+Filters: Filters
+Foundation: Foundation
+French: 'TODO: Fransızca'
+'Full Text': 'TODO: Tam Metin'
+German: 'TODO: Almanca'
+Go: Go
+Government: Government
+Guidelines: Guidelines
+Hospital: Hospital
+ID: 'TODO: Sıra No'
+ISSN: ISSN
+Info: Info
+Information: Information
+'Is Active?': 'TODO: Aktif mi?'
+'Is Public?': 'TODO: Görünür mü?'
+Issue: Issue
+Italian: 'TODO: İtalyanca'
+'Journal Manager': 'Journal Manager'
+Keywords: Keywords
+'Last Step': 'TODO: Son Adım'
+'Layout Editor': 'Layout Editor'
+Name: 'TODO: İsim'
+'No': 'No'
+'No data': 'TODO: Veri Yok'
+Other: Other
+Page: Page
+Password: Password
+Pictures: 'TODO: Görseller'
+Polish: 'TODO: Lehçe'
+Private: Private
+Proofreader: Proofreader
+Pubdateseason: 'Pub Date Season'
+ROLE_AUTHOR: Author
+ROLE_COPYEDITOR: Copyeditor
+ROLE_EDITOR: Editor
+ROLE_JOURNAL_MANAGER: 'Journal Manager'
+ROLE_LAYOUT_EDITOR: 'Layout Editor'
+ROLE_PROOFREADER: Proofreader
+ROLE_READER: Reader
+ROLE_SECTION_EDITOR: 'Section Editor'
+ROLE_SUBSCRIPTION_MANAGER: 'Subscription Manager'
+Reader: Reader
+'Repeat Password': 'Repeat Password'
+'Research Materials': 'TODO: Araştıra Materyalleri'
+'Research Results': 'TODO: Araştırma Sonuçları'
+Reset: Reset
+Reviewer: Reviewer
+Russian: 'TODO: Rusça'
+Search: Search
+Section: Section
+'Section Editor': 'Section Editor'
+'Source Text': 'TODO: Kaynak Metin'
+Subject: 'TODO: Konu'
+Subjects: Subjects
+Submissions: Submissions
+'Subscription Manager': 'Subscription Manager'
+'Supplementary File': 'TODO: Ek Dosya'
+Supplementary.File: 'Supplementary File'
+'System Super Administrator': 'System Super Administrator'
+Tables: 'TODO: Tablolar'
+Template: Template
+Title: 'TODO: Başlık'
+Transcripts: 'TODO: Suretler'
+Turkish: 'TODO: Türkçe'
+Tweak: Tweak
+Tweaks: Tweaks
+URL: URL
+USER_LOGIN_EVENT: 'User login event'
+USER_LOGOUT_EVENT: 'User logout event'
+University: University
+Update: 'TODO: Güncelle'
+User: User
+'Yes': 'Yes'
+'You are requested password reset': 'TODO: Şifre Sıfırlama Talebiniz Var'
+about: About
+abstract: Abstract
+abstract.transliterated: 'Abstract Transliterated'
+accept: 'TODO: Kabul Et'
+accepted: Accepted
+actions: Actions
+add: Add
+add.as.proxy: 'Add As Proxy'
+add.language: 'Add Language'
+added: Added
+address: Address
+addressLat: 'Address Latitude'
+addressLong: 'Address Longitude'
+address_lat: Latitude
+address_long: Longitude
+admin: Admin
+admin.dashboard.applications: Applications
+admin.dashboard.journal_settings: 'Journal Settings'
+admin.dashboard.system_settings: 'System Settings'
+admin.log.field: 'Changed field'
+admin.log.history: Changelog
+admin.log.newValue: 'new value'
+admin.log.oldValue: 'old value'
+adress: Address
+advancedsearch: 'Advanced Search'
+allow_index: 'Allow Index'
+allow_index.list: 'Allow Index List'
+announcements: Announcements
 api: 'Application Development Interface'
 api_motto: 'OJS provides a complete restful api for developers.'
-ojs.install.title: 'Ojs Installation'
-ojs.install.confirm: 'Confirm Installation'
-save: Save
-installer.welcome.title: 'Welcome to OJS Web Installer'
-installer.welcome.message: 'Welcome message'
-installer.check_configuration: 'Check Configuration'
-installer.setup: Setup
-installer.congrat: 'Congrat! Installation has completed.'
-ojs.setup: 'OJS Setup'
-installer.menu.home: Home
-installer.menu.check: Check
-installer.menu.configure: Configure
-installer.menu.setup: Setup
-installer.menu.summary: Summary
-installer.gohome: 'Go Home Yanky!'
-installer.update.welcome.title: 'OJS Updater'
-installer.update.welcome.message: 'Database differences will be apply to production database.'
-installer.update: Upgrade
-ojs.updater: 'OJS Updater'
-installer.menu.update: Updater
-installer.menu.update_confirm: Complete
-installer.update.congrat: __installer.update.congrat
-University: University
-Government: Government
-Association: Association
-Foundation: Foundation
-Hospital: Hospital
-Chamber: Chamber
-Private: Private
-Other: Other
-ROLE_JOURNAL_MANAGER: 'Journal Manager'
-ROLE_EDITOR: Editor
-scope: Scope
-mission: Mission
+application.basic: Basic
+application.contact: Contact
+application.graphics: Graphics
+application.institute: 'Institute Suggestion'
+application.institute.detail: Detail
+application.institute.list: 'Institute Suggestions'
+application.institution.apply: 'Apply as Institution'
+application.institution.edit: 'Edit Institution Application'
+application.journal: 'Journal Suggestion'
+application.journal.apply: 'Apply as a new Journal'
+application.journal.detail: Detail
+application.journal.edit: 'Edit Journal Application'
+application.journal.institution: Institution
+application.journal.list: 'Journal Suggestions'
+application.journal.new_institution: 'Apply as an Institution'
+application.journal.new_institution_help: 'If you can''t find your institution above, please apply as an institution using the button below.'
+application.status.complete: 'Import Complete'
+application.status.deleted: Deleted
+application.status.onhold: 'On Hold'
+application.status.rejected: Rejected
+application.status.waiting: 'Waiting for Import'
+apply: Apply
+apply.for.new.journal: 'Apply For New Journal'
 archive: Archive
-citations: Citations
-editorial: Editorial
-sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
-messages: Messages
-settings: Settings
-mail: Mail
-mail.templates: 'Mail Templates'
-journals: Journals
-first_page: 'First Page'
-last_page: 'Last Page'
-workflow: Workflow
-workflows: Workflows
-workflow.templates: 'Workflow Templates'
-workflow.steps: 'Workflow Steps'
-workflow.step.detail: 'Workflow Step Detail'
-firstStep: 'Firt Step'
-lastStep: 'Last Step'
-nextSteps: 'Next Steps'
-nextSteps.possible: 'Possible Next Steps'
-step.new: 'New Step'
-step.edit: 'Edit step'
-canOnlyReply: 'User can not decide next step, can only reply back.'
-workflow.is_visible_author: 'Is visible to author?'
-workflow.must_assigned_someone: 'Must be assigned to someone?'
-'can.edit?': 'Can edit?'
-'can.review?': 'Can review?'
-'can.seeAuthor?': 'Can user see author information?'
-'can.rejectSubmission?': 'Can reject submission?'
-suggestedMaxDays: 'Suggested maximum days count'
-admin: Admin
-dashboard: Dashboard
-title: Title
-titleTransliterated: 'Transliterated Title'
-subtitle: Subtitle
-keywords: Keywords
-description: Description
-subjects: Subjects
-abstract: Abstract
-date.publish: 'Publication Date'
-trans: Transliterated
-email: E-mail
-address: Address
-country: Country
-summary: Summary
-haveNoJournals: 'You have no journals'
-createOne: 'Create new one'
-read.lastissue: 'Read Last Issue'
-read.article: 'Read Article'
-new.link: 'New Link'
-new.block: 'New Block'
-for.readers: 'For Readers'
-for.authors: 'For Authors'
-for.author_editor: 'For Autors and Editors'
-status.waiting: Waiting
-status.published: Published
-status.unpublished: Unpublished
-status.rejected: Rejected
-status.inreview: in-Review
-status.spam: Spam
-status.not_submitted: 'Not Submitted'
-status.editing: Editing
-reports.title: Reports
-reports.journal: 'Journal Reports'
-reports.article: 'Article Reports'
-reports.author: 'Author Reports'
-reports.user: 'User Reports'
-reports.analytics: 'Analytics Reports'
-journal.singular: Journal
-journal.plural: Journals
-journal.about: 'About Journal'
-journal.all: 'All Journals'
-journal.users: 'Journal Users'
-journal.theme: 'Journals Theme'
-journal.design: 'Journal Layout'
-journal.manager: 'Journal Manager'
-citation.citation: Citation
-citation.add: 'Add Citation'
-citation.new: 'New Citation'
-citation.paste_extract: 'Paste and Extract Citation'
-citation.type: 'Citation Type'
-article.fulltext: 'Full Text'
-article.plural: Articles
-article.singular: Article
-article.licensing: Prerequisite
-articles.needAction: 'Articles That Need Action'
-submission.starting: Starting
-article.submit: 'Submit Article'
-article.files: 'Article Files'
+article: Article
+article.add: 'Add Article'
+article.all: 'All Articles'
+article.any_article_viewed: 'Any article viewed yet'
+article.any_downloaded: 'Any article downloaded yet'
 article.authors: 'Article Authors'
 article.citations: 'Article Citations'
-article.metadata: 'Article Meta Data'
-article.titleTransliterated: 'Article Title Latin Transliterated'
-article.title: 'Article Title'
-article.subtitle: 'Article Subtitle'
-article.language.primary: 'Article Primary Language'
-article.language.other: 'Article Other Languages'
-article.add: 'Add Article'
-article.preview: 'Article Preview'
-suppfiles.resins: 'Research Instruments'
-suppfiles.resmat: 'Research Materials'
-suppfiles.resres: 'Research Results'
-suppfiles.data: 'Data Analysis'
-suppfiles.trans: Transcripts
-suppfiles.set: 'Data Set'
-suppfiles.source: 'Source Text'
-suppfiles.supp: 'Supplementary File'
-author.firstname: 'First Name'
-author.middlename: 'Middle Name'
-author.lastname: 'Last Name'
-author.initials: Initials
-author.title: Title
-user.title: Title
-author.plural: Authors
-author.singular: Author
-author.summary: 'Author Summary'
-author.orcid: ORCID
-author.add: 'Add Author'
-user.new: 'New User'
-details: Details
-article.manager: 'Article Manager'
 article.detail: 'Article Detail'
-title.transliterated: 'Title Transliterated'
-author: Author
-journal: Journal
-section: Section
-languages: Languages
-primaly_language: 'Primaly Language'
-status: Status
-doi: DOI
-check: Check
-otherid: 'Other ID'
-journalid: 'Journal ID'
-isAnonymous: 'Is Anonymous'
-Pubdateseason: 'Pub Date Season'
-pubdate: 'Published Date'
-part: Part
-url: URL
-abstract.transliterated: 'Abstract Transliterated'
-citation.editor: 'Citation Editor'
-preview: Preview
-submit: Submit
-back.continue.editing: 'Back & Continue Editing'
-issue: Issue
-issue.plural: Issues
-issue.manager: 'Issue Manager'
-issue.all_articles: 'Here you can find all articles for selected issue'
-articles_in_journal: 'Articles In Journal'
-article.new: 'New Article'
-article_author_edit: 'Article Author Edit'
-article_author_list: 'List Article Author'
-articleauthor_new: 'New Article Author'
-author_order: 'Author Order'
-author_id: 'Author ID'
-article_id: 'Article ID'
-articleauthor_create: 'Article Author Create'
-back: Back
-articleauthor: 'Article Author'
+article.files: 'Article Files'
+article.fulltext: 'Full Text'
+article.header_image: 'Header Image'
+article.language.other: 'Article Other Languages'
+article.language.primary: 'Article Primary Language'
+article.licensing: Prerequisite
+article.manager: 'Article Manager'
+article.metadata: 'Article Meta Data'
 article.mysubmits: 'My Submissions'
-article.all: 'All Articles'
-add.language: 'Add Language'
-res: Res
-select_article_file: 'Select Article File'
-Supplementary.File: 'Supplementary File'
-remove: Remove
-order: Order
-citation: Citation
-select_supplementary_article_file: 'Select Supplementary Article File'
-author.manager: 'Author Manager'
-author.list: 'List Author'
-author.new: 'New Author'
-fullname: 'Full Name'
-initials: Initials
-author.creation: 'Author Creation'
-author.details: 'Author Details'
-linked.user: 'Linked User'
-id: ID
-author.firstnametransliterated: 'Firstname Transliterated'
-author.middlenametransliterated: 'Middle Name Transliterated'
-author.lastnametransliterated: 'Lastname Transliterated'
-adress: Address
-citation.edit: 'Edit Citation'
-citation.list: 'Citation List'
-source: Source
-type: Type
-citation.create: 'Create Citation'
-setting: Setting
-citation.setting.edit: 'Edit Citation Setting'
-citation.setting.list: 'Citation Setting List'
-citation.setting.new: 'New Citation Setting'
-citation.id: 'Citation ID'
-citation.setting: 'Citation Setting'
-value: Value
-contact.manager: 'Contact Manager'
-contact.edit: 'Edit Contact'
-firstname: Firstname
-lastname: Lastname
-phone: Phone
-article.types: 'Article Types'
+article.new: 'New Article'
+article.plural: Articles
+article.preview: 'Article Preview'
+article.singular: Article
+article.submit: 'Submit Article'
+article.subtitle: 'Article Subtitle'
+article.title: 'Article Title'
+article.titleTransliterated: 'Article Title Latin Transliterated'
 article.type: 'Article Type'
 article.type.list: 'Article Type List'
 article.type.new: 'New Article Type'
-contact.new: 'New Contact'
-contact.detail: 'Contact Detail'
-contact: Contact
-contact.plural: Contacts
+article.types: 'Article Types'
+article_author_edit: 'Article Author Edit'
+article_author_list: 'List Article Author'
+article_id: 'Article ID'
+articleauthor: 'Article Author'
+articleauthor_create: 'Article Author Create'
+articleauthor_new: 'New Article Author'
+articlefile: 'Article File'
+articlefile.actions: Actions
+articlefile.id: ID
+articlefile.langcode: 'File language'
+articlefile.new: 'New Article File'
+articlefile.title: 'File title'
+articlefile.type: 'Article file type'
+articlefile.version: 'File version'
+articles: Articles
+articles.needAction: 'Articles That Need Action'
+articles.waiting: 'Waiting Articles'
+articles_in_journal: 'Articles In Journal'
+author: Author
+author.add: 'Add Author'
+author.creation: 'Author Creation'
+author.details: 'Author Details'
+author.edit: 'Edit author'
+author.firstname: 'First Name'
+author.firstnametransliterated: 'Firstname Transliterated'
+author.initials: Initials
+author.institution: 'Author Institution'
+author.lastname: 'Last Name'
+author.lastnametransliterated: 'Lastname Transliterated'
+author.list: 'List Author'
+author.manager: 'Author Manager'
+author.middlename: 'Middle Name'
+author.middlenametransliterated: 'Middle Name Transliterated'
+author.new: 'New Author'
+author.orcid: ORCID
+author.order: 'TODO: Sıra'
+author.phone: Phone
+author.plural: Authors
+author.singular: Author
+author.summary: 'Author Summary'
+author.title: Title
+author_id: 'Author ID'
+author_order: 'Author Order'
+authors: Authors
+authors.count: 'Count of Authors'
+b: Back
+back: Back
+back.continue.editing: 'Back & Continue Editing'
+basetheme: 'Base Theme'
+basicsearch: 'Basic Search'
+block: Block
+blog: Blog
+board: Board
+board.addUser: 'Add User to Board'
+board.can_not_add_user: 'You can add member from your journal''s users only.'
+board.create: 'Create Board'
+board.delete: 'Delete Board'
+board.detail: 'Board Detail'
+board.edit: 'Edit Board'
+board.hasNoMember: 'Board has no members'
+board.manage_users: 'You can <a href=''%path%''>manage</a> journal''s users.'
+board.manager: 'Board Manager'
+board.members: Members
+board.name: 'Board Name'
+boards: Boards
+book: Book
+booklet: Booklet
+button.toggle_tree: 'Toggle Tree'
+c: 'Create New'
+'can.edit?': 'Can edit?'
+'can.rejectSubmission?': 'Can reject submission?'
+'can.review?': 'Can review?'
+'can.seeAuthor?': 'Can user see author information?'
+canOnlyReply: 'User can not decide next step, can only reply back.'
+cancel: Cancel
+check: Check
+children: Children
+citation: Citation
+citation.add: 'Add Citation'
+citation.citation: Citation
+citation.clear: 'Clear Citation'
+citation.create: 'Create Citation'
+citation.edit: 'Edit Citation'
+citation.editor: 'Citation Editor'
+citation.id: 'Citation ID'
+citation.list: 'Citation List'
+citation.new: 'New Citation'
+citation.paste_extract: 'Paste and Extract Citation'
+citation.setting: 'Citation Setting'
+citation.setting.edit: 'Edit Citation Setting'
+citation.setting.list: 'Citation Setting List'
+citation.setting.new: 'New Citation Setting'
+citation.type: 'Citation Type'
+citations: Citations
 city: City
-fax: Fax
+cms: CMS
+collapse: Collapse
+color: Color
+color.generate: 'Generate color'
+common: Common
+competingOfInterest: 'Competing of Interest'
+conference: Conference
+confidentail: Confidentail
+confidential: Confidential
+contact: Contact
+contact.detail: 'Contact Detail'
+contact.edit: 'Edit Contact'
+contact.manager: 'Contact Manager'
+contact.new: 'New Contact'
+contact.plural: Contacts
 contact.type: 'Contact Type'
 contact.type.list: 'List Contact Type'
-name: Name
 contact.type.new: 'New Contact Type'
+contact_and_help: 'Contact & Help'
 contacttype.plural: Contacts
-file.edit: 'Edit File'
-file.list: 'File List'
-file.new: 'New File'
-file.select: 'Select File'
-file.details: 'File Details'
-file.path: 'File Path'
-file.type: 'File Type'
-file.language: 'File Language'
-mimetype: 'Mime Type'
-size: Size
-logo: Logo
-address_lat: Latitude
-address_long: Longitude
-institutiontype: 'Institution Type'
-institutiontype.new: 'New Institution Type'
-institutiontype.edit: 'Edit Institution Type'
-institutiontype.list: 'Institution Type List'
-institutiontype.plural: 'Institution Types'
-issue.new: 'New Issue'
-issue.edit: 'Edit Issue'
-issue.list: 'Issue List'
-issue.add.articles: 'Add article to this issue'
-journal.id: ID
-volume: Volume
-number: Number
+content: Content
+controlPanel: 'Control Panel'
+copy: Copy
+country: Country
 cover: Cover
-special: Special
-year: Year
-datePublished: 'Published date'
-publishdate: 'Publish Date'
-desc: Description
+cover_image: 'Cover Image'
+create: Create
+createOne: 'Create new one'
 created: Created
-updated: Updated
+created.templates: 'Created Templates'
+d: Delete
+dashboard: Dashboard
+dashboard.admin: 'Admin Dashboard'
+dashboard.application: Suggestions
+dashboard.editor: 'Editor Dashboard'
+dashboard.general.stats: 'General Stats'
+dashboard.objects: Objects
+dashboard.operations: Operations
+date.publish: 'Publication Date'
+datePublished: 'Published date'
+delete: Delete
 deleted: Deleted
-apply.for.new.journal: 'Apply For New Journal'
-journal.new: 'New Journal'
-journal.apply: 'Apply Journal'
-journal.update: 'Journal Update'
-journal.edit: 'Journal Edit'
-update: Update
-cancel: Cancel
-journal.list: 'List Journals'
-journal.my: 'My Journal'
-ISSN: ISSN
-eISSN: eISSN
-titleabbr: 'Abbreviated Title'
-titletransliterated: 'Transliterated Title'
-journal.langs: Languages
-firstpublishdate: 'First Publish Date'
-period: Period
-published: Published
-image: Image
-theme.id: 'Theme ID'
-users: Users
-editor.dashboard: 'Editor Dashboard'
-journal.detail: 'Journal Detail'
-URL: URL
-journalContact.edit: 'Edit Journal Contact'
-journalContact.list: 'Journal Contact List'
-journalContact.journal.id: 'Journal ID'
-journalContact.contact.id: 'Contact ID'
-journalContact.contact.type.id: 'Contact Type ID'
-journalContact.creation: 'Journal Contact Creation'
-journalContact.singular: 'Journal Contact'
-allow_index: 'Allow Index'
-hide_title: 'Hide Title'
-allow_index.list: 'Allow Index List'
-journaltheme.edit: 'Edit Journal Theme'
-journaltheme.list: 'Journal Theme List'
-theme: Theme
-theme.plural: Themes
+desc: Description
+description: Description
+deselect_all: 'Deselect all'
+deselect_visible: 'Deselect visible'
 design: Design
 design.list: Designs
 design.new: 'New Design'
-journaltheme.new: 'New Journal Theme'
+detailed: Detailed
+details: Details
+discovery: Discovery
+documents: Documents
+doi: DOI
+done: Tamamlandı
+drop: Drop
+drop.proxy.user: 'Drop Proxy User'
+e: Edit
+eISSN: eISSN
+edit: Edit
+editor.dashboard: 'Editor Dashboard'
+editorial: Editorial
+email: E-mail
+empty: Empty
+error: Error
+error.oops: 'Oops! An Error Occurred'
+event.affectedUser.id: __event.affectedUser.id
+event.date: 'Event Date'
+event.id: 'Event ID'
+event.info: 'Event Info'
+event.ip: 'Event IP'
+event.user.id: __event.user.id
+eventlog: Eventlog
+eventlog.list: 'Event Log List'
+faq: Faq
+fax: Fax
+featured: Featured
+featured.desc: ''
+fields: Fields
+fieldset: Fieldset
+file: File
+file.details: 'File Details'
+file.edit: 'Edit File'
+file.language: 'File Language'
+file.list: 'File List'
+file.new: 'New File'
+file.path: 'File Path'
+file.select: 'Select File'
+file.type: 'File Type'
+filter.remove: 'Remove filter'
+firstStep: 'Firt Step'
+first_page: 'First Page'
+first_step: 'First Step'
+firstname: Firstname
+firstpublishdate: 'First Publish Date'
+flush.all.log: 'Flush all log'
+footer_text: 'Footer text'
+for.author_editor: 'For Autors and Editors'
+for.authors: 'For Authors'
+for.readers: 'For Readers'
+forgot.password: 'Forgot password'
+form.item.new: 'New Form Item'
+form.item.update: 'Form Item Update'
+form.items: 'Form Items'
+full_file: 'Full File'
+fullname: 'Full Name'
+globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of an article to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
+haveNoJourals: 'TODO: Hiç derginiz bulunmuyor.'
+haveNoJournals: 'You have no journals'
+help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
+helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
+helptext.authors.wont.see: 'Authors <strong>won''t</strong> see this field.'
+hide_title: 'Hide Title'
+home: Home
+id: ID
+image: Image
+inbook: In-book
+incollection: In-collection
+initials: Initials
+inproceedings: In-proceedings
+input_type: 'Input type'
+input_types: 'Input Types'
+input_types.checkboxes: checkboxes
+input_types.dropdown: dropdown
+input_types.radiobutton: radiobutton
+input_types.scale_1_5: scale_1_5
+input_types.textarea: textarea
+input_types.textbox: textbox
+installer.check_configuration: 'Check Configuration'
+installer.congrat: 'Congrat! Installation has completed.'
+installer.gohome: 'Go Home Yanky!'
+installer.menu.check: Check
+installer.menu.configure: Configure
+installer.menu.home: Home
+installer.menu.setup: Setup
+installer.menu.summary: Summary
+installer.menu.update: Updater
+installer.menu.update_confirm: Complete
+installer.setup: Setup
+installer.update: Upgrade
+installer.update.congrat: __installer.update.congrat
+installer.update.welcome.message: 'Database differences will be apply to production database.'
+installer.update.welcome.title: 'OJS Updater'
+installer.welcome.message: 'Welcome message'
+installer.welcome.title: 'Welcome to OJS Web Installer'
+institute.country: Country
+institute.id: ID
+institute.merge_as_new_institute: 'Merge As New Institute'
+institute.name: Name
+institute.register: 'Register Institution'
+institution: Institution
+institution.about: 'About Institution'
+institution.address: Address
+institution.country: Country
+institution.detail: 'Institution Detail'
+institution.edit: 'Edit Institution'
+institution.email: Email
+institution.fax: 'Fax Number'
+institution.id: 'Institution ID'
+institution.lat: Latitude
+institution.lon: Longitude
+institution.manager: 'Institution Manager'
+institution.name: Name
+institution.new: 'New Institution'
+institution.phone: 'Phone Number'
+institution.plural: Institutions
+institution.slug: 'Slug Name'
+institution.tags: Tags
+institution.type: Type
+institution.url: URL
+institution.wiki_url: 'Wiki URL'
+institutions: Institutions
+institutiontype: 'Institution Type'
+institutiontype.edit: 'Edit Institution Type'
+institutiontype.list: 'Institution Type List'
+institutiontype.new: 'New Institution Type'
+institutiontype.plural: 'Institution Types'
+introduction: Introduction
+isAnonymous: 'Is Anonymous'
+issue: Issue
+issue.add.articles: 'Add article to this issue'
+issue.all_articles: 'Here you can find all articles for selected issue'
+issue.edit: 'Edit Issue'
+issue.list: 'Issue List'
+issue.manager: 'Issue Manager'
+issue.new: 'New Issue'
+issue.number: Number
+issue.plural: Issues
+issuefile.edit: 'Edit Issue File'
+issuefile.file: File
+issuefile.langcode: Language
+issuefile.list: 'Issue Files'
+issuefile.new: 'New Issue File'
+issuefile.title: Title
+items_per_page: 'Items per page'
+journal: Journal
+journal.about: 'About Journal'
+journal.address: 'Journal''s postal address'
+journal.all: 'All Journals'
+journal.any_have: 'You don''t have any journals!'
+journal.application_success_message: 'Your application saved successfully.'
+journal.apply: 'Apply Journal'
+journal.articles: 'Journal Articles'
+journal.assistant_editor: 'Assistant Editor'
+journal.assistant_editor_email: 'Assistant editor e-mail'
+journal.assistant_editor_name: 'Assistant editor name'
+journal.assistant_editor_phone: 'Assistant editor phone'
+journal.assistant_editor_surname: 'Assistant editor surname'
+journal.boards: 'Journal Boards'
+journal.country: Country
+journal.cover_image: 'Cover Image'
+journal.createdAt: 'Created at'
+journal.design: 'Journal Layout'
+journal.detail: 'Journal Detail'
+journal.domain: Domain
+journal.edit: 'Journal Edit'
+journal.editor: Editor
+journal.editor_email: 'Editor e-mail'
+journal.editor_name: 'Editor name'
+journal.editor_phone: 'Editor phone'
+journal.editor_surname: 'Editor surname'
+journal.eissn: 'Journal eISSN'
+journal.email: 'Journal''s contact email'
+journal.firstPublishDate: 'First Publish Date'
+journal.google.analytics.id: 'Google Analytics ID'
+journal.header_image: 'Header Image'
+journal.id: ID
+journal.institution: Institution
+journal.issn: 'Journal ISSN'
+journal.join: 'Join Journal'
+journal.langs: Languages
+journal.languages: Languages
+journal.list: 'List Journals'
+journal.manager: 'Journal Manager'
+journal.merge_as_new_journal: 'Merge As New Journal'
+journal.mission: Mission
+journal.my: 'My Journal'
+journal.new: 'New Journal'
+journal.path: Path
+journal.period: Period
+journal.phone: 'Journal''s contact phone'
+journal.plural: Journals
+journal.register: 'Journal Register'
+journal.scope: Scope
+journal.settings.abstractTemplate.desc: 'You can load  predefined templates by clicking buttons listed above.'
+journal.settings.mail: 'Mail Settings'
+journal.settings.mail.signature: 'Email signature'
+journal.settings.page: 'Page Settings'
+journal.settings.submission: 'Submission Settings'
+journal.settings.submission.abstractTemplate: 'Submission Abstract Template'
+journal.settings.submission.copyrightnotice: 'Copyright Notice'
+journal.settings.submission.copyrightnotice.desc: "\"The Copyright Notice\" will appear in submission form and each published item's metadata. \nWhile it is up to the journal manager to determine the copyright agreement with authors, \nwe recommend to use of the <a href=\"http://creativecommons.org/\">CREATIVE COMMONS</a> license.<br>\nYou can use one of the default templates by clicking the buttons above.\n"
+journal.settings.submission.language: 'Submission Language'
+journal.settings.submission.language.text: 'Select mandatory languages for article submitting'
+journal.setup: 'Journal Setup'
+journal.singular: Journal
+journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
+journal.subjects: Subjects
+journal.subtitle: Subtitle
+journal.tags: 'TODO: Etiketler'
+journal.tech_contact: 'Tech Contact'
+journal.tech_contact_email: 'Tech contact e-mail'
+journal.tech_contact_name: 'Tech contact name'
+journal.tech_contact_phone: 'Tech contact phone'
+journal.tech_contact_surname: 'Tech contact surname'
+journal.theme: 'Journals Theme'
+journal.title: Title
+journal.titleAbbr: 'Abbreviated Title'
+journal.titleTransliterated: 'Transliterated Title'
+journal.update: 'Journal Update'
+journal.url: URL
+journal.user: User
+journal.users: 'Journal Users'
+journalContact.contact.id: 'Contact ID'
+journalContact.contact.type.id: 'Contact Type ID'
+journalContact.creation: 'Journal Contact Creation'
+journalContact.edit: 'Edit Journal Contact'
+journalContact.journal.id: 'Journal ID'
+journalContact.list: 'Journal Contact List'
+journalContact.singular: 'Journal Contact'
+journal_home: 'Journal Home Page'
+journal_index.issues: Issues
+journal_index.volume: Volume
+journal_langs: 'Journal Languages'
+journal_licence.create: 'New Licence'
+journal_licence.edit: 'Edit Journal Licence'
+journal_licence.label: Label
+journal_licence.licence: Licence
+journal_licence.show: Show
+journal_licence.singular: Licences
+journal_licence.visible: 'Is Visible?'
+journalcontact.list: 'Journal Contact List'
+journalcontact.singular: 'Journal Contact'
+journalid: 'Journal ID'
+journalindex.list: 'Journal Index List'
+journals: Journals
+journalsection: 'Journal Section'
+journalsection.allow_index: 'Allow Index'
+journalsection.edit: 'Edit Journal Section'
+journalsection.hide_title: 'Hide Title'
+journalsection.journal: Journal
+journalsection.label: Label
+journalsection.list: 'Journal Section List'
+journalsection.new: 'New Journal Section'
+journalsection.show: Show
+journalsection.title: Title
+journalsindex.create: 'JournalsIndex Create'
+journalsindex.edit: 'JournalsIndex Edit'
+journalsindex.journal: Journal
+journalsindex.journalindex: 'Journal Index'
+journalsindex.link: 'Link for Journal on Index'
+journalsindex.list: 'JournalsIndex List'
+journalsindex.plural: Indexes
+journalsindex.singular: Index
 journaltheme: 'Journal Theme'
-lang.edit: 'Language Edit'
-lang.list: 'Language List'
-lang.code: 'Language Code'
-lang.name: 'Language Name'
-lang.rtl: RTL
-lang.new: 'New Language'
-lang.isTranslated: 'Is translated?'
+journaltheme.edit: 'Edit Journal Theme'
+journaltheme.list: 'Journal Theme List'
+journaltheme.new: 'New Journal Theme'
+keywords: Keywords
+landingPage.text: ''
 lang: Language
+lang.code: 'Language Code'
+lang.edit: 'Language Edit'
+lang.isTranslated: 'Is translated?'
+lang.list: 'Language List'
+lang.name: 'Language Name'
+lang.new: 'New Language'
 lang.plural: Languages
-subject.edit: 'Edit Subject'
-subject.list: 'Subject List'
-subject: Subject
-subject.new: 'New Subject'
-subject.plural: Subjects
-theme.edit: 'Edit Theme'
-theme.list: 'Theme List'
-content: Content
-basetheme: 'Base Theme'
-theme.new: 'New Theme'
-special.issue: 'Special Issue'
-select.article.file: 'Select File'
+lang.rtl: RTL
+languages: Languages
+lastStep: 'Last Step'
+last_page: 'Last Page'
+last_step: 'Last Step'
+lastname: Lastname
+linked.user: 'Linked User'
+list: List
+list_my_proxys: 'List my proxies'
+log_out: Logout
+log_out_from_user: 'Logout from user'
+loggedAs: 'Logged in as'
+login: Login
+login_as: 'Login as'
+logo: Logo
+mail: Mail
+mail.templates: 'Mail Templates'
+maillog.edit: 'Edit Mail Log'
+maillog.id: 'Log id'
+maillog.mailobject: 'Mail Object'
+maillog.recipientemail: 'Recipient Email'
+mailtemplate.default.list: 'Default Templates'
+mailtemplate.default_template: 'Default Templates'
+mailtemplate.edit: 'Edit Mail Template'
+mailtemplate.journal: Journal
+mailtemplate.language: Language
+mailtemplate.languages: Language
+mailtemplate.list: 'Mail Templates'
+mailtemplate.new: 'Create Mail Template'
+mailtemplate.show: Show
+mailtemplate.subject: Subject
+mailtemplate.template: Template
+mailtemplate.title: Title
+mailtemplate.type: Type
+mandatory: Mandatory
+manual: Manual
+mastersthesis: 'Master Thesis'
+messages: Messages
+mimetype: 'Mime Type'
+misc: Miscellaneous
+mission: Mission
+more: More
+name: Name
+new.block: 'New Block'
+new.link: 'New Link'
+nextSteps: 'Next Steps'
+nextSteps.possible: 'Possible Next Steps'
+not.finished: 'Not Finished'
+notFound: 'The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.'
 notes_to_editor: 'Notes to Editor'
+notification.creation: 'Notification Creation'
+notification.edit: 'Edit Notification'
+notification.entity.id: 'Entity ID'
+notification.entity.name: 'Entity Name'
+notification.id: ID
+notification.isread: 'Is Read?'
+notification.level: Level
+notification.list: 'List Notifications'
+notification.recipient.id: 'Recipient ID'
+notification.sender.id: 'Sender ID'
+notification.singular: Notification
+notification.subject: Subject
+notification.test: 'Notification Test'
+notification.verb: Verb
+number: Number
+'of %count%': 'of %count%'
+ojs: Ojs
+ojs.403: 'You don''t have permission to view this page.'
+ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking the activation link'
+ojs.activate_now: 'Activate Now'
+ojs.add_link: 'Link Ekle'
+ojs.any_content: 'No Content'
+ojs.back_and_edit: 'Back & Continue Editing'
+ojs.change_password: 'Password Change'
+ojs.changed_password: 'Your password has been changed'
+ojs.click_to_Review: 'Click link below for login to ojs if you are accept invitation'
+ojs.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
+ojs.have_message: 'You have a message from Ojs'
+ojs.install.confirm: 'Confirm Installation'
+ojs.install.title: 'Ojs Installation'
+ojs.install.title.confirm: 'TODO: Ojs kurulumu gerçekleşecek. Onaylıyor musunuz?'
+ojs.invited: 'You have invited to OJS'
+ojs.invited_to_review: 'Review invitation from'
+ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
+ojs.one_more_step: 'One More Step'
+ojs.password_reset: 'Password Reset'
+ojs.password_reset_link: 'Click link below for reset to ojs account password'
+ojs.password_reset_now: 'Reset Now'
+ojs.password_reset_process: 'Password Reset Process'
+ojs.password_reset_request: 'You are request password reset'
+ojs.password_reseted: 'Your password has been reset'
+ojs.preview_article: 'Preview Article Before Submit'
+ojs.required_field: 'This field is required!'
+ojs.selected: (selected)
+ojs.setup: 'OJS Setup'
+ojs.setup_not_completed: 'It seems that you have not finished  <a href=''%setup_url%''>Journal Setup</a>'
+ojs.title: OJS
+ojs.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
+ojs.uniq_name: 'This will be your unique short name in application'
+ojs.updater: 'OJS Updater'
+ojs.view_in_browser: 'view this in your browser'
+ojs.welcome_msg: 'You have joined to OJS'
+onlineSubmission: 'Online Submission'
+optional: Optional
+orcid.login: 'Orcid login'
+order: Order
+order_by: 'Order by'
+otherid: 'Other ID'
+page.first: 'First Page'
+page.last: 'Last Page'
+page.plural: Pages
+page.singular: Page
+pagerfanta.nex: Next
+pagerfanta.previous: Previous
+pages.all: 'All pages'
+pages.detail: 'Page detail'
+pages.edit: 'Edit page'
+pages.management: 'Page management'
+pages.new: 'New page'
+parent: Parent
+parse: Parse
+part: Part
+password: Password
+period: Period
+phdthesis: 'Phd Thesis'
+phone: Phone
+photos: Photos
+presentations: Presentations
+preview: Preview
+primaly_language: 'Primaly Language'
+printed: 'Is Printed?'
+privacy: Privacy
+proceedings: Proceedings
+profile: Profile
+proxy.client.user.id: 'Client User ID'
+proxy.clients.list: 'List Proxy Clients'
+proxy.creation: 'Proxy Creation'
+proxy.edit: 'Edit Proxy'
+proxy.end.time: 'End Time'
+proxy.id: ID
+proxy.lastlogin: 'Last Login'
+proxy.list: 'Proxy List'
+proxy.proxy.user.id: 'Proxy User ID'
+proxy.singular: Proxy
+proxy.target.user.email: 'Target User Email'
+proxy.target.user.username: 'Target Username'
+proxy.user.email: Email
+proxy.username: Username
+proxy.your.client.user.list: 'Users that you can login as'
+proxy.your.proxy.user.list: 'Your Proxy User List'
+proxy_users: 'Proxy Users'
+pubdate: 'Published Date'
+publishdate: 'Publish Date'
+published: Published
+read.article: 'Read Article'
+read.lastissue: 'Read Last Issue'
+regenerate.apikey: 'Regenerate APIKEY'
+register: Register
+register.yourself.as.author: 'Register Yourself As Author'
+register_journal: 'Register Journal'
+rejected: Rejected
+remove: Remove
+reports.analytics: 'Analytics Reports'
+reports.article: 'Article Reports'
+reports.author: 'Author Reports'
+reports.journal: 'Journal Reports'
+reports.title: Reports
+reports.user: 'User Reports'
+res: Res
+restart: Restart
 review: Review
 review.form: 'Review Form'
-review.forms: 'Review Forms'
+review.form.detail: 'Review Form Detail'
+review.form.item.detail: 'Review Form Item Detail'
+review.form.item.new: 'Review Form New Item'
+review.form.item.update: 'Review Form Item Upate'
+review.form.new: 'New Review Form'
 review.form.preview: 'Review Form Preview'
+review.form.update: 'Update Review Form'
+review.forms: 'Review Forms'
+review.result: 'Review Result'
 reviewForms.manage: 'Manage review forms'
-template: Template
-templates: Templates
-template.name: 'Template Name'
-template.loadDefault: 'Load default templates'
-useThisTemplate: 'Use this template'
 reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'
 reviewResultCodes.2: 'Major Revision'
 reviewResultCodes.3: 'Minor Revision'
 reviewResultCodes.4: Accept
-page.singular: Page
-page.plural: Pages
-page.last: 'Last Page'
-page.first: 'First Page'
-articlefile: 'Article File'
-articlefile.id: ID
-articlefile.title: 'File title'
-articlefile.type: 'Article file type'
-articlefile.version: 'File version'
-articlefile.langcode: 'File language'
-articlefile.actions: Actions
-application.institute: 'Institute Suggestion'
-application.institute.list: 'Institute Suggestions'
-institute.id: ID
-institute.name: Name
-institute.country: Country
-application.institute.detail: Detail
-institute.merge_as_new_institute: 'Merge As New Institute'
-application.journal: 'Journal Suggestion'
-application.journal.list: 'Journal Suggestions'
-application.journal.detail: Detail
-journal.merge_as_new_journal: 'Merge As New Journal'
-dashboard.application: Suggestions
-journalsindex.create: 'JournalsIndex Create'
-journalsindex.edit: 'JournalsIndex Edit'
-journalsindex.list: 'JournalsIndex List'
-journalsindex.singular: Index
-journalsindex.plural: Indexes
-journalsindex.journalindex: 'Journal Index'
-journalsindex.journal: Journal
-journalsindex.link: 'Link for Journal on Index'
-journal.settings.submission.copyrightnotice: 'Copyright Notice'
-journal.settings.submission.copyrightnotice.desc: "\"The Copyright Notice\" will appear in submission form and each published item's metadata. \nWhile it is up to the journal manager to determine the copyright agreement with authors, \nwe recommend to use of the <a href=\"http://creativecommons.org/\">CREATIVE COMMONS</a> license.<br>\nYou can use one of the default templates by clicking the buttons above.\n"
-journal.settings.submission.language: 'Submission Language'
-journal.settings.submission.language.text: 'Select mandatory languages for article submitting'
-journal.settings.submission: 'Submission Settings'
-journal.settings.submission.abstractTemplate: 'Submission Abstract Template'
-journal.settings.abstractTemplate.desc: 'You can load  predefined templates by clicking buttons listed above.'
-journal.settings.mail: 'Mail Settings'
-journal.settings.page: 'Page Settings'
-journal.settings.mail.signature: 'Email signature'
-setup.step: 'Step #number'
+role.edit: 'Edit Role'
+role.forusers: __role.forusers
+role.id: ID
+role.issystemrole: 'Is System Role?'
+role.list: 'Role List'
+role.name: Name
+role.new: 'New Role'
+role.plural: Roles
+role.role: Role
+role.singular: Role
+role.users: 'Role Users'
+roles: Roles
+s: Show
+save: Save
 save.finish: 'Save & Finish'
-mailtemplate.journal: Journal
-mailtemplate.type: Type
-mailtemplate.subject: Subject
-mailtemplate.language: Language
-mailtemplate.template: Template
-mailtemplate.edit: 'Edit Mail Template'
-mailtemplate.list: 'Mail Templates'
-mailtemplate.new: 'Create Mail Template'
-mailtemplate.languages: Language
-mailtemplate.title: Title
-mailtemplate.default.list: 'Default Templates'
-mailtemplate.show: Show
-mailtemplate.default_template: 'Default Templates'
+save.next: 'Save & Next'
+scope: Scope
+search: Search
+search.builder: 'Advanced Search Builder'
+search.main: 'Search Journal, Article and Author'
+search.noresult: 'We couldn''t find any results matching.'
+search.result.headline: 'Total %total% item for %term% query.'
+search.results: 'Search Results'
+search.resutls: 'Search Results'
+search_query: 'type keyword(s) here'
+searchon.crossref: 'Search on Crossref'
+searchon.doaj: 'Search on Doaj'
+searchon.google: 'Search on Google'
+searchon.pubmed: 'Search on Pubmed'
+searchon.wikipedia: 'Search on Wikipedia'
+section: Section
+select.article.file: 'Select File'
+select.image.file: 'Select Image File...'
+select_all: 'Select all'
+select_article_file: 'Select Article File'
+select_supplementary_article_file: 'Select Supplementary Article File'
+select_visible: 'Select visible'
+send_article: 'Send Article'
+sendmail: 'Send email'
+setting: Setting
+settings: Settings
+setup.step: 'Step #number'
+show: Göster
+sign.in: 'Sign In'
+size: Size
+source: Source
+special: Special
+special.issue: 'Special Issue'
+stats.most.downloaded.article: 'Most downloaded article'
+stats.most.viewed.article: 'Most viewed article'
+status: Status
+status.editing: Editing
+status.inreview: in-Review
+status.not_submitted: 'Not Submitted'
+status.published: Published
+status.rejected: Rejected
+status.spam: Spam
+status.unpublished: Unpublished
+status.waiting: Waiting
+statusText: 'Status Text'
+step.edit: 'Edit step'
+step.new: 'New Step'
+subject: Subject
+subject.edit: 'Edit Subject'
+subject.list: 'Subject List'
+subject.new: 'New Subject'
+subject.plural: Subjects
+subjects: Subjects
+submission.attention: 'After submission your manuscript you can''t change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.'
+submission.starting: Starting
+submission.success: 'Submission sending complete.'
+submissionDate: 'Submission Date'
 submission_checklist: 'Submission Checklist'
 submission_checklist.create: 'New item'
 submission_checklist.detail: Detail
-submission_checklist.visible: 'Is visible?'
 submission_checklist.label: Label
 submission_checklist.show: Show
-journal_licence.singular: Licences
-journal_licence.create: 'New Licence'
-journal_licence.licence: Licence
-journal_licence.visible: 'Is Visible?'
-journal_licence.label: Label
-journal_licence.show: Show
-journalsection.edit: 'Edit Journal Section'
-journalsection.list: 'Journal Section List'
-journalsection.new: 'New Journal Section'
-journalsection: 'Journal Section'
-journalsection.show: Show
-journalsection.label: Label
-journalsection.title: Title
-journalsection.allow_index: 'Allow Index'
-journalsection.hide_title: 'Hide Title'
-journalsection.journal: Journal
-Info: Info
-article.header_image: 'Header Image'
-File: File
-file: File
-empty: Empty
-common: Common
-detailed: Detailed
-tools: Tools
-application.journal.apply: 'Apply as a new Journal'
-loggedAs: 'Logged in as'
-you: You
-controlPanel: 'Control Panel'
-visualize: Visualize
-color: Color
-color.generate: 'Generate color'
-statusText: 'Status Text'
-introduction: Introduction
-helptext.authors.wont.see: 'Authors <strong>won''t</strong> see this field.'
-helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
-workflow.should_be_assigned: 'These articlese submitted but waiting to be assigned.'
-accepted: Accepted
-rejected: Rejected
-waiting: Waiting
-Subjects: Subjects
-Keywords: Keywords
-Abstract: Abstract
-Section: Section
-Authors: Authors
-Files: Files
-update.article.file: 'Update Article File'
-workflow.review_notes: 'Review Notes'
-competingOfInterest: 'Competing of Interest'
-workflow.previous_review_report: 'Previous Review Report'
-sendmail: 'Send email'
-workflow.review_report: 'Review Report'
-review.form.update: 'Update Review Form'
-b: Back
-done: Tamamlandı
-review.form.new: 'New Review Form'
-review.form.item.new: 'Review Form New Item'
-review.form.detail: 'Review Form Detail'
-review.form.item.update: 'Review Form Item Upate'
-review.form.item.detail: 'Review Form Item Detail'
-form.item.update: 'Form Item Update'
-mandatory: Mandatory
-workflow.is_question_mandatory: 'Is this question mandatory?'
-confidential: Confidential
-workflow.is_question_confiential: 'If this question''s answer may contain confidential data please check.'
-fields: Fields
-workflow.each_field_one_line: 'Add each field text as one line'
-Fieldset: Fieldset
-workflow.group_set_name: 'Questions will be grouped under fieldset names.'
-form.items: 'Form Items'
-workflow.poll_reset: 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
-form.item.new: 'New Form Item'
-fieldset: Fieldset
-optional: Optional
-workflow.step.update: 'Update Workflow Update'
-role.plural: Roles
-ROLE_SUBSCRIPTION_MANAGER: 'Subscription Manager'
-ROLE_SECTION_EDITOR: 'Section Editor'
-ROLE_LAYOUT_EDITOR: 'Layout Editor'
-ROLE_COPYEDITOR: Copyeditor
-ROLE_PROOFREADER: Proofreader
-ROLE_AUTHOR: Author
-ROLE_READER: Reader
-workflow.competing_question: 'User must send a competing of interest statement.'
-workflow.competing_guide: 'Guidelines for filling a <i>competing of Interest</i> statement.'
-workflow.no_review: '[No review form]'
-workflow.step.graph: 'Workflow Step Graph'
-review.result: 'Review Result'
-workflow.step.new: 'New Workflow Step'
-workflow.advanced_settings: 'Advanced Settings'
-Template: Template
-workflow.reject_completely: 'Can reject the submission completely?'
-workflow.competing_interest: 'Competing of interest statement'
-first_step: 'First Step'
-last_step: 'Last Step'
-workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
-user.manager: 'User Manager'
-event.user.id: __event.user.id
-event.affectedUser.id: __event.affectedUser.id
-flush.all.log: 'Flush all log'
-maillog.edit: 'Edit Mail Log'
-maillog.id: 'Log id'
-maillog.mailobject: 'Mail Object'
-maillog.recipientemail: 'Recipient Email'
-ojs.welcome_msg: 'You have joined to OJS'
-ojs.one_more_step: 'One More Step'
-ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking the activation link'
-ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
-ojs.activate_now: 'Activate Now'
-ojs.view_in_browser: 'view this in your browser'
-ojs.invited: 'You have invited to OJS'
-ojs.invited_to_review: 'Review invitation from'
-ojs.click_to_Review: 'Click link below for login to ojs if you are accept invitation'
-Accept: Accept
-Decline: Decline
-ojs.change_password: 'Password Change'
-Information: Information
-ojs.changed_password: 'Your password has been changed'
-ojs.password_reset: 'Password Reset'
-ojs.password_reseted: 'Your password has been reset'
-ojs.password_reset_request: 'You are request password reset'
-ojs.password_reset_process: 'Password Reset Process'
-ojs.password_reset_link: 'Click link below for reset to ojs account password'
-ojs.password_reset_now: 'Reset Now'
-user.anonym.create_password: 'Create password'
-username.or.email: 'Username or Email'
-username: Username
-password: Password
-forgot.password: 'Forgot password'
-orcid.login: 'Orcid login'
-register: Register
-ojs.uniq_name: 'This will be your unique short name in application'
-ojs.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
-unconfirmed.user: 'Unconfirmed user'
-user.edit: 'Edit User'
-Avatar: Avatar
-user.list: 'User List'
-user.show: 'User Show'
-user.id: 'User id'
-user.username: Username
-user.email: Email
-user.roles: 'User Roles'
-user.isActive: 'Have the user completed the activation progress?'
-user.apikey: 'Api Key'
-user.journalrole: 'Journal Roles'
-articlefile.new: 'New Article File'
-Submissions: Submissions
-Drafts: Drafts
-restart: Restart
-save.next: 'Save & Next'
-citation.clear: 'Clear Citation'
-ojs.selected: (selected)
-Guidelines: Guidelines
-ojs.preview_article: 'Preview Article Before Submit'
-author.institution: 'Author Institution'
-author.phone: Phone
-ojs.back_and_edit: 'Back & Continue Editing'
-ojs.required_field: 'This field is required!'
-institution: Institution
-institutions: Institutions
-parse: Parse
-authors: Authors
-author.edit: 'Edit author'
-authors.count: 'Count of Authors'
-parent: Parent
-children: Children
-journalindex.list: 'Journal Index List'
-journal_licence.edit: 'Edit Journal Licence'
-journal.setup: 'Journal Setup'
-add: Add
-journal.issn: 'Journal ISSN'
-journal.eissn: 'Journal eISSN'
-home: Home
-tags: Tags
-more: More
-journal_home: 'Journal Home Page'
-announcements: Announcements
-ojs.any_content: 'No Content'
-articles: Articles
-search: Search
-about: About
-ojs.add_link: 'Link Ekle'
-list: List
-search.results: 'Search Results'
-search.builder: 'Advanced Search Builder'
-article: Article
-landingPage.text: ''
-search.main: 'Search Journal, Article and Author'
-institute.register: 'Register Institution'
-journal.register: 'Journal Register'
-featured: Featured
-featured.desc: ''
-apply: Apply
-journal.application_success_message: 'Your application saved successfully.'
-cover_image: 'Cover Image'
-User: User
-user.private: 'This account is private.'
-user.proxy_allow: 'You can allow this user to login as you, by clicking this button'
-u: Update
-edit: Edit
-cms: CMS
-delete: Delete
-copy: Copy
-order_by: 'Order by'
-Filters: Filters
-collapse: Collapse
-Search: Search
-Reset: Reset
-'%count% Results,': '%count% Results,'
-Page: Page
-'of %count%': 'of %count%'
-items_per_page: 'Items per page'
-select_visible: 'Select visible'
-deselect_visible: 'Deselect visible'
-select_all: 'Select all'
-deselect_all: 'Deselect all'
-Action: Action
+submission_checklist.visible: 'Is visible?'
+submit: Submit
+submitRoles: 'Roles that can submit articles'
 submit_action: 'Submit Action'
-Export: Export
-Tweaks: Tweaks
-Tweak: Tweak
-Go: Go
-ojs.have_message: 'You have a message from Ojs'
-privacy: Privacy
-tos: Tos
-wiki: Wiki
-support: Support
-faq: Faq
-blog: Blog
-documents: Documents
-presentations: Presentations
-videos: Videos
-photos: Photos
-ulakbim: Ulakbim
-discovery: Discovery
-toggle_navigation: 'Toggle Navigation'
-ojs: Ojs
-user_page: 'User Page'
-user.profile.edit: 'Edit User Profile'
-proxy_users: 'Proxy Users'
-log_out_from_user: 'Logout from user'
-login_as: 'Login as'
-list_my_proxys: 'List my proxies'
-log_out: Logout
-login: Login
-journal.join: 'Join Journal'
-Articles: Articles
-Admin: Admin
-dashboard.general.stats: 'General Stats'
-stats.most.viewed.article: 'Most viewed article'
-stats.most.downloaded.article: 'Most downloaded article'
-dashboard.admin: 'Admin Dashboard'
-dashboard.editor: 'Editor Dashboard'
-dashboard.objects: Objects
-dashboard.operations: Operations
-total.user: 'Total user'
-total.article: 'Total article'
-total.issue: 'Total issue'
-article.any_article_viewed: 'Any article viewed yet'
-article.any_downloaded: 'Any article downloaded yet'
-journal.any_have: 'You don''t have any journals!'
-issue.number: Number
-role.forusers: __role.forusers
-roles: Roles
-actions: Actions
-sure: 'Are you sure?'
-search.resutls: 'Search Results'
-journal_langs: 'Journal Languages'
-d: Delete
-c: 'Create New'
-s: Show
-e: Edit
-added: Added
-404: 'Not found'
-error: Error
-error.oops: 'Oops! An Error Occurred'
-onlineSubmission: 'Online Submission'
-topics: Topics
-book: Book
-conference: Conference
-mastersthesis: 'Master Thesis'
-phdthesis: 'Phd Thesis'
-proceedings: Proceedings
-techreport: 'Technical Report'
-unpublished: Unpublished
-inproceedings: In-proceedings
-incollection: In-collection
-inbook: In-book
-booklet: Booklet
-manual: Manual
-misc: Miscellaneous
-register_journal: 'Register Journal'
-send_article: 'Send Article'
-globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of an article to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
-search_query: 'type keyword(s) here'
-profile: Profile
-ujs: UJS
-contact_and_help: 'Contact & Help'
-tubitak: TÜBİTAK
-tubitak_journals: 'TÜBİTAK Journals'
-'Yes': 'Yes'
-'No': 'No'
-role.singular: Role
-user.update_profile: 'Update Profile'
-user.custom_fields: 'Custom Fields'
-user.custom_field.label: Label
-user.custom_field.value: Value
-user.custom_field.is_url: 'Is Url?'
-user.custom_field.action: Actions
-user.connected_accounts: 'Connected Accounts'
-user.connected_accounts.add_orcid_account: 'Connect ORCID'
-user.connected_accounts.add: 'Add Account'
-user.connected_accounts.provider: Provider
-user.connected_accounts.provider_user_id: 'Provider User ID'
-user.connected_accounts.action: Actions
-user.custom_field.create: Create
-user.forgot_password: 'Forgot Password'
-user.reset_password: 'Reset Password'
-user.new_password: 'New Password'
-user.new_password_confirm: 'New Password (confirmation)'
-user.private_account: 'Private Account'
-user.change_password: 'Change Password'
-user.old_password: 'Old Password'
-journal_index.issues: Issues
-journal_index.volume: Volume
-Issue: Issue
-journalcontact.singular: 'Journal Contact'
-journalcontact.list: 'Journal Contact List'
-filter.remove: 'Remove filter'
-pages.management: 'Page management'
-pages.edit: 'Edit page'
-pages.all: 'All pages'
-pages.new: 'New page'
-pages.detail: 'Page detail'
-ojs.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
-user: User
-suggest: Suggest
-application.institution.apply: 'Apply as Institution'
-user.profile: 'User Profile'
-user.lastlogin: 'Last Login'
-user.activitylog: 'User Activity Log'
-event.id: 'Event ID'
-event.info: 'Event Info'
-event.date: 'Event Date'
-event.ip: 'Event IP'
-eventlog: Eventlog
-eventlog.list: 'Event Log List'
-notification.edit: 'Edit Notification'
-notification.list: 'List Notifications'
-notification.id: ID
-notification.sender.id: 'Sender ID'
-notification.recipient.id: 'Recipient ID'
-notification.test: 'Notification Test'
-notification.isread: 'Is Read?'
-notification.level: Level
-notification.creation: 'Notification Creation'
-notification.singular: Notification
-notification.entity.id: 'Entity ID'
-notification.entity.name: 'Entity Name'
-notification.subject: Subject
-notification.verb: Verb
-proxy.edit: 'Edit Proxy'
-proxy.list: 'Proxy List'
-proxy.id: ID
-proxy.proxy.user.id: 'Proxy User ID'
-proxy.client.user.id: 'Client User ID'
-proxy.creation: 'Proxy Creation'
-proxy.singular: Proxy
-proxy.clients.list: 'List Proxy Clients'
-proxy.target.user.username: 'Target Username'
-proxy.target.user.email: 'Target User Email'
-proxy.lastlogin: 'Last Login'
-proxy.your.proxy.user.list: 'Your Proxy User List'
-proxy.your.client.user.list: 'Users that you can login as'
-proxy.username: Username
-proxy.user.email: Email
-proxy.end.time: 'End Time'
-drop: Drop
-update.ttl: 'Update TTL'
-update.end.time: 'Update end time'
-workflow.remaining_day: 'Enter number as day count'
-role.edit: 'Edit Role'
-role.list: 'Role List'
-role.id: ID
-role.name: Name
-role.role: Role
-role.issystemrole: 'Is System Role?'
-role.new: 'New Role'
-role.users: 'Role Users'
-sign.in: 'Sign In'
-Password: Password
-'Repeat Password': 'Repeat Password'
-user.plural: Users
-uploading: Uploading...
-user.status: Status
-block: Block
-sure.ban: 'You will ban this user. Are you sure?'
-select.image.file: 'Select Image File...'
-show: Göster
-user.subjects: Subjects
-drop.proxy.user: 'Drop Proxy User'
-add.as.proxy: 'Add As Proxy'
-regenerate.apikey: 'Regenerate APIKEY'
-register.yourself.as.author: 'Register Yourself As Author'
-user.journalrole.edit: 'Edit Journal Role'
-user.journalrole.list: 'Journal Role List'
-user.journalrole.id: ID
-user.journalrole.user: User
-user.journalrole.journal: Journal
-user.journalrole.role: Role
-user.journalrole.creation: 'Journal Role Creation'
-user.journalrole.singular: 'Journal Role'
-user.journalrole.journals.of.user: 'Journals of User'
-user.journalrole.journal.id: ID
-user.journalrole.journal.name: Name
-user.journalrole.myjournals: 'My Journals'
-user.journalrole.alljournals: 'All Journals'
-user.journalrole.youhavenojournal: 'You have no journal'
-user.journalrole.usersofjournal: 'Users of journal'
-user.journalrole.user.id: ID
-user.journalrole.user.username: Username
-user.journalrole.email: Email
-user.journalrole.thisjournalhasnouser: 'This journal has no user!'
-user.journalrole.send_email: 'Send Email To User'
-user.journalrole.mail.template: Template
-user.journalrole.mail.to: 'Mail To'
-user.journalrole.mail.subject: Subject
-user.journalrole.mail.body: 'Message Body'
-user.journalrole.mail.send: Send
-workflow.template.create: 'Template Create'
-workflow.template.addStep: 'Add Step'
-workflow.template.update: 'Template Update'
-workflow.template.updateStep: 'Update Step'
-articles.waiting: 'Waiting Articles'
-searchon.google: 'Search on Google'
-searchon.wikipedia: 'Search on Wikipedia'
-searchon.pubmed: 'Search on Pubmed'
-searchon.doaj: 'Search on Doaj'
-searchon.crossref: 'Search on Crossref'
-create: Create
-input_type: 'Input type'
-input_types: 'Input Types'
-input_types.textbox: textbox
-input_types.textarea: textarea
-input_types.checkboxes: checkboxes
-input_types.radiobutton: radiobutton
-input_types.dropdown: dropdown
-input_types.scale_1_5: scale_1_5
-confidentail: Confidentail
-workflow.template.edit: 'Workflow Template Edit'
-workflow.step.template.edit: 'Edit Workflow Step Template'
-temaplate.name: 'Template Name'
-workflow.step.template.new: 'New Workflow Step Template'
-workflow.templates.create: 'Create Workflow Template'
-workflow.template.new: 'New Workflow Template'
-workflow.template.step.detail: 'Workflow Template Step Detail'
-workflow.template.details: 'Workflow Templat Details'
-system.templates: 'System templates'
-created.templates: 'Created Templates'
+subtitle: Subtitle
 success: Success
 successful.create: 'Successfully created.'
-successful.update: 'Successfully updated.'
 successful.remove: 'Successfully removed.'
-workflow.remove_author: 'You should remove author forms by clicking ''Remove'' button on left bottom corner of every form.'
-workflow.remove_author_all: 'Remove all author forms!'
-user.journal_roles: 'User Journal Roles'
-submitRoles: 'Roles that can submit articles'
-footer_text: 'Footer text'
-verified: Verified
-submissionDate: 'Submission Date'
-addressLat: 'Address Latitude'
-addressLong: 'Address Longitude'
-user.select_to_submit: 'Select journal to submit'
-help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
-ojs.setup_not_completed: 'It seems that you have not finished  <a href=''%setup_url%''>Journal Setup</a>'
-ojs.403: 'You don''t have permission to view this page.'
-workflow.fw_reviewer_403: 'You don''t have submission privilege.'
-journal.boards: 'Journal Boards'
-boards: Boards
-board: Board
-board.create: 'Create Board'
-board.edit: 'Edit Board'
-board.delete: 'Delete Board'
-board.detail: 'Board Detail'
-board.name: 'Board Name'
-board.manager: 'Board Manager'
-board.addUser: 'Add User to Board'
-board.hasNoMember: 'Board has no members'
-board.members: Members
-board.can_not_add_user: 'You can add member from your journal''s users only.'
-board.manage_users: 'You can <a href=''%path%''>manage</a> journal''s users.'
-notFound: 'The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.'
-user.hide_account: 'Hide my account'
-user.username_taken: 'This username  is already taken'
-user.username_not_available: 'This username  is <strong>not</strong> available. Please enter a different username.'
-user.username_available: 'This username  is available'
-user.username_check: 'Looking for username availability...'
-submission.attention: 'After submission your manuscript you can''t change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.'
-user.join_journal_confirm: 'You are not an author of this journal. Confirm to register yourself as author.'
-user.current_roles: 'Current roles'
-user.join_journal: 'Register yourself as author'
-Confirm: Confirm
-USER_LOGOUT_EVENT: 'User logout event'
-USER_LOGIN_EVENT: 'User login event'
-submission.success: 'Submission sending complete.'
-'Default registered user': 'Default registered user'
-'System Super Administrator': 'System Super Administrator'
-Editor: Editor
-Reviewer: Reviewer
-'Journal Manager': 'Journal Manager'
-'Subscription Manager': 'Subscription Manager'
-'Section Editor': 'Section Editor'
-'Layout Editor': 'Layout Editor'
-Copyeditor: Copyeditor
-Proofreader: Proofreader
-Author: Author
-Reader: Reader
-application.basic: Basic
-application.graphics: Graphics
-application.contact: Contact
-application.journal.institution: Institution
-application.journal.new_institution: 'Apply as an Institution'
-application.journal.new_institution_help: 'If you can''t find your institution above, please apply as an institution using the button below.'
-application.journal.edit: 'Edit Journal Application'
-application.institution.edit: 'Edit Institution Application'
-application.status.waiting: 'Waiting for Import'
-application.status.complete: 'Import Complete'
-application.status.onhold: 'On Hold'
-application.status.rejected: Rejected
-application.status.deleted: Deleted
-journal.title: Title
-journal.subtitle: Subtitle
-journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
-journal.titleAbbr: 'Abbreviated Title'
-journal.titleTransliterated: 'Transliterated Title'
-journal.domain: Domain
-journal.path: Path
-journal.firstPublishDate: 'First Publish Date'
-journal.period: Period
-journal.url: URL
-journal.country: Country
-journal.scope: Scope
-journal.mission: Mission
-journal.languages: Languages
-journal.institution: Institution
-journal.subjects: Subjects
-journal.cover_image: 'Cover Image'
-journal.header_image: 'Header Image'
-journal.google.analytics.id: 'Google Analytics ID'
-journal.createdAt: 'Created at'
-journal.user: User
-journal.address: 'Journal''s postal address'
-journal.phone: 'Journal''s contact phone'
-journal.email: 'Journal''s contact email'
-journal.editor: Editor
-journal.editor_name: 'Editor name'
-journal.editor_surname: 'Editor surname'
-journal.editor_phone: 'Editor phone'
-journal.editor_email: 'Editor e-mail'
-journal.assistant_editor: 'Assistant Editor'
-journal.assistant_editor_name: 'Assistant editor name'
-journal.assistant_editor_surname: 'Assistant editor surname'
-journal.assistant_editor_phone: 'Assistant editor phone'
-journal.assistant_editor_email: 'Assistant editor e-mail'
-journal.tech_contact: 'Tech Contact'
-journal.tech_contact_name: 'Tech contact name'
-journal.tech_contact_surname: 'Tech contact surname'
-journal.tech_contact_phone: 'Tech contact phone'
-journal.tech_contact_email: 'Tech contact e-mail'
-institution.plural: Institutions
-institution.id: 'Institution ID'
-institution.name: Name
-institution.slug: 'Slug Name'
-institution.type: Type
-institution.address: Address
-institution.lat: Latitude
-institution.lon: Longitude
-institution.email: Email
-institution.phone: 'Phone Number'
-institution.fax: 'Fax Number'
-institution.url: URL
-institution.wiki_url: 'Wiki URL'
-institution.tags: Tags
-institution.country: Country
-institution.about: 'About Institution'
-institution.manager: 'Institution Manager'
-institution.new: 'New Institution'
-institution.edit: 'Edit Institution'
-institution.detail: 'Institution Detail'
+successful.update: 'Successfully updated.'
+suggest: Suggest
+suggestedMaxDays: 'Suggested maximum days count'
+summary: Summary
+suppfiles.data: 'Data Analysis'
+suppfiles.resins: 'Research Instruments'
+suppfiles.resmat: 'Research Materials'
+suppfiles.resres: 'Research Results'
+suppfiles.set: 'Data Set'
+suppfiles.source: 'Source Text'
+suppfiles.supp: 'Supplementary File'
+suppfiles.trans: Transcripts
+supplement: 'Is Supplement?'
+support: Support
+sure: 'Are you sure?'
+sure.ban: 'You will ban this user. Are you sure?'
+sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
+system.templates: 'System templates'
+tag.search.results: 'Tag Search Result'
+tags: Tags
+tags.cloud: 'Tag Cloud'
+tagsearch: 'Tag Search'
+techreport: 'Technical Report'
+temaplate.name: 'Template Name'
+template: Template
+template.loadDefault: 'Load default templates'
+template.name: 'Template Name'
+templates: Templates
+theme: Theme
+theme.edit: 'Edit Theme'
+theme.id: 'Theme ID'
+theme.list: 'Theme List'
+theme.new: 'New Theme'
+theme.plural: Themes
+title: Title
 title.admin_dashboard: 'Admin Dashboard'
 title.announcements: Announcements
 title.api: 'API Home'
 title.archives: Archives
+title.article: Article
+title.article_authors: 'Article''s Authors'
 title.article_authors_edit: 'Edit Article''s Authors'
 title.article_authors_new: 'Add a new Author'
 title.article_authors_show: 'Show Article''s Authors'
-title.article_authors: 'Article''s Authors'
 title.article_edit: 'Edit Article'
+title.article_files: 'Article Files'
 title.article_files_edit: 'Edit Article File'
 title.article_files_new: 'New Article File'
 title.article_files_show: 'Show Article File'
-title.article_files: 'Article Files'
 title.article_new: 'New Article'
 title.article_show: 'Show Article'
 title.article_type_edit: 'Edit Article Type'
 title.article_type_new: 'New Article Type'
 title.article_type_show: 'Show Article Type'
 title.article_types: 'Article Types'
-title.article: Article
+title.articles: Articles
 title.articles_assign: 'Assign Articles'
 title.articles_assigned: 'Assigned Articles'
 title.articles_published: 'Published Articles'
@@ -1038,7 +943,6 @@ title.articles_rejected: 'Rejected Articles'
 title.articles_uncomplete: 'Uncomplete Articles'
 title.articles_unpublished: 'Unpublished Articles'
 title.articles_waiting: 'Waiting Articles'
-title.articles: Articles
 title.author_edit: 'Edit Author'
 title.author_new: 'New Author'
 title.author_preview: 'Author Preview'
@@ -1052,6 +956,7 @@ title.board_show: 'Show Board'
 title.boards: Boards
 title.browse: Browse
 title.categories: Categories
+title.citation: Citation
 title.citation_edit: 'Edit Citation'
 title.citation_new: 'New Citation'
 title.citation_setting_edit: 'Edit Citation Setting'
@@ -1059,10 +964,9 @@ title.citation_setting_new: 'New Citation Setting'
 title.citation_setting_show: 'Show Citation Setting'
 title.citation_settings: 'Citation Settings'
 title.citation_show: 'Show Citation'
-title.citation: Citation
 title.citations: Citations
-title.connected_account_add: 'Add Connected Account'
 title.connected_account: 'Connected Account'
+title.connected_account_add: 'Add Connected Account'
 title.contact_edit: 'Edit Contact'
 title.contact_new: 'New Contact'
 title.contact_show: 'Show Contact'
@@ -1086,6 +990,7 @@ title.file_new: 'New File'
 title.file_show: 'Show File'
 title.files: Files
 title.home: Home
+title.institution: Institution
 title.institution_application: 'Institution Application'
 title.institution_detail: 'Institution Detail'
 title.institution_edit: 'Edit Institution'
@@ -1095,26 +1000,27 @@ title.institution_type_edit: 'Edit Institution Type'
 title.institution_type_new: 'New Institution Type'
 title.institution_type_show: 'Show Institution Type'
 title.institution_types: 'Instution Types'
-title.institution: Institution
 title.institutions: Institutions
 title.invitation_preview: 'Invitation Preview'
 title.issue_arrange: 'Arrange Issue'
 title.issue_articles: 'Issue''s Articles'
 title.issue_detail: 'Issue Detail'
-title.issue_files: 'Issue Files'
 title.issue_edit: 'Edit Issue'
+title.issue_files: 'Issue Files'
 title.issue_new: 'New Issue'
 title.issue_show: 'Show Issue'
 title.issue_view: 'View Issues'
+title.issuefile.new: 'New Issue File'
 title.issues: Issues
+title.journal: Journal
 title.journal_application: 'Journal Application'
 title.journal_apply: 'Apply to Journal'
 title.journal_articles: 'Journal Articles'
 title.journal_authors: 'Journal Authors'
+title.journal_contact: 'Journal Contact'
 title.journal_contact_edit: 'Edit Journal Contact'
 title.journal_contact_new: 'New Journal Contact'
 title.journal_contact_show: 'Show Journal Contact'
-title.journal_contact: 'Journal Contact'
 title.journal_contacts: 'Journal Contacts'
 title.journal_design_edit: 'Edit Journal Design'
 title.journal_design_new: 'New Journal Design'
@@ -1132,9 +1038,9 @@ title.journal_role_edit: 'Edit Journal Role'
 title.journal_role_myjournals: 'My Journals'
 title.journal_role_new: 'New Journal Role'
 title.journal_role_send_mail: 'Send email'
+title.journal_role_show: 'Show Journal Role'
 title.journal_role_show_journals: 'Show Journals'
 title.journal_role_show_users: 'Show Users'
-title.journal_role_show: 'Show Journal Role'
 title.journal_roles: 'Journal Roles'
 title.journal_section_edit: 'Edit Journal Section'
 title.journal_section_new: 'New Journal Section'
@@ -1148,12 +1054,11 @@ title.journal_theme_edit: 'Edit Journal Theme'
 title.journal_theme_new: 'New Journal Theme'
 title.journal_theme_show: 'Show Journal Theme'
 title.journal_themes: 'Journal Themes'
-title.journal: Journal
+title.journals: Journals
 title.journals_index_edit: 'Edit Journals Index'
 title.journals_index_new: 'New Journals Index'
 title.journals_index_show: 'Show Journals Index'
 title.journals_indexes: 'Journals Indexes'
-title.journals: Journals
 title.language_edit: 'Edit Language'
 title.language_new: 'New Language'
 title.language_show: 'Show Language'
@@ -1181,8 +1086,8 @@ title.password_reset: 'Reset Password'
 title.people_directory: 'People Directory'
 title.privacy: Privacy
 title.private_account: 'Private Account'
-title.profile_update: 'Update Profile'
 title.profile: Profile
+title.profile_update: 'Update Profile'
 title.proxies: Proxies
 title.proxy_clients: 'Proxy Clients'
 title.proxy_edit: 'Edit Proxy'
@@ -1204,8 +1109,8 @@ title.role_new: 'New Role'
 title.role_show: 'Show Role'
 title.role_users: 'User Roles'
 title.roles: Roles
-title.search_tags: 'Search Tags'
 title.search: Search
+title.search_tags: 'Search Tags'
 title.subject_edit: 'Edit Subject'
 title.subject_new: 'New Subject'
 title.subject_show: 'Show Subject'
@@ -1225,6 +1130,7 @@ title.theme_show: 'Show Theme'
 title.themes: Themes
 title.topics: Topics
 title.tos: 'Terms of Service'
+title.transliterated: 'Title Transliterated'
 title.unconfirmed_user: 'Unconfirmed User'
 title.user_author_register: 'Register as Author'
 title.user_edit: 'Edit User'
@@ -1237,79 +1143,173 @@ title.workflow_step_graph: 'Workflow Step Graph'
 title.workflow_step_new: 'New Workflow Step'
 title.workflow_step_show: 'Show Workflow Step'
 title.workflow_steps: 'Workflow Steps'
+title.workflow_template: 'Workflow Template'
 title.workflow_template_edit: 'Edit Workflow Template'
 title.workflow_template_new: 'New Workflow Template'
 title.workflow_template_step_edit: 'Edit Workflow Template Step'
 title.workflow_template_step_new: 'New Workflow Template Step'
 title.workflow_template_step_show: 'Show Workflow Template Step'
-title.workflow_template: 'Workflow Template'
 title.workflow_templates: 'Workflow Templates'
 title.working_step_preview: 'Preview Working Step'
-title.issuefile.new: 'New Issue File'
-button.toggle_tree: 'Toggle Tree'
-tag.search.results: 'Tag Search Result'
-tags.cloud: 'Tag Cloud'
-journal.articles: 'Journal Articles'
-printed: 'Is Printed?'
-supplement: 'Is Supplement?'
-full_file: 'Full File'
-admin.log.history: Changelog
-admin.log.field: 'Changed field'
-admin.log.oldValue: 'old value'
-admin.log.newValue: 'new value'
-search.result.headline: 'Total %total% item for %term% query.'
-search.noresult: 'We couldn''t find any results matching.'
-tagsearch: 'Tag Search'
-basicsearch: 'Basic Search'
-advancedsearch: 'Advanced Search'
-pagerfanta.previous: Previous
-pagerfanta.nex: Next
-admin.dashboard.system_settings: 'System Settings'
-admin.dashboard.journal_settings: 'Journal Settings'
-admin.dashboard.applications: Applications
-issuefile.list: 'Issue Files'
-issuefile.langcode: Language
-issuefile.new: 'New Issue File'
-issuefile.title: Title
-issuefile.file: File
-issuefile.edit: 'Edit Issue File'
-not.finished: 'Not Finished'
-ojs.install.title.confirm: 'TODO: Ojs kurulumu gerçekleşecek. Onaylıyor musunuz?'
-Title: 'TODO: Başlık'
-Description: 'TODO: Açıklama'
-haveNoJourals: 'TODO: Hiç derginiz bulunmuyor.'
-author.order: 'TODO: Sıra'
-Subject: 'TODO: Konu'
-'No data': 'TODO: Veri Yok'
-'You are requested password reset': 'TODO: Şifre Sıfırlama Talebiniz Var'
-'Is Active?': 'TODO: Aktif mi?'
+titleTransliterated: 'Transliterated Title'
+titleabbr: 'Abbreviated Title'
+titletransliterated: 'Transliterated Title'
+toggle_navigation: 'Toggle Navigation'
+tools: Tools
+topics: Topics
+tos: Tos
+total.article: 'Total article'
+total.issue: 'Total issue'
+total.user: 'Total user'
+trans: Transliterated
+tubitak: TÜBİTAK
+tubitak_journals: 'TÜBİTAK Journals'
+type: Type
+u: Update
+ujs: UJS
+ulakbim: Ulakbim
+unconfirmed.user: 'Unconfirmed user'
+unpublished: Unpublished
+update: Update
+update.article.file: 'Update Article File'
+update.end.time: 'Update end time'
+update.ttl: 'Update TTL'
+updated: Updated
+uploading: Uploading...
+url: URL
+useThisTemplate: 'Use this template'
+user: User
+user.activitylog: 'User Activity Log'
+user.anonym.create_password: 'Create password'
+user.apikey: 'Api Key'
+user.change_password: 'Change Password'
+user.connected_accounts: 'Connected Accounts'
+user.connected_accounts.action: Actions
+user.connected_accounts.add: 'Add Account'
+user.connected_accounts.add_orcid_account: 'Connect ORCID'
+user.connected_accounts.provider: Provider
+user.connected_accounts.provider_user_id: 'Provider User ID'
+user.current_roles: 'Current roles'
+user.custom_field.action: Actions
+user.custom_field.create: Create
+user.custom_field.is_url: 'Is Url?'
+user.custom_field.label: Label
+user.custom_field.value: Value
+user.custom_fields: 'Custom Fields'
+user.edit: 'Edit User'
+user.email: Email
+user.forgot_password: 'Forgot Password'
+user.hide_account: 'Hide my account'
+user.id: 'User id'
+user.isActive: 'Have the user completed the activation progress?'
+user.join_journal: 'Register yourself as author'
+user.join_journal_confirm: 'You are not an author of this journal. Confirm to register yourself as author.'
+user.journal_roles: 'User Journal Roles'
+user.journalrole: 'Journal Roles'
+user.journalrole.alljournals: 'All Journals'
+user.journalrole.creation: 'Journal Role Creation'
+user.journalrole.edit: 'Edit Journal Role'
+user.journalrole.email: Email
+user.journalrole.id: ID
+user.journalrole.journal: Journal
+user.journalrole.journal.id: ID
+user.journalrole.journal.name: Name
+user.journalrole.journals.of.user: 'Journals of User'
+user.journalrole.list: 'Journal Role List'
+user.journalrole.mail.body: 'Message Body'
+user.journalrole.mail.send: Send
+user.journalrole.mail.subject: Subject
+user.journalrole.mail.template: Template
+user.journalrole.mail.to: 'Mail To'
+user.journalrole.myjournals: 'My Journals'
+user.journalrole.role: Role
+user.journalrole.send_email: 'Send Email To User'
+user.journalrole.singular: 'Journal Role'
+user.journalrole.thisjournalhasnouser: 'This journal has no user!'
+user.journalrole.user: User
+user.journalrole.user.id: ID
+user.journalrole.user.username: Username
+user.journalrole.usersofjournal: 'Users of journal'
+user.journalrole.youhavenojournal: 'You have no journal'
+user.lastlogin: 'Last Login'
+user.list: 'User List'
+user.manager: 'User Manager'
+user.new: 'New User'
+user.new_password: 'New Password'
+user.new_password_confirm: 'New Password (confirmation)'
+user.old_password: 'Old Password'
+user.plural: Users
+user.private: 'This account is private.'
+user.private_account: 'Private Account'
+user.profile: 'User Profile'
+user.profile.edit: 'Edit User Profile'
+user.proxy_allow: 'You can allow this user to login as you, by clicking this button'
+user.reset_password: 'Reset Password'
+user.roles: 'User Roles'
+user.select_to_submit: 'Select journal to submit'
+user.show: 'User Show'
+user.status: Status
+user.subjects: Subjects
+user.title: Title
+user.update_profile: 'Update Profile'
+user.username: Username
+user.username_available: 'This username  is available'
+user.username_check: 'Looking for username availability...'
+user.username_not_available: 'This username  is <strong>not</strong> available. Please enter a different username.'
+user.username_taken: 'This username  is already taken'
+user_page: 'User Page'
+username: Username
+username.or.email: 'Username or Email'
+users: Users
+value: Value
+verified: Verified
+videos: Videos
+visualize: Visualize
+volume: Volume
+waiting: Waiting
+wiki: Wiki
+workflow: Workflow
+workflow.advanced_settings: 'Advanced Settings'
+workflow.competing_guide: 'Guidelines for filling a <i>competing of Interest</i> statement.'
+workflow.competing_interest: 'Competing of interest statement'
+workflow.competing_question: 'User must send a competing of interest statement.'
+workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
+workflow.each_field_one_line: 'Add each field text as one line'
 workflow.first_step: 'TODO: İlk Adım'
-'Last Step': 'TODO: Son Adım'
-accept: 'TODO: Kabul Et'
-Create: 'TODO: Oluştur'
-Turkish: 'TODO: Türkçe'
-English: 'TODO: İngilizce'
-German: 'TODO: Almanca'
-Polish: 'TODO: Lehçe'
-Russian: 'TODO: Rusça'
-French: 'TODO: Fransızca'
-Arabic: 'TODO: Arapça'
-Italian: 'TODO: İtalyanca'
-'Full Text': 'TODO: Tam Metin'
-'Supplementary File': 'TODO: Ek Dosya'
-'Research Materials': 'TODO: Araştıra Materyalleri'
-'Research Results': 'TODO: Araştırma Sonuçları'
-Transcripts: 'TODO: Suretler'
-'Data Analysis': 'TODO: Veri Analizleri'
-'Data Set': 'TODO: Veri Seti'
-'Source Text': 'TODO: Kaynak Metin'
-Pictures: 'TODO: Görseller'
-Tables: 'TODO: Tablolar'
-'Copyright Transfer Form': 'TODO: Telif Hakkı Devir Formu'
-'Competing of Interest File': 'TODO: Çıkar Çatışması Dosyası'
-journal.tags: 'TODO: Etiketler'
-ID: 'TODO: Sıra No'
-Name: 'TODO: İsim'
-Content: 'TODO: İçerik'
-Update: 'TODO: Güncelle'
-'Is Public?': 'TODO: Görünür mü?'
+workflow.fw_reviewer_403: 'You don''t have submission privilege.'
+workflow.group_set_name: 'Questions will be grouped under fieldset names.'
+workflow.is_question_confiential: 'If this question''s answer may contain confidential data please check.'
+workflow.is_question_mandatory: 'Is this question mandatory?'
+workflow.is_visible_author: 'Is visible to author?'
+workflow.must_assigned_someone: 'Must be assigned to someone?'
+workflow.no_review: '[No review form]'
+workflow.poll_reset: 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
+workflow.previous_review_report: 'Previous Review Report'
+workflow.reject_completely: 'Can reject the submission completely?'
+workflow.remaining_day: 'Enter number as day count'
+workflow.remove_author: 'You should remove author forms by clicking ''Remove'' button on left bottom corner of every form.'
+workflow.remove_author_all: 'Remove all author forms!'
+workflow.review_notes: 'Review Notes'
+workflow.review_report: 'Review Report'
+workflow.should_be_assigned: 'These articlese submitted but waiting to be assigned.'
+workflow.step.detail: 'Workflow Step Detail'
+workflow.step.graph: 'Workflow Step Graph'
+workflow.step.new: 'New Workflow Step'
+workflow.step.template.edit: 'Edit Workflow Step Template'
+workflow.step.template.new: 'New Workflow Step Template'
+workflow.step.update: 'Update Workflow Update'
+workflow.steps: 'Workflow Steps'
+workflow.template.addStep: 'Add Step'
+workflow.template.create: 'Template Create'
+workflow.template.details: 'Workflow Templat Details'
+workflow.template.edit: 'Workflow Template Edit'
+workflow.template.new: 'New Workflow Template'
+workflow.template.step.detail: 'Workflow Template Step Detail'
+workflow.template.update: 'Template Update'
+workflow.template.updateStep: 'Update Step'
+workflow.templates: 'Workflow Templates'
+workflow.templates.create: 'Create Workflow Template'
+workflows: Workflows
+year: Year
+you: You
+404: 'Not found'
