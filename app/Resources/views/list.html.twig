@@ -74,7 +74,7 @@
                             {% endif %}
                             {% if (column.sortable) %}
                                 <a class="order" href="{{ grid_url('order', grid, column) }}"
-                                   title="{{ order_by|trans }} {{ columnTitle|trans }}">{{ columnTitle|trans }}</a>
+                                   title="{{ 'order_by'|trans }} {{ columnTitle|trans }}">{{ columnTitle|trans }}</a>
                                 {% if column.order == 'asc' %}
                                     <div class="sort_up"></div>
                                 {% elseif column.order == 'desc' %}
