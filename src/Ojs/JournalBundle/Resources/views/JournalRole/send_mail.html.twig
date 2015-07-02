@@ -87,7 +87,7 @@
             $(document).on('change', '#mail_template', function () {
                 var template = $(this).val();
                 $.ajax({
-                    url: '/api/mail_template/' + template,
+                    url: Routing.generate('api_get_mail_template', {journal: template}),
                     method: 'GET',
                     dataType: 'json',
                     success: function (d) {

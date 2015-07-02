@@ -4,15 +4,12 @@ ojs_admin:
 
 ojs_admin_root:
     resource: "@OjsAdminBundle/Resources/config/routing_root.yml"
-    prefix:   /
 
 ojs_installer:
     resource: "@OjsInstallerBundle/Resources/config/routing.yml"
-    prefix:   /
 
 ojs_report:
     resource: "@OjsReportBundle/Resources/config/routing.yml"
-    prefix:   /
 
 ojs_oai:
     resource: "@OjsOAIBundle/Resources/config/routing.yml"
@@ -24,15 +21,9 @@ ojs_analytics:
 
 ojs_search:
     resource: "@OjsSearchBundle/Resources/config/routing.yml"
-    prefix:   /
-
-OkulbilisimMessageBundle:
-    resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
-    prefix: /
 
 ojs_journal:
     resource: "@OjsJournalBundle/Resources/config/routing.yml"
-    prefix:   /
 
 ojs_journal_panel:
     resource: "@OjsJournalBundle/Resources/config/routing_panel.yml"
@@ -44,7 +35,29 @@ ojs_workflow:
 ojs_user:
     resource: "@OjsUserBundle/Controller/"
     type:     annotation
-    prefix:   /
+
+ojs_location:
+    resource: "@OjsLocationBundle/Resources/config/routing.yml"
+
+ojs_site:
+    resource: "@OjsSiteBundle/Resources/config/routing.yml"
+
+auth:
+    resource: "@OjsUserBundle/Resources/config/routing.yml"
+
+rest:
+  type: rest
+  resource : "routing_rest.yml"
+  prefix: /api/
+
+OkulbilisimMessageBundle:
+    resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
+
+okulbilisim_cms:
+    resource: "@OkulbilisimCmsBundle/Resources/config/routing.yml"
+
+feedback:
+    resource: "@OkulbilisimFeedbackBundle/Resources/config/routing.yml"
 
 oneup_uploader:
     resource: .
@@ -52,20 +65,10 @@ oneup_uploader:
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
-    
-    
-#common pages 
+
 change_locale:
     pattern:  /locale/{code}
     defaults: { _controller: "OjsJournalBundle:Common:changeLocale" }
-    
-auth:
-    resource: "@OjsUserBundle/Resources/config/routing.yml"
-    
-rest :
-  type : rest
-  resource : "routing_rest.yml"
-  prefix : /api/
     
 apidoc:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
@@ -74,16 +77,7 @@ apidoc:
 jms_job_queue_bundle:
     resource: "@JMSJobQueueBundle/Controller/"
     type: annotation
-    prefix: /admin/jobs 
-feedback:
-    resource: "@OkulbilisimFeedbackBundle/Resources/config/routing.yml"
-    prefix:   /
-ojs_site:
-    resource: "@OjsSiteBundle/Resources/config/routing.yml"
-    prefix:   /
-okulbilisim_cms:
-    resource: "@OkulbilisimCmsBundle/Resources/config/routing.yml"
-    prefix:   /
-ojs_location:
-    resource: "@OjsLocationBundle/Resources/config/routing.yml"
-    prefix: /
+    prefix: /admin/jobs
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

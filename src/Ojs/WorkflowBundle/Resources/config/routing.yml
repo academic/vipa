@@ -96,3 +96,5 @@ article_step_asssign_add_user:
 update_review:
     pattern: /update_review/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:reviewUpdate }
+    options:
+      expose: true

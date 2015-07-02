@@ -4,7 +4,7 @@ $(document).ready ->
     id = $(this).data('link-id')
     field = $(this)
     $.ajax
-      url: "/block_link/order/#{id}/#{value}"
+      url: Routing.generate('ojs_block_link_order', {id: id, value: value})
       type: 'POST'
       dataType: 'json'
       success: (rd)->

@@ -57,6 +57,7 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

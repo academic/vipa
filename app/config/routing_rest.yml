@@ -3,5 +3,7 @@ apihome:
     prefix:   /
     
 ojs_rest: 
-  type : rest
+  type: rest
   resource: "@OjsApiBundle/Resources/config/routing_rest.yml"
+  options:
+    expose: true

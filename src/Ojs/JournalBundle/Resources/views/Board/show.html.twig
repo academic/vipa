@@ -80,7 +80,7 @@
                     }
                 },
                 ajax: {
-                    url: "{{path("search_journal_users",{journalId: selectedJournal().id})}}",
+                    url: Routing.generate('search_journal_users', {journalId: {{  selectedJournal().id }}}),
                     dataType: 'json',
                     type: "GET",
                     delay: 1000,

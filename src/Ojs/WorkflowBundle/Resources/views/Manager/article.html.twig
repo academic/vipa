@@ -526,14 +526,14 @@
             });
             {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
             $.fn.editable.defaults.mode = 'inline';
-            $(".editable").editable({'url': '/update_review/{{ id }}'});
+            $(".editable").editable({'url': Routing.generate('update_review', {id: {{ id }}})});
             {% endif %}
             $("#endreview").on('click', function () {
                 var sure = confirm('{{"sure"|trans}}');
                 if (sure) {
                     OjsCommon.waitModal();
                     $(".editable").editable('submit', {
-                        url: '/update_review/{{ id }}',
+                        url: Routing.generate('update_review', {id: {{ id }}}),
                         ajaxOptions: {
                             dataType: 'text',
                             async: false
