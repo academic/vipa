@@ -234,7 +234,7 @@ class UserController extends Controller
                 $em->flush();
                 $mailer = $this->get('mailer');
                 $message = $mailer->createMessage()
-                    ->setSubject('Password Reset')
+                    ->setSubject(ojs . password_reset)
                     ->setFrom($this->container->getParameter('system_email'))
                     ->setTo($user->getEmail())
                     ->setBody(

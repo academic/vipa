@@ -1,10 +1,8 @@
 ojs.title: OJS
 api: 'Uygulama Geliştirme Arayüzü'
 api_motto: 'OJS geliştiriciler için tam bir api sağlar.'
-ojs:
-    install:
-        title: Ojs Kurulumu
-        confirm: Ojs kurulumu gerçekleşecek. Onaylıyor musunuz?
+ojs.install.title: Ojs Kurulumu
+ojs.install.title.confirm: Ojs kurulumu gerçekleşecek. Onaylıyor musunuz?
 save: Kaydet
 installer.welcome.title: 'OJS Kurulumuna Hoşgeldiniz'
 installer.welcome.message: 'Hoşgeldiniz Mesajı'
@@ -60,8 +58,8 @@ nextSteps.possible: 'Olası Sonraki Adımlar'
 step.new: 'Yeni adım ekle'
 step.edit: 'Adım düzenle'
 canOnlyReply: 'Kullanıcı sonraki adıma karar veremez. Sadece cevap verebilir.'
-'Is visible to author?': 'Yazar tarafından görülebilir mi?'
-'Must be assigned to someone?': 'Birisine atanması gerekir mi?'
+'workflow.is_visible_author': 'Yazar tarafından görülebilir mi?'
+'workflow.must_assigned_someone': 'Birisine atanması gerekir mi?'
 'can.edit?': 'Düzenleyebilir mi?'
 'can.review?': 'Değerlendirebilir mi?'
 'can.seeAuthor?': 'Yazar bilgisini görebilir mi?'
@@ -187,7 +185,7 @@ back.continue.editing: 'Geri Git & Düzenlemeye Devam Et'
 issue: Sayı
 issue.plural: Sayılar
 issue.manager: 'Sayı Yöneticisi'
-'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
+issue.all_articles: 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz'
 articles_in_journal: 'Dergideki Makaleler'
 article.new: 'Yeni Makale'
 article_author_edit: 'Yazarı Düzenle'
@@ -311,14 +309,13 @@ users: Kullanıcılar
 editor.dashboard: 'Editör Yönetim Ekranı'
 journal.detail: 'Dergi Detayı'
 URL: URL
-journalContact:
-  edit: 'Dergi İletişim Düzenle'
-  list: 'Dergi İletişim Listesi'
-  journal.id: 'Dergi ID'
-  contact.id: 'Dergi İletişim ID'
-  contact.type.id: 'Dergi İletişim Tür ID'
-  creation: 'Dergi İletişim Oluşturma'
-  singular: 'Dergi İletişim'
+journalContact.edit: 'Dergi İletişim Düzenle'
+journalContact.list: 'Dergi İletişim Listesi'
+journalContact.journal.id: 'Dergi ID'
+journalContact.contact.id: 'Dergi İletişim ID'
+journalContact.contact.type.id: 'Dergi İletişim Tür ID'
+journalContact.creation: 'Dergi İletişim Oluşturma'
+journalContact.singular: 'Dergi İletişim'
 allow_index: 'Dizine İzin Ver'
 hide_title: 'Başlığı Gizle'
 allow_index.list: 'Dizin Listesine İzin Ver'
@@ -459,8 +456,8 @@ journalsection.journal: Dergi
 haveNoJournals: 'Hiç derginiz yok'
 save: Kaydet
 Info: Bilgi
-'Article Files': 'Makale Dosyaları'
-'Header Image': 'Üst Resim'
+article.files: 'Makale Dosyaları'
+article.header_image: 'Üst Resim'
 File: 'Dosya'
 file: Dosya
 empty: Boş
@@ -478,7 +475,7 @@ statusText: 'Durum Başlığı'
 introduction: Tanıtım
 helptext.authors.wont.see: "Yazarlar bu alanı <strong>göremezler</strong>"
 helptext.authors.will.see: "Yazarlar bu alanı <strong>görürler</strong>"
-'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş fakat ilgili kişiye atanmayı bekliyor'
+workflow.should_be_assigned: 'Bu makaleler gönderilmiş fakat ilgili kişiye atanmayı bekliyor'
 accepted: Kabul Edildi
 rejected: Reddedildi
 waiting: Bekliyor
@@ -487,11 +484,11 @@ Section: Bölüm
 Authors: Yazarlar
 Files: Dosyalar
 update.article.file: Makale dosyasını güncelle
-'Review Notes': 'Hakem notları'
+workflow.review_notes: 'Hakem notları'
 competingOfInterest: TODO Competing of Interest
-'Previous Review Report': 'Önceki Hakem Raporu'
+workflow.previous_review_report: 'Önceki Hakem Raporu'
 sendmail: e-Posta gönder
-'Review Report': 'Hakem Raporu'
+workflow.review_report: 'Hakem Raporu'
 review.form.update: Hakem Raporunu Güncelle
 b: Geri
 done: Tamamlandı
@@ -502,12 +499,12 @@ review.form.item.update: Hakem Formu Elemanını Güncelle
 review.form.item.detail: Hakem Formu Elemanı Detayı
 form.item.update: Hakem Formunu Güncelle
 mandatory: Zorunlu
-'Is this question mandatory?': 'Bu soru zorunlu mu?'
+workflow.is_question_mandatory: 'Bu soru zorunlu mu?'
 confidential: Gizli
-"If this question's answer may contain confidential data please check.": "Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz"
+workflow.is_question_confiential: "Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz"
 fields: Alanlar
-'Add each field text as one line': 'Her alan için bir satır ekleyiniz'
-'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'Bu formdaki bütün elemanlar silinip varsayılan elemanlar eklenecektir. Emin misiniz?'
+workflow.each_field_one_line: 'Her alan için bir satır ekleyiniz'
+workflow.poll_reset: 'Bu formdaki bütün elemanlar silinip varsayılan elemanlar eklenecektir. Emin misiniz?'
 form.item.new: Yeni Form Elemanı
 actions: Eylemler
 sure: Emin misiniz?
@@ -516,22 +513,20 @@ Submissions: Gönderiler
 Drafts: Taslaklar
 restart: Yeniden Başlat 
 citation.clear: Referansları Temizle
-(selected): (seçili)
+ojs.selected: (seçili)
 Guidelines: Rehberler
-'Preview Article Before Submit': 'Gönderi Öncesi Makale Önizleme'
+ojs.preview_article: 'Gönderi Öncesi Makale Önizleme'
 author.institution: Yazar kurumu
 author.phone: Yazar telefonu
-'Back & Continue Editing': 'Geri Dön ve Düzenlemeye Devam Et'
-'This field is required!': 'Bu alan gereklidir!'
+ojs.back_and_edit: 'Geri Dön ve Düzenlemeye Devam Et'
+ojs.required_field: 'Bu alan gereklidir!'
 institution: Kurum
 parse: Ayrıştır
 authors: "Yazarlar"
 author.edit: Yazar Düzenle
 authors.count: Yazar sayısı
 parent: Üst
-Parent: Üst
 children: Alt
-Children: Alt
 searchon:
   doaj: "Doaj'da ara"
   crossref: Crossref'de ara
@@ -559,9 +554,9 @@ article.plural: Makaleler
 contact.plural: İletişim Kaydı 
 lang.plural: Dil
 user.plural: Kullanıcı
-'Any article viewed yet': 'Henüz hiçbir makale gösterilmedi'
-'Any article downloaded yet': 'Henüz hiçbir makale indirilmedi'
-"You don't have any journals!":  Hiç derginiz yok!
+article.any_article_viewed: 'Henüz hiçbir makale gösterilmedi'
+article.any_downloaded: 'Henüz hiçbir makale indirilmedi'
+"journal.any_have":  Hiç derginiz yok!
 issue.number: Sayı
 year: Yıl
 article: Makale
@@ -599,7 +594,7 @@ edit: Düzenle
 cms: İçerik Yönetim Sistemi
 delete: Sil
 copy: Kopyala
-'Order by': 'Sırala'
+order_by: 'Sırala'
 Filters: Filtrele
 collapse: +/-
 Search: Ara
@@ -608,13 +603,13 @@ Reset: Sıfırla
 Page: Sayfa
 'No data': Veri Yok
 'of %count%': '/ %count%'
-'Items per page': 'Sayfada adet'
-'Select visible': 'Görünenleri seç'
-'Deselect visible': 'Görünenleri seçme'
-'Select all': 'Hepsini seç'
-'Deselect all': 'Hiçbirini seç'
+items_per_page: 'Sayfada adet'
+select_visible: 'Görünenleri seç'
+deselect_visible: 'Görünenleri seçme'
+select_all: 'Hepsini seç'
+deselect_all: 'Hiçbirini seç'
 Action: Aksiyon
-'Submit Action': 'Gönderme Aksiyonu'
+submit_action: 'Gönderme Aksiyonu'
 Export: Dışarı Aktar
 404: Bulunamadı
 error: Hata
@@ -684,7 +679,7 @@ Articles: Makaleler
 ujs: UJS
 about: Hakkında
 blog: Blog
-'contact & help': 'İletişim & Yardım'
+contact_and_help: 'İletişim & Yardım'
 faq: 'Sıkça Sorulan Sorular'
 documents: Dökümanlar
 presentations: Sunumlar
@@ -712,7 +707,7 @@ user.custom_field.label: Tanım
 user.custom_field.value: Değer
 user.custom_field.is_url: 'Link mi?'
 user.custom_field.action: İşlemler
-'Add Link': 'Link Ekle'
+ojs.add_link: 'Link Ekle'
 user.connected_accounts: 'Bağlı Hesaplar'
 user.connected_accounts.add_orcid_account: 'ORCID Hesabına Bağlan'
 user.connected_accounts.add: 'Hesap Bağla'
@@ -728,17 +723,17 @@ user.reset_password: 'Şifremi Sıfırla'
 user.new_password: 'Yeni Şifre'
 user.new_password_confirm: 'Yeni Şifre (doğrulama)'
 user.private_account: 'Gizli Hesap'
-'This account is private.': 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
-'Password Change': 'Şifre Değiştirme'
+user.private: 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
+ojs.change_password: 'Şifre Değiştirme'
 Information: Bilgilendirme
-'Your password has been changed': 'Şifreniz Değiştirildi'
-'Password Reset': 'Şifre Sıfırla'
-'Your password has been reset': 'Şifreniz Sıfırlandı'
-'You are request password reset': 'Şifre sıfırlama isteği gönderdiniz'
+ojs.changed_password: 'Şifreniz Değiştirildi'
+ojs.password_reset: 'Şifre Sıfırla'
+ojs.password_reseted: 'Şifreniz Sıfırlandı'
+ojs.password_reset_request: 'Şifre sıfırlama isteği gönderdiniz'
 'You are requested password reset': 'Şifre Sıfırlama Talebiniz Var'
-'Password Reset Process': 'Şifre Sıfırlama İşlemi'
-'Click link below for reset to OJS account password': 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
-'Reset Now': 'Şimdi Sıfırla'
+ojs.password_reset_process: 'Şifre Sıfırlama İşlemi'
+ojs.password_reset_link: 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
+ojs.password_reset_now: 'Şimdi Sıfırla'
 forgot.password: 'Şifremi Unuttum'
 institute.register: 'Kurum Kaydet'
 journal.register: 'Dergi Başvuru'
@@ -748,10 +743,10 @@ journal_index.issues: Sayılar
 journal_index.volume: Cilt
 more: Daha fazlası
 Issue: Sayı
-'No Content': 'Hiç içerik yok'
+ojs.any_content: 'Hiç içerik yok'
 article.submit: Makale gönder
 journal_langs: Dergi dilleri
-'Add Link': 'Link Ekle'
+ojs.add_link: 'Link Ekle'
 filter.remove: "Filtreyi Kaldır"
 name: "İsim"
 email: E-posta
@@ -765,19 +760,19 @@ actions: "Eylemler"
 pages.new: "Yeni sayfa"
 pages.detail: "Sayfa detayı"
 search.results: "Arama sonuçları"
-"<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>": ""
+ojs.found_results: ""
 user: Kullanıcı
 register: Kayıt Ol
 application.institution.apply: "Kurum Başvurusu Yap"
 logo: Logo
-'Header Image': 'Üst Görsel'
+article.header_image: 'Üst Görsel'
 apply: Başvur
-'Your application saved successfully.': 'Başvurunuz başarıyla kaydedildi.'
-'Cover Image': 'Kapak Görseli'
+journal.application_success_message: 'Başvurunuz başarıyla kaydedildi.'
+cover_image: 'Kapak Görseli'
 user.new: Yeni Kullanıcı
 orcid.login: Orcid ile giriş
 drop.proxy.user: Vekil kullanıcıyı sil.
-'You can allow this user to login as you, by clicking this button': 'Bu butonu tıklayarak bu kullanıcının sizin yerinize giriş yapabilmesine izin verebilirsiniz.'
+user.proxy_allow: 'Bu butonu tıklayarak bu kullanıcının sizin yerinize giriş yapabilmesine izin verebilirsiniz.'
 add.as.proxy: Vekil kullanıcı ata
 user.profile: 'Kullanıcı Profili'
 user.profile.edit: 'Kullanıcı Profili Düzenle'
@@ -796,12 +791,12 @@ maillog.edit: 'E-posta Kaydı Düzenle'
 maillog.id: ID
 maillog.mailobject: 'E-posta Nesnesi'
 maillog.recipientemail: 'Alıcı E-postası'
-'You''ve joined to OJS': 'OJS`ye katıldınız.'
-'One More Step': 'Bir Adım Daha'
-'To protect your privacy, please confirm your email address by clicking the activation link': 'Gizliliğinizi koruyabilmemiz için lütfen e-posta adresinize gönderdiğimiz etkinleştirme bağlantısına tıklayınız.'
-'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'Eğer bağlantı tıklanamaz ise, lütfen kopyalayıp tarayıcınızın adres çubuğuna yapıştırınız.'
-'Activate Now': 'Şimdi Etkinleştir'
-'view this in your browser': 'Tarayıcınızda görüntüleyin'
+ojs.welcome_msg: 'OJS`ye katıldınız.'
+ojs.one_more_step: 'Bir Adım Daha'
+ojs.accept_privacy: 'Gizliliğinizi koruyabilmemiz için lütfen e-posta adresinize gönderdiğimiz etkinleştirme bağlantısına tıklayınız.'
+ojs.mail_validation: 'Eğer bağlantı tıklanamaz ise, lütfen kopyalayıp tarayıcınızın adres çubuğuna yapıştırınız.'
+ojs.activate_now: 'Şimdi Etkinleştir'
+ojs.view_in_browser: 'Tarayıcınızda görüntüleyin'
 notification.edit: 'Hatırlatma Düzenle'
 notification.list: 'Hatırlatmaları Listele'
 notification.id: ID
@@ -835,7 +830,7 @@ proxy.end.time: 'Sonlanma Zamanı'
 drop: Düşür
 update.ttl: 'TTL`i güncelle'
 update.end.time: 'Bitiş tarihini güncelle'
-Enter number as day count: Gün sayısı olarak bir rakam giriniz
+workflow.remaining_day: Gün sayısı olarak bir rakam giriniz
 cancel: İptal
 role.edit: 'Rol Düzenle'
 role.list: 'Rol Listesi'
@@ -856,8 +851,8 @@ forgot.password: 'Şifremi Unuttum'
 user.new: 'Yeni Kullanıcı'
 user.plural: Kullanıcılar
 register: Kayıt
-'This will be your unique short name in application': 'Bu uygulamada sizin kısa adınız olacak'
-'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': '<a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.'
+ojs.uniq_name: 'Bu uygulamada sizin kısa adınız olacak'
+ojs.tos_accept: '<a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.'
 unconfirmed.user: 'Etkinleştirilmemiş Kullanıcı'
 user.manager: 'Kullanıcı Yöneticisi'
 user.edit: 'Kullanıcı Düzenle'
@@ -910,9 +905,9 @@ user.journalrole.mail.body: Mesaj
 user.journalrole.mail.send: Gönder
 orcid.login: 'ORCID Hesabı İle Giriş Yap'
 flush.all.log: 'Logları Sil'
-'You''ve invited to OJS': "Ojs'ye davet edildiniz"
-'Review invitation from': 'Değerlendirme davet formu'
-'Click link below for login to ojs if you are accept invitation': 'Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız' 
+ojs.invited: "Ojs'ye davet edildiniz"
+ojs.invited_to_review: 'Değerlendirme davet formu'
+ojs.click_to_Review: 'Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız'
 Accept: Kabul et
 Decline: Reddet
 user.anonym.create_password: 'Şifre oluştur'
@@ -929,7 +924,7 @@ workflow.template.update: 'Şablonu Güncelle'
 workflow.template.updateStep: 'Adımı Güncelle'
 workflow: İş Akışı 
 articles.waiting: Bekleyen Makaleler
-'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş ancak atanmayı bekliyor'
+workflow.should_be_assigned: 'Bu makaleler gönderilmiş ancak atanmayı bekliyor'
 accepted: Kabul edildi
 rejected: Reddedildi
 waiting: Bekliyor
@@ -947,12 +942,12 @@ author.middlename: İkinci adı
 author.lastname: Soyadı
 email: E-posta
 Files: Dosyalar
-'Review Notes': 'Değerlendirme notlarıs'
+workflow.review_notes: 'Değerlendirme notlarıs'
 competingOfInterest: Çıkar çatışması
-'Previous Review Report': 'Önceki değerlendirme raporu'
+workflow.previous_review_report: 'Önceki değerlendirme raporu'
 sendmail: __sendmail
 preview: Önzileme
-'Review Report': 'Değerlendirme Raporu'
+workflow.review_report: 'Değerlendirme Raporu'
 review.forms: Değerlendirme Formları
 review.form.update: Değerlendirme Formu Güncelle
 b: Geri Gön
@@ -965,7 +960,7 @@ review.form.detail: Form detayı
 review.form.item.update: Form elemanı güncelle
 form.item.update: Form Elemanı Güncelle
 mandatory: Zorunlu
-'Is this question mandatory?': 'Bu soru zorunlu mu?'
+workflow.is_question_mandatory: 'Bu soru zorunlu mu?'
 confidential: Gizli bilgi
 input_type: Giriş türü
 input_types: Giriş türleri
@@ -976,9 +971,9 @@ input_types.radiobutton: Radio Butonu
 input_types.dropdown: Dropdown
 input_types.scale_1_5: scale_1_5
 fields: Alanlar
-'Add each field text as one line': 'Yeni satırlar halinde giriş yapınız.'
+workflow.each_field_one_line: 'Yeni satırlar halinde giriş yapınız.'
 Fieldset: Set
-'Questions will be grouped under fieldset names.': 'Sorular set  adları altında gruplanacaklardır.'
+workflow.group_set_name: 'Sorular set  adları altında gruplanacaklardır.'
 form.items: Form Elemanları
 details: Detaylar
 form.item.new: Yeni form elemanı
@@ -986,11 +981,11 @@ fieldset: Set
 optional: İsteğe bağlı
 confidentail: Gizli
 workflow.step.update: İş Akışı Adımı Güncelle
-'First Step': 'İlk Adım'
+workflow.first_step: 'İlk Adım'
 'Last Step': 'Son Adım'
-'User must send a competing of interest statement.': 'Kullanıcı çıkar çatışması ifadesi göndermelidir..'
-'Guidelines for filling a <i>competing of Interest</i> statement.': '<i>Çıkar çatışması</i> ifadesi oluşturmak için rehber.'
-'[No review form]': '[Değerlendirme formu yok]'
+workflow.competing_question: 'Kullanıcı çıkar çatışması ifadesi göndermelidir..'
+workflow.competing_guide: '<i>Çıkar çatışması</i> ifadesi oluşturmak için rehber.'
+workflow.no_review: '[Değerlendirme formu yok]'
 workflow.step.graph: İş akışı grafiği
 review.result: Değerlendirme Sonucu
 accept: Kabul Et
@@ -1000,10 +995,10 @@ visualize: Görselleştir
 workflow.step.new: İş Akışı Yeni Adım
 helptext.authors.wont.see: "Yazarlar bu alanı <strong>göremeyeceklertir</strong>."
 helptext.authors.will.see: "Yazarlar bu alanı <strong>görebileceklerdir</strong>."
-'Advanced Settings': 'Gelişmiş Ayarlar'
+workflow.advanced_settings: 'Gelişmiş Ayarlar'
 Template: Şablon
-'Can reject the submission completely?': 'Gönderiyi tamamen reddedebilir mi?'
-'Competing of interest statement': 'Çıkar çatışması ifadesi'
+workflow.reject_completely: 'Gönderiyi tamamen reddedebilir mi?'
+workflow.competing_interest: 'Çıkar çatışması ifadesi'
 workflow.template.edit: 'İş Akışı Şablonu Düzenle'
 workflow.step.template.edit: İş Akışı Şablon Düzenle
 step.new: Yeni Adım
@@ -1016,16 +1011,16 @@ first_step: İlk Adım
 last_step: Son Adım
 workflow.template.step.detail: İş Akışı Şablon Adımı Detayı
 workflow.template.details: İş Akışı Şablonu Detayları 
-'Your existing workflow design will be overwritten! Are you sure?': 'Eski iş akışı tasarımınız silinicektir! Bunu yapmak istediğinize emin misiniz?'
+workflow.design_reset: 'Eski iş akışı tasarımınız silinicektir! Bunu yapmak istediğinize emin misiniz?'
 system.templates: Sistem Şablonları
 created.templates: Oluşturulmuş Şablonlar
 success: Başarılı
 successful.create: 'Başarıyla oluşturuldu.'
 successful.update: 'Başarıyla güncellendi.'
 successful.remove: 'Başarıyla silindi.'
-"You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "Her yazar bilgi formalarının sol alt köşesinde bulunan 'Kaldır' butonuna basarak yazar formlarını kaldırmalısınız."
-"Remove all author forms!": Tüm yazar bilgi formlarını kaldır
-"User Journal Roles": Kullanıcı Dergi Rolleri
+workflow.remove_author: "Her yazar bilgi formalarının sol alt köşesinde bulunan 'Kaldır' butonuna basarak yazar formlarını kaldırmalısınız."
+workflow.remove_author_all: Tüm yazar bilgi formlarını kaldır
+user.journal_roles: Kullanıcı Dergi Rolleri
 submitRoles : Gönderi yapabilecek roller
 Create: Oluştur
 footer_text: Alt metin
@@ -1033,7 +1028,7 @@ verified: Onaylı
 submissionDate: Gönderi tarihi
 addressLat: Adres Enlem
 addressLong: Adres Boylam
-"Select journal to submit": Makale göndereceğiniz dergiyi seçiniz
+user.select_to_submit: Makale göndereceğiniz dergiyi seçiniz
 
 help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
 "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamlamadığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."

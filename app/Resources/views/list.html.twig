@@ -73,7 +73,8 @@
                                 {% set columnTitle = grid.prefixTitle ~ column.title %}
                             {% endif %}
                             {% if (column.sortable) %}
-                                <a class="order" href="{{ grid_url('order', grid, column) }}" title="{{ 'Order by'|trans }} {{ columnTitle|trans }}">{{ columnTitle|trans }}</a>
+                                <a class="order" href="{{ grid_url('order', grid, column) }}"
+                                   title="{{ order_by|trans }} {{ columnTitle|trans }}">{{ columnTitle|trans }}</a>
                                 {% if column.order == 'asc' %}
                                     <div class="sort_up"></div>
                                 {% elseif column.order == 'desc' %}
@@ -200,16 +201,16 @@
         {% for key, value in grid.limits %}
             <option value="{{ key }}"{% if (key == grid.limit) %} selected="selected"{% endif %}>{{ value }}</option>
         {% endfor %}
-    </select> {{ 'Items per page'|trans }}
+    </select> {{ items_per_page|trans }}
 {% endblock grid_pager_results_perpage %}
 {# --------------------------------------------------- grid_actions ------------------------------------------------- #}
 {% block grid_actions %}
     <div class="mass-actions">
     <span class="grid_massactions_helper">
-        <a href="#" onclick="return {{ grid.hash }}_markVisible(true);">{{ 'Select visible'|trans }}</a> |
-        <a href="#" onclick="return {{ grid.hash }}_markVisible(false);">{{ 'Deselect visible'|trans }}</a> |
-        <a href="#" onclick="return {{ grid.hash }}_markAll(true);">{{ 'Select all'|trans }}</a> |
-        <a href="#" onclick="return {{ grid.hash }}_markAll(false);">{{ 'Deselect all'|trans }}</a>
+        <a href="#" onclick="return {{ grid.hash }}_markVisible(true);">{{ select_visible|trans }}</a> |
+        <a href="#" onclick="return {{ grid.hash }}_markVisible(false);">{{ deselect_visible|trans }}</a> |
+        <a href="#" onclick="return {{ grid.hash }}_markAll(true);">{{ select_all|trans }}</a> |
+        <a href="#" onclick="return {{ grid.hash }}_markAll(false);">{{ deselect_all|trans }}</a>
         <span class="mass-actions-selected" id="{{ grid.hash }}_mass_action_selected"></span>
     </span>
         {% spaceless %}
@@ -222,7 +223,7 @@
                         <option value="{{ key }}">{{ massAction.title|trans }}</option>
                     {% endfor %}
                 </select>
-                <input type="submit"  value="{{ 'Submit Action'|trans }}"/>
+                <input type="submit" value="{{ submit_action|trans }}"/>
             </div>
         {% endspaceless %}
     </div>

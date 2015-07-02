@@ -60,12 +60,12 @@ nextSteps.possible: 'Possible Next Steps'
 step.new: 'New Step'
 step.edit: 'Edit step'
 canOnlyReply: 'User can not decide next step, can only reply back.'
-'Is visible to author?': 'Is visible to author?'
-'Must be assigned to someone?': 'Must be assigned to someone?'
-'can.edit?': 'Can edit?'
-'can.review?': 'Can review?'
-'can.seeAuthor?': 'Can user see author information?'
-'can.rejectSubmission?': 'Can reject submission?'
+workflow.is_visible_author: 'Is visible to author?'
+workflow.must_assigned_someone: 'Must be assigned to someone?'
+can.edit?: 'Can edit?'
+can.review?: 'Can review?'
+can.seeAuthor?: 'Can user see author information?'
+can.rejectSubmission?: 'Can reject submission?'
 suggestedMaxDays: 'Suggested maximum days count'
 admin: Admin
 dashboard: Dashboard
@@ -183,7 +183,7 @@ back.continue.editing: 'Back & Continue Editing'
 issue: Issue
 issue.plural: Issues
 issue.manager: 'Issue Manager'
-'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
+issue.all_articles: 'Here you can find all articles for selected issue'
 articles_in_journal: 'Articles In Journal'
 article.new: 'New Article'
 article_author_edit: 'Article Author Edit'
@@ -307,14 +307,13 @@ users: Users
 editor.dashboard: 'Editor Dashboard'
 journal.detail: 'Journal Detail' 
 URL: URL
-journalContact:
-  edit: 'Edit Journal Contact'
-  list: 'Journal Contact List'
-  journal.id: 'Journal ID'
-  contact.id: 'Contact ID'
-  contact.type.id: 'Contact Type ID'
-  creation: 'Journal Contact Creation'
-  singular: 'Journal Contact'
+journalContact.edit: 'Edit Journal Contact'
+journalContact.list: 'Journal Contact List'
+journalContact.journal.id: 'Journal ID'
+journalContact.contact.id: 'Contact ID'
+journalContact.contact.type.id: 'Contact Type ID'
+journalContact.creation: 'Journal Contact Creation'
+journalContact.singular: 'Journal Contact'
 allow_index: 'Allow Index'
 hide_title: 'Hide Title'
 allow_index.list: 'Allow Index List'
@@ -450,8 +449,8 @@ journalsection.journal: Journal
 haveNoJournals: 'Hiç derginiz yok'
 save: Save
 Info: Info
-'Article Files': 'Article Files'
-'Header Image': 'Header Image'
+article.files: 'Article Files'
+article.header_image: 'Header Image'
 File: File
 file: File
 empty: Empty
@@ -469,7 +468,7 @@ statusText: 'Status Text'
 introduction: Introduction
 helptext.authors.wont.see: "Authors <strong>won't</strong> see this field."
 helptext.authors.will.see: "Authors <strong>will</strong> see this field."
-'These articlese submitted but waiting to be assigned.': 'These articlese submitted but waiting to be assigned.'
+workflow.should_be_assigned: 'These articlese submitted but waiting to be assigned.'
 accepted: Accepted
 rejected: Rejected
 waiting: Waiting
@@ -480,11 +479,11 @@ Section: Section
 Authors: Authors
 Files: Files
 update.article.file: Update Article File
-'Review Notes': 'Review Notes'
+workflow.review_notes: 'Review Notes'
 competingOfInterest: Competing of Interest
-'Previous Review Report': 'Previous Review Report'
+workflow.previous_review_report: 'Previous Review Report'
 sendmail: Send email
-'Review Report': 'Review Report'
+workflow.review_report: 'Review Report'
 review.form.update: Update Review Form
 b: Back
 done: Tamamlandı
@@ -495,15 +494,15 @@ review.form.item.update: Review Form Item Upate
 review.form.item.detail: Review Form Item Detail
 form.item.update: Form Item Update
 mandatory: Mandatory
-'Is this question mandatory?': 'Is this question mandatory?'
+workflow.is_question_mandatory: 'Is this question mandatory?'
 confidential: Confidential
-"If this question's answer may contain confidential data please check.": "If this question's answer may contain confidential data please check."
+workflow.is_question_confiential: "If this question's answer may contain confidential data please check."
 fields: Fields
-'Add each field text as one line': 'Add each field text as one line'
+workflow.each_field_one_line: 'Add each field text as one line'
 Fieldset: Fieldset
-'Questions will be grouped under fieldset names.': 'Questions will be grouped under fieldset names.'
+workflow.group_set_name: 'Questions will be grouped under fieldset names.'
 form.items: Form Items
-'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
+workflow.poll_reset: 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
 form.item.new: New Form Item
 fieldset: Fieldset
 optional: Optional 
@@ -517,19 +516,19 @@ ROLE_COPYEDITOR : Copyeditor
 ROLE_PROOFREADER : Proofreader
 ROLE_AUTHOR : Author
 ROLE_READER : Reader
-'User must send a competing of interest statement.': 'User must send a competing of interest statement.'
-'Guidelines for filling a <i>competing of Interest</i> statement.': 'Guidelines for filling a <i>competing of Interest</i> statement.'
-'[No review form]': '[No review form]'
+workflow.competing_question: 'User must send a competing of interest statement.'
+workflow.competing_guide: 'Guidelines for filling a <i>competing of Interest</i> statement.'
+workflow.no_review: '[No review form]'
 workflow.step.graph: Workflow Step Graph
 review.result: Review Result
 workflow.step.new: New Workflow Step 
-'Advanced Settings': 'Advanced Settings'
+workflow.advanced_settings: 'Advanced Settings'
 Template: Template
-'Can reject the submission completely?': 'Can reject the submission completely?'
-'Competing of interest statement': 'Competing of interest statement' 
+workflow.reject_completely: 'Can reject the submission completely?'
+workflow.competing_interest: 'Competing of interest statement'
 first_step: First Step
 last_step: Last Step 
-'Your existing workflow design will be overwritten! Are you sure?': 'Your existing workflow design will be overwritten! Are you sure?'
+workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
 user.manager: User Manager
 event.user.id: __event.user.id
 event.affectedUser.id: __event.affectedUser.id
@@ -538,26 +537,26 @@ maillog.edit: Edit Mail Log
 maillog.id: Log id
 maillog.mailobject: Mail Object
 maillog.recipientemail: Recipient Email
-'You''ve joined to OJS': 'You''ve joined to OJS'
-'One More Step': 'One More Step'
-'To protect your privacy, please confirm your email address by clicking the activation link': 'To protect your privacy, please confirm your email address by clicking the activation link'
-'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.'
-'Activate Now': 'Activate Now'
-'view this in your browser': 'view this in your browser'
-'You''ve invited to OJS': 'You''ve invited to OJS'
-'Review invitation from': 'Review invitation from'
-'Click link below for login to ojs if you are accept invitation': 'Click link below for login to ojs if you are accept invitation'
+ojs.welcome_msg: 'You have joined to OJS'
+ojs.one_more_step: 'One More Step'
+ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking the activation link'
+ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
+ojs.activate_now: 'Activate Now'
+ojs.view_in_browser: 'view this in your browser'
+ojs.invited: 'You have invited to OJS'
+ojs.invited_to_review: 'Review invitation from'
+ojs.click_to_Review: 'Click link below for login to ojs if you are accept invitation'
 Accept: Accept
 Decline: Decline
-'Password Change': 'Password Change'
+ojs.change_password: 'Password Change'
 Information: Information
-'Your password has been changed': 'Your password has been changed'
-'Password Reset': 'Password Reset'
-'Your password has been reset': 'Your password has been reset'
-'You are request password reset': 'You are request password reset'
-'Password Reset Process': 'Password Reset Process'
-'Click link below for reset to ojs account password': 'Click link below for reset to ojs account password'
-'Reset Now': 'Reset Now'
+ojs.changed_password: 'Your password has been changed'
+ojs.password_reset: 'Password Reset'
+ojs.password_reseted: 'Your password has been reset'
+ojs.password_reset_request: 'You are request password reset'
+ojs.password_reset_process: 'Password Reset Process'
+ojs.password_reset_link: 'Click link below for reset to ojs account password'
+ojs.password_reset_now: 'Reset Now'
 user.anonym.create_password: Create password
 username.or.email: Username or Email
 username: Username
@@ -565,8 +564,8 @@ password: Password
 forgot.password: Forgot password
 orcid.login: Orcid login
 register: Register
-'This will be your unique short name in application': 'This will be your unique short name in application'
-'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
+ojs.uniq_name: 'This will be your unique short name in application'
+ojs.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 unconfirmed.user: Unconfirmed user
 user.edit: Edit User
 Avatar: Avatar
@@ -585,13 +584,13 @@ Drafts: Drafts
 restart: Restart
 save.next: Save & Next
 citation.clear: Clear Citation
-(selected): (selected)
+ojs.selected: (selected)
 Guidelines: Guidelines
-'Preview Article Before Submit': 'Preview Article Before Submit'
+ojs.preview_article: 'Preview Article Before Submit'
 author.institution: Author Institution
 author.phone: Phone
-'Back & Continue Editing': 'Back & Continue Editing'
-'This field is required!': 'This field is required!'
+ojs.back_and_edit: 'Back & Continue Editing'
+ojs.required_field: 'This field is required!'
 institution: Institution
 institutions: Institutions
 parse: Parse
@@ -611,11 +610,11 @@ tags: Tags
 more: More
 journal_home: Journal Home Page
 announcements: Announcements
-'No Content': 'No Content'
+ojs.any_content: 'No Content'
 articles: Articles
 search: Search
 about: About
-'Link Ekle': 'Link Ekle'
+ojs.add_link: 'Link Ekle'
 list: List 
 search.results: Search Results
 search.builder: Advanced Search Builder
@@ -627,11 +626,11 @@ journal.register: Journal Register
 featured: Featured
 featured.desc: ""
 apply: Apply
-'Your application saved successfully.': 'Your application saved successfully.'
-'Cover Image': 'Cover Image'
+journal.application_success_message: 'Your application saved successfully.'
+cover_image: 'Cover Image'
 User: User
-'This account is private.': 'This account is private.'
-'You can allow this user to login as you, by clicking this button': 'You can allow this user to login as you, by clicking this button'
+user.private: 'This account is private.'
+user.proxy_allow: 'You can allow this user to login as you, by clicking this button'
 u: Update
 api: Api
 api_motto: __api_motto
@@ -639,7 +638,7 @@ edit: Edit
 cms: CMS
 delete: Delete
 copy: Copy
-'Order by': 'Order by'
+order_by: 'Order by'
 Filters: Filters
 collapse: Collapse
 Search: Search
@@ -647,18 +646,18 @@ Reset: Reset
 '%count% Results,': '%count% Results,'
 Page: Page
 'of %count%': 'of %count%' 
-'Items per page': 'Items per page'
-'Select visible': 'Select visible'
-'Deselect visible': 'Deselect visible'
-'Select all': 'Select all'
-'Deselect all': 'Deselect all'
+items_per_page: 'Items per page'
+select_visible: 'Select visible'
+deselect_visible: 'Deselect visible'
+select_all: 'Select all'
+deselect_all: 'Deselect all'
 Action: Action
-'Submit Action': 'Submit Action'
+submit_action: 'Submit Action'
 Export: Export
 Tweaks: Tweaks
 Tweak: Tweak
 Go: Go
-'You''ve a message from Ojs': 'You''ve a message from Ojs'
+ojs.have_message: 'You have a message from Ojs'
 privacy:  Privacy
 tos: Tos
 wiki: Wiki
@@ -697,9 +696,9 @@ total.issue: 'Total issue'
 article.plural: Articles
 author.plural: Authors
 contact.plural: Contacts 
-'Any article viewed yet': 'Any article viewed yet'
-'Any article downloaded yet': 'Any article downloaded yet'
-You don't have any journals!: You don't have any journals!
+article.any_article_viewed: 'Any article viewed yet'
+article.any_downloaded: 'Any article downloaded yet'
+journal.any_have: You don't have any journals!
 volume: Volume
 issue.number: Number
 title: Title
@@ -798,7 +797,7 @@ articles: Articles
 ujs: UJS
 about: About
 blog: Blog
-'contact & help': 'Contact & Help'
+contact_and_help: 'Contact & Help'
 faq: 'Frequently Asked Questions'
 documents: Documents
 presentations: Presentations
@@ -819,7 +818,7 @@ user.custom_field.label: Label
 user.custom_field.value: Value
 user.custom_field.is_url: 'Is Url?'
 user.custom_field.action: Actions
-'Add Link': 'Add Link'
+ojs.add_link: 'Add Link'
 user.connected_accounts: 'Connected Accounts'
 user.connected_accounts.add_orcid_account: 'Connect ORCID'
 user.connected_accounts.add: 'Add Account'
@@ -835,16 +834,7 @@ user.reset_password: 'Reset Password'
 user.new_password: 'New Password'
 user.new_password_confirm: 'New Password (confirmation)'
 user.private_account: 'Private Account'
-'This account is private.': 'This account is private.'
-'Password Change': 'Password Change'
-Information: Information
-'Your password has been changed': 'Your password has been changed'
-'Password Reset': 'Password Reset'
-'Your password has been reset': 'Your password has been reset'
-'You are requested password reset': 'You are request password reset'
-'Password Reset Process': 'Password Reset Process'
-'Click link below for reset to OJS account password': 'Click link below for reset to ojs account password'
-'Reset Now': 'Reset Now'
+user.private: 'This account is private.'
 forgot.password: forgot.password
 institute.register: 'Register Institute'
 journal.register: 'Register Journal'
@@ -863,13 +853,13 @@ citations: Citations
 subjects: Subjects
 section: Section
 Issue: Issue
-'No Content': 'No Content'
+ojs.any_content: 'No Content'
 article.submit: Submit Article
 journalcontact.singular: Journal Contact
 journalcontact.list: Journal Contact List
 country: Country
 new.block: New block
-'Link Ekle': 'Link Ekle'
+ojs.add_link: 'Link Ekle'
 filter.remove: Remove filter
 subject.plural: Subject
 name: Name
@@ -884,18 +874,18 @@ pages.new: New page
 pages.detail: Page detail
 actions: Actions
 author.plural: Author
-"<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>": "<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>"
+ojs.found_results: "<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>"
 user: User
 register: Register
 logo: Logo
 file.select: Select File 
-'Header Image': Header Image'
+article.header_image: Header Image'
 suggest: Suggest
-'Your application saved successfully.': 'Your application saved successfully.'
+journal.application_success_message: 'Your application saved successfully.'
 application.institution.apply: Apply as Institution
-'Cover Image': 'Cover Image'
+cover_image: 'Cover Image'
 user.new: New User 
-'You can allow this user to login as you, by clicking this button': 'You can allow this user to login as you, by clicking this button'
+user.proxy_allow: 'You can allow this user to login as you, by clicking this button'
 user.profile: User Profile
 user.profile.edit: Edit User Profile
 user.lastlogin: Last Login
@@ -913,12 +903,6 @@ maillog.edit: 'Maillog Edit'
 maillog.id: ID
 maillog.mailobject: 'Mail Object'
 maillog.recipientemail: 'Recipient Email'
-'You''ve joined to OJS': 'You`ve joined to OJS'
-'One More Step': 'One More Step'
-'To protect your privacy, please confirm your email address by clicking the activation link': 'To protect your privacy, please confirm your email address by clicking the activation link'
-'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'If the clicking the button below doesn`t work try copying and pasting this URL to your browser window.'
-'Activate Now': 'Activate Now'
-'view this in your browser': 'view this in your browser'
 notification.edit: 'Edit Notification'
 notification.list: 'List Notifications'
 notification.id: ID
@@ -952,7 +936,7 @@ proxy.end.time: 'End Time'
 drop: Drop
 update.ttl: 'Update TTL'
 update.end.time: 'Update end time'
-Enter number as day count: Enter number as day count 
+workflow.remaining_day: Enter number as day count
 cancel: Cancel
 role.edit: 'Edit Role'
 role.list: 'Role List'
@@ -971,8 +955,6 @@ Repeat Password: Repeat Password
 forgot.password: 'forgot password'
 user.new: 'New User'
 user.plural: Users
-'This will be your unique short name in application': 'This will be your unique short name in application'
-'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 unconfirmed.user: 'Unconfirmed User'
 user.manager: 'User Manager'
 user.edit: 'Edit User'
@@ -1015,16 +997,14 @@ user.journalrole.user.id: ID
 user.journalrole.user.username: Username
 user.journalrole.email: Email
 user.journalrole.thisjournalhasnouser: 'This journal has no user!'
-orcid:
-  login: "Login With ORCID"
+orcid.login: "Login With ORCID"
 user.journalrole.send_email: "Send Email To User"
 user.journalrole.mail.template: Template
 user.journalrole.mail.to: "Mail To"
 user.journalrole.mail.subject: "Subject"
 user.journalrole.mail.body: "Message Body"
 user.journalrole.mail.send: "Send"
-flush:
-  all.log : "Flush Logs"
+flush.all.log : "Flush Logs"
 useThisTemplate: 'Use this template'
 status.inreview: Interview
 status.published: Published
@@ -1038,17 +1018,16 @@ workflow.template.updateStep: 'Update Step'
 workflow: Workflow
 article.plural: Article
 articles.waiting: Waiting Articles
-'These articlese submitted but waiting to be assigned.': 'These articlese submitted but waiting to be assigned.'
+workflow.should_be_assigned: 'These articlese submitted but waiting to be assigned.'
 dashboard: Dashboard
 accepted: Accepted
 rejected: Rejected
 waiting: Waiting
-searchon:
-  google: Search on Google
-  wikipedia: Search on Wikipedia
-  pubmed: Search on Pubmed
-  doaj: Search on Doaj
-  crossref: Search on Crossref 
+searchon.google: Search on Google
+searchon.wikipedia: Search on Wikipedia
+searchon.pubmed: Search on Pubmed
+searchon.doaj: Search on Doaj
+searchon.crossref: Search on Crossref
 Subjects: Subjects
 Keywords: Keywords
 Abstract: Abstract
@@ -1056,16 +1035,16 @@ Section: Section
 Authors: Authors
 author.title: Title
 Files: Files 
-'Review Notes': 'Review Notes'
+workflow.review_notes: 'Review Notes'
 competingOfInterest: Competing Of Interest
-'Previous Review Report': 'Previous Review Report'
-'Review Report': 'Review Report' 
+workflow.previous_review_report: 'Previous Review Report'
+workflow.review_report: 'Review Report'
 save: Save  
 create: Create 
 journal: Journal
 title: Title 
 form.item.update: Update form item
-'Is this question mandatory?': 'Is this question mandatory?'
+workflow.is_question_mandatory: 'Is this question mandatory?'
 input_type: Input type
 input_types: Input Types
 input_types.textbox: textbox
@@ -1075,11 +1054,11 @@ input_types.radiobutton: radiobutton
 input_types.dropdown: dropdown
 input_types.scale_1_5: scale_1_5
 fields: Fields
-'Add each field text as one line': 'Add each field text as one line'
+workflow.each_field_one_line: 'Add each field text as one line'
 Fieldset: Fieldset
-'Questions will be grouped under fieldset names.': 'Questions will be grouped under fieldset names.'
+workflow.group_set_name: 'Questions will be grouped under fieldset names.'
 details: Details
-'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
+workflow.poll_reset: 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
 form.item.new: New Form Item
 input_types: Input types
 fieldset: Fieldset
@@ -1098,23 +1077,23 @@ workflow.templates.create: Create Workflow Template
 workflow.template.new: New Workflow Template  
 workflow.template.step.detail: Workflow Template Step Detail
 workflow.template.details: Workflow Templat Details
-'Your existing workflow design will be overwritten! Are you sure?': 'Your existing workflow design will be overwritten! Are you sure?'
+workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
 system.templates: System templates
 created.templates: Created Templates
 success: Success
 successful.create: 'Successfully created.'
 successful.update: 'Successfully updated.'
 successful.remove: 'Successfully removed.'
-"You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "You should remove author forms by clicking 'Remove' button on left bottom corner of every form."
-"Remove all author forms!": Remove all author forms!
-"User Journal Roles": User Journal Roles
+workflow.remove_author: "You should remove author forms by clicking 'Remove' button on left bottom corner of every form."
+workflow.remove_author_all: Remove all author forms!
+user.journal_roles: User Journal Roles
 submitRoles: Roles that can submit articles
 footer_text: Footer text
 verified: Verified
 submissionDate: Submission Date
 addressLat: Address Latitude
 addressLong: Address Longitude
-"Select journal to submit": Select journal to submit
+user.select_to_submit: Select journal to submit
 
 help.preSubmission.header: " Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step."
 "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"

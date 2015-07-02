@@ -49,7 +49,7 @@
 
                 <div class="form-inline">
                     <label class="label label-info" style="line-height: 20px;display: inline-block;">
-                        {{ 'First Step'|trans }}
+                        {{ workflow.first_step|trans }}
                         <input type="checkbox" name="firstStep" value="1"
                                {% if step.firstStep %}checked="checked"{% endif %}> </label>
                     <label class="label label-warning"
@@ -87,14 +87,14 @@
 
                 <div class="form-group">
                     <label style="line-height: 20px;display: inline-block;">
-                        {{ 'User must send a competing of interest statement.'|trans }}
+                        {{ workflow.competing_question|trans }}
                         <input type="checkbox" name="shouldFileCi" value="1"
                                {% if step.shouldFileCi %}checked="checked"{% endif %}>
                     </label>
                     <br>
 
                     <div id="ciTextHolder" style="{%if step.shouldFileCi ==false %}display:none{% endif %}">
-                        {{ 'Guidelines for filling a <i>competing of Interest</i> statement.'|trans }}
+                        {{ workflow.competing_guide|trans }}
                         <br>
                         {% for template in ciTemplates %}
                             <a href="#" class="btn btn-default" id="abstractTemplateBtn{{ template.id }}"
@@ -111,7 +111,7 @@
 
                 <div class="form-inline">
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        {% trans %}Is visible to author?{% endtrans %}
+                        {% trans %}workflow.is_visible_author{% endtrans %}
                         <input type="checkbox" name="isVisible" value="1"
                                {% if step.isVisible %}checked="checked"{% endif %}>
                     </label>
@@ -137,7 +137,7 @@
                     </label>
 
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        {% trans %}Must be assigned to someone?{% endtrans %}
+                        {% trans %}workflow.must_assigned_someone{% endtrans %}
                         <input type="checkbox" name="mustBeAssigned" value="1"
                                {% if step.mustBeAssigned %}checked="checked"{% endif %}>
                     </label>
@@ -167,7 +167,7 @@
                     <label>{{ "review.forms"|trans }}</label>
 
                     <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
-                        <option>{{ '[No review form]'|trans }}</option>
+                        <option>{{ workflow.no_review|trans }}</option>
                         {% for form in forms %}
                             <option
                                     {% if step.hasForm(form) %}selected="selected"{% endif %}

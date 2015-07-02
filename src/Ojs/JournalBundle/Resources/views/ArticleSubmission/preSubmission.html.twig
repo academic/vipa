@@ -9,7 +9,7 @@
                         {% for journal in userjournals %}
                             <option value="{{ path('change_selected_journal',{'journal_id':journal.id}) }}?submission=1"
                                     {% if journal.id == selected_journal_id %}selected="selected" {% endif %}>
-                                {{ journal.title }} {% if journal.id == selected_journal_id %} {{ "(selected)"|trans }} {% endif %}
+                                {{ journal.title }} {% if journal.id == selected_journal_id %} {{ "ojs.selected"|trans }} {% endif %}
                             </option>
                         {% endfor %}
                     </select>

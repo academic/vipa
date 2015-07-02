@@ -30,7 +30,7 @@
                         <input type="checkbox" name="mandatory" {% if formItem.mandatory %}checked="checked"{% endif %}
                                id="mandatoryinput" value="1">
                     </label>
-                    <span class="help-block">{{ 'Is this question mandatory?'|trans }}</span>
+                    <span class="help-block">{{ workflow.is_question_mandatory|trans }}</span>
                 </div>
                 <div>
                     <label>{{ "confidential"|trans }}
@@ -38,7 +38,7 @@
                                {% if formItem.confidential %}checked="checked"{% endif %} id="confidentialinput"
                                value="1">
                     </label>
-                    <span class="help-block">{{ "If this question's answer may contain confidential data please check."|trans }}</span>
+                    <span class="help-block">{{ workflow.is_question_confiential|trans }}</span>
                 </div>
 
                 <div class="form-inline">
@@ -64,13 +64,13 @@
                      style="{% if formItem.inputType  in [ 'radiobutton','radiobutton','checkboxes'] %}display:block{%else%}display:none{% endif %}">
                     <label>{{ 'fields'|trans }}</label>
                     <textarea id="fieldsinput" class="form-control" name="fields" rows="10"
-                              placeholder="{{ 'Add each field text as one line'|trans }}">{% for field in formItem.fields %}{{ field }}
+                              placeholder="{{ workflow.each_field_one_line|trans }}">{% for field in formItem.fields %}{{ field }}
 {% endfor %}</textarea>
                 </div>
                 <div>
                     <label>{{ 'Fieldset'|trans }}</label>
                     <input value="{{ formItem.fieldset }}" id="fieldsetinput" class="form-control" name="fieldset">
-                    <span class="help-block">{{ 'Questions will be grouped under fieldset names.'|trans }}</span>
+                    <span class="help-block">{{ workflow.group_set_name|trans }}</span>
                 </div>
 
                 <div>

@@ -391,7 +391,7 @@
 
         {% if articleStep.reviewNotes %}
             <div>
-                <h2>{{ 'Review Notes'|trans }}</h2>
+                <h2>{{ workflow.review_notes|trans }}</h2>
                 {{ articleStep.reviewNotes|raw }}
             </div>
         {% endif %}
@@ -407,7 +407,7 @@
         {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
         <div class="jumbotron">
             {% if prevStep %}
-                <h3>{{ 'Previous Review Report'|trans }}</h3>
+                <h3>{{ workflow.previous_review_report|trans }}</h3>
                 {{ prevStep.reviewFormResults|raw }}
                 <hr>
             {% endif %}
