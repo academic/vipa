@@ -2,7 +2,11 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +20,47 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  */
 class IssueFileController extends Controller
 {
+    public function indexAction(Request $request)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
+
+        if (!$this->isGranted('VIEW', $journal, 'issues')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
+        $source = new Entity('OjsJournalBundle:IssueFile');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
+        $issueId = $request->query->get('issue');
+        if($request->query->get('article') != null) {
+            $issue = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($issueId);
+            $this->throw404IfNotFound($issue);
+
+            $alias = $source->getTableAlias();
+            $source->manipulateQuery(
+                function (QueryBuilder $query) use ($alias, $issueId) {
+                    $query
+                        ->join($alias.'.issues', 'i')
+                        ->where('i.id = :issueId')
+                        ->setParameter('issueId', $issueId);
+                }
+            );
+        }
+
+        $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = $gridAction->showAction('ojs_journal_issue_file_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_journal_issue_file_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_file_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        return $grid->getGridResponse('OjsJournalBundle:IssueFile:index.html.twig');
+    }
+
     /**
      * Creates a new IssueFile entity.
      */
