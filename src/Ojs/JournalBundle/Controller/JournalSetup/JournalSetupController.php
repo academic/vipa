@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Journal Setup Wizard controller.
@@ -22,49 +23,58 @@ class JournalSetupController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('CREATE', new Journal())) {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $journalCreatePermission = $this->isGranted('CREATE', new Journal());
+        /** @var Journal $selectedJournal */
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $selectedJournalEditPermission = $this->isGranted('EDIT', $selectedJournal);
+
+        if (!$journalCreatePermission && !$selectedJournalEditPermission) {
             throw new AccessDeniedException();
         }
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        /** @var JournalSetupProgress $userSetup */
-        $userSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUser($user);
-
-        //if user have an journal setup progress resume journal setup. Else create an journal setup progress
-        if ($userSetup) {
-            return $this->redirect(
-                $this->generateUrl(
-                    'admin_journal_setup_resume',
-                    [
-                        'setupId' => $userSetup->getId(),
-                    ]
-                ).'#'.
-                $userSetup->getCurrentStep()
-            );
-        } else {
-            $newJournal = new Journal();
-            $newJournal->setTitle('');
-            $newJournal->setTitleAbbr('');
-            $newJournal->setSetupStatus(false);
-            $em->persist($newJournal);
-            $em->flush();
-
-            $newSetup = new JournalSetupProgress();
-            $newSetup->setUser($user);
-            $newSetup->setCurrentStep(1);
-            $newSetup->setJournal($newJournal);
-            $em->persist($newSetup);
-            $em->flush();
-
-            return $this->redirect(
-                $this->generateUrl(
-                    'admin_journal_setup_resume',
-                    [
-                        'setupId' => $newSetup->getId(),
-                    ]
-                ).'#1'
-            );
+        if (!$selectedJournal && !$journalCreatePermission) {
+            throw new NotFoundHttpException();
         }
+        $journalSetup = new JournalSetupProgress();
+        if($journalCreatePermission){
+            /** @var JournalSetupProgress $journalSetup */
+            $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUser($user);
+            if(!$journalSetup){
+                $newJournal = new Journal();
+                $newJournal->setTitle('');
+                $newJournal->setTitleAbbr('');
+                $newJournal->setSetupStatus(false);
+                $em->persist($newJournal);
+
+                $journalSetup->setUser($user);
+                $journalSetup->setCurrentStep(1);
+                $journalSetup->setJournal($newJournal);
+                $em->persist($journalSetup);
+                $em->flush();
+            }
+        }elseif(!$selectedJournal->getSetupStatus()){
+
+            /** @var JournalSetupProgress $userSetup */
+            $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByJournal($selectedJournal);
+        }elseif($selectedJournal->getSetupStatus()){
+
+            $selectedJournal->setSetupStatus(false);
+            $journalSetup->setUser($user);
+            $journalSetup->setJournal($selectedJournal);
+            $journalSetup->setCurrentStep(1);
+            $em->persist($journalSetup);
+            $em->flush();
+        }
+        return $this->redirect(
+            $this->generateUrl(
+                'ojs_journal_setup_resume',
+                [
+                    'setupId' => $journalSetup->getId(),
+                ]
+            ).'#'.
+            $journalSetup->getCurrentStep()
+        );
     }
 
     /**

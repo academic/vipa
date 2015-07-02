@@ -1,37 +1,37 @@
-admin_journal_setup:
+ojs_journal_setup:
     pattern:  /
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:index" }
 
-admin_journal_setup_resume:
+ojs_journal_setup_resume:
     pattern:  /{setupId}/resume/
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:resume" }
 
-admin_journal_setup_resume_step1:
+ojs_journal_setup_resume_step1:
     pattern:  /{setupId}/step1
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep1:update" }
     requirements: { _method: post }
 
-admin_journal_setup_resume_step2:
+ojs_journal_setup_resume_step2:
     pattern:  /{setupId}/step2
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep2:update" }
     requirements: { _method: post }
 
-admin_journal_setup_resume_step3:
+ojs_journal_setup_resume_step3:
     pattern:  /{setupId}/step3
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep3:update" }
     requirements: { _method: post }
 
-admin_journal_setup_resume_step4:
+ojs_journal_setup_resume_step4:
     pattern:  /{setupId}/step4
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:update" }
     requirements: { _method: post }
 
-admin_journal_setup_resume_step5:
+ojs_journal_setup_resume_step5:
     pattern:  /{setupId}/step5
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep5:update" }
     requirements: { _method: post }
 
-admin_journal_setup_resume_step6:
+ojs_journal_setup_resume_step6:
     pattern:  /{setupId}/step6
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep6:update" }
     requirements: { _method: post }
