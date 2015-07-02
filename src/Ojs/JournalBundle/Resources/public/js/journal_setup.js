@@ -47,7 +47,7 @@ var OjsJournalSetup = {
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
             OjsCommon.hideallModals();
-            if (response.success) {
+            if (response.success == 1) {
                 OjsJournalSetup.hideAllSteps();
                 OjsJournalSetup.prepareStep.step2();
             } else {
@@ -69,7 +69,7 @@ var OjsJournalSetup = {
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
             OjsCommon.hideallModals();
-            if (response.success) {
+            if (response.success == 1) {
                 OjsJournalSetup.hideAllSteps();
                 OjsJournalSetup.prepareStep.step3();
             } else {
@@ -113,7 +113,7 @@ var OjsJournalSetup = {
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
             OjsCommon.hideallModals();
-            if (response.success) {
+            if (response.success == 1) {
                 OjsJournalSetup.hideAllSteps();
                 OjsJournalSetup.prepareStep.step5();
             } else {
@@ -135,7 +135,7 @@ var OjsJournalSetup = {
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
             OjsCommon.hideallModals();
-            if (response.success) {
+            if (response.success == 1) {
                 OjsJournalSetup.hideAllSteps();
                 OjsJournalSetup.prepareStep.step6();
             } else {
