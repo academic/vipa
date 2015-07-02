@@ -527,12 +527,11 @@ author.edit: Yazar Düzenle
 authors.count: Yazar sayısı
 parent: Üst
 children: Alt
-searchon:
-  doaj: "Doaj'da ara"
-  crossref: Crossref'de ara
-  wikipedia: "Wikipedia'da Ara"
-  google: "Google Akademik'de Ara"
-  pubmed: "Pubmed'de ara"
+searchon.doaj: "Doaj'da ara"
+searchon.crossref: Crossref'de ara
+searchon.wikipedia: "Wikipedia'da Ara"
+searchon.google: "Google Akademik'de Ara"
+searchon.pubmed: "Pubmed'de ara"
 journalindex.list: Dergi Dizin Listesi
 journal_licence.edit: Dergi Lisans Düzenle
 journal.setup: Dergi Kurulumu

@@ -1,10 +1,8 @@
 ojs.title: OJS
 api: 'Application Development Interface'
 api_motto: 'OJS provides a complete restful api for developers.'
-ojs:
-    install:
-        title: Ojs Installation
-        confirm: Confirm Installation
+ojs.install.title: Ojs Installation
+ojs.install.confirm: Confirm Installation
 save: Save
 installer.welcome.title: 'Welcome to OJS Web Installer'
 installer.welcome.message: 'Welcome message'
