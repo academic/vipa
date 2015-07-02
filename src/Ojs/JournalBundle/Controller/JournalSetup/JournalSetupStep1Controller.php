@@ -7,6 +7,7 @@ use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step1;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class JournalSetupStep1Controller extends Controller
 {
@@ -22,6 +23,10 @@ class JournalSetupStep1Controller extends Controller
         /** @var JournalSetupProgress $setup */
         $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
+
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException();
+        }
         $step1Form = $this->createForm(new Step1(), $journal);
         $step1Form->handleRequest($request);
         if ($step1Form->isValid()) {

@@ -8,6 +8,7 @@ use Okulbilisim\CmsBundle\Entity\Post;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\Journal;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class JournalSetupStep4Controller extends Controller
 {
@@ -24,6 +25,9 @@ class JournalSetupStep4Controller extends Controller
         $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException();
+        }
         $setup->setCurrentStep(2);
         $data = $request->request->all();
         $pages = $data['page'];

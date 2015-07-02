@@ -88,7 +88,9 @@ class JournalSetupController extends Controller
         /** @var JournalSetupProgress $setup */
         $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
-
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException();
+        }
         $stepsForms = array();
         //for 6 step create update forms
         foreach (range(1, 6) as $stepValue) {

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\Common\Services\JournalService;
 use Gedmo\Sluggable\Util\Urlizer;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Journal Setup Wizard Step controller.
@@ -36,6 +37,10 @@ class JournalSetupStep6Controller extends Controller
         $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
+
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException();
+        }
         $step6Form = $this->createForm(new Step6(), $journal);
         $step6Form->handleRequest($request);
         if ($step6Form->isValid()) {
