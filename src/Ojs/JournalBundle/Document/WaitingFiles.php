@@ -41,6 +41,12 @@ class WaitingFiles
     protected $path;
 
     /**
+     * @MongoDB\Bool
+     * @var boolean
+     */
+    protected $downloaded;
+
+    /**
      * @return int
      */
     public function getId()
@@ -132,6 +138,25 @@ class WaitingFiles
         $this->url = $url;
         return $this;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isDownloaded()
+    {
+        return $this->downloaded;
+    }
+
+    /**
+     * @param boolean $downloaded
+     * @return $this
+     */
+    public function setDownloaded($downloaded)
+    {
+        $this->downloaded = $downloaded;
+        return $this;
+    }
+
 
 
 }
