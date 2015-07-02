@@ -2,6 +2,10 @@ ojs_admin_journal_index:
     pattern:  /
     defaults: { _controller: OjsAdminBundle:AdminJournal:index }
 
+ojs_admin_journal_not_finished:
+    pattern:  /notfinished
+    defaults: { _controller: OjsAdminBundle:AdminJournal:notFinished }
+
 ojs_admin_journal_show:
     pattern:  /{id}/show
     defaults: { _controller: OjsAdminBundle:AdminJournal:show }

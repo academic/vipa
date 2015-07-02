@@ -57,6 +57,50 @@ class AdminJournalController extends Controller
     }
 
     /**
+     * Returns setupStatus == false journals
+     * @return Response
+     */
+    public function notFinishedAction()
+    {
+        if (!$this->isGranted('VIEW', new Journal())) {
+            throw new AccessDeniedException("You not authorized for list journals!");
+        }
+        $source = new Entity('OjsJournalBundle:Journal');
+        $tableAlias = $source->getTableAlias();
+
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias)
+            {
+                $query->andWhere($tableAlias . '.setup_status = 0');
+            }
+        );
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+
+        $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
+        $rowAction[] = $gridAction->cmsAction();
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
+        $rowAction[] = (new RowAction('Manage', 'change_selected_journal'))
+            ->setRouteParameters('id')
+            ->setRouteParametersMapping(array('id' => 'journal_id'))
+            ->setAttributes(
+                array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage")
+            );
+
+        $actionColumn->setRowActions($rowAction);
+
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+
+        return $grid->getGridResponse('OjsAdminBundle:AdminJournal:index.html.twig', $data);
+    }
+
+    /**
      * @param  Request                   $request
      * @return RedirectResponse|Response
      */

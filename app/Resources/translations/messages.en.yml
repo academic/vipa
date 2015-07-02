@@ -1534,3 +1534,5 @@ issuefile.title: "Title"
 issuefile.file:  "File"
 issuefile.edit: "Edit Issue File"
 issuefile.new: "New Issue File"
+
+not.finished: Not Finished
