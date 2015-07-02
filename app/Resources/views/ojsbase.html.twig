@@ -85,6 +85,7 @@
                 {% if app.user and hideleft is not defined  %}
                     <div class="col-sm-9 col-md-9">
                         {% if app.user and selectedJournal()
+                        and app.user.isAdmin == false
                         and is_granted('EDIT', selectedJournal())
                         and selectedJournal().setupStatus != true %}
                             <div class="alert alert-warning" role="alert">
