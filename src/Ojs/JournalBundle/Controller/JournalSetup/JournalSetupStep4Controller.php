@@ -3,10 +3,11 @@
 namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Document\JournalSetupProgress;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Okulbilisim\CmsBundle\Entity\Post;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Ojs\JournalBundle\Entity\Journal;
 
 class JournalSetupStep4Controller extends Controller
 {
@@ -18,11 +19,11 @@ class JournalSetupStep4Controller extends Controller
      */
     public function updateAction(Request $request, $setupId)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
+        $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
         $setup->setCurrentStep(2);
         $data = $request->request->all();
         $pages = $data['page'];
@@ -46,8 +47,6 @@ class JournalSetupStep4Controller extends Controller
             $em->persist($page_);
             $em->flush();
         }
-        $dm->flush();
-
         return new JsonResponse(
             array(
                 'success' => '1',

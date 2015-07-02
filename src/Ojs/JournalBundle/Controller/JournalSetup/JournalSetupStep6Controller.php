@@ -4,13 +4,16 @@ namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Document\JournalSetupProgress;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step6;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\Common\Services\JournalService;
+use Gedmo\Sluggable\Util\Urlizer;
 
 /**
  * Journal Setup Wizard Step controller.
@@ -26,20 +29,22 @@ class JournalSetupStep6Controller extends Controller
      */
     public function updateAction(Request $request, $setupId)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
+        /** @var JournalService $journalService */
+        $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
+        $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
         $step6Form = $this->createForm(new Step6(), $journal);
         $step6Form->handleRequest($request);
         if ($step6Form->isValid()) {
+            $journal->setSlug(Urlizer::urlize($journal->getTitle(), '_'));
             $journal->setSetupStatus(true);
+            $em->remove($setup);
             $em->flush();
-            //remove journal setup progress data
-            $dm->remove($setup);
-            $dm->flush();
-            $journalLink = $this->get('ojs.journal_service')->generateUrl($journal);
+
+            $journalLink = $journalService->generateUrl($journal);
 
             return new JsonResponse(
                 array(
