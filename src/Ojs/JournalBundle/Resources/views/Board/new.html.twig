@@ -16,8 +16,10 @@
     {% endif %}
     {{ form(form) }}
 
-    <a href="{{ path('ojs_journal_board_index') }}">
-        {{ "b"|trans }}
-    </a>
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_board_index')},
+    })
+    }}
 
 {% endblock %}
