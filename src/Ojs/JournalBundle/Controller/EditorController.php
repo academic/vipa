@@ -32,7 +32,7 @@ class EditorController extends Controller
     {
         $user_id = $this->getUser()->getId();
         if (!$user_id) {
-            throw new HttpException(403, 'There is a problem while getting user information. Access denied');
+            throw new HttpException(403, 'ojs.403');
         }
         $entities = $this->getDoctrine()->getRepository('OjsJournalBundle:JournalRole')
             ->userJournalsWithRoles($user_id);

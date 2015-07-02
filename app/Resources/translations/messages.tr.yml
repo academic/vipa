@@ -1031,9 +1031,9 @@ addressLong: Adres Boylam
 user.select_to_submit: Makale göndereceğiniz dergiyi seçiniz
 
 help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
-"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamlamadığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
-Access Denied: Bu sayfayı görebilmek için gerekli izniniz bulunmuyor.
-You don't have submission privilege. : Makale gönderme yetkisine sahip değilsiniz.
+ojs.setup_not_completed:  "Dergi kurulumunuzu tamamlamadığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
+ojs.403: Bu sayfayı görebilmek için gerekli izniniz bulunmuyor.
+workflow.fw_reviewer_403 : Makale gönderme yetkisine sahip değilsiniz.
 Turkish: Türkçe
 English: İngilizce
 German: Almanca
@@ -1069,20 +1069,20 @@ board.manager: Kurul Yönetimi
 board.addUser: Kurula Kullanıcı Ekle
 board.hasNoMember: Kurula kayıtlı kullanıcı yok
 board.members: Üyeler
-"You can add member from your journal's users only.": Sadece derginizin kullanıcılarından üye ekleyebilirsiniz. 
-"You can <a href='%path%'>manage</a> journal's users." : "Dergi kullanıcılarınızı <a href='%path%'>yönetebilirsiniz</a>."
+board.can_not_add_user: Sadece derginizin kullanıcılarından üye ekleyebilirsiniz.
+board.manage_users : "Dergi kullanıcılarınızı <a href='%path%'>yönetebilirsiniz</a>."
 
 notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.
-Hide my account: Hesabımı gizli tut
-This username  is already taken: Bu kullanıcı adı daha önce alınmış
-This username  is not available.: Bu kullanıcı adı uygun <strong>değildir</strong>. Lütfen başka bir kullanıcı giriniz.
-This username is available: Bu kullanıcı adı uygun.
-Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...
+user.hide_account: Hesabımı gizli tut
+user.username_taken: Bu kullanıcı adı daha önce alınmış
+user.username_not_available: Bu kullanıcı adı uygun <strong>değildir</strong>. Lütfen başka bir kullanıcı giriniz.
+user.username_available: Bu kullanıcı adı uygun.
+user.username_check: Kullanıcı adının geçerliliği sorgulanıyor...
 submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolmayacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.
-"Successfully deleted.": "Başarıyla silindi."
-Confirm to register yourself as author.: Bu derginin bir yazarı değilsiniz. Kendiniz yazar olarak kaydetmek için onay veriniz.
-Current roles : Mevcut roller
-Register yourself as author: Kendinizi yazar olarka kaydedin
+deleted: "Başarıyla silindi."
+user.join_journal_confirm: Bu derginin bir yazarı değilsiniz. Kendiniz yazar olarak kaydetmek için onay veriniz.
+user.current_roles: Mevcut roller
+user.join_journal: Kendinizi yazar olarka kaydedin
 Confirm : Onayla
 
 #evetn log translations

@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body -%}
-    <p>{{ "Confirm to register yourself as author."|trans }}</p>
+    <p>{{ "user.join_journal_confirm"|trans }}</p>
     <div class="well">
         <h4>{{ "Current roles"|trans }}</h4>
         {% for role in roles %}
@@ -18,7 +18,7 @@
     </div>
     <form class="form" role="form" method="POST">
         <div class="form-group">
-            <label class="control-label">{{ "Register yourself as author"|trans }} <span class="mandatory"></span>
+            <label class="control-label">{{ "user.join_journal"|trans }} <span class="mandatory"></span>
                 <input name="confirm" type="checkbox"/>
             </label>
         </div>

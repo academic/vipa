@@ -1096,9 +1096,9 @@ addressLong: Address Longitude
 user.select_to_submit: Select journal to submit
 
 help.preSubmission.header: " Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step."
-"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"
-Access Denied: You don't have permission to view this page.
-You don't have submission privilege.: You don't have submission privilege.
+ojs.setup_not_completed:  "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"
+ojs.403: You don't have permission to view this page.
+workflow.fw_reviewer_403: You don't have submission privilege.
 
 journal.boards: Journal Boards
 boards: Boards
@@ -1112,20 +1112,20 @@ board.manager: Board Manager
 board.addUser: Add User to Board
 board.hasNoMember: Board has no members
 board.members: Members
-"You can add member from your journal's users only.": You can add member from your journal's users only. 
-"You can <a href='%path%'>manage</a> journal's users." : "You can <a href='%path%'>manage</a> journal's users."
+board.can_not_add_user: You can add member from your journal's users only.
+board.manage_users : "You can <a href='%path%'>manage</a> journal's users."
 
 notFound: The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.
-Hide my account: Hide my account
-This username  is already taken: This username  is already taken
-This username  is not available.: This username  is <strong>not</strong> available. Please enter a different username.
-This username is available: This username  is available
-Looking for username availability: Looking for username availability...
+user.hide_account: Hide my account
+user.username_taken: This username  is already taken
+user.username_not_available: This username  is <strong>not</strong> available. Please enter a different username.
+user.username_available: This username  is available
+user.username_check: Looking for username availability...
 submission.attention: After submission your manuscript you can't change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.
-"Successfully deleted.": "Successfully deleted."
-Confirm to register yourself as author.: You are not an author of this journal. Confirm to register yourself as author.
-Current roles : Current roles
-Register yourself as author: Register yourself as author
+deleted: "Successfully deleted."
+user.join_journal_confirm: You are not an author of this journal. Confirm to register yourself as author.
+user.current_roles: Current roles
+user.join_journal: Register yourself as author
 Confirm : Confirm
 
 #evetn log translations
