@@ -47,6 +47,7 @@ class JournalSetupController extends Controller
                 $newJournal->setSetupStatus(false);
                 $em->persist($newJournal);
 
+                $journalSetup = new JournalSetupProgress();
                 $journalSetup->setUser($user);
                 $journalSetup->setCurrentStep(1);
                 $journalSetup->setJournal($newJournal);
