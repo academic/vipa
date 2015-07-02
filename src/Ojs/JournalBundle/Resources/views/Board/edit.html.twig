@@ -17,17 +17,13 @@
     {{ form_widget(edit_form) }}
     <button class="btn-primary btn" type="submit">{{ "u"|trans }}</button>
     {{ form_end(edit_form) }}
-
-
-    <a href="{{ path('ojs_journal_board_index') }}">
-        {{ "b"|trans }}
-    </a>
-    {% if is_granted('DELETE', selectedJournal(), 'boards') %}
-        <a href="{{ path('ojs_journal_board_delete',{id: entity.id}) }}">
-            {{ "d"|trans }}
-        </a>
-    {% endif %}
-
+    <br>
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_board_index')},
+        'delete': {'href': path('ojs_journal_board_delete', {'id': entity.id})},
+    })
+    }}
     {{ getLogs(entity) }}
 
 {% endblock %}
