@@ -59,7 +59,12 @@ class TranslateSynchronizeCommand extends ContainerAwareCommand
                 $catSlaveFile->set($key, "TODO: $value");
             }
         }
-
+        $messages = $catMasterFile->all('messages');
+        ksort($messages);
+        $catSlaveFile->replace($messages);
+        foreach($messages as $key => $value){
+            $catSlaveFile->set($key, $value);
+        }
         $output->writeln('Slave file can modify');
         $dumper = new YamlFileDumper();
         $dumper->dump($catSlaveFile, array('path' => $this->path));
