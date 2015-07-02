@@ -54,7 +54,7 @@ class TranslateSynchronizeCommand extends ContainerAwareCommand
         $catMasterFile = $this->loader->load($masterLanguageFile, $masterLanguage);
         $catSlaveFile = $this->loader->load($slaveLanguageFile, $slaveLanguage);
 
-        foreach ($catMasterFile->all() as $key => $value) {
+        foreach ($catMasterFile->all('messages') as $key => $value) {
             if (!$catSlaveFile->has($key)) {
                 $catSlaveFile->set($key, "TODO: $value");
             }
