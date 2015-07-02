@@ -4,17 +4,12 @@ namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step6;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\Common\Services\JournalService;
-use Gedmo\Sluggable\Util\Urlizer;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Journal Setup Wizard Step controller.
@@ -23,50 +18,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class JournalSetupStep6Controller extends Controller
 {
     /**
-     * Journal Setup Wizard Step 6 - Saves Journal 's step 6 data
-     * @param  Request      $request
-     * @param $setupId
-     * @return JsonResponse
-     */
-    public function updateAction(Request $request, $setupId)
-    {
-        /** @var JournalService $journalService */
-        $journalService = $this->get('ojs.journal_service');
-        $em = $this->getDoctrine()->getManager();
-        /** @var JournalSetupProgress $setup */
-        $setup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
-        /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournal()->getId());
-
-        if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException();
-        }
-        $step6Form = $this->createForm(new Step6(), $journal);
-        $step6Form->handleRequest($request);
-        if ($step6Form->isValid()) {
-            $journal->setSlug(Urlizer::urlize($journal->getTitle(), '_'));
-            $journal->setSetupStatus(true);
-            $em->remove($setup);
-            $em->flush();
-
-            $journalLink = $journalService->generateUrl($journal);
-
-            return new JsonResponse(
-                array(
-                    'success' => '1',
-                    'journalLink' => $journalLink,
-                )
-            );
-        } else {
-            return new JsonResponse(
-                array(
-                    'success' => '0',
-                )
-            );
-        }
-    }
-
-    /**
+     * TODO : function must be inspected before remove. Now we are not using this method.
      * manager current journal setup step 6
      * @param  Request      $request
      * @return JsonResponse
