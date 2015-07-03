@@ -14,10 +14,11 @@ use wdm\debian\Packager;
 
 class PackageCommand extends ContainerAwareCommand
 {
-    const OPERATION_DIRECTORY = '/tmp/ojs';
+    const OPERATION_DIRECTORY = '/tmp/ojs/';
     const OUTPUT_DIRECTORY = '/tmp/ojs/output';
     const REPO_DIRECTORY = '/tmp/ojs/repository';
     const DEB_FILE_NAME = 'ojs.deb';
+    const ZIP_FILE_NAME = 'ojs.zip';
 
     protected function configure()
     {
@@ -30,6 +31,23 @@ class PackageCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $type = $input->getArgument('type');
+
+        if ($type == 'zip' || $type == 'ZIP') {
+            $output->writeln('<info>Creating a ZIP package...</info>');
+            $output->writeln('<info>Archiving master branch...</info>');
+            $archiver = new Process('git archive --format zip --output ' . self::OPERATION_DIRECTORY . self::ZIP_FILE_NAME . ' master ');
+            $archiver->run();
+
+            if (!$archiver->isSuccessful()) {
+                $output->writeln('<info>Could not archive master branch.</info>');
+                $output->writeln('<error>' . $archiver->getErrorOutput() . '</error>');
+                return;
+            } else {
+                $output->writeln('<info>Done!</info>');
+                $output->writeln('<info>The archive is at: ' . self::OPERATION_DIRECTORY . self::ZIP_FILE_NAME);
+            }
+        }
+
         if ($type == 'deb' || $type == 'DEB') {
             $output->writeln('<info>Creating a Debian package...</info>');
             $filesystem = new FileSystem();
@@ -83,9 +101,8 @@ class PackageCommand extends ContainerAwareCommand
                 $output->writeln('<info>Could not create a DEB file.</info>');
                 $output->writeln('<error>' . $process->getErrorOutput() . '</error>');
             } else {
-                $output->writeln('<info>' . $process->getOutput() . '</info>');
                 $output->writeln('<info>Done!</info>');
-                $output->writeln('<info>Package is at: ' . self::OPERATION_DIRECTORY . '/' . self::DEB_FILE_NAME);
+                $output->writeln('<info>The package is at: ' . self::OPERATION_DIRECTORY . self::DEB_FILE_NAME);
             }
         }
     }
