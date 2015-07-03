@@ -178,10 +178,15 @@ class IssueController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_issue'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:Issue:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }

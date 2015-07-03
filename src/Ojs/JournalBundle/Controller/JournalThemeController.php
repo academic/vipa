@@ -153,10 +153,15 @@ class JournalThemeController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_theme'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:JournalTheme:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }

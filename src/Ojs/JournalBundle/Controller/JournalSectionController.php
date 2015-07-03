@@ -183,10 +183,15 @@ class JournalSectionController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_section'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:JournalSection:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }

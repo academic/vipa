@@ -154,11 +154,13 @@ class CitationController extends Controller
             throw $this->createNotFoundException('Unable to find Citation entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_citation'.$entity->getId());
 
         return $this->render('OjsJournalBundle:Citation:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'token'       => $token,
         ));
     }
 
@@ -183,12 +185,10 @@ class CitationController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -230,7 +230,6 @@ class CitationController extends Controller
             throw $this->createNotFoundException('Unable to find Citation entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -243,7 +242,6 @@ class CitationController extends Controller
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
@@ -260,38 +258,21 @@ class CitationController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
+        $this->throw404IfNotFound($entity);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('ojs_journal_citation'.$id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Citation entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if ($token != $request->get('_token')) {
+            throw new TokenNotFoundException("Token Not Found!");
         }
 
-        return $this->redirect($this->generateUrl('ojs_journal_citation_index'));
-    }
+        $em->remove($entity);
+        $em->flush();
+        $this->successFlashBag('successful.remove');
 
-    /**
-     * Creates a form to delete a Citation entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ojs_journal_citation_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        return $this->redirect($this->generateUrl('ojs_journal_citation_index'));
     }
 }

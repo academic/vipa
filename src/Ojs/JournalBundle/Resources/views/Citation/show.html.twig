@@ -57,7 +57,7 @@
     actions({
         'back': {'href': path('ojs_journal_citation_index')},
         'edit': {'href': path('ojs_journal_citation_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_citation_delete', {'id': entity.id})},
+        'delete': {'href': path('ojs_journal_citation_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}

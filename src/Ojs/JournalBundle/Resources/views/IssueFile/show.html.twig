@@ -60,17 +60,12 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('ojs_journal_issue_file_index') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('ojs_journal_issue_file_edit', { 'id': entity.id ,'issue': entity.issue.id}) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_issue_file_index', {issue: entity.issueId})},
+        'edit': {'href': path('ojs_journal_issue_file_edit', {'id': entity.id})},
+        'delete': {'href': path('ojs_journal_issue_file_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+    })
+    }}
 </ul>
 {% endblock %}
