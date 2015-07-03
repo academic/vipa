@@ -118,6 +118,8 @@ class DefaultController extends Controller
         $data['resumptionToken'] = $key;
         $data['isLast'] = $records->getTotalItemCount()>=$currentPage*100?true:false;
         $data['currentPage'] = $currentPage;
+        $data['metadataPrefix'] = $request->get('metadataPrefix','oai_dc');
+
         return $this->response('OjsOAIBundle:Default:records.xml.twig', $data);
     }
 
@@ -242,6 +244,7 @@ class DefaultController extends Controller
         if(!$data['record']){
             throw new NotFoundHttpException("Record not found");
         }
+        $data['metadataPrefix'] = $request->get('metadataPrefix','oai_dc');
         return $this->response('OjsOAIBundle:Default:record.xml.twig',$data);
     }
 
