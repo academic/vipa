@@ -32,11 +32,6 @@ services:
             - "%defaultInstitutionSlug%"
         tags:
             - { name: twig.extension }
-    ojs.twig.oai_extension:
-        class: Ojs\OAIBundle\Twig\OAIExtension
-        arguments: [@doctrine.orm.entity_manager]
-        tags:
-            - { name: twig.extension }
     ojs.twig.analytics_extension:
         class: Ojs\AnalyticsBundle\Twig\AnalyticsExtension
         arguments: [@doctrine.odm.mongodb.document_manager]
