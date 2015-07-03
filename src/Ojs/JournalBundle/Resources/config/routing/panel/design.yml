@@ -24,7 +24,7 @@ ojs_journal_design_update:
     defaults: { _controller: "OjsJournalBundle:JournalDesign:update" }
     methods: [PUT]
 
-admin_journaldesign_delete:
+ojs_journal_design_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalDesign:delete" }
     methods: [DELETE]
