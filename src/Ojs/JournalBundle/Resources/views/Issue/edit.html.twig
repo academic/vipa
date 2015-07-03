@@ -43,7 +43,7 @@
         <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
 
         <div id="preview_image">
-            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
+            <img class="img-responsive" src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
                  data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
             {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
             <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
@@ -67,17 +67,6 @@
     </button>
     {{ form_end(edit_form) }}
     <hr/>
-    <h3>{{ "issuefile.list"|trans }}</h3>
-    {{ grid(grid) }}
-    <br/>
-    <a class="btn btn-primary" href="{{ url('ojs_journal_issue_file_new',{issue: entity.id}) }}">{{ "issuefile.new"|trans }}</a>
-    <hr>
-
-    {% set back_path = 'ojs_journal_issue_index' %}
-    {% if is_granted('DELETE', selectedJournal(), 'issues') %}
-        {% set delete_path = 'ojs_journal_issue_delete' %}
-    {% endif %}
-    {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
 
