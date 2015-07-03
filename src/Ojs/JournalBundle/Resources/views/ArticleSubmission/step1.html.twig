@@ -9,7 +9,7 @@
             <div class="form-group">
                 <label class="control-label">{{ "title"|trans }} <span class="mandatory"></span></label>
                 <input name="title" class="form-control {% if loop.first %}validate[required]{% endif %}"
-                       data-errormessage="{{ ojs.required_field|trans }}"
+                       data-errormessage="{{ 'ojs.required_field'|trans }}"
                        placeholder="{{ 'article.title'|trans }}"
                        value="{% if article is defined %}{{ article.title }}{% endif %}"/>
             </div>
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label class="control-label">{{ "keywords"|trans }} <span class="mandatory"></span></label>
                 <input name="keywords" class="form-control input-xs {% if loop.first %}validate[required]{% endif %}"
-                       data-errormessage="{{ ojs.required_field|trans }}"
+                       data-errormessage="{{ 'ojs.required_field'|trans }}"
                        placeholder="Comma-seperated keyword list" data-role="tagsinput"
                        value="{% if article is defined %}{{ article.keywords }}{% endif %}"/>
             </div>
@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label class="control-label">{{ "abstract"|trans }} <span class="mandatory"></span></label>
                 <textarea name="abstract" class="editor form-control {% if loop.first %}validate[required]{% endif %}"
-                          data-errormessage="{{ ojs.required_field|trans }}"
+                          data-errormessage="{{ 'ojs.required_field'|trans }}"
                           rows="6">{% if article is defined %}{{ article.abstract }}{% else %}
                         {% if journal.getSetting('submissionAbstractTemplate') %}{{ journal.getSetting('submissionAbstractTemplate').value|raw }}{% endif %}
                     {% endif %}</textarea>
