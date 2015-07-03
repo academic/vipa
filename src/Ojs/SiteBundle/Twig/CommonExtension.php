@@ -49,6 +49,9 @@ class CommonExtension extends \Twig_Extension
         $this->filterManager = $filterManager;
     }
 
+    /**
+     * @return array
+     */
     public function getFilters()
     {
         return [
@@ -57,59 +60,18 @@ class CommonExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('addFilters', [$this, 'addFilters']),
             new \Twig_SimpleFunction('getImageOptions', [$this, 'getImageOptions']),
             new \Twig_SimpleFunction('orcidLoginUrl', [$this, 'orcidLoginUrl']),
         ];
     }
 
-    /**
-     * @param $key
-     * @param $value
-     * @return string
-     */
-    public function addFilters($key = null, $value = null)
-    {
-        $request = Request::createFromGlobals();
-        $filters = [];
-        $filters['institution'] = $request->get('institution') ? $this->parseFilters($request->get('institution')) : [];
-        $filters['subject'] = $request->get('subject') ? $this->parseFilters($request->get('subject')) : [];
-        if (isset($filters[$key]) && count($filters[$key]) > 4) {
-            unset($filters[$key][0]);
-        }
-        $filters[$key][] = $value;
 
-        return $this->convertToUrl($filters);
-    }
-
-    /**
-     * @param $filter
-     * @return array
-     */
-    private function parseFilters($filter)
-    {
-        return explode('|', $filter);
-    }
-
-    /**
-     * @param  array  $filters
-     * @return string
-     */
-    private function convertToUrl($filters = [])
-    {
-        $data = [];
-        foreach ($filters as $key => $value) {
-            if (empty($value)) {
-                continue;
-            }
-            $data[] = "{$key}=".implode('|', $value);
-        }
-
-        return implode('&', $data);
-    }
 
     /**
      * @param $entity
