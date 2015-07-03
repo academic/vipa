@@ -1,0 +1,76 @@
+Ojs\JournalBundle\Entity\ArticleSubmissionProgress:
+    type: entity
+    table: article_submission_progress
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+            targetEntity: Journal
+            inversedBy: ArticleSubmissionProgress
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+        user:
+            targetEntity: Ojs\UserBundle\Entity\User
+            inversedBy: ArticleSubmissionProgress
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        article:
+            targetEntity: Ojs\JournalBundle\Entity\Article
+            inversedBy: ArticleSubmissionProgress
+            joinColumn:
+                name: article_id
+                referencedColumnName: id
+    fields:
+        currentStep:
+            type: integer
+            column: current_step
+        competingOfInterest:
+            type: string
+            column: competing_of_interest
+            nullable: true
+        primaryLanguage:
+            type: string
+            column: primary_language
+            nullable: true
+        submitted:
+            type: boolean
+            column: submitted
+        checklist:
+            type: string
+            column: checklist
+            nullable: true
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+            nullable: true
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+           nullable: true
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+           nullable: true
+    lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true
