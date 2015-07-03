@@ -1,12 +1,12 @@
 ojs_journal_setup:
     pattern:  /
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:index" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup:index" }
 
 ojs_journal_setup_resume:
     pattern:  /{setupId}/resume/
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:resume" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup:resume" }
 
 ojs_journal_setup_step_control:
     pattern:  /step/{setupId}/control/{step}
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:stepControl" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup:stepControl" }
     requirements: { _method: post }

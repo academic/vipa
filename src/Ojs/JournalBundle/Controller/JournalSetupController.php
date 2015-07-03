@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller\JournalSetup;
+namespace Ojs\JournalBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalSetupProgress;
@@ -153,8 +153,22 @@ class JournalSetupController extends Controller
      */
     public function stepControlAction(Request $request, $setupId, $step)
     {
-        $stepCheckFunction = 'step'.$step.'Control';
-        return $this->{$stepCheckFunction}($request, $setupId);
+        switch($step){
+            case 1:
+                return $this->step1Control($request, $setupId);
+            case 2:
+                return $this->step2Control($request, $setupId);
+            case 3:
+                return $this->step3Control($request, $setupId);
+            case 4:
+                return $this->step4Control($request, $setupId);
+            case 5:
+                return $this->step5Control($request, $setupId);
+            case 6:
+                return $this->step6Control($request, $setupId);
+            default:
+                throw new NotFoundHttpException();
+        }
     }
 
     /**
