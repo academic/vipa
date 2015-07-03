@@ -20,7 +20,7 @@
         <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
 
         <div id="preview_image">
-            <img src="{{ ('/uploads/articlefiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
+            <img class="img-responsive" src="{{ ('/uploads/articlefiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
                  data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
             {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
             <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
