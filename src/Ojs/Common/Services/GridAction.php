@@ -250,7 +250,7 @@ class GridAction
             [
                 'class' => 'btn btn-warning btn-xs  ',
                 'data-toggle' => 'tooltip',
-                'title' => $this->translator->trans(ojs . back_and_edit),
+                'title' => $this->translator->trans('ojs.back_and_edit'),
             ]
         );
         $rowAction->setRouteParameters($key);
