@@ -272,8 +272,8 @@ class JournalSetupController extends Controller
                 ->setPostType('default')
                 ->setTitle($page['title']);
             $em->persist($page_);
-            $em->flush();
         }
+        $em->flush();
         return new JsonResponse(['success' => '1']);
     }
 

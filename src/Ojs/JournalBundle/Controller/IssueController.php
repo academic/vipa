@@ -406,8 +406,9 @@ class IssueController extends Controller
                 $article->setFirstPage($firstPages[$i]);
                 $article->setLastPage($lastPages[$i]);
                 $em->persist($article);
-                $em->flush();
             }
+            $em->flush();
+
         }
 
         $articles = $articleRepo->getOrderedArticlesByIssue($issue, true);

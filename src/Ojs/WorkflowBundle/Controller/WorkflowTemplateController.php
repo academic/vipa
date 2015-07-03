@@ -104,8 +104,8 @@ class WorkflowTemplateController extends OjsController
                 $entity->addNextStep($newSteps[$nStep->getId()]);
             }
             $dm->persist($entity);
-            $dm->flush();
         }
+        $dm->flush();
 
         /**
          * @todo

@@ -39,9 +39,10 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
                 $subject->setTotalJournalCount($count);
                 $subject->setUpdatedBy("System");
                 $em->persist($subject);
-                $em->flush();
             }
             echo ".";
         }
+        $em->flush();
+
     }
 }
