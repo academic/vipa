@@ -16,7 +16,7 @@ Ojs\JournalBundle\Entity\JournalDesign:
                 name: journal_id
                 referencedColumnName: id
         design:
-            targetEntity: Ojs\JournalBundle\Entity\JournalDesign
+            targetEntity: Ojs\JournalBundle\Entity\Design
             inversedBy: journalDesigns
             joinColumn:
                 name: design_id
@@ -25,7 +25,7 @@ Ojs\JournalBundle\Entity\JournalDesign:
         title:
            type: string
         isPublic:
-           type: integer
+           type: boolean
         createdBy:
            type: string
            gedmo:
