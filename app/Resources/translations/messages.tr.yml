@@ -121,10 +121,10 @@ admin: Admin
 admin.dashboard.applications: Applications
 admin.dashboard.journal_settings: 'Journal Settings'
 admin.dashboard.system_settings: 'System Settings'
-admin.log.field: 'Changed field'
-admin.log.history: Changelog
-admin.log.newValue: 'new value'
-admin.log.oldValue: 'old value'
+admin.log.field: 'Değişen alan'
+admin.log.history: Değişim Geçmişi
+admin.log.newValue: 'yeni değer'
+admin.log.oldValue: 'eski değer'
 adress: Address
 advancedsearch: 'Advanced Search'
 allow_index: 'Allow Index'
@@ -230,7 +230,7 @@ author_id: 'Author ID'
 author_order: 'Author Order'
 authors: Authors
 authors.count: 'Count of Authors'
-b: Back
+b: Geri
 back: Back
 back.continue.editing: 'Back & Continue Editing'
 basetheme: 'Base Theme'
@@ -320,7 +320,7 @@ dashboard.objects: Objects
 dashboard.operations: Operations
 date.publish: 'Publication Date'
 datePublished: 'Published date'
-delete: Delete
+delete: Sil
 deleted: Deleted
 desc: Description
 description: Description
@@ -330,7 +330,7 @@ design: Design
 design.list: Designs
 design.new: 'New Design'
 detailed: Detailed
-details: Details
+details: Ayrıntılar
 discovery: Discovery
 documents: Documents
 doi: DOI
@@ -577,9 +577,9 @@ journalid: 'Journal ID'
 journalindex.list: 'Journal Index List'
 journals: Journals
 journalsection: 'Journal Section'
-journalsection.allow_index: 'Allow Index'
+journalsection.allow_index: 'Dizine İzin Ver'
 journalsection.edit: 'Edit Journal Section'
-journalsection.hide_title: 'Hide Title'
+journalsection.hide_title: 'Başlığı Gizle'
 journalsection.journal: Journal
 journalsection.label: Label
 journalsection.list: 'Journal Section List'
@@ -1042,7 +1042,7 @@ title.journal_role_show: 'Show Journal Role'
 title.journal_role_show_journals: 'Show Journals'
 title.journal_role_show_users: 'Show Users'
 title.journal_roles: 'Journal Roles'
-title.journal_section_edit: 'Edit Journal Section'
+title.journal_section_edit: 'Dergi Bölümünü Düzenle'
 title.journal_section_new: 'New Journal Section'
 title.journal_section_show: 'Show Journal Section'
 title.journal_sections: 'Journal Sections'

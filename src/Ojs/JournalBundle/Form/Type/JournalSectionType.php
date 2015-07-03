@@ -21,8 +21,20 @@ class JournalSectionType extends AbstractType
             ->add('translations', 'a2lix_translations_gedmo',[
                 'translatable_class' => 'Ojs\JournalBundle\Entity\JournalSection'
             ])
-            ->add('allowIndex')
-            ->add('hideTitle');
+            ->add(
+                'allowIndex',
+                'checkbox',
+                array(
+                    'label' => 'journalsection.hide_title'
+                )
+            )
+            ->add(
+                'hideTitle',
+                'checkbox',
+                array(
+                    'label' => 'journalsection.allow_index'
+                )
+            );
     }
 
     /**
