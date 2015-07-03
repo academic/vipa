@@ -83,6 +83,19 @@
         </tbody>
     </table>
     <hr>
+    <label class="control-label">{{ "cover"|trans }}</label>
+    <div>
+        {% if entity.cover is not null %}
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.cover)) }}" />
+        {% endif %}
+    </div>
+    <label class="control-label">{{ "Header Image"|trans }}</label>
+    <div>
+        {% if entity.header is not null %}
+            <img class="img-responsive" src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) }}" />
+        {% endif %}
+    </div>
+    <hr>
 
     {{
     actions({
