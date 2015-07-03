@@ -47,6 +47,11 @@ class WaitingFiles
     protected $downloaded;
 
     /**
+     * @MongoDB\Timestamp
+     * @var string
+     */
+    protected $download_start_at;
+    /**
      * @return int
      */
     public function getId()
@@ -156,6 +161,25 @@ class WaitingFiles
         $this->downloaded = $downloaded;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDownloadStartAt()
+    {
+        return $this->download_start_at;
+    }
+
+    /**
+     * @param string $download_start_at
+     * @return $this
+     */
+    public function setDownloadStartAt($download_start_at)
+    {
+        $this->download_start_at = $download_start_at;
+        return $this;
+    }
+
 
 
 
