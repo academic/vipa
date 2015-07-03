@@ -8,7 +8,7 @@ use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalDesign
- * @GRID\Source(columns="id,journal.title,design.title")
+ * @GRID\Source(columns="id,title,design.title,isPublic")
  */
 class JournalDesign implements Translatable
 {
@@ -32,6 +32,7 @@ class JournalDesign implements Translatable
 
     /**
      * @var integer
+     * @GRID\Column(title="Is Public?",field="isPublic")
      */
     private $isPublic;
 
@@ -44,14 +45,14 @@ class JournalDesign implements Translatable
     /**
      *
      * @var Design
-     * @GRID\Column(title="design",field="design")
+     * @GRID\Column(title="design",field="design.title")
      */
     private $design;
 
     /**
      *
      * @var string Title
-     * @GRID\Column(title="design",field="design.title")
+     * @GRID\Column(title="title",field="title")
      */
     private $title;
 

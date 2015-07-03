@@ -18,15 +18,29 @@ class JournalDesignType extends AbstractType
     {
         $builder
             ->add(
+                'title',
+                'text',
+                array(
+                    'label' => 'title',
+                )
+            )
+            ->add(
                 'design',
                 'entity',
                 array(
-                    'class' => 'OjsJournalBundle:JournalDesign',
+                    'class' => 'Ojs\JournalBundle\Entity\Design',
                     'property' => 'title',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                            ->where('t.isPublic = FALSE');
+                            ->where('t.isPublic = TRUE');
                     },
+                )
+            )
+            ->add(
+                'isPublic',
+                'checkbox',
+                array(
+                    'label' => 'Is Public?',
                 )
             );
     }
