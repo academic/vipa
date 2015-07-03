@@ -351,17 +351,16 @@ class ManagerController extends OjsController
                 $copyStep->setOwnerUser($userObject);
                 $copyStep->setParentStep($articleStep);
                 $dm->persist($copyStep);
-                $dm->flush();
                 $invitation = new Invitation();
                 $invitation->setStep($copyStep);
                 $invitation->setUserId($user);
                 $invitation->setUserEmail($userObject->getEmail());
                 $dm->persist($invitation);
-                $dm->flush();
                 $articleStep->addInvitation($invitation);
                 $dm->persist($articleStep);
-                $dm->flush();
             }
+            $dm->flush();
+
         }
 
         $this->get('session')->getFlashBag()->add(

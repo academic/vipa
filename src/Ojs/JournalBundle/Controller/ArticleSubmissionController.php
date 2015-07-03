@@ -588,7 +588,6 @@ class ArticleSubmissionController extends Controller
                 $institution->setSlug(Urlizer::urlize($authorData['institution'], '-'));
                 $institution->setVerified(false);
                 $em->persist($institution);
-                $em->flush();
             }
             $author->setInstitution($institution);
             $author->setEmail($authorData['email']);
@@ -600,14 +599,14 @@ class ArticleSubmissionController extends Controller
             $author->setSummary($authorData['summary']);
             $author->setOrcid($authorData['orcid']);
             $em->persist($author);
-            $em->flush();
             $articleAuthor = new ArticleAuthor();
             $articleAuthor->setArticle($article);
             $articleAuthor->setAuthorOrder($authorData['order']);
             $articleAuthor->setAuthor($author);
             $em->persist($articleAuthor);
-            $em->flush();
         }
+        $em->flush();
+
     }
 
     /**
@@ -625,11 +624,9 @@ class ArticleSubmissionController extends Controller
             $em->persist(
                 $citation
             );
-            $em->flush();
 // add relation to article
             $article->addCitation($citation);
             $em->persist($article);
-            $em->flush();
             unset($citationData['raw']);
             unset($citationData['citationtype']);
             unset($citationData['orderNum']);
@@ -640,9 +637,9 @@ class ArticleSubmissionController extends Controller
                 $citationSetting->setValue($value);
                 $citationSetting->setCitation($citation);
                 $em->persist($citationSetting);
-                $em->flush($citationSetting);
             }
         }
+        $em->flush();
     }
 
     /**
@@ -662,7 +659,6 @@ class ArticleSubmissionController extends Controller
 
 // @todo add get mime type and name
             $em->persist($file);
-            $em->flush();
             $articleFile = new ArticleFile();
             $articleFile->setArticle($article);
             $articleFile->setFile($file);
@@ -677,8 +673,9 @@ class ArticleSubmissionController extends Controller
 // article full text
 
             $em->persist($articleFile);
-            $em->flush();
         }
+        $em->flush();
+
     }
 
     /**

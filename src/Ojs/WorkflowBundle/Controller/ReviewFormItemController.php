@@ -45,8 +45,8 @@ class ReviewFormItemController extends OjsController
             $formItem->setInputType($item['inputtype']);
             $formItem->setMandatory($item['mandatory']);
             $dm->persist($formItem);
-            $dm->flush();
         }
+        $dm->flush();
 
         return $this->redirect($this->generateUrl('ojs_review_form_items', array('formId' => $formId)));
     }

@@ -138,9 +138,9 @@ class ArticleRestController extends FOSRestController
                 $citationSetting->setSetting($key);
                 $citationSetting->setValue($param);
                 $em->persist($citationSetting);
-                $em->flush();
             }
         }
+        $em->flush();
 
         return $article;
     }

@@ -126,10 +126,11 @@ class UpdateCommand extends ContainerAwareCommand
                 $totalView->setEntity($object->entity);
                 $totalView->setRawData($object->rawData);
                 $this->dm->persist($totalView);
-                $this->dm->flush();
 
                 $progress->advance();
             }
+            $this->dm->flush();
+
             $progress->finish();
             $output->writeln("Successfully");
         } catch (\Exception $e) {
@@ -174,9 +175,10 @@ class UpdateCommand extends ContainerAwareCommand
                 $totalDownload->setObjectId($object->id);
 
                 $this->dm->persist($totalDownload);
-                $this->dm->flush();
                 $progress->advance();
             }
+            $this->dm->flush();
+
             $progress->finish();
             $output->writeln("Successfully");
         } catch (\Exception $e) {
@@ -215,9 +217,10 @@ class UpdateCommand extends ContainerAwareCommand
                     ->setObject($objectId)
                     ->setStatType(constant("Ojs\\AnalyticsBundle\\Document\\ObjectCommonStat::".$update));
                 $this->dm->persist($object);
-                $this->dm->flush();
             }
             $this->output->writeln("<info>{$update} operation completed.</info>");
         }
+        $this->dm->flush();
+
     }
 }
