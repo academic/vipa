@@ -106,6 +106,10 @@ class ActionExtension extends \Twig_Extension {
         ];
 
         foreach ($actions as $name => $parameters) {
+            if (array_key_exists('permission', $parameters) && !$parameters['permission']) {
+                continue;
+            }
+
             $href = '#';
             $attributes = array();
             $atrributesAsString = '';
