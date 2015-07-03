@@ -251,7 +251,7 @@ class DefaultController extends Controller
      * @param array $data
      * @return Response
      */
-    public function response($template, $data = [])
+    private function response($template, $data = [])
     {
         $response = new Response();
         $response->headers->set('content-type', 'text/xml');
