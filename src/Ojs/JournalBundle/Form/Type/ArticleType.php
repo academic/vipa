@@ -22,7 +22,24 @@ class ArticleType extends AbstractType
         $journal = $options['journal'];
         $builder
             ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\Article'
+                'translatable_class' => 'Ojs\JournalBundle\Entity\Article',
+                'fields' => [
+                    'title' => [
+                        'field_type' => 'text'
+                    ],
+                    'titleTransliterated' => [],
+                    'subtitle' => [],
+                    'subjects' => [],
+                    'keywords' => [
+                        'label' => 'keywords',
+                        'field_type' => 'tags'
+                    ],
+                    'abstract' => [
+                        'required' => false,
+                        'attr' => array('class' => ' form-control wysihtml5'),
+                        'field_type' => 'textarea'
+                    ]
+                ]
             ])
             ->add(
                 'issue',
@@ -39,15 +56,6 @@ class ArticleType extends AbstractType
 
                         return $qb;
                     },
-                )
-            )
-            ->add(
-                'articleType',
-                'entity',
-                array(
-                    'label' => 'article.type',
-                    'class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
-                    'required' => false
                 )
             )
             ->add(
@@ -78,14 +86,6 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'keywords',
-                'text',
-                array(
-                    'label' => 'keywords',
-                    'attr' => array('class' => ' form-control'),
-                )
-            )
-            ->add(
                 'isAnonymous',
                 'radio',
                 array(
@@ -93,28 +93,11 @@ class ArticleType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
             ->add(
                 'pubdate',
                 'collot_datetime',
                 array(
                     'label' => 'pubdate',
-                    'date_format' => 'dd-MM-yyyy',
-                    'pickerOptions' => [
-                        'format' => 'dd-mm-yyyy',
-                        'startView' => 'month',
-                        'minView' => 'month',
-                        'todayBtn' => 'true',
-                        'todayHighlight' => 'true',
-                        'autoclose' => 'true',
-                    ],
-                )
-            )
-            ->add(
-                'submissionDate',
-                'collot_datetime',
-                array(
-                    'label' => 'submissionDate',
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [
                         'format' => 'dd-mm-yyyy',
@@ -168,21 +151,38 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'abstract',
-                'textarea',
-                array(
-                    'label' => 'abstract',
-                    'required' => false,
-                    'attr' => array('class' => ' form-control wysihtml5'),
-                )
-            )
-            ->add(
                 'abstractTransliterated',
                 'textarea',
                 array(
                     'label' => 'abstractTransliterated',
                     'required' => false,
                     'attr' => array('class' => ' form-control'),
+                )
+            )
+            ->add(
+                'articleType',
+                'entity',
+                array(
+                    'label' => 'article.type',
+                    'class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
+                    'required' => false
+                )
+            )
+            ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
+            ->add(
+                'submissionDate',
+                'collot_datetime',
+                array(
+                    'label' => 'submissionDate',
+                    'date_format' => 'dd-MM-yyyy',
+                    'pickerOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'startView' => 'month',
+                        'minView' => 'month',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
                 )
             )
             ->add('header', 'hidden')
