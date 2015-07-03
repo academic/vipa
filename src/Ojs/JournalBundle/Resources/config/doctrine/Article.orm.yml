@@ -81,12 +81,32 @@ Ojs\JournalBundle\Entity\Article:
             referencedColumnName: id
         name: article_citation
   fields:
+    title:
+      type: text
+      gedmo:
+        - translatable
+        - versioned
+    titleTransliterated:
+      column: title_transliterated
+      length: 255
+      type: string
+      nullable: TRUE
+      gedmo:
+        - translatable
+        - versioned
     subjects:
         type: string
         nullable: TRUE
         gedmo:
           - translatable
           - versioned
+    subtitle:
+      length: 255
+      type: string
+      nullable: TRUE
+      gedmo:
+        - translatable
+        - versioned
     submitterId:
         column: submitter_id
         type: integer
@@ -219,26 +239,6 @@ Ojs\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
-    subtitle:
-      length: 255
-      type: string
-      nullable: TRUE
-      gedmo:
-        - translatable
-        - versioned
-    title:
-      type: text
-      gedmo:
-        - translatable
-        - versioned
-    titleTransliterated:
-      column: title_transliterated
-      length: 255
-      type: string
-      nullable: TRUE
-      gedmo:
-        - translatable
-        - versioned
     slug:
       type: string
       length: 40
