@@ -33,14 +33,6 @@ class JournalSetupProgress implements Translatable
      */
     private $currentStep;
 
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Get id
      *
