@@ -160,10 +160,15 @@ class JournalContactController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_journal_contact'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:JournalContact:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }

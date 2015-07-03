@@ -34,18 +34,13 @@
         </tr>
         </tbody>
     </table>
-    <a href="{{ path('ojs_journal_index_index',{journal: entity.journal.id}) }}">
-        {{ 'b'|trans }}
-    </a>
-    {% if is_granted('EDIT', selectedJournal(), 'index') %}
-        <a href="{{ path('ojs_journal_index_edit', { 'id': entity.id }) }}">
-            {{ 'e'|trans }}
-        </a>
-    {% endif %}
-    {% if is_granted('DELETE', selectedJournal(), 'index') %}
-        <a href="{{ path('ojs_journal_index_delete', { 'id': entity.id }) }}">
-            {{ 'd'|trans }}
-        </a>
-    {% endif %}
+
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_index_index')},
+        'edit': {'href': path('ojs_journal_index_edit', {'id': entity.id})},
+        'delete': {'href': path('ojs_journal_index_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+    })
+    }}
 
 {% endblock %}

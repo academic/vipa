@@ -172,10 +172,15 @@ class SubmissionChecklistController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_checklist'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:SubmissionChecklist:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }

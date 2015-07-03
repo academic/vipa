@@ -29,6 +29,10 @@ class IssueFileController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
+        $issue = $this->getDoctrine()
+            ->getRepository('OjsJournalBundle:Issue')
+            ->find($request->query->get('issue'));
+
         $source = new Entity('OjsJournalBundle:IssueFile');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
@@ -58,7 +62,11 @@ class IssueFileController extends Controller
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        return $grid->getGridResponse('OjsJournalBundle:IssueFile:index.html.twig');
+        $data = [];
+        $data['grid'] = $grid;
+        $data['issue'] = $issue;
+
+        return $grid->getGridResponse('OjsJournalBundle:IssueFile:index.html.twig', $data);
     }
 
     /**
@@ -146,16 +154,22 @@ class IssueFileController extends Controller
 
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException('You are not authorized for view this issue file!');
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'issues')) {
+            throw new AccessDeniedException('You are not authorized for edit this  issue file!');
         }
+
         $this->throw404IfNotFound($entity);
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_issue_file'.$entity->getId());
+
         return $this->render('OjsJournalBundle:IssueFile:show.html.twig', array(
             'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'token'  => $token,
         ));
     }
 
@@ -250,8 +264,6 @@ class IssueFileController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
         $issue = null;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
@@ -272,7 +284,7 @@ class IssueFileController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
-        return $this->redirect($this->generateUrl('ojs_journal_issue_edit', ['id' => $issue]));
+        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index', ['issue' => $issue]));
     }
 
     /**

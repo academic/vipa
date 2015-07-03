@@ -11,8 +11,14 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "issue"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_issue_file_index', {issue: entity.id}) }}">{{ "title.issue_files"|trans }}</a></li>
+    </ul>
+
+    <h1>{{ "issue"|trans }}</h1>
     <table class="table record_properties">
         <tbody>
         <tr>
@@ -78,12 +84,11 @@
     </table>
     <hr>
 
-    {% set back_path = 'ojs_journal_issue_index' %}
-    {% if is_granted('EDIT', selectedJournal(), 'issues') %}
-        {% set edit_path = 'ojs_journal_issue_edit' %}
-    {% endif %}
-    {% if is_granted('DELETE', selectedJournal(), 'issues') %}
-        {% set delete_path = 'ojs_journal_issue_delete' %}
-    {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_issue_index')},
+        'edit': {'href': path('ojs_journal_issue_edit', {'id': entity.id})},
+        'delete': {'href': path('ojs_journal_issue_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+    })
+    }}
 {% endblock %}

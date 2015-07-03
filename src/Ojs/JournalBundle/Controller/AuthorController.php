@@ -142,12 +142,11 @@ class AuthorController extends Controller
         }
         $this->throw404IfNotFound($entity);
 
-        return $this->render(
-            'OjsJournalBundle:Author:show.html.twig',
-            array(
-                'entity' => $entity,
-            )
-        );
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_author'.$entity->getId());
+
+        return $this->render('OjsJournalBundle:Author:show.html.twig', ['entity' => $entity, 'token' => $token]);
     }
 
     /**

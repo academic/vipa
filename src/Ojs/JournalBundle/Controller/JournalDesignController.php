@@ -157,10 +157,15 @@ class JournalDesignController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_design'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:JournalDesign:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }

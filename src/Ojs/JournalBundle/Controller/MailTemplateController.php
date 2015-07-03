@@ -220,10 +220,15 @@ class MailTemplateController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_mail_template'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:MailTemplate:show.html.twig',
             array(
                 'entity' => $entity,
+                'token'  => $token,
             )
         );
     }
