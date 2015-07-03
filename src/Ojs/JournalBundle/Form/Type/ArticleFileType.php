@@ -18,7 +18,15 @@ class ArticleFileType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\ArticleFile'
+                'translatable_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
+                'fields' => [
+                    'title' => [],
+                    'description' => [],
+                    'keywords' => [
+                        'label' => 'keywords',
+                        'field_type' => 'tags'
+                    ]
+                ]
             ])
             ->add(
                 'type',
