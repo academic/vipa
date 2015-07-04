@@ -13,7 +13,7 @@ ojs_admin_language_new:
 ojs_admin_language_create:
     path:     /create
     defaults: { _controller: OjsAdminBundle:AdminLanguage:create }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_admin_language_edit:
     path:     /{id}/edit

@@ -1,5 +1,5 @@
 change_selected_journal:
-    pattern:  /manager/journal/selected/{journal_id}
+    path:  /manager/journal/selected/{journal_id}
     defaults: { _controller: "OjsJournalBundle:Journal:changeSelected" }
 
 ojs_article_submission:
@@ -10,7 +10,7 @@ ojs_journal_setup:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsetup.yml"
 
 journal_apply:
-    pattern:  /journal/apply
+    path:  /journal/apply
     defaults: { _controller: "OjsJournalBundle:Journal:apply" }
 
 dashboard_routing:

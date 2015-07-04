@@ -1,15 +1,15 @@
 dashboard_editor:
-    pattern:  /editor/dashboard
+    path:  /editor/dashboard
     defaults: { _controller: OjsJournalBundle:Editor:dashboard }
 
 editor_show_my_journals:
-    pattern:  /editor/myjournals
+    path:  /editor/myjournals
     defaults: { _controller: OjsJournalBundle:Editor:myJournals}
 
 editor_journal_show:
-    pattern: /editor/journal/{id}
+    path: /editor/journal/{id}
     defaults: { _controller: OjsJournalBundle:Editor:showJournal}
 
 ojs_user_index:
-    pattern:  /user
+    path:  /user
     defaults: { _controller: OjsJournalBundle:Manager:userIndex }

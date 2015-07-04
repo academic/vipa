@@ -13,7 +13,7 @@ ojs_journal_mail_template_new:
 ojs_journal_mail_template_create:
     path:     /create
     defaults: { _controller: OjsJournalBundle:MailTemplate:create }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_journal_mail_template_edit:
     path:     /{id}/edit

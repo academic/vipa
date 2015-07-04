@@ -5,61 +5,61 @@ ojs_application:
     resource: "@OjsSiteBundle/Resources/config/routing/application.yml"
     prefix: /apply
 redirect:
-    pattern: /redirect/{type}/{id}
+    path: /redirect/{type}/{id}
     defaults: { _controller: OjsSiteBundle:Redirect:redirect }
 
 ojs_user_profile:
-    pattern: /@{slug}
+    path: /@{slug}
     defaults: { _controller: OjsSiteBundle:User:profile }
 
 ojs_user_edit_profile:
-    pattern: /user/update
+    path: /user/update
     defaults: { _controller: "OjsSiteBundle:User:editProfile"}
 ojs_user_custom_field:
-    pattern: /user/custom_field
+    path: /user/custom_field
     defaults: { _controller: "OjsSiteBundle:User:customField"}
 ojs_user_custom_field_create:
-    pattern: /user/custom_field/create/{id}
+    path: /user/custom_field/create/{id}
     defaults: { _controller: "OjsSiteBundle:User:createCustomField", id: null}
 ojs_user_custom_field_delete:
-    pattern: /user/custom_field/delete/{id}
+    path: /user/custom_field/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteCustomField"}
 ojs_user_connected_account:
-    pattern: /user/connected_accounts
+    path: /user/connected_accounts
     defaults: { _controller: "OjsSiteBundle:User:connectedAccount" }
 ojs_user_change_password:
-    pattern: /user/change_password
+    path: /user/change_password
     defaults: { _controller: "OjsSiteBundle:User:changePassword" }
 ojs_user_connected_account_add:
-    pattern: /user/connected_accounts/add
+    path: /user/connected_accounts/add
     defaults: { _controller: "OjsSiteBundle:User:addConnectedAccount"}
 ojs_user_connected_account_delete:
-    pattern: /user/connected_accounts/delete/{id}
+    path: /user/connected_accounts/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteConnectedAccount"}
 ojs_user_add_orcid_account:
-    pattern: /user/connected_accounts/add/orcid
+    path: /user/connected_accounts/add/orcid
     defaults: { _controller: "OjsSiteBundle:User:addOrcidAccount" }
 ojs_user_forgot_password:
-    pattern: /user/forgot_password
+    path: /user/forgot_password
     defaults: { _controller: "OjsSiteBundle:User:forgotPassword" }
 ojs_user_reset_password:
-    pattern: /reset_password/{token}
+    path: /reset_password/{token}
     defaults: { _controller: "OjsSiteBundle:User:resetPassword" }
 ojs_public_index:
-    pattern:  /
+    path:  /
     host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:index }
 
 ojs_institutions_index:
-    pattern:  /institutions
+    path:  /institutions
     defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
 
 ojs_journals_index:
-    pattern:  /journals/{page}
+    path:  /journals/{page}
     host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex,page: 0}
 ojs_journals_index_in_institution:
-    pattern:  /journals/{page}
+    path:  /journals/{page}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex, page: 0 }
 ojs_block:
@@ -71,52 +71,52 @@ ojs_sitemap:
 
 #institution subdomain
 ojs_institution_page:
-    pattern:  /
+    path:  /
     host: "{slug}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:institutionPage }
 
 ojs_journal_index:
-    pattern:  /{slug}
+    path:  /{slug}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalIndex }
 
 ojs_journal_index_articles:
-    pattern: /{slug}/articles
+    path: /{slug}/articles
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 ojs_journal_index_page_detail:
-    pattern: /{journal_slug}/pages/{slug}
+    path: /{journal_slug}/pages/{slug}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalPageDetail }
 ojs_last_articles_index:
-    pattern:  /{slug}/last
+    path:  /{slug}/last
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:lastArticlesIndex }
 
 ojs_archive_index:
-    pattern:  /{slug}/archive
+    path:  /{slug}/archive
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
 
 ojs_announcement_index:
-    pattern:  /{slug}/announcements
+    path:  /{slug}/announcements
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:announcementIndex }
 
 ojs_issue_page:
-    pattern: /{journal_slug}/issue/{id}
+    path: /{journal_slug}/issue/{id}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:issuePage}
 ojs_article_page:
-    pattern:  /{slug}/issue/{issue_id}/{article_id}
+    path:  /{slug}/issue/{issue_id}/{article_id}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Article:articlePage, issue_id: null}
 ojs_journal_contacts:
-    pattern: /{slug}/contacts
+    path: /{slug}/contacts
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalContacts }
 ojs_file_download:
-    pattern: /download/{id}
+    path: /download/{id}
     defaults: { _controller: OjsSiteBundle:Site:downloadFile }
 
 ojs_people:
@@ -124,9 +124,9 @@ ojs_people:
     prefix: /people
 
 tos:
-    pattern: /tos
+    path: /tos
     defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' }
 
 privacy:
-    pattern: /privacy
+    path: /privacy
     defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'privacy'}

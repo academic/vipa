@@ -1,34 +1,34 @@
 ojs_admin_journal_index:
-    pattern:  /
+    path:  /
     defaults: { _controller: OjsAdminBundle:AdminJournal:index }
 
 ojs_admin_journal_not_finished:
-    pattern:  /notfinished
+    path:  /notfinished
     defaults: { _controller: OjsAdminBundle:AdminJournal:notFinished }
 
 ojs_admin_journal_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: OjsAdminBundle:AdminJournal:show }
 
 ojs_admin_journal_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: OjsAdminBundle:AdminJournal:new }
 
 ojs_admin_journal_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: OjsAdminBundle:AdminJournal:create }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_admin_journal_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: OjsAdminBundle:AdminJournal:edit }
 
 ojs_admin_journal_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: OjsAdminBundle:AdminJournal:update }
     methods:  [PUT]
 
 ojs_admin_journal_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: OjsAdminBundle:AdminJournal:delete }
     methods:  [DELETE]

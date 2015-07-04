@@ -13,7 +13,7 @@ ojs_journal_article_author_new:
 ojs_journal_article_author_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:create" }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_journal_article_author_edit:
     path:     /{id}/edit

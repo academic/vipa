@@ -1,15 +1,15 @@
 ojs_journal_settings_index:
-    pattern:  /
+    path:  /
     defaults: { _controller: OjsJournalBundle:Manager:journalSettings }
 
 ojs_journal_settings_submission:
-    pattern:  /submission
+    path:  /submission
     defaults: { _controller: OjsJournalBundle:Manager:journalSettingsSubmission }
 
 ojs_journal_settings_mail:
-    pattern:  /mail
+    path:  /mail
     defaults: { _controller: OjsJournalBundle:Manager:journalSettingsMail }
 
 ojs_journal_settings_page:
-    pattern:  /page
+    path:  /page
     defaults: { _controller: OjsJournalBundle:Manager:journalSettingsPage }

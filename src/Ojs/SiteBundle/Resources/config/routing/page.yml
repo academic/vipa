@@ -13,7 +13,7 @@ admin_page_new:
 admin_page_create:
     path:     /create
     defaults: { _controller: "OjsSiteBundle:Page:create" }
-    requirements: { _method: post }
+    methods: [POST]
 
 admin_page_edit:
     path:     /{id}/edit
@@ -22,7 +22,7 @@ admin_page_edit:
 admin_page_update:
     path:     /{id}/update
     defaults: { _controller: "OjsSiteBundle:Page:update" }
-    requirements: { _method: post|put }
+    methods: [POST,PUT]
 
 admin_page_delete:
     path:     /{id}/delete

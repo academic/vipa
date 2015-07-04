@@ -1,63 +1,63 @@
 article_submissions_me:
-    pattern:  /manager/article/submissions/me/
+    path:  /manager/article/submissions/me/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:index" }
 
 article_submissions_all:
-    pattern:  /manager/article/submissions/all/
+    path:  /manager/article/submissions/all/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:index" , all: true}
 
 article_submission_cancel:
-    pattern: /manager/article/submission/cancel/{id}
+    path: /manager/article/submission/cancel/{id}
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:cancel"}
 
 article_submission_new_with_journalId:
-    pattern:  /author/article/submit/journal/{journalId}
+    path:  /author/article/submit/journal/{journalId}
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:newWithJournal" }
 
 article_submission_get_orcid_author:
-    pattern:  /author/article/submit/getOrcidAuthor/
+    path:  /author/article/submit/getOrcidAuthor/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:getOrcidAuthor" }
 
 article_submission_confirm_author:
-    pattern:  /author/article/submit/confirmRole/
+    path:  /author/article/submit/confirmRole/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:confirmRole" }
 
 article_submission_new:
-    pattern:  /author/article/submit/
+    path:  /author/article/submit/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:new" }
 
 article_submission_resume:
-    pattern:  /author/article/submit/resume/{submissionId}/
+    path:  /author/article/submit/resume/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:resume" }
 article_submission_finish:
-    pattern:  /author/article/submit/finish/
+    path:  /author/article/submit/finish/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:finish" }
-    requirements: { _method: post }
+    methods: [POST]
 
 article_submission_preview:
-    pattern:  /author/article/submit/preview/{submissionId}/
+    path:  /author/article/submit/preview/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:preview" }
 
 article_pre_submission:
-    pattern: /author/article/submit/checklist/{locale}
+    path: /author/article/submit/checklist/{locale}
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:save"}
-    requirements: { _method: post }
+    methods: [POST]
 article_submission_step1:
-    pattern:  /author/article/submit/step1/{locale}/
+    path:  /author/article/submit/step1/{locale}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addArticle" }
-    requirements: { _method: post }
+    methods: [POST]
 
 article_submission_step2:
-    pattern:  /author/article/submit/step2
+    path:  /author/article/submit/step2
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addAuthors" }
-    requirements: { _method: post }
+    methods: [POST]
 
 article_submission_step3:
-    pattern:  /author/article/submit/step3
+    path:  /author/article/submit/step3
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addCitations" }
-    requirements: { _method: post }
+    methods: [POST]
 
 article_submission_step4:
-    pattern:  /author/article/submit/step4
+    path:  /author/article/submit/step4
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addFiles" }
-    requirements: { _method: post }
+    methods: [POST]
