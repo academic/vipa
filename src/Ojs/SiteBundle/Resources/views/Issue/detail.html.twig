@@ -43,38 +43,50 @@
             <div class="panel panel-default">
 
                 <ul class="list-group">
-                    {% for article in issue.articles %}
-                        <li class="list-group-item list-group-item-default">
-                            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,institution: issue.journal.institution.slug}) }}">
-                                <i class="fa fa-file-text"></i> {{ article.title }}
-                            </a>
-                            <br/>
-                            <i class="fa fa-users"></i>
-                                <span class="text-muted">
-                                    (
-                                    {% if article.created.date %}
-                                        {{ article.created.date|date('Y-m-d') }}
+                    {% for section in issue.sections %}
+                        <li class="list-group-item list-group-item-primary">
+                            <i class="fa fa-globe"></i> {{ section.title }}
+                            <ul class="list-group">
+                                {% for article in section.articles %}
+                                    {% if article.issue == issue %}
+                                        <li class="list-group-item list-group-item-default">
+                                            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,institution: issue.journal.institution.slug}) }}">
+                                                <i class="fa fa-file-text"></i> {{ article.title }}
+                                            </a>
+                                            <br/>
+                                            <i class="fa fa-users"></i>
+                                    <span class="text-muted">
+                                        (
+                                        {% if article.created.date %}
+                                            {{ article.created.date|date('Y-m-d') }}
+                                        {% endif %}
+                                        )
+                                    </span>
+                                        </li>
                                     {% endif %}
-                                    )
-                                </span>
+                                {% endfor %}
+                            </ul>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <span class="panel-title">{{ "issuefile.list"|trans }}</span>
+            {% if issue.issueFiles|length %}
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="panel-title">{{ "issuefile.list"|trans }}</span>
+                    </div>
+                    <ul class="list-group">
+                        {% for file in issue.issueFiles %}
+                            <li class="list-group-item">
+                                <a href="{{ asset("/uploads/issuefiles/"~filePath(file.file.name)) }}"><i
+                                            class="fa fa-download "></i> {{ file.title }} </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <ul class="list-group">
-                    {% for file in issue.issueFiles %}
-                        <li class="list-group-item">
-                            <a href="{{ asset("/uploads/issuefiles/"~filePath(file.file.name)) }}"><i class="fa fa-download "></i> {{ file.title }} </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% endif %}
             {% set journal = issue.journal %}
             {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
         </div>
