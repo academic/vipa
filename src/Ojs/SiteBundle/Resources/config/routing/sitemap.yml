@@ -1,59 +1,59 @@
 #RSS
 ojs_index_sitemap:
-  pattern: /
+  path: /
   host: %base_host%
   defaults: {_controller: OjsSiteBundle:Sitemap:index }
 ojs_journals_sitemap:
-  pattern: /journals.{_format}
+  path: /journals.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:journals }
 ojs_subjects_sitemap:
-  pattern: /subjects.{_format}
+  path: /subjects.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:subjects, institution: 'www' }
 ojs_subjects_sitemap_:
-  pattern: /subjects.{_format}
+  path: /subjects.{_format}
   defaults: { _controller: OjsSiteBundle:Sitemap:subjects }
 ojs_subject_sitemap:
-  pattern: /subject/{subject}.{_format}
+  path: /subject/{subject}.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:subject }
 ojs_subject_sitemap_:
-  pattern: /subject/{subject}.{_format}
+  path: /subject/{subject}.{_format}
   host: %base_host%
   defaults: { _controller: OjsSiteBundle:Sitemap:subject , institution: 'www'}
 
 ojs_journal_sitemap:
-  pattern: /{journal}.{_format}
+  path: /{journal}.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:journal }
 ojs_journal_detail_sitemap:
-  pattern: /{journal}/detail.{_format}
+  path: /{journal}/detail.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:journalDetail }
 ojs_articles_sitemap:
-  pattern: /{journal}/articles.{_format}
+  path: /{journal}/articles.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:article }
 ojs_last_issue_sitemap:
-  pattern: /{journal}/last.{_format}
+  path: /{journal}/last.{_format}
   host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:lastIssue }
 ojs_issues_sitemap:
-  pattern: /{journal}/issues.{_format}
+  path: /{journal}/issues.{_format}
   host: "{institution}.%base_host%"
   defaults: {_controller: OjsSiteBundle:Sitemap:issues }
 ojs_institutions_sitemap:
-  pattern: /institutions.{_format}
+  path: /institutions.{_format}
   host: %base_host%
   defaults: { _controller: OjsSiteBundle:Sitemap:institutions }
 
 ojs_static_sitemap:
-  pattern: /static.{_format}
+  path: /static.{_format}
   host: %base_host%
   defaults: { _controller: OjsSiteBundle:Sitemap:static }
 
 ojs_institution_sitemap:
-  pattern: /
+  path: /
   host: "{institution}.%base_host%"
   defaults: {_controller: OjsSiteBundle:Sitemap:institution }

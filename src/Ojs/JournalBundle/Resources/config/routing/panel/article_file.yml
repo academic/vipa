@@ -13,7 +13,7 @@ ojs_journal_article_file_new:
 ojs_journal_article_file_create:
     path:     /create/{article}
     defaults: { _controller: "OjsJournalBundle:ArticleFile:create" }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_journal_article_file_edit:
     path:     /{id}/edit

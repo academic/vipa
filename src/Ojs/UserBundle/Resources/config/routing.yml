@@ -16,7 +16,7 @@ user:
     prefix:   /user
 
 confirm_email_warning:
-    pattern:  /unconfirmed
+    path:  /unconfirmed
     defaults: { _controller: "OjsUserBundle:Security:unconfirmed" }
 
 login:
@@ -42,9 +42,9 @@ login_check:
     path: /login_check
 
 regenerate_apikey:
-    pattern: /user/apikey/regenerate
+    path: /user/apikey/regenerate
     defaults: { _controller: OjsUserBundle:Security:regenerateAPI }
 
 user_create_password:
-    pattern: /password/create
+    path: /password/create
     defaults: { _controller: "OjsUserBundle:Security:createPassword" }

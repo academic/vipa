@@ -13,7 +13,7 @@ ojs_admin_proxy_new:
 ojs_admin_proxy_create:
     path:     /create
     defaults: { _controller: OjsAdminBundle:AdminProxy:create }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_admin_proxy_edit:
     path:     /{id}/edit

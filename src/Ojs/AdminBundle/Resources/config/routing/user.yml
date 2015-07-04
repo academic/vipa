@@ -3,35 +3,35 @@ ojs_admin_user_index:
     defaults: { _controller: OjsAdminBundle:AdminUser:index }
 
 ojs_admin_user_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: OjsAdminBundle:AdminUser:show }
 
 ojs_admin_user_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: OjsAdminBundle:AdminUser:new }
 
 ojs_admin_user_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: OjsAdminBundle:AdminUser:create }
 
 ojs_admin_user_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: OjsAdminBundle:AdminUser:edit }
 
 ojs_admin_user_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: OjsAdminBundle:AdminUser:update }
     methods:  [PUT]
 
 ojs_admin_user_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: OjsAdminBundle:AdminUser:delete }
     methods:  [DELETE]
 
 ojs_admin_user_block:
-    pattern: /{id}/block
+    path: /{id}/block
     defaults: { _controller: OjsAdminBundle:AdminUser:block }
 
 ojs_admin_user_unblock:
-    pattern: /{id}/unblock
+    path: /{id}/unblock
     defaults: { _controller: OjsAdminBundle:AdminUser:unblock }

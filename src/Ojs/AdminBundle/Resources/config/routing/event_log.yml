@@ -1,11 +1,11 @@
 ojs_admin_event_log_index:
-    pattern:  /
+    path:  /
     defaults: { _controller: OjsAdminBundle:AdminEventLog:index }
 
 ojs_admin_event_log_flush:
-    pattern:  /flush
+    path:  /flush
     defaults: { _controller: OjsAdminBundle:AdminEventLog:flush }
 
 ojs_admin_event_log_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: OjsAdminBundle:AdminEventLog:show }

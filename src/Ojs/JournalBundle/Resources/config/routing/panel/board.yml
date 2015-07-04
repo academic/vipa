@@ -30,10 +30,10 @@ ojs_journal_board_delete:
     methods: [DELETE]
 
 ojs_journal_board_member_add:
-    pattern:  /{boardId}/member/add
+    path:  /{boardId}/member/add
     defaults: { _controller: OjsJournalBundle:Board:addMember }
     methods:  [POST, PUT]
 
 ojs_journal_board_member_remove:
-    pattern:  /{boardId}/member/{userId}/remove
+    path:  /{boardId}/member/{userId}/remove
     defaults: { _controller: OjsJournalBundle:Board:removeMember }

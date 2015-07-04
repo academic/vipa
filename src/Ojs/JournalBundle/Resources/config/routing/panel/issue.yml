@@ -13,7 +13,7 @@ ojs_journal_issue_new:
 ojs_journal_issue_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:Issue:create" }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_journal_issue_edit:
     path:     /{id}/edit
@@ -30,17 +30,17 @@ ojs_journal_issue_delete:
     methods: [DELETE]
 
 ojs_journal_issue_arrange:
-    pattern:  /{id}/arrange
+    path:  /{id}/arrange
     defaults: { _controller: "OjsJournalBundle:Issue:arrange" }
 
 ojs_journal_issue_article_add:
-    pattern:  /{id}/article/add/{articleId}
+    path:  /{id}/article/add/{articleId}
     defaults: { _controller: "OjsJournalBundle:Issue:addArticle" }
 
 ojs_journal_issue_article_remove:
-    pattern:  /{id}/article/remove/{articleId}
+    path:  /{id}/article/remove/{articleId}
     defaults: { _controller: "OjsJournalBundle:Issue:removeArticle" }
 
 ojs_journal_issue_view:
-    pattern:  /{id}/article
+    path:  /{id}/article
     defaults: { _controller: "OjsJournalBundle:Issue:view" }

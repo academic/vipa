@@ -3,7 +3,7 @@ ojs_admin_dashboard:
     defaults: { _controller: OjsAdminBundle:Admin:dashboard }
 
 ojs_admin_stats:
-    pattern:  stats
+    path:  stats
     defaults: { _controller: OjsAdminBundle:Admin:stats }
 
 ojs_admin_user:

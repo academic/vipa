@@ -13,7 +13,7 @@ ojs_journal_theme_new:
 ojs_journal_theme_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:JournalTheme:create" }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_journal_theme_edit:
     path:     /{id}/edit

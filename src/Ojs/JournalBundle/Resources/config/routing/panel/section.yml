@@ -13,7 +13,7 @@ ojs_journal_section_new:
 ojs_journal_section_create:
     path:     /create
     defaults: { _controller: "OjsJournalBundle:JournalSection:create" }
-    requirements: { _method: post }
+    methods: [POST]
 
 ojs_journal_section_edit:
     path:     /{id}/edit

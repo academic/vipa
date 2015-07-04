@@ -67,7 +67,7 @@ _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 change_locale:
-    pattern:  /locale/{code}
+    path:  /locale/{code}
     defaults: { _controller: "OjsJournalBundle:Common:changeLocale" }
     
 apidoc:
