@@ -117,3 +117,7 @@ liip_imagine:
                 relative_resize: { widen: 960 }
                 crop: {start:[0,0], size: [1200, 300]}
 
+        issue_cover_medium:
+            quality: 90
+            filters:
+                relative_resize: { widen: 180}
