@@ -29,18 +29,26 @@
                                             class="pull-right fa fa-list"></span></h3>
                             </div>
                             <div class="panel-body">
-                                <ul class="nav nav-default">
-                                    {% for issue in groupedIssues[year] %}
-                                        <li class="col-md-12">
+                                {% for issue in groupedIssues[year] %}
+                                    <div class="col-md-3">
+                                        <div class="thumbnail">
                                             <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}">
+                                                <img src="{{ ('/uploads/journalfiles/'~imagePath(issue.cover))|imagine_filter('issue_cover_medium') }}"
+                                                     data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
+                                                     class="img-responsive"/>
+                                            </a>
+
+                                            <p>
                                                 {{ "volume"|trans }} : {{ issue.volume }}
                                                 {{ "issue"|trans }} : {{ issue.number }}
+
                                                 {% if issue.title %}-  {{ issue.title }} {% endif %}
-                                                <span class="badge pull-right">4</span>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     {% else %}
