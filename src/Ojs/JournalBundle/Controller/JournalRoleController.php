@@ -68,21 +68,14 @@ class JournalRoleController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $entity = new JournalRole();
-        $em->persist($entity);
+        $entity->setJournal($journal);
         $form = $this->createCreateForm($entity);
-        $em->clear();
         $form->handleRequest($request);
-
         if ($form->isValid()) {
-            $data = $form->getData();
-            $entity->setUser($data->getUser());
-            $entity->setJournal($data->getJournal());
-            $entity->setRole($data->getRole());
             $em->persist($entity);
             $em->flush();
 
             $this->successFlashBag('successful.create');
-
             return $this->redirectToRoute(
                 'ojs_journal_role_show',
                 [
@@ -90,7 +83,6 @@ class JournalRoleController extends Controller
                 ]
             );
         }
-
         return $this->render(
             'OjsJournalBundle:JournalRole:new.html.twig',
             array(
@@ -116,7 +108,7 @@ class JournalRoleController extends Controller
                 'action' => $this->generateUrl('ojs_journal_role_create'),
                 'method' => 'POST',
                 'usersEndPoint' => $this->generateUrl('api_get_users'),
-                'userEndPoint' => $this->generateUrl('api_get_user'),
+                'userEndPoint' => $this->generateUrl('get_user_by_id').'/',
             )
         );
 
