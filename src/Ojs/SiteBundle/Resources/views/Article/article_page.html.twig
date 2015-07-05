@@ -90,6 +90,7 @@
                         </div>
                         <hr>
                         <div id="files">
+                            <h4 class="page-header"> {{ "article.fulltext"|trans }} </h4>
                             {% for file in article.articleFiles %}
                                 {% if file.type==0 %}
                                     <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
