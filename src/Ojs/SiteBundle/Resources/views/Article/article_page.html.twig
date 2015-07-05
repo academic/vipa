@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block body %}
-
+    <
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -22,7 +22,7 @@
                             {% if article.header %}
                                 {% set imageoptions=getImageOptions(article,'header','article_header') %}
                                 <a href="{{ generateJournalUrl(article.journal) }}">
-                                    <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
+                                    <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                                          data-src="holder.js/960x200/random/text:{{ journal.title }}"
                                          class="img-responsive img-rounded float-left" alt="{{ article.title }}"/>
                                 </a>
@@ -92,10 +92,12 @@
                         <hr>
                         <div id="files">
                             {% for file in article.articleFiles %}
-                                <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
-                                    <i class="fa fa-file-pdf-o"></i> <abbr
-                                            title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ file.title }} {% if file.langCode %}{{ file.title }} ({{ file.langCode }}{% endif %}</abbr>
-                                </a>
+                                {% if file.type==0 %}
+                                    <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> <abbr
+                                                title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ file.title }} {% if file.langCode %}{{ file.title }} ( {{ file.langCode }} ){% endif %}</abbr>
+                                    </a>
+                                {% endif %}
                             {% endfor %}
                         </div>
 
