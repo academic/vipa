@@ -32,7 +32,7 @@ class JournalDesign implements Translatable
 
     /**
      * @var integer
-     * @GRID\Column(title="Is Public?",field="isPublic")
+     * @GRID\Column(title="ojs.is_public",field="isPublic")
      */
     private $isPublic;
 

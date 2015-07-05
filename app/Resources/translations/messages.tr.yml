@@ -10,16 +10,16 @@ Author: Yazar
 Authors: Yazarlar
 Avatar: Avatar
 Chamber: Chamber
-'Competing of Interest File': 'Çıkar Çatışması Dosyası'
+workflow.competing_of_interest_file: 'Çıkar Çatışması Dosyası'
 Confirm: Kabul Et
 Content: İçerik
 Copyeditor: Copyeditor
-'Copyright Transfer Form': 'Telif Hakkı Devir Formu'
+workflow.copyright_transfer_form: 'Telif Hakkı Devir Formu'
 Create: 'Oluştur'
-'Data Analysis': 'Veri Analizleri'
+article.data_analysis: 'Veri Analizleri'
 'Data Set': 'Veri Seti'
 Decline: Reddet
-'Default registered user': 'Varsayılan kayıtlı kullanıcı'
+roles.default_registered_user: 'Varsayılan kayıtlı kullanıcı'
 Description: 'Açıklama'
 Drafts: Taslaklar
 Editor: Editör
@@ -31,7 +31,7 @@ Files: Dosyalar
 Filters: Filtreler
 Foundation: Dernek
 French: Fransızca
-'Full Text': Tam Metin
+workflow.full_text: Tam Metin
 German: Almanca
 Go: Git
 Government: Devlet
@@ -41,13 +41,13 @@ ID: 'No'
 ISSN: ISSN
 Info: Bilgi
 Information: Bilgi
-'Is Active?': 'Aktif mi?'
-'Is Public?': 'Görünür mü?'
+'ojs.is_active': 'Aktif mi?'
+'ojs.is_public': 'Görünür mü?'
 Issue: Sayı
 Italian: İtalyanca
-'Journal Manager': 'Journal Manager'
+roles.journal_manager: 'Journal Manager'
 Keywords: Anahtar kelimeler
-'Last Step': 'Son Adım'
+'workflow.last_step': 'Son Adım'
 'Layout Editor': 'Layout Editor'
 Name: 'İsim'
 'No': 'Hayır'
@@ -70,23 +70,23 @@ ROLE_READER: Okur
 ROLE_SECTION_EDITOR: 'Bölüm Editör'
 ROLE_SUBSCRIPTION_MANAGER: 'Abonelik Yöneticisi'
 Reader: Okuyucu
-'Repeat Password': 'Şifreyi tekrar yaz'
-'Research Materials': 'Araştıra Materyalleri'
-'Research Results': 'Araştırma Sonuçları'
+ojs.repeat_password: 'Şifreyi tekrar yaz'
+workflow.research_materials: 'Araştıra Materyalleri'
+workflow.research_results: 'Araştırma Sonuçları'
 Reset: Sıfırla
 Reviewer: Hakem
 Russian: Rusça
 Search: Arama
 Section: Bölüm
-'Section Editor': 'Bölüm Editör'
-'Source Text': 'Kaynak Metin'
+roles.section_editor: 'Bölüm Editör'
+'workflow.source_text': 'Kaynak Metin'
 Subject: Konu
 Subjects: Konular
 Submissions: Gönderiler
-'Subscription Manager': 'Abonelik Yöneticisi Manager'
-'Supplementary File': 'Ek Dosya'
+roles.subs_manager: 'Abonelik Yöneticisi Manager'
+'workflow.supp_file': 'Ek Dosya'
 Supplementary.File: 'Ek Dosya'
-'System Super Administrator': 'Sistem yöneticisi'
+roles.sys_manager: 'Sistem yöneticisi'
 Tables: Tablolar
 Template: Şablon
 Title: Başlık
@@ -101,7 +101,7 @@ University: Üniversite
 Update: Güncelle
 User: Kullanıcı
 Yes: Evet
-'You are requested password reset': 'Şifre Sıfırlama Talebiniz Var'
+ojs.password_reset_requested: 'Şifre Sıfırlama Talebiniz Var'
 about: Hakkında
 abstract: Öz
 abstract.transliterated: 'Öz tercümesi'
@@ -118,9 +118,9 @@ addressLong: 'Address Longitude'
 address_lat: Latitude
 address_long: Longitude
 admin: Yönetici
-admin.dashboard.applications: Applications
-admin.dashboard.journal_settings: 'Journal Settings'
-admin.dashboard.system_settings: 'System Settings'
+admin.dashboard.applications: Başvurular
+admin.dashboard.journal_settings: 'Dergi Ayarları'
+admin.dashboard.system_settings: 'Sistem Ayarları'
 admin.log.field: 'Değişen alan'
 admin.log.history: Değişim Geçmişi
 admin.log.newValue: 'yeni değer'
@@ -130,161 +130,161 @@ advancedsearch: 'Gelişmiş Arama'
 allow_index: 'İndekslenebilir'
 allow_index.list: 'İzin verilmiş index Listesi'
 announcements: Duyurular
-api: 'Application Development Interface'
-api_motto: 'OJS provides a complete restful api for developers.'
+api: 'Uygulama Geliştirme Arayüzü'
+api_motto: 'OJS geliştiricilere tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
 application.basic: Basic
-application.contact: Contact
-application.graphics: Graphics
-application.institute: 'Institute Suggestion'
-application.institute.detail: Detail
-application.institute.list: 'Institute Suggestions'
-application.institution.apply: 'Apply as Institution'
-application.institution.edit: 'Edit Institution Application'
-application.journal: 'Journal Suggestion'
-application.journal.apply: 'Apply as a new Journal'
-application.journal.detail: Detail
-application.journal.edit: 'Edit Journal Application'
-application.journal.institution: Institution
-application.journal.list: 'Journal Suggestions'
-application.journal.new_institution: 'Apply as an Institution'
-application.journal.new_institution_help: 'If you can''t find your institution above, please apply as an institution using the button below.'
-application.status.complete: 'Import Complete'
-application.status.deleted: Deleted
-application.status.onhold: 'On Hold'
-application.status.rejected: Rejected
-application.status.waiting: 'Waiting for Import'
-apply: Apply
-apply.for.new.journal: 'Apply For New Journal'
-archive: Archive
-article: Article
-article.add: 'Add Article'
-article.all: 'All Articles'
-article.any_article_viewed: 'Any article viewed yet'
-article.any_downloaded: 'Any article downloaded yet'
-article.authors: 'Article Authors'
-article.citations: 'Article Citations'
-article.detail: 'Article Detail'
-article.files: 'Article Files'
-article.fulltext: 'Full Text'
-article.header_image: 'Header Image'
-article.language.other: 'Article Other Languages'
-article.language.primary: 'Article Primary Language'
-article.licensing: Prerequisite
-article.manager: 'Article Manager'
-article.metadata: 'Article Meta Data'
-article.mysubmits: 'My Submissions'
-article.new: 'New Article'
-article.plural: Articles
-article.preview: 'Article Preview'
-article.singular: Article
-article.submit: 'Submit Article'
-article.subtitle: 'Article Subtitle'
-article.title: 'Article Title'
-article.titleTransliterated: 'Article Title Latin Transliterated'
-article.type: 'Article Type'
-article.type.list: 'Article Type List'
-article.type.new: 'New Article Type'
-article.types: 'Article Types'
-article_author_edit: 'Article Author Edit'
-article_author_list: 'List Article Author'
-article_id: 'Article ID'
-articleauthor: 'Article Author'
-articleauthor_create: 'Article Author Create'
-articleauthor_new: 'New Article Author'
-articlefile: 'Article File'
-articlefile.actions: Actions
+application.contact: İletişim
+application.graphics: Görseller
+application.institute: 'Enstitü başvurusu'
+application.institute.detail: Detay
+application.institute.list: 'Enstitü önerileri'
+application.institution.apply: 'Enstitü olarak başvur'
+application.institution.edit: 'Enstitü başvurusunu düzenle'
+application.journal: 'Dergi Başvurusu'
+application.journal.apply: 'Yeni dergi olarak başvur'
+application.journal.detail: Detay
+application.journal.edit: 'Dergi başvurusunu düzenle'
+application.journal.institution: Enstitü
+application.journal.list: 'Dergi Önerileri'
+application.journal.new_institution: 'Yeni Enstitü olarak başvur'
+application.journal.new_institution_help: 'Eğer yukarıda enstitünüzü bulamadıysanız yeni enstitü başvurunda bulununuz'
+application.status.complete: 'İçe aktarma tamamlandı'
+application.status.deleted: Silinmiş
+application.status.onhold: 'Beklemede'
+application.status.rejected: Reddedilmiş
+application.status.waiting: 'İçe aktarılmayı bekliyor'
+apply: Başvur
+apply.for.new.journal: 'Yeni dergi olarak başvur'
+archive: Arşiv
+article: Makale
+article.add: Makale Ekle
+article.all: Tüm makaleler
+article.any_article_viewed: Hiç makale görüntülenmedi
+article.any_downloaded: Hiç makale indirilmedi
+article.authors: Makale yazarları
+article.citations: Makale atıfları
+article.detail: Makale detayları
+article.files: Makale dosyaları
+article.fulltext: Tam metin
+article.header_image: Makale üst resmi
+article.language.other: Makale diğer dilleri
+article.language.primary: Makale ana dili
+article.licensing: Lisansı
+article.manager: Makale yöneticisi
+article.metadata: Makale meta bilgileri
+article.mysubmits: Gönderdiğim Makaleler
+article.new: Yeni Makale
+article.plural: Makaleler
+article.preview: Makale önizle
+article.singular: Makale
+article.submit: Makale Gönder
+article.subtitle: Makale alt başlık
+article.title: Makale başlık
+article.titleTransliterated: Makale çevrilmiş başlık
+article.type: Makale tipi
+article.type.list: Makale tipleri
+article.type.new: Yeni makale tipi
+article.types: Makale tipleri
+article_author_edit: Makale yazarlarını düzenle
+article_author_list: Makale yazarlarını listele
+article_id: Makale No
+articleauthor: Makele yazarı
+articleauthor_create: Makale yazarı oluştur
+articleauthor_new: Makale yazarı oluştur
+articlefile: Makale dosyası
+articlefile.actions: İşlemler
 articlefile.id: ID
-articlefile.langcode: 'File language'
-articlefile.new: 'New Article File'
-articlefile.title: 'File title'
-articlefile.type: 'Article file type'
-articlefile.version: 'File version'
-articles: Articles
-articles.needAction: 'Articles That Need Action'
-articles.waiting: 'Waiting Articles'
-articles_in_journal: 'Articles In Journal'
-author: Author
-author.add: 'Add Author'
-author.creation: 'Author Creation'
-author.details: 'Author Details'
-author.edit: 'Edit author'
-author.firstname: 'First Name'
-author.firstnametransliterated: 'Firstname Transliterated'
-author.initials: Initials
-author.institution: 'Author Institution'
-author.lastname: 'Last Name'
-author.lastnametransliterated: 'Lastname Transliterated'
-author.list: 'List Author'
-author.manager: 'Author Manager'
-author.middlename: 'Middle Name'
-author.middlenametransliterated: 'Middle Name Transliterated'
-author.new: 'New Author'
+articlefile.langcode: Dosya Dili
+articlefile.new: Yeni Makale Dosyası
+articlefile.title: Dosya Başlığı
+articlefile.type: Makale Dosya Tipi
+articlefile.version: Dosya Sürümü
+articles: Makaleler
+articles.needAction: İşlem gereken makaleler
+articles.waiting: Bekleyen makaleler
+articles_in_journal: Dergideki makaleler
+author: Yazar
+author.add: Yazar Ekle
+author.creation: Yazar Ekleme
+author.details: Yazar Detayları
+author.edit: Yazar Düzenleme
+author.firstname: İlk adı
+author.firstnametransliterated: İlk adın transkripsiyonu
+author.initials: İlk harfleri
+author.institution: Yazar Enstitülü
+author.lastname: Soyadı
+author.lastnametransliterated: Soyadın transkripsiyonu
+author.list: Yazar Listesi
+author.manager: Yazar Yöneticisi
+author.middlename: Orta adı
+author.middlenametransliterated: Orta adın transkripsiyonu
+author.new: Yeni Yazar
 author.orcid: ORCID
-author.order: 'TODO: Sıra'
-author.phone: Phone
-author.plural: Authors
-author.singular: Author
-author.summary: 'Author Summary'
-author.title: Title
-author_id: 'Author ID'
-author_order: 'Author Order'
-authors: Authors
-authors.count: 'Count of Authors'
+author.order: Sıra
+author.phone: Telefon
+author.plural: Yazarlar
+author.singular: Yazar
+author.summary: Yazar Özeti
+author.title: Başlık
+author_id: Yazar No
+author_order: Yazar Sıralamaso
+authors: Yazarlar
+authors.count: Yazar Sayısı
 b: Geri
-back: Back
-back.continue.editing: 'Back & Continue Editing'
-basetheme: 'Base Theme'
-basicsearch: 'Basic Search'
-block: Block
+back: Geri
+back.continue.editing: Geri Dön & Düzenleme devam et
+basetheme: Ana tema
+basicsearch: Basit arama
+block: Blok
 blog: Blog
-board: Board
-board.addUser: 'Add User to Board'
-board.can_not_add_user: 'You can add member from your journal''s users only.'
-board.create: 'Create Board'
-board.delete: 'Delete Board'
-board.detail: 'Board Detail'
-board.edit: 'Edit Board'
-board.hasNoMember: 'Board has no members'
-board.manage_users: 'You can <a href=''%path%''>manage</a> journal''s users.'
-board.manager: 'Board Manager'
-board.members: Members
-board.name: 'Board Name'
-boards: Boards
-book: Book
-booklet: Booklet
-button.toggle_tree: 'Toggle Tree'
-c: 'Create New'
-'can.edit?': 'Can edit?'
-'can.rejectSubmission?': 'Can reject submission?'
-'can.review?': 'Can review?'
-'can.seeAuthor?': 'Can user see author information?'
-canOnlyReply: 'User can not decide next step, can only reply back.'
-cancel: Cancel
-check: Check
-children: Children
-citation: Citation
-citation.add: 'Add Citation'
-citation.citation: Citation
-citation.clear: 'Clear Citation'
-citation.create: 'Create Citation'
-citation.edit: 'Edit Citation'
-citation.editor: 'Citation Editor'
-citation.id: 'Citation ID'
-citation.list: 'Citation List'
-citation.new: 'New Citation'
-citation.paste_extract: 'Paste and Extract Citation'
-citation.setting: 'Citation Setting'
-citation.setting.edit: 'Edit Citation Setting'
-citation.setting.list: 'Citation Setting List'
-citation.setting.new: 'New Citation Setting'
-citation.type: 'Citation Type'
-citations: Citations
-city: City
-cms: CMS
-collapse: Collapse
-color: Color
-color.generate: 'Generate color'
-common: Common
+board: Kurul
+board.addUser: Kurula kullanıcı ekle
+board.can_not_add_user: Sadece kayıtlı olduğunuz derginin kuruluna ekleme yapabilirsiniz
+board.create: Kurul oluştur
+board.delete: Kurul sil
+board.detail: Kurul detayı
+board.edit: Kurul düzenle
+board.hasNoMember: Kurulun hiç üyesi yok
+board.manage_users: Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz</a>
+board.manager: Kurul yöneticisi
+board.members: Kurul üyeleri
+board.name: Kurul ismi
+boards: Kurullar
+book: Kitap
+booklet: Broşür
+button.toggle_tree: Ağacı aç
+c: 'Oluştur'
+roles.can_edit: 'Düzenlenebilir mi'
+roles.can_reject_submission: 'Tamamen reddedebilir mi'
+roles.can_review: 'Gözden geçirebilir mi'
+roles.can_see_author: 'Yazar bilgisini görebilir mi'
+canOnlyReply: 'Sadece cevaplayabilir'
+cancel: Vazgeç
+check: Kontrol et
+children: Alt öge
+citation: Atıf
+citation.add: Atıf ekle
+citation.citation: atıf
+citation.clear: Atıf sil
+citation.create: Atıf oluştur
+citation.edit: Atıf düzenle
+citation.editor: Atıf editörü
+citation.id: Atıf no
+citation.list: Atıf Listesi
+citation.new: Yeni Atıf
+citation.paste_extract: Yapıştır ve Parçala
+citation.setting: Atıf Ayarları
+citation.setting.edit: Atıf Ayarlarını Düzenle
+citation.setting.list: Atıf Ayarları listesi
+citation.setting.new: Yeni atıf ayarı
+citation.type: Atıf Tipi
+citations: atıflar
+city: Şehir
+cms: İYS
+collapse: Kapat
+color: Renk
+color.generate: Renk Üret
+common: Genel
 competingOfInterest: 'Competing of Interest'
 conference: Conference
 confidentail: Confidentail

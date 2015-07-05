@@ -22,18 +22,18 @@ class ArticleFileParams
      * @var array
      */
     public static $FILE_TYPES = array(
-        0 => 'Full Text',
-        1 => 'Supplementary File',
-        2 => 'Research Materials',
-        3 => 'Research Results',
+        0 => 'workflow.full_text',
+        1 => 'workflow.supp_file',
+        2 => 'workflow.research_materials',
+        3 => 'workflow.research_results',
         4 => 'Transcripts',
-        5 => 'Data Analysis',
+        5 => 'article.data_analysis',
         6 => 'Data Set',
-        7 => 'Source Text',
+        7 => 'suppfiles.source',
         8 => 'Pictures',
         9 => 'Tables',
-        10 => 'Copyright Transfer Form',
-        11 => 'Competing of Interest File',
+        10 => 'workflow.copyright_transfer_form',
+        11 => 'workflow.competing_of_interest_file',
     );
 
     /**

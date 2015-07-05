@@ -19,7 +19,7 @@ class DesignType extends AbstractType
             ->add('name', 'text', ['label' => 'Name'])
             ->add('title', 'text', ['label' => 'Title'])
             ->add('content', 'textarea', ['label' => 'Content'])
-            ->add('isPublic', 'checkbox', ['label' => 'Is Public?']);
+            ->add('isPublic', 'checkbox', ['label' => 'ojs.is_public']);
     }
 
     /**
