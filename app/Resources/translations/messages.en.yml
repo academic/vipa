@@ -834,6 +834,7 @@ select_supplementary_article_file: 'Select Supplementary Article File'
 select_visible: 'Select visible'
 send_article: 'Send Article'
 sendmail: 'Send email'
+services: Services
 setting: Setting
 settings: Settings
 setup.step: 'Step #number'

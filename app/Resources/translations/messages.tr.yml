@@ -1,123 +1,123 @@
-'%count% Results,': '%count% Results,'
-Abstract: Abstract
-Accept: Accept
-Action: Action
-Admin: Admin
-Arabic: 'TODO: Arapça'
-Articles: Articles
-Association: Association
-Author: Author
-Authors: Authors
+'%count% Results,': '%count% Sonuç,'
+Abstract: Öz
+Accept: Kabul
+Action: Aksiyon
+Admin: Yönetici
+Arabic: Arapça
+Articles: Makaleler
+Association: Organizasyon
+Author: Yazar
+Authors: Yazarlar
 Avatar: Avatar
 Chamber: Chamber
-'Competing of Interest File': 'TODO: Çıkar Çatışması Dosyası'
-Confirm: Confirm
-Content: 'TODO: İçerik'
+'Competing of Interest File': 'Çıkar Çatışması Dosyası'
+Confirm: Kabul Et
+Content: İçerik
 Copyeditor: Copyeditor
-'Copyright Transfer Form': 'TODO: Telif Hakkı Devir Formu'
-Create: 'TODO: Oluştur'
-'Data Analysis': 'TODO: Veri Analizleri'
-'Data Set': 'TODO: Veri Seti'
-Decline: Decline
-'Default registered user': 'Default registered user'
-Description: 'TODO: Açıklama'
-Drafts: Drafts
-Editor: Editor
-English: 'TODO: İngilizce'
-Export: Export
-Fieldset: Fieldset
-File: File
-Files: Files
-Filters: Filters
-Foundation: Foundation
-French: 'TODO: Fransızca'
-'Full Text': 'TODO: Tam Metin'
-German: 'TODO: Almanca'
-Go: Go
-Government: Government
-Guidelines: Guidelines
-Hospital: Hospital
-ID: 'TODO: Sıra No'
+'Copyright Transfer Form': 'Telif Hakkı Devir Formu'
+Create: 'Oluştur'
+'Data Analysis': 'Veri Analizleri'
+'Data Set': 'Veri Seti'
+Decline: Reddet
+'Default registered user': 'Varsayılan kayıtlı kullanıcı'
+Description: 'Açıklama'
+Drafts: Taslaklar
+Editor: Editör
+English: 'İngilizce'
+Export: Dışa aktar
+Fieldset: Grup
+File: Dosya
+Files: Dosyalar
+Filters: Filtreler
+Foundation: Dernek
+French: Fransızca
+'Full Text': Tam Metin
+German: Almanca
+Go: Git
+Government: Devlet
+Guidelines: Lejant
+Hospital: Hastane
+ID: 'No'
 ISSN: ISSN
-Info: Info
-Information: Information
-'Is Active?': 'TODO: Aktif mi?'
-'Is Public?': 'TODO: Görünür mü?'
-Issue: Issue
-Italian: 'TODO: İtalyanca'
+Info: Bilgi
+Information: Bilgi
+'Is Active?': 'Aktif mi?'
+'Is Public?': 'Görünür mü?'
+Issue: Sayı
+Italian: İtalyanca
 'Journal Manager': 'Journal Manager'
-Keywords: Keywords
-'Last Step': 'TODO: Son Adım'
+Keywords: Anahtar kelimeler
+'Last Step': 'Son Adım'
 'Layout Editor': 'Layout Editor'
-Name: 'TODO: İsim'
-'No': 'No'
-'No data': 'TODO: Veri Yok'
-Other: Other
-Page: Page
-Password: Password
-Pictures: 'TODO: Görseller'
-Polish: 'TODO: Lehçe'
-Private: Private
+Name: 'İsim'
+'No': 'Hayır'
+'No data': 'Veri Yok'
+Other: Diğer
+Page: Sayfa
+Password: Şifre
+Pictures: Görseller
+Polish: Lehçe
+Private: Gizli
 Proofreader: Proofreader
-Pubdateseason: 'Pub Date Season'
-ROLE_AUTHOR: Author
+Pubdateseason: 'Yayın Tarihi'
+ROLE_AUTHOR: Yazar
 ROLE_COPYEDITOR: Copyeditor
-ROLE_EDITOR: Editor
-ROLE_JOURNAL_MANAGER: 'Journal Manager'
-ROLE_LAYOUT_EDITOR: 'Layout Editor'
+ROLE_EDITOR: Editör
+ROLE_JOURNAL_MANAGER: 'Dergi Yönetici'
+ROLE_LAYOUT_EDITOR: 'Mizanpaj Editörü'
 ROLE_PROOFREADER: Proofreader
-ROLE_READER: Reader
-ROLE_SECTION_EDITOR: 'Section Editor'
-ROLE_SUBSCRIPTION_MANAGER: 'Subscription Manager'
-Reader: Reader
-'Repeat Password': 'Repeat Password'
-'Research Materials': 'TODO: Araştıra Materyalleri'
-'Research Results': 'TODO: Araştırma Sonuçları'
-Reset: Reset
-Reviewer: Reviewer
-Russian: 'TODO: Rusça'
-Search: Search
-Section: Section
-'Section Editor': 'Section Editor'
-'Source Text': 'TODO: Kaynak Metin'
-Subject: 'TODO: Konu'
-Subjects: Subjects
-Submissions: Submissions
-'Subscription Manager': 'Subscription Manager'
-'Supplementary File': 'TODO: Ek Dosya'
-Supplementary.File: 'Supplementary File'
-'System Super Administrator': 'System Super Administrator'
-Tables: 'TODO: Tablolar'
-Template: Template
-Title: 'TODO: Başlık'
-Transcripts: 'TODO: Suretler'
-Turkish: 'TODO: Türkçe'
+ROLE_READER: Okur
+ROLE_SECTION_EDITOR: 'Bölüm Editör'
+ROLE_SUBSCRIPTION_MANAGER: 'Abonelik Yöneticisi'
+Reader: Okuyucu
+'Repeat Password': 'Şifreyi tekrar yaz'
+'Research Materials': 'Araştıra Materyalleri'
+'Research Results': 'Araştırma Sonuçları'
+Reset: Sıfırla
+Reviewer: Hakem
+Russian: Rusça
+Search: Arama
+Section: Bölüm
+'Section Editor': 'Bölüm Editör'
+'Source Text': 'Kaynak Metin'
+Subject: Konu
+Subjects: Konular
+Submissions: Gönderiler
+'Subscription Manager': 'Abonelik Yöneticisi Manager'
+'Supplementary File': 'Ek Dosya'
+Supplementary.File: 'Ek Dosya'
+'System Super Administrator': 'Sistem yöneticisi'
+Tables: Tablolar
+Template: Şablon
+Title: Başlık
+Transcripts: Suretler
+Turkish: Türkçe
 Tweak: Tweak
 Tweaks: Tweaks
-URL: URL
-USER_LOGIN_EVENT: 'User login event'
-USER_LOGOUT_EVENT: 'User logout event'
-University: University
-Update: 'TODO: Güncelle'
-User: User
-'Yes': 'Yes'
-'You are requested password reset': 'TODO: Şifre Sıfırlama Talebiniz Var'
-about: About
-abstract: Abstract
-abstract.transliterated: 'Abstract Transliterated'
-accept: 'TODO: Kabul Et'
-accepted: Accepted
-actions: Actions
-add: Add
-add.as.proxy: 'Add As Proxy'
-add.language: 'Add Language'
-added: Added
-address: Address
+URL: Bağlantı
+USER_LOGIN_EVENT: 'Kullanıcı Giriş Haraketi'
+USER_LOGOUT_EVENT: 'Kullanıcı Çıkış Haraketi'
+University: Üniversite
+Update: Güncelle
+User: Kullanıcı
+Yes: Evet
+'You are requested password reset': 'Şifre Sıfırlama Talebiniz Var'
+about: Hakkında
+abstract: Öz
+abstract.transliterated: 'Öz tercümesi'
+accept: Kabul Et
+accepted: Kabul edilmiş
+actions: Hareketler
+add: Ekle
+add.as.proxy: 'Vekil Tayin et'
+add.language: 'Dil ekle'
+added: Eklenmiş
+address: Adres
 addressLat: 'Address Latitude'
 addressLong: 'Address Longitude'
 address_lat: Latitude
 address_long: Longitude
-admin: Admin
+admin: Yönetici
 admin.dashboard.applications: Applications
 admin.dashboard.journal_settings: 'Journal Settings'
 admin.dashboard.system_settings: 'System Settings'
@@ -125,11 +125,11 @@ admin.log.field: 'Değişen alan'
 admin.log.history: Değişim Geçmişi
 admin.log.newValue: 'yeni değer'
 admin.log.oldValue: 'eski değer'
-adress: Address
-advancedsearch: 'Advanced Search'
-allow_index: 'Allow Index'
-allow_index.list: 'Allow Index List'
-announcements: Announcements
+adress: adres
+advancedsearch: 'Gelişmiş Arama'
+allow_index: 'İndekslenebilir'
+allow_index.list: 'İzin verilmiş index Listesi'
+announcements: Duyurular
 api: 'Application Development Interface'
 api_motto: 'OJS provides a complete restful api for developers.'
 application.basic: Basic
@@ -834,6 +834,7 @@ select_supplementary_article_file: 'Select Supplementary Article File'
 select_visible: 'Select visible'
 send_article: 'Send Article'
 sendmail: 'Send email'
+services: Servisler
 setting: Setting
 settings: Settings
 setup.step: 'Step #number'
