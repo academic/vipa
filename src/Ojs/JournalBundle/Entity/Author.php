@@ -331,7 +331,7 @@ class Author implements Translatable
      * @param  string $email
      * @return Author
      */
-    public function setEmail($email)
+    public function setEmail($email=null)
     {
         $this->email = $email;
 
@@ -558,7 +558,7 @@ class Author implements Translatable
     {
         $this->title = $title;
 
-        return $title;
+        return $this;
     }
 
     /**
