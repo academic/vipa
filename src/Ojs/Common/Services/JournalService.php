@@ -131,7 +131,7 @@ class JournalService
         }
         $user = $token->getUser();
         $userJournalRoleRepo = $this->em->getRepository('OjsJournalBundle:JournalRole');
-        $roles = $userJournalRoleRepo->findAllByJournalAndUser($journal, $user);
+        $roles = $userJournalRoleRepo->findBy(['journal'=>$journal, 'user'=> $user]);
 
         return $roles;
     }

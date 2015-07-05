@@ -33,6 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\Common\Services\GridAction;
+use Ojs\Common\Services\JournalService;
 
 /**
  * Article Submission controller.
@@ -190,9 +191,11 @@ class ArticleSubmissionController extends Controller
      */
     public function confirmRoleAction(Request $request)
     {
-        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
+        /** @var JournalService $journalService */
+        $journalService = $this->get('ojs.journal_service');
+        $checkRole = $journalService->hasJournalRole('ROLE_AUTHOR');
         if (!$checkRole && $request->get('confirm')) {
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+            $journal = $journalService->getSelectedJournal();
             $checkRole = $this->checkAndRegisterUserAuthorRole($journal);
         }
 
@@ -200,7 +203,7 @@ class ArticleSubmissionController extends Controller
             $this->redirect($this->generateUrl('article_submission_new')) :
             $this->render(
                 'OjsJournalBundle:ArticleSubmission:confirmRole.html.twig',
-                array('roles' => $this->get('ojs.journal_service')->getSelectedJournalRoles())
+                array('journalRoles' => $journalService->getSelectedJournalRoles())
             );
     }
 
