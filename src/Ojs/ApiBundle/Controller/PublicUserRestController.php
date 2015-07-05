@@ -47,7 +47,7 @@ class PublicUserRestController extends FOSRestController
      *                                                    resource=true,
      *                                                    description="get user by id"
      *                                                    )
-     * @Get("/public/user/get/{id}")
+     * @Get("/public/user/get/{id}", defaults={"id" = null})
      */
     public function getUserAction($id)
     {
