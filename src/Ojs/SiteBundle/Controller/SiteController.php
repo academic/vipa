@@ -341,7 +341,7 @@ class SiteController extends Controller
             }
         }
         if (!$url) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException("File not found on drive");
         }
 
         return RedirectResponse::create($url);
