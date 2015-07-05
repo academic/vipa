@@ -334,9 +334,11 @@ class SiteController extends Controller
         );
         $mappings = $vars['oneup_uploader']['mappings'];
         $url = false;
+        $fullPath = null;
         foreach ($mappings as $key => $value) {
             if (is_file($uploaddir.$key.'/'.$file)) {
                 $url = '/uploads/'.$key.'/'.$file;
+                $fullPath = $uploaddir.$key.'/'.$file;
                 break;
             }
         }
@@ -344,7 +346,13 @@ class SiteController extends Controller
             throw new NotFoundHttpException("File not found on drive");
         }
 
-        return RedirectResponse::create($url);
+        $response = new Response();
+        $content = \file_get_contents($fullPath);
+        $response->headers->set('Content-Type',mime_content_type($fullPath));
+        $response->headers->set('Content-Length',filesize($fullPath));
+        $response->setContent($content);
+
+        return $response;
     }
 
     public function journalPageDetailAction($slug, $journal_slug)
