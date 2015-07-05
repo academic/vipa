@@ -26,7 +26,7 @@ class UserRestController extends FOSRestController
      *      {"name"="username", "dataType"="string"}
      *  }
      * )
-     * @Get("/user/{username}")
+     * @Get("/user/{username}", defaults={"username" = null})
      *
      * @param $username
      * @return mixed
