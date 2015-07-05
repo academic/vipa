@@ -40,7 +40,7 @@ class JournalDesignType extends AbstractType
                 'isPublic',
                 'checkbox',
                 array(
-                    'label' => 'Is Public?',
+                    'label' => 'ojs.is_public',
                 )
             );
     }

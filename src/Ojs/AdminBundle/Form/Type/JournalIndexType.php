@@ -17,7 +17,7 @@ class JournalIndexType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'name'))
             ->add('logo', 'hidden')
-            ->add('status', 'checkbox', ['label' => 'Is Active?']);
+            ->add('status', 'checkbox', ['label' => 'ojs.is_active']);
     }
 
     /**

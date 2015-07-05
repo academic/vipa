@@ -18,7 +18,7 @@ class ThemeType extends AbstractType
         $builder
             ->add('name', 'text', ['label' => 'Name'])
             ->add('title', 'text', ['label' => 'Title'])
-            ->add('isPublic', 'checkbox', ['label' => 'Is Public?']);
+            ->add('isPublic', 'checkbox', ['label' => 'ojs.is_public']);
     }
 
     /**
