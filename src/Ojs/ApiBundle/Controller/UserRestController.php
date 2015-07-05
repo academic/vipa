@@ -31,7 +31,7 @@ class UserRestController extends FOSRestController
      * @param $username
      * @return mixed
      */
-    public function getUserAction($username)
+    public function getUserByUsernameAction($username)
     {
         $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $username));
         if (!is_object($user)) {
