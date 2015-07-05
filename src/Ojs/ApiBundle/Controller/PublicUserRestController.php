@@ -49,7 +49,7 @@ class PublicUserRestController extends FOSRestController
      *                                                    )
      * @Get("/public/user/get/{id}", defaults={"id" = null})
      */
-    public function getUserAction($id)
+    public function getUserByIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
