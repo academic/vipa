@@ -69,6 +69,17 @@ class PackageCommand extends ContainerAwareCommand
                 return;
             }
 
+            $output->writeln('<info>Installing dependencies...</info>');
+            $composer = new Process('composer install');
+            $composer->setWorkingDirectory(self::REPO_DIRECTORY);
+            $composer->setTimeout(3600);
+            $composer->run();
+
+            $bower = new Process('bower install');
+            $bower->setWorkingDirectory(self::REPO_DIRECTORY);
+            $bower->setTimeout(3600);
+            $bower->run();
+
             $dependencies = [
                 'php5', 'php5-mysql', 'php5-mongo',
                 'php5-mcrypt', 'php5-memcached', 'php5-curl',
@@ -95,6 +106,7 @@ class PackageCommand extends ContainerAwareCommand
             $output->writeln('<info>Creating a DEB file...</info>');
             $process = new Process($command);
             $process->setWorkingDirectory(self::OPERATION_DIRECTORY);
+            $process->setTimeout(3600);
             $process->run();
 
             if (!$process->isSuccessful()) {
