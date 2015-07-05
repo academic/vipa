@@ -32,6 +32,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Ojs\Common\Services\GridAction;
 
 /**
  * Article Submission controller.
@@ -157,11 +158,12 @@ class ArticleSubmissionController extends Controller
         $drafts = $gridManager->createGrid('drafts');
         $submissionsGrid->setSource($source1);
         $drafts->setSource($source2);
+        /** @var GridAction $gridAction */
         $gridAction = $this->get('grid_action');
 
-        $submissionsGrid->addRowAction($gridAction->showAction('article_show', 'id'));
-        $submissionsGrid->addRowAction($gridAction->editAction('article_edit', 'id'));
-        $submissionsGrid->addRowAction($gridAction->deleteAction('article_delete', 'id'));
+        $submissionsGrid->addRowAction($gridAction->showAction('ojs_journal_article_show', 'id'));
+        $submissionsGrid->addRowAction($gridAction->editAction('ojs_journal_article_edit', 'id'));
+        $submissionsGrid->addRowAction($gridAction->deleteAction('ojs_journal_article_delete', 'id'));
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
