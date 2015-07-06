@@ -1,79 +1,83 @@
-<div class="{% if citationItem is defined %}{% else %}hide{% endif %} cite-item">
-    <form class="well well-default">
-        <div class="row">
-            <div class="col-xs-1">
-                <input type="number" min="0" max="10000" class="form-control input-sm" style="width:80px"
-                       name="orderNum"
-                       value="{% if citationItem is defined %}{{ citationItem.orderNum }}{% endif %}"
-                       placeholder="{{ "order"|trans }}">
-            </div>
-            <div class="col-xs-11">
-                <input type="text" class="form-control input-sm"
-                       value="{% if citationItem is defined %}{{ citationItem.raw }}{% endif %}"
-                       name="raw" placeholder="{{ "citation"|trans }}">
-            </div>
-        </div>
-        <div class="row">
+<!-- new author form -->
+<div class="author-item panel panel-default">
+
+    <div class="panel-body">
+        <form class="form-horizontal validate-form" role="form">
+            <input type="hidden" name="authorid" value=""/>
+
             <div class="col-md-12">
-                <div class="btn-group pull-right" role="group">
-
-                    <a class="btn btn-xs btn-warning removeArticleCitationInline">
-                        <i class="fa fa-minus-circle"></i> {{ "remove"|trans }}
-                    </a>
-                    <a class="btn btn-xs btn-info parseArticleCitationInline">
-                        <i class="fa fa-refresh"></i> {{ "parse"|trans }}
-                    </a>
-                    <a href="#details" class="btn btn-xs btn-info addCitationDetails">
-                        <i class="fa fa-eye"></i> {{ "details"|trans }}
-                    </a>
+                <div class="controls form-inline">
+                    <input name="orcid" id="orcidinput" class="form-control input-xs float-label"
+                           value="{% if author is defined %}{{ author.orcid }}{% endif %}"
+                           placeholder="{{ "author.orcid"|trans }}"
+                           onkeypress="OjsArticleSubmission.getOrcidAuthor(event, this);"
+                           data-url="{{ path('article_submission_get_orcid_author') }}"/>
                 </div>
-            </div>
-            <div class="citationDetails col-md-12">
-                <div class="row">
-                    <div class="col-md-4">
-                        <select class="select2-element form-control citation_type row"
-                                onchange="CitationEditor.citationTypeSelected($(this));" name="citationtype">
-                            <option value="">{{ "citation.type"|trans }}</option>
-                            {% for type in citationTypes %}
-                                <option value="{{ type.name }}"
-                                        {% if citationItem is defined and citationItem.type == type.name %}
-                                            selected="selected"
-                                        {% endif %}
-                                        data-should='{{ type.should|json_encode() }}'
-                                        data-must='{{ type.must|json_encode() }}'>{{ type.name|trans }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="citationDetailsFields form-horizontal row">
-                            {% if citationItem is defined and citationItem.type %}
-                                {% set citationtype = citationItem.type %}
-                                {% if citationTypes[citationItem.type] is defined %}
-                                    {% for field in citationTypes[citationItem.type].must %}
-                                        {% if citationItem[field] is defined %}
-                                            {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field , 'value':citationItem[field] } only %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% for field in citationTypes[citationItem.type].should %}
-                                        {% if citationItem[field] is defined %}
-                                            {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field, 'value':citationItem[field] } only %}
-                                        {% endif %}
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="form-group">
-                                        <label class="col-md-1 control-label">{{ field|trans }}~</label>
+                <div class="controls">
+                    <span class="control-label"> </span>
 
-                                        <div class="col-md-10">
-                                            <input name="{{ field }}" value="{{ citationItem[field] }}"
-                                                   class="form-control input-sm"/><br>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endif %}
-                        </div>
+                    <div class="controls-row form-inline">
+                        <input name="order" type="number" min="1" max="10000" id="orderinput"
+                               class="form-control input-sm float-label validate[required,custom[number],min[1],max[1000]]"
+                               value="{% if author is defined %}{{ author.order }}{% endif %}"
+                               placeholder="{{ "author.order"|trans }}"/>
+                        <input name="title" id="titleinput" class="form-control input-sm float-label validate[required]"
+                               value="{% if author is defined %}{{ author.title }}{% else %}{{ app.user.title }}{% endif %}"
+                               placeholder="{{ "author.title"|trans }}"/>
+                        <input name="initials" id="initialsinput"
+                               class="form-control input-sm float-label validate[required]"
+                               value="{% if author is defined %}{{ author.initials }}{% else %}{{ app.user.initials }}{% endif %}"
+                               placeholder="{{ "author.initials"|trans }}"/>
+                        <input name="firstName" id="firstnameinput"
+                               class="form-control input-sm float-label validate[required]"
+                               value="{% if author is defined %}{{ author.firstName }}{% else %}{{ app.user.firstName }}{% endif %}"
+                               placeholder="{{ "author.firstname"|trans }}"/>
+                        <input name="middleName" id="middlenameinput" class="form-control input-sm float-label"
+                               value="{% if author is defined %}{{ author.middleName }}{% endif %}"
+                               placeholder="{{ "author.middlename"|trans }}"/>
+                        <input name="lastName" id="lastnameinput"
+                               class="form-control input-sm float-label validate[required]"
+                               value="{% if author is defined %}{{ author.lastName }}{% else %}{{ app.user.lastName }}{% endif %}"
+                               placeholder="{{ "author.lastname"|trans }}"/>
+
+                    </div>
+                    <div class="controls-row">
+                        <label class="control-label">{{ "email"|trans }} <span class="mandatory"></span></label>
+                        <input name="email" id="emailinput"
+                               class="form-control input-sm validate[required,custom[email]]"
+                               value="{% if author is defined %}{{ author.email }}{% else %}{{ app.user.email }}{% endif %}"
+                               placeholder="{{ "email"|trans }}"/>
+                    </div>
+                    <div class="control-row">
+                        <label class="control-label">{{ "institution"|trans }}</label>
+                        <input name="institution" id="institutioninput"
+                               value="{% if author is defined %}{{ author.institution }}{% endif %}"
+                               class="form-control select2-institution-search-element" multiple="1"
+                               style="min-width:250px"/>
                     </div>
                 </div>
+
+                <div class="controls">
+                    <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i
+                                class="fa fa-trash"></i> {{ "remove"|trans }}</a>
+                    <a class="btn btn-sm btn-default" onclick="$(this).parent().next().slideToggle('fast');"><i
+                                class="caret"></i> {{ "details"|trans }}</a>
+                </div>
+
+                <div style="display:none" class="togglePanel">
+
+                    <div class="controls-row">
+                        <label class="control-label">{{ "phone"|trans }}</label>
+                        <input name="phone" id="phoneinput" class="form-control validate[custom[phone]]"
+                               value="{% if author is defined %}{{ author.phone }}{% else %}{{ app.user.phone }}{% endif %}"/>
+                    </div>
+                    <div class="controls-row">
+                        <label class="control-label">{{ "summary"|trans }}</label>
+                        <textarea name="summary" id="summaryinput" class="form-control"
+                                  rows="3">{% if author is defined %}{{ author.summary }}{% endif %}</textarea>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

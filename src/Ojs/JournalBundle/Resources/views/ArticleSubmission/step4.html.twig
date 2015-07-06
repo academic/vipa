@@ -1,87 +1,79 @@
-<form class="form-horizontal file-item" role="form">
-    <div class="panel panel-default">
-        <div class="panel-heading ">
-            <div class="row">
-                <div class="col-md-6">
-                    <span class="hidden-sm hidden-xs"> {{ "file.type"|trans }} : </span>
-                    <select style="min-width:120px;margin:10px 20px" name="type" class="select2-element input-sm">
-                        {% for key,type in fileTypes %}
-                            <option value="{{ key }}" {% if file is defined and file.type==key %} selected="selected" {% endif %}>{{ type|trans }}</option>
-                        {% endfor %}
-                    </select>
+<div class="{% if citationItem is defined %}{% else %}hide{% endif %} cite-item">
+    <form class="well well-default">
+        <div class="row">
+            <div class="col-xs-1">
+                <input type="number" min="0" max="10000" class="form-control input-sm" style="width:80px"
+                       name="orderNum"
+                       value="{% if citationItem is defined %}{{ citationItem.orderNum }}{% endif %}"
+                       placeholder="{{ "order"|trans }}">
+            </div>
+            <div class="col-xs-11">
+                <input type="text" class="form-control input-sm"
+                       value="{% if citationItem is defined %}{{ citationItem.raw }}{% endif %}"
+                       name="raw" placeholder="{{ "citation"|trans }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group pull-right" role="group">
+
+                    <a class="btn btn-xs btn-warning removeArticleCitationInline">
+                        <i class="fa fa-minus-circle"></i> {{ "remove"|trans }}
+                    </a>
+                    <a class="btn btn-xs btn-info parseArticleCitationInline">
+                        <i class="fa fa-refresh"></i> {{ "parse"|trans }}
+                    </a>
+                    <a href="#details" class="btn btn-xs btn-info addCitationDetails">
+                        <i class="fa fa-eye"></i> {{ "details"|trans }}
+                    </a>
                 </div>
-                <div class="col-md-6">
-                    <span class="hidden-sm hidden-xs"> {{ "file.language"|trans }} :</span>
-                    <select style="min-width:120px;margin:10px 20px" name="lang" class="select2-element input-sm">
-                        {% for lang in journal.languages %}
-                            <option value="{{ lang.code }}"
-                                    {% if file is defined and file.lang==lang.code %}selected="selected"{% endif %}>{{ lang.name|trans }}
-                                [{{ lang.code }}]
-                            </option>
-                        {% endfor %}
-                    </select>
+            </div>
+            <div class="citationDetails col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="select2-element form-control citation_type row"
+                                onchange="CitationEditor.citationTypeSelected($(this));" name="citationtype">
+                            <option value="">{{ "citation.type"|trans }}</option>
+                            {% for type in citationTypes %}
+                                <option value="{{ type.name }}"
+                                        {% if citationItem is defined and citationItem.type == type.name %}
+                                            selected="selected"
+                                        {% endif %}
+                                        data-should='{{ type.should|json_encode() }}'
+                                        data-must='{{ type.must|json_encode() }}'>{{ type.name|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="citationDetailsFields form-horizontal row">
+                            {% if citationItem is defined and citationItem.type %}
+                                {% set citationtype = citationItem.type %}
+                                {% if citationTypes[citationItem.type] is defined %}
+                                    {% for field in citationTypes[citationItem.type].must %}
+                                        {% if citationItem[field] is defined %}
+                                            {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field , 'value':citationItem[field] } only %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for field in citationTypes[citationItem.type].should %}
+                                        {% if citationItem[field] is defined %}
+                                            {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field, 'value':citationItem[field] } only %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">{{ field|trans }}~</label>
+
+                                        <div class="col-md-10">
+                                            <input name="{{ field }}" value="{{ citationItem[field] }}"
+                                                   class="form-control input-sm"/><br>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label class="col-md-2">{{ "title"|trans }}</label>
-
-                <div class="col-md-9">
-                    <input name="title" class="form-control input-sm" placeholder="{{ "title"|trans }}"
-                           value="{% if file is defined %}{{ file.title }}{% endif %}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-2">{{ "description"|trans }}</label>
-
-                <div class="col-md-9">
-                    <input name="desc" class="form-control input-sm" placeholder="{{ "description"|trans }}"
-                           value="{% if file is defined %}{{ file.desc }}{% endif %}"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-2">{{ "keywords"|trans }}</label>
-
-                <div class="col-md-9">
-                    <input name="keywords" class="form-control input-sm" placeholder="{{ "keywords"|trans }}"
-                           value="{% if file is defined %}{{ file.keywords }}{% endif %}"/>
-                </div>
-            </div>
-
-            {% if file is defined %}
-                <a class="label label-info" href="/uploads/journalfiles/{{ filePath(file.article_file) }}"
-                   target="_blank">
-                    {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{ file.lang }}) {% endif %}
-                    <i class="fa fa-download"></i>
-                </a>
-                <div class="clearfix"></div>
-            {% endif %}
-
-            <span class="btn btn-success fileinput-button">
-                <i class="fa fa-plus"></i>
-
-                <span>{{ "select.article.file"|trans }}</span>
-                <input class="article_file_upload" type="file"
-                       data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
-                <br>
-                <input name="article_file" class="filename article_file_input"
-                       value="{% if file is defined %}{{ file.article_file }}{% endif %}" type="hidden"/>
-                <input name="article_file_mime_type"
-                       value="{% if file is defined %}{{ file.article_file_mime_type }}{% endif %}" type="hidden"/>
-                <input name="article_file_size" value="{% if file is defined %}{{ file.article_file_size }}{% endif %}"
-                       type="hidden"/>
-
-            </span>
-            <a target="_blank" class="label label-info hide previewLink" href="#">{{ "preview"|trans }}</a>
-            <span class="upload_progress label label-info" style="display: none"></span>
-
-        </div>
-        <div class="panel-footer" style="text-align: right">
-            <a onclick="$(this).parents('form').remove();"
-               class="btn-sm btn btn-warning"><i class="fa fa-trash"></i>
-            </a>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
