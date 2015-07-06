@@ -44,16 +44,6 @@ article_submission_step_control:
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:stepControl", step: null }
     methods: [POST]
 
-article_submission_step2:
-    path:  /author/article/submit/step2
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addAuthors" }
-    methods: [POST]
-
-article_submission_step3:
-    path:  /author/article/submit/step3
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addCitations" }
-    methods: [POST]
-
 article_submission_step4:
     path:  /author/article/submit/step4
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addFiles" }

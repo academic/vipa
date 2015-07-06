@@ -24,6 +24,7 @@ use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
+use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step4CitationType;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
@@ -310,9 +311,7 @@ class ArticleSubmissionController extends Controller
                 'citationTypes' => $this->container->getParameter('citation_types'),
                 'articleTypes' => $articleTypes,
                 'step' => '1',
-                'checklist' => [],
-                'firstStep' => $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                    ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true)),
+                'checklist' => []
             )
         );
     }
@@ -337,13 +336,26 @@ class ArticleSubmissionController extends Controller
         $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
         $checklist = json_decode($articleSubmission->getChecklist(), true);
         $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
+        $citationForms = [];
+        $citationTypes = array_keys($this->container->getParameter('citation_types'));
+        foreach($article->getCitations() as $citation){
+            $citationForms[] = $this->createForm(new Step4CitationType(), $citation, [
+                'method' => 'POST',
+                'citationTypes' => $citationTypes
+            ])->createView();
+        }
+        $citationFormTemplate = $this->createForm(new Step4CitationType(), new Citation(), [
+            'method' => 'POST',
+            'citationTypes' => $citationTypes
+        ])->createView();
         $data = [
             'submissionId' => $articleSubmission->getId(),
             'submissionData' => $articleSubmission,
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
             'citations' => $article->getCitations(),
+            'citationForms' => $citationForms,
+            'citationFormTemplate' => $citationFormTemplate,
             'articleTypes' => $articleTypes,
-            'citationTypes' => $this->container->getParameter('citation_types'),
             'journal' => $articleSubmission->getJournal(),
             'checklist' => $checklist,
             'step' => $articleSubmission->getCurrentStep(),
@@ -628,7 +640,6 @@ class ArticleSubmissionController extends Controller
             $em->persist($articleAuthor);
         }
         $em->flush();
-
     }
 
     /**
@@ -739,7 +750,7 @@ class ArticleSubmissionController extends Controller
         $dm->flush();
         $session = $this->get('session');
         $flashBag = $session->getFlashBag();
-        $flashBag->add('success', $this->get('translator')->trans(deleted));
+        $flashBag->add('success', $this->get('translator')->trans('deleted'));
 
         return RedirectResponse::create($this->get('router')->generate('article_submissions_me'));
     }
@@ -765,23 +776,6 @@ class ArticleSubmissionController extends Controller
         } else {
             return new JsonResponse(['success' => '0', 'errors' => $step2Form->getErrors()]);
         }
-    }
-
-    /**
-     * @param $data
-     * @param  null $locale
-     * @return mixed
-     */
-    private function generateArticleArray($data, $locale = null)
-    {
-        $article['title'] = $data['title'];
-        $article['subtitle'] = $data['subtitle'];
-        $article['keywords'] = $data['keywords'];
-        $article['subjects'] = $data['subjects'];
-        $article['abstract'] = $data['abstract'];
-        $article['locale'] = $locale;
-
-        return $article;
     }
 
     /**
@@ -857,33 +851,44 @@ class ArticleSubmissionController extends Controller
      * @param  Request $request
      * @return JsonResponse|Response
      */
-    public function addCitationsAction(Request $request)
+    private function step4Control(Request $request)
     {
-        $citeData = json_decode($request->request->get('citeData'));
+        $em = $this->getDoctrine()->getManager();
         $submissionId = $request->get("submissionId");
-        if (empty($citeData)) {
-            return new Response('Missing argument', 400);
-        }
-        $dm = $this->get('doctrine_mongodb')->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
-            ->find($submissionId);
-        if (!$articleSubmission) {
-            throw $this->createNotFoundException('No submission found');
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $this->throw404IfNotFound($articleSubmission);
+        $article = $articleSubmission->getArticle();
+        $citationsData = json_decode($request->request->get('citeData'), true);
+        $citationIds = [];
+        foreach ($citationsData as $citationData) {
+
+            $newCitation = false;
+            if(empty($citationData['article_submission_citation[id]'])){
+                $newCitation = true;
+                $citation = new Citation();
+            }else{
+                $citationIds[] = $citationData['article_submission_citation[id]'];
+                $citation = $em->getRepository('OjsJournalBundle:Citation')->find($citationData['article_submission_citation[id]']);
+            }
+            $citation->setRaw($citationData['article_submission_citation[raw]']);
+            $citation->setOrderNum($citationData['article_submission_citation[orderNum]']);
+            $citation->setType($citationData['article_submission_citation[type]']);
+            $em->persist($citation);
+
+            if($newCitation){
+                $article->addCitation($citation);
+            }
+            $em->flush();
         }
-        if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
-        for ($i = 0; $i < count($citeData); $i++) {
-            if (strlen($citeData[$i]->raw) < 1) {
-                unset($citeData[$i]);
+        //remove removed citations
+        foreach($article->getCitations() as $citation){
+            if(!in_array($citation->getId(), $citationIds)){
+                $article->removeCitation($citation);
             }
         }
-        $articleSubmission->setCitations($citeData);
-        $dm->persist($articleSubmission);
-        $dm->flush();
-
-        return new JsonResponse($articleSubmission->getId());
+        $em->flush();
+        return new JsonResponse(['success' => 1]);
     }
 
     /**
