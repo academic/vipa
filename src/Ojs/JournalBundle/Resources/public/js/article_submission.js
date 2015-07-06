@@ -36,8 +36,11 @@ var OjsArticleSubmission = {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
     },
     removeAllAuthorForms: function () {
-        $(".author-item").remove();
-        OjsArticleSubmission.recalculateAuthorFormCount();
+        if(confirm("are you sure")){
+            $(".author-item").remove();
+            OjsArticleSubmission.recalculateAuthorFormCount();
+        }
+        return;
     },
     authorFormCount: function () {
         return $(".author-item").length;
@@ -87,11 +90,18 @@ var OjsArticleSubmission = {
         });
     },
     addFileForm: function (params) {
-        $("#step4").append(Mustache.render($("#step4_tpl").html(), params));
+        $("#step5").append(Mustache.render($("#step5_tpl").html(), params));
         this.setupUi();
     },
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
+    },
+    removeCitation: function(element) {
+        $(element).closest('.well').remove();
+    },
+    addCitationForm: function () {
+        $("#step4").append(Mustache.render($("#step4_tpl").html()));
+        this.setupUi();
     },
     step1: function (actionUrl) {
         var form = $("#step1-container form").serialize();
@@ -181,17 +191,14 @@ var OjsArticleSubmission = {
         });
     },
     step4: function (actionUrl) {
-        forms = $("form", $(".cite-item"));
+        forms = $("form[name=article_submission_citation]");
 
-        $primaryLang = $("select[name=primaryLanguage] option:selected").val();
         // prepare post params
         var dataArray = [];
         if (forms.length > 0) {
             forms.each(function () {
                 dataArray.push($(this).serializeObject());
             });
-        } else {
-            dataArray.push([{"orderNum": "", "raw": "", "type": ""}]);
         }
         OjsCommon.waitModal();
         $.post(actionUrl, {
@@ -200,7 +207,7 @@ var OjsArticleSubmission = {
         }, function (response) {
             OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
-            OjsArticleSubmission.prepareStep.step4();
+            OjsArticleSubmission.prepareStep.step5();
         }).error(function () {
             OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });

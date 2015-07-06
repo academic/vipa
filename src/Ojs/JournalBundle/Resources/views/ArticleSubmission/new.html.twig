@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <button class="pull-right btn btn-danger btn-xs" id="removeAllAuthorForms">
+                                        <button class="pull-right btn btn-danger btn-xs" onclick="OjsArticleSubmission.removeAllAuthorForms()">
                                             <i class="fa fa-trash-o"></i>
                                             {% trans %}Remove all author forms!{% endtrans %}
                                         </button>
@@ -120,7 +120,7 @@
                         {{ "author"|trans }}
                     </a>
 
-                    <div class="step2_actions record_actions">
+                    <div class="step3_actions record_actions">
                         <div class="col-sm-12">
                             <hr>
                             <a class="btn btn-danger btn-lg"
@@ -137,50 +137,38 @@
                     </div>
                 </div>
 
-                <div id="step3-container" class="step hide">
+                <div id="step4-container" class="step hide">
                     <div id="step4">
                         <h2>{{ "citations"|trans }}</h2>
-                        <div class="row">
-                            <div class="col-sm-12 ">
-                                <button class="btn btn-success" id="pasteArticleCitationInline">
-                                    <i class="fa fa-edit"></i> {{ "citation.add"|trans }}
-                                </button>
-                                <button class="btn btn-warning" id="clearAllCitations">
-                                    <i class="fa fa-trash-o"></i> {{ "citation.clear"|trans }}
-                                </button>
-                            </div>
-                            <hr>
-                            <div class="col-sm-12">
-                                <div id="citationPasteField" style="display: none!important">
-                                    <div class="form-row well">
-                                        <textarea class="form-control citationPasteTextArea" rows="5"
-                                                  placeholder=" {{ "citation.paste_extract"|trans }}"></textarea>
-                                        <br> <a class="btn btn-info btn-sm citationPasteActionBtn"><i
-                                                    class="fa fa-bolt"></i> {{ "citation.paste_extract"|trans }}</a>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
                         <div id="citationContainer">
-                            {% if citations is defined %}
-                                {% for citationItem in citations %}
-                                    {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
+                            {% if citationForms is defined %}
+                                {% for citationForm in citationForms %}
+                                    <div class='well'>
+                                        {{ form(citationForm) }}
+                                        <div class="controls">
+                                            <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeCitation(this);">
+                                                <i class="fa fa-trash"></i>
+                                                {{ "remove"|trans }}
+                                            </a>
+                                        </div>
+                                    </div>
                                 {% endfor %}
                             {% endif %}
                         </div>
                     </div>
-                    <div class="step3_actions record_actions">
+                    <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addCitationForm();">
+                        <i class="fa fa-plus-circle"></i>
+                        {{ "citation"|trans }}
+                    </a>
+                    <div class="step4_actions record_actions">
                         <div class="col-sm-12">
                             <hr>
                             <a class="btn btn-danger btn-lg"
-                               onclick="javascript:OjsArticleSubmission.backTo(2);">
+                               onclick="javascript:OjsArticleSubmission.backTo(3);">
                                 <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                             </a>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
+                               onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step_control', {step: 4}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -190,10 +178,10 @@
                 </div>
 
 
-                <div id="step4-container" class="step hide">
+                <div id="step5-container" class="step hide">
                     <h3>{{ 'article.files'|trans }}</h3>
 
-                    <div id="step4">
+                    <div id="step5">
                         {% if submissionData is defined and submissionData.files is defined %}
                             {% for file in submissionData.files %}
                                 {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
@@ -225,19 +213,12 @@
     </div>
 
     {% if step != 1 %}
-    <script id="step3_tpl" type="x-tmplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
-    </script>
-
-    <script id="step4_tpl" type="x-tmplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
-    </script>
-    <script id="step3_cite_item_must_tpl" type="x-tplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}
-    </script>
-    <script id="step3_cite_item_should_tpl" type="x-tplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}
-    </script>
+        <script id="step3_tpl" type="x-tmplmustache">
+            {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
+        </script>
+        <script id="step4_tpl" type="x-tmplmustache">
+            {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
+        </script>
     {% endif %}
 {% endblock %}
 
@@ -269,22 +250,13 @@
             OjsArticleSubmission.prepareStep["step" + currentStep]();
         }
         $(window).on("hashchange", function (event) {
-            var currentStep = parseInt(window.location.hash.replace("#", ""));
             if (window.currentStep !== currentStep) {
                 window.currentStep = currentStep;
                 loadCurrentStep(currentStep);
             }
         });
         $(document).ready(function () {
-            $('.submission-progress>li>a').click(function (event) {
-                window.location.hash.replace(/^#/, $(this).prop('href'));
-                event.preventDefault();
-            })
             OjsArticleSubmission.setupUi();
-            $("div#step2-container").on("click", "#removeAllAuthorForms", function () {
-                confirm("{{"sure"|trans}}") && OjsArticleSubmission.removeAllAuthorForms();
-            });
-            var currentStep = parseInt(window.location.hash.replace("#", ""));
             if (currentStep) {
                 loadCurrentStep(currentStep);
             }
