@@ -12,10 +12,13 @@
 {% block body -%}
     <h1>{{ "lang.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
+
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Lang')) %}
         <a href="{{ path('ojs_admin_language_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}
