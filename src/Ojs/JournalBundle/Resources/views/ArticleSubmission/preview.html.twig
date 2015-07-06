@@ -12,8 +12,8 @@
 {% endblock %}
 
 {% block body -%}
-    <input type="hidden" name="journalId" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
-    <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
+    <input type="hidden" name="journalId" value="{{ journal.id }}"/>
+    <input type="hidden" name="submissionId" value="{{ submissionId }}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
         <li id="submission-progress-step1"><span class="badge">1</span> {{ "article.singular"|trans }}</li>
@@ -37,35 +37,26 @@
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-striped">
-
-                    {% for key,article in submissionData.articleData %}
-                        <tr>
-                            <td colspan="2">
-                                <br>
-                                <span class="label label-info">{{ key }}</span>
-                            </td>
-                        </tr>
                         <tr>
                             <td>{{ "title"|trans }}</td>
-                            <td>{{ article.title }}</td>
+                            <td>{{ submissionData.article.title }}</td>
                         </tr>
                         <tr>
                             <td>{{ "subtitle"|trans }}</td>
-                            <td>{{ article.subtitle }}</td>
+                            <td>{{ submissionData.article.subtitle }}</td>
                         </tr>
                         <tr>
                             <td>{{ "keywords"|trans }}</td>
-                            <td>{{ article.keywords }}</td>
+                            <td>{{ submissionData.article.keywords }}</td>
                         </tr>
                         <tr>
                             <td>{{ "subjects"|trans }}</td>
-                            <td>{{ article.subjects }}</td>
+                            <td>{{ submissionData.article.subjects }}</td>
                         </tr>
                         <tr>
                             <td>{{ "abstract"|trans }}</td>
-                            <td>{{ article.abstract|raw }}</td>
+                            <td>{{ submissionData.article.abstract|raw }}</td>
                         </tr>
-                    {% endfor %}
                 </table>
 
             </div>
@@ -78,47 +69,47 @@
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-condensed">
-                    {% for key,author in submissionData.authors %}
+                    {% for key,articleAuthor in submissionData.article.articleAuthors %}
                         <tr>
                             <td colspan="2">
                                 <br>
-                                <span class="label label-info">{{ author.order }}</span></td>
+                                <span class="label label-info">{{ articleAuthor.authorOrder }}</span></td>
                         </tr>
                         <tr>
                             <td>{{ "author.initials"|trans }}</td>
-                            <td>{{ author.initials }}</td>
+                            <td>{{ articleAuthor.author.initials }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.firstname"|trans }}</td>
-                            <td>{{ author.firstName }}</td>
+                            <td>{{ articleAuthor.author.firstName }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.middlename"|trans }}</td>
-                            <td>{{ author.middleName }}</td>
+                            <td>{{ articleAuthor.author.middleName }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.lastname"|trans }}</td>
-                            <td>{{ author.lastName }}</td>
+                            <td>{{ articleAuthor.author.lastName }}</td>
                         </tr>
                         <tr>
                             <td>{{ "email"|trans }}</td>
-                            <td>{{ author.email }}</td>
+                            <td>{{ articleAuthor.author.email }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.orcid"|trans }}</td>
-                            <td>{{ author.orcid }}</td>
+                            <td>{{ articleAuthor.author.orcid }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.summary"|trans }}</td>
-                            <td>{{ author.summary }}</td>
+                            <td>{{ articleAuthor.author.summary }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.institution"|trans }}</td>
-                            <td>{{ author.institution }}</td>
+                            <td>{{ articleAuthor.author.institution }}</td>
                         </tr>
                         <tr>
                             <td>{{ "author.phone"|trans }}</td>
-                            <td>{{ author.phone }}</td>
+                            <td>{{ articleAuthor.author.phone }}</td>
                         </tr>
 
 
@@ -132,7 +123,7 @@
             <div class="panel-heading">{{ "article.citations"|trans }}</div>
             <div class="panel panel-body">
                 <table class="table">
-                    {% for key,citation  in submissionData.citations %}
+                    {% for key,citation  in submissionData.article.citations %}
                         <tr>
                             <td><span class="badge">{{ citation.orderNum }}</span> {{ citation.raw }}</td>
                         </tr>
@@ -148,36 +139,36 @@
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table">
-                    {% for key,file  in submissionData.files %}
+                    {% for key,articleFile  in submissionData.article.articleFiles %}
 
                         <tr>
                             <td>
 
                                 <a class="label label-info" target="_blank"
-                                   href="/uploads/journalfiles/{{ filePath(file.article_file) }}">
-                                    {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{ file.lang }}) {% endif %}
+                                   href="/uploads/journalfiles/{{ filePath(articleFile.file.path) }}">
+                                    {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
                                     <i class="fa fa-download"></i>
                                 </a>
 
-                                {% if file.title is defined %}
+                                {% if articleFile.title is defined %}
                                     <br>
                                     <small><b>{{ "title"|trans }} : </b>
-                                        {{ file.title }}
+                                        {{ articleFile.title }}
                                     </small>
                                 {% endif %}
-                                {% if file.desc is defined %}
+                                {% if articleFile.description is defined %}
                                     <br>
                                     <small>
                                         <b>{{ "desc"|trans }} : </b>
-                                        {{ file.desc }}
+                                        {{ articleFile.description }}
                                     </small>
                                 {% endif %}
 
-                                {% if file.keywords is defined %}
+                                {% if articleFile.keywords is defined %}
                                     <br>
                                     <small>
                                         <b>{{ "keywords"|trans }} : </b>
-                                        {{ file.keywords }}
+                                        {{ articleFile.keywords }}
                                     </small>
                                 {% endif %}
 
@@ -228,7 +219,7 @@
             <div class="btn-group pull-right" id="btnSubmissionGroup">
                 <a class="btn btn-lg btn-default"
                    href="{{ path('article_submission_resume',{'submissionId':submissionId}) }}">
-                    <i class="fa fa-backward"></i> {{ ojs.back_and_edit|trans }}
+                    <i class="fa fa-backward"></i> {{ 'ojs.back_and_edit'|trans }}
                 </a>
                 <button class="btn btn-success btn-lg"
                         onclick="$('#alertSubmission').slideDown('fast');

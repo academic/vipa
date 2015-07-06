@@ -425,15 +425,12 @@ class ArticleSubmissionController extends Controller
     public function previewAction($submissionId)
     {
         $em = $this->getDoctrine()->getManager();
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if ($articleSubmission->getSubmitted()) {
             throw $this->createAccessDeniedException("Access Denied This submission has already been submitted.");
         }
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournal()->getId());
 
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:preview.html.twig',
@@ -960,7 +957,7 @@ class ArticleSubmissionController extends Controller
                 'redirect' => $this->generateUrl(
                     'article_submission_preview',
                     array('submissionId' => $submissionId)
-                ),
+                )
             )
         );
     }
