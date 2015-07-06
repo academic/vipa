@@ -1,0 +1,2 @@
+rm /etc/apache2/conf-available/ojs.conf
+rm /etc/apache2/conf-enabled/ojs.conf

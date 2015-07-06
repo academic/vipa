@@ -100,6 +100,7 @@ class PackageCommand extends ContainerAwareCommand
             $packager->setControl($control);
             $packager->setOutputPath(self::OUTPUT_DIRECTORY);
             $packager->setPostInstallScript($this->getContainer()->get('kernel')->getRootDir() . '/../tools/debian/postinst');
+            $packager->setPostRemoveScript($this->getContainer()->get('kernel')->getRootDir() . '/../tools/debian/postrm');
             $packager->addMount(self::REPO_DIRECTORY, '/opt/ojs');
             $packager->run();
             $command = $packager->build(self::DEB_FILE_NAME);
