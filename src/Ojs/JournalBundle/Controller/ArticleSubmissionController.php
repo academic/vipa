@@ -334,6 +334,7 @@ class ArticleSubmissionController extends Controller
         $article = $articleSubmission->getArticle();
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
+        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
         $checklist = json_decode($articleSubmission->getChecklist(), true);
         $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
         $citationForms = [];
@@ -360,7 +361,7 @@ class ArticleSubmissionController extends Controller
             'checklist' => $checklist,
             'step' => $articleSubmission->getCurrentStep(),
             'step2Form' => $step2Form,
-            'articleAuthors' => $articleAuthors
+            'articleFiles' => $articleFiles
         ];
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
@@ -895,32 +896,65 @@ class ArticleSubmissionController extends Controller
      * @param  Request $request
      * @return JsonResponse|Response
      */
-    public function addFilesAction(Request $request)
+    private function step5Control(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $filesData = json_decode($request->request->get('filesData'));
         $submissionId = $request->get("submissionId");
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
-            ->find($submissionId);
-        if (!$articleSubmission) {
-            throw $this->createNotFoundException('No submission found');
-        }
-        if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $this->throw404IfNotFound($articleSubmission);
+
         if (empty($filesData) || !$submissionId || !$articleSubmission) {
             return new Response('Missing argument', 400);
         }
 
+        $article = $articleSubmission->getArticle();
+        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
+        $fileIds = [];
         for ($i = 0; $i < count($filesData); $i++) {
             if (strlen($filesData[$i]->article_file) < 1) {
                 unset($filesData[$i]);
+            }else{
+                $fileData = $filesData[$i];
+                if(empty($fileData->id)){
+                    $file = new File();
+                    $articleFile = new ArticleFile();
+                }else{
+                    $fileIds[] = $fileData->id;
+                    $file = $em->getRepository('OjsJournalBundle:File')->find($fileData->id);
+                    $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy([
+                        'article' => $article,
+                        'file' => $file
+                    ]);
+                }
+
+                $file->setMimeType($fileData->article_file_mime_type);
+                $file->setName($fileData->title);
+                $file->setPath($fileData->article_file);
+                $file->setSize($fileData->article_file_size);
+                $em->persist($file);
+
+                $articleFile->setArticle($article);
+                $articleFile->setFile($file);
+                $articleFile->setType($fileData->type);
+                $articleFile->setTitle($fileData->title);
+                $articleFile->setVersion(1);
+                $articleFile->setDescription($fileData->desc);
+                $articleFile->setKeywords($fileData->keywords);
+                $articleFile->setLangCode($fileData->lang);
+                $em->persist($articleFile);
+                $em->flush();
             }
         }
-        $articleSubmission->setFiles($filesData);
-        $dm->persist($articleSubmission);
-        $dm->flush();
-
+        //remove removed files
+        /** @var ArticleFile $articleFile */
+        foreach($articleFiles as $articleFile){
+            if(!in_array($articleFile->getFileId(), $fileIds)){
+                $em->remove($articleFile);
+            }
+        }
+        $em->flush();
         return new JsonResponse(
             array(
                 'redirect' => $this->generateUrl(

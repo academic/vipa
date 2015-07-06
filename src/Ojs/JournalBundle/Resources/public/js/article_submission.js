@@ -215,7 +215,6 @@ var OjsArticleSubmission = {
     step5: function (actionUrl) {
         forms = $("form.file-item");
         if (forms.length > 0) {
-            $primaryLang = $("select[name=primaryLanguage] option:selected").val();
             // prepare post params
             var dataArray = [];
             forms.each(function () {
@@ -282,7 +281,7 @@ var OjsArticleSubmission = {
         },
         step5: function () {
             OjsCommon.scrollTop();
-            if ($("#step4").html().length > 0) {
+            if ($("#step5").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(5);
                 OjsArticleSubmission.loadStepTemplate(5);
             }
@@ -301,8 +300,8 @@ var OjsArticleSubmission = {
             $obj = JSON.parse(data.result);
             $('.previewLink', $(this).parent().parent()).attr('href', 'uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
             $('.filename', $(this).parent()).attr('value', $obj.files.name);
-            $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.size);
-            $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.mimeType);
+            $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.mimeType);
+            $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.size);
         });
     },
     setupUi: function () {
