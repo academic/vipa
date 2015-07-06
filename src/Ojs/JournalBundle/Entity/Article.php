@@ -283,6 +283,12 @@ class Article implements Translatable
     private $userRoles;
 
     protected $translations;
+
+    /**
+     * @var boolean
+     */
+    private $setupStatus;
+
     /**
      * Constructor
      */
@@ -829,6 +835,29 @@ class Article implements Translatable
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set setupStatus
+     *
+     * @param  string $setupStatus
+     * @return $this
+     */
+    public function setSetupStatus($setupStatus)
+    {
+        $this->setupStatus = $setupStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get setupStatus
+     *
+     * @return string
+     */
+    public function getSetupStatus()
+    {
+        return $this->setupStatus;
     }
 
     /**

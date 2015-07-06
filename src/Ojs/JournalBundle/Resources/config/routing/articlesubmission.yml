@@ -27,8 +27,9 @@ article_submission_new:
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:new" }
 
 article_submission_resume:
-    path:  /author/article/submit/resume/{submissionId}/
+    path:  /author/article/submit/{submissionId}/resume
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:resume" }
+
 article_submission_finish:
     path:  /author/article/submit/finish/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:finish" }
@@ -38,13 +39,9 @@ article_submission_preview:
     path:  /author/article/submit/preview/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission:preview" }
 
-article_pre_submission:
-    path: /author/article/submit/checklist/{locale}
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:save"}
-    methods: [POST]
-article_submission_step1:
-    path:  /author/article/submit/step1/{locale}/
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:addArticle" }
+article_submission_step_control:
+    path:  /article/submit/control/step/{step}
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:stepControl", step: null }
     methods: [POST]
 
 article_submission_step2:

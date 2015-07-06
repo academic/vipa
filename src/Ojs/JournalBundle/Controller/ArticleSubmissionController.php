@@ -12,7 +12,7 @@ use Gedmo\Sluggable\Util\Urlizer;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
-use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
+use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -23,6 +23,7 @@ use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRole;
+use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
@@ -184,6 +185,25 @@ class ArticleSubmissionController extends Controller
         return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
     }
 
+
+    public function stepControlAction(Request $request, $step = null)
+    {
+        switch($step){
+            case 1:
+                return $this->step1Control($request);
+            case 2:
+                return $this->step2Control($request);
+            case 3:
+                return $this->step3Control($request);
+            case 4:
+                return $this->step4Control($request);
+            case 5:
+                return $this->step5Control($request);
+            default:
+                throw new NotFoundHttpException();
+        }
+    }
+
     /**
      * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
      * @param  Request $request
@@ -289,6 +309,7 @@ class ArticleSubmissionController extends Controller
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
                 'citationTypes' => $this->container->getParameter('citation_types'),
                 'articleTypes' => $articleTypes,
+                'step' => '1',
                 'checklist' => [],
                 'firstStep' => $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                     ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true)),
@@ -305,34 +326,28 @@ class ArticleSubmissionController extends Controller
     public function resumeAction($submissionId)
     {
         $em = $this->getDoctrine()->getManager();
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $entity = new Article();
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$articleSubmission) {
             throw $this->createNotFoundException('No submission found');
         }
-        if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
+        /** @var Article $article */
+        $article = $articleSubmission->getArticle();
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
+        $checklist = json_decode($articleSubmission->getChecklist(), true);
+        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
         $data = [
             'submissionId' => $articleSubmission->getId(),
             'submissionData' => $articleSubmission,
-            'entity' => $entity,
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
-            'citations' => $articleSubmission->getCitations(),
+            'citations' => $article->getCitations(),
             'articleTypes' => $articleTypes,
             'citationTypes' => $this->container->getParameter('citation_types'),
+            'journal' => $articleSubmission->getJournal(),
+            'checklist' => $checklist,
+            'step' => $articleSubmission->getCurrentStep(),
+            'step2Form' => $step2Form
         ];
-        $data['checklist'] = json_decode($articleSubmission->getChecklist(), true);
-        if ($articleSubmission->getJournalId()) {
-            $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-        } else {
-            $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
-        }
-        $data['firstStep'] = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $data['journal']->getId(), 'firstStep' => true));
-
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
 
@@ -350,38 +365,38 @@ class ArticleSubmissionController extends Controller
 
     /**
      * @param  Request $request
-     * @param $locale
      * @return JsonResponse
      */
-    public function saveAction(Request $request, $locale)
+    public function step1Control(Request $request)
     {
-        $submissionId = $request->get('submissionId', null);
-        // save submission data to mongodb for resume action
-        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $article = new Article();
+        $article->setJournal($selectedJournal);
+        $article->setSubmitterId($user->getId());
+        $article->setSetupStatus(0);
+        $article->setTitle('');
+        $em->persist($article);
+        $em->flush();
 
-        if (null === $submissionId) {
-            $articleSubmission = new ArticleSubmissionProgress();
-        } else {
-            $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-            if (!$articleSubmission) {
-                throw $this->createNotFoundException('No submission found');
-            }
-            if (!$this->isGranted('EDIT', $articleSubmission)) {
-                throw $this->createAccessDeniedException("ojs.403");
-            }
-        }
-        $articleSubmission->setUserId($this->getUser()->getId());
-        $articleSubmission->setStartedDate(new \DateTime());
-        $articleSubmission->setLastResumeDate(new \DateTime());
+        $articleSubmission = new ArticleSubmissionProgress();
+        $articleSubmission->setArticle($article);
+        $articleSubmission->setUser($user);
+        $articleSubmission->setJournal($selectedJournal);
         $articleSubmission->setChecklist(json_encode($request->get('checklistItems')));
+        $articleSubmission->setSubmitted(false);
+        $articleSubmission->setCurrentStep(2);
         $articleSubmission->setCompetingOfInterest($request->get('competingOfInterest'));
-        $dm->persist($articleSubmission);
-        $dm->flush();
+        $em->persist($articleSubmission);
+        $em->flush();
 
         return new JsonResponse(
             [
-                'submissionId' => $articleSubmission->getId(),
-                'locale' => $locale,
+                'success' => "1",
+                'resumeLink' => $this->generateUrl('article_submission_resume', [
+                    'submissionId' =>$articleSubmission->getId()
+                ]).'#2'
             ]
         );
     }
@@ -728,64 +743,26 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * submit new article - step1 - get article base data without author info.
+     * submit new article - step2 - get article base data without author info.
      * @param  Request $request
-     * @param $locale
      * @return JsonResponse
      */
-    public function addArticleAction(Request $request, $locale)
+    private function step2Control(Request $request)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $articleData = $request->request->all();
-        $articleData['translations'] = isset($articleData['translations']) ?
-            json_decode($articleData['translations'], true) :
-            false;
-        $languages = array();
-        $articleSubmissionData = array();
-        $article = $this->generateArticleArray($articleData, $locale);
-        $articleSubmissionData[$locale] = $article;
-        if ($articleData['translations']) {
-            foreach ($articleData['translations'] as $params) {
-                $languages[] = $params['data']['locale'];
-                $articleSubmissionData[$params['data']['locale']] = $this->generateArticleArray(
-                    $params['data'],
-                    $params['data']['locale'],
-                    $article
-                );
-            }
-        }
-        // save submission data to mongodb for resume action
-        if (!$articleData["submissionId"]) {
-            $articleSubmission = new ArticleSubmissionProgress();
-        } else {
-            $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find(
-                $articleData["submissionId"]
-            );
-            if (!$articleSubmission) {
-                throw $this->createNotFoundException('No submission found');
-            }
-            if (!$this->isGranted('EDIT', $articleSubmission)) {
-                throw $this->createAccessDeniedException("ojs.403");
-            }
-        }
-        $articleSubmission->setArticleData($articleSubmissionData)
-            ->setUserId($this->getUser()->getId())
-            ->setJournalId($articleData["journalId"])
-            ->setPrimaryLanguage($articleData["primaryLanguage"])
-            ->setStartedDate(new \DateTime())
-            ->setLastResumeDate(new \DateTime())
-            ->setLanguages($languages)
-            ->setSection($articleData['section'])
-            ->setArticleTypeId(isset($articleData['article_type'])?$articleData['article_type']:0);
-        $dm->persist($articleSubmission);
-        $dm->flush();
+        $em = $this->getDoctrine()->getManager();
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($request->get('submissionId'));
+        $article = $articleSubmission->getArticle();
 
-        return new JsonResponse(
-            array(
-                'submissionId' => $articleSubmission->getId(),
-                'locale' => $locale,
-            )
-        );
+        $step2Form = $this->createForm(new Step2Type(), $article);
+        $step2Form->handleRequest($request);
+        if ($step2Form->isValid()) {
+            $articleSubmission->setCurrentStep(3);
+            $em->flush();
+            return new JsonResponse(['success' => '1']);
+        } else {
+            return new JsonResponse(['success' => '0', 'errors' => $step2Form->getErrors()]);
+        }
     }
 
     /**

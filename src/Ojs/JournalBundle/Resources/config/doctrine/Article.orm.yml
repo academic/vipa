@@ -149,6 +149,11 @@ Ojs\JournalBundle\Entity\Article:
         nullable: TRUE
         gedmo:
           - versioned
+    setupStatus:
+        type: boolean
+        options:
+          default: 1
+        nullable: TRUE
     keywords:
         type: string
         nullable: TRUE
