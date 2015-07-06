@@ -13,9 +13,13 @@
 {% block body -%}
     <h1>{{ "maillog.list" }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
+
     {% if is_granted('CREATE', getEntity('OjsUserBundle:MailLog')) %}
-        {% set create_path = 'ojs_admin_mail_log_new' %}
+        <a href="{{ path('ojs_admin_mail_log_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
     {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}

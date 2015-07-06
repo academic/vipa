@@ -13,9 +13,13 @@
 {% block body -%}
     <h1>{{ "proxy.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ grid(grid) }}
+
     {% if is_granted('CREATE', getEntity('OjsUserBundle:Proxy')) %}
-        {% set create_path = 'ojs_admin_proxy_new' %}
+        <a href="{{ path('ojs_admin_proxy_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
     {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}

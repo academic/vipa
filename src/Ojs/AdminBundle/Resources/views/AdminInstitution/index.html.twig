@@ -10,10 +10,16 @@
 {% endblock %}
 
 {% block body -%}
+    <h1>{{ 'title.institutions'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
+
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Institution')) %}
-        <a href="{{ path('ojs_admin_institution_new') }}" class="btn btn-success">{{ "c"|trans }}</a>
+        <a href="{{ path('ojs_admin_institution_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
     {% endif %}
+
+    <hr>
     {{ grid(grid) }}
 
 {% endblock %}

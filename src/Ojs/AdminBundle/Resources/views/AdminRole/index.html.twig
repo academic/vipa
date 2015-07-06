@@ -14,11 +14,14 @@
         <div class="panel">
             <h1>{{ "role.list"|trans }}</h1>
             {% include '::flashbag.html.twig' %}
-            {{ grid(grid) }}
+
             {% if is_granted('CREATE', getEntity('OjsUserBundle:Role')) %}
-                {% set create_path = 'ojs_admin_role_new' %}
+                <a href="{{ path('ojs_admin_role_new') }}" class="btn btn-success">
+                    {{ "c"|trans }}
+                </a>
             {% endif %}
-            {% include '::actionbuttons.html.twig' %}
+
+            <hr>
         </div>
     </div>
 {% endblock %}
