@@ -1,1 +1,3 @@
 chown -R www-data /opt/ojs
+ln -s /opt/ojs/tools/debian/conf/ojs.conf /etc/apache2/conf-available
+ln -s /etc/apache2/conf-available/ojs.conf /etc/apache2/conf-enabled
