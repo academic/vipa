@@ -6,7 +6,7 @@
                     <span class="hidden-sm hidden-xs"> {{ "file.type"|trans }} : </span>
                     <select style="min-width:120px;margin:10px 20px" name="type" class="select2-element input-sm">
                         {% for key,type in fileTypes %}
-                            <option value="{{ key }}" {% if file is defined and file.type==key %} selected="selected" {% endif %}>{{ type|trans }}</option>
+                            <option value="{{ key }}" {% if articleFile is defined and articleFile.type==key %} selected="selected" {% endif %}>{{ type|trans }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -15,7 +15,7 @@
                     <select style="min-width:120px;margin:10px 20px" name="lang" class="select2-element input-sm">
                         {% for lang in journal.languages %}
                             <option value="{{ lang.code }}"
-                                    {% if file is defined and file.lang==lang.code %}selected="selected"{% endif %}>{{ lang.name|trans }}
+                                    {% if articleFile is defined and articleFile.langCode==lang.code %}selected="selected"{% endif %}>{{ lang.name|trans }}
                                 [{{ lang.code }}]
                             </option>
                         {% endfor %}
@@ -29,7 +29,7 @@
 
                 <div class="col-md-9">
                     <input name="title" class="form-control input-sm" placeholder="{{ "title"|trans }}"
-                           value="{% if file is defined %}{{ file.title }}{% endif %}"/>
+                           value="{% if articleFile is defined %}{{ articleFile.title }}{% endif %}"/>
                 </div>
             </div>
             <div class="form-group">
@@ -37,7 +37,7 @@
 
                 <div class="col-md-9">
                     <input name="desc" class="form-control input-sm" placeholder="{{ "description"|trans }}"
-                           value="{% if file is defined %}{{ file.desc }}{% endif %}"/>
+                           value="{% if articleFile is defined %}{{ articleFile.description }}{% endif %}"/>
                 </div>
             </div>
 
@@ -46,14 +46,14 @@
 
                 <div class="col-md-9">
                     <input name="keywords" class="form-control input-sm" placeholder="{{ "keywords"|trans }}"
-                           value="{% if file is defined %}{{ file.keywords }}{% endif %}"/>
+                           value="{% if articleFile is defined %}{{ articleFile.keywords }}{% endif %}"/>
                 </div>
             </div>
 
-            {% if file is defined %}
-                <a class="label label-info" href="/uploads/journalfiles/{{ filePath(file.article_file) }}"
+            {% if articleFile is defined %}
+                <a class="label label-info" href="/uploads/journalfiles/{{ filePath(articleFile.file.path) }}"
                    target="_blank">
-                    {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{ file.lang }}) {% endif %}
+                    {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
                     <i class="fa fa-download"></i>
                 </a>
                 <div class="clearfix"></div>
@@ -67,10 +67,10 @@
                        data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
                 <br>
                 <input name="article_file" class="filename article_file_input"
-                       value="{% if file is defined %}{{ file.article_file }}{% endif %}" type="hidden"/>
+                       value="{% if articleFile is defined %}{{ articleFile.file.path }}{% endif %}" type="hidden"/>
                 <input name="article_file_mime_type"
-                       value="{% if file is defined %}{{ file.article_file_mime_type }}{% endif %}" type="hidden"/>
-                <input name="article_file_size" value="{% if file is defined %}{{ file.article_file_size }}{% endif %}"
+                       value="{% if articleFile is defined %}{{ articleFile.file.mimeType }}{% endif %}" type="hidden"/>
+                <input name="article_file_size" value="{% if articleFile is defined %}{{ articleFile.file.size }}{% endif %}"
                        type="hidden"/>
 
             </span>
