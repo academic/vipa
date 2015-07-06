@@ -180,6 +180,7 @@ class DefaultController extends Controller
         $data['resumptionToken'] = $key;
         $data['isLast'] = $sets->getTotalItemCount()>=$currentPage*100?true:false;
         $data['currentPage'] = $currentPage;
+        $data['metadataPrefix'] = $request->get('metadataPrefix','oai_dc');
 
         return $this->response('OjsOAIBundle:Default:sets.xml.twig', $data);
     }
