@@ -93,7 +93,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">{{ "authors.count"|trans }} :</label>
                                     <div class="col-md-10 ">
-                                        <input class="form-control input-sm" onchange="OjsArticleSubmission." id="submissionAuthorCount" type="number"
+                                        <input class="form-control input-sm" id="submissionAuthorCount" onchange="OjsArticleSubmission.authorCount(this)" type="number"
                                                min="0" max="400">
                                     </div>
                                 </div>
@@ -108,10 +108,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="step2" class="authorlist">
-                        {% if submissionData is defined and submissionData.authors is defined %}
-                            {% for author in submissionData.authors %}
-                                {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
+                    <div id="step3" class="authorlist">
+                        {% if articleAuthors is defined %}
+                            {% for articleAuthor in articleAuthors %}
+                                {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -128,7 +128,7 @@
                                 <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                             </a>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
+                               onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step_control', {step: 3}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -138,7 +138,7 @@
                 </div>
 
                 <div id="step3-container" class="step hide">
-                    <div id="step3">
+                    <div id="step4">
                         <h2>{{ "citations"|trans }}</h2>
                         <div class="row">
                             <div class="col-sm-12 ">
@@ -284,19 +284,6 @@
             $("div#step2-container").on("click", "#removeAllAuthorForms", function () {
                 confirm("{{"sure"|trans}}") && OjsArticleSubmission.removeAllAuthorForms();
             });
-            $("#submissionAuthorCount").change(
-                    function () {
-                        $count = $(this).val();
-                        $current = OjsArticleSubmission.authorFormCount();
-                        if ($count > $current) {
-                            for (i = 0; i < ($count - $current); i++) {
-                                OjsArticleSubmission.addAuthorForm();
-                            }
-                        } else if ($count < $current) {
-                            $(this).val($current);
-                            window.notify("{%trans%}You should remove author forms by clicking 'Remove' button on left bottom corner of every form.{%endtrans%}", "warning");
-                        }
-                    });
             var currentStep = parseInt(window.location.hash.replace("#", ""));
             if (currentStep) {
                 loadCurrentStep(currentStep);

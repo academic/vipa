@@ -334,6 +334,7 @@ class ArticleSubmissionController extends Controller
         /** @var Article $article */
         $article = $articleSubmission->getArticle();
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
+        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
         $checklist = json_decode($articleSubmission->getChecklist(), true);
         $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
         $data = [
@@ -346,7 +347,8 @@ class ArticleSubmissionController extends Controller
             'journal' => $articleSubmission->getJournal(),
             'checklist' => $checklist,
             'step' => $articleSubmission->getCurrentStep(),
-            'step2Form' => $step2Form
+            'step2Form' => $step2Form,
+            'articleAuthors' => $articleAuthors
         ];
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
@@ -786,32 +788,69 @@ class ArticleSubmissionController extends Controller
      * @param  Request $request
      * @return JsonResponse|Response
      */
-    public function addAuthorsAction(Request $request)
+    public function step3Control(Request $request)
     {
-        $authorsData = json_decode($request->request->get('authorsData'));
+        $em = $this->getDoctrine()->getManager();
         $submissionId = $request->get("submissionId");
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $this->throw404IfNotFound($articleSubmission);
+        $article = $articleSubmission->getArticle();
+        $authorsData = json_decode($request->request->get('authorsData'));
+        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
+        $authorIds = [];
         if (empty($authorsData)) {
             return new Response('Missing argument', 400);
         }
         for ($i = 0; $i < count($authorsData); $i++) {
             if (empty($authorsData[$i]->firstName)) {
                 unset($authorsData[$i]);
+            }else{
+                $authorData = $authorsData[$i];
+                if(empty($authorData->authorid)){
+                    $author = new Author();
+                    $articleAuthor = new ArticleAuthor();
+                }else{
+                    $authorIds[] = $authorData->authorid;
+                    $author = $em->getRepository('OjsJournalBundle:Author')->find($authorData->authorid);
+                    $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy([
+                        'article' => $article,
+                        'author' => $author
+                    ]);
+                }
+
+                $author->setFirstName($authorData->firstName);
+                $author->setEmail($authorData->email);
+                $author->setTitle($authorData->title);
+                $author->setInitials($authorData->initials);
+                $author->setMiddleName($authorData->middleName);
+                $author->setLastName($authorData->lastName);
+                $author->setPhone($authorData->phone);
+                $author->setSummary($authorData->summary);
+                $author->setOrcid($authorData->orcid);
+                if(!empty($authorData->institution)){
+                    /** @var Institution $institution */
+                    $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData->institution);
+                    $author->setInstitution($institution);
+                }
+                $em->persist($author);
+
+                $articleAuthor->setArticle($article);
+                $articleAuthor->setAuthor($author);
+                $articleAuthor->setAuthorOrder($authorData->order);
+                $em->persist($articleAuthor);
+                $em->flush();
             }
         }
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
-            ->find($submissionId);
-        if (!$articleSubmission) {
-            throw $this->createNotFoundException('No submission found');
+        //remove removed authors
+        /** @var ArticleAuthor $articleAuthor */
+        foreach($articleAuthors as $articleAuthor){
+            if(!in_array($articleAuthor->getAuthorId(), $authorIds)){
+                $em->remove($articleAuthor);
+            }
         }
-        if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
-        $articleSubmission->setAuthors($authorsData);
-        $dm->persist($articleSubmission);
-        $dm->flush();
-
-        return new JsonResponse($articleSubmission->getId());
+        $em->flush();
+        return new JsonResponse(['success' => 1]);
     }
 
     /**

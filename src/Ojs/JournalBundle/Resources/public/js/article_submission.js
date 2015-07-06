@@ -30,7 +30,7 @@ var OjsArticleSubmission = {
     showStep: function (step) {
         $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
         this.step = step;
-        this.showResumeNote();
+        window.location.hash = step;
     },
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
@@ -46,7 +46,7 @@ var OjsArticleSubmission = {
         $("#submissionAuthorCount").val(OjsArticleSubmission.authorFormCount());
     },
     addAuthorForm: function (params) {
-        $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
+        $("#step3").append(Mustache.render($("#step3_tpl").html(), params));
         OjsArticleSubmission.recalculateAuthorFormCount();
         OjsArticleSubmission.setupUi();
         function formatResult(item) {
@@ -83,13 +83,7 @@ var OjsArticleSubmission = {
                 },
                 cache: true
             },
-//            escapeMarkup: function (markup) {
-//                return markup;
-//            }, // let our custom formatter work
             minimumInputLength: 1
-//            templateResult: formatResult,
-//            templateSelection: formatSelection
-
         });
     },
     addFileForm: function (params) {
@@ -155,7 +149,6 @@ var OjsArticleSubmission = {
             OjsCommon.errorModal("Add at least one author.");
             return false;
         }
-        $primaryLang = $("select[name=primaryLanguage] option:selected").val();
         // prepare post params
         authorParams = false;
         var dataArray = [];
@@ -167,20 +160,22 @@ var OjsArticleSubmission = {
             }
             dataArray.push(form.serializeObject());
         });
-
         if (hasError) {
             OjsCommon.errorModal("Please fill required fields.");
             return;
         }
-
         OjsCommon.waitModal();
         $.post(actionUrl, {
             "authorsData": JSON.stringify(dataArray),
             "submissionId": OjsArticleSubmission.submissionId
         }, function (response) {
-            OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
-            OjsArticleSubmission.prepareStep.step3();
+            OjsCommon.hideallModals();
+            if (response.success == 1) {
+                OjsArticleSubmission.prepareStep.step4();
+            } else {
+                OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
+            }
         }).error(function () {
             OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });
@@ -263,7 +258,7 @@ var OjsArticleSubmission = {
         },
         step3: function () {
             OjsCommon.scrollTop();
-            if ($("#step2").html().length > 0) {
+            if ($("#step3").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(3);
             }
             OjsArticleSubmission.addAuthorForm();
@@ -272,7 +267,7 @@ var OjsArticleSubmission = {
         },
         step4: function () {
             OjsCommon.scrollTop();
-            if ($("#step3").html().length > 0) {
+            if ($("#step4").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(4);
                 OjsArticleSubmission.loadStepTemplate(4);
             }
@@ -391,6 +386,21 @@ var OjsArticleSubmission = {
         }).error(function () {
             OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });
+    },
+    authorCount: function(authorCountInput){
+        getAuthorCountInput = $(authorCountInput);
+        authorCount = getAuthorCountInput.val();
+        console.log(authorCount);
+        currentAuthorCount = OjsArticleSubmission.authorFormCount();
+        if (authorCount > currentAuthorCount) {
+            for (i = 0; i < (authorCount - currentAuthorCount); i++) {
+                OjsArticleSubmission.addAuthorForm();
+            }
+        } else if (authorCount < currentAuthorCount) {
+            $(this).val(currentAuthorCount);
+            window.notify("You should remove author forms by clicking 'Remove' button on left bottom corner of every form.", "warning");
+        }
+
     }
 };
 window.editorsReady = false;
