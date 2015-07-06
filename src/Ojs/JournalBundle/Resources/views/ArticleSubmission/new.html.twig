@@ -18,18 +18,42 @@
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
-                <li id="submission-progress-step0" class="active"><a href="#0"><span
-                                class="badge">1</span> {{ "submission.starting"|trans }}</a></li>
-                <li id="submission-progress-step1"><a href="#1"><span
-                                class="badge">2</span> {{ "article.singular"|trans }}</a></li>
-                <li id="submission-progress-step2"><a href="#2"><span class="badge">3</span> {{ "author.plural"|trans }}
-                    </a></li>
-                <li id="submission-progress-step3"><a href="#3"><span
-                                class="badge">4</span> {{ "article.citations"|trans }}</a></li>
-                <li id="submission-progress-step4"><a href="#4"><span
-                                class="badge">5</span>  {{ "article.files"|trans }}</a></li>
-                <li id="submission-progress-step5 last-step"><a href="#"><span
-                                class="badge">6</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
+                <li id="submission-progress-step0" class="active">
+                    <a href="javascript:void(0)">
+                        <span class="badge">1</span>
+                        {{ "submission.starting"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step1">
+                    <a href="javascript:void(0)">
+                        <span class="badge">2</span>
+                        {{ "article.singular"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step2">
+                    <a href="javascript:void(0)">
+                        <span class="badge">3</span>
+                        {{ "author.plural"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step3">
+                    <a href="javascript:void(0)">
+                        <span class="badge">4</span>
+                        {{ "article.citations"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step4">
+                    <a href="javascript:void(0)">
+                        <span class="badge">5</span>
+                        {{ "article.files"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step5 last-step">
+                    <a href="javascript:void(0)">
+                        <span class="badge">6</span>
+                        {{ "preview"|trans }} & {{ "submit"|trans }}
+                    </a>
+                </li>
                 <li id="resumeNote" class="text-right"></li>
             </ul>
         </div>
@@ -39,14 +63,18 @@
             </div>
             <div id="step1-container" class="step hide">
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span
-                                    class="badge">1.1</span> {{ "article.language.primary"|trans }}</label></div>
+                    <div class="col-md-3 col-xs-12">
+                        <label>
+                            <span class="badge">1.1</span>
+                            {{ "article.language.primary"|trans }}
+                        </label>
+                    </div>
                     <div class="col-md-9 col-xs-12">
                         <select name="primaryLanguage" class="form-control select2-element">
                             {% for lang in journal.languages %}
                                 <option value="{{ lang.code }}"
-                                        {% if loop.first %}selected="selected" {% endif %}>{{ lang.name }}
-                                    [{{ lang.code }}]
+                                        {% if loop.first %}selected="selected" {% endif %}>
+                                    {{ lang.name }} [{{ lang.code }}]
                                 </option>
                             {% endfor %}
                         </select>
@@ -54,7 +82,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-xs-12">
-                        <label for="article_type"><span class="badge">1.2</span> {{ "article.type"|trans }}</label>
+                        <label for="article_type">
+                            <span class="badge">1.2</span>
+                            {{ "article.type"|trans }}
+                        </label>
                     </div>
                     <div class="col-md-9 col-xs-12">
                         <select name="article_type" id="article_type" class="form-control select2-element">
@@ -66,7 +97,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-xs-12">
-                        <label for="section"><span class="badge">1.3</span> {{ "section"|trans }}</label>
+                        <label for="section">
+                            <span class="badge">1.3</span>
+                            {{ "section"|trans }}
+                        </label>
                     </div>
                     <div class="col-md-9 col-xs-12">
                         <select name="section" id="section" class="form-control select2-element">
@@ -77,11 +111,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.4</span> {{ "article.metadata"|trans }}
-                        </label></div>
+                    <div class="col-md-3 col-xs-12">
+                        <label>
+                            <span class="badge">1.4</span>
+                            {{ "article.metadata"|trans }}
+                        </label>
+                    </div>
                     <div class="col-md-9 col-xs-12">
-
-
                         <div class="btn-group clear">
                             {% for lang in  journal.languages %}
                                 <a class="btn btn-xs btn-link"
@@ -128,7 +164,6 @@
                         <div class="form-horizontal">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">{{ "authors.count"|trans }} :</label>
-
                                 <div class="col-md-10 ">
                                     <input class="form-control input-sm" id="submissionAuthorCount" type="number"
                                            min="0" max="400">
@@ -151,10 +186,11 @@
                             {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
                         {% endfor %}
                     {% endif %}
-
                 </div>
-                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i
-                            class="fa fa-plus-circle"></i> {{ "author"|trans }}</a>
+                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();">
+                    <i class="fa fa-plus-circle"></i>
+                    {{ "author"|trans }}
+                </a>
 
                 <div class="step2_actions record_actions">
                     <div class="col-sm-12">
@@ -174,10 +210,8 @@
             </div>
 
             <div id="step3-container" class="step hide">
-
                 <div id="step3">
                     <h2>{{ "citations"|trans }}</h2>
-
                     <div class="row">
                         <div class="col-sm-12 ">
                             <button class="btn btn-success" id="pasteArticleCitationInline">
@@ -238,8 +272,10 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-block btn-primary"><i
-                            class="fa fa-plus"></i> {{ "file.new"|trans }}</button>
+                <button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-block btn-primary">
+                    <i class="fa fa-plus"></i>
+                    {{ "file.new"|trans }}
+                </button>
                 <div class="step4_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
@@ -260,39 +296,22 @@
     </div>
 
 
-
-
     <script id="step2_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
-
-
-
     </script>
 
     <script id="step3_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
-
-
-
     </script>
 
     <script id="step4_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
-
-
-
     </script>
     <script id="step3_cite_item_must_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}
-
-
-
     </script>
     <script id="step3_cite_item_should_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}
-
-
-
     </script>
 
 {% endblock %}
