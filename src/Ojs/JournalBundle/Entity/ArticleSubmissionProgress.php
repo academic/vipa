@@ -204,7 +204,7 @@ class ArticleSubmissionProgress implements Translatable
     /**
      * Get article
      *
-     * @return User
+     * @return Article
      */
     public function getArticle()
     {
