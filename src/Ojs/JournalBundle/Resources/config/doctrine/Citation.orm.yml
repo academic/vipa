@@ -54,6 +54,7 @@ Ojs\JournalBundle\Entity\Citation:
                on: create
         updatedBy:
            type: string
+           nullable: true
            gedmo:
              blameable:
                on: update
