@@ -205,23 +205,14 @@ class ArticleSubmissionController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             return $this->redirect($this->generateUrl('article_submission_confirm_author'));
         }
-        $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb');
-        $entity = new Article();
-        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $firstStep  = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
             ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
 
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
             array(
-                'articleId' => null,
-                'entity' => $entity,
                 'journal' => $journal,
-                'submissionData' => null,
-                'fileTypes' => ArticleFileParams::$FILE_TYPES,
-                'citationTypes' => $this->container->getParameter('citation_types'),
-                'articleTypes' => $articleTypes,
                 'step' => '1',
                 'checklist' => [],
                 'firstStep' => $firstStep
@@ -245,6 +236,7 @@ class ArticleSubmissionController extends Controller
         }
         /** @var Article $article */
         $article = $articleSubmission->getArticle();
+
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
         $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
@@ -280,6 +272,12 @@ class ArticleSubmissionController extends Controller
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
 
+    /**
+     * Step Control Action
+     * @param Request $request
+     * @param null $step
+     * @return JsonResponse|Response
+     */
     public function stepControlAction(Request $request, $step = null)
     {
         switch($step){
@@ -344,8 +342,9 @@ class ArticleSubmissionController extends Controller
     private function step2Control(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $submissionId = $request->get('submissionId');
         /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($request->get('submissionId'));
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         $article = $articleSubmission->getArticle();
 
         $step2Form = $this->createForm(new Step2Type(), $article);
@@ -441,12 +440,11 @@ class ArticleSubmissionController extends Controller
         $this->throw404IfNotFound($articleSubmission);
         $article = $articleSubmission->getArticle();
         $citationsData = json_decode($request->request->get('citeData'), true);
+        $article->getCitations()->clear();
         $citationIds = [];
         foreach ($citationsData as $citationData) {
 
-            $newCitation = false;
             if(empty($citationData['article_submission_citation[id]'])){
-                $newCitation = true;
                 $citation = new Citation();
             }else{
                 $citationIds[] = $citationData['article_submission_citation[id]'];
@@ -456,17 +454,10 @@ class ArticleSubmissionController extends Controller
             $citation->setOrderNum($citationData['article_submission_citation[orderNum]']);
             $citation->setType($citationData['article_submission_citation[type]']);
             $em->persist($citation);
-
-            if($newCitation){
-                $article->addCitation($citation);
-            }
             $em->flush();
-        }
-        //remove removed citations
-        foreach($article->getCitations() as $citation){
-            if(!in_array($citation->getId(), $citationIds)){
-                $article->removeCitation($citation);
-            }
+
+            $article->addCitation($citation);
+            $em->flush();
         }
         $em->flush();
         return new JsonResponse(['success' => 1]);
@@ -541,6 +532,33 @@ class ArticleSubmissionController extends Controller
                     'article_submission_preview',
                     array('submissionId' => $submissionId)
                 )
+            )
+        );
+    }
+
+    /**
+     * Preview action for an article submission
+     * @param $submissionId
+     * @return Response
+     * @throws AccessDeniedException
+     */
+    public function previewAction($submissionId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        if ($articleSubmission->getSubmitted()) {
+            throw $this->createAccessDeniedException("Access Denied This submission has already been submitted.");
+        }
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournal()->getId());
+
+        return $this->render(
+            'OjsJournalBundle:ArticleSubmission:preview.html.twig',
+            array(
+                'submissionId' => $articleSubmission->getId(),
+                'submissionData' => $articleSubmission,
+                'journal' => $journal,
+                'fileTypes' => ArticleFileParams::$FILE_TYPES,
             )
         );
     }
@@ -628,33 +646,6 @@ class ArticleSubmissionController extends Controller
         $data['journal'] = $journal;
 
         return $this->render('OjsJournalBundle:ArticleSubmission:preSubmission.html.twig', $data);
-    }
-
-    /**
-     * Preview action for an article submission
-     * @param $submissionId
-     * @return Response
-     * @throws AccessDeniedException
-     */
-    public function previewAction($submissionId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if ($articleSubmission->getSubmitted()) {
-            throw $this->createAccessDeniedException("Access Denied This submission has already been submitted.");
-        }
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournal()->getId());
-
-        return $this->render(
-            'OjsJournalBundle:ArticleSubmission:preview.html.twig',
-            array(
-                'submissionId' => $articleSubmission->getId(),
-                'submissionData' => $articleSubmission,
-                'journal' => $journal,
-                'fileTypes' => ArticleFileParams::$FILE_TYPES,
-            )
-        );
     }
 
     /**
