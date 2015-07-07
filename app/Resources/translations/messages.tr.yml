@@ -286,15 +286,14 @@ color: Renk
 color.generate: Renk Üret
 common: Genel
 competingOfInterest: 'Competing of Interest'
-conference: Conference
-confidentail: Confidentail
+conference: Konferans
 confidential: Confidential
 contact: Contact
-contact.detail: 'Contact Detail'
-contact.edit: 'Edit Contact'
-contact.manager: 'Contact Manager'
-contact.new: 'New Contact'
-contact.plural: Contacts
+contact.detail: İletişim Detayı
+contact.edit: İletişim Düzenle
+contact.manager: İletişim Yöneticisi
+contact.new: Yeni İlişim
+contact.plural: İletişim
 contact.type: 'Contact Type'
 contact.type.list: 'List Contact Type'
 contact.type.new: 'New Contact Type'
