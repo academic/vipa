@@ -11,6 +11,8 @@
 {% endblock %}
 
 {% block body -%}
+    <h1>{{ entity.name|trans }}</h1>
+
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
@@ -68,10 +70,10 @@
         {% endif %}
         </tbody>
     </table>
+    {% set back_path = 'ojs_admin_institution_index' %}
     {% if is_granted('EDIT', entity) %}
         {% set edit_path = 'ojs_admin_institution_edit' %}
     {% endif %}
-    {% set back_path = 'ojs_admin_institution_show' %}
     {% if is_granted('DELETE', entity) %}
         {% set delete_path = 'ojs_admin_institution_delete' %}
     {% endif %}

@@ -11,11 +11,10 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "lang"|trans }}
-        <small>{{ entity.id }}</small>
+    <h1>{{ entity.name|trans }}
     </h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties">
+    <table class="record_properties  table">
         <tbody>
         <tr>
             <th>{{ 'id'|trans }}</th>

@@ -13,7 +13,7 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{ "role.singular"|trans }} #{{ entity.id }}</h1>
+            <h1>{{ entity.name|trans }}</h1>
             {% include '::flashbag.html.twig' %}
 
             <table class="record_properties table">

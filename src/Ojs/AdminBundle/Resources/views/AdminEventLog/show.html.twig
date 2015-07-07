@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'eventlog'|trans }}</h1>
+    <h1>{{ entity.eventInfo|trans }}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -44,8 +44,6 @@
         </tbody>
     </table>
 
-
-    <a class="btn btn-default" href="{{ path('ojs_admin_event_log_index') }}">
-        {{ "b"|trans }}
-    </a>
+    {% set back_path = 'ojs_admin_event_log_index' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
