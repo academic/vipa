@@ -142,9 +142,9 @@ var OjsArticleSubmission = {
 
         OjsCommon.waitModal();
         $.post(articleParams.postUrl, articleParams.data, function (response) {
-            OjsArticleSubmission.hideAllSteps();
             OjsCommon.hideallModals();
             if (response.success == 1) {
+                OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step3();
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
@@ -179,9 +179,9 @@ var OjsArticleSubmission = {
             "authorsData": JSON.stringify(dataArray),
             "submissionId": OjsArticleSubmission.submissionId
         }, function (response) {
-            OjsArticleSubmission.hideAllSteps();
             OjsCommon.hideallModals();
             if (response.success == 1) {
+                OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step4();
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
@@ -206,8 +206,12 @@ var OjsArticleSubmission = {
             "submissionId": OjsArticleSubmission.submissionId
         }, function (response) {
             OjsCommon.hideallModals();
-            OjsArticleSubmission.hideAllSteps();
-            OjsArticleSubmission.prepareStep.step5();
+            if (response.success == 1) {
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep.step5();
+            } else {
+                OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
+            }
         }).error(function () {
             OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });
@@ -225,8 +229,8 @@ var OjsArticleSubmission = {
                 "filesData": JSON.stringify(dataArray),
                 "submissionId": OjsArticleSubmission.submissionId
             }, function (response) {
-                OjsArticleSubmission.hideAllSteps();
                 if (response.redirect) {
+                    OjsArticleSubmission.hideAllSteps();
                     window.onbeforeunload = null;
                     window.location.href = response.redirect;
                 } else {
