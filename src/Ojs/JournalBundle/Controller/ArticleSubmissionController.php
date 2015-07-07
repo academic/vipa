@@ -186,6 +186,99 @@ class ArticleSubmissionController extends Controller
         return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
     }
 
+    /**
+     * Displays a form to create a new Article entity.
+     * @return Response
+     * @throws AccessDeniedException
+     */
+    public function newAction()
+    {
+        /**
+         * Check if the user is an author of this journal.
+         * If not, add author role for this journal
+         * @var Journal $journal
+         */
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$journal) {
+            return $this->redirect($this->generateUrl('user_join_journal'));
+        }
+        if (!$this->isGranted('CREATE', $journal, 'articles')) {
+            return $this->redirect($this->generateUrl('article_submission_confirm_author'));
+        }
+        $em = $this->getDoctrine()->getManager();
+        $dm = $this->get('doctrine_mongodb');
+        $entity = new Article();
+        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
+        $firstStep  = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
+
+        return $this->render(
+            'OjsJournalBundle:ArticleSubmission:new.html.twig',
+            array(
+                'articleId' => null,
+                'entity' => $entity,
+                'journal' => $journal,
+                'submissionData' => null,
+                'fileTypes' => ArticleFileParams::$FILE_TYPES,
+                'citationTypes' => $this->container->getParameter('citation_types'),
+                'articleTypes' => $articleTypes,
+                'step' => '1',
+                'checklist' => [],
+                'firstStep' => $firstStep
+            )
+        );
+    }
+
+    /**
+     * Resume action for an article submission
+     * @param $submissionId
+     * @return Response
+     * @throws AccessDeniedException
+     */
+    public function resumeAction($submissionId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('No submission found');
+        }
+        /** @var Article $article */
+        $article = $articleSubmission->getArticle();
+        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
+        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
+        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
+        $checklist = json_decode($articleSubmission->getChecklist(), true);
+        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
+        $citationForms = [];
+        $citationTypes = array_keys($this->container->getParameter('citation_types'));
+        foreach($article->getCitations() as $citation){
+            $citationForms[] = $this->createForm(new Step4CitationType(), $citation, [
+                'method' => 'POST',
+                'citationTypes' => $citationTypes
+            ])->createView();
+        }
+        $citationFormTemplate = $this->createForm(new Step4CitationType(), new Citation(), [
+            'method' => 'POST',
+            'citationTypes' => $citationTypes
+        ])->createView();
+        $data = [
+            'submissionId' => $articleSubmission->getId(),
+            'submissionData' => $articleSubmission,
+            'fileTypes' => ArticleFileParams::$FILE_TYPES,
+            'citations' => $article->getCitations(),
+            'citationForms' => $citationForms,
+            'articleAuthors' => $articleAuthors,
+            'citationFormTemplate' => $citationFormTemplate,
+            'articleTypes' => $articleTypes,
+            'journal' => $articleSubmission->getJournal(),
+            'checklist' => $checklist,
+            'step' => $articleSubmission->getCurrentStep(),
+            'step2Form' => $step2Form,
+            'articleFiles' => $articleFiles
+        ];
+        return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
+    }
 
     public function stepControlAction(Request $request, $step = null)
     {
@@ -203,6 +296,253 @@ class ArticleSubmissionController extends Controller
             default:
                 throw new NotFoundHttpException();
         }
+    }
+
+    /**
+     * @param  Request $request
+     * @return JsonResponse
+     */
+    public function step1Control(Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $article = new Article();
+        $article->setJournal($selectedJournal);
+        $article->setSubmitterId($user->getId());
+        $article->setSetupStatus(0);
+        $article->setTitle('');
+        $em->persist($article);
+        $em->flush();
+
+        $articleSubmission = new ArticleSubmissionProgress();
+        $articleSubmission->setArticle($article);
+        $articleSubmission->setUser($user);
+        $articleSubmission->setJournal($selectedJournal);
+        $articleSubmission->setChecklist(json_encode($request->get('checklistItems')));
+        $articleSubmission->setSubmitted(false);
+        $articleSubmission->setCurrentStep(2);
+        $articleSubmission->setCompetingOfInterest($request->get('competingOfInterest'));
+        $em->persist($articleSubmission);
+        $em->flush();
+
+        return new JsonResponse(
+            [
+                'success' => "1",
+                'resumeLink' => $this->generateUrl('article_submission_resume', [
+                        'submissionId' =>$articleSubmission->getId()
+                    ]).'#2'
+            ]
+        );
+    }
+
+    /**
+     * submit new article - step2 - get article base data without author info.
+     * @param  Request $request
+     * @return JsonResponse
+     */
+    private function step2Control(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($request->get('submissionId'));
+        $article = $articleSubmission->getArticle();
+
+        $step2Form = $this->createForm(new Step2Type(), $article);
+        $step2Form->handleRequest($request);
+        if ($step2Form->isValid()) {
+            $articleSubmission->setCurrentStep(3);
+            $em->flush();
+            return new JsonResponse(['success' => '1']);
+        } else {
+            return new JsonResponse(['success' => '0', 'errors' => $step2Form->getErrors()]);
+        }
+    }
+
+    /**
+     * @param  Request $request
+     * @return JsonResponse|Response
+     */
+    public function step3Control(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $submissionId = $request->get("submissionId");
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $this->throw404IfNotFound($articleSubmission);
+        $article = $articleSubmission->getArticle();
+        $authorsData = json_decode($request->request->get('authorsData'));
+        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
+        $authorIds = [];
+        if (empty($authorsData)) {
+            return new Response('Missing argument', 400);
+        }
+        for ($i = 0; $i < count($authorsData); $i++) {
+            if (empty($authorsData[$i]->firstName)) {
+                unset($authorsData[$i]);
+            }else{
+                $authorData = $authorsData[$i];
+                if(empty($authorData->authorid)){
+                    $author = new Author();
+                    $articleAuthor = new ArticleAuthor();
+                }else{
+                    $authorIds[] = $authorData->authorid;
+                    $author = $em->getRepository('OjsJournalBundle:Author')->find($authorData->authorid);
+                    $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy([
+                        'article' => $article,
+                        'author' => $author
+                    ]);
+                }
+
+                $author->setFirstName($authorData->firstName);
+                $author->setEmail($authorData->email);
+                $author->setTitle($authorData->title);
+                $author->setInitials($authorData->initials);
+                $author->setMiddleName($authorData->middleName);
+                $author->setLastName($authorData->lastName);
+                $author->setPhone($authorData->phone);
+                $author->setSummary($authorData->summary);
+                $author->setOrcid($authorData->orcid);
+                if(!empty($authorData->institution)){
+                    /** @var Institution $institution */
+                    $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData->institution);
+                    $author->setInstitution($institution);
+                }
+                $em->persist($author);
+
+                $articleAuthor->setArticle($article);
+                $articleAuthor->setAuthor($author);
+                $articleAuthor->setAuthorOrder($authorData->order);
+                $em->persist($articleAuthor);
+                $em->flush();
+            }
+        }
+        //remove removed authors
+        /** @var ArticleAuthor $articleAuthor */
+        foreach($articleAuthors as $articleAuthor){
+            if(!in_array($articleAuthor->getAuthorId(), $authorIds)){
+                $em->remove($articleAuthor);
+            }
+        }
+        $em->flush();
+        return new JsonResponse(['success' => 1]);
+    }
+
+    /**
+     * @param  Request $request
+     * @return JsonResponse|Response
+     */
+    private function step4Control(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $submissionId = $request->get("submissionId");
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $this->throw404IfNotFound($articleSubmission);
+        $article = $articleSubmission->getArticle();
+        $citationsData = json_decode($request->request->get('citeData'), true);
+        $citationIds = [];
+        foreach ($citationsData as $citationData) {
+
+            $newCitation = false;
+            if(empty($citationData['article_submission_citation[id]'])){
+                $newCitation = true;
+                $citation = new Citation();
+            }else{
+                $citationIds[] = $citationData['article_submission_citation[id]'];
+                $citation = $em->getRepository('OjsJournalBundle:Citation')->find($citationData['article_submission_citation[id]']);
+            }
+            $citation->setRaw($citationData['article_submission_citation[raw]']);
+            $citation->setOrderNum($citationData['article_submission_citation[orderNum]']);
+            $citation->setType($citationData['article_submission_citation[type]']);
+            $em->persist($citation);
+
+            if($newCitation){
+                $article->addCitation($citation);
+            }
+            $em->flush();
+        }
+        //remove removed citations
+        foreach($article->getCitations() as $citation){
+            if(!in_array($citation->getId(), $citationIds)){
+                $article->removeCitation($citation);
+            }
+        }
+        $em->flush();
+        return new JsonResponse(['success' => 1]);
+    }
+
+    /**
+     * @param  Request $request
+     * @return JsonResponse|Response
+     */
+    private function step5Control(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $filesData = json_decode($request->request->get('filesData'));
+        $submissionId = $request->get("submissionId");
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $this->throw404IfNotFound($articleSubmission);
+
+        if (empty($filesData) || !$submissionId || !$articleSubmission) {
+            return new Response('Missing argument', 400);
+        }
+
+        $article = $articleSubmission->getArticle();
+        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
+        $fileIds = [];
+        for ($i = 0; $i < count($filesData); $i++) {
+            if (strlen($filesData[$i]->article_file) < 1) {
+                unset($filesData[$i]);
+            }else{
+                $fileData = $filesData[$i];
+                if(empty($fileData->id)){
+                    $file = new File();
+                    $articleFile = new ArticleFile();
+                }else{
+                    $fileIds[] = $fileData->id;
+                    $file = $em->getRepository('OjsJournalBundle:File')->find($fileData->id);
+                    $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy([
+                        'article' => $article,
+                        'file' => $file
+                    ]);
+                }
+
+                $file->setMimeType($fileData->article_file_mime_type);
+                $file->setName($fileData->title);
+                $file->setPath($fileData->article_file);
+                $file->setSize($fileData->article_file_size);
+                $em->persist($file);
+
+                $articleFile->setArticle($article);
+                $articleFile->setFile($file);
+                $articleFile->setType($fileData->type);
+                $articleFile->setTitle($fileData->title);
+                $articleFile->setVersion(1);
+                $articleFile->setDescription($fileData->desc);
+                $articleFile->setKeywords($fileData->keywords);
+                $articleFile->setLangCode($fileData->lang);
+                $em->persist($articleFile);
+                $em->flush();
+            }
+        }
+        //remove removed files
+        /** @var ArticleFile $articleFile */
+        foreach($articleFiles as $articleFile){
+            if(!in_array($articleFile->getFileId(), $fileIds)){
+                $em->remove($articleFile);
+            }
+        }
+        $em->flush();
+        return new JsonResponse(
+            array(
+                'redirect' => $this->generateUrl(
+                    'article_submission_preview',
+                    array('submissionId' => $submissionId)
+                )
+            )
+        );
     }
 
     /**
@@ -279,94 +619,6 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * Displays a form to create a new Article entity.
-     * @return Response
-     * @throws AccessDeniedException
-     */
-    public function newAction()
-    {
-        /**
-         * Check if the user is an author of this journal.
-         * If not, add author role for this journal
-         */
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$journal) {
-            return $this->redirect($this->generateUrl('user_join_journal'));
-        }
-        if (!$this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect($this->generateUrl('article_submission_confirm_author'));
-        }
-        $em = $this->getDoctrine()->getManager();
-        $entity = new Article();
-        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
-
-        return $this->render(
-            'OjsJournalBundle:ArticleSubmission:new.html.twig',
-            array(
-                'articleId' => null,
-                'entity' => $entity,
-                'journal' => $journal,
-                'submissionData' => null,
-                'fileTypes' => ArticleFileParams::$FILE_TYPES,
-                'citationTypes' => $this->container->getParameter('citation_types'),
-                'articleTypes' => $articleTypes,
-                'step' => '1',
-                'checklist' => []
-            )
-        );
-    }
-
-    /**
-     * Resume action for an article submission
-     * @param $submissionId
-     * @return Response
-     * @throws AccessDeniedException
-     */
-    public function resumeAction($submissionId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if (!$articleSubmission) {
-            throw $this->createNotFoundException('No submission found');
-        }
-        /** @var Article $article */
-        $article = $articleSubmission->getArticle();
-        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
-        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
-        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
-        $checklist = json_decode($articleSubmission->getChecklist(), true);
-        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
-        $citationForms = [];
-        $citationTypes = array_keys($this->container->getParameter('citation_types'));
-        foreach($article->getCitations() as $citation){
-            $citationForms[] = $this->createForm(new Step4CitationType(), $citation, [
-                'method' => 'POST',
-                'citationTypes' => $citationTypes
-            ])->createView();
-        }
-        $citationFormTemplate = $this->createForm(new Step4CitationType(), new Citation(), [
-            'method' => 'POST',
-            'citationTypes' => $citationTypes
-        ])->createView();
-        $data = [
-            'submissionId' => $articleSubmission->getId(),
-            'submissionData' => $articleSubmission,
-            'fileTypes' => ArticleFileParams::$FILE_TYPES,
-            'citations' => $article->getCitations(),
-            'citationForms' => $citationForms,
-            'citationFormTemplate' => $citationFormTemplate,
-            'articleTypes' => $articleTypes,
-            'journal' => $articleSubmission->getJournal(),
-            'checklist' => $checklist,
-            'step' => $articleSubmission->getCurrentStep(),
-            'step2Form' => $step2Form,
-            'articleFiles' => $articleFiles
-        ];
-        return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
-    }
-
-    /**
      * @return Response
      */
     public function widgetAction()
@@ -376,44 +628,6 @@ class ArticleSubmissionController extends Controller
         $data['journal'] = $journal;
 
         return $this->render('OjsJournalBundle:ArticleSubmission:preSubmission.html.twig', $data);
-    }
-
-    /**
-     * @param  Request $request
-     * @return JsonResponse
-     */
-    public function step1Control(Request $request)
-    {
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $article = new Article();
-        $article->setJournal($selectedJournal);
-        $article->setSubmitterId($user->getId());
-        $article->setSetupStatus(0);
-        $article->setTitle('');
-        $em->persist($article);
-        $em->flush();
-
-        $articleSubmission = new ArticleSubmissionProgress();
-        $articleSubmission->setArticle($article);
-        $articleSubmission->setUser($user);
-        $articleSubmission->setJournal($selectedJournal);
-        $articleSubmission->setChecklist(json_encode($request->get('checklistItems')));
-        $articleSubmission->setSubmitted(false);
-        $articleSubmission->setCurrentStep(2);
-        $articleSubmission->setCompetingOfInterest($request->get('competingOfInterest'));
-        $em->persist($articleSubmission);
-        $em->flush();
-
-        return new JsonResponse(
-            [
-                'success' => "1",
-                'resumeLink' => $this->generateUrl('article_submission_resume', [
-                    'submissionId' =>$articleSubmission->getId()
-                ]).'#2'
-            ]
-        );
     }
 
     /**
@@ -751,214 +965,5 @@ class ArticleSubmissionController extends Controller
         $flashBag->add('success', $this->get('translator')->trans('deleted'));
 
         return RedirectResponse::create($this->get('router')->generate('article_submissions_me'));
-    }
-
-    /**
-     * submit new article - step2 - get article base data without author info.
-     * @param  Request $request
-     * @return JsonResponse
-     */
-    private function step2Control(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($request->get('submissionId'));
-        $article = $articleSubmission->getArticle();
-
-        $step2Form = $this->createForm(new Step2Type(), $article);
-        $step2Form->handleRequest($request);
-        if ($step2Form->isValid()) {
-            $articleSubmission->setCurrentStep(3);
-            $em->flush();
-            return new JsonResponse(['success' => '1']);
-        } else {
-            return new JsonResponse(['success' => '0', 'errors' => $step2Form->getErrors()]);
-        }
-    }
-
-    /**
-     * @param  Request $request
-     * @return JsonResponse|Response
-     */
-    public function step3Control(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $submissionId = $request->get("submissionId");
-        /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        $this->throw404IfNotFound($articleSubmission);
-        $article = $articleSubmission->getArticle();
-        $authorsData = json_decode($request->request->get('authorsData'));
-        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
-        $authorIds = [];
-        if (empty($authorsData)) {
-            return new Response('Missing argument', 400);
-        }
-        for ($i = 0; $i < count($authorsData); $i++) {
-            if (empty($authorsData[$i]->firstName)) {
-                unset($authorsData[$i]);
-            }else{
-                $authorData = $authorsData[$i];
-                if(empty($authorData->authorid)){
-                    $author = new Author();
-                    $articleAuthor = new ArticleAuthor();
-                }else{
-                    $authorIds[] = $authorData->authorid;
-                    $author = $em->getRepository('OjsJournalBundle:Author')->find($authorData->authorid);
-                    $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy([
-                        'article' => $article,
-                        'author' => $author
-                    ]);
-                }
-
-                $author->setFirstName($authorData->firstName);
-                $author->setEmail($authorData->email);
-                $author->setTitle($authorData->title);
-                $author->setInitials($authorData->initials);
-                $author->setMiddleName($authorData->middleName);
-                $author->setLastName($authorData->lastName);
-                $author->setPhone($authorData->phone);
-                $author->setSummary($authorData->summary);
-                $author->setOrcid($authorData->orcid);
-                if(!empty($authorData->institution)){
-                    /** @var Institution $institution */
-                    $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData->institution);
-                    $author->setInstitution($institution);
-                }
-                $em->persist($author);
-
-                $articleAuthor->setArticle($article);
-                $articleAuthor->setAuthor($author);
-                $articleAuthor->setAuthorOrder($authorData->order);
-                $em->persist($articleAuthor);
-                $em->flush();
-            }
-        }
-        //remove removed authors
-        /** @var ArticleAuthor $articleAuthor */
-        foreach($articleAuthors as $articleAuthor){
-            if(!in_array($articleAuthor->getAuthorId(), $authorIds)){
-                $em->remove($articleAuthor);
-            }
-        }
-        $em->flush();
-        return new JsonResponse(['success' => 1]);
-    }
-
-    /**
-     * @param  Request $request
-     * @return JsonResponse|Response
-     */
-    private function step4Control(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $submissionId = $request->get("submissionId");
-        /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        $this->throw404IfNotFound($articleSubmission);
-        $article = $articleSubmission->getArticle();
-        $citationsData = json_decode($request->request->get('citeData'), true);
-        $citationIds = [];
-        foreach ($citationsData as $citationData) {
-
-            $newCitation = false;
-            if(empty($citationData['article_submission_citation[id]'])){
-                $newCitation = true;
-                $citation = new Citation();
-            }else{
-                $citationIds[] = $citationData['article_submission_citation[id]'];
-                $citation = $em->getRepository('OjsJournalBundle:Citation')->find($citationData['article_submission_citation[id]']);
-            }
-            $citation->setRaw($citationData['article_submission_citation[raw]']);
-            $citation->setOrderNum($citationData['article_submission_citation[orderNum]']);
-            $citation->setType($citationData['article_submission_citation[type]']);
-            $em->persist($citation);
-
-            if($newCitation){
-                $article->addCitation($citation);
-            }
-            $em->flush();
-        }
-        //remove removed citations
-        foreach($article->getCitations() as $citation){
-            if(!in_array($citation->getId(), $citationIds)){
-                $article->removeCitation($citation);
-            }
-        }
-        $em->flush();
-        return new JsonResponse(['success' => 1]);
-    }
-
-    /**
-     * @param  Request $request
-     * @return JsonResponse|Response
-     */
-    private function step5Control(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $filesData = json_decode($request->request->get('filesData'));
-        $submissionId = $request->get("submissionId");
-        /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        $this->throw404IfNotFound($articleSubmission);
-
-        if (empty($filesData) || !$submissionId || !$articleSubmission) {
-            return new Response('Missing argument', 400);
-        }
-
-        $article = $articleSubmission->getArticle();
-        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
-        $fileIds = [];
-        for ($i = 0; $i < count($filesData); $i++) {
-            if (strlen($filesData[$i]->article_file) < 1) {
-                unset($filesData[$i]);
-            }else{
-                $fileData = $filesData[$i];
-                if(empty($fileData->id)){
-                    $file = new File();
-                    $articleFile = new ArticleFile();
-                }else{
-                    $fileIds[] = $fileData->id;
-                    $file = $em->getRepository('OjsJournalBundle:File')->find($fileData->id);
-                    $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy([
-                        'article' => $article,
-                        'file' => $file
-                    ]);
-                }
-
-                $file->setMimeType($fileData->article_file_mime_type);
-                $file->setName($fileData->title);
-                $file->setPath($fileData->article_file);
-                $file->setSize($fileData->article_file_size);
-                $em->persist($file);
-
-                $articleFile->setArticle($article);
-                $articleFile->setFile($file);
-                $articleFile->setType($fileData->type);
-                $articleFile->setTitle($fileData->title);
-                $articleFile->setVersion(1);
-                $articleFile->setDescription($fileData->desc);
-                $articleFile->setKeywords($fileData->keywords);
-                $articleFile->setLangCode($fileData->lang);
-                $em->persist($articleFile);
-                $em->flush();
-            }
-        }
-        //remove removed files
-        /** @var ArticleFile $articleFile */
-        foreach($articleFiles as $articleFile){
-            if(!in_array($articleFile->getFileId(), $fileIds)){
-                $em->remove($articleFile);
-            }
-        }
-        $em->flush();
-        return new JsonResponse(
-            array(
-                'redirect' => $this->generateUrl(
-                    'article_submission_preview',
-                    array('submissionId' => $submissionId)
-                )
-            )
-        );
     }
 }
