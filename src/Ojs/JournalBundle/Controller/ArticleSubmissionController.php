@@ -234,6 +234,9 @@ class ArticleSubmissionController extends Controller
         if (!$articleSubmission) {
             throw $this->createNotFoundException('No submission found');
         }
+        if($articleSubmission->getSubmitted()){
+            throw new AccessDeniedException('You can \'t edit article after submit');
+        }
         /** @var Article $article */
         $article = $articleSubmission->getArticle();
 
@@ -564,6 +567,60 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
+     * Finish action for an article submission.
+     * @param  Request $request
+     * @return RedirectResponse
+     * @throws NotFoundHttpException|AccessDeniedException
+     */
+    public function finishAction(Request $request)
+    {
+        $submissionId = $request->get('submissionId');
+        if (!$submissionId) {
+            throw $this->createNotFoundException('There is no submission with this Id.');
+        }
+        $dm = $this->get('doctrine_mongodb');
+        $em = $this->getDoctrine()->getManager();
+        /* @var  $articleSubmission ArticleSubmissionProgress */
+        $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $article = $articleSubmission->getArticle();
+        $journal = $article->getJournal();
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('Submission not found.');
+        }
+
+        // get journal's first workflow step
+        /** @var JournalWorkflowStep $firstStep */
+        $firstStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
+        if ($firstStep) {
+            $reviewStep = new ArticleReviewStep();
+            $reviewStep->setArticleId($article->getId());
+            $reviewStep->setSubmitterId($articleSubmission->getUser()->getId());
+            $reviewStep->setStartedDate(new \DateTime());
+            $reviewStep->setStatusText($firstStep->getStatus());
+            $reviewStep->setCompetingOfInterest($articleSubmission->getCompetingOfInterest());
+            $reviewStep->setArticleRevised(
+                array(
+                    'articleId' => $article->getId()
+                )
+            );
+            $deadline = new \DateTime();
+            $deadline->modify("+".$firstStep->getMaxDays()." day");
+            $reviewStep->setReviewDeadline($deadline);
+            $reviewStep->setRootNode(true);
+            $reviewStep->setStep($firstStep);
+            $reviewStep->setNote($request->get('notes'));
+            $dm->persist($reviewStep);
+            $dm->flush();
+        }
+        $article->setStatus(0);
+        $article->setSetupStatus(1);
+        $articleSubmission->setSubmitted(1);
+        $em->flush();
+        return $this->redirect($this->generateUrl('article_submissions_me'));
+    }
+
+    /**
      * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
      * @param  Request $request
      * @return RedirectResponse|Response
@@ -646,272 +703,6 @@ class ArticleSubmissionController extends Controller
         $data['journal'] = $journal;
 
         return $this->render('OjsJournalBundle:ArticleSubmission:preSubmission.html.twig', $data);
-    }
-
-    /**
-     * Finish action for an article submission.
-     * This action moves article's data from mongodb to mysql
-     * @param  Request $request
-     * @return RedirectResponse
-     * @throws NotFoundHttpException|AccessDeniedException
-     */
-    public function finishAction(Request $request)
-    {
-        $submissionId = $request->get('submissionId');
-        if (!$submissionId) {
-            throw $this->createNotFoundException('There is no submission with this Id.');
-        }
-        $dm = $this->get('doctrine_mongodb')->getManager();
-
-        $em = $this->getDoctrine()->getManager();
-        /* @var  $articleSubmission ArticleSubmissionProgress */
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if (!$articleSubmission) {
-            throw $this->createNotFoundException('Submission not found.');
-        }
-        if (!$this->isGranted('EDIT', $articleSubmission)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
-        /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-
-        $article = $this->saveArticleSubmission($articleSubmission, $journal);
-
-        // get journal's first workflow step
-        /** @var JournalWorkflowStep $firstStep */
-        $firstStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
-        if ($firstStep) {
-            $reviewStep = new ArticleReviewStep();
-            $reviewStep->setArticleId($article->getId());
-            $reviewStep->setSubmitterId($this->getUser()->getId());
-            $reviewStep->setStartedDate(new \DateTime());
-            $reviewStep->setStatusText($firstStep->getStatus());
-            $reviewStep->setPrimaryLanguage($articleSubmission->getPrimaryLanguage());
-            $reviewStep->setCompetingOfInterest($articleSubmission->getCompetingOfInterest());
-            $reviewStep->setArticleRevised(
-                array(
-                    'articleData' => $articleSubmission->getArticleData(),
-                    'authors' => $articleSubmission->getAuthors(),
-                    'citation' => $articleSubmission->getCitations(),
-                    'files' => $articleSubmission->getFiles(),
-                )
-            );
-
-            $deadline = new \DateTime();
-            $deadline->modify("+".$firstStep->getMaxDays()." day");
-            $reviewStep->setReviewDeadline($deadline);
-            $reviewStep->setRootNode(true);
-            $reviewStep->setStep($firstStep);
-            $reviewStep->setNote($request->get('notes'));
-            $dm->persist($reviewStep);
-            $dm->flush();
-        }
-        $articleSubmission->setSubmitted(1);
-        $dm->persist($articleSubmission);
-        $dm->flush();
-
-        return $this->redirect($this->generateUrl('article_submissions_me'));
-    }
-
-    /**
-     * Saves article submission data from mongodb to mysql
-     * Article submission data will be kept on mongodb as archive data
-     *
-     * @param  ArticleSubmissionProgress $articleSubmission
-     * @param  Journal $journal
-     * @return Article
-     */
-    private function saveArticleSubmission(ArticleSubmissionProgress $articleSubmission, Journal $journal)
-    {
-        /* article submission data will be moved from mongodb to mysql */
-        $articleData = $articleSubmission->getArticleData();
-        $articlePrimaryData = $articleData[$articleSubmission->getPrimaryLanguage()];
-
-// article primary data
-        $article = $this->saveArticlePrimaryData(
-            $articlePrimaryData,
-            $journal,
-            $articleSubmission->getPrimaryLanguage()
-        );
-// article data for other languages if provided
-        unset($articleData[$articleSubmission->getPrimaryLanguage()]);
-        $this->saveArticleTranslations($articleData, $article);
-// add authors data
-        $this->saveAuthorsData($articleSubmission->getAuthors(), $article);
-// citation data
-        $this->saveCitationData($articleSubmission->getCitations(), $article);
-// file data
-        $this->saveArticleFileData($articleSubmission->getFiles(), $article, $articleSubmission->getPrimaryLanguage());
-
-        $this->get('session')->getFlashBag()->add('info', $this->get('translator')->trans('submission.success'));
-
-// @todo give ref. link or code or directives to author
-        return $article;
-    }
-
-    /**
-     *
-     * @return Article
-     *
-     * @param  array $articlePrimaryData
-     * @param  Journal $journal
-     * @param  string " $lang
-     * @return Article
-     */
-    private function saveArticlePrimaryData($articlePrimaryData, Journal $journal, $lang)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $article = new Article();
-        $article->setPrimaryLanguage($lang)
-            ->setJournal($journal)
-            ->setTitle($articlePrimaryData['title'])
-            ->setAbstract($articlePrimaryData['abstract'])
-            ->setKeywords($articlePrimaryData['keywords'])
-            ->setSubjects($articlePrimaryData['subjects'])
-            ->setSubtitle($articlePrimaryData ['title'])
-            ->setSubmitterId($this->getUser()->getId())
-            ->setStatus(0);
-
-        $em->persist($article);
-        $em->flush();
-
-        return $article;
-    }
-
-    /**
-     *
-     * @param array $articleData
-     * @param Article $article
-     */
-    private function saveArticleTranslations($articleData, Article $article)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var TranslationRepository $translationRepository */
-        $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-        foreach ($articleData as $locale => $data) {
-            $translationRepository->translate($article, 'title', $locale, $data['title'])->translate(
-                $article,
-                'abstract',
-                $locale,
-                $data['abstract']
-            )
-                ->translate($article, 'keywords', $locale, $data['keywords'])
-                ->translate($article, 'subjects', $locale, $data['subjects']);
-        }
-        $em->persist($article);
-        $em->flush();
-    }
-
-    /**
-     * @param $authors
-     * @param $article
-     */
-    private function saveAuthorsData($authors, Article $article)
-    {
-        $em = $this->getDoctrine()->getManager();
-        foreach ($authors as $authorData) {
-            $author = new Author();
-// check institution
-            $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData['institution']);
-            if (!$institution) {
-                $institution = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(
-                    array('name' => trim($authorData['institution']))
-                );
-            }
-            if (!$institution) {
-                $institution = new Institution();
-                $institution->setName(trim($authorData['institution']));
-                $institution->setSlug(Urlizer::urlize($authorData['institution'], '-'));
-                $institution->setVerified(false);
-                $em->persist($institution);
-            }
-            $author->setInstitution($institution);
-            $author->setEmail($authorData['email']);
-            $author->setTitle($authorData['title']);
-            $author->setInitials($authorData['initials']);
-            $author->setFirstName($authorData['firstName']);
-            $author->setLastName($authorData['lastName']);
-            $author->setMiddleName($authorData['middleName']);
-            $author->setSummary($authorData['summary']);
-            $author->setOrcid($authorData['orcid']);
-            $em->persist($author);
-            $articleAuthor = new ArticleAuthor();
-            $articleAuthor->setArticle($article);
-            $articleAuthor->setAuthorOrder($authorData['order']);
-            $articleAuthor->setAuthor($author);
-            $em->persist($articleAuthor);
-        }
-        $em->flush();
-    }
-
-    /**
-     * @param $citations
-     * @param Article $article
-     */
-    private function saveCitationData($citations, Article $article)
-    {
-        $em = $this->getDoctrine()->getManager();
-        foreach ($citations as $citationData) {
-            $citation = new Citation();
-            $citation->setRaw($citationData['raw']);
-            $citation->setType($citationData['citationtype']);
-            $citation->setOrderNum($citationData['orderNum']);
-            $em->persist(
-                $citation
-            );
-// add relation to article
-            $article->addCitation($citation);
-            $em->persist($article);
-            unset($citationData['raw']);
-            unset($citationData['citationtype']);
-            unset($citationData['orderNum']);
-/// add other data as citation setting
-            foreach ($citationData as $setting => $value) {
-                $citationSetting = new CitationSetting();
-                $citationSetting->setSetting($setting);
-                $citationSetting->setValue($value);
-                $citationSetting->setCitation($citation);
-                $em->persist($citationSetting);
-            }
-        }
-        $em->flush();
-    }
-
-    /**
-     * @param $files
-     * @param $article
-     * @param string $lang
-     */
-    private function saveArticleFileData($files, Article $article, $lang)
-    {
-        $em = $this->getDoctrine()->getManager();
-        foreach ($files as $fileData) {
-            $file = new File();
-            $file->setPath($fileData['article_file']);
-            $file->setName($fileData['article_file']);
-            $file->setMimeType($fileData['article_file_mime_type']);
-            $file->setSize($fileData['article_file_size']);
-
-// @todo add get mime type and name
-            $em->persist($file);
-            $articleFile = new ArticleFile();
-            $articleFile->setArticle($article);
-            $articleFile->setFile($file);
-
-            isset($fileData['title']) && $articleFile->setTitle($fileData['title']);
-            isset($fileData['desc']) && $articleFile->setDescription($fileData['desc']);
-            isset($fileData['keywords']) && $articleFile->setKeywords($fileData['keywords']);
-            $articleFile->setLangCode(isset($fileData['lang']) ? $fileData['lang'] : $lang);
-
-            $articleFile->setVersion(1);
-            $articleFile->setType($fileData['type']); // @see ArticleFileParams::$FILE_TYPES
-// article full text
-
-            $em->persist($articleFile);
-        }
-        $em->flush();
-
     }
 
     /**
