@@ -3,10 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Row;
-use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
@@ -33,6 +30,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\Common\Services\GridAction;
 use Ojs\Common\Services\JournalService;
+use Doctrine\ORM\Query;
 
 /**
  * Article Submission controller.
@@ -48,6 +46,7 @@ class ArticleSubmissionController extends Controller
      */
     public function indexAction($all = false)
     {
+        /** @var Journal $currentJournal */
         $currentJournal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (
             ($all && !$this->isGranted('VIEW', $currentJournal, 'articles')) ||
@@ -55,100 +54,53 @@ class ArticleSubmissionController extends Controller
         ) {
             return $this->redirect($this->generateUrl('ojs_user_index'));
         }
-        $source1 = new Entity('OjsJournalBundle:Article', 'submission');
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $ta = $source1->getTableAlias();
-
-        $source1->manipulateRow(
-            function (Row $row) use ($dm) {
-                if (null !== ($row->getField('status'))) {
-                    $articleId = $row->getField('id');
-                    $currentStep = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
-                        ->findOneBy(array('articleId' => $articleId, 'finishedDate' => null));
-                    if ($currentStep) {
-                        // in case of error if submission is not on mongodb
-                        $row->setColor($currentStep->getStep()->getColor());
-                        $row->setField(
-                            'status',
-                            "<span style='display:block;background: ".
-                            ";display: block'>".$currentStep->getStep()->getStatus()."</span>"
-                        );
-                    }
-                }
-
-                return $row;
-            }
-        );
-
-        $source2 = new Document('OjsJournalBundle:ArticleSubmissionProgress');
-        $em = $this->getDoctrine()->getManager();
-        $router = $this->get('router');
-        $repository = $em->getRepository('OjsJournalBundle:Institution');
-
-        $source2->manipulateRow(
-            function (Row $row) use ($repository, $em, $router) {
-                $row->setRepository($repository);
-                if ($row->getField('article_data')) {
-                    /** @var Array $data */
-                    $data = $row->getField('article_data');
-                    $_d = [];
-
-                    foreach ($data as $key => $value) {
-                        $_d[] = $key.": ".$value['title'];
-                    }
-                    $row->setField('article_data', $_d);
-                }
-                if ($row->getField('journal_id')) {
-                    $journal = $em->find('OjsJournalBundle:Journal', $row->getField('journal_id'));
-                    $row->setField('journal_id', (string)$journal->getTitle());
-                }
-
-                return $row;
-            }
-        );
         $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $source1 = new Entity('OjsJournalBundle:Article', 'submission');
+        $source1TableAlias= $source1->getTableAlias();
+
+        $source2 = new Entity('OjsJournalBundle:ArticleSubmissionProgress');
+        $source2TableAlias= $source2->getTableAlias();
+
 
         if ($all) {
             $source1->manipulateQuery(
-                function (QueryBuilder $qb) use ($ta, $currentJournal) {
-                    $qb->where($ta.'.status = 0');
-                    $qb->andWhere($ta.'.journalId = '.$currentJournal->getId());
+                function (QueryBuilder $qb) use ($source1TableAlias, $currentJournal) {
+                    $qb->where($source1TableAlias.'.status = 0');
+                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
 
                     return $qb;
                 }
             );
             $source2->manipulateQuery(
-                function (Builder $query) use ($ta, $currentJournal) {
-                    $query->where(
-                        "typeof(this.submitted)=='undefined' || this.submitted===false ".
-                        "&& this.journal_id == {$currentJournal->getId()}"
-                    );
+                function (QueryBuilder $qb) use ($source2TableAlias, $currentJournal) {
+                    $qb->where($source2TableAlias.'.submitted = 0');
+                    $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
 
-                    return $query;
+                    return $qb;
                 }
             );
         } else {
             $source1->manipulateQuery(
-                function (QueryBuilder $qb) use ($ta, $user, $currentJournal) {
+                function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal) {
                     $qb->where(
                         $qb->expr()->andX(
-                            $qb->expr()->eq($ta.'.status', '0'),
-                            $qb->expr()->eq($ta.'.submitterId', $user->getId())
+                            $qb->expr()->eq($source1TableAlias.'.status', '0'),
+                            $qb->expr()->eq($source1TableAlias.'.submitterId', $user->getId())
                         )
                     );
-                    $qb->andWhere($ta.'.journalId = '.$currentJournal->getId());
+                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
 
                     return $qb;
                 }
             );
             $source2->manipulateQuery(
-                function (Builder $query) use ($user, $currentJournal) {
-                    $query->where(
-                        "(typeof(this.submitted)=='undefined' || this.submitted===false) ".
-                        "&& this.userId=={$user->getId()} && this.journal_id == {$currentJournal->getId()}"
-                    );
+                function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal) {
+                    $qb->where($source2TableAlias.'.submitted = 0');
+                    $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
+                    $qb->andWhere($source2TableAlias.'.userId = '.$user->getId());
 
-                    return $query;
+                    return $qb;
                 }
             );
         }
