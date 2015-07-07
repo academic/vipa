@@ -3,16 +3,13 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
-use Ojs\JournalBundle\Entity\Journal;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * This collection holds resumable article submission data
- * @GRID\Source(columns="id,journal_id,article_data")
+ * @GRID\Source(columns="id, currentStep, journalId , journal")
  */
 class ArticleSubmissionProgress implements Translatable
 {
@@ -20,11 +17,13 @@ class ArticleSubmissionProgress implements Translatable
 
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     protected $id;
 
     /**
      * @var integer
+     * @GRID\Column(title="current.step")
      */
     protected $currentStep;
 
@@ -32,6 +31,11 @@ class ArticleSubmissionProgress implements Translatable
      * @var User
      */
     private $user;
+
+    /**
+     * @var int
+     */
+    private $userId;
 
     /**
      * @var string
@@ -42,6 +46,11 @@ class ArticleSubmissionProgress implements Translatable
      * @var Journal
      */
     private $journal;
+
+    /**
+     * @var int
+     */
+    private $journalId;
 
     /**
      * @var string
@@ -93,6 +102,53 @@ class ArticleSubmissionProgress implements Translatable
     {
         return $this->currentStep;
     }
+
+    /**
+     * Set journalId
+     *
+     * @param  int  $journalId
+     * @return self
+     */
+    public function setJournalId($journalId)
+    {
+        $this->journalId = $journalId;
+
+        return $this;
+    }
+
+    /**
+     * Get journalId
+     *
+     * @return int $journalId
+     */
+    public function getJournalId()
+    {
+        return $this->journalId;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param  int  $userId
+     * @return self
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return int $userId
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
 
     /**
      * Set submitted

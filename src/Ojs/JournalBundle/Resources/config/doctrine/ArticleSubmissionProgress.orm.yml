@@ -27,6 +27,12 @@ Ojs\JournalBundle\Entity\ArticleSubmissionProgress:
                 name: article_id
                 referencedColumnName: id
     fields:
+        journalId:
+            type: integer
+            column: journal_id
+        userId:
+            type: integer
+            column: user_id
         currentStep:
             type: integer
             column: current_step
