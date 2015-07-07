@@ -8,8 +8,6 @@ use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
-use Gedmo\Sluggable\Util\Urlizer;
-use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
@@ -18,7 +16,6 @@ use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
-use Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
@@ -729,23 +726,22 @@ class ArticleSubmissionController extends Controller
         return $response;
     }
 
+    /**
+     * @param $id
+     * @return Response|static
+     */
     public function cancelAction($id)
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        /** @var ArticleSubmissionProgress $as */
-        $as = $dm->find('OjsJournalBundle:ArticleSubmissionProgress', $id);
-        if (!$as) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var ArticleSubmissionProgress $articleSubmission */
+        $articleSubmission = $em->find('OjsJournalBundle:ArticleSubmissionProgress', $id);
+        if (!$articleSubmission) {
             throw new NotFoundHttpException();
         }
-        if (!$this->isGranted('EDIT', $as)) {
-            throw $this->createAccessDeniedException("ojs.403");
-        }
-        $dm->remove($as);
-        $dm->flush();
-        $session = $this->get('session');
-        $flashBag = $session->getFlashBag();
-        $flashBag->add('success', $this->get('translator')->trans('deleted'));
-
-        return RedirectResponse::create($this->get('router')->generate('article_submissions_me'));
+        $em->remove($articleSubmission);
+        $em->remove($articleSubmission->getArticle());
+        $em->flush();
+        $this->addFlash('success', $this->get('translator')->trans('deleted'));
+        return $this->redirectToRoute('article_submissions_me');
     }
 }
