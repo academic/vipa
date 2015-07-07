@@ -177,7 +177,6 @@
                     </div>
                 </div>
 
-
                 <div id="step5-container" class="step hide">
                     <h3>{{ 'article.files'|trans }}</h3>
 
@@ -248,20 +247,18 @@
         window.onbeforeunload = function () {
             //return "{{"sure_data_lost"|trans}}";
         };
-        function loadCurrentStep(currentStep) {
-            OjsArticleSubmission.hideAllSteps();
-            OjsArticleSubmission.prepareStep["step" + currentStep]();
-        }
         $(window).on("hashchange", function (event) {
             if (window.currentStep !== currentStep) {
                 window.currentStep = currentStep;
-                loadCurrentStep(currentStep);
+                OjsArticleSubmission.prepareStep['step'+currentStep]();
             }
         });
         $(document).ready(function () {
             OjsArticleSubmission.setupUi();
             if (currentStep) {
-                loadCurrentStep(currentStep);
+                OjsArticleSubmission.prepareStep['step'+currentStep]();
+            }else{
+                OjsArticleSubmission.prepareStep.step2();
             }
             {%if submissionId is defined %}
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
