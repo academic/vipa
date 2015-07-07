@@ -124,7 +124,7 @@
                         <div class="col-sm-12">
                             <hr>
                             <a class="btn btn-danger btn-lg"
-                               onclick="javascript:OjsArticleSubmission.backTo(1);">
+                               onclick="javascript:OjsArticleSubmission.backTo(2);">
                                 <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                             </a>
                             <a class="btn btn-success btn-lg pull-right"
@@ -258,7 +258,9 @@
             if (currentStep) {
                 OjsArticleSubmission.prepareStep['step'+currentStep]();
             }else{
-                OjsArticleSubmission.prepareStep.step2();
+                {% if step != 1 %}
+                    OjsArticleSubmission.prepareStep.step2();
+                {% endif %}
             }
             {%if submissionId is defined %}
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
