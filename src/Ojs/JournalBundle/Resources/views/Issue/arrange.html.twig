@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-    { 'link': path('ojs_journal_issue_index'), 'title': 'issue.manager'|trans },
+    { 'link': path('ojs_journal_issue_index', {'journalId': app.request.get('journalId')}), 'title': 'issue.manager'|trans },
     { 'title': 'title.issue_arrange'|trans }
     ] %}
     {{ breadcrumb(list) }}
@@ -46,7 +46,7 @@
                             <option></option>
                             {% for article in articlesUnissued %}
                                 <option value="{{ article.id }}"
-                                        rel="{{ path('ojs_journal_issue_article_add' ,{'id':issue.id,'articleId':article.id}) }}">
+                                        rel="{{ path('ojs_journal_issue_article_add', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
                                     [#{{ article.id }}] {{ article.title|slice(0,200) }}
                                 </option>
                             {% endfor %}
@@ -102,7 +102,7 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-danger btn-xs"
-                                               href="{{ path('ojs_journal_issue_article_remove', {'id':issue.id,'articleId':article.id}) }}">
+                                               href="{{ path('ojs_journal_issue_article_remove', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
                                                 <i class="fa fa-remove"></i>
                                             </a>
                                             <a href="{{ path('ojs_article_page', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } ) }}">

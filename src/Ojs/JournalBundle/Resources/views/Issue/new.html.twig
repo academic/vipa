@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_issue_index'),'title': 'issue'|trans},
+    {'link': path('ojs_journal_issue_index', {'journalId': app.request.get('journalId')}),'title': 'issue'|trans},
     {'title': 'title.issue_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,7 +13,7 @@
 {% block body -%}
     <h1>{{ 'title.issue_new'|trans }}</h1>
 
-    <a class="btn btn-default" href="{{ path('ojs_journal_issue_index') }}">{{ "back"|trans }}</a>
+    <a class="btn btn-default" href="{{ path('ojs_journal_issue_index', {'journalId': app.request.get('journalId')}) }}">{{ "back"|trans }}</a>
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
