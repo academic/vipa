@@ -75,6 +75,7 @@ class InstitutionType extends AbstractType
             ->add('wiki')
             ->add('tags', 'tags')
             ->add('logo', 'hidden')
+            ->add('domain')
             ->add('header', 'hidden')
             ->add(
                 'verified',
