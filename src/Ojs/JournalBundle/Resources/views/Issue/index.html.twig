@@ -13,7 +13,7 @@
     <h1>{{ 'title.issues'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', selectedJournal(), 'issues') %}
-        <a href="{{ path('ojs_journal_issue_new') }}" class="btn btn-success">
+        <a href="{{ path('ojs_journal_issue_new', {'journalId': app.request.get('journalId')}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

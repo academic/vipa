@@ -1,46 +1,46 @@
 ojs_journal_issue_index:
-    path:     /
+    path:     /{journalId}/issue
     defaults: { _controller: "OjsJournalBundle:Issue:index" }
 
-ojs_journal_issue_show:
-    path:     /{id}/show
-    defaults: { _controller: "OjsJournalBundle:Issue:show" }
-
 ojs_journal_issue_new:
-    path:     /new
+    path:     /{journalId}/issue/new
     defaults: { _controller: "OjsJournalBundle:Issue:new" }
 
 ojs_journal_issue_create:
-    path:     /create
+    path:     /{journalId}/issue/create
     defaults: { _controller: "OjsJournalBundle:Issue:create" }
-    methods: [POST]
+    methods:  [POST]
+
+ojs_journal_issue_show:
+    path:     /{journalId}/issue/{id}
+    defaults: { _controller: "OjsJournalBundle:Issue:show" }
 
 ojs_journal_issue_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/issue/{id}/edit
     defaults: { _controller: "OjsJournalBundle:Issue:edit" }
 
 ojs_journal_issue_update:
-    path:     /{id}/update
+    path:     /{journalId}/issue/{id}/update
     defaults: { _controller: "OjsJournalBundle:Issue:update" }
-    methods: [PUT]
+    methods:  [PUT]
 
 ojs_journal_issue_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/issue/{id}/delete
     defaults: { _controller: "OjsJournalBundle:Issue:delete" }
-    methods: [DELETE]
+    methods:  [DELETE]
 
 ojs_journal_issue_arrange:
-    path:  /{id}/arrange
+    path:     /{journalId}/issue/{id}/arrange
     defaults: { _controller: "OjsJournalBundle:Issue:arrange" }
 
 ojs_journal_issue_article_add:
-    path:  /{id}/article/add/{articleId}
+    path:     /{journalId}/issue/{id}/add-article/{articleId}
     defaults: { _controller: "OjsJournalBundle:Issue:addArticle" }
 
 ojs_journal_issue_article_remove:
-    path:  /{id}/article/remove/{articleId}
+    path:     /{journalId}/issue/{id}/remove-article/{articleId}
     defaults: { _controller: "OjsJournalBundle:Issue:removeArticle" }
 
 ojs_journal_issue_view:
-    path:  /{id}/article
+    path:     /{journalId}/issue/{id}/article
     defaults: { _controller: "OjsJournalBundle:Issue:view" }

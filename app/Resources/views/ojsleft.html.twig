@@ -111,7 +111,7 @@
                     {% endif %}
 
                     {% if is_granted('VIEW', selectedJournal(), 'issues') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_issue_index') }}">
+                        <a class="list-group-item" href="{{ path('ojs_journal_issue_index', {journalId: selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-newspaper-o"></i>
                             </span>

@@ -13,7 +13,7 @@
     {% include '::flashbag.html.twig' %}
 
     <ul class="nav nav-tabs">
-        <li role="presentation"><a href="{{ path('ojs_journal_issue_show', {id: issue.id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_issue_show', {id: issue.id, journalId: issue.journal.id}) }}">{{ "Info"|trans }}</a></li>
         <li role="presentation" class="active"><a href="{{ path('ojs_journal_issue_file_index', {issue: issue.id}) }}">{{ "title.issue_files"|trans }}</a></li>
     </ul>
 
