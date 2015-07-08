@@ -105,6 +105,7 @@ class JournalType extends AbstractType
                     ],
                 )
             )
+            ->add('domain')
             ->add('period', 'text', ['label' => 'journal.period'])
             ->add(
                 'googleAnalyticsId',

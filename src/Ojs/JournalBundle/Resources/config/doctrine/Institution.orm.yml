@@ -133,6 +133,12 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                 - versioned
+        domain:
+            type: string
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - versioned
         url:
             type: string
             length: 255

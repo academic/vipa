@@ -123,11 +123,19 @@ class Institution implements Translatable
      * @Expose
      */
     private $logo;
+
     /**
      * @var string
      * @Expose
      */
     private $header;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $domain;
+
     /**
      * @var Collection
      */
@@ -136,14 +144,28 @@ class Institution implements Translatable
      * @var Collection
      */
     private $authors;
+
+    /**
+     * @var string
+     */
     private $slug;
+
+    /**
+     * @var int
+     */
     private $institution_type;
+
+    /**
+     * @var
+     */
     private $institution_type_id;
+
     /**
      * @var boolean
      * @GRID\Column(title="verified")
      */
     private $verified = false;
+
     private $status = 0;
 
     protected $translations;
@@ -252,6 +274,25 @@ class Institution implements Translatable
     public function setHeader($header)
     {
         $this->header = $header;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * @param  string $domain
+     * @return $this
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
 
         return $this;
     }
