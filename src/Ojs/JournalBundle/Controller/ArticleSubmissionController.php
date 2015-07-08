@@ -375,6 +375,7 @@ class ArticleSubmissionController extends Controller
                 $em->remove($articleAuthor);
             }
         }
+        $articleSubmission->setCurrentStep(4);
         $em->flush();
         return new JsonResponse(['success' => 1]);
     }
@@ -411,6 +412,7 @@ class ArticleSubmissionController extends Controller
             $article->addCitation($citation);
             $em->flush();
         }
+        $articleSubmission->setCurrentStep(5);
         $em->flush();
         return new JsonResponse(['success' => 1]);
     }
