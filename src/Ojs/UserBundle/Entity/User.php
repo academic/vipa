@@ -1242,10 +1242,10 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @param mixed $journals
+     * @param mixed $journalUsers
      */
-    public function setJournals($journals)
+    public function setJournals($journalUsers)
     {
-        $this->journals = $journals;
+        $this->journalUsers = $journalUsers;
     }
 }

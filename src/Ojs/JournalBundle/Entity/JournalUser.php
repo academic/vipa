@@ -18,12 +18,12 @@ class JournalUser
     /**
      * @var Collection
      */
-    private $journals;
+    private $journal;
 
     /**
      * @var Collection
      */
-    private $users;
+    private $user;
 
     /**
      * @var Collection
@@ -49,35 +49,35 @@ class JournalUser
     /**
      * @return Collection
      */
-    public function getJournals()
+    public function getJournal()
     {
-        return $this->journals;
+        return $this->journal;
     }
 
     /**
-     * @param Collection $journals
+     * @param Collection $journal
      */
-    public function setJournals($journals)
+    public function setJournal($journal)
     {
-        $this->journals = $journals;
+        $this->journal = $journal;
     }
 
     /**
      * @return Collection
      */
-    public function getUsers()
+    public function getUser()
     {
-        return $this->users;
+        return $this->user;
     }
 
     /**
-     * @param Collection $users
+     * @param Collection $user
      */
-    public function setUsers($users)
+    public function setUser($user)
     {
-        $this->users = $users;
+        $this->user = $user;
     }
-
+    
     /**
      * @return Collection
      */

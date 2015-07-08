@@ -4,13 +4,13 @@ Ojs\JournalBundle\Entity\JournalUser:
     repositoryClass: Ojs\JournalBundle\Entity\JournalUserRepository
 
     manyToOne:
-        journals:
+        journal:
             targetEntity: Ojs\JournalBundle\Entity\Journal
             inversedBy: users
             joinColumn:
                 name: journal_id
                 referencedColumnName: id
-        users:
+        user:
             targetEntity: Ojs\UserBundle\Entity\User
             inversedBy: journals
             joinColumn:
