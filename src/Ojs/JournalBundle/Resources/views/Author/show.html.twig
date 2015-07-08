@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_author_index'), 'title': 'author.manager'|trans},
+    {'link': path('ojs_journal_author_index', {'journalId': selectedJournal().id}), 'title': 'author.manager'|trans},
     {'title' : 'title.author_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -76,9 +76,9 @@
     </table>
     {{
     actions({
-        'back': {'href': path('ojs_journal_author_index')},
-        'edit': {'href': path('ojs_journal_author_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_author_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_author_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_author_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_author_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}
