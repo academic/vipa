@@ -126,6 +126,6 @@ class Lang implements Translatable
 
     public function __toString()
     {
-        return $this->name;
+        return $this->name ? $this->name : '';
     }
 }
