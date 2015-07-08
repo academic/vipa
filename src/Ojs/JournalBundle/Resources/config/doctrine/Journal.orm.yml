@@ -69,6 +69,10 @@ Ojs\JournalBundle\Entity\Journal:
             targetEntity: Ojs\JournalBundle\Entity\JournalTranslation
             mappedBy: object
             cascade: ["persist"]
+        journalUsers:
+            targetEntity: Ojs\JournalBundle\Entity\JournalUser
+            mappedBy: journal
+            fetch: EXTRA_LAZY
     manyToMany:
         languages:
               targetEntity: Lang

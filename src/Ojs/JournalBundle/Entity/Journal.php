@@ -285,6 +285,9 @@ class Journal implements Translatable
 
     protected $translations;
 
+    /** @var Collection */
+    private $journalUsers;
+
     /**
      * Constructor
      */
@@ -1590,5 +1593,21 @@ class Journal implements Translatable
         $this->printed = $printed;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJournalUsers()
+    {
+        return $this->journalUsers;
+    }
+
+    /**
+     * @param mixed $journalUsers
+     */
+    public function setJournalUsers($journalUsers)
+    {
+        $this->journalUsers = $journalUsers;
     }
 }

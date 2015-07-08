@@ -198,8 +198,12 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      * @var Collection
      */
     private $oauthAccounts;
+
     /** @var  boolean */
     private $privacy;
+
+    /** @var Collection */
+    private $journalUsers;
 
     public function __construct()
     {
@@ -1227,5 +1231,21 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         $this->city = $city;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJournalUsers()
+    {
+        return $this->journalUsers;
+    }
+
+    /**
+     * @param mixed $journals
+     */
+    public function setJournals($journals)
+    {
+        $this->journals = $journals;
     }
 }
