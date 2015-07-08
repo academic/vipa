@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -42,6 +43,9 @@ class JournalService
      */
     private $tokenStorage;
 
+    /** @var RequestStack  */
+    private $requestStack;
+
     /** @var  string */
     private $defaultInstitutionSlug;
 
@@ -51,6 +55,7 @@ class JournalService
      * @param Session               $session
      * @param Router                $router
      * @param TokenStorageInterface $tokenStorage
+     * @param RequestStack          $requestStack
      * @param $defaultInstitutionSlug
      */
     public function __construct(
@@ -59,6 +64,7 @@ class JournalService
         Session $session,
         Router $router,
         TokenStorageInterface $tokenStorage,
+        RequestStack $requestStack,
         $defaultInstitutionSlug
     ) {
         $this->session = $session;
@@ -66,6 +72,7 @@ class JournalService
         $this->dm = $dm;
         $this->router = $router;
         $this->tokenStorage = $tokenStorage;
+        $this->requestStack = $requestStack;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
     }
 
@@ -74,7 +81,9 @@ class JournalService
      */
     public function getSelectedJournal()
     {
-        $selectedJournalId = $this->session->get("selectedJournalId");
+        $journalIdFromRequest = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
+        $journalIdFromSession = $this->session->get("selectedJournalId");
+        $selectedJournalId = $journalIdFromRequest ? $journalIdFromRequest : $journalIdFromSession;
         $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find(
             $selectedJournalId
         ) : false;

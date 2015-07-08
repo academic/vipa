@@ -108,6 +108,7 @@ services:
             - @session
             - @router
             - @security.token_storage
+            - @request_stack
             - "%defaultInstitutionSlug%"
     ojs.article_service:
         class: Ojs\Common\Services\ArticleService
