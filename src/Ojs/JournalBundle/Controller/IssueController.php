@@ -35,7 +35,7 @@ class IssueController extends Controller
      */
     public function indexAction($journalId)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issues!");
@@ -98,7 +98,7 @@ class IssueController extends Controller
         /* @var Journal $journal */
 
         $em = $this->getDoctrine()->getManager();
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('CREATE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
@@ -166,7 +166,7 @@ class IssueController extends Controller
      */
     public function newAction($journalId)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('CREATE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
@@ -193,7 +193,7 @@ class IssueController extends Controller
      */
     public function showAction($journalId, $id)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issue!");
@@ -228,7 +228,7 @@ class IssueController extends Controller
      */
     public function editAction($journalId, $id)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
@@ -309,7 +309,7 @@ class IssueController extends Controller
      */
     public function updateAction(Request $request, $journalId, $id)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
@@ -360,7 +360,7 @@ class IssueController extends Controller
      */
     public function deleteAction(Request $request, $journalId, $id)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('DELETE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
@@ -395,7 +395,7 @@ class IssueController extends Controller
      */
     public function viewAction($journalId, $id)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issue!");
         }
@@ -429,7 +429,7 @@ class IssueController extends Controller
      */
     public function arrangeAction(Request $request, $journalId, $id)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
@@ -491,7 +491,7 @@ class IssueController extends Controller
      */
     public function addArticleAction(Request $request, $journalId, $id, $articleId)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
@@ -555,7 +555,7 @@ class IssueController extends Controller
      */
     public function removeArticleAction(Request $request, $journalId, $id, $articleId)
     {
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($journalId);
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
