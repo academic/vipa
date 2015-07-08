@@ -29,6 +29,11 @@ Ojs\JournalBundle\Entity\JournalContact:
                 joinColumn:
                   name: contact_type_id
                   referencedColumnName: id
+    oneToMany:
+        translations:
+            targetEntity: Ojs\JournalBundle\Entity\JournalContactTranslation
+            mappedBy: object
+            cascade: ["persist"]
     fields:
         title:
             type: string
@@ -41,6 +46,7 @@ Ojs\JournalBundle\Entity\JournalContact:
             nullable: true
             gedmo:
                 - versioned
+                - translatable
         firstName:
             type: string
             length: 255
@@ -60,6 +66,7 @@ Ojs\JournalBundle\Entity\JournalContact:
             nullable: TRUE
             gedmo:
                 - versioned
+                - translatable
         phone:
             type: string
             length: 255
@@ -112,5 +119,6 @@ Ojs\JournalBundle\Entity\JournalContact:
           time_aware: false
         translation:
             locale: locale
+            entity: Ojs\JournalBundle\Entity\JournalContactTranslation
         loggable: true
     lifecycleCallbacks: {  }
