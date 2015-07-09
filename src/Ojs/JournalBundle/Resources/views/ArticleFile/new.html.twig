@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_file_index', {article: entity.article.id}),'title': 'title.article_files'|trans},
+        {'link': path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}),'title': 'title.article_files'|trans},
         {'title': 'title.article_files_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -45,7 +45,7 @@
     {{ form_end(form) }}
     <ul class="record_actions">
         <li>
-            <a href="{{ path('ojs_journal_article_file_index',{article: article.id}) }}">
+            <a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">
                 Back to the list
             </a>
         </li>

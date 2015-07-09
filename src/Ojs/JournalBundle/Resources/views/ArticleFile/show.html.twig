@@ -3,7 +3,7 @@
 {% block breadcrumb %}
         {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_file_index', {article: entity.article.id}),'title': 'title.article_files'|trans},
+        {'link': path('ojs_journal_article_file_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id}),'title': 'title.article_files'|trans},
         {'title': 'title.article_files_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -12,7 +12,7 @@
 {% block body -%}
     <h1>{{ "articlefile"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties">
+    <table class="record_properties  table">
         <tbody>
 
         <tr>
@@ -26,7 +26,7 @@
         <tr>
             <th>{{ "article"|trans }}</th>
             <td><a target="_blank"
-                   href="{{ path('ojs_journal_article_edit', {'id': entity.id, 'journalId': entity.article.journal.id}) }}">{{ entity.article.title }}</a></td>
+                   href="{{ path('ojs_journal_article_edit', {'id': entity.articleId, 'journalId': selectedJournal().id}) }}">{{ entity.article.title }}</a></td>
         </tr>
         <tr>
             <th>{{ "articlefile.version"|trans }}</th>
@@ -51,7 +51,10 @@
         </tr>
         </tbody>
     </table>
-    {% set back_path = 'ojs_journal_article_file_index' %}
-    {% set edit_path = 'ojs_journal_article_file_edit' %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_article_file_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_article_file_edit', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+    })
+    }}
 {% endblock %}
