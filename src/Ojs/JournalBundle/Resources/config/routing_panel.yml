@@ -13,7 +13,6 @@ ojs_journal_article_file:
 
 ojs_journal_journal_contact:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/journal_contact.yml"
-    prefix:   /journal-contact
 
 ojs_journal_issue:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/issue.yml"

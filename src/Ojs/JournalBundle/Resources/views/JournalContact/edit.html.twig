@@ -2,9 +2,8 @@
 {% block title %}{{ 'title.journal_contact_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
-    {% set index_path = 'ojs_journal_journal_contact_index' %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path(index_path),'title': 'journal.contact'|trans},
     {'title': 'title.journal_contact_edit'|trans}
     ] %}
@@ -15,15 +14,12 @@
     <h1>{{ 'title.journal_contact_edit'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-
-
-    <div class="record_actions">
-        {% set back_path = 'ojs_journal_journal_contact_index' %}
-        {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
-            {% set delete_path = 'ojs_journal_journal_contact_delete' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
-    </div>
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_journal_contact_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+    })
+    }}
 
     {{ getLogs(entity) }}
 {% endblock %}

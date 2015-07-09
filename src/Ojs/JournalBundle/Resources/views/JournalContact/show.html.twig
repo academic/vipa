@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_journal_contact_index'),'title': 'journal.contact'|trans},
+    {'link': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}),'title': 'journal.contact'|trans},
     {'title': 'title.journal_contact_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -66,9 +66,9 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_journal_contact_index')},
-        'edit': {'href': path('ojs_journal_journal_contact_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_journal_contact_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_journal_contact_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_journal_contact_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 
