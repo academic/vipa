@@ -9,3 +9,8 @@ ojs_journal_user_new:
 ojs_journal_user_create:
     path:     /{journalId}/user/create
     defaults: { _controller: OjsJournalBundle:JournalUser:createUser }
+
+ojs_journal_user_delete:
+    path:     /{journalId}/user/{id}/delete
+    defaults: { _controller: OjsJournalBundle:JournalUser:deleteUser }
+    methods:  [DELETE]

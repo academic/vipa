@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Collections\Collection;
 use Ojs\JournalBundle\Entity\JournalRole;
 use Doctrine\ORM\Query;
+use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
  * JournalUser controller.
@@ -49,8 +50,10 @@ class JournalUserController extends Controller
 
         $grid = $this->get('grid');
         $grid->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $rowAction = [];
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_user_delete', ['journalId' => $journal->getId(), 'id']);
         $actionColumn = new ActionsColumn("actions", "actions");
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -146,5 +149,29 @@ class JournalUserController extends Controller
         );
 
         return $form;
+    }
+
+    public function deleteUserAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $entity = $em->getRepository('OjsJournalBundle:JournalUser')->find($id);
+
+        $this->throw404IfNotFound($entity);
+        if (!$this->isGranted('DELETE', $journal, 'userRole')) {
+            throw new AccessDeniedException("You not authorized to remove this user from the journal.");
+        }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('ojs_journal_user' . $id);
+        if ($token->getValue() !== $request->get('_token')) {
+            throw new TokenNotFoundException("Token Not Found!");
+        }
+
+        $em->remove($entity);
+        $em->flush();
+        $this->successFlashBag('successful.remove');
+
+        return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
     }
 }
