@@ -1,7 +1,7 @@
 journal_institution_hosting:
     prefix:   /
     resource: "@OjsSiteBundle/Resources/config/routing/hosting.yml"
-    condition: "not (''~context.getHost() matches '/%base_host%/')"
+    condition: "not (context.getHost() matches '/%base_host%/')"
 
 ojs_admin:
     resource: "@OjsAdminBundle/Resources/config/routing.yml"
