@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_user_index'), 'title': 'user.manager'|trans},
-    { 'title': 'title.user_new'|trans},
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('ojs_journal_user_index', {'journalId': selectedJournal().id}), 'title': 'title.user_new'|trans},
+        { 'title': 'title.journal_user_create'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -17,7 +17,6 @@
     {% endstylesheets %}
 
 {% endblock %}
-
 
 {% block body -%}
     <div class="large-12 columns">
@@ -43,44 +42,35 @@
                     <div id="preview_image_avatar" style="width:200px">
                         {% if entity.avatar %}
                             <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200") }}"
-                                 data-src="holder.js/960x200/random/text:{{ entity.username }}" alt=""/>
+                                 data-src="holder.js/960x200/random/text:{{ entity.username }}" alt="" />
                             {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
-                            <input id="avatar_height" name="avatar[height]" type="hidden"
-                                   value="{{ imageoptions.height }}"/>
-                            <input id="avatar_width" name="avatar[width]" type="hidden"
-                                   value="{{ imageoptions.width }}"/>
-                            <input id="avatar_x" name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="avatar_y" name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
+                            <input id="avatar_height" name="avatar[height]" type="hidden" value="{{ imageoptions.height }}" />
+                            <input id="avatar_width" name="avatar[width]" type="hidden" value="{{ imageoptions.width }}" />
+                            <input id="avatar_x" name="avatar[x]" type="hidden" value="{{ imageoptions.x }}" />
+                            <input id="avatar_y" name="avatar[y]" type="hidden" value="{{ imageoptions.y }}" />
                         {% endif %}
-
                     </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload_avatar" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
-            </span>
 
-                    <div id="user_avatar_upload_progress" style="display: none" class="label label-info">
+                    <span class="btn btn-success fileinput-button form-control">
+                        <i class="fa fa-plus"></i>
+                        <span>{{ "select.image.file"|trans }}</span>
+                        <input id="fileupload_avatar" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
+                    </span>
 
-                    </div>
+                    <div id="user_avatar_upload_progress" style="display: none" class="label label-info"></div>
                 </div>
+
+
                 <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-                    {{ "c"|trans }}
+                    {{ 'create'|trans }}
                 </button>
+
+                {{ actions({'back': {'href': path('ojs_journal_user_index', {'journalId': selectedJournal().id})}}) }}
+
                 {{ form_end(form) }}
-
-                {% include '::actionbuttons.html.twig' %}
-
-
             </div>
         </div>
     </div>
-    <style>
-        select#ojs_userbundle_user_roles {
-            height: 300px;
-            margin-bottom: 30px
-        }
-    </style>
 {% endblock %}
 
 {% block javascripts %}

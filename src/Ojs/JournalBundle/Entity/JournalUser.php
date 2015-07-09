@@ -4,9 +4,11 @@ namespace Ojs\JournalBundle\Entity;
 
 use Ojs\UserBundle\Entity\User;
 use Doctrine\Common\Collections\Collection;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalUser
+ * @GRID\Source(columns="id, user.username, journal.title")
  */
 class JournalUser
 {

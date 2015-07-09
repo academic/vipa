@@ -1,0 +1,11 @@
+ojs_journal_user_index:
+    path:     /{journalId}/user
+    defaults: { _controller: OjsJournalBundle:JournalUser:index }
+
+ojs_journal_user_new:
+    path:     /{journalId}/user/new
+    defaults: { _controller: OjsJournalBundle:JournalUser:newUser }
+
+ojs_journal_user_create:
+    path:     /{journalId}/user/create
+    defaults: { _controller: OjsJournalBundle:JournalUser:createUser }

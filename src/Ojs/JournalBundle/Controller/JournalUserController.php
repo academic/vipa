@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -13,14 +14,15 @@ use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Common\Collections\Collection;
 use Ojs\JournalBundle\Entity\JournalRole;
 use Doctrine\ORM\Query;
 
 /**
- * JournalUsers controller.
+ * JournalUser controller.
  *
  */
-class JournalUsersController extends Controller
+class JournalUserController extends Controller
 {
     /**
      * Finds and displays a Users of a Journal with roles
@@ -33,36 +35,27 @@ class JournalUsersController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
 
-        $source = new Entity('OjsJournalBundle:JournalRole');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
-        $ta = $source->getTableAlias();
+        $source = new Entity('OjsJournalBundle:JournalUser');
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
+        $alias = $source->getTableAlias();
         $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb->andWhere($ta . '.journal = :journal')
+            function (QueryBuilder $qb) use ($journal, $alias) {
+                $qb->andWhere($alias . '.journal = :journal')
                     ->setParameter('journal', $journal);
             }
         );
-        $grid = $this->get('grid');
-        $gridAction = $this->get('grid_action');
-        $grid->setSource($source);
-        $actionColumn = new ActionsColumn("actions", "actions");
-        $rowAction = [];
 
-        $rowAction[] = $gridAction->showAction('ojs_journal_role_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_journal_role_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_role_delete', 'id');
-        $rowAction[] = $gridAction->sendMailAction('user_send_mail');
+        $grid = $this->get('grid');
+        $grid->setSource($source);
+
+        $rowAction = [];
+        $actionColumn = new ActionsColumn("actions", "actions");
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
-        $data = [];
-        $data['grid'] = $grid;
 
-        return $grid->getGridResponse(
-            'OjsJournalBundle:JournalRole:index.html.twig',
-            [
-                'grid' => $grid
-            ]
-        );
+        return $grid->getGridResponse('OjsJournalBundle:JournalUser:index.html.twig', $grid);
     }
 
     public function newUserAction()
@@ -71,11 +64,12 @@ class JournalUsersController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+
         $entity = new User();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
-            'OjsJournalBundle:JournalUsers:new_user.html.twig',
+            'OjsJournalBundle:JournalUser:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -86,7 +80,7 @@ class JournalUsersController extends Controller
     /**
      * Creates a new User entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createUserAction(Request $request)
@@ -95,9 +89,11 @@ class JournalUsersController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+
         $entity = new User();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $formData = $form->getData();
@@ -108,20 +104,19 @@ class JournalUsersController extends Controller
             $entity->setAvatar($request->get('user_avatar'));
             $em->persist($entity);
 
-            //add user journal roles
-            if(count($formData->getJournalRoles())>0){
-                foreach($formData->getJournalRoles() as $role){
-                    $userJournalRole = new JournalRole();
-                    $userJournalRole->setJournal($journal);
-                    $userJournalRole->setRole($role);
-                    $userJournalRole->setUser($entity);
-                    $em->persist($userJournalRole);
-                }
-            }
-            $em->flush();
+            $journalUser = new JournalUser();
+            $journalUser->setUser($entity);
+            $journalUser->setJournal($journal);
 
+            if (count($formData->getJournalRoles()) > 0) {
+                $journalUser->setRoles($formData->getJournalRoles());
+            }
+
+            $em->persist($journalUser);
+
+            $em->flush();
             $this->successFlashBag('successful.create');
-            return $this->redirectToRoute('ojs_journal_user_index');
+            return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
         }
 
         return $this->render(
@@ -135,16 +130,17 @@ class JournalUsersController extends Controller
 
     /**
      * Creates a form to create a User entity.
-     * @param  User $entity
-     * @return Form The form
+     * @param   integer $journalId
+     * @param   User    $entity
+     * @return  Form    The form
      */
-    private function createCreateForm(User $entity)
+    private function createCreateForm(User $entity, $journalId)
     {
         $form = $this->createForm(
             new JournalUserType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_user_create'),
+                'action' => $this->generateUrl('ojs_journal_user_create', ['journalId' => $journalId]),
                 'method' => 'POST',
             )
         );

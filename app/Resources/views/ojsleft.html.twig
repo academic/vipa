@@ -85,7 +85,7 @@
                         </a>
                     {% endif %}
 
-                    <a class="list-group-item" href="{{ path('ojs_journal_role_index') }}">
+                    <a class="list-group-item" href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-key"></i>
                         </span>
