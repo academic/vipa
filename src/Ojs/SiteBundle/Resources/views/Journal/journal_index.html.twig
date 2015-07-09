@@ -2,10 +2,17 @@
 {% block title %}{{ 'title.journal'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
+{% if isInstitutionHosting is defined %}
+    {% set journalUrl = url('institution_hosting_journal_index',{slug:journal.slug}) %}
+{% elseif isJournalHosting is defined %}
+{% else %}
+    {% set journalUrl = generateJournalUrl(journal) %}
+{% endif %}
+
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'link':generateJournalUrl(journal), 'title': journal.title}
+    {'link': journalUrl, 'title': journal.title}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
