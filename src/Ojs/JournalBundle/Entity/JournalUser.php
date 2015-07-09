@@ -19,11 +19,13 @@ class JournalUser
 
     /**
      * @var Journal
+     * @Grid\Column(field="journal.title", title="journal")
      */
     private $journal;
 
     /**
      * @var User
+     * @Grid\Column(field="user.username", title="user")
      */
     private $user;
 
