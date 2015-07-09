@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_file_index', {article: entity.article.id}),'title': 'title.article_files'|trans},
+        {'link': path('ojs_journal_article_file_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id}),'title': 'title.article_files'|trans},
         {'title': 'title.article_files_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -40,10 +40,12 @@
         {{ "save"|trans }}
     </button>
     {{ form_end(edit_form) }}
-    <div class="record_actions">
-        {% set delete_path = 'ojs_journal_article_file_delete' %}
-        {% include '::actionbuttons.html.twig' %}
-    </div>
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_article_file_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_article_file_delete', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+    })
+    }}
 
     {{ getLogs(entity) }}
 

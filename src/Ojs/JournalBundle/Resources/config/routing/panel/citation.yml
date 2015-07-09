@@ -1,5 +1,5 @@
 ojs_journal_citation_index:
-    path:     /
+    path:     /{journalId}/article/{articleId}/citation/
     defaults: { _controller: "OjsJournalBundle:Citation:index" }
 
 ojs_journal_citation_show:
