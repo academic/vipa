@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_citation_index'), 'title': 'title.citations'|trans},
+        {'link': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
         {'title': 'title.citation_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,6 +15,9 @@
 
     {{ form(edit_form) }}
 
-    {% set create_path = 'ojs_journal_citation_new' %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'create': {'href': path('ojs_journal_citation_new', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+    })
+    }}
 {% endblock %}
