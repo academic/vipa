@@ -59,8 +59,12 @@
             <div class="panel-heading">{{ "journal.plural"|trans }}</div>
             <ul class="list-group">
                 {% for journal in entity.journals %}
-                    <li class="list-group-item"><a
-                                href="{{ generateJournalUrl(journal) }}">{{ journal.title }}</a>
+                    <li class="list-group-item">
+                        <a href="{% if isHosting is defined %}
+                            {{ url('institution_hosting_journal_index', {slug: journal.slug}) }}
+                        {% else %}
+                            {{ generateJournalUrl(journal) }}
+                        {% endif %}">{{ journal.title }}</a>
                     </li>
                 {% endfor %}
             </ul>

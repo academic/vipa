@@ -118,7 +118,12 @@
                     </a>
                     {% if last_issue %}
                         <a class="list-group-item"
-                           href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}">
+                           href="{% if isInstitutionHosting is defined %}
+                                {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: last_issue.id}) }}
+                            {% elseif isJournalHosting is defined %}
+                            {% else %}
+                                {{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}
+                            {% endif %}">
                             <h5><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h5>
                         </a>
                     {% endif %}
@@ -210,7 +215,13 @@
                                     <ul>
                                         {% for issue in issues %}
                                             <li>
-                                                <a href="{{ url('ojs_issue_page',{journal_slug: journal.slug, institution: issue.journal.institution.slug,id: issue.id}) }}">
+                                                <a href="
+                                                {% if isInstitutionHosting is defined %}
+                                                    {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
+                                                {% elseif isJournalHosting is defined %}
+                                                {% else %}
+                                                    {{ url('ojs_issue_page',{journal_slug:journal.slug,id: issue.id, institution: journal.institution.slug}) }}
+                                                {% endif %}">
                                                     {{ "volume"|trans }}  {{ issue.volume }}
                                                     - {{ "issue.number"|trans }} {{ issue.number }}
                                                     {% if issue.special %}
@@ -245,7 +256,13 @@
                                 <ul>
                                     {% for article in last_issue.articles[:10] %}
                                         <li>
-                                            <a href="{{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}">{{ article.title }}</a>
+                                            <a href="
+                                            {% if isInstitutionHosting is defined %}
+                                                {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
+                                            {% elseif isJournalHosting is defined %}
+                                            {% else %}
+                                                {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
+                                            {% endif %}">{{ article.title }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
