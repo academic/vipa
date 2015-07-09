@@ -2,6 +2,10 @@ journal_institution_hosting:
     path:  /
     defaults: { _controller: OjsSiteBundle:Hosting:index }
 
+journal_hosting_archive:
+    path:  /archive
+    defaults: { _controller: OjsSiteBundle:Hosting:archiveIndex, isJournalHosting: true }
+
 institution_hosting_journal_index:
     path:  /{slug}
     defaults: { _controller: OjsSiteBundle:Hosting:journalIndex, slug: null}
@@ -21,3 +25,8 @@ institution_hosting_journal_issue_article:
 journal_hosting_issue_article:
     path:  /issue/{issue_id}/{article_id}
     defaults: { _controller: OjsSiteBundle:Hosting:articlePage, [issue_id: null, isJournalHosting: true]}
+
+institution_hosting_journal_archive:
+    path:  /{slug}/archive
+    defaults: { _controller: OjsSiteBundle:Hosting:archiveIndex }
+

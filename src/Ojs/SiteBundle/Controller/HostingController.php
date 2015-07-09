@@ -115,4 +115,40 @@ class HostingController extends Controller
 
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
+
+    public function archiveIndexAction(Request $request, $slug = null, $isJournalHosting = false)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentHost = $request->getHttpHost();
+        /** @var BlockRepository $blockRepo */
+        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        /** @var Journal $journal */
+        if(is_null($slug)){
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneByDomain($currentHost);
+        }else{
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        }
+        $this->throw404IfNotFound($journal);
+
+        /** @var Issue[] $issues */
+        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(
+            array('journalId' => $journal->getId())
+        );
+        $groupedIssues = [];
+        foreach ($issues as $issue) {
+            $groupedIssues[$issue->getYear()][] = $issue;
+        }
+        krsort($groupedIssues);
+        $data['groupedIssues'] = $groupedIssues;
+        $data['page'] = 'archive';
+        $data['blocks'] = $blockRepo->journalBlocks($journal);
+        $data['journal'] = $journal;
+        if($isJournalHosting){
+            $data['isJournalHosting'] = true;
+        }else{
+            $data['isInstitutionHosting'] = true;
+        }
+
+        return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
+    }
 }
