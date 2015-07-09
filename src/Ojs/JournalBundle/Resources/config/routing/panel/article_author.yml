@@ -1,29 +1,29 @@
 ojs_journal_article_author_index:
-    path:     /
+    path:     /{journalId}/article/{articleId}/author/
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:index" }
 
 ojs_journal_article_author_show:
-    path:     /{id}/show
+    path:     /{journalId}/article/{articleId}/author/{id}/show
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:show" }
 
 ojs_journal_article_author_new:
-    path:     /new
+    path:     /{journalId}/article/{articleId}/author/new
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:new" }
 
 ojs_journal_article_author_create:
-    path:     /create
+    path:     /{journalId}/article/{articleId}/author/create
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:create" }
     methods: [POST]
 
 ojs_journal_article_author_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/article/{articleId}/author/{id}/edit
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:edit" }
 
 ojs_journal_article_author_update:
-    path:     /{id}/update
+    path:     /{journalId}/article/{articleId}/author/{id}/update
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:update" }
     methods: [PUT]
 
 ojs_journal_article_author_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/article/{articleId}/author/{id}/delete
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:delete" }

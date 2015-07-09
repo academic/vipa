@@ -39,18 +39,20 @@ class ArticleAuthorController extends Controller
      * Creates a new ArticleAuthor entity.
      *
      * @param  Request          $request
+     * @param  Integer          $articleId
      * @return RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $articleId)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $entity = new ArticleAuthor();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $articleId);
         $data = $request->request->get($form->getName());
         $em = $this->getDoctrine()->getManager();
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($data['articleId']);
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($data['article']);
         /** @var Author $author */
-        $author = $em->getRepository('OjsJournalBundle:Author')->find($data['authorId']);
+        $author = $em->getRepository('OjsJournalBundle:Author')->find($data['author']);
         $entity->setArticle($article);
         $entity->setAuthor($author);
         $entity->setAuthorOrder($data['authorOrder']);
@@ -58,24 +60,25 @@ class ArticleAuthorController extends Controller
         $em->flush();
         $this->successFlashBag('successful.create');
 
-        return $this->redirect($this->generateUrl('ojs_journal_article_author_show', array('id' => $entity->getId())));
+        return $this->redirect($this->generateUrl('ojs_journal_article_author_show', array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)));
     }
 
     /**
      * Creates a form to create a ArticleAuthor entity.
      *
      * @param ArticleAuthor $entity The entity
+     * @param Integer $articleId
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ArticleAuthor $entity)
+    private function createCreateForm(ArticleAuthor $entity, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
             new ArticleAuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_article_author_create'),
+                'action' => $this->generateUrl('ojs_journal_article_author_create', ['articleId'=> $articleId, 'journalId'=> $journal->getId()]),
                 'method' => 'POST',
                 'journal' => $journal,
             )
@@ -88,17 +91,19 @@ class ArticleAuthorController extends Controller
     /**
      * Displays a form to create a new ArticleAuthor entity.
      *
+     * @param Integer $articleId
      */
-    public function newAction()
+    public function newAction($articleId)
     {
         $entity = new ArticleAuthor();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $articleId);
 
         return $this->render(
             'OjsJournalBundle:ArticleAuthor:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
+                'articleId' => $articleId,
             )
         );
     }
@@ -165,8 +170,7 @@ class ArticleAuthorController extends Controller
             new ArticleAuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_article_author_update', array('id' => $entity->getId())),
-                'journal_id' => $journal,
+                'action' => $this->generateUrl('ojs_journal_article_author_update', array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $entity->getArticleId())),
                 'method' => 'PUT',
             )
         );
@@ -184,6 +188,7 @@ class ArticleAuthorController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         /* @var $entity ArticleAuthor */
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
@@ -194,9 +199,9 @@ class ArticleAuthorController extends Controller
         //$editForm->handleRequest($request);
         $data = $request->request->get($editForm->getName());
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($data['articleId']);
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($data['article']);
         /** @var Author $author */
-        $author = $em->getRepository('OjsJournalBundle:Author')->find($data['authorId']);
+        $author = $em->getRepository('OjsJournalBundle:Author')->find($data['author']);
         $authorOrder = $data['authorOrder'];
         if ($article && $author) {
             $entity->setArticle($article);
@@ -207,7 +212,7 @@ class ArticleAuthorController extends Controller
 
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_journal_article_author_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_article_author_edit', array('id' => $id, 'journalId' => $journal->getId(), 'articleId' => $data['article'])));
         }
 
         return $this->render(
@@ -227,6 +232,7 @@ class ArticleAuthorController extends Controller
      */
     public function deleteAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
@@ -236,6 +242,6 @@ class ArticleAuthorController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('ojs_journal_article_author_index'));
+        return $this->redirect($this->generateUrl('ojs_journal_article_author_index', array('id' => $id, 'journalId' => $journal->getId(), 'articleId' => $entity->getArticleId())));
     }
 }
