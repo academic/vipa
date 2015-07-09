@@ -5,6 +5,7 @@
 {% if isInstitutionHosting is defined %}
     {% set journalUrl = url('institution_hosting_journal_index',{slug:article.journal.slug}) %}
 {% elseif isJournalHosting is defined %}
+    {% set journalUrl = url('institution_hosting_journal_index') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(article.journal) %}
 {% endif %}

@@ -5,6 +5,7 @@
 {% if isInstitutionHosting is defined %}
     {% set journalUrl = url('institution_hosting_journal_index',{slug:journal.slug}) %}
 {% elseif isJournalHosting is defined %}
+    {% set journalUrl = url('journal_institution_hosting') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(journal) %}
 {% endif %}
@@ -128,6 +129,7 @@
                            href="{% if isInstitutionHosting is defined %}
                                 {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: last_issue.id}) }}
                             {% elseif isJournalHosting is defined %}
+                                {{ url('journal_hosting_issue', {id: last_issue.id}) }}
                             {% else %}
                                 {{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}
                             {% endif %}">
@@ -226,6 +228,7 @@
                                                 {% if isInstitutionHosting is defined %}
                                                     {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
                                                 {% elseif isJournalHosting is defined %}
+                                                    {{ url('journal_hosting_issue',{id: issue.id}) }}
                                                 {% else %}
                                                     {{ url('ojs_issue_page',{journal_slug:journal.slug,id: issue.id, institution: journal.institution.slug}) }}
                                                 {% endif %}">
@@ -267,6 +270,7 @@
                                             {% if isInstitutionHosting is defined %}
                                                 {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
                                             {% elseif isJournalHosting is defined %}
+                                                {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
                                             {% else %}
                                                 {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
                                             {% endif %}">{{ article.title }}</a>

@@ -40,7 +40,7 @@ class HostingController extends Controller
             if(!$getJournalByDomain){
                 throw new NotFoundHttpException('This domain does not exist on this system');
             }
-            return $this->renderJournalTemplate($getJournalByDomain);
+            return $this->journalIndexAction($request, $getJournalByDomain->getSlug(), true);
         }
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', [
             'entity' => $getInstitutionByDomain,
@@ -48,7 +48,7 @@ class HostingController extends Controller
         ]);
     }
 
-    public function journalIndexAction(Request $request, $slug)
+    public function journalIndexAction(Request $request, $slug, $isJournalHosting = false)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -64,12 +64,16 @@ class HostingController extends Controller
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
-        $data['isInstitutionHosting'] = true;
+        if($isJournalHosting){
+            $data['isJournalHosting'] = true;
+        }else{
+            $data['isInstitutionHosting'] = true;
+        }
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
 
-    public function issuePageAction(Request $request, $id)
+    public function issuePageAction($id, $isJournalHosting = false)
     {
         $data = [];
         $em = $this->getDoctrine()->getManager();
@@ -80,12 +84,16 @@ class HostingController extends Controller
         $issue = $issueRepo->find($id);
         $data['issue'] = $issue;
         $data['blocks'] = $blockRepo->journalBlocks($issue->getJournal());
-        $data['isInstitutionHosting'] = true;
+        if($isJournalHosting){
+            $data['isJournalHosting'] = true;
+        }else{
+            $data['isInstitutionHosting'] = true;
+        }
 
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
     }
 
-    public function articlePageAction($slug, $article_id, $issue_id = null)
+    public function articlePageAction($slug = null, $article_id, $issue_id = null, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity Article */
@@ -99,7 +107,11 @@ class HostingController extends Controller
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
-        $data['isInstitutionHosting'] = true;
+        if($isJournalHosting){
+            $data['isJournalHosting'] = true;
+        }else{
+            $data['isInstitutionHosting'] = true;
+        }
 
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
