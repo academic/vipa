@@ -29,13 +29,11 @@ class ArticleController extends Controller
     /**
      * Lists all article entities for journal
      *
-     * @param   int $journalId
      * @return  Response
      */
-    public function indexAction($journalId)
+    public function indexAction()
     {
-        /* @var Journal $journal */
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
 
         if (!$this->isGranted('VIEW', $journal, 'articles'))
@@ -55,9 +53,9 @@ class ArticleController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $journalId]);
-        $rowAction[] = $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $journalId]);
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $journalId]);
+        $rowAction[] = $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $journal->getId()]);
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
@@ -70,13 +68,11 @@ class ArticleController extends Controller
     /**
      * Displays a form to create a new article entity
      *
-     * @param   int $journalId
      * @return  Response
      */
-    public function newAction($journalId)
+    public function newAction()
     {
-        /* @var Journal $journal */
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
 
         if (!$this->isGranted('CREATE', new Journal(), 'articles') &&
@@ -84,7 +80,7 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
 
         $entity = new Article();
-        $form = $this->createCreateForm($entity, $journalId);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render('OjsJournalBundle:Article:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]);
@@ -94,13 +90,11 @@ class ArticleController extends Controller
      * Creates a new Article entity.
      *
      * @param   Request $request
-     * @param   int $journalId
      * @return  RedirectResponse|Response
      */
-    public function createAction(Request $request, $journalId)
+    public function createAction(Request $request)
     {
-        /* @var Journal $journal */
-        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
 
         if (!$this->isGranted('CREATE', new Journal(), 'articles') &&
@@ -110,7 +104,7 @@ class ArticleController extends Controller
         $entity = new Article();
         $entity = $entity->setJournal($journal);
 
-        $form = $this->createCreateForm($entity, $journalId);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -160,13 +154,13 @@ class ArticleController extends Controller
      * Finds and displays an article entity
      *
      * @param   int $id
-     * @param   int $journalId
      * @return  Response
      */
-    public function showAction($journalId, $id)
+    public function showAction($id)
     {
         /* @var $entity Article */
         /* @var Journal $journal */
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
@@ -177,7 +171,7 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        if ($entity->getJournal()->getId() != $journalId) {
+        if ($entity->getJournal()->getId() != $journal->getId()) {
             throw new NotFoundHttpException();
         }
 
@@ -191,26 +185,27 @@ class ArticleController extends Controller
     /**
      * Displays a form to edit an existing article entity
      *
-     * @param   int $journalId
      * @param   int $id
      * @return  Response
      */
-    public function editAction($journalId, $id)
+    public function editAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         /** @var Article $entity */
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity, $journalId);
+        $editForm = $this->createEditForm($entity, $journal->getId());
 
         if (!$this->isGranted('EDIT', $entity->getJournal(), 'articles') &&
             !$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        if ($entity->getJournal()->getId() != $journalId) {
+        if ($entity->getJournal()->getId() != $journal->getId()) {
             throw new NotFoundHttpException();
         }
 
@@ -222,12 +217,13 @@ class ArticleController extends Controller
      * Edits an existing Article entity.
      *
      * @param   Request $request
-     * @param   int     $journalId
      * @param   int     $id
      * @return  RedirectResponse|Response
      */
-    public function updateAction(Request $request, $journalId, $id)
+    public function updateAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         /** @var Article $entity */
 
         $em = $this->getDoctrine()->getManager();
@@ -239,11 +235,11 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        if ($entity->getJournal()->getId() != $journalId) {
+        if ($entity->getJournal()->getId() != $journal->getId()) {
             throw new NotFoundHttpException();
         }
 
-        $editForm = $this->createEditForm($entity, $journalId);
+        $editForm = $this->createEditForm($entity, $journal->getId());
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -283,7 +279,7 @@ class ArticleController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_journal_article_edit', array('id' => $id, 'journalId' => $journalId)));
+            return $this->redirect($this->generateUrl('ojs_journal_article_edit', array('id' => $id, 'journalId' => $journal->getId())));
         }
 
         return $this->render(
@@ -315,11 +311,12 @@ class ArticleController extends Controller
      *
      * @param   Request $request
      * @param   int     $id
-     * @param   int     $journalId
      * @return  RedirectResponse
      */
-    public function deleteAction(Request $request, $journalId, $id)
+    public function deleteAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         /** @var Article $entity */
 
         $em = $this->getDoctrine()->getManager();
@@ -331,7 +328,7 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        if ($entity->getJournal()->getId() != $journalId) {
+        if ($entity->getJournal()->getId() != $journal->getId()) {
             throw new NotFoundHttpException();
         }
 
@@ -346,6 +343,6 @@ class ArticleController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('ojs_journal_article_index', ['journalId' => $journalId]));
+        return $this->redirect($this->generateUrl('ojs_journal_article_index', ['journalId' => $journal->getId()]));
     }
 }
