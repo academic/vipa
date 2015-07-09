@@ -3,24 +3,20 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper\FileHelper;
-use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
-use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
-use Ojs\JournalBundle\Entity\SubjectRepository;
-use Ojs\JournalBundle\Entity\Sums;
 use Ojs\SiteBundle\Entity\BlockRepository;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Yaml\Parser;
 
+/**
+ * Journal & Institution Hosting pages controller
+ * Class HostingController
+ * @package Ojs\SiteBundle\Controller
+ */
 class HostingController extends Controller
 {
 
@@ -48,6 +44,12 @@ class HostingController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param $slug
+     * @param bool $isJournalHosting
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function journalIndexAction(Request $request, $slug, $isJournalHosting = false)
     {
         /** @var EntityManager $em */
@@ -73,6 +75,11 @@ class HostingController extends Controller
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
 
+    /**
+     * @param $id
+     * @param bool $isJournalHosting
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function issuePageAction($id, $isJournalHosting = false)
     {
         $data = [];
@@ -93,6 +100,13 @@ class HostingController extends Controller
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
     }
 
+    /**
+     * @param null $slug
+     * @param $article_id
+     * @param null $issue_id
+     * @param bool $isJournalHosting
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function articlePageAction($slug = null, $article_id, $issue_id = null, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
@@ -116,6 +130,12 @@ class HostingController extends Controller
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
 
+    /**
+     * @param Request $request
+     * @param null $slug
+     * @param bool $isJournalHosting
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function archiveIndexAction(Request $request, $slug = null, $isJournalHosting = false)
     {
         $em = $this->getDoctrine()->getManager();
