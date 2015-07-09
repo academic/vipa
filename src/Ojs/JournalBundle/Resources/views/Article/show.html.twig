@@ -13,8 +13,8 @@
 {% block body -%}
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
-        <li role="presentation"><a href="{{ path('ojs_journal_article_file_index', {article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
-        <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {article: entity.id}) }}">{{ "title.citations"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_article_file_index', {'articleId': entity.id, 'journalId': entity.journal.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {'articleId': entity.id, 'journalId': entity.journal.id}) }}">{{ "title.citations"|trans }}</a></li>
     </ul>
 
     <h1>{{ 'article.detail'|trans }}
