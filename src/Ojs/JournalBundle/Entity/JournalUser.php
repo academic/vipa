@@ -16,12 +16,12 @@ class JournalUser
     private $id;
 
     /**
-     * @var Collection
+     * @var Journal
      */
     private $journal;
 
     /**
-     * @var Collection
+     * @var User
      */
     private $user;
 
@@ -47,7 +47,7 @@ class JournalUser
     }
 
     /**
-     * @return Collection
+     * @return Journal
      */
     public function getJournal()
     {
@@ -55,7 +55,7 @@ class JournalUser
     }
 
     /**
-     * @param Collection $journal
+     * @param Journal $journal
      */
     public function setJournal($journal)
     {
@@ -63,7 +63,7 @@ class JournalUser
     }
 
     /**
-     * @return Collection
+     * @return User
      */
     public function getUser()
     {
@@ -71,7 +71,7 @@ class JournalUser
     }
 
     /**
-     * @param Collection $user
+     * @param User $user
      */
     public function setUser($user)
     {
