@@ -1,0 +1,15 @@
+journal_institution_hosting:
+    path:  /
+    defaults: { _controller: OjsSiteBundle:Hosting:index }
+
+institution_hosting_journal_index:
+    path:  /{slug}
+    defaults: { _controller: OjsSiteBundle:Hosting:journalIndex }
+
+institution_hosting_journal_issue:
+    path: /{journal_slug}/issue/{id}
+    defaults: { _controller: OjsSiteBundle:Hosting:issuePage}
+
+institution_hosting_journal_issue_article:
+    path:  /{slug}/issue/{issue_id}/{article_id}
+    defaults: { _controller: OjsSiteBundle:Hosting:articlePage, issue_id: null}
