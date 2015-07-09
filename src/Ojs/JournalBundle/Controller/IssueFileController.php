@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  */
 class IssueFileController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -29,36 +29,29 @@ class IssueFileController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        $issue = $this->getDoctrine()
-            ->getRepository('OjsJournalBundle:Issue')
-            ->find($request->query->get('issue'));
-
         $source = new Entity('OjsJournalBundle:IssueFile');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
-        $issueId = $request->query->get('issue');
-        if($request->query->get('article') != null) {
-            $issue = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($issueId);
-            $this->throw404IfNotFound($issue);
+        $issue = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($issueId);
+        $this->throw404IfNotFound($issue);
 
-            $alias = $source->getTableAlias();
-            $source->manipulateQuery(
-                function (QueryBuilder $query) use ($alias, $issueId) {
-                    $query
-                        ->join($alias.'.issues', 'i')
-                        ->where('i.id = :issueId')
-                        ->setParameter('issueId', $issueId);
-                }
-            );
-        }
+        $alias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function (QueryBuilder $query) use ($alias, $issueId) {
+                $query
+                    ->join($alias.'.issue', 'i')
+                    ->where('i.id = :issueId')
+                    ->setParameter('issueId', $issueId);
+            }
+        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_issue_file_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_journal_issue_file_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_file_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_issue_file_show', ['id', 'journalId' => $journal->getId(), 'issueId' => $issueId]);
+        $rowAction[] = $gridAction->editAction('ojs_journal_issue_file_edit', ['id', 'journalId' => $journal->getId(), 'issueId' => $issueId]);
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_file_delete', ['id', 'journalId' => $journal->getId(), 'issueId' => $issueId]);
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
@@ -72,7 +65,7 @@ class IssueFileController extends Controller
     /**
      * Creates a new IssueFile entity.
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -81,7 +74,8 @@ class IssueFileController extends Controller
         }
 
         $entity = new IssueFile();
-        $form = $this->createCreateForm($entity);
+        $entity->setIssueId($issueId);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->submit($request);
 
         if ($form->isValid()) {
@@ -91,8 +85,8 @@ class IssueFileController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_issue_edit',
-                ['id' => $entity->getIssueId(), 'journalId' => $entity->getIssue()->getJournal()->getId()]));
+            return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId(), 'issueId' => $entity->getIssueId()]));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:new.html.twig', array(
@@ -108,7 +102,7 @@ class IssueFileController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(IssueFile $entity)
+    private function createCreateForm(IssueFile $entity, $journalId)
     {
         $languages = $this->container->getParameter('languages');
         $langs = [];
@@ -117,7 +111,7 @@ class IssueFileController extends Controller
         }
 
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('ojs_journal_issue_file_create'),
+            'action' => $this->generateUrl('ojs_journal_issue_file_create', array('journalId' => $journalId, 'issueId' => $entity->getIssueId())),
             'method' => 'POST',
             'languages' => $langs,
         ]);
@@ -128,7 +122,7 @@ class IssueFileController extends Controller
     /**
      * Displays a form to create a new IssueFile entity.
      */
-    public function newAction(Request $request, $issue)
+    public function newAction(Request $request, $issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -136,9 +130,9 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
         $entity = new IssueFile();
-        $entity->setIssueId($issue);
+        $entity->setIssueId($issueId);
 
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render('OjsJournalBundle:IssueFile:new.html.twig', array(
             'entity' => $entity,
@@ -161,8 +155,6 @@ class IssueFileController extends Controller
         }
 
         $this->throw404IfNotFound($entity);
-
-        $deleteForm = $this->createDeleteForm($id);
 
         $token = $this
             ->get('security.csrf.token_manager')
@@ -192,12 +184,10 @@ class IssueFileController extends Controller
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:IssueFile:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -216,7 +206,7 @@ class IssueFileController extends Controller
             $langs[$lang['code']] = $lang['name'];
         }
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('ojs_journal_issue_file_update', ['id' => $entity->getId()]),
+            'action' => $this->generateUrl('ojs_journal_issue_file_update', ['id' => $entity->getId(), 'journalId' => $entity->getIssue()->getJournalId(), 'issueId' => $entity->getIssueId()]),
             'method' => 'PUT',
             'languages' => $langs,
         ]);
@@ -243,20 +233,18 @@ class IssueFileController extends Controller
             throw $this->createNotFoundException('Unable to find IssueFile entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit', array('id' => $id, 'journalId' => $journal->getId(), 'issueId' => $entity->getIssueId())));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -265,10 +253,8 @@ class IssueFileController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $issue = null;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
-        $issue = $entity->getIssue()->getId();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         if (!$this->isGranted('DELETE', $journal, 'issues')) {
@@ -285,22 +271,6 @@ class IssueFileController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
-        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index', ['issue' => $issue]));
-    }
-
-    /**
-     * Creates a form to delete a IssueFile entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ojs_journal_issue_file_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index', ['journalId' => $journal->getId(), 'issueId' => $entity->getIssueId()]));
     }
 }
