@@ -2,10 +2,17 @@
 {% block title %}{{ 'title.article'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
+{% if isInstitutionHosting is defined %}
+    {% set journalUrl = url('institution_hosting_journal_index',{slug:article.journal.slug}) %}
+{% elseif isJournalHosting is defined %}
+{% else %}
+    {% set journalUrl = generateJournalUrl(article.journal) %}
+{% endif %}
+
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'link': generateJournalUrl(article.journal),'title': article.journal.title},
+    {'link': journalUrl,'title': article.journal.title},
     {'link': path("ojs_archive_index",{"slug" : article.journal.slug,institution: journal.institution.slug}), 'title': "archive"|trans }
     ] %}
     {{ breadcrumb(list) }}
@@ -20,7 +27,12 @@
                         <div id="articleTitle">
                             {% if article.header %}
                                 {% set imageoptions=getImageOptions(article,'header','article_header') %}
-                                <a href="{{ generateJournalUrl(article.journal) }}">
+                                <a href="
+                                {% if isInstitutionHosting is defined %}
+                                    {{ url('institution_hosting_journal_index', {slug: article.journal.slug}) }}
+                                {% else %}
+                                    {{ generateJournalUrl(article.journal) }}
+                                {% endif %}">
                                     <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                                          data-src="holder.js/960x200/random/text:{{ journal.title }}"
                                          class="img-responsive img-rounded float-left" alt="{{ article.title }}"/>

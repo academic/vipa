@@ -60,7 +60,7 @@
             <ul class="list-group">
                 {% for journal in entity.journals %}
                     <li class="list-group-item">
-                        <a href="{% if isHosting is defined %}
+                        <a href="{% if isInstitutionHosting is defined %}
                             {{ url('institution_hosting_journal_index', {slug: journal.slug}) }}
                         {% else %}
                             {{ generateJournalUrl(journal) }}

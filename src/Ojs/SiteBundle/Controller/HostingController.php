@@ -44,7 +44,7 @@ class HostingController extends Controller
         }
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', [
             'entity' => $getInstitutionByDomain,
-            'isHosting' => true
+            'isInstitutionHosting' => true
         ]);
     }
 
