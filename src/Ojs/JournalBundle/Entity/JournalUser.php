@@ -77,7 +77,7 @@ class JournalUser
     {
         $this->user = $user;
     }
-    
+
     /**
      * @return Collection
      */

@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\JournalUser:
     type: entity
-    table: null
+    table: journal_user
     repositoryClass: Ojs\JournalBundle\Entity\JournalUserRepository
 
     manyToOne:
