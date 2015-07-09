@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_citation_index'), 'title': 'title.citations'|trans},
+        {'link': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'title': 'title.citations'|trans},
         {'title': 'title.citation_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -55,9 +55,9 @@
     </table>
     {{
     actions({
-        'back': {'href': path('ojs_journal_citation_index')},
-        'edit': {'href': path('ojs_journal_citation_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_citation_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_citation_edit', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_citation_delete', {'id': entity.id, 'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}

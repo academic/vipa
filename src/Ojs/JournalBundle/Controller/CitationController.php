@@ -24,9 +24,10 @@ class CitationController extends Controller
      * Lists all Citation entities.
      *
      * @param   Request $request
+     * @param   Integer $articleId
      * @return  Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -39,14 +40,14 @@ class CitationController extends Controller
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
-        if($request->query->get('article') != null) {
+        if($articleId != null) {
             $alias = $source->getTableAlias();
             $source->manipulateQuery(
-                function (QueryBuilder $query) use ($alias, $request) {
+                function (QueryBuilder $query) use ($alias, $articleId) {
                     $query
                         ->join($alias.'.articles', 'a')
                         ->where('a.id = :articleId')
-                        ->setParameter('articleId', $request->query->get('article'));
+                        ->setParameter('articleId', $articleId);
                 }
             );
         }
@@ -54,9 +55,9 @@ class CitationController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_citation_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_journal_citation_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_citation_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_citation_show', ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]);
+        $rowAction[] = $gridAction->editAction('ojs_journal_citation_edit', ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]);
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_citation_delete', ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]);
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
@@ -64,9 +65,10 @@ class CitationController extends Controller
     }
     /**
      * Creates a new Citation entity.
+     * @param   Integer $articleId
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -76,7 +78,7 @@ class CitationController extends Controller
         }
 
         $entity = new Citation();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $articleId);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -84,7 +86,7 @@ class CitationController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_citation_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ojs_journal_citation_show', array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)));
         }
 
         return $this->render('OjsJournalBundle:Citation:new.html.twig', array(
@@ -97,13 +99,15 @@ class CitationController extends Controller
      * Creates a form to create a Citation entity.
      *
      * @param Citation $entity The entity
+     * @param Integer $articleId
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Citation $entity)
+    private function createCreateForm(Citation $entity, $articleId)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(new CitationType(), $entity, array(
-            'action' => $this->generateUrl('ojs_journal_citation_create'),
+            'action' => $this->generateUrl('ojs_journal_citation_create', array('journalId' => $journal->getId(), 'articleId' => $articleId)),
             'method' => 'POST',
         ));
 
@@ -114,9 +118,10 @@ class CitationController extends Controller
 
     /**
      * Displays a form to create a new Citation entity.
+     * @param   Integer $articleId
      *
      */
-    public function newAction()
+    public function newAction($articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -126,7 +131,7 @@ class CitationController extends Controller
         }
 
         $entity = new Citation();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $articleId);
 
         return $this->render('OjsJournalBundle:Citation:new.html.twig', array(
             'entity' => $entity,
@@ -166,9 +171,10 @@ class CitationController extends Controller
 
     /**
      * Displays a form to edit an existing Citation entity.
+     * @param   Integer $articleId
      *
      */
-    public function editAction($id)
+    public function editAction($id, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -184,7 +190,7 @@ class CitationController extends Controller
             throw $this->createNotFoundException('Unable to find Citation entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $articleId);
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
             'entity'      => $entity,
@@ -196,13 +202,15 @@ class CitationController extends Controller
     * Creates a form to edit a Citation entity.
     *
     * @param Citation $entity The entity
+    * @param Integer $articleId
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Citation $entity)
+    private function createEditForm(Citation $entity, $articleId)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(new CitationType(), $entity, array(
-            'action' => $this->generateUrl('ojs_journal_citation_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('ojs_journal_citation_update', array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)),
             'method' => 'PUT',
         ));
 
@@ -213,8 +221,9 @@ class CitationController extends Controller
     /**
      * Edits an existing Citation entity.
      *
+     * @param   Integer $articleId
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -230,13 +239,13 @@ class CitationController extends Controller
             throw $this->createNotFoundException('Unable to find Citation entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $articleId);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_citation_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ojs_journal_citation_edit', array('id' => $id, 'journalId' => $journal->getId(), 'articleId' => $articleId)));
         }
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
@@ -247,8 +256,9 @@ class CitationController extends Controller
     /**
      * Deletes a Citation entity.
      *
+     * @param   Integer $articleId
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $id, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
@@ -273,6 +283,6 @@ class CitationController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('ojs_journal_citation_index'));
+        return $this->redirect($this->generateUrl('ojs_journal_citation_index', array('journalId' => $journal->getId(), 'articleId' => $articleId)));
     }
 }
