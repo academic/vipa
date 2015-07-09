@@ -63,4 +63,3 @@ ojs_journal_author:
 
 ojs_journal_article_author:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article_author.yml"
-    prefix:   /article-author

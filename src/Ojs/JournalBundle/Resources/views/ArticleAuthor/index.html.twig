@@ -11,8 +11,9 @@
 
 {% block body -%}
     <h1>{{ 'title.article_authors'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', selectedJournal(), 'article_authors') %}
-        <a href="{{ path('ojs_journal_article_author_new') }}" class="btn btn-success">
+        <a href="{{ path('ojs_journal_article_author_new', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "articleauthor_new"|trans }}
         </a>
     {% endif %}
@@ -31,19 +32,22 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('ojs_journal_article_author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('ojs_journal_article_author_show', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id}) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.authorOrder }}</td>
                 <td>
-                    <a href="{{ path('ojs_journal_author_show',{id:entity.author.Id }) }}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}
+                    <a href="{{ path('ojs_journal_author_show', {'id': entity.authorId, 'journalId': selectedJournal().id}) }}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}
                 </td>
                 <td>
-                    <a href="{{ path('ojs_journal_article_show', {id:entity.article.Id, journalId: entity.article.journal.id}) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                    <a href="{{ path('ojs_journal_article_show', {'id': entity.articleId, 'journalId': selectedJournal().id}) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
                 </td>
                 <td>
-                    {% set show_path = 'ojs_journal_article_author_show' %}
-                    {% set edit_path = 'ojs_journal_article_author_edit' %}
-                    {% set delete_path = 'ojs_journal_article_author_delete' %}
-                    {% include '::actionbuttons.html.twig' %}
+                    {{
+                    actions({
+                        'show': {'href': path('ojs_journal_article_author_show', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+                        'edit': {'href': path('ojs_journal_article_author_edit', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+                        'delete': {'href': path('ojs_journal_article_author_delete', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+                    })
+                    }}
                 </td>
             </tr>
         {% endfor %}

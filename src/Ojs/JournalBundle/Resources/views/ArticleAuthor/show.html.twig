@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_journal_article_author_index'),'title': 'article.author'|trans},
+    { 'link': path('ojs_journal_article_author_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id}),'title': 'article.author'|trans},
     {'title': 'title.article_authors_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -31,15 +31,18 @@
         <tr>
             <th>{{ "article.singular"|trans }}</th>
             <td>
-                <a href="{{ path('ojs_journal_article_show',{id:entity.article.Id, journalId: entity.article.journal.id }) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
+                <a href="{{ path('ojs_journal_article_show', {'id': entity.articleId, 'journalId': selectedJournal().id}) }}">#{{ entity.article.Id }}</a> {{ entity.article.title }}
             </td>
         </tr>
         </tbody>
     </table>
 
-    {% set back_path = 'ojs_journal_article_author_index' %}
-    {% set edit_path = 'ojs_journal_article_author_edit' %}
-    {% set delete_path = 'ojs_journal_article_author_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_article_author_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_article_author_edit', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_article_author_delete', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id})},
+    })
+    }}
 
 {% endblock %}
