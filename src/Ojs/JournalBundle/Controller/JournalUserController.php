@@ -5,17 +5,16 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalUser;
-use Ojs\JournalBundle\Form\Type\JournalUserType;
+use Ojs\JournalBundle\Form\Type\JournalNewUserType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\Common\Collections\Collection;
-use Ojs\JournalBundle\Entity\JournalRole;
 use Doctrine\ORM\Query;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
@@ -123,7 +122,7 @@ class JournalUserController extends Controller
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminUser:new.html.twig',
+            'OjsJournalBundle:JournalUser:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -140,10 +139,51 @@ class JournalUserController extends Controller
     private function createCreateForm(User $entity, $journalId)
     {
         $form = $this->createForm(
-            new JournalUserType(),
+            new JournalNewUserType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_user_create', ['journalId' => $journalId]),
+                'method' => 'POST',
+            )
+        );
+
+        return $form;
+    }
+
+    public function addUserAction(Request $request)
+    {
+        $entity = new JournalUser();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $form = $this->createAddForm($entity, $journal->getId());
+
+        if (!$this->isGranted('CREATE', $journal, 'userRole')) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $entity->setJournal($journal);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+        }
+
+        return $this->render(
+            'OjsJournalBundle:JournalUser:add.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
+    }
+
+    private function createAddForm(JournalUser $entity, $journalId)
+    {
+        $form = $this->createForm(
+            new JournalUserType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_journal_user_add', ['journalId' => $journalId]),
                 'method' => 'POST',
             )
         );
