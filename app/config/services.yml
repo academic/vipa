@@ -3,15 +3,6 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
-    kernel.listener.domain_listener:
-       class: Ojs\Common\Services\DomainListener
-       arguments:
-            [@doctrine.orm.entity_manager, @templating, %base_host%]
-       tags:
-            -
-                name: kernel.event_listener
-                method: onKernelRequest
-                event: kernel.request
     ojs_locale.locale_listener:
         class: Ojs\Common\Services\LocaleListener
         arguments: ["%kernel.default_locale%"]
