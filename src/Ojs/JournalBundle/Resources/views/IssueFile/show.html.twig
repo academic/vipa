@@ -3,7 +3,7 @@
 {% block body -%}
     <h1>IssueFile</h1>
 
-    <table class="record_properties">
+    <table class="record_properties  table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -62,9 +62,9 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_issue_file_index', {issue: entity.issueId})},
-        'edit': {'href': path('ojs_journal_issue_file_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_issue_file_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_issue_file_index', {'issueId': entity.issueId, 'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_issue_file_edit', {'id': entity.id, 'issueId': entity.issueId, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_issue_file_delete', {'id': entity.id, 'issueId': entity.issueId, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 </ul>
