@@ -140,7 +140,13 @@
                     <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
                        class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                     </a>
-                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                    <a href="{% if isInstitutionHosting is defined %}
+                                {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+                            {% elseif isJournalHosting is defined %}
+                                {{ url('journal_hosting_archive') }}
+                            {% else %}
+                                {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+                            {% endif %}"
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
 
@@ -250,7 +256,13 @@
 
                         </ul>
                         <a class="btn btn-primary "
-                           href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}">
+                           href="{% if isInstitutionHosting is defined %}
+                                    {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+                                {% elseif isJournalHosting is defined %}
+                                    {{ url('journal_hosting_archive') }}
+                                {% else %}
+                                    {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+                                {% endif %}">
                             <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
 
                     </div>
