@@ -43,26 +43,24 @@
                                 {% for issue in groupedIssues[year] %}
                                     <div class="col-md-3">
                                         <div class="thumbnail">
-                                            <a href="{% if isInstitutionHosting is defined %}
+                                            <a class="btn" href="{% if isInstitutionHosting is defined %}
                                                     {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
                                                 {% elseif isJournalHosting is defined %}
                                                     {{ url('journal_hosting_issue',{id: issue.id}) }}
                                                 {% else %}
                                                     {{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}
                                                 {% endif %}">
-                                                {% if issue.cover is defined %}
 
+                                                {% if issue.cover is not null %}
                                                     <img src="{{ ('/uploads/journalfiles/'~imagePath(issue.cover))|imagine_filter('issue_cover_medium') }}"
                                                          data-src="holder.js/180x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
                                                          class="img-responsive"/>
                                                 {% endif %}
 
-                                                <p>
-                                                    {{ "volume"|trans }} : {{ issue.volume }}
-                                                    {{ "issue"|trans }} : {{ issue.number }}
+                                                {{ "volume"|trans }} : {{ issue.volume }}
+                                                {{ "issue"|trans }} : {{ issue.number }}
 
-                                                    {% if issue.title %}-  {{ issue.title }} {% endif %}
-                                                </p>
+                                                {% if issue.title %}-  {{ issue.title }} {% endif %}
 
                                             </a>
                                         </div>
