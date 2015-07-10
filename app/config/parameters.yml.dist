@@ -26,8 +26,15 @@ parameters:
     elasticsearch_host: 127.0.0.1
     mongodb_host: 127.0.0.1
     cms_show_routes:
-        Ojs\JournalBundle\Entity\Journal: journal_show
-        Ojs\JournalBundle\Entity\Article: article_show
+        Ojs\JournalBundle\Entity\Journal:
+            name: ojs_admin_journal_index
+            parameters:
+                - id
+        Ojs\JournalBundle\Entity\Article:
+            name: ojs_journal_article_index
+            parameters:
+                - id
+                - journalId
     orcid:
         client_id:
         client_secret:
