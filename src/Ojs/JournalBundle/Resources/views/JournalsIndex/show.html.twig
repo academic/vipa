@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_index_index',{journal: entity.journal.id}),'title': 'journals.index'|trans},
+    {'link': path('ojs_journal_index_index', {'journalId': selectedJournal().id}),'title': 'journals.index'|trans},
     {'title': 'title.journals_index_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,7 +14,7 @@
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
     <h1>{{ 'journalsindex.plural'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties">
+    <table class="record_properties  table">
         <tbody>
         <tr>
             <th>ID</th>
@@ -37,9 +37,9 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_index_index')},
-        'edit': {'href': path('ojs_journal_index_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_index_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_index_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_index_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_index_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 

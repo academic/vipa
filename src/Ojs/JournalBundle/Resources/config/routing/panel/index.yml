@@ -1,32 +1,32 @@
 ojs_journal_index_index:
-    path:     /{journal}
+    path:     /{journalId}/index/
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:index", journal: 0 }
     requirements:
       journal: \d+
 
 ojs_journal_index_show:
-    path:     /{id}/show
+    path:     /{journalId}/index/{id}/show
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:show" }
 
 ojs_journal_index_new:
-    path:     /new/{journal}
+    path:     /{journalId}/index/new/
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:new",journal: null }
 
 ojs_journal_index_create:
-    path:     /create/{journal}
+    path:     /{journalId}/index/create/
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:create",journal: null }
     methods:  POST
 
 ojs_journal_index_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/index/{id}/edit
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:edit" }
 
 ojs_journal_index_update:
-    path:     /{id}/update
+    path:     /{journalId}/index/{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:update" }
     methods: [PUT]
 
 ojs_journal_index_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/index/{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalsIndex:delete" }
     methods: [DELETE]
