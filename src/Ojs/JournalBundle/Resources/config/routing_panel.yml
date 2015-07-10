@@ -25,7 +25,6 @@ ojs_journal_theme:
     prefix:   /theme
 
 ojs_journal_design:
-    prefix:   /design
     resource: "@OjsJournalBundle/Resources/config/routing/panel/design.yml"
 
 ojs_journal_issue_file:
