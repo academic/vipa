@@ -96,24 +96,25 @@
                                 {{ article.abstract|raw }}
                             </div>
                         </div>
+                        {% set keywords = article.keywords|split(',') %}
+                        {% if keywords|length %}
+                            <div id="articleKeywords">
+                                <h4 class="page-header">{{ "keywords"|trans }}</h4>
 
-                        <div id="articleKeywords">
-                            <h4 class="page-header">{{ "keywords"|trans }}</h4>
-
-                            <div>
-                                {% set keywords = article.keywords|split(',') %}
-                                {% for keyword in keywords %}
-                                    <a
-                                    href="{{ path('ojs_search_index',{ 'q': keyword }) }}">{{ keyword }}</a>{% if not loop.last %}, {% endif %}
-                                {% endfor %}
+                                <div>
+                                    {% for keyword in keywords %}
+                                        <a
+                                        href="{{ path('ojs_search_index',{ 'q': keyword }) }}">{{ keyword }}</a>{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                         <hr>
                         <div id="files">
                             {% for file in article.articleFiles %}
                                 {% if file.type==0 %}
                                     <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
-                                        <i class="fa fa-file-pdf-o"></i> <abbr
+                                        <abbr
                                                 title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ "article.fulltext"|trans }}</abbr>
                                     </a>
                                 {% endif %}
@@ -202,10 +203,10 @@
 
                         <div id="articlePreview">
                             {% for file in article.articleFiles %}
-                            {% if file.type==0 %}
-                                <iframe src="https://docs.google.com/gview?url=http://{{ base_host }}{{ download(file.file) }}&amp;embedded=true"
-                                        style="width:100%; height:500px;" frameborder="0"></iframe>
-                            {% endif %}
+                                {% if file.type==0 %}
+                                    <iframe src="https://docs.google.com/gview?url=http://{{ base_host }}{{ download(file.file) }}&amp;embedded=true"
+                                            style="width:100%; height:500px;" frameborder="0"></iframe>
+                                {% endif %}
                             {% endfor %}
                         </div>
 
