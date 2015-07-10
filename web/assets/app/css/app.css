@@ -1062,7 +1062,7 @@ a.vimeo:hover * { color:#FFF; }
 .ds-btn li{ list-style:none; float:left; padding:10px; }
 .ds-btn li a span{padding-left:15px;padding-right:5px;width:100%;display:inline-block; text-align:left;}
 .ds-btn li a span small{width:100%; display:inline-block; text-align:left;}
-#header h1{  font-size: 20px; font-weight: bold; }
+.page-header h1,#header h1{  font-size: 20px; font-weight: bold; }
 h2.title { font-size: 20px; }
 .nopadding{ padding: 0 !important;}
 
