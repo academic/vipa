@@ -79,6 +79,12 @@
                                     <span><i class="fa fa-download"></i> {{ stat(article.id,'article','download') }} </span>
                                 </small>
                             </h2>
+
+                            <div id="doiInfo">
+
+                                <p class="text-success"><a href="#" class="btn btn-success">{{ 'doi'|trans }}: {{ article.doi }}</a></p>
+
+                            </div>
                         </div>
                         <hr/>
 
@@ -112,12 +118,6 @@
                             {% endfor %}
                         </div>
 
-                        <div id="doiInfo">
-                            <h4 class="page-header">{{ 'doi'|trans }}</h4>
-
-                            <p class="text-success"><a href="#" class="btn btn-success">{{ article.doi }}</a></p>
-
-                        </div>
 
                         <div>
                             <h4 class="page-header">{{ "tools"|trans }}</h4>
