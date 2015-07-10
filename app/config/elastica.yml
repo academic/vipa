@@ -16,20 +16,6 @@ fos_elastica:
                         tags: ~
                         subjects: {"index": "not_analyzed"}
                         avatar: ~
-                        userJournalRoles:
-                            type: object
-                            properties:
-                                journal:
-                                    type: object
-                                    include_in_all: false
-                                    properties:
-                                        id: ~
-                                        title: {"index": "not_analyzed"}
-                                role:
-                                    type: object
-                                    properties:
-                                        id: ~
-                                        name: {"index": "not_analyzed"}
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User

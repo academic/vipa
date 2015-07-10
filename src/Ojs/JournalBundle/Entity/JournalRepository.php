@@ -378,8 +378,8 @@ class JournalRepository extends EntityRepository
     public function findAllByUser(User $user)
     {
         $query = $this->createQueryBuilder('j')
-            ->join('j.userRoles', 'ujr')
-            ->andWhere('ujr.user = :user')
+            ->join('j.journalUsers', 'journal_user')
+            ->andWhere('journal_user.user = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
@@ -394,8 +394,8 @@ class JournalRepository extends EntityRepository
     public function findOneByUser(User $user)
     {
         $query = $this->createQueryBuilder('j')
-            ->join('j.userRoles', 'ujr')
-            ->andWhere('ujr.user = :user')
+            ->join('j.journalUsers', 'journal_user')
+            ->andWhere('journal_user.user = :user')
             ->setParameter('user', $user)
             ->setMaxResults(1)
             ->getQuery()
