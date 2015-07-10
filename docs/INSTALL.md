@@ -46,3 +46,11 @@ You need to run `$ bower install` to get external JavaScript and CSS libraries. 
 Troubleshooting
 ----------------
 If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Apache's own log file.
+
+Magic Install Command
+----------------
+
+```bash
+composer update -o -vvv && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && mysql -u root -p -e "DROP DATABASE IF EXISTS ojs;create database ojs;" && php app/console ojs:install
+
+```
