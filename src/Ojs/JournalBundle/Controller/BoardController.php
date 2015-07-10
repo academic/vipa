@@ -158,7 +158,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        $board = $em->getRepository('OjsJournalBundle:Board')->find(
+        $board = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
             array('id' => $id, 'journal' => $journal)
         );
         $this->throw404IfNotFound($board);
