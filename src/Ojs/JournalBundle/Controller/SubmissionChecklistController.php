@@ -52,9 +52,9 @@ class SubmissionChecklistController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('ojs_journal_checklist_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_journal_checklist_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_checklist_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_checklist_show', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->editAction('ojs_journal_checklist_edit', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_checklist_delete', ['id', 'journalId' => $journal->getId()]);
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -78,7 +78,7 @@ class SubmissionChecklistController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new SubmissionChecklist();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -90,7 +90,7 @@ class SubmissionChecklistController extends Controller
             $this->successFlashBag('successful.create');
 
             return $this->redirect(
-                $this->generateUrl('ojs_journal_checklist_show', array('id' => $entity->getId()))
+                $this->generateUrl('ojs_journal_checklist_show', array('id' => $entity->getId(), 'journalId' => $journal->getId()))
             );
         }
 
@@ -110,7 +110,7 @@ class SubmissionChecklistController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(SubmissionChecklist $entity)
+    private function createCreateForm(SubmissionChecklist $entity, $journalId)
     {
         $languages = [];
         if (is_array($this->container->getParameter('languages'))) {
@@ -124,7 +124,7 @@ class SubmissionChecklistController extends Controller
             new SubmissionChecklistType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_checklist_create'),
+                'action' => $this->generateUrl('ojs_journal_checklist_create', ['journalId' => $journalId]),
                 'languages' => $languages,
                 'method' => 'POST',
             )
@@ -147,7 +147,7 @@ class SubmissionChecklistController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new SubmissionChecklist();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
             'OjsJournalBundle:SubmissionChecklist:new.html.twig',
@@ -231,7 +231,7 @@ class SubmissionChecklistController extends Controller
             new SubmissionChecklistType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_checklist_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_checklist_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
                 'languages' => $languages,
                 'method' => 'PUT',
             )
@@ -264,7 +264,7 @@ class SubmissionChecklistController extends Controller
             $this->successFlashBag('successful.update');
 
             return $this->redirect(
-                $this->generateUrl('ojs_journal_checklist_edit', array('id' => $entity->getId()))
+                $this->generateUrl('ojs_journal_checklist_edit', array('id' => $entity->getId(), 'journalId' => $journal->getId()))
             );
         }
 
@@ -302,6 +302,6 @@ class SubmissionChecklistController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_journal_checklist_index');
+        return $this->redirectToRoute('ojs_journal_checklist_index', ['journalId' => $journal->getId()]);
     }
 }

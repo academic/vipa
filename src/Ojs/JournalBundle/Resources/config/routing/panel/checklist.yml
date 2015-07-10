@@ -1,30 +1,30 @@
 ojs_journal_checklist_index:
-    path:     /
+    path:     /{journalId}/checklist/
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:index" }
 
 ojs_journal_checklist_show:
-    path:     /{id}/show
+    path:     /{journalId}/checklist/{id}/show
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:show" }
 
 ojs_journal_checklist_new:
-    path:     /new
+    path:     /{journalId}/checklist/new
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:new" }
 
 ojs_journal_checklist_create:
-    path:     /create
+    path:     /{journalId}/checklist/create
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:create" }
     methods:  POST
 
 ojs_journal_checklist_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/checklist/{id}/edit
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:edit" }
 
 ojs_journal_checklist_update:
-    path:     /{id}/update
+    path:     /{journalId}/checklist/{id}/update
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:update" }
     methods: [PUT]
 
 ojs_journal_checklist_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/checklist/{id}/delete
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:delete" }
     methods: [DELETE]

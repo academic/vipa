@@ -9,7 +9,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_checklist_index'),'title': 'submission_checklist.show'|trans},
+    {'link': path('ojs_journal_checklist_index', {'journalId': selectedJournal().id}),'title': 'submission_checklist.show'|trans},
     {'title': 'title.submission_checklist_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -20,11 +20,12 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'ojs_journal_checklist_index' %}
-    {% if is_granted('DELETE', selectedJournal(), 'checklist') %}
-        {% set delete_path = 'ojs_journal_checklist_delete' %}
-    {% endif %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_checklist_index', {'journalId': selectedJournal().id})},
+        'deete': {'href': path('ojs_journal_checklist_delete', {'id': entity.id, 'journalId': selectedJournal().id})},
+    })
+    }}
 
     {{ getLogs(entity) }}
 {% endblock %}
