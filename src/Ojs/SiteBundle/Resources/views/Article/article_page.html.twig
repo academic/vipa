@@ -217,7 +217,97 @@
                 <!-- /content -->
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
+                <div class="list-group journal-stats">
+                    <div class="list-group-item ">
+                        <form role="search" action="/search" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}"
+                                       name="q">
+
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <a href="//{{ base_host }}{{ path('article_submission_new_with_journalId',{"journalId":journal.id}) }}"
+                       class="list-group-item list-group-item-success"><h5><i
+                                    class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                    </a>
+
+
+                    <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+                    </a>
+
+                    <a href="{% if isInstitutionHosting is defined %}
+                                {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+                            {% elseif isJournalHosting is defined %}
+                                {{ url('journal_hosting_archive') }}
+                            {% else %}
+                                {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+                            {% endif %}"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                    </a>
+
+                    <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
+                        </h5>
+                    </a>
+                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+                    </a>
+
+
+                    {% if enable_social is defined %}
+                        <a href="#" class="list-group-item facebook-like">
+                            <h3 class="pull-right">
+                                <i class="fa fa-facebook-square"></i>
+                            </h3>
+                            <h5 class="list-group-item-heading count">
+                                {{ random(10000) }}</h5>
+
+                            <p class="list-group-item-text">
+                                Facebook Likes</p>
+                        </a>
+                        <a href="#" class="list-group-item google-plus">
+                            <h3 class="pull-right">
+                                <i class="fa fa-google-plus-square"></i>
+                            </h3>
+                            <h5 class="list-group-item-heading count">
+                                {{ random(10000) }}</h5>
+
+                            <p class="list-group-item-text">
+                                Google+</p>
+                        </a>
+                        <a href="#" class="list-group-item twitter">
+                            <h3 class="pull-right">
+                                <i class="fa fa-twitter-square"></i>
+                            </h3>
+                            <h5 class="list-group-item-heading count">
+                                1000</h5>
+
+                            <p class="list-group-item-text">
+                                Twitter Followers</p>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="list-group">
+                    {% for index in journal.journalsIndexs %}
+                        <div class="list-group-item">
+                            <a href="{{ index.link }}" target="_blank">
+                                <h5>
+                                    {% if index.journalIndex.logo %}
+                                        <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
+                                             alt="{{ index.journalIndex }}"/>
+                                    {% endif %}
+                                    {{ index.journalIndex.name }}
+                                </h5>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>
