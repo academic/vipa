@@ -34,9 +34,10 @@
                         <div class="panel panel-default">
                             <div class="panel-heading toggle-list">
                                 <h3 class="panel-title archive-year-title btn-link">{{ year }} <span
-                                            class="pull-right fa fa-list"></span></h3>
+                                            class="pull-right fa fa-list" data-toggle="collapse"
+                                            data-target="issue_of_{{ year }}"></span></h3>
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body collapsed" id="issue_of_{{ year }}">
                                 {% for issue in groupedIssues[year] %}
                                     <div class="col-md-3">
                                         <div class="thumbnail">
