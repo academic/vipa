@@ -50,17 +50,21 @@
                                                 {% else %}
                                                     {{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}
                                                 {% endif %}">
-                                                <img src="{{ ('/uploads/journalfiles/'~imagePath(issue.cover))|imagine_filter('issue_cover_medium') }}"
-                                                     data-src="holder.js/180x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
-                                                     class="img-responsive"/>
+                                                {% if issue.cover is defined %}
+
+                                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(issue.cover))|imagine_filter('issue_cover_medium') }}"
+                                                         data-src="holder.js/180x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
+                                                         class="img-responsive"/>
+                                                {% endif %}
+
+                                                <p>
+                                                    {{ "volume"|trans }} : {{ issue.volume }}
+                                                    {{ "issue"|trans }} : {{ issue.number }}
+
+                                                    {% if issue.title %}-  {{ issue.title }} {% endif %}
+                                                </p>
+
                                             </a>
-
-                                            <p>
-                                                {{ "volume"|trans }} : {{ issue.volume }}
-                                                {{ "issue"|trans }} : {{ issue.number }}
-
-                                                {% if issue.title %}-  {{ issue.title }} {% endif %}
-                                            </p>
                                         </div>
 
 
