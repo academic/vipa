@@ -33,12 +33,11 @@
                     {% for year in groupedIssues|keys %}
                         <div class="panel panel-default" id="issues_list">
                             <div class="panel-heading toggle-list">
-                                <h3 class="panel-title archive-year-title btn-link">
-                                    <a data-toggle="collapse" data-parent="#issues_list" href="#issue_of_{{ year }}">
-                                        {{ year }}
-                                        <span class="pull-right fa fa-list"></span>
-                                    </a>
-                                </h3>
+                                <a class="panel-title archive-year-title btn-block" data-toggle="collapse"
+                                   data-parent="#issues_list" href="#issue_of_{{ year }}">
+                                    {{ year }}
+                                    <span class="pull-right fa fa-list"></span>
+                                </a>
                             </div>
                             <div class="panel-body collapse" id="issue_of_{{ year }}">
                                 {% for issue in groupedIssues[year] %}
