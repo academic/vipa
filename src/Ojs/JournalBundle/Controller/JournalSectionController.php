@@ -60,12 +60,12 @@ class JournalSectionController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('ojs_journal_section_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_section_show', ['id', 'journalId' => $journal->getId()]);
         if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
-            $rowAction[] = $gridAction->editAction('ojs_journal_section_edit', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_section_edit', ['id', 'journalId' => $journal->getId()]);
         }
         if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_section_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_section_delete', ['id', 'journalId' => $journal->getId()]);
         }
 
         $actionColumn->setRowActions($rowAction);
@@ -90,7 +90,7 @@ class JournalSectionController extends Controller
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
         $entity = new JournalSection();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entity->setJournal($journal);
@@ -104,6 +104,7 @@ class JournalSectionController extends Controller
                 'ojs_journal_section_show',
                 [
                     'id' => $entity->getId(),
+                    'journalId' => $journal->getId(),
                 ]
             );
         }
@@ -122,13 +123,13 @@ class JournalSectionController extends Controller
      * @param  JournalSection $entity The entity
      * @return Form           The form
      */
-    private function createCreateForm(JournalSection $entity)
+    private function createCreateForm(JournalSection $entity, $journalId)
     {
         $form = $this->createForm(
             new JournalSectionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_section_create'),
+                'action' => $this->generateUrl('ojs_journal_section_create', ['journalId' => $journalId]),
                 'method' => 'POST',
                 'user' => $this->getUser(),
                 'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
@@ -152,7 +153,7 @@ class JournalSectionController extends Controller
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
         $entity = new JournalSection();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
             'OjsJournalBundle:JournalSection:new.html.twig',
@@ -240,7 +241,7 @@ class JournalSectionController extends Controller
             new JournalSectionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_section_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_section_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
                 'method' => 'PUT',
                 'user' => $this->getUser(),
                 'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
@@ -285,6 +286,7 @@ class JournalSectionController extends Controller
                 'ojs_journal_section_edit',
                 [
                     'id' => $id,
+                    'journalId' => $journal->getId(),
                 ]
             );
         }
@@ -327,6 +329,6 @@ class JournalSectionController extends Controller
         $em->flush();
         $this->successFlashBag('Successfully removed.');
 
-        return $this->redirectToRoute('ojs_journal_section_index');
+        return $this->redirectToRoute('ojs_journal_section_index', ['journalId' => $journal->getId()]);
     }
 }
