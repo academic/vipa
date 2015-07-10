@@ -6,8 +6,9 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\JournalUserRepository;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\JournalBundle\Entity\JournalRole;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class RoleRestController extends FOSRestController
@@ -70,14 +71,18 @@ class RoleRestController extends FOSRestController
      *
      * @param  Role              $role
      * @param  Journal           $journal
-     * @return JournalRole[]
+     * @return JournalUser[]
      */
     public function getJournalRoleUsersAction(Role $role, Journal $journal)
     {
-        /** @var JournalRole[] $result */
-        $result = $this->getDoctrine()->getRepository('OjsUserBundle:JournalRole')->findBy(
-            array('journal' => $journal, 'role' => $role)
-        );
+        /** @var JournalUserRepository $journalUserRepo */
+        /** @var JournalUser[] $result */
+
+        $journalUserRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser');
+        $result = $journalUserRepo->findByRoles($role, $journal);
+
         if (!is_array($result)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }

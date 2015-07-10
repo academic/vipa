@@ -8,6 +8,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\AdminBundle\Form\Type\JournalType;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -284,10 +285,9 @@ class ManagerController extends Controller
         foreach ($myRoles as $myRole) {
             foreach ((array) $stepRoles as $stepRole) {
                 /**
-                 * @var JournalRole $stepRole
-                 * @var JournalRole $myRole
+                 * @var Role $myRole
                  */
-                if ($stepRole['role'] === $myRole) {
+                if ($stepRole['role'] === $myRole->getName()) {
                     return true;
                 }
             }

@@ -12,11 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class JournalUserRepository extends EntityRepository
 {
-    public function findByRoles($roles)
+    public function findByRoles($roles, $journal = null)
     {
         $query = $this->createQueryBuilder('journal_user')
             ->andWhere('journal_user.roles IN (:roles)')
             ->setParameter('roles', $roles);
+
+        if ($journal) {
+            $query
+                ->andWhere('journal_user.journal = :journal')
+                ->setParameter('journal', $journal);
+        }
+
         return $query;
     }
 }
