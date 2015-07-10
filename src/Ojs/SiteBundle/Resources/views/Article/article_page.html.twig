@@ -105,12 +105,10 @@
                         <div id="files">
                             <h4 class="page-header"> {{ "article.fulltext"|trans }} </h4>
                             {% for file in article.articleFiles %}
-                                {% if file.type==0 %}
                                     <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
                                         <i class="fa fa-file-pdf-o"></i> <abbr
                                                 title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ file.title }} {% if file.langCode %}{{ file.title }} ( {{ file.langCode }} ){% endif %}</abbr>
                                     </a>
-                                {% endif %}
                             {% endfor %}
                         </div>
 
