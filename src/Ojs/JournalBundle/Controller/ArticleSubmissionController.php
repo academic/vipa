@@ -4,13 +4,16 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
-use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
+use Ojs\Common\Services\GridAction;
+use Ojs\Common\Services\JournalService;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
+use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\File;
@@ -20,17 +23,12 @@ use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step4CitationType;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\WorkflowBundle\Document\ArticleReviewStep;
-use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Ojs\Common\Services\GridAction;
-use Ojs\Common\Services\JournalService;
-use Doctrine\ORM\Query;
 
 /**
  * Article Submission controller.
@@ -57,48 +55,29 @@ class ArticleSubmissionController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
-        $source1TableAlias= $source1->getTableAlias();
-
-        $source2 = new Entity('OjsJournalBundle:ArticleSubmissionProgress');
-        $source2TableAlias= $source2->getTableAlias();
+        $source1TableAlias = $source1->getTableAlias();
 
 
         if ($all) {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($source1TableAlias, $currentJournal) {
-                    $qb->where($source1TableAlias.'.status = 0');
-                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
+                    $qb->where($source1TableAlias . '.status = 0');
+                    $qb->andWhere($source1TableAlias . '.journalId = ' . $currentJournal->getId());
 
                     return $qb;
                 }
             );
-            $source2->manipulateQuery(
-                function (QueryBuilder $qb) use ($source2TableAlias, $currentJournal) {
-                    $qb->where($source2TableAlias.'.submitted = 0');
-                    $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
 
-                    return $qb;
-                }
-            );
         } else {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal) {
                     $qb->where(
                         $qb->expr()->andX(
-                            $qb->expr()->eq($source1TableAlias.'.status', '0'),
-                            $qb->expr()->eq($source1TableAlias.'.submitterId', $user->getId())
+                            $qb->expr()->eq($source1TableAlias . '.status', '0'),
+                            $qb->expr()->eq($source1TableAlias . '.submitterId', $user->getId())
                         )
                     );
-                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
-
-                    return $qb;
-                }
-            );
-            $source2->manipulateQuery(
-                function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal) {
-                    $qb->where($source2TableAlias.'.submitted = 0');
-                    $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
-                    $qb->andWhere($source2TableAlias.'.userId = '.$user->getId());
+                    $qb->andWhere($source1TableAlias . '.journalId = ' . $currentJournal->getId());
 
                     return $qb;
                 }
@@ -109,7 +88,7 @@ class ArticleSubmissionController extends Controller
         $submissionsGrid = $gridManager->createGrid('submission');
         $drafts = $gridManager->createGrid('drafts');
         $submissionsGrid->setSource($source1);
-        $drafts->setSource($source2);
+
         /** @var GridAction $gridAction */
         $gridAction = $this->get('grid_action');
 
@@ -155,8 +134,9 @@ class ArticleSubmissionController extends Controller
             return $this->redirect($this->generateUrl('article_submission_confirm_author'));
         }
         $dm = $this->get('doctrine_mongodb');
-        $firstStep  = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
+        /*$firstStep  = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));*/
+        $firstStep = null;
 
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
@@ -183,7 +163,7 @@ class ArticleSubmissionController extends Controller
         if (!$articleSubmission) {
             throw $this->createNotFoundException('No submission found');
         }
-        if($articleSubmission->getSubmitted()){
+        if ($articleSubmission->getSubmitted()) {
             throw new AccessDeniedException('You can \'t edit article after submit');
         }
         /** @var Article $article */
@@ -196,7 +176,7 @@ class ArticleSubmissionController extends Controller
         $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
         $citationForms = [];
         $citationTypes = array_keys($this->container->getParameter('citation_types'));
-        foreach($article->getCitations() as $citation){
+        foreach ($article->getCitations() as $citation) {
             $citationForms[] = $this->createForm(new Step4CitationType(), $citation, [
                 'method' => 'POST',
                 'citationTypes' => $citationTypes
@@ -232,7 +212,7 @@ class ArticleSubmissionController extends Controller
      */
     public function stepControlAction(Request $request, $step = null)
     {
-        switch($step){
+        switch ($step) {
             case 1:
                 return $this->step1Control($request);
             case 2:
@@ -280,8 +260,8 @@ class ArticleSubmissionController extends Controller
             [
                 'success' => "1",
                 'resumeLink' => $this->generateUrl('article_submission_resume', [
-                        'submissionId' =>$articleSubmission->getId()
-                    ]).'#2'
+                        'submissionId' => $articleSubmission->getId()
+                    ]) . '#2'
             ]
         );
     }
@@ -331,12 +311,12 @@ class ArticleSubmissionController extends Controller
         for ($i = 0; $i < count($authorsData); $i++) {
             if (empty($authorsData[$i]->firstName)) {
                 unset($authorsData[$i]);
-            }else{
+            } else {
                 $authorData = $authorsData[$i];
-                if(empty($authorData->authorid)){
+                if (empty($authorData->authorid)) {
                     $author = new Author();
                     $articleAuthor = new ArticleAuthor();
-                }else{
+                } else {
                     $authorIds[] = $authorData->authorid;
                     $author = $em->getRepository('OjsJournalBundle:Author')->find($authorData->authorid);
                     $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy([
@@ -354,7 +334,7 @@ class ArticleSubmissionController extends Controller
                 $author->setPhone($authorData->phone);
                 $author->setSummary($authorData->summary);
                 $author->setOrcid($authorData->orcid);
-                if(!empty($authorData->institution)){
+                if (!empty($authorData->institution)) {
                     /** @var Institution $institution */
                     $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData->institution);
                     $author->setInstitution($institution);
@@ -370,8 +350,8 @@ class ArticleSubmissionController extends Controller
         }
         //remove removed authors
         /** @var ArticleAuthor $articleAuthor */
-        foreach($articleAuthors as $articleAuthor){
-            if(!in_array($articleAuthor->getAuthorId(), $authorIds)){
+        foreach ($articleAuthors as $articleAuthor) {
+            if (!in_array($articleAuthor->getAuthorId(), $authorIds)) {
                 $em->remove($articleAuthor);
             }
         }
@@ -397,9 +377,9 @@ class ArticleSubmissionController extends Controller
         $citationIds = [];
         foreach ($citationsData as $citationData) {
 
-            if(empty($citationData['article_submission_citation[id]'])){
+            if (empty($citationData['article_submission_citation[id]'])) {
                 $citation = new Citation();
-            }else{
+            } else {
                 $citationIds[] = $citationData['article_submission_citation[id]'];
                 $citation = $em->getRepository('OjsJournalBundle:Citation')->find($citationData['article_submission_citation[id]']);
             }
@@ -440,12 +420,12 @@ class ArticleSubmissionController extends Controller
         for ($i = 0; $i < count($filesData); $i++) {
             if (strlen($filesData[$i]->article_file) < 1) {
                 unset($filesData[$i]);
-            }else{
+            } else {
                 $fileData = $filesData[$i];
-                if(empty($fileData->id)){
+                if (empty($fileData->id)) {
                     $file = new File();
                     $articleFile = new ArticleFile();
-                }else{
+                } else {
                     $fileIds[] = $fileData->id;
                     $file = $em->getRepository('OjsJournalBundle:File')->find($fileData->id);
                     $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy([
@@ -474,8 +454,8 @@ class ArticleSubmissionController extends Controller
         }
         //remove removed files
         /** @var ArticleFile $articleFile */
-        foreach($articleFiles as $articleFile){
-            if(!in_array($articleFile->getFileId(), $fileIds)){
+        foreach ($articleFiles as $articleFile) {
+            if (!in_array($articleFile->getFileId(), $fileIds)) {
                 $em->remove($articleFile);
             }
         }
@@ -529,41 +509,16 @@ class ArticleSubmissionController extends Controller
         if (!$submissionId) {
             throw $this->createNotFoundException('There is no submission with this Id.');
         }
-        $dm = $this->get('doctrine_mongodb');
         $em = $this->getDoctrine()->getManager();
         /* @var  $articleSubmission ArticleSubmissionProgress */
         $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         $article = $articleSubmission->getArticle();
-        $journal = $article->getJournal();
+
         if (!$articleSubmission) {
             throw $this->createNotFoundException('Submission not found.');
         }
 
-        // get journal's first workflow step
-        /** @var JournalWorkflowStep $firstStep */
-        $firstStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
-        if ($firstStep) {
-            $reviewStep = new ArticleReviewStep();
-            $reviewStep->setArticleId($article->getId());
-            $reviewStep->setSubmitterId($articleSubmission->getUser()->getId());
-            $reviewStep->setStartedDate(new \DateTime());
-            $reviewStep->setStatusText($firstStep->getStatus());
-            $reviewStep->setCompetingOfInterest($articleSubmission->getCompetingOfInterest());
-            $reviewStep->setArticleRevised(
-                array(
-                    'articleId' => $article->getId()
-                )
-            );
-            $deadline = new \DateTime();
-            $deadline->modify("+".$firstStep->getMaxDays()." day");
-            $reviewStep->setReviewDeadline($deadline);
-            $reviewStep->setRootNode(true);
-            $reviewStep->setStep($firstStep);
-            $reviewStep->setNote($request->get('notes'));
-            $dm->persist($reviewStep);
-            $dm->flush();
-        }
+        $article->setJournal($article->getJournal());
         $article->setStatus(0);
         $article->setSetupStatus(1);
         $articleSubmission->setSubmitted(1);
