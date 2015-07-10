@@ -289,24 +289,23 @@ competingOfInterest: 'Competing of Interest'
 conference: Konferans
 confidential: Confidential
 contact: Contact
-contact.detail: İletişim Detayı
-contact.edit: İletişim Düzenle
-contact.manager: İletişim Yöneticisi
-contact.new: Yeni İlişim
-contact.plural: İletişim
-contact.type: 'Contact Type'
-contact.type.list: 'List Contact Type'
-contact.type.new: 'New Contact Type'
-contact_and_help: 'Contact & Help'
-contacttype.plural: Contacts
-content: Content
-controlPanel: 'Control Panel'
-copy: Copy
-country: Country
-cover: Cover
-cover_image: 'Cover Image'
-create: Create
-createOne: 'Create new one'
+contact.detail: Bağlantı Detayı
+contact.edit: Bağlantı Düzenle
+contact.manager: Bağlantı Yöneticisi
+contact.new: Yeni Bağlantı
+contact.plural: Bağlantılar
+contact.type: Bağlantı Tipi
+contact.type.list: Bağlantı Tiplerini Listele
+contact.type.new: Yeni Bağlantı Tipi
+contacttype.plural: Bağlantı Tipleri
+content: İçerik
+controlPanel: Kontrol Paneli
+copy: Kopyala
+country: Ülke
+cover: Üst
+cover_image: Üst Resim
+create: Oluştur
+createOne: Yeni Oluştur
 created: Created
 created.templates: 'Created Templates'
 d: Delete

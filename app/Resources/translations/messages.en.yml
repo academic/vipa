@@ -297,7 +297,6 @@ contact.plural: Contacts
 contact.type: 'Contact Type'
 contact.type.list: 'List Contact Type'
 contact.type.new: 'New Contact Type'
-contact_and_help: 'Contact & Help'
 contacttype.plural: Contacts
 content: Content
 controlPanel: 'Control Panel'
