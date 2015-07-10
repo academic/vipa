@@ -2,6 +2,8 @@
 
 namespace Ojs\SiteBundle\Acl;
 
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\UserBundle\Entity\Role;
 use Problematic\AclManagerBundle\Domain\AclManager;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -144,7 +146,13 @@ class AclChainManager extends AclManager
         } elseif ($identity instanceof TokenInterface) {
             $securityIdentity = UserSecurityIdentity::fromToken($identity);
         } elseif (is_array($identity)) {
-            $securityIdentity = new JournalRoleSecurityIdentity($identity[0], $identity[1]);
+            if (count($identity) == 2 && $identity[0] instanceof Journal && $identity[0] instanceof Role) {
+                $securityIdentity = new JournalRoleSecurityIdentity($identity[0], $identity[1]);
+            } else {
+                throw new \InvalidArgumentException(
+                    'Couldn\'t create a valid SecurityIdentity with the provided identity information'
+                );
+            }
         } elseif ($identity instanceof RoleInterface || is_string($identity)) {
             $securityIdentity = new RoleSecurityIdentity($identity);
         }
