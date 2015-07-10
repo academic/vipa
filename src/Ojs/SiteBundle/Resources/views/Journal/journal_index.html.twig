@@ -77,15 +77,17 @@
 
                 <a href="#" class="list-group-item ">
                     <span class="pull-right">
-                        <i class="fa fa-eye"></i>
+
                     </span>
-                    <span class="list-group-item-heading count">{{ journal.viewCount|number_format }}</span>
-                </a>
-                <a href="#" class="list-group-item ">
-                    <span class="pull-right">
-                        <i class="fa fa-download"></i>
+                    <span class="row-fluid">
+                        <span class="col-md-6 nopadding">
+                            <span class="list-group-item-heading count"><i class="fa fa-eye"></i> {{ journal.viewCount|number_format(0,'.','.') }}</span>
+                        </span>
+                        <span class="col-md-6 nopadding">
+                            <span class="list-group-item-heading count"><i class="fa fa-download"></i> {{ journal.downloadCount|number_format(0,'.','.') }} </span>
+                        </span>
+                        <span class="clearfix"></span>
                     </span>
-                    <span class="list-group-item-heading count">{{ journal.downloadCount|number_format }}</span>
                 </a>
             </div>
             <div class="col-md-7">
