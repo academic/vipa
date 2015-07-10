@@ -14,7 +14,7 @@
     {% include '::flashbag.html.twig' %}
     <br>
     {% if is_granted('CREATE', selectedJournal(), 'checklist') %}
-        <a href="{{ path('ojs_journal_checklist_new') }}" class="btn btn-success">
+        <a href="{{ path('ojs_journal_checklist_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}
