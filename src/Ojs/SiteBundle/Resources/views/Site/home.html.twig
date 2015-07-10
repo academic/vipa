@@ -9,24 +9,27 @@
                     <img src="http://dergipark.ulakbim.gov.tr/assets/images/dergipark_logo_tr.png"/>
                     <hr/>
                     <div id="stats">
-                        <div class="col-md-3">
-                            <div class="panel panel-default">
-                                <div class="panel-body number">{{ stats.journal }}</div>
-                                <div class="panel-footer">{{ "journal"|trans }}</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="panel panel-default">
-                                <div class="panel-body number">{{ stats.article }}</div>
-                                <div class="panel-footer">{{ "article"|trans }}</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="panel panel-default">
-                                <div class="panel-body number">{{ stats.user }}</div>
-                                <div class="panel-footer">{{ "user"|trans }}</div>
-                            </div>
-                        </div>
+                        <dl class="home-stats">
+                                <dd>
+                                    <span>{{ stats.journal|number_format(0,'.','.') }}</span>
+                                    <br>
+                                    {{ "journal"|trans }}
+                                </dd>
+
+
+                                <dd>
+                                    <span>{{ stats.article|number_format(0,'.','.') }}</span>
+                                    <br>
+                                    {{ "article"|trans }}
+                                </dd>
+
+                                <dd>
+                                    <span>{{ stats.user|number_format(0,'.','.') }}</span>
+                                    <br>
+                                    {{ "user"|trans }}
+                                </dd>
+                        </dl>
+
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
