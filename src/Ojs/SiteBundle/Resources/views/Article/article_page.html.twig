@@ -58,6 +58,17 @@
                                 </span>
                             </div>
 
+                            <div id="files">
+                                {% for file in article.articleFiles %}
+                                    {% if file.type==0 %}
+                                        <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
+                                            <abbr
+                                                    title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ "article.fulltext"|trans }}</abbr>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
                             <hr>
                             <h2 class="title">{{ article.title }}
                                 <br> {% if article.titleTransliterated %}<span
@@ -110,16 +121,6 @@
                             </div>
                         {% endif %}
                         <hr>
-                        <div id="files">
-                            {% for file in article.articleFiles %}
-                                {% if file.type==0 %}
-                                    <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
-                                        <abbr
-                                                title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ "article.fulltext"|trans }}</abbr>
-                                    </a>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
 
 
                         <div>
