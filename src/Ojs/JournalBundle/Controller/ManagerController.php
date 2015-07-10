@@ -9,7 +9,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\UserBundle\Entity\User;
-use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

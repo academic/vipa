@@ -8,6 +8,7 @@ use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -135,14 +136,17 @@ class JournalService
     {
         $journal = $journal ? $journal : $this->getSelectedJournal();
         $token = $this->tokenStorage->getToken();
+
         if ($token instanceof AnonymousToken || (!$journal instanceof Journal)) {
             return array();
         }
-        $user = $token->getUser();
-        $userJournalRoleRepo = $this->em->getRepository('OjsJournalBundle:JournalRole');
-        $roles = $userJournalRoleRepo->findBy(['journal'=>$journal, 'user'=> $user]);
 
-        return $roles;
+        /** @var JournalUser $journalUser */
+        $user = $token->getUser();
+        $journalUserRepo = $this->em->getRepository('OjsJournalBundle:JournalUser');
+        $journalUser = $journalUserRepo->findBy(['journal'=>$journal, 'user'=> $user]);
+
+        return $journalUser->getRoles();
     }
 
     /**

@@ -37,6 +37,6 @@ class UserCountUpdater extends Updater implements UpdaterInterface
      */
     public function getObject()
     {
-        return "Ojs\JournalBundle\Entity\Journal";
+        return 'Ojs\JournalBundle\Entity\Journal';
     }
 }

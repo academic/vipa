@@ -36,7 +36,7 @@
                     <div class="panel-footer">
                         <small>{{'loggedAs'|trans}} : <span style="color:#003399">{{app.user.username}}</span></small>
                         {% for journalRole in userJournalRoles() %}
-                            <span class="label label-default">{{ journalRole.role.name|trans }}</span>
+                            <span class="label label-default">{{ journalRole.name|trans }}</span>
                         {% endfor %}
                     </div>
                 {% else %}

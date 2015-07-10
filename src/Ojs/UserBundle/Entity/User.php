@@ -12,7 +12,7 @@ use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
-use Ojs\JournalBundle\Entity\JournalRole;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -150,9 +150,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     /** @var  ArrayCollection */
     protected $authorDetails;
 
-    /** @var  ArrayCollection */
-    protected $journalRoles;
-
     protected $header_options;
 
     private $title;
@@ -183,10 +180,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     private $city;
 
     /**
-     * @var Collection|JournalRole[]
-     */
-    private $userJournalRoles;
-    /**
      * @var string
      */
     private $header;
@@ -210,7 +203,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
         $this->authorDetails = new ArrayCollection();
-        $this->journalRoles = new ArrayCollection();
     }
 
     /**
@@ -535,25 +527,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getJournalRoles()
-    {
-        return $this->journalRoles;
-    }
-
-    /**
-     * @param  array $journalRoles
-     * @return User
-     */
-    public function setJournalRoles($journalRoles)
-    {
-        $this->journalRoles = $journalRoles;
 
         return $this;
     }
@@ -1040,38 +1013,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         return $this;
     }
 
-    /**
-     * @return Collection|JournalRole[]
-     */
-    public function getUserJournalRoles()
-    {
-        return $this->userJournalRoles;
-    }
-
-    /**
-     * @param Collection|JournalRole[] $userJournalRoles
-     */
-    public function setUserJournalRoles($userJournalRoles)
-    {
-        $this->userJournalRoles = $userJournalRoles;
-    }
-
-    /**
-     * @param  Journal           $journal
-     * @return JournalRole[]
-     */
-    public function getUserJournalRolesFromJournal(Journal $journal)
-    {
-        $journalRoles = array();
-        foreach ($this->userJournalRoles as $journalRole) {
-            if ($journalRole->getJournal() === $journal) {
-                $journalRoles[] = $journalRole;
-            }
-        }
-
-        return $journalRoles;
-    }
-
     public function __toString()
     {
         return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
@@ -1234,7 +1175,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
     public function getJournalUsers()
     {
@@ -1242,10 +1183,27 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @param mixed $journalUsers
+     * @param Collection $journalUsers
      */
     public function setJournals($journalUsers)
     {
         $this->journalUsers = $journalUsers;
+    }
+
+    public function getJournalRoles(Journal $journal)
+    {
+        $journalRoles = [];
+        $journalUsers = $this->getJournalUsers();
+
+        /** @var JournalUser $journalUser */
+        foreach ($journalUsers as $journalUser) {
+            if ($journalUser->getJournal() == $journal) {
+                foreach ($journalUser->getRoles() as $role) {
+                    $journalRoles[] = [$journalUser->getJournal(), $role];
+                }
+            }
+        }
+
+        return $journalRoles;
     }
 }

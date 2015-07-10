@@ -6,13 +6,13 @@ Ojs\JournalBundle\Entity\JournalUser:
     manyToOne:
         journal:
             targetEntity: Ojs\JournalBundle\Entity\Journal
-            inversedBy: users
+            inversedBy: journalUsers
             joinColumn:
                 name: journal_id
                 referencedColumnName: id
         user:
             targetEntity: Ojs\UserBundle\Entity\User
-            inversedBy: journals
+            inversedBy: journalUsers
             joinColumn:
                 name: user_id
                 referencedColumnName: id

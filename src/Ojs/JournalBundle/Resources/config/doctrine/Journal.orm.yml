@@ -50,11 +50,6 @@ Ojs\JournalBundle\Entity\Journal:
         journalThemes:
             targetEntity: JournalTheme
             mappedBy: journal
-        userRoles:
-            targetEntity: \Ojs\JournalBundle\Entity\JournalRole
-            mappedBy: journal
-            cascade: ["all"]
-            fetch: EXTRA_LAZY
         journals_indexs:
             targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
             mappedBy: journal

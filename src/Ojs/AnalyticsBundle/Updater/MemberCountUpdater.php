@@ -3,8 +3,10 @@
  * www
  */
 namespace Ojs\AnalyticsBundle\Updater;
+
 use Documents\UserRepository;
 use Ojs\JournalBundle\Entity\JournalRole;
+
 class MemberCountUpdater extends Updater implements UpdaterInterface
 {
     public function update()
