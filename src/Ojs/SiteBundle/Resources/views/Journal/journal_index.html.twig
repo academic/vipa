@@ -43,7 +43,7 @@
                             <dd>{{ journal.issn }}</dd>
                         {% endif %}
                         {% if journal.eissn %}
-                            <dt>eISSN</dt>
+                            <dt>e-ISSN</dt>
                             <dd>{{ journal.eissn }}</dd>
                         {% endif %}
 
@@ -204,10 +204,7 @@
                         <ul>
                             {% for key, issues in years %}
                                 <li>
-                                    <h4 title=" {{ "year"|trans }}"> {{ key }}
-                                        <a title="{{ "journal_index.issues"|trans }}"
-                                           class="badge">{{ issues|length }} </a>
-                                    </h4>
+                                    <h4 title=" {{ "year"|trans }}"> {{ key }}</h4>
 
                                     <ul>
                                         {% for issue in issues %}
