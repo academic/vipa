@@ -34,6 +34,8 @@
                                 class="width100 img-responsive"/>
                     </div>
                 {% endif %}
+
+                <h1>{{ journal.title }}</h1>
                 <div class="col-md-12">
                     <dl class="journal-meta">
                         {% if journal.issn %}
@@ -44,14 +46,7 @@
                             <dt>eISSN</dt>
                             <dd>{{ journal.eissn }}</dd>
                         {% endif %}
-                        {% if journal.languages %}
-                            <dt>{{ "journal_langs"|trans }}</dt>
-                            <dd>{% for language in journal.languages %}
-                                    <span class="badge badge-success">{{ language.name }}</span>
-                                {% else %}
-                                    <span class="badge badge-info">{{ "-"|trans }}</span>
-                                {% endfor %}</dd>
-                        {% endif %}
+
                         {% if journal.period %}
                             <dt>{{ "period"|trans }}</dt>
                             <dd>{{ journal.period }}</dd>
@@ -64,9 +59,6 @@
                         -->
                     </dl>
                 </div>
-                <h1>{{ journal.title }}
-
-                </h1>
                 <!--
                 <h6> {{ journal.titleAbbr }}  </h6>
                 <h6>{{ journal.subtitle }}
@@ -87,13 +79,13 @@
                     <span class="pull-right">
                         <i class="fa fa-eye"></i>
                     </span>
-                    <span class="list-group-item-heading count">{{ journal.viewCount }}</span>
+                    <span class="list-group-item-heading count">{{ journal.viewCount|number_format }}</span>
                 </a>
                 <a href="#" class="list-group-item ">
                     <span class="pull-right">
                         <i class="fa fa-download"></i>
                     </span>
-                    <span class="list-group-item-heading count">{{ journal.downloadCount }}</span>
+                    <span class="list-group-item-heading count">{{ journal.downloadCount|number_format }}</span>
                 </a>
             </div>
             <div class="col-md-7">

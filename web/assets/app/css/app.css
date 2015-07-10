@@ -968,7 +968,7 @@ a.vimeo:hover { background-color:#44bbff; }
 a.vimeo:hover * { color:#FFF; }
 
 
-.journal-meta{width:100%;overflow:hidden;}
+.journal-meta{width:100%;overflow:hidden; font-size:13px;}
 .journal-meta dt,dd{float: left;padding: 5px}
 .journal-meta dd{border-right: 1px solid #ccc; padding-right: 5px; margin-right: 5px}
 .journal-meta dd:last-child{border-right: none;}
@@ -1062,3 +1062,4 @@ a.vimeo:hover * { color:#FFF; }
 .ds-btn li{ list-style:none; float:left; padding:10px; }
 .ds-btn li a span{padding-left:15px;padding-right:5px;width:100%;display:inline-block; text-align:left;}
 .ds-btn li a span small{width:100%; display:inline-block; text-align:left;}
+.header h1{  font-size: 24px; }
