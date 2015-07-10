@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_design_index'),'title': 'journal.design'|trans},
+    {'link': path('ojs_journal_design_index', {'journalId': selectedJournal().id}),'title': 'journal.design'|trans},
     {'title': 'title.journal_design_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -13,7 +13,7 @@
 {% block body -%}
     <h1>{{ "journal.design"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties">
+    <table class="record_properties  table">
         <tbody>
         <tr>
             <th>{{ 'id'|trans }}</th>
@@ -25,16 +25,16 @@
         </tr>
         <tr>
             <th>{{ "theme.id"|trans }}</th>
-            <td>{{ entity.themeId }}</td>
+            <td>{{ entity.designId }}</td>
         </tr>
         </tbody>
     </table>
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_design_index')},
-        'edit': {'href': path('ojs_journal_design_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_design_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_design_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_design_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_design_delete', {'id': entity.id, 'journalId': selectedJournal().id})},
     })
     }}
 {% endblock %}

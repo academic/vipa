@@ -1,30 +1,30 @@
 ojs_journal_design_index:
-    path:     /
+    path:     /{journalId}/design/
     defaults: { _controller: "OjsJournalBundle:JournalDesign:index" }
 
 ojs_journal_design_show:
-    path:     /{id}/show
+    path:     /{journalId}/design/{id}/show
     defaults: { _controller: "OjsJournalBundle:JournalDesign:show" }
 
 ojs_journal_design_new:
-    path:     /new
+    path:     /{journalId}/design/new
     defaults: { _controller: "OjsJournalBundle:JournalDesign:new" }
 
 ojs_journal_design_create:
-    path:     /create
+    path:     /{journalId}/design/create
     defaults: { _controller: "OjsJournalBundle:JournalDesign:create" }
     methods: [POST]
 
 ojs_journal_design_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/design/{id}/edit
     defaults: { _controller: "OjsJournalBundle:JournalDesign:edit" }
 
 ojs_journal_design_update:
-    path:     /{id}/update
+    path:     /{journalId}/design/{id}/update
     defaults: { _controller: "OjsJournalBundle:JournalDesign:update" }
     methods: [PUT]
 
 ojs_journal_design_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/design/{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalDesign:delete" }
     methods: [DELETE]

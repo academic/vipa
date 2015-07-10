@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_design_index'),'title': 'journal.design'|trans},
+    {'link': path('ojs_journal_design_index', {'journalId': selectedJournal().id}),'title': 'journal.design'|trans},
     {'title': 'title.journal_design_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -14,6 +14,9 @@
     <h1>{{ 'title.journal_design_new'|trans }}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'ojs_journal_design_index' %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_design_index', {'journalId': selectedJournal().id})},
+    })
+    }}
 {% endblock %}
