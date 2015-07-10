@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_section_index'),'title': 'journal.section'|trans},
+    {'link': path('ojs_journal_section_index', {'journalId': selectedJournal().id}),'title': 'journal.section'|trans},
     {'title': 'title.journal_section_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,7 +15,7 @@
 
     {{ form(form) }}
 
-    <a href="{{ path('ojs_journal_section_index') }}">
+    <a href="{{ path('ojs_journal_section_index', {'journalId': selectedJournal().id}) }}">
         {{ "b"|trans }}
     </a>
 {% endblock %}
