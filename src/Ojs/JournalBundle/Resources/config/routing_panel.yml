@@ -22,7 +22,6 @@ ojs_journal_board:
 
 ojs_journal_theme:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/theme.yml"
-    prefix:   /theme
 
 ojs_journal_design:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/design.yml"
