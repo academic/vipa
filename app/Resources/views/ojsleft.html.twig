@@ -147,7 +147,7 @@
                     {% endif %}
 
                     {% if is_granted('VIEW', selectedJournal(), 'design') %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_theme_index') }}">
+                    <a class="list-group-item" href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-th-large"></i>
                         </span>
