@@ -124,22 +124,11 @@
                        class="list-group-item list-group-item-success"><h5><i
                                     class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
-                    {% if last_issue %}
-                        <a class="list-group-item"
-                           href="{% if isInstitutionHosting is defined %}
-                                {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: last_issue.id}) }}
-                            {% elseif isJournalHosting is defined %}
-                                {{ url('journal_hosting_issue', {id: last_issue.id}) }}
-                            {% else %}
-                                {{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}
-                            {% endif %}">
-                            <h5><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h5>
-                        </a>
-                    {% endif %}
 
-                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                       class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+
+                    <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
+
                     <a href="{% if isInstitutionHosting is defined %}
                                 {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
                             {% elseif isJournalHosting is defined %}
@@ -154,9 +143,10 @@
                        class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
                         </h5>
                     </a>
-
-                    <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                     </a>
+
 
                     {% if enable_social is defined %}
                         <a href="#" class="list-group-item facebook-like">
