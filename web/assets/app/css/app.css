@@ -1065,3 +1065,11 @@ a.vimeo:hover * { color:#FFF; }
 #header h1{  font-size: 20px; font-weight: bold; }
 h2.title { font-size: 20px; }
 .nopadding{ padding: 0 !important;}
+
+.home-stats{width:100%;overflow:hidden; font-size:13px;}
+.home-stats dt,dd{float: left;padding: 5px}
+.home-stats dd{border-right: 1px solid #ccc; padding-right: 5px; margin-right: 5px; width: 31%}
+.home-stats dd:last-child{border-right: none;}
+.home-stats dd span{
+    font: bold 24px Georgia, "Times New Roman", Times, serif;
+}
