@@ -1,39 +1,39 @@
 ojs_journal_board_index:
-    path:     /
+    path:     /{journalId}/board/
     defaults: { _controller: "OjsJournalBundle:Board:index" }
 
 ojs_journal_board_show:
-    path:     /{id}/show
+    path:     /{journalId}/board/{id}/show
     defaults: { _controller: "OjsJournalBundle:Board:show" }
 
 ojs_journal_board_new:
-    path:     /new
+    path:     /{journalId}/board/new
     defaults: { _controller: "OjsJournalBundle:Board:new" }
 
 ojs_journal_board_create:
-    path:     /create
+    path:     /{journalId}/board/create
     defaults: { _controller: "OjsJournalBundle:Board:create" }
     methods:  POST
 
 ojs_journal_board_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/board/{id}/edit
     defaults: { _controller: "OjsJournalBundle:Board:edit" }
 
 ojs_journal_board_update:
-    path:     /{id}/update
+    path:     /{journalId}/board/{id}/update
     defaults: { _controller: "OjsJournalBundle:Board:update" }
     methods: [PUT]
 
 ojs_journal_board_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/board/{id}/delete
     defaults: { _controller: "OjsJournalBundle:Board:delete" }
     methods: [DELETE]
 
 ojs_journal_board_member_add:
-    path:  /{boardId}/member/add
+    path:  /{journalId}/board/{boardId}/member/add
     defaults: { _controller: OjsJournalBundle:Board:addMember }
     methods:  [POST, PUT]
 
 ojs_journal_board_member_remove:
-    path:  /{boardId}/member/{userId}/remove
+    path:  /{journalId}/board/{boardId}/member/{userId}/remove
     defaults: { _controller: OjsJournalBundle:Board:removeMember }

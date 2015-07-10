@@ -19,7 +19,6 @@ ojs_journal_issue:
 
 ojs_journal_board:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/board.yml"
-    prefix:   /board
 
 ojs_journal_theme:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/theme.yml"

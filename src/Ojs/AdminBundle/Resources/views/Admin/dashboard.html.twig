@@ -189,7 +189,7 @@
                     {{ "journal.theme"|trans }}
                 </a>
 
-                <a class="list-group-item" href="{{ path('ojs_journal_board_index') }}">
+                <a class="list-group-item" href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}">
                     <span style="color: #337ab7; margin-right: 3px;">
                         <i class="fa fa-users"></i>
                     </span>

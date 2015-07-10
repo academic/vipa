@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_journal_board_index'),'title': 'board'|trans},
+    { 'link': path('ojs_journal_board_index', {'journalId': selectedJournal().id}),'title': 'board'|trans},
     {'title': 'title.board_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -18,7 +18,7 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_board_index')},
+        'back': {'href': path('ojs_journal_board_index', {'journalId': selectedJournal().id})},
     })
     }}
 

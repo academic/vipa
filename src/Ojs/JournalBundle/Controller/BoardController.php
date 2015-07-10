@@ -47,10 +47,10 @@ class BoardController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()]);
         if ($this->isGranted('EDIT', $journal, 'boards')) {
-            $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', 'id');
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_board_delete', 'id');
+            $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', ['id', 'journalId' => $journal->getId()]);
+            $rowAction[] = $gridAction->deleteAction('ojs_journal_board_delete', ['id', 'journalId' => $journal->getId()]);
         }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -74,7 +74,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
         }
         $entity = new Board();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -83,7 +83,7 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_journal_board_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_board_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
 
         return $this->render(
@@ -102,13 +102,13 @@ class BoardController extends Controller
      *
      * @return Form The form
      */
-    private function createCreateForm(Board $entity)
+    private function createCreateForm(Board $entity, $journalId)
     {
         $form = $this->createForm(
             new BoardType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_board_create'),
+                'action' => $this->generateUrl('ojs_journal_board_create', ['journalId' => $journalId]),
                 'method' => 'POST',
             )
         );
@@ -129,7 +129,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
         }
         $entity = new Board();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
             'OjsJournalBundle:Board:new.html.twig',
@@ -223,7 +223,7 @@ class BoardController extends Controller
             new BoardType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_board_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_board_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournalId())),
                 'method' => 'PUT',
             )
         );
@@ -258,7 +258,7 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_board_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_journal_board_edit', ['id' => $id, 'journalId' => $journal->getId()]);
         }
 
         return $this->render(
@@ -298,7 +298,7 @@ class BoardController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_journal_board_index');
+        return $this->redirectToRoute('ojs_journal_board_index', ['journalId' => $journal->getId()]);
     }
 
     /**
@@ -329,7 +329,7 @@ class BoardController extends Controller
         $em->persist($boardMember);
         $em->flush();
 
-        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId]);
+        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId, 'journalId' => $journal->getId()]);
     }
 
     /**
@@ -362,6 +362,6 @@ class BoardController extends Controller
         $em->remove($boardMember);
         $em->flush();
 
-        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId]);
+        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId, 'journalId' => $journal->getId()]);
     }
 }
