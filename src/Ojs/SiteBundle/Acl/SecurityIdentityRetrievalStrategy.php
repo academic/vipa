@@ -77,8 +77,8 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
         }
 
         if ($user instanceof User && $selectedJournal instanceof Journal) {
-            foreach ($user->getUserJournalRolesFromJournal($selectedJournal) as $journalRoles) {
-                $sids[] = JournalRoleSecurityIdentity::fromUserJournalRole($journalRoles);
+            foreach ($user->getJournalRoles($selectedJournal) as $journalRoles) {
+                $sids[] = new JournalRoleSecurityIdentity($journalRoles[0], $journalRoles[1]);
             }
         }
 

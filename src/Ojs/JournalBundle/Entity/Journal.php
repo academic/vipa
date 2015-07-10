@@ -11,7 +11,6 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
-use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\LocationBundle\Entity\Country;
 
 /**
@@ -239,7 +238,6 @@ class Journal implements Translatable
      * @var Collection
      */
     private $bannedUsers;
-    private $userRoles;
     /**
      * @var string
      * @Expose
@@ -285,6 +283,9 @@ class Journal implements Translatable
 
     protected $translations;
 
+    /** @var Collection */
+    private $journalUsers;
+
     /**
      * Constructor
      */
@@ -299,7 +300,6 @@ class Journal implements Translatable
         $this->pages = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->journalThemes = new ArrayCollection();
-        $this->userRoles = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -1285,36 +1285,6 @@ class Journal implements Translatable
     }
 
     /**
-     * @return mixed
-     */
-    public function getUserRoles()
-    {
-        return $this->userRoles;
-    }
-
-    /**
-     * @param  JournalRole $role
-     * @return $this
-     */
-    public function addUserRole(JournalRole $role)
-    {
-        $this->userRoles->add($role);
-
-        return $this;
-    }
-
-    /**
-     * @param  JournalRole $role
-     * @return $this
-     */
-    public function removeUserRole(JournalRole $role)
-    {
-        $this->userRoles->removeElement($role);
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getLogo()
@@ -1590,5 +1560,21 @@ class Journal implements Translatable
         $this->printed = $printed;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJournalUsers()
+    {
+        return $this->journalUsers;
+    }
+
+    /**
+     * @param mixed $journalUsers
+     */
+    public function setJournalUsers($journalUsers)
+    {
+        $this->journalUsers = $journalUsers;
     }
 }

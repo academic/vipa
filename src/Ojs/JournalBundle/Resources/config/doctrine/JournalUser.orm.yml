@@ -1,0 +1,39 @@
+Ojs\JournalBundle\Entity\JournalUser:
+    type: entity
+    table: journal_user
+    repositoryClass: Ojs\JournalBundle\Entity\JournalUserRepository
+
+    manyToOne:
+        journal:
+            targetEntity: Ojs\JournalBundle\Entity\Journal
+            inversedBy: journalUsers
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+        user:
+            targetEntity: Ojs\UserBundle\Entity\User
+            inversedBy: journalUsers
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+
+    manyToMany:
+        roles:
+            targetEntity: Ojs\UserBundle\Entity\Role
+            joinTable:
+                name: journal_user_role
+                joinColumns:
+                    journal_user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    role_id:
+                        referencedColumnName: id
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    lifecycleCallbacks: {  }
