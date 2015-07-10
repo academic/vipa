@@ -38,11 +38,6 @@ api_article :
   resource:     "OjsApiBundle:ArticleRest"
   name_prefix:  api_
 
-api_citation :
-  type: rest
-  resource:     "OjsApiBundle:CitationRest"
-  name_prefix:  api_
-
 api_analytics :
   type: rest
   resource:     "OjsApiBundle:AnalyticsRest"

@@ -27,7 +27,7 @@ class SampleDataCommand extends ContainerAwareCommand
         $application->run(new StringInput('h4cc_alice_fixtures:load:sets'));
 
         $output->writeln('<info>Adding initial workflow data</info>');
-        $application->run(new StringInput('doctrine:mongodb:fixtures:load'));
+        // TODO: ORM Workflow initial data
 
         $output->writeln('<info>Recalculating precalculated fields</info>');
         $application->run(new StringInput('ojs:count:journals:subjects'));

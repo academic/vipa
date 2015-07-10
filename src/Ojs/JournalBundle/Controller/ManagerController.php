@@ -4,13 +4,10 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
-use Ojs\AdminBundle\Form\Type\JournalType;
-use Ojs\UserBundle\Entity\User;
-use Ojs\JournalBundle\Entity\JournalRole;
-use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +17,7 @@ use Symfony\Component\Yaml\Parser;
 class ManagerController extends Controller
 {
     /**
-     * @param  null     $journalId
+     * @param  null $journalId
      * @return Response
      */
     public function journalSettingsAction($journalId = null)
@@ -55,8 +52,8 @@ class ManagerController extends Controller
     /**
      * @param $journal
      * @param $settingName
-     * @param  string             $settingValue if null, function will return current value
-     * @param  bool               $encoded      set true if setting stored as json_encoded
+     * @param  string $settingValue if null, function will return current value
+     * @param  bool $encoded set true if setting stored as json_encoded
      * @return array|mixed|string
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
@@ -84,8 +81,8 @@ class ManagerController extends Controller
 
     /**
      * @todo setttings enumeration should be done, otherwise setting keys will be a garbage
-     * @param  Request  $req
-     * @param  integer  $journalId
+     * @param  Request $req
+     * @param  integer $journalId
      * @return Response
      */
     public function journalSettingsSubmissionAction(Request $req, $journalId = null)
@@ -132,13 +129,13 @@ class ManagerController extends Controller
             ),
             'abstractTemplates' => $yamlParser->parse(
                 file_get_contents(
-                    $root.
+                    $root .
                     '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
                 )
             ),
             'copyrightTemplates' => $yamlParser->parse(
                 file_get_contents(
-                    $root.
+                    $root .
                     '/../src/Ojs/JournalBundle/Resources/data/copyrightTemplates.yml'
                 )
             ),
@@ -150,7 +147,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request      $req
+     * @param  Request $req
      * @param  null|integer $journalId
      * @return Response
      */
@@ -164,8 +161,7 @@ class ManagerController extends Controller
         if ($req->getMethod() == 'POST' && !empty($req->get('emailSignature'))) {
             $this->updateJournalSetting($journal, 'emailSignature', $req->get('emailSignature'), false);
         }
-        $emailSignature = $journal->getSetting('emailSignature') ? $journal->getSetting('emailSignature')->getValue(
-        ) : null;
+        $emailSignature = $journal->getSetting('emailSignature') ? $journal->getSetting('emailSignature')->getValue() : null;
 
         return $this->render(
             'OjsJournalBundle:Manager:journal_settings_mail.html.twig',
@@ -224,76 +220,11 @@ class ManagerController extends Controller
      */
     public function userIndexAction()
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $mySteps = [];
-        if ($journal) {
-            /** @var JournalWorkflowStep[] $allowedWorkflowSteps */
-            $allowedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findBy(array('journalid' => $journal->getId()));
-            // @todo we should query in a more elegant way
-            // { roles : { $elemMatch : { role : "ROLE_EDITOR" }} })
-            // Don't know how to query $elemMatch
-            $journalService = $this->get('ojs.journal_service');
-            foreach ($allowedWorkflowSteps as $step) {
-                if (($journalService->hasJournalRole('ROLE_EDITOR') || $journalService->hasJournalRole(
-                            'ROLE_JOURNAL_MANAGER'
-                        )) || $this->checkStepAndUserRoles($step)
-                ) {
-                    $mySteps[] = $step;
-                }
-            }
-        }
-        $waitingTasksCount = [];
-        foreach ($mySteps as $step) {
-            /** @var JournalWorkflowStep $step */
-            // TODO : this should be in repository
-            $countQuery = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
-                ->createQueryBuilder('ars');
-            $countQuery->field('step.$id')->equals(new \MongoId($step->getId()));
-            $countQuery->field('finishedDate')->equals(null);
-            $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
-        }
-        // waiting invited steps
-        $invitedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:Invitation')
-            ->findBy(array('userId' => $user->getId(), 'accept' => null));
-
-        if ($user->isAdmin()) {
-            return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
-        }
 
         return $this->render(
-            'OjsJournalBundle:User:userwelcome.html.twig',
-            array(
-                'mySteps' => $mySteps,
-                'waitingCount' => $waitingTasksCount,
-                'invitedSteps' => $invitedWorkflowSteps,
-            )
+            'OjsJournalBundle:User:userwelcome.html.twig'
         );
     }
 
-    /**
-     * @param $step
-     * @return bool
-     */
-    private function checkStepAndUserRoles(JournalWorkflowStep $step)
-    {
-        $myRoles = $this->get('ojs.journal_service')->getSelectedJournalRoles();
-        $stepRoles = $step->getRoles();
-        foreach ($myRoles as $myRole) {
-            foreach ((array) $stepRoles as $stepRole) {
-                /**
-                 * @var JournalRole $stepRole
-                 * @var JournalRole $myRole
-                 */
-                if ($stepRole['role'] === $myRole) {
-                    return true;
-                }
-            }
-        }
 
-        return false;
-    }
 }

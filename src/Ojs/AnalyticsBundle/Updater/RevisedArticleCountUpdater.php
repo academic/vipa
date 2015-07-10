@@ -4,8 +4,6 @@
  */
 namespace Ojs\AnalyticsBundle\Updater;
 
-use Ojs\WorkflowBundle\Document\ArticlereviewStepRepository;
-
 class RevisedArticleCountUpdater extends Updater implements UpdaterInterface
 {
     public function update()
@@ -15,10 +13,7 @@ class RevisedArticleCountUpdater extends Updater implements UpdaterInterface
 
     public function count()
     {
-        /** @var ArticlereviewStepRepository $arsr */
-        $arsr = $this->dm->getRepository('OjsWorkflowBundle:ArticleReviewStep');
-
-        $all = $arsr->findBy(['']);
+        // TODO: Implement count() method.
     }
 
     /**
