@@ -2,6 +2,7 @@
 
 namespace Ojs\Common\Services;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
@@ -130,7 +131,7 @@ class JournalService
 
     /**
      * @param  Journal $journal
-     * @return array
+     * @return Collection
      */
     public function getSelectedJournalRoles(Journal $journal = null)
     {
@@ -157,7 +158,7 @@ class JournalService
      */
     public function hasJournalRole($checkRoles, Journal $journal = null)
     {
-        $journalRoles = $this->getSelectedJournalRoles($journal);
+        $journalRoles = $this->getSelectedJournalRoles($journal)->toArray();
 
         if (is_array($checkRoles)) {
             foreach ($checkRoles as $role) {
