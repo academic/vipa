@@ -4,6 +4,7 @@ namespace Ojs\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -67,19 +68,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface
      */
     public function hasJournalRole(User $user, Role $role, Journal $journal)
     {
-        $data = $this->getEntityManager()->createQuery(
-            'SELECT u FROM OjsJournalBundle:JournalRole u
-              WHERE u.userId = :user_id
-              AND u.roleId = :role_id
-              AND u.journalId = :journal_id
-              '
-        )
-            ->setParameter('user_id', $user->getId())
-            ->setParameter('role_id', $role->getId())
-            ->setParameter('journal_id', $journal->getId())
-            ->getResult();
+        $result = false;
+        $journalUser = $this
+            ->getEntityManager()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findOneBy(['user' => $user, 'journal' => $journal]);
+        if (!$journalUser) {
+            $result = $journalUser->getRoles()->contains($role);
+        }
 
-        return $data ? true : false;
+        return $result;
     }
 
     /**

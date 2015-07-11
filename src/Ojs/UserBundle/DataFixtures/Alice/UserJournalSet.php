@@ -7,6 +7,6 @@ $set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet(
     ]
 );
 
-$set->addFile(__DIR__.'/journal_role.yml', 'yaml');
+$set->addFile(__DIR__.'/journal_user.yml', 'yaml');
 
 return $set;

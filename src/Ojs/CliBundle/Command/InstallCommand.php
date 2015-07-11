@@ -4,8 +4,8 @@ namespace Ojs\CliBundle\Command;
 
 use Composer\Script\CommandEvent;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Theme;
-use Ojs\JournalBundle\Entity\JournalRole;
 use Ojs\SiteBundle\Acl\AclChainManager;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\UserBundle\Entity\Role;
@@ -637,28 +637,21 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit($viewEdit)->save();
         }
 
-        // Every JOURNAL MANAGER and EDITOR must be AUTHOR
+        // Every journal manager and editor must be an author too
 
-        $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
-        /* @var JournalRole[] $userJournalRoles */
-        $journalRoles = $em->getRepository('OjsJournalBundle:JournalRole')->findAllByJournalRole(
-            array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR')
-        );
-        foreach ($journalRoles as $journalRole) {
-            if (!$em->getRepository('OjsUserBundle:User')->hasJournalRole(
-                $journalRole->getUser(),
-                $authorRole,
-                $journalRole->getJournal()
-            )
-            ) {
-                $newJournalRole = new JournalRole();
-                $newJournalRole->setRole($authorRole);
-                $newJournalRole->setUser($journalRole->getUser());
-                $newJournalRole->setJournal($journalRole->getJournal());
-                $em->persist($newJournalRole);
-                $output->writeln(
-                    $sb.'Author added : '.$journalRole->getUser().' - '.$journalRole->getJournal().$se
-                );
+        /* @var JournalUser[] $journalUsers */
+        $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(['role' => 'ROLE_AUTHOR']);
+        $journalUsers = $em
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findByRoles(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
+
+        foreach ($journalUsers as $journalUser) {
+            if (!$journalUser->getRoles()->contains($authorRole)) {
+                $journalUser->getRoles()->add($authorRole);
+                $em->persist($journalUser);
+                $output->writeln($sb . 'Author added: ' .
+                    $journalUser->getUser() . ' - ' .
+                    $journalUser->getJournal() . $se);
             }
         }
 

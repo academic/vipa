@@ -8,6 +8,8 @@ use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -226,5 +228,23 @@ class ManagerController extends Controller
         );
     }
 
-
+    /**
+     * @param $step
+     * @return bool
+     */
+    private function checkStepAndUserRoles(JournalWorkflowStep $step)
+    {
+        $myRoles = $this->get('ojs.journal_service')->getSelectedJournalRoles();
+        $stepRoles = $step->getRoles();
+        foreach ($myRoles as $myRole) {
+            foreach ((array) $stepRoles as $stepRole) {
+                /**
+                 * @var Role $myRole
+                 */
+                if ($stepRole['role'] === $myRole->getName()) {
+                    return true;
+                }
+            }
+        }
+    }
 }

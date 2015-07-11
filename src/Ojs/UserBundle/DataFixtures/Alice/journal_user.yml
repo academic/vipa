@@ -1,17 +1,17 @@
-Ojs\JournalBundle\Entity\JournalRole:
+Ojs\JournalBundle\Entity\JournalUser:
   manager_journal_role:
       user: @user_journal_manager
-      role: @role1
+      roles: [@role1]
       journal: @journal1
   author_journal_role:
       user: @user_author
-      role: @role7
+      roles: [@role7]
       journal: @journal1
   editor_journal_role:
       user: @user_demo_editor
-      role: @role10
+      roles: [@role10]
       journal: @journal1
   random_role_{1..75}:
       user: @random_user_*
-      role: @role*
+      roles: [@role*]
       journal: @journal*
