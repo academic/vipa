@@ -16,6 +16,16 @@ fos_elastica:
                         tags: ~
                         subjects: {"index": "not_analyzed"}
                         avatar: ~
+                        journalUsers:
+                            type: object
+                            properties:
+                                journal:
+                                    type: object
+                                    properties:
+                                        title:
+                                            index: not_analyzed
+                                roles:
+                                    index: not_analyzed
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
