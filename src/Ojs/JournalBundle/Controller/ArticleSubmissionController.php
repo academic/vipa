@@ -54,8 +54,12 @@ class ArticleSubmissionController extends Controller
         }
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $source1TableAlias = $source1->getTableAlias();
+
+        $source2 = new Entity('OjsJournalBundle:ArticleSubmissionProgress');
+        $source2TableAlias= $source2->getTableAlias();
 
 
         if ($all) {
@@ -67,7 +71,13 @@ class ArticleSubmissionController extends Controller
                     return $qb;
                 }
             );
-
+            $source2->manipulateQuery(
+                function (QueryBuilder $qb) use ($source2TableAlias, $currentJournal) {
+                    $qb->where($source2TableAlias.'.submitted = 0');
+                    $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
+                    return $qb;
+                }
+            );
         } else {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal) {
@@ -82,27 +92,32 @@ class ArticleSubmissionController extends Controller
                     return $qb;
                 }
             );
+            $source2->manipulateQuery(
+                function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal) {
+                    $qb->where($source2TableAlias.'.submitted = 0');
+                    $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
+                    $qb->andWhere($source2TableAlias.'.userId = '.$user->getId());
+                    return $qb;
+                }
+            );
         }
 
         $gridManager = $this->get('grid.manager');
         $submissionsGrid = $gridManager->createGrid('submission');
         $drafts = $gridManager->createGrid('drafts');
         $submissionsGrid->setSource($source1);
-
+        $drafts->setSource($source2);
         /** @var GridAction $gridAction */
         $gridAction = $this->get('grid_action');
-
         $submissionsGrid->addRowAction($gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $currentJournal->getId()]));
         $submissionsGrid->addRowAction($gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $currentJournal->getId()]));
         $submissionsGrid->addRowAction($gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $currentJournal->getId()]));
-
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->submissionResumeAction('article_submission_resume', 'id');
         $rowAction[] = $gridAction->deleteAction('article_submission_cancel', 'id');
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
-
         $submissionsGrid->getColumn('status')->setSafe(false);
         $data = [
             'page' => 'submission',
@@ -110,7 +125,6 @@ class ArticleSubmissionController extends Controller
             'drafts' => $drafts,
             'all' => $all,
         ];
-
         return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
     }
 
