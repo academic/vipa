@@ -476,7 +476,7 @@ class ArticleSubmissionController extends Controller
      * @return Response
      * @throws AccessDeniedException
      */
-    public function previewAction($submissionId)
+    public function previewAction(Request $request, $submissionId)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
@@ -486,6 +486,10 @@ class ArticleSubmissionController extends Controller
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournal()->getId());
 
+        $translations = [];
+        foreach($articleSubmission->getArticle()->getTranslations() as $translation){
+            $translations[$translation->getLocale()][$translation->getField()] = $translation->getContent();
+        }
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:preview.html.twig',
             array(
@@ -493,6 +497,7 @@ class ArticleSubmissionController extends Controller
                 'submissionData' => $articleSubmission,
                 'journal' => $journal,
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
+                'translations' => $translations
             )
         );
     }

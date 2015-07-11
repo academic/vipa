@@ -37,29 +37,60 @@
             </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-striped">
+                    <tr colspan="2">
+                        <td><span class="label label-info">{{ app.request.locale }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>{{ "title"|trans }}</td>
+                        <td>{{ submissionData.article.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "subtitle"|trans }}</td>
+                        <td>{{ submissionData.article.subtitle }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "keywords"|trans }}</td>
+                        <td>{{ submissionData.article.keywords }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "subjects"|trans }}</td>
+                        <td>{{ submissionData.article.subjects }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "abstract"|trans }}</td>
+                        <td>{{ submissionData.article.abstract|raw }}</td>
+                    </tr>
+                </table>
+            </div>
+            {% for lang, translation in  translations %}
+                <div class="panel panel-body table-responsive">
+                    <table class="table table-striped">
+                        <tr colspan="2">
+                            <td><span class="label label-info">{{ lang }}</span></td>
+                        </tr>
                         <tr>
                             <td>{{ "title"|trans }}</td>
-                            <td>{{ submissionData.article.title }}</td>
+                            <td>{{ translation.title }}</td>
                         </tr>
                         <tr>
                             <td>{{ "subtitle"|trans }}</td>
-                            <td>{{ submissionData.article.subtitle }}</td>
+                            <td>{{ translation.subtitle }}</td>
                         </tr>
                         <tr>
                             <td>{{ "keywords"|trans }}</td>
-                            <td>{{ submissionData.article.keywords }}</td>
+                            <td>{{ translation.keywords }}</td>
                         </tr>
                         <tr>
                             <td>{{ "subjects"|trans }}</td>
-                            <td>{{ submissionData.article.subjects }}</td>
+                            <td>{{ translation.subjects }}</td>
                         </tr>
                         <tr>
                             <td>{{ "abstract"|trans }}</td>
-                            <td>{{ submissionData.article.abstract|raw }}</td>
+                            <td>{{ translation.abstract|raw }}</td>
                         </tr>
-                </table>
-
-            </div>
+                    </table>
+                </div>
+            {% endfor %}
             <div class="panel-footer"></div>
         </div>
 
