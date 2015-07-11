@@ -198,9 +198,10 @@ Ojs\UserBundle\Entity\User:
         authorDetails:
           targetEntity: Ojs\JournalBundle\Entity\Author
           mappedBy: user
-        userJournalRoles:
-          targetEntity: Ojs\JournalBundle\Entity\JournalRole
+        journalUsers:
+          targetEntity: Ojs\JournalBundle\Entity\JournalUser
           mappedBy: user
+          fetch: EXTRA_LAZY
     manyToOne:
         country:
             targetEntity: Ojs\LocationBundle\Entity\Country

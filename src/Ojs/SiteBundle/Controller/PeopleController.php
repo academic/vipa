@@ -33,7 +33,7 @@ class PeopleController extends Controller
 
             foreach ($roleFilters as $role) {
                 $match = new Query\Match();
-                $match->setField('userJournalRoles.role.name', $role);
+                $match->setField('journalUsers.roles', $role);
                 $boolQuery->addMust($match);
             }
 
@@ -45,7 +45,7 @@ class PeopleController extends Controller
 
             foreach ($journalFilters as $journal) {
                 $match = new Query\Match();
-                $match->setField('userJournalRoles.journal.title', $journal);
+                $match->setField('journalUsers.journal.title', $journal);
                 $boolQuery->addMust($match);
             }
 
@@ -53,7 +53,7 @@ class PeopleController extends Controller
         }
 
         $roleAgg = new Aggregation\Terms('roles');
-        $roleAgg->setField('userJournalRoles.role.name');
+        $roleAgg->setField('journalUsers.roles');
         $roleAgg->setOrder('_term', 'asc');
         $roleAgg->setSize(0);
         $userQuery->addAggregation($roleAgg);
@@ -65,7 +65,7 @@ class PeopleController extends Controller
         $userQuery->addAggregation($subjectAgg);
 
         $journalAgg = new Aggregation\Terms('journals');
-        $journalAgg->setField('userJournalRoles.journal.title');
+        $journalAgg->setField('journalUsers.journal.title');
         $journalAgg->setOrder('_term', 'asc');
         $journalAgg->setSize(0);
         $userQuery->addAggregation($journalAgg);

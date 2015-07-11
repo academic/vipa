@@ -4,12 +4,11 @@ namespace Ojs\SiteBundle\Acl;
 
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\JournalBundle\Entity\JournalRole;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
 {
-
     /**
      * @var string
      */
@@ -38,6 +37,7 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
         if ($role instanceof Role) {
             $role = (string) $role;
         }
+
         $this->journal = $journal;
         $this->role = $role;
     }
@@ -57,11 +57,6 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
         list($role, $journal) = explode('-', substr($securityIdentifier, 12));
 
         return new self($journal, $role);
-    }
-
-    public static function fromUserJournalRole(JournalRole $userJournalRole)
-    {
-        return new self($userJournalRole->getJournal(), $userJournalRole->getRole());
     }
 
     /**

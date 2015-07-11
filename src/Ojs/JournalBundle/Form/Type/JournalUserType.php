@@ -2,141 +2,54 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use Ojs\Common\Params\CommonParams;
-use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
 
 class JournalUserType extends AbstractType
 {
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
-                'username',
-                'text',
-                [
-                    'label' => 'username',
-                    'attr' => [
-                        'class' => 'validate[required]',
-                    ],
-                ]
-            )
-            ->add(
-                'password',
-                'password',
-                [
-                    'label' => 'password',
-                    'attr' => [
-
-                        'class' => 'validate[minSize[6]]',
-                    ],
-                ]
-            )
-            ->add(
-                'email',
-                'email',
-                [
-                    'label' => 'email',
-                    'attr' => [
-                        'class' => 'validate[required,custom[email]]',
-                    ],
-                ]
-            )
-            ->add('title', 'text', ['label' => 'user.title'])
-            ->add(
-                'firstName',
-                'text',
-                [
-                    'label' => 'firstname',
-                    'attr' => [
-                        'class' => 'validate[required]',
-                    ],
-                ]
-            )
-            ->add(
-                'lastName',
-                'text',
-                [
-                    'label' => 'lastname',
-                    'attr' => [
-                        'class' => 'validate[required]',
-                    ],
-                ]
-            )
-            ->add('isActive', 'checkbox', ['label' => 'user.isActive'])
-            ->add(
-                'status',
-                'choice',
-                [
-                    'label' => 'status',
-                    'choices' => CommonParams::$userStatusArray,
-                ]
-            )
-            ->add(
-                'subjects',
+                'user',
                 'entity',
-                array(
-                    'label' => 'subjects',
-                    'class' => 'Ojs\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
-                    'multiple' => true,
+                [
+                    'label' => 'user',
+                    'class' => 'Ojs\UserBundle\Entity\User',
+                    'property' => 'fullname',
+                    'multiple' => false,
                     'expanded' => false,
-                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                    'required' => false,
-                )
+                    'attr' => array("class" => "select2-element"),
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('journal_user');
+                    },
+                ]
             )
-            ->add('tags', 'tags')
-            ->add('avatar', 'hidden')
-            ->add('header', 'hidden')
             ->add(
-                'journalRoles',
+                'roles',
                 'entity',
                 [
-                    'label' => 'journal.roles',
+                    'label' => 'roles',
                     'class' => 'Ojs\UserBundle\Entity\Role',
                     'property' => 'name',
                     'multiple' => true,
                     'expanded' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('ujr');
-                    },
                     'attr' => array("class" => "select2-element"),
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('journal_user_role');
+                    },
                 ]
-            )
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
+            );
     }
 
     /**
-     * @return string
+     * Returns the name of this type.
+     * @return string The name of this type
      */
     public function getName()
     {
-        return 'ojs_userbundle_user';
+        return 'ojs_journalbundle_journaluser';
     }
 
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            [
-                'data_class' => 'Ojs\UserBundle\Entity\User',
-                'attr' => [
-                    'class' => 'validate-form',
-                    'novalidate' => 'novalidate',
-                ],
-            ]
-        );
-    }
 }

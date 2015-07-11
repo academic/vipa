@@ -46,8 +46,7 @@ ojs_journal_settings:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/settings.yml"
 
 ojs_journal_users:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/users.yml"
-    prefix:   /users
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/user.yml"
 
 ojs_journal_author:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/author.yml"

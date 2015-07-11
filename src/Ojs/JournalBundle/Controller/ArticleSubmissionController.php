@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
@@ -19,7 +20,7 @@ use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalRole;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step4CitationType;
 use Ojs\UserBundle\Entity\Role;
@@ -569,32 +570,35 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
+     * Checks if the user is an author of this journal.
+     * If he/she is not, then adds the user as an author to this journal.
      *
      * @param  Journal $journal
-     * @return JournalRole
+     * @return JournalUser|null
      */
     private function checkAndRegisterUserAuthorRole(Journal $journal)
     {
-        /**
-         * Check if the user is an author of this journal.
-         * If not, add author role for this journal
-         */
-        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
-        $userJournalRole = null;
-        if (!$checkRole) {
+        $author = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['journal' => $journal, 'user' => $this->getUser()]);
+
+        $journalUser = null;
+        if (empty($author)) {
             $em = $this->getDoctrine()->getManager();
-            $user = $this->getUser();
-            /** @var Role $role */
-            $role = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
-            $userJournalRole = new JournalRole();
-            $userJournalRole->setUser($user);
-            $userJournalRole->setJournal($journal);
-            $userJournalRole->setRole($role);
-            $em->persist($userJournalRole);
+            $role = $em->getRepository('OjsUserBundle:Role')
+                ->findOneBy(['role' => 'ROLE_AUTHOR']);
+
+            $journalUser = new JournalUser();
+            $journalUser->setJournal($journal);
+            $journalUser->setUser($this->getUser());
+            $journalUser->setRoles(new ArrayCollection([$role]));
+
+            $em->persist($journalUser);
             $em->flush();
         }
 
-        return $userJournalRole;
+        return $journalUser;
     }
 
     /**

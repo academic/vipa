@@ -2,7 +2,8 @@
 
 namespace Ojs\SiteBundle\Acl;
 
-use Ojs\JournalBundle\Entity\JournalRole;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\UserBundle\Entity\Role;
 use Problematic\AclManagerBundle\Domain\AclManager;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -126,14 +127,14 @@ class AclChainManager extends AclManager
         if (
             !$identity instanceof UserInterface &&
             !$identity instanceof TokenInterface &&
-            !$identity instanceof JournalRole &&
             !$identity instanceof RoleInterface &&
+            !is_array($identity) &&
             !is_string($identity)
         ) {
             throw new \InvalidArgumentException(
                 sprintf(
                     '$identity must implement one of: UserInterface, '.
-                    'TokenInterface, RoleInterface, UserJournalRole (%s given)',
+                    'TokenInterface, RoleInterface, array ([journal, role]) (%s given)',
                     get_class($identity)
                 )
             );
@@ -144,8 +145,14 @@ class AclChainManager extends AclManager
             $securityIdentity = UserSecurityIdentity::fromAccount($identity);
         } elseif ($identity instanceof TokenInterface) {
             $securityIdentity = UserSecurityIdentity::fromToken($identity);
-        } elseif ($identity instanceof JournalRole) {
-            $securityIdentity = JournalRoleSecurityIdentity::fromUserJournalRole($identity);
+        } elseif (is_array($identity)) {
+            if (count($identity) == 2 && $identity[0] instanceof Journal && $identity[0] instanceof Role) {
+                $securityIdentity = new JournalRoleSecurityIdentity($identity[0], $identity[1]);
+            } else {
+                throw new \InvalidArgumentException(
+                    'Couldn\'t create a valid SecurityIdentity with the provided identity information'
+                );
+            }
         } elseif ($identity instanceof RoleInterface || is_string($identity)) {
             $securityIdentity = new RoleSecurityIdentity($identity);
         }
