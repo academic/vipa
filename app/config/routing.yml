@@ -30,6 +30,9 @@ ojs_search:
 ojs_journal:
     resource: "@OjsJournalBundle/Resources/config/routing.yml"
 
+ojs_work_flow:
+    resource: "@OjsWorkFlowBundle/Resources/config/routing.yml"
+
 ojs_journal_panel:
     resource: "@OjsJournalBundle/Resources/config/routing_panel.yml"
     prefix:   /journal
