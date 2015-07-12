@@ -244,9 +244,6 @@
     <script type="text/javascript">
         OjsCommon.api.userApikey = "{{app.user.apiKey}}";
         var currentStep = parseInt(window.location.hash.replace("#", ""));
-        window.onbeforeunload = function () {
-            //return "{{"sure_data_lost"|trans}}";
-        };
         $(window).on("hashchange", function (event) {
             if (window.currentStep !== currentStep) {
                 window.currentStep = currentStep;
@@ -259,7 +256,7 @@
                 OjsArticleSubmission.prepareStep['step'+currentStep]();
             }else{
                 {% if step != 1 %}
-                    OjsArticleSubmission.prepareStep.step2();
+                    OjsArticleSubmission.prepareStep.step{{ step }}();
                 {% endif %}
             }
             {%if submissionId is defined %}
