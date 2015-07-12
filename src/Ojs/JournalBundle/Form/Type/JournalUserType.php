@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class JournalUserType extends AbstractType
 {
@@ -13,17 +14,16 @@ class JournalUserType extends AbstractType
         $builder
             ->add(
                 'user',
-                'entity',
+                'autocomplete',
                 [
-                    'label' => 'user',
                     'class' => 'Ojs\UserBundle\Entity\User',
-                    'property' => 'fullname',
-                    'multiple' => false,
-                    'expanded' => false,
-                    'attr' => array("class" => "select2-element"),
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('journal_user');
-                    },
+                    'label' => 'user',
+                    'attr' => [
+                        'class' => 'autocomplete',
+                        'data-list' => $options['usersEndpoint'],
+                        'data-get' => $options['userEndpoint'],
+                        "placeholder" => "Type a username",
+                    ],
                 ]
             )
             ->add(
@@ -51,5 +51,16 @@ class JournalUserType extends AbstractType
     {
         return 'ojs_journalbundle_journaluser';
     }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'usersEndpoint' => '/',
+                'userEndpoint' => '/',
+            )
+        );
+    }
+
 
 }
