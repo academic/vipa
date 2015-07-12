@@ -143,7 +143,7 @@ class ArticleSubmissionController extends Controller
          */
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         if (!$journal) {
-            return $this->redirect($this->generateUrl('user_join_journal'));
+            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
         }
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             return $this->redirect($this->generateUrl('article_submission_confirm_author'));

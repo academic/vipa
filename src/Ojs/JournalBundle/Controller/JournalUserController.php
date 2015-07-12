@@ -4,11 +4,14 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\JournalNewUserType;
+use Ojs\UserBundle\Entity\Role;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\UserBundle\Entity\User;
@@ -213,5 +216,76 @@ class JournalUserController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
+    }
+
+    /**
+     * @param  null|int $journalId
+     * @return RedirectResponse|Response
+     */
+    public function registerAsAuthorAction($journalId = null)
+    {
+        $user = $this->getUser();
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        $role = $doctrine->getRepository('OjsUserBundle:Role')->findOneBy(['role' => 'ROLE_AUTHOR']);
+
+        if ($journalId) {
+            /**
+             * @var Journal $journal
+             * @var User    $user
+             * @var Role    $role
+             */
+            $journal = $doctrine->getRepository('OjsJournalBundle:Journal')->find($journalId);
+
+            // Check if the user is in journal already
+            $journalUser = $doctrine
+                ->getRepository('OjsJournalBundle:JournalUser')
+                ->findOneBy(['user' => $user, 'journal' => $journal]
+            );
+
+            $journalUser = !$journalUser ? new JournalUser() : $journalUser;
+            $journalUser->setUser($user);
+            $journalUser->setJournal($journal);
+            if ($journalUser->getRoles() && !$journalUser->getRoles()->contains($role)) {
+                $journalUser->getRoles()->add($role);
+            } else {
+                $journalUser->setRoles(new ArrayCollection([$role]));
+            }
+
+            $em->persist($journalUser);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
+        }
+
+        /**
+         * @var JournalUser[] $journalUsers
+         * @var Journal[] $allJournals
+         */
+
+        $journalUsers = $doctrine
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['user' => $user]);
+        $allJournals = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Journal')
+            ->findAll();
+
+        $joinedJournals = [];
+        $nonJoinedJournals = [];
+
+        foreach ($journalUsers as $journalUser) {
+            $joinedJournals[] = $journalUser->getJournal();
+        }
+
+        foreach ($allJournals as $journal) {
+            if (!in_array($journal, $joinedJournals)) {
+                $nonJoinedJournals[] = $journal;
+            }
+        }
+
+        return $this->render('OjsJournalBundle:JournalUser:register.html.twig',
+            ['joined' => $joinedJournals, 'nonJoined' => $nonJoinedJournals]);
     }
 }

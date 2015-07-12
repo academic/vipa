@@ -19,3 +19,11 @@ ojs_journal_user_delete:
     path:     /{journalId}/user/{id}/delete
     defaults: { _controller: OjsJournalBundle:JournalUser:deleteUser }
     methods:  [DELETE]
+
+ojs_journal_user_register_list:
+    path:  /join
+    defaults: { _controller: "OjsJournalBundle:JournalUser:registerAsAuthor" }
+
+ojs_journal_user_register:
+    path:  /join/{journalId}
+    defaults: { _controller: "OjsJournalBundle:JournalUser:registerAsAuthor" }
