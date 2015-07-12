@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
@@ -12,6 +14,10 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class JournalUser
 {
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
     /**
      * @var integer
      */
@@ -44,10 +50,12 @@ class JournalUser
 
     /**
      * @param int $id
+     * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -60,10 +68,12 @@ class JournalUser
 
     /**
      * @param Journal $journal
+     * @return $this
      */
     public function setJournal($journal)
     {
         $this->journal = $journal;
+        return $this;
     }
 
     /**
@@ -76,10 +86,12 @@ class JournalUser
 
     /**
      * @param User $user
+     * @return $this
      */
     public function setUser($user)
     {
         $this->user = $user;
+        return $this;
     }
 
     /**
@@ -92,10 +104,32 @@ class JournalUser
 
     /**
      * @param Collection $roles
+     * @return $this
      */
     public function setRoles($roles)
     {
         $this->roles = $roles;
+        return $this;
+    }
+
+    /**
+     * @param Role $role
+     * @return $this
+     */
+    public function addRole(Role $role)
+    {
+        $this->roles->add($role);
+        return $this;
+    }
+
+    /**
+     * @param Role $role
+     * @return $this
+     */
+    public function removeRole(Role $role)
+    {
+        $this->roles->removeElement($role);
+        return $this;
     }
 }
 
