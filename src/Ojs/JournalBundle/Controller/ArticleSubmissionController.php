@@ -54,7 +54,6 @@ class ArticleSubmissionController extends Controller
             return $this->redirect($this->generateUrl('ojs_user_index'));
         }
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
 
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $source1TableAlias = $source1->getTableAlias();
