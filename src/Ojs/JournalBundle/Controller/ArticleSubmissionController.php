@@ -23,7 +23,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step4CitationType;
-use Ojs\UserBundle\Entity\Role;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -147,18 +146,13 @@ class ArticleSubmissionController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             return $this->redirect($this->generateUrl('article_submission_confirm_author'));
         }
-        $dm = $this->get('doctrine_mongodb');
-        /*$firstStep  = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));*/
-        $firstStep = null;
 
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
             array(
                 'journal' => $journal,
                 'step' => '1',
-                'checklist' => [],
-                'firstStep' => $firstStep
+                'checklist' => []
             )
         );
     }
@@ -532,11 +526,9 @@ class ArticleSubmissionController extends Controller
         /* @var  $articleSubmission ArticleSubmissionProgress */
         $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         $article = $articleSubmission->getArticle();
-
         if (!$articleSubmission) {
             throw $this->createNotFoundException('Submission not found.');
         }
-
         $article->setJournal($article->getJournal());
         $article->setStatus(0);
         $article->setSetupStatus(1);
