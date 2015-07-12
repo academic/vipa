@@ -1190,8 +1190,11 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         $this->journalUsers = $journalUsers;
     }
 
-    public function getJournalRoles(Journal $journal)
+    public function getJournalRoles(Journal $journal = null)
     {
+        if(!$journal) {
+            return [];
+        }
         $journalRoles = [];
         $journalUsers = $this->getJournalUsers();
 
