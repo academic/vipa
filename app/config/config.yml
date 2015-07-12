@@ -118,7 +118,7 @@ apy_data_grid:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [OjsJournalBundle, OjsWorkFlowBundle]
+        bundles: [OjsJournalBundle]
         directories: ["%kernel.root_dir%/../src"]
 #    automatic_controller_injections:
 #        properties:
