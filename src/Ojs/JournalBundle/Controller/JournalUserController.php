@@ -169,6 +169,9 @@ class JournalUserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
         }
 
         return $this->render(
@@ -188,6 +191,8 @@ class JournalUserController extends Controller
             array(
                 'action' => $this->generateUrl('ojs_journal_user_add', ['journalId' => $journalId]),
                 'method' => 'POST',
+                'usersEndpoint' => $this->generateUrl('api_get_users'),
+                'userEndpoint' => $this->generateUrl('get_user_by_id'),
             )
         );
 
