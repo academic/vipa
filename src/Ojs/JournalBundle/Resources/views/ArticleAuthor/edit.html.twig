@@ -4,7 +4,8 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_journal_article_author_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id}) }),'title': 'article.author'|trans},
+    { 'link': path('ojs_journal_article_author_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id}) },
+    {'title': 'article.author'|trans},
     {'title': 'title.article_authors_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
