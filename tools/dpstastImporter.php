@@ -16,8 +16,11 @@ if(!isset($argv[4])){
   throw new Exception("Mongo veritabanı adı eksik.");
 }
 $mongoDbName = $argv[4];
-
-$mongoConnection = new MongoClient("mongodb://127.0.0.1:27017");
+if(!isset($argv[5])){
+  throw new Exception("Mongo sunucu adresi eksik.");
+}
+$mongoServer = $argv[5];
+$mongoConnection = new MongoClient("mongodb://$mongoServer:27017");
 
 $mongoDb = $mongoConnection->{$mongoDbName};
 $transferredRecords = $mongoDb->transferred_records;
