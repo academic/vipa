@@ -103,6 +103,11 @@ ojs_announcement_index:
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:announcementIndex }
 
+ojs_journal_subscribe:
+    path:  /{slug}/subscribe
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:subscribe }
+
 ojs_issue_page:
     path: /{journal_slug}/issue/{id}
     host: "{institution}.%base_host%"
