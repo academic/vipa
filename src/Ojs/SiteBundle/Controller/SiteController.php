@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper\FileHelper;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
@@ -303,25 +304,37 @@ class SiteController extends Controller
     public function downloadFileAction(Request $request, $id)
     {
         /** @var File $file */
-        $file = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File', $id);
-        if (!$file) {
+        $fileObject = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File', $id);
+        if (!$fileObject) {
             throw new NotFoundHttpException();
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
         $objectDownload = new ObjectDownloads();
 
         $objectDownload->setEntity('file');
-        $objectDownload->setFilePath($file->getPath());
+        $objectDownload->setFilePath($fileObject->getPath());
         $objectDownload->setIpAddress($request->getClientIp());
         $objectDownload->setLogDate(new \DateTime("now"));
         $objectDownload->setObjectId($id);
-        $objectDownload->setTransferSize($file->getSize());
+        $objectDownload->setTransferSize($fileObject->getSize());
+        $dm->persist($objectDownload);
+        $dm->flush();
+
+        $objectDownload = new ObjectDownloads();
+        /** @var Article $article */
+        $article = $fileObject->getArticleFiles()->first();
+        $objectDownload->setEntity('article');
+        $objectDownload->setFilePath($fileObject->getPath());
+        $objectDownload->setIpAddress($request->getClientIp());
+        $objectDownload->setLogDate(new \DateTime("now"));
+        $objectDownload->setObjectId($article->getId());
+        $objectDownload->setTransferSize($fileObject->getSize());
         $dm->persist($objectDownload);
         $dm->flush();
 
         $fileHelper = new FileHelper();
 
-        $file = $fileHelper->generatePath($file->getName(), false).$file->getName();
+        $file = $fileHelper->generatePath($fileObject->getName(), false).$fileObject->getName();
 
         $uploaddir = $this->get('kernel')->getRootDir().'/../web/uploads/';
 
@@ -348,7 +361,7 @@ class SiteController extends Controller
 
         $response = new Response();
         $content = \file_get_contents($fullPath);
-        $response->headers->set('Content-Type',mime_content_type($fullPath));
+        $response->headers->set('Content-Type',$fileObject->getMimeType());
         $response->headers->set('Content-Length',filesize($fullPath));
         $response->setContent($content);
 
