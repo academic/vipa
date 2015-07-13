@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Yaml\Parser;
+use Ojs\JournalBundle\Entity\SubscribeMailList;
 
 class SiteController extends Controller
 {
@@ -248,6 +249,10 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
     }
 
+    /**
+     * @param $slug
+     * @return Response
+     */
     public function announcementIndexAction($slug)
     {
         /** @var EntityManager $em */
@@ -266,6 +271,31 @@ class SiteController extends Controller
         $data['journal'] = $journal;
 
         return $this->render('OjsSiteBundle::Journal/announcement_index.html.twig', $data);
+    }
+
+    /**
+     * @param Request $request
+     * @param $slug
+     * @return Response
+     */
+    public function subscribeAction(Request $request, $slug)
+    {
+        $referer = $request->headers->get('referer');
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBySlug($slug);
+        $this->throw404IfNotFound($journal);
+        $mail = $request->get('mail');
+
+        $subscribeMail = new SubscribeMailList();
+        $subscribeMail->setMail($mail);
+        $subscribeMail->setJournal($journal);
+        $em->persist($subscribeMail);
+        $em->flush();
+
+        $this->successFlashBag('successfully.subscribed');
+        return $this->redirect($referer);
     }
 
     public function issuePageAction($id)

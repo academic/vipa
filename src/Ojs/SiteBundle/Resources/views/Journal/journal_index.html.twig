@@ -34,9 +34,9 @@
                                 class="width100 img-responsive"/>
                     </div>
                 {% endif %}
-
                 <h1>{{ journal.title }}</h1>
                 <div class="col-md-12">
+                    {% include '::flashbag.html.twig' %}
                     <dl class="journal-meta">
                         {% if journal.issn %}
                             <dt>ISSN</dt>
@@ -140,6 +140,17 @@
                     <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
                        class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                     </a>
+                    <div class="list-group-item ">
+                        <form role="search" action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ "subscribe.this.journal"|trans }}" name="mail">
+
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-send"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
 
                     {% if enable_social is defined %}
