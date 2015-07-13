@@ -9,17 +9,17 @@ Association: Organizasyon
 Author: Yazar
 Authors: Yazarlar
 Avatar: Avatar
-Chamber: Chamber
+Chamber: Oda
 workflow.competing_of_interest_file: 'Çıkar Çatışması Dosyası'
-Confirm: Kabul Et
+Confirm: Onayla
 Content: İçerik
-Copyeditor: Copyeditor
+Copyeditor: 'Sayfa Düzenleyici'
 workflow.copyright_transfer_form: 'Telif Hakkı Devir Formu'
 Create: 'Oluştur'
 article.data_analysis: 'Veri Analizleri'
 'Data Set': 'Veri Seti'
 Decline: Reddet
-roles.default_registered_user: 'Varsayılan kayıtlı kullanıcı'
+roles.default_registered_user: 'Varsayılan Kayıtlı Kullanıcı'
 Description: 'Açıklama'
 Drafts: Taslaklar
 Editor: Editör
@@ -45,11 +45,11 @@ Information: Bilgi
 'ojs.is_public': 'Görünür mü?'
 Issue: Sayı
 Italian: İtalyanca
-roles.journal_manager: 'Journal Manager'
-Keywords: Anahtar kelimeler
+roles.journal_manager: 'Dergi Yöneticisi'
+Keywords: Anahtar Kelimeler
 'workflow.last_step': 'Son Adım'
-'Layout Editor': 'Layout Editor'
-Name: 'İsim'
+'Layout Editor': Mizanpajcı
+Name: 'Ad'
 'No': 'Hayır'
 'No data': 'Veri Yok'
 Other: Diğer
@@ -58,19 +58,19 @@ Password: Şifre
 Pictures: Görseller
 Polish: Lehçe
 Private: Gizli
-Proofreader: Proofreader
+Proofreader: 'Son Okuyucu'
 Pubdateseason: 'Yayın Tarihi'
 ROLE_AUTHOR: Yazar
-ROLE_COPYEDITOR: Copyeditor
+ROLE_COPYEDITOR: 'Sayfa Düzenleyici'
 ROLE_EDITOR: Editör
-ROLE_JOURNAL_MANAGER: 'Dergi Yönetici'
-ROLE_LAYOUT_EDITOR: 'Mizanpaj Editörü'
-ROLE_PROOFREADER: Proofreader
-ROLE_READER: Okur
-ROLE_SECTION_EDITOR: 'Bölüm Editör'
+ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
+ROLE_LAYOUT_EDITOR: 'Mizanpajcı'
+ROLE_PROOFREADER: 'Son Okuyucu'
+ROLE_READER: Okuyucu
+ROLE_SECTION_EDITOR: 'Bölüm Editörü'
 ROLE_SUBSCRIPTION_MANAGER: 'Abonelik Yöneticisi'
 Reader: Okuyucu
-ojs.repeat_password: 'Şifreyi tekrar yaz'
+ojs.repeat_password: 'Şifreyi Tekrar Yaz.'
 workflow.research_materials: 'Araştıra Materyalleri'
 workflow.research_results: 'Araştırma Sonuçları'
 Reset: Sıfırla
@@ -78,51 +78,51 @@ Reviewer: Hakem
 Russian: Rusça
 Search: Arama
 Section: Bölüm
-roles.section_editor: 'Bölüm Editör'
+roles.section_editor: 'Bölüm Editörü'
 'workflow.source_text': 'Kaynak Metin'
 Subject: Konu
 Subjects: Konular
 Submissions: Gönderiler
-roles.subs_manager: 'Abonelik Yöneticisi Manager'
+roles.subs_manager: 'Abonelik Yöneticisi'
 'workflow.supp_file': 'Ek Dosya'
 Supplementary.File: 'Ek Dosya'
-roles.sys_manager: 'Sistem yöneticisi'
+roles.sys_manager: 'Sistem Yöneticisi'
 Tables: Tablolar
 Template: Şablon
 Title: Başlık
 Transcripts: Suretler
 Turkish: Türkçe
-Tweak: Tweak
-Tweaks: Tweaks
+Tweak: 'Ufak Düzeltme'
+Tweaks: 'Ufak Düzeltmeler'
 URL: Bağlantı
-USER_LOGIN_EVENT: 'Kullanıcı Giriş Haraketi'
-USER_LOGOUT_EVENT: 'Kullanıcı Çıkış Haraketi'
+USER_LOGIN_EVENT: 'Kullanıcı Girişi'
+USER_LOGOUT_EVENT: 'Kullanıcı Çıkışı'
 University: Üniversite
 Update: Güncelle
 User: Kullanıcı
 Yes: Evet
-ojs.password_reset_requested: 'Şifre Sıfırlama Talebiniz Var'
+ojs.password_reset_requested: 'Şifre Sıfırlama Talebiniz Var.'
 about: Hakkında
 abstract: Öz
-abstract.transliterated: 'Öz tercümesi'
+abstract.transliterated: 'Başka Alfabe İle Yazılmış Öz'
 accept: Kabul Et
-accepted: Kabul edilmiş
+accepted: Kabul Edilmiş
 actions: Hareketler
 add: Ekle
-add.as.proxy: 'Vekil Tayin et'
-add.language: 'Dil ekle'
+add.as.proxy: 'Vekil Tayin Et'
+add.language: 'Dil Ekle'
 added: Eklenmiş
 address: Adres
-addressLat: 'Address Latitude'
-addressLong: 'Address Longitude'
-address_lat: Latitude
-address_long: Longitude
+addressLat: 'Adres Enlemi'
+addressLong: 'Adres Boylamı'
+address_lat: Enlem
+address_long: Boylam
 admin: Yönetici
 admin.dashboard.applications: Başvurular
 admin.dashboard.journal_settings: 'Dergi Ayarları'
 admin.dashboard.system_settings: 'Sistem Ayarları'
-admin.log.field: 'Değişen alan'
-admin.log.history: Değişim Geçmişi
+admin.log.field: 'Sistem Günlüğü'
+admin.log.history: 'Sistem Günlüğü Tarihçesi'
 admin.log.newValue: 'yeni değer'
 admin.log.oldValue: 'eski değer'
 adress: adres
