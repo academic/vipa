@@ -22,10 +22,7 @@ class JournalType extends AbstractType
                 'translatable_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'fields' => [
                     'title' => [
-                        'label' => 'title',
-                        'attr' => [
-                            'class' => 'validate[required]'
-                        ]
+                        'label' => 'title'
                     ],
                     'subtitle' => [
                         'locale_options' => [
