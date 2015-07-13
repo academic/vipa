@@ -34,8 +34,11 @@ class EditorController extends Controller
         if (!$user_id) {
             throw new HttpException(403, 'ojs.403');
         }
-        $entities = $this->getDoctrine()->getRepository('OjsJournalBundle:JournalRole')
-            ->userJournalsWithRoles($user_id);
+
+        $entities = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['user' => $this->getUser()]);
 
         return $this->render(
             'OjsJournalBundle:Editor:myjournals.html.twig',
@@ -73,8 +76,8 @@ class EditorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $stats['userCount'] = $em
-            ->createQuery('SELECT COUNT(a) FROM OjsJournalBundle:JournalRole a WHERE a.journalId = :journal_id')
-            ->setParameter('journal_id', $journal->getId())
+            ->createQuery('SELECT COUNT(a) FROM OjsJournalBundle:JournalUser a WHERE a.journal = :journal')
+            ->setParameter('journal', $journal)
             ->getSingleScalarResult();
         $stats['articleCount'] = $em
             ->createQuery('SELECT COUNT(a) FROM OjsJournalBundle:Article a WHERE a.journalId = :journal_id')
