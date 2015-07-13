@@ -46,6 +46,15 @@
                 <h4>
                     {{ "competingOfInterest"|trans }}
                 </h4>
+                {% if journal.competingInterestFile is not null %}
+                    <h5>
+                        {{ 'download.a.copy'|trans }}
+                        <a class="label label-info" target="_blank"
+                           href="/uploads/journalfiles/{{ filePath(journal.competingInterestFile.path) }}">
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </h5>
+                {% endif %}
                 <span class="btn btn-success fileinput-button">
                     <i class="fa fa-plus"></i>
                     <span>{{ "select.article.file"|trans }}</span>
