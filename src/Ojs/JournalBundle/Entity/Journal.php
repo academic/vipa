@@ -287,6 +287,16 @@ class Journal implements Translatable
     private $journalUsers;
 
     /**
+     * @var File
+     */
+    private $competingInterestFile;
+
+    /**
+     * @var integer
+     */
+    private $competingInterestFileId;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1576,5 +1586,43 @@ class Journal implements Translatable
     public function setJournalUsers($journalUsers)
     {
         $this->journalUsers = $journalUsers;
+    }
+
+    /**
+     * @param  File $competingInterestFile
+     * @return $this
+     */
+    public function setCompetingInterestFile(File $competingInterestFile)
+    {
+        $this->competingInterestFile = $competingInterestFile;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getCompetingInterestFile()
+    {
+        return $this->competingInterestFile;
+    }
+
+    /**
+     * @param  integer $competingInterestFileId
+     * @return $this
+     */
+    public function setCompetingInterestFileId($competingInterestFileId)
+    {
+        $this->competingInterestFileId = $competingInterestFileId;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getCompetingInterestFileId()
+    {
+        return $this->competingInterestFileId;
     }
 }

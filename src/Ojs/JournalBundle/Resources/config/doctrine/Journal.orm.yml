@@ -20,6 +20,11 @@ Ojs\JournalBundle\Entity\Journal:
           joinColumn:
             name: country_id
             referencedColumnName: id
+        competingInterestFile:
+            targetEntity: Ojs\JournalBundle\Entity\File
+            joinColumn:
+              name: competing_interest_file_id
+              referencedColumnName: id
     oneToMany:
         settings:
             targetEntity: JournalSetting
@@ -239,6 +244,12 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
+        competingInterestFileId:
+            type: integer
+            nullable: TRUE
+            column: competing_interest_file_id
+            gedmo:
+              - versioned
         header_options:
             type: string
             nullable: true
