@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Ojs\JournalBundle\Entity\File;
 
 /**
  * Journal controller.
@@ -269,6 +270,18 @@ class AdminJournalController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            if($request->get('competing_interest_file_id') == ''){
+                if($request->get('competing_interest_file') !== ''){
+                    $competingInterestFile = new File();
+                    $competingInterestFile->setName('Competing Interest File');
+                    $competingInterestFile->setSize($request->get('competing_interest_file_size'));
+                    $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
+                    $competingInterestFile->setPath($request->get('competing_interest_file'));
+                    $em->persist($competingInterestFile);
+                    $em->flush();
+                    $entity->setCompetingInterestFile($competingInterestFile);
+                }
+            }
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
             $logo = $request->request->get('logo');
@@ -285,14 +298,14 @@ class AdminJournalController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_admin_journal_edit', array('id' => $id)));
+            return $this->redirectToRoute('ojs_admin_journal_edit',  ['id' => $id]);
         }
 
         return $this->render(
             'OjsAdminBundle:AdminJournal:edit.html.twig',
             array(
                 'entity' => $entity,
-                'edit_form' => $editForm->createView(),
+                'form' => $editForm->createView(),
             )
         );
     }
