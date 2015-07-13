@@ -162,6 +162,7 @@ Ojs\JournalBundle\Entity\Article:
     competingInterestFileId:
         type: integer
         nullable: TRUE
+        column: competing_interest_file_id
         gedmo:
           - versioned
     keywords:

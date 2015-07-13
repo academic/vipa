@@ -245,11 +245,21 @@ class ArticleSubmissionController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+
+        $competingInterestFile = new File();
+        $competingInterestFile->setName('Competing Interest File');
+        $competingInterestFile->setSize($request->get('competing_interest_file_size'));
+        $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
+        $competingInterestFile->setPath($request->get('competing_interest_file'));
+        $em->persist($competingInterestFile);
+        $em->flush();
+
         $article = new Article();
         $article->setJournal($selectedJournal);
         $article->setSubmitterId($user->getId());
         $article->setSetupStatus(0);
         $article->setTitle('');
+        $article->setCompetingInterestFile($competingInterestFile);
         $em->persist($article);
         $em->flush();
 
@@ -260,7 +270,6 @@ class ArticleSubmissionController extends Controller
         $articleSubmission->setChecklist(json_encode($request->get('checklistItems')));
         $articleSubmission->setSubmitted(false);
         $articleSubmission->setCurrentStep(2);
-        $articleSubmission->setCompetingOfInterest($request->get('competingOfInterest'));
         $em->persist($articleSubmission);
         $em->flush();
 
