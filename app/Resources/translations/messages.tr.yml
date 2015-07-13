@@ -123,101 +123,101 @@ admin.dashboard.journal_settings: 'Dergi Ayarları'
 admin.dashboard.system_settings: 'Sistem Ayarları'
 admin.log.field: 'Sistem Günlüğü'
 admin.log.history: 'Sistem Günlüğü Tarihçesi'
-admin.log.newValue: 'yeni değer'
-admin.log.oldValue: 'eski değer'
-adress: adres
+admin.log.newValue: 'Yeni Değer'
+admin.log.oldValue: 'Eski Değer'
+adress: Adres
 advancedsearch: 'Gelişmiş Arama'
 allow_index: 'İndekslenebilir'
-allow_index.list: 'İzin verilmiş index Listesi'
+allow_index.list: 'İzin Verilmiş İndex Listesi'
 announcements: Duyurular
 api: 'Uygulama Geliştirme Arayüzü'
 api_motto: 'OJS geliştiricilere tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
-application.basic: Basic
+application.basic: Temel
 application.contact: İletişim
 application.graphics: Görseller
-application.institute: 'Enstitü başvurusu'
-application.institute.detail: Detay
-application.institute.list: 'Enstitü önerileri'
-application.institution.apply: 'Enstitü olarak başvur'
-application.institution.edit: 'Enstitü başvurusunu düzenle'
+application.institute: 'Kurum Başvurusu'
+application.institute.detail: Kurum Detayı
+application.institute.list: 'Kurum Listesi'
+application.institution.apply: 'Kurum Olarak Başvur'
+application.institution.edit: 'Kurum Başvurusunu Düzenle'
 application.journal: 'Dergi Başvurusu'
-application.journal.apply: 'Yeni dergi olarak başvur'
+application.journal.apply: 'Dergi Olarak Başvur'
 application.journal.detail: Detay
-application.journal.edit: 'Dergi başvurusunu düzenle'
-application.journal.institution: Enstitü
+application.journal.edit: 'Dergi Başvurusunu Düzenle'
+application.journal.institution: Derginin Kurumu
 application.journal.list: 'Dergi Önerileri'
-application.journal.new_institution: 'Yeni Enstitü olarak başvur'
-application.journal.new_institution_help: 'Eğer yukarıda enstitünüzü bulamadıysanız yeni enstitü başvurunda bulununuz'
-application.status.complete: 'İçe aktarma tamamlandı'
+application.journal.new_institution: 'Yeni Kurum Olarak Başvur'
+application.journal.new_institution_help: 'Eğer yukarıda kurumunuzu bulamadıysanız yeni kurum başvurusunda bulununuz.'
+application.status.complete: 'İçe Aktarma Tamamlandı'
 application.status.deleted: Silinmiş
 application.status.onhold: 'Beklemede'
 application.status.rejected: Reddedilmiş
-application.status.waiting: 'İçe aktarılmayı bekliyor'
+application.status.waiting: 'İçe Aktarılmayı Bekliyor.'
 apply: Başvur
-apply.for.new.journal: 'Yeni dergi olarak başvur'
+apply.for.new.journal: 'Yeni Dergi Olarak Başvur'
 archive: Arşiv
 article: Makale
 article.add: Makale Ekle
-article.all: Tüm makaleler
-article.any_article_viewed: Hiç makale görüntülenmedi
-article.any_downloaded: Hiç makale indirilmedi
-article.authors: Makale yazarları
-article.citations: Makale atıfları
-article.detail: Makale detayları
-article.files: Makale dosyaları
-article.fulltext: Tam metin
-article.header_image: Makale üst resmi
-article.language.other: Makale diğer dilleri
-article.language.primary: Makale ana dili
-article.licensing: Lisansı
-article.manager: Makale yöneticisi
-article.metadata: Makale meta bilgileri
+article.all: Tüm Makaleler
+article.any_article_viewed: Hiç Makale Görüntülenmedi.
+article.any_downloaded: Hiç Makale İndirilmedi.
+article.authors: Makale Yazarları
+article.citations: Makale Atıfları
+article.detail: Makale Detayları
+article.files: Makale Dosyaları
+article.fulltext: Tam Metin
+article.header_image: Makale Üst Resmi
+article.language.other: Makale Diğer Dilleri
+article.language.primary: Makalenin Birincil Dili
+article.licensing: Lisanslama
+article.manager: Makale Yöneticisi
+article.metadata: Makale Üstverisi
 article.mysubmits: Gönderdiğim Makaleler
 article.new: Yeni Makale
 article.plural: Makaleler
-article.preview: Makale önizle
+article.preview: Makale Önizle
 article.singular: Makale
 article.submit: Makale Gönder
-article.subtitle: Makale alt başlık
-article.title: Makale başlık
-article.titleTransliterated: Makale çevrilmiş başlık
-article.type: Makale tipi
-article.type.list: Makale tipleri
-article.type.new: Yeni makale tipi
-article.types: Makale tipleri
-article_author_edit: Makale yazarlarını düzenle
-article_author_list: Makale yazarlarını listele
+article.subtitle: Makalenin Alt Başlığı
+article.title: Makale Başlığı
+article.titleTransliterated: Başka Dilde Yazılmış Başlık
+article.type: Makale Türü
+article.type.list: Makale Türü Listesi
+article.type.new: Yeni Makale Türü
+article.types: Makale Türleri
+article_author_edit: Makalenin Yazarlarını Düzenle
+article_author_list: Makalenin Yazarlarını Listele
 article_id: Makale No
-articleauthor: Makele yazarı
-articleauthor_create: Makale yazarı oluştur
-articleauthor_new: Makale yazarı oluştur
-articlefile: Makale dosyası
+articleauthor: Makale Yazarı
+articleauthor_create: Makale Yazarı Oluştur
+articleauthor_new: Yeni Yazar
+articlefile: Makale Dosyası
 articlefile.actions: İşlemler
-articlefile.id: ID
+articlefile.id: Dosya No
 articlefile.langcode: Dosya Dili
 articlefile.new: Yeni Makale Dosyası
 articlefile.title: Dosya Başlığı
 articlefile.type: Makale Dosya Tipi
 articlefile.version: Dosya Sürümü
 articles: Makaleler
-articles.needAction: İşlem gereken makaleler
-articles.waiting: Bekleyen makaleler
-articles_in_journal: Dergideki makaleler
+articles.needAction: İşlem Gereken Makaleler
+articles.waiting: Bekleyen Makaleler
+articles_in_journal: Dergideki Makaleler
 author: Yazar
 author.add: Yazar Ekle
-author.creation: Yazar Ekleme
+author.creation: Yazar Oluşturma
 author.details: Yazar Detayları
 author.edit: Yazar Düzenleme
 author.firstname: İlk adı
-author.firstnametransliterated: İlk adın transkripsiyonu
-author.initials: İlk harfleri
-author.institution: Yazar Enstitülü
+author.firstnametransliterated: Başka Dilde İlk Ad
+author.initials: Yazar Başharfleri
+author.institution: Yazarın Kurumu
 author.lastname: Soyadı
-author.lastnametransliterated: Soyadın transkripsiyonu
+author.lastnametransliterated: Başka Dilde Soyad
 author.list: Yazar Listesi
 author.manager: Yazar Yöneticisi
-author.middlename: Orta adı
-author.middlenametransliterated: Orta adın transkripsiyonu
+author.middlename: İkinci ad
+author.middlenametransliterated: Başka Dilde İkinci Ad
 author.new: Yeni Yazar
 author.orcid: ORCID
 author.order: Sıra
@@ -227,25 +227,25 @@ author.singular: Yazar
 author.summary: Yazar Özeti
 author.title: Başlık
 author_id: Yazar No
-author_order: Yazar Sıralamaso
+author_order: Yazar Sırası
 authors: Yazarlar
 authors.count: Yazar Sayısı
 b: Geri
 back: Geri
-back.continue.editing: Geri Dön & Düzenleme devam et
-basetheme: Ana tema
-basicsearch: Basit arama
+back.continue.editing: Geri Dön & Düzenlemeye Devam Et
+basetheme: Ana Tema
+basicsearch: Basit Arama
 block: Blok
 blog: Blog
 board: Kurul
-board.addUser: Kurula kullanıcı ekle
-board.can_not_add_user: Sadece kayıtlı olduğunuz derginin kuruluna ekleme yapabilirsiniz
-board.create: Kurul oluştur
-board.delete: Kurul sil
-board.detail: Kurul detayı
-board.edit: Kurul düzenle
-board.hasNoMember: Kurulun hiç üyesi yok
-board.manage_users: Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz</a>
+board.addUser: Kurula Kullanıcı Ekle
+board.can_not_add_user: Sadece kayıtlı olduğunuz derginin kuruluna ekleme yapabilirsiniz.
+board.create: Kurul Oluştur
+board.delete: Kurul Sil
+board.detail: Kurul Detayı
+board.edit: Kurul Düzenle
+board.hasNoMember: Kurulun Hiç Üyesi Yok
+board.manage_users: Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>
 board.manager: Kurul yöneticisi
 board.members: Kurul üyeleri
 board.name: Kurul ismi
@@ -1317,4 +1317,3 @@ you: You
 404: 'Not found'
 search.on.everywhere: 'Her yerde ara'
 search.on.journal: 'Dergide ara'
-successfully.subscribed: 'Başarı ile Abone Olundu'
