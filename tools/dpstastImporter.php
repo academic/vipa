@@ -34,7 +34,7 @@ $connection = new mysqli($database['host'],$database['user'],$database['password
 
 $statsConnection = new mysqli($statsDatabase['host'],$statsDatabase['user'],$statsDatabase['password'],$statsDatabase['dbname']);
 
-$articles = $connection->query("SELECT id FROM article");
+$articles = $connection->query("SELECT id FROM article WHERE journal_id=$journalId");
 if(mysqli_errno($connection)){
   throw new Exception(mysqli_error($connection));
 }
