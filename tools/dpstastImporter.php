@@ -104,7 +104,7 @@ while($article = $articles->fetch_array()){
     }
   }else{
     echo "{$article['id']} id'li makale için hiç indirme istatistiği yok.\n";
-    echo "\n for debug: \n\t article_id: {$article['id']}\n\t total_download_count: $totalDownloadCount\n\ttotal_download: {$totalDownload['total']} \n";
+    echo "for debug: \n\t article_id: {$article['id']} | $old_id \n\t total_download_count: $totalDownloadCount\n\ttotal_download: {$totalDownload['total']} \n";
   }
 
   if(!$totalViewCount && $totalView['total']){
@@ -127,7 +127,7 @@ while($article = $articles->fetch_array()){
     }
   }else{
     echo "{$article['id']} id'li makale için hiç görüntüleme istatistiği yok.\n";
-    echo "\n for debug: \n\t article_id: {$article['id']}\n\t total_download_count: $totalViewCount\n\ttotal_download: {$totalView['total']} \n";
+    echo "for debug: \n\t article_id: {$article['id']} | $old_id \n\t total_download_count: $totalViewCount\n\ttotal_download: {$totalView['total']} \n";
 
   }
 }
