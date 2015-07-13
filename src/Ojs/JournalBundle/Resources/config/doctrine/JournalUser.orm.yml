@@ -36,4 +36,8 @@ Ojs\JournalBundle\Entity\JournalUser:
             generator:
                 strategy: AUTO
 
+    uniqueConstraints:
+        journal_user_idx:
+            columns: journal_id, user_id
+
     lifecycleCallbacks: {  }

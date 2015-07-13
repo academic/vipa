@@ -155,6 +155,7 @@ class JournalUserController extends Controller
 
     public function addUserAction(Request $request)
     {
+        /** @var Journal $journal */
         $entity = new JournalUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createAddForm($entity, $journal->getId());
@@ -165,9 +166,29 @@ class JournalUserController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $entity->setJournal($journal);
+            /** @var JournalUser $existingJournalUser */
+
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $entity->setJournal($journal);
+            $existingJournalUser = $em
+                ->getRepository('OjsJournalBundle:JournalUser')
+                ->findOneBy(['user' => $entity->getUser(), 'journal' => $entity->getJournal()]);
+
+            if ($existingJournalUser) {
+                if ($existingJournalUser->getRoles()) {
+                    foreach ($entity->getRoles() as $role) {
+                        if (!$existingJournalUser->getRoles()->contains($role)) {
+                            $existingJournalUser->getRoles()->add($role);
+                        }
+                    }
+                } else {
+                    $existingJournalUser->setRoles($entity->getRoles());
+                }
+                $em->persist($existingJournalUser);
+            } else {
+                $em->persist($entity);
+            }
+
             $em->flush();
 
             $this->successFlashBag('successful.create');
