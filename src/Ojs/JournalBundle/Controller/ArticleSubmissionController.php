@@ -586,13 +586,22 @@ class ArticleSubmissionController extends Controller
         $journalUser = null;
         if (empty($author)) {
             $em = $this->getDoctrine()->getManager();
-            $role = $em->getRepository('OjsUserBundle:Role')
+            $role = $em
+                ->getRepository('OjsUserBundle:Role')
                 ->findOneBy(['role' => 'ROLE_AUTHOR']);
+            $journalUser = $em
+                ->getRepository('OjsJournalBundle:JournalUser')
+                ->findOneBy(['user' => $this->getUser(), 'journal' => $journal]);
 
-            $journalUser = new JournalUser();
-            $journalUser->setJournal($journal);
+            $journalUser = !$journalUser ? new JournalUser() : $journalUser;
             $journalUser->setUser($this->getUser());
-            $journalUser->setRoles(new ArrayCollection([$role]));
+            $journalUser->setJournal($journal);
+
+            if ($journalUser->getRoles() && !$journalUser->getRoles()->contains($role)) {
+                $journalUser->getRoles()->add($role);
+            } else {
+                $journalUser->setRoles(new ArrayCollection([$role]));
+            }
 
             $em->persist($journalUser);
             $em->flush();
