@@ -66,6 +66,7 @@ class ArticleSubmissionController extends Controller
         if ($all) {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($source1TableAlias, $currentJournal) {
+                    $qb->where($source1TableAlias . '.status = 0');
                     $qb->andWhere($source1TableAlias . '.journalId = ' . $currentJournal->getId());
 
                     return $qb;
