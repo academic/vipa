@@ -157,167 +157,167 @@ apply: Başvur
 apply.for.new.journal: 'Yeni Dergi Olarak Başvur'
 archive: Arşiv
 article: Makale
-article.add: Makale Ekle
-article.all: Tüm Makaleler
-article.any_article_viewed: Hiç Makale Görüntülenmedi.
-article.any_downloaded: Hiç Makale İndirilmedi.
-article.authors: Makale Yazarları
-article.citations: Makale Atıfları
-article.detail: Makale Detayları
-article.files: Makale Dosyaları
-article.fulltext: Tam Metin
-article.header_image: Makale Üst Resmi
-article.language.other: Makale Diğer Dilleri
-article.language.primary: Makalenin Birincil Dili
+article.add: 'Makale Ekle'
+article.all: 'Tüm Makaleler'
+article.any_article_viewed: 'Hiç Makale Görüntülenmedi.'
+article.any_downloaded: 'Hiç Makale İndirilmedi.'
+article.authors: 'Makale Yazarları'
+article.citations: 'Makale Atıfları'
+article.detail: 'Makale Detayları'
+article.files: 'Makale Dosyaları'
+article.fulltext: 'Tam Metin'
+article.header_image: 'Makale Üst Resmi'
+article.language.other: 'Makale Diğer Dilleri'
+article.language.primary: 'Makalenin Birincil Dili'
 article.licensing: Lisanslama
-article.manager: Makale Yöneticisi
-article.metadata: Makale Üstverisi
-article.mysubmits: Gönderdiğim Makaleler
+article.manager: 'Makale Yöneticisi'
+article.metadata: 'Makale Üstverisi'
+article.mysubmits: 'Gönderdiğim Makaleler'
 article.new: Yeni Makale
 article.plural: Makaleler
-article.preview: Makale Önizle
+article.preview: 'Makale Önizle'
 article.singular: Makale
-article.submit: Makale Gönder
-article.subtitle: Makalenin Alt Başlığı
-article.title: Makale Başlığı
-article.titleTransliterated: Başka Dilde Yazılmış Başlık
-article.type: Makale Türü
-article.type.list: Makale Türü Listesi
-article.type.new: Yeni Makale Türü
-article.types: Makale Türleri
-article_author_edit: Makalenin Yazarlarını Düzenle
-article_author_list: Makalenin Yazarlarını Listele
-article_id: Makale No
-articleauthor: Makale Yazarı
-articleauthor_create: Makale Yazarı Oluştur
-articleauthor_new: Yeni Yazar
-articlefile: Makale Dosyası
+article.submit: 'Makale Gönder'
+article.subtitle: 'Makalenin Alt Başlığı'
+article.title: 'Makale Başlığı'
+article.titleTransliterated: 'Başka Dilde Yazılmış Başlık'
+article.type: 'Makale Türü'
+article.type.list: 'Makale Türü Listesi'
+article.type.new: 'Yeni Makale Türü'
+article.types: 'Makale Türleri'
+article_author_edit: 'Makalenin Yazarlarını Düzenle'
+article_author_list: 'Makalenin Yazarlarını Listele'
+article_id: 'Makale No'
+articleauthor: 'Makale Yazarı'
+articleauthor_create: 'Makale Yazarı Oluştur'
+articleauthor_new: 'Yeni Yazar'
+articlefile: 'Makale Dosyası'
 articlefile.actions: İşlemler
-articlefile.id: Dosya No
-articlefile.langcode: Dosya Dili
-articlefile.new: Yeni Makale Dosyası
-articlefile.title: Dosya Başlığı
-articlefile.type: Makale Dosya Tipi
-articlefile.version: Dosya Sürümü
+articlefile.id: 'Dosya No'
+articlefile.langcode: 'Dosya Dili'
+articlefile.new: 'Yeni Makale Dosyası'
+articlefile.title: 'Dosya Başlığı'
+articlefile.type: 'Makale Dosya Tipi'
+articlefile.version: 'Dosya Sürümü'
 articles: Makaleler
-articles.needAction: İşlem Gereken Makaleler
-articles.waiting: Bekleyen Makaleler
-articles_in_journal: Dergideki Makaleler
+articles.needAction: 'İşlem Gereken Makaleler'
+articles.waiting: 'Bekleyen Makaleler'
+articles_in_journal: 'Dergideki Makaleler'
 author: Yazar
-author.add: Yazar Ekle
-author.creation: Yazar Oluşturma
-author.details: Yazar Detayları
-author.edit: Yazar Düzenleme
-author.firstname: İlk adı
-author.firstnametransliterated: Başka Dilde İlk Ad
-author.initials: Yazar Başharfleri
-author.institution: Yazarın Kurumu
+author.add: 'Yazar Ekle'
+author.creation: 'Yazar Oluşturma'
+author.details: 'Yazar Detayları'
+author.edit: 'Yazar Düzenleme'
+author.firstname: 'İlk adı'
+author.firstnametransliterated: 'Başka Dilde İlk Ad'
+author.initials: 'Yazar Başharfleri'
+author.institution: 'Yazarın Kurumu'
 author.lastname: Soyadı
-author.lastnametransliterated: Başka Dilde Soyad
-author.list: Yazar Listesi
-author.manager: Yazar Yöneticisi
-author.middlename: İkinci ad
-author.middlenametransliterated: Başka Dilde İkinci Ad
-author.new: Yeni Yazar
+author.lastnametransliterated: 'Başka Dilde Soyad'
+author.list: 'Yazar Listesi'
+author.manager: 'Yazar Yöneticisi'
+author.middlename: 'İkinci ad'
+author.middlenametransliterated: 'Başka Dilde İkinci Ad'
+author.new: 'Yeni Yazar'
 author.orcid: ORCID
 author.order: Sıra
 author.phone: Telefon
 author.plural: Yazarlar
 author.singular: Yazar
-author.summary: Yazar Özeti
+author.summary: 'Yazar Özeti'
 author.title: Başlık
-author_id: Yazar No
-author_order: Yazar Sırası
+author_id: 'Yazar No'
+author_order: 'Yazar Sırası'
 authors: Yazarlar
-authors.count: Yazar Sayısı
+authors.count: 'Yazar Sayısı'
 b: Geri
 back: Geri
-back.continue.editing: Geri Dön & Düzenlemeye Devam Et
-basetheme: Ana Tema
-basicsearch: Basit Arama
+back.continue.editing: 'Geri Dön & Düzenlemeye Devam Et'
+basetheme: 'Ana Tema'
+basicsearch: 'Basit Arama'
 block: Blok
 blog: Blog
 board: Kurul
-board.addUser: Kurula Kullanıcı Ekle
-board.can_not_add_user: Sadece kayıtlı olduğunuz derginin kuruluna ekleme yapabilirsiniz.
-board.create: Kurul Oluştur
-board.delete: Kurul Sil
-board.detail: Kurul Detayı
-board.edit: Kurul Düzenle
-board.hasNoMember: Kurulun Hiç Üyesi Yok
-board.manage_users: Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>
-board.manager: Kurul yöneticisi
-board.members: Kurul üyeleri
-board.name: Kurul ismi
+board.addUser: 'Kurula Kullanıcı Ekle'
+board.can_not_add_user: 'Sadece kayıtlı olduğunuz derginin kuruluna ekleme yapabilirsiniz.'
+board.create: 'Kurul Oluştur'
+board.delete: 'Kurul Sil'
+board.detail: 'Kurul Detayı'
+board.edit: 'Kurul Düzenle'
+board.hasNoMember: 'Kurulun Hiç Üyesi Yok'
+board.manage_users: 'Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>'
+board.manager: 'Kurul yöneticisi'
+board.members: 'Kurul üyeleri'
+board.name: 'Kurul Adı'
 boards: Kurullar
 book: Kitap
 booklet: Broşür
-button.toggle_tree: Ağacı aç
+button.toggle_tree: 'Ağacı Aç'
 c: 'Oluştur'
-roles.can_edit: 'Düzenlenebilir mi'
-roles.can_reject_submission: 'Tamamen reddedebilir mi'
-roles.can_review: 'Gözden geçirebilir mi'
-roles.can_see_author: 'Yazar bilgisini görebilir mi'
-canOnlyReply: 'Sadece cevaplayabilir'
+roles.can_edit: 'Düzenleyebilir'
+roles.can_reject_submission: 'Gönderiyi Reddedebilir'
+roles.can_review: 'Gözden Geçirebilir'
+roles.can_see_author: 'Yazar Bilgisini Görebilir'
+canOnlyReply: 'Sadece Cevaplayabilir'
 cancel: Vazgeç
-check: Kontrol et
-children: Alt öge
+check: 'Kontrol Et'
+children: 'Alt Öge'
 citation: Atıf
-citation.add: Atıf ekle
-citation.citation: atıf
-citation.clear: Atıf sil
-citation.create: Atıf oluştur
-citation.edit: Atıf düzenle
-citation.editor: Atıf editörü
-citation.id: Atıf no
-citation.list: Atıf Listesi
-citation.new: Yeni Atıf
-citation.paste_extract: Yapıştır ve Parçala
-citation.setting: Atıf Ayarları
-citation.setting.edit: Atıf Ayarlarını Düzenle
-citation.setting.list: Atıf Ayarları listesi
-citation.setting.new: Yeni atıf ayarı
-citation.type: Atıf Tipi
-citations: atıflar
+citation.add: 'Atıf Ekle'
+citation.citation: Atıf
+citation.clear: 'Atıf Sil'
+citation.create: Atıf Oluştur'
+citation.edit: Atıf Düzenle'
+citation.editor: Atıf Editörü'
+citation.id: 'Atıf No'
+citation.list: 'Atıf Listesi'
+citation.new: 'Yeni Atıf'
+citation.paste_extract: 'Yapıştır ve Parçala'
+citation.setting: 'Atıf Ayarları'
+citation.setting.edit: 'Atıf Ayarlarını Düzenle'
+citation.setting.list: 'Atıf Ayarları Listesi'
+citation.setting.new: 'Yeni Atıf Ayarı'
+citation.type: 'Atıf Tipi'
+citations: Atıflar
 city: Şehir
 cms: İYS
 collapse: Kapat
 color: Renk
-color.generate: Renk Üret
+color.generate: 'Renk Üret'
 common: Genel
-competingOfInterest: 'Competing of Interest'
+competingOfInterest: 'Çıkar Çatışması'
 conference: Konferans
-confidential: Confidential
-contact: Contact
-contact.detail: Bağlantı Detayı
-contact.edit: Bağlantı Düzenle
-contact.manager: Bağlantı Yöneticisi
-contact.new: Yeni Bağlantı
+confidential: Gizli
+contact: İletişim
+contact.detail: 'Bağlantı Detayı'
+contact.edit: 'Bağlantı Düzenle'
+contact.manager: 'Bağlantı Yöneticisi'
+contact.new: 'Yeni Bağlantı'
 contact.plural: Bağlantılar
-contact.type: Bağlantı Tipi
-contact.type.list: Bağlantı Tiplerini Listele
-contact.type.new: Yeni Bağlantı Tipi
-contacttype.plural: Bağlantı Tipleri
+contact.type: 'Bağlantı Tipi'
+contact.type.list: 'Bağlantı Tiplerini Listele'
+contact.type.new: 'Yeni Bağlantı Tipi'
+contacttype.plural: 'Bağlantı Tipleri'
 content: İçerik
-controlPanel: Kontrol Paneli
+controlPanel: 'Kontrol Paneli'
 copy: Kopyala
 country: Ülke
-cover: Üst
-cover_image: Üst Resim
+cover: Kapak
+cover_image: 'Kapak Resmi'
 create: Oluştur
-createOne: Yeni Oluştur
-created: Created
-created.templates: 'Created Templates'
-d: Delete
-dashboard: Dashboard
-dashboard.admin: 'Admin Dashboard'
-dashboard.application: Suggestions
-dashboard.editor: 'Editor Dashboard'
-dashboard.general.stats: 'General Stats'
-dashboard.objects: Objects
-dashboard.operations: Operations
-date.publish: 'Publication Date'
-datePublished: 'Published date'
+createOne: 'Yeni Oluştur'
+created: Oluşturulmuş
+created.templates: 'Oluşturulmuş Şablonlar'
+d: Sil
+dashboard: 'Gösterge Paneli'
+dashboard.admin: 'Yönetici Paneli'
+dashboard.application: 'Uygulama Paneli'
+dashboard.editor: 'Editor Paneli'
+dashboard.general.stats: 'Genel İstatistikler'
+dashboard.objects: 'Nesne Paneli'
+dashboard.operations: 'İşlem Paneli'
+date.publish: 'Yayın Tarihi'
+datePublished: 'Yayımlanma Tarihi'
 delete: Sil
 deleted: Deleted
 desc: Description
