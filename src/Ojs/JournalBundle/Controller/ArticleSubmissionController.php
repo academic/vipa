@@ -29,6 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Ojs\Common\Params\ArticleParams;
 
 /**
  * Article Submission controller.
@@ -44,6 +45,7 @@ class ArticleSubmissionController extends Controller
      */
     public function indexAction($all = false)
     {
+        $translator = $this->get('translator');
         /** @var Journal $currentJournal */
         $currentJournal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (
@@ -64,7 +66,6 @@ class ArticleSubmissionController extends Controller
         if ($all) {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($source1TableAlias, $currentJournal) {
-                    $qb->where($source1TableAlias . '.status = 0');
                     $qb->andWhere($source1TableAlias . '.journalId = ' . $currentJournal->getId());
 
                     return $qb;
@@ -82,7 +83,6 @@ class ArticleSubmissionController extends Controller
                 function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal) {
                     $qb->where(
                         $qb->expr()->andX(
-                            $qb->expr()->eq($source1TableAlias . '.status', '0'),
                             $qb->expr()->eq($source1TableAlias . '.submitterId', $user->getId())
                         )
                     );
@@ -104,6 +104,13 @@ class ArticleSubmissionController extends Controller
         $gridManager = $this->get('grid.manager');
         $submissionsGrid = $gridManager->createGrid('submission');
         $drafts = $gridManager->createGrid('drafts');
+        $source1->manipulateRow(
+            function ($row) use($translator)
+            {
+                $row->setField('status', $translator->trans(ArticleParams::statusText($row->getField('status'))));
+                return $row;
+            }
+        );
         $submissionsGrid->setSource($source1);
         $drafts->setSource($source2);
         /** @var GridAction $gridAction */
@@ -117,7 +124,6 @@ class ArticleSubmissionController extends Controller
         $rowAction[] = $gridAction->deleteAction('article_submission_cancel', 'id');
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
-        $submissionsGrid->getColumn('status')->setSafe(false);
         $data = [
             'page' => 'submission',
             'submissions' => $submissionsGrid,
