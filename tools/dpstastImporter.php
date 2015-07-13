@@ -34,10 +34,26 @@ $connection = new mysqli($database['host'],$database['user'],$database['password
 
 $statsConnection = new mysqli($statsDatabase['host'],$statsDatabase['user'],$statsDatabase['password'],$statsDatabase['dbname']);
 
-$articles = $connection->query("SELECT id FROM article WHERE journal_id=$journalId");
+$record = $transferredRecords->find(['old_id'=>(int)$journalId,'entity'=>'Ojs\\JournalBundle\\Entity\\Journal']);
+if(!$record){
+  echo "$journalId id'li dergi için hiç taşınma kaydı yok.";
+  exit;
+}
+$result = iterator_to_array($record);
+if(!$result)
+  exit;
+$new_id = end($result)['new_id'];
+if(!$new_id){
+  echo "{$journalId} id'li dergi için hiç taşınma kaydı verisi yok.";
+  exit;
+}
+
 if(mysqli_errno($connection)){
   throw new Exception(mysqli_error($connection));
 }
+
+$articles = $connection->query("SELECT id FROM article WHERE journal_id=$new_id");
+
 
 if(!$articles){
   throw new Exception("Sonuçsuz");
