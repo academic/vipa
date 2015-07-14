@@ -319,235 +319,234 @@ dashboard.operations: 'İşlem Paneli'
 date.publish: 'Yayın Tarihi'
 datePublished: 'Yayımlanma Tarihi'
 delete: Sil
-deleted: Deleted
-desc: Description
-description: Description
-deselect_all: 'Deselect all'
-deselect_visible: 'Deselect visible'
-design: Design
-design.list: Designs
-design.new: 'New Design'
-detailed: Detailed
+deleted: Silinmiş
+desc: Tanım
+description: Tanım
+deselect_all: 'Tüm Seçimi Kaldır'
+deselect_visible: 'Görüneni Kaldır'
+design: Tasarım
+design.list: Tasarımlar
+design.new: 'Yeni Tasarım'
+detailed: Detaylandırılmış
 details: Ayrıntılar
-discovery: Discovery
-documents: Documents
+discovery: Keşif
+documents: Belgeler
 doi: DOI
 done: Tamamlandı
-drop: Drop
-drop.proxy.user: 'Drop Proxy User'
-e: Edit
-eISSN: eISSN
-edit: Edit
-editor.dashboard: 'Editor Dashboard'
-editorial: Editorial
-email: E-mail
-empty: Empty
-error: Error
-error.oops: 'Oops! An Error Occurred'
-event.affectedUser.id: __event.affectedUser.id
-event.date: 'Event Date'
-event.id: 'Event ID'
-event.info: 'Event Info'
-event.ip: 'Event IP'
-event.user.id: __event.user.id
-eventlog: Eventlog
-eventlog.list: 'Event Log List'
-faq: Faq
+drop: İptal Et
+drop.proxy.user: 'Vekil Kullanıcıyı İptal Et'
+e: Düzenle
+e-ISSN: e-ISSN
+edit: Düzenle
+editor.dashboard: 'Editör Gösterge Paneli'
+editorial: Editoryal
+email: E-posta
+empty: Boş
+error: Hata
+error.oops: 'Oops! Bir Hata Meydana Geldi!!'
+event.affectedUser.id: 'Olaydan Etkilenmiş Kullanıcı'
+event.date: 'Olay Tarihi'
+event.id: 'Olay No'
+event.info: 'Olay Bilgisi'
+event.ip: 'Olay IP'
+event.user.id: 'Olay Kullanıcı No'
+eventlog: 'Olay Kayıtları'
+eventlog.list: 'Olay Kayıt Listesi'
+faq: SSS
 fax: Fax
-featured: Featured
-featured.desc: ''
-fields: Fields
-fieldset: Fieldset
-file: File
-file.details: 'File Details'
-file.edit: 'Edit File'
-file.language: 'File Language'
-file.list: 'File List'
-file.new: 'New File'
-file.path: 'File Path'
-file.select: 'Select File'
-file.type: 'File Type'
-filter.remove: 'Remove filter'
-firstStep: 'Firt Step'
-first_page: 'First Page'
-first_step: 'First Step'
-firstname: Firstname
-firstpublishdate: 'First Publish Date'
-flush.all.log: 'Flush all log'
-footer_text: 'Footer text'
-for.author_editor: 'For Autors and Editors'
-for.authors: 'For Authors'
-for.readers: 'For Readers'
-forgot.password: 'Forgot password'
-form.item.new: 'New Form Item'
-form.item.update: 'Form Item Update'
-form.items: 'Form Items'
-full_file: 'Full File'
-fullname: 'Full Name'
-globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of an article to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
-haveNoJourals: 'TODO: Hiç derginiz bulunmuyor.'
-haveNoJournals: 'You have no journals'
-help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
-helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
-helptext.authors.wont.see: 'Authors <strong>won''t</strong> see this field.'
-hide_title: 'Hide Title'
-home: Home
+featured: 'Öne Çıkan'
+featured.desc: 'Özellikli Tanım'
+fields: Alanlar
+fieldset: 'Alan Kümesi'
+file: Dosya
+file.details: 'Dosya Ayrıntıları'
+file.edit: 'Dosyayı Düzenle'
+file.language: 'Dosyanın Dili'
+file.list: 'Dosya Listesi'
+file.new: 'Yeni Dosya'
+file.path: 'Dosya Adresi'
+file.select: 'Dosya Seç'
+file.type: 'Dosya Türü'
+filter.remove: 'Filtreyi Kaldır'
+firstStep: 'İlk Adım'
+first_page: 'İlk sayfa'
+first_step: 'İlk Adım'
+firstname: 'İlk Ad'
+firstpublishdate: 'İlk Yayın Tarihi'
+flush.all.log: 'Tüm Kayıtları Temizle'
+footer_text: 'Altbilgi Metni'
+for.author_editor: 'Yazarlar ve Editörler İçin'
+for.authors: 'Yazarlar İçin'
+for.readers: 'Okuyucular İçin'
+forgot.password: 'Şifremi Unuttum!'
+form.item.new: 'Yeni Form Elemanı'
+form.item.update: 'Form Elemanını Güncelle'
+form.items: 'Form Elemanları'
+full_file: 'Tam Dosya'
+fullname: 'Tam İsim'
+globalFooter.text: "<p>\n ojs.io  <mark>pratik</mark> ve <mark>hızlı</mark> bir dergi yönetme ve yayımlama sistemidir. Makale kabulünden yayımlamaya kadar olan tüm süreç elektronik olarak yerine getirilir. \n</p>\n<p>DergiPark tamamen <strong>ücretsizdir.</strong></p>\n"
+haveNoJournals: 'Hiç derginiz bulunmuyor.'
+help.preSubmission.header: 'Bu gönderi bu dergi tarafından değerlendirilmek üzere işaretlenir. Editöre yorumlar son adımda eklenebilir.'
+helptext.authors.will.see: 'Yazarlar bu alanı görecek.'
+helptext.authors.wont.see: 'Yazarlar bu alanı görmeyecek.'
+hide_title: 'Başlığı Gizle'
+home: Ana Sayfa
 id: ID
-image: Image
-inbook: In-book
-incollection: In-collection
-initials: Initials
-inproceedings: In-proceedings
-input_type: 'Input type'
-input_types: 'Input Types'
-input_types.checkboxes: checkboxes
-input_types.dropdown: dropdown
-input_types.radiobutton: radiobutton
-input_types.scale_1_5: scale_1_5
-input_types.textarea: textarea
-input_types.textbox: textbox
-installer.check_configuration: 'Check Configuration'
-installer.congrat: 'Congrat! Installation has completed.'
-installer.gohome: 'Go Home Yanky!'
-installer.menu.check: Check
-installer.menu.configure: Configure
-installer.menu.home: Home
-installer.menu.setup: Setup
-installer.menu.summary: Summary
-installer.menu.update: Updater
-installer.menu.update_confirm: Complete
-installer.setup: Setup
-installer.update: Upgrade
-installer.update.congrat: __installer.update.congrat
-installer.update.welcome.message: 'Database differences will be apply to production database.'
-installer.update.welcome.title: 'OJS Updater'
-installer.welcome.message: 'Welcome message'
-installer.welcome.title: 'Welcome to OJS Web Installer'
-institute.country: Country
-institute.id: ID
-institute.merge_as_new_institute: 'Merge As New Institute'
-institute.name: Name
-institute.register: 'Register Institution'
-institution: Institution
-institution.about: 'About Institution'
-institution.address: Address
-institution.country: Country
-institution.detail: 'Institution Detail'
-institution.edit: 'Edit Institution'
-institution.email: Email
-institution.fax: 'Fax Number'
-institution.id: 'Institution ID'
-institution.lat: Latitude
-institution.lon: Longitude
-institution.manager: 'Institution Manager'
-institution.name: Name
-institution.new: 'New Institution'
-institution.phone: 'Phone Number'
-institution.plural: Institutions
-institution.slug: 'Slug Name'
-institution.tags: Tags
-institution.type: Type
+image: Görüntü
+inbook: Kitap 
+incollection: 'Seri Yayın'
+initials: Başharfler
+inproceedings: Bildiri
+input_type: 'Giriş Tipi'
+input_types: 'Giriş Tipleri'
+input_types.checkboxes: 'Onay Kutuları'
+input_types.dropdown: 'Açılır Liste'
+input_types.radiobutton: 'Radyo Düğmesi'
+input_types.scale_1_5: 'Ölçek 1-5'
+input_types.textarea: 'Metin Alanı'
+input_types.textbox: 'Metin Kutusu'
+installer.check_configuration: 'Konfigürasyonu Kontrol Et'
+installer.congrat: 'Tebrikler. Yükleme Tamamlandı.'
+installer.gohome: 'Ana Sayfaya Dön'
+installer.menu.check: 'Kontrol Et'
+installer.menu.configure: Yapılandır
+installer.menu.home: 'Ana Sayfa'
+installer.menu.setup: Ayarlar
+installer.menu.summary: Özet
+installer.menu.update: Güncelleyici
+installer.menu.update_confirm: Tamamla
+installer.setup: Kur
+installer.update: Yükselt
+installer.update.congrat: 'Tebrikler. Başarıyla güncellediniz.'
+installer.update.welcome.message: 'Veri tabanı farkları üretim veri tabanına uygulanacaktır.'
+installer.update.welcome.title: 'OJS Güncelleyici'
+installer.welcome.message: 'Hoşgeldiniz Mesajı'
+installer.welcome.title: 'OJS Web Yükleyiciye Hoşgeldiniz.'
+institute.country: Ülke
+institute.id: 'Kurum ID'
+institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
+institute.name: Kurum Adı
+institute.register: 'Kurum Kaydet'
+institution: Kurum
+institution.about: 'Kurum Hakkında'
+institution.address: Adres
+institution.country: Ülke
+institution.detail: 'Kurum Detayı'
+institution.edit: 'Kurum Düzenle'
+institution.email: E-posta
+institution.fax: 'Fax Numarası'
+institution.id: 'Kurum ID'
+institution.lat: Enlem
+institution.lon: Boylam
+institution.manager: 'Kurum Yöneticisi'
+institution.name: Ad
+institution.new: 'Yeni Kurum'
+institution.phone: 'Telefon Numarası'
+institution.plural: Kurumlar
+institution.slug: 'Geçersiz Ad'
+institution.tags: Etiketler
+institution.type: Tür
 institution.url: URL
 institution.wiki_url: 'Wiki URL'
-institutions: Institutions
-institutiontype: 'Institution Type'
-institutiontype.edit: 'Edit Institution Type'
-institutiontype.list: 'Institution Type List'
-institutiontype.new: 'New Institution Type'
-institutiontype.plural: 'Institution Types'
-introduction: Introduction
-isAnonymous: 'Is Anonymous'
-issue: Issue
-issue.add.articles: 'Add article to this issue'
-issue.all_articles: 'Here you can find all articles for selected issue'
-issue.edit: 'Edit Issue'
-issue.list: 'Issue List'
-issue.manager: 'Issue Manager'
-issue.new: 'New Issue'
-issue.number: Number
-issue.plural: Issues
-issuefile.edit: 'Edit Issue File'
-issuefile.file: File
-issuefile.langcode: Language
-issuefile.list: 'Issue Files'
-issuefile.new: 'New Issue File'
-issuefile.title: Title
-items_per_page: 'Items per page'
-journal: Journal
-journal.about: 'About Journal'
-journal.address: 'Journal''s postal address'
-journal.all: 'All Journals'
-journal.any_have: 'You don''t have any journals!'
-journal.application_success_message: 'Your application saved successfully.'
-journal.apply: 'Apply Journal'
-journal.articles: 'Journal Articles'
-journal.assistant_editor: 'Assistant Editor'
-journal.assistant_editor_email: 'Assistant editor e-mail'
-journal.assistant_editor_name: 'Assistant editor name'
-journal.assistant_editor_phone: 'Assistant editor phone'
-journal.assistant_editor_surname: 'Assistant editor surname'
-journal.boards: 'Journal Boards'
-journal.country: Country
-journal.cover_image: 'Cover Image'
-journal.createdAt: 'Created at'
-journal.design: 'Journal Layout'
-journal.detail: 'Journal Detail'
-journal.domain: Domain
-journal.edit: 'Journal Edit'
-journal.editor: Editor
-journal.editor_email: 'Editor e-mail'
-journal.editor_name: 'Editor name'
-journal.editor_phone: 'Editor phone'
-journal.editor_surname: 'Editor surname'
-journal.eissn: 'Journal eISSN'
-journal.email: 'Journal''s contact email'
-journal.firstPublishDate: 'First Publish Date'
-journal.google.analytics.id: 'Google Analytics ID'
-journal.header_image: 'Header Image'
-journal.id: ID
-journal.institution: Institution
-journal.issn: 'Journal ISSN'
-journal.join: 'Join Journal'
-journal.langs: Languages
-journal.languages: Languages
-journal.list: 'List Journals'
-journal.manager: 'Journal Manager'
-journal.merge_as_new_journal: 'Merge As New Journal'
-journal.mission: Mission
-journal.my: 'My Journal'
-journal.new: 'New Journal'
-journal.path: Path
-journal.period: Period
-journal.phone: 'Journal''s contact phone'
-journal.plural: Journals
-journal.register: 'Journal Register'
-journal.scope: Scope
-journal.settings.abstractTemplate.desc: 'You can load  predefined templates by clicking buttons listed above.'
-journal.settings.mail: 'Mail Settings'
-journal.settings.mail.signature: 'Email signature'
-journal.settings.page: 'Page Settings'
-journal.settings.submission: 'Submission Settings'
-journal.settings.submission.abstractTemplate: 'Submission Abstract Template'
-journal.settings.submission.copyrightnotice: 'Copyright Notice'
-journal.settings.submission.copyrightnotice.desc: "\"The Copyright Notice\" will appear in submission form and each published item's metadata. \nWhile it is up to the journal manager to determine the copyright agreement with authors, \nwe recommend to use of the <a href=\"http://creativecommons.org/\">CREATIVE COMMONS</a> license.<br>\nYou can use one of the default templates by clicking the buttons above.\n"
-journal.settings.submission.language: 'Submission Language'
-journal.settings.submission.language.text: 'Select mandatory languages for article submitting'
-journal.setup: 'Journal Setup'
-journal.singular: Journal
-journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
-journal.subjects: Subjects
-journal.subtitle: Subtitle
-journal.tags: 'TODO: Etiketler'
-journal.tech_contact: 'Tech Contact'
-journal.tech_contact_email: 'Tech contact e-mail'
-journal.tech_contact_name: 'Tech contact name'
-journal.tech_contact_phone: 'Tech contact phone'
-journal.tech_contact_surname: 'Tech contact surname'
-journal.theme: 'Journals Theme'
-journal.title: Title
-journal.titleAbbr: 'Abbreviated Title'
-journal.titleTransliterated: 'Transliterated Title'
-journal.update: 'Journal Update'
+institutions: Kurumlar
+institutiontype: 'Kurum Türü'
+institutiontype.edit: 'Kurum Türünü Düzenle'
+institutiontype.list: 'Kurum Türü Listesi'
+institutiontype.new: 'Yeni Kurum Türü'
+institutiontype.plural: 'Kurum Türleri'
+introduction: Giriş
+isAnonymous: 'Anonim mi?'
+issue: Sayı
+issue.add.articles: 'Bu Sayıya Makale Ekle'
+issue.all_articles: 'Seçilmiş sayı için tüm makaleleri burada bulabilirsiniz.'
+issue.edit: 'Sayıyı Düzenle'
+issue.list: 'Sayı Listesi'
+issue.manager: 'Sayı Yöneticisi'
+issue.new: 'Yeni Sayı'
+issue.number: Numara
+issue.plural: Sayılar
+issuefile.edit: 'Sayı Dosyasını Düzenle'
+issuefile.file: Dosya
+issuefile.langcode: Dil
+issuefile.list: 'Sayı Dosyaları'
+issuefile.new: 'Yeni Sayı Dosyası'
+issuefile.title: Başlık
+items_per_page: 'Sayfa Başına Madde Sayısı'
+journal: Dergi
+journal.about: 'Dergi Hakkında'
+journal.address: 'Derginin Posta Adresi'
+journal.all: 'Tüm Dergiler'
+journal.any_have: 'Hiç Derginiz Bulunmuyor!'
+journal.application_success_message: 'Başvurunuz Başarıyla Alındı.'
+journal.apply: 'Dergi Başvurusu'
+journal.articles: 'Dergi Makaleleri'
+journal.assistant_editor: 'Yardımcı Editor'
+journal.assistant_editor_email: 'Yardımcı Editor e-Postası'
+journal.assistant_editor_name: 'Yardımcı Editör Adı'
+journal.assistant_editor_phone: 'Yardımcı Editör Telefon No'
+journal.assistant_editor_surname: 'Yardımcı Editör Soyadı'
+journal.boards: 'Dergi Kurulları'
+journal.country: Ülke
+journal.cover_image: 'Kapak Resmi'
+journal.createdAt: ' Oluşturuldu'
+journal.design: 'Dergi Tasarımı'
+journal.detail: 'Dergi Detayı'
+journal.domain: 'Alan Adı'
+journal.edit: 'Dergi Düzenle'
+journal.editor: Editör
+journal.editor_email: 'Editor e-Postası'
+journal.editor_name: 'Editor Adı'
+journal.editor_phone: 'Editor Telefon No'
+journal.editor_surname: 'Editor Soyadı'
+journal.eissn: e-ISSN
+journal.email: 'İletişim e-Postası'
+journal.firstPublishDate: 'İlk Yayın Tarihi'
+journal.google.analytics.id: 'Google Analytics ID''si'
+journal.header_image: 'Başlık Resmi'
+journal.id: 'Dergi ID''si'
+journal.institution: 'Derginin Kurumu'
+journal.issn: ISSN
+journal.join: 'Dergiye Katıl'
+journal.langs: 'Derginin Dilleri'
+journal.languages: 'Derginin Dilleri'
+journal.list: 'Dergileri Listele'
+journal.manager: 'Dergi Yöneticisi'
+journal.merge_as_new_journal: 'Yeni Dergi Olarak Birleştir'
+journal.mission: Misyon
+journal.my: 'Dergilerim'
+journal.new: 'Yeni Dergi'
+journal.path: 'Dergi Yolu'
+journal.period: 'Yayımlanma Sıklığı'
+journal.phone: 'Derginin İletişim Telefonu'
+journal.plural: Dergiler
+journal.register: 'Dergi Kaydet'
+journal.scope: Kapsam
+journal.settings.abstractTemplate.desc: 'Butona tıklayarak öntanımlı şablonlardan yükleyebilirsiniz.'
+journal.settings.mail: 'e-Posta Ayarları'
+journal.settings.mail.signature: 'e-Posta İmzası'
+journal.settings.page: 'Sayfa Ayarları'
+journal.settings.submission: 'Gönderi Ayarları'
+journal.settings.submission.abstractTemplate: 'Gönderi Özet Şablonu'
+journal.settings.submission.copyrightnotice: 'Telif Hakkı Bildirimi'
+journal.settings.submission.copyrightnotice.desc: "\"Telif Hakkı Bildirimi\" gönderi formunda ve yayımlanan her üstbilgide görünecektir. \n Telif Hakkı Anlaşmasını seçmek dergi yöneticisine kalmışsa da, \nbiz <a href=\"http://creativecommons.org/\">Creative Commons</a> kullanılmasını tavsiye ediyoruz. <br>\n Yukarıda yer alan buttonlara tıklayarak tanımlı şablonlardan birini kullanabilirsiniz.\n
+journal.settings.submission.language: 'Gönderim Dili'
+journal.settings.submission.language.text: 'Makale gönderimi için zorunlu dilleri seçin.'
+journal.setup: 'Dergi Ayarları'
+journal.singular: Dergi
+journal.slug: 'Web Erişimi İçin Kısa Yol  ( base_host/<i>journal_path</i> )'
+journal.subjects: Konular
+journal.subtitle: 'Alt Başlık'
+journal.tags: 'Etiketler'
+journal.tech_contact: 'Teknik İletişim'
+journal.tech_contact_email: 'Teknik İletişim e-Postası'
+journal.tech_contact_name: 'Teknik İletişim Ad'
+journal.tech_contact_phone: 'Teknik İletişim Telefon'
+journal.tech_contact_surname: 'Teknik İletişim Soyad'
+journal.theme: 'Dergi Teması'
+journal.title: Başlık
+journal.titleAbbr: 'Kısaltılmış Başlık'
+journal.titleTransliterated: 'Başka Dilde yazılmış Başlık'
+journal.update: 'Dergi Güncelle'
 journal.url: URL
 journal.user: User
 journal.users: 'Journal Users'
