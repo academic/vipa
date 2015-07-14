@@ -21,6 +21,7 @@ confirm_email_warning:
 
 login:
     path: /login
+    host: "%base_host%"
     defaults: { _controller: OjsUserBundle:Security:login }
 
 orcid_login:
