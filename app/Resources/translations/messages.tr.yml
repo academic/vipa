@@ -846,7 +846,7 @@ select_supplementary_article_file: 'Select Supplementary Article File'
 select_visible: 'Select visible'
 send_article: 'Send Article'
 sendmail: 'Send email'
-services: Servisler
+services: Hizmetler
 setting: Setting
 settings: Settings
 setup.step: 'Step #number'
@@ -874,7 +874,7 @@ subject: Subject
 subject.edit: 'Edit Subject'
 subject.list: 'Subject List'
 subject.new: 'New Subject'
-subject.plural: Subjects
+subject.plural: Konular
 subjects: Subjects
 submission.attention: 'After submission your manuscript you can not change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.'
 submission.starting: Starting
@@ -1195,7 +1195,7 @@ updated: Updated
 uploading: Uploading...
 url: URL
 useThisTemplate: 'Use this template'
-user: User
+user: Kullanıcı
 user.activitylog: 'User Activity Log'
 user.anonym.create_password: 'Create password'
 user.apikey: 'Api Key'
