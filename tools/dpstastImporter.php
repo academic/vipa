@@ -21,7 +21,6 @@ if(!isset($argv[5])){
 }
 $mongoServer = $argv[5];
 $mongoConnection = new MongoClient("mongodb://$mongoServer:27017");
-
 $mongoDb = $mongoConnection->{$mongoDbName};
 $transferredRecords = $mongoDb->transferred_records;
 $totalObjectDownload= $mongoDb->analytics_download_object_sum;
@@ -35,13 +34,15 @@ $connection = new mysqli($database['host'],$database['user'],$database['password
 $statsConnection = new mysqli($statsDatabase['host'],$statsDatabase['user'],$statsDatabase['password'],$statsDatabase['dbname']);
 
 $record = $transferredRecords->find(['old_id'=>(int)$journalId,'entity'=>'Ojs\\JournalBundle\\Entity\\Journal']);
-if(!$record){
+if(!$record->count()){
   echo "$journalId id'li dergi için hiç taşınma kaydı yok.";
   exit;
 }
 $result = iterator_to_array($record);
-if(!$result)
+if(!$result){
+  echo "$journalId id dergi için sorun var içerik yok.";
   exit;
+}
 $new_id = end($result)['new_id'];
 if(!$new_id){
   echo "{$journalId} id'li dergi için hiç taşınma kaydı verisi yok.";
@@ -59,7 +60,6 @@ if(!$articles){
   throw new Exception("Sonuçsuz");
 }
 echo "Toplam makale sayısı: ".$articles->num_rows."\n";
-
 while($article = $articles->fetch_array()){
   // connect mongo and get record change / oldid
   $record = $transferredRecords->find(['new_id'=>(int)$article['id'],'entity'=>'Ojs\\JournalBundle\\Entity\\Article']);
