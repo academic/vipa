@@ -661,7 +661,7 @@ notification.entity.id: 'Bildirim Giriş ID'
 notification.entity.name: 'Bildirim Giriş Adı'
 notification.id: 'Bildirim ID'
 notification.isread: 'Okunur mu?'
-notification.level: 'Bildirim Seviyesi
+notification.level: 'Bildirim Seviyesi'
 notification.list: 'Bildirimleri Listele'
 notification.recipient.id: 'Alıcı ID'
 notification.sender.id: 'Gönderici ID'
@@ -976,7 +976,7 @@ title.contacts: Contacts
 title.create_custom_field: 'Create Custom Field'
 title.custom_field: 'Custom Field'
 title.design_edit: 'Edit Design'
-title.design_new: 'New Design'Aradığınız kayıt sunucularımızda bulunamadı. Kayıt ya silinmiş olabilir ya da yanlış bağlantıya tıkladınız.
+title.design_new: 'New Design'
 title.design_show: 'Show Design'
 title.designs: Designs
 title.editor_dashboard: 'Editor Dashboard'
