@@ -37,19 +37,25 @@ class AdminApplicationController extends Controller
     {
         $source = new Entity('OjsJournalBundle:Institution', 'application');
         $tableAlias = $source->getTableAlias();
+
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($tableAlias) {
-                $query->andWhere($tableAlias.".verified = :verified")
-                    ->setParameter('verified', false);
-
+                $query->andWhere($tableAlias.".status = :status")
+                    ->setParameter('status', 0);
                 return $query;
             }
         );
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid')->setSource($source);
-
         $gridAction = $this->get('grid_action');
+
+        $grid->getColumn('status')->manipulateRenderCell(
+            function($value, $row, $router) {
+                return $this->get('translator')->trans(CommonParams::institutionStatus($row->getField('status')));
+            }
+        );
 
         $rowAction[] = $gridAction->editAction('ojs_admin_application_institution_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_institution_show', 'id');
