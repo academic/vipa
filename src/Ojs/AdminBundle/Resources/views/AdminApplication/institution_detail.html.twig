@@ -39,59 +39,67 @@
                     <td>{{ entity.slug }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.address' }}</th>
+                    <th>{{ 'institute.address'|trans }}</th>
                     <td>{{ entity.address }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.about' }}</th>
+                    <th>{{ 'institute.about'|trans }}</th>
                     <td>{{ entity.about }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.city' }}</th>
+                    <th>{{ 'institute.city'|trans }}</th>
                     <td>{{ entity.city }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.lat-lon' }}</th>
+                    <th>{{ 'institute.lat-lon'|trans }}</th>
                     <td>{{ entity.addressLat }}, {{ entity.addressLong }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.phone' }}</th>
+                    <th>{{ 'institute.phone'|trans }}</th>
                     <td>{{ entity.phone }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.fax' }}</th>
+                    <th>{{ 'institute.fax'|trans }}</th>
                     <td>{{ entity.fax }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.email' }}</th>
+                    <th>{{ 'institute.email'|trans }}</th>
                     <td>{{ entity.email }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.url' }}</th>
+                    <th>{{ 'institute.url'|trans }}</th>
                     <td><a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.wiki_url' }}</th>
+                    <th>{{ 'institute.wiki_url'|trans }}</th>
                     <td><a href="{{ entity.wiki }}" target="_blank">{{ entity.wiki }}</a></td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.logo' }}</th>
-                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.logo) }}" alt=""/></td>
+                    <th>{{ 'institute.logo'|trans }}</th>
+                    <td>
+                        {% if entity.logo %}
+                        <img src="/uploads/institutionfiles/{{ imagePath(entity.logo) }}" alt="" style="max-width: 100%"/>
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.header' }}</th>
-                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.header) }}" alt=""/></td>
+                    <th>{{ 'institute.header'|trans }}</th>
+                    <td>
+                        {% if entity.header %}
+                        <img src="/uploads/institutionfiles/{{ imagePath(entity.header) }}" alt="" style="max-width: 100%"/>
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.tags' }}</th>
+                    <th>{{ 'institute.tags'|trans }}</th>
                     <td>{{ entity.tags }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.createdAt' }}</th>
+                    <th>{{ 'institute.createdAt'|trans }}</th>
                     <td>{{ entity.created|date('d-m-y') }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institute.user' }}</th>
+                    <th>{{ 'institute.user'|trans }}</th>
                     <td>{{ entity.createdBy|user }}</td>
                 </tr>
             </table>
