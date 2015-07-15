@@ -3,27 +3,35 @@ oneup_uploader:
         generic:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         avatarfiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         institutionfiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         journalfiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         journalindexfiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         articlefiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         userfiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
         issuefiles:
             enable_progress: true
             frontend: blueimp
+            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
 liip_imagine:
     resolvers:
        default:
