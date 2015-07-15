@@ -6,6 +6,7 @@
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>{% block title %}&raquo; OJS{% endblock %}</title>
     <base href="{{ app.request.getBaseURL() }}/"/>
     {% if schemaMetaTag is defined %}
@@ -113,12 +114,10 @@
                 </div>
             </div>
         {% else %}
-            <div class="col-sm-12">
-                <div class="container">
-                    {{ block('breadcrumb') }}
-                </div>
-                {{ block('body') }}
+            <div class="container">
+                {{ block('breadcrumb') }}
             </div>
+            {{ block('body') }}
         {% endif %}
     </div>
 
