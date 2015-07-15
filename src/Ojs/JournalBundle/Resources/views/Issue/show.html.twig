@@ -15,7 +15,7 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
-        <li role="presentation"><a href="{{ path('ojs_journal_issue_file_index', {issue: entity.id}) }}">{{ "title.issue_files"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_issue_file_index', {issueId: entity.id,journalId: entity.journal.id}) }}">{{ "title.issue_files"|trans }}</a></li>
     </ul>
 
     <h1>{{ "issue"|trans }}</h1>
