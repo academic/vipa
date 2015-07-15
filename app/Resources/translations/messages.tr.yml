@@ -661,7 +661,7 @@ notification.entity.id: 'Bildirim Giriş ID'
 notification.entity.name: 'Bildirim Giriş Adı'
 notification.id: 'Bildirim ID'
 notification.isread: 'Okunur mu?'
-notification.level: 'Bildirim Seviyesi'
+notification.level: 'Bildirim Seviyesi
 notification.list: 'Bildirimleri Listele'
 notification.recipient.id: 'Alıcı ID'
 notification.sender.id: 'Gönderici ID'
@@ -698,57 +698,57 @@ ojs.password_reset_request: 'Şifrenizi sıfırlamanız gerekmektedir.'
 ojs.password_reseted: 'Şifreniz sıfırlandı.'
 ojs.preview_article: 'Göndermeden Önce Makaleyi Görüntüle'
 ojs.required_field: 'Bu alan zorunludur!'
-ojs.selected: (selected)
-ojs.setup: 'OJS Setup'
-ojs.setup_not_completed: 'It seems that you have not finished  <a href=''%setup_url%''>Journal Setup</a>'
+ojs.selected: (Seçili)
+ojs.setup: 'OJS Ayarları'
+ojs.setup_not_completed: '<a href=''%setup_url%''>Dergi Ayarları</a> tamamlanmamış gözüküyor'
 ojs.title: OJS
-ojs.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
-ojs.uniq_name: 'This will be your unique short name in application'
-ojs.updater: 'OJS Updater'
-ojs.view_in_browser: 'view this in your browser'
-ojs.welcome_msg: 'You have joined to OJS'
-onlineSubmission: 'Online Submission'
-optional: Optional
-orcid.login: 'Orcid login'
-order: Order
-order_by: 'Order by'
-otherid: 'Other ID'
-page.first: 'First Page'
-page.last: 'Last Page'
-page.plural: Pages
-page.singular: Page
-pagerfanta.nex: Next
-pagerfanta.previous: Previous
-pages.all: 'All pages'
-pages.detail: 'Page detail'
-pages.edit: 'Edit page'
-pages.management: 'Page management'
-pages.new: 'New page'
-parent: Parent
-parse: Parse
-part: Part
-password: Password
-period: Period
-phdthesis: 'Phd Thesis'
-phone: Phone
-photos: Photos
-presentations: Presentations
-preview: Preview
-primaly_language: 'Primaly Language'
-printed: 'Is Printed?'
-privacy: Privacy
-proceedings: Proceedings
-profile: Profile
-proxy.client.user.id: 'Client User ID'
-proxy.clients.list: 'List Proxy Clients'
-proxy.creation: 'Proxy Creation'
-proxy.edit: 'Edit Proxy'
-proxy.end.time: 'End Time'
+ojs.tos_accept: 'Kayıt olarak <a target="_blank" href="%tos%">kullanım şartlarını</a>. kabul ediyorsunuz'
+ojs.uniq_name: 'Bu sizin uygulamada kısa adınız olacak.'
+ojs.updater: 'OJS Güncelleyici'
+ojs.view_in_browser: 'Bunu tarayıcınızda görüntüleyin.'
+ojs.welcome_msg: 'OJS''ye katıldınız.'
+onlineSubmission: 'Online Gönderim'
+optional: Seçenekli
+orcid.login: 'ORCID ile Giriş'
+order: Sıra
+order_by: 'Sıralama Öğesi'
+otherid: 'Diğer ID'
+page.first: 'İlk Sayfa'
+page.last: 'Son Sayfa'
+page.plural: Sayfalar
+page.singular: Sayfa
+pagerfanta.nex: Sonraki
+pagerfanta.previous: Önceki
+pages.all: 'Tüm Sayfalar'
+pages.detail: 'Sayfa Detayı'
+pages.edit: 'Sayfayı Düzenle'
+pages.management: 'Sayfa Yönetimi'
+pages.new: 'Yeni Sayfa'
+parent: 'Üst Öğe'
+parse: Ayrıştır
+part: Parçala
+password: Şifre
+period: Periyot
+phdthesis: 'Doktora Tezi'
+phone: Telefon
+photos: Fotoğraflar
+presentations: Sunumlar
+preview: Önizleme
+primaly_language: 'Birincil Dil'
+printed: 'Basılı mı?'
+privacy: Gizlilik
+proceedings: Bildiriler
+profile: Profil
+proxy.client.user.id: 'İstemci Kullanıcı ID'
+proxy.clients.list: 'Vekil İstemcileri Listele'
+proxy.creation: 'Vekil Oluşturma'
+proxy.edit: 'Vekil Düzenle'
+proxy.end.time: 'Bitiş Zamanı'
 proxy.id: ID
-proxy.lastlogin: 'Last Login'
-proxy.list: 'Proxy List'
-proxy.proxy.user.id: 'Proxy User ID'
-proxy.singular: Proxy
+proxy.lastlogin: 'Son Giriş'
+proxy.list: 'Vekil Listesi'
+proxy.proxy.user.id: 'Vekil Kullanıcı ID'
+proxy.singular: Vekil
 proxy.target.user.email: 'Target User Email'
 proxy.target.user.username: 'Target Username'
 proxy.user.email: Email
@@ -976,7 +976,7 @@ title.contacts: Contacts
 title.create_custom_field: 'Create Custom Field'
 title.custom_field: 'Custom Field'
 title.design_edit: 'Edit Design'
-title.design_new: 'New Design'
+title.design_new: 'New Design'Aradığınız kayıt sunucularımızda bulunamadı. Kayıt ya silinmiş olabilir ya da yanlış bağlantıya tıkladınız.
 title.design_show: 'Show Design'
 title.designs: Designs
 title.editor_dashboard: 'Editor Dashboard'
