@@ -147,7 +147,7 @@ application.journal.edit: 'Edit Journal Application'
 application.journal.institution: Institution
 application.journal.list: 'Journal Suggestions'
 application.journal.new_institution: 'Apply as an Institution'
-application.journal.new_institution_help: 'If you can''t find your institution above, please apply as an institution using the button below.'
+application.journal.new_institution_help: 'If you can not find your institution above, please apply as an institution using the button below.'
 application.status.complete: 'Import Complete'
 application.status.deleted: Deleted
 application.status.onhold: 'On Hold'
@@ -239,13 +239,13 @@ block: Block
 blog: Blog
 board: Board
 board.addUser: 'Add User to Board'
-board.can_not_add_user: 'You can add member from your journal''s users only.'
+board.can_not_add_user: 'You can add member from your journals users only.'
 board.create: 'Create Board'
 board.delete: 'Delete Board'
 board.detail: 'Board Detail'
 board.edit: 'Edit Board'
 board.hasNoMember: 'Board has no members'
-board.manage_users: 'You can <a href=''%path%''>manage</a> journal''s users.'
+board.manage_users: 'You can <a href="%path%">manage</a> journal''s users.'
 board.manager: 'Board Manager'
 board.members: Members
 board.name: 'Board Name'
