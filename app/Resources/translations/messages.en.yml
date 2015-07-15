@@ -1318,3 +1318,17 @@ you: You
 search.on.everywhere: 'Search on everywhere'
 search.on.journal: 'Search on journal'
 successfully.subscribed: 'Successfully Subscribed'
+institute.address: Address
+institute.about: About
+institute.city: City
+institute.lat-lon: Lat-Lon
+institute.phone: Phone
+institute.fax: Fax
+institute.email: Email
+institute.url: URL
+institute.wiki_url: Wiki URL
+institute.logo: Logo
+institute.header: Header
+institute.tags: Tags
+institute.createdAt: Created At
+institute.user: User
