@@ -385,7 +385,6 @@ form.items: 'Form Items'
 full_file: 'Full File'
 fullname: 'Full Name'
 globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of an article to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
-haveNoJourals: 'TODO: Hiç derginiz bulunmuyor.'
 haveNoJournals: 'You have no journals'
 help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
 helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
@@ -428,6 +427,20 @@ institute.id: ID
 institute.merge_as_new_institute: 'Merge As New Institute'
 institute.name: Name
 institute.register: 'Register Institution'
+institute.address: Address
+institute.about: About
+institute.city: City
+institute.lat-lon: Lat-Lon
+institute.phone: Phone
+institute.fax: Fax
+institute.email: Email
+institute.url: URL
+institute.wiki_url: Wiki URL
+institute.logo: Logo
+institute.header: Header
+institute.tags: Tags
+institute.createdAt: Created At
+institute.user: User
 institution: Institution
 institution.about: 'About Institution'
 institution.address: Address
@@ -817,6 +830,8 @@ search.noresult: 'We couldn''t find any results matching.'
 search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
 search.resutls: 'Search Results'
+search.on.everywhere: 'Search on everywhere'
+search.on.journal: 'Search on journal'
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Search on Crossref'
 searchon.doaj: 'Search on Doaj'
@@ -880,6 +895,7 @@ success: Success
 successful.create: 'Successfully created.'
 successful.remove: 'Successfully removed.'
 successful.update: 'Successfully updated.'
+successfully.subscribed: 'Successfully Subscribed'
 suggest: Suggest
 suggestedMaxDays: 'Suggested maximum days count'
 summary: Summary
@@ -1315,20 +1331,3 @@ workflows: Workflows
 year: Year
 you: You
 404: 'Not found'
-search.on.everywhere: 'Search on everywhere'
-search.on.journal: 'Search on journal'
-successfully.subscribed: 'Successfully Subscribed'
-institute.address: Address
-institute.about: About
-institute.city: City
-institute.lat-lon: Lat-Lon
-institute.phone: Phone
-institute.fax: Fax
-institute.email: Email
-institute.url: URL
-institute.wiki_url: Wiki URL
-institute.logo: Logo
-institute.header: Header
-institute.tags: Tags
-institute.createdAt: Created At
-institute.user: User
