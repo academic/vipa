@@ -17,9 +17,10 @@ class CommonParams
         -1 => 'application.status.rejected',
         -2 => 'application.status.deleted',
     ];
-    public static $institutionApplicationStatusArray = [
+    public static $institutionStatusArray = [
+        -1 => 'application.status.rejected',
         0 => 'application.status.onhold',
-        1 => 'application.status.rejected',
+        1 => 'application.status.complete',
     ];
     protected static $statusArray = array(
         -3 => "status.rejected",
@@ -103,12 +104,12 @@ class CommonParams
      * @param  integer $statusNum
      * @return array
      */
-    public static function institutionApplicationStatus($statusNum)
+    public static function institutionStatus($statusNum)
     {
-        if (array_key_exists($statusNum, self::$institutionApplicationStatusArray)) {
-            return self::$institutionApplicationStatusArray[$statusNum];
+        if (array_key_exists($statusNum, self::$institutionStatusArray)) {
+            return self::$institutionStatusArray[$statusNum];
         } else {
-            return self::$institutionApplicationStatusArray;
+            return self::$institutionStatusArray;
         }
     }
 }
