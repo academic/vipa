@@ -52,3 +52,4 @@ parameters:
             id: 3
             name: "Idea"
     defaultInstitutionSlug: www
+    ojs_logo: http://ojs.io/assets/app/images/favicon.png?v3

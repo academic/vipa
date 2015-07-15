@@ -6,7 +6,7 @@
         <section role="welcome">
             <div class="row">
                 <div class="col-md-4 col-xs-12 text-center ">
-                    <img src="http://dergipark.ulakbim.gov.tr/assets/images/dergipark_logo_tr.png"/>
+                    <img src="{{ ojs_logo }}"/>
                     <hr/>
                     <div id="stats">
                         <dl class="home-stats">
@@ -33,7 +33,7 @@
                         <form action="{{ path('ojs_search_index') }}" method="get">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false"><span
                                                 id="search-type-text">{{ 'basicsearch'|trans }}</span> <span
                                                 class="caret"></span></button>
@@ -59,20 +59,20 @@
                     <div class="col-md-12">
                         <p class="text-center">
                             {% if not app.user %}
-                                <a href="{{ path("register") }}" class="btn btn-default btn-lg btn-labeled"><span
+                                <a href="{{ path("register") }}" class="btn btn-primary btn-labeled"><span
                                             class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}
                                 </a>
                             {% endif %}
 
                             <a href="{{ url("ojs_apply_institution") }}"
-                               class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
+                               class="btn btn-primary  btn-labeled"><span class="btn-label"><i
                                             class="fa fa-institution"></i></span> {{ 'institute.register'|trans }}</a>
 
-                            <a href="{{ url('ojs_apply_journal') }}" class="btn btn-default btn-lg btn-labeled"><span
+                            <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled"><span
                                         class="btn-label"><i
                                             class="fa fa-book"></i></span> {{ "journal.register"|trans }}</a>
                             <a href="{{ url('article_submission_new') }}"
-                               class="btn btn-default btn-lg btn-labeled"><span
+                               class="btn btn-primary btn-labeled"><span
                                         class="btn-label"><i
                                             class="fa fa-file-pdf-o"></i></span>{{ 'article.submit'|trans }}</a>
                         </p>

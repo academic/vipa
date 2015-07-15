@@ -21,6 +21,7 @@ services:
             - "%cms_show_routes%"
             - "%avatar_upload_base_url%"
             - "%defaultInstitutionSlug%"
+            - "%ojs_logo%"
         tags:
             - { name: twig.extension }
     ojs.twig.analytics_extension:
@@ -101,6 +102,7 @@ services:
             - @security.token_storage
             - @request_stack
             - "%defaultInstitutionSlug%"
+            - "%ojs_logo%"
     ojs.article_service:
         class: Ojs\Common\Services\ArticleService
         arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]

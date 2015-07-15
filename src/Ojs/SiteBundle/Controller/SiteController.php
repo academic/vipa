@@ -14,14 +14,13 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
+use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\JournalBundle\Entity\Sums;
 use Ojs\SiteBundle\Entity\BlockRepository;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Yaml\Parser;
-use Ojs\JournalBundle\Entity\SubscribeMailList;
 
 class SiteController extends Controller
 {
@@ -89,6 +88,8 @@ class SiteController extends Controller
                 continue;
             }
         }
+
+        $data['ojs_logo'] = $this->container->getParameter("ojs_logo");
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
