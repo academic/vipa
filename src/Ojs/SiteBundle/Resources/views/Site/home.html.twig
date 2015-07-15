@@ -10,44 +10,44 @@
                     <hr/>
                     <div id="stats">
                         <dl class="home-stats">
-                                <dd>
-                                    <span>{{ stats.journal|number_format(0,'.','.') }}</span>
-                                    <br>
-                                    {{ "journal"|trans }}
-                                </dd>
-
-
-                                <dd>
-                                    <span>{{ stats.article|number_format(0,'.','.') }}</span>
-                                    <br>
-                                    {{ "article"|trans }}
-                                </dd>
-
-                                <dd>
-                                    <span>{{ stats.user|number_format(0,'.','.') }}</span>
-                                    <br>
-                                    {{ "user"|trans }}
-                                </dd>
+                            <dd>
+                                <span>{{ stats.journal|number_format(0,'.','.') }}</span>
+                                <br>
+                                {{ "journal"|trans }}
+                            </dd>
+                            <dd>
+                                <span>{{ stats.article|number_format(0,'.','.') }}</span>
+                                <br>
+                                {{ "article"|trans }}
+                            </dd>
+                            <dd>
+                                <span>{{ stats.user|number_format(0,'.','.') }}</span>
+                                <br>
+                                {{ "user"|trans }}
+                            </dd>
                         </dl>
-
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    {{ 'landingPage.text'|trans|raw }}
-
                     <div class="col-md-12">
-                        <form action="/search" method="get">
+                        <form action="{{ path('ojs_search_index') }}" method="get">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="search-type-text">{{ 'basicsearch'|trans }}</span> <span class="caret"></span></button>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"><span
+                                                id="search-type-text">{{ 'basicsearch'|trans }}</span> <span
+                                                class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)" class="select-search-type" data-type="basic">{{ ('basicsearch')|trans }}</a></li>
-                                        <li><a href="javascript:void(0)" class="select-search-type" data-type="tag">{{ ('tagsearch')|trans }}</a></li>
+                                        <li><a href="javascript:void(0)" class="select-search-type"
+                                               data-type="basic">{{ ('basicsearch')|trans }}</a></li>
+                                        <li><a href="javascript:void(0)" class="select-search-type"
+                                               data-type="tag">{{ ('tagsearch')|trans }}</a></li>
                                     </ul>
                                 </div>
                                 <input type="text" name="q" class="form-control" value="">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">{{ "search"|trans }}</button>
+                                    <button class="btn btn-primary" type="submit" title="{{ "search"|trans }}"><i
+                                                class="fa fa-search"></i></button>
                                 </span>
                             </div>
                             <input type="hidden" name="type" value="basic" id="search-type">
@@ -63,10 +63,11 @@
                                             class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}
                                 </a>
                             {% endif %}
-                            <!--
-                            <a href="{{ url("ojs_apply_institution") }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
+
+                            <a href="{{ url("ojs_apply_institution") }}"
+                               class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
                                             class="fa fa-institution"></i></span> {{ 'institute.register'|trans }}</a>
-                            -->
+
                             <a href="{{ url('ojs_apply_journal') }}" class="btn btn-default btn-lg btn-labeled"><span
                                         class="btn-label"><i
                                             class="fa fa-book"></i></span> {{ "journal.register"|trans }}</a>
@@ -80,7 +81,7 @@
             </div>
         </section>
         <section role="featured">
-            <!-- <h3 class="page-header">{{ 'featured'|trans }}</h3> -->
+            <h4 class="page-header text-success"><i class="fa fa-trophy"></i> {{ 'featured'|trans }}</h4>
 
             <div class="row">
                 <div class="col-md-4 col-xs-12">
@@ -89,12 +90,9 @@
                     </p>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <h4>{{ "journal.plural"|trans }}</h4>
-
                     <div class="row">
                         {% for journal in journals %}
                             {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
-
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{ generateJournalUrl(journal) }}">
                                     <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop": {"start":[imageoptions.x, imageoptions.y], "size":[imageoptions.width,imageoptions.height]}}) }}"
@@ -113,48 +111,11 @@
                 </div>
             </div>
         </section>
-
-        <section role="services">
-            <h3 class="page-header">{{ "services"|trans }}</h3>
-
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <ul class="ds-btn">
-                        <li>
-                            <a class="btn btn-lg " href="#">
-                                <i class="glyphicon glyphicon-link pull-left"></i><span>Dergi Ev Sahipliği</span></a>
-
-                        </li>
-                        <li>
-                            <a class="btn btn-lg btn-primary" href="#">
-                                <i class="glyphicon glyphicon-user pull-left"></i><span>DOI</span></a>
-
-                        </li>
-                        <li>
-                            <a class="btn btn-lg btn-success " href="#">
-                                <i class="glyphicon glyphicon-dashboard pull-left"></i><span>OJS</span></a>
-
-                        </li>
-                        <li>
-                            <a class="btn btn-lg btn-danger" href="#">
-                                <i class="glyphicon glyphicon-tasks pull-left"></i><span>Teknik Destek</span></a>
-
-                        </li>
-                        <li>
-                            <a class="btn btn-lg btn-warning" href="#">
-                                <i class="glyphicon glyphicon-search pull-left"></i><span>S.S.S.</span></a>
-                        </li>
-                        <li>
-                            <a class="btn btn-lg btn-info" href="#">
-                                <i class="glyphicon glyphicon-list pull-left"></i><span>İletişim</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
+        {% if services is defined %}
+            {% include '@OjsSite/Site/services.html.twig' %}
+        {% endif %}
         <section role="topics">
-            <h3 class="page-header">{{ "subject.plural"|trans }}</h3>
+            <h4 class="page-header text-info"><i class="fa fa-bookmark"></i> {{ "subject.plural"|trans }}</h4>
 
             <div class="row">
                 <div class="col-md-12 col-xs-12 home-subject-tree">
@@ -163,5 +124,4 @@
             </div>
         </section>
     </div>
-
 {% endblock %}

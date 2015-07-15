@@ -2,45 +2,22 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-4">
-
-                <p>&copy;</p>
-
-                <p>
+            <div class="col-md-4">
+                <p class="text-center">
                     <a href="#" target="_blank" title="Twitter"><i class="fa fa-3x fa-twitter"></i></a>
                     <a href="#" target="_blank" title="Facebook"><i class="fa fa-3x fa-facebook"></i></a>
                     <span class="text-muted">/DergiPark</span>
                 </p>
             </div>
-            <div class="col-md-3">
-                <ul class="list-unstyled">
-                    <li><i class="fa fa-asterisk"></i> OJS
-                    <li>
-                    <li><a href="#">{{ "about"|trans }}</a></li>
-                    <li><a href="/privacy">{{ "privacy"|trans }}</a></li>
-                    <li><a href="/tos">{{ "tos"|trans }}</a></li>
-                    <li><a href="#">{{ "wiki"|trans }}</a></li>
-                    <li><a href="#">{{ "support"|trans }}</a></li>
-                    <li><a href="#">{{ "faq"|trans }}</a></li>
-                    <li><a href="#">{{ "blog"|trans }}</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <ul class="list-unstyled">
-                    <li><i class="fa fa-bookmark"></i> {{ "documents"|trans }}
-                    <li>
-                    <li><a href="#">{{ "presentations"|trans }}</a></li>
-                    <li><a href="#">{{ "videos"|trans }}</a></li>
-                    <li><a href="#">{{ "journals"|trans }}</a></li>
-                    <li><a href="#">{{ "photos"|trans }}</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <ul class="list-unstyled">
-                    <li><i class="fa fa-building-o"></i> {{ "ulakbim"|trans }}
-                    <li>
-                    <li><a href="#">{{ "discovery"|trans }}</a></li>
-                    <li><a href="#">{{ "announcements"|trans }}</a></li>
+
+            <div class="col-md-4">
+                <ul class="list-inline text-center">
+                    <li><a href="{{ path('about') }}">{{ "about"|trans }}</a></li>
+                    <li><a href="{{ path('privacy') }}">{{ "privacy"|trans }}</a></li>
+                    <li><a href="{{ path('tos') }}">{{ "tos"|trans }}</a></li>
+                    <li><a href="{{ path('wiki') }}">{{ "wiki"|trans }}</a></li>
+                    <li><a href="{{ path('support') }}">{{ "support"|trans }}</a></li>
+                    <li><a href="{{ path('faq') }}">{{ "faq"|trans }}</a></li>
                 </ul>
             </div>
         </div>

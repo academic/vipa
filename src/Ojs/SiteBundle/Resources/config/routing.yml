@@ -131,6 +131,18 @@ ojs_people:
 tos:
     path: /tos
     defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' }
+about:
+    path: /about
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'about' }
+wiki:
+    path: /wiki
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'wiki' }
+faq:
+    path: /faq
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'faq' }
+support:
+    path: /support
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'support' }
 
 privacy:
     path: /privacy
