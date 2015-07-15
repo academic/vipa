@@ -81,7 +81,7 @@ liip_imagine:
         journal_cover:
             quality: 90
             filters:
-                crop: {start: [0,0], size: [200, 300]}
+                thumbnail: {size: [190,284], mode: outbound}
         journal_header:
             quality: 90
             filters:
