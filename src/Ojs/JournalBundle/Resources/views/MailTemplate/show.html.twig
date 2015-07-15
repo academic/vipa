@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_mail_template_index'),'title': 'mail.template'|trans},
+    {'link': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}),'title': 'mail.template'|trans},
     {'title': 'title.mail_template_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -52,9 +52,9 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_mail_template_index')},
-        'edit': {'href': path('ojs_journal_mail_template_edit', {'id': entity.id})},
-        'delete': {'href': path('ojs_journal_mail_template_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_mail_template_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_mail_template_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}

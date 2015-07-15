@@ -129,7 +129,7 @@
                     {% endif %}
 
                     {% if is_granted('VIEW', selectedJournal(), 'mailTemplate') %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_mail_template_index') }}">
+                    <a class="list-group-item" href="{{ path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-envelope"></i>
                         </span>

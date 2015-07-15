@@ -67,9 +67,9 @@ class MailTemplateController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
 
-        $rowAction[] = $gridAction->showAction('ojs_journal_mail_template_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_journal_mail_template_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_mail_template_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_journal_mail_template_show', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->editAction('ojs_journal_mail_template_edit', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_mail_template_delete', ['id', 'journalId' => $journal->getId()]);
         $actionColumn->setRowActions($rowAction);
         $db_templates->addColumn($actionColumn);
 
@@ -108,7 +108,7 @@ class MailTemplateController extends Controller
         $defaultTemplates->setSource($source);
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        $rowAction[] = $gridAction->copyAction('ojs_journal_mail_template_copy', 'id');
+        $rowAction[] = $gridAction->copyAction('ojs_journal_mail_template_copy', ['id', 'journalId' => $journal->getId()]);
         $actionColumn->setRowActions($rowAction);
         $defaultTemplates->addColumn($actionColumn);
 
@@ -131,7 +131,7 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new MailTemplate();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entity->setJournal($journal);
@@ -143,6 +143,7 @@ class MailTemplateController extends Controller
                 'ojs_journal_mail_template_show',
                 [
                     'id' => $entity->getId(),
+                    'journalId' => $journal->getId(),
                 ]
             );
         }
@@ -163,13 +164,13 @@ class MailTemplateController extends Controller
      *
      * @return Form The form
      */
-    private function createCreateForm(MailTemplate $entity)
+    private function createCreateForm(MailTemplate $entity, $journalId)
     {
         $form = $this->createForm(
             new MailTemplateType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_mail_template_create'),
+                'action' => $this->generateUrl('ojs_journal_mail_template_create', ['journalId' => $journalId]),
                 'method' => 'POST',
             )
         );
@@ -191,7 +192,7 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new MailTemplate();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
             'OjsJournalBundle:MailTemplate:new.html.twig',
@@ -254,11 +255,16 @@ class MailTemplateController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_journal_mail_template'.$entity->getId());
+
         return $this->render(
             'OjsJournalBundle:MailTemplate:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
+                'token' => $token,
             )
         );
     }
@@ -276,7 +282,7 @@ class MailTemplateController extends Controller
             new MailTemplateType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_mail_template_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_journal_mail_template_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
                 'method' => 'PUT',
             )
         );
@@ -317,6 +323,7 @@ class MailTemplateController extends Controller
                 'ojs_journal_mail_template_edit',
                 [
                     'id' => $entity->getId(),
+                    'journalId' => $journal->getId(),
                 ]
             );
         }
@@ -359,7 +366,7 @@ class MailTemplateController extends Controller
 
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_journal_mail_template_index');
+        return $this->redirectToRoute('ojs_journal_mail_template_index', ['journalId' => $journal->getId()]);
     }
 
     /**
@@ -397,7 +404,7 @@ class MailTemplateController extends Controller
             ->setType($template['type'])
             ->setJournal($journal);
 
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         $form->handleRequest($request);
 
@@ -409,7 +416,7 @@ class MailTemplateController extends Controller
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_mail_template_show',
-                    array('id' => $entity->getId())
+                    array('id' => $entity->getId(), 'journalId' => $journal->getId())
                 )
             );
         }
