@@ -427,6 +427,20 @@ institute.id: 'Kurum ID'
 institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
 institute.name: Kurum Adı
 institute.register: 'Kurum Kaydet'
+institute.address: Address
+institute.about: About
+institute.city: City
+institute.lat-lon: Lat-Lon
+institute.phone: Phone
+institute.fax: Fax
+institute.email: Email
+institute.url: URL
+institute.wiki_url: Wiki URL
+institute.logo: Logo
+institute.header: Header
+institute.tags: Tags
+institute.createdAt: Created At
+institute.user: User
 institution: Kurum
 institution.about: 'Kurum Hakkında'
 institution.address: Adres
@@ -816,6 +830,8 @@ search.noresult: 'We could not find any results matching.'
 search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
 search.resutls: 'Search Results'
+search.on.everywhere: 'Her yerde ara'
+search.on.journal: 'Dergide ara'
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Search on Crossref'
 searchon.doaj: 'Search on Doaj'
@@ -879,6 +895,7 @@ success: Success
 successful.create: 'Successfully created.'
 successful.remove: 'Successfully removed.'
 successful.update: 'Successfully updated.'
+successfully.subscribed: 'Successfully Subscribed'
 suggest: Suggest
 suggestedMaxDays: 'Suggested maximum days count'
 summary: Summary
@@ -1314,5 +1331,3 @@ workflows: Workflows
 year: Year
 you: You
 404: 'Not found'
-search.on.everywhere: 'Her yerde ara'
-search.on.journal: 'Dergide ara'
