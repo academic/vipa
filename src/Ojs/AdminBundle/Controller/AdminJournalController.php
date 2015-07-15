@@ -268,7 +268,7 @@ class AdminJournalController extends Controller
         }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        $editForm->submit($request);
         if ($editForm->isValid()) {
             if($request->get('competing_interest_file_id') == ''){
                 if($request->get('competing_interest_file') !== ''){

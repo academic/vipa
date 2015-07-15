@@ -26,7 +26,7 @@ ojs_admin_journal_edit:
 ojs_admin_journal_update:
     path:  /{id}/update
     defaults: { _controller: OjsAdminBundle:AdminJournal:update }
-    methods:  [PUT]
+    methods:  [POST,PUT]
 
 ojs_admin_journal_delete:
     path:  /{id}/delete

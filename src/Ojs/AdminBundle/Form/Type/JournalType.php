@@ -38,10 +38,13 @@ class JournalType extends AbstractType
 
                         ]
                     ]
-                ]
+                ],
+                'error_bubbling'=>true
             ])
-            ->add('titleAbbr', 'text', ['label' => 'titleabbr'])
-            ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated'])
+            ->add('titleAbbr', 'text', ['label' => 'titleabbr',
+                'error_bubbling'=>true])
+            ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated',
+                'error_bubbling'=>true])
             ->add(
                 'institution',
                 null,
@@ -50,6 +53,7 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element validate[required]',
                     ],
+                    'error_bubbling'=>true
                 ]
             )
             ->add(
@@ -65,6 +69,7 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element validate[required]',
                     ],
+                    'error_bubbling'=>true
                 )
             )
             ->add(
@@ -78,14 +83,19 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element',
                     ],
+                    'error_bubbling'=>true,
                 ]
             );
 
         $builder->add('subtitle', 'hidden', ['label' => 'subtitle'])
-            ->add('path', 'hidden', ['label' => 'journal.path'])
-            ->add('domain', 'hidden', ['label' => 'journal.domain'])
-            ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn')))
-            ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn')))
+            ->add('path', 'hidden', ['label' => 'journal.path',
+                'error_bubbling'=>true])
+            ->add('domain', 'hidden', ['label' => 'journal.domain',
+                'error_bubbling'=>true])
+            ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn'),
+                'error_bubbling'=>true))
+            ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn'),
+                'error_bubbling'=>true))
             ->add(
                 'firstPublishDate',
                 'collot_datetime',
@@ -100,15 +110,18 @@ class JournalType extends AbstractType
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',
                     ],
+                    'error_bubbling'=>true,
                 )
             )
             ->add('domain')
-            ->add('period', 'text', ['label' => 'journal.period'])
+            ->add('period', 'text', ['label' => 'journal.period',
+                'error_bubbling'=>true])
             ->add(
                 'googleAnalyticsId',
                 'text',
                 [
                     'label' => 'journal.google.analytics.id',
+                    'error_bubbling'=>true,
                 ]
             )
             ->add('url', 'text', ['label' => 'url'])
@@ -121,6 +134,7 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element ',
                     ],
+                    'error_bubbling'=>true,
                 ]
             )
             ->add(
@@ -131,24 +145,30 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'wysihtml5 ',
                     ],
+                    'error_bubbling'=>true,
                 ]
             )
-            ->add('published', 'checkbox', ['label' => 'published'])
-            ->add('printed', 'checkbox', ['label' => 'printed'])
+            ->add('published', 'checkbox', ['label' => 'published',
+                'error_bubbling'=>true])
+            ->add('printed', 'checkbox', ['label' => 'printed',
+                'error_bubbling'=>true])
             ->add(
                 'status',
                 'choice',
                 [
                     'label' => 'status',
                     'choices' => CommonParams::getStatusTexts(),
+                    'error_bubbling'=>true,
                 ]
             )
             ->add('image', 'hidden')
             ->add('header', 'hidden')
             ->add('logo', 'hidden')
-            ->add('slug', 'text', ['label' => 'journal.slug'])
+            ->add('slug', 'text', ['label' => 'journal.slug',
+                'error_bubbling'=>true])
             ->add('tags', 'tags')
-            ->add('description', 'textarea', ['label' => 'description', 'attr' => ['class' => 'validate[required]']])
+            ->add('description', 'textarea', ['label' => 'description',
+                'error_bubbling'=>true, 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'theme',
                 'entity',
@@ -163,6 +183,7 @@ class JournalType extends AbstractType
                         return $er->createQueryBuilder('t')
                             ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
                     },
+                    'error_bubbling'=>true,
                 )
             );
     }
@@ -180,7 +201,7 @@ class JournalType extends AbstractType
                     'class' => 'validate-form',
                 ],
                 'translation_domain' => 'messages',
-
+                'csrf_protection'=>false
             )
         );
     }
