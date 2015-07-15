@@ -1,34 +1,34 @@
 ojs_journal_mail_template_index:
-    path:     /
+    path:     /{journalId}/mail-template/
     defaults: { _controller: OjsJournalBundle:MailTemplate:index }
 
 ojs_journal_mail_template_show:
-    path:     /{id}/show
+    path:     /{journalId}/mail-template/{id}/show
     defaults: { _controller: OjsJournalBundle:MailTemplate:show }
 
 ojs_journal_mail_template_new:
-    path:     /new
+    path:     /{journalId}/mail-template/new
     defaults: { _controller: OjsJournalBundle:MailTemplate:new }
 
 ojs_journal_mail_template_create:
-    path:     /create
+    path:     /{journalId}/mail-template/create
     defaults: { _controller: OjsJournalBundle:MailTemplate:create }
     methods: [POST]
 
 ojs_journal_mail_template_edit:
-    path:     /{id}/edit
+    path:     /{journalId}/mail-template/{id}/edit
     defaults: { _controller: OjsJournalBundle:MailTemplate:edit }
 
 ojs_journal_mail_template_update:
-    path:     /{id}/update
+    path:     /{journalId}/mail-template/{id}/update
     defaults: { _controller: OjsJournalBundle:MailTemplate:update }
     methods: [PUT]
 
 ojs_journal_mail_template_delete:
-    path:     /{id}/delete
+    path:     /{journalId}/mail-template/{id}/delete
     defaults: { _controller: OjsJournalBundle:MailTemplate:delete }
     methods: [DELETE]
 
 ojs_journal_mail_template_copy:
-    path:     /{id}/copy
+    path:     /{journalId}/mail-template/{id}/copy
     defaults: { _controller: OjsJournalBundle:MailTemplate:copy"}

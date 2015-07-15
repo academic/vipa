@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_mail_template_index'),'title': 'mail.template'|trans},
+    {'link': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}),'title': 'mail.template'|trans},
     {'title': 'title.mail_template_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -67,8 +67,11 @@
     {{ form_row(form.subject) }}
     {{ form_row(form.lang) }}
     {{ form_end(form) }}
-    {% set back_path = 'ojs_journal_mail_template_index' %}
-    {% include '::actionbuttons.html.twig' %}
+    {{
+    actions({
+        'back': {'href': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id})},
+    })
+    }}
 
 {% endblock %}
 {% block javascripts %}
