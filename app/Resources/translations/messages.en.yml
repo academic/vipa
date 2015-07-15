@@ -3,60 +3,60 @@ Abstract: Abstract
 Accept: Accept
 Action: Action
 Admin: Admin
-Arabic: 'TODO: Arapça'
+Arabic: 'Arabic'
 Articles: Articles
 Association: Association
 Author: Author
 Authors: Authors
 Avatar: Avatar
 Chamber: Chamber
-workflow.competing_of_interest_file: 'TODO: Çıkar Çatışması Dosyası'
+workflow.competing_of_interest_file: 'competing of interest file'
 Confirm: Confirm
-Content: 'TODO: İçerik'
+Content: 'Content'
 Copyeditor: Copyeditor
-workflow.copyright_transfer_form: 'TODO: Telif Hakkı Devir Formu'
-Create: 'TODO: Oluştur'
-article.data_analysis: 'TODO: Veri Analizleri'
-'Data Set': 'TODO: Veri Seti'
+workflow.copyright_transfer_form: 'copyright transfer form'
+Create: 'Create'
+article.data_analysis: 'data analysis'
+'Data Set': 'Data Set'
 Decline: Decline
 roles.default_registered_user: 'Default registered user'
-Description: 'TODO: Açıklama'
+Description: 'Description'
 Drafts: Drafts
 Editor: Editor
-English: 'TODO: İngilizce'
+English: English
 Export: Export
 Fieldset: Fieldset
 File: File
 Files: Files
 Filters: Filters
 Foundation: Foundation
-French: 'TODO: Fransızca'
-'workflow.full_text': 'TODO: Tam Metin'
-German: 'TODO: Almanca'
+French: French
+'workflow.full_text': Full Text
+German: German
 Go: Go
 Government: Government
 Guidelines: Guidelines
 Hospital: Hospital
-ID: 'TODO: Sıra No'
+ID: Id
 ISSN: ISSN
 Info: Info
 Information: Information
-'ojs.is_active': 'TODO: Aktif mi?'
-'ojs.is_public': 'TODO: Görünür mü?'
+'ojs.is_active': 'Is active?'
+'ojs.is_public': 'Is public?'
 Issue: Issue
-Italian: 'TODO: İtalyanca'
+Italian: Italian
 roles.journal_manager: 'Journal Manager'
 Keywords: Keywords
-'workflow.last_step': 'TODO: Son Adım'
+'workflow.last_step': Last Step
 'Layout Editor': 'Layout Editor'
-Name: 'TODO: İsim'
+Name: Name
 'No': 'No'
-'No data': 'TODO: Veri Yok'
+'No data': No Data
 Other: Other
 Page: Page
 Password: Password
-Pictures: 'TODO: Görseller'
-Polish: 'TODO: Lehçe'
+Pictures: Pictures
+Polish: Polish
 Private: Private
 Proofreader: Proofreader
 Pubdateseason: 'Pub Date Season'
@@ -71,41 +71,41 @@ ROLE_SECTION_EDITOR: 'Section Editor'
 ROLE_SUBSCRIPTION_MANAGER: 'Subscription Manager'
 Reader: Reader
 ojs.repeat_password: 'Repeat Password'
-'workflow.research_materials': 'TODO: Araştıra Materyalleri'
-'workflow.research_results': 'TODO: Araştırma Sonuçları'
+'workflow.research_materials': research materials
+'workflow.research_results': research results
 Reset: Reset
 Reviewer: Reviewer
-Russian: 'TODO: Rusça'
+Russian: Russian
 Search: Search
 Section: Section
 roles.section_editor: 'Section Editor'
-'workflow.source_text': 'TODO: Kaynak Metin'
-Subject: 'TODO: Konu'
+'workflow.source_text': source text
+Subject: Subject
 Subjects: Subjects
 Submissions: Submissions
 roles.subs_manager: 'Subscription Manager'
-'workflow.supp_file': 'TODO: Ek Dosya'
+'workflow.supp_file': Supplementary File
 Supplementary.File: 'Supplementary File'
 roles.sys_manager: 'System Super Administrator'
-Tables: 'TODO: Tablolar'
+Tables: 'Tables'
 Template: Template
 Title: 'Title'
-Transcripts: 'TODO: Suretler'
-Turkish: 'TODO: Türkçe'
+Transcripts: 'Transcripts'
+Turkish: Turkish
 Tweak: Tweak
 Tweaks: Tweaks
 URL: URL
 USER_LOGIN_EVENT: 'User login event'
 USER_LOGOUT_EVENT: 'User logout event'
 University: University
-Update: 'TODO: Güncelle'
+Update: 'Update'
 User: User
 'Yes': 'Yes'
-ojs.password_reset_requested: 'TODO: Şifre Sıfırlama Talebiniz Var'
+ojs.password_reset_requested: 'password reset requested'
 about: About
 abstract: Abstract
 abstract.transliterated: 'Abstract Transliterated'
-accept: 'TODO: Kabul Et'
+accept: 'Accept'
 accepted: Accepted
 actions: Actions
 add: Add
@@ -220,7 +220,7 @@ author.middlename: 'Middle Name'
 author.middlenametransliterated: 'Middle Name Transliterated'
 author.new: 'New Author'
 author.orcid: ORCID
-author.order: 'TODO: Sıra'
+author.order: 'Order'
 author.phone: Phone
 author.plural: Authors
 author.singular: Author
@@ -332,7 +332,7 @@ details: Details
 discovery: Discovery
 documents: Documents
 doi: DOI
-done: Tamamlandı
+done: Done
 drop: Drop
 drop.proxy.user: 'Drop Proxy User'
 e: Edit
@@ -385,7 +385,6 @@ form.items: 'Form Items'
 full_file: 'Full File'
 fullname: 'Full Name'
 globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of an article to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
-haveNoJourals: 'TODO: Hiç derginiz bulunmuyor.'
 haveNoJournals: 'You have no journals'
 help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
 helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
@@ -408,7 +407,7 @@ input_types.textarea: textarea
 input_types.textbox: textbox
 installer.check_configuration: 'Check Configuration'
 installer.congrat: 'Congrat! Installation has completed.'
-installer.gohome: 'Go Home Yanky!'
+installer.gohome: 'Go Home!'
 installer.menu.check: Check
 installer.menu.configure: Configure
 installer.menu.home: Home
@@ -418,7 +417,7 @@ installer.menu.update: Updater
 installer.menu.update_confirm: Complete
 installer.setup: Setup
 installer.update: Upgrade
-installer.update.congrat: __installer.update.congrat
+installer.update.congrat: Update is successfull
 installer.update.welcome.message: 'Database differences will be apply to production database.'
 installer.update.welcome.title: 'OJS Updater'
 installer.welcome.message: 'Welcome message'
@@ -428,6 +427,20 @@ institute.id: ID
 institute.merge_as_new_institute: 'Merge As New Institute'
 institute.name: Name
 institute.register: 'Register Institution'
+institute.address: Address
+institute.about: About
+institute.city: City
+institute.lat-lon: Lat-Lon
+institute.phone: Phone
+institute.fax: Fax
+institute.email: Email
+institute.url: URL
+institute.wiki_url: Wiki URL
+institute.logo: Logo
+institute.header: Header
+institute.tags: Tags
+institute.createdAt: Created At
+institute.user: User
 institution: Institution
 institution.about: 'About Institution'
 institution.address: Address
@@ -537,7 +550,7 @@ journal.singular: Journal
 journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
 journal.subjects: Subjects
 journal.subtitle: Subtitle
-journal.tags: 'TODO: Etiketler'
+journal.tags: 'Tags'
 journal.tech_contact: 'Tech Contact'
 journal.tech_contact_email: 'Tech contact e-mail'
 journal.tech_contact_name: 'Tech contact name'
@@ -676,7 +689,7 @@ ojs: Ojs
 ojs.403: 'You don''t have permission to view this page.'
 ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking the activation link'
 ojs.activate_now: 'Activate Now'
-ojs.add_link: 'Link Ekle'
+ojs.add_link: 'Add Link'
 ojs.any_content: 'No Content'
 ojs.back_and_edit: 'Back & Continue Editing'
 ojs.change_password: 'Password Change'
@@ -686,7 +699,7 @@ ojs.found_results: '<strong class="text-danger">%total%</strong> results were fo
 ojs.have_message: 'You have a message from Ojs'
 ojs.install.confirm: 'Confirm Installation'
 ojs.install.title: 'Ojs Installation'
-ojs.install.title.confirm: 'TODO: Ojs kurulumu gerçekleşecek. Onaylıyor musunuz?'
+ojs.install.title.confirm: 'Installlation will start. Ok?'
 ojs.invited: 'You have invited to OJS'
 ojs.invited_to_review: 'Review invitation from'
 ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
@@ -813,10 +826,11 @@ scope: Scope
 search: Search
 search.builder: 'Advanced Search Builder'
 search.main: 'Search Journal, Article and Author'
-search.noresult: 'We couldn''t find any results matching.'
+search.noresult: 'We could not find any results matching.'
 search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
-search.resutls: 'Search Results'
+search.on.everywhere: 'Search on everywhere'
+search.on.journal: 'Search on journal'
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Search on Crossref'
 searchon.doaj: 'Search on Doaj'
@@ -836,7 +850,7 @@ services: Services
 setting: Setting
 settings: Settings
 setup.step: 'Step #number'
-show: Göster
+show: Show
 sign.in: 'Sign In'
 size: Size
 source: Source
@@ -880,6 +894,7 @@ success: Success
 successful.create: 'Successfully created.'
 successful.remove: 'Successfully removed.'
 successful.update: 'Successfully updated.'
+successfully.subscribed: 'Successfully Subscribed'
 suggest: Suggest
 suggestedMaxDays: 'Suggested maximum days count'
 summary: Summary
@@ -1277,7 +1292,7 @@ workflow.competing_interest: 'Competing of interest statement'
 workflow.competing_question: 'User must send a competing of interest statement.'
 workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
 workflow.each_field_one_line: 'Add each field text as one line'
-workflow.first_step: 'TODO: İlk Adım'
+workflow.first_step: 'First Step'
 workflow.fw_reviewer_403: 'You don''t have submission privilege.'
 workflow.group_set_name: 'Questions will be grouped under fieldset names.'
 workflow.is_question_confiential: 'If this question''s answer may contain confidential data please check.'
@@ -1315,20 +1330,3 @@ workflows: Workflows
 year: Year
 you: You
 404: 'Not found'
-search.on.everywhere: 'Search on everywhere'
-search.on.journal: 'Search on journal'
-successfully.subscribed: 'Successfully Subscribed'
-institute.address: Address
-institute.about: About
-institute.city: City
-institute.lat-lon: Lat-Lon
-institute.phone: Phone
-institute.fax: Fax
-institute.email: Email
-institute.url: URL
-institute.wiki_url: Wiki URL
-institute.logo: Logo
-institute.header: Header
-institute.tags: Tags
-institute.createdAt: Created At
-institute.user: User
