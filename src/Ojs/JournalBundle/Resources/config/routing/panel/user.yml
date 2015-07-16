@@ -27,3 +27,15 @@ ojs_journal_user_register_list:
 ojs_journal_user_register:
     path:  /join/{journalId}
     defaults: { _controller: "OjsJournalBundle:JournalUser:registerAsAuthor" }
+
+ojs_journal_user_my:
+    path:  /my
+    defaults: { _controller: "OjsJournalBundle:JournalUser:journals" }
+
+ojs_journal_user_leave:
+    path: /leave/{journalId}
+    defaults: { _controller: "OjsJournalBundle:JournalUser:leaveJournal" }
+
+ojs_journal_user_leave_role:
+    path: /leave/{journalId}/role/{roleId}
+    defaults: { _controller: "OjsJournalBundle:JournalUser:leaveJournal" }

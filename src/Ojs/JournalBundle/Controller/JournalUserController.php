@@ -325,4 +325,35 @@ class JournalUserController extends Controller
 
         return $this->render('OjsJournalBundle:JournalUser:journals.html.twig', ['journalUsers' => $journalUsers]);
     }
+
+    public function leaveJournalAction($journalId, $roleId = null)
+    {
+        $user = $this->getUser();
+        $journal = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Journal')
+            ->find($journalId);
+        $journalUser = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findOneBy(['user' => $user, 'journal' => $journal]);
+
+        $this->throw404IfNotFound($journalUser);
+        $em = $this->getDoctrine()->getEntityManager();
+
+        if ($roleId == null) {
+            $em->remove($journalUser);
+            $em->flush();
+        } elseif ($journalUser->getRoles()) {
+            $role = $this
+                ->getDoctrine()
+                ->getRepository('OjsUserBundle:Role')
+                ->find($roleId);
+            $journalUser->getRoles()->removeElement($role);
+            $em->persist($journalUser);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('ojs_journal_user_my'));
+    }
 }
