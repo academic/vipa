@@ -314,4 +314,15 @@ class JournalUserController extends Controller
         return $this->render('OjsJournalBundle:JournalUser:register.html.twig',
             ['joined' => $joinedJournals, 'nonJoined' => $nonJoinedJournals]);
     }
+
+    public function journalsAction()
+    {
+        $user = $this->getUser();
+        $journalUsers = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['user' => $user]);
+
+        return $this->render('OjsJournalBundle:JournalUser:journals.html.twig', ['journalUsers' => $journalUsers]);
+    }
 }

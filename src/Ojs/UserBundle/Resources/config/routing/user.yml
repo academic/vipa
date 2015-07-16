@@ -15,8 +15,8 @@ user_profile:
     defaults: { _controller: "OjsUserBundle:User:profile" }
 
 user_show_my_journals:
-    path:  /myjournals
-    defaults: { _controller: "OjsJournalBundle:JournalRole:myJournals" }
+    path:  /journals
+    defaults: { _controller: "OjsJournalBundle:JournalUser:journals" }
 
 user_leave_journal_action:
     path: /leave/journal/{journal}/{role}

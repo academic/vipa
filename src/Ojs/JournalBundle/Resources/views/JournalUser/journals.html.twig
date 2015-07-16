@@ -1,0 +1,30 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.user_author_register'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'title.user_author_register'|trans},
+    ] %}
+
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+{% block body -%}
+    <h3>{{ 'title.journal_role_myjournals'|trans }}</h3>
+    <div class="list-group">
+        {% for user in journalUsers %}
+            <span class="list-group-item">
+                {{ user.journal.title }}
+                <div class="pull-right">
+                    {% for role in user.roles %}
+                    <span class="label label-primary">
+                        {{ role.name|trans }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </span>
+        {% endfor %}
+    </div>
+{% endblock %}
