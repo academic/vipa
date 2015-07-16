@@ -1071,6 +1071,7 @@ title.journal_themes: 'Journal Themes'
 title.journal_users: 'Journal Users'
 title.journal_user_add: 'Add an User to Journal'
 title.journal_user_create: 'Create an User for Journal'
+title.journal_user_leave: 'Leave Journal'
 title.journals: Journals
 title.journals_index_edit: 'Edit Journals Index'
 title.journals_index_new: 'New Journals Index'

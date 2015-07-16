@@ -1071,6 +1071,7 @@ title.journal_themes: 'Journal Themes'
 title.journal_users: 'Dergi Kullanıcıları'
 title.journal_user_add: 'Dergiye Kullanıcı Ekle'
 title.journal_user_create: 'Dergi İçin Kullanıcı Oluştur'
+title.journal_user_leave: 'Dergiden Ayrıl'
 title.journals: Journals
 title.journals_index_edit: 'Edit Journals Index'
 title.journals_index_new: 'New Journals Index'
