@@ -98,7 +98,6 @@ class SiteController extends Controller
     public function staticPagesAction($page = 'static')
     {
         $data['page'] = $page;
-
         return $this->render('OjsSiteBundle:Site:static/'.$page.'.html.twig', $data);
     }
 
