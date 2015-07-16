@@ -3,127 +3,135 @@
 {% block title %}{{ 'title.admin_dashboard'|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
-    <style>
-        .btn {
-            display: block;
-            margin-top: 10px;
-        }
-    </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h1 class="text-center">{{ 'title.admin_dashboard'|trans }}</h1>
         </div>
         <div class="panel-body">
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-xs-12">
                 {% include '::flashbag.html.twig' %}
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4>
-                        <i class="fa fa-gears"></i>
-                        {{ 'admin.dashboard.system_settings'|trans }}
+                            <i class="fa fa-gears"></i>
+                            {{ 'admin.dashboard.system_settings'|trans }}
                         </h4>
                     </div>
-
-                    <div class="col-sm-6">
-                        <a href="{{ path('ojs_admin_user_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <a href="{{ path('ojs_admin_user_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-users"></i>
                             </span>
-                            {{ "title.users"|trans }}
-                        </a>
+                                    {{ "title.users"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_journal_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_journal_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-newspaper-o"></i>
                             </span>
-                            {{ "title.journals"|trans }}
-                        </a>
+                                    {{ "title.journals"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_role_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_role_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-key"></i>
                             </span>
-                            {{ "title.roles"|trans }}
-                        </a>
+                                    {{ "title.roles"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_language_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_language_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-language"></i>
                             </span>
-                            {{ "title.languages"|trans }}
-                        </a>
+                                    {{ "title.languages"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_institution_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_institution_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-university"></i>
                             </span>
-                            {{ "title.institutions"|trans }}
-                        </a>
+                                    {{ "title.institutions"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_institution_type_index') }}"
-                           class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_institution_type_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-building"></i>
                             </span>
-                            {{ "title.institution_types"|trans }}
-                        </a>
+                                    {{ "title.institution_types"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_article_type_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_article_type_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-file-text"></i>
                             </span>
-                            {{ "title.article_types"|trans }}
-                        </a>
-                    </div>
+                                    {{ "title.article_types"|trans }}
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
 
-                    <div class="col-sm-6">
-                        <a href="{{ path('ojs_admin_contact_type_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_contact_type_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-user"></i>
                             </span>
-                            {{ "title.contact_types"|trans }}
-                        </a>
+                                    {{ "title.contact_types"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_subject_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_subject_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-bookmark"></i>
                             </span>
-                            {{ "title.subjects"|trans }}
-                        </a>
+                                    {{ "title.subjects"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_index_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_index_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-sitemap"></i>
                             </span>
-                            {{ "title.journals_indexes"|trans }}
-                        </a>
+                                    {{ "title.journals_indexes"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_theme_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_theme_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-sitemap"></i>
                             </span>
-                            {{ "title.themes"|trans }}
-                        </a>
+                                    {{ "title.themes"|trans }}
+                                </a>
 
-                        <a href="{{ path('ojs_admin_design_index') }}" class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('ojs_admin_design_index') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-navicon"></i>
                             </span>
-                            {{ "title.themes"|trans }}
-                        </a>
+                                    {{ "title.themes"|trans }}
+                                </a>
 
-                        <a href="{{ path('okulbilisim_feedback_homepage') }}"
-                           class="btn btn-primary btn-labeled btn-lg">
+                                <a href="{{ path('okulbilisim_feedback_homepage') }}"
+                                   class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-envelope"></i>
                             </span>
-                            {{ "feedback"|trans }}
-                        </a>
+                                    {{ "feedback"|trans }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 col-xs-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4>
@@ -131,25 +139,25 @@
                             {{ 'admin.dashboard.applications'|trans }}
                         </h4>
                     </div>
+                    <div class="panel-body">
 
-                    <div class="col-sm-12">
-                        <a href="{{ path('ojs_admin_application_institution_index') }}"
-                           class="btn btn-primary btn-labeled btn-lg">
+                        <div class="col-sm-12">
+                            <a href="{{ path('ojs_admin_application_institution_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-university"></i>
                             </span>
-                            {{ "title.institution_application"|trans }}
-                        </a>
-                    </div>
+                                {{ "title.institution_application"|trans }}
+                            </a>
 
-                    <div class="col-sm-12">
-                        <a href="{{ path('ojs_admin_application_journal_index') }}"
-                           class="btn btn-primary btn-labeled btn-lg">
+                            <a href="{{ path('ojs_admin_application_journal_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
                             <span class="btn-label">
                                 <i class="fa fa-newspaper-o"></i>
                             </span>
-                            {{ "title.journal_application"|trans }}
-                        </a>
+                                {{ "title.journal_application"|trans }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
