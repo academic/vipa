@@ -15,10 +15,12 @@
     <h1 title="{{ "board.name"|trans }}">{{ entity.name }}</h1>
     <p class="{{ "description"|trans }}">{{ entity.description|raw }}</p>
     <br>
+    <br>
     {% if is_granted('EDIT', selectedJournal(), 'boards') %}
         <form action="{{ path('ojs_journal_board_member_add', {'boardId': entity.id, 'journalId': selectedJournal().id}) }}" method="POST"
               name="addMemberForm" class="form-inline">
             <span class="help-block">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 {{ 'board.can_not_add_user'|trans|raw }}
                 {{ 'board.manage_users'|trans({"%path%": path('ojs_journal_role_index', {'journalId': selectedJournal().id})})|raw }}
             </span>
@@ -33,19 +35,28 @@
         </form>
     {% endif %}
     <hr>
-    <h4>{{ 'board.members'|trans }}</h4>
-    <table class="table">
-        {% for member in members %}
-            <tr>
-                <td>{{ member.user.fullName }} ({{ member.user.username }})</td>
-                {% if is_granted('EDIT', selectedJournal(), 'boards') %}
-                    <td>
-                        <a href="{{ path('ojs_journal_board_member_remove',{'boardId': entity.id, 'userId': member.user.id, 'journalId': selectedJournal().id}) }}">{{ "remove"|trans }}</a>
-                    </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>{{ 'board.members'|trans }}</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                {% for member in members %}
+                    <tr>
+                        <td>
+                            {{ member.user.fullName }} ({{ member.user.username }})
+                            {% if is_granted('EDIT', selectedJournal(), 'boards') %}
+                                    <a class="btn btn-danger btn-sm pull-right" onclick="return confirm('{% trans %}sure{% endtrans %}');"
+                                       href="{{ path('ojs_journal_board_member_remove',{'boardId': entity.id, 'userId': member.user.id, 'journalId': selectedJournal().id}) }}" title="{{ "remove"|trans }}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
     <div class="btn-group">
         <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}"
            title="{{ "b"|trans }}">
