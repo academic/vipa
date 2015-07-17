@@ -247,7 +247,7 @@ class ArticleSubmissionController extends Controller
      * @param  Request $request
      * @return JsonResponse
      */
-    public function step1Control(Request $request)
+    private function step1Control(Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -318,7 +318,7 @@ class ArticleSubmissionController extends Controller
      * @param  Request $request
      * @return JsonResponse|Response
      */
-    public function step3Control(Request $request)
+    private function step3Control(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $submissionId = $request->get("submissionId");
