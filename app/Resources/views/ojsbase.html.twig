@@ -55,7 +55,7 @@
 
     {% endif %}
     {% block stylesheets %}
-        {% stylesheets '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css" %}
+        {% stylesheets '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="assets/prod/css/appmain.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
         {% if journal is defined and journal.theme %}
@@ -65,7 +65,7 @@
     {% endblock %}
 
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('/assets/app/images/favicon.png') }}"/>
+    <link rel="icon" type="image/x-icon" href="favicon.png"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -134,7 +134,7 @@
 
 {% block javascripts %}
 
-    {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
+    {% javascripts '@main_js' filter='uglifyjs' output="assets/prod/js/appmain.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% if currentJournal is defined and journal.theme %}

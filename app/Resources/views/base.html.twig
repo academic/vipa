@@ -8,7 +8,7 @@ basic tpl for plain outputs
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets
-            '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css" 
+            '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="assets/prod/css/appmain.css"
             %}   
         <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %} 

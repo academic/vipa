@@ -13,7 +13,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    {% stylesheets '@apptour_css' output="assets/prod/css/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
@@ -116,10 +116,10 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    {% javascripts '@apptour_js' output="assets/prod/js/apptour.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="assets/prod/js/journal_admin_tour.js" %}
     {% if app.user.setting('tour.admin.journal') == FALSE %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
