@@ -641,18 +641,6 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * @return Response
-     */
-    public function widgetAction()
-    {
-        $data = [];
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $data['journal'] = $journal;
-
-        return $this->render('OjsJournalBundle:ArticleSubmission:preSubmission.html.twig', $data);
-    }
-
-    /**
      * Returns requested orcid user profile details
      * @param  Request $request
      * @return JsonResponse
