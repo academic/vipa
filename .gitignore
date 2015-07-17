@@ -72,7 +72,6 @@ com_crashlytics_export_strings.xml
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
-/web/c/
 /web/assetic/
 /web/media
 # PHPUnit
@@ -91,3 +90,5 @@ files
 node_modules/
 
 *.php~
+
+web/assets/prod
