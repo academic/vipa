@@ -371,6 +371,7 @@ class ArticleSubmissionController extends Controller
                 $articleAuthor->setAuthorOrder($authorData->order);
                 $em->persist($articleAuthor);
                 $em->flush();
+                $em->clear();
             }
         }
         //remove removed authors
@@ -382,6 +383,7 @@ class ArticleSubmissionController extends Controller
         }
         $articleSubmission->setCurrentStep(4);
         $em->flush();
+        $em->clear();
         return new JsonResponse(['success' => 1]);
     }
 
