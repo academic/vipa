@@ -2,15 +2,13 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\Query;
+use Ojs\AdminBundle\Form\Type\ProxyType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Proxy;
-use Ojs\UserBundle\Entity\User;
-use Ojs\AdminBundle\Form\Type\ProxyType;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,12 +52,12 @@ class AdminProxyController extends Controller
      */
     public function proxyChildrenAction($userId = null)
     {
-        if (!$userId)
+        if ($userId !== null) {
             $userId = $this->getUser()->getId();
-
+        }
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsUserBundle:Proxy')->findBy(['proxyUserId' => $userId]);
-        return $this->render('OjsAdminBundle:AdminProxy:clients.html.twig',['entities' => $entities]);
+        return $this->render('OjsAdminBundle:AdminProxy:clients.html.twig', ['entities' => $entities]);
     }
 
     /**
@@ -70,9 +68,9 @@ class AdminProxyController extends Controller
      */
     public function proxyParentsAction($userId = null)
     {
-        if (!$userId)
+        if ($userId !== null) {
             $userId = $this->getUser()->getId();
-
+        }
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsUserBundle:Proxy')->findBy(['clientUserId' => $userId]);
         return $this->render('OjsAdminBundle:AdminProxy:parents.html.twig', ['entities' => $entities]);
@@ -157,7 +155,7 @@ class AdminProxyController extends Controller
     /**
      * Finds and displays a Proxy entity.
      *
-     * @param  Proxy    $entity
+     * @param  Proxy $entity
      * @return Response
      */
     public function showAction(Proxy $entity)
@@ -168,7 +166,7 @@ class AdminProxyController extends Controller
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_admin_proxy'.$entity->getId());
+            ->refreshToken('ojs_admin_proxy' . $entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminProxy:show.html.twig',
@@ -179,7 +177,7 @@ class AdminProxyController extends Controller
     /**
      * Displays a form to edit an existing Proxy entity.
      *
-     * @param  Proxy    $entity
+     * @param  Proxy $entity
      * @return Response
      */
     public function editAction(Proxy $entity)
@@ -225,8 +223,8 @@ class AdminProxyController extends Controller
     /**
      * Edits an existing Proxy entity.
      *
-     * @param  Request                   $request
-     * @param  Proxy                     $entity
+     * @param  Request $request
+     * @param  Proxy $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, Proxy $entity)
@@ -258,7 +256,7 @@ class AdminProxyController extends Controller
     /**
      * Deletes a Proxy entity.
      *
-     * @param  Proxy            $entity
+     * @param  Proxy $entity
      * @return RedirectResponse
      */
     public function deleteAction(Proxy $entity)

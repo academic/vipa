@@ -2,22 +2,19 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Row;
-use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\AdminBundle\Form\Type\InstitutionApplicationType;
+use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\CommonParams;
-use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
-use Ojs\AdminBundle\Form\Type\InstitutionApplicationType;
-use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -40,7 +37,7 @@ class AdminApplicationController extends Controller
 
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($tableAlias) {
-                $query->andWhere($tableAlias.".status = :status")
+                $query->andWhere($tableAlias . ".status = :status")
                     ->setParameter('status', 0);
                 return $query;
             }
@@ -52,7 +49,7 @@ class AdminApplicationController extends Controller
         $gridAction = $this->get('grid_action');
 
         $grid->getColumn('status')->manipulateRenderCell(
-            function($value, $row, $router) {
+            function ($value, $row, $router) {
                 return $this->get('translator')->trans(CommonParams::institutionStatus($row->getField('status')));
             }
         );
@@ -74,9 +71,9 @@ class AdminApplicationController extends Controller
         $source = new Entity('OjsJournalBundle:Journal');
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
-            function (QueryBuilder $query)  use ($alias) {
+            function (QueryBuilder $query) use ($alias) {
                 $query
-                    ->andWhere($alias.'.status = :status')
+                    ->andWhere($alias . '.status = :status')
                     ->setParameter('status', '0');
                 return $query;
             }
@@ -132,7 +129,7 @@ class AdminApplicationController extends Controller
 
         $data['entity'] = $entity;
         $data['languages'] = implode(',', $languages);
-        $data['institution'] = $institution->getName()."[".$institution->getSlug()."]";
+        $data['institution'] = $institution->getName() . "[" . $institution->getSlug() . "]";
         $data['country'] = $country->getName();
         $data['subjects'] = implode(',', $subjects);
 
@@ -255,7 +252,7 @@ class AdminApplicationController extends Controller
         }
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_application'.$id);
+        $token = $csrf->getToken('ojs_admin_application' . $id);
 
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
@@ -276,7 +273,7 @@ class AdminApplicationController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_application'.$id);
+        $token = $csrf->getToken('ojs_admin_application' . $id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
