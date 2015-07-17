@@ -9,10 +9,11 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\Common\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\Subject;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -555,13 +556,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function generateApiKey()
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $apikey = '';
-        for ($i = 0; $i < 64; $i++) {
-            $apikey .= $characters[rand(0, strlen($characters) - 1)];
-        }
-        $apikey = base64_encode(sha1(uniqid('ue'.rand(rand(), rand())).$apikey));
-        $this->apiKey = $apikey;
+        $this->apiKey = StringHelper::generateKey();
     }
 
     /**
