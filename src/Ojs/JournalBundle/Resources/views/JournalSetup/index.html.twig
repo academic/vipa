@@ -12,13 +12,13 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@submission_css' output="c/submission_css.css" filter="cssrewrite" %}
+    {% stylesheets '@submission_css' output="assets/prod/css/submission_css.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
     {% endstylesheets %}
-    {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css' output="assets/prod/css/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    {% stylesheets '@apptour_css' output="assets/prod/css/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     {{ form_stylesheet(steps.step2) }}
@@ -301,21 +301,21 @@
     {{ parent() }}
     {% javascripts  '@submission_js'
     '@OjsJournalBundle/Resources/public/js/journal_setup.js'
-    output="c/setup_js.js" %}
+    output="assets/prod/js/setup_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    {% javascripts '@apptour_js' output="assets/prod/js/apptour.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_setup_tour.js' output="c/journal_setup_tour.js" %}
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_setup_tour.js' output="assets/prod/js/journal_setup_tour.js" %}
     {% if app.user.setting('tour.admin.journal-setup') == FALSE %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
     {% endjavascripts %}
 
-    {% javascripts '@upload_js' output="c/upload.js" %}
+    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 

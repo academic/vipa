@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@jqueryui_css' output="c/jqueryui_min.css" filter="cssrewrite" %}
+    {% stylesheets '@jqueryui_css' output="assets/prod/js/jqueryui_min.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     <style>
@@ -109,7 +109,7 @@
     {{ parent() }}
     <script></script>
 
-    {% javascripts "@jqueryui_js" output="c/jqueryui_min.js" %}
+    {% javascripts "@jqueryui_js" output="assets/prod/js/jqueryui_min.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 

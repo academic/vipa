@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css' output="assets/prod/css/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
@@ -75,7 +75,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@upload_js' output="c/upload.js" %}
+    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script src="{{ asset('/bundles/ojslocation/js/location.js') }}"></script>
@@ -95,7 +95,7 @@
         });
     </script>
 
-    {% javascripts "@user_admin" output="c/admin_user.js" %}
+    {% javascripts "@user_admin" output="assets/prod/js/admin_user.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
