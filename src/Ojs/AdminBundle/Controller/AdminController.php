@@ -3,7 +3,6 @@
 namespace Ojs\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleEventLogParams;
 use Ojs\JournalBundle\Entity\Journal;
@@ -71,9 +70,9 @@ class AdminController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $stats['userCount'] = $em->getRepository('OjsUserBundle:User')->getCountBy('journalId',$journal->getId());
-        $stats['articleCount'] = $em->getRepository('OjsJournalBundle:Article')->getCountBy('journalId',$journal->getId());
-        $stats['issueCount'] = $em->getRepository('OjsJournalBundle:Issue')->getCountBy('journalId',$journal->getId());
+        $stats['userCount'] = $em->getRepository('OjsUserBundle:User')->getCountBy('journalId', $journal->getId());
+        $stats['articleCount'] = $em->getRepository('OjsJournalBundle:Article')->getCountBy('journalId', $journal->getId());
+        $stats['issueCount'] = $em->getRepository('OjsJournalBundle:Issue')->getCountBy('journalId', $journal->getId());
 
         /**
          * get most common value from article_event_log

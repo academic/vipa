@@ -4,11 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
+use Ojs\Common\Params\ArticleParams;
 use Ojs\Common\Services\GridAction;
 use Ojs\Common\Services\JournalService;
 use Ojs\JournalBundle\Entity\Article;
@@ -29,7 +30,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Ojs\Common\Params\ArticleParams;
 
 /**
  * Article Submission controller.
@@ -332,7 +332,8 @@ class ArticleSubmissionController extends Controller
         if (empty($authorsData)) {
             return new Response('Missing argument', 400);
         }
-        for ($i = 0; $i < count($authorsData); $i++) {
+        $count_author_data = count($authorsData);
+        for ($i = 0; $i < $count_author_data; $i++) {
             if (empty($authorsData[$i]->firstName)) {
                 unset($authorsData[$i]);
             } else {
@@ -441,7 +442,8 @@ class ArticleSubmissionController extends Controller
         $article = $articleSubmission->getArticle();
         $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
         $fileIds = [];
-        for ($i = 0; $i < count($filesData); $i++) {
+        $count_files_data = count($filesData);
+        for ($i = 0; $i < $count_files_data; $i++) {
             if (strlen($filesData[$i]->article_file) < 1) {
                 unset($filesData[$i]);
             } else {
