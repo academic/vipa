@@ -86,7 +86,7 @@
     {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script src="{{ asset('/bundles/ojslocation/js/location.js') }}"></script>
+
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -118,10 +118,7 @@
                     $("#avatar_x").val(data.x)
                     $("#avatar_y").val(data.y)
                 }
-
             })
-            okulbilisimlocation.bridge('.bridged-dropdown');
-
         });
     </script>
     {% javascripts "@user_admin" output="assets/prod/js/admin_user.js" %}
@@ -133,7 +130,6 @@
 {% block stylesheets %}
 
     {{ parent() }}
-    <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css"/>
     {% stylesheets '@upload_css' output="assets/prod/css/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}

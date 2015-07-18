@@ -78,7 +78,6 @@
     {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script src="{{ asset('/bundles/ojslocation/js/location.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -90,8 +89,6 @@
                 $('#user_avatar_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_userbundle_user_avatar').attr('value', JSON.parse(data.result).files.name);
             });
-            okulbilisimlocation.bridge('.bridged-dropdown');
-
         });
     </script>
 
