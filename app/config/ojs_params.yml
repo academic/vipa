@@ -9,16 +9,16 @@ parameters:
             name: English
             code: en
         fr:
-            name: French
+            name: Français
             code: fr
         it:
-            name: Italian
+            name: Italiano
             code: it
         de:
-            name: German
+            name: Deutsch
             code: de
         ar:
-            name: Arabic
+            name: العربية
             code: ar
     roles:
         - 
