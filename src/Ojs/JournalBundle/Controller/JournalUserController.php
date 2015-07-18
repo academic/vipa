@@ -317,6 +317,10 @@ class JournalUserController extends Controller
 
     public function journalsAction()
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException('You must login to see this page.');
+        }
+
         $user = $this->getUser();
         $journalUsers = $this
             ->getDoctrine()
