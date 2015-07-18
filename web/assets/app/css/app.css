@@ -326,25 +326,6 @@ div.user-menu div.user-menu-content:not(.active){
     margin-bottom: 0;
 }
 
-.caption {
-    position:absolute;
-    top:0;
-    right:0;
-    background: rgba(70, 216, 210, 0.44);
-    width:100%;
-    height:100%;
-    padding:2%;
-    display: none;
-    text-align:center;
-    color:#fff !important;
-    z-index:2;
-}
-
-.caption a {
-    padding-right: 10px;
-    color: #fff;
-}
-
 .info {
     display: block;
     padding: 10px;
