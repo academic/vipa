@@ -44,6 +44,10 @@ class OjsExtension extends \Twig_Extension
     private $defaultInstitutionSlug;
     /** @var  string */
     private $ojs_logo;
+    /** @var  string */
+    private $ojs_tw;
+    /** @var  string */
+    private $ojs_fb;
 
     /**
      * @param EntityManager $em
@@ -57,6 +61,8 @@ class OjsExtension extends \Twig_Extension
      * @param null $avatarUploadBaseUrl
      * @param $defaultInstitutionSlug
      * @param $ojs_logo
+     * @param $ojs_tw
+     * @param $ojs_fb
      */
     public function __construct(
         EntityManager $em = null,
@@ -69,7 +75,9 @@ class OjsExtension extends \Twig_Extension
         $cmsShowRoutes = null,
         $avatarUploadBaseUrl = null,
         $defaultInstitutionSlug,
-        $ojs_logo
+        $ojs_logo,
+        $ojs_tw,
+        $ojs_fb
     )
     {
         $this->em = $em;
@@ -83,6 +91,8 @@ class OjsExtension extends \Twig_Extension
         $this->avatarUploadBaseUrl = $avatarUploadBaseUrl;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
         $this->ojs_logo = $ojs_logo;
+        $this->ojs_tw = $ojs_tw;
+        $this->ojs_fb = $ojs_fb;
     }
 
     public function getFilters()

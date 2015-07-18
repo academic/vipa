@@ -89,8 +89,6 @@ class SiteController extends Controller
             }
         }
 
-        $data['ojs_logo'] = $this->container->getParameter("ojs_logo");
-
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
     }
