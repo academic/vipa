@@ -43,15 +43,6 @@
                     {% include '::language_selector.html.twig' %}
 
                     {% if app.user %}
-                        <!-- User avatar
-                        <li>
-                        {% if(app.user.getAvatar()) %}
-                            {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
-                            <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
-                                 class="avatar img-circle img-responsive" />
-                        {% endif %}
-                        </li>
-                        -->
                         <li class="navbar-btn">
                             <a title="{{ "dashboard"|trans }}"  data-placement="bottom" href="{{ path('dashboard') }}">
                                 <i class="fa fa-cog"></i> {{"dashboard"|trans}}
