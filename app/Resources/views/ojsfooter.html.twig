@@ -4,9 +4,14 @@
         <div class="row">
             <div class="col-md-4">
                 <p class="text-center">
-                    <a href="#" target="_blank" title="Twitter"><i class="fa fa-3x fa-twitter"></i></a>
-                    <a href="#" target="_blank" title="Facebook"><i class="fa fa-3x fa-facebook"></i></a>
-                    <span class="text-muted">/DergiPark</span>
+                    {% if ojs_tw is defined %}
+                        <a href="https://twitter.com/{{ ojs_tw }}" target="_blank" title="Twitter"><i
+                                    class="fa fa-3x fa-twitter"></i></a>
+                    {% endif %}
+                    {% if ojs_tw is defined %}
+                        <a href="https://facebook.com/{{ ojs_fb }}" target="_blank" title="Facebook"><i
+                                    class="fa fa-3x fa-facebook"></i></a>
+                    {% endif %}
                 </p>
             </div>
 

@@ -57,6 +57,9 @@ twig:
         base_host: %base_host%
         admin_base_view: %admin_base_view%
         https: %https%
+        ojs_logo: %ojs_logo%
+        ojs_tw: %ojs_tw%
+        ojs_fb: %ojs_fb%
 
 fos_rest:
     body_listener: true
