@@ -38,6 +38,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
                     - @OkulbilisimFeedbackBundle/Resources/public/js/feedback.js
                     - @OkulbilisimFeedbackBundle/Resources/public/js/admin.js
+                    - @OjsLocationBundle/Resources/public/js/location.js
                     - @OjsSiteBundle/Resources/public/js/block.js
                     - @A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js
                     - @OjsAnalyticsBundle/Resources/public/js/analytics.js
@@ -54,6 +55,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/noty/js/noty/themes/bootstrap.js
                     - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
                     - %kernel.root_dir%/../web/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.min.js
+                    - %kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js
 
         admin_main_css:
                 inputs:

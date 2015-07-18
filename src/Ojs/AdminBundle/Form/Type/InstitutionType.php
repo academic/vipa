@@ -67,8 +67,6 @@ class InstitutionType extends AbstractType
                 ]
             )
             ->add('address', 'textarea', ['label' => 'address'])
-            ->add('addressLat', 'text', ['label' => 'addressLat'])
-            ->add('addressLong', 'text', ['label' => 'addressLong'])
             ->add('phone', 'text', ['label' => 'phone'])
             ->add('fax', 'text', ['label' => 'fax'])
             ->add('email', 'email', ['label' => 'email'])
@@ -87,6 +85,8 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
+            ->add('addressLat', 'text', ['label' => 'addressLat'])
+            ->add('addressLong', 'text', ['label' => 'addressLong'])
             ->addEventSubscriber(new AddProvinceFieldSubscriber())
             ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }

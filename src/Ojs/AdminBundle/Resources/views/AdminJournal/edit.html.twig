@@ -131,7 +131,8 @@
                            type="hidden"/>
                 </span>
                 {% if competingFile is not null %}
-                    <a target="_blank" class="label label-info previewLink" href="uploads/journalfiles/{{ filePath(competingFile.path) }}">{{ "preview"|trans }}</a>
+                    <a target="_blank" class="label label-info previewLink"
+                       href="uploads/journalfiles/{{ filePath(competingFile.path) }}">{{ "preview"|trans }}</a>
                 {% else %}
                     <a target="_blank" class="label label-info hide previewLink" href="#">{{ "preview"|trans }}</a>
                 {% endif %}
