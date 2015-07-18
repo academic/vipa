@@ -68,43 +68,28 @@
             </div>
             <div class="col-sm-9 col-md-9">
                 <div class="row">
-                    {% for journal in result %}
-                        <div class="col-sm-3 col-md-3">
-                            <div class="post">
-                                <div class="post-img-content">
+                    <ul class="thumbnails">
+                        {% for journal in result %}
+                            <div class="col-md-3">
+                                <div class="thumbnail">
                                     <a href="{{ generateJournalUrl(journal) }}">
                                         {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
                                         <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
-                                             data-src="holder.js/190x300/random/text:{{ journal.title }}"
-                                             class="img-responsive img-rounded float-left" alt="" style="width: 100% "/>
+                                             data-src="holder.js/190x300/text:{{ journal.title }}"
+                                             class="img-responsive" alt=""/>
+                                        <span class="caption">{{ journal.title }}</span>
                                     </a>
                                 </div>
-
-                                <div class="content">
-                                    <span class="post-title"><b>{{ journal.title }}</b></span>
-                                    {% if journal_detail_box is defined %}
-                                        <div>
-                                            <a href="{{ generateJournalUrl(journal) }}"
-                                               class="btn-link btn-sm">
-                                                <i class="fa fa-link"></i> Dergi</a>
-                                            <a href="{{ url('ojs_last_articles_index',{slug: journal.slug,institution: journal.institution.slug}) }}"
-                                               class="btn-link btn-sm">
-                                                <i class="fa fa-bookmark-o"></i> Son Sayı</a>
-                                        </div>
-
-                                    {% endif %}
-                                </div>
                             </div>
-                        </div>
-                    {% else %}
-                        <div class="alert alert-info">
-                            No Content
-                        </div>
-                    {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info">
+                                {{ "ojs.any_content"|trans }}
+                            </div>
+                        {% endfor %}
+                    </ul>
                 </div>
-                {% if page_count>0 %}
+                {% if page_count>1 %}
                     <div class="row">
-
                         <ul class="pagination ">
                             {% if page_count>1 and current_page!=1 %}
                                 <li>
