@@ -99,7 +99,6 @@
     {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script src="{{ asset('/bundles/ojslocation/js/location.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -119,7 +118,6 @@
                 $('#institution_header_upload_progress').html("{{"done"|trans}}");
                 $('#ojs_journalbundle_institutionapplication_header').attr('value', JSON.parse(data.result).files.name);
             });
-            okulbilisimlocation.bridge('.bridged-dropdown');
         });
     </script>
 {% endblock %}
