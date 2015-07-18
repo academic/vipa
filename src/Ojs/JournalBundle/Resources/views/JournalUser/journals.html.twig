@@ -16,14 +16,14 @@
         {% for user in journalUsers %}
         <div class="panel panel-danger">
             <div class="panel-heading">
-                <h5>{{ user.journal.title }}</h5>
                 <a href="{{ path('ojs_journal_user_leave', {'journalId': user.journal.id}) }}"
-                   class="btn btn-danger btn-labeled">
+                   class="btn btn-danger btn-labeled pull-right">
                     <span class="btn-label">
                         <i class="fa fa-sign-out"></i>
                     </span>
                     {{ "title.journal_user_leave"|trans }}
                 </a>
+                <h5>{{ user.journal.title }}</h5>
             </div>
             <div class="panel-body">
                 {% for role in user.roles %}
