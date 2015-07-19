@@ -46,11 +46,11 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="'.$this->generateUrl(
+                return '<a href="' . $this->generateUrl(
                     'ojs_journals_index',
                     ['filter' => ['subject' => $node['id']]]
-                ).'">'
-                .$node['subject'].' ('.$node['totalJournalCount'].')</a>';
+                ) . '">'
+                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
             },
         ];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
@@ -96,7 +96,7 @@ class SiteController extends Controller
     public function staticPagesAction($page = 'static')
     {
         $data['page'] = $page;
-        return $this->render('OjsSiteBundle:Site:static/'.$page.'.html.twig', $data);
+        return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
     }
 
     public function institutionsIndexAction()
@@ -108,11 +108,6 @@ class SiteController extends Controller
         $data['entities'] = $repo->getAllWithDefaultTranslation();
         $data['page'] = 'institution';
 
-        /*
-         * @todo implement string from db
-         * $data['design']
-         */
-
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
     }
 
@@ -122,6 +117,10 @@ class SiteController extends Controller
         $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
         $data['page'] = 'organizations';
 
+        /*
+         * @todo implement string from db
+         * $data['design']
+         */
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
@@ -362,14 +361,14 @@ class SiteController extends Controller
 
         $fileHelper = new FileHelper();
 
-        $file = $fileHelper->generatePath($fileObject->getName(), false).$fileObject->getName();
+        $file = $fileHelper->generatePath($fileObject->getName(), false) . $fileObject->getName();
 
-        $uploaddir = $this->get('kernel')->getRootDir().'/../web/uploads/';
+        $uploaddir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
 
         $yamlParser = new Parser();
         $vars = $yamlParser->parse(
             file_get_contents(
-                $this->container->getParameter('kernel.root_dir').
+                $this->container->getParameter('kernel.root_dir') .
                 '/config/media.yml'
             )
         );
@@ -377,9 +376,9 @@ class SiteController extends Controller
         $url = false;
         $fullPath = null;
         foreach ($mappings as $key => $value) {
-            if (is_file($uploaddir.$key.'/'.$file)) {
-                $url = '/uploads/'.$key.'/'.$file;
-                $fullPath = $uploaddir.$key.'/'.$file;
+            if (is_file($uploaddir . $key . '/' . $file)) {
+                $url = '/uploads/' . $key . '/' . $file;
+                $fullPath = $uploaddir . $key . '/' . $file;
                 break;
             }
         }
@@ -389,8 +388,8 @@ class SiteController extends Controller
 
         $response = new Response();
         $content = \file_get_contents($fullPath);
-        $response->headers->set('Content-Type',$fileObject->getMimeType());
-        $response->headers->set('Content-Length',filesize($fullPath));
+        $response->headers->set('Content-Type', $fileObject->getMimeType());
+        $response->headers->set('Content-Length', filesize($fullPath));
         $response->setContent($content);
 
         return $response;

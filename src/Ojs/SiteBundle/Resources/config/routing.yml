@@ -4,6 +4,9 @@ ojs_site_admin_page:
 ojs_application:
     resource: "@OjsSiteBundle/Resources/config/routing/application.yml"
     prefix: /apply
+ojs_explore:
+    resource: "@OjsSiteBundle/Resources/config/routing/explore.yml"
+    prefix: /explore
 redirect:
     path: /redirect/{type}/{id}
     defaults: { _controller: OjsSiteBundle:Redirect:redirect }

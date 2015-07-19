@@ -13,14 +13,24 @@
             <ul class="nav navbar-nav">
                 <li class="{% if page == 'index' %}active{% endif %} navbar-btn">
                     <a href="{{ path('ojs_public_index') }}"  title="{{ "home"|trans }}" data-placement="bottom">
-                        {{ "home"|trans }}
+                        <i class="fa fa-home"></i> {{ "home"|trans }}
+                    </a>
+                </li>
+                <li class="{% if page == 'about' %}active{% endif %} navbar-btn">
+                    <a href="{{ path('about') }}" data-placement="bottom"><i class="fa fa-info"></i> {{ "about"|trans }}
                     </a>
                 </li>
                 <li class="{% if page == 'ojs_admin_institution_index' %}active{% endif %} navbar-btn">
-                    <a  href="{{ path('ojs_institutions_index') }}"  data-placement="bottom">{{ "institutions"|trans }}</a>
+                    <a href="{{ path('ojs_institutions_index') }}" data-placement="bottom"><i
+                                class="fa fa-institution"></i> {{ "institutions"|trans }}</a>
                 </li>
                 <li class="{% if page == 'journals' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('ojs_journals_index') }}"  data-placement="bottom">{{ "journals"|trans }}</a>
+                    <a href="{{ path('ojs_journals_index') }}" data-placement="bottom"><i
+                                class="fa fa-book"></i> {{ "journals"|trans }}</a>
+                </li>
+                <li class="{% if page == 'explore' %}active{% endif %} navbar-btn">
+                    <a href="{{ path('ojs_explore_index') }}" data-placement="bottom"><i
+                                class="fa fa-compass"></i> {{ "explore"|trans }}</a>
                 </li>
             </ul>
             {% if page != 'index' %}

@@ -1,0 +1,42 @@
+.panel-nav .panel-heading {
+    padding: 0px;
+}
+
+.panel-nav-sidebar {
+    padding: 5px 0px 5px 5px;
+}
+
+.nav-sidebar {
+    width: 100%;
+    padding: 4px 0;
+}
+
+.nav-sidebar a {
+    color: #333;
+    -webkit-transition: all 0.08s linear;
+    -moz-transition: all 0.08s linear;
+    -o-transition: all 0.08s linear;
+    transition: all 0.08s linear;
+    -webkit-border-radius: 2px 0 0 2px;
+    -moz-border-radius: 2px 0 0 2px;
+    border-radius: 2px 0 0 2px;
+}
+
+.nav-sidebar .active a {
+    cursor: default;
+    background-color: #428bca;
+    color: #fff;
+    text-shadow: 1px 1px 1px #666;
+}
+
+.nav-sidebar .active a:hover {
+    background-color: #428bca;
+}
+
+.nav-sidebar .text-overflow a,
+.nav-sidebar .text-overflow .media-body {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
