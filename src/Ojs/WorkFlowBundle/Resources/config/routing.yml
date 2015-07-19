@@ -1,3 +1,0 @@
-ojs_work_flow_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: OjsWorkFlowBundle:Default:index }

@@ -1,4 +1,0 @@
-services:
-#    ojs_work_flow.example:
-#        class: Ojs\WorkFlowBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
