@@ -85,10 +85,10 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
-            ->add('addressLat', 'text', ['label' => 'addressLat'])
-            ->add('addressLong', 'text', ['label' => 'addressLong'])
             ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
+            ->add('addressLat', 'text', ['label' => 'addressLat', 'attr' => ['data-id' => 'addressLat']])
+            ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']]);
     }
 
     /**
