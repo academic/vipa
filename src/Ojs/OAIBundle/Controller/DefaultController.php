@@ -251,7 +251,7 @@ class DefaultController extends Controller
 
     /**
      * Xml response
-     * @param $template
+     * @param string $template
      * @param array $data
      * @return Response
      */

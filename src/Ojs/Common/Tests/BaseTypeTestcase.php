@@ -20,7 +20,7 @@ class BaseTypeTestcase extends TypeTestCase
      * Generate basic form submit test
      * @param  $type object
      * @param  $formData array
-     * @param  $objectClass string
+     * @param  string $objectClass string
      */
     public function basicSubmitTest($type, $formData, $objectClass, $options = [])
     {

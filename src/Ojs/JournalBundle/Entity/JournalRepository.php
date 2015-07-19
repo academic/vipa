@@ -38,7 +38,7 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getOffset()
     {
@@ -57,7 +57,7 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getStart()
     {
@@ -151,7 +151,7 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @param mixed $currentPage
+     * @param integer $currentPage
      */
     public function setCurrentPage($currentPage)
     {
@@ -302,6 +302,9 @@ class JournalRepository extends EntityRepository
         return false;
     }
 
+    /**
+     * @param string $institution
+     */
     public function getByInstitutionAndSubject($institution, Subject $subject)
     {
         $qb = $this->createQueryBuilder('j');

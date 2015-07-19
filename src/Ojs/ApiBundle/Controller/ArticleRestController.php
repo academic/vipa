@@ -223,7 +223,7 @@ class ArticleRestController extends FOSRestController
     }
 
     /**
-     * @param $field
+     * @param string $field
      * @param $article_id
      * @param  Request $request
      * @return object

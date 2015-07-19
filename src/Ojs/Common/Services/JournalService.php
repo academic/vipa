@@ -151,7 +151,7 @@ class JournalService
     }
 
     /**
-     * @param $checkRoles
+     * @param string $checkRoles
      * @param  Journal $journal
      * @return bool
      * @deprecated
@@ -188,7 +188,7 @@ class JournalService
     /**
      *
      * @param  Journal $journal
-     * @return boolean
+     * @return string
      */
     public function generateUrl(Journal $journal)
     {

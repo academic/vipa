@@ -637,7 +637,7 @@ class Institution implements Translatable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
@@ -656,7 +656,7 @@ class Institution implements Translatable
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getInstitutionType()
     {
@@ -664,7 +664,7 @@ class Institution implements Translatable
     }
 
     /**
-     * @param  mixed $institution_type
+     * @param  InstitutionTypes $institution_type
      * @return $this
      */
     public function setInstitutionType(InstitutionTypes $institution_type)
@@ -684,7 +684,7 @@ class Institution implements Translatable
     }
 
     /**
-     * @param  mixed $institution_type_id
+     * @param  integer $institution_type_id
      * @return $this
      */
     public function setInstitutionTypeId($institution_type_id)
@@ -769,7 +769,7 @@ class Institution implements Translatable
     /**
      * Get lvl
      *
-     * @return integer
+     * @return Institution
      */
     public function getLvl()
     {

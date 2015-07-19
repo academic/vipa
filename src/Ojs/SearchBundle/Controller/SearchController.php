@@ -198,7 +198,7 @@ class SearchController extends Controller
      * @param Request $request
      * @param $query
      * @param $queryType
-     * @param $totalCount
+     * @param integer $totalCount
      * @return bool
      */
     private function addQueryToHistory(Request $request, $query, $queryType, $totalCount)

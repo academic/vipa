@@ -46,7 +46,7 @@ class JournalSetupProgress implements Translatable
     /**
      * Get currentStep
      *
-     * @return string
+     * @return integer
      */
     public function getCurrentStep()
     {
@@ -80,7 +80,7 @@ class JournalSetupProgress implements Translatable
      * Set journal
      *
      * @param  Journal        $journal
-     * @return JournalSetting
+     * @return JournalSetupProgress
      */
     public function setJournal(Journal $journal)
     {

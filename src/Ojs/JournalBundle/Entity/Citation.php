@@ -70,7 +70,7 @@ class Citation implements Translatable
      * Add article
      *
      * @param  Article $article
-     * @return Subject
+     * @return Citation
      */
     public function addArticle(Article $article)
     {

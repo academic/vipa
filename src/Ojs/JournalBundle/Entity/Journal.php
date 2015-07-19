@@ -1017,7 +1017,7 @@ class Journal implements Translatable
     /**
      * Get googleAnalyticsId
      *
-     * @return Theme
+     * @return string
      */
     public function getGoogleAnalyticsId()
     {
@@ -1411,7 +1411,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @param mixed $header_options
+     * @param string $header_options
      */
     public function setHeaderOptions($header_options)
     {
@@ -1427,7 +1427,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @param mixed $logo_options
+     * @param string $logo_options
      */
     public function setLogoOptions($logo_options)
     {
@@ -1452,7 +1452,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @param mixed $image_options
+     * @param string $image_options
      */
     public function setImageOptions($image_options)
     {
@@ -1460,7 +1460,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDescription()
     {
@@ -1573,7 +1573,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
     public function getJournalUsers()
     {
@@ -1619,7 +1619,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @return File
+     * @return integer
      */
     public function getCompetingInterestFileId()
     {

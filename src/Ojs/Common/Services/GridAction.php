@@ -39,7 +39,7 @@ class GridAction
     }
 
     /**
-     * @param $route
+     * @param string $route
      * @param $key
      * @param  null      $role
      * @return RowAction
@@ -51,6 +51,10 @@ class GridAction
         $translator = $this->translator;
         $csrfTokenManager = $this->csrfTokenManager;
         $rowAction->manipulateRender(
+
+            /**
+             * @param string $action
+             */
             function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route) {
                 $route = str_replace('_delete', '', $route);
                 $token = $csrfTokenManager->refreshToken($route.$row->getPrimaryFieldValue());
@@ -138,7 +142,7 @@ class GridAction
     }
 
     /**
-     * @param $route
+     * @param string $route
      * @param $key
      * @param  null      $role
      * @return RowAction
@@ -162,7 +166,7 @@ class GridAction
     }
 
     /**
-     * @param $route
+     * @param string $route
      * @param $key
      * @param  null      $role
      * @return RowAction
@@ -238,7 +242,7 @@ class GridAction
     }
 
     /**
-     * @param $route
+     * @param string $route
      * @param $key
      * @param  null      $role
      * @return RowAction

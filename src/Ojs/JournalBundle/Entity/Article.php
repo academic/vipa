@@ -486,7 +486,7 @@ class Article implements Translatable
     }
 
     /**
-     * @return File
+     * @return integer
      */
     public function getCompetingInterestFileId()
     {
@@ -645,7 +645,7 @@ class Article implements Translatable
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getSubmitterId()
     {
@@ -901,7 +901,7 @@ class Article implements Translatable
     /**
      * Get setupStatus
      *
-     * @return string
+     * @return boolean
      */
     public function getSetupStatus()
     {

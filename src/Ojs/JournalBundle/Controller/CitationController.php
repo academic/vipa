@@ -8,7 +8,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Form\Type\CitationType;

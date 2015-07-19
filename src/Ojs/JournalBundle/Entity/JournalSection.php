@@ -234,7 +234,7 @@ class JournalSection implements Translatable
     /**
      * Get journal
      *
-     * @return integer
+     * @return Journal
      */
     public function getJournal()
     {
