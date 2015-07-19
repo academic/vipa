@@ -12,9 +12,9 @@ use FOS\ElasticaBundle\Elastica\Index;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * Class $this
@@ -61,7 +61,8 @@ class SearchManager
         PropertyAccessorInterface $propertyAccessor,
         TranslatorInterface $translator,
         Router $router = null
-    ) {
+    )
+    {
         $this->index = $index;
         $this->em = $em;
         $this->registry = $registry;
@@ -90,10 +91,11 @@ class SearchManager
                 $return_data[$result->getType()] = ['type', 'data'];
             }
             $return_data[$result->getType()]['type'] = $this->getTypeText($result->getType());
-            if (isset($return_data[$result->getType()]['data'])):
-                $return_data[$result->getType()]['data'][] = $this->getObject($result); else:
-                $return_data[$result->getType()]['data'] = [$this->getObject($result)];
-            endif;
+            if (isset($return_data[$result->getType()]['data'])) {
+                $return_data[$result->getType()]['data'][] = $this->getObjectDetail($result);
+            } else {
+                $return_data[$result->getType()]['data'] = [$this->getObjectDetail($result)];
+            }
         }
         $this->setCount($results->getTotalHits());
 
@@ -130,7 +132,7 @@ class SearchManager
     }
 
     /**
-     * @param  int   $count
+     * @param  int $count
      * @return $this
      */
     public function setCount($count)
@@ -204,7 +206,7 @@ class SearchManager
     }
 
     /**
-     * @param  Query\Match     $query
+     * @param  Query\Match $query
      * @param $key
      * @param $value
      * @throws \ErrorException
@@ -238,7 +240,7 @@ class SearchManager
     }
 
     /**
-     * @param  int   $page
+     * @param  int $page
      * @return $this
      */
     public function setPage($page)
@@ -286,7 +288,7 @@ class SearchManager
         foreach ($data as $value) {
             $_data[$value->getId()]['data'] = $value;
             foreach ($bucket as $val) {
-                if ((int) $val['key'] == (int) $value->getId()) {
+                if ((int)$val['key'] == (int)$value->getId()) {
                     $_data[$value->getId()]['bucket'] = $val;
                 }
             }
@@ -427,7 +429,7 @@ class SearchManager
     }
 
     /**
-     * @param  int   $limit
+     * @param  int $limit
      * @return $this
      */
     public function setLimit($limit)
@@ -458,7 +460,7 @@ class SearchManager
 
     /**
      * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed $value
      * @return $this
      */
     public function addParam($key, $value)
@@ -532,7 +534,7 @@ class SearchManager
                 $termParse['condition'] = 'OR';
             }
             if (isset($termParse['condition'])) {
-                $searchText = preg_replace('/'.$termParse['condition'].' /', '', $termText);
+                $searchText = preg_replace('/' . $termParse['condition'] . ' /', '', $termText);
             } else {
                 $searchText = $termText;
             }
@@ -555,30 +557,30 @@ class SearchManager
         /**
          * @var Result $object
          */
-        foreach($resultSet as $object) {
+        foreach ($resultSet as $object) {
             $objectType = $object->getType();
             if (!isset($results[$objectType])) {
                 $results[$objectType]['data'] = [];
                 $results[$objectType]['total_item'] = 1;
                 $results[$objectType]['type'] = $this->translator->trans($object->getType());
-            }else{
+            } else {
                 $results[$objectType]['total_item']++;
             }
-            if($section == $objectType){
+            if ($section == $objectType) {
                 $result['detail'] = $this->getObjectDetail($object);
                 $result['source'] = $object->getSource();
-                if($result['detail']['route']){
+                if ($result['detail']['route']) {
                     $results[$objectType]['data'][] = $result;
                 }
             }
 
         }
         //set only acceptable count for selected section
-        if(!empty($section) && isset($results[$section])){
+        if (!empty($section) && isset($results[$section])) {
             $results[$section]['total_item'] = count($results[$section]['data']);
         }
-        foreach($results as $result){
-            $this->setTotalHit($this->getTotalHit()+$result['total_item']);
+        foreach ($results as $result) {
+            $this->setTotalHit($this->getTotalHit() + $result['total_item']);
         }
         return $results;
     }
@@ -593,7 +595,7 @@ class SearchManager
         $source = $object->getSource();
         switch ($objectType) {
             case 'issue':
-                $data['name'] = empty($source['title'])? $this->generateIssueUrl($object): $source['title'];
+                $data['name'] = empty($source['title']) ? $this->generateIssueUrl($object) : $source['title'];
                 $data['route'] = $this->generateIssueUrl($object);
                 break;
             case 'journal':
@@ -606,7 +608,7 @@ class SearchManager
                 break;
             case 'subject':
                 $data['name'] = $source['subject'];
-                $filterParam['filter'] = ['subject'=>$object->getId()];
+                $filterParam['filter'] = ['subject' => $object->getId()];
                 $data['route'] = $this->router->generate('ojs_journals_index', $filterParam, true);
                 break;
             case 'institution':
@@ -614,16 +616,16 @@ class SearchManager
                 $data['route'] = $this->router->generate('ojs_institution_page', ['slug' => $source['slug']], true);
                 break;
             case 'user':
-                $data['name'] = $source['firstName'].' '.$source['lastName'];
+                $data['name'] = $source['firstName'] . ' ' . $source['lastName'];
                 $data['route'] = $this->router->generate('ojs_user_profile', ['slug' => $source['username']], true);
                 break;
             case 'author':
-                $data['name'] = $source['firstName'].' '.$source['lastName'];
+                $data['name'] = $source['firstName'] . ' ' . $source['lastName'];
                 $data['route'] = $this->generateAuthorUrl($object);
                 break;
             case 'file':
                 $data['name'] = $source['name'];
-                $data['route'] = $this->router->generate('ojs_file_download', ['id'=> $object->getId()], true);
+                $data['route'] = $this->router->generate('ojs_file_download', ['id' => $object->getId()], true);
                 break;
             case 'page':
                 $data['name'] = $source['title'];
@@ -685,7 +687,7 @@ class SearchManager
     private function generateArticleUrl(Result $articleObject)
     {
         $source = $articleObject->getSource();
-        if(!isset($source['issue']['id'])){
+        if (!isset($source['issue']['id'])) {
             return false;
         }
         return $this->router
@@ -708,7 +710,7 @@ class SearchManager
     private function generateAuthorUrl(Result $authorObject)
     {
         $source = $authorObject->getSource();
-        if(!empty($source['user'])){
+        if (!empty($source['user'])) {
             return $this->router
                 ->generate(
                     'ojs_user_profile',
@@ -717,12 +719,12 @@ class SearchManager
                     ],
                     true
                 );
-        }else{
-            if(!isset($source['articleAuthors'][0]['article'])){
+        } else {
+            if (!isset($source['articleAuthors'][0]['article'])) {
                 return false;
             }
             $article = $source['articleAuthors'][0]['article'];
-            if(!isset($article['issue']['id'])){
+            if (!isset($article['issue']['id'])) {
                 return false;
             }
             return $this->router
