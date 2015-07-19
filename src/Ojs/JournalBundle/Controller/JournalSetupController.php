@@ -30,7 +30,7 @@ class JournalSetupController extends Controller
     /**
      * Admin can create new journal.
      * admin can resume from where he/she left.
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function indexAction()
     {
@@ -149,7 +149,7 @@ class JournalSetupController extends Controller
      * @param Request $request
      * @param $setupId
      * @param $step
-     * @return mixed
+     * @return JsonResponse
      */
     public function stepControlAction(Request $request, $setupId, $step)
     {

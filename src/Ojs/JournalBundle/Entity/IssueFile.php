@@ -2,13 +2,9 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Ojs\Common\Entity\GenericEntityTrait;
-
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 /**
  * IssueFile

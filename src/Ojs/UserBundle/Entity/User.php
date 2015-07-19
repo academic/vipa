@@ -406,7 +406,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      * @param  boolean $isAdmin
-     * @return boolean $this
+     * @return User $this
      */
     public function setAdmin($isAdmin)
     {
@@ -427,7 +427,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      *
-     * @return Role[]
+     * @return string[]
      */
     public function getRoles()
     {

@@ -54,7 +54,7 @@ class AclChainManager extends AclManager
     }
 
     /**
-     * @param $domainObject
+     * @param ObjectIdentity $domainObject
      * @return $this
      */
     public function onClass($domainObject)
