@@ -35,7 +35,7 @@ class ActionExtension extends \Twig_Extension {
     public function getFunctions()
     {
         return array(
-            \Twig_SimpleFunction('actions', array($this, 'actions'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('actions', array($this, 'actions'), array('is_safe' => array('html'))),
         );
     }
 

@@ -26,7 +26,7 @@ class HistoryExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            \Twig_SimpleFunction('getLogs', array($this, 'getLogs'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('getLogs', array($this, 'getLogs'), array('is_safe' => array('html'))),
         );
     }
 
