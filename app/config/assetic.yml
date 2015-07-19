@@ -110,6 +110,9 @@ assetic:
         jqueryui_css:
             input:
                 - %kernel.root_dir%/../web/assets/app/css/plugins/jqueryui/jquery-ui.min.css
+        site_css:
+            input:
+                - @OjsSiteBundle/Resources/public/css/main.css
  
 braincrafted_bootstrap:
     less_filter: none
