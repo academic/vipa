@@ -52,8 +52,8 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param $journal
-     * @param $settingName
+     * @param Journal $journal
+     * @param string $settingName
      * @param  string $settingValue if null, function will return current value
      * @param  bool $encoded set true if setting stored as json_encoded
      * @return array|mixed|string
@@ -230,7 +230,7 @@ class ManagerController extends Controller
 
     /**
      * @param $step
-     * @return bool
+     * @return boolean|null
      */
     private function checkStepAndUserRoles(JournalWorkflowStep $step)
     {

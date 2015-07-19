@@ -412,7 +412,7 @@ QUERY;
      *
      * @param ObjectIdentityInterface $oid
      *
-     * @return int
+     * @return string|boolean
      */
     final protected function retrieveObjectIdentityPrimaryKey(ObjectIdentityInterface $oid)
     {

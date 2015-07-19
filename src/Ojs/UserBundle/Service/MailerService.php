@@ -41,7 +41,7 @@ class MailerService
      * Send a mail or add to spool, then log to db.
      * @param  Mail    $mail
      * @param  Journal $journal
-     * @return mixed
+     * @return integer
      */
     public function send(Mail $mail, Journal $journal)
     {

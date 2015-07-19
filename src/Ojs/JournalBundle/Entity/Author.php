@@ -543,7 +543,7 @@ class Author implements Translatable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {

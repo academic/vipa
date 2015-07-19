@@ -807,7 +807,7 @@ QUERY;
      *
      * @param string $classType
      *
-     * @return int
+     * @return string|boolean
      */
     private function createOrRetrieveClassId($classType)
     {
@@ -828,7 +828,7 @@ QUERY;
      *
      * @param SecurityIdentityInterface $sid
      *
-     * @return int
+     * @return string|boolean
      */
     private function createOrRetrieveSecurityIdentityId(SecurityIdentityInterface $sid)
     {

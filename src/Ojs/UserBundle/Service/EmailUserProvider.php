@@ -25,7 +25,7 @@ class EmailUserProvider implements UserProviderInterface
     }
 
     /**
-     * @param $id
+     * @param integer $id
      * @return mixed
      * @throws NoResultException
      * @throws ORMException

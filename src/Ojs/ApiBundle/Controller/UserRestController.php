@@ -319,6 +319,9 @@ class UserRestController extends FOSRestController
         return $this->patch('active', $user_id, $request);
     }
 
+    /**
+     * @param string $field
+     */
     protected function patch($field, $user_id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();

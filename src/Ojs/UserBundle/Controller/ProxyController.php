@@ -2,18 +2,13 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Proxy;
 use Ojs\UserBundle\Entity\User;
-use Ojs\AdminBundle\Form\Type\ProxyType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Proxy controller.

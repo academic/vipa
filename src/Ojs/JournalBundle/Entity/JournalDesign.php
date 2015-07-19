@@ -196,7 +196,7 @@ class JournalDesign implements Translatable
     /**
      * Get isPublic
      *
-     * @return string
+     * @return integer
      */
     public function getIsPublic()
     {

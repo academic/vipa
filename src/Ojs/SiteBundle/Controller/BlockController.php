@@ -145,7 +145,7 @@ class BlockController extends Controller
     /**
      * @param  BlockLink $block_link
      * @param $order
-     * @return Response|static
+     * @return JsonResponse
      */
     public function orderLinkAction(BlockLink $block_link, $order)
     {

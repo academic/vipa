@@ -196,6 +196,9 @@ class ImageResizeHelper
         return $this->options['upload_dir'].$version_path.$file_name;
     }
 
+    /**
+     * @param string $file_path
+     */
     protected function imagick_get_image_object($file_path, $no_cache = false)
     {
         if (empty($this->image_objects[$file_path]) || $no_cache) {
@@ -374,6 +377,10 @@ class ImageResizeHelper
         return $success;
     }
 
+    /**
+     * @param string $file_path
+     * @param string $func
+     */
     protected function gd_get_image_object($file_path, $func, $no_cache = false)
     {
         if (empty($this->image_objects[$file_path]) || $no_cache) {
@@ -391,6 +398,9 @@ class ImageResizeHelper
         return $image && imagedestroy($image);
     }
 
+    /**
+     * @param string $file_path
+     */
     protected function gd_orient_image($file_path, $src_img)
     {
         if (!function_exists('exif_read_data')) {
@@ -500,6 +510,9 @@ class ImageResizeHelper
         $this->image_objects[$file_path] = $image;
     }
 
+    /**
+     * @param string $error
+     */
     protected function get_error_message($error)
     {
         return array_key_exists($error, $this->error_messages) ?
@@ -528,6 +541,9 @@ class ImageResizeHelper
         return $this->fix_integer_overflow(filesize($file_path));
     }
 
+    /**
+     * @param integer $size
+     */
     protected function fix_integer_overflow($size)
     {
         return $size < 0 ? ($size + (2.0 * (PHP_INT_MAX + 1))) : $size;

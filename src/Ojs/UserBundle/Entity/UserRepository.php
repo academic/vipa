@@ -82,7 +82,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
     /**
      * @param $id string
-     * @param $provider string
+     * @param string $provider string
      * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
