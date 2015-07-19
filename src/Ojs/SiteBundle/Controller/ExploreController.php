@@ -10,6 +10,12 @@ class ExploreController extends Controller
     {
         $data = array();
         $data['page'] = 'explore';
+        $em = $this->getDoctrine()->getManager();
+
+        $data['institution_types'] = $em->getRepository('OjsJournalBundle:InstitutionTypes')
+            /* TODO: order by name + only has a journal in it */
+            ->findAll();
+
         return $this->render('OjsSiteBundle:Explore:explore_index.html.twig', $data);
     }
 
