@@ -12,6 +12,9 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
 {
     private $provinceEndPoint;
 
+    /**
+     * @param string $provinceEndPoint
+     */
     function __construct($provinceEndPoint)
     {
         $this->provinceEndPoint = $provinceEndPoint;
@@ -25,6 +28,9 @@ class AddCountryFieldSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param \Ojs\LocationBundle\Entity\Country $country
+     */
     private function addCountryForm(FormInterface $form, $country = null)
     {
         $formOptions = array(

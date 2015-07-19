@@ -97,6 +97,9 @@ class SecurityController extends Controller
         );
     }
 
+    /**
+     * @return string
+     */
     private function encodePassword(User $user, $plainPassword)
     {
         $encoder = $this->container->get('security.encoder_factory')

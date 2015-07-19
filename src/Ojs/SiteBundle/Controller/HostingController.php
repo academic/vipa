@@ -22,7 +22,7 @@ class HostingController extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
@@ -46,7 +46,7 @@ class HostingController extends Controller
 
     /**
      * @param Request $request
-     * @param $slug
+     * @param string $slug
      * @param bool $isJournalHosting
      * @return \Symfony\Component\HttpFoundation\Response
      */

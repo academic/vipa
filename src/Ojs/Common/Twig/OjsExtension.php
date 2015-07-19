@@ -253,7 +253,7 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     * @return array
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function userJournalRoles()
     {

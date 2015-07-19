@@ -252,7 +252,7 @@ class SearchManager
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getLimit()
     {
@@ -261,7 +261,7 @@ class SearchManager
 
     /**
      * @param $value
-     * @param $key
+     * @param string $key
      */
     public function addAggregation($key, $value)
     {
@@ -270,7 +270,7 @@ class SearchManager
 
     /**
      * @param $bucket array
-     * @param $class string
+     * @param string $class string
      * @return array
      */
     private function transform($bucket, $class)
@@ -411,7 +411,7 @@ class SearchManager
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getTotalHit()
     {
@@ -419,7 +419,7 @@ class SearchManager
     }
 
     /**
-     * @param $totalHit
+     * @param integer $totalHit
      * @return $this
      */
     public function setTotalHit($totalHit)
