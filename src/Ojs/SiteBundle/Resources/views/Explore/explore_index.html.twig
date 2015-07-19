@@ -30,16 +30,11 @@
                     <div class="panel-body panel-nav-sidebar">
                         <nav class="nav-sidebar">
                             <ul class="nav">
-                                <li class="active"><a href="javascript:;">Kategori 1</a></li>
-                                <li><a href="javascript:;">Kategori 2</a></li>
-                                <li><a href="javascript:;">Kategori 3</a></li>
-                                <li><a href="javascript:;">Kategori 4</a></li>
-                                <li><a href="javascript:;">Kategori 5</a></li>
-                                <li><a href="javascript:;">Kategori 6</a></li>
-                                <li><a href="javascript:;">Kategori 7</a></li>
-                                <li><a href="javascript:;">Kategori 8</a></li>
-                                <li class="nav-divider"></li>
-                                <li><a href="javascript:;">Diğer</a></li>
+                                {% for institution_type in institution_types %}
+                                    <li>
+                                        <a href="#!/explore/institution/{{ institution_type.id }}">{{ institution_type.name }}</a>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </nav>
                     </div>
@@ -115,7 +110,8 @@
                 </div>
             </div>
             <div class="col-sm-9 col-md-9">
-                {% if result is defined %}
+
+            {% if result is defined %}
                     <div class="row">
                         <ul class="thumbnails">
                             {% for journal in result %}
