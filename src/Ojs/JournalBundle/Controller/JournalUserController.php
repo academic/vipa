@@ -5,20 +5,20 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\JournalNewUserType;
+use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Ojs\UserBundle\Entity\Role;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\UserBundle\Entity\User;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\Query;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
@@ -343,7 +343,7 @@ class JournalUserController extends Controller
             ->findOneBy(['user' => $user, 'journal' => $journal]);
 
         $this->throw404IfNotFound($journalUser);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         if ($roleId == null) {
             $em->remove($journalUser);
