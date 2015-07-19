@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('ojs_admin_institution_index'),'title': 'title.institutions'|trans},
-        {'title': 'title.institution_new'|trans}
+    {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('ojs_admin_institution_index'),'title': 'title.institutions'|trans},
+    {'title': 'title.institution_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -23,6 +23,11 @@
     {{ form_errors(form) }}
 
     {{ form_widget(form) }}
+    <div class="form-group">
+        <input id="late_long_input" class="form-control"/>
+
+        <div id="locationpicker" style="width: 100%; height: 400px;"></div>
+    </div>
     <div class="form-group">
         <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
 
@@ -67,6 +72,7 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fileupload').fileupload({});
@@ -84,6 +90,15 @@
             }).bind('fileuploaddone', function (e, data) {
                 $('#institution_header_upload_progress').html("{{"done"|trans}}");
                 $('#ojs_journalbundle_institution_header').attr('value', JSON.parse(data.result).files.name);
+            });
+            $('#locationpicker').locationpicker({
+                radius: 10,
+                inputBinding: {
+                    latitudeInput: $("input[data-id=addressLat]"),
+                    longitudeInput: $("input[data-id=addressLong]"),
+                    locationNameInput: $('#late_long_input')
+                },
+                enableAutocomplete: true
             });
         });
     </script>
