@@ -32,6 +32,7 @@ class AdminApplicationController extends Controller
      */
     public function institutionIndexAction()
     {
+        $data = array();
         $source = new Entity('OjsJournalBundle:Institution', 'application');
         $tableAlias = $source->getTableAlias();
 
@@ -53,7 +54,7 @@ class AdminApplicationController extends Controller
                 return $this->get('translator')->trans(CommonParams::institutionStatus($row->getField('status')));
             }
         );
-
+        $rowAction = array();
         $rowAction[] = $gridAction->editAction('ojs_admin_application_institution_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_institution_show', 'id');
         $rowAction[] = $gridAction->deleteAction('ojs_admin_application_institution_delete', 'id');
@@ -68,6 +69,7 @@ class AdminApplicationController extends Controller
 
     public function journalIndexAction()
     {
+        $data = array();
         $source = new Entity('OjsJournalBundle:Journal');
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
@@ -81,7 +83,7 @@ class AdminApplicationController extends Controller
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
-
+        $rowAction = array();
         $rowAction[] = $gridAction->editAction('ojs_admin_application_journal_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_journal_show', 'id');
         $rowAction[] = $gridAction->deleteAction('ojs_admin_application_journal_delete', 'id');
