@@ -267,7 +267,6 @@ class ManagerController extends Controller
         );
         $grid = $this->get('grid');
         $grid->setSource($source);
-        $grid->setHiddenColumns(['post_type', 'content', 'object', 'createdAt', 'updatedAt', 'deletedAt', 'objectId']);
         $grid->getColumn('title')->setSafe(false);
         $gridAction = $this->get('grid_action');
 
