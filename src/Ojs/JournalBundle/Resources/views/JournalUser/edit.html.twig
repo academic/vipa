@@ -11,9 +11,10 @@
 {% endblock %}
 
 {% block body -%}
+    {% include '::flashbag.html.twig' %}
     <h3>{{ entity.user.username }}</h3>
     {{ form_start(edit_form) }}
-    {{ form_widget(edit_form.roles) }}
+    {{ form_row(edit_form.roles) }}
     <button class="btn btn-success">{{ 'update'|trans }}</button>
-    {{ form_end(edit_form.roles) }}
+    {{ form_end(edit_form) }}
 {% endblock %}

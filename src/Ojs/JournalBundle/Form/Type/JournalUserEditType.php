@@ -1,0 +1,34 @@
+<?php
+
+namespace Ojs\JournalBundle\Form\Type;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+class JournalUserEditType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->remove('user');
+    }
+
+    /**
+     * Returns the parent of this type.
+     * @return string The parent of this type
+     */
+    public function getParent()
+    {
+        return 'ojs_journalbundle_journaluser';
+    }
+
+    /**
+     * Returns the name of this type.
+     * @return string The name of this type
+     */
+    public function getName()
+    {
+        return 'ojs_journalbundle_journaluseredit';
+    }
+}
