@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class JournalUserType extends AbstractType implements FormTypeInterface
 {
@@ -53,15 +53,14 @@ class JournalUserType extends AbstractType implements FormTypeInterface
         return 'ojs_journalbundle_journaluser';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
                 'usersEndpoint' => '/',
                 'userEndpoint' => '/',
+                'validation_groups' => array('create'),
             )
         );
     }
-
-
 }
