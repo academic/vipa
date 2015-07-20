@@ -21,7 +21,7 @@ class JournalController extends Controller
     public function changeSelectedAction(Request $request, $journal_id)
     {
         $em = $this->getDoctrine()->getManager();
-        $route = $this->get('router')->generate('dashboard');
+        $route = $this->get('router')->generate('ojs_journal_dashboard_index');
         if ($request->query->get('submission', false) === '1') {
             $route = $this->get('router')->generate('article_submission_new');
         }
