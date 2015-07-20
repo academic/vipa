@@ -678,13 +678,77 @@ div.user-menu div.user-menu-content:not(.active){
     left: 0;
     z-index: 20;
 } 
-.navbar-alt { min-height:44px; border-radius:0} 
-.navbar-alt .navbar-brand{ padding: 2px 8px;font-size: 14px;line-height: 28px; } 
+.navbar-alt { min-height:44px; border-radius:0}
+
+.navbar-alt .navbar-brand {
+    padding: 2px 8px;
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.navbar-brand > img {
+    height: 36px;
+    margin: 4px
+}
 .navbar-alt .navbar-nav > li > a { border-right:1px solid #ddd; padding-top: 2px; padding-bottom: 2px; line-height: 30px }
 
 .navbar-alt .navbar-nav > li:last-child > a {
     border-right: 0px
 }
+
+/**/
+.carousel-indicators .active {
+    background: #428bca;
+}
+
+.adjust1 {
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.adjust2 {
+    margin: 0;
+}
+
+.carousel-indicators li {
+    border: 1px solid #ccc;
+}
+
+.carousel-indicators {
+    bottom: -35px;
+}
+
+.carousel-control {
+    color: #31708f;
+    width: 5%;
+}
+
+.carousel-control:hover, .carousel-control:focus {
+    color: #31708f;
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none;
+}
+
+.media-object {
+    margin: auto;
+    margin-top: 15%;
+}
+
+#carousel-example-generic .row {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .media-object {
+        margin-top: 0;
+    }
+}
+
+/**/
 
 .bigSearchBar {
     height: 200px;
