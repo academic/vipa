@@ -2,6 +2,7 @@
 
 namespace Ojs\Common\Services;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
@@ -146,6 +147,10 @@ class JournalService
         $user = $token->getUser();
         $journalUserRepo = $this->em->getRepository('OjsJournalBundle:JournalUser');
         $journalUser = $journalUserRepo->findOneBy(['journal' => $journal, 'user'=> $user]);
+
+        if (!$journalUser) {
+            return new ArrayCollection();
+        }
 
         return $journalUser->getRoles();
     }
