@@ -36,14 +36,6 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/jquery-pjax/jquery.pjax.js
                     - %kernel.root_dir%/../web/assets/app/js/jsglobals.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
-                    - @OkulbilisimFeedbackBundle/Resources/public/js/feedback.js
-                    - @OkulbilisimFeedbackBundle/Resources/public/js/admin.js
-                    - @OjsLocationBundle/Resources/public/js/location.js
-                    - @OjsSiteBundle/Resources/public/js/block.js
-                    - @A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js
-                    - @OjsAnalyticsBundle/Resources/public/js/analytics.js
-                    - %kernel.root_dir%/../web/vendor/select2/select2.js
-                    - @PUGXAutocompleterBundle/Resources/public/js/autocompleter-select2.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - %kernel.root_dir%/../web/vendor/typeahead.js/dist/typeahead.bundle.min.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
@@ -56,6 +48,14 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
                     - %kernel.root_dir%/../web/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.min.js
                     - %kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js
+                    - %kernel.root_dir%/../web/vendor/select2/select2.js
+                    - @OkulbilisimFeedbackBundle/Resources/public/js/feedback.js
+                    - @OkulbilisimFeedbackBundle/Resources/public/js/admin.js
+                    - @OjsLocationBundle/Resources/public/js/location.js
+                    - @OjsSiteBundle/Resources/public/js/block.js
+                    - @A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js
+                    - @OjsAnalyticsBundle/Resources/public/js/analytics.js
+                    - @PUGXAutocompleterBundle/Resources/public/js/autocompleter-select2.js
 
         admin_main_css:
                 inputs:
@@ -63,7 +63,6 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/css/bootstrap-dialog.min.css
                     - %kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css
                     - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.min.css
-                    - @OkulbilisimFeedbackBundle/Resources/public/css/feedback.css
                     - %kernel.root_dir%/../web/assets/app/css/app.css
                     - %kernel.root_dir%/../web/vendor/select2/select2.css
                     - %kernel.root_dir%/../web/assets/app/css/admin.css
@@ -72,6 +71,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css
                     - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css
                     - %kernel.root_dir%/../web/assets/app/css/_history.css
+                    - @OkulbilisimFeedbackBundle/Resources/public/css/feedback.css
 
         apptour_css:
                inputs:
