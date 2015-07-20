@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 class SiteController extends Controller
 {
@@ -283,10 +284,20 @@ class SiteController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBySlug($slug);
         $this->throw404IfNotFound($journal);
-        $mail = $request->get('mail');
+        $email = $request->get('mail');
+
+        $emailConstraint = new EmailConstraint();
+        $errors = $this->get('validator')->validateValue(
+            $email,
+            $emailConstraint
+        );
+        if(count($errors)>0 || empty($email)){
+            $this->errorFlashBag('invalid.mail');
+            return $this->redirect($referer);
+        }
 
         $subscribeMail = new SubscribeMailList();
-        $subscribeMail->setMail($mail);
+        $subscribeMail->setMail($email);
         $subscribeMail->setJournal($journal);
         $em->persist($subscribeMail);
         $em->flush();
