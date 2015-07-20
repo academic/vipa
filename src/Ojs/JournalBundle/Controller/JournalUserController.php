@@ -55,6 +55,7 @@ class JournalUserController extends Controller
         $gridAction = $this->get('grid_action');
 
         $rowAction = [];
+        $rowAction[] = $gridAction->editAction('ojs_journal_user_edit', ['journalId' => $journal->getId(), 'id']);
         $rowAction[] = $gridAction->deleteAction('ojs_journal_user_delete', ['journalId' => $journal->getId(), 'id']);
         $actionColumn = new ActionsColumn("actions", "actions");
         $actionColumn->setRowActions($rowAction);
@@ -218,6 +219,66 @@ class JournalUserController extends Controller
         );
 
         return $form;
+    }
+
+    public function editUserAction($id)
+    {
+        /** @var JournalUser $entity */
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        // Although 'id' column is unique, looking for a matching journal as well is beneficial security-wise
+        $entity = $em->getRepository('OjsJournalBundle:JournalUser')->findOneBy(['id' => $id, 'journal' => $journal]);
+        $this->throw404IfNotFound($entity);
+
+        if (!$this->isGranted('EDIT', $journal, 'userRole')) {
+            throw new AccessDeniedException("You not authorized to remove this user from the journal.");
+        }
+
+        $editForm = $this->createEditForm($entity);
+
+        return $this->render(
+            'OjsJournalBundle:JournalUser:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    private function createEditForm(JournalUser $entity)
+    {
+        $actionUrl = $this->generateUrl('ojs_journal_user_update',
+            ['journalId' => $entity->getJournal()->getId(), 'id' => $entity->getId()]);
+        $form = $this->createForm(new JournalUserType(), $entity, ['method' => 'PUT', 'action' => $actionUrl]);
+        return $form;
+    }
+
+    public function updateUserAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('EDIT', $journal, 'userRole')) {
+            throw new AccessDeniedException("You not authorized to remove this user from the journal.");
+        }
+
+        /** @var JournalUser $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalUser')->find($id);
+        $user = $entity->getUser();
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->get('roles')) {
+            $entity->setUser($user);
+            $em->persist($entity);
+            $em->flush();
+
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
+        }
+
+        $this->errorFlashBag('error');
+        return $this->redirectToRoute('ojs_journal_user_edit', ['journalId' => $journal->getId(), 'id' => $entity->getId()]);
     }
 
     public function deleteUserAction(Request $request, $id)

@@ -15,6 +15,15 @@ ojs_journal_user_add:
     defaults: { _controller: OjsJournalBundle:JournalUser:addUser }
     methods:  [GET, POST]
 
+ojs_journal_user_edit:
+    path:     /{journalId}/user/{id}/edit
+    defaults: { _controller: OjsJournalBundle:JournalUser:editUser }
+
+ojs_journal_user_update:
+    path:     /{journalId}/user/{id}/update
+    defaults: { _controller: OjsJournalBundle:JournalUser:updateUser }
+    methods:  [PUT]
+
 ojs_journal_user_delete:
     path:     /{journalId}/user/{id}/delete
     defaults: { _controller: OjsJournalBundle:JournalUser:deleteUser }
