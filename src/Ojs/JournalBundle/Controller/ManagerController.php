@@ -6,10 +6,10 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,23 +30,87 @@ class ManagerController extends Controller
             $em = $this->getDoctrine()->getManager();
             $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
         }
+
         if (!$this->isGranted('EDIT', $journal)) {
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         }
-        $form = $this->createForm(
-            new JournalType(),
-            $journal,
-            array(
-                'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $journal->getId())),
-                'method' => 'PUT',
-            )
-        );
+
+        $form = $this->createJournalEditForm($journal);
 
         return $this->render(
             'OjsJournalBundle:Manager:journal_settings.html.twig',
             array(
-                'journal' => $journal,
+                'entity' => $journal,
                 'form' => $form->createView(),
+            )
+        );
+    }
+
+    /**
+     * @param  Request $request
+     * @return RedirectResponse|Response
+     */
+    public function updateJournalAction(Request $request)
+    {
+        /** @var Journal $entity */
+        $em = $this->getDoctrine()->getManager();
+        $entity = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You not authorized for edit this journal!");
+        }
+
+        $this->throw404IfNotFound($entity);
+        $editForm = $this->createJournalEditForm($entity);
+        $editForm->submit($request);
+        if ($editForm->isValid()) {
+            if($request->get('competing_interest_file_id') == ''){
+                if($request->get('competing_interest_file') !== ''){
+                    $competingInterestFile = new File();
+                    $competingInterestFile->setName('Competing Interest File');
+                    $competingInterestFile->setSize($request->get('competing_interest_file_size'));
+                    $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
+                    $competingInterestFile->setPath($request->get('competing_interest_file'));
+
+                    $em->persist($competingInterestFile);
+                    $em->flush();
+
+                    $entity->setCompetingInterestFile($competingInterestFile);
+                }
+            }
+
+            $header = $request->request->get('header');
+            $cover = $request->request->get('cover');
+            $logo = $request->request->get('logo');
+
+            if ($header) {
+                $entity->setHeaderOptions(json_encode($header));
+            }
+
+            if ($cover) {
+                $entity->setImageOptions(json_encode($cover));
+            }
+
+            if ($logo) {
+                $entity->setLogoOptions(json_encode($logo));
+            }
+
+            $em->persist($entity);
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_journal_settings_index',  ['journalId' => $entity->getId()]);
+        }
+
+        return $this->redirectToRoute('ojs_journal_settings_index',  ['journalId' => $entity->getId()]);
+    }
+
+    private function createJournalEditForm(Journal $journal) {
+        return $this->createForm(
+            new JournalType(), $journal,
+            array(
+                'action' => $this->generateUrl('ojs_journal_settings_update', array('journalId' => $journal->getId())),
+                'method' => 'PUT',
             )
         );
     }

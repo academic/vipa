@@ -2,6 +2,11 @@ ojs_journal_settings_index:
     path:  /{journalId}/settings/
     defaults: { _controller: OjsJournalBundle:Manager:journalSettings }
 
+ojs_journal_settings_update:
+    path:  /{journalId}/settings/update
+    defaults: { _controller: OjsJournalBundle:Manager:updateJournal }
+    methods:  [PUT, POST]
+
 ojs_journal_settings_submission:
     path:  /{journalId}/settings/submission
     defaults: { _controller: OjsJournalBundle:Manager:journalSettingsSubmission }
