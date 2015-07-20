@@ -682,6 +682,10 @@ div.user-menu div.user-menu-content:not(.active){
 .navbar-alt .navbar-brand{ padding: 2px 8px;font-size: 14px;line-height: 28px; } 
 .navbar-alt .navbar-nav > li > a { border-right:1px solid #ddd; padding-top: 2px; padding-bottom: 2px; line-height: 30px }
 
+.navbar-alt .navbar-nav > li:last-child > a {
+    border-right: 0px
+}
+
 .bigSearchBar {
     height: 200px;
     margin-bottom: 20px;
