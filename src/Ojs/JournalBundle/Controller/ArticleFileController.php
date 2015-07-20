@@ -98,10 +98,9 @@ class ArticleFileController extends Controller
         if ($form->isValid()) {
             $file = $request->request->get('file');
             $file_entity->setName($file);
-            $imagePath = $this->get('kernel')->getRootDir().'/../web/uploads/articlefiles/'.$fileHelper->generatePath(
-                    $file,
-                    false
-                );
+            $imagePath = $this
+                    ->get('kernel')
+                    ->getRootDir() . '/../web/uploads/articlefiles/'. $fileHelper->generatePath($file, false);
             $file_entity->setSize(filesize($imagePath.$file));
             $file_entity->setMimeType(mime_content_type($imagePath.$file));
             $file_entity->setPath('/uploads/articlefiles/'.$fileHelper->generatePath($file, false));
@@ -110,18 +109,19 @@ class ArticleFileController extends Controller
             $entity->setArticle($article);
             $entity->setFile($file_entity);
             $v = $form->getData()->getVersion();
+
             if (empty($v)) {
                 $entity->setVersion(1);
             }
+
             $em->persist($entity);
             $article->addArticleFile($entity);
             $em->persist($article);
-
             $em->flush();
-
             $this->successFlashBag('Successfully created.');
 
-            return $this->redirect($this->generateUrl('ojs_journal_article_file_index', array('articleId' => $article->getId(), 'journalId' => $journal->getId())));
+            return $this->redirect($this->generateUrl('ojs_journal_article_file_index',
+                array('articleId' => $article->getId(), 'journalId' => $journal->getId())));
         }
 
         return $this->render(

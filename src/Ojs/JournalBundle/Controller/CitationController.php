@@ -6,7 +6,9 @@ use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
@@ -64,13 +66,17 @@ class CitationController extends Controller
     }
     /**
      * Creates a new Citation entity.
-     * @param   Integer $articleId
-     *
+     * @param Request $request
+     * @param Integer $articleId
+     * @return Response
      */
     public function createAction(Request $request, $articleId)
     {
+        /** @var Article $article */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->find($articleId);
         $this->throw404IfNotFound($journal);
+        $this->throw404IfNotFound($article);
 
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -85,7 +91,12 @@ class CitationController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_citation_show', array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)));
+            $article->getCitations()->add($entity);
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('ojs_journal_citation_show',
+                array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)));
         }
 
         return $this->render('OjsJournalBundle:Citation:new.html.twig', array(

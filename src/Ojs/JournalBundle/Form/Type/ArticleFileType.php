@@ -35,20 +35,6 @@ class ArticleFileType extends AbstractType
                     'choices' => ArticleFileParams::$FILE_TYPES,
                 ]
             )
-            ->add(
-                'article',
-                'autocomplete',
-                [
-                    'class' => 'Ojs\JournalBundle\Entity\Article',
-                    'attr' => [
-                        'class' => 'autocomplete',
-                        'style' => 'width:100%',
-                        'data-list' => $options['articlesEndPoint'],
-                        'data-get' => $options['articleEndPoint'],
-                        "placeholder" => "type a journal name",
-                    ],
-                ]
-            )
             ->add('version');
     }
 
