@@ -163,3 +163,9 @@ services:
         arguments: [ @router, @translator ]
         tags:
             - { name: form.type, alias: tags }
+
+    form.type.journal_user:
+        class: Ojs\JournalBundle\Form\Type\JournalUserType
+        tags:
+            - { name: form.type, alias: ojs_journalbundle_journaluser }
+

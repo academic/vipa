@@ -11,6 +11,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\JournalNewUserType;
+use Ojs\JournalBundle\Form\Type\JournalUserEditType;
 use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -249,7 +250,7 @@ class JournalUserController extends Controller
     {
         $actionUrl = $this->generateUrl('ojs_journal_user_update',
             ['journalId' => $entity->getJournal()->getId(), 'id' => $entity->getId()]);
-        $form = $this->createForm(new JournalUserType(), $entity, ['method' => 'PUT', 'action' => $actionUrl]);
+        $form = $this->createForm(new JournalUserEditType(), $entity, ['method' => 'PUT', 'action' => $actionUrl]);
         return $form;
     }
 
@@ -264,12 +265,10 @@ class JournalUserController extends Controller
 
         /** @var JournalUser $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalUser')->find($id);
-        $user = $entity->getUser();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->get('roles')) {
-            $entity->setUser($user);
+        if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();
 
