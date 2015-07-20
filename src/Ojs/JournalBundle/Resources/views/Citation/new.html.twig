@@ -16,8 +16,8 @@
     {{ form(form) }}
 
     {{
-    actions({
-        'create': {'href': path('ojs_journal_citation_new', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
-    })
+        actions({
+            'back': {'href': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},
+        })
     }}
 {% endblock %}
