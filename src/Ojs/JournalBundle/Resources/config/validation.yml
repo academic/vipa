@@ -21,3 +21,8 @@ Ojs\JournalBundle\Entity\Journal:
           - NotBlank: { groups: [setupStep3] }
       theme:
           - NotBlank: { groups: [setupStep6] }
+
+Ojs\JournalBundle\Entity\JournalUser:
+  properties:
+    user:
+      - NotBlank: { groups: [create] }
