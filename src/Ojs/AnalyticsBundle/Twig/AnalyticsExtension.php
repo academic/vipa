@@ -61,7 +61,7 @@ class AnalyticsExtension extends \Twig_Extension
     {
         /** @var ObjectView $data */
         $data = $this->dm->getRepository('OjsAnalyticsBundle:ObjectView')
-            ->findOneBy(['objectId' => $id, 'entity' => $entity]);
+            ->findOneBy(['objectId' => "$id", 'entity' => $entity]);
         if (!$data) {
             return 0;
         }
@@ -78,7 +78,7 @@ class AnalyticsExtension extends \Twig_Extension
     {
         /** @var ObjectView $data */
         $data = $this->dm->getRepository('OjsAnalyticsBundle:ObjectDownload')
-            ->findOneBy(['objectId' => $id, 'entity' => $entity]);
+            ->findOneBy(['objectId' => "$id", 'entity' => $entity]);
         if (!$data) {
             return 0;
         }
