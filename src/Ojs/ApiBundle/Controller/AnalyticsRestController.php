@@ -24,7 +24,7 @@ class AnalyticsRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Put("/analytics/view/{entity}/{id}")
+     * @Put("/stats/view/{entity}/{id}")
      *
      * @param  Request     $request
      * @param $id
@@ -52,7 +52,7 @@ class AnalyticsRestController extends FOSRestController
      *  resource=true,
      *  description="Get object total Views"
      * )
-     * @Get("/analytics/view/{entity}/{id}/")
+     * @Get("/stats/view/{entity}/{id}/")
      *
      * @param $id
      * @param $entity
@@ -72,7 +72,7 @@ class AnalyticsRestController extends FOSRestController
      *  resource=true,
      *  description="Increment object download count"
      * )
-     * @Put("/analytics/download/{entity}/{id}/")
+     * @Put("/stats/download/{entity}/{id}/")
      *
      * @param  Request         $request
      * @param $id
@@ -104,7 +104,7 @@ class AnalyticsRestController extends FOSRestController
      *  resource=true,
      *  description="Get object total download count"
      * )
-     * @Get("/analytics/download/{entity}/{id}/")
+     * @Get("/stats/download/{entity}/{id}/")
      *
      * @param  Request                                              $request
      * @param $id
