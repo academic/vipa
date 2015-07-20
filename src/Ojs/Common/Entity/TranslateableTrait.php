@@ -13,4 +13,9 @@ trait TranslateableTrait
     {
         $this->locale = $locale;
     }
+
+    public function getTranslatableLocale()
+    {
+        return $this->locale;
+    }
 }
