@@ -147,36 +147,39 @@ class ManagerController extends Controller
 
     /**
      * @todo setttings enumeration should be done, otherwise setting keys will be a garbage
-     * @param  Request $req
+     * @param  Request $request
      * @param  integer $journalId
      * @return Response
      */
-    public function journalSettingsSubmissionAction(Request $req, $journalId = null)
+    public function journalSettingsSubmissionAction(Request $request, $journalId = null)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $journal  Journal */
         $journal = !$journalId ?
             $this->get("ojs.journal_service")->getSelectedJournal() :
             $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
-        if ($req->getMethod() == 'POST') {
-            if (!empty($req->get('submissionMandatoryLanguages'))) {
+        if ($request->getMethod() == 'POST') {
+            $submissionMandatoryLanguages = $request->get('submissionMandatoryLanguages');
+            if (!empty($submissionMandatoryLanguages)) {
                 $this->updateJournalSetting(
                     $journal,
                     'submissionMandatoryLanguages',
-                    $req->get('submissionMandatoryLanguages'),
+                    $submissionMandatoryLanguages,
                     true
                 );
             }
-            if (!empty($req->get('submissionAbstractTemplate'))) {
+            $submissionAbstractTemplate = $request->get('submissionAbstractTemplate');
+            if (!empty($submissionAbstractTemplate)) {
                 $this->updateJournalSetting(
                     $journal,
                     'submissionAbstractTemplate',
-                    $req->get('submissionAbstractTemplate'),
+                    $submissionAbstractTemplate,
                     false
                 );
             }
-            if (!empty($req->get('copyrightStatement'))) {
-                $this->updateJournalSetting($journal, 'copyrightStatement', $req->get('copyrightStatement'), false);
+            $copyrightStatement = $request->get('copyrightStatement');
+            if (!empty($copyrightStatement)) {
+                $this->updateJournalSetting($journal, 'copyrightStatement', $copyrightStatement, false);
             }
         }
         $yamlParser = new Parser();
