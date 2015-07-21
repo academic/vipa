@@ -31,13 +31,13 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getManager();
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
-
+        $blameable = $this->getContainer()->get('stof_doctrine_extensions.listener.blameable');
+        $blameable->setUserValue('System');
         foreach ($subjects as $subject) {
             /** @var Subject $subject */
             if ($subject->getJournals()) {
                 $count = $subject->getJournals()->count();
                 $subject->setTotalJournalCount($count);
-                $subject->setUpdatedBy("System");
                 $em->persist($subject);
             }
             echo ".";
