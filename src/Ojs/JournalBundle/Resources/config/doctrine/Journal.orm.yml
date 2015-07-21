@@ -78,6 +78,10 @@ Ojs\JournalBundle\Entity\Journal:
             targetEntity: Ojs\JournalBundle\Entity\JournalUser
             mappedBy: journal
             fetch: EXTRA_LAZY
+        journalContacts:
+            targetEntity: Ojs\JournalBundle\Entity\JournalContact
+            mappedBy: journal
+            cascade: ["persist"]
     manyToMany:
         languages:
               targetEntity: Lang

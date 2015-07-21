@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'title': 'application.journal.apply'|trans}
+        {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
+        {'title': 'application.journal.apply'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -32,8 +32,11 @@
                     <div class="panel-heading"><h4>{{ "application.journal.institution"|trans }}</h4></div>
                     <div class="panel-body">
                         {{ form_row(form.institution, {'help_text': "application.journal.new_institution_help"|trans}) }}
-                        <a href="{{ path('ojs_apply_institution') }}" class="btn btn-info pull-right">
-                            {{ icon('plus') }} {{ "application.journal.new_institution"|trans }}
+                        <a href="{{ path('ojs_apply_institution') }}" class="btn btn-success btn-labeled pull-right">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            {{ "application.journal.new_institution"|trans }}
                         </a>
                     </div>
                 </div>
@@ -48,41 +51,25 @@
                         {% endfor %}
                     </div>
                 </div>
+
                 <div class="panel panel-info">
-                    <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
+                    <div class="panel-heading">
+                        <h4>{{ "application.contact"|trans }}</h4>
+                    </div>
                     <div class="panel-body">
                         {% for field in [form.address, form.phone, form.email] %}
                             {{ form_row(field) }}
                         {% endfor %}
-                        <div class="panel panel-success">
-                            <div class="panel-heading"><h4>{{ "journal.editor"|trans }}</h4></div>
-                            <div class="panel-body">
-                                {% for field in [form.editorName, form.editorSurname,
-                                form.editorPhone, form.editorEmail] %}
-                                    {{ form_row(field) }}
-                                {% endfor %}
-                            </div>
-                        </div>
 
-                        <div class="panel panel-success">
-                            <div class="panel-heading"><h4>{{ "journal.assistant_editor"|trans }}</h4></div>
-                            <div class="panel-body">
-                                {% for field in [form.assistantEditorName, form.assistantEditorSurname,
-                                form.assistantEditorPhone, form.assistantEditorEmail] %}
-                                    {{ form_row(field) }}
-                                {% endfor %}
-                            </div>
-                        </div>
+                        {% do form.journalContacts.setRendered %}
 
-                        <div class="panel panel-success">
-                            <div class="panel-heading"><h4>{{ "journal.tech_contact"|trans }}</h4></div>
-                            <div class="panel-body">
-                                {% for field in [form.techContactName, form.techContactSurname,
-                                form.techContactPhone, form.techContactEmail] %}
-                                    {{ form_row(field) }}
-                                {% endfor %}
-                            </div>
-                        </div>
+                        <ul id="contacts" data-prototype="{{ form_widget(form.journalContacts.vars.prototype)|e }}"></ul>
+                        <a href="#" id="add_contact" class="btn btn-success btn-labeled pull-right">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            {{ "application.journal.add_contact"|trans }}
+                        </a>
                     </div>
                 </div>
 
@@ -129,8 +116,8 @@
         </div>
         {{ form_end(form) }}
     </div>
-
 {% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
@@ -155,6 +142,29 @@
                 $('#ojs_journalbundle_journalapplication_header').attr('value', JSON.parse(data.result).files.name);
             });
         });
+
+        var collectionHolder;
+        var addContactLink = $('#add_contact');
+
+        jQuery(document).ready(function() {
+            collectionHolder = $('#contacts');
+            collectionHolder.data('index', collectionHolder.find(':input').length);
+
+            addContactLink.on('click', function(e) {
+                e.preventDefault();
+                addContactForm(collectionHolder, addContactLink);
+            });
+        });
+
+        function addContactForm($collectionHolder, $addLink) {
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+
+            $collectionHolder.data('index', index + 1);
+
+            $addLink.before($('<div class="well"></div>').append(newForm));
+        }
 
         $('.tags').tagsinput({
             tagClass: 'label label-info',
