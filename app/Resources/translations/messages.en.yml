@@ -859,14 +859,12 @@ special.issue: 'Special Issue'
 stats.most.downloaded.article: 'Most downloaded article'
 stats.most.viewed.article: 'Most viewed article'
 status: Status
-status.editing: Editing
 status.inreview: in-Review
 status.not_submitted: 'Not Submitted'
 status.published: Published
 status.rejected: Rejected
 status.spam: Spam
 status.unpublished: Unpublished
-status.waiting: Waiting
 statusText: 'Status Text'
 step.edit: 'Edit step'
 step.new: 'New Step'

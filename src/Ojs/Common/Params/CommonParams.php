@@ -26,19 +26,15 @@ class CommonParams
         -3 => "status.rejected",
         -2 => "status.unpublished",
         -1 => "status.not_submitted",
-        0 => "status.waiting",
-        1 => "status.inreview",
-        2 => "status.editing",
-        3 => "status.published",
+        0 => "status.inreview",
+        1 => "status.published",
     );
     protected static $statusColorArray = array(
         -3 => '#FF2924',
         -2 => '#FF4724',
         -1 => '#9A9',
         0 => '#E8CC56',
-        1 => '#AD55E8',
-        2 => '#43FFCC',
-        3 => '#3FFF23',
+        1 => '#3FFF23',
     );
 
     /**
