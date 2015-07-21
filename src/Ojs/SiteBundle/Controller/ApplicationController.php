@@ -33,25 +33,6 @@ class ApplicationController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $application->setStatus(0);
-
-                $editorContact = new JournalContact();
-                $editorContact->setFirstName($form["editorName"]->getData());
-                $editorContact->setLastName($form["editorSurname"]->getData());
-                $editorContact->setEmail($form["editorEmail"]->getData());
-                $em->persist($editorContact);
-
-                $assistantContact = new JournalContact();
-                $assistantContact->setFirstName($form["assistantEditorName"]->getData());
-                $assistantContact->setLastName($form["assistantEditorSurname"]->getData());
-                $assistantContact->setEmail($form["assistantEditorEmail"]->getData());
-                $em->persist($assistantContact);
-
-                $techContact = new JournalContact();
-                $techContact->setFirstName($form["techContactName"]->getData());
-                $techContact->setLastName($form["techContactSurname"]->getData());
-                $techContact->setEmail($form["techContactEmail"]->getData());
-                $em->persist($techContact);
-
                 $em->persist($application);
                 $em->flush();
 

@@ -148,6 +148,7 @@ application.journal.institution: Derginin Kurumu
 application.journal.list: 'Dergi Önerileri'
 application.journal.new_institution: 'Yeni Kurum Olarak Başvur'
 application.journal.new_institution_help: 'Eğer yukarıda kurumunuzu bulamadıysanız yeni kurum başvurusunda bulununuz.'
+application.journal.add_contact: 'İletşim Kişisi Ekle'
 application.status.complete: 'İçe Aktarma Tamamlandı'
 application.status.deleted: Silinmiş
 application.status.onhold: 'Beklemede'

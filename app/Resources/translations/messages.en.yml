@@ -148,6 +148,7 @@ application.journal.institution: Institution
 application.journal.list: 'Journal Suggestions'
 application.journal.new_institution: 'Apply as an Institution'
 application.journal.new_institution_help: 'If you can not find your institution above, please apply as an institution using the button below.'
+application.journal.add_contact: 'Add Contact Person'
 application.status.complete: 'Import Complete'
 application.status.deleted: Deleted
 application.status.onhold: 'On Hold'

@@ -286,6 +286,9 @@ class Journal implements Translatable
     /** @var Collection */
     private $journalUsers;
 
+    /** @var ArrayCollection */
+    private $journalContacts;
+
     /**
      * @var File
      */
@@ -1596,6 +1599,22 @@ class Journal implements Translatable
     public function setJournalUsers($journalUsers)
     {
         $this->journalUsers = $journalUsers;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getJournalContacts()
+    {
+        return $this->journalContacts;
+    }
+
+    /**
+     * @param ArrayCollection $journalContacts
+     */
+    public function setJournalContacts($journalContacts)
+    {
+        $this->journalContacts = $journalContacts;
     }
 
     /**
