@@ -1129,3 +1129,5 @@ h2.title { font-size: 20px; }
 .home-stats dd span{
     font: bold 24px Georgia, "Times New Roman", Times, serif;
 }
+
+ul.grid-row-actions > li > a.btn { margin-right: 5px; }
