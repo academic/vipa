@@ -1,6 +1,7 @@
 <li class="dropdown navbar-btn">
     <a href="#" title="{{ app.request.locale }}" class="dropdown-toggle" data-toggle="dropdown" data-placement="bottom">
         <i class="fa fa-globe"></i>
+        {{ app.request.locale }}
         <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
         {% for lang in languages %}
