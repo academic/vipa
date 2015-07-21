@@ -31,8 +31,14 @@ class ApplicationController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
                 $application->setStatus(0);
+
+                /** @var JournalContact $contact */
+                foreach ($application->getJournalContacts() as $contact) {
+                    $contact->setJournal($application);
+                }
+
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($application);
                 $em->flush();
 
