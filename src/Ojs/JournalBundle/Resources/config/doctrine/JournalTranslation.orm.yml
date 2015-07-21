@@ -24,4 +24,4 @@ Ojs\JournalBundle\Entity\JournalTranslation:
             joinColumn:
                 name: object_id
                 referencedColumnName: id
-
+            cascade: ["persist"]
