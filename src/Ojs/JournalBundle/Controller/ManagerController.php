@@ -173,13 +173,16 @@ class ManagerController extends Controller
                 $this->updateJournalSetting(
                     $journal,
                     'submissionAbstractTemplate',
-                    $submissionAbstractTemplate,
-                    false
+                    $submissionAbstractTemplate
                 );
             }
             $copyrightStatement = $request->get('copyrightStatement');
             if (!empty($copyrightStatement)) {
-                $this->updateJournalSetting($journal, 'copyrightStatement', $copyrightStatement, false);
+                $this->updateJournalSetting(
+                    $journal,
+                    'copyrightStatement',
+                    $copyrightStatement
+                );
             }
         }
         $yamlParser = new Parser();
