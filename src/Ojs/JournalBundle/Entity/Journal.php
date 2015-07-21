@@ -297,6 +297,16 @@ class Journal implements Translatable
     private $competingInterestFileId;
 
     /**
+     * @var Lang
+     */
+    private $mandatoryLang;
+
+    /**
+     * @var integer
+     */
+    private $mandatoryLangId;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1624,5 +1634,43 @@ class Journal implements Translatable
     public function getCompetingInterestFileId()
     {
         return $this->competingInterestFileId;
+    }
+
+    /**
+     * @param  Lang $mandatoryLang
+     * @return $this
+     */
+    public function setMandatoryLang(Lang $mandatoryLang)
+    {
+        $this->mandatoryLang = $mandatoryLang;
+
+        return $this;
+    }
+
+    /**
+     * @return Lang
+     */
+    public function getMandatoryLang()
+    {
+        return $this->mandatoryLang;
+    }
+
+    /**
+     * @param  integer $mandatoryLangId
+     * @return $this
+     */
+    public function setMandatoryLangId($mandatoryLangId)
+    {
+        $this->mandatoryLangId = $mandatoryLangId;
+
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getMandatoryLangId()
+    {
+        return $this->mandatoryLangId;
     }
 }

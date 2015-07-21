@@ -57,10 +57,22 @@ class JournalType extends AbstractType
                 ]
             )
             ->add(
+                'mandatoryLang',
+                'entity',
+                [
+                    'label' => 'Mandatory Lang',
+                    'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'attr' => [
+                        'class' => 'select2-element ',
+                    ],
+                    'error_bubbling'=>true,
+                ]
+            )
+            ->add(
                 'languages',
                 'entity',
                 array(
-                    'label' => 'languages',
+                    'label' => 'Supported Languages',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'property' => 'name',
                     'multiple' => true,

@@ -25,6 +25,11 @@ Ojs\JournalBundle\Entity\Journal:
             joinColumn:
               name: competing_interest_file_id
               referencedColumnName: id
+        mandatoryLang:
+            targetEntity: Ojs\JournalBundle\Entity\Lang
+            joinColumn:
+              name: mandatory_lang_id
+              referencedColumnName: id
     oneToMany:
         settings:
             targetEntity: JournalSetting
