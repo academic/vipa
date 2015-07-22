@@ -59,12 +59,16 @@ Ojs\JournalBundle\Entity\Author:
             column: last_name
             gedmo:
                 - versioned
+        locale:
+            type: string
+            length: 20
         title:
             type: string
             nullable: true
             length: 255
             gedmo:
                 - versioned
+                - translatable
         firstNameTransliterated:
             type: string
             length: 255

@@ -19,7 +19,6 @@ class AuthorType extends AbstractType
             ->add('translations', 'a2lix_translations_gedmo',[
                 'translatable_class' => 'Ojs\JournalBundle\Entity\Author'
             ])
-            ->add('title')
             ->add('firstName')
             ->add('middleName')
             ->add('lastName')
