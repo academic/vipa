@@ -21,6 +21,9 @@ Ojs\JournalBundle\Entity\ArticleTypes:
             nullable: TRUE
             gedmo:
                 - translatable
+        locale:
+            type: string
+            length: 20
         created:
             type: datetime
             gedmo:
