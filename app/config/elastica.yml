@@ -16,6 +16,12 @@ fos_elastica:
                         tags: ~
                         subjects: {"index": "not_analyzed"}
                         avatar: ~
+                        title: {"index": "not_analyzed"}
+                        gender: {"index": "not_analyzed"}
+                        created:
+                            type: date
+                        updated:
+                            type: date
                         journalUsers:
                             type: object
                             properties:

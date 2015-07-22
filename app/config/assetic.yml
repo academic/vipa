@@ -3,7 +3,7 @@ assetic:
     node: node
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ OjsAdminBundle, OjsUserBundle, OjsJournalBundle, OjsSiteBundle, OjsApiBundle, OjsSearchBundle ]
+    bundles:        [ OjsAdminBundle, OjsUserBundle, OjsJournalBundle, OjsSiteBundle, OjsApiBundle, OjsSearchBundle, OjsReportBundle ]
     filters:
         cssrewrite: ~
         uglifyjs:
@@ -11,6 +11,13 @@ assetic:
         uglifycss:
             bin: %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
+        stats_js:
+            inputs:
+                - %kernel.root_dir%/../web/vendor/c3/c3.min.js
+                - %kernel.root_dir%/../web/vendor/d3/d3.min.js
+        stats_css:
+            inputs:
+                - %kernel.root_dir%/../web/vendor/c3/c3.min.css
         jquery_js_only:
                 inputs:
                     - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
