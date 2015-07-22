@@ -119,7 +119,7 @@ class IssueController extends Controller
             if ($cover) {
                 $entity->setCoverOptions(json_encode($cover));
             }
-
+            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -335,7 +335,7 @@ class IssueController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_issue_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_journal_issue_edit', ['journalId' => $entity->getJournalId(),'id' => $id]);
         }
 
         return $this->render(
