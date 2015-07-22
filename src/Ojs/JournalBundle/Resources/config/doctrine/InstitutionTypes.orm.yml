@@ -33,6 +33,9 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
                 seperator: _
                 fields:
                   - name
+        locale:
+            type: string
+            length: 20
         description:
             type: text
             nullable: true
