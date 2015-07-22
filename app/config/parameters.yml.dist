@@ -14,6 +14,7 @@ parameters:
     mailer_port: 587
 
     locale:            en
+    locale_support: [tr,en,fr]
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     base_host: localhost

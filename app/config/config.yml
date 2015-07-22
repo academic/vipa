@@ -16,7 +16,7 @@ parameters:
     admin_base_view: '::ojsbase.html.twig'
 framework:
     #esi:             ~
-    translator:      { fallback: en }
+    translator:      { fallback: %locale% }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -133,7 +133,7 @@ sc_datetimepicker:
     picker: ~
 
 a2lix_translation_form:
-    locales: [en, tr, fr]       # [1]
+    locales: "%locale_support%"       # [1]
     default_required: false      # [2]
     manager_registry: doctrine      # [3]
     templating: "A2lixTranslationFormBundle::default.html.twig"      # [4]
