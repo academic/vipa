@@ -1,171 +1,196 @@
 services:
-    twig.extension.intl:
-        class: Twig_Extensions_Extension_Intl
-        tags:
-            - { name: twig.extension }
-    ojs_locale.locale_listener:
-        class: Ojs\Common\Services\LocaleListener
-        arguments: ["%kernel.default_locale%"]
-        tags:
-            - { name: kernel.event_subscriber }
-    ojs.twig.ojs_extension:
-        class: Ojs\Common\Twig\OjsExtension
-        arguments:
-            - @doctrine.orm.entity_manager
-            - @router
-            - @translator
-            - @ojs.journal_service
-            - @user.helper
-            - @security.token_storage
-            - @session
-            - "%cms_show_routes%"
-            - "%avatar_upload_base_url%"
-            - "%defaultInstitutionSlug%"
-            - "%ojs_logo%"
-            - "%ojs_tw%"
-            - "%ojs_fb%"
-        tags:
-            - { name: twig.extension }
-    ojs.twig.analytics_extension:
-        class: Ojs\AnalyticsBundle\Twig\AnalyticsExtension
-        arguments: [@doctrine.odm.mongodb.document_manager]
-        tags:
-            - { name: twig.extension }
-    ojs.twig.history_extension:
-        class: Ojs\Common\Twig\HistoryExtension
-        arguments:
-            - @doctrine.orm.entity_manager
-            - @twig
-            - "::_history.html.twig"
-        tags:
-            - { name: twig.extension }
+  twig.extension.intl:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      - { name: twig.extension }
 
-    ojs.twig.action_extension:
-        class: Ojs\Common\Twig\ActionExtension
-        arguments:
-            - @translator
-        tags:
-            - { name: twig.extension }
+  ojs_locale.locale_listener:
+    class: Ojs\Common\Services\LocaleListener
+    arguments: ["%kernel.default_locale%"]
+    tags:
+      - { name: kernel.event_subscriber }
 
-    ojs.loginlistener:
-        class: Ojs\UserBundle\Listeners\LoginListener
-        arguments: [@doctrine.orm.entity_manager]
-        tags:
-            - { name: kernel.event_listener, event: security.interactive_login }
-    ojs.logout_listener:
-       class:  Ojs\UserBundle\Listeners\LogoutListener
-       arguments:  [@doctrine.orm.entity_manager, @security.token_storage, @router]
-       tags:
-            - { name: kernel.event_listener ,event: security.logout}
-    ojs.security_switch_user:
-        class: Ojs\Common\Services\SecuritySwitchUserListener
-        arguments: [@security.token_storage]
-        tags:
-            - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
-    ojs.ojs_upload_listener:
-        class: Ojs\Common\Services\UploadListener
-        arguments: ["%kernel.root_dir%"]
-        tags:
-            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
-    ojs.ojs_mailer:
-        class: Ojs\UserBundle\Service\MailerService
-        arguments: [@mailer, @templating, @doctrine.orm.entity_manager, "%system_email%"]
-    gedmo.listener.softdeleteable:
-      class: Gedmo\SoftDeleteable\SoftDeleteableListener
-      tags:
-          - { name: doctrine.event_subscriber, connection: default }
-      calls:
-          - [ setAnnotationReader, [ @annotation_reader ] ]
-    api_key_user_provider:
-        class: Ojs\ApiBundle\Security\ApiKeyUserProvider
-        arguments: ["@doctrine.orm.default_entity_manager"]
-    apikey_authenticator:
-        class:     Ojs\ApiBundle\Security\ApiKeyAuthenticator
-        arguments: ["@api_key_user_provider"]
-    ojs_search_manager:
-        class: Ojs\SearchBundle\Manager\SearchManager
-        arguments: [@fos_elastica.index.search, @doctrine.orm.entity_manager, @doctrine, @property_accessor, @translator,@router]
+  ojs.twig.ojs_extension:
+    class: Ojs\Common\Twig\OjsExtension
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @router
+      - @translator
+      - @ojs.journal_service
+      - @user.helper
+      - @security.token_storage
+      - @session
+      - "%cms_show_routes%"
+      - "%avatar_upload_base_url%"
+      - "%defaultInstitutionSlug%"
+      - "%ojs_logo%"
+      - "%ojs_tw%"
+      - "%ojs_fb%"
+    tags:
+      - { name: twig.extension }
 
-    ojs.twig.common_extension:
-        class: Ojs\SiteBundle\Twig\CommonExtension
-        arguments: [@doctrine.orm.entity_manager, @doctrine.odm.mongodb.document_manager, @ojs.orcid_service, @liip_imagine.filter.manager]
-        tags:
-            - {name: twig.extension }
-    ojs.user_provider.username_email:
-        class: Ojs\UserBundle\Service\EmailUserProvider
-        arguments: [@doctrine.orm.entity_manager]
-    ojs.journal_service:
-        class: Ojs\Common\Services\JournalService
-        arguments:
-            - @doctrine.orm.entity_manager
-            - @doctrine.odm.mongodb.document_manager
-            - @session
-            - @router
-            - @security.token_storage
-            - @request_stack
-            - "%defaultInstitutionSlug%"
-            - "%ojs_logo%"
-            - "%ojs_tw%"
-            - "%ojs_fb%"
-    ojs.article_service:
-        class: Ojs\Common\Services\ArticleService
-        arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
-    ojs.orcid_service:
-        class: Ojs\Common\Services\OrcidService
-        arguments: [ "%orcid%", @logger ]
-    ojs.alice.provider:
-        class: Ojs\Common\Services\AliceDataProvider
-        arguments: [ "%defaultInstitutionSlug%", "%system_email%" ]
-        tags:
-            -  { name: h4cc_alice_fixtures.provider }
-    user.event_subscriber:
-        class: Ojs\UserBundle\Listeners\UserSubscriber
-        arguments: [ @mailer, @twig, @doctrine.orm.entity_manager, @request_stack, "%system_email%" ]
-        tags:
-            -  { name: kernel.event_subscriber }
-    user.event_listener:
-        class: Ojs\UserBundle\Listeners\UserListener
-        arguments: [@request_stack]
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-    user.helper:
-        class: Ojs\Common\Services\UserListener
-        arguments:
-            - @router
-            - @doctrine.orm.entity_manager
-            - "%kernel.root_dir%"
-            - @ojs.journal_service
-            - @security.encoder_factory
-            - @security.authorization_checker
-            - @security.token_storage
-    proxy.event_listener:
-        class: Ojs\UserBundle\Listeners\ProxyListener
-        arguments: [@request_stack]
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-            - { name: doctrine.event_listener, event: preRemove }
-    article.event_listener:
-        class: Ojs\UserBundle\Listeners\ArticleListener
-        arguments: [@security.token_storage, @request_stack]
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-            - { name: doctrine.event_listener, event: preRemove }
-    grid_action:
-        class: Ojs\Common\Services\GridAction
-        arguments: [@security.csrf.token_manager, @translator, @okulbilisimcmsbundle.twig.post_extension]
-    form.type.entity:
-        class: Ojs\Common\Form\Type\EntityType
-        arguments: [@doctrine]
-        tags:
-            - { name: form.type, alias: entity }
-    form.type.tags:
-        class: Ojs\Common\Form\Type\TagsType
-        arguments: [ @router, @translator ]
-        tags:
-            - { name: form.type, alias: tags }
+  ojs.twig.analytics_extension:
+    class: Ojs\AnalyticsBundle\Twig\AnalyticsExtension
+    arguments: [@doctrine.odm.mongodb.document_manager]
+    tags:
+      - { name: twig.extension }
 
-    form.type.journal_user:
-        class: Ojs\JournalBundle\Form\Type\JournalUserType
-        tags:
-            - { name: form.type, alias: ojs_journalbundle_journaluser }
+  ojs.twig.history_extension:
+    class: Ojs\Common\Twig\HistoryExtension
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @twig
+      - "::_history.html.twig"
+    tags:
+      - { name: twig.extension }
+
+  ojs.twig.action_extension:
+    class: Ojs\Common\Twig\ActionExtension
+    arguments:
+      - @translator
+    tags:
+      - { name: twig.extension }
+
+  ojs.loginlistener:
+    class: Ojs\UserBundle\Listeners\LoginListener
+    arguments: [@doctrine.orm.entity_manager]
+    tags:
+      - { name: kernel.event_listener, event: security.interactive_login }
+
+  ojs.logout_listener:
+     class:  Ojs\UserBundle\Listeners\LogoutListener
+     arguments:  [@doctrine.orm.entity_manager, @security.token_storage, @router]
+     tags:
+      - { name: kernel.event_listener ,event: security.logout}
+
+  ojs.security_switch_user:
+    class: Ojs\Common\Services\SecuritySwitchUserListener
+    arguments: [@security.token_storage]
+    tags:
+      - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
+
+  ojs.ojs_upload_listener:
+    class: Ojs\Common\Services\UploadListener
+    arguments: ["%kernel.root_dir%"]
+    tags:
+      - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+
+  ojs.ojs_mailer:
+    class: Ojs\UserBundle\Service\MailerService
+    arguments: [@mailer, @templating, @doctrine.orm.entity_manager, "%system_email%"]
+
+  gedmo.listener.softdeleteable:
+    class: Gedmo\SoftDeleteable\SoftDeleteableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ @annotation_reader ] ]
+
+  api_key_user_provider:
+    class: Ojs\ApiBundle\Security\ApiKeyUserProvider
+    arguments: ["@doctrine.orm.default_entity_manager"]
+
+  apikey_authenticator:
+    class:   Ojs\ApiBundle\Security\ApiKeyAuthenticator
+    arguments: ["@api_key_user_provider"]
+
+  ojs_search_manager:
+    class: Ojs\SearchBundle\Manager\SearchManager
+    arguments: [@fos_elastica.index.search, @doctrine.orm.entity_manager, @doctrine, @property_accessor, @translator,@router]
+
+  ojs.twig.common_extension:
+    class: Ojs\SiteBundle\Twig\CommonExtension
+    arguments: [@doctrine.orm.entity_manager, @doctrine.odm.mongodb.document_manager, @ojs.orcid_service, @liip_imagine.filter.manager]
+    tags:
+      - {name: twig.extension }
+
+  ojs.user_provider.username_email:
+    class: Ojs\UserBundle\Service\EmailUserProvider
+    arguments: [@doctrine.orm.entity_manager]
+
+  ojs.journal_service:
+    class: Ojs\Common\Services\JournalService
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @doctrine.odm.mongodb.document_manager
+      - @session
+      - @router
+      - @security.token_storage
+      - @request_stack
+      - "%defaultInstitutionSlug%"
+      - "%ojs_logo%"
+      - "%ojs_tw%"
+      - "%ojs_fb%"
+
+  ojs.article_service:
+    class: Ojs\Common\Services\ArticleService
+    arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
+
+  ojs.orcid_service:
+    class: Ojs\Common\Services\OrcidService
+    arguments: [ "%orcid%", @logger ]
+
+  ojs.alice.provider:
+    class: Ojs\Common\Services\AliceDataProvider
+    arguments: [ "%defaultInstitutionSlug%", "%system_email%" ]
+    tags:
+      -  { name: h4cc_alice_fixtures.provider }
+
+  user.event_subscriber:
+    class: Ojs\UserBundle\Listeners\UserSubscriber
+    arguments: [ @mailer, @twig, @doctrine.orm.entity_manager, @request_stack, "%system_email%" ]
+    tags:
+      -  { name: kernel.event_subscriber }
+
+  user.event_listener:
+    class: Ojs\UserBundle\Listeners\UserListener
+    arguments: [@request_stack]
+    tags:
+      - { name: doctrine.event_listener, event: postPersist }
+
+  user.helper:
+    class: Ojs\Common\Services\UserListener
+    arguments:
+      - @router
+      - @doctrine.orm.entity_manager
+      - "%kernel.root_dir%"
+      - @ojs.journal_service
+      - @security.encoder_factory
+      - @security.authorization_checker
+      - @security.token_storage
+
+  proxy.event_listener:
+    class: Ojs\UserBundle\Listeners\ProxyListener
+    arguments: [@request_stack]
+    tags:
+      - { name: doctrine.event_listener, event: postPersist }
+      - { name: doctrine.event_listener, event: preRemove }
+
+  article.event_listener:
+    class: Ojs\UserBundle\Listeners\ArticleListener
+    arguments: [@security.token_storage, @request_stack]
+    tags:
+      - { name: doctrine.event_listener, event: postPersist }
+      - { name: doctrine.event_listener, event: preRemove }
+
+  grid_action:
+    class: Ojs\Common\Services\GridAction
+    arguments: [@security.csrf.token_manager, @translator, @okulbilisimcmsbundle.twig.post_extension]
+
+  form.type.entity:
+    class: Ojs\Common\Form\Type\EntityType
+    arguments: [@doctrine]
+    tags:
+      - { name: form.type, alias: entity }
+
+  form.type.tags:
+    class: Ojs\Common\Form\Type\TagsType
+    arguments: [ @router, @translator ]
+    tags:
+      - { name: form.type, alias: tags }
+
+  form.type.journal_user:
+    class: Ojs\JournalBundle\Form\Type\JournalUserType
+    tags:
+      - { name: form.type, alias: ojs_journalbundle_journaluser }
 
