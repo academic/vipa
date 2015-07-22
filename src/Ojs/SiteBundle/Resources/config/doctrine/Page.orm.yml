@@ -26,6 +26,9 @@ Ojs\SiteBundle\Entity\Page:
         tags:
             type: string
             length: 255
+        locale:
+            type: string
+            length: 20
         image:
             type: string
             length: 255
