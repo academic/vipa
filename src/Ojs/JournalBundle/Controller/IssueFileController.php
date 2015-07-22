@@ -81,7 +81,9 @@ class IssueFileController extends Controller
         if ($form->isValid()) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            $entity->setIssue($em->getReference('OjsJournalBundle:Issue', $entity->getIssueId()));
+            $issue = $em->getReference('OjsJournalBundle:Issue', $entity->getIssueId());
+            $entity->setIssue($issue);
+            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
 

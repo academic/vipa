@@ -62,6 +62,9 @@ Ojs\JournalBundle\Entity\IssueFile:
             gedmo:
                 - translatable
                 - versioned
+        locale:
+            type: string
+            length: 20
         langCode:
             column: lang_code
             type: string

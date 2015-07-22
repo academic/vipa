@@ -32,7 +32,7 @@ class IssueFileType extends AbstractType
             ])
             ->add('issueId','hidden')
             ->add('file',new FileType(),[
-                'data_class'=>'Ojs\\JournalBundle\\Entity\\File'
+                'data_class'=>'Ojs\JournalBundle\Entity\File'
             ])
         ;
     }
