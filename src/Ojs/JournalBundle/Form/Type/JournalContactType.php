@@ -18,7 +18,9 @@ class JournalContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', ['label' => 'title'])
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\JournalContact'
+            ])
             ->add('firstName', 'text', ['label' => 'firstname'])
             ->add('lastName', 'text', ['label' => 'lastname'])
             ->add('address', 'text', ['label' => 'address'])
