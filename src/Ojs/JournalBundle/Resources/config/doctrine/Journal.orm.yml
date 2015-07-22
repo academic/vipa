@@ -198,6 +198,10 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
+        locale:
+            type: string
+            length: 20
+            nullable: true
         url:
             type: string
             length: 255
