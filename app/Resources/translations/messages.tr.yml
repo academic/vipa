@@ -344,7 +344,8 @@ editorial: Editoryal
 email: E-posta
 empty: Boş
 error: Hata
-error.oops: 'Oops! Bir Hata Meydana Geldi!!'
+error.oops: 'Haydaa! Bir hata meydana geldi.'
+explore: Keşfet
 event.affectedUser.id: 'Olaydan Etkilenmiş Kullanıcı'
 event.date: 'Olay Tarihi'
 event.id: 'Olay No'
@@ -996,6 +997,7 @@ title.design_show: 'Show Design'
 title.designs: Designs
 title.editor_dashboard: 'Editor Dashboard'
 title.editor_myjournals: 'My Journals'
+title.explore: Keşfet
 title.event_log_show: 'Show Event Log'
 title.event_logs: 'Event Logs'
 title.file_edit: 'Edit File'
@@ -1013,7 +1015,7 @@ title.institution_type_edit: 'Edit Institution Type'
 title.institution_type_new: 'New Institution Type'
 title.institution_type_show: 'Show Institution Type'
 title.institution_types: 'Instution Types'
-title.institutions: Institutions
+title.institutions: Kurumlar
 title.invitation_preview: 'Invitation Preview'
 title.issue_arrange: 'Arrange Issue'
 title.issue_articles: 'Issue Articles'
@@ -1071,7 +1073,7 @@ title.journal_users: 'Dergi Kullanıcıları'
 title.journal_user_add: 'Dergiye Kullanıcı Ekle'
 title.journal_user_create: 'Dergi İçin Kullanıcı Oluştur'
 title.journal_user_leave: 'Dergiden Ayrıl'
-title.journals: Journals
+title.journals: Dergiler
 title.journals_index_edit: 'Edit Journals Index'
 title.journals_index_new: 'New Journals Index'
 title.journals_index_show: 'Show Journals Index'
@@ -1100,7 +1102,7 @@ title.password_change: 'Change Password'
 title.password_create: 'Create Password'
 title.password_forgot: 'Forgot Password'
 title.password_reset: 'Reset Password'
-title.people_directory: 'People Directory'
+title.people_directory: 'Kişi Dizini'
 title.privacy: Privacy
 title.private_account: 'Private Account'
 title.profile: Profile

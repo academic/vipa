@@ -345,6 +345,7 @@ email: E-mail
 empty: Empty
 error: Error
 error.oops: 'Oops! An Error Occurred'
+explore: Explore
 event.affectedUser.id: __event.affectedUser.id
 event.date: 'Event Date'
 event.id: 'Event ID'
@@ -996,6 +997,7 @@ title.design_show: 'Show Design'
 title.designs: Designs
 title.editor_dashboard: 'Editor Dashboard'
 title.editor_myjournals: 'My Journals'
+title.explore: Explore
 title.event_log_show: 'Show Event Log'
 title.event_logs: 'Event Logs'
 title.file_edit: 'Edit File'
