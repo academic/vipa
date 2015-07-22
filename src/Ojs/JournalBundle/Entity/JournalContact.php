@@ -7,7 +7,8 @@ use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 /**
  * JournalContact
  * @GRID\Source(columns="id,title,firstName,lastName,contactType.name")
@@ -367,7 +368,7 @@ class JournalContact implements Translatable
      */
     public function __construct()
     {
-        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     /**
@@ -398,37 +399,23 @@ class JournalContact implements Translatable
         return $this;
     }
 
-    /**
-     * Add translation
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalContactTranslation $translation
-     *
-     * @return JournalContact
-     */
-    public function addTranslation(\Ojs\JournalBundle\Entity\JournalContactTranslation $translation)
-    {
-        $this->translations[] = $translation;
-
-        return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalContactTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\JournalContactTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
-    }
-
-    /**
-     * Get translations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
     public function getTranslations()
     {
         return $this->translations;
+    }
+
+    public function addTranslation(JournalContactTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+
+    public function setTranslations($translations)
+    {
+        foreach($translations as $translation){
+            $this->addTranslation($translation);
+        }
     }
 }

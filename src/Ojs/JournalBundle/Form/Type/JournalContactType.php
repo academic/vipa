@@ -23,7 +23,6 @@ class JournalContactType extends AbstractType
             ])
             ->add('firstName', 'text', ['label' => 'firstname'])
             ->add('lastName', 'text', ['label' => 'lastname'])
-            ->add('address', 'text', ['label' => 'address'])
             ->add('phone', 'text', ['label' => 'phone'])
             ->add('fax', 'text', ['label' => 'fax'])
             ->add('email', 'email', ['label' => 'email'])

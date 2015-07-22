@@ -19,7 +19,7 @@ Ojs\JournalBundle\Entity\JournalContactTranslation:
             nullable: true
     manyToOne:
         object:
-            targetEntity: Ojs\JournalBundle\Entity\JournalContact
+            targetEntity: JournalContact
             inversedBy: translations
             joinColumn:
                 name: object_id
