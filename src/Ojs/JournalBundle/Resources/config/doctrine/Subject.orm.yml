@@ -33,6 +33,9 @@ Ojs\JournalBundle\Entity\Subject:
             gedmo:
                 - translatable
                 - versioned
+        locale:
+            type: string
+            length: 20
         slug:
             type: string
             length: 255
