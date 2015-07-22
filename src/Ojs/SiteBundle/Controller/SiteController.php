@@ -153,17 +153,25 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/journals_index.html.twig', $data);
     }
 
-    public function journalIndexAction($slug)
+    public function journalIndexAction($institution, $slug)
     {
-        /** @var EntityManager $em */
+        /**
+         * @var EntityManager $em
+         * @var JournalRepository $journalRepo
+         * @var BlockRepository $blockRepo
+         * @var Journal $journal
+         */
+
         $em = $this->getDoctrine()->getManager();
-        /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
-        /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
-        /** @var Journal $journal */
-        $journal = $journalRepo->findOneBy(['slug' => $slug]);
+
+        $institutionEntity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $institution]);
+        $this->throw404IfNotFound($institutionEntity);
+
+        $journal = $journalRepo->findOneBy(['slug' => $slug, 'institution' => $institutionEntity]);
         $this->throw404IfNotFound($journal);
+
         $data['last_issue'] = $journalRepo->getLastIssueId($journal);
         $data['years'] = $journalRepo->getIssuesByYear($journal);
         $data['journal'] = $journal;
