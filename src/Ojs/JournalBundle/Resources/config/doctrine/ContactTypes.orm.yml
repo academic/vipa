@@ -26,6 +26,10 @@ Ojs\JournalBundle\Entity\ContactTypes:
             nullable: TRUE
             gedmo:
                 - translatable
+        locale:
+            type: string
+            length: 20
+            nullable: TRUE
         created:
             type: datetime
             gedmo:
