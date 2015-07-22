@@ -56,6 +56,9 @@ Ojs\JournalBundle\Entity\Issue:
             gedmo:
                 - versioned
             nullable: true
+        locale:
+            type: string
+            length: 20
         number:
             type: string
             length: 255
