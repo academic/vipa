@@ -108,6 +108,9 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                   - versioned
+        locale:
+            type: string
+            length: 20
         addressLong:
             type: string
             length: 255
