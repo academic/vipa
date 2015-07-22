@@ -41,6 +41,7 @@ Ojs\JournalBundle\Entity\JournalContact:
             nullable: TRUE
             gedmo:
                 - versioned
+                - translatable
         affiliation:
             type: text
             nullable: true
@@ -85,6 +86,9 @@ Ojs\JournalBundle\Entity\JournalContact:
             gedmo:
                 - versioned
             nullable: true
+        locale:
+            type: string
+            lenght: 20
         created:
             type: datetime
             gedmo:
