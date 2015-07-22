@@ -26,7 +26,7 @@
                             <li class="list-group-item">
                                 {% if subject_filters is empty %}
                                     {% set parameter = subject.key %}
-                                    <a href="{{ path('people_index', {
+                                    <a href="{{ path('ojs_site_people_index', {
                                         subject_filters: subject.key,
                                         role_filters: app.request.get('role_filters'),
                                         journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
@@ -34,7 +34,7 @@
                                     {% if subject.key in subject_filters %}
                                         {% set parameter = subject_filters|pop(subject.key) %}
                                         {{ subject.key }}
-                                        <a href="{{ path('people_index', {
+                                        <a href="{{ path('ojs_site_people_index', {
                                             subject_filters: parameter|join(','),
                                             role_filters: app.request.get('role_filters'),
                                             journal_filters: app.request.get('journal_filters')}) }}">
@@ -44,7 +44,7 @@
                                         </a>
                                     {% else %}
                                         {% set parameter = subject_filters|merge([subject.key]) %}
-                                        <a href="{{ path('people_index', {
+                                        <a href="{{ path('ojs_site_people_index', {
                                             subject_filters: parameter|join(','),
                                             role_filters: app.request.get('role_filters'),
                                             journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
@@ -63,7 +63,7 @@
                             <li class="list-group-item">
                                 {% if journal_filters is empty %}
                                     {% set parameter = journal.key %}
-                                    <a href="{{ path('people_index', {
+                                    <a href="{{ path('ojs_site_people_index', {
                                         journal_filters: journal.key,
                                         role_filters: app.request.get('role_filters'),
                                         subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
@@ -71,7 +71,7 @@
                                     {% if journal.key in journal_filters %}
                                         {% set parameter = journal_filters|pop(journal.key) %}
                                         {{ journal.key }}
-                                        <a href="{{ path('people_index', {
+                                        <a href="{{ path('ojs_site_people_index', {
                                             journal_filters: parameter|join(','),
                                             role_filters: app.request.get('role_filters'),
                                             subject_filters: app.request.get('subject_filters')}) }}">
@@ -81,7 +81,7 @@
                                         </a>
                                     {% else %}
                                         {% set parameter = journal_filters|merge([journal.key]) %}
-                                        <a href="{{ path('people_index', {
+                                        <a href="{{ path('ojs_site_people_index', {
                                             journal_filters: parameter|join(','),
                                             role_filters: app.request.get('role_filters'),
                                             subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
@@ -100,7 +100,7 @@
                             <li class="list-group-item">
                                 {% if role_filters is empty %}
                                     {% set parameter = role.key %}
-                                    <a href="{{ path('people_index', {
+                                    <a href="{{ path('ojs_site_people_index', {
                                         role_filters: role.key,
                                         subject_filters: app.request.get('subject_filters'),
                                         journal_filters: app.request.get('journal_filters') }) }}">{{ role.key|trans }}</a>
@@ -108,7 +108,7 @@
                                     {% if role.key in role_filters %}
                                         {% set parameter = role_filters|pop(role.key) %}
                                         {{ role.key|trans }}
-                                        <a href="{{ path('people_index', {
+                                        <a href="{{ path('ojs_site_people_index', {
                                             role_filters: parameter|join(','),
                                             subject_filters: app.request.get('subject_filters'),
                                             journal_filters: app.request.get('journal_filters')}) }}">
@@ -118,7 +118,7 @@
                                         </a>
                                     {% else %}
                                         {% set parameter = role_filters|merge([role.key]) %}
-                                        <a href="{{ path('people_index', {
+                                        <a href="{{ path('ojs_site_people_index', {
                                             role_filters: parameter|join(','),
                                             subject_filters: app.request.get('subject_filters'),
                                             journal_filters: app.request.get('journal_filters')}) }}">{{ role.key|trans }}</a>
