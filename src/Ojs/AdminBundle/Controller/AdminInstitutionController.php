@@ -73,6 +73,7 @@ class AdminInstitutionController extends Controller
             if ($cover) {
                 $entity->setLogoOptions(json_encode($cover));
             }
+            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
