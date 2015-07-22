@@ -13,46 +13,54 @@
 {% block body -%}
     <div class="col-md-12">
         {# @todo a summary user chart should be added here #}
+        <h3>Titles Chart</h3>
         <div id="titles_chart"></div>
-        <div id="roles_chart"></div>
+
+        <hr>
+        <h3>Gender Chart</h3>
+        <div id="gender_chart"></div>
+
+        <hr>
+        <h3>New Users</h3>
+        <div id="new_users"></div>
     </div>
 {% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@stats_css' filter='uglifycss' filter='cssrewrite' output="assets/prod/css/appstats.css" %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    {% javascripts '@stats_js' filter='uglifyjs' output="assets/prod/js/appstats.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     <script>
-        var datas = [
-            {
-                title: 'Subscriber User Titles',
-                element: 'titles_chart',
-                data: [
-                    ['Title', 'Count'],
-                    ['Dr.', 50],
-                    ['Prof.', 20]
-                ]
-            }, {
-                title: 'Roles',
-                element: 'roles_chart',
-                data: [
-                    ['Title', 'Count'],
-                    ['Dr.', 30],
-                    ['Prof.', 120]
-                ]
-            }
-        ];
-        google.load('visualization', '1.0', {'packages': ['corechart']});
+           $(function(){
+               var userTitleChart = c3.generate({
+                   bindto:"#titles_chart",
+                   data: {
+                       columns: [
+                           {% for titleAgg in aggs.title.buckets %}
+                           ['{{ titleAgg.key }}',{{ titleAgg.doc_count }}]{% if not loop.last %}, {% endif %}
+                           {% endfor %}
+                       ],
+                       type: 'pie'
+                   }
+               });
+               var userGenderChart = c3.generate({
+                   bindto: "#gender_chart",
+                   data: {
+                       columns: [
 
-        var drawcharts = function () {
-            for (var i = 0; i < datas.length; i++) {
-                var data = new google.visualization.arrayToDataTable(datas[i].data);
-                var options = {
-                    title: datas[i].title
-                };
-                var chart = new google.visualization.PieChart(document.getElementById(datas[i].element));
-                chart.draw(data, options);
-            }
-        };
-        google.setOnLoadCallback(drawcharts);
+                           {% for genderAgg in aggs.gender.buckets %}
+                           ['{{ genderAgg.key }}',{{ genderAgg.doc_count }}]{% if not loop.last %}, {% endif %}
+                           {% endfor %}
+                       ],
+                       type: 'pie'
+                   }
+               })
+           });
     </script>
 {% endblock %}
