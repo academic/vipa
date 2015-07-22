@@ -127,6 +127,7 @@ class AdminJournalController extends Controller
             if ($logo) {
                 $entity->setLogoOptions(json_encode($logo));
             }
+            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
