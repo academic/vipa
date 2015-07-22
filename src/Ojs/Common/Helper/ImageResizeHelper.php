@@ -16,6 +16,7 @@ class ImageResizeHelper
             'image_name' => '',
             'upload_dir' => 'web/uploads/',
             'upload_url' => '/uploads/',
+            'user_dir' => 'userfiles/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'accept_file_types' => '/.+$/i',
@@ -186,10 +187,15 @@ class ImageResizeHelper
             $version_path = '';
         } else {
             $version_dir = @$this->options['image_versions'][$version]['upload_dir'];
+
             if ($version_dir) {
-                /** TODO : missing get_user_path method */
-                return $version_dir.$this->get_user_path().$file_name;
+                if ($this->options['user_dirs']) {
+                    return $version_dir . $this->options['user_dir'] . $file_name;
+                } else {
+                    return $version_dir . $file_name;
+                }
             }
+
             $version_path = $version.'/';
         }
 
