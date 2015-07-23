@@ -244,6 +244,7 @@ Ojs\JournalBundle\Entity\Article:
     locale:
       length: 20
       type: string
+      nullable: true
     submissionDate:
       column: submission_date
       type: datetime
