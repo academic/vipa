@@ -241,6 +241,9 @@ Ojs\JournalBundle\Entity\Article:
       nullable: TRUE
       gedmo:
           - versioned
+    locale:
+      length: 20
+      type: string
     submissionDate:
       column: submission_date
       type: datetime

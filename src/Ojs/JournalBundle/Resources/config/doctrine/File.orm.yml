@@ -40,6 +40,10 @@ Ojs\JournalBundle\Entity\File:
             length: 255
             column: size
             nullable: true
+        locale:
+            type: string
+            length: 20
+            nullable: true
         tags:
             type: string
             nullable: true
