@@ -4,3 +4,4 @@ Ojs\JournalBundle\Entity\JournalSection:
     title: Articles
     hideTitle: false
     allowIndex: true
+    locale: en

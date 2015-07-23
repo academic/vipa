@@ -8,3 +8,4 @@
     title: "Demo File"
     description: Getting started to ojs.
     langCode: @lang1->code
+    locale: en

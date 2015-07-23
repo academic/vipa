@@ -2,24 +2,32 @@
   i_type0:
       name:  Other
       description: ""
+      locale: en
   i_type1:
       name:  University
       description: ""
+      locale: en
   i_type2:
       name:  Government
       description: ""
+      locale: en
   i_type3:
       name:  Association
       description: ""
+      locale: en
   i_type4:
       name:  Foundation
       description: ""
+      locale: en
   i_type5:
       name:  Hospital
       description: ""
+      locale: en
   i_type6:
       name:  Chamber
       description: ""
+      locale: en
   i_type7:
       name:  Private
       description: ""
+      locale: en
