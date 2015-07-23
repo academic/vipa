@@ -16,6 +16,7 @@ use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
@@ -169,7 +170,7 @@ class ArticleSubmissionController extends Controller
      * @return Response
      * @throws AccessDeniedException
      */
-    public function resumeAction($submissionId)
+    public function resumeAction(Request $request, $submissionId)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
@@ -182,6 +183,10 @@ class ArticleSubmissionController extends Controller
         }
         /** @var Article $article */
         $article = $articleSubmission->getArticle();
+
+        $mandatoryLang = $article->getJournal()->getMandatoryLang();
+        $submissionLangs = $article->getJournal()->getLanguages();
+        $request->setLocale($mandatoryLang->getCode());
 
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
@@ -250,6 +255,7 @@ class ArticleSubmissionController extends Controller
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        /** @var Journal $selectedJournal */
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $competingInterestFile = new File();
@@ -257,6 +263,7 @@ class ArticleSubmissionController extends Controller
         $competingInterestFile->setSize($request->get('competing_interest_file_size'));
         $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
         $competingInterestFile->setPath($request->get('competing_interest_file'));
+        $competingInterestFile->setTranslatableLocale($request->getDefaultLocale());
         $em->persist($competingInterestFile);
         $em->flush();
 
@@ -265,6 +272,7 @@ class ArticleSubmissionController extends Controller
         $article->setSubmitterId($user->getId());
         $article->setSetupStatus(0);
         $article->setTitle('');
+        $article->setTranslatableLocale($selectedJournal->getMandatoryLang()->getCode());
         $article->setCompetingInterestFile($competingInterestFile);
         $em->persist($article);
         $em->flush();
