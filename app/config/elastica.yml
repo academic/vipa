@@ -30,6 +30,8 @@ fos_elastica:
                                     properties:
                                         title:
                                             index: not_analyzed
+                                        id:
+                                            index: not_analyzed
                                 roles:
                                     index: not_analyzed
                     persistence: 
