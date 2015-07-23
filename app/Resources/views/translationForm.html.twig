@@ -24,12 +24,11 @@
     </div>
 {% endblock %}
 
-
-
 {% block a2lix_translations_gedmo_widget %}
     {% if form.vars.simple_way %}
         {{ block('a2lix_translations_widget') }}
     {% else %}
+        {% set isArticleSubmission = 'ojs_article_submission_step2_translations' == form.vars.id %}
         <div class="a2lix_translations tabbable">
             <ul class="a2lix_translationsLocales nav nav-tabs">
                 {% for translationsLocales in form %}
@@ -38,9 +37,27 @@
                     {% for translationsFields in translationsLocales %}
                         {% set locale = translationsFields.vars.name %}
 
-                        <li {% if isDefaultLocale %}class="active"{% endif %}>
+                        <li {% if isArticleSubmission %}
+                                {% set mandatoryLangCode = form.vars.value.journal.mandatoryLang.code %}
+                                {% if mandatoryLangCode == locale %}
+                                    class="active"
+                                {% endif %}
+                            {% else %}
+                                {% if isDefaultLocale %}
+                                    class="active"
+                                {% endif %}
+                            {% endif %}>
                             <a href="javascript:void(0)" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
-                                {{ locale|capitalize }} {% if isDefaultLocale %}[Default]{% endif %}
+                                {{ locale|capitalize }}
+                                {% if isArticleSubmission %}
+                                    {% if mandatoryLangCode == locale %}
+                                        [Required]
+                                    {% endif %}
+                                {% else %}
+                                    {% if isDefaultLocale %}
+                                        [Default]
+                                    {% endif %}
+                                {% endif %}
                             </a>
                         </li>
                     {% endfor %}
@@ -53,7 +70,17 @@
                     {% for translationsFields in translationsLocales %}
                         {% set locale = translationsFields.vars.name %}
 
-                        <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if isDefaultLocale %}active{% endif %}">
+                        <div class="a2lix_translationsFields-{{ locale }} tab-pane
+                        {% if isArticleSubmission %}
+                            {% set mandatoryLangCode = form.vars.value.journal.mandatoryLang.code %}
+                                {% if mandatoryLangCode == locale %}
+                                    active
+                                {% endif %}
+                            {% else %}
+                                {% if isDefaultLocale %}
+                                    active
+                            {% endif %}
+                        {% endif %}">
                             {{ form_widget(translationsFields) }}
                         </div>
                     {% endfor %}

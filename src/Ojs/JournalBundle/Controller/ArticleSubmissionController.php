@@ -312,7 +312,12 @@ class ArticleSubmissionController extends Controller
         $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         $article = $articleSubmission->getArticle();
 
-        $step2Form = $this->createForm(new Step2Type(), $article);
+        $submissionLangs = [];
+        $submissionLangObjects = $article->getJournal()->getLanguages();
+        foreach($submissionLangObjects as $submissionLangObject){
+            $submissionLangs[] = $submissionLangObject->getCode();
+        }
+        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST', 'locales' => $submissionLangs]);
         $step2Form->handleRequest($request);
         if ($step2Form->isValid()) {
             $articleSubmission->setCurrentStep(3);
