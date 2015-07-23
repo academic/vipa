@@ -263,6 +263,12 @@ Ojs\JournalBundle\Entity\Journal:
             column: competing_interest_file_id
             gedmo:
               - versioned
+        mandatoryLangId:
+            type: integer
+            nullable: TRUE
+            column: mandatory_lang_id
+            gedmo:
+              - versioned
         header_options:
             type: string
             nullable: true
