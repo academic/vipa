@@ -73,7 +73,8 @@ fos_elastica:
                         journal:
                             type: "object"
                             properties:
-                                id: ~
+                                id:
+                                    index: not_analyzed
                                 slug: ~
                                 institution:
                                     type: object
@@ -82,12 +83,26 @@ fos_elastica:
                         issue:
                             type: "object"
                             properties:
-                                id: ~
+                                id:
+                                    index: not_analyzed
+                                datePublished:
+                                    type: date
+                                published: ~
+                                created:
+                                    type: date
+                                createdBy:
+                                    type: string
+                                tags:
+                                    analyzer: "keyword"
+                                    type: string
                         section:
                             type: "object"
                             properties:
-                                title: ~
-                        tags: ~
+                                title:
+                                  index: not_analyzed
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Article
@@ -98,7 +113,9 @@ fos_elastica:
                             debug_logging: false
                 institution:
                     mappings:
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                         name: ~
                         slug: ~
                         verified: ~
@@ -113,7 +130,9 @@ fos_elastica:
                 issue:
                     mappings:
                         title: ~
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                         journal:
                             type: "object"
                             properties:
@@ -139,7 +158,9 @@ fos_elastica:
                         slug: ~
                         subtitle: ~
                         description: ~
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                         status: { "index": "not_analyzed" }
                         published: { "index": "not_analyzed" }
                         subjects:
@@ -164,7 +185,9 @@ fos_elastica:
                 subject:
                     mappings:
                         subject: ~
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Subject
@@ -209,7 +232,9 @@ fos_elastica:
                     mappings:
                         id: ~
                         name: ~
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\File
@@ -220,7 +245,9 @@ fos_elastica:
                     mappings:
                         id: ~
                         title: ~
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                     persistence:
                         driver: orm
                         model: Ojs\SiteBundle\Entity\Page
@@ -234,7 +261,9 @@ fos_elastica:
                         lastName: ~
                         middleName: ~
                         email: ~
-                        tags: ~
+                        tags:
+                            analyzer: "keyword"
+                            type: string
                         user:
                             type: object
                             properties:
