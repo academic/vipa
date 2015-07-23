@@ -48,7 +48,7 @@ class UserReportController extends Controller
     private function getDatedStatsQuery(){
         $query = new Query(new Query\MatchAll());
         $dateHistogram = new DateHistogram('dateHistogram','created','month');
-
+        $dateHistogram->setFormat("YYYY-MM-dd");
         $query->addAggregation($dateHistogram);
         $query->setSize(0);
 

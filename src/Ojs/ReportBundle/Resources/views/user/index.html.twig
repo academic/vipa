@@ -61,6 +61,33 @@
                        type: 'pie'
                    }
                })
+               var newUserChart = c3.generate({
+                   bindto: "#new_users",
+                   data: {
+                       x: 'x',
+                       columns: [
+                           ['x',
+                           {% for new_user in datedAggs.dateHistogram.buckets %}
+                           '{{ new_user.key_as_string }}'{% if not loop.last %}, {% endif %}
+                           {% endfor %}
+                           ],
+                               ['new_users',
+                           {% for new_user in datedAggs.dateHistogram.buckets %}
+                           {{ new_user.doc_count }}{% if not loop.last %}, {% endif %}
+                           {% endfor %}
+                               ]
+                       ],
+                       type: 'spline'
+                   },
+                   axis: {
+                       x: {
+                           type: 'timeseries',
+                           tick: {
+                               format: '%Y-%m-%d'
+                           }
+                       }
+                   }
+               })
            });
     </script>
 {% endblock %}
