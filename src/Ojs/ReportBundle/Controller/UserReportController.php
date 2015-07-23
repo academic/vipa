@@ -23,10 +23,12 @@ class UserReportController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $results = $this->get('fos_elastica.index.search.user')->search($this->getStatsQuery($journal));
+        $counter = $this->get('fos_elastica.index.search.user')->count($this->getCountQuery($journal));
         $datedResult = $this->get('fos_elastica.index.search.user')->search($this->getDatedStatsQuery($journal));
         $data = [];
         $data['aggs'] = $results->getAggregations();
         $data['datedAggs'] = $datedResult->getAggregations();
+        $data['total'] = $counter;
         return $this->render('OjsReportBundle:user:index.html.twig',$data);
     }
 
@@ -65,6 +67,17 @@ class UserReportController extends Controller
         $query->addAggregation($dateHistogram);
         $query->setSize(0);
 
+        return $query;
+    }
+
+    private function getCountQuery($journal)
+    {
+        $filter = new Term();
+        $filter->setTerm('journalUsers.journal.id',$journal->getId());
+        $filterQuery = new Query\Filtered();
+        $filterQuery->setFilter($filter);
+        $query = new Query($filterQuery);
+        $query->setSize(0);
         return $query;
     }
 }
