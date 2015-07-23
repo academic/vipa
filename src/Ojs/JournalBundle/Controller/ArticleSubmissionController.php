@@ -184,15 +184,17 @@ class ArticleSubmissionController extends Controller
         /** @var Article $article */
         $article = $articleSubmission->getArticle();
 
-        $mandatoryLang = $article->getJournal()->getMandatoryLang();
-        $submissionLangs = $article->getJournal()->getLanguages();
-        $request->setLocale($mandatoryLang->getCode());
+        $submissionLangs = [];
+        $submissionLangObjects = $article->getJournal()->getLanguages();
+        foreach($submissionLangObjects as $submissionLangObject){
+            $submissionLangs[] = $submissionLangObject->getCode();
+        }
 
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
         $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
         $checklist = json_decode($articleSubmission->getChecklist(), true);
-        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST'])->createView();
+        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST', 'locales' => $submissionLangs])->createView();
         $citationForms = [];
         $citationTypes = array_keys($this->container->getParameter('citation_types'));
         foreach ($article->getCitations() as $citation) {
@@ -272,7 +274,7 @@ class ArticleSubmissionController extends Controller
         $article->setSubmitterId($user->getId());
         $article->setSetupStatus(0);
         $article->setTitle('');
-        $article->setTranslatableLocale($selectedJournal->getMandatoryLang()->getCode());
+        $article->setTranslatableLocale($request->getDefaultLocale());
         $article->setCompetingInterestFile($competingInterestFile);
         $em->persist($article);
         $em->flush();

@@ -26,6 +26,7 @@ class Step2Type extends AbstractType
                 )
             )
             ->add('translations', 'a2lix_translations_gedmo',[
+                'locales' => $options['locales'],
                 'translatable_class' => 'Ojs\JournalBundle\Entity\Article',
                 'fields' => [
                     'title' => [
@@ -59,6 +60,7 @@ class Step2Type extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'locales' => [],
                 'validation_groups' => ['setupStep1'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'attr' => [
