@@ -14,5 +14,69 @@
 {% block body -%}
     <div class="col-md-12">
         {# @todo a summary articles chart should be added here #}
+        You have total {{ total }} articles. <br>
+
+        <h3>Article languages</h3>
+        <div id="article_languages"></div>
+        <hr>
+        <h3>Articles</h3>
+        <div id="articles_by_day"></div>
     </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@stats_css' filter='uglifycss' filter='cssrewrite' output="assets/prod/css/appstats.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@stats_js' filter='uglifyjs' output="assets/prod/js/appstats.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function(){
+            var article_languages = c3.generate({
+                bindto:"#article_languages",
+                data: {
+                    columns: [
+                        {% for language in aggs.language.buckets %}
+                        ['{{ language.key }}',{{ language.doc_count }}]{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    ],
+                    type: 'pie'
+                }
+            });
+            var articles_by_day = c3.generate({
+                bindto: "#articles_by_day",
+                data: {
+                    x: 'x',
+                    columns: [
+                        ['x',
+                            {% for article in aggs.dateHistogram.buckets %}
+                            '{{ article.key_as_string }}'{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        ],
+                        ['new_articles',
+                            {% for article in aggs.dateHistogram.buckets %}
+                            {{ article.doc_count }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        ]
+                    ],
+                    type: 'spline'
+                },
+                axis: {
+                    x: {
+                        type: 'timeseries',
+                        tick: {
+                            format: '%Y-%m-%d'
+                        }
+                    }
+                },
+                subchart: {
+                    show: true
+                }
+            })
+        });
+    </script>
 {% endblock %}

@@ -49,6 +49,13 @@ fos_elastica:
                         keywords: { type: string, boost: 4}
                         subtitle: { type: string, boost: 3}
                         title: { type: string, boost: 5 }
+                        locale:
+                          type: string
+                          index: not_analyzed
+                        created:
+                            type: date
+                        submission_date:
+                            type: date
                         citations:
                             type: "object"
                             properties:
