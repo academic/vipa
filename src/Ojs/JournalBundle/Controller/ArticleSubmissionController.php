@@ -373,6 +373,7 @@ class ArticleSubmissionController extends Controller
                 $author->setPhone($authorData->phone);
                 $author->setSummary($authorData->summary);
                 $author->setOrcid($authorData->orcid);
+                $author->setTranslatableLocale($request->getDefaultLocale());
                 if (!empty($authorData->institution)) {
                     /** @var Institution $institution */
                     $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData->institution);
