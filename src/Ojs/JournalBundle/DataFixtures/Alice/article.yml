@@ -15,3 +15,4 @@
     issue: @issue1
     orderNum: <randomDigit()>
     tags: "ojs,help"
+    locale: en

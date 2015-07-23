@@ -5,10 +5,11 @@
     totalJournalCount: 1
     tags: "science, computer"
     users: <numberBetween(1, 10)>x @random_user_*
+    locale: en
   subject2:
     subject: Journalism
     createdBy: @user_author->username
     totalJournalCount: 1
     tags: "journals, journalism"
     users: <numberBetween(1, 10)>x @random_user_*
-
+    locale: en

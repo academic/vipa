@@ -9,3 +9,4 @@
     title: Dr.
     institutionId: @default->id
     user(unique): @user_author
+    locale: en

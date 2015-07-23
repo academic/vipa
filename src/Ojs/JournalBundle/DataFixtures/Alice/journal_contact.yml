@@ -1,9 +1,10 @@
 \Ojs\JournalBundle\Entity\JournalContact:
   contact{1..25}:
-      address: <address()>
-      email: <email()>
-      firstName: <firstName()>
-      lastName: <lastName()>
-      phone: <phoneNumber()>
-      journal: @journal1
-      contactType: @c_type*
+    address: <address()>
+    email: <email()>
+    firstName: <firstName()>
+    lastName: <lastName()>
+    phone: <phoneNumber()>
+    journal: @journal1
+    contactType: @c_type*
+    locale: en
