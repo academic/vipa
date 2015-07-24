@@ -1,304 +1,304 @@
 fos_elastica:
-    clients:
-        #you can change to your setting
-        default: { host: %elasticsearch_host%, port: 9200 }
-    indexes:
-        search:
-            finder: ~
-            client: default
-            types:
-                user:
-                    mappings:
-                        username: ~
-                        firstName: ~
-                        lastName: ~
-                        email: ~
-                        tags: ~
-                        subjects: {"index": "not_analyzed"}
-                        avatar: ~
-                        title: {"index": "not_analyzed"}
-                        gender: {"index": "not_analyzed"}
-                        created:
-                            type: date
-                        updated:
-                            type: date
-                        journalUsers:
-                            type: object
-                            properties:
-                                journal:
-                                    type: object
-                                    properties:
-                                        title:
-                                            index: not_analyzed
-                                        id:
-                                            index: not_analyzed
-                                roles:
-                                    index: not_analyzed
-                    persistence: 
-                        driver: orm
-                        model: Ojs\UserBundle\Entity\User
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                        provider:
-                            debug_logging: true
-                articles:
-                    mappings:
-                        subjects: { type: string, boost: 4}
-                        status: ~
-                        keywords: { type: string, boost: 4}
-                        subtitle: { type: string, boost: 3}
-                        title: { type: string, boost: 5 }
-                        locale:
-                          type: string
-                          index: not_analyzed
-                        created:
-                            type: date
-                        submission_date:
-                            type: date
-                        citations:
-                            type: "object"
-                            properties:
-                                raw: { boost: 2 }
-                                id:  { boost: 1 }
-                        articleAuthors:
-                            type: "object"
-                            properties:
-                                author:
-                                    type: "object"
-                                    properties:
-                                        id: ~
-                                        firstName: ~
-                                        lastName: ~
-                                        middleName: ~
-                                        email: ~
-                                        tags: ~
-                        attributes:
-                            type: "object"
-                            properties:
-                                value: ~
-                        journal:
-                            type: "object"
-                            properties:
-                                id:
-                                    index: not_analyzed
-                                slug: ~
-                                institution:
-                                    type: object
-                                    properties:
-                                        slug: ~
-                        issue:
-                            type: "object"
-                            properties:
-                                id:
-                                    index: not_analyzed
-                                datePublished:
-                                    type: date
-                                published: ~
-                                created:
-                                    type: date
-                                createdBy:
-                                    type: string
-                                tags:
-                                    analyzer: "keyword"
-                                    type: string
-                        section:
-                            type: "object"
-                            properties:
-                                title:
-                                  index: not_analyzed
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Article
-                        provider: ~
-                        listener:
-                        finder: ~
-                        provider:
-                            debug_logging: false
-                institution:
-                    mappings:
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                        name: ~
-                        slug: ~
-                        verified: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Institution
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                        provider:
-                            debug_logging: false
-                issue:
-                    mappings:
-                        title: ~
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                        journal:
-                            type: "object"
-                            properties:
-
-                                slug: ~
-                                id: ~
-                                titleAbbr: ~
-                                institution:
-                                    type: object
-                                    properties:
-                                        slug: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Issue
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                        provider:
-                            debug_logging: false
+  clients:
+    #you can change to your setting
+    default: { host: %elasticsearch_host%, port: 9200 }
+  indexes:
+    search:
+      finder: ~
+      client: default
+      types:
+        user:
+          mappings:
+            username: ~
+            firstName: ~
+            lastName: ~
+            email: ~
+            tags: ~
+            subjects: {"index": "not_analyzed"}
+            avatar: ~
+            title: {"index": "not_analyzed"}
+            gender: {"index": "not_analyzed"}
+            created:
+              type: date
+            updated:
+              type: date
+            journalUsers:
+              type: object
+              properties:
                 journal:
-                    mappings:
-                        title: ~
-                        slug: ~
-                        subtitle: ~
-                        description: ~
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                        status: { "index": "not_analyzed" }
-                        published: { "index": "not_analyzed" }
-                        subjects:
-                            type: object
-                            properties:
-                                id: ~
-                                subject: ~
-                        institution:
-                            type: object
-                            properties:
-                                slug: ~
-                                name: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Journal
-                        provider: ~
-                        listener: ~
-
-                        finder: ~
-                        provider:
-                            debug_logging: false
-                subject:
-                    mappings:
-                        subject: ~
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Subject
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                        provider:
-                            debug_logging: false
-                country:
-                    mappings:
-                        name: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\LocationBundle\Entity\Country
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                        provider:
-                            debug_logging: false
-                province:
-                    mappings:
-                        name: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\LocationBundle\Entity\Province
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                        provider:
-                            debug_logging: false
-                citation:
-                    mappings:
-                        raw: ~
-                        type: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Citation
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                file:
-                    mappings:
-                        id: ~
-                        name: ~
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\File
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                page:
-                    mappings:
-                        id: ~
-                        title: ~
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                    persistence:
-                        driver: orm
-                        model: Ojs\SiteBundle\Entity\Page
-                        provider: ~
-                        listener: ~
-                        finder: ~
+                  type: object
+                  properties:
+                    title:
+                      index: not_analyzed
+                    id:
+                      index: not_analyzed
+                roles:
+                  index: not_analyzed
+          persistence: 
+            driver: orm
+            model: Ojs\UserBundle\Entity\User
+            provider: ~
+            listener: ~
+            finder: ~
+            provider:
+              debug_logging: true
+        articles:
+          mappings:
+            subjects: { type: string, boost: 4}
+            status: ~
+            keywords: { type: string, boost: 4}
+            subtitle: { type: string, boost: 3}
+            title: { type: string, boost: 5 }
+            locale:
+              type: string
+              index: not_analyzed
+            created:
+              type: date
+            submission_date:
+              type: date
+            citations:
+              type: "object"
+              properties:
+                raw: { boost: 2 }
+                id:  { boost: 1 }
+            articleAuthors:
+              type: "object"
+              properties:
                 author:
-                    mappings:
+                  type: "object"
+                  properties:
+                    id: ~
+                    firstName: ~
+                    lastName: ~
+                    middleName: ~
+                    email: ~
+                    tags: ~
+            attributes:
+              type: "object"
+              properties:
+                value: ~
+            journal:
+              type: "object"
+              properties:
+                id:
+                  index: not_analyzed
+                slug: ~
+                institution:
+                  type: object
+                  properties:
+                    slug: ~
+            issue:
+              type: "object"
+              properties:
+                id:
+                  index: not_analyzed
+                datePublished:
+                  type: date
+                published: ~
+                created:
+                  type: date
+                createdBy:
+                  type: string
+                tags:
+                  analyzer: "keyword"
+                  type: string
+            section:
+              type: "object"
+              properties:
+                title:
+                  index: not_analyzed
+            tags:
+              analyzer: "keyword"
+              type: string
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Article
+            provider: ~
+            listener:
+            finder: ~
+            provider:
+              debug_logging: false
+        institution:
+          mappings:
+            tags:
+              analyzer: "keyword"
+              type: string
+            name: ~
+            slug: ~
+            verified: ~
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Institution
+            provider: ~
+            listener: ~
+            finder: ~
+            provider:
+              debug_logging: false
+        issue:
+          mappings:
+            title: ~
+            tags:
+              analyzer: "keyword"
+              type: string
+            journal:
+              type: "object"
+              properties:
+
+                slug: ~
+                id: ~
+                titleAbbr: ~
+                institution:
+                  type: object
+                  properties:
+                    slug: ~
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Issue
+            provider: ~
+            listener: ~
+            finder: ~
+            provider:
+              debug_logging: false
+        journal:
+          mappings:
+            title: ~
+            slug: ~
+            subtitle: ~
+            description: ~
+            tags:
+              analyzer: "keyword"
+              type: string
+            status: { "index": "not_analyzed" }
+            published: { "index": "not_analyzed" }
+            subjects:
+              type: object
+              properties:
+                id: ~
+                subject: ~
+            institution:
+              type: object
+              properties:
+                slug: ~
+                name: ~
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Journal
+            provider: ~
+            listener: ~
+
+            finder: ~
+            provider:
+              debug_logging: false
+        subject:
+          mappings:
+            subject: ~
+            tags:
+              analyzer: "keyword"
+              type: string
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Subject
+            provider: ~
+            listener: ~
+            finder: ~
+            provider:
+              debug_logging: false
+        country:
+          mappings:
+            name: ~
+          persistence:
+            driver: orm
+            model: Ojs\LocationBundle\Entity\Country
+            provider: ~
+            listener: ~
+            finder: ~
+            provider:
+              debug_logging: false
+        province:
+          mappings:
+            name: ~
+          persistence:
+            driver: orm
+            model: Ojs\LocationBundle\Entity\Province
+            provider: ~
+            listener: ~
+            finder: ~
+            provider:
+              debug_logging: false
+        citation:
+          mappings:
+            raw: ~
+            type: ~
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Citation
+            provider: ~
+            listener: ~
+            finder: ~
+        file:
+          mappings:
+            id: ~
+            name: ~
+            tags:
+              analyzer: "keyword"
+              type: string
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\File
+            provider: ~
+            listener: ~
+            finder: ~
+        page:
+          mappings:
+            id: ~
+            title: ~
+            tags:
+              analyzer: "keyword"
+              type: string
+          persistence:
+            driver: orm
+            model: Ojs\SiteBundle\Entity\Page
+            provider: ~
+            listener: ~
+            finder: ~
+        author:
+          mappings:
+            id: ~
+            firstName: ~
+            lastName: ~
+            middleName: ~
+            email: ~
+            tags:
+              analyzer: "keyword"
+              type: string
+            user:
+              type: object
+              properties:
+                id: ~
+                username: ~
+            articleAuthors:
+              type: object
+              properties:
+                article:
+                  type: object
+                  properties:
+                    id: ~
+                    issue:
+                      type: "object"
+                      properties:
                         id: ~
-                        firstName: ~
-                        lastName: ~
-                        middleName: ~
-                        email: ~
-                        tags:
-                            analyzer: "keyword"
-                            type: string
-                        user:
-                            type: object
-                            properties:
-                                id: ~
-                                username: ~
-                        articleAuthors:
-                            type: object
-                            properties:
-                                article:
-                                    type: object
-                                    properties:
-                                        id: ~
-                                        issue:
-                                            type: "object"
-                                            properties:
-                                                id: ~
-                                        journal:
-                                            type: object
-                                            properties:
-                                                id: ~
-                                                slug: ~
-                                                institution:
-                                                    type: object
-                                                    properties:
-                                                        slug: ~
-                    persistence:
-                        driver: orm
-                        model: Ojs\JournalBundle\Entity\Author
-                        provider: ~
-                        listener: ~
-                        finder: ~
+                    journal:
+                      type: object
+                      properties:
+                        id: ~
+                        slug: ~
+                        institution:
+                          type: object
+                          properties:
+                            slug: ~
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\Author
+            provider: ~
+            listener: ~
+            finder: ~
