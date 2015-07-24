@@ -82,7 +82,11 @@
         </tr>
         <tr>
             <th>{{ "status"|trans }}</th>
-            <td style="background: {{ entity.statusColor }}"><span>{{ entity.statusText|trans }}</span></td>
+            {% if entity.statusText is not iterable %}
+                <td style="background: {{ entity.statusColor }}"><span>{{ entity.statusText|trans }}</span></td>
+            {% else %}
+                <td>{{ "status.unknown"|trans }}</td>
+            {% endif %}
         </tr>
         <tr>
             <th>{{ "doi"|trans }}</th>
