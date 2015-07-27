@@ -1,12 +1,4 @@
-ojs_explore_index:
-    path:  /
-    defaults: { _controller: OjsSiteBundle:Explore:index }
-
-ojs_explore_institutions:
-    path:  /institutions
-    defaults: { _controller: OjsSiteBundle:Explore:institutionsIndex }
-
-ojs_explore_journals:
-    path:  /journals/{page}
-    host: %base_host%
-    defaults: { _controller: OjsSiteBundle:Explore:journalsIndex,page: 0}
+ojs_site_explore_index:
+  path:  /{page}
+  host: %base_host%
+  defaults: { _controller: OjsSiteBundle:Explore:index, page: 1 }

@@ -1,0 +1,56 @@
+
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.journals'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = true %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@site_css' output="assets/prod/css/site.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_site_explore_index'), 'title': 'ojs.title'|trans},
+        {'title': 'explore'|trans}
+    ] %}
+
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div id="journals" data-columns>
+            {% for journal in journals %}
+                <div class="thumbnail">
+                    <img src="{{ journal.logo is not defined ? '#' :
+                            ('/uploads/journalfiles/' ~ imagePath(journal.logo)) | imagine_filter('journal_cover') }}"
+                         data-src="holder.js/190x300/text: {{ journal.title }}"
+                         class="img-responsive" alt="{{ journal.title }}" />
+                    <div class="caption">
+                        <a href="{{ path('ojs_journal_index', {slug: journal.slug, institution: journal.institution.slug}) }}">
+                            <h3 class="text-center">{{ journal.title }}</h3>
+                        </a>
+
+                        <div>
+                            {% for subject in journal.subjects %}
+                                <h4>
+                                    <span class="label label-primary">{{ subject.subject }}</span>
+                                </h4>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <ul class="pagination">
+                {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+            </ul>
+        </div>
+    </div>
+
+    <script src="{{ asset('vendor/salvattore/dist/salvattore.min.js') }}"></script>
+{% endblock %}
