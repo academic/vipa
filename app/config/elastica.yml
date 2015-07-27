@@ -180,6 +180,8 @@ fos_elastica:
               properties:
                 slug: ~
                 name: ~
+            logo: ~
+            header: ~
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Journal

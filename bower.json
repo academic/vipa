@@ -46,6 +46,7 @@
     "noty": "~2.3.4",
     "typeahead.js": "*",
     "jquery-locationpicker-plugin": "*",
-    "c3": "~0.4.10"
+    "c3": "~0.4.10",
+    "salvattore": "*"
   }
 }
