@@ -3,50 +3,52 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Elastica\Query;
-use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchRestController extends FOSRestController
 {
 
     /**
+     * @Rest\QueryParam(name="q", nullable=false, description="Query text")
+     * @Rest\QueryParam(name="page_limit", nullable=true, requirements="\d+", description="Query limit", default="10")
+     *
+     * @param  ParamFetcher $paramFetcher
+     * @param  integer $journalId
+     * @return Response
+     *
+     * @Rest\Get("/search/journal/{journalId}/users")
      *
      * @ApiDoc(
-     *  resource=true,
-     *  description="search Institutions",
-     *  parameters={
-     * {
-     *          "name"="q",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="search term"
-     *      },
-     *      {
-     *          "name"="apikey",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="Apikey"
-     *      }
-     *  }
+     *   resource = true,
+     *   description = "Search Journal's Users",
+     *   output = "Ojs\UserBundle\Entity\User[]",
+     *   statusCodes = {
+     *     "200" = "Users listed successfully",
+     *     "403" = "Access Denied"
+     *   }
      * )
-     * @Get("/search/journal/{journalId}/users")
-     * @TODO elasticsearch will be better for performance. "like" query should be removed
-     *
-     * @param  Request $request
-     * @return mixed
      */
-    public function searchJournalUsersAction(Request $request)
+    public function searchJournalUsersAction(ParamFetcher $paramFetcher, $journalId)
     {
-        $q = $request->get('q');
-        $repo = $this->getDoctrine()->getManager()->getRepository('OjsUserBundle:User');
-        $query = $repo->createQueryBuilder('u')
-            ->where('u.username LIKE :search OR u.firstName LIKE :search OR u.lastName LIKE :search')
-            ->setParameter('search', '%'.$q.'%')
-            ->getQuery();
+        $em = $this->getDoctrine()->getManager();
 
-        return $query->getResult();
+        $defaultLimit = 20;
+        $limit = ($paramFetcher->get('page_limit') && $defaultLimit >= $paramFetcher->get('page_limit')) ?
+            $paramFetcher->get('page_limit') :
+            $defaultLimit;
+
+        $journalUsers = $em->getRepository('OjsUserBundle:User')->searchJournalUser(
+            $paramFetcher->get('q'),
+            $journalId,
+            $limit
+        );
+
+        return $journalUsers;
     }
 
     /**
@@ -63,7 +65,7 @@ class SearchRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Get("/search/user")
+     * @Rest\Get("/search/user")
      *
      * @param  Request $request
      * @return array

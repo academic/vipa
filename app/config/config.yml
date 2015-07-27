@@ -64,6 +64,7 @@ twig:
 fos_rest:
     body_listener: true
     format_listener: true
+    param_fetcher_listener: true
     view:
         view_response_listener: 'force'
         formats:
@@ -94,13 +95,6 @@ stof_doctrine_extensions:
             uploadable: true
             sluggable: true
             tree: true
-
-jms_serializer:
-    metadata:
-        directories:
-            FOSUB:
-                namespace_prefix: "FOS\\UserBundle"
-                path: "%kernel.root_dir%/serializer/FOSUserBundle"
 jms_di_extra:
     disable_grep: true
 nelmio_api_doc: ~

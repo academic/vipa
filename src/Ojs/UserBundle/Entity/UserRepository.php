@@ -4,7 +4,6 @@ namespace Ojs\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalUser;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,6 +11,28 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
+    /**
+     * @param $query
+     * @param integer|Journal $journal
+     * @param integer $limit
+     * @return User[]
+     */
+    public function searchJournalUser($query, $journal, $limit)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('PARTIAL u.{id,username,email,firstName,lastName}')
+            ->join('u.journalUsers', 'ju')
+            ->andWhere('ju.journal = :journal')
+            ->andWhere('u.username LIKE :query OR u.email LIKE :query')
+            ->andWhere('u.isActive = :active')
+            ->setParameter('journal', $journal)
+            ->setParameter('query', $query.'%')
+            ->setParameter('active', true)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return $query->getResult();
+    }
     /**
      * @param  string                      $username
      * @return \Ojs\UserBundle\Entity\User
