@@ -68,6 +68,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      * @var string
+     * @var Expose
      * @Assert\NotBlank(message="First name can't be blank")
      * @Expose
      */
@@ -75,6 +76,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      * @var string
+     * @var Expose
      * @Assert\NotBlank(message="Last name can't be blank")
      * @Expose
      */
@@ -157,7 +159,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      * @var Collection
-     * @Expose
      */
     private $subjects;
 
@@ -310,13 +311,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         return $this->token;
     }
 
-    /*     * get
-     * Set firstName
-     *
-     * @param  string $firstName
-     * @return User
-     */
-
     /**
      * @param  String $token
      * @return $this
@@ -417,7 +411,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     /**
      *
-     * @param  string  $role
+     * @param  string $role
      * @return boolean
      */
     public function hasRole($role)
@@ -1026,6 +1020,12 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         return $this->firstName;
     }
 
+    /*
+         * Set firstName
+         *
+         * @param  string $firstName
+         * @return User
+         */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -1170,14 +1170,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @return Collection
-     */
-    public function getJournalUsers()
-    {
-        return $this->journalUsers;
-    }
-
-    /**
      * @param Collection $journalUsers
      */
     public function setJournals($journalUsers)
@@ -1187,7 +1179,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     public function getJournalRoles(Journal $journal = null)
     {
-        if(!$journal) {
+        if (!$journal) {
             return [];
         }
         $journalRoles = [];
@@ -1203,5 +1195,13 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         }
 
         return $journalRoles;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getJournalUsers()
+    {
+        return $this->journalUsers;
     }
 }
