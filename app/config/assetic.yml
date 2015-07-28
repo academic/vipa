@@ -64,6 +64,7 @@ assetic:
         - @A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js
         - @OjsAnalyticsBundle/Resources/public/js/analytics.js
         - @PUGXAutocompleterBundle/Resources/public/js/autocompleter-select2.js
+        - @OjsUserBundle/Resources/public/js/user.js
 
     admin_main_css:
       inputs:
@@ -86,10 +87,6 @@ assetic:
     apptour_js:
       inputs:
         - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour.min.js
-    user_admin:
-      inputs:
-        - @OjsUserBundle/Resources/public/js/user.js
-        - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
     advanced_search_js:
       inputs:
         - @OjsSearchBundle/Resources/public/js/search.js

@@ -46,7 +46,6 @@ $(document).ready(function () {
     });
     if ($(".select2-element").length) {
         $(".select2-element").select2();
-        $(".select2-element").select2('container').setTypeForHook();
         $.valHooks['source'] = {
             get: function (el) {
                 var el_id = el.id.replace('s2id_','');
@@ -158,7 +157,6 @@ $(document).ready(function () {
             })
         }
     });
-    $(".select2-tags").select2('container').setTypeForHook();
 
     $(".select2-container").removeClass('validate[required]');
     $(document).on('pjax:send', function () {
