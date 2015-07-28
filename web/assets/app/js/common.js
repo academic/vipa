@@ -21,9 +21,42 @@ $.fn.setTypeForHook = function () {
     return this;
 };
 
+/*
+ * jQuery.gdocViewer - Embed linked documents using Google Docs Viewer
+ * Licensed under MIT license.
+ * Date: 2011/01/16
+ *
+ * @author Jawish Hameed
+ * @version 1.0
+ */
+
+$.fn.gdocsViewer = function (options) {
+
+    var settings = {
+        width: '100%',
+        height: '700'
+    };
+
+    if (options) {
+        $.extend(settings, options);
+    }
+
+    return this.each(function () {
+        var file = $(this).attr('href');
+        $(this).after(function () {
+            var id = $(this).attr('id');
+            var gdvId = (typeof id !== 'undefined' && id !== false) ? id + '-gdocsviewer' : '';
+            return '<div id="' + gdvId + '" class="gdocsviewer"><iframe src="http://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(file) + '" width="' + settings.width + '" height="' + settings.height + '" style="border: none;"></iframe></div>';
+        })
+    });
+};
+
 $(document).ready(function () {
     if ($(".maskissn").length) {
-        $(".maskissn").inputmask({mask: "####-###M", definitions: {'#': {validator: "[0-9]", cardinality: 1}, 'M': {validator: "[0-9X]", cardinality: 1}}});
+        $(".maskissn").inputmask({
+            mask: "####-###M",
+            definitions: {'#': {validator: "[0-9]", cardinality: 1}, 'M': {validator: "[0-9X]", cardinality: 1}}
+        });
     }
     $(".contrastColor").each(function () {
         $(".contrastColor").css("color", (parseInt($(this).css("backgroundColor"), 16) > 0xffffff / 2) ? 'black' : 'white');
@@ -46,27 +79,28 @@ $(document).ready(function () {
     });
     if ($(".select2-element").length) {
         $(".select2-element").select2();
+        $(".select2-element").select2('container').setTypeForHook();
         $.valHooks['source'] = {
             get: function (el) {
-                var el_id = el.id.replace('s2id_','');
-                el=$("#"+el_id);
+                var el_id = el.id.replace('s2id_', '');
+                el = $("#" + el_id);
                 console.dir(el);
                 return el.select2("val");
             },
             set: function (el, val) {
-                var el_id = el.id.replace('s2id_','');
-                el=$("#"+el_id);
+                var el_id = el.id.replace('s2id_', '');
+                el = $("#" + el_id);
                 console.dir(el);
                 console.log("setted");
                 $(el).select2("val", val);
             }
         };
     }
-    if ($(".autocomplete").length){
-        $(".autocomplete").each(function(){
-            var list_url=$(this).data("list");
-            var get_url =$(this).data("get");
-            $(this).autocompleter({url_list:list_url, url_get: get_url});
+    if ($(".autocomplete").length) {
+        $(".autocomplete").each(function () {
+            var list_url = $(this).data("list");
+            var get_url = $(this).data("get");
+            $(this).autocompleter({url_list: list_url, url_get: get_url});
         })
     }
     function formatResult(item) {
@@ -87,7 +121,7 @@ $(document).ready(function () {
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: tagAutocompleteInput.attr('data-list')+'?q=%QUERY',
+            url: tagAutocompleteInput.attr('data-list') + '?q=%QUERY',
             wildcard: '%QUERY'
         }
     });
@@ -144,19 +178,19 @@ $(document).ready(function () {
     });
     $('.select2-tags').each(function () {
         var value = $(this).val();
-        if(value)
-        {
+        if (value) {
             var $that = $(this);
             $.ajax({
-                url:'api/public/search/tagsByIds',
-                data: 'ids='+value,
+                url: 'api/public/search/tagsByIds',
+                data: 'ids=' + value,
                 dataType: 'json',
-                success: function(data){
+                success: function (data) {
                     $that.select2('data', data).change();
                 }
             })
         }
     });
+    $(".select2-tags").select2('container').setTypeForHook();
 
     $(".select2-container").removeClass('validate[required]');
     $(document).on('pjax:send', function () {
@@ -327,9 +361,10 @@ $(document).ready(function () {
         );
         form.submit();
     }
-    $('a[data-method=delete]').click(function() {
-        if($(this).data('confirm')) {
-            if(confirm($(this).data('confirm'))) {
+
+    $('a[data-method=delete]').click(function () {
+        if ($(this).data('confirm')) {
+            if (confirm($(this).data('confirm'))) {
                 deleteSubmit(this);
             }
             return false;
@@ -338,7 +373,7 @@ $(document).ready(function () {
         return false;
 
     });
-    $('.select-search-type').click(function(){
+    $('.select-search-type').click(function () {
         var searchType = $(this).attr('data-type');
         var searchTypeText = $(this).text();
         $('#search-type-text').html(searchTypeText);
@@ -353,6 +388,11 @@ $(document).ready(function () {
             cell_size: 3 + Math.random() * 100
         });
         elm.prop('src', pattern.png());
+    });
+
+    $('a.embed').on("click", function (e) {
+        $(this).gdocsViewer({width: 600, height: 750});
+        e.preventDefault();
     });
 
 }(jQuery));
