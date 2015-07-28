@@ -13,3 +13,6 @@ user_reports:
 article_reports:
     path:     /manager/reports/article/
     defaults: { _controller: OjsReportBundle:ArticleReport:index }
+ojs_report_article_report_detail:
+    path: /manager/reposts/article/{id}
+    defaults: { _controller: OjsReportBundle:AnalyticsReport:detail }

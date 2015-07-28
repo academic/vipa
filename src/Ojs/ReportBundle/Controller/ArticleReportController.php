@@ -48,8 +48,11 @@ class ArticleReportController extends Controller
 
         $genderAggregation = new Terms('language');
         $genderAggregation->setField('locale');
-
         $query->addAggregation($genderAggregation);
+
+        $subjectAggregation = new Terms('subjects');
+        $subjectAggregation->setField('subjects');
+        $query->addAggregation($subjectAggregation);
 
         $query->setSize(0);
 

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
@@ -14,8 +15,10 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Common methods for journal
@@ -46,19 +49,19 @@ class JournalService
      */
     private $tokenStorage;
 
-    /** @var RequestStack  */
+    /** @var RequestStack */
     private $requestStack;
 
     /** @var  string */
     private $defaultInstitutionSlug;
 
     /**
-     * @param EntityManager         $em
-     * @param DocumentManager       $dm
-     * @param Session               $session
-     * @param Router                $router
+     * @param EntityManager $em
+     * @param DocumentManager $dm
+     * @param Session $session
+     * @param Router $router
      * @param TokenStorageInterface $tokenStorage
-     * @param RequestStack          $requestStack
+     * @param RequestStack $requestStack
      * @param $defaultInstitutionSlug
      */
     public function __construct(
@@ -69,7 +72,8 @@ class JournalService
         TokenStorageInterface $tokenStorage,
         RequestStack $requestStack,
         $defaultInstitutionSlug
-    ) {
+    )
+    {
         $this->session = $session;
         $this->em = $em;
         $this->dm = $dm;
@@ -103,7 +107,7 @@ class JournalService
     }
 
     /**
-     * @param  Journal      $journal
+     * @param  Journal $journal
      * @return bool|Journal
      */
     public function setSelectedJournal(Journal $journal = null)
@@ -146,7 +150,7 @@ class JournalService
         /** @var JournalUser $journalUser */
         $user = $token->getUser();
         $journalUserRepo = $this->em->getRepository('OjsJournalBundle:JournalUser');
-        $journalUser = $journalUserRepo->findOneBy(['journal' => $journal, 'user'=> $user]);
+        $journalUser = $journalUserRepo->findOneBy(['journal' => $journal, 'user' => $user]);
 
         if (!$journalUser) {
             return new ArrayCollection();
@@ -237,30 +241,14 @@ class JournalService
     public function journalStats(Journal $journal)
     {
         $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
-        $journal_stats = $object_view->findBy(['entity' => 'journal', 'objectId' => $journal->getId()]);
-        $groupped_journal_stats = [];
-        $counted_article_stats = [];
-        foreach ($journal_stats as $js) {
-            /** @var ObjectViews $js */
-            $dateKey = $js->getLogDate()->format('d-M-Y');
-            $groupped_journal_stats[$dateKey] = isset($groupped_journal_stats[$dateKey]) ? $groupped_journal_stats[$dateKey] + 1 : 1;
-            foreach ($journal->getArticles() as $article) {
-                $article_stats = $object_view->findBy(['entity' => 'article', 'objectId' => $article->getId()]);
-                foreach ($article_stats as $article_stat) {
-                    if ($article_stat->getLogDate()->format('d-M-Y') == $dateKey && !in_array(
-                            $article_stat->getId(),
-                            $counted_article_stats
-                        )
-                    ) {
-                        $counted_article_stats[] = $article_stat->getId();
-                        $groupped_journal_stats[$dateKey] = isset($groupped_journal_stats[$dateKey]) ? $groupped_journal_stats[$dateKey] + 1 : 1;
-                    }
-                }
-            }
+        $journal_stats = $object_view->findBy(['entity' => 'journal', 'objectId' =>$journal->getId()]);
+        $group_by_day = [];
+        foreach ($journal_stats as $stat) {
+            $group_by_day[$stat->getLogDate()->format('Y-m-d')]=
+                isset($group_by_day[$stat->getLogDate()->format('Y-m-d')])?$group_by_day[$stat->getLogDate()->format('Y-m-d')]+1:1;
         }
-        ksort($groupped_journal_stats);
 
-        return $groupped_journal_stats;
+        return $group_by_day;
     }
 
     /**
@@ -269,39 +257,84 @@ class JournalService
      */
     public function journalsArticlesStats(Journal $journal)
     {
-        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
+        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectView');
         $stats = [];
-        $affetted_articles = [];
-        foreach ($journal->getArticles() as $article) {
-            $articleStats = $object_view->findBy(['entity' => 'article', 'objectId' => $article->getId()]);
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('article')
+            ->from('OjsJournalBundle:Article','article')
+            ->where(
+                $qb->expr()->eq('article.journal',':journal')
+            )
+            ->join('article.journal','with')
+            ->setParameter('journal',$journal);
+        $articles = $qb->getQuery()->getResult();
+        foreach ($articles as $article) {
+            /** @var  Article $article*/
+            $articleStats = $object_view->findOneBy(['entity' => 'article', 'objectId' => "{$article->getId()}"]);
             if (!$articleStats) {
                 continue;
             }
-            foreach ($articleStats as $stat) {
-                $dateKey = $stat->getLogDate()->format("d-M-Y");
-                $stats[$dateKey][$article->getId()] = [
-                    'hit' => isset($stats[$dateKey][$article->getId()]['hit']) ? $stats[$dateKey][$article->getId(
-                        )]['hit'] + 1 : 1,
-                    'title' => $article->getTitle(),
-                ];
-            }
-            $affetted_articles[] = ['id' => $article->getId(), 'title' => $article->getTitle()];
-        }
-        foreach ($stats as $date => $stat) {
-            foreach ($affetted_articles as $article) {
-                if (!isset($stats[$date][$article['id']])) {
-                    $stats[$date][$article['id']] = [
-                        'hit' => 0,
-                        'title' => $article['title'],
-                    ];
-                }
-            }
-        }
-        ksort($stats);
+            $issue = $article->getIssue();
+            $stats[$article->getId()] = [
+                'id'=>$article->getId(),
+                'hit' => $articleStats->getTotal(),
+                'title' => $article->getTitle(),
+            ];
+            $issue && $stats[$article->getId()]['issue']= $issue->getVolume() . "-" .$issue->getYear() . "-".$issue->getNumber();
 
-        return [
-            'stats' => $stats,
-            'articles' => $affetted_articles,
-        ];
+        }
+        return $stats;
+    }
+
+    public function getArticlesDownloadStats(Journal $journal)
+    {
+        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectDownload');
+        $stats = [];
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('article')
+            ->from('OjsJournalBundle:Article','article')
+            ->where(
+                $qb->expr()->eq('article.journal',':journal')
+            )
+            ->join('article.journal','with')
+            ->setParameter('journal',$journal);
+        $articles = $qb->getQuery()->getResult();
+        foreach ($articles as $article) {
+            /** @var  Article $article*/
+            $articleStats = $object_view->findOneBy(['entity' => 'article', 'objectId' => "{$article->getId()}"]);
+            if (!$articleStats) {
+                continue;
+            }
+            $issue = $article->getIssue();
+            $stats[$article->getId()] = [
+                'id'=>$article->getId(),
+                'download' => $articleStats->getTotal(),
+                'title' => $article->getTitle(),
+            ];
+            $issue && $stats[$article->getId()]['issue']= $issue->getVolume() . "-" .$issue->getYear() . "-".$issue->getNumber();
+
+        }
+        return $stats;
+    }
+
+    public function getArticleStats($id,$journal)
+    {
+        $article = $this->em->find('OjsJournalBundle:Article',$id);
+        if(!$article)
+            throw new NotFoundHttpException("Article not found!");
+        if($article->getJournalId()!=$journal->getId())
+            throw new AccessDeniedException;
+
+        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
+        $article_stats = $object_view->findBy(['entity' => 'article', 'objectId' =>(string)$article->getId()]);
+        $group_by_day = [];
+        foreach ($article_stats as $stat) {
+            echo gettype($stat->getLogDate());exit;
+            $group_by_day[$stat->getLogDate()->format('Y-m-d')]=
+                isset($group_by_day[$stat->getLogDate()->format('Y-m-d')])?$group_by_day[$stat->getLogDate()->format('Y-m-d')]+1:1;
+        }
+
+        var_dump($group_by_day);exit;
+        return $group_by_day;
     }
 }
