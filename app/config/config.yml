@@ -1,133 +1,127 @@
 imports:
-    - { resource: parameters.yml }
-    - { resource: security.yml }
-    - { resource: ojs_params.yml }
-    - { resource: bibliography_params.yml }
-    - { resource: services.yml }
-    - { resource: assetic.yml }
-    - { resource: doctrine.yml }
-    - { resource: elastica.yml }
-    - { resource: api.yml }
-    - { resource: swift.yml }
-    - { resource: media.yml }
+  - { resource: parameters.yml }
+  - { resource: security.yml }
+  - { resource: ojs_params.yml }
+  - { resource: bibliography_params.yml }
+  - { resource: services.yml }
+  - { resource: assetic.yml }
+  - { resource: doctrine.yml }
+  - { resource: elastica.yml }
+  - { resource: api.yml }
+  - { resource: swift.yml }
+  - { resource: media.yml }
 parameters:
-    avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
-    avatar_upload_base_url: %base_host%/uploads/avatarfiles/
-    admin_base_view: '::ojsbase.html.twig'
+  avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
+  avatar_upload_base_url: %base_host%/uploads/avatarfiles/
+  admin_base_view: '::ojsbase.html.twig'
 framework:
-    #esi:             ~
-    translator:      { fallback: %locale% }
-    secret:          "%secret%"
-    router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
-    form:            ~
-    csrf_protection: ~
-    templating:
-         {engines: ['twig'],assets_version: v3 }
-        #assets_version: SomeVersionScheme
-    default_locale:  "%locale%"
-    trusted_hosts:   ~
-    trusted_proxies: ~
-    session:
-        # handler_id set to null will use default session handler from php.ini
-        handler_id:  ~
-        cookie_domain: ".%base_host%"
-    fragments:       ~
-    http_method_override: true
+  translator:      { fallback: %locale% }
+  secret:          "%secret%"
+  router:
+    resource: "%kernel.root_dir%/config/routing.yml"
+    strict_requirements: ~
+  form:            ~
+  csrf_protection: ~
+  templating:
+     { engines: ['twig'], assets_version: v3 }
+  default_locale:  "%locale%"
+  trusted_hosts:   ~
+  trusted_proxies: ~
+  session:
+    handler_id:  ~
+    cookie_domain: ".%base_host%"
+  fragments:       ~
+  http_method_override: true
 
-okulbilisim_message:  
-    entity:            
-        user:         
-            class: Ojs\UserBundle\Entity\User
-    component:
-        dashboard:
-            integrator:
-                class: Okulbilisim\MessageBundle\Component\Dashboard\DashboardIntegrator
-        twig_extension:
-            folder_list:
-                class: Okulbilisim\MessageBundle\Component\TwigExtension\FolderListExtension
-            
-# Twig Configuration    
+okulbilisim_message:
+  entity:
+    user:
+      class: Ojs\UserBundle\Entity\User
+  component:
+    dashboard:
+      integrator:
+        class: Okulbilisim\MessageBundle\Component\Dashboard\DashboardIntegrator
+    twig_extension:
+      folder_list:
+        class: Okulbilisim\MessageBundle\Component\TwigExtension\FolderListExtension
+
+# Twig Configuration
 twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-    globals:
-        languages : "%languages%"
-        base_host: %base_host%
-        admin_base_view: %admin_base_view%
-        https: %https%
-        ojs_logo: %ojs_logo%
-        ojs_tw: %ojs_tw%
-        ojs_fb: %ojs_fb%
+  debug:            "%kernel.debug%"
+  strict_variables: "%kernel.debug%"
+  form:
+    resources:
+      - 'OjsUserBundle:Form:fields.html.twig'
+  globals:
+    languages : "%languages%"
+    base_host: %base_host%
+    admin_base_view: %admin_base_view%
+    https: %https%
+    ojs_logo: %ojs_logo%
+    ojs_tw: %ojs_tw%
+    ojs_fb: %ojs_fb%
 
 fos_rest:
-    body_listener: true
-    format_listener: true
-    param_fetcher_listener: true
-    view:
-        view_response_listener: 'force'
-        formats:
-            xml: true
-            json : true
-        templating_formats:
-            html: true
-        force_redirects:
-            html: true
-        failed_validation: HTTP_BAD_REQUEST
-        default_engine: twig
-    routing_loader:
-        default_format: json
+  body_listener: true
+  format_listener: true
+  param_fetcher_listener: true
+  view:
+    view_response_listener: 'force'
+    formats:
+      xml: true
+      json : true
+    templating_formats:
+      html: true
+    force_redirects:
+      html: true
+    failed_validation: HTTP_BAD_REQUEST
+    default_engine: twig
+  routing_loader:
+    default_format: json
 
 sensio_framework_extra:
   view:
     annotations: false
 
 stof_doctrine_extensions:
-    default_locale: "%locale%"
-    translation_fallback: true
-    orm:
-        default:
-            timestampable: true
-            translatable: true
-            blameable: true
-            loggable: true
-            uploadable: true
-            sluggable: true
-            tree: true
+  default_locale: "%locale%"
+  translation_fallback: true
+  orm:
+    default:
+      timestampable: true
+      translatable: true
+      blameable: true
+      loggable: true
+      uploadable: true
+      sluggable: true
+      tree: true
 jms_di_extra:
-    disable_grep: true
+  disable_grep: true
 nelmio_api_doc: ~
 
 knp_paginator:
-    page_range: 5                      # default page range used in pagination control
-    default_options:
-        page_name: page                # page query parameter name
-        sort_field_name: sort          # sort field query parameter name
-        sort_direction_name: direction # sort direction query parameter name
-        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
-    template:
-        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+  page_range: 5                      # default page range used in pagination control
+  default_options:
+    page_name: page                # page query parameter name
+    sort_field_name: sort          # sort field query parameter name
+    sort_direction_name: direction # sort direction query parameter name
+    distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+  template:
+    pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+    sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 apy_data_grid:
-    theme: '::list.html.twig'
+  theme: '::list.html.twig'
 
 jms_di_extra:
-    locations:
-        all_bundles: false
-        bundles: [OjsJournalBundle]
-        directories: ["%kernel.root_dir%/../src"]
-#    automatic_controller_injections:
-#        properties:
-#            request: "@request"
-#            router: "@router"
-#        method_calls:
-#            setRouter: ["@router"]
+  locations:
+    all_bundles: false
+    bundles: [OjsJournalBundle]
+    directories: ["%kernel.root_dir%/../src"]
 sc_datetimepicker:
-    picker: ~
+  picker: ~
 
 a2lix_translation_form:
-    locales: "%locale_support%"       # [1]
-    default_required: false      # [2]
-    manager_registry: doctrine      # [3]
-    templating: "::translationForm.html.twig"      # [4]
+  locales: "%locale_support%"       # [1]
+  default_required: false      # [2]
+  manager_registry: doctrine      # [3]
+  templating: "::translationForm.html.twig"      # [4]
