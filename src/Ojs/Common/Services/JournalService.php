@@ -283,6 +283,15 @@ class JournalService
             $issue && $stats[$article->getId()]['issue']= $issue->getVolume() . "-" .$issue->getYear() . "-".$issue->getNumber();
 
         }
+        if(!$stats){
+            return [
+                [
+                    'id'=>0,
+                    'hit'=>0,
+                    'title'=>null
+                ]
+            ];
+        }
         return $stats;
     }
 
@@ -329,12 +338,10 @@ class JournalService
         $article_stats = $object_view->findBy(['entity' => 'article', 'objectId' =>(string)$article->getId()]);
         $group_by_day = [];
         foreach ($article_stats as $stat) {
-            echo gettype($stat->getLogDate());exit;
             $group_by_day[$stat->getLogDate()->format('Y-m-d')]=
                 isset($group_by_day[$stat->getLogDate()->format('Y-m-d')])?$group_by_day[$stat->getLogDate()->format('Y-m-d')]+1:1;
         }
 
-        var_dump($group_by_day);exit;
         return $group_by_day;
     }
 }
