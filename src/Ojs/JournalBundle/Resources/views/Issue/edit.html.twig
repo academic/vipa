@@ -3,7 +3,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path('ojs_journal_issue_index', {'journalId': app.request.get('journalId')}),'title': 'issue'|trans},
     {'title': 'title.issue_edit'|trans}
     ] %}

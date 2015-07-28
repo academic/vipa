@@ -197,7 +197,6 @@ fos_elastica:
             model: Ojs\JournalBundle\Entity\Journal
             provider: ~
             listener: ~
-
             finder: ~
             provider:
               debug_logging: false
