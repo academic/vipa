@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -16,14 +17,15 @@ use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\Author;
-use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step4CitationType;
+use OkulBilisim\ApplicationBundle\Event\ArticleSubmitEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,14 +62,14 @@ class ArticleSubmissionController extends Controller
         $source1TableAlias = $source1->getTableAlias();
 
         $source2 = new Entity('OjsJournalBundle:ArticleSubmissionProgress');
-        $source2TableAlias= $source2->getTableAlias();
+        $source2TableAlias = $source2->getTableAlias();
 
 
         if ($all) {
             $source1->manipulateQuery(
                 function (QueryBuilder $qb) use ($source1TableAlias, $currentJournal) {
-                    $qb->where($source1TableAlias . '.status = 0');
-                    $qb->andWhere($source1TableAlias . '.journalId = ' . $currentJournal->getId());
+                    $qb->where($source1TableAlias.'.status = 0');
+                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
 
                     return $qb;
                 }
@@ -76,6 +78,7 @@ class ArticleSubmissionController extends Controller
                 function (QueryBuilder $qb) use ($source2TableAlias, $currentJournal) {
                     $qb->where($source2TableAlias.'.submitted = 0');
                     $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
+
                     return $qb;
                 }
             );
@@ -84,10 +87,10 @@ class ArticleSubmissionController extends Controller
                 function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal) {
                     $qb->where(
                         $qb->expr()->andX(
-                            $qb->expr()->eq($source1TableAlias . '.submitterId', $user->getId())
+                            $qb->expr()->eq($source1TableAlias.'.submitterId', $user->getId())
                         )
                     );
-                    $qb->andWhere($source1TableAlias . '.journalId = ' . $currentJournal->getId());
+                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
 
                     return $qb;
                 }
@@ -97,6 +100,7 @@ class ArticleSubmissionController extends Controller
                     $qb->where($source2TableAlias.'.submitted = 0');
                     $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
                     $qb->andWhere($source2TableAlias.'.userId = '.$user->getId());
+
                     return $qb;
                 }
             );
@@ -106,9 +110,9 @@ class ArticleSubmissionController extends Controller
         $submissionsGrid = $gridManager->createGrid('submission');
         $drafts = $gridManager->createGrid('drafts');
         $source1->manipulateRow(
-            function ($row) use($translator)
-            {
+            function (Row $row) use ($translator) {
                 $row->setField('status', $translator->trans(ArticleParams::statusText($row->getField('status'))));
+
                 return $row;
             }
         );
@@ -116,9 +120,15 @@ class ArticleSubmissionController extends Controller
         $drafts->setSource($source2);
         /** @var GridAction $gridAction */
         $gridAction = $this->get('grid_action');
-        $submissionsGrid->addRowAction($gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $currentJournal->getId()]));
-        $submissionsGrid->addRowAction($gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $currentJournal->getId()]));
-        $submissionsGrid->addRowAction($gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $currentJournal->getId()]));
+        $submissionsGrid->addRowAction(
+            $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $currentJournal->getId()])
+        );
+        $submissionsGrid->addRowAction(
+            $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $currentJournal->getId()])
+        );
+        $submissionsGrid->addRowAction(
+            $gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $currentJournal->getId()])
+        );
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->submissionResumeAction('article_submission_resume', 'id');
@@ -131,6 +141,7 @@ class ArticleSubmissionController extends Controller
             'drafts' => $drafts,
             'all' => $all,
         ];
+
         return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
     }
 
@@ -186,7 +197,7 @@ class ArticleSubmissionController extends Controller
 
         $submissionLangs = [];
         $submissionLangObjects = $article->getJournal()->getLanguages();
-        foreach($submissionLangObjects as $submissionLangObject){
+        foreach ($submissionLangObjects as $submissionLangObject) {
             $submissionLangs[] = $submissionLangObject->getCode();
         }
 
@@ -194,19 +205,31 @@ class ArticleSubmissionController extends Controller
         $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
         $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
         $checklist = json_decode($articleSubmission->getChecklist(), true);
-        $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST', 'locales' => $submissionLangs])->createView();
+        $step2Form = $this->createForm(
+            new Step2Type(),
+            $article,
+            ['method' => 'POST', 'locales' => $submissionLangs]
+        )->createView();
         $citationForms = [];
         $citationTypes = array_keys($this->container->getParameter('citation_types'));
         foreach ($article->getCitations() as $citation) {
-            $citationForms[] = $this->createForm(new Step4CitationType(), $citation, [
+            $citationForms[] = $this->createForm(
+                new Step4CitationType(),
+                $citation,
+                [
+                    'method' => 'POST',
+                    'citationTypes' => $citationTypes
+                ]
+            )->createView();
+        }
+        $citationFormTemplate = $this->createForm(
+            new Step4CitationType(),
+            new Citation(),
+            [
                 'method' => 'POST',
                 'citationTypes' => $citationTypes
-            ])->createView();
-        }
-        $citationFormTemplate = $this->createForm(new Step4CitationType(), new Citation(), [
-            'method' => 'POST',
-            'citationTypes' => $citationTypes
-        ])->createView();
+            ]
+        )->createView();
         $data = [
             'submissionId' => $articleSubmission->getId(),
             'submissionData' => $articleSubmission,
@@ -222,6 +245,7 @@ class ArticleSubmissionController extends Controller
             'step2Form' => $step2Form,
             'articleFiles' => $articleFiles
         ];
+
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
 
@@ -292,9 +316,12 @@ class ArticleSubmissionController extends Controller
         return new JsonResponse(
             [
                 'success' => "1",
-                'resumeLink' => $this->generateUrl('article_submission_resume', [
-                        'submissionId' => $articleSubmission->getId()
-                    ]) . '#2'
+                'resumeLink' => $this->generateUrl(
+                        'article_submission_resume',
+                        [
+                            'submissionId' => $articleSubmission->getId()
+                        ]
+                    ).'#2'
             ]
         );
     }
@@ -314,7 +341,7 @@ class ArticleSubmissionController extends Controller
 
         $submissionLangs = [];
         $submissionLangObjects = $article->getJournal()->getLanguages();
-        foreach($submissionLangObjects as $submissionLangObject){
+        foreach ($submissionLangObjects as $submissionLangObject) {
             $submissionLangs[] = $submissionLangObject->getCode();
         }
         $step2Form = $this->createForm(new Step2Type(), $article, ['method' => 'POST', 'locales' => $submissionLangs]);
@@ -322,6 +349,7 @@ class ArticleSubmissionController extends Controller
         if ($step2Form->isValid()) {
             $articleSubmission->setCurrentStep(3);
             $em->flush();
+
             return new JsonResponse(['success' => '1']);
         } else {
             return new JsonResponse(['success' => '0', 'errors' => $step2Form->getErrors()]);
@@ -358,10 +386,12 @@ class ArticleSubmissionController extends Controller
                 } else {
                     $authorIds[] = $authorData->authorid;
                     $author = $em->getRepository('OjsJournalBundle:Author')->find($authorData->authorid);
-                    $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy([
-                        'article' => $article,
-                        'author' => $author
-                    ]);
+                    $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy(
+                        [
+                            'article' => $article,
+                            'author' => $author
+                        ]
+                    );
                 }
 
                 $author->setFirstName($authorData->firstName);
@@ -399,6 +429,7 @@ class ArticleSubmissionController extends Controller
         $articleSubmission->setCurrentStep(4);
         $em->flush();
         $em->clear();
+
         return new JsonResponse(['success' => 1]);
     }
 
@@ -423,7 +454,9 @@ class ArticleSubmissionController extends Controller
                 $citation = new Citation();
             } else {
                 $citationIds[] = $citationData['article_submission_citation[id]'];
-                $citation = $em->getRepository('OjsJournalBundle:Citation')->find($citationData['article_submission_citation[id]']);
+                $citation = $em->getRepository('OjsJournalBundle:Citation')->find(
+                    $citationData['article_submission_citation[id]']
+                );
             }
             $citation->setRaw($citationData['article_submission_citation[raw]']);
             $citation->setOrderNum($citationData['article_submission_citation[orderNum]']);
@@ -436,6 +469,7 @@ class ArticleSubmissionController extends Controller
         }
         $articleSubmission->setCurrentStep(5);
         $em->flush();
+
         return new JsonResponse(['success' => 1]);
     }
 
@@ -471,10 +505,12 @@ class ArticleSubmissionController extends Controller
                 } else {
                     $fileIds[] = $fileData->id;
                     $file = $em->getRepository('OjsJournalBundle:File')->find($fileData->id);
-                    $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy([
-                        'article' => $article,
-                        'file' => $file
-                    ]);
+                    $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy(
+                        [
+                            'article' => $article,
+                            'file' => $file
+                        ]
+                    );
                 }
 
                 $file->setMimeType($fileData->article_file_mime_type);
@@ -503,6 +539,7 @@ class ArticleSubmissionController extends Controller
             }
         }
         $em->flush();
+
         return new JsonResponse(
             array(
                 'redirect' => $this->generateUrl(
@@ -530,9 +567,10 @@ class ArticleSubmissionController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournal()->getId());
 
         $translations = [];
-        foreach($articleSubmission->getArticle()->getTranslations() as $translation){
+        foreach ($articleSubmission->getArticle()->getTranslations() as $translation) {
             $translations[$translation->getLocale()][$translation->getField()] = $translation->getContent();
         }
+
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:preview.html.twig',
             array(
@@ -553,6 +591,7 @@ class ArticleSubmissionController extends Controller
      */
     public function finishAction(Request $request)
     {
+        $dispatcher = $this->get('event_dispatcher');
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
             throw $this->createNotFoundException('There is no submission with this Id.');
@@ -569,7 +608,18 @@ class ArticleSubmissionController extends Controller
         $article->setSetupStatus(1);
         $articleSubmission->setSubmitted(1);
         $em->flush();
-        return $this->redirect($this->generateUrl('article_submissions_me'));
+
+        $response = $this->redirectToRoute('article_submissions_me');;
+        $event = new ArticleSubmitEvent($article, $request, $response);
+        $dispatcher->dispatch(ArticleSubmitEvents::SUBMIT_AFTER, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        return $response;
+
+
     }
 
     /**
@@ -697,6 +747,7 @@ class ArticleSubmissionController extends Controller
         $em->remove($articleSubmission->getArticle());
         $em->flush();
         $this->addFlash('success', $this->get('translator')->trans('deleted'));
+
         return $this->redirectToRoute('article_submissions_me');
     }
 }
