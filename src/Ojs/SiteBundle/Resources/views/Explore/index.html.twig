@@ -1,6 +1,6 @@
 
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.journals'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.explore'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = true %}
 
 {% block stylesheets %}
@@ -21,13 +21,134 @@
 
 {% block body %}
     <div class="container">
-        <div id="journals" data-columns>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>{{ 'title.institution_types'|trans }}</h4></div>
+                    <ul class="list-group">
+                        {% for type in types %}
+                            <li class="list-group-item">
+                                {% if type_filters is empty %}
+                                    {% set parameter = type.key %}
+                                    <a href="{{ path('ojs_site_explore_index', {
+                                        type_filters: type.key,
+                                        institution_filters: app.request.get('institution_filters'),
+                                        subject_filters: app.request.get('subject_filters')}) }}">{{ type.key|trans }}</a>
+                                {% else %}
+                                    {% if type.key in type_filters %}
+                                        {% set parameter = type_filters|pop(type.key) %}
+                                        {{ type.key|trans }}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            type_filters: parameter|join(','),
+                                            institution_filters: app.request.get('institution_filters'),
+                                            subject_filters: app.request.get('subject_filters')}) }}">
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                        </a>
+                                    {% else %}
+                                        {% set parameter = type_filters|merge([type.key]) %}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            type_filters: parameter|join(','),
+                                            institution_filters: app.request.get('institution_filters'),
+                                            subject_filters: app.request.get('subject_filters')}) }}">{{ type.key|trans }}</a>
+                                    {% endif %}
+                                {% endif %}
+                                <span class="badge">{{ type.doc_count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>{{ 'title.institutions'|trans }}</h4></div>
+                    <ul class="list-group">
+                        {% for institution in institutions %}
+                            <li class="list-group-item">
+                                {% if institution_filters is empty %}
+                                    {% set parameter = institution.key %}
+                                    <a href="{{ path('ojs_site_explore_index', {
+                                        institution_filters: institution.key,
+                                        subject_filters: app.request.get('subject_filters'),
+                                        type_filters: app.request.get('type_filters') }) }}">{{ institution.key|trans }}</a>
+                                {% else %}
+                                    {% if institution.key in institution_filters %}
+                                        {% set parameter = institution_filters|pop(institution.key) %}
+                                        {{ institution.key|trans }}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            institution_filters: parameter|join(','),
+                                            subject_filters: app.request.get('subject_filters'),
+                                            type_filters: app.request.get('type_filters')}) }}">
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                        </a>
+                                    {% else %}
+                                        {% set parameter = institution_filters|merge([institution.key]) %}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            institution_filters: parameter|join(','),
+                                            subject_filters: app.request.get('subject_filters'),
+                                            type_filters: app.request.get('type_filters')}) }}">{{ institution.key|trans }}</a>
+                                    {% endif %}
+                                {% endif %}
+                                <span class="badge">{{ institution.doc_count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>{{ 'title.subjects'|trans }}</h4></div>
+                    <ul class="list-group">
+                        {% for subject in subjects %}
+                            <li class="list-group-item">
+                                {% if subject_filters is empty %}
+                                    {% set parameter = subject.key %}
+                                    <a href="{{ path('ojs_site_explore_index', {
+                                        subject_filters: subject.key,
+                                        type_filters: app.request.get('type_filters'),
+                                        institution_filters: app.request.get('institution_filters')}) }}">{{ subject.key }}</a>
+                                {% else %}
+                                    {% if subject.key in subject_filters %}
+                                        {% set parameter = subject_filters|pop(subject.key) %}
+                                        {{ subject.key }}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            subject_filters: parameter|join(','),
+                                            type_filters: app.request.get('type_filters'),
+                                            institution_filters: app.request.get('institution_filters')}) }}">
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                        </a>
+                                    {% else %}
+                                        {% set parameter = subject_filters|merge([subject.key]) %}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            subject_filters: parameter|join(','),
+                                            type_filters: app.request.get('type_filters'),
+                                            institution_filters: app.request.get('institution_filters')}) }}">{{ subject.key }}</a>
+                                    {% endif %}
+                                {% endif %}
+                                <span class="badge">{{ subject.doc_count }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="journals" class="col-md-9" data-columns>
             {% for journal in journals %}
                 <div class="thumbnail">
                     <img src="{{ journal.logo is not defined ? '#' :
-                            ('/uploads/journalfiles/' ~ imagePath(journal.logo)) | imagine_filter('journal_cover') }}"
+                            ('/uploads/journalfiles/' ~ imagePath(journal.logo))
+                            | imagine_filter('journal_cover') }}"
                          data-src="holder.js/190x300/text: {{ journal.title }}"
-                         class="img-responsive" alt="{{ journal.title }}" />
+                         class="img-responsive" alt="{{ journal.title }}">
+
                     <div class="caption">
                         <a href="{{ path('ojs_journal_index', {slug: journal.slug, institution: journal.institution.slug}) }}">
                             <h3 class="text-center">{{ journal.title }}</h3>
@@ -35,9 +156,7 @@
 
                         <div>
                             {% for subject in journal.subjects %}
-                                <h4>
-                                    <span class="label label-primary">{{ subject.subject }}</span>
-                                </h4>
+                                <h4><span class="label label-primary">{{ subject.subject }}</span></h4>
                             {% endfor %}
                         </div>
                     </div>
