@@ -2,8 +2,6 @@
 
 namespace Ojs\JournalBundle\Event;
 
-namespace OkulBilisim\ApplicationBundle\Event;
-
 use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,9 +25,10 @@ class ArticleSubmitEvent extends Event
 
     /**
      * @param Article $article
-     * @param Request     $request
+     * @param Request $request
+     * @param Response|null $response
      */
-    public function __construct(Article $article, Request $request, Response $response)
+    public function __construct(Article $article, Request $request, Response $response = null)
     {
         $this->article = $article;
         $this->request = $request;
