@@ -90,7 +90,7 @@ class ObjectStatsBase
     /**
      * Get logDate
      *
-     * @return \DateTime $logDate
+     * @return @MongoDb\Date $logDate
      */
     public function getLogDate()
     {
@@ -100,7 +100,7 @@ class ObjectStatsBase
     /**
      * Set logDate
      *
-     * @param  \Datetime $logDate
+     * @param  $logDate
      * @return self
      */
     public function setLogDate($logDate)

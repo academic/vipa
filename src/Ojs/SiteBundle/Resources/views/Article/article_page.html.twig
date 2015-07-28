@@ -14,7 +14,8 @@
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
     {'link': journalUrl,'title': article.journal.title},
-    {'link': path("ojs_archive_index",{"slug" : article.journal.slug,institution: journal.institution.slug}), 'title': "archive"|trans }
+    {'link': path("ojs_archive_index",{"slug" : article.journal.slug,institution: journal.institution.slug}), 'title': "archive"|trans },
+    {'link': path('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, institution: journal.institution.slug}),'title': "volume"|trans~ article.issue.volume ~"," ~ "issue"|trans ~ article.issue.number }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -24,6 +25,32 @@
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, institution: journal.institution.slug}) }}">{{ "volume"|trans }} {{ article.issue.volume }}
+                            , {{ "issue"|trans }} {{ article.issue.number }}</a>,
+                        {{ "page.plural"|trans }} <span
+                                title="{{ "first_page"|trans }}">{{ article.firstPage }}</span>-<span
+                                title="{{ "last_page"|trans }}">{{ article.lastPage }}</span>
+                        {% if article.languages %}
+                            <abbr title="{{ "languages"|trans }}">
+                                {% for language in article.languages %}
+                                    <span class="badge badge-info">{{ language.name }} [{{ language.code }}
+                                        ]</span>
+                                {% endfor %}
+
+                            </abbr>
+                        {% endif %}
+                        <span class="pull-right">
+                            {% if article.pubdate %}
+                                <span>
+                                    <i class="fa fa-calendar"></i> {{ article.pubdate|date('Y-m-d') }}
+                                </span>
+                            {% endif %}
+                            <i class="fa fa-eye"></i> {{ stat(article.id,'article','view') }}
+                            <i class="fa fa-download"></i> {{ stat(article.id,'article','download') }}
+                        </span>
+
+                    </div>
                     <div class="panel-body">
                         <div id="articleTitle">
                             {% if article.header %}
@@ -39,42 +66,13 @@
                                          class="img-responsive img-rounded float-left" alt="{{ article.title }}"/>
                                 </a>
                             {% endif %}
-                            <div>
-                                {% if article.pubdate %} <span
-                                        class=" {{ "date.publish"|trans }}">{{ article.pubdate|date('Y-m-d') }}</span>
-                                    <br>{% endif %}
-                                {{ "volume"|trans }} {{ article.issue.volume }}, <a
-                                        href="#">{{ "issue"|trans }} {{ article.issue.number }}</a>,
-                                {{ "page.plural"|trans }} <span
-                                        title="{{ "first_page"|trans }}">{{ article.firstPage }}</span>-<span
-                                        title="{{ "last_page"|trans }}">{{ article.lastPage }}</span>
-                                {% if article.languages %}
-                                <span title="{{ "languages"|trans }}">
-                                        {% for language in article.languages %}
-                                            <span class="badge badge-info">{{ language.name }} [{{ language.code }}
-                                                ]</span>
-                                        {% endfor %}
-                                    {% endif %}
-                                </span>
-                            </div>
 
-                            <div id="files">
-                                {% for file in article.articleFiles %}
-                                    {% if file.type==0 %}
-                                        <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
-                                            <abbr
-                                                    title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ "article.fulltext"|trans }}</abbr>
-                                        </a>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-
-                            <hr>
                             <h2 class="title">{{ article.title }}
                                 <br> {% if article.titleTransliterated %}<span
                                         class="muted">{{ article.titleTransliterated }}</span><br>{% endif %}
                                 {% if article.subtitle %}
-                                    <small>{{ article.subtitle }}</small><br>{% endif %}
+                                    <small>{{ article.subtitle }}</small>
+                                {% endif %}
                                 {% if article.articleAuthors %}
                                     {% for authorsInfo in article.articleAuthors %}
                                         <small>
@@ -85,28 +83,27 @@
                                         {% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                 {% endif %}
-                                <small id="articleStats" class="pull-right text-muted">
-                                    <span><i class="fa fa-eye"></i> {{ stat(article.id,'article','view') }}</span>
-                                    <span><i class="fa fa-download"></i> {{ stat(article.id,'article','download') }} </span>
-                                </small>
                             </h2>
-
-                            <div id="doiInfo">
-
-                                <p class="text-success"><a href="http://dx.doi.org/{{ article.doi }}"
-                                            >{{ 'doi'|trans }}: {{ article.doi }}</a></p>
-
-                            </div>
                         </div>
                         <hr/>
 
-                        <div id="articleAbstract">
-                            <h4 class="page-header">{{ "abstract"|trans }}</h4>
+                        <div id="doiInfo">
 
-                            <div>
-                                {{ article.abstract|raw }}
-                            </div>
+                            <p class="text-success"><a href="http://dx.doi.org/{{ article.doi }}"
+                                        >{{ 'doi'|trans }}: {{ article.doi }}</a></p>
+
                         </div>
+
+                        {% if article.abstract %}
+                            <div id="articleAbstract">
+                                <h4 class="page-header">{{ "abstract"|trans }}</h4>
+
+                                <div>
+                                    {{ article.abstract|raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+
                         {% set keywords = article.keywords|split(',') %}
                         {% if keywords|length %}
                             <div id="articleKeywords">
@@ -120,63 +117,58 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <hr>
 
+                        {% if article.citations|length > 0 %}
+                            <div id="articleCitations">
+                                <h4 class="page-header">{{ "citations"|trans }}</h4>
 
-                        <div>
-                            <h4 class="page-header">{{ "tools"|trans }}</h4>
-                            <a class="btn btn-fresh" title="Save to Zotero"
-                               href="javascript:var d=document,s=d.createElement('script');s.src='https://www.zotero.org/bookmarklet/loader.js';(d.body?d.body:d.documentElement).appendChild(s);void(0);">
-                                <img src="//dergipark.ulakbim.gov.tr/assets/images/zotero.ico" width="16"> Zotero</a> |
-                            <a class="btn btn-fresh" title="Save to Mendeley"
-                               onclick="ga('send', 'event', 'article_tools', 'mendeley');"
-                               href="javascript:document.getElementsByTagName('body')[0].appendChild(document.createElement('script')).setAttribute('src','https://www.mendeley.com/minified/bookmarklet.js');">
-                                <img src="//dergipark.ulakbim.gov.tr/assets/images/mendeley.ico" width="16">
-                                Mendeley</a>
-
-                        </div>
-
-                        <div id="articleCitations">
-                            <h4 class="page-header">{{ "citations"|trans }}</h4>
-
-                            <div>
-                                <ul>
-                                    {% for citation in article.citations %}
-                                        <li>{{ citation.raw }}</li>
-                                    {% endfor %}
-                                </ul>
+                                <div>
+                                    <ul>
+                                        {% for citation in article.citations %}
+                                            <li>{{ citation.raw }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
 
-                        <div id="articleCitations">
+                        <div id="article_meta">
                             <h4 class="page-header">{{ "details"|trans }}</h4>
                             <table class="record_properties table">
-                                <tr>
-                                    <th>{{ "primaly_language"|trans }}</th>
-                                    <td>
-                                        <span class="label label-info">{{ article.primaryLanguage }}</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{ "subjects"|trans }}</th>
-                                    <td>
-                                        {{ article.subjects }}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{ 'otherid'|trans }}</th>
-                                    <td>{{ article.otherId }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ 'pubdate'|trans }}</th>
-                                    <td>{{ article.pubdateSeason }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ "part"|trans }}</th>
-                                    <td>{{ article.part }}</td>
-                                </tr>
+                                {% if article.primaryLanguage %}
+                                    <tr>
+                                        <th>{{ "primaly_language"|trans }}</th>
+                                        <td>
+                                            <span class="label label-info">{{ article.primaryLanguage }}</span>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if article.subjects %}
+                                    <tr>
+                                        <th>{{ "subjects"|trans }}</th>
+                                        <td>
+                                            {{ article.subjects }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                {% if article.otherId %}
+                                    <tr>
+                                        <th>{{ 'otherid'|trans }}</th>
+                                        <td>{{ article.otherId }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if article.pubdateSeason %}
+                                    <tr>
+                                        <th>{{ 'pubdate'|trans }}</th>
+                                        <td>{{ article.pubdateSeason }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if article.part %}
+                                    <tr>
+                                        <th>{{ "part"|trans }}</th>
+                                        <td>{{ article.part }}</td>
+                                    </tr>
+                                {% endif %}
                                 {% if article.section %}
                                     <tr>
                                         <th>{{ "section"|trans }}</th>
@@ -200,17 +192,25 @@
                                 {% endif %}
                             </table>
                         </div>
-                        <br>
 
-                        <div id="articlePreview">
-                            {% for file in article.articleFiles %}
-                                {% if file.type==0 %}
-                                    <iframe src="https://docs.google.com/gview?url=http://{{ base_host }}{{ download(file.file) }}&amp;embedded=true"
-                                            style="width:100%; height:500px;" frameborder="0"></iframe>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        {% if article.articleFiles|length > 0 %}
+                            <div id="articlePreview">
+                                {% for file in article.articleFiles %}
+                                    {% if file.type==0 %}
+                                        <a href="{{ base_host }}{{ download(file.file) }}"
+                                           class="embed btn btn-lg btn-primary"><i
+                                                    class="fa fa-download"></i> {{ file.title }}</a>
+                                    {% else %}
+                                        <a href="{{ base_host }}{{ download(file.file) }}"
+                                           class="btn btn-lg btn-primary"><i
+                                                    class="fa fa-download"></i> {{ file.title }}</a>
 
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
