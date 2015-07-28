@@ -2,7 +2,7 @@
 {% block title %}{{ 'title.authors'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     { 'title': 'title.authors'|trans}
     ] %}
     {{ breadcrumb(list) }}
