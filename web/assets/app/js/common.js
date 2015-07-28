@@ -347,4 +347,14 @@ $(document).ready(function () {
         $('#search-type').val(searchType);
     });
 
+    $('.tri').each(function () {
+        var elm = $(this);
+        var pattern = Trianglify({
+            height: 200,
+            width: 150,
+            cell_size: 3 + Math.random() * 100
+        });
+        elm.prop('src', pattern.png());
+    });
+
 }(jQuery));

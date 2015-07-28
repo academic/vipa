@@ -74,10 +74,15 @@
                                 <div class="thumbnail">
                                     <a href="{{ generateJournalUrl(journal) }}">
                                         {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
-                                        <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
-                                             data-src="holder.js/190x300/text:{{ journal.title }}"
-                                             class="img-responsive" alt=""/>
-                                        <span class="caption">{{ journal.title }}</span>
+                                        <img
+                                                {% if journal.image is not null and journal.image is defined %}
+                                                    src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
+                                                    class="img-responsive"
+                                                {% else %}
+                                                    class="img-responsive tri"
+                                                {% endif %}
+                                                height="200" width="150" alt="{{ journal.title }}"/>
+                                        <span class="caption">{{ journal.title }} | {{ journal.issn }}</span>
                                     </a>
                                 </div>
                             </div>
