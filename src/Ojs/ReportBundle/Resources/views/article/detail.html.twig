@@ -13,18 +13,8 @@
 
 {% block body -%}
     <div class="col-md-12">
-        <h2>{{ "Journal Stats"|trans }}</h2>
-        <div id="journal_stat"></div>
-        <hr>
-        <div id="article_stat">
-            <h2>{{ "Article stats"|trans }}</h2>
-            {{ grid(article_stats_grid) }}
-        </div>
-        <hr>
-        <div id="article_download_stat">
-            <h2>{{ "Article download stats"|trans }}</h2>
-            {{ grid(article_download_stats_grid) }}
-        </div>
+        <h2>{{ "View Stats"|trans }}</h2>
+        <div id="view_stat"></div>
     </div>
 {% endblock %}
 
@@ -41,18 +31,18 @@
     {% endjavascripts %}
     <script>
         $(function(){
-            var journal_stat = c3.generate({
-                bindto: "#journal_stat",
+            var view_stat = c3.generate({
+                bindto: "#view_stat",
                 data: {
                     x: 'x',
                     columns: [
                         ['x',
-                            {% for day,stat in journal_stats %}
+                            {% for day,stat in article_stats %}
                             '{{ day }}'{% if not loop.last %}, {% endif %}
                             {% endfor %}
                         ],
                         ['hit',
-                            {% for stat in journal_stats %}
+                            {% for stat in article_stats %}
                             {{ stat }}{% if not loop.last %}, {% endif %}
                             {% endfor %}
                         ]

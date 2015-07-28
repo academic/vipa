@@ -18,6 +18,8 @@
 
         <h3>Article languages</h3>
         <div id="article_languages"></div>
+        <h3>Article subjects</h3>
+        <div id="article_subjects"></div>
         <hr>
         <h3>Articles</h3>
         <div id="articles_by_day"></div>
@@ -42,6 +44,17 @@
                     columns: [
                         {% for language in aggs.language.buckets %}
                         ['{{ language.key }}',{{ language.doc_count }}]{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    ],
+                    type: 'pie'
+                }
+            });
+            var article_subjects = c3.generate({
+                bindto:"#article_subjects",
+                data: {
+                    columns: [
+                        {% for subject in aggs.subjects.buckets %}
+                        ['{{ subject.key }}',{{ subject.doc_count }}]{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     ],
                     type: 'pie'
