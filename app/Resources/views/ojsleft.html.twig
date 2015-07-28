@@ -164,6 +164,15 @@
                         </a>
                     {% endif %}
 
+                    {% if is_granted('VIEW', selectedJournal(), 'boards') %}
+                        <a class="list-group-item" href="{{ path('okul_bilisim_workflow_step_index', {'journalId': selectedJournal().id}) }}">
+                            <span style="color: #3c763d; margin-right: 3px;">
+                                <i class="fa fa-random"></i>
+                            </span>
+                            {{ "workflow.steps"|trans }}
+                        </a>
+                    {% endif %}
+
                     <a class="list-group-item" href="{{ path('reports_index') }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-file"></i>

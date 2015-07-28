@@ -17,8 +17,7 @@
     "tests"
   ],
   "resolutions": {
-    "bootstrap": "3.3.5",
-    "jquery": "2.1.3"
+    "select2": "4.*"
   },
   "dependencies": {
     "jquery": "*",
@@ -27,7 +26,7 @@
     "bootstrap-dialog": "*",
     "bootstrap3-wysihtml5-bower": "*",
     "select2-bootstrap-css": "*",
-    "select2": "3.5.1",
+    "select2": "4.*",
     "jquery-file-upload": "*",
     "jquery.inputmask": "*",
     "mustache": "*",

@@ -194,10 +194,15 @@ services:
     tags:
       - { name: form.type, alias: ojs_journalbundle_journaluser }
 
+  form.type.users_type:
+    class: Ojs\UserBundle\Form\Type\UsersFieldType
+    arguments: [ @doctrine.orm.entity_manager, @router, "2", "10" ]
+    tags:
+        - { name: form.type, alias: users_type }
+
   kernel.listener.command_dispatch:
     class: Ojs\CliBundle\EventListener\ConsoleExceptionListener
     arguments:
       logger: "@logger"
     tags:
       - { name: kernel.event_listener, event: console.exception }
-
