@@ -585,7 +585,7 @@ journal_licence.show: Göster
 journal_licence.singular: Lisanslar
 journal_licence.visible: 'Görünür mü?'
 journalcontact.list: 'Dergi İletişim Listesi'
-journalcontact.singular: 'Dergi İletişimi'
+journalcontact.singular: 'İletişim'
 journalid: 'Dergi ID'
 journalindex.list: 'Dergi Dizin Listesi'
 journals: Dergiler
@@ -776,7 +776,7 @@ pubdate: 'Published Date'
 publishdate: 'Publish Date'
 published: Published
 read.article: 'Read Article'
-read.lastissue: 'Read Last Issue'
+read.lastissue: 'Son Sayı'
 regenerate.apikey: 'Regenerate APIKEY'
 register: Kayıt Ol
 register.yourself.as.author: 'Register Yourself As Author'

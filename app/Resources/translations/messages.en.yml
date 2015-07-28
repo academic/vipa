@@ -585,7 +585,7 @@ journal_licence.show: Show
 journal_licence.singular: Licences
 journal_licence.visible: 'Is Visible?'
 journalcontact.list: 'Journal Contact List'
-journalcontact.singular: 'Journal Contact'
+journalcontact.singular: 'Contact'
 journalid: 'Journal ID'
 journalindex.list: 'Journal Index List'
 journals: Journals
@@ -776,7 +776,7 @@ pubdate: 'Published Date'
 publishdate: 'Publish Date'
 published: Published
 read.article: 'Read Article'
-read.lastissue: 'Read Last Issue'
+read.lastissue: 'Last Issue'
 regenerate.apikey: 'Regenerate APIKEY'
 register: Register
 register.yourself.as.author: 'Register Yourself As Author'
