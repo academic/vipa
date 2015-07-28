@@ -47,7 +47,7 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-collapse collapse in">
-                    <a class="list-group-item" href="{{ path('dashboard') }}">
+                    <a class="list-group-item" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
                         <i class="fa fa-dashboard"></i>
                         {{ "dashboard"|trans }}
                     </a>

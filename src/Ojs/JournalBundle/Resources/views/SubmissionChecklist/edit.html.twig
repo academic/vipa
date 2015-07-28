@@ -8,7 +8,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path('ojs_journal_checklist_index', {'journalId': selectedJournal().id}),'title': 'submission_checklist.show'|trans},
     {'title': 'title.submission_checklist_edit'|trans}
     ] %}
