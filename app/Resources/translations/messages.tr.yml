@@ -535,7 +535,7 @@ journal.path: 'Dergi Yolu'
 journal.period: 'Yayımlanma Sıklığı'
 journal.phone: 'Derginin İletişim Telefonu'
 journal.plural: Dergiler
-journal.register: 'Dergi Kaydet'
+journal.register: 'Dergi Başvur'
 journal.scope: Kapsam
 journal.settings.abstractTemplate.desc: 'Butona tıklayarak öntanımlı şablonlardan yükleyebilirsiniz.'
 journal.settings.mail: 'e-Posta Ayarları'
@@ -1285,7 +1285,7 @@ value: Value
 verified: Verified
 videos: Videos
 visualize: Visualize
-volume: Volume
+volume: Cilt
 waiting: Waiting
 wiki: Wiki
 workflow: Workflow
