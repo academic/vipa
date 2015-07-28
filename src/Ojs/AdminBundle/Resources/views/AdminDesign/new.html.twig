@@ -16,41 +16,8 @@
     {% stylesheets '@jqueryui_css' output="assets/prod/css/jqueryui_min.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-    <style>
-        .column {
-            width: 170px;
-            float: left;
-            padding-bottom: 5px;
-        }
 
-        .portlet {
-            margin: 0 1em 1em 0;
-            padding: 0.3em;
-        }
-
-        .portlet-header {
-            padding: 0.2em 0.3em;
-            margin-bottom: 0.5em;
-            position: relative;
-        }
-
-        .portlet-toggle {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            margin-top: -8px;
-        }
-
-        .portlet-content {
-            padding: 0.4em;
-        }
-
-        .portlet-placeholder {
-            border: 1px dotted black;
-            margin: 0 1em 1em 0;
-            height: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('vendor/gridmanager.js/dist/css/jquery.gridmanager-light.css') }}"/>
 
 {% endblock %}
 
@@ -59,55 +26,549 @@
 
     {{ form(form) }}
 
-    {% block portlets -%}
+    <p id="widgetNotSelected" class="text-danger hide">Please select a widget!</p>
+    <p id="widgetNoColumn" class="text-danger hide">Please select columns you want to add widget!</p>
+    <select id="widgetSelect">
+        <option value="default">Select widget ..</option>
+        <option value="cover">Cover</option>
+        <option value="description">Description</option>
+        <option value="journalMenu">Journal Menu</option>
+        <option value="socialButtons">Social Buttons</option>
+        <option value="journalIndexes">Journal's Indexes</option>
+        <option value="archive">Archive</option>
+        <option value="articles">Articles</option>
+        <option value="pages">Pages</option>
+        <option value="custom">Custom</option>
+    </select>
+    <button id="widgetButton" class="btn btn-sm btn-success">Add Widget</button>
+    <br>
+    <textarea id="customCode" class="hide"></textarea>
+    <br>
+    <br>
+
+    <div id="gridDesign">
         <div class="row">
-            <div class="column">
+            <div class="col-md-3">
+                    <img src="" data-src="holder.js/280x380/random/text: Örnek Dergi "
+                         class="img-responsive img-rounded float-left" alt=""/>
 
-                <div class="portlet">
-                    <div class="portlet-header">Feeds</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                    <a href="#" class="list-group-item ">
+                    <span class="pull-right">
+
+                    </span>
+                    <span class="row-fluid">
+                        <span class="col-md-6 nopadding">
+                            <span class="list-group-item-heading count"><i class="fa fa-eye"></i> 9068</span>
+                        </span>
+                        <span class="col-md-6 nopadding">
+                            <span class="list-group-item-heading count"><i class="fa fa-download"></i> 134069 </span>
+                        </span>
+                        <span class="clearfix"></span>
+                    </span>
+                    </a>
+                </div>
+            <div class="col-md-6">
+                    <a href=#" target="_blank">
+                        <small>http://ojs.io</small>
+                    </a>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum interdum leo quis pretium. Sed id suscipit est, vitae posuere ante. Aenean semper commodo molestie. Donec nulla est, aliquam sit amet feugiat eu, lobortis sed enim. Morbi vestibulum vitae nisl id aliquet. Donec felis urna, pharetra varius sollicitudin eu, placerat non quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer orci mi, viverra eu ligula sit amet, condimentum tincidunt magna.
+
+                    In semper laoreet sapien, ac tincidunt massa ullamcorper nec. Nunc condimentum velit at mi dapibus dignissim. Aenean tristique mi a enim mollis rhoncus. Aenean non metus dictum, tempus ante eget, suscipit orci. Vivamus gravida, neque sed fermentum molestie, nibh erat tristique magna, quis ornare libero dolor ac diam. Donec sodales sapien ut fringilla semper. Morbi tempus convallis condimentum. Phasellus pellentesque odio vitae felis pulvinar rutrum. Quisque eu cursus lacus, faucibus dignissim ligula. Vestibulum enim velit, elementum vel eros sed, tincidunt vehicula diam. Cras id metus egestas, finibus lacus et, aliquam sem. Pellentesque scelerisque congue velit, vitae consequat justo tincidunt at. In convallis sollicitudin tortor.
                 </div>
 
-                <div class="portlet">
-                    <div class="portlet-header">News</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            <div class="col-md-3">
+                <!--gm-editable-region-->
+                <div class="list-group journal-stats">
+                    <div class="list-group-item ">
+                        <form role="search" action="#" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}" name="q">
+
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <a href="#"
+                       class="list-group-item list-group-item-success"><h5><i
+                                    class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                    </a>
+
+
+                    <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+                    </a>
+
+                    <a href="#"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                    </a>
+
+                    <a href="#"
+                       class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
+                        </h5>
+                    </a>
+                    <a href="#"
+                       class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+                    </a>
+                    <div class="list-group-item ">
+                        <form role="search" action="#" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ "subscribe.this.journal"|trans }}" name="mail">
+
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-send"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--/gm-editable-region-->
+                <!--gm-editable-region-->
+                <div>
+                    <a href="#" class="list-group-item facebook-like">
+                        <h3 class="pull-right">
+                            <i class="fa fa-facebook-square"></i>
+                        </h3>
+                        <h5 class="list-group-item-heading count">
+                            {{ random(10000) }}</h5>
+
+                        <p class="list-group-item-text">
+                            Facebook Likes</p>
+                    </a>
+                    <a href="#" class="list-group-item google-plus">
+                        <h3 class="pull-right">
+                            <i class="fa fa-google-plus-square"></i>
+                        </h3>
+                        <h5 class="list-group-item-heading count">
+                            {{ random(10000) }}</h5>
+
+                        <p class="list-group-item-text">
+                            Google+</p>
+                    </a>
+                    <a href="#" class="list-group-item twitter">
+                        <h3 class="pull-right">
+                            <i class="fa fa-twitter-square"></i>
+                        </h3>
+                        <h5 class="list-group-item-heading count">
+                            1000</h5>
+
+                        <p class="list-group-item-text">
+                            Twitter Followers</p>
+                    </a>
+                </div>
+                <!--/gm-editable-region-->
+                <!--gm-editable-region-->
+                <div class="list-group">
+                        <div class="list-group-item">
+                            <a href="#" target="_blank">
+                                <h5>
+                                    <img src="" data-src="holder.js/60x40/random/text: Örnek Dergi "
+                                         class="img-responsive img-rounded float-left" alt=""/>
+                                    Index Adı
+                                </h5>
+                            </a>
+                        </div>
+                        <div class="list-group-item">
+                            <a href="#" target="_blank">
+                                <h5>
+                                    Index Adı 2
+                                </h5>
+                            </a>
+                        </div>
+                        <div class="list-group-item">
+                            <a href="#" target="_blank">
+                                <h5>
+                                    Index Adı 3
+                                </h5>
+                            </a>
+                        </div>
+                </div>
+                <!--/gm-editable-region-->
+            </div>
+            <div class="col-md-12">
+                <h5 class="page-header"><span class="panel-title">{{ "journal_index.issues"|trans }}</span></h5>
+            </div>
+            <div class="col-md-4">
+
+                <div id="issuetree">
+                    <ul>
+                        <li>
+                            <h4 title=" {{ "year"|trans }}"> 2014</h4>
+
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        {{ "volume"|trans }}  {{ random(10) }}
+                                        - {{ "issue.number"|trans }} {{ random(100) }}
+                                        <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                            {{ "special.issue"|trans }}
+                                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        {{ "volume"|trans }}  {{ random(10) }}
+                                        - {{ "issue.number"|trans }} {{ random(100) }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        {{ "volume"|trans }}  {{ random(10) }}
+                                        - {{ "issue.number"|trans }} {{ random(100) }}
+                                        <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                            {{ "special.issue"|trans }}
+                                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4 title=" {{ "year"|trans }}"> 2013</h4>
+
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        {{ "volume"|trans }}  {{ random(10) }}
+                                        - {{ "issue.number"|trans }} {{ random(100) }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        {{ "volume"|trans }}  {{ random(10) }}
+                                        - {{ "issue.number"|trans }} {{ random(100) }}
+                                        <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                            {{ "special.issue"|trans }}
+                                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <a class="btn btn-primary "
+                       href="#">
+                        <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
+
                 </div>
 
             </div>
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong>Last Issue Title</strong>
+                        {{ "issue.number"|trans }} {{ random(100) }} {{ "volume"|trans }} {{ random(10) }}
+                        - 27.06.2015</div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>
+                                <a href="#">Article Title</a>
+                            </li>
+                            <li>
+                                <a href="#">Article Title 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Article Title 3</a>
+                            </li>
+                        </ul>
 
-            <div class="column">
-
-                <div class="portlet">
-                    <div class="portlet-header">Shopping</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                    </div>
                 </div>
 
             </div>
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span class="panel-title">Sayfalar</span>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="#" target="_blank">Ref Link Instructions</a>
 
-            <div class="column">
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" target="_blank">Reader Information</a>
 
-                <div class="portlet">
-                    <div class="portlet-header">Links</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-                </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" target="_blank">Proof Instructions</a>
 
-                <div class="portlet">
-                    <div class="portlet-header">Images</div>
-                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" target="_blank">Copy Edit Instructions</a>
+
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" target="_blank">Author Information</a>
+
+                        </li>
+                    </ul>
                 </div>
 
             </div>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
-        </div>
-    {% endblock %}
+    </div>
 
     {% set back_path = 'ojs_admin_design_index' %}
     {% include '::actionbuttons.html.twig' %}
+
+    <!-- Widgets -->
+    <div id="cover" class="hide">
+        <img src="" data-src="holder.js/280x380/random/text: Örnek Dergi "
+             class="img-responsive img-rounded float-left" alt=""/>
+
+        <a href="#" class="list-group-item ">
+            <span class="pull-right">
+
+            </span>
+            <span class="row-fluid">
+                <span class="col-md-6 nopadding">
+                    <span class="list-group-item-heading count"><i class="fa fa-eye"></i> 9068</span>
+                </span>
+                <span class="col-md-6 nopadding">
+                    <span class="list-group-item-heading count"><i class="fa fa-download"></i> 134069 </span>
+                </span>
+                <span class="clearfix"></span>
+            </span>
+        </a>
+    </div>
+    <div id="description" class="hide">
+        <a href=#" target="_blank">
+            <small>http://ojs.io</small>
+        </a>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum interdum leo quis pretium. Sed id suscipit est, vitae posuere ante. Aenean semper commodo molestie. Donec nulla est, aliquam sit amet feugiat eu, lobortis sed enim. Morbi vestibulum vitae nisl id aliquet. Donec felis urna, pharetra varius sollicitudin eu, placerat non quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer orci mi, viverra eu ligula sit amet, condimentum tincidunt magna.
+
+        In semper laoreet sapien, ac tincidunt massa ullamcorper nec. Nunc condimentum velit at mi dapibus dignissim. Aenean tristique mi a enim mollis rhoncus. Aenean non metus dictum, tempus ante eget, suscipit orci. Vivamus gravida, neque sed fermentum molestie, nibh erat tristique magna, quis ornare libero dolor ac diam. Donec sodales sapien ut fringilla semper. Morbi tempus convallis condimentum. Phasellus pellentesque odio vitae felis pulvinar rutrum. Quisque eu cursus lacus, faucibus dignissim ligula. Vestibulum enim velit, elementum vel eros sed, tincidunt vehicula diam. Cras id metus egestas, finibus lacus et, aliquam sem. Pellentesque scelerisque congue velit, vitae consequat justo tincidunt at. In convallis sollicitudin tortor.
+    </div>
+    <div id="journalMenu" class="hide">
+        <div class="list-group journal-stats">
+            <div class="list-group-item ">
+                <form role="search" action="#" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}" name="q">
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <a href="#"
+               class="list-group-item list-group-item-success"><h5><i
+                            class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+            </a>
+
+
+            <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+            </a>
+
+            <a href="#"
+               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+            </a>
+
+            <a href="#"
+               class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
+                </h5>
+            </a>
+            <a href="#"
+               class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+            </a>
+            <div class="list-group-item ">
+                <form role="search" action="#" method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="{{ "subscribe.this.journal"|trans }}" name="mail">
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-send"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="socialButtons" class="hide">
+        <a href="#" class="list-group-item facebook-like">
+            <h3 class="pull-right">
+                <i class="fa fa-facebook-square"></i>
+            </h3>
+            <h5 class="list-group-item-heading count">
+                {{ random(10000) }}</h5>
+
+            <p class="list-group-item-text">
+                Facebook Likes</p>
+        </a>
+        <a href="#" class="list-group-item google-plus">
+            <h3 class="pull-right">
+                <i class="fa fa-google-plus-square"></i>
+            </h3>
+            <h5 class="list-group-item-heading count">
+                {{ random(10000) }}</h5>
+
+            <p class="list-group-item-text">
+                Google+</p>
+        </a>
+        <a href="#" class="list-group-item twitter">
+            <h3 class="pull-right">
+                <i class="fa fa-twitter-square"></i>
+            </h3>
+            <h5 class="list-group-item-heading count">
+                1000</h5>
+
+            <p class="list-group-item-text">
+                Twitter Followers</p>
+        </a>
+    </div>
+    <div id="journalIndexes" class="hide">
+        <div class="list-group">
+            <div class="list-group-item">
+                <a href="#" target="_blank">
+                    <h5>
+                        <img src="" data-src="holder.js/60x40/random/text: Örnek Dergi "
+                             class="img-responsive img-rounded float-left" alt=""/>
+                        Index Adı
+                    </h5>
+                </a>
+            </div>
+            <div class="list-group-item">
+                <a href="#" target="_blank">
+                    <h5>
+                        Index Adı 2
+                    </h5>
+                </a>
+            </div>
+            <div class="list-group-item">
+                <a href="#" target="_blank">
+                    <h5>
+                        Index Adı 3
+                    </h5>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="archive" class="hide">
+        <div id="issuetree">
+            <ul>
+                <li>
+                    <h4 title=" {{ "year"|trans }}"> 2014</h4>
+
+                    <ul>
+                        <li>
+                            <a href="#">
+                                {{ "volume"|trans }}  {{ random(10) }}
+                                - {{ "issue.number"|trans }} {{ random(100) }}
+                                <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                    {{ "special.issue"|trans }}
+                                                        </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ "volume"|trans }}  {{ random(10) }}
+                                - {{ "issue.number"|trans }} {{ random(100) }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ "volume"|trans }}  {{ random(10) }}
+                                - {{ "issue.number"|trans }} {{ random(100) }}
+                                <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                    {{ "special.issue"|trans }}
+                                                        </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4 title=" {{ "year"|trans }}"> 2013</h4>
+
+                    <ul>
+                        <li>
+                            <a href="#">
+                                {{ "volume"|trans }}  {{ random(10) }}
+                                - {{ "issue.number"|trans }} {{ random(100) }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                {{ "volume"|trans }}  {{ random(10) }}
+                                - {{ "issue.number"|trans }} {{ random(100) }}
+                                <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                    {{ "special.issue"|trans }}
+                                                        </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+            <a class="btn btn-primary "
+               href="#">
+                <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
+
+        </div>
+    </div>
+    <div id="articles" class="hide">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Last Issue Title</strong>
+                {{ "issue.number"|trans }} {{ random(100) }} {{ "volume"|trans }} {{ random(10) }}
+                - 27.06.2015</div>
+            <div class="panel-body">
+                <ul>
+                    <li>
+                        <a href="#">Article Title</a>
+                    </li>
+                    <li>
+                        <a href="#">Article Title 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Article Title 3</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div id="pages" class="hide">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="panel-title">Sayfalar</span>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="#" target="_blank">Ref Link Instructions</a>
+
+                </li>
+                <li class="list-group-item">
+                    <a href="#" target="_blank">Reader Information</a>
+
+                </li>
+                <li class="list-group-item">
+                    <a href="#" target="_blank">Proof Instructions</a>
+
+                </li>
+                <li class="list-group-item">
+                    <a href="#" target="_blank">Copy Edit Instructions</a>
+
+                </li>
+                <li class="list-group-item">
+                    <a href="#" target="_blank">Author Information</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts -%}
@@ -118,26 +579,65 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
+    <script src="{{ asset('vendor/gridmanager.js/dist/js/jquery.gridmanager.min.js') }}"></script>
     <script>
-        $(function () {
-            $(".column").sortable({
-                connectWith: ".column",
-                handle: ".portlet-header",
-                cancel: ".portlet-toggle",
-                placeholder: "portlet-placeholder ui-corner-all"
+        $(document).ready(function(){
+            $('#widgetNotSelected').hide();
+            $('#widgetNotSelected').removeClass('hide');
+            $('#widgetNoColumn').hide();
+            $('#widgetNoColumn').removeClass('hide');
+            $('#customCode').hide();
+            $('#customCode').removeClass('hide');
+            var gm = $("#gridDesign").gridmanager().data('gridmanager');
+
+            $('#widgetButton').on('click', function(e) {
+
+                if(!$('.'+ gm.options.gmEditClassSelected).length) {
+                    $('#widgetNoColumn').show();
+                    return;
+                }
+                else {
+                    $('#widgetNoColumn').hide();
+                }
+
+                if($('#widgetSelect').val() == 'default') {
+                    $('#widgetNotSelected').show();
+                    return;
+                }
+                else if($('#widgetSelect').val() == 'custom') {
+                    var widgetHtml = $('#customCode').val();
+                }
+                else {
+                    var widgetHtml = $('#' + $('#widgetSelect').val()).html();
+                }
+                $('#widgetNotSelected').hide();
+
+                var canvas=gm.$el.find("#" + gm.options.canvasId);
+                var cols = canvas.find(gm.options.colSelector);
+                $.each(cols, function(){
+                    if($(this).hasClass(gm.options.gmEditClassSelected)) {
+                        var cTagOpen = '<!--'+gm.options.gmEditRegion+'-->',
+                                cTagClose = '<!--\/'+gm.options.gmEditRegion+'-->',
+                                elem = null;
+                        $(('.'+gm.options.gmToolClass+':last'), this)
+                                .before(elem = $('<div>').addClass(gm.options.gmEditRegion+' '+gm.options.contentDraggableClass)
+                                        .append(gm.options.controlContentElem+'<div class="'+gm.options.gmContentRegion+'"></div>')).before(cTagClose).prev().before(cTagOpen);
+                        gm.initNewContentElem(elem);
+                        $('.'+gm.options.gmEditRegion, this).last().append(widgetHtml);
+                    }
+                });
             });
 
-            $(".portlet")
-                    .addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-                    .find(".portlet-header")
-                    .addClass("ui-widget-header ui-corner-all")
-                    .prepend("<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-            $(".portlet-toggle").click(function () {
-                var icon = $(this);
-                icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
-                icon.closest(".portlet").find(".portlet-content").toggle();
+            $('#widgetSelect').on('change', function(){
+                if($(this).val() != 'custom') {
+                    $('#customCode').slideUp();
+                }
+                else {
+                    $('#customCode').slideDown();
+                }
             });
         });
+
+
     </script>
 {% endblock %}
