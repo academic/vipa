@@ -83,6 +83,11 @@ ojs_journal_index:
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalIndex }
 
+ojs_journal_index_search:
+    path:  /{slug}/search
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Search:inJournal }
+
 ojs_journal_index_articles:
     path: /{slug}/articles
     host: "{institution}.%base_host%"

@@ -103,7 +103,7 @@
 
                 <div class="list-group journal-stats">
                     <div class="list-group-item ">
-                        <form role="search" action="/search" method="get">
+                        <form role="search" action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}" method="get" id="search_on_journal">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}" name="q">
 
