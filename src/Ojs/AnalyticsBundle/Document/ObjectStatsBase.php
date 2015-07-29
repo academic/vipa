@@ -27,7 +27,7 @@ class ObjectStatsBase
     public $referer;
 
     /**
-     * @MongoDB\Date
+     * @MongoDB\Int
      */
     public $logDate;
 
@@ -90,7 +90,7 @@ class ObjectStatsBase
     /**
      * Get logDate
      *
-     * @return @MongoDb\Date $logDate
+     * @return int $logDate
      */
     public function getLogDate()
     {
@@ -100,7 +100,7 @@ class ObjectStatsBase
     /**
      * Set logDate
      *
-     * @param  $logDate
+     * @param  int $logDate
      * @return self
      */
     public function setLogDate($logDate)
