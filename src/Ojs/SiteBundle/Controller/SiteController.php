@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Elastica\Query\MatchAll;
 use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper\FileHelper;
@@ -64,31 +65,12 @@ class SiteController extends Controller
             'institution' => 0,
             'user' => 0,
         ];
-        /** @var Sums[] $sums */
-        $sums = $em->getRepository('OjsJournalBundle:Sums')->findAll();
-        foreach ($sums as $sum) {
-            $total = $sum->getSum();
-            if ($sum->getEntity() === 'OjsJournalBundle:Journal') {
-                $data['stats']['journal'] = $total;
-                continue;
-            }
-            if ($sum->getEntity() === 'OjsJournalBundle:Article') {
-                $data['stats']['article'] = $total;
-                continue;
-            }
-            if ($sum->getEntity() === 'OjsJournalBundle:Subject') {
-                $data['stats']['subject'] = $total;
-                continue;
-            }
-            if ($sum->getEntity() === 'OjsJournalBundle:Institution') {
-                $data['stats']['institution'] = $total;
-                continue;
-            }
-            if ($sum->getEntity() === 'OjsUserBundle:User') {
-                $data['stats']['user'] = $total;
-                continue;
-            }
-        }
+        $data['stats']['journal'] = $this->get('fos_elastica.index.search.journal')->count(new MatchAll());
+        $data['stats']['article'] = $this->get('fos_elastica.index.search.articles')->count(new MatchAll());
+        $data['stats']['subject'] = $this->get('fos_elastica.index.search.subject')->count(new MatchAll());
+        $data['stats']['institution'] = $this->get('fos_elastica.index.search.institution')->count(new MatchAll());
+        $data['stats']['user'] = $this->get('fos_elastica.index.search.user')->count(new MatchAll());
+
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
@@ -299,7 +281,7 @@ class SiteController extends Controller
             $email,
             $emailConstraint
         );
-        if(count($errors)>0 || empty($email)){
+        if (count($errors) > 0 || empty($email)) {
             $this->errorFlashBag('invalid.mail');
             return $this->redirect($referer);
         }
