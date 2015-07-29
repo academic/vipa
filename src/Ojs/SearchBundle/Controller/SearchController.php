@@ -46,7 +46,6 @@ class SearchController extends Controller
 
             $fieldQuery = new Query\MultiMatch();
             $fieldQuery->setFields(['_all']);
-            $fieldQuery->setType('phrase_prefix');
             $fieldQuery->setQuery($query);
             $boolQuery->addMust($fieldQuery);
         } elseif ($queryType == 'advanced') {
@@ -58,7 +57,6 @@ class SearchController extends Controller
                 $advancedFieldQuery->setFields(
                     [$searchTerm['searchField']]
                 );
-                $advancedFieldQuery->setType('phrase_prefix');
                 $advancedFieldQuery->setQuery($searchTerm['searchText']);
                 if ($condition == 'AND') {
                     $boolQuery->addMust($advancedFieldQuery);
@@ -117,7 +115,7 @@ class SearchController extends Controller
 
         //get journal aggregation
         $journalAgg = new Aggregation\Terms('journals');
-        $journalAgg->setField('userJournalRoles.journal.title');
+        $journalAgg->setField('journal.title.raw');
         $journalAgg->setOrder('_term', 'asc');
         $journalAgg->setSize(0);
         $searchQuery->addAggregation($journalAgg);
@@ -227,6 +225,7 @@ class SearchController extends Controller
     {
         $search = $this->container->get('fos_elastica.index.search');
         $mapping = $search->getMapping();
+
         return $this->render("OjsSearchBundle:Search:advanced.html.twig", [
             'mapping' => $mapping
         ]);
