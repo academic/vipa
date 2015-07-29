@@ -24,6 +24,7 @@ Ojs\JournalBundle\Entity\JournalContact:
                 joinColumn:
                   name: journal_id
                   referencedColumnName: id
+                inversedBy: journalContacts
           contactType:
                 targetEntity: Ojs\JournalBundle\Entity\ContactTypes
                 joinColumn:
