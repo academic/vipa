@@ -72,6 +72,9 @@ ojs_sitemap:
     prefix: /sitemap
     resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"
 
+ojs_search:
+    resource: "@OjsSiteBundle/Resources/config/routing/search.yml"
+
 #institution subdomain
 ojs_institution_page:
     path:  /
