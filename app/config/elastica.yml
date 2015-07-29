@@ -17,13 +17,18 @@ fos_elastica:
       types:
         user:
           mappings:
-            username: ~
-            firstName: ~
-            lastName: ~
-            email: ~
-            tags: ~
+            username:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              type: string
+            tags:
+              analyzer: "keyword"
+              type: string
             subjects: {"index": "not_analyzed"}
-            avatar: ~
             title: {"index": "not_analyzed"}
             gender: {"index": "not_analyzed"}
             created:
@@ -37,12 +42,15 @@ fos_elastica:
                   type: object
                   properties:
                     title:
+                      type: string
                       index: not_analyzed
                     id:
+                      type: integer
                       index: not_analyzed
                 roles:
                   index: not_analyzed
-          persistence: 
+                  type: string
+          persistence:
             driver: orm
             model: Ojs\UserBundle\Entity\User
             provider: ~
@@ -53,7 +61,9 @@ fos_elastica:
         articles:
           mappings:
             subjects: { type: string, boost: 4,analyzer: stopwords}
-            status: ~
+            status:
+              type: string
+              index: not_analyzed
             keywords: { type: string, boost: 4}
             subtitle: { type: string, boost: 3}
             title: { type: string, boost: 5 }
@@ -67,42 +77,54 @@ fos_elastica:
             citations:
               type: "object"
               properties:
-                raw: { boost: 2 }
-                id:  { boost: 1 }
+                raw: { boost: 2 ,type: string}
+                id:  { boost: 1 ,type: integer}
             articleAuthors:
               type: "object"
               properties:
                 author:
                   type: "object"
                   properties:
-                    id: ~
-                    firstName: ~
-                    lastName: ~
-                    middleName: ~
-                    email: ~
-                    tags: ~
+                    id:
+                      type: integer
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    middleName:
+                      type: string
+                    email:
+                      type: string
+                    tags:
+                      analyzer: "keyword"
+                      type: string
             attributes:
               type: "object"
               properties:
-                value: ~
+                value:
+                  type: string
             journal:
               type: "object"
               properties:
                 id:
                   index: not_analyzed
-                slug: ~
+                slug:
+                  type: string
                 institution:
                   type: object
                   properties:
-                    slug: ~
+                    slug:
+                      type: string
             issue:
               type: "object"
               properties:
                 id:
+                  type: integer
                   index: not_analyzed
                 datePublished:
                   type: date
-                published: ~
+                published:
+                  type: boolean
                 created:
                   type: date
                 createdBy:
@@ -114,6 +136,7 @@ fos_elastica:
               type: "object"
               properties:
                 title:
+                  type: string
                   index: not_analyzed
             tags:
               analyzer: "keyword"
@@ -131,9 +154,12 @@ fos_elastica:
             tags:
               analyzer: "keyword"
               type: string
-            name: ~
-            slug: ~
-            verified: ~
+            name:
+              type: string
+            slug:
+              type: string
+            verified:
+              type: boolean
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Institution
@@ -144,21 +170,25 @@ fos_elastica:
               debug_logging: false
         issue:
           mappings:
-            title: ~
+            title:
+              type: string
             tags:
               analyzer: "keyword"
               type: string
             journal:
               type: "object"
               properties:
-
-                slug: ~
-                id: ~
-                titleAbbr: ~
+                slug:
+                  type: string
+                id:
+                  type: integer
+                titleAbbr:
+                  type: string
                 institution:
                   type: object
                   properties:
-                    slug: ~
+                    slug:
+                      type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Issue
@@ -169,16 +199,16 @@ fos_elastica:
               debug_logging: false
         journal:
           mappings:
-            id: { type: int }
+            id: { type: integer }
             title:
-              type: multi_field
+              type: string
               fields:
                 raw:
                   type: string
                   index: not_analyzed
-            slug: ~
-            subtitle: ~
-            description: ~
+            slug: { type: string }
+            subtitle: { type: string }
+            description: { type: string }
             tags:
               analyzer: "keyword"
               type: string
@@ -187,13 +217,13 @@ fos_elastica:
             subjects:
               type: object
               properties:
-                id: ~
-                subject: ~
+                id: { type: integer }
+                subject: { type: string }
             institution:
               type: object
               properties:
-                name: ~
-                slug: ~
+                name: { type: string }
+                slug: { type: string }
                 institution_type:
                   type: object
                   properties:
@@ -208,7 +238,8 @@ fos_elastica:
               debug_logging: false
         subject:
           mappings:
-            subject: ~
+            subject:
+              type: string
             tags:
               analyzer: "keyword"
               type: string
@@ -222,7 +253,8 @@ fos_elastica:
               debug_logging: false
         country:
           mappings:
-            name: ~
+            name:
+              type: string
           persistence:
             driver: orm
             model: Ojs\LocationBundle\Entity\Country
@@ -233,7 +265,8 @@ fos_elastica:
               debug_logging: false
         province:
           mappings:
-            name: ~
+            name:
+              type: string
           persistence:
             driver: orm
             model: Ojs\LocationBundle\Entity\Province
@@ -244,8 +277,10 @@ fos_elastica:
               debug_logging: false
         citation:
           mappings:
-            raw: ~
-            type: ~
+            raw:
+              type: string
+            type:
+              type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Citation
@@ -254,8 +289,10 @@ fos_elastica:
             finder: ~
         file:
           mappings:
-            id: ~
-            name: ~
+            id:
+              type: integer
+            name:
+              type: string
             tags:
               analyzer: "keyword"
               type: string
@@ -267,8 +304,10 @@ fos_elastica:
             finder: ~
         page:
           mappings:
-            id: ~
-            title: ~
+            id:
+              type: integer
+            title:
+              type: string
             tags:
               analyzer: "keyword"
               type: string
@@ -280,39 +319,51 @@ fos_elastica:
             finder: ~
         author:
           mappings:
-            id: ~
-            firstName: ~
-            lastName: ~
-            middleName: ~
-            email: ~
+            id:
+              type: integer
+            firstName:
+              type: string
+            lastName:
+              type: string
+            middleName:
+              type: string
+            email:
+              type: string
             tags:
               analyzer: "keyword"
               type: string
             user:
               type: object
               properties:
-                id: ~
-                username: ~
+                id:
+                  type: integer
+                username:
+                  type: string
             articleAuthors:
               type: object
               properties:
                 article:
                   type: object
                   properties:
-                    id: ~
+                    id:
+                      type: integer
                     issue:
                       type: "object"
                       properties:
-                        id: ~
+                        id:
+                          type: integer
                     journal:
                       type: object
                       properties:
-                        id: ~
-                        slug: ~
+                        id:
+                          type: integer
+                        slug:
+                          type: string
                         institution:
                           type: object
                           properties:
-                            slug: ~
+                            slug:
+                              type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Author
