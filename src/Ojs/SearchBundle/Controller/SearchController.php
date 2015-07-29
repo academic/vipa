@@ -115,11 +115,10 @@ class SearchController extends Controller
 
         //get journal aggregation
         $journalAgg = new Aggregation\Terms('journals');
-        $journalAgg->setField('journal.title.raw');
+        $journalAgg->setField('journal.raw');
         $journalAgg->setOrder('_term', 'asc');
         $journalAgg->setSize(0);
         $searchQuery->addAggregation($journalAgg);
-
         /**
          * @var ResultSet $resultData
          */
