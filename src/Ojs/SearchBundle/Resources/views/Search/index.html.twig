@@ -108,7 +108,6 @@
                         </div>
                     {% endif %}
                     {% endif %}
-                    {% if subjects is defined %}
                         {% if journals is not empty %}
                             <div class="panel panel-primary">
                                 <div class="panel-heading"><h5>{{ 'journals'|trans }}</h5></div>
@@ -141,7 +140,6 @@
                                 </ul>
                             </div>
                         {% endif %}
-                    {% endif %}
                     {% if subjects is defined and roles is not empty %}
                         <div class="panel panel-primary">
                             <div class="panel-heading"><h5>{{ 'roles'|trans }}</h5></div>
