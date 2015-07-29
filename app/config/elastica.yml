@@ -70,10 +70,6 @@ fos_elastica:
             locale:
               type: string
               index: not_analyzed
-            created:
-              type: date
-            submission_date:
-              type: date
             citations:
               type: "object"
               properties:
@@ -332,13 +328,6 @@ fos_elastica:
             tags:
               analyzer: "keyword"
               type: string
-            user:
-              type: object
-              properties:
-                id:
-                  type: integer
-                username:
-                  type: string
             articleAuthors:
               type: object
               properties:
