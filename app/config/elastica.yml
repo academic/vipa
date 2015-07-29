@@ -169,7 +169,13 @@ fos_elastica:
               debug_logging: false
         journal:
           mappings:
-            title: ~
+            id: { type: int }
+            title:
+              type: multi_field
+              fields:
+                raw:
+                  type: string
+                  index: not_analyzed
             slug: ~
             subtitle: ~
             description: ~
