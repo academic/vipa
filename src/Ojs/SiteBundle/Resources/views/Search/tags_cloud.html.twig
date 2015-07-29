@@ -1,0 +1,27 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.search'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
+    {'title': 'tags.cloud'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <hgroup class="page-header">
+            <h2 class="lead">
+                Tags Cloud
+            </h2>
+        </hgroup>
+
+        <section class="col-xs-6 col-sm-6 col-md-9">
+            {% for tag in tags %}
+                <a href="/search?q={{ tag }}&type=tag" class="btn btn-default">#{{ tag }}</a>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}
