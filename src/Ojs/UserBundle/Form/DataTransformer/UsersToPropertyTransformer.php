@@ -25,12 +25,14 @@ class UsersToPropertyTransformer implements DataTransformerInterface
     /**
      * Transform initial entities as json with id and text
      *
-     * @param User[] $users
+     * @param User[]|null $users
      * @return string
      */
     public function transform($users)
     {
-
+        if(is_null($users)) {
+            return array();
+        }
         // return an array of initial values as html encoded json
         $data = array();
 
