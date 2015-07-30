@@ -40,13 +40,3 @@
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-
-.column { float: left; }
-.size-1of4 { width: 25%; }
-#journals[data-columns]::before {
-    content: '4 .column.size-1of4';
-}
-
-.thumbnail {
-    margin-left: 3px;
-}

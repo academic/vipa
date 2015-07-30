@@ -21,7 +21,7 @@
 
 {% block body %}
     <div class="container">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading"><h4>{{ 'title.institution_types'|trans }}</h4></div>
@@ -140,13 +140,16 @@
             </div>
         </div>
 
-        <div id="journals" class="col-md-9" data-columns>
+        <div id="journals" class="col-md-10">
             {% for journal in journals %}
-                <div class="thumbnail">
+                {% if loop.index % 3 == 1 %}
+                    <div class="row">
+                {% endif %}
+                <div class="col-md-4 thumbnail">
                     <img src="{{ journal.logo is not defined ? '#' :
                             ('/uploads/journalfiles/' ~ imagePath(journal.logo))
                             | imagine_filter('journal_cover') }}"
-                         data-src="holder.js/190x300/text: {{ journal.title }}"
+                         data-src="holder.js/300x190/text: {{ journal.title }}"
                          class="img-responsive" alt="{{ journal.title }}">
 
                     <div class="caption">
@@ -161,6 +164,9 @@
                         </div>
                     </div>
                 </div>
+                {% if loop.index % 3 == 0 %}
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
 
@@ -169,7 +175,25 @@
                 {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
             </ul>
         </div>
+
+        <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('#journals .row').each(function() {
+                    var tallest = 0;
+                    var captions = $(this).find('.thumbnail .caption');
+                    captions.each(function() {
+                        if ($(this).height() > tallest) {
+                            tallest = $(this).height();
+                        }
+                    });
+
+                    captions.each(function() {
+                        $(this).height(tallest);
+                    });
+                });
+            });
+        </script>
     </div>
 
-    <script src="{{ asset('vendor/salvattore/dist/salvattore.min.js') }}"></script>
 {% endblock %}
