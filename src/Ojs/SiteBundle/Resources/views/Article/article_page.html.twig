@@ -199,11 +199,11 @@
                             <div id="articlePreview">
                                 {% for file in article.articleFiles %}
                                     {% if file.type==0 %}
-                                        <a href="{{ base_host }}{{ download(file.file) }}"
+                                        <a href="{{ download(file.file) }}"
                                            class="embed btn btn-lg btn-primary"><i
                                                     class="fa fa-download"></i> {{ file.title }}</a>
                                     {% else %}
-                                        <a href="{{ base_host }}{{ download(file.file) }}"
+                                        <a href="{{ download(file.file) }}"
                                            class="btn btn-lg btn-primary"><i
                                                     class="fa fa-download"></i> {{ file.title }}</a>
 
