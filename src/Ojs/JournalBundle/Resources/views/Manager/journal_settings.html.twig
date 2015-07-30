@@ -139,9 +139,9 @@
             </div>
             <div class="btn-group">
                 {% block cancelbtn %}
-                    <button class="btn btn-default" href="{{ path('ojs_journal_dashboard_index') }}">
+                    <a class="btn btn-default" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
                         <i class="fa fa-backward"></i> {{ "cancel"|trans }}
-                    </button>
+                    </a>
                 {% endblock %}
                 <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
                     {{ "update"|trans }}
