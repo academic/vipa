@@ -43,7 +43,7 @@ class AdminJournalController extends Controller
         $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'change_selected_journal'))
             ->setRouteParameters('id')
-            ->setRouteParametersMapping(array('id' => 'journal_id'))
+            ->setRouteParametersMapping(array('id' => 'journalId'))
             ->setAttributes(
                 array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage")
             );
@@ -87,7 +87,7 @@ class AdminJournalController extends Controller
         $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'change_selected_journal'))
             ->setRouteParameters('id')
-            ->setRouteParametersMapping(array('id' => 'journal_id'))
+            ->setRouteParametersMapping(array('id' => 'journalId'))
             ->setAttributes(
                 array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage")
             );
