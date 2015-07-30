@@ -289,9 +289,6 @@ fos_elastica:
               type: integer
             name:
               type: string
-            tags:
-              analyzer: "keyword"
-              type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\File
