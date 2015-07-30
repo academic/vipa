@@ -46,7 +46,6 @@
     "typeahead.js": "*",
     "jquery-locationpicker-plugin": "*",
     "c3": "~0.4.10",
-    "salvattore": "*",
     "trianglify": "*",
     "gridmanager.js": "*"
   }
