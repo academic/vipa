@@ -2,15 +2,20 @@
 {% block title %}{{ 'title.login'|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
-
-    <div class="row">
-
-
-        <div class="container" style="margin-top:60px">
-            <div class="col-md-4 col-sm-6 col-sm-offset-3 col-md-offset-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 hidden-xs">
+                <p class="lead">[[register_advantages_text]]</p>
+                <ul class="list-unstyled">
+                    <li><span class="fa fa-check text-success"></span> advantage #1</li>
+                </ul>
+                <p><a href="{{ path('register') }}" class="btn btn-success btn-bg"><i
+                                class="fa fa-user"></i> {{ "register"|trans }}</a></p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h1 class="panel-title"><i class="fa fa-key"></i> {{ "sign.in"|trans }}</h1>
+                        <h1 class="panel-title"><i class="fa fa-key"></i> {{ "login"|trans }}</h1>
                     </div>
                     <div class="panel-body">
                         <form action="{{ path('login_check') }}" method="post">
@@ -22,32 +27,31 @@
                             {% endif %}
                             <div class="form-group">
                                 <label for="username">{{ "username.or.email"|trans }}</label>
-                                <input tabindex="1" autofocus="autofocus" name="_username" value="{{ last_username }}"
+                                <input tabindex="1" autofocus="autofocus" autocomplete="off" name="_username"
+                                       value="{{ last_username }}"
                                        type="text"
-                                       class="form-control" style="border-radius:0" id="username"
+                                       class="form-control" id="username"
                                        placeholder="{{ "username"|trans }}">
                             </div>
                             <div class="form-group">
                                 <label for="password">{{ "password"|trans }}
                                     <a tabindex="3"
                                        href="{{ url('ojs_user_forgot_password') }}">({{ "forgot.password"|trans }})</a></label>
-                                <input tabindex="2" name="_password" type="password" class="form-control"
-                                       style="border-radius:0" id="password" placeholder="{{ "password"|trans }}">
+                                <input tabindex="2" name="_password" type="password" autocomplete="off"
+                                       class="form-control"
+                                       id="password" placeholder="{{ "password"|trans }}">
                             </div>
 
-                            <a href="{{ path('register') }}"
-                               class="btn btn-sm btn-default">{{ "user.new"|trans }}</a>
                             <a class="btn btn-sm btn-warning"
                                href="{{ orcidLoginUrl() }}">{{ "orcid.login"|trans }}</a>
                             <button type="submit" class="btn btn-sm btn-primary pull-right">
-                                <i class="fa fa-sign-in"></i> {{ "sign.in"|trans }}
+                                <i class="fa fa-sign-in"></i> {{ "login"|trans }}
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 {% endblock %}
 
