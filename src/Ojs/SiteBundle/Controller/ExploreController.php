@@ -67,7 +67,7 @@ class ExploreController extends Controller
 
         $adapter = new ElasticaAdapter($journalSearcher, $journalQuery);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(20);
+        $pagerfanta->setMaxPerPage(21);
         $pagerfanta->setCurrentPage($page);
         $journals = $pagerfanta->getCurrentPageResults();
 
