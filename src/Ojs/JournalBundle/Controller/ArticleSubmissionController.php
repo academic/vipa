@@ -22,10 +22,10 @@ use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step2Type;
 use Ojs\JournalBundle\Form\Type\ArticleSubmission\Step4CitationType;
-use OkulBilisim\ApplicationBundle\Event\ArticleSubmitEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Lists all new Article submissions entities.
-     * @param  bool $all
+     * @param  bool     $all
      * @return Response
      */
     public function indexAction($all = false)
@@ -63,7 +63,6 @@ class ArticleSubmissionController extends Controller
 
         $source2 = new Entity('OjsJournalBundle:ArticleSubmissionProgress');
         $source2TableAlias = $source2->getTableAlias();
-
 
         if ($all) {
             $source1->manipulateQuery(
@@ -170,7 +169,7 @@ class ArticleSubmissionController extends Controller
             array(
                 'journal' => $journal,
                 'step' => '1',
-                'checklist' => []
+                'checklist' => [],
             )
         );
     }
@@ -181,7 +180,7 @@ class ArticleSubmissionController extends Controller
      * @return Response
      * @throws AccessDeniedException
      */
-    public function resumeAction(Request $request, $submissionId)
+    public function resumeAction($submissionId)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
@@ -202,8 +201,8 @@ class ArticleSubmissionController extends Controller
         }
 
         $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
-        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
-        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
+        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findBy(array('article' => $article));
+        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findBy(array('article' => $article));
         $checklist = json_decode($articleSubmission->getChecklist(), true);
         $step2Form = $this->createForm(
             new Step2Type(),
@@ -218,7 +217,7 @@ class ArticleSubmissionController extends Controller
                 $citation,
                 [
                     'method' => 'POST',
-                    'citationTypes' => $citationTypes
+                    'citationTypes' => $citationTypes,
                 ]
             )->createView();
         }
@@ -227,7 +226,7 @@ class ArticleSubmissionController extends Controller
             new Citation(),
             [
                 'method' => 'POST',
-                'citationTypes' => $citationTypes
+                'citationTypes' => $citationTypes,
             ]
         )->createView();
         $data = [
@@ -243,7 +242,7 @@ class ArticleSubmissionController extends Controller
             'checklist' => $checklist,
             'step' => $articleSubmission->getCurrentStep(),
             'step2Form' => $step2Form,
-            'articleFiles' => $articleFiles
+            'articleFiles' => $articleFiles,
         ];
 
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
@@ -251,8 +250,8 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Step Control Action
-     * @param Request $request
-     * @param null $step
+     * @param  Request               $request
+     * @param  null                  $step
      * @return JsonResponse|Response
      */
     public function stepControlAction(Request $request, $step = null)
@@ -274,7 +273,7 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param  Request      $request
      * @return JsonResponse
      */
     private function step1Control(Request $request)
@@ -319,16 +318,16 @@ class ArticleSubmissionController extends Controller
                 'resumeLink' => $this->generateUrl(
                         'article_submission_resume',
                         [
-                            'submissionId' => $articleSubmission->getId()
+                            'submissionId' => $articleSubmission->getId(),
                         ]
-                    ).'#2'
+                    ).'#2',
             ]
         );
     }
 
     /**
      * submit new article - step2 - get article base data without author info.
-     * @param  Request $request
+     * @param  Request      $request
      * @return JsonResponse
      */
     private function step2Control(Request $request)
@@ -357,7 +356,7 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param  Request               $request
      * @return JsonResponse|Response
      */
     private function step3Control(Request $request)
@@ -369,7 +368,7 @@ class ArticleSubmissionController extends Controller
         $this->throw404IfNotFound($articleSubmission);
         $article = $articleSubmission->getArticle();
         $authorsData = json_decode($request->request->get('authorsData'));
-        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findByArticle($article);
+        $articleAuthors = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findBy(array('article' => $article));
         $authorIds = [];
         if (empty($authorsData)) {
             return new Response('Missing argument', 400);
@@ -389,7 +388,7 @@ class ArticleSubmissionController extends Controller
                     $articleAuthor = $em->getRepository('OjsJournalBundle:ArticleAuthor')->findOneBy(
                         [
                             'article' => $article,
-                            'author' => $author
+                            'author' => $author,
                         ]
                     );
                 }
@@ -434,7 +433,7 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param  Request               $request
      * @return JsonResponse|Response
      */
     private function step4Control(Request $request)
@@ -449,7 +448,6 @@ class ArticleSubmissionController extends Controller
         $article->getCitations()->clear();
         $citationIds = [];
         foreach ($citationsData as $citationData) {
-
             if (empty($citationData['article_submission_citation[id]'])) {
                 $citation = new Citation();
             } else {
@@ -474,7 +472,7 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param  Request               $request
      * @return JsonResponse|Response
      */
     private function step5Control(Request $request)
@@ -491,7 +489,7 @@ class ArticleSubmissionController extends Controller
         }
 
         $article = $articleSubmission->getArticle();
-        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
+        $articleFiles = $em->getRepository('OjsJournalBundle:ArticleFile')->findBy(array('article' => $article));
         $fileIds = [];
         $count_files_data = count($filesData);
         for ($i = 0; $i < $count_files_data; $i++) {
@@ -508,7 +506,7 @@ class ArticleSubmissionController extends Controller
                     $articleFile = $em->getRepository('OjsJournalBundle:ArticleFile')->findOneBy(
                         [
                             'article' => $article,
-                            'file' => $file
+                            'file' => $file,
                         ]
                     );
                 }
@@ -545,7 +543,7 @@ class ArticleSubmissionController extends Controller
                 'redirect' => $this->generateUrl(
                     'article_submission_preview',
                     array('submissionId' => $submissionId)
-                )
+                ),
             )
         );
     }
@@ -556,7 +554,7 @@ class ArticleSubmissionController extends Controller
      * @return Response
      * @throws AccessDeniedException
      */
-    public function previewAction(Request $request, $submissionId)
+    public function previewAction($submissionId)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
@@ -578,14 +576,14 @@ class ArticleSubmissionController extends Controller
                 'submissionData' => $articleSubmission,
                 'journal' => $journal,
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
-                'translations' => $translations
+                'translations' => $translations,
             )
         );
     }
 
     /**
      * Finish action for an article submission.
-     * @param  Request $request
+     * @param  Request                                     $request
      * @return RedirectResponse
      * @throws NotFoundHttpException|AccessDeniedException
      */
@@ -609,7 +607,7 @@ class ArticleSubmissionController extends Controller
         $articleSubmission->setSubmitted(1);
         $em->flush();
 
-        $response = $this->redirectToRoute('article_submissions_me');;
+        $response = $this->redirectToRoute('article_submissions_me');
         $event = new ArticleSubmitEvent($article, $request, $response);
         $dispatcher->dispatch(ArticleSubmitEvents::SUBMIT_AFTER, $event);
 
@@ -618,13 +616,11 @@ class ArticleSubmissionController extends Controller
         }
 
         return $response;
-
-
     }
 
     /**
      * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
-     * @param  Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function confirmRoleAction(Request $request)
@@ -649,7 +645,7 @@ class ArticleSubmissionController extends Controller
      * Checks if the user is an author of this journal.
      * If he/she is not, then adds the user as an author to this journal.
      *
-     * @param  Journal $journal
+     * @param  Journal          $journal
      * @return JournalUser|null
      */
     private function checkAndRegisterUserAuthorRole(Journal $journal)
@@ -688,7 +684,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      *
-     * @param  integer $journalId
+     * @param  integer          $journalId
      * @return RedirectResponse
      */
     public function newWithJournalAction($journalId)
@@ -709,7 +705,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Returns requested orcid user profile details
-     * @param  Request $request
+     * @param  Request      $request
      * @return JsonResponse
      * @throws \Exception
      */
