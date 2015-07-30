@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\ORMException;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
@@ -354,82 +353,6 @@ class AdminUserController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('ojs_admin_user_unblock'));
-    }
-
-    /**
-     * @param  Request                   $request
-     * @param  User                      $user
-     * @return RedirectResponse|Response
-     */
-    public function sendMailAction(Request $request, User $user)
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
-        $serializer = $this->get('serializer');
-        $session = $this->get('session');
-        if ($request->isMethod('POST')) {
-            $mailData = $request->get('mail');
-            $mailer = $this->get('mailer');
-            $message = $mailer->createMessage()
-                ->setFrom($this->container->getParameter('system_email'))
-                ->setTo($user->getEmail())
-                ->setSubject($mailData['subject'])
-                ->setBody($mailData['body'])
-                ->setContentType('text/html');
-            $mailer->send($message);
-            $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
-            $session->save();
-
-            return $this->redirect(
-                $this->get('router')->generate('ujr_show_users_ofjournal', ['journal_id' => $journal->getId()])
-            );
-        }
-        /** @var QueryBuilder $qb */
-        $qb = $em->createQueryBuilder();
-        $qb->select('t')
-            ->from('OjsJournalBundle:MailTemplate', 't')
-            ->where(
-                $qb->expr()->orX(
-                    $qb->expr()->isNull('t.journalId'),
-                    $qb->expr()->eq('t.journalId', ':journal')
-                )
-            )
-            ->setParameter('journal', $journal->getId());
-        $templates = $qb->getQuery()->getResult();
-        $data['templates'] = $templates;
-        $data['user'] = $user;
-        $data['parameters'] = $request->query->all();
-        array_walk(
-            $data['parameters'],
-            function (&$val) {
-                $val = urldecode($val);
-            }
-        );
-
-        $data['templateVars'] = json_encode(
-            array_merge(
-                array(
-                    'journal' => json_decode($serializer->serialize($journal, 'json')),
-                    'user' => json_decode($serializer->serialize($this->getUser(), 'json')),
-                ),
-                $data['parameters']
-            )
-        );
-
-        $yamlParser = new Yaml\Parser();
-        $defaultTemplates = $yamlParser->parse(
-            file_get_contents(
-                $this->container->getParameter('kernel.root_dir').
-                '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
-            )
-        );
-        $tplKey = $request->get('template');
-        $data['selectedTemplate'] = $tplKey ? (isset($defaultTemplates[$tplKey]) ? json_encode(
-            $defaultTemplates[$tplKey]
-        ) : null) : null;
-
-        return $this->render('OjsJournalBundle:JournalRole:send_mail.html.twig', $data);
     }
 
     /**
