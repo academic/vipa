@@ -8,17 +8,6 @@ Ojs\JournalBundle\Entity\File:
             id: true
             generator:
                 strategy: AUTO
-    oneToMany:
-        articleFiles:
-            targetEntity: ArticleFile
-            mappedBy: file
-        issueFiles:
-            targetEntity: IssueFile
-            mappedBy: file
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\FileTranslation
-            mappedBy: object
-            cascade: ["persist"]
     fields:
         path:
             type: string
@@ -26,9 +15,6 @@ Ojs\JournalBundle\Entity\File:
         name:
             type: string
             length: 255
-            gedmo:
-                - translatable
-                - versioned
             nullable: true
         mimeType:
             type: string
@@ -40,15 +26,6 @@ Ojs\JournalBundle\Entity\File:
             length: 255
             column: size
             nullable: true
-        locale:
-            type: string
-            length: 20
-            nullable: true
-        tags:
-            type: string
-            nullable: true
-            gedmo:
-                - versioned
         created:
            type: datetime
            gedmo:
@@ -78,8 +55,4 @@ Ojs\JournalBundle\Entity\File:
         soft_deleteable:
             field_name: deletedAt
             time_aware: false
-        loggable: true
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\FileTranslation
     lifecycleCallbacks: {  }
