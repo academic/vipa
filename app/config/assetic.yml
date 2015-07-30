@@ -47,7 +47,6 @@ assetic:
         - %kernel.root_dir%/../web/assets/app/js/common.js
         - %kernel.root_dir%/../web/vendor/typeahead.js/dist/typeahead.bundle.min.js
         - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
-        - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js
         - %kernel.root_dir%/../web/vendor/JVFloat/jvfloat.js
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js
@@ -76,7 +75,6 @@ assetic:
         - %kernel.root_dir%/../web/vendor/select2/dist/css/select2.min.css
         - %kernel.root_dir%/../web/assets/app/css/admin.css
         - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
-        - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css
         - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css
         - %kernel.root_dir%/../web/assets/app/css/_history.css
