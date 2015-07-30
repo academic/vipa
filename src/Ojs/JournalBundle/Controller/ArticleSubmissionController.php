@@ -608,7 +608,7 @@ class ArticleSubmissionController extends Controller
         $em->flush();
 
         $response = $this->redirectToRoute('article_submissions_me');
-        $event = new ArticleSubmitEvent($article, $request, $response);
+        $event = new ArticleSubmitEvent($article, $request);
         $dispatcher->dispatch(ArticleSubmitEvents::SUBMIT_AFTER, $event);
 
         if (null !== $event->getResponse()) {

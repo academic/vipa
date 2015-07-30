@@ -42,4 +42,12 @@ class WorkflowEvent extends Event
     {
         return $this->response;
     }
+
+    /**
+     * @param Response $response
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+    }
 }
