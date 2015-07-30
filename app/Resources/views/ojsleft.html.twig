@@ -24,7 +24,7 @@
                                 {% for journal in userjournals %}
                                     {% if journal.id %}
                                     <li class=list-group-item">
-                                        <a href="{{ path('change_selected_journal',{'journal_id':journal.id}) }}">
+                                        <a href="{{ path('change_selected_journal',{'journalId':journal.id}) }}">
                                             <span class="label label-primary">{{ journal.institution.name }}</span> &raquo; {{ journal.title }}
                                         </a>
                                     </li>
