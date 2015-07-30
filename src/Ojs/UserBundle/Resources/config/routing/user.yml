@@ -13,7 +13,3 @@ user_drop_proxy:
 user_profile:
     path:  /profile/{username}
     defaults: { _controller: "OjsUserBundle:User:profile" }
-
-user_send_mail:
-    path: /mail/send/{user}
-    defaults: { _controller: "OjsUserBundle:User:sendMail" }
