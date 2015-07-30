@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\Common\Helper\StringHelper as StringHelper;
 use Symfony\Component\HttpFoundation\Request;
 
 class AnalyticsRestController extends FOSRestController
@@ -33,13 +34,14 @@ class AnalyticsRestController extends FOSRestController
      */
     public function putObjectViewAction(Request $request, $id, $entity)
     {
+        $string_helper = new StringHelper();
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $stat = new ObjectViews();
-        $stat->setPageUrl($request->get("page_url"));
+        $stat->setPageUrl($string_helper->sanitize($request->get("page_url")));
         $stat->setIpAddress($request->getClientIp());
         $stat->setLogDate(new \DateTime("now"));
         $stat->setObjectId($id);
-        $stat->setEntity($entity);
+        $stat->setEntity($string_helper->sanitize($entity));
         $dm->persist($stat);
         $dm->flush();
 
