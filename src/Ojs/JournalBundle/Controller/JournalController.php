@@ -15,18 +15,18 @@ class JournalController extends Controller
 {
     /**
      * @param  Request          $request
-     * @param $journal_id
+     * @param $journalId
      * @return RedirectResponse
      */
-    public function changeSelectedAction(Request $request, $journal_id)
+    public function changeSelectedAction(Request $request, $journalId)
     {
         $em = $this->getDoctrine()->getManager();
-        $route = $this->get('router')->generate('ojs_journal_dashboard_index');
+        $route = $this->get('router')->generate('ojs_journal_dashboard_index', ['journalId' => $journalId]);
         if ($request->query->get('submission', false) === '1') {
             $route = $this->get('router')->generate('article_submission_new');
         }
         /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
         $this->throw404IfNotFound($journal);
         $this->get('ojs.journal_service')->setSelectedJournal($journal);
 
