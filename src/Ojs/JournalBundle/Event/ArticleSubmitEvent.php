@@ -26,13 +26,11 @@ class ArticleSubmitEvent extends Event
     /**
      * @param Article $article
      * @param Request $request
-     * @param Response|null $response
      */
-    public function __construct(Article $article, Request $request, Response $response = null)
+    public function __construct(Article $article, Request $request)
     {
         $this->article = $article;
         $this->request = $request;
-        $this->response = $response;
     }
 
     /**
@@ -57,5 +55,13 @@ class ArticleSubmitEvent extends Event
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * @param Response $response
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
     }
 }
