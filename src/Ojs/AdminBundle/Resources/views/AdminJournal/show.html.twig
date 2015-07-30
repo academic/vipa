@@ -102,12 +102,6 @@ journal.show tpl for super admin users
             <th>{{ "theme.id"|trans }}</th>
             <td>{{ entity.themeId }}</td>
         </tr>
-        <tr>
-            <th>{{ "users"|trans }}</th>
-            <td>
-                <a href="{{ path('ujr_show_users_ofjournal',{ 'journal_id': entity.id }) }}">{{ "users"|trans }}</a>
-            </td>
-        </tr>
         </tbody>
     </table>
     <div class="record_actions">
