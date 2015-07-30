@@ -32,7 +32,3 @@ ojs_journal_role_delete:
 ujr_show_journals_of_user:
     path:  /user/{user_id}/show/journals
     defaults: { _controller: "OjsJournalBundle:JournalRole:showJournalsOfUser" }
-
-ujr_show_users_ofjournal:
-    path:  /journal/{journal_id}/show/users
-    defaults: { _controller: "OjsJournalBundle:JournalRole:showUsersOfJournal" }
