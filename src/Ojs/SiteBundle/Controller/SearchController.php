@@ -7,6 +7,7 @@ use Elastica\Index;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Helper\StringHelper as StringHelper;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,9 @@ class SearchController extends Controller
         $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
-        $query = $request->get('q');
+
+        $string_helper = new StringHelper();
+        $query = $string_helper->sanitize($request->get('q'));
 
         $section = $request->get('section');
 
