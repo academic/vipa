@@ -20,7 +20,7 @@ use Symfony\Component\Yaml\Parser;
 class ManagerController extends Controller
 {
     /**
-     * @param  null $journalId
+     * @param  null     $journalId
      * @return Response
      */
     public function journalSettingsAction($journalId = null)
@@ -47,8 +47,20 @@ class ManagerController extends Controller
         );
     }
 
+    private function createJournalEditForm(Journal $journal)
+    {
+        return $this->createForm(
+            new JournalType(),
+            $journal,
+            array(
+                'action' => $this->generateUrl('ojs_journal_settings_update', array('journalId' => $journal->getId())),
+                'method' => 'PUT',
+            )
+        );
+    }
+
     /**
-     * @param  Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function updateJournalAction(Request $request)
@@ -65,8 +77,8 @@ class ManagerController extends Controller
         $editForm = $this->createJournalEditForm($entity);
         $editForm->submit($request);
         if ($editForm->isValid()) {
-            if($request->get('competing_interest_file_id') == ''){
-                if($request->get('competing_interest_file') !== ''){
+            if ($request->get('competing_interest_file_id') == '') {
+                if ($request->get('competing_interest_file') !== '') {
                     $competingInterestFile = new File();
                     $competingInterestFile->setName('Competing Interest File');
                     $competingInterestFile->setSize($request->get('competing_interest_file_size'));
@@ -100,56 +112,16 @@ class ManagerController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_settings_index',  ['journalId' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_settings_index', ['journalId' => $entity->getId()]);
         }
 
-        return $this->redirectToRoute('ojs_journal_settings_index',  ['journalId' => $entity->getId()]);
-    }
-
-    private function createJournalEditForm(Journal $journal) {
-        return $this->createForm(
-            new JournalType(), $journal,
-            array(
-                'action' => $this->generateUrl('ojs_journal_settings_update', array('journalId' => $journal->getId())),
-                'method' => 'PUT',
-            )
-        );
-    }
-
-    /**
-     * @param Journal $journal
-     * @param string $settingName
-     * @param  string $settingValue if null, function will return current value
-     * @param  bool $encoded set true if setting stored as json_encoded
-     * @return array|mixed|string
-     */
-    private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
-    {
-        if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
-        }
-        $em = $this->getDoctrine()->getManager();
-        /** @var JournalSetting $setting */
-        $setting = $em->
-        getRepository('OjsJournalBundle:JournalSetting')->
-        findOneBy(array('journal' => $journal, 'setting' => $settingName));
-
-        $settingString = $encoded ? json_encode($settingValue) : $settingValue;
-        if ($setting) {
-            $setting->setValue($settingString);
-        } else {
-            $setting = new JournalSetting($settingName, $settingString, $journal);
-        }
-        $em->persist($setting);
-        $em->flush();
-
-        return $setting ? ($encoded ? json_decode($setting->getValue()) : $setting->getValue()) : [];
+        return $this->redirectToRoute('ojs_journal_settings_index', ['journalId' => $entity->getId()]);
     }
 
     /**
      * @todo setttings enumeration should be done, otherwise setting keys will be a garbage
-     * @param  Request $request
-     * @param  integer $journalId
+     * @param  Request  $request
+     * @param  integer  $journalId
      * @return Response
      */
     public function journalSettingsSubmissionAction(Request $request, $journalId = null)
@@ -202,13 +174,13 @@ class ManagerController extends Controller
             ),
             'abstractTemplates' => $yamlParser->parse(
                 file_get_contents(
-                    $root .
+                    $root.
                     '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
                 )
             ),
             'copyrightTemplates' => $yamlParser->parse(
                 file_get_contents(
-                    $root .
+                    $root.
                     '/../src/Ojs/JournalBundle/Resources/data/copyrightTemplates.yml'
                 )
             ),
@@ -220,7 +192,37 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request $req
+     * @param  Journal            $journal
+     * @param  string             $settingName
+     * @param  string             $settingValue if null, function will return current value
+     * @param  bool               $encoded      set true if setting stored as json_encoded
+     * @return array|mixed|string
+     */
+    private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
+    {
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
+        }
+        $em = $this->getDoctrine()->getManager();
+        /** @var JournalSetting $setting */
+        $setting = $em->
+        getRepository('OjsJournalBundle:JournalSetting')->
+        findOneBy(array('journal' => $journal, 'setting' => $settingName));
+
+        $settingString = $encoded ? json_encode($settingValue) : $settingValue;
+        if ($setting) {
+            $setting->setValue($settingString);
+        } else {
+            $setting = new JournalSetting($settingName, $settingString, $journal);
+        }
+        $em->persist($setting);
+        $em->flush();
+
+        return $setting ? ($encoded ? json_decode($setting->getValue()) : $setting->getValue()) : [];
+    }
+
+    /**
+     * @param  Request      $req
      * @param  null|integer $journalId
      * @return Response
      */
@@ -234,7 +236,8 @@ class ManagerController extends Controller
         if ($req->getMethod() == 'POST' && !empty($req->get('emailSignature'))) {
             $this->updateJournalSetting($journal, 'emailSignature', $req->get('emailSignature'), false);
         }
-        $emailSignature = $journal->getSetting('emailSignature') ? $journal->getSetting('emailSignature')->getValue() : null;
+        $emailSignature = $journal->getSetting('emailSignature') ? $journal->getSetting('emailSignature')->getValue(
+        ) : null;
 
         return $this->render(
             'OjsJournalBundle:Manager:journal_settings_mail.html.twig',
@@ -288,7 +291,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function userIndexAction(Request $request)
@@ -307,8 +310,5 @@ class ManagerController extends Controller
         }
 
         return $response;
-
-
-
     }
 }
