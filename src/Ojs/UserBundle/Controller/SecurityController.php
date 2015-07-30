@@ -175,6 +175,96 @@ class SecurityController extends Controller
         );
     }
 
+
+    public function forgotPasswordAction(Request $request)
+    {
+        $data = [];
+        $session = $this->get('session');
+        if ($request->isMethod('POST')) {
+            $username = $request->get('_username');
+            $em = $this->getDoctrine()->getManager();
+            /** @var User $user */
+            $user = $this->get('ojs.user_provider.username_email')->loadUserByUsername($username);
+            if ($user) {
+                $user->setToken($user->generateToken());
+                $em->persist($user);
+                $em->flush();
+                $mailer = $this->get('mailer');
+                $message = $mailer->createMessage()
+                    ->setSubject(ojs . password_reset)
+                    ->setFrom($this->container->getParameter('system_email'))
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'OjsUserBundle:Mails/User:reset_password.html.twig',
+                            [
+                                'token' => $user->getToken(),
+                            ]
+                        )
+                    )
+                    ->setContentType('text/html');
+                $mailer->send($message);
+                $session->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')
+                        ->trans(
+                            'We will send reset token to your registered email address. Please check in a few minutes'
+                        )
+                );
+            }
+        }
+
+        return $this->render('OjsUserBundle:Security:forgot_password.html.twig');
+    }
+
+    public function resetPasswordAction(Request $request, $token)
+    {
+        $data = [];
+        $em = $this->getDoctrine()->getManager();
+        /** @var UserRepository $userRepo */
+        $userRepo = $em->getRepository('OjsUserBundle:User');
+        /** @var User $user */
+        $user = $userRepo->findOneBy(['token' => $token]);
+        $session = $this->get('session');
+        if (!$user) {
+            throw new AccessDeniedException(); //:(
+        }
+        if ($request->isMethod('POST')) {
+            $newPassword = $request->get('password');
+            $newPasswordConfirm = $request->get('password_confirm');
+            if (empty($newPassword) || $newPassword != $newPasswordConfirm) {
+
+                //something is wrong!
+                $session->getFlashBag()
+                    ->add('error', $this->get('translator')->trans('Both of passwords not matches!'));
+                $session->save();
+
+                return $this->redirect($this->get('router')->generate('ojs_user_reset_password', ['token' => $token]));
+            }
+
+            // Reset and save new password
+            $encoder = $this->container->get('security.encoder_factory')
+                ->getEncoder($user);
+            $password = $encoder->encodePassword($newPassword, $user->getSalt());
+            $user->setPassword($password);
+            $user->setToken('');
+            $em->persist($user);
+            $em->flush();
+
+            // Dispatch mail event
+            $event = new UserEvent($user);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('user.password.reset', $event);
+            $session->getFlashBag()->add('success', $this->get('translator')->trans('Your password has been changed.'));
+            $session->save();
+
+            return $this->redirect($this->get('router')->generate('login'));
+        }
+        $data['token'] = $token;
+
+        return $this->render('OjsUserBundle:Security:reset_password.html.twig', $data);
+    }
+
     /**
      * @return JsonResponse
      */
