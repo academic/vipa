@@ -1,5 +1,5 @@
 change_selected_journal:
-    path:  /manager/journal/selected/{journal_id}
+    path:  /manager/journal/selected/{journalId}
     defaults: { _controller: "OjsJournalBundle:Journal:changeSelected" }
 
 ojs_article_submission:
