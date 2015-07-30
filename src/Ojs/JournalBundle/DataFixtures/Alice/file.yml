@@ -4,4 +4,3 @@
     name: apple-touch-icon.png
     mimeType: <mimeType()>
     size: <randomNumber(5)>
-    locale: en
