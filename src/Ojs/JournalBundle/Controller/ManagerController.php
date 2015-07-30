@@ -9,6 +9,8 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
+use Ojs\JournalBundle\Event\WorkflowEvent;
+use Ojs\JournalBundle\Event\WorkflowEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -286,13 +288,27 @@ class ManagerController extends Controller
     }
 
     /**
-     * @return RedirectResponse|Response
+     * @param Request $request
+     * @return Response
      */
-    public function userIndexAction()
+    public function userIndexAction(Request $request)
     {
+        $dispatcher = $this->get('event_dispatcher');
 
-        return $this->render(
+        $response = $response = $this->render(
             'OjsJournalBundle:User:userwelcome.html.twig'
         );
+
+        $event = new WorkflowEvent($request);
+        $dispatcher->dispatch(WorkflowEvents::LIST_ARTICLES, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        return $response;
+
+
+
     }
 }
