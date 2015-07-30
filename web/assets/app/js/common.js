@@ -134,65 +134,68 @@ $(document).ready(function () {
             source: typeList.ttAdapter()
         }
     });
-    $(".select2-tags").select2({
-        multiple: true,
-        //Allow manually entered text in drop down.
-        createSearchChoice: function (term, data) {
-            if ($(data).filter(function () {
-                    return this.text.localeCompare(term) === 0;
-                }).length === 0) {
-                return {id: term, text: term};
-            }
-        },
-        ajax: {
-            url: 'api/public/search/tags',
-            dataType: 'json',
-            type: "GET",
-            delay: 300,
-            data: function (params) {
-                return {
-                    q: '(.*)' + params + '(.*)',
-                    verified: true
-                };
+    if($('.select2-tags').length) {
+
+        $(".select2-tags").select2({
+            multiple: true,
+            //Allow manually entered text in drop down.
+            createSearchChoice: function (term, data) {
+                if ($(data).filter(function () {
+                        return this.text.localeCompare(term) === 0;
+                    }).length === 0) {
+                    return {id: term, text: term};
+                }
             },
-            results: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name,
-                            slug: item.name,
-                            id: item.id
-                        };
-                    })
-                };
+            ajax: {
+                url: 'api/public/search/tags',
+                dataType: 'json',
+                type: "GET",
+                delay: 300,
+                data: function (params) {
+                    return {
+                        q: '(.*)' + params + '(.*)',
+                        verified: true
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                slug: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
             },
-            cache: true
-        },
 //            escapeMarkup: function (markup) {
 //                return markup;
 //            }, // let our custom formatter work
-        minimumInputLength: 1
+            minimumInputLength: 1
 //            templateResult: formatResult,
 //            templateSelection: formatSelection
 
-    });
-    $('.select2-tags').each(function () {
-        var value = $(this).val();
-        if (value) {
-            var $that = $(this);
-            $.ajax({
-                url: 'api/public/search/tagsByIds',
-                data: 'ids=' + value,
-                dataType: 'json',
-                success: function (data) {
-                    $that.select2('data', data).change();
-                }
-            })
-        }
-    });
-    $(".select2-tags").select2('container').setTypeForHook();
+        });
+        $('.select2-tags').each(function () {
+            var value = $(this).val();
+            if (value) {
+                var $that = $(this);
+                $.ajax({
+                    url: 'api/public/search/tagsByIds',
+                    data: 'ids=' + value,
+                    dataType: 'json',
+                    success: function (data) {
+                        $that.select2('data', data).change();
+                    }
+                })
+            }
+        });
+        $(".select2-tags").select2('container').setTypeForHook();
 
-    $(".select2-container").removeClass('validate[required]');
+        $(".select2-container").removeClass('validate[required]');
+    }
     $(document).on('pjax:send', function () {
         $('#loading').show();
     });
