@@ -190,7 +190,7 @@ class PublicSearchRestController extends FOSRestController
         $data = [];
         foreach ($results as $result) {
             foreach (explode(',', $result->getData()['tags']) as $tag) {
-                $data[] = ['text' => $tag];
+                $data[] = ['id' => $tag, 'text' => $tag];
             }
         }
 
