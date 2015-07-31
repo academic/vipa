@@ -833,6 +833,16 @@ search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
 search.on.everywhere: 'Search on this site'
 search.on.journal: 'Search on journal'
+search.advanced: "Advanced Search"
+search.query: "Query"
+search.useQueryBuilder: "Use query builder"
+search.submit: "Search"
+search.or: "OR"
+search.and: "AND"
+search.not: "NOT"
+search.field: "Field"
+search.removeFieldItem: "Remove field item"
+search.addFieldItem: "Add field item"
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Search on Crossref'
 searchon.doaj: 'Search on Doaj'

@@ -807,47 +807,58 @@ reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'
 reviewResultCodes.2: 'Major Revision'
 reviewResultCodes.3: 'Minor Revision'
-reviewResultCodes.4: Accept
-role.edit: 'Edit Role'
-role.forusers: __role.forusers
+reviewResultCodes.4: Kabul Et
+role.edit: 'Görev Düzenle'
+role.forusers: Kullanıcılar için
 role.id: ID
-role.issystemrole: 'Is System Role?'
-role.list: 'Role List'
-role.name: Name
-role.new: 'New Role'
-role.plural: Roles
-role.role: Role
-role.singular: Role
-role.users: 'Role Users'
-roles: Roles
-s: Show
-save: Save
-save.finish: 'Save & Finish'
-save.next: 'Save & Next'
-scope: Scope
-search: Search
-search.builder: 'Advanced Search Builder'
-search.main: 'Search Journal, Article and Author'
-search.noresult: 'We could not find any results matching.'
-search.result.headline: 'Total %total% item for %term% query.'
-search.results: 'Search Results'
+role.issystemrole: 'Sistem Görevi mi?'
+role.list: 'Görev Listesi'
+role.name: İsim
+role.new: 'Yeni Görev'
+role.plural: Görevler
+role.role: Görev
+role.singular: Görev
+role.users: 'Görevli Kullanıcılar'
+roles: Görevler
+s: Göster
+save: Kaydet
+save.finish: 'Kaydet & Bitir'
+save.next: 'Kaydet & Devam Et'
+scope: Kapsam
+search: Ara
+search.builder: 'Gelişmiş Sorgu Aracı'
+search.main: 'Dergi, yazar ve makale arayın'
+search.noresult: 'Üzgünüz, aradığınız kelime için hiç bir sonuç bulamadık.'
+search.result.headline: '`%term%` kelimesi için toplam %total% sonuç bulundu.'
+search.results: 'Arama Sonuçları'
 search.on.everywhere: 'Bu sitede ara'
 search.on.journal: 'Dergide ara'
+
+search.advanced: "Gelişmiş Arama"
+search.query: "Sorgu"
+search.useQueryBuilder: "Sorgu Aracını Kullan"
+search.submit: "Ara"
+search.or: "VEYA"
+search.and: "VE"
+search.not: "DEĞİL"
+search.field: "Giriş elemanı"
+search.removeFieldItem: "Giriş elemanını kaldır"
+search.addFieldItem: "Giriş elemanı ekle"
 search_query: 'type keyword(s) here'
-searchon.crossref: 'Search on Crossref'
-searchon.doaj: 'Search on Doaj'
-searchon.google: 'Search on Google'
-searchon.pubmed: 'Search on Pubmed'
-searchon.wikipedia: 'Search on Wikipedia'
-section: Section
-select.article.file: 'Select File'
-select.image.file: 'Select Image File...'
-select_all: 'Select all'
-select_article_file: 'Select Article File'
-select_supplementary_article_file: 'Select Supplementary Article File'
+searchon.crossref: 'Crossref`de ara'
+searchon.doaj: 'Doaj`da ara'
+searchon.google: 'Google`da ara'
+searchon.pubmed: 'Pubmed`de ara'
+searchon.wikipedia: 'Wikipedia`da ara'
+section: Bölüm
+select.article.file: 'Dosya Seç'
+select.image.file: 'Resim Dosyası Seç...'
+select_all: 'Tümünü seç'
+select_article_file: 'Makale Dosyası Seç'
+select_supplementary_article_file: 'Ek Makale Dosyası Seç'
 select_visible: 'Select visible'
-send_article: 'Send Article'
-sendmail: 'Send email'
+send_article: 'Makale Gönder'
+sendmail: 'Eposta Gönder'
 services: Hizmetler
 setting: Setting
 settings: Settings
