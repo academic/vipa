@@ -6,7 +6,7 @@ use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InstitutionType extends AbstractType
 {
@@ -85,10 +85,10 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
             ->add('addressLat', 'text', ['label' => 'addressLat', 'attr' => ['data-id' => 'addressLat']])
-            ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']]);
+            ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']])
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }
 
     /**
@@ -100,9 +100,9 @@ class InstitutionType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

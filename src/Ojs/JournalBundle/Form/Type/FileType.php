@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FileType extends AbstractType
 {
@@ -15,24 +15,14 @@ class FileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\File'
-            ])
-            ->add('path', 'hidden')
-            ->add('name','text',[
-                'attr'=>[
-                    'readonly'=>true
-                ]
-            ])
-            ->add('mimeType', 'hidden')
-            ->add('size', 'hidden')
-            ->add('tags', 'hidden');
+            ->add('name', 'file')
+            ;
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\File'
