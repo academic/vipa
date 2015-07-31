@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
-use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\ReportBundle\Document\ObjectViews;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
@@ -240,7 +240,7 @@ class JournalService
      */
     public function journalStats(Journal $journal)
     {
-        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
+        $object_view = $this->dm->getRepository('OjsReportBundle:ObjectViews');
         $journal_stats = $object_view->findBy(['entity' => 'journal', 'objectId' =>$journal->getId()]);
         $group_by_day = [];
         foreach ($journal_stats as $stat) {
@@ -257,7 +257,7 @@ class JournalService
      */
     public function journalsArticlesStats(Journal $journal)
     {
-        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectView');
+        $object_view = $this->dm->getRepository('OjsReportBundle:ObjectView');
         $stats = [];
         $qb = $this->em->createQueryBuilder();
         $qb->select('article')
@@ -297,7 +297,7 @@ class JournalService
 
     public function getArticlesDownloadStats(Journal $journal)
     {
-        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectDownload');
+        $object_view = $this->dm->getRepository('OjsReportBundle:ObjectDownload');
         $stats = [];
         $qb = $this->em->createQueryBuilder();
         $qb->select('article')
@@ -334,7 +334,7 @@ class JournalService
         if($article->getJournalId()!=$journal->getId())
             throw new AccessDeniedException;
 
-        $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
+        $object_view = $this->dm->getRepository('OjsReportBundle:ObjectViews');
         $article_stats = $object_view->findBy(['entity' => 'article', 'objectId' =>(string)$article->getId()]);
         $group_by_day = [];
         foreach ($article_stats as $stat) {

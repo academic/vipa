@@ -48,7 +48,6 @@ class AppKernel extends Kernel
             new Ojs\SiteBundle\OjsSiteBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),
             new Ojs\SearchBundle\OjsSearchBundle(),
-            new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Ojs\ApiBundle\OjsApiBundle(),
             new Ojs\CliBundle\OjsCliBundle(),
             new Ojs\JournalBundle\OjsJournalBundle(),

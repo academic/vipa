@@ -844,6 +844,7 @@ search.field: "Field"
 search.removeFieldItem: "Remove field item"
 search.addFieldItem: "Add field item"
 search.value: "Value"
+
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Search on Crossref'
 searchon.doaj: 'Search on Doaj'
@@ -1183,6 +1184,7 @@ title.workflow_template_step_new: 'New Workflow Template Step'
 title.workflow_template_step_show: 'Show Workflow Template Step'
 title.workflow_templates: 'Workflow Templates'
 title.working_step_preview: 'Preview Working Step'
+title.search_advanced: "Gelişmiş Arama"
 titleTransliterated: 'Transliterated Title'
 titleabbr: 'Abbreviated Title'
 titletransliterated: 'Transliterated Title'

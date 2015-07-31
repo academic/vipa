@@ -19,7 +19,7 @@ class ArticleReportController extends Controller
         /*
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $data = $dm->getRepository('OjsAnalyticsBundle:ObjectViews');
+        $data = $dm->getRepository('OjsReportBundle:ObjectViews');
         */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'report')) {
