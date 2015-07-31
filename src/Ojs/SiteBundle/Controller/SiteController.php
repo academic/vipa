@@ -48,7 +48,7 @@ class SiteController extends Controller
             'idField' => true,
             'nodeDecorator' => function ($node) {
                 return '<a href="' . $this->generateUrl(
-                    'ojs_journals_index',
+                    'ojs_site_explore_index',
                     ['filter' => ['subject' => $node['id']]]
                 ) . '">'
                 . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
@@ -106,37 +106,6 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
-    public function journalsIndexAction(Request $request, $page, $institution = null)
-    {
-        $searchManager = $this->get('ojs_search_manager');
-        $searchManager->setPage($page);
-        $filter = $request->get('filter', []);
-        if ($institution) {
-            /** @var Institution $institutionObj */
-            $institutionObj = $this->getDoctrine()->getManager()->getRepository(
-                'OjsJournalBundle:Institution'
-            )->findOneBy(['slug' => $institution]);
-            $filter['institution'] = $institutionObj->getId();
-            $data['institutionObject'] = $institutionObj;
-        }
-        if (!empty($filter)) {
-            $searchManager->addFilters($filter);
-        }
-        $result = $searchManager->searchJournal()->getResult();
-        $data['result'] = $result;
-        $data['total_count'] = $searchManager->getCount();
-        $data['page'] = 'journals';
-        $data['page_count'] = $searchManager->getPageCount();
-        $data['current_page'] = $page;
-        $startPage = $page>5?$page-5:1;
-        $endPage = $page+5<=$data['page_count']?($page>1?$page+5:10):$data['page_count'];
-        $data['startPage'] = $startPage;
-        $data['endPage'] = $endPage;
-        $data['aggregations'] = $searchManager->getAggregations();
-        $data['filter'] = $filter;
-
-        return $this->render('OjsSiteBundle::Journal/journals_index.html.twig', $data);
-    }
 
     public function journalIndexAction($institution, $slug)
     {
