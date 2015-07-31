@@ -209,7 +209,7 @@ fos_elastica:
               analyzer: "keyword"
               type: string
             status: { "index": "not_analyzed" }
-            published: { "index": "not_analyzed" }
+            published: { "index": "not_analyzed",type: boolean }
             subjects:
               type: object
               properties:

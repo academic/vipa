@@ -6,6 +6,34 @@ var OJSAdvancedSearch = {
         console.log('OJS Advanced Search System Starts!');
         this.insertFirstFieldItem();
         this.addFieldItem();
+        this.watchFieldTypes();
+    },
+    watchFieldTypes: function(){
+        var that=this;
+        $(document).on("change", ".item-search-field", function(){
+            var type = $('option:selected',this).attr('data-type');
+            switch(type){
+                case 'string':
+                    that.changeInputType($(this),'text');
+                    break;
+                case 'long':
+                    that.changeInputType($(this),'number');
+                    break;
+                case 'date':
+                    that.changeInputType($(this),'date');
+                    break;
+                case 'boolean':
+                    that.changeInputType($(this),'checkbox');
+                    break;
+                default:
+                    that.changeInputType($(this),'text');
+            }
+        });
+    },
+    changeInputType: function(el,type){
+        var item = el.parents('.search-field-items').find('.field-item-value');
+        item.attr('type',type);
+        return this;
     },
     getFirstFieldItem: function(){
         return this.searchFieldsArea.find('.search-field-items').eq(0);
@@ -19,6 +47,7 @@ var OJSAdvancedSearch = {
     addFieldItem: function(){
         this.getLastFieldItem().find('.add-field-item').addClass('hidden');
         this.searchFieldsArea.append(this.searchFieldTemplate);
+        return this;
     },
     removeFieldItem: function(item){
         var getItem = $(item).closest('.search-field-items');
@@ -30,11 +59,13 @@ var OJSAdvancedSearch = {
         }
         getItem.remove();
         this.updateInputQuery();
+        return this;
     },
     insertFirstFieldItem: function () {
         this.searchFieldsArea.prepend(this.searchFieldTemplate);
         this.getFirstFieldItem().find('.condition-form').addClass('hidden');
         this.getFirstFieldItem().find('.add-field-item').addClass('hidden');
+        return this;
     },
     updateInputQuery: function(){
         var searchQuery,firstItem,fieldItemValue,itemSearchField,itemCondition;
@@ -54,6 +85,7 @@ var OJSAdvancedSearch = {
             }
         });
         $('#searchQueryInput').val(searchQuery);
+        return this;
     },
     redirectToSearch: function(){
         var searchQuery = $('#searchQueryInput').val();
