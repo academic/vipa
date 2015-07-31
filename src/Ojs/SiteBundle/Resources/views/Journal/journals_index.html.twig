@@ -103,8 +103,8 @@
                                 </li>
                             {% endif %}
 
-                            {% for p in 1..page_count %}
-                                <li>
+                            {% for p in startPage..endPage %}
+                                <li {% if p==current_page %}class="active"{% endif %}>
                                     <a href="{{ url('ojs_journals_index',{page:p }) }}">{{ p }}</a>
                                 </li>
                             {% endfor %}

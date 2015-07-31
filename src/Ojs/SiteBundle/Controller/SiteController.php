@@ -16,7 +16,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
-use Ojs\JournalBundle\Entity\Sums;
 use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -127,8 +126,12 @@ class SiteController extends Controller
         $data['result'] = $result;
         $data['total_count'] = $searchManager->getCount();
         $data['page'] = 'journals';
-        $data['current_page'] = $page;
         $data['page_count'] = $searchManager->getPageCount();
+        $data['current_page'] = $page;
+        $startPage = $page>5?$page-5:1;
+        $endPage = $page+5<=$data['page_count']?($page>1?$page+5:10):$data['page_count'];
+        $data['startPage'] = $startPage;
+        $data['endPage'] = $endPage;
         $data['aggregations'] = $searchManager->getAggregations();
         $data['filter'] = $filter;
 
