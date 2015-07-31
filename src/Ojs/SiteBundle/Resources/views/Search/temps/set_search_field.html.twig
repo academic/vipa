@@ -15,7 +15,7 @@
             <select class="form-control item-search-field" onchange="OJSAdvancedSearch.updateInputQuery()">
                 {% for mappingKey,mappingItem in mapping %}
                     {% for itemKey,item in mappingItem.properties %}
-                        <option value="{{ mappingKey~'.'~itemKey }}">{{ mappingKey|trans }} - {{ itemKey|trans }}</option>
+                        <option value="{{ mappingKey~'.'~itemKey }}" {% if item['type'] is defined  %}data-type="{{ item['type'] }}"{% endif %}>{{ mappingKey|trans }} - {{ itemKey|trans }}</option>
                     {% endfor %}
                 {% endfor %}
             </select>
