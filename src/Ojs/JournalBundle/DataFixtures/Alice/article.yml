@@ -14,5 +14,4 @@
     section: @section1
     issue: @issue1
     orderNum: <randomDigit()>
-    tags: "ojs,help"
     locale: en
