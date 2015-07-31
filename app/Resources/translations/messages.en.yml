@@ -843,6 +843,7 @@ search.not: "NOT"
 search.field: "Field"
 search.removeFieldItem: "Remove field item"
 search.addFieldItem: "Add field item"
+search.value: "Value"
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Search on Crossref'
 searchon.doaj: 'Search on Doaj'

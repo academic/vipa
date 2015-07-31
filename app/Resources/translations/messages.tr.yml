@@ -844,6 +844,7 @@ search.not: "DEĞİL"
 search.field: "Giriş elemanı"
 search.removeFieldItem: "Giriş elemanını kaldır"
 search.addFieldItem: "Giriş elemanı ekle"
+search.value: "Değer"
 search_query: 'type keyword(s) here'
 searchon.crossref: 'Crossref`de ara'
 searchon.doaj: 'Doaj`da ara'
