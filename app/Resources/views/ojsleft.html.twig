@@ -47,11 +47,11 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-collapse collapse in">
+                    {% if selectedJournal() %}
                     <a class="list-group-item" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
                         <i class="fa fa-dashboard"></i>
                         {{ "dashboard"|trans }}
                     </a>
-                    {% if selectedJournal() %}
                         {% if is_granted('CREATE', selectedJournal(), 'articles') %}
                             <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
                                href="{{ path('article_submission_new') }}">
