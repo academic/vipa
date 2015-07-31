@@ -96,7 +96,7 @@ services:
 
   ojs_search_manager:
     class: Ojs\SearchBundle\Manager\SearchManager
-    arguments: [@fos_elastica.index.search, @doctrine.orm.entity_manager, @doctrine, @property_accessor, @translator,@router]
+    arguments: [@translator,@router]
 
   ojs.twig.common_extension:
     class: Ojs\SiteBundle\Twig\CommonExtension
