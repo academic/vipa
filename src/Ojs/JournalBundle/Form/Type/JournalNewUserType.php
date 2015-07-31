@@ -7,7 +7,7 @@ use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
 class JournalNewUserType extends AbstractType
@@ -125,9 +125,9 @@ class JournalNewUserType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [
