@@ -134,9 +134,6 @@ fos_elastica:
                 title:
                   type: string
                   index: not_analyzed
-            tags:
-              analyzer: "keyword"
-              type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Article

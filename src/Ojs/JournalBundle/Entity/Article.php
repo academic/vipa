@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\Common\Entity as CommonTraits;
 use Ojs\Common\Params\ArticleParams;
 use Ojs\UserBundle\Entity\UserArticleRole;
 
@@ -22,7 +22,11 @@ use Ojs\UserBundle\Entity\UserArticleRole;
  */
 class Article implements Translatable
 {
-    use GenericEntityTrait;
+    use CommonTraits\BlameableTrait;
+    use CommonTraits\SoftDeletableTrait;
+    use CommonTraits\TimestampableTrait;
+    use CommonTraits\TranslateableTrait;
+
     /**
      * auto-incremented article unique id
      * @GRID\Column(title="id")
