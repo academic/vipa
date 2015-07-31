@@ -54,7 +54,7 @@ ojs_institutions_index:
 ojs_journals_index:
     path:  /journals/{page}
     host: %base_host%
-    defaults: { _controller: OjsSiteBundle:Site:journalsIndex,page: 0}
+    defaults: { _controller: OjsSiteBundle:Site:journalsIndex,page: 1}
 ojs_journals_index_in_institution:
     path:  /journals/{page}
     host: "{institution}.%base_host%"
