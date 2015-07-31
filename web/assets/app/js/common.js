@@ -77,125 +77,31 @@ $(document).ready(function () {
             "blockquote": true
         }
     });
-    if ($(".select2-element").length) {
-        $(".select2-element").select2();
-        $(".select2-element").select2('container').setTypeForHook();
-        $.valHooks['source'] = {
-            get: function (el) {
-                var el_id = el.id.replace('s2id_', '');
-                el = $("#" + el_id);
-                console.dir(el);
-                return el.select2("val");
+
+    var tagAutocompleteInput = $('select[data-role=tagsinputautocomplete]');
+    tagAutocompleteInput.select2({
+        ajax: {
+            data: function (params) {
+                return {
+                    q: params.term
+                };
             },
-            set: function (el, val) {
-                var el_id = el.id.replace('s2id_', '');
-                el = $("#" + el_id);
-                console.dir(el);
-                console.log("setted");
-                $(el).select2("val", val);
-            }
-        };
-    }
-    if ($(".autocomplete").length) {
-        $(".autocomplete").each(function () {
-            var list_url = $(this).data("list");
-            var get_url = $(this).data("get");
-            $(this).autocompleter({url_list: list_url, url_get: get_url});
-        })
-    }
-    function formatResult(item) {
-        return item.name;
-    }
-
-    function formatSelection(item) {
-        return '<b>' + item.name + '</b>';
-    }
-
-    $('input.tags').tagsinput({
-        tagClass: 'label label-info',
-        trimValue: true,
-        confirmKeys: [13, 44, 188, 59]
-    });
-    var tagAutocompleteInput = $('input[data-role=tagsinputautocomplete]');
-    var typeList = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-            url: tagAutocompleteInput.attr('data-list') + '?q=%QUERY',
-            wildcard: '%QUERY'
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        templateResult: function (user) {
+            return user.text;
+        },
+        templateSelection: function (user) {
+            return user.text;
         }
     });
-    typeList.initialize();
-    tagAutocompleteInput.tagsinput({
-        typeaheadjs: {
-            name: 'typeList',
-            displayKey: 'text',
-            valueKey: 'text',
-            source: typeList.ttAdapter()
-        }
-    });
-    if($('.select2-tags').length) {
+    $('.select2-element').select2();
 
-        $(".select2-tags").select2({
-            multiple: true,
-            //Allow manually entered text in drop down.
-            createSearchChoice: function (term, data) {
-                if ($(data).filter(function () {
-                        return this.text.localeCompare(term) === 0;
-                    }).length === 0) {
-                    return {id: term, text: term};
-                }
-            },
-            ajax: {
-                url: 'api/public/search/tags',
-                dataType: 'json',
-                type: "GET",
-                delay: 300,
-                data: function (params) {
-                    return {
-                        q: '(.*)' + params + '(.*)',
-                        verified: true
-                    };
-                },
-                results: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.name,
-                                slug: item.name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-//            escapeMarkup: function (markup) {
-//                return markup;
-//            }, // let our custom formatter work
-            minimumInputLength: 1
-//            templateResult: formatResult,
-//            templateSelection: formatSelection
-
-        });
-        $('.select2-tags').each(function () {
-            var value = $(this).val();
-            if (value) {
-                var $that = $(this);
-                $.ajax({
-                    url: 'api/public/search/tagsByIds',
-                    data: 'ids=' + value,
-                    dataType: 'json',
-                    success: function (data) {
-                        $that.select2('data', data).change();
-                    }
-                })
-            }
-        });
-        $(".select2-tags").select2('container').setTypeForHook();
-
-        $(".select2-container").removeClass('validate[required]');
-    }
     $(document).on('pjax:send', function () {
         $('#loading').show();
     });
