@@ -22,9 +22,16 @@ class ExploreController extends Controller
 
         $journalSearcher = $this->get('fos_elastica.index.search.journal');
         $journalQuery = new Query(new Query\MatchAll());
+        $boolQuery = new Query\Bool();
+        $match = new Query\Match();
+        $match->setField('status', 3);
+        $boolQuery->addMust($match);
+
+        $match = new Query\Match();
+        $match->setField('published', true);
+        $boolQuery->addMust($match);
 
         if (!empty($typeFilters) || !empty($subjectFilters) || !empty($institutionFilters)) {
-            $boolQuery = new Query\Bool();
 
             foreach ($typeFilters as $type) {
                 $match = new Query\Match();
@@ -44,8 +51,9 @@ class ExploreController extends Controller
                 $boolQuery->addMust($match);
             }
 
-            $journalQuery->setQuery($boolQuery);
         }
+        $journalQuery->setQuery($boolQuery);
+
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('institution.institution_type.name');
