@@ -1,19 +1,12 @@
 <?php
 namespace Ojs\SearchBundle\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Elastica\Aggregation\Terms;
 use Elastica\Filter;
 use Elastica\Query;
 use Elastica\Result;
 use Elastica\ResultSet;
-use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
-use FOS\ElasticaBundle\Elastica\Index;
-use Pagerfanta\Adapter\ElasticaAdapter;
-use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -126,7 +119,7 @@ class SearchManager
             case 'subject':
                 $data['name'] = $source['subject'];
                 $filterParam['filter'] = ['subject' => $object->getId()];
-                $data['route'] = $this->router->generate('ojs_journals_index', $filterParam, true);
+                $data['route'] = $this->router->generate('ojs_site_explore_index', $filterParam, true);
                 break;
             case 'institution':
                 $data['name'] = $source['name'];
@@ -256,5 +249,23 @@ class SearchManager
                     true
                 );
         }
+    }
+    protected  $totalHit;
+    /**
+     * @return integer
+     */
+    public function getTotalHit()
+    {
+        return $this->totalHit;
+    }
+
+    /**
+     * @param integer $totalHit
+     * @return $this
+     */
+    public function setTotalHit($totalHit)
+    {
+        $this->totalHit = $totalHit;
+        return $this;
     }
 }

@@ -24,6 +24,9 @@ class InstitutionRepository extends EntityRepository
             $qb->andWhere('i.verified = :verified')
                 ->setParameter('verified', true);
         }
+        $qb->andWhere(
+            $qb->expr()->eq('i.status',1)
+        );
 
 
         $query = $qb->getQuery();

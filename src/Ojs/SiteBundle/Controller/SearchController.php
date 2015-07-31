@@ -35,14 +35,20 @@ class SearchController extends Controller
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
-        $string_helper = new StringHelper();
-        $query = $string_helper->sanitize($request->get('q'));
+        $query = filter_var($request->get('q'), FILTER_SANITIZE_STRING);
 
-        $section = $request->get('section');
+        $section = filter_var($request->get('section'),FILTER_SANITIZE_STRING);
 
         $searcher = $this->get('fos_elastica.index.search');
         $searchQuery = new Query('_all');
         $boolQuery = new Query\Bool();
+        $match = new Query\Match();
+        $match->setField('status', 3);
+        $boolQuery->addShould($match);
+
+        $match = new Query\Match();
+        $match->setField('published', TRUE);
+        $boolQuery->addShould($match);
 
         //set query according to query type
         if ($queryType == 'basic') {
