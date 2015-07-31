@@ -288,7 +288,6 @@ class ArticleSubmissionController extends Controller
         $competingInterestFile->setSize($request->get('competing_interest_file_size'));
         $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
         $competingInterestFile->setPath($request->get('competing_interest_file'));
-        $competingInterestFile->setTranslatableLocale($request->getDefaultLocale());
         $em->persist($competingInterestFile);
         $em->flush();
 
