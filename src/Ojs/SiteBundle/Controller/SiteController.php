@@ -4,7 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
-use Ojs\AnalyticsBundle\Document\ObjectDownloads;
+use Ojs\ReportBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\Article;

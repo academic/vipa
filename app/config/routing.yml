@@ -20,10 +20,6 @@ ojs_oai:
   resource: "@OjsOAIBundle/Resources/config/routing.yml"
   prefix:   /api/public/oai
 
-ojs_analytics:
-  resource: "@OjsAnalyticsBundle/Resources/config/routing.yml"
-  prefix:   /api/public/analytics
-
 ojs_search:
   resource: "@OjsSearchBundle/Resources/config/routing.yml"
 

@@ -6,8 +6,8 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\AnalyticsBundle\Document\ObjectDownloads;
-use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\ReportBundle\Document\ObjectDownloads;
+use Ojs\ReportBundle\Document\ObjectViews;
 use Ojs\Common\Helper\StringHelper as StringHelper;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -63,7 +63,7 @@ class AnalyticsRestController extends FOSRestController
     public function getObjectViewAction($id, $entity)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $data = $dm->getRepository('OjsAnalyticsBundle:ObjectView')
+        $data = $dm->getRepository('OjsReportBundle:ObjectView')
             ->findBy(['objectId' => $id, 'entity' => $entity]);
 
         return $data;
@@ -111,13 +111,13 @@ class AnalyticsRestController extends FOSRestController
      * @param  Request                                              $request
      * @param $id
      * @param $entity
-     * @return array|\Ojs\AnalyticsBundle\Document\ObjectDownload[]
+     * @return array|\Ojs\ReportBundle\Document\ObjectDownload[]
      */
     public function getObjectDownloadAction(Request $request, $id, $entity)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $filePath = $request->get('file_path');
-        $data = $dm->getRepository('OjsAnalyticsBundle:ObjectDownload')
+        $data = $dm->getRepository('OjsReportBundle:ObjectDownload')
             ->findBy(
                 [
                     'objectId' => (int) $id, // very interesting {.-.} {-|-} {'-'}

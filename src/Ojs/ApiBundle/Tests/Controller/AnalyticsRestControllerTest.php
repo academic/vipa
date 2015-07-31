@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\AnalyticsBundle\Tests\Controller;
+namespace Ojs\ApiBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
 
 /**
  * Class AnalyticsRestControllerTest
- * @package Ojs\AnalyticsBundle\Tests\Controller
+ * @package Ojs\ApiBundle\Tests\Controller
  */
 class AnalyticsRestControllerTest extends BaseTestCase
 {
