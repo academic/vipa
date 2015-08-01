@@ -88,18 +88,15 @@ class JournalService
      */
     public function getSelectedJournal()
     {
-        $journalIdFromRequest = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
-        $journalIdFromSession = $this->session->get("selectedJournalId");
-        $selectedJournalId = $journalIdFromRequest ? $journalIdFromRequest : $journalIdFromSession;
-        $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find(
-            $selectedJournalId
-        ) : false;
-        if ($selectedJournal) {
-            return $selectedJournal;
-        } else {
-            $selectedJournal = $this->setSelectedJournal();
+        $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
+
+        if(!$journalId) {
+            return false;
         }
-        if (!$selectedJournal instanceof Journal) {
+
+        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+
+        if (!$selectedJournal) {
             return false;
         }
 
