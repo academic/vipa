@@ -266,6 +266,13 @@ class GridAction
         return $rowAction;
     }
 
+    public function submissionCancelAction($route, $key = 'id', $role = null)
+    {
+        $rowAction = $this->deleteAction($route, $key, $role);
+        $rowAction->setRouteParametersMapping(['id' => 'submissionId']);
+        return $rowAction;
+    }
+
     /**
      * @param  null      $role
      * @return RowAction
