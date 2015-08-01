@@ -107,7 +107,7 @@ var OjsArticleSubmission = {
         var form = $("#step1-container form").serialize();
         var competingInterestFile = $('.competing_interest_file_input').val();
         if(competingInterestFile == ''){
-            OjsCommon.errorModal("Error occured. Please upload an Competing Interest File");
+            OjsCommon.errorModal("Error occured. Please upload an Correct Competing Interest File");
             return;
         }
         var status = OjsArticleSubmission.submissionChecklist();
@@ -306,8 +306,14 @@ var OjsArticleSubmission = {
             $uploadIndicator.show();
             $uploadIndicator.html("Uploading...");
         }).bind('fileuploaddone', function (e, data) {
+            $uploadIndicator = $('.upload_progress', $(this).parent().parent());
             $('.upload_progress', $(this).parent().parent()).html("Done.");
             $obj = JSON.parse(data.result);
+            if(typeof $obj.files.path == "undefined"){
+                $uploadIndicator.hide();
+                OjsCommon.errorModal("Please provide an correct file.");
+                return;
+            }
             $('.previewLink', $(this).parent().parent()).attr('href', 'uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
             $('.article_file_input', $(this).parent()).attr('value', $obj.files.name);
             $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.mimeType);
@@ -318,8 +324,14 @@ var OjsArticleSubmission = {
             $uploadIndicator.show();
             $uploadIndicator.html("Uploading...");
         }).bind('fileuploaddone', function (e, data) {
+            $uploadIndicator = $('.upload_progress', $(this).parent().parent());
             $('.upload_progress', $(this).parent().parent()).html("Done.");
             $obj = JSON.parse(data.result);
+            if(typeof $obj.files.path == "undefined"){
+                $uploadIndicator.hide();
+                OjsCommon.errorModal("Please provide an correct competing interest file.");
+                return;
+            }
             $('.previewLink', $(this).parent().parent()).attr('href', 'uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
             $('.competing_interest_file_input', $(this).parent()).attr('value', $obj.files.name);
             $('input[name="competing_interest_file_mime_type"]', $(this).parent()).attr('value', $obj.files.mimeType);
