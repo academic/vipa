@@ -23,7 +23,7 @@ class JournalController extends Controller
         $em = $this->getDoctrine()->getManager();
         $route = $this->get('router')->generate('ojs_journal_dashboard_index', ['journalId' => $journalId]);
         if ($request->query->get('submission', false) === '1') {
-            $route = $this->get('router')->generate('article_submission_new');
+            $route = $this->get('router')->generate('ojs_journal_submission_new');
         }
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);

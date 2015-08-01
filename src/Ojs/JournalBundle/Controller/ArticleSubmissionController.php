@@ -56,12 +56,12 @@ class ArticleSubmissionController extends Controller
         ) {
             return $this->redirect($this->generateUrl('ojs_user_index'));
         }
+
         $user = $this->getUser();
 
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
-        $source1TableAlias = $source1->getTableAlias();
-
         $source2 = new Entity('OjsJournalBundle:ArticleSubmissionProgress');
+        $source1TableAlias = $source1->getTableAlias();
         $source2TableAlias = $source2->getTableAlias();
 
         if ($all) {
@@ -69,15 +69,14 @@ class ArticleSubmissionController extends Controller
                 function (QueryBuilder $qb) use ($source1TableAlias, $currentJournal) {
                     $qb->where($source1TableAlias.'.status = 0');
                     $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
-
                     return $qb;
                 }
             );
+
             $source2->manipulateQuery(
                 function (QueryBuilder $qb) use ($source2TableAlias, $currentJournal) {
                     $qb->where($source2TableAlias.'.submitted = 0');
                     $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
-
                     return $qb;
                 }
             );
@@ -89,17 +88,17 @@ class ArticleSubmissionController extends Controller
                             $qb->expr()->eq($source1TableAlias.'.submitterId', $user->getId())
                         )
                     );
-                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
 
+                    $qb->andWhere($source1TableAlias.'.journalId = '.$currentJournal->getId());
                     return $qb;
                 }
             );
+
             $source2->manipulateQuery(
                 function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal) {
                     $qb->where($source2TableAlias.'.submitted = 0');
                     $qb->andWhere($source2TableAlias.'.journalId = '.$currentJournal->getId());
                     $qb->andWhere($source2TableAlias.'.userId = '.$user->getId());
-
                     return $qb;
                 }
             );
@@ -111,10 +110,10 @@ class ArticleSubmissionController extends Controller
         $source1->manipulateRow(
             function (Row $row) use ($translator) {
                 $row->setField('status', $translator->trans(ArticleParams::statusText($row->getField('status'))));
-
                 return $row;
             }
         );
+
         $submissionsGrid->setSource($source1);
         $drafts->setSource($source2);
         /** @var GridAction $gridAction */
@@ -122,16 +121,20 @@ class ArticleSubmissionController extends Controller
         $submissionsGrid->addRowAction(
             $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $currentJournal->getId()])
         );
+
         $submissionsGrid->addRowAction(
             $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $currentJournal->getId()])
         );
+
         $submissionsGrid->addRowAction(
             $gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $currentJournal->getId()])
         );
+
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->submissionResumeAction('article_submission_resume', 'id');
-        $rowAction[] = $gridAction->deleteAction('article_submission_cancel', 'id');
+        $rowAction[] = $gridAction->submissionResumeAction('ojs_journal_submission_resume',
+            ['journalId' => $currentJournal->getId(), 'submissionId' => 'id']);
+        $rowAction[] = $gridAction->deleteAction('ojs_journal_submission_cancel', ['id', 'journalId' => $currentJournal->getId()]);
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
         $data = [
@@ -153,15 +156,17 @@ class ArticleSubmissionController extends Controller
     {
         /**
          * Check if the user is an author of this journal.
-         * If not, add author role for this journal
+         * If isn't, add author role for this journal
          * @var Journal $journal
          */
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         if (!$journal) {
             return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
         }
+
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect($this->generateUrl('article_submission_confirm_author'));
+            return $this->redirect($this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()]));
         }
 
         return $this->render(
@@ -315,8 +320,9 @@ class ArticleSubmissionController extends Controller
             [
                 'success' => "1",
                 'resumeLink' => $this->generateUrl(
-                        'article_submission_resume',
+                        'ojs_journal_submission_resume',
                         [
+                            'journalId' => $selectedJournal->getId(),
                             'submissionId' => $articleSubmission->getId(),
                         ]
                     ).'#2',
@@ -540,8 +546,11 @@ class ArticleSubmissionController extends Controller
         return new JsonResponse(
             array(
                 'redirect' => $this->generateUrl(
-                    'article_submission_preview',
-                    array('submissionId' => $submissionId)
+                    'ojs_journal_submission_preview',
+                    array(
+                        'journalId' => $article->getJournal()->getId(),
+                        'submissionId' => $submissionId
+                    )
                 ),
             )
         );
@@ -606,7 +615,7 @@ class ArticleSubmissionController extends Controller
         $articleSubmission->setSubmitted(1);
         $em->flush();
 
-        $response = $this->redirectToRoute('article_submissions_me');
+        $response = $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $article->getJournal()->getId()]);
         $event = new ArticleSubmitEvent($article, $request);
         $dispatcher->dispatch(ArticleSubmitEvents::SUBMIT_AFTER, $event);
 
@@ -633,7 +642,7 @@ class ArticleSubmissionController extends Controller
         }
 
         return $checkRole ?
-            $this->redirect($this->generateUrl('article_submission_new')) :
+            $this->redirect($this->generateUrl('ojs_journal_submission_new', ['journalId', $journal->getId()])) :
             $this->render(
                 'OjsJournalBundle:ArticleSubmission:confirmRole.html.twig',
                 array('journalRoles' => $journalService->getSelectedJournalRoles())
@@ -691,15 +700,16 @@ class ArticleSubmissionController extends Controller
         /** @var Journal $journal */
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         if ($this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect($this->generateUrl('article_submission_new'));
+            return $this->redirect($this->generateUrl('ojs_journal_submission_new', ['journalId', $journal->getId()]));
         }
+
         $this->throw404IfNotFound($journal);
         $this->get('ojs.journal_service')->setSelectedJournal($journal);
         $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
 
         return !$checkRole ?
-            $this->redirect($this->generateUrl('article_submission_confirm_author')) :
-            $this->redirect($this->generateUrl('article_submission_new'));
+            $this->redirect($this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()])) :
+            $this->redirect($this->generateUrl('ojs_journal_submission_new', ['journalId' => $journal->getId()]));
     }
 
     /**
@@ -732,6 +742,7 @@ class ArticleSubmissionController extends Controller
      */
     public function cancelAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
         $articleSubmission = $em->find('OjsJournalBundle:ArticleSubmissionProgress', $id);
@@ -743,6 +754,6 @@ class ArticleSubmissionController extends Controller
         $em->flush();
         $this->addFlash('success', $this->get('translator')->trans('deleted'));
 
-        return $this->redirectToRoute('article_submissions_me');
+        return $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $journal->getId()]);
     }
 }

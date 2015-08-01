@@ -1,0 +1,45 @@
+ojs_journal_submission_me:
+    path:     /{journalId}/submission/me
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:index" }
+
+ojs_journal_submission_all:
+    path:     /{journalId}/submission/all
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:index", all: true }
+
+ojs_journal_submission_new:
+    path:     /{journalId}/submission/new
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:new" }
+
+ojs_journal_submission_finish:
+    path:     /{journalId}/submission/finish
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:finish" }
+    methods:  [POST]
+
+ojs_journal_submission_resume:
+    path:     /{journalId}/submission/{submissionId}/resume
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:resume" }
+
+ojs_journal_submission_preview:
+    path:     /{journalId}/submission/{submissionId}/preview
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:preview" }
+
+ojs_journal_submission_cancel:
+    path:     /{journalId}/submission/{submissionId}/cancel
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:cancel"}
+
+ojs_journal_submission_journal:
+    path:     /{journalId}/submission/journal
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:newWithJournal" }
+
+ojs_journal_submission_orcid:
+    path:     /{journalId}/submission/orcid
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:getOrcidAuthor" }
+
+ojs_journal_submission_confirm:
+    path:     /{journalId}/submission/confirm
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:confirmRole" }
+
+ojs_journal_submission_control:
+    path:     /{journalId}/submission/control/{step}
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission:stepControl", step: null }
+    methods:  [POST]

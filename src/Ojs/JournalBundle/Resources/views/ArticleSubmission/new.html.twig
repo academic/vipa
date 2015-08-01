@@ -70,12 +70,12 @@
                             <div class="col-sm-12">
                                 <hr/>
                                 <a class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
-                                   href="{{ path('article_submission_new') }}">
+                                   href="{{ path('ojs_journal_submission_new', {journalId: selectedJournal().id}) }}">
                                     <i class="fa fa-repeat"></i>
                                     {{ "restart"|trans }}
                                 </a>
                                 <a class="btn btn-success btn-lg pull-right"
-                                   onclick="javascript:OjsArticleSubmission.step2('{{ path('article_submission_step_control',{'step': 2}) }}');">
+                                   onclick="javascript:OjsArticleSubmission.step2('{{ path('ojs_journal_submission_control', {'journalId': selectedJournal().id, 'step': 2}) }}');">
                                     <i class="fa fa-save"></i>
                                     {{ "save.next"|trans }}
                                     <i class="fa fa-chevron-right"></i>
@@ -128,7 +128,7 @@
                                 <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                             </a>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step_control', {step: 3}) }}');">
+                               onclick="javascript: OjsArticleSubmission.step3('{{ path('ojs_journal_submission_control', {'journalId': selectedJournal().id, step: 3}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -168,7 +168,7 @@
                                 <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                             </a>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step_control', {step: 4}) }}');">
+                               onclick="javascript: OjsArticleSubmission.step4('{{ path('ojs_journal_submission_control', {'journalId': selectedJournal().id, step: 4}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -199,7 +199,7 @@
                                 <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                             </a>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step5('{{ path('article_submission_step_control', {step: 5}) }}');">
+                               onclick="javascript: OjsArticleSubmission.step5('{{ path('ojs_journal_submission_control', {'journalId': selectedJournal().id, step: 5}) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>

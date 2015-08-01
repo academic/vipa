@@ -224,7 +224,7 @@
             </div>
         {% endif %}
 
-        <form action="{{ path('article_submission_finish') }}" method="POST">
+        <form action="{{ path('ojs_journal_submission_finish', {journalId: selectedJournal().id}) }}" method="POST">
             <div class="panel panel-warning">
                 <div class="panel-heading"><h4 class="panel-title">{{ "notes_to_editor"|trans }}</h4></div>
                 <div class="panel panel-body table-responsive">
@@ -249,7 +249,7 @@
             </div>
             <div class="btn-group pull-right" id="btnSubmissionGroup">
                 <a class="btn btn-lg btn-default"
-                   href="{{ path('article_submission_resume',{'submissionId':submissionId}) }}">
+                   href="{{ path('ojs_journal_submission_resume', {'journalId': selectedJournal().id, 'submissionId': submissionId}) }}">
                     <i class="fa fa-backward"></i> {{ 'ojs.back_and_edit'|trans }}
                 </a>
                 <button class="btn btn-success btn-lg"
