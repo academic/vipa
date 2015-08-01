@@ -2,9 +2,6 @@ change_selected_journal:
     path:  /manager/journal/selected/{journalId}
     defaults: { _controller: "OjsJournalBundle:Journal:changeSelected" }
 
-ojs_article_submission:
-    resource: "@OjsJournalBundle/Resources/config/routing/articlesubmission.yml"
-
 ojs_journal_setup:
     prefix:   /journal/setup/
     resource: "@OjsJournalBundle/Resources/config/routing/journalsetup.yml"
