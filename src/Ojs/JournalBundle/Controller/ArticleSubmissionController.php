@@ -109,7 +109,12 @@ class ArticleSubmissionController extends Controller
         $drafts = $gridManager->createGrid('drafts');
         $source1->manipulateRow(
             function (Row $row) use ($translator) {
-                $row->setField('status', $translator->trans(ArticleParams::statusText($row->getField('status'))));
+                $statusText = ArticleParams::statusText($row->getField('status'));
+                if (!is_array($statusText)) {
+                    $row->setField('status', $translator->trans($statusText));
+                } else {
+                    $row->setField('status', $translator->trans('status.unknown'));
+                }
                 return $row;
             }
         );
@@ -132,9 +137,8 @@ class ArticleSubmissionController extends Controller
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->submissionResumeAction('ojs_journal_submission_resume',
-            ['journalId' => $currentJournal->getId(), 'submissionId' => 'id']);
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_submission_cancel', ['id', 'journalId' => $currentJournal->getId()]);
+        $rowAction[] = $gridAction->submissionResumeAction('ojs_journal_submission_resume', ['journalId' => $currentJournal->getId(), 'id']);
+        $rowAction[] = $gridAction->submissionCancelAction('ojs_journal_submission_cancel', ['journalId' => $currentJournal->getId(), 'id']);
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
         $data = [
@@ -700,7 +704,7 @@ class ArticleSubmissionController extends Controller
         /** @var Journal $journal */
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         if ($this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect($this->generateUrl('ojs_journal_submission_new', ['journalId', $journal->getId()]));
+            return $this->redirect($this->generateUrl('ojs_journal_submission_new', ['journalId' => $journal->getId()]));
         }
 
         $this->throw404IfNotFound($journal);
@@ -737,15 +741,15 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * @param $id
+     * @param $submissionId
      * @return RedirectResponse
      */
-    public function cancelAction($id)
+    public function cancelAction($submissionId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
-        $articleSubmission = $em->find('OjsJournalBundle:ArticleSubmissionProgress', $id);
+        $articleSubmission = $em->find('OjsJournalBundle:ArticleSubmissionProgress', $submissionId);
         if (!$articleSubmission) {
             throw new NotFoundHttpException();
         }
