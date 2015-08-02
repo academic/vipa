@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 
@@ -53,18 +52,12 @@ class Design implements Translatable
     private $isPublic;
 
     /**
-     * @var Collection
-     */
-    private $journalDesigns;
-
-    /**
-     * @var Collection|Journal[]
+     * @var ArrayCollection|Journal[]
      */
     private $journals;
 
     public function __construct()
     {
-        $this->journalDesigns = new ArrayCollection();
         $this->journals = new ArrayCollection();
     }
 
@@ -75,7 +68,10 @@ class Design implements Translatable
      */
     public function addJournal(Journal $journal)
     {
-        $this->journals[] = $journal;
+        if(!$this->journals->contains($journal)){
+            $this->journals->add($journal);
+            $journal->addDesign($this);
+        }
 
         return $this;
     }
@@ -86,35 +82,19 @@ class Design implements Translatable
      */
     public function removeJournal(Journal $journal)
     {
-        $this->journals->removeElement($journal);
+        if($this->journals->contains($journal)){
+            $this->journals->removeElement($journal);
+            $journal->removeDesign($this);
+        }
     }
 
     /**
      * Get journals
-     * @return Collection
+     * @return ArrayCollection|Journal[]
      */
     public function getJournals()
     {
         return $this->journals;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getJournalDesigns()
-    {
-        return $this->journalDesigns;
-    }
-
-    /**
-     * @param  Collection $journalDesigns
-     * @return Design
-     */
-    public function setJournalDesigns(Collection $journalDesigns)
-    {
-        $this->journalDesigns = $journalDesigns;
-
-        return $this;
     }
 
     /**

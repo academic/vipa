@@ -108,6 +108,7 @@ Ojs\JournalBundle\Entity\Journal:
                         onDelete: CASCADE
         designs:
             targetEntity: Design
+            inversedBy: journals
             joinTable:
                 name: journal_design
                 joinColumns:
