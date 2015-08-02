@@ -187,6 +187,7 @@ class IssueController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
+        /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
             array('id' => $id, 'journal' => $journal)
         );
@@ -471,7 +472,7 @@ class IssueController extends Controller
             $this->throw404IfNotFound($section);
         }
 
-        $article->setIssueId($id);
+        $article->setIssue($issue);
 
         if ($section) {
             $sections = $issue->getSections();

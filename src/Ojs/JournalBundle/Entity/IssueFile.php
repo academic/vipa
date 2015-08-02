@@ -27,14 +27,9 @@ class IssueFile
     private $type;
 
     /**
-     * @var integer
+     * @var string
      */
-    private $fileId;
-
-    /**
-     * @var integer
-     */
-    private $issueId;
+    private $file;
 
     /**
      * @var integer
@@ -64,15 +59,9 @@ class IssueFile
     private $langCode;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Issue
+     * @var Issue
      */
     private $issue;
-
-    /**
-     * @var \Ojs\JournalBundle\Entity\File
-     * @GRID\Column(title="issuefile.file", field="file.name")
-     */
-    private $file;
 
     protected $translations;
 
@@ -135,49 +124,26 @@ class IssueFile
     }
 
     /**
-     * Set fileId
+     * Set file
      *
-     * @param integer $fileId
+     * @param string $file
      * @return IssueFile
      */
-    public function setFileId($fileId)
+    public function setFile($file)
     {
-        $this->fileId = $fileId;
+        $this->file = $file;
 
         return $this;
     }
 
     /**
-     * Get fileId
+     * Get file
      *
-     * @return integer 
+     * @return string
      */
-    public function getFileId()
+    public function getFile()
     {
-        return $this->fileId;
-    }
-
-    /**
-     * Set issueId
-     *
-     * @param integer $issueId
-     * @return IssueFile
-     */
-    public function setIssueId($issueId)
-    {
-        $this->issueId = $issueId;
-
-        return $this;
-    }
-
-    /**
-     * Get issueId
-     *
-     * @return integer
-     */
-    public function getIssueId()
-    {
-        return $this->issueId;
+        return $this->file;
     }
 
     /**
@@ -300,10 +266,10 @@ class IssueFile
     /**
      * Set issue
      *
-     * @param \Ojs\JournalBundle\Entity\Issue $issue
+     * @param Issue $issue
      * @return IssueFile
      */
-    public function setIssue(\Ojs\JournalBundle\Entity\Issue $issue = null)
+    public function setIssue(Issue $issue = null)
     {
         $this->issue = $issue;
 
@@ -313,33 +279,11 @@ class IssueFile
     /**
      * Get issue
      *
-     * @return \Ojs\JournalBundle\Entity\Issue 
+     * @return Issue
      */
     public function getIssue()
     {
         return $this->issue;
     }
 
-    /**
-     * Set file
-     *
-     * @param \Ojs\JournalBundle\Entity\File $file
-     * @return IssueFile
-     */
-    public function setFile(\Ojs\JournalBundle\Entity\File $file = null)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * Get file
-     *
-     * @return \Ojs\JournalBundle\Entity\File 
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
 }

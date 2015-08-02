@@ -4,12 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
-use Ojs\ReportBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper\FileHelper;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\File;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
@@ -20,7 +15,6 @@ use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 class SiteController extends Controller
@@ -244,7 +238,7 @@ class SiteController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBySlug($slug);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(array('slug' => $slug));
         $this->throw404IfNotFound($journal);
         $email = $request->get('mail');
 
@@ -299,73 +293,6 @@ class SiteController extends Controller
         $data['journal'] = $journal;
 
         return $this->render("OjsSiteBundle:JournalContact:index.html.twig", $data);
-    }
-
-    public function downloadFileAction(Request $request, $id)
-    {
-        /** @var File $file */
-        $fileObject = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File', $id);
-        if (!$fileObject) {
-            throw new NotFoundHttpException();
-        }
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $objectDownload = new ObjectDownloads();
-
-        $objectDownload->setEntity('file');
-        $objectDownload->setFilePath($fileObject->getPath());
-        $objectDownload->setIpAddress($request->getClientIp());
-        $objectDownload->setLogDate(new \DateTime("now"));
-        $objectDownload->setObjectId($id);
-        $objectDownload->setTransferSize($fileObject->getSize());
-        $dm->persist($objectDownload);
-        $dm->flush();
-
-        $objectDownload = new ObjectDownloads();
-        /** @var Article $article */
-        $article = $fileObject->getArticleFiles()->first();
-        $objectDownload->setEntity('article');
-        $objectDownload->setFilePath($fileObject->getPath());
-        $objectDownload->setIpAddress($request->getClientIp());
-        $objectDownload->setLogDate(new \DateTime("now"));
-        $objectDownload->setObjectId($article->getId());
-        $objectDownload->setTransferSize($fileObject->getSize());
-        $dm->persist($objectDownload);
-        $dm->flush();
-
-        $fileHelper = new FileHelper();
-
-        $file = $fileHelper->generatePath($fileObject->getName(), false) . $fileObject->getName();
-
-        $uploaddir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
-
-        $yamlParser = new Parser();
-        $vars = $yamlParser->parse(
-            file_get_contents(
-                $this->container->getParameter('kernel.root_dir') .
-                '/config/media.yml'
-            )
-        );
-        $mappings = $vars['oneup_uploader']['mappings'];
-        $url = false;
-        $fullPath = null;
-        foreach ($mappings as $key => $value) {
-            if (is_file($uploaddir . $key . '/' . $file)) {
-                $url = '/uploads/' . $key . '/' . $file;
-                $fullPath = $uploaddir . $key . '/' . $file;
-                break;
-            }
-        }
-        if (!$url) {
-            throw new NotFoundHttpException("File not found on drive");
-        }
-
-        $response = new Response();
-        $content = \file_get_contents($fullPath);
-        $response->headers->set('Content-Type', $fileObject->getMimeType());
-        $response->headers->set('Content-Length', filesize($fullPath));
-        $response->setContent($content);
-
-        return $response;
     }
 
     public function journalPageDetailAction($slug, $journal_slug)

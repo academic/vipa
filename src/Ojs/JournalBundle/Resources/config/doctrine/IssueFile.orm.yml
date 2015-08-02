@@ -16,13 +16,6 @@ Ojs\JournalBundle\Entity\IssueFile:
                 name: issue_id
                 referencedColumnName: id
             cascade: ["persist"]
-        file:
-            targetEntity: File
-            inversedBy: issueFiles
-            cascade: ["persist", "merge"]
-            joinColumn:
-                name: file_id
-                referencedColumnName: id
     oneToMany:
         translations:
             targetEntity: Ojs\JournalBundle\Entity\IssueFileTranslation
@@ -32,14 +25,10 @@ Ojs\JournalBundle\Entity\IssueFile:
         type:
             type: integer
             nullable: TRUE
-        fileId:
-            type: integer
-            column: file_id
+        file:
+            type: string
             gedmo:
                 - versioned
-        issueId:
-            type: integer
-            column: issue_id
         version:
             type: integer
         keywords:
@@ -47,7 +36,6 @@ Ojs\JournalBundle\Entity\IssueFile:
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         description:
             type: text

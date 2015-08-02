@@ -19,7 +19,7 @@ class ArticleRepository extends EntityRepository
     {
         $q = $this->createQueryBuilder('a')
             ->select('a')
-            ->where('a.issueId IS NULL AND a.status = :status')
+            ->where('a.issue IS NULL AND a.status = :status')
             ->setParameter('status', $status)
             ->getQuery();
         $articles = $q->getResult();
@@ -38,9 +38,9 @@ class ArticleRepository extends EntityRepository
     {
         $q = $this->createQueryBuilder('a')
             ->select('a')
-            ->where('a.issueId = :issue_id AND a.status = :status')
+            ->where('a.issue = :issue AND a.status = :status')
             ->orderBy('a.orderNum', $asc ? 'ASC' : 'DESC')
-            ->setParameter('issue_id', $issue->getId())
+            ->setParameter('issue', $issue)
             ->setParameter('status', $status)
             ->getQuery();
 

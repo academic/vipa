@@ -36,13 +36,6 @@ class Article implements Translatable
     private $id;
 
     /**
-     *
-     * @var integer
-     * @Expose
-     */
-    private $issueId;
-
-    /**
      * @var integer
      * @Expose
      */
@@ -725,28 +718,6 @@ class Article implements Translatable
     public function getOtherId()
     {
         return $this->otherId;
-    }
-
-    /**
-     * Set issueId
-     *
-     * @param  integer $issueId
-     * @return $this
-     */
-    public function setIssueId($issueId)
-    {
-        $this->issueId = $issueId;
-
-        return $this;
-    }
-
-    /**
-     * Get issueId
-     * @return integer
-     */
-    public function getIssueId()
-    {
-        return $this->issueId;
     }
 
     /**

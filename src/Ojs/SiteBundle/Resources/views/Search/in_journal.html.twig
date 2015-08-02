@@ -269,11 +269,11 @@
                                             <li>
                                                 <a href="
                                             {% if isInstitutionHosting is defined %}
-                                                {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
+                                                {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issue.id  , article_id:article.id}) }}
                                             {% elseif isJournalHosting is defined %}
-                                                {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
+                                                {{ url('journal_hosting_issue_article',{issue_id:article.issue.id  , article_id:article.id}) }}
                                             {% else %}
-                                                {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
+                                                {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issue.id  , article_id:article.id,institution:journal.institution.slug}) }}
                                             {% endif %}">{{ article.title }}</a>
                                             </li>
                                         {% endfor %}
