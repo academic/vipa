@@ -1,0 +1,22 @@
+Ojs\AdminBundle\Entity\SystemSetting:
+  type: entity
+  table: system_settings
+  repositoryClass: Ojs\AdminBundle\Entity\SystemSettingRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 255
+    value:
+      type: string
+      length: 255
+    description:
+      type: string
+      length: 255
+      nullable: true
+  lifecycleCallbacks: {  }

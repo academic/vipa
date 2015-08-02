@@ -24,6 +24,22 @@ class ApplicationController extends Controller
      */
     public function journalAction(Request $request)
     {
+        $allowanceSetting = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'journal_application']);
+
+        if ($allowanceSetting) {
+            if (!$allowanceSetting->getValue()) {
+                return $this->render(
+                    'OjsSiteBundle:Site:not_available.html.twig',
+                    [
+                        'title' => 'title.journal_application',
+                        'message' => 'message.application_not_available'
+                    ]
+                );
+            }
+        }
 
         $application = new Journal();
         $form = $this->createForm(new JournalApplicationType(), $application);
@@ -56,6 +72,23 @@ class ApplicationController extends Controller
 
     public function institutionAction(Request $request)
     {
+        $allowanceSetting = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'institution_application']);
+
+        if ($allowanceSetting) {
+            if (!$allowanceSetting->getValue()) {
+                return $this->render(
+                    'OjsSiteBundle:Site:not_available.html.twig',
+                    [
+                        'title' => 'title.journal_application',
+                        'message' => 'message.application_not_available'
+                    ]
+                );
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
         $application = new Institution();
 

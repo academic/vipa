@@ -1,0 +1,7 @@
+ojs_admin_system_setting_index:
+    path:     /
+    defaults: { _controller: OjsAdminBundle:AdminSystemSetting:index }
+
+ojs_admin_system_setting_update:
+    path:     /update
+    defaults: { _controller: OjsAdminBundle:AdminSystemSetting:update }

@@ -110,6 +110,23 @@ class SecurityController extends Controller
 
     public function registerAction(Request $request)
     {
+        $allowanceSetting = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'user_registration']);
+
+        if ($allowanceSetting) {
+            if (!$allowanceSetting->getValue()) {
+                return $this->render(
+                    'OjsSiteBundle:Site:not_available.html.twig',
+                    [
+                        'title' => 'title.register',
+                        'message' => 'message.registration_not_available'
+                    ]
+                );
+            }
+        }
+
         $error = null;
         $user = new User();
         $session = $this->get('session');
