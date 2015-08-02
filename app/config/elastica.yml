@@ -280,18 +280,6 @@ fos_elastica:
             provider: ~
             listener: ~
             finder: ~
-        file:
-          mappings:
-            id:
-              type: integer
-            name:
-              type: string
-          persistence:
-            driver: orm
-            model: Ojs\JournalBundle\Entity\File
-            provider: ~
-            listener: ~
-            finder: ~
         page:
           mappings:
             id:
