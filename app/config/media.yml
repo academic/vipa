@@ -37,6 +37,10 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/issue
         create: true
+    issuefiles:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/issuefiles
+        create: true
   filesystems:
     institution:
       adapter: institution
@@ -65,6 +69,9 @@ knp_gaufrette:
     issue:
       adapter: issue
       alias: issue_filesystem
+    issuefiles:
+      adapter: issuefiles
+      alias: issuefiles_filesystem
 oneup_uploader:
   mappings:
     generic:
@@ -118,11 +125,19 @@ oneup_uploader:
     issue:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel']
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
       storage:
         type: gaufrette
         filesystem: gaufrette.issue_filesystem
         stream_wrapper: gaufrette://issue/
+    issuefiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel']
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.issuefiles_filesystem
+        stream_wrapper: gaufrette://issuefiles/
 liip_imagine:
   data_loader: stream.journal_filesystem
   loaders:
@@ -277,9 +292,14 @@ jb_file_uploader:
     issue:
       assets:
         directory: uploads/issue
+    issuefiles:
+      assets:
+        directory: uploads/issuefiles
   endpoints:
     issue:
       upload_resolver: issue
+    issuefiles:
+      upload_resolver: issuefiles
     journalCompeting:
       upload_resolver: journalCompeting
     journal:

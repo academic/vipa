@@ -116,9 +116,6 @@ ojs_journal_contacts:
     path: /{slug}/contacts
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalContacts }
-ojs_file_download:
-    path: /download/{id}
-    defaults: { _controller: OjsSiteBundle:Site:downloadFile }
 
 ojs_people:
     resource: "@OjsSiteBundle/Resources/config/routing/people.yml"

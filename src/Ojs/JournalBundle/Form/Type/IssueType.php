@@ -43,7 +43,7 @@ class IssueType extends AbstractType
             ->add('tags', 'tags')
             ->add('published', 'checkbox', ['label' => 'published'])
             ->add('full_file', 'jb_file_ajax', array(
-                'endpoint' => 'issue'
+                'endpoint' => 'issuefiles'
             ))
             ->add('cover', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',

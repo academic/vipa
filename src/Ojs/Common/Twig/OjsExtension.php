@@ -10,7 +10,6 @@ use Ojs\Common\Params\ArticleFileParams;
 use Ojs\Common\Params\CommonParams;
 use Ojs\Common\Services\JournalService;
 use Ojs\Common\Services\UserListener;
-use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\UserBundle\Entity\User;
@@ -120,7 +119,6 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('apiKey', array($this, 'apiKey'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('getObject', array($this, 'getObject'), []),
             new \Twig_SimpleFunction('generateJournalUrl', array($this, 'generateJournalUrl'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('download', array($this, 'downloadArticleFile')),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
         );
@@ -418,15 +416,6 @@ class OjsExtension extends \Twig_Extension
         $encoded = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
 
         return $encoded;
-    }
-
-    /**
-     * @param  File $file
-     * @return string
-     */
-    public function downloadArticleFile(File $file)
-    {
-        return $this->router->generate('ojs_file_download', ['id' => $file->getId()]);
     }
 
     /**
