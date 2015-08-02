@@ -14,12 +14,12 @@
                 <td>{{ entity.type }}</td>
             </tr>
             <tr>
-                <th>Fileid</th>
-                <td>{{ entity.fileId }}</td>
+                <th>File</th>
+                <td><a href="{{ asset('uploads/issuefiles/'~entity.file) }}" target="_blank"><i class="fa fa-download "></i>{{ 'download'|trans }}</a> </td>
             </tr>
             <tr>
-                <th>Issueid</th>
-                <td>{{ entity.issueId }}</td>
+                <th>Issue</th>
+                <td>{{ entity.issue.title }}</td>
             </tr>
             <tr>
                 <th>Version</th>
@@ -46,10 +46,6 @@
                 <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Deletedat</th>
-                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
                 <th>Createdby</th>
                 <td>{{ entity.createdBy }}</td>
             </tr>
@@ -62,10 +58,9 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_issue_file_index', {'issueId': entity.issueId, 'journalId': selectedJournal().id})},
-        'edit': {'href': path('ojs_journal_issue_file_edit', {'id': entity.id, 'issueId': entity.issueId, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_issue_file_delete', {'id': entity.id, 'issueId': entity.issueId, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_issue_file_index', {'issueId': entity.issue.id, 'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_issue_file_edit', {'id': entity.id, 'issueId': entity.issue.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_issue_file_delete', {'id': entity.id, 'issueId': entity.issue.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
-</ul>
 {% endblock %}

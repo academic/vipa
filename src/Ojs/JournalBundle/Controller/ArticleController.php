@@ -7,10 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\ArticleFile;
-use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\ArticleType;
 use Symfony\Component\Form\Form;
@@ -112,11 +109,6 @@ class ArticleController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $header = $request->request->get('header');
-
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
 
             $em->persist($entity);
             $em->flush();
@@ -167,14 +159,16 @@ class ArticleController extends Controller
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         $em = $this->getDoctrine()->getManager();
+
+        if (!$this->isGranted('VIEW', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
             array('journal' => $journal, 'id' => $id)
         );
         $this->throw404IfNotFound($entity);
 
-        if (!$this->isGranted('VIEW', $journal, 'articles')) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
+
 
         $token = $this
             ->get('security.csrf.token_manager')
@@ -200,7 +194,8 @@ class ArticleController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity, $journal);
+        $editForm = $this->createEditForm($entity, $journal)
+            ->add('update', 'submit', array('label' => 'u'));
 
         if (!$this->isGranted('EDIT', $entity->getJournal(), 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -225,52 +220,22 @@ class ArticleController extends Controller
 
         /** @var Article $entity */
         $em = $this->getDoctrine()->getManager();
+
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
         $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
             array('journal' => $journal, 'id' => $id)
         );
         $this->throw404IfNotFound($entity);
 
-        if (!$this->isGranted('EDIT', $entity->getJournal(), 'articles')) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
+        $editForm = $this->createEditForm($entity, $journal)
+            ->add('update', 'submit', array('label' => 'u'));
 
-        $editForm = $this->createEditForm($entity, $journal);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $header = $request->request->get('header');
-
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-
-            $files = $request->request->get('articlefiles', []);
-            $fileHelper = new FileHelper();
-
-            foreach ($files as $file) {
-                $file_entity = new File();
-                $file_entity->setName($file);
-
-                $imagepath =
-                    $this->get('kernel')->getRootDir().
-                    '/../web/uploads/articlefiles/'.
-                    $fileHelper->generatePath($file, false);
-
-                $file_entity->setSize(filesize($imagepath.$file));
-                $file_entity->setMimeType(mime_content_type($imagepath.$file));
-                $file_entity->setPath('/uploads/articlefiles/'.$fileHelper->generatePath($file, false));
-                $em->persist($file_entity);
-
-                $articleFile = new ArticleFile();
-                $articleFile->setArticle($entity);
-                $articleFile->setFile($file_entity);
-                $articleFile->setType(0); // TODO: See ArticleFileParams::$FILE_TYPES
-                $articleFile->setVersion(1);
-                $articleFile->setLangCode('tr'); // TODO: Don't use hardcoded locale
-                $em->persist($articleFile);
-
-                $entity->addArticleFile($articleFile);
-            }
 
             $em->flush();
             $this->successFlashBag('successful.update');
@@ -321,15 +286,15 @@ class ArticleController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        if (!$this->isGranted('EDIT', $journal, 'articles')) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
+
         /** @var Article $entity */
         $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
             array('journal' => $journal, 'id' => $id)
         );
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('DELETE', $entity->getJournal(), 'articles')) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_article'.$id);

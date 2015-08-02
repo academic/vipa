@@ -59,15 +59,13 @@ class AdminIndexController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalIndex();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity)
+            ->add('create', 'submit', array('label' => 'c'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $logo = $request->get('logo');
-            if ($logo) {
-                $entity->setLogoOptions(json_encode($logo));
-            }
+
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -115,7 +113,8 @@ class AdminIndexController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalIndex();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity)
+            ->add('create', 'submit', array('label' => 'c'));
 
         return $this->render(
             'OjsAdminBundle:AdminIndex:new.html.twig',
@@ -160,7 +159,8 @@ class AdminIndexController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+            ->add('save', 'submit');
 
         return $this->render(
             'OjsAdminBundle:AdminIndex:edit.html.twig',
@@ -206,14 +206,12 @@ class AdminIndexController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+            ->add('save', 'submit');
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $logo = $request->get('logo');
-            if ($logo) {
-                $entity->setLogoOptions(json_encode($logo));
-            }
+
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');

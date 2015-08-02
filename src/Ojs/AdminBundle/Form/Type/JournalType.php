@@ -173,9 +173,6 @@ class JournalType extends AbstractType
                     'error_bubbling'=>true,
                 ]
             )
-            ->add('image', 'hidden')
-            ->add('header', 'hidden')
-            ->add('logo', 'hidden')
             ->add('slug', 'text', ['label' => 'journal.slug',
                 'error_bubbling'=>true])
             ->add('tags', 'tags')
@@ -197,7 +194,42 @@ class JournalType extends AbstractType
                     },
                     'error_bubbling'=>true,
                 )
-            );
+            )
+            ->add('header', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'label' => 'Header Image',
+                'img_width' => 960,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 960 / 200,
+                    'maxSize' => "[960, 200]"
+                )
+            ))
+            ->add('image', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'label' => 'Cover Image',
+                'img_width' => 200,
+                'img_height' => 300,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 300,
+                    'maxSize' => "[200, 300]"
+                )
+            ))
+            ->add('logo', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'img_width' => 200,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 200,
+                    'maxSize' => "[200, 200]"
+                )
+            ))
+            ->add('competingFile', 'jb_file_ajax',
+                    array(
+                        'endpoint' => 'journalCompeting'
+                    )
+                )
+            ;
     }
 
     /**

@@ -130,8 +130,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     protected $roles;
 
-    protected $avatar_options;
-
     /** @var  string */
     protected $gender;
     /** @var  string */
@@ -153,7 +151,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     /** @var  ArrayCollection */
     protected $authorDetails;
 
-    protected $header_options;
 
     private $title;
 
@@ -719,38 +716,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function removeOauthAccount(UserOauthAccount $oauthAccounts)
     {
         $this->oauthAccounts->removeElement($oauthAccounts);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAvatarOptions()
-    {
-        return $this->avatar_options;
-    }
-
-    /**
-     * @param mixed $avatar_options
-     */
-    public function setAvatarOptions($avatar_options)
-    {
-        $this->avatar_options = $avatar_options;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHeaderOptions()
-    {
-        return $this->header_options;
-    }
-
-    /**
-     * @param mixed $header_options
-     */
-    public function setHeaderOptions($header_options)
-    {
-        $this->header_options = $header_options;
     }
 
     /**

@@ -17,7 +17,7 @@
     {% include '::flashbag.html.twig' %}
     <h1>{% if entity.avatar %}
             <img class="thumbnail pull-left" style="margin-right:5px;"
-                 src="/uploads/avatars/thumbnail/{{ entity.avatar }}"/>
+                 src="{{ entity.avatar|imagine_filter('avatar_thumb') }}"/>
         {% endif %}
         {{ entity.username }}
         <small style="color:green">{% if(entity.isActive != 0) %}<i class="fa fa-check-circle"></i>{% endif %}</small>

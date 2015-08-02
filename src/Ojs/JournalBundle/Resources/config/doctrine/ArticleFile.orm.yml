@@ -15,12 +15,6 @@ Ojs\JournalBundle\Entity\ArticleFile:
             joinColumn:
                 name: article_id
                 referencedColumnName: id
-        file:
-            targetEntity: File
-            inversedBy: articleFiles
-            joinColumn:
-                name: file_id
-                referencedColumnName: id
     oneToMany:
         translations:
             targetEntity: Ojs\JournalBundle\Entity\ArticleFileTranslation
@@ -30,14 +24,12 @@ Ojs\JournalBundle\Entity\ArticleFile:
         type:
             type: integer
             nullable: TRUE
-        fileId:
-            type: integer
-            column: file_id
+        file:
+            type: string
+            length: 255
+            nullable: true
             gedmo:
                 - versioned
-        articleId:
-            type: integer
-            column: article_id
         version:
             type: integer
         keywords:

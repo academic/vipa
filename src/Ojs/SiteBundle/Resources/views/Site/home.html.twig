@@ -198,10 +198,9 @@
                 <div class="col-md-8 col-xs-12">
                     <div class="row">
                         {% for journal in journals %}
-                            {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{ generateJournalUrl(journal) }}">
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop": {"start":[imageoptions.x, imageoptions.y], "size":[imageoptions.width,imageoptions.height]}}) }}"
+                                    <img src="{{ journal.image|imagine_filter('journal_cover') }}"
                                          width="96" height="128"
                                          data-src="holder.js/96x128/random/text:{{ journal.title }}"
                                          class="img-rounded"/>

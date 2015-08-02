@@ -28,17 +28,33 @@ class InstitutionApplicationType extends AbstractType
                 )
             )
             ->add('about', null, ['label' => 'institution.about'])
-            ->add('address', null, ['label' => 'institution.address'])
+            ->add('address', 'textarea', ['label' => 'institution.address'])
             ->add('addressLat', null, ['label' => 'institution.lat'])
             ->add('addressLong', null, ['label' => 'institution.lon'])
-            ->add('email', null, ['label' => 'institution.email'])
+            ->add('email', 'email', ['label' => 'institution.email'])
             ->add('fax', null, ['label' => 'institution.fax'])
             ->add('phone', null, ['label' => 'institution.phone'])
-            ->add('url', null, ['label' => 'institution.url'])
-            ->add('wiki', null, ['label' => 'institution.wiki_url'])
-            ->add('tags', null, ['label' => 'institution.tags'])
-            ->add('logo', 'hidden')
-            ->add('header', 'hidden')
+            ->add('url', 'url', ['label' => 'institution.url'])
+            ->add('wiki', 'url', ['label' => 'institution.wiki_url'])
+            ->add('tags', 'tags', ['label' => 'institution.tags'])
+            ->add('logo', 'jb_crop_image_ajax', array(
+                'endpoint' => 'institution',
+                'img_width' => 200,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 200,
+                    'maxSize' => "[200, 200]"
+                )
+            ))
+            ->add('header', 'jb_crop_image_ajax', array(
+                'endpoint' => 'institution',
+                'img_width' => 960,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 960 / 200,
+                    'maxSize' => "[960, 200]"
+                )
+            ))
             ->addEventSubscriber(new AddProvinceFieldSubscriber())
             ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
         ;

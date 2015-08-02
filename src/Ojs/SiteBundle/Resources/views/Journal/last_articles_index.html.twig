@@ -16,7 +16,7 @@
     <div class="container">
         <br>
         {% set image %}{% if journal.issues|length %}{{ journal.issues[journal.issues|length-1].header }}{% else %}{{ '' }}{% endif %}{% endset %}
-        <img src="{{ ('/uploads/journalfiles/'~imagePath(image))|imagine_filter('issue_header') }}"
+        <img src="{{ image|imagine_filter('issue_header') }}"
              data-src="holder.js/960x200/#f9A497:#ffffff/text:cover" class="img-responsive"/>
 
         <div class="row">
@@ -24,7 +24,7 @@
             <div class="page-header row">
                 <div class="col-md-1 hidden-sm hidden-xs">
                     {% set image %}{% if journal.issues|length %}{{ journal.issues[journal.issues|length-1].cover }}{% else %}{{ '' }}{% endif %}{% endset %}
-                    <img src="{{ ('/uploads/journalfiles/'~imagePath(image))|imagine_filter('issue_cover') }}"
+                    <img src="{{ image|imagine_filter('issue_cover') }}"
                          data-src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive"/>
                 </div>
                 <div class="col-md-11">

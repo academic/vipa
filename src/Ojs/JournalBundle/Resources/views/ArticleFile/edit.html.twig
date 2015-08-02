@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'link': path('ojs_journal_article_file_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id}),'title': 'title.article_files'|trans},
+        {'link': path('ojs_journal_article_file_index', {'articleId': entity.article.id, 'journalId': selectedJournal().id}),'title': 'title.article_files'|trans},
         {'title': 'title.article_files_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -11,78 +11,17 @@
 
 {% block body -%}
     <h1>{{ 'title.article_files_edit'|trans }}</h1>
-    {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+
     {% include '::flashbag.html.twig' %}
-    {{ form_errors(edit_form) }}
-    {{ form_widget(edit_form) }}
-    <div class="form-group">
-        <label class="control-label" for="fileupload">{{ "File"|trans }}</label>
-        <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.article.file"|trans }}</span>
-                <input id="articlefileupload" type="file" data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
-        </span>
+    {{ form(edit_form) }}
 
-        <div class="progress">
-            <div id="articlefilesprogress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div id="files"
-            <a class="btn btn-default btn-lg" href="{{ entity.file.path }}{{ entity.file.name }}" role="button" target="_blank">
-                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                {{ entity.file.name }}
-            </a>
-        </div>
-        <input name="file" id="file" type="hidden" value="{{ entity.file.name }}"/>
-
-    </div>
-
-    <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary pull-left btn-sm">
-        {{ "save"|trans }}
-    </button>
-    {{ form_end(edit_form) }}
     {{
     actions({
-        'back': {'href': path('ojs_journal_article_file_index', {'articleId': entity.articleId, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_article_file_delete', {'id': entity.id, 'articleId': entity.articleId, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_article_file_index', {'articleId': entity.article.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_article_file_delete', {'id': entity.id, 'articleId': entity.article.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 
     {{ getLogs(entity) }}
-
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#articlefileupload").fileupload({
-                done: function (e, data) {
-                    var result = $.parseJSON(data.result);
-                    for (var i = 0; i < data.files.length; i++) {
-                        $('#files').text(data.files[i].name);
-                        $('#file').val(result.files.name);
-                    }
-
-                },
-                progressall: function (e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $('#articlefilesprogress').attr(
-                            'aria-valuenow',
-                            progress
-                    );
-                    $('#articlefilesprogress').width(progress + '%');
-                }
-            });
-        });
-    </script>
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets '@upload_css'  output="assets/prod/css/upload.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
 
 {% endblock %}

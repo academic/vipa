@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\JournalBundle\Event\WorkflowEvent;
@@ -77,36 +76,6 @@ class ManagerController extends Controller
         $editForm = $this->createJournalEditForm($entity);
         $editForm->submit($request);
         if ($editForm->isValid()) {
-            if ($request->get('competing_interest_file_id') == '') {
-                if ($request->get('competing_interest_file') !== '') {
-                    $competingInterestFile = new File();
-                    $competingInterestFile->setName('Competing Interest File');
-                    $competingInterestFile->setSize($request->get('competing_interest_file_size'));
-                    $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
-                    $competingInterestFile->setPath($request->get('competing_interest_file'));
-
-                    $em->persist($competingInterestFile);
-                    $em->flush();
-
-                    $entity->setCompetingInterestFile($competingInterestFile);
-                }
-            }
-
-            $header = $request->request->get('header');
-            $cover = $request->request->get('cover');
-            $logo = $request->request->get('logo');
-
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-
-            if ($cover) {
-                $entity->setImageOptions(json_encode($cover));
-            }
-
-            if ($logo) {
-                $entity->setLogoOptions(json_encode($logo));
-            }
 
             $em->persist($entity);
             $em->flush();

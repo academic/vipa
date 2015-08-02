@@ -165,7 +165,8 @@ class AdminApplicationController extends Controller
         $form = $this->createForm(
             new JournalApplicationType(), $entity,
             ['action' => $this->generateUrl('ojs_admin_application_journal_update', array('id' => $entity->getId()))]
-        );
+        )
+            ->add('update', 'submit');
 
         return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', [
             'form' => $form->createView(),
@@ -189,7 +190,8 @@ class AdminApplicationController extends Controller
             [
                 'action' => $this->generateUrl('ojs_admin_application_institution_update', array('id' => $entity->getId())),
             ]
-        );
+        )
+        ->add('update','submit');
 
         return $this->render(
             'OjsAdminBundle:AdminApplication:institution_edit.html.twig',
@@ -206,7 +208,8 @@ class AdminApplicationController extends Controller
         $form = $this->createForm(
             new JournalApplicationType(),
             $entity
-        );
+        )
+        ->add('update', 'submit');
 
         $form->handleRequest($request);
 
@@ -217,7 +220,7 @@ class AdminApplicationController extends Controller
             return $this->redirect($this->generateUrl('ojs_admin_application_journal_index'));
         }
 
-        return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
     }
 
     public function institutionUpdateAction(Request $request, $id)

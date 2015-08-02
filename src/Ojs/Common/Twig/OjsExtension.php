@@ -5,12 +5,10 @@ namespace Ojs\Common\Twig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Ojs\Common\Helper\DateHelper;
-use Ojs\Common\Helper\FileHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\Common\Params\CommonParams;
 use Ojs\Common\Services\JournalService;
 use Ojs\Common\Services\UserListener;
-use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\UserBundle\Entity\User;
@@ -39,8 +37,6 @@ class OjsExtension extends \Twig_Extension
     /** @var  string */
     private $cmsShowRoutes;
     /** @var  string */
-    private $avatarUploadBaseUrl;
-    /** @var  string */
     private $defaultInstitutionSlug;
     /** @var  string */
     private $ojs_logo;
@@ -58,7 +54,6 @@ class OjsExtension extends \Twig_Extension
      * @param TokenStorageInterface $tokenStorage
      * @param Session $session
      * @param null $cmsShowRoutes
-     * @param null $avatarUploadBaseUrl
      * @param $defaultInstitutionSlug
      * @param $ojs_logo
      * @param $ojs_tw
@@ -73,7 +68,6 @@ class OjsExtension extends \Twig_Extension
         TokenStorageInterface $tokenStorage = null,
         Session $session = null,
         $cmsShowRoutes = null,
-        $avatarUploadBaseUrl = null,
         $defaultInstitutionSlug,
         $ojs_logo,
         $ojs_tw,
@@ -88,7 +82,6 @@ class OjsExtension extends \Twig_Extension
         $this->session = $session;
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
-        $this->avatarUploadBaseUrl = $avatarUploadBaseUrl;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
         $this->ojs_logo = $ojs_logo;
         $this->ojs_tw = $ojs_tw;
@@ -115,9 +108,6 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('hasIdInObjects', array($this, 'hasIdInObjects'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('breadcrumb', array($this, 'generateBreadcrumb'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('selectedJournal', array($this, 'selectedJournal'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('generateAvatarPath', array($this, 'generateAvatarPath'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('imagePath', array($this, 'generateImagePath')),
-            new \Twig_SimpleFunction('filePath', array($this, 'generateFilePath')),
             new \Twig_SimpleFunction('printYesNo', array($this, 'printYesNo'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusText', array($this, 'statusText'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusColor', array($this, 'statusColor'), array('is_safe' => array('html'))),
@@ -126,7 +116,6 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('apiKey', array($this, 'apiKey'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('getObject', array($this, 'getObject'), []),
             new \Twig_SimpleFunction('generateJournalUrl', array($this, 'generateJournalUrl'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('download', array($this, 'downloadArticleFile')),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
         );
@@ -283,39 +272,6 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     * @param $fileName
-     * @return string
-     */
-    public function generateAvatarPath($fileName)
-    {
-        $fileHelper = new FileHelper();
-
-        return $this->avatarUploadBaseUrl . $fileHelper->generatePath($fileName, false) . 'thumbnail2/' . $fileName;
-    }
-
-    /**
-     * @param $file
-     * @return string
-     */
-    public function generateImagePath($file)
-    {
-        $fileHelper = new FileHelper();
-
-        return $fileHelper->generatePath($file, false) . $file;
-    }
-
-    /**
-     * @param $file
-     * @return string
-     */
-    public function generateFilePath($file)
-    {
-        $fileHelper = new FileHelper();
-
-        return $fileHelper->generatePath($file, false) . $file;
-    }
-
-    /**
      * return translated "yes" or "no" statement after checking $arg
      * @param $arg
      * @return string
@@ -435,15 +391,6 @@ class OjsExtension extends \Twig_Extension
         $encoded = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
 
         return $encoded;
-    }
-
-    /**
-     * @param  File $file
-     * @return string
-     */
-    public function downloadArticleFile(File $file)
-    {
-        return $this->router->generate('ojs_file_download', ['id' => $file->getId()]);
     }
 
     /**

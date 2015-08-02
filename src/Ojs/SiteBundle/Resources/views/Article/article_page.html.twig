@@ -61,7 +61,7 @@
                                 {% else %}
                                     {{ generateJournalUrl(article.journal) }}
                                 {% endif %}">
-                                    <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                    <img src="{{ article.header|imagine_filter('article_header') }}"
                                          data-src="holder.js/960x200/random/text:{{ journal.title }}"
                                          class="img-responsive img-rounded float-left" alt="{{ article.title }}"/>
                                 </a>
@@ -298,7 +298,7 @@
                             <a href="{{ index.link }}" target="_blank">
                                 <h5>
                                     {% if index.journalIndex.logo %}
-                                        <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
+                                        <img src="{{ index.journalIndex.logo|imagine_filter('journalindex_logo') }}"
                                              alt="{{ index.journalIndex }}"/>
                                     {% endif %}
                                     {{ index.journalIndex.name }}

@@ -22,9 +22,7 @@
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "application.institution.edit"|trans }}</h1>
-            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
-            <button type="submit" class="btn btn-success pull-right">{{ "update"|trans }}</button>
-            {{ form_end(form) }}
+            {{ form(form) }}
 
             {{ getLogs(entity) }}
         </div>
