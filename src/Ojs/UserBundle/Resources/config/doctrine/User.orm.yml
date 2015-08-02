@@ -159,17 +159,11 @@ Ojs\UserBundle\Entity\User:
             nullable: true
             gedmo:
                 - versioned
-        avatar_options:
-            type: string
-            nullable: true
         header:
             type: string
             nullable: true
             gedmo:
                 - versioned
-        header_options:
-            type: string
-            nullable: true
         created:
            type: datetime
            gedmo:

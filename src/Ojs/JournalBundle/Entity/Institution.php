@@ -23,14 +23,7 @@ class Institution implements Translatable
     use GenericEntityTrait;
 
     public $statusTexts = array(0 => 'application.status.onhold', 1 => 'application.status.rejected');
-    /**
-     * @var string
-     */
-    protected $logo_options;
-    /**
-     * @var string
-     */
-    protected $header_options;
+
     /**
      * @var integer
      * @Expose
@@ -850,41 +843,4 @@ class Institution implements Translatable
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderOptions()
-    {
-        return $this->header_options;
-    }
-
-    /**
-     * @param  string $header_options
-     * @return $this
-     */
-    public function setHeaderOptions($header_options)
-    {
-        $this->header_options = $header_options;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLogoOptions()
-    {
-        return $this->logo_options;
-    }
-
-    /**
-     * @param  string $logo_options
-     * @return $this
-     */
-    public function setLogoOptions($logo_options)
-    {
-        $this->logo_options = $logo_options;
-
-        return $this;
-    }
 }

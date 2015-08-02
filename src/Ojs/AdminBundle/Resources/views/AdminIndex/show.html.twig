@@ -25,10 +25,12 @@
             <th>Name</th>
             <td>{{ entity.name }}</td>
         </tr>
+        {% if entity.logo  %}
         <tr>
             <th>Logo</th>
-            <td>{{ entity.logo }}</td>
+            <td><img src="{{ entity.logo|imagine_filter('journalindex_logo') }}" /></td>
         </tr>
+        {% endif %}
         <tr>
             <th>Status</th>
             <td>{{ entity.status }}</td>

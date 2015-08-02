@@ -12,37 +12,8 @@
 {% block body -%}
     <h1>{{ 'title.article_files_new'|trans }}</h1>
 
-    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <div class="alert alert-{{ label }}">
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {{ form_errors(form) }}
-    {{ form_widget(form) }}
-    <div class="form-group">
-        <label class="control-label" for="fileupload">{{ "File"|trans }}</label>
-        <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.article.file"|trans }}</span>
-                <input id="articlefileupload" type="file" data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
-        </span>
-
-        <div class="progress">
-            <div id="articlefilesprogress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-
-        <div id="files"></div>
-        <input name="file" id="file" type="hidden" value=""/>
-
-    </div>
-
-    <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
-        {{ "c"|trans }}
-    </button>
-    {{ form_end(form) }}
+    {% include '::flashbag.html.twig' %}
+    {{ form(form) }}
     <ul class="record_actions">
         <li>
             <a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">
@@ -50,40 +21,4 @@
             </a>
         </li>
     </ul>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#articlefileupload").fileupload({
-                done: function (e, data) {
-                    var result = $.parseJSON(data.result);
-                    for (var i = 0; i < data.files.length; i++) {
-                        $('#files').text(data.files[i].name);
-                        $('#file').val(result.files.name);
-                    }
-
-                },
-                progressall: function (e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $('#articlefilesprogress').attr(
-                            'aria-valuenow',
-                            progress
-                    );
-                    $('#articlefilesprogress').width(progress + '%');
-                }
-            });
-        });
-    </script>
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets '@upload_css'  output="assets/prod/css/upload.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-
 {% endblock %}

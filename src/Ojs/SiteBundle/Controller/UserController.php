@@ -47,42 +47,26 @@ class UserController extends Controller
         if (!$user) {
             throw new AccessDeniedException();
         }
-        $form = $this->createForm(new UpdateUserType(), $user);
+        $form = $this->createForm(new UpdateUserType(), $user)
+            ->add('update','submit',array('label' => 'c'));
         $data = [];
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $dm = $this->get('doctrine.odm.mongodb.document_manager');
-            if ($form->isValid()) {
-                $em = $this->get('doctrine')->getManager();
-                $em->persist($user);
-                $header = $request->request->get('header');
-                $cover = $request->request->get('avatar');
-                $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-                $imageOptions = $ir->init($header, $user, 'header');
-                $dm->persist($imageOptions);
-                $imageOptions = $ir->init($cover, $user, 'avatar');
-                $dm->persist($imageOptions);
-                $dm->flush();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->get('doctrine')->getManager();
+            $em->persist($user);
 
-                $em->flush();
-            } else {
-                $session = $this->get('session');
-                $bag = $session->getFlashBag();
-                $bag->add('error', $this->get('translator')->trans("An error has occured!"));
-                $session->save();
-            }
-
-            return new RedirectResponse($this->get('router')->generate('ojs_user_edit_profile'));
-        } else {
+            $em->flush();
+            return $this->redirectToRoute('ojs_user_edit_profile');
         }
+
         $data['edit_form'] = $form->createView();
         $data['entity'] = $user;
 
         return $this->render('OjsSiteBundle:User:update_profile.html.twig', $data);
     }
 
-    public function customFieldAction(Request $request)
+    public function customFieldAction()
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -90,10 +74,7 @@ class UserController extends Controller
             throw new AccessDeniedException();
         }
 
-        $data = [];
-        $data['user'] = $user;
-
-        return $this->render('OjsSiteBundle:User:custom_field.html.twig', $data);
+        return $this->render('OjsSiteBundle:User:custom_field.html.twig', array('user' => $user));
     }
 
     public function createCustomFieldAction(Request $request, $id = null)

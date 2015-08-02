@@ -79,7 +79,7 @@
                     <th>{{ 'institute.logo'|trans }}</th>
                     <td>
                         {% if entity.logo %}
-                        <img src="/uploads/institutionfiles/{{ imagePath(entity.logo) }}" alt="" style="max-width: 100%"/>
+                        <img src="{{ entity.logo|imagine_filter('institution_logo') }}" alt="" style="max-width: 100%"/>
                         {% endif %}
                     </td>
                 </tr>
@@ -87,7 +87,7 @@
                     <th>{{ 'institute.header'|trans }}</th>
                     <td>
                         {% if entity.header %}
-                        <img src="/uploads/institutionfiles/{{ imagePath(entity.header) }}" alt="" style="max-width: 100%"/>
+                        <img src="{{ entity.header|imagine_filter('institution_header') }}" alt="" style="max-width: 100%"/>
                         {% endif %}
                     </td>
                 </tr>

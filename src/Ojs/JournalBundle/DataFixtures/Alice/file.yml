@@ -1,6 +1,0 @@
-\Ojs\JournalBundle\Entity\File:
-  file1:
-    path: /
-    name: apple-touch-icon.png
-    mimeType: <mimeType()>
-    size: <randomNumber(5)>

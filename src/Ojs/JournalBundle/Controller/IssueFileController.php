@@ -9,10 +9,12 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Form\Type\IssueFileType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -20,9 +22,10 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  */
 class IssueFileController extends Controller
 {
-    public function indexAction(Request $request, $issueId)
+    public function indexAction($issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $em = $this->getDoctrine()->getManager();
         $this->throw404IfNotFound($journal);
 
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
@@ -33,16 +36,21 @@ class IssueFileController extends Controller
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
-        $issue = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($issueId);
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $issueId
+            )
+        );
         $this->throw404IfNotFound($issue);
 
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias, $issueId) {
+            function (QueryBuilder $query) use ($alias, $issue) {
                 $query
-                    ->join($alias.'.issue', 'i')
-                    ->where('i.id = :issueId')
-                    ->setParameter('issueId', $issueId);
+                    ->andWhere($alias.'.issue = :issue')
+                    ->setParameter('issue', $issue);
             }
         );
 
@@ -64,31 +72,45 @@ class IssueFileController extends Controller
 
     /**
      * Creates a new IssueFile entity.
+     *
+     * @param Request $request
+     * @param $issueId
+     * @return RedirectResponse|Response
+     * @throws \Doctrine\ORM\ORMException
      */
     public function createAction(Request $request, $issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
+        $em = $this->getDoctrine()->getManager();
         if (!$this->isGranted('CREATE', $journal, 'issues')) {
             throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $issueId
+            )
+        );
+        $this->throw404IfNotFound($issue);
 
         $entity = new IssueFile();
-        $entity->setIssueId($issueId);
-        $form = $this->createCreateForm($entity, $journal->getId());
-        $form->submit($request);
+        $entity->setIssue($issue);
+        $form = $this->createCreateForm($entity, $journal->getId())
+            ->add('create', 'submit', array('label' => 'c'));
+
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            $issue = $em->getReference('OjsJournalBundle:Issue', $entity->getIssueId());
             $entity->setIssue($issue);
             $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit',
-                ['id' => $entity->getId(), 'journalId' => $journal->getId(), 'issueId' => $entity->getIssueId()]));
+                ['id' => $entity->getId(), 'journalId' => $journal->getId(), 'issueId' => $issue->getId()]));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:new.html.twig', array(
@@ -98,11 +120,9 @@ class IssueFileController extends Controller
     }
 
     /**
-     * Creates a form to create a IssueFile entity.
-     *
-     * @param IssueFile $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param IssueFile $entity
+     * @param $journalId
+     * @return \Symfony\Component\Form\Form
      */
     private function createCreateForm(IssueFile $entity, $journalId)
     {
@@ -113,7 +133,7 @@ class IssueFileController extends Controller
         }
 
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('ojs_journal_issue_file_create', array('journalId' => $journalId, 'issueId' => $entity->getIssueId())),
+            'action' => $this->generateUrl('ojs_journal_issue_file_create', array('journalId' => $journalId, 'issueId' => $entity->getIssue()->getId())),
             'method' => 'POST',
             'languages' => $langs,
         ]);
@@ -123,18 +143,31 @@ class IssueFileController extends Controller
 
     /**
      * Displays a form to create a new IssueFile entity.
+     *
+     * @param $issueId
+     * @return Response
      */
-    public function newAction(Request $request, $issueId)
+    public function newAction($issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
+        $em = $this->getDoctrine()->getManager();
         if (!$this->isGranted('CREATE', $journal, 'issues')) {
             throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
-        $entity = new IssueFile();
-        $entity->setIssueId($issueId);
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $issueId
+            )
+        );
+        $this->throw404IfNotFound($issue);
 
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $entity = new IssueFile();
+        $entity->setIssue($issue);
+
+        $form = $this->createCreateForm($entity, $journal->getId())
+            ->add('create', 'submit', array('label' => 'c'));
 
         return $this->render('OjsJournalBundle:IssueFile:new.html.twig', array(
             'entity' => $entity,
@@ -144,17 +177,29 @@ class IssueFileController extends Controller
 
     /**
      * Finds and displays a IssueFile entity.
+     *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var IssueFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException('You are not authorized for edit this  issue file!');
         }
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $entity->getIssue()->getId()
+            )
+        );
+        $this->throw404IfNotFound($issue);
 
         $this->throw404IfNotFound($entity);
 
@@ -170,11 +215,15 @@ class IssueFileController extends Controller
 
     /**
      * Displays a form to edit an existing IssueFile entity.
+     *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var IssueFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -182,10 +231,19 @@ class IssueFileController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException('You are not authorized for edit this  issue file!');
         }
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $entity->getIssue()->getId()
+            )
+        );
+        $this->throw404IfNotFound($issue);
 
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+            ->add('edit', 'submit', array('label' => 'e'));
 
         return $this->render('OjsJournalBundle:IssueFile:edit.html.twig', array(
             'entity' => $entity,
@@ -208,7 +266,7 @@ class IssueFileController extends Controller
             $langs[$lang['code']] = $lang['name'];
         }
         $form = $this->createForm(new IssueFileType(), $entity, [
-            'action' => $this->generateUrl('ojs_journal_issue_file_update', ['id' => $entity->getId(), 'journalId' => $entity->getIssue()->getJournalId(), 'issueId' => $entity->getIssueId()]),
+            'action' => $this->generateUrl('ojs_journal_issue_file_update', ['id' => $entity->getId(), 'journalId' => $entity->getIssue()->getJournal()->getId(), 'issueId' => $entity->getIssue()->getId()]),
             'method' => 'PUT',
             'languages' => $langs,
         ]);
@@ -218,11 +276,16 @@ class IssueFileController extends Controller
 
     /**
      * Edits an existing IssueFile entity.
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var IssueFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
 
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -231,17 +294,24 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for edit this issue file!');
         }
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find IssueFile entity.');
-        }
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $entity->getIssue()->getId()
+            )
+        );
+        $this->throw404IfNotFound($issue);
+        $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+            ->add('edit', 'submit', array('label' => 'e'));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit', array('id' => $id, 'journalId' => $journal->getId(), 'issueId' => $entity->getIssueId())));
+            return $this->redirect($this->generateUrl('ojs_journal_issue_file_edit', array('id' => $id, 'journalId' => $journal->getId(), 'issueId' => $entity->getIssue()->getId())));
         }
 
         return $this->render('OjsJournalBundle:IssueFile:edit.html.twig', array(
@@ -252,16 +322,30 @@ class IssueFileController extends Controller
 
     /**
      * Deletes a IssueFile entity.
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var IssueFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:IssueFile')->find($id);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         if (!$this->isGranted('DELETE', $journal, 'issues')) {
             throw new AccessDeniedException('You are not authorized for delete this issue file!');
         }
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
+            array(
+                'journal' => $journal,
+                'id' => $entity->getIssue()->getId()
+            )
+        );
+        $this->throw404IfNotFound($issue);
+
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
@@ -273,6 +357,6 @@ class IssueFileController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
-        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index', ['journalId' => $journal->getId(), 'issueId' => $entity->getIssueId()]));
+        return $this->redirect($this->generateUrl('ojs_journal_issue_file_index', ['journalId' => $journal->getId(), 'issueId' => $entity->getIssue()->getId()]));
     }
 }

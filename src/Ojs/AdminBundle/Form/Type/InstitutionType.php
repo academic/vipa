@@ -72,9 +72,25 @@ class InstitutionType extends AbstractType
             ->add('email', 'email', ['label' => 'email'])
             ->add('wiki')
             ->add('tags', 'tags')
-            ->add('logo', 'hidden')
+            ->add('logo', 'jb_crop_image_ajax', array(
+                'endpoint' => 'institution',
+                'img_width' => 200,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 200,
+                    'maxSize' => "[200, 200]"
+                )
+            ))
             ->add('domain')
-            ->add('header', 'hidden')
+            ->add('header', 'jb_crop_image_ajax', array(
+                'endpoint' => 'institution',
+                'img_width' => 960,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 960 / 200,
+                    'maxSize' => "[960, 200]"
+                )
+            ))
             ->add(
                 'verified',
                 'checkbox',

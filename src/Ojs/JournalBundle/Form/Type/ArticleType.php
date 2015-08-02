@@ -185,7 +185,19 @@ class ArticleType extends AbstractType
                     ],
                 )
             )
-            ->add('header', 'hidden')
+            ->add('header', 'jb_crop_image_ajax', array(
+                'endpoint' => 'article',
+                'label' => 'Header Image',
+                'img_width' => 960,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 960 / 200,
+                    'maxSize' => "[960, 200]"
+                )
+            ))
+            ->add('competingFile', 'jb_file_ajax', array(
+                'endpoint' => 'articlefiles'
+            ))
             ;
     }
 

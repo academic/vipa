@@ -20,11 +20,6 @@ Ojs\JournalBundle\Entity\Journal:
           joinColumn:
             name: country_id
             referencedColumnName: id
-        competingInterestFile:
-            targetEntity: Ojs\JournalBundle\Entity\File
-            joinColumn:
-              name: competing_interest_file_id
-              referencedColumnName: id
         mandatoryLang:
             targetEntity: Ojs\JournalBundle\Entity\Lang
             joinColumn:
@@ -248,19 +243,16 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
-        image_options:
-            type: string
-            nullable: true
         header:
             type: string
             length: 255
             nullable: true
             gedmo:
                   - versioned
-        competingInterestFileId:
-            type: integer
+        competingFile:
+            type: string
+            length: 255
             nullable: TRUE
-            column: competing_interest_file_id
             gedmo:
               - versioned
         mandatoryLangId:
@@ -269,18 +261,12 @@ Ojs\JournalBundle\Entity\Journal:
             column: mandatory_lang_id
             gedmo:
               - versioned
-        header_options:
-            type: string
-            nullable: true
         logo:
             type: string
             length: 255
             nullable: true
             gedmo:
                   - versioned
-        logo_options:
-            type: string
-            nullable: true
         googleAnalyticsId:
             type: string
             length: 50

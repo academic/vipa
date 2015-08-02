@@ -27,9 +27,8 @@
         {% block journalheader %}
             <div id="header">
                 {% if journal.header %}
-                    {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
                     <div class="col-md-12"><img
-                                src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                src="{{ journal.header|imagine_filter('journal_header') }}"
                                 data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
                                 class="width100 img-responsive"/>
                     </div>
@@ -69,9 +68,7 @@
         {% endblock %}
         <div class="row">
             <div class="col-md-2">
-                {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
-
-                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
+                <img src="{{ journal.image|imagine_filter('journal_cover') }}"
                      data-src="holder.js/253x180/random/text:{{ journal.title }} "
                      class="img-responsive img-rounded float-left" alt=""/>
 
@@ -192,7 +189,7 @@
                             <a href="{{ index.link }}" target="_blank">
                                 <h5>
                                     {% if index.journalIndex.logo %}
-                                        <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
+                                        <img src="{{ index.journalIndex.logo|imagine_filter('journalindex_logo') }}"
                                              alt="{{ index.journalIndex }}"/>
                                     {% endif %}
                                     {{ index.journalIndex.name }}
@@ -273,11 +270,11 @@
                                         <li>
                                             <a href="
                                             {% if isInstitutionHosting is defined %}
-                                                {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
+                                                {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issue.id  , article_id:article.id}) }}
                                             {% elseif isJournalHosting is defined %}
-                                                {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
+                                                {{ url('journal_hosting_issue_article',{issue_id:article.issue.id  , article_id:article.id}) }}
                                             {% else %}
-                                                {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
+                                                {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issue.id  , article_id:article.id,institution:journal.institution.slug}) }}
                                             {% endif %}">{{ article.title }}</a>
                                         </li>
                                     {% endfor %}

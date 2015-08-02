@@ -18,9 +18,9 @@ class IssueFileType extends AbstractType
         $languages = $options["languages"];
 
         $builder
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\IssueFile'
-            ])
+            ->add('file', 'jb_file_ajax', array(
+                'endpoint' => 'issuefiles'
+            ))
             ->add('type',
                 'choice',
                 [
@@ -30,9 +30,8 @@ class IssueFileType extends AbstractType
             ->add('langCode','choice',[
                 'choices'=>$languages
             ])
-            ->add('issueId','hidden')
-            ->add('file',new FileType(),[
-                'data_class'=>'Ojs\JournalBundle\Entity\File'
+            ->add('translations', 'a2lix_translations_gedmo',[
+                'translatable_class' => 'Ojs\JournalBundle\Entity\IssueFile'
             ])
         ;
     }

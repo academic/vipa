@@ -5,7 +5,6 @@ use Elastica\Filter;
 use Elastica\Query;
 use Elastica\Result;
 use Elastica\ResultSet;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -132,10 +131,6 @@ class SearchManager
             case 'author':
                 $data['name'] = $source['firstName'] . ' ' . $source['lastName'];
                 $data['route'] = $this->generateAuthorUrl($object);
-                break;
-            case 'file':
-                $data['name'] = $source['name'];
-                $data['route'] = $this->router->generate('ojs_file_download', ['id' => $object->getId()], true);
                 break;
             case 'page':
                 $data['name'] = $source['title'];

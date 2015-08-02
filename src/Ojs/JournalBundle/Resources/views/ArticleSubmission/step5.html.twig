@@ -51,7 +51,7 @@
             </div>
 
             {% if articleFile is defined %}
-                <a class="label label-info" href="/uploads/journalfiles/{{ filePath(articleFile.file.path) }}"
+                <a class="label label-info" href="/uploads/journalfiles/{{ articleFile.file.path }}"
                    target="_blank">
                     {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
                     <i class="fa fa-download"></i>

@@ -11,96 +11,16 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets '@upload_css' output="assets/prod/css/upload.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-
-{% endblock %}
-
-
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "user.new"|trans }}</h1>
-
+            {% include '::flashbag.html.twig' %}
             <div class="record_actions">
-                {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-                {% for label, flashes in app.session.flashbag.all %}
-                    {% for flash in flashes %}
-                        <div class="alert alert-{{ label }}">
-                            {{ flash }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-
-                {{ form_errors(form) }}
-                {{ form_widget(form) }}
-
-                <div class="form-group">
-                    <label class="control-label" for="fileupload_avatar">{{ "Avatar"|trans }}</label>
-
-                    <div id="preview_image_avatar" style="width:200px">
-                        {% if entity.avatar %}
-                            <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200") }}"
-                                 data-src="holder.js/960x200/random/text:{{ entity.username }}" alt=""/>
-                            {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
-                            <input id="avatar_height" name="avatar[height]" type="hidden"
-                                   value="{{ imageoptions.height }}"/>
-                            <input id="avatar_width" name="avatar[width]" type="hidden"
-                                   value="{{ imageoptions.width }}"/>
-                            <input id="avatar_x" name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="avatar_y" name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
-                        {% endif %}
-
-                    </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload_avatar" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
-            </span>
-
-                    <div id="user_avatar_upload_progress" style="display: none" class="label label-info">
-
-                    </div>
-                </div>
-                <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-                    {{ "c"|trans }}
-                </button>
-                {{ form_end(form) }}
-
+                {{ form(form) }}
                 {% include '::actionbuttons.html.twig' %}
-
-
             </div>
         </div>
     </div>
-    <style>
-        select#ojs_userbundle_user_roles {
-            height: 300px;
-            margin-bottom: 30px
-        }
-    </style>
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#fileupload_avatar').fileupload({});
-            $('#fileupload_avatar').bind('fileuploadsend', function (e, data) {
-                $('#user_avatar_upload_progress').show();
-                $('#user_avatar_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#user_avatar_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_userbundle_user_avatar').attr('value', JSON.parse(data.result).files.name);
-            });
-        });
-    </script>
-{% endblock %}

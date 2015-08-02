@@ -15,9 +15,8 @@
         <!-- Page Content -->
         <h1 class="page-header">{{ entity.name }} </h1>
         {% if entity.header is not null %}
-            {% set imageoptions=getImageOptions(entity,'header','institution_header') %}
             <img class="img-responsive"
-                 src="{{ ('/uploads/institutionfiles/'~imagePath(entity.header))|imagine_filter('institution_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
+                 src="{{ entity.header|imagine_filter('institution_header') }}"
                  alt=""/>
             <div class="clearfix"></div>
         {% endif %}

@@ -73,7 +73,8 @@ class JournalUserController extends Controller
         }
 
         $entity = new User();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $form = $this->createCreateForm($entity, $journal->getId())
+            ->add('create', 'submit', array('label' => 'c'));
 
         return $this->render(
             'OjsJournalBundle:JournalUser:new.html.twig',
@@ -98,7 +99,8 @@ class JournalUserController extends Controller
         }
 
         $entity = new User();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $form = $this->createCreateForm($entity, $journal->getId())
+            ->add('create', 'submit', array('label' => 'c'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -108,7 +110,7 @@ class JournalUserController extends Controller
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
-            $entity->setAvatar($request->get('user_avatar'));
+
             $em->persist($entity);
 
             $journalUser = new JournalUser();

@@ -91,14 +91,18 @@
                     <th>{{ 'journal.subjects'|trans }}</th>
                     <td>{{ subjects }}</td>
                 </tr>
+                {% if entity.image %}
                 <tr>
                     <th>{{ 'journal.cover_image'|trans }}</th>
-                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.image) }}" alt=""/></td>
+                    <td><img src="{{ (entity.image)|imagine_filter('journal_croped') }}" alt=""/></td>
                 </tr>
+                {% endif %}
+                {% if entity.header %}
                 <tr>
                     <th>{{ 'journal.header_image'|trans }}</th>
-                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.header) }}" alt=""/></td>
+                    <td><img src="{{ entity.header|imagine_filter('journal_croped') }}" alt=""/></td>
                 </tr>
+                {% endif %}
                 <tr>
                     <th>{{ 'journal.tags'|trans }}</th>
                     <td>{{ entity.tags }}</td>

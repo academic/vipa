@@ -30,10 +30,9 @@ class IssueController extends Controller
     /**
      * Lists all Issue entities.
      *
-     * @param   Request $request
      * @return  Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -109,16 +108,7 @@ class IssueController extends Controller
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
-            $header = $request->request->get('header');
-            $cover = $request->request->get('cover');
 
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-
-            if ($cover) {
-                $entity->setCoverOptions(json_encode($cover));
-            }
             $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
@@ -197,6 +187,7 @@ class IssueController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
+        /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
             array('id' => $id, 'journal' => $journal)
         );
@@ -239,38 +230,12 @@ class IssueController extends Controller
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity, $journal->getId());
 
-        $source = new Entity('OjsJournalBundle:IssueFile');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($ta, $entity) {
-                $query->andWhere($ta . '.issueId = :issue_id')
-                    ->setParameter('issue_id', $entity->getId());
-            }
-        );
-
-        $grid = $this->get('grid')->setSource($source);
-        $gridAction = $this->get('grid_action');
-
-        $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_issue_file_show', 'id');
-
-        if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->editAction('ojs_journal_issue_file_edit', 'id');
-        }
-        if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_file_delete', 'id');
-        }
-
-        $actionColumn->setRowActions($rowAction);
-        $grid->addColumn($actionColumn);
-        return $grid->getGridResponse(
+        return $this->render(
             'OjsJournalBundle:Issue:edit.html.twig',
             [
                 'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-                'grid' => $grid
+                'edit_form' => $editForm->createView()
             ]);
     }
 
@@ -320,16 +285,6 @@ class IssueController extends Controller
         $editForm = $this->createEditForm($entity, $journal->getId());
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            $header = $request->request->get('header');
-            $cover = $request->request->get('cover');
-
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-
-            if ($cover) {
-                $entity->setCoverOptions(json_encode($cover));
-            }
 
             $em->persist($entity);
             $em->flush();
@@ -517,7 +472,7 @@ class IssueController extends Controller
             $this->throw404IfNotFound($section);
         }
 
-        $article->setIssueId($id);
+        $article->setIssue($issue);
 
         if ($section) {
             $sections = $issue->getSections();

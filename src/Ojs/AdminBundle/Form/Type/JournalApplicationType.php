@@ -52,8 +52,8 @@ class JournalApplicationType extends AbstractType
                 ]
             )
             ->add('period', null, ['label' => 'journal.period', 'attr' => ['class' => 'validate[required]']])
-            ->add('tags', null, ['attr' => ['class' => 'tags form-control validate[required]', 'label' => 'journal.tags']])
-            ->add('url', null, ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
+            ->add('tags', 'tags', ['attr' => ['class' => 'validate[required]', 'label' => 'journal.tags']])
+            ->add('url', 'url', ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'institution',
                 'entity',
@@ -88,8 +88,31 @@ class JournalApplicationType extends AbstractType
                     'attr' => ['class' => 'select2-element validate[required]'],
                 )
             )
-            ->add('image', 'hidden')
-            ->add('header', 'hidden')
+            ->add('header', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'label' => 'Header Image',
+                'img_width' => 960,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 960 / 200,
+                    'maxSize' => "[960, 200]"
+                )
+            ))
+            ->add('image', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'label' => 'Cover Image',
+                'img_width' => 200,
+                'img_height' => 300,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 300,
+                    'maxSize' => "[200, 300]"
+                )
+            ))
+            ->add('competingFile', 'jb_file_ajax',
+                array(
+                    'endpoint' => 'journalCompeting'
+                )
+            )
             ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])
             ->add('phone', null, ['label' => 'journal.phone', 'attr' => ['class' => 'validate[required,custom[email]]']])
             ->add('email', 'email', ['label' => 'journal.email', 'attr' => ['class' => 'validate[required,custom[email]]']])
