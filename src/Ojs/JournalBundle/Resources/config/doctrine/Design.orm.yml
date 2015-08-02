@@ -2,13 +2,10 @@ Ojs\JournalBundle\Entity\Design:
     type: entity
     table: design
     repositoryClass: Ojs\JournalBundle\Entity\DesignRepository
-    oneToMany:
-        journalDesigns:
-            targetEntity: Ojs\JournalBundle\Entity\JournalDesign
-            mappedBy: design
+    manyToMany:
         journals:
-          targetEntity: Journal
-          mappedBy: design
+            targetEntity: Journal
+            mappedBy: designs
     id:
         id:
             type: integer

@@ -12,7 +12,6 @@ use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Ojs\LocationBundle\Entity\Country;
-use Proxies\__CG__\Ojs\JournalBundle\Entity\Design;
 
 /**
  * Journal
@@ -303,7 +302,7 @@ class Journal implements Translatable
     private $mandatoryLangId;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Design[]
      */
     private $designs;
 
@@ -982,28 +981,6 @@ class Journal implements Translatable
     }
 
     /**
-     * Get designId
-     *
-     * @return integer
-     */
-    public function getDesignId()
-    {
-        return $this->themeId;
-    }
-
-    /**
-     * Set designId
-     * @param $themeId
-     * @return $this
-     */
-    public function setDesignId($themeId)
-    {
-        $this->themeId = $themeId;
-
-        return $this;
-    }
-
-    /**
      * Get theme
      *
      * @return Theme
@@ -1571,7 +1548,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @return File
+     * @return string
      */
     public function getCompetingFile()
     {
@@ -1617,18 +1594,33 @@ class Journal implements Translatable
     }
 
     /**
-     * @param  ArrayCollection $designs
-     * @return $this
+     * @param Design $design
+     * @return Journal
      */
-    public function setDesigns($designs)
+    public function addDesign(Design $design)
     {
-        $this->designs = $designs;
-
+        if(!$this->designs->contains($design)){
+            $this->designs->add($design);
+            $design->addJournal($this);
+        }
         return $this;
     }
 
     /**
-     * @return ArrayCollection
+     * @param Design $design
+     * @return Journal
+     */
+    public function removeDesign(Design $design)
+    {
+        if($this->designs->contains($design)){
+            $this->designs->removeElement($design);
+            $design->removeJournal($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Design[]
      */
     public function getDesigns()
     {
