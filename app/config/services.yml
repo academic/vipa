@@ -69,11 +69,11 @@ services:
     tags:
       - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
 
-  ojs.ojs_upload_listener:
-    class: Ojs\Common\Services\UploadListener
-    arguments: ["%kernel.root_dir%"]
-    tags:
-      - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+#  ojs.ojs_upload_listener:
+#    class: Ojs\Common\Services\UploadListener
+#    arguments: ["%kernel.root_dir%"]
+#    tags:
+#      - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
   ojs.ojs_mailer:
     class: Ojs\UserBundle\Service\MailerService

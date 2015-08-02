@@ -28,9 +28,8 @@
             {% block journalheader %}
                 <div id="header">
                     {% if journal.header %}
-                        {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
                         <div class="col-md-12"><img
-                                    src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                    src="{{ journal.header|imagine_filter('journal_header') }}"
                                     data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
                                     class="width100 img-responsive"/>
                         </div>
@@ -70,9 +69,7 @@
             {% endblock %}
             <div class="row">
                 <div class="col-md-2">
-                    {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
-
-                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
+                    <img src="{{ journal.image|imagine_filter('journal_cover') }}"
                          data-src="holder.js/253x180/random/text:{{ journal.title }} "
                          class="img-responsive img-rounded float-left" alt=""/>
 

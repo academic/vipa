@@ -146,9 +146,7 @@
                     <div class="row">
                 {% endif %}
                 <div class="col-md-4 thumbnail">
-                    <img src="{{ journal.logo is not defined ? '#' :
-                            ('/uploads/journalfiles/' ~ imagePath(journal.logo))
-                            | imagine_filter('journal_cover') }}"
+                    <img src="{{ journal.logo|imagine_filter('journal_cover') }}"
                          data-src="holder.js/300x190/text: {{ journal.title }}"
                          class="img-responsive" alt="{{ journal.title }}">
 

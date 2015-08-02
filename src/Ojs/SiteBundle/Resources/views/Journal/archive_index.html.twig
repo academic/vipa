@@ -52,7 +52,7 @@
                                                 {% endif %}">
 
                                                 {% if issue.cover is not null %}
-                                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(issue.cover))|imagine_filter('issue_cover_medium') }}"
+                                                    <img src="{{ issue.cover|imagine_filter('issue_cover_medium') }}"
                                                          data-src="holder.js/180x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
                                                          class="img-responsive"/>
                                                 {% endif %}

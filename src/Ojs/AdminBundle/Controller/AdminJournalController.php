@@ -6,6 +6,7 @@ use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\AdminBundle\Form\Type\JournalType;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Ojs\JournalBundle\Entity\File;
 
 /**
  * Journal controller.
@@ -70,7 +70,7 @@ class AdminJournalController extends Controller
         $tableAlias = $source->getTableAlias();
 
         $source->manipulateQuery(
-            function ($query) use ($tableAlias)
+            function (QueryBuilder $query) use ($tableAlias)
             {
                 $query->andWhere($tableAlias . '.setup_status = 0');
             }
@@ -115,18 +115,7 @@ class AdminJournalController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $header = $request->request->get('header');
-            $cover = $request->request->get('cover');
-            $logo = $request->request->get('logo');
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-            if ($cover) {
-                $entity->setImageOptions(json_encode($cover));
-            }
-            if ($logo) {
-                $entity->setLogoOptions(json_encode($logo));
-            }
+
             $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
@@ -271,30 +260,6 @@ class AdminJournalController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->submit($request);
         if ($editForm->isValid()) {
-            if($request->get('competing_interest_file_id') == ''){
-                if($request->get('competing_interest_file') !== ''){
-                    $competingInterestFile = new File();
-                    $competingInterestFile->setName('Competing Interest File');
-                    $competingInterestFile->setSize($request->get('competing_interest_file_size'));
-                    $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
-                    $competingInterestFile->setPath($request->get('competing_interest_file'));
-                    $em->persist($competingInterestFile);
-                    $em->flush();
-                    $entity->setCompetingInterestFile($competingInterestFile);
-                }
-            }
-            $header = $request->request->get('header');
-            $cover = $request->request->get('cover');
-            $logo = $request->request->get('logo');
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-            if ($cover) {
-                $entity->setImageOptions(json_encode($cover));
-            }
-            if ($logo) {
-                $entity->setLogoOptions(json_encode($logo));
-            }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');

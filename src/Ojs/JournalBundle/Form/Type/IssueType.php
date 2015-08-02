@@ -42,9 +42,28 @@ class IssueType extends AbstractType
             )
             ->add('tags', 'tags')
             ->add('published', 'checkbox', ['label' => 'published'])
-            ->add('full_file', 'hidden')
-            ->add('cover', 'hidden')
-            ->add('header', 'hidden');
+            ->add('full_file', 'jb_file_ajax', array(
+                'endpoint' => 'issue'
+            ))
+            ->add('cover', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'img_width' => 200,
+                'img_height' => 300,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 300,
+                    'maxSize' => "[200, 300]"
+                )
+            ))
+            ->add('header', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journal',
+                'img_width' => 960,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 960 / 200,
+                    'maxSize' => "[960, 200]"
+                )
+            ))
+        ;
     }
 
     /**

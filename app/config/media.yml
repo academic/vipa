@@ -1,131 +1,270 @@
+knp_gaufrette:
+  stream_wrapper: ~
+  adapters:
+    institution:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/institution
+        create: true
+    institution_croped:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/institution/croped
+        create: true
+    journal:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/journal
+        create: true
+    journal_croped:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/journal/croped
+        create: true
+    issue:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/issue
+        create: true
+  filesystems:
+    institution:
+      adapter: institution
+      alias: institution_filesystem
+    institution_croped:
+      adapter: institution_croped
+      alias: institution_croped_filesystem
+    journal:
+      adapter: journal
+      alias: journal_filesystem
+    journal_croped:
+      adapter: journal_croped
+      alias: journal_croped_filesystem
+    issue:
+      adapter: issue
+      alias: issue_filesystem
 oneup_uploader:
-    mappings:
-        generic:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        avatarfiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        institutionfiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        journalfiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        journalindexfiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        articlefiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        userfiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
-        issuefiles:
-            enable_progress: true
-            frontend: blueimp
-            allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+  mappings:
+    generic:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+    avatarfiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+    institution:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.institution_filesystem
+        stream_wrapper: gaufrette://institution/
+    journal:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.journal_filesystem
+        stream_wrapper: gaufrette://journal/
+    journalCompeting:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.journal_filesystem
+        stream_wrapper: gaufrette://journal/
+    journalindexfiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+    articlefiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+    userfiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+    issue:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel']
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.issue_filesystem
+        stream_wrapper: gaufrette://issue/
 liip_imagine:
-    resolvers:
-       default:
-          web_path: ~
+  data_loader: stream.journal_filesystem
+  loaders:
+    stream.institution_filesystem:
+      stream:
+        wrapper: gaufrette://institution/
+    stream.institution_croped_filesystem:
+      stream:
+        wrapper: gaufrette://institution_croped/
+    stream.journal_filesystem:
+      stream:
+        wrapper: gaufrette://journal/
+    stream.journal_croped_filesystem:
+      stream:
+        wrapper: gaufrette://journal_croped/
+  resolvers:
+    default:
+      web_path: ~
 
-    filter_sets:
-        cache: ~
-        avatar_thumb:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 200 }
-                crop: {start:[0,0], size: [200, 200]}
-        avatar_thumb_crop:
-            quality: 90
-            filters:
-                crop:  { start : [0,0], size: [200, 200]}
-        medium:
-            quality: 90
-            filters:
-                upscale: { min: [800,600]} #resize
-        height_60:
-            quality: 90
-            filters:
-                relative_resize: { heighten: 60 }
-        height_200:
-            quality: 90
-            filters:
-                relative_resize: { heighten: 200 }
-        height_60:
-            quality: 90
-            filters:
-                relative_resize: { heighten: 60 }
-        wide_100:
-            quality: 90
-            filters:
-                relative_resize: { widen: 100 }
-        wide_200:
-            quality: 90
-            filters:
-                relative_resize: { widen: 200 }
-        wide_960:
-            quality: 90
-            filters:
-                relative_resize: { widen: 960 }
-        issue_cover:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 75 }
-                crop: {start:[0,0], size: [75, 75]}
-        issue_header:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 960 }
-                crop: {start:[0,0], size: [960, 200]}
-        journal_cover:
-            quality: 90
-            filters:
-                thumbnail: {size: [190,284], mode: outbound}
-        journal_header:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 960 }
-                crop: {start:[0,0], size: [960, 200]}
-        journal_logo:
-            quality: 90
-            filters:
-                thumbnail: { size: [96, 128], mode: outbound }
-        journalindex_logo:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 200 }
-                crop: {start:[0,0], size: [200, 200]}
-        institution_logo:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 200 }
-                crop: {start:[0,0], size: [200, 200]}
-        institution_header:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 960 }
-                crop: {start:[0,0], size: [960, 200]}
-        article_header:
-            quality: 90
-            filters:
-                relative_resize: {  widen: 960 }
-                crop: {start:[0,0], size: [960, 200]}
-        user_header:
-            quality: 90
-            filters:
-                relative_resize: { widen: 960 }
-                crop: {start:[0,0], size: [1200, 300]}
+  filter_sets:
+    original: ~
+    journal_original:
+      data_loader: stream.journal_filesystem
+      quality: 90
+    journal_croped:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+    institution_original:
+      data_loader: stream.institution_filesystem
+      quality: 90
+    institution_croped:
+      data_loader: stream.institution_croped_filesystem
+      quality: 90
+    cache: ~
+    avatar_thumb:
+      quality: 90
+      filters:
+        relative_resize: {  widen: 200 }
+        crop: {start:[0,0], size: [200, 200]}
+    avatar_thumb_crop:
+      quality: 90
+      filters:
+        crop:  { start : [0,0], size: [200, 200]}
+    medium:
+      quality: 90
+      filters:
+        upscale: { min: [800,600]} #resize
+    height_60:
+      quality: 90
+      filters:
+        relative_resize: { heighten: 60 }
+    height_200:
+      quality: 90
+      filters:
+        relative_resize: { heighten: 200 }
+    height_60:
+      quality: 90
+      filters:
+        relative_resize: { heighten: 60 }
+    wide_100:
+      quality: 90
+      filters:
+        relative_resize: { widen: 100 }
+    wide_200:
+      quality: 90
+      filters:
+        relative_resize: { widen: 200 }
+    wide_960:
+      quality: 90
+      filters:
+        relative_resize: { widen: 960 }
+    issue_cover:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+      filters:
+          relative_resize: {  widen: 75 }
+          crop: {start:[0,0], size: [75, 75]}
+    issue_header:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: {  widen: 960 }
+        crop: {start:[0,0], size: [960, 200]}
+    journal_cover:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+      filters:
+        thumbnail: {size: [190,284], mode: outbound}
+    journal_header:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: {  widen: 960 }
+        crop: {start:[0,0], size: [960, 200]}
+    journal_logo:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+      filters:
+        thumbnail: { size: [96, 128], mode: outbound }
+    journalindex_logo:
+      quality: 90
+      filters:
+        relative_resize: {  widen: 200 }
+        crop: {start:[0,0], size: [200, 200]}
+    institution_logo:
+      data_loader: stream.institution_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: {  widen: 200 }
+        crop: {start:[0,0], size: [200, 200]}
+    institution_header:
+      data_loader: stream.institution_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: {  widen: 960 }
+        crop: {start:[0,0], size: [960, 200]}
+    article_header:
+      quality: 90
+      filters:
+        relative_resize: {  widen: 960 }
+        crop: {start:[0,0], size: [960, 200]}
+    user_header:
+      quality: 90
+      filters:
+        relative_resize: { widen: 960 }
+        crop: {start:[0,0], size: [1200, 300]}
+    issue_cover_medium:
+      data_loader: stream.journal_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: { widen: 180}
 
-        issue_cover_medium:
-            quality: 90
-            filters:
-                relative_resize: { widen: 180}
+
+jb_file_uploader:
+  resolvers:
+    journal:
+      assets:
+        directory: uploads/journal
+    journal_croped:
+      assets:
+        directory: uploads/journal/croped
+    institution:
+      assets:
+        directory: uploads/institution
+    institution_croped:
+      assets:
+        directory: uploads/institution/croped
+    journalCompeting:
+      assets:
+        directory: uploads/journal
+    issue:
+      assets:
+        directory: uploads/issue
+  endpoints:
+    issue:
+      upload_resolver: issue
+    journalCompeting:
+      upload_resolver: journalCompeting
+    journal:
+      upload_resolver: journal
+      croped_resolver: journal_croped
+      croped_fs: journal_croped
+      upload_validators: {}
+      crop_validators: {}
+    institution:
+      upload_resolver: institution
+      croped_resolver: institution_croped
+      croped_fs: institution_croped
+      upload_validators: {}
+      crop_validators: {}
+
+parameters:
+  jb_fileuploader.resolver.asset.prototype.class: Ojs\Common\Services\FileUploadResolver\AssetsResolver
+  jb_fileuploader.file_history.manager.class: Ojs\Common\Services\FileHistoryManager
+  jb_fileuploader.croper.class: Ojs\Common\Services\Croper
+  jb_fileuploader.crop.manager.class: Jb\Bundle\FileUploaderBundle\Service\CropFileManager
+  oneup_uploader.namer.uniqid.class : Ojs\Common\Services\FileNamer\UniqidNamer
