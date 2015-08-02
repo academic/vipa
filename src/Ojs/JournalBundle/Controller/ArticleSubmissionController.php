@@ -158,6 +158,10 @@ class ArticleSubmissionController extends Controller
      */
     public function newAction()
     {
+        if ($this->submissionsNotAllowed()) {
+            return $this->respondAsNotAllowed();
+        }
+
         /**
          * Check if the user is an author of this journal.
          * If isn't, add author role for this journal
@@ -191,6 +195,10 @@ class ArticleSubmissionController extends Controller
      */
     public function resumeAction($submissionId)
     {
+        if ($this->submissionsNotAllowed()) {
+            return $this->respondAsNotAllowed();
+        }
+
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
         $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -568,6 +576,10 @@ class ArticleSubmissionController extends Controller
      */
     public function previewAction($submissionId)
     {
+        if ($this->submissionsNotAllowed()) {
+            return $this->respondAsNotAllowed();
+        }
+
         $em = $this->getDoctrine()->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
         $articleSubmission = $em->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -601,6 +613,10 @@ class ArticleSubmissionController extends Controller
      */
     public function finishAction(Request $request)
     {
+        if ($this->submissionsNotAllowed()) {
+            return $this->respondAsNotAllowed();
+        }
+
         $dispatcher = $this->get('event_dispatcher');
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
@@ -701,6 +717,10 @@ class ArticleSubmissionController extends Controller
      */
     public function newWithJournalAction($journalId)
     {
+        if ($this->submissionsNotAllowed()) {
+            return $this->respondAsNotAllowed();
+        }
+
         /** @var Journal $journal */
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         if ($this->isGranted('CREATE', $journal, 'articles')) {
@@ -759,5 +779,30 @@ class ArticleSubmissionController extends Controller
         $this->addFlash('success', $this->get('translator')->trans('deleted'));
 
         return $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $journal->getId()]);
+    }
+
+    private function submissionsNotAllowed()
+    {
+        $permissionSetting = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'article_submission']);
+
+        if ($permissionSetting && !$permissionSetting->getValue()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function respondAsNotAllowed()
+    {
+        return $this->render(
+            'OjsSiteBundle:Site:not_available.html.twig',
+            [
+                'title' => 'title.submission_new',
+                'message' => 'message.submission_not_available'
+            ]
+        );
     }
 }
