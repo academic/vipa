@@ -19,10 +19,9 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="container">
         {% if design is defined %}
-            {% include template_from_string("{{ design }}") %}
+            {% include template_from_string(design) %}
         {% else %}
         {% block journalheader %}
             <div id="header">

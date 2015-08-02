@@ -106,6 +106,18 @@ Ojs\JournalBundle\Entity\Journal:
                         name: subject_id
                         referencedColumnName: id
                         onDelete: CASCADE
+        designs:
+            targetEntity: Design
+            joinTable:
+                name: journal_design
+                joinColumns:
+                    -
+                        name: journal_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: design_id
+                        referencedColumnName: id
 
         bannedUsers:
             targetEntity: Ojs\UserBundle\Entity\User

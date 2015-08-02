@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Ojs\LocationBundle\Entity\Country;
+use Proxies\__CG__\Ojs\JournalBundle\Entity\Design;
 
 /**
  * Journal
@@ -302,6 +303,11 @@ class Journal implements Translatable
     private $mandatoryLangId;
 
     /**
+     * @var ArrayCollection
+     */
+    private $designs;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -316,6 +322,7 @@ class Journal implements Translatable
         $this->subjects = new ArrayCollection();
         $this->journalThemes = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->designs = new ArrayCollection();
     }
 
     public function getTranslations()
@@ -1607,5 +1614,24 @@ class Journal implements Translatable
     public function getMandatoryLangId()
     {
         return $this->mandatoryLangId;
+    }
+
+    /**
+     * @param  ArrayCollection $designs
+     * @return $this
+     */
+    public function setDesigns($designs)
+    {
+        $this->designs = $designs;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDesigns()
+    {
+        return $this->designs;
     }
 }
