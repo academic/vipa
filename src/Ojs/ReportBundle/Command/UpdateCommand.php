@@ -34,7 +34,6 @@ class UpdateCommand extends ContainerAwareCommand
         'article' => 'OjsJournalBundle:Article',
         'journal' => 'OjsJournalBundle:Journal',
         'institution' => 'OjsJournalBundle:Institution',
-        'file' => 'OjsJournalBundle:File',
     ];
 
     /** @var  EntityManager $em */
