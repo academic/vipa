@@ -229,14 +229,9 @@ class Article implements Translatable
     private $section;
 
     /**
-     * @var File
+     * @var string
      */
-    private $competingInterestFile;
-
-    /**
-     * @var integer
-     */
-    private $competingInterestFileId;
+    private $competingFile;
 
     /**
      *
@@ -448,41 +443,22 @@ class Article implements Translatable
     }
 
     /**
-     * @param  File $competingInterestFile
-     * @return $this
+     * @param  string $competingFile
+     * @return Article
      */
-    public function setCompetingInterestFile(File $competingInterestFile)
+    public function setCompetingFile($competingFile)
     {
-        $this->competingInterestFile = $competingInterestFile;
+        $this->competingFile = $competingFile;
 
         return $this;
     }
 
     /**
-     * @return File
+     * @return string
      */
-    public function getCompetingInterestFile()
+    public function getCompetingFile()
     {
-        return $this->competingInterestFile;
-    }
-
-    /**
-     * @param  integer $competingInterestFileId
-     * @return $this
-     */
-    public function setCompetingInterestFileId($competingInterestFileId)
-    {
-        $this->competingInterestFileId = $competingInterestFileId;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getCompetingInterestFileId()
-    {
-        return $this->competingInterestFileId;
+        return $this->competingFile;
     }
 
     /**

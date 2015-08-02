@@ -41,6 +41,18 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/issuefiles
         create: true
+    article:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/article
+        create: true
+    article_croped:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/article/croped
+        create: true
+    articlefiles:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/articlefiles
+        create: true
   filesystems:
     institution:
       adapter: institution
@@ -72,6 +84,15 @@ knp_gaufrette:
     issuefiles:
       adapter: issuefiles
       alias: issuefiles_filesystem
+    article:
+      adapter: article
+      alias: article_filesystem
+    article_croped:
+      adapter: article_croped
+      alias: article_croped_filesystem
+    articlefiles:
+      adapter: articlefiles
+      alias: articlefiles_filesystem
 oneup_uploader:
   mappings:
     generic:
@@ -138,6 +159,22 @@ oneup_uploader:
         type: gaufrette
         filesystem: gaufrette.issuefiles_filesystem
         stream_wrapper: gaufrette://issuefiles/
+    article:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.article_filesystem
+        stream_wrapper: gaufrette://article/
+    articlefiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel']
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.articlefiles_filesystem
+        stream_wrapper: gaufrette://articlefiles/
 liip_imagine:
   data_loader: stream.journal_filesystem
   loaders:
@@ -165,6 +202,12 @@ liip_imagine:
     stream.user_croped_filesystem:
       stream:
         wrapper: gaufrette://user_croped/
+    stream.article_filesystem:
+      stream:
+        wrapper: gaufrette://article/
+    stream.article_croped_filesystem:
+      stream:
+        wrapper: gaufrette://article_croped/
   resolvers:
     default:
       web_path: ~
@@ -195,6 +238,12 @@ liip_imagine:
       quality: 90
     user_croped:
       data_loader: stream.user_croped_filesystem
+      quality: 90
+    article_original:
+      data_loader: stream.article_filesystem
+      quality: 90
+    article_croped:
+      data_loader: stream.article_croped_filesystem
       quality: 90
     avatar_thumb:
       data_loader: stream.user_croped_filesystem
@@ -249,6 +298,7 @@ liip_imagine:
         relative_resize: {  widen: 960 }
         crop: {start:[0,0], size: [960, 200]}
     article_header:
+      data_loader: stream.article_croped_filesystem
       quality: 90
       filters:
         relative_resize: {  widen: 960 }
@@ -295,6 +345,15 @@ jb_file_uploader:
     issuefiles:
       assets:
         directory: uploads/issuefiles
+    article:
+      assets:
+        directory: uploads/article
+    article_croped:
+      assets:
+        directory: uploads/article/croped
+    articlefiles:
+      assets:
+        directory: uploads/articlefiles
   endpoints:
     issue:
       upload_resolver: issue
@@ -326,6 +385,14 @@ jb_file_uploader:
       croped_fs: user_croped
       upload_validators: {}
       crop_validators: {}
+    article:
+      upload_resolver: article
+      croped_resolver: article_croped
+      croped_fs: article_croped
+      upload_validators: {}
+      crop_validators: {}
+    articlefiles:
+      upload_resolver: articlefiles
 
 parameters:
   jb_fileuploader.resolver.asset.prototype.class: Ojs\Common\Services\FileUploadResolver\AssetsResolver

@@ -17,6 +17,15 @@ class ArticleFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('file', 'jb_file_ajax', array(
+                'endpoint' => 'articlefiles'
+            ))
+            ->add('type', 'choice',
+                [
+                    'choices' => ArticleFileParams::$FILE_TYPES,
+                ]
+            )
+            ->add('version')
             ->add('translations', 'a2lix_translations_gedmo',[
                 'translatable_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
                 'fields' => [
@@ -27,15 +36,7 @@ class ArticleFileType extends AbstractType
                         'field_type' => 'tags'
                     ]
                 ]
-            ])
-            ->add(
-                'type',
-                'choice',
-                [
-                    'choices' => ArticleFileParams::$FILE_TYPES,
-                ]
-            )
-            ->add('version');
+            ]);
     }
 
     /**
@@ -46,8 +47,6 @@ class ArticleFileType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
-                'articlesEndPoint' => '/',
-                'articleEndPoint' => '/',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

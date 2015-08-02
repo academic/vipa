@@ -87,7 +87,7 @@
                     <ul class="list-group">
                         {% for file in issue.issueFiles %}
                             <li class="list-group-item">
-                                <a href="{{ asset("/uploads/issuefiles/"~file.file) }}"><i
+                                <a href="{{ asset("uploads/issuefiles/"~file.file) }}"><i
                                             class="fa fa-download "></i> {{ file.title }} </a>
                             </li>
                         {% endfor %}
