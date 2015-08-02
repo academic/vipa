@@ -138,7 +138,7 @@
                     <div class="text-center">
                         <a href="/@{{ person.username }}" class="thumbnail">
                             <img class="img-circle"
-                                 src="{{ person.avatar is defined ? '/uploads/avatarfiles/' ~ imagePath(person.avatar) : '#' }}"
+                                 src="{{ person.avatar is defined ? person.avatar|imagine_filter('avatar_thumb') : '#' }}"
                                  alt="{{ person.username|default('image'|trans) }}"
                                  data-src="holder.js/100x100/random"
                                  style="width: 100px; height: 100px;">

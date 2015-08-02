@@ -288,11 +288,6 @@ class Article implements Translatable
      */
     private $slug;
 
-    /**
-     * @var string
-     */
-    protected $header_options;
-
     /** @var ArrayCollection|UserArticleRole[] */
     private $userRoles;
 
@@ -1302,26 +1297,7 @@ class Article implements Translatable
 
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getHeaderOptions()
-    {
-        return $this->header_options;
-    }
-
-    /**
-     * @param  string $header_options
-     * @return $this
-     */
-    public function setHeaderOptions($header_options)
-    {
-        $this->header_options = $header_options;
-
-        return $this;
-    }
-
+    
     public function __toString()
     {
         return $this->getTitle()."[#{$this->getId()}]";

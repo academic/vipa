@@ -4,7 +4,6 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\ORMException;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
@@ -67,7 +66,8 @@ class AdminUserController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity)
+            ->add('create', 'submit', array('label' => 'c'));
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -75,7 +75,6 @@ class AdminUserController extends Controller
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
-            $entity->setAvatar($request->get('user_avatar'));
             $em->persist($entity);
             $em->flush();
 
@@ -108,7 +107,8 @@ class AdminUserController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity)
+            ->add('create', 'submit', array('label' => 'c'));
 
         return $this->render(
             'OjsAdminBundle:AdminUser:new.html.twig',
@@ -192,7 +192,8 @@ class AdminUserController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+                        ->add('save','submit');
 
         return $this->render(
             'OjsAdminBundle:AdminUser:edit.html.twig',
@@ -239,10 +240,10 @@ class AdminUserController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $oldPassword = $entity->getPassword();
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity)
+            ->add('save','submit');
         $editForm->handleRequest($request);
-        /** @var DocumentManager $dm */
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
+
         if ($editForm->isValid()) {
             $password = $entity->getPassword();
             if (empty($password)) {
@@ -253,12 +254,6 @@ class AdminUserController extends Controller
                 $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
                 $entity->setPassword($password);
             }
-
-            $avatar = $request->request->get('avatar');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($avatar, $entity, 'avatar');
-            $dm->persist($imageOptions);
-            $dm->flush();
 
             $em->flush();
 

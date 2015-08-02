@@ -15,7 +15,7 @@
 
     <div class="form-group">
         <label class="control-label" for="fileupload_full_file">{{ "full_file"|trans }}</label>
-        <a href="{{ asset("/uploads/issuefiles/"~filePath(entity.file.name)) }}">{{ "preview"|trans }}</a>
+        <a href="{{ asset("/uploads/issue/"~entity.file.name) }}">{{ "preview"|trans }}</a>
         <span class="btn btn-success fileinput-button form-control">
             <i class="fa fa-plus"></i>
             <span>{{ "select.full.file"|trans }}</span>
