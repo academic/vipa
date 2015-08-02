@@ -39,8 +39,6 @@ class OjsExtension extends \Twig_Extension
     /** @var  string */
     private $cmsShowRoutes;
     /** @var  string */
-    private $avatarUploadBaseUrl;
-    /** @var  string */
     private $defaultInstitutionSlug;
     /** @var  string */
     private $ojs_logo;
@@ -58,7 +56,6 @@ class OjsExtension extends \Twig_Extension
      * @param TokenStorageInterface $tokenStorage
      * @param Session $session
      * @param null $cmsShowRoutes
-     * @param null $avatarUploadBaseUrl
      * @param $defaultInstitutionSlug
      * @param $ojs_logo
      * @param $ojs_tw
@@ -73,7 +70,6 @@ class OjsExtension extends \Twig_Extension
         TokenStorageInterface $tokenStorage = null,
         Session $session = null,
         $cmsShowRoutes = null,
-        $avatarUploadBaseUrl = null,
         $defaultInstitutionSlug,
         $ojs_logo,
         $ojs_tw,
@@ -88,7 +84,6 @@ class OjsExtension extends \Twig_Extension
         $this->session = $session;
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
-        $this->avatarUploadBaseUrl = $avatarUploadBaseUrl;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
         $this->ojs_logo = $ojs_logo;
         $this->ojs_tw = $ojs_tw;
@@ -115,7 +110,6 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('hasIdInObjects', array($this, 'hasIdInObjects'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('breadcrumb', array($this, 'generateBreadcrumb'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('selectedJournal', array($this, 'selectedJournal'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('generateAvatarPath', array($this, 'generateAvatarPath'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('imagePath', array($this, 'generateImagePath')),
             new \Twig_SimpleFunction('filePath', array($this, 'generateFilePath')),
             new \Twig_SimpleFunction('printYesNo', array($this, 'printYesNo'), array('is_safe' => array('html'))),
@@ -280,17 +274,6 @@ class OjsExtension extends \Twig_Extension
         } catch (\Exception $e) {
             return false;
         }
-    }
-
-    /**
-     * @param $fileName
-     * @return string
-     */
-    public function generateAvatarPath($fileName)
-    {
-        $fileHelper = new FileHelper();
-
-        return $this->avatarUploadBaseUrl . $fileHelper->generatePath($fileName, false) . 'thumbnail2/' . $fileName;
     }
 
     /**

@@ -65,14 +65,7 @@ class AdminInstitutionController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $header = $request->request->get('header');
-            $cover = $request->request->get('logo');
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-            if ($cover) {
-                $entity->setLogoOptions(json_encode($cover));
-            }
+
             $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
@@ -227,14 +220,6 @@ class AdminInstitutionController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            $header = $request->request->get('header');
-            $cover = $request->request->get('logo');
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-            if ($cover) {
-                $entity->setLogoOptions(json_encode($cover));
-            }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');

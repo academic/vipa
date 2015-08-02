@@ -112,11 +112,6 @@ class ArticleController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $header = $request->request->get('header');
-
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
 
             $em->persist($entity);
             $em->flush();
@@ -238,12 +233,6 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $header = $request->request->get('header');
-
-            if ($header) {
-                $entity->setHeaderOptions(json_encode($header));
-            }
-
             $files = $request->request->get('articlefiles', []);
             $fileHelper = new FileHelper();
 

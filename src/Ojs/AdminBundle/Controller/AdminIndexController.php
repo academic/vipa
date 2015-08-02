@@ -60,7 +60,7 @@ class AdminIndexController extends Controller
         }
         $entity = new JournalIndex();
         $form = $this->createCreateForm($entity)
-            ->add('c', 'submit');
+            ->add('create', 'submit', array('label' => 'c'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -114,7 +114,7 @@ class AdminIndexController extends Controller
         }
         $entity = new JournalIndex();
         $form = $this->createCreateForm($entity)
-            ->add('c', 'submit');
+            ->add('create', 'submit', array('label' => 'c'));
 
         return $this->render(
             'OjsAdminBundle:AdminIndex:new.html.twig',

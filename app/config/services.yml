@@ -21,7 +21,6 @@ services:
       - @security.token_storage
       - @session
       - "%cms_show_routes%"
-      - "%avatar_upload_base_url%"
       - "%defaultInstitutionSlug%"
       - "%ojs_logo%"
       - "%ojs_tw%"
@@ -68,12 +67,6 @@ services:
     arguments: [@security.token_storage]
     tags:
       - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
-
-#  ojs.ojs_upload_listener:
-#    class: Ojs\Common\Services\UploadListener
-#    arguments: ["%kernel.root_dir%"]
-#    tags:
-#      - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
 
   ojs.ojs_mailer:
     class: Ojs\UserBundle\Service\MailerService

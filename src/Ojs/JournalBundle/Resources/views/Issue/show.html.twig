@@ -88,7 +88,7 @@
     <label class="control-label">{{ "Header Image"|trans }}</label>
     <div>
         {% if entity.header is not null %}
-            <img class="img-responsive" src="{{ entity.cover|imagine_filter('issue_header') }}" />
+            <img class="img-responsive" src="{{ entity.header|imagine_filter('issue_header') }}" />
         {% endif %}
     </div>
     <hr>
