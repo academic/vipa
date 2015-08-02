@@ -3,13 +3,12 @@
 namespace Ojs\AdminBundle\Controller;
 
 use Ojs\AdminBundle\Entity\SystemSetting;
-use Ojs\AdminBundle\Form\Type\SystemSettingType;
+use Ojs\AdminBundle\Form\Type\SystemSettingsType;
 use Ojs\Common\Controller\OjsController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class AdminSystemSettingController extends OjsController
+class AdminSystemSettingsController extends OjsController
 {
     private function getSettings()
     {
@@ -30,7 +29,7 @@ class AdminSystemSettingController extends OjsController
         }
 
         $repo = $this->getDoctrine()->getRepository('OjsAdminBundle:SystemSetting');
-        $form = $this->createForm(new SystemSettingType());
+        $form = $this->createForm(new SystemSettingsType());
 
         foreach ($this->getSettings()['boolean'] as $setting) {
             $result = $repo->findOneBy(['name' => $setting]);
@@ -50,7 +49,7 @@ class AdminSystemSettingController extends OjsController
 
         $em = $this->getDoctrine()->getManager();
         $repo = $this->getDoctrine()->getRepository('OjsAdminBundle:SystemSetting');
-        $form = $this->createForm(new SystemSettingType());
+        $form = $this->createForm(new SystemSettingsType());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
