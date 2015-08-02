@@ -659,6 +659,9 @@ mandatory: Zorunlu
 manual: Kılavuz
 mastersthesis: 'Yüksek Lisans Tezi'
 messages: Mesajlar
+message.application_not_available: 'Üzgünüz lakin şimdilik başvuru yapmanız mümkün değil.'
+message.registration_not_available: 'Üzgünüz lakin şimdilik kayıt olmanız mümkün değil.'
+message.submission_not_available: 'Üzgünüz lakin şimdilik makale göndermeniz mümkün değil.'
 mimetype: 'MIME Tipi'
 misc: Çeşitli
 mission: Misyon
@@ -687,6 +690,8 @@ notification.test: 'Bildirim Testi'
 notification.verb: Fiil
 number: Sayı
 'of %count%': 'of %count%'
+off: Kapalı
+on: Açık
 ojs: OJS
 ojs.403: 'Bu sayfayı görüntüleme izniniz yok.'
 ojs.accept_privacy: 'Gizliliğinizi korumak için, lütfen aktivasyon linkine tıklayarak e-posta adresinizi doğrulayın.'
@@ -1156,6 +1161,7 @@ title.submission_edit: 'Edit Submission'
 title.submission_new: 'New Submission'
 title.submission_preview: 'Submission Preview'
 title.submissions: Submissions
+title.system_settings: 'Sistem Ayarları'
 title.theme_edit: 'Edit Theme'
 title.theme_new: 'New Theme'
 title.theme_show: 'Show Theme'

@@ -69,3 +69,7 @@ ojs_admin_proxy:
 ojs_admin_index:
     resource: "@OjsAdminBundle/Resources/config/routing/index.yml"
     prefix:   index
+
+ojs_admin_system_settings:
+    resource: "@OjsAdminBundle/Resources/config/routing/system_settings.yml"
+    prefix:   settings

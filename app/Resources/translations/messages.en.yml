@@ -659,6 +659,9 @@ mandatory: Mandatory
 manual: Manual
 mastersthesis: 'Master Thesis'
 messages: Messages
+message.application_not_available: 'Sorry, but applications are not available at the moment.'
+message.registration_not_available: 'Sorry, but user registrations are not available at the moment.'
+message.submission_not_available: 'Sorry, but article submissions are not available at the moment.'
 mimetype: 'Mime Type'
 misc: Miscellaneous
 mission: Mission
@@ -687,6 +690,8 @@ notification.test: 'Notification Test'
 notification.verb: Verb
 number: Number
 'of %count%': 'of %count%'
+off: Off
+on: On
 ojs: OJS
 ojs.403: 'You don''t have permission to view this page.'
 ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking the activation link'
@@ -1157,6 +1162,7 @@ title.submission_edit: 'Edit Submission'
 title.submission_new: 'New Submission'
 title.submission_preview: 'Submission Preview'
 title.submissions: Submissions
+title.system_settings: 'System Settings'
 title.theme_edit: 'Edit Theme'
 title.theme_new: 'New Theme'
 title.theme_show: 'Show Theme'
