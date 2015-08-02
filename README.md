@@ -12,3 +12,9 @@ As a company we, [OkulBilişim](http://www.okulbilisim.com), analyzed journal ma
 ## Installing
 
 Read [Install.md](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md)
+
+###TL;DR I'm a guru
+
+```
+composer update -vvv -o&& bower update && php app/console assets:install web --symlink && php app/console assetic:dump && mysql -u root -p -e "DROP DATABASE IF EXISTS ojs;create database ojs;" && php app/console ojs:install && app/console ojs:install:initial-data
+```
