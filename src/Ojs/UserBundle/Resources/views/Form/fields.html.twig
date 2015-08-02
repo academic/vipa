@@ -5,11 +5,9 @@
     'data-ajax--delay':"250",
     'data-ajax--data-type':"json",
     'data-minimum-input-length':minimum_input_length,
-    'data-placeholder':placeholder|trans({}, translation_domain)
+    'data-placeholder':placeholder|trans({}, translation_domain),
+    'class' : (attr.class|default('') ~ ' usersType form-control')|trim
     }) %}
-
-    {# Add class for jQuery for find it #}
-    {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' usersType form-control')|trim }) %}
 
     {% spaceless %}
 
@@ -35,9 +33,9 @@
         'data-role':"tagsinputautocomplete",
         'data-token-separators':"[,]",
         'data-minimum-input-length':minimum_input_length,
-        'data-placeholder':placeholder|trans({}, translation_domain)
+        'data-placeholder':placeholder|trans({}, translation_domain),
+        'class' : (attr.class|default('') ~ ' form-control')|trim
     }) %}
-
     {% spaceless %}
 
         <select {{ block('widget_attributes') }} multiple="multiple">

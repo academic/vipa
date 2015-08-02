@@ -22,57 +22,6 @@
 
         <div id="locationpicker" style="width: 100%; height: 400px;"></div>
     </div>
-    <div class="form-group">
-        <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
-
-        <div id="preview_image_cover" style="width:200px">
-            {% if entity.logo %}
-                <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter("height_200") }}"
-                     data-src="holder.js/960x200/random/text:{{ entity.name }}" alt=""/>
-                {% set imageoptions=getImageOptions(entity,'logo',"height_200") %}
-                <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                <input id="logo_width" name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                <input id="logo_x" name="logo[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                <input id="logo_y" name="logo[y]" type="hidden" value="{{ imageoptions.y }}"/>
-            {% endif %}
-
-        </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
-            </span>
-
-        <div id="institution_logo_upload_progress" style="display: none" class="label label-info">
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
-
-        <div id="preview_image">
-            {% if entity.header %}
-                <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
-                     data-src="holder.js/960x200/random/text:{{ entity.name }}" alt=""/>
-                {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
-                <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
-            {% endif %}
-
-        </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "file.select"|trans }}</span>
-                <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
-            </span>
-
-        <div id="institution_header_upload_progress" style="display: none" class="label label-info">
-
-        </div>
-    </div>
 
     <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
         {{ "save"|trans }}
@@ -88,74 +37,9 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
     <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#fileupload').fileupload({});
-            $('#fileupload').bind('fileuploadsend', function (e, data) {
-                $('#institution_logo_upload_progress').show();
-                $('#institution_logo_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#institution_logo_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_institution_logo').attr('value', JSON.parse(data.result).files.name);
-            });
-            $('#fileupload_header').fileupload({});
-            $('#fileupload_header').bind('fileuploadsend', function (e, data) {
-                $('#institution_header_upload_progress').show();
-                $('#institution_header_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#institution_header_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_institution_header').attr('value', JSON.parse(data.result).files.name);
-            });
-            $("#preview_image > img").cropper({
-                aspectRatio: 960 / 200,
-                maxWidth: 960,
-                maxHeight: 200,
-                {% if  entity.header %}
-                {% set imageoptions=getImageOptions(entity,'header','institution_header') %}
-
-                data: {
-                    x: {{ imageoptions.x }},
-                    y: {{ imageoptions.y }},
-                    height: {{ imageoptions.height }},
-                    width: {{ imageoptions.width }}
-                },
-                {% endif %}
-                done: function (data) {
-                    $("#header_height").val(data.height)
-                    $("#header_width").val(data.width)
-                    $("#header_x").val(data.x)
-                    $("#header_y").val(data.y)
-                }
-
-            })
-            $("#preview_image_cover > img").cropper({
-                aspectRatio: 1,
-                maxWidth: 200,
-                maxHeight: 200,
-                width: 200,
-
-                {% if  entity.logo %}
-                {% set imageoptions=getImageOptions(entity,'logo','institution_logo') %}
-                data: {
-                    x: {{ imageoptions.x }},
-                    y: {{ imageoptions.y }},
-                    height: {{ imageoptions.height }},
-                    width: {{ imageoptions.width }}
-                },
-                {% endif %}
-                done: function (data) {
-                    $("#logo_height").val(data.height)
-                    $("#logo_width").val(data.width)
-                    $("#logo_x").val(data.x)
-                    $("#logo_y").val(data.y)
-                }
-
-            });
-
             $('#locationpicker').locationpicker({
                 {% if entity.addressLat is not null or entity.addressLong is not null %}
                 location: {latitude: {{ entity.addressLat }}, longitude: {{ entity.addressLong }}},
@@ -170,15 +54,4 @@
             });
         });
     </script>
-{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets '@upload_css'  output="assets/prod/css/upload.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-    <style>
-        #preview_image, #preview_image div, #preview_image_cover, #preview_image_cover div {
-            margin: 0 !important;
-        }
-    </style>
 {% endblock %}

@@ -23,9 +23,6 @@ assetic:
         - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
     upload_js:
       inputs:
-        - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js
-        - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.iframe-transport.js
-        - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.fileupload.js
         - %kernel.root_dir%/../web/vendor/cropper/dist/cropper.min.js
 
     upload_css:

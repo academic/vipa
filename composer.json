@@ -37,8 +37,6 @@
     "jms/serializer-bundle": "@dev",
     "nelmio/api-doc-bundle": "2.9.0",
     "stof/doctrine-extensions-bundle": "1.1.0",
-    "oneup/uploader-bundle": "1.3.1",
-    "liip/imagine-bundle": "1.3.0",
     "caseyamcl/Phpoaipmh": "v2.4",
     "knplabs/knp-paginator-bundle": "2.4.2",
     "doctrine/mongodb-odm": "1.0.*@dev",
@@ -64,7 +62,8 @@
     "a2lix/translation-form-bundle": "~1.2",
     "friendsofsymfony/jsrouting-bundle": "^1.5",
     "wdalmut/php-deb-packager": "^0.0.13",
-    "okulbilisim/workflow-bundle": "dev-master"
+    "okulbilisim/workflow-bundle": "dev-master",
+    "jbouzekri/file-uploader-bundle": "~2.0"
   },
   "require-dev": {
     "okulbilisim/ojs-message-bundle": "v1.0",

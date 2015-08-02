@@ -41,6 +41,10 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Jb\Bundle\FileUploaderBundle\JbFileUploaderBundle(),
+
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),

@@ -11,8 +11,7 @@
                             <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown">
                                 {% if selectedJournal().image %}
-                                    {% set imageoptions=getImageOptions(selectedJournal(),'cover','journal_cover') %}
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(selectedJournal().image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                    <img src="{{ selectedJournal().image|imagine_filter('journal_cover') }}"
                                          width="96" height="96"
                                          class="avatar"/>
                                 {% else %}

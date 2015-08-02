@@ -59,9 +59,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@upload_js' output="assets/prod/js/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fileupload').fileupload({});

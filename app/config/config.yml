@@ -52,6 +52,7 @@ twig:
   form:
     resources:
       - 'OjsUserBundle:Form:fields.html.twig'
+      - 'JbFileUploaderBundle:Form:fields.html.twig'
   globals:
     languages : "%languages%"
     base_host: %base_host%

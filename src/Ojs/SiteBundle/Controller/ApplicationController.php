@@ -24,7 +24,6 @@ class ApplicationController extends Controller
      */
     public function journalAction(Request $request)
     {
-
         $application = new Journal();
         $form = $this->createForm(new JournalApplicationType(), $application);
 

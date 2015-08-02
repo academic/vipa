@@ -42,13 +42,9 @@
             <td>{{ entity.title }}</td>
         </tr>
         <tr>
-            <th>{{ "cover"|trans }}</th>
-            <td>{{ entity.cover }}</td>
-        </tr>
-        <tr>
             <th>{{ "full_file"|trans }}</th>
             <td>
-                <a href="{{ asset('uploads/issuefiles/'~ filePath(entity.fullFile)) }}">{{ filePath(entity.fullFile) }}</a>
+                <a href="{{ asset('uploads/issue/'~ entity.fullFile) }}">{{ entity.fullFile }}</a>
             </td>
         </tr>
         <tr>
@@ -86,13 +82,13 @@
     <label class="control-label">{{ "cover"|trans }}</label>
     <div>
         {% if entity.cover is not null %}
-            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.cover)) }}" />
+            <img src="{{ entity.cover|imagine_filter('issue_cover') }}" />
         {% endif %}
     </div>
     <label class="control-label">{{ "Header Image"|trans }}</label>
     <div>
         {% if entity.header is not null %}
-            <img class="img-responsive" src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) }}" />
+            <img class="img-responsive" src="{{ entity.cover|imagine_filter('issue_header') }}" />
         {% endif %}
     </div>
     <hr>
