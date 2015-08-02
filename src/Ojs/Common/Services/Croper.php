@@ -23,7 +23,7 @@ class Croper extends BaseCroper
         $this->validator->validate($endpoint, $data, 'crop_validators');
 
         // Generate croped image
-        $cropedFile = $cropManager->transformFile($endpoint, $data);
+        $cropedFile = $cropManager->transformFileWithEndpoint($endpoint, $data);
 
         // Save it to filesystem using gaufrette
         $this->cropManager->saveTransformedFile($endpoint, $cropedFile, $data);

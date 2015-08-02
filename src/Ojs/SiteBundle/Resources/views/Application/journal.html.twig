@@ -120,11 +120,3 @@
 
     {{ form_javascript(form) }}
 {% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets '@upload_css' output="assets/prod/css/upload.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-    {{ form_stylesheet(form) }}
-{% endblock %}

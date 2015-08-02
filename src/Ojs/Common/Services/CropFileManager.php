@@ -14,7 +14,7 @@ class CropFileManager extends BaseCropFileManager
      *
      * @return \Liip\ImagineBundle\Binary\BinaryInterface
      */
-    public function transformFile($endpoint, array $data)
+    public function transformFileWithEndpoint($endpoint, array $data)
     {
         try {
             $loaderName = $endpoint.'_original';
