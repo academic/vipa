@@ -61,7 +61,7 @@
                                 {% else %}
                                     {{ generateJournalUrl(article.journal) }}
                                 {% endif %}">
-                                    <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                    <img src="{{ article.header|imagine_filter('article_header') }}"
                                          data-src="holder.js/960x200/random/text:{{ journal.title }}"
                                          class="img-responsive img-rounded float-left" alt="{{ article.title }}"/>
                                 </a>

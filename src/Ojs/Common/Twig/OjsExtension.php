@@ -5,7 +5,6 @@ namespace Ojs\Common\Twig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Ojs\Common\Helper\DateHelper;
-use Ojs\Common\Helper\FileHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\Common\Params\CommonParams;
 use Ojs\Common\Services\JournalService;
@@ -109,8 +108,6 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('hasIdInObjects', array($this, 'hasIdInObjects'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('breadcrumb', array($this, 'generateBreadcrumb'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('selectedJournal', array($this, 'selectedJournal'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('imagePath', array($this, 'generateImagePath')),
-            new \Twig_SimpleFunction('filePath', array($this, 'generateFilePath')),
             new \Twig_SimpleFunction('printYesNo', array($this, 'printYesNo'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusText', array($this, 'statusText'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusColor', array($this, 'statusColor'), array('is_safe' => array('html'))),
@@ -272,28 +269,6 @@ class OjsExtension extends \Twig_Extension
         } catch (\Exception $e) {
             return false;
         }
-    }
-
-    /**
-     * @param $file
-     * @return string
-     */
-    public function generateImagePath($file)
-    {
-        $fileHelper = new FileHelper();
-
-        return $fileHelper->generatePath($file, false) . $file;
-    }
-
-    /**
-     * @param $file
-     * @return string
-     */
-    public function generateFilePath($file)
-    {
-        $fileHelper = new FileHelper();
-
-        return $fileHelper->generatePath($file, false) . $file;
     }
 
     /**

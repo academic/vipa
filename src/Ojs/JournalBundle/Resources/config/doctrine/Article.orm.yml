@@ -36,11 +36,6 @@ Ojs\JournalBundle\Entity\Article:
             name: article_type_id
             referencedColumnName: id
           fetch: EXTRA_LAZY
-      competingInterestFile:
-          targetEntity: Ojs\JournalBundle\Entity\File
-          joinColumn:
-            name: competing_interest_file_id
-            referencedColumnName: id
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
@@ -151,10 +146,10 @@ Ojs\JournalBundle\Entity\Article:
         options:
           default: 1
         nullable: TRUE
-    competingInterestFileId:
-        type: integer
+    competingFile:
+        type: string
+        length: 255
         nullable: TRUE
-        column: competing_interest_file_id
         gedmo:
           - versioned
     keywords:
@@ -224,6 +219,8 @@ Ojs\JournalBundle\Entity\Article:
       type: string
       length: 255
       nullable: true
+      gedmo:
+        - versioned
     part:
       length: 255
       type: string

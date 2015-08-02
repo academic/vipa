@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: emreyilmaz
- * Date: 12.05.15
- * Time: 15:15
- */
+
 namespace Ojs\ReportBundle\Twig;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Ojs\ReportBundle\Document\ObjectView;
-use Ojs\JournalBundle\Entity\Article;
 
 /**
  * Class AnalyticsExtension
@@ -50,48 +43,6 @@ class AnalyticsExtension extends \Twig_Extension
         $method = 'get'.ucfirst($stat_type).'Stat';
 
         return $this->{$method}($id, $entity);
-    }
-
-    /**
-     * @param $id
-     * @param $entity
-     * @return string
-     */
-    private function getViewStat($id, $entity)
-    {
-        /** @var ObjectView $data */
-        $data = $this->dm->getRepository('OjsReportBundle:ObjectView')
-            ->findOneBy(['objectId' => "$id", 'entity' => $entity]);
-        if (!$data) {
-            return 0;
-        }
-
-        return $data->getTotal();
-    }
-
-    /**
-     * @param $id
-     * @param $entity
-     * @return string
-     */
-    private function getDownloadStat($id, $entity)
-    {
-        /** @var ObjectView $data */
-        $data = $this->dm->getRepository('OjsReportBundle:ObjectDownload')
-            ->findOneBy(['objectId' => "$id", 'entity' => $entity]);
-        if (!$data) {
-            return 0;
-        }
-
-        return $data->getTotal();
-    }
-
-    public function fileStatsOfArticle(Article $article)
-    {
-        $files = $article->getArticleFiles();
-        foreach ($files as $file) {
-            //@todo github.com/okulbilisim/ojs/issues/572
-        }
     }
 
     public function getName()

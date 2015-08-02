@@ -28,14 +28,9 @@ class ArticleFile implements Translatable
     private $type;
 
     /**
-     * @var integer
+     * @var string
      */
-    private $fileId;
-
-    /**
-     * @var integer
-     */
-    private $articleId;
+    private $file;
 
     /**
      * @var integer
@@ -47,12 +42,6 @@ class ArticleFile implements Translatable
      * @var Article
      */
     private $article;
-
-    /**
-     *
-     * @var File
-     */
-    private $file;
 
     /**
      *
@@ -216,39 +205,26 @@ class ArticleFile implements Translatable
     }
 
     /**
-     * Set fileId
+     * Set file
      *
-     * @param  integer     $fileId
+     * @param  string     $file
      * @return ArticleFile
      */
-    public function setFileId($fileId)
+    public function setFile($file)
     {
-        $this->fileId = $fileId;
+        $this->file = $file;
 
         return $this;
     }
 
     /**
-     * Get fileId
+     * Get file
      *
-     * @return integer
+     * @return string
      */
-    public function getFileId()
+    public function getFile()
     {
-        return $this->fileId;
-    }
-
-    /**
-     * Set articleId
-     *
-     * @param  integer     $articleId
-     * @return ArticleFile
-     */
-    public function setArticleId($articleId)
-    {
-        $this->articleId = $articleId;
-
-        return $this;
+        return $this->file;
     }
 
     /**
@@ -276,15 +252,6 @@ class ArticleFile implements Translatable
 
     /**
      *
-     * @return integer
-     */
-    public function getArticleId()
-    {
-        return $this->article ? $this->article->getId() : false;
-    }
-
-    /**
-     *
      * @return Article
      */
     public function getArticle()
@@ -300,28 +267,6 @@ class ArticleFile implements Translatable
     public function setArticle(Article $article)
     {
         $this->article = $article;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return File
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Set file
-     *
-     * @param  File        $file
-     * @return ArticleFile
-     */
-    public function setFile(File $file = null)
-    {
-        $this->file = $file;
 
         return $this;
     }
