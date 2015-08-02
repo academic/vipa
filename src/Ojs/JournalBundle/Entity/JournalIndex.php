@@ -2,16 +2,16 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
  * JournalIndex
+ * @GRID\Source(columns="id,name,status")
  */
 class JournalIndex
 {
-    /** @var  string */
-    protected $logo_options;
     /**
      * @var integer
      */
@@ -128,22 +128,6 @@ class JournalIndex
     public function getJournalsIndexs()
     {
         return $this->journals_indexs;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLogoOptions()
-    {
-        return $this->logo_options;
-    }
-
-    /**
-     * @param string $logoOptions
-     */
-    public function setLogoOptions($logoOptions)
-    {
-        $this->logo_options = $logoOptions;
     }
 
     public function __toString()

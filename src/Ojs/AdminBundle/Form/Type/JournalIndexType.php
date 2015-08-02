@@ -16,7 +16,15 @@ class JournalIndexType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('label' => 'name'))
-            ->add('logo', 'hidden')
+            ->add('logo', 'jb_crop_image_ajax', array(
+                'endpoint' => 'journalindex',
+                'img_width' => 200,
+                'img_height' => 200,
+                'crop_options' => array(
+                    'aspect-ratio' => 200 / 200,
+                    'maxSize' => "[200, 200]"
+                )
+            ))
             ->add('status', 'checkbox', ['label' => 'ojs.is_active']);
     }
 

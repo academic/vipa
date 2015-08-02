@@ -220,7 +220,7 @@ class JournalType extends AbstractType
                 'img_width' => 200,
                 'img_height' => 200,
                 'crop_options' => array(
-                    'aspect-ratio' => 96 / 128,
+                    'aspect-ratio' => 200 / 200,
                     'maxSize' => "[200, 200]"
                 )
             ))

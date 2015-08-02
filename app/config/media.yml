@@ -17,6 +17,14 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/journal/croped
         create: true
+    journalindex:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/journalindex
+        create: true
+    journalindex_croped:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/journalindex/croped
+        create: true
     issue:
       local:
         directory: %kernel.root_dir%/../web/uploads/issue
@@ -34,6 +42,12 @@ knp_gaufrette:
     journal_croped:
       adapter: journal_croped
       alias: journal_croped_filesystem
+    journalindex:
+      adapter: journalindex
+      alias: journalindex_filesystem
+    journalindex_croped:
+      adapter: journalindex_croped
+      alias: journalindex_croped_filesystem
     issue:
       adapter: issue
       alias: issue_filesystem
@@ -71,10 +85,14 @@ oneup_uploader:
         type: gaufrette
         filesystem: gaufrette.journal_filesystem
         stream_wrapper: gaufrette://journal/
-    journalindexfiles:
+    journalindex:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.journalindex_filesystem
+        stream_wrapper: gaufrette://journalindex/
     articlefiles:
       enable_progress: true
       frontend: blueimp
@@ -106,6 +124,12 @@ liip_imagine:
     stream.journal_croped_filesystem:
       stream:
         wrapper: gaufrette://journal_croped/
+    stream.journalindex_filesystem:
+      stream:
+        wrapper: gaufrette://journalindex/
+    stream.journalindex_croped_filesystem:
+      stream:
+        wrapper: gaufrette://journalindex_croped/
   resolvers:
     default:
       web_path: ~
@@ -123,6 +147,12 @@ liip_imagine:
       quality: 90
     institution_croped:
       data_loader: stream.institution_croped_filesystem
+      quality: 90
+    journalindex_original:
+      data_loader: stream.journalindex_filesystem
+      quality: 90
+    journalindex_croped:
+      data_loader: stream.journalindex_croped_filesystem
       quality: 90
     cache: ~
     avatar_thumb:
@@ -191,6 +221,7 @@ liip_imagine:
       filters:
         thumbnail: { size: [96, 128], mode: outbound }
     journalindex_logo:
+      data_loader: stream.journalindex_croped_filesystem
       quality: 90
       filters:
         relative_resize: {  widen: 200 }
@@ -238,6 +269,12 @@ jb_file_uploader:
     institution_croped:
       assets:
         directory: uploads/institution/croped
+    journalindex:
+      assets:
+        directory: uploads/journalindex
+    journalindex_croped:
+      assets:
+        directory: uploads/journalindex/croped
     journalCompeting:
       assets:
         directory: uploads/journal
@@ -261,10 +298,16 @@ jb_file_uploader:
       croped_fs: institution_croped
       upload_validators: {}
       crop_validators: {}
+    journalindex:
+      upload_resolver: journalindex
+      croped_resolver: journalindex_croped
+      croped_fs: journalindex_croped
+      upload_validators: {}
+      crop_validators: {}
 
 parameters:
   jb_fileuploader.resolver.asset.prototype.class: Ojs\Common\Services\FileUploadResolver\AssetsResolver
   jb_fileuploader.file_history.manager.class: Ojs\Common\Services\FileHistoryManager
   jb_fileuploader.croper.class: Ojs\Common\Services\Croper
-  jb_fileuploader.crop.manager.class: Jb\Bundle\FileUploaderBundle\Service\CropFileManager
+  jb_fileuploader.crop.manager.class: Ojs\Common\Services\CropFileManager
   oneup_uploader.namer.uniqid.class : Ojs\Common\Services\FileNamer\UniqidNamer
