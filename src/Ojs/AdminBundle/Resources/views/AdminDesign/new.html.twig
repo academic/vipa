@@ -19,6 +19,11 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/gridmanager.js/dist/css/jquery.gridmanager-light.css') }}"/>
 
+    <style type="text/css">
+        .gm-save {
+            display: none !important;
+        }
+    </style>
 {% endblock %}
 
 {% block body -%}
@@ -26,21 +31,21 @@
 
     {{ form(form) }}
 
-    <p id="widgetNotSelected" class="text-danger hide">Please select a widget!</p>
-    <p id="widgetNoColumn" class="text-danger hide">Please select columns you want to add widget!</p>
+    <p id="widgetNotSelected" class="text-danger hide">Lütfen bir bileşen seçin!</p>
+    <p id="widgetNoColumn" class="text-danger hide">Lütfen bileşen eklemek istediğiniz alanları seçin!</p>
     <select id="widgetSelect">
-        <option value="default">Select widget ..</option>
-        <option value="cover">Cover</option>
-        <option value="description">Description</option>
-        <option value="journalMenu">Journal Menu</option>
-        <option value="socialButtons">Social Buttons</option>
-        <option value="journalIndexes">Journal's Indexes</option>
-        <option value="archive">Archive</option>
-        <option value="articles">Articles</option>
-        <option value="pages">Pages</option>
-        <option value="custom">Custom</option>
+        <option value="default">Bileşen seç ..</option>
+        <option value="cover">Dergi Kapağı</option>
+        <option value="description">Tanım</option>
+        <option value="journalMenu">Dergi Menüsü</option>
+        <option value="socialButtons">Sosyal Ağlar</option>
+        <option value="journalIndexes">Dergi Dizinleri</option>
+        <option value="archive">Arşiv</option>
+        <option value="articles">Yazılar</option>
+        <option value="pages">Sayfalar</option>
+        <option value="custom">Özel</option>
     </select>
-    <button id="widgetButton" class="btn btn-sm btn-success">Add Widget</button>
+    <button id="widgetButton" class="btn btn-sm btn-success">Bileşen Ekle</button>
     <br>
     <textarea id="customCode" class="hide"></textarea>
     <br>
@@ -49,25 +54,20 @@
     <div id="gridDesign">
         <div class="row">
             <div class="col-md-3">
-                <span class="design-hide-span hide">{% raw %} {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %} {% endraw %} </span>
+                <span class="design-hide-span hide">{% raw %} <!--{% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}--> {% endraw %} </span>
 
                 <span class="design-hide-block hide">
                     {% raw %}
-                        <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
+                        <!--<img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
                             data-src="holder.js/280x380/random/text:{{ journal.title }} "
-                            class="img-responsive img-rounded float-left" alt=""/>
+                            class="img-responsive img-rounded float-left" alt=""/>-->
                     {% endraw %}
                 </span>
-
                 <img src="" data-src="holder.js/280x380/random/text: Örnek Dergi "
-                     class="img-responsive img-rounded float-left" alt=""/>
-
+                     class="img-responsive img-rounded float-left holder-remove" alt=""/>
                 <span class="design-hide-endblock hide"></span>
 
                 <a href="#" class="list-group-item ">
-                    <span class="pull-right">
-
-                    </span>
                     <span class="row-fluid">
                         <span class="col-md-6 nopadding">
                             <span class="list-group-item-heading count"><i class="fa fa-eye"></i>
@@ -86,11 +86,13 @@
             <div class="col-md-6">
                 <span class="design-hide-block hide">
                     {% raw %}
+                        <!--
                         {% if journal.url %}
                         <a href="{{ journal.url }}" target="_blank">
                             <small>{{ journal.url }}</small>
                         </a>
                         {% endif %}
+                        -->
                     {% endraw %}
                 </span>
                 <a href=#" target="_blank">
@@ -121,7 +123,11 @@
                     <div class="list-group-item ">
                         <span class="design-hide-block hide">
                             {% raw %}
-                            <form role="search" action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}" method="get" id="search_on_journal"></form>
+                                <!--
+                                <form role="search"
+                                      action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}"
+                                      method="get" id="search_on_journal">
+                                -->
                             {% endraw %}
                         </span>
                         <form role="search" action="#" method="get">
@@ -129,7 +135,6 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}"
                                        name="q">
-
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
@@ -139,10 +144,12 @@
 
                     <span class="design-hide-block hide">
                         {% raw %}
-                        <a href="//{{ base_host }}{{ path('ojs_journal_submission_journal',{"journalId":journal.id}) }}"
-                           class="list-group-item list-group-item-success"><h5><i
-                                        class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
-                        </a>
+                            <!--
+                            <a href="//{{ base_host }}{{ path('ojs_journal_submission_journal',{"journalId":journal.id}) }}"
+                               class="list-group-item list-group-item-success"><h5><i
+                                            class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+                            </a>
+                            -->
                         {% endraw %}
                     </span>
                     <a href="#"
@@ -151,58 +158,68 @@
                     </a>
                     <span class="design-hide-endblock hide"></span>
 
-
-                    <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+                    <a href="" class="list-group-item ">
+                        <h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
 
                     <span class="design-hide-block hide">
                         {% raw %}
-                        <a href="{% if isInstitutionHosting is defined %}
-                            {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
-                        {% elseif isJournalHosting is defined %}
-                            {{ url('journal_hosting_archive') }}
-                        {% else %}
-                            {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
-                        {% endif %}"
-                           class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
-                        </a>
+                            <!--
+                            <a href="{% if isInstitutionHosting is defined %}
+                                {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+                            {% elseif isJournalHosting is defined %}
+                                {{ url('journal_hosting_archive') }}
+                            {% else %}
+                                {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+                            {% endif %}"
+                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+                            </a>
+                            -->
                         {% endraw %}
                     </span>
-                    <a href="#"
-                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
-                    </a>
-                    <span class="design-hide-endblock hide"></span>
-
-                    <span class="design-hide-block hide">
-                        {% raw %}
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                           class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
-                            </h5>
-                        </a>
-                        {% endraw %}
-                    </span>
-                    <a href="#"
-                       class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
-                        </h5>
+                    <a href="#" class="list-group-item ">
+                        <h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
                     <span class="design-hide-endblock hide"></span>
 
                     <span class="design-hide-block hide">
                         {% raw %}
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                           class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
-                        </a>
+                            <!--
+                            <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                               class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
+                                </h5>
+                            </a>
+                            -->
                         {% endraw %}
                     </span>
-                    <a href="#"
-                       class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+                    <a href="#" class="list-group-item ">
+                        <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
+                    </a>
+                    <span class="design-hide-endblock hide"></span>
+
+                    <span class="design-hide-block hide">
+                        {% raw %}
+                            <!--
+                            <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                               class="list-group-item ">
+                               <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+                            </a>
+                            -->
+                        {% endraw %}
+                    </span>
+                    <a href="#" class="list-group-item ">
+                        <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                     </a>
                     <span class="design-hide-endblock hide"></span>
 
                     <div class="list-group-item ">
                         <span class="design-hide-block hide">
                             {% raw %}
-                            <form role="search" action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}" method="post"></form>
+                                <!--
+                                <form role="search"
+                                      action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                                      method="post">
+                                -->
                             {% endraw %}
                         </span>
                         <form role="search" action="#" method="post">
@@ -210,7 +227,6 @@
                             <div class="input-group">
                                 <input type="text" class="form-control"
                                        placeholder="{{ "subscribe.this.journal"|trans }}" name="mail">
-
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit"><i class="fa fa-send"></i></button>
                                 </div>
@@ -221,6 +237,44 @@
                 <!--/gm-editable-region-->
                 <!--gm-editable-region-->
                 <div>
+                    <span class="design-hide-block hide">
+                        {% raw %}
+                            <!--
+                            {% if enable_social is defined %}
+                                <a href="#" class="list-group-item facebook-like">
+                                    <h3 class="pull-right">
+                                        <i class="fa fa-facebook-square"></i>
+                                    </h3>
+                                    <h5 class="list-group-item-heading count">
+                                        {{ random(10000) }}</h5>
+
+                                    <p class="list-group-item-text">
+                                        Facebook Likes</p>
+                                </a>
+                                <a href="#" class="list-group-item google-plus">
+                                    <h3 class="pull-right">
+                                        <i class="fa fa-google-plus-square"></i>
+                                    </h3>
+                                    <h5 class="list-group-item-heading count">
+                                        {{ random(10000) }}</h5>
+
+                                    <p class="list-group-item-text">
+                                        Google+</p>
+                                </a>
+                                <a href="#" class="list-group-item twitter">
+                                    <h3 class="pull-right">
+                                        <i class="fa fa-twitter-square"></i>
+                                    </h3>
+                                    <h5 class="list-group-item-heading count">
+                                        {{ random(10000) }}</h5>
+
+                                    <p class="list-group-item-text">
+                                        Twitter Followers</p>
+                                </a>
+                            {% endif %}
+                            -->
+                        {% endraw %}
+                    </span>
                     <a href="#" class="list-group-item facebook-like">
                         <h3 class="pull-right">
                             <i class="fa fa-facebook-square"></i>
@@ -246,38 +300,59 @@
                             <i class="fa fa-twitter-square"></i>
                         </h3>
                         <h5 class="list-group-item-heading count">
-                            1000</h5>
+                            {{ random(10000) }}</h5>
 
                         <p class="list-group-item-text">
                             Twitter Followers</p>
                     </a>
+                    <span class="design-hide-endblock hide"></span>
                 </div>
                 <!--/gm-editable-region-->
                 <!--gm-editable-region-->
                 <div class="list-group">
+                    <span class="design-hide-block hide">
+                        {% raw %}
+                            <!--
+                            {% for index in journal.journalsIndexs %}
+                                <div class="list-group-item">
+                                    <a href="{{ index.link }}" target="_blank">
+                                        <h5>
+                                            {% if index.journalIndex.logo %}
+                                            <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
+                                                 alt="{{ index.journalIndex }}"/>
+                                            {% endif %}
+                                            {{ index.journalIndex.name }}
+                                        </h5>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            -->
+                        {% endraw %}
+                    </span>
                     <div class="list-group-item">
                         <a href="#" target="_blank">
                             <h5>
                                 <img src="" data-src="holder.js/60x40/random/text: Örnek Dergi "
-                                     class="img-responsive img-rounded float-left" alt=""/>
-                                Index Adı
+                                     class="img-responsive img-rounded float-left holder-remove" alt=""/>
+                                Index
                             </h5>
                         </a>
                     </div>
                     <div class="list-group-item">
                         <a href="#" target="_blank">
                             <h5>
-                                Index Adı 2
+                                Index 2
                             </h5>
                         </a>
                     </div>
                     <div class="list-group-item">
                         <a href="#" target="_blank">
                             <h5>
-                                Index Adı 3
+                                Index 3
                             </h5>
                         </a>
                     </div>
+                    <span class="design-hide-endblock hide"></span>
                 </div>
                 <!--/gm-editable-region-->
             </div>
@@ -285,28 +360,52 @@
                 <h5 class="page-header"><span class="panel-title">{{ "journal_index.issues"|trans }}</span></h5>
             </div>
             <div class="col-md-4">
-
                 <div id="issuetree">
+                    <span class="design-hide-block hide">
+                        {% raw %}
+                            <!--
+                            <ul>
+                                {% for key, issues in years %}
+                                <li>
+                                    <h4 title=" {{ "year"|trans }}"> {{ key }}</h4>
+                                    <ul>
+                                        {% for issue in issues %}
+                                        <li>
+                                            <a href="
+                                                {% if isInstitutionHosting is defined %}
+                                                    {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
+                                                {% elseif isJournalHosting is defined %}
+                                                    {{ url('journal_hosting_issue',{id: issue.id}) }}
+                                                {% else %}
+                                                    {{ url('ojs_issue_page',{journal_slug:journal.slug,id: issue.id, institution: journal.institution.slug}) }}
+                                                {% endif %}">
+                                                {{ "volume"|trans }}  {{ issue.volume }}
+                                                - {{ "issue.number"|trans }} {{ issue.number }}
+                                                {% if issue.special %}
+                                                    <span class="label label-success">
+                                                            <i class="fa fa-star"
+                                                               title="{{ "special.issue"|trans }}"></i>
+                                                        {{ "special.issue"|trans }}
+                                                        </span>
+                                                {% endif %}&nbsp;
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            -->
+                        {% endraw %}
+                    </span>
                     <ul>
                         <li>
                             <h4 title=" {{ "year"|trans }}"> 2014</h4>
-
                             <ul>
                                 <li>
                                     <a href="#">
                                         {{ "volume"|trans }}  {{ random(10) }}
                                         - {{ "issue.number"|trans }} {{ random(100) }}
-                                        <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
-                                            {{ "special.issue"|trans }}
-                                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        {{ "volume"|trans }}  {{ random(10) }}
-                                        - {{ "issue.number"|trans }} {{ random(100) }}
                                     </a>
                                 </li>
                                 <li>
@@ -314,17 +413,21 @@
                                         {{ "volume"|trans }}  {{ random(10) }}
                                         - {{ "issue.number"|trans }} {{ random(100) }}
                                         <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
+                                            <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
                                             {{ "special.issue"|trans }}
-                                                        </span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        {{ "volume"|trans }}  {{ random(10) }}
+                                        - {{ "issue.number"|trans }} {{ random(100) }}
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <h4 title=" {{ "year"|trans }}"> 2013</h4>
-
                             <ul>
                                 <li>
                                     <a href="#">
@@ -337,47 +440,102 @@
                                         {{ "volume"|trans }}  {{ random(10) }}
                                         - {{ "issue.number"|trans }} {{ random(100) }}
                                         <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
+                                            <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
                                             {{ "special.issue"|trans }}
-                                                        </span>
+                                        </span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
-                    <a class="btn btn-primary "
-                       href="#">
-                        <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
-
+                    <span class="design-hide-endblock hide"></span>
+                    <span class="design-hide-block hide">
+                        {% raw %}
+                            <!--
+                            <a class="btn btn-primary "
+                               href="{% if isInstitutionHosting is defined %}
+                                    {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+                                {% elseif isJournalHosting is defined %}
+                                    {{ url('journal_hosting_archive') }}
+                                {% else %}
+                                    {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+                                {% endif %}">
+                                <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}
+                            </a>
+                            -->
+                        {% endraw %}
+                    </span>
+                    <a class="btn btn-primary" href="#">
+                        <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}
+                    </a>
+                    <span class="design-hide-endblock hide"></span>
                 </div>
-
             </div>
             <div class="col-md-5">
+                <span class="design-hide-block hide">
+                    {% raw %}
+                        <!--
+                        {% if last_issue %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>{{ last_issue.title }}</strong>
+                                    {{ "issue.number"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
+                                    - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                                    <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+                                        {% for article in last_issue.articles[:10] %}
+                                        <li>
+                                            <a href="
+                                                {% if isInstitutionHosting is defined %}
+                                                    {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
+                                                {% elseif isJournalHosting is defined %}
+                                                    {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
+                                                {% else %}
+                                                    {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
+                                                {% endif %}">{{ article.title }}
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                </div>
+                            </div>
+                        {% endif %}
+                        -->
+                    {% endraw %}
+                </span>
                 <div class="panel panel-default">
-                    <div class="panel-heading"><strong>Last Issue Title</strong>
+                    <div class="panel-heading">
+                        <strong>Son Sayı başlığı</strong>
                         {{ "issue.number"|trans }} {{ random(100) }} {{ "volume"|trans }} {{ random(10) }}
-                        - 27.06.2015
+                        - Haziran 2015
+                        <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
                     </div>
                     <div class="panel-body">
                         <ul>
                             <li>
-                                <a href="#">Article Title</a>
+                                <a href="#">Bir Makale</a>
                             </li>
                             <li>
-                                <a href="#">Article Title 2</a>
+                                <a href="#">Bir Yazı</a>
                             </li>
                             <li>
-                                <a href="#">Article Title 3</a>
+                                <a href="#">Başka Bir Yazı</a>
                             </li>
                         </ul>
 
                     </div>
                 </div>
-
+                <span class="design-hide-endblock hide"></span>
             </div>
             <div class="col-md-3">
+                <span class="design-hide-block hide">
+                    {% raw %}
+                        <!--{% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}-->
+                    {% endraw %}
+                </span>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <span class="panel-title">Sayfalar</span>
@@ -385,27 +543,22 @@
                     <ul class="list-group">
                         <li class="list-group-item">
                             <a href="#" target="_blank">Ref Link Instructions</a>
-
                         </li>
                         <li class="list-group-item">
                             <a href="#" target="_blank">Reader Information</a>
-
                         </li>
                         <li class="list-group-item">
                             <a href="#" target="_blank">Proof Instructions</a>
-
                         </li>
                         <li class="list-group-item">
                             <a href="#" target="_blank">Copy Edit Instructions</a>
-
                         </li>
                         <li class="list-group-item">
                             <a href="#" target="_blank">Author Information</a>
-
                         </li>
                     </ul>
                 </div>
-
+                <span class="design-hide-endblock hide"></span>
             </div>
         </div>
     </div>
@@ -471,270 +624,7 @@
     {% include '::actionbuttons.html.twig' %}
 
     <!-- Widgets -->
-    <div id="cover" class="hide">
-        <img src="" data-src="holder.js/280x380/random/text: Örnek Dergi "
-             class="img-responsive img-rounded float-left" alt=""/>
-
-        <a href="#" class="list-group-item ">
-            <span class="pull-right">
-
-            </span>
-            <span class="row-fluid">
-                <span class="col-md-6 nopadding">
-                    <span class="list-group-item-heading count"><i class="fa fa-eye"></i> 9068</span>
-                </span>
-                <span class="col-md-6 nopadding">
-                    <span class="list-group-item-heading count"><i class="fa fa-download"></i> 134069 </span>
-                </span>
-                <span class="clearfix"></span>
-            </span>
-        </a>
-    </div>
-    <div id="description" class="hide">
-        <a href=#" target="_blank">
-            <small>http://ojs.io</small>
-        </a>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum interdum leo quis pretium. Sed id
-        suscipit est, vitae posuere ante. Aenean semper commodo molestie. Donec nulla est, aliquam sit amet feugiat eu,
-        lobortis sed enim. Morbi vestibulum vitae nisl id aliquet. Donec felis urna, pharetra varius sollicitudin eu,
-        placerat non quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-        Integer orci mi, viverra eu ligula sit amet, condimentum tincidunt magna.
-
-        In semper laoreet sapien, ac tincidunt massa ullamcorper nec. Nunc condimentum velit at mi dapibus dignissim.
-        Aenean tristique mi a enim mollis rhoncus. Aenean non metus dictum, tempus ante eget, suscipit orci. Vivamus
-        gravida, neque sed fermentum molestie, nibh erat tristique magna, quis ornare libero dolor ac diam. Donec
-        sodales sapien ut fringilla semper. Morbi tempus convallis condimentum. Phasellus pellentesque odio vitae felis
-        pulvinar rutrum. Quisque eu cursus lacus, faucibus dignissim ligula. Vestibulum enim velit, elementum vel eros
-        sed, tincidunt vehicula diam. Cras id metus egestas, finibus lacus et, aliquam sem. Pellentesque scelerisque
-        congue velit, vitae consequat justo tincidunt at. In convallis sollicitudin tortor.
-    </div>
-    <div id="journalMenu" class="hide">
-        <div class="list-group journal-stats">
-            <div class="list-group-item ">
-                <form role="search" action="#" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}" name="q">
-
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <a href="#"
-               class="list-group-item list-group-item-success"><h5><i
-                            class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
-            </a>
-
-
-            <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
-            </a>
-
-            <a href="#"
-               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
-            </a>
-
-            <a href="#"
-               class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
-                </h5>
-            </a>
-            <a href="#"
-               class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
-            </a>
-
-            <div class="list-group-item ">
-                <form role="search" action="#" method="post">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="{{ "subscribe.this.journal"|trans }}"
-                               name="mail">
-
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="fa fa-send"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div id="socialButtons" class="hide">
-        <a href="#" class="list-group-item facebook-like">
-            <h3 class="pull-right">
-                <i class="fa fa-facebook-square"></i>
-            </h3>
-            <h5 class="list-group-item-heading count">
-                {{ random(10000) }}</h5>
-
-            <p class="list-group-item-text">
-                Facebook Likes</p>
-        </a>
-        <a href="#" class="list-group-item google-plus">
-            <h3 class="pull-right">
-                <i class="fa fa-google-plus-square"></i>
-            </h3>
-            <h5 class="list-group-item-heading count">
-                {{ random(10000) }}</h5>
-
-            <p class="list-group-item-text">
-                Google+</p>
-        </a>
-        <a href="#" class="list-group-item twitter">
-            <h3 class="pull-right">
-                <i class="fa fa-twitter-square"></i>
-            </h3>
-            <h5 class="list-group-item-heading count">
-                1000</h5>
-
-            <p class="list-group-item-text">
-                Twitter Followers</p>
-        </a>
-    </div>
-    <div id="journalIndexes" class="hide">
-        <div class="list-group">
-            <div class="list-group-item">
-                <a href="#" target="_blank">
-                    <h5>
-                        <img src="" data-src="holder.js/60x40/random/text: Örnek Dergi "
-                             class="img-responsive img-rounded float-left" alt=""/>
-                        Index Adı
-                    </h5>
-                </a>
-            </div>
-            <div class="list-group-item">
-                <a href="#" target="_blank">
-                    <h5>
-                        Index Adı 2
-                    </h5>
-                </a>
-            </div>
-            <div class="list-group-item">
-                <a href="#" target="_blank">
-                    <h5>
-                        Index Adı 3
-                    </h5>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div id="archive" class="hide">
-        <div id="issuetree">
-            <ul>
-                <li>
-                    <h4 title=" {{ "year"|trans }}"> 2014</h4>
-
-                    <ul>
-                        <li>
-                            <a href="#">
-                                {{ "volume"|trans }}  {{ random(10) }}
-                                - {{ "issue.number"|trans }} {{ random(100) }}
-                                <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
-                                    {{ "special.issue"|trans }}
-                                                        </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                {{ "volume"|trans }}  {{ random(10) }}
-                                - {{ "issue.number"|trans }} {{ random(100) }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                {{ "volume"|trans }}  {{ random(10) }}
-                                - {{ "issue.number"|trans }} {{ random(100) }}
-                                <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
-                                    {{ "special.issue"|trans }}
-                                                        </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <h4 title=" {{ "year"|trans }}"> 2013</h4>
-
-                    <ul>
-                        <li>
-                            <a href="#">
-                                {{ "volume"|trans }}  {{ random(10) }}
-                                - {{ "issue.number"|trans }} {{ random(100) }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                {{ "volume"|trans }}  {{ random(10) }}
-                                - {{ "issue.number"|trans }} {{ random(100) }}
-                                <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
-                                    {{ "special.issue"|trans }}
-                                                        </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-            <a class="btn btn-primary "
-               href="#">
-                <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
-
-        </div>
-    </div>
-    <div id="articles" class="hide">
-        <div class="panel panel-default">
-            <div class="panel-heading"><strong>Last Issue Title</strong>
-                {{ "issue.number"|trans }} {{ random(100) }} {{ "volume"|trans }} {{ random(10) }}
-                - 27.06.2015
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <li>
-                        <a href="#">Article Title</a>
-                    </li>
-                    <li>
-                        <a href="#">Article Title 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Article Title 3</a>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-    </div>
-    <div id="pages" class="hide">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <span class="panel-title">Sayfalar</span>
-            </div>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="#" target="_blank">Ref Link Instructions</a>
-
-                </li>
-                <li class="list-group-item">
-                    <a href="#" target="_blank">Reader Information</a>
-
-                </li>
-                <li class="list-group-item">
-                    <a href="#" target="_blank">Proof Instructions</a>
-
-                </li>
-                <li class="list-group-item">
-                    <a href="#" target="_blank">Copy Edit Instructions</a>
-
-                </li>
-                <li class="list-group-item">
-                    <a href="#" target="_blank">Author Information</a>
-
-                </li>
-            </ul>
-        </div>
-    </div>
+    {% include '::designWidgets.html.twig' %}
 {% endblock %}
 
 {% block javascripts -%}
@@ -801,6 +691,15 @@
                 else {
                     $('#customCode').slideDown();
                 }
+            });
+
+            $('#ojs_journalbundle_design_submit').attr('type', 'button');
+            $('#ojs_journalbundle_design_submit').on('click', function(){
+                gm.deinitCanvas();
+                $('.holder-remove').removeAttr("src");
+                $('.holder-remove').removeAttr("data-holder-rendered");
+                $('#ojs_journalbundle_design_editableContent').val($("#" + gm.options.canvasId).html());
+                $("form[name='ojs_journalbundle_design']").submit();
             });
         });
 

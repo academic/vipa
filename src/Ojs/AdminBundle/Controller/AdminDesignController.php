@@ -8,6 +8,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Design;
 use Ojs\AdminBundle\Form\Type\DesignType;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -60,6 +61,9 @@ class AdminDesignController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setContent(
+                $this->prepareDesignContent($entity->getEditableContent())
+            );
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -238,5 +242,50 @@ class AdminDesignController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_admin_design_index');
+    }
+
+    /**
+     * @param  String                                            $editableContent
+     * @return String
+     */
+    private function prepareDesignContent($editableContent)
+    {
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!--.*-->/Us', $matches[0], $matched);
+                return str_ireplace(['<!--', '-->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-span[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!--.*-->/Us', $matches[0], $matched);
+                return str_ireplace(['<!--', '-->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/title\s*=\s*"\s*{.*}\s*"/Us', $matches[0], $matched);
+                $matched[0] = preg_replace('/title\s*=\s*"/Us', '', $matched[0]);
+                return str_replace('"', '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = str_replace(
+            [
+                '<!--gm-editable-region-->',
+                '<!--/gm-editable-region-->'
+            ],
+            '',
+            $editableContent
+        );
+        return $editableContent;
     }
 }

@@ -41,6 +41,12 @@ class Design implements Translatable
     private $content;
 
     /**
+     * @var string
+     * @GRID\Column(title="editableContent")
+     */
+    private $editableContent;
+
+    /**
      * @var boolean
      * @GRID\Column(title="basedesign")
      */
@@ -182,6 +188,27 @@ class Design implements Translatable
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set editableContent
+     * @param  string $editableContent
+     * @return $this
+     */
+    public function setEditableContent($editableContent)
+    {
+        $this->editableContent = $editableContent;
+
+        return $this;
+    }
+
+    /**
+     * Get editableContent
+     * @return string
+     */
+    public function getEditableContent()
+    {
+        return $this->editableContent;
     }
 
     /**

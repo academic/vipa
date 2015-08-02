@@ -18,7 +18,7 @@ class DesignType extends AbstractType
         $builder
             ->add('name', 'text', ['label' => 'Name'])
             ->add('title', 'text', ['label' => 'Title'])
-            ->add('content', 'textarea', ['label' => 'Content'])
+            ->add('editableContent', 'hidden')
             ->add('isPublic', 'checkbox', ['label' => 'ojs.is_public']);
     }
 
