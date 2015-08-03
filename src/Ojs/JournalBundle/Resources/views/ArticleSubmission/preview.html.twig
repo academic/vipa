@@ -13,24 +13,23 @@
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1">
-                    <a href="javascript:void(0)">
+                    <a href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
                         <span class="badge">1</span>
                         {{ "submission.starting"|trans }}
                     </a>
                 </li>
                 <li id="submission-progress-step2">
-                    <a href="javascript:void(0)">
+                    <a href="{{ path('ojs_journal_submission_edit', {journalId: selectedJournal().id, id: article.id}) }}">
                         <span class="badge">2</span>
                         {{ "article.singular"|trans }}
                     </a>
                 </li>
                 <li id="submission-progress-step6 last-step" class="active">
-                    <a href="javascript:void(0)">
+                    <a href="{{ path('ojs_journal_submission_preview', {journalId: selectedJournal().id, articleId: article.id}) }}">
                         <span class="badge">3</span>
                         {{ "preview"|trans }} & {{ "submit"|trans }}
                     </a>
                 </li>
-                <li id="resumeNote" class="text-right"></li>
             </ul>
         </div>
         <div class="panel-body">
@@ -200,7 +199,7 @@
                     <div class="panel panel-body">
                         {{ form(form) }}
                         <hr>
-                        <a href="{{ path('ojs_journal_new_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}" class="btn btn-danger btn-block">Düzenlemeye devam et</a>
+                        <a href="{{ path('ojs_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}" class="btn btn-danger btn-block">Düzenlemeye devam et</a>
                     </div>
                 </div>
             </div>

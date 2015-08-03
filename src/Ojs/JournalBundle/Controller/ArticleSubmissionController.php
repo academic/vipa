@@ -37,7 +37,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Article Submission controller.
  *
  */
-class NewArticleSubmissionController extends Controller
+class ArticleSubmissionController extends Controller
 {
 
     /**
@@ -138,8 +138,8 @@ class NewArticleSubmissionController extends Controller
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->submissionResumeAction('ojs_journal_new_submission_edit', ['journalId' => $currentJournal->getId(), 'id']);
-        $rowAction[] = $gridAction->submissionCancelAction('ojs_journal_new_submission_cancel', ['journalId' => $currentJournal->getId(), 'id']);
+        $rowAction[] = $gridAction->submissionResumeAction('ojs_journal_submission_edit', ['journalId' => $currentJournal->getId(), 'id']);
+        $rowAction[] = $gridAction->submissionCancelAction('ojs_journal_submission_cancel', ['journalId' => $currentJournal->getId(), 'id']);
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
         $data = [
@@ -167,7 +167,7 @@ class NewArticleSubmissionController extends Controller
         $session = $this->get('session');
 
         if(!$session->has('competingFile')){
-            return $this->redirectToRoute('ojs_journal_new_submission_start', array('journalId' => $journal->getId()));
+            return $this->redirectToRoute('ojs_journal_submission_start', array('journalId' => $journal->getId()));
         }
 
         /** @var User $user */
@@ -227,13 +227,13 @@ class NewArticleSubmissionController extends Controller
             $em->flush();
 
             return $this->redirectToRoute(
-                'ojs_journal_new_submission_preview',
+                'ojs_journal_submission_preview',
                 array('journalId' => $journal->getId(), 'articleId' => $article->getId())
             );
         }
 
         return $this->render(
-            'OjsJournalBundle:NewArticleSubmission:new.html.twig',
+            'OjsJournalBundle:ArticleSubmission:new.html.twig',
             array(
                 'article' => $article,
                 'form' => $form->createView(),
@@ -266,6 +266,12 @@ class NewArticleSubmissionController extends Controller
         );
     }
 
+    /**
+     * @param Article $article
+     * @param Journal $journal
+     * @param $locales
+     * @return FormInterface
+     */
     private function createCreateForm(Article $article, Journal $journal, $locales)
     {
         $form = $this->createForm(
@@ -273,7 +279,7 @@ class NewArticleSubmissionController extends Controller
             $article,
             array(
                 'action' => $this->generateUrl(
-                    'ojs_journal_new_submission_new',
+                    'ojs_journal_submission_new',
                     array('journalId' => $journal->getId())
                 ),
                 'method' => 'POST',
@@ -292,7 +298,7 @@ class NewArticleSubmissionController extends Controller
             $article,
             array(
                 'action' => $this->generateUrl(
-                    'ojs_journal_new_submission_edit',
+                    'ojs_journal_submission_edit',
                     array('journalId' => $journal->getId(), 'id' => $article->getId())
                 ),
                 'method' => 'POST',
@@ -367,13 +373,13 @@ class NewArticleSubmissionController extends Controller
             $em->flush();
 
             return $this->redirectToRoute(
-                'ojs_journal_new_submission_preview',
+                'ojs_journal_submission_preview',
                 array('journalId' => $journal->getId(), 'articleId' => $article->getId())
             );
         }
 
         return $this->render(
-            'OjsJournalBundle:NewArticleSubmission:new.html.twig',
+            'OjsJournalBundle:ArticleSubmission:edit.html.twig',
             array(
                 'article' => $article,
                 'form' => $form->createView(),
@@ -420,7 +426,7 @@ class NewArticleSubmissionController extends Controller
 
         $form = $this->createForm(new ArticlePreviewType(), $article, array(
             'action' => $this->generateUrl(
-                'ojs_journal_new_submission_preview',
+                'ojs_journal_submission_preview',
                 array('journalId' => $journal->getId(), 'articleId' => $article->getId())
             ),
             'method' => 'POST'
@@ -456,7 +462,7 @@ class NewArticleSubmissionController extends Controller
 
             $em->flush();
 
-            $response = $this->redirectToRoute('ojs_journal_new_submission_me', ['journalId' => $article->getJournal()->getId()]);
+            $response = $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $article->getJournal()->getId()]);
 
             try {
                 $event = new ArticleSubmitEvent($article, $request);
@@ -472,7 +478,7 @@ class NewArticleSubmissionController extends Controller
             return $response;
         }
         return $this->render(
-            'OjsJournalBundle:NewArticleSubmission:preview.html.twig',
+            'OjsJournalBundle:ArticleSubmission:preview.html.twig',
             array(
                 'article' => $article,
                 'translations' => $translations,
@@ -515,11 +521,11 @@ class NewArticleSubmissionController extends Controller
         $form->handleRequest($request);
         if($form->isValid()){
             $session->set('competingFile', $form->getData()['competingFile']);
-            return $this->redirectToRoute('ojs_journal_new_submission_new', array('journalId' => $journal->getId()));
+            return $this->redirectToRoute('ojs_journal_submission_new', array('journalId' => $journal->getId()));
         }
 
         return $this->render(
-            'OjsJournalBundle:NewArticleSubmission:start.html.twig',
+            'OjsJournalBundle:ArticleSubmission:start.html.twig',
             array(
                 'journal' => $journal,
                 'checkLists' => $checkLists,
@@ -589,6 +595,6 @@ class NewArticleSubmissionController extends Controller
         $em->flush();
         $this->addFlash('success', $this->get('translator')->trans('deleted'));
 
-        return $this->redirectToRoute('ojs_journal_new_submission_me', ['journalId' => $journal->getId()]);
+        return $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $journal->getId()]);
     }
 }

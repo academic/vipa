@@ -13,7 +13,7 @@
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1" class="active">
-                    <a href="javascript:void(0)">
+                    <a href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
                         <span class="badge">1</span>
                         {{ "submission.starting"|trans }}
                     </a>
@@ -30,7 +30,6 @@
                         {{ "preview"|trans }} & {{ "submit"|trans }}
                     </a>
                 </li>
-                <li id="resumeNote" class="text-right"></li>
             </ul>
         </div>
         <div class="panel-body">
