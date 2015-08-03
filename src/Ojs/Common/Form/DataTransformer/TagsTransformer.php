@@ -14,8 +14,10 @@ class TagsTransformer implements DataTransformerInterface
     private $delimiter = ',';
     public function transform($tagsData)
     {
+        if(is_null($tagsData)) {
+            return array();
+        }
         $parts = explode($this->delimiter, $tagsData);
-        //$fields = array_combine($parts, $parts);
 
         return $parts;
     }
