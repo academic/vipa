@@ -48,31 +48,6 @@ class ArticleAuthor implements Translatable
      */
     private $article;
 
-    public function __construct($name = null, $value = null, Article $article = null)
-    {
-        $this->attribute = $name;
-        $this->value = $value;
-        $this->article = $article;
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getAuthorId()
-    {
-        return $this->author ? $this->author->getId() : false;
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getArticleId()
-    {
-        return $this->article ? $this->article->getId() : false;
-    }
-
     /**
      * Get id
      *
@@ -123,7 +98,7 @@ class ArticleAuthor implements Translatable
     public function setArticle(Article $article)
     {
         $this->article = $article;
-
+        $article->addArticleAuthor($this);
         return $this;
     }
 

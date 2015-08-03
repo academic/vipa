@@ -15,11 +15,6 @@ Ojs\JournalBundle\Entity\ArticleFile:
             joinColumn:
                 name: article_id
                 referencedColumnName: id
-    oneToMany:
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\ArticleFileTranslation
-            mappedBy: object
-            cascade: ["persist"]
     fields:
         type:
             type: integer
@@ -37,20 +32,17 @@ Ojs\JournalBundle\Entity\ArticleFile:
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         description:
             type: text
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         title:
             type: string
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         langCode:
             column: lang_code
@@ -81,8 +73,4 @@ Ojs\JournalBundle\Entity\ArticleFile:
         loggable: true
         soft_deleteable:
           field_name: deletedAt
-          time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\ArticleFileTranslation
     lifecycleCallbacks: {  }

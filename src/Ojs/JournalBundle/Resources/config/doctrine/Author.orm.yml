@@ -6,6 +6,7 @@ Ojs\JournalBundle\Entity\Author:
         articleAuthors:
             targetEntity: ArticleAuthor
             mappedBy: author
+            cascade: ["persist"]
         translations:
             targetEntity: Ojs\JournalBundle\Entity\AuthorTranslation
             mappedBy: object
@@ -23,6 +24,7 @@ Ojs\JournalBundle\Entity\Author:
                   name: user_id
                   referencedColumnName: id
                 inversedBy: authorDetails
+                cascade: ["persist"]
           country:
                 targetEntity: Ojs\LocationBundle\Entity\Country
                 joinColumn:

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AuthorType extends AbstractType
+class ArticleAuthorType extends AbstractType
 {
 
     /**
@@ -16,18 +16,7 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('middleName')
-            ->add('lastName')
-            ->add('firstNameTransliterated')
-            ->add('middleNameTransliterated')
-            ->add('lastNameTransliterated')
-            ->add('initials')
-            ->add('email', 'email')
-            ->add('address', 'textarea')
-            ->add('institution')
-            ->add('country')
-            ->add('authorDetails', 'textarea');
+            ->add('author', new AuthorType());
     }
 
     /**
@@ -37,7 +26,7 @@ class AuthorType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Author',
+                'data_class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -51,6 +40,6 @@ class AuthorType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_author';
+        return 'ojs_journalbundle_articlefile';
     }
 }

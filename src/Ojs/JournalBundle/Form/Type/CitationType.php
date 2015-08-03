@@ -16,8 +16,12 @@ class CitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('raw')
-            ->add('type')
+            ->add('raw', 'textarea')
+            ->add('type','choice',[
+                'choices' => [
+                    $options['citationTypes']
+                ]
+            ])
             ->add('orderNum');
     }
 
@@ -29,6 +33,7 @@ class CitationType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Citation',
+                'citationTypes' => [],
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

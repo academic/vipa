@@ -105,11 +105,6 @@ var OjsArticleSubmission = {
     },
     step1: function (actionUrl) {
         var form = $("#step1-container form").serialize();
-        var competingInterestFile = $('.competing_interest_file_input').val();
-        if(competingInterestFile == ''){
-            OjsCommon.errorModal("Error occured. Please upload an Correct Competing Interest File");
-            return;
-        }
         var status = OjsArticleSubmission.submissionChecklist();
         if (status === false) {
             return;
@@ -300,7 +295,6 @@ var OjsArticleSubmission = {
     },
     bindFileUploader: function () {
         $('.article_file_upload').fileupload({});
-        $('.competing_interest_file_upload').fileupload({});
         $('.article_file_upload').bind('fileuploadsend', function (e, data) {
             $uploadIndicator = $('.upload_progress', $(this).parent().parent());
             $uploadIndicator.show();
@@ -318,24 +312,6 @@ var OjsArticleSubmission = {
             $('.article_file_input', $(this).parent()).attr('value', $obj.files.name);
             $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.mimeType);
             $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.size);
-        });
-        $('.competing_interest_file_upload').bind('fileuploadsend', function (e, data) {
-            $uploadIndicator = $('.upload_progress', $(this).parent().parent());
-            $uploadIndicator.show();
-            $uploadIndicator.html("Uploading...");
-        }).bind('fileuploaddone', function (e, data) {
-            $uploadIndicator = $('.upload_progress', $(this).parent().parent());
-            $('.upload_progress', $(this).parent().parent()).html("Done.");
-            $obj = JSON.parse(data.result);
-            if(typeof $obj.files.path == "undefined"){
-                $uploadIndicator.hide();
-                OjsCommon.errorModal("Please provide an correct competing interest file.");
-                return;
-            }
-            $('.previewLink', $(this).parent().parent()).attr('href', 'uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
-            $('.competing_interest_file_input', $(this).parent()).attr('value', $obj.files.name);
-            $('input[name="competing_interest_file_mime_type"]', $(this).parent()).attr('value', $obj.files.mimeType);
-            $('input[name="competing_interest_file_size"]', $(this).parent()).attr('value', $obj.files.size);
         });
     },
     setupUi: function () {

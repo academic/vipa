@@ -29,6 +29,7 @@
         {{ block('a2lix_translations_widget') }}
     {% else %}
         {% set isArticleSubmission = 'ojs_article_submission_step2_translations' == form.vars.id %}
+        {% set isArticleSubmission = 'ojs_article_submission_translations' == form.vars.id %}
         <div class="a2lix_translations tabbable">
             <ul class="a2lix_translationsLocales nav nav-tabs">
                 {% for translationsLocales in form %}

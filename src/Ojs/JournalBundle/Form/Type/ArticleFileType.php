@@ -25,18 +25,13 @@ class ArticleFileType extends AbstractType
                     'choices' => ArticleFileParams::$FILE_TYPES,
                 ]
             )
-            ->add('version')
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
-                'fields' => [
-                    'title' => [],
-                    'description' => [],
-                    'keywords' => [
-                        'label' => 'keywords',
-                        'field_type' => 'tags'
-                    ]
+            ->add('langCode', 'choice',
+                [
+                    'choices' => $options['locales'],
                 ]
-            ]);
+            )
+            ->add('title', 'text')
+            ->add('description', 'textarea');
     }
 
     /**
@@ -47,6 +42,7 @@ class ArticleFileType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
+                'locales' => [],
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

@@ -41,33 +41,22 @@
                 </div>
             {% endif %}
         {% endfor %}
+        {% if journal.competingFile%}
         <div class="panel-body">
             <div class="panel-heading">
                 <h4>
                     {{ "competingOfInterest"|trans }}
                 </h4>
-                {% if journal.competingInterestFile is not null %}
-                    <h5>
-                        {{ 'download.a.copy'|trans }}
-                        <a class="label label-info" target="_blank"
-                           href="/uploads/journalfiles/{{ journal.competingInterestFile.path }}">
-                            <i class="fa fa-download"></i>
-                        </a>
-                    </h5>
-                {% endif %}
-                <span class="btn btn-success fileinput-button">
-                    <i class="fa fa-plus"></i>
-                    <span>{{ "select.article.file"|trans }}</span>
-                    <input class="competing_interest_file_upload" type="file"
-                           data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
-                    <input name="competing_interest_file" class="filename competing_interest_file_input" type="hidden"/>
-                    <input name="competing_interest_file_mime_type" type="hidden"/>
-                    <input name="competing_interest_file_size" type="hidden"/>
-                </span>
-                <a target="_blank" class="label label-info hide previewLink" href="#">{{ "preview"|trans }}</a>
-                <span class="upload_progress label label-info" style="display: none"></span>
+                <h5>
+                    {{ 'download.a.copy'|trans }}
+                    <a class="label label-info" target="_blank"
+                       href="{{ asset('uploads/journal/' ~ journal.competingFile) }}">
+                        <i class="fa fa-download"></i>
+                    </a>
+                </h5>
             </div>
         </div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="step1_actions record_actions">

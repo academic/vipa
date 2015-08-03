@@ -148,7 +148,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     protected $locales;
     /** @var  string */
     protected $disable_reason;
-    /** @var  ArrayCollection */
+    /** @var  ArrayCollection|Author[] */
     protected $authorDetails;
 
 
@@ -767,7 +767,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|Author[]
      */
     public function getAuthorDetails()
     {

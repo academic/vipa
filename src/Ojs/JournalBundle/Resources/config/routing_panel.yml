@@ -55,3 +55,6 @@ ojs_journal_author:
 
 ojs_journal_article_submission:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article_submission.yml"
+
+ojs_journal_new_article_submission:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/new_article_submission.yml"
