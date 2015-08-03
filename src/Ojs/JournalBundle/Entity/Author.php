@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -145,7 +144,7 @@ class Author implements Translatable
      */
     private $orcid;
     /**
-     * @var Collection
+     * @var ArrayCollection|ArticleAuthor[]
      * @Jms\Expose
      */
     private $articleAuthors;
@@ -206,7 +205,7 @@ class Author implements Translatable
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection|ArticleAuthor[]
      */
     public function getArticleAuthors()
     {
@@ -520,26 +519,33 @@ class Author implements Translatable
     }
 
     /**
-     * Add articleAuthors
+     * Add articleAuthor
      *
-     * @param  ArticleAuthor $articleAuthors
+     * @param  ArticleAuthor $articleAuthor
      * @return Author
      */
-    public function addArticleAuthor(ArticleAuthor $articleAuthors)
+    public function addArticleAuthor(ArticleAuthor $articleAuthor)
     {
-        $this->articleAuthors[] = $articleAuthors;
+        if(!$this->articleAuthors->contains($articleAuthor)){
+            $this->articleAuthors->add($articleAuthor);
+            $articleAuthor->setAuthor($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove articleAuthors
+     * Remove articleAuthor
      *
-     * @param ArticleAuthor $articleAuthors
+     * @param ArticleAuthor $articleAuthor
+     * @return Author
      */
-    public function removeArticleAuthor(ArticleAuthor $articleAuthors)
+    public function removeArticleAuthor(ArticleAuthor $articleAuthor)
     {
-        $this->articleAuthors->removeElement($articleAuthors);
+        if($this->articleAuthors->contains($articleAuthor)){
+            $this->articleAuthors->removeElement($articleAuthor);
+        }
+        return $this;
     }
 
     /**

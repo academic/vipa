@@ -53,7 +53,7 @@
                     </a>
                         {% if is_granted('CREATE', selectedJournal(), 'articles') %}
                             <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
-                               href="{{ path('ojs_journal_submission_new', {journalId: selectedJournal().id}) }}">
+                               href="{{ path('ojs_journal_new_submission_new', {journalId: selectedJournal().id}) }}">
                                 <i class="fa fa-plus-circle"></i>
                                 {{ "article.submit"|trans }}
                             </a>
@@ -68,6 +68,11 @@
                                 {{ "articles"|trans }}
                             </a>
                         {% endif %}
+                        <a class="list-group-item list-group-item-info" href="{{ path('okul_bilisim_workflow_articles_active', {journalId: selectedJournal().id}) }}">
+                            <i class="fa fa-flag"></i>
+                            {{ "Article in Review"|trans }}
+                        </a>
+
                     {% endif %}
                 </div>
             </div>

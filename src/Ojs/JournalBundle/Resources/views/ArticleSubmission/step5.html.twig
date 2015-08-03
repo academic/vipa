@@ -64,7 +64,7 @@
 
                 <span>{{ "select.article.file"|trans }}</span>
                 <input class="article_file_upload" type="file"
-                       data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
+                       data-url="{{ oneup_uploader_endpoint('articlefiles') }}"/>
                 <br>
                 <input name="article_file" class="filename article_file_input"
                        value="{% if articleFile is defined %}{{ articleFile.file.path }}{% endif %}" type="hidden"/>

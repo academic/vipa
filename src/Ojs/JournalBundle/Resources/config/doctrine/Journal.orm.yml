@@ -110,7 +110,7 @@ Ojs\JournalBundle\Entity\Journal:
             targetEntity: Design
             inversedBy: journals
             joinTable:
-                name: journal_design
+                name: journal_design_x
                 joinColumns:
                     -
                         name: journal_id

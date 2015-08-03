@@ -74,7 +74,10 @@ class Citation implements Translatable
      */
     public function addArticle(Article $article)
     {
-        $this->articles[] = $article;
+        if(!$this->articles->contains($article)){
+            $this->articles->add($article);
+            $article->addCitation($this);
+        }
 
         return $this;
     }
@@ -82,11 +85,14 @@ class Citation implements Translatable
     /**
      * Remove articles
      *
-     * @param Article $articles
+     * @param Article $article
      */
-    public function removeArticle(Article $articles)
+    public function removeArticle(Article $article)
     {
-        $this->articles->removeElement($articles);
+        if($this->articles->contains($article)){
+            $this->articles->removeElement($article);
+            $article->removeCitation($this);
+        }
     }
 
     /**

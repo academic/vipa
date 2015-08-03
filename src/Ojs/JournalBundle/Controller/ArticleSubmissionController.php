@@ -18,7 +18,6 @@ use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
-use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
@@ -300,21 +299,12 @@ class ArticleSubmissionController extends Controller
         /** @var Journal $selectedJournal */
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
-        $competingInterestFile = new File();
-        $competingInterestFile->setName('Competing Interest File');
-        $competingInterestFile->setSize($request->get('competing_interest_file_size'));
-        $competingInterestFile->setMimeType($request->get('competing_interest_file_mime_type'));
-        $competingInterestFile->setPath($request->get('competing_interest_file'));
-        $em->persist($competingInterestFile);
-        $em->flush();
-
         $article = new Article();
         $article->setJournal($selectedJournal);
         $article->setSubmitterId($user->getId());
         $article->setSetupStatus(0);
         $article->setTitle('');
         $article->setTranslatableLocale($request->getDefaultLocale());
-        $article->setCompetingInterestFile($competingInterestFile);
         $em->persist($article);
         $em->flush();
 
@@ -438,7 +428,7 @@ class ArticleSubmissionController extends Controller
         //remove removed authors
         /** @var ArticleAuthor $articleAuthor */
         foreach ($articleAuthors as $articleAuthor) {
-            if (!in_array($articleAuthor->getAuthorId(), $authorIds)) {
+            if (!in_array($articleAuthor->getAuthor()->getId(), $authorIds)) {
                 $em->remove($articleAuthor);
             }
         }

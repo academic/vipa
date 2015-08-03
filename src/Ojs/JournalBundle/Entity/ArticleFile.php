@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -11,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ArticleFile
  * @GRID\Source(columns="id,title,type,version,langcode")
  */
-class ArticleFile implements Translatable
+class ArticleFile
 {
     use GenericEntityTrait;
 
@@ -267,6 +266,7 @@ class ArticleFile implements Translatable
     public function setArticle(Article $article)
     {
         $this->article = $article;
+        $article->addArticleFile($this);
 
         return $this;
     }

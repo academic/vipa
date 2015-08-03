@@ -248,7 +248,7 @@ class Article implements Translatable
     private $attributes;
 
     /**
-     * @var Collection|ArticleAuthor[]
+     * @var ArrayCollection|ArticleAuthor[]
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $articleAuthors;
@@ -285,6 +285,25 @@ class Article implements Translatable
      * @var boolean
      */
     private $setupStatus;
+
+    /** @var  string */
+    private $note;
+
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string $note
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    }
 
     /**
      * Constructor
@@ -482,7 +501,7 @@ class Article implements Translatable
     }
 
     /**
-     * @return Collection|ArticleAuthor[]
+     * @return ArrayCollection|ArticleAuthor[]
      */
     public function getArticleAuthors()
     {
@@ -505,7 +524,10 @@ class Article implements Translatable
      */
     public function addCitation(Citation $citation)
     {
-        $this->citations->add($citation);
+        if(!$this->citations->contains($citation)){
+            $this->citations->add($citation);
+            $citation->addArticle($this);
+        }
 
         return $this;
     }
@@ -518,7 +540,10 @@ class Article implements Translatable
      */
     public function removeCitation(Citation $citation)
     {
-        $this->citations->removeElement($citation);
+        if($this->citations->contains($citation)){
+            $this->citations->removeElement($citation);
+            $citation->removeArticle($this);
+        }
 
         return $this;
     }
@@ -1151,37 +1176,47 @@ class Article implements Translatable
     }
 
     /**
-     * Add articleAuthors
+     * Add articleAuthor
      *
-     * @param  ArticleAuthor $articleAuthors
+     * @param  ArticleAuthor $articleAuthor
      * @return $this
      */
-    public function addArticleAuthor(ArticleAuthor $articleAuthors)
+    public function addArticleAuthor(ArticleAuthor $articleAuthor)
     {
-        $this->articleAuthors[] = $articleAuthors;
+        if(!$this->articleAuthors->contains($articleAuthor)){
+            $this->articleAuthors->add($articleAuthor);
+            $articleAuthor->setArticle($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove articleAuthors
+     * Remove articleAuthor
      *
-     * @param ArticleAuthor $articleAuthors
+     * @param ArticleAuthor $articleAuthor
+     * @return $this
      */
-    public function removeArticleAuthor(ArticleAuthor $articleAuthors)
+    public function removeArticleAuthor(ArticleAuthor $articleAuthor)
     {
-        $this->articleAuthors->removeElement($articleAuthors);
+        if($this->articleAuthors->contains($articleAuthor)){
+            $this->articleAuthors->removeElement($articleAuthor);
+        }
+        return $this;
     }
 
     /**
      * Add articleFiles
      *
-     * @param  ArticleFile $articleFiles
+     * @param  ArticleFile $articleFile
      * @return $this
      */
-    public function addArticleFile(ArticleFile $articleFiles)
+    public function addArticleFile(ArticleFile $articleFile)
     {
-        $this->articleFiles[] = $articleFiles;
+        if(!$this->articleFiles->contains($articleFile)){
+            $this->articleFiles->add($articleFile);
+            $articleFile->setArticle($this);
+        }
 
         return $this;
     }
@@ -1189,11 +1224,13 @@ class Article implements Translatable
     /**
      * Remove articleFiles
      *
-     * @param ArticleFile $articleFiles
+     * @param ArticleFile $articleFile
      */
-    public function removeArticleFile(ArticleFile $articleFiles)
+    public function removeArticleFile(ArticleFile $articleFile)
     {
-        $this->articleFiles->removeElement($articleFiles);
+        if($this->articleFiles->contains($articleFile)){
+            $this->articleFiles->removeElement($articleFile);
+        }
     }
 
     /**

@@ -193,7 +193,7 @@ class Journal implements Translatable
      */
     private $boards;
     /**
-     * @var Collection
+     * @var ArrayCollection|Lang[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
@@ -484,7 +484,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection|Lang[]
      */
     public function getLanguages()
     {

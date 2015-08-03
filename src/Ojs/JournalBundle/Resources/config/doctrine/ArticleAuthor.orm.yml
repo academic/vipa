@@ -31,12 +31,14 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
             joinColumn:
                 name: author_id
                 referencedColumnName: id
+            cascade: ["persist"]
         article:
             targetEntity: Article
             inversedBy: articleAuthors
             joinColumn:
                 name: article_id
                 referencedColumnName: id
+            cascade: ["persist"]
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true

@@ -45,9 +45,11 @@ Ojs\JournalBundle\Entity\Article:
     articleAuthors:
       targetEntity: ArticleAuthor
       mappedBy: article
+      cascade: ["persist"]
     articleFiles:
       targetEntity: ArticleFile
       mappedBy: article
+      cascade: ["persist"]
     userRoles:
       targetEntity: Ojs\UserBundle\Entity\UserArticleRole
       mappedBy: article
@@ -80,6 +82,7 @@ Ojs\JournalBundle\Entity\Article:
           article_id:
             referencedColumnName: id
         name: article_citation
+      cascade: ["persist"]
   fields:
     title:
       type: text
@@ -258,6 +261,9 @@ Ojs\JournalBundle\Entity\Article:
     uri:
       length: 255
       type: string
+      nullable: TRUE
+    note:
+      type: text
       nullable: TRUE
     created:
         type: datetime

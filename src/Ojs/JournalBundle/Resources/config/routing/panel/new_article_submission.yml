@@ -1,0 +1,9 @@
+ojs_journal_new_submission_new:
+    path:     /{journalId}/newsubmission/new
+    defaults: { _controller: "OjsJournalBundle:NewArticleSubmission:new" }
+ojs_journal_new_submission_edit:
+    path:     /{journalId}/newsubmission/edit/{articleId}
+    defaults: { _controller: "OjsJournalBundle:NewArticleSubmission:edit" }
+ojs_journal_new_submission_preview:
+    path:     /{journalId}/newsubmission/preview/{articleId}
+    defaults: { _controller: "OjsJournalBundle:NewArticleSubmission:preview" }
