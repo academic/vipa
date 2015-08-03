@@ -3,9 +3,6 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Journal;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -13,26 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class JournalController extends Controller
 {
-    /**
-     * @param  Request          $request
-     * @param $journalId
-     * @return RedirectResponse
-     */
-    public function changeSelectedAction(Request $request, $journalId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $route = $this->get('router')->generate('ojs_journal_dashboard_index', ['journalId' => $journalId]);
-        if ($request->query->get('submission', false) === '1') {
-            $route = $this->get('router')->generate('ojs_journal_submission_new', ['journalId' => $journalId]);
-        }
-        /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
-        $this->throw404IfNotFound($journal);
-        $this->get('ojs.journal_service')->setSelectedJournal($journal);
-
-        return $this->redirect($route);
-    }
-
     /**
      * @return Response
      */

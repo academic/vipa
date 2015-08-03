@@ -118,7 +118,9 @@ class JournalUser
      */
     public function addRole(Role $role)
     {
-        $this->roles->add($role);
+        if(!$this->roles->contains($role)){
+            $this->roles->add($role);
+        }
         return $this;
     }
 
@@ -128,7 +130,9 @@ class JournalUser
      */
     public function removeRole(Role $role)
     {
-        $this->roles->removeElement($role);
+        if(!$this->roles->contains($role)){
+            $this->roles->removeElement($role);
+        }
         return $this;
     }
 }
