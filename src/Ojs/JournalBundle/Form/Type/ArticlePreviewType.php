@@ -27,7 +27,6 @@ class ArticlePreviewType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'validation_groups' => ['setupStep1'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'attr' => [
                     'novalidate' => 'novalidate',

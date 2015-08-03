@@ -11,11 +11,14 @@ use Ojs\JournalBundle\Entity\ArticleRepository;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
+use Ojs\JournalBundle\Form\Type\ArticleStartType;
 use Ojs\JournalBundle\Form\Type\ArticleSubmissionType;
 use Ojs\UserBundle\Entity\User;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +41,12 @@ class NewArticleSubmissionController extends Controller
         }
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
+
+        $session = $this->get('session');
+
+        if(!$session->has('competingFile')){
+            return $this->redirectToRoute('ojs_journal_new_submission_start', array('journalId' => $journal->getId()));
+        }
 
         /** @var User $user */
         $user = $this->getUser();
@@ -62,6 +71,7 @@ class NewArticleSubmissionController extends Controller
 
         $articleAuthor->setAuthor($author);
         $article
+            ->setCompetingFile($session->get('competingFile'))
             ->setSubmitterId($user->getId())
             ->setStatus(-1)
             ->setJournal($journal)
@@ -271,6 +281,7 @@ class NewArticleSubmissionController extends Controller
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $dispatcher = $this->get('event_dispatcher');
+        $session = $this->get('session');
 
         /** @var User $user */
         $user = $this->getUser();
@@ -310,18 +321,26 @@ class NewArticleSubmissionController extends Controller
         ->add('submit', 'submit', array('label' => 'article.submit'));
         $form->handleRequest($request);
         if($form->isValid()) {
+            if($session->has('competingFile')) {
+                $session->remove('competingFile');
+            }
             $article->setStatus(0);
             $em->persist($article);
             $em->flush();
 
             $response = $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $article->getJournal()->getId()]);
-            $event = new ArticleSubmitEvent($article, $request);
-            $dispatcher->dispatch(ArticleSubmitEvents::SUBMIT_AFTER, $event);
 
-            if (null !== $event->getResponse()) {
-                return $event->getResponse();
+            try {
+                $event = new ArticleSubmitEvent($article, $request);
+                $dispatcher->dispatch(ArticleSubmitEvents::SUBMIT_AFTER, $event);
+
+                if (null !== $event->getResponse()) {
+                    return $event->getResponse();
+                }
             }
+            catch(\Exception $e){
 
+            }
             return $response;
         }
         return $this->render(
@@ -333,5 +352,76 @@ class NewArticleSubmissionController extends Controller
                 'form' => $form->createView()
             )
         );
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function startAction(Request $request)
+    {
+        if ($this->submissionsNotAllowed()) {
+            return $this->respondAsNotAllowed();
+        }
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $session = $this->get('session');
+
+        if (!$journal) {
+            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
+        }
+
+        if (!$this->isGranted('CREATE', $journal, 'articles')) {
+            return $this->redirect(
+                $this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()])
+            );
+        }
+
+        /** @var SubmissionChecklist[] $checkLists */
+        $checkLists = [];
+        $checkListsChoices = [];
+        foreach ($journal->getSubmissionChecklist() as $checkList) {
+            if(
+                $checkList->getVisible()
+                && ($checkList->getLocale() === $request->getLocale() || empty($checkList->getLocale()))
+            ) {
+                $checkLists[] = $checkList;
+                $checkListsChoices[$checkList->getId()] = $checkList->getId();
+            }
+        }
+
+        $form = $this->createStartForm($checkListsChoices);
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $session->set('competingFile', $form->getData()['competingFile']);
+            return $this->redirectToRoute('ojs_journal_new_submission_new', array('journalId' => $journal->getId()));
+        }
+
+        return $this->render(
+            'OjsJournalBundle:NewArticleSubmission:start.html.twig',
+            array(
+                'journal' => $journal,
+                'checkLists' => $checkLists,
+                'form' => $form->createView()
+            )
+        );
+    }
+
+    /**
+     * @param Array $checkListsChoices
+     * @return FormInterface
+     */
+    private function createStartForm(array $checkListsChoices)
+    {
+        $form = $this->createForm(
+            new ArticleStartType(),
+            null,
+            array(
+                'checkListsChoices' => $checkListsChoices,
+                'method' => 'POST'
+            )
+        )
+            ->add('save', 'submit', array('label' => 'save.next', 'attr' => array('class' => 'btn-block')));
+
+        return $form;
     }
 }

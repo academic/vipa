@@ -87,7 +87,6 @@ class ArticleSubmissionType extends AbstractType
         $resolver->setDefaults(
             array(
                 'locales' => [],
-                'validation_groups' => ['setupStep1'],
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'citationTypes' => [],
                 'attr' => [
