@@ -16,3 +16,4 @@
     status: '3'
     setupStatus: true
     locale: en
+    mandatoryLang: @lang1
