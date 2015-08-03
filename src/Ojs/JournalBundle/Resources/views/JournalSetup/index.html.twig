@@ -229,7 +229,7 @@
                         <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
 
                         <div id="preview_image_header">
-                            <img src="{{ journal.header)) | imagine_filter('article_header') }}"
+                            <img src="{{ journal.header| imagine_filter('article_header') }}"
                                  data-src="holder.js/960x200/random/text:{{ journal.title }}" alt=""/>
                             {% set imageoptions=getImageOptions(journal,'header','article_header') %}
                             <input id="header_height" name="header[height]" type="hidden"
