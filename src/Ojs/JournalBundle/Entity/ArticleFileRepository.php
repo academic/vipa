@@ -23,19 +23,29 @@ class ArticleFileRepository extends EntityRepository
      */
     public function getArticleFullTextFiles($articleId)
     {
-        $q = $this
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->where('a.articleId = :article_id AND a.type= 0')
-            ->setParameter('article_id', $articleId)
-            ->getQuery();
         try {
+            $article = $this
+                ->getEntityManager()
+                ->getRepository('OjsJournalBundle:Article')
+                ->find($articleId);
+
+            if (!$article) {
+                throw new NoResultException();
+            }
+
+            $q = $this
+                ->createQueryBuilder('a')
+                ->select('a')
+                ->where('a.article = :article AND a.type= 0')
+                ->setParameter('article', $article)
+                ->getQuery();
+
             // The Query::getResult() method throws an exception
             // if there is no record matching the criteria.
             return $q->getResult();
         } catch (NoResultException $e) {
             $message = sprintf('There is no full text file for this article.');
-            throw new UsernameNotFoundException($message, 0, $e);
+            throw new UsernameNotFoundException($message, 0, $e); // TODO: UsernameNotFoundException?!
         }
     }
 }

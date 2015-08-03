@@ -117,7 +117,7 @@ class ArticleService
             $meta->meta('citation_language', $article->getPrimaryLanguage());
             $meta->meta('citation_keywords', $article->getKeywords());
             foreach ($this->getFullTextFiles($article) as $file) {
-                $meta->meta('citation_pdf_url', $file->getFile()->getPath());
+                $meta->meta('citation_pdf_url', $file->getFile());
             }
         }
 
