@@ -6,15 +6,15 @@ use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Elastica\Exception\NotFoundException;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\JournalDesign;
-use Ojs\JournalBundle\Form\Type\JournalDesignType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use Ojs\JournalBundle\Form\Type\JournalDesignType;
 
 /**
  * JournalDesign controller.
@@ -33,12 +33,13 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
-        $source = new Entity('OjsJournalBundle:JournalDesign');
+        $source = new Entity('OjsJournalBundle:Design');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb->andWhere($ta.'.journal = :journal')
+                $qb
+                    ->where(':journal MEMBER OF '.$ta.'.journals')
                     ->setParameter('journal', $journal);
             }
         );
@@ -72,42 +73,38 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
-        $entity = new JournalDesign();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $form = $this->createCreateForm();
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $entity->setJournal($journal);
-            $em->persist($entity);
+            $design = $em->getRepository('OjsJournalBundle:Design')->find(
+                $request->get('ojs_journalbundle_journaldesign')['design']
+            );
+            $journal->addDesign($design);
+            $em->persist($journal);
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_journal_design_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute('ojs_journal_design_show', ['id' => $design->getId(), 'journalId' => $journal->getId()]);
         }
-
         return $this->render(
             'OjsJournalBundle:JournalDesign:new.html.twig',
             array(
-                'entity' => $entity,
                 'form' => $form->createView(),
             )
         );
     }
 
     /**
-     * Creates a form to create a JournalDesign entity.
      *
-     * @param JournalDesign $entity The entity
      *
      * @return Form The form
      */
-    private function createCreateForm(JournalDesign $entity, $journalId)
+    private function createCreateForm()
     {
         $form = $this->createForm(
             new JournalDesignType(),
-            $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_design_create', ['journalId' => $journalId]),
                 'method' => 'POST',
             )
         );
@@ -128,20 +125,17 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
-        $entity = new JournalDesign();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $form = $this->createCreateForm();
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:new.html.twig',
             array(
-                'entity' => $entity,
                 'form' => $form->createView(),
             )
         );
     }
 
     /**
-     * Finds and displays a JournalDesign entity.
      * @param  integer  $id
      * @return Response
      */
@@ -152,26 +146,31 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's design!");
         }
-        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
-        $this->throw404IfNotFound($entity);
 
+        $designRepo = $em->getRepository('OjsJournalBundle:Design');
+        $design = $designRepo->find($id);
+        if (!$design) {
+            throw new NotFoundHttpException("Design not found!");
+        }
+        if(!$design->getJournals()->contains($journal))
+        {
+            throw new NotFoundException("Journal Design not found!");
+        }
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_journal_design'.$entity->getId());
+            ->refreshToken('ojs_journal_design'.$id);
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:show.html.twig',
             array(
-                'entity' => $entity,
+                'journalId' => $journal->getId(),
+                'designId' => $design->getId(),
                 'token'  => $token,
             )
         );
     }
 
     /**
-     * Displays a form to edit an existing JournalDesign entity.
      *
      * @param  integer  $id
      * @return Response
@@ -183,37 +182,27 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's design!");
         }
-        /** @var JournalDesign $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
-        $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm();
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:edit.html.twig',
             array(
-                'entity' => $entity,
+                'designId' => $id,
                 'edit_form' => $editForm->createView(),
             )
         );
     }
 
     /**
-     * Creates a form to edit a JournalDesign entity.
-     *
-     * @param JournalDesign $entity The entity
      *
      * @return Form The form
      */
-    private function createEditForm(JournalDesign $entity)
+    private function createEditForm()
     {
         $form = $this->createForm(
             new JournalDesignType(),
-            $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_design_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
                 'method' => 'PUT',
             )
         );
@@ -224,7 +213,6 @@ class JournalDesignController extends Controller
     }
 
     /**
-     * Edits an existing JournalDesign entity.
      *
      * @param  Request                   $request
      * @param  integer                   $id
@@ -237,25 +225,33 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
-        /** @var JournalDesign $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
-        $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm();
         $editForm->handleRequest($request);
-        if ($editForm->isValid()) {
+
+        /*
+         * @TODO
+         * $editForm->isValid() returns false even when the form is valid
+         */
+        if ($editForm->isValid() && $id != $request->get('ojs_journalbundle_journaldesign')['design']) {
+            $design = $em->getRepository('OjsJournalBundle:Design')->find($id);
+            $newDesign = $em->getRepository('OjsJournalBundle:Design')->find(
+                $request->get('ojs_journalbundle_journaldesign')['design']
+            );
+
+            $journal->removeDesign($design);
+            $journal->addDesign($newDesign);
+            $em->persist($journal);
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_design_edit', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute('ojs_journal_design_edit', ['id' => $newDesign->getId(), 'journalId' => $journal->getId()]);
         }
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:edit.html.twig',
             array(
-                'entity' => $entity,
+                'designId' => $id,
                 'edit_form' => $editForm->createView(),
             )
         );
@@ -274,18 +270,16 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
-        /** @var JournalDesign $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalDesign')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
-        $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_design'.$entity->getId());
+        $token = $csrf->getToken('ojs_journal_design'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-        $em->remove($entity);
+
+        $design = $em->getRepository('OjsJournalBundle:Design')->find($id);
+        $journal->removeDesign($design);
+        $em->persist($journal);
         $em->flush();
         $this->successFlashBag('successful.remove');
 

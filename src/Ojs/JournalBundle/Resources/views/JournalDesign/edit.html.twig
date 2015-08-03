@@ -13,13 +13,10 @@
 {% block body -%}
     <h1>{{ 'title.journal_design_edit'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ form(edit_form) }}
+    {{ form( edit_form, { 'method': 'PUT', action: path('ojs_journal_design_update', {'id': designId, 'journalId': selectedJournal().id}) } ) }}
     {{
     actions({
         'back': {'href': path('ojs_journal_design_index', {'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_design_delete', {'id': entity.id, 'journalId': selectedJournal().id})},
     })
     }}
-
-    {{ getLogs(entity) }}
 {% endblock %}
