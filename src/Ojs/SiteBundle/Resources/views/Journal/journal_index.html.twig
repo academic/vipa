@@ -20,7 +20,7 @@
 
 {% block body %}
     <div class="container">
-        {% if design is defined %}
+        {% if design is defined and design is not null %}
             {% include template_from_string(design) %}
         {% else %}
         {% block journalheader %}
@@ -67,7 +67,12 @@
         {% endblock %}
         <div class="row">
             <div class="col-md-2">
-                <img src="{{ journal.image|imagine_filter('journal_cover') }}"
+                <img
+                    {% if journal.image is not null %}
+                    src="{{ journal.image|imagine_filter('journal_cover') }}"
+                    {% else %}
+                    src="#"
+                    {% endif %}
                      data-src="holder.js/253x180/random/text:{{ journal.title }} "
                      class="img-responsive img-rounded float-left" alt=""/>
 
