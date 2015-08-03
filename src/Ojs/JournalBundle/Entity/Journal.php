@@ -254,7 +254,7 @@ class Journal implements Translatable
      */
     private $journals_indexs;
     /**
-     * @var Collection
+     * @var ArrayCollection|SubmissionChecklist[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
@@ -1361,12 +1361,15 @@ class Journal implements Translatable
     /**
      * Add submission checklist item
      *
-     * @param  SubmissionChecklist $checklistItem
+     * @param  SubmissionChecklist $submissionChecklist
      * @return Journal
      */
-    public function addSubmissionChecklist(SubmissionChecklist $checklistItem)
+    public function addSubmissionChecklist(SubmissionChecklist $submissionChecklist)
     {
-        $this->submissionChecklist[] = $checklistItem;
+        if(!$this->submissionChecklist->contains($submissionChecklist)){
+            $this->submissionChecklist->add($submissionChecklist);
+            $submissionChecklist->setJournal($this);
+        }
 
         return $this;
     }
@@ -1374,17 +1377,19 @@ class Journal implements Translatable
     /**
      * Remove submission checklist item
      *
-     * @param SubmissionChecklist $item
+     * @param SubmissionChecklist $submissionChecklist
      */
-    public function removeSubmissionChecklist(SubmissionChecklist $item)
+    public function removeSubmissionChecklist(SubmissionChecklist $submissionChecklist)
     {
-        $this->submissionChecklist->removeElement($item);
+        if($this->submissionChecklist->contains($submissionChecklist)){
+            $this->submissionChecklist->removeElement($submissionChecklist);
+        }
     }
 
     /**
      * Get submission checklist
      *
-     * @return Collection
+     * @return ArrayCollection|SubmissionChecklist[]
      */
     public function getSubmissionChecklist()
     {
