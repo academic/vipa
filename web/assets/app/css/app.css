@@ -201,7 +201,7 @@ div.user-menu-container {
 }
 
 div.user-menu-container .btn-lg {
-    padding: 0px 12px;
+    padding: 0 12px;
 }
 
 div.user-menu-container h4 {
@@ -216,10 +216,9 @@ div.user-menu-container a, div.user-menu-container .btn  {
 div.user-menu-container .thumbnail {
     width:100%;
     min-height:200px;
-    border: 0px!important;
-    padding: 0px;
+    border: 0!important;
+    padding: 0;
     border-radius: 0;
-    border: 0px!important;
 }
 
 /* -- Vertical Button Group -- */
@@ -693,7 +692,7 @@ div.user-menu div.user-menu-content:not(.active){
 .navbar-alt .navbar-nav > li > a { border-right:1px solid #ddd; padding-top: 2px; padding-bottom: 2px; line-height: 30px }
 
 .navbar-alt .navbar-nav > li:last-child > a {
-    border-right: 0px
+    border-right: 0
 }
 
 /**/
@@ -784,7 +783,7 @@ div.user-menu div.user-menu-content:not(.active){
     }
 }
 .panel-body table tr td { padding-left: 15px }
-.panel-body .table {margin-bottom: 0px; }
+.panel-body .table {margin-bottom: 0; }
 
 .post
 {
@@ -892,7 +891,7 @@ div.user-menu div.user-menu-content:not(.active){
     background-color: #47a877;
     border-top:2px solid #39865f;
     outline: none;
-    outline-offset: none;
+    outline-offset: 0;
     margin-top: 2px;
 }
 
@@ -913,7 +912,7 @@ div.user-menu div.user-menu-content:not(.active){
     color: #fff;
     background-color: #0a97b9;
     border-top:2px solid #087994;
-    outline-offset: none;
+    outline-offset: 0;
     margin-top: 2px;
 }
 
@@ -921,7 +920,7 @@ div.user-menu div.user-menu-content:not(.active){
 .btn:active:focus,
 .btn.active:focus {
     outline: none;
-    outline-offset: 0px;
+    outline-offset: 0;
 }
 
 
@@ -971,12 +970,12 @@ div.user-menu div.user-menu-content:not(.active){
     background-size: cover;
 }
 
-.btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px; margin:-6px 0px}
+.btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px; margin:-6px 0}
 
 .btn-lg .btn-label {
     padding: 11px 10px 11px 16px;
     left: -16px;
-    margin: -11px 0px;
+    margin: -11px0;
     border-radius: 6px 0 0 6px;
     float: left;
 }
@@ -1071,7 +1070,7 @@ a.vimeo:hover * { color:#FFF; }
 }
 
 .jvFloat .placeHolder.textarea {
-    /*top: 0px;*/
+    /*top: 0;*/
 }
 
 .jvFloat .placeHolder.active {
@@ -1131,3 +1130,12 @@ h2.title { font-size: 20px; }
 }
 
 ul.grid-row-actions > li > a.btn { margin-right: 5px; }
+
+.submission-subform-template {
+    display: none;
+}
+.submission-subform {
+    margin: 5px;
+    border: 1px solid #CCC;
+    padding: 10px;
+}

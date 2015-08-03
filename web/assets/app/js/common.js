@@ -304,4 +304,21 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
+    $('.submission-subform-panel').each(function() {
+        var container = $(this).find('.submission-subform-container'),
+            template = $(this).find('.submission-subform-template').val();
+        $(this).find('.submission-subform-add-panel').on('click', function() {
+            var newSrc = $(template.replace(/__name__/g, container.find('.submission-subform').length))
+                , uploader;
+            newSrc.appendTo(container);
+            uploader = newSrc.find('.jb_fileupload');
+            if(uploader.length) {
+                uploader.jbFileUpload();
+            }
+        });
+        $(this).on('click', '.submission-subform .submission-subform-remove-panel', function() {
+            $(this).parent().remove();
+        });
+    });
+
 }(jQuery));

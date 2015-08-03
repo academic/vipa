@@ -53,15 +53,15 @@
                     </a>
                         {% if is_granted('CREATE', selectedJournal(), 'articles') %}
                             <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
-                               href="{{ path('ojs_journal_new_submission_new', {journalId: selectedJournal().id}) }}">
+                               href="{{ path('ojs_journal_submission_new', {journalId: selectedJournal().id}) }}">
                                 <i class="fa fa-plus-circle"></i>
                                 {{ "article.submit"|trans }}
                             </a>
                         {% endif %}
                         {% if is_granted('VIEW', selectedJournal()) %}
-                            {% set submissions_path = "ojs_journal_new_submission_me" %}
+                            {% set submissions_path = "ojs_journal_submission_me" %}
                             {% if is_granted('EDIT', selectedJournal()) %}
-                                {% set submissions_path = "ojs_journal_new_submission_all" %}
+                                {% set submissions_path = "ojs_journal_submission_all" %}
                             {% endif %}
                             <a class="list-group-item list-group-item-info" href="{{ path(submissions_path, {journalId: selectedJournal().id}) }}">
                                 <i class="fa fa-flag"></i>
@@ -70,7 +70,7 @@
                         {% endif %}
                         <a class="list-group-item list-group-item-info" href="{{ path('okul_bilisim_workflow_articles_active', {journalId: selectedJournal().id}) }}">
                             <i class="fa fa-flag"></i>
-                            {{ "Article in Review"|trans }}
+                            {{ "Articles in Review"|trans }}
                         </a>
 
                     {% endif %}
