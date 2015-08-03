@@ -2,8 +2,14 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
+use Ojs\Common\Params\ArticleParams;
+use Ojs\Common\Services\GridAction;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -11,17 +17,21 @@ use Ojs\JournalBundle\Entity\ArticleRepository;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
 use Ojs\JournalBundle\Form\Type\ArticleStartType;
 use Ojs\JournalBundle\Form\Type\ArticleSubmissionType;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Article Submission controller.
@@ -29,6 +39,118 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class NewArticleSubmissionController extends Controller
 {
+
+    /**
+     * Lists all new Article submissions entities.
+     * @param  bool     $all
+     * @return Response
+     */
+    public function indexAction($all = false)
+    {
+        $translator = $this->get('translator');
+        /** @var Journal $currentJournal */
+        $currentJournal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (
+            ($all && !$this->isGranted('VIEW', $currentJournal, 'articles')) ||
+            (!$all && !$this->isGranted('CREATE', $currentJournal, 'articles'))
+        ) {
+            return $this->redirect($this->generateUrl('ojs_user_index'));
+        }
+
+        $user = $this->getUser();
+
+        $source1 = new Entity('OjsJournalBundle:Article', 'submission');
+        $source2 = new Entity('OjsJournalBundle:Article', 'submission');
+        $source1TableAlias = $source1->getTableAlias();
+        $source2TableAlias = $source2->getTableAlias();
+
+        $source1->manipulateQuery(
+            function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal, $all) {
+                $qb->andWhere($source1TableAlias.'.journal = :journal')
+                    ->andWhere($source1TableAlias.'.status IN (:notDraftStatuses)')
+                    ->setParameter('journal', $currentJournal)
+                    ->setParameter('notDraftStatuses', array(-3, -2, 0 ,1));
+                if(!$all){
+                    $qb->andWhere($source1TableAlias.'.submitterId = :userId')
+                        ->setParameter('userId', $user->getId());
+                }
+                return $qb;
+            }
+        );
+
+        $source2->manipulateQuery(
+            function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal, $all) {
+                $qb->andWhere($source2TableAlias.'.journal = :journal')
+                    ->andWhere($source2TableAlias.'.status = :status')
+                    ->setParameter('journal', $currentJournal)
+                    ->setParameter('status', -1);
+                if(!$all){
+                    $qb->andWhere($source2TableAlias.'.submitterId = :userId')
+                        ->setParameter('userId', $user->getId());
+                }
+            }
+        );
+
+        $gridManager = $this->get('grid.manager');
+        $submissionsGrid = $gridManager->createGrid('submission');
+        $drafts = $gridManager->createGrid('drafts');
+        $source1->manipulateRow(
+            function (Row $row) use ($translator) {
+                $statusText = ArticleParams::statusText($row->getField('status'));
+                if (!is_array($statusText)) {
+                    $row->setField('status', $translator->trans($statusText));
+                } else {
+                    $row->setField('status', $translator->trans('status.unknown'));
+                }
+                return $row;
+            }
+        );
+
+        $source2->manipulateRow(
+            function (Row $row) use ($translator) {
+                $statusText = ArticleParams::statusText($row->getField('status'));
+                if (!is_array($statusText)) {
+                    $row->setField('status', $translator->trans($statusText));
+                } else {
+                    $row->setField('status', $translator->trans('status.unknown'));
+                }
+                return $row;
+            }
+        );
+
+        $submissionsGrid->setSource($source1);
+        $drafts->setSource($source2);
+        /** @var GridAction $gridAction */
+        $gridAction = $this->get('grid_action');
+        /**
+        $submissionsGrid->addRowAction(
+            $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $currentJournal->getId()])
+        );
+
+        $submissionsGrid->addRowAction(
+            $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $currentJournal->getId()])
+        );
+
+        $submissionsGrid->addRowAction(
+            $gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $currentJournal->getId()])
+        );
+         * **/
+
+        $rowAction = [];
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = $gridAction->submissionResumeAction('ojs_journal_new_submission_edit', ['journalId' => $currentJournal->getId(), 'id']);
+        $rowAction[] = $gridAction->submissionCancelAction('ojs_journal_new_submission_cancel', ['journalId' => $currentJournal->getId(), 'id']);
+        $actionColumn->setRowActions($rowAction);
+        $drafts->addColumn($actionColumn);
+        $data = [
+            'page' => 'submission',
+            'submissions' => $submissionsGrid,
+            'drafts' => $drafts,
+            'all' => $all,
+        ];
+
+        return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
+    }
 
     /**
      * @param Request $request
@@ -54,11 +176,6 @@ class NewArticleSubmissionController extends Controller
             return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
         }
 
-        if (!$this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect(
-                $this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()])
-            );
-        }
         $article = new Article();
         $articleAuthor = new ArticleAuthor();
 
@@ -176,7 +293,7 @@ class NewArticleSubmissionController extends Controller
             array(
                 'action' => $this->generateUrl(
                     'ojs_journal_new_submission_edit',
-                    array('journalId' => $journal->getId(), 'articleId' => $article->getId())
+                    array('journalId' => $journal->getId(), 'id' => $article->getId())
                 ),
                 'method' => 'POST',
                 'locales' => $locales,
@@ -190,10 +307,10 @@ class NewArticleSubmissionController extends Controller
 
     /**
      * @param Request $request
-     * @param $articleId
+     * @param $id
      * @return RedirectResponse|Response
      */
-    public function editAction(Request $request, $articleId)
+    public function editAction(Request $request, $id)
     {
         if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
@@ -204,20 +321,15 @@ class NewArticleSubmissionController extends Controller
         /** @var User $user */
         $user = $this->getUser();
         if (!$journal) {
-            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
+            $this->throw404IfNotFound($journal);
         }
 
-        if (!$this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect(
-                $this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()])
-            );
-        }
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $em->getRepository('OjsJournalBundle:Article');
         /** @var Article $article */
         $article = $articleRepository->findOneBy(
             array(
-                'id' => $articleId,
+                'id' => $id,
                 'submitterId' => $user->getId(),
                 'status' => -1
             )
@@ -286,14 +398,9 @@ class NewArticleSubmissionController extends Controller
         /** @var User $user */
         $user = $this->getUser();
         if (!$journal) {
-            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
+            $this->throw404IfNotFound($journal);
         }
 
-        if (!$this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect(
-                $this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()])
-            );
-        }
         /** @var ArticleRepository $articleRepository */
         $articleRepository = $em->getRepository('OjsJournalBundle:Article');
         /** @var Article $article */
@@ -326,9 +433,30 @@ class NewArticleSubmissionController extends Controller
             }
             $article->setStatus(0);
             $em->persist($article);
+
+
+            // Assign user to author journal role
+            /** @var Role $role */
+            $role = $em
+                ->getRepository('OjsUserBundle:Role')
+                ->findOneBy(['role' => 'ROLE_AUTHOR']);
+
+            /** @var JournalUser $journalUser */
+            $journalUser = $em->getRepository('OjsJournalBundle:JournalUser')->findOneBy(array(
+                'journal' => $journal, 'user' => $user
+            ));
+            if(!$journalUser) {
+                $journalUser = new JournalUser();
+                $journalUser->setJournal($journal)
+                    ->setUser($user);
+            }
+            $journalUser->addRole($role);
+            $em->persist($journalUser);
+
+
             $em->flush();
 
-            $response = $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $article->getJournal()->getId()]);
+            $response = $this->redirectToRoute('ojs_journal_new_submission_me', ['journalId' => $article->getJournal()->getId()]);
 
             try {
                 $event = new ArticleSubmitEvent($article, $request);
@@ -367,13 +495,7 @@ class NewArticleSubmissionController extends Controller
         $session = $this->get('session');
 
         if (!$journal) {
-            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
-        }
-
-        if (!$this->isGranted('CREATE', $journal, 'articles')) {
-            return $this->redirect(
-                $this->generateUrl('ojs_journal_submission_confirm', ['journalId' => $journal->getId()])
-            );
+            $this->throw404IfNotFound($journal);
         }
 
         /** @var SubmissionChecklist[] $checkLists */
@@ -423,5 +545,50 @@ class NewArticleSubmissionController extends Controller
             ->add('save', 'submit', array('label' => 'save.next', 'attr' => array('class' => 'btn-block')));
 
         return $form;
+    }
+
+    /**
+     * Returns requested orcid user profile details
+     * @param  Request      $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function getOrcidAuthorAction(Request $request)
+    {
+        $getAuthor = null;
+        if ($request->get('orcidAuthorId')) {
+            $orcidAuthorId = $request->get('orcidAuthorId');
+            $orcidService = $this->get('ojs.orcid_service');
+            $getAuthor = $orcidService->getBio($orcidAuthorId, '');
+        }
+        $response = new JsonResponse();
+        $response->setData($getAuthor);
+
+        return $response;
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
+     */
+    public function cancelAction($id)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $em = $this->getDoctrine()->getManager();
+        /** @var Article $article */
+        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
+            'journal' => $journal,
+            'submitterId' => $this->getUser()->getId(),
+            'id' => $id,
+            'status' => -1
+        ));
+
+        $this->throw404IfNotFound($article);
+        $em->remove($article);
+        $em->flush();
+        $this->addFlash('success', $this->get('translator')->trans('deleted'));
+
+        return $this->redirectToRoute('ojs_journal_new_submission_me', ['journalId' => $journal->getId()]);
     }
 }

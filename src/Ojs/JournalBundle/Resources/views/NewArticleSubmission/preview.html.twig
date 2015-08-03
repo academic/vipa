@@ -168,7 +168,6 @@
                             {% for key,articleFile  in article.articleFiles %}
                                 <tr>
                                     <td>
-
                                         <a class="label label-info" target="_blank"
                                            href="{{ asset('uploads/articlefiles/' ~ articleFile.file) }}">
                                             {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
@@ -201,7 +200,7 @@
                     <div class="panel panel-body">
                         {{ form(form) }}
                         <hr>
-                        <a href="{{ path('ojs_journal_new_submission_edit', {'journalId': selectedJournal().id,'articleId': article.id}) }}" class="btn btn-danger btn-block">Düzenlemeye devam et</a>
+                        <a href="{{ path('ojs_journal_new_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}" class="btn btn-danger btn-block">Düzenlemeye devam et</a>
                     </div>
                 </div>
             </div>

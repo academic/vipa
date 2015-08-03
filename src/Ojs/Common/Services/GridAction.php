@@ -258,10 +258,8 @@ class GridAction
             ]
         );
         $rowAction->setRouteParameters($key);
-        $rowAction->setRouteParametersMapping(['id' => 'submissionId']);
-        if ($role) {
-            $rowAction->setRole($role);
-        }
+        $rowAction->setRouteParametersMapping(['id' => 'id']);
+
 
         return $rowAction;
     }
@@ -269,7 +267,7 @@ class GridAction
     public function submissionCancelAction($route, $key = 'id', $role = null)
     {
         $rowAction = $this->deleteAction($route, $key, $role);
-        $rowAction->setRouteParametersMapping(['id' => 'submissionId']);
+        $rowAction->setRouteParametersMapping(['id' => 'id']);
         return $rowAction;
     }
 
