@@ -45,54 +45,52 @@
                     </div>
                 </div>
 
-                <div class="panel panel-info">
+                <hr />
+                <div class="panel panel-info submission-subform-panel">
                     <div class="panel-heading">Article Authors</div>
-                    <div id="articleauthor-forms" class="panel-body">
-                        <textarea style="display: none" id="articleauthor-template" cols="30" rows="10">
-                            {% filter escape %}
+                    <div class="submission-subform-container panel-body">
+                        <textarea class="submission-subform-template">{% filter escape %}
                                 {{ include('@OjsJournal/NewArticleSubmission/_articleauthor_subform.html.twig', { 'form': form.articleAuthors.vars.prototype }) }}
-                            {% endfilter %}
-                        </textarea>
+                        {% endfilter %}</textarea>
+
                         {% for articleauthorForm in form.articleAuthors %}
                             {{ include('@OjsJournal/NewArticleSubmission/_articleauthor_subform.html.twig', { 'form': articleauthorForm }) }}
                         {% endfor %}
                     </div>
                     <div class="panel-footer">
-                        <button type="button" class="btn btn-success btn-sm" id="add-articleauthor"><i class="fa fa-plus"></i> Add Article Author</button>
+                        <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i class="fa fa-plus"></i> Add Article Author</button>
                     </div>
                 </div>
-                <hr>
-                <div class="panel panel-info">
+                <hr />
+                <div class="panel panel-info submission-subform-panel">
                     <div class="panel-heading">Citiations</div>
-                    <div id="citation-forms" class="panel-body">
-                        <textarea style="display: none" id="citation-template" cols="30" rows="10">
-                            {% filter escape %}
+                    <div class="submission-subform-container panel-body">
+                        <textarea class="submission-subform-template">{% filter escape %}
                                 {{ include('@OjsJournal/NewArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
-                            {% endfilter %}
-                        </textarea>
+                        {% endfilter %}</textarea>
+
                         {% for citiationForm in form.citations %}
                             {{ include('@OjsJournal/NewArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}
                         {% endfor %}
                     </div>
                     <div class="panel-footer">
-                        <button type="button" class="btn btn-success btn-sm" id="add-citation"><i class="fa fa-plus"></i> Add Citiation</button>
+                        <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i class="fa fa-plus"></i> Add Citiation</button>
                     </div>
                 </div>
                 <hr>
-                <div class="panel panel-info">
+                <div class="panel panel-info submission-subform-panel">
                     <div class="panel-heading">Article Files</div>
-                    <div id="articlefile-forms" class="panel-body">
-                        <textarea style="display: none" id="articlefile-template" cols="30" rows="10">
-                        {% filter escape %}
+                    <div class="submission-subform-container panel-body">
+                        <textarea class="submission-subform-template">{% filter escape %}
                             {{ include('@OjsJournal/NewArticleSubmission/_articlefile_subform.html.twig', { 'form': form.articleFiles.vars.prototype }) }}
-                        {% endfilter %}
-                    </textarea>
+                        {% endfilter %}</textarea>
+
                         {% for articlefileForm in form.articleFiles %}
                             {{ include('@OjsJournal/NewArticleSubmission/_articlefile_subform.html.twig', { 'form': articlefileForm }) }}
                         {% endfor %}
                     </div>
                     <div class="panel-footer">
-                        <button type="button" class="btn btn-success btn-sm" id="add-articlefile"><i class="fa fa-plus"></i> Add Article File</button>
+                        <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i class="fa fa-plus"></i> Add Article File</button>
                     </div>
                 </div>
                 <hr>
@@ -102,11 +100,15 @@
         </div>
     </div>
     <style>
+        .submission-subform-template {
+            display: none;
+        }
         .submission-subform{
             margin: 5px;
             border: 1px solid #CCC;
             padding: 10px;
         }
+        
     </style>
 {% endblock %}
 
@@ -117,42 +119,21 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#add-citation').on('click', function() {
-                var formContainer = $('#citation-forms'),
-                        template = $('#citation-template').val(),
-                        newSrc;
-
-                newSrc = $(template.replace(/__name__/g, formContainer.find('li').length));
-                newSrc.appendTo(formContainer);
-            });
-            $('#citation-forms').on('click', '.submission-subform .remove-citation', function() {
-                $(this).parent().remove();
-            });
-
-            $('#add-articlefile').on('click', function() {
-                var formContainer = $('#articlefile-forms'),
-                        template = $('#articlefile-template').val(),
-                        newSrc;
-
-                newSrc = $(template.replace(/__name__/g, formContainer.find('li').length));
-
-                newSrc.appendTo(formContainer);
-                newSrc.find('.jb_fileupload').jbFileUpload();
-            });
-            $('#articlefile-forms').on('click', '.submission-subform .remove-articlefile', function() {
-                $(this).parent().remove();
-            });
-            $('#add-articleauthor').on('click', function() {
-                var formContainer = $('#articleauthor-forms'),
-                        template = $('#articleauthor-template').val(),
-                        newSrc;
-
-                newSrc = $(template.replace(/__name__/g, formContainer.find('li').length));
-
-                newSrc.appendTo(formContainer);
-            });
-            $('#articleauthor-forms').on('click', '.submission-subform .remove-subform', function() {
-                $(this).parent().remove();
+            $('.submission-subform-panel').each(function() {
+                var container = $(this).find('.submission-subform-container'),
+                        template = $(this).find('.submission-subform-template').val();
+                $(this).find('.submission-subform-add-panel').on('click', function() {
+                    var newSrc = $(template.replace(/__name__/g, container.find('.submission-subform').length))
+                            , uploader;
+                    newSrc.appendTo(container);
+                    uploader = newSrc.find('.jb_fileupload');
+                    if(uploader.length) {
+                        uploader.jbFileUpload();
+                    }
+                });
+                $(this).on('click', '.submission-subform .submission-subform-remove-panel', function() {
+                    $(this).parent().remove();
+                });
             });
         });
     </script>
