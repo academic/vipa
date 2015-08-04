@@ -196,7 +196,12 @@
                         {% for journal in journals %}
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{ generateJournalUrl(journal) }}">
-                                    <img src="{{ journal.image|imagine_filter('journal_cover') }}"
+                                    <img
+                                        {% if journal.image is not null %}
+                                            src="{{ journal.image|imagine_filter('journal_cover') }}"
+                                        {% else %}
+                                            src="#"
+                                        {% endif %}
                                          width="96" height="128"
                                          data-src="holder.js/96x128/random/text:{{ journal.title }}"
                                          class="img-rounded"/>
