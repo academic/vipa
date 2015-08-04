@@ -18,13 +18,13 @@
                         {{ "submission.starting"|trans }}
                     </a>
                 </li>
-                <li id="submission-progress-step2">
+                <li id="submission-progress-step2" class="active">
                     <a href="{{ path('ojs_journal_submission_edit', {journalId: selectedJournal().id, id: article.id}) }}">
                         <span class="badge">2</span>
                         {{ "article.singular"|trans }}
                     </a>
                 </li>
-                <li id="submission-progress-step6 last-step" class="active">
+                <li id="submission-progress-step6 last-step">
                     <a href="{{ path('ojs_journal_submission_preview', {journalId: selectedJournal().id, articleId: article.id}) }}">
                         <span class="badge">3</span>
                         {{ "preview"|trans }} & {{ "submit"|trans }}
