@@ -16,7 +16,7 @@ use Ojs\LocationBundle\Entity\Province;
  * Institution
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,name,address,email,verified")
- * @GRID\Source(columns="id,name,country.name,status", groups={"application"})
+ * @GRID\Source(columns="id,name,status", groups={"application"})
  */
 class Institution implements Translatable
 {

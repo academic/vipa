@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
@@ -24,50 +25,9 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  * Institution controller.
  *
  */
-class AdminApplicationController extends Controller
+class AdminJournalApplicationController extends Controller
 {
-    /**
-     * Lists all Institution entities.
-     *
-     */
-    public function institutionIndexAction()
-    {
-        $data = array();
-        $source = new Entity('OjsJournalBundle:Institution', 'application');
-        $tableAlias = $source->getTableAlias();
-
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($tableAlias) {
-                $query->andWhere($tableAlias . ".status = :status")
-                    ->setParameter('status', 0);
-                return $query;
-            }
-        );
-
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
-        $grid = $this->get('grid')->setSource($source);
-        $gridAction = $this->get('grid_action');
-
-        $grid->getColumn('status')->manipulateRenderCell(
-            function ($value, $row, $router) {
-                return $this->get('translator')->trans(CommonParams::institutionStatus($row->getField('status')));
-            }
-        );
-        $rowAction = array();
-        $rowAction[] = $gridAction->editAction('ojs_admin_application_institution_edit', 'id');
-        $rowAction[] = $gridAction->showAction('ojs_admin_application_institution_show', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_application_institution_delete', 'id');
-        $actionColumn = new ActionsColumn("actions", 'actions');
-        $actionColumn->setRowActions($rowAction);
-
-        $grid->addColumn($actionColumn);
-        $data['grid'] = $grid;
-
-        return $grid->getGridResponse('OjsAdminBundle:AdminApplication:institution.html.twig', $data);
-    }
-
-    public function journalIndexAction()
+    public function indexAction()
     {
         $data = array();
         $source = new Entity('OjsJournalBundle:Journal');
@@ -96,7 +56,7 @@ class AdminApplicationController extends Controller
         return $grid->getGridResponse('OjsAdminBundle:AdminApplication:journal.html.twig', $data);
     }
 
-    public function journalDetailAction($id)
+    public function detailAction($id)
     {
         /** @var EntityManager $em */
 
@@ -138,23 +98,7 @@ class AdminApplicationController extends Controller
         return $this->render('OjsAdminBundle:AdminApplication:journal_detail.html.twig', $data);
     }
 
-    public function institutionDetailAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(
-            array(
-                'verified' => false,
-                'id' => $id,
-            )
-        );
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
-
-        return $this->render('OjsAdminBundle:AdminApplication:institution_detail.html.twig', array('entity' => $entity));
-    }
-
-    public function journalEditAction($id)
+    public function editAction($id)
     {
         $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
 
@@ -174,32 +118,7 @@ class AdminApplicationController extends Controller
         ]);
     }
 
-    public function institutionEditAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Institution $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $form = $this->createForm(
-            new InstitutionApplicationType(),
-            $entity,
-            [
-                'action' => $this->generateUrl('ojs_admin_application_institution_update', array('id' => $entity->getId())),
-            ]
-        )
-        ->add('update','submit');
-
-        return $this->render(
-            'OjsAdminBundle:AdminApplication:institution_edit.html.twig',
-            ['form' => $form->createView(), 'entity' => $entity]
-        );
-    }
-
-    public function journalUpdateAction(Request $request, $id)
+    public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
@@ -223,31 +142,7 @@ class AdminApplicationController extends Controller
         return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
     }
 
-    public function institutionUpdateAction(Request $request, $id)
-    {
-        /** @var Institution $entity */
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-
-        $this->throw404IfNotFound($entity);
-
-        $form = $this->createForm(new InstitutionApplicationType(), $entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em->flush();
-            $this->successFlashBag('successful.update');
-
-            return $this->redirect($this->generateUrl('ojs_admin_application_institution_index'));
-        }
-
-        return $this->render(
-            'OjsAdminBundle:AdminApplication:institution_edit.html.twig',
-            ['form' => $form->createView(), 'entity' => $entity]
-        );
-    }
-
-    public function journalDeleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
@@ -269,27 +164,7 @@ class AdminApplicationController extends Controller
         return $this->redirect($this->get('router')->generate('ojs_admin_application_journal_index'));
     }
 
-    public function institutionDeleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Institution $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-
-        $this->throw404IfNotFound($entity);
-
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_application' . $id);
-        if ($token != $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
-
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->redirect($this->get('router')->generate('ojs_admin_application_institution_index'));
-    }
-
-    public function journalSaveAction($id)
+    public function saveAction($id)
     {
         /** @var Journal $entity */
         $em = $this->getDoctrine()->getManager();
@@ -300,19 +175,9 @@ class AdminApplicationController extends Controller
         }
 
         $entity->setStatus(1);
-        return $this->redirect($this->get('router')->generate('ojs_admin_application_journal_edit', ['id' => $entity->getId()]));
-    }
+        $em->persist($entity);
+        $em->flush();
 
-    public function institutionSaveAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Institution $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
-        $entity->setVerified(true);
-
-        return $this->redirect($this->get('router')->generate('ojs_admin_application_institution_edit', ['id' => $entity->getId()]));
+        return $this->redirectToRoute('ojs_admin_application_journal_edit', ['id' => $entity->getId()]);
     }
 }
