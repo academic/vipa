@@ -287,13 +287,14 @@ Ojs\JournalBundle\Entity\Journal:
             column: google_analytics_id
         slug:
             type: string
-            nullable: true
+            length: 255
+            unique: true
             gedmo:
-                - slug:
+                versioned : ~
+                slug:
                     seperator: _
                     fields:
                       - title
-                - versioned
         themeId:
             type: integer
             column: theme_id
