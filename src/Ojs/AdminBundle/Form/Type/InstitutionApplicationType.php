@@ -28,6 +28,7 @@ class InstitutionApplicationType extends AbstractType
                 )
             )
             ->add('about', null, ['label' => 'institution.about'])
+            ->add('locale', 'text', ['label' => 'lang.code'])
             ->add('address', 'textarea', ['label' => 'institution.address'])
             ->add('addressLat', null, ['label' => 'institution.lat'])
             ->add('addressLong', null, ['label' => 'institution.lon'])
