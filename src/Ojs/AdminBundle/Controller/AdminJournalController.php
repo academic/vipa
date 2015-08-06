@@ -30,22 +30,28 @@ class AdminJournalController extends Controller
         if (!$this->isGranted('VIEW', new Journal())) {
             throw new AccessDeniedException("You not authorized for list journals!");
         }
+
         $source = new Entity('OjsJournalBundle:Journal');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
+        $rowAction[] = $gridAction
+            ->editAction('ojs_journal_settings_index', 'id')
+            ->setRouteParametersMapping(['id' => 'journalId']);
         $rowAction[] = $gridAction->cmsAction();
         $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
             ->setRouteParameters('id')
             ->setRouteParametersMapping(array('id' => 'journalId'))
             ->setAttributes(
-                array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage")
+                array(
+                    'class' => 'btn btn-success btn-xs',
+                    'data-toggle' => 'tooltip',
+                    'title' => "Manage"
+                )
             );
 
         $actionColumn->setRowActions($rowAction);
@@ -82,7 +88,9 @@ class AdminJournalController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
 
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
+        $rowAction[] = $gridAction
+            ->editAction('ojs_journal_settings_index', 'id')
+            ->setRouteParametersMapping(['id' => 'journalId']);
         $rowAction[] = $gridAction->cmsAction();
         $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
@@ -192,87 +200,6 @@ class AdminJournalController extends Controller
         return $this->render(
             'OjsAdminBundle:AdminJournal:show.html.twig',
             ['entity' => $entity, 'token' => $token]
-        );
-    }
-
-    /**
-     * Displays a form to edit an existing Journal entity.
-     *
-     * @param $id
-     * @return Response
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Journal $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-        $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for edit this journal!");
-        }
-
-        $editForm = $this->createEditForm($entity);
-
-        return $this->render(
-            'OjsAdminBundle:AdminJournal:edit.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $editForm->createView(),
-            )
-        );
-    }
-
-    /**
-     * Creates a form to edit a Journal entity.
-     * @param  Journal $entity The entity
-     * @return Form    The form
-     */
-    private function createEditForm(Journal $entity)
-    {
-        $form = $this->createForm(
-            new JournalType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
-            )
-        );
-
-        return $form;
-    }
-
-    /**
-     * @param  Request                   $request
-     * @param $id
-     * @return RedirectResponse|Response
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Journal $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for edit this journal!");
-        }
-        $this->throw404IfNotFound($entity);
-        $editForm = $this->createEditForm($entity);
-        $editForm->submit($request);
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-            $this->successFlashBag('successful.update');
-
-            return $this->redirectToRoute('ojs_admin_journal_edit',  ['id' => $id]);
-        }
-
-        return $this->render(
-            'OjsAdminBundle:AdminJournal:edit.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $editForm->createView(),
-            )
         );
     }
 
