@@ -75,7 +75,7 @@ var OjsArticleSubmission = {
             ajax: {
                 url: Routing.generate('api_get_institutions'), dataType: 'json', type: "GET", delay: 300,
                 data: function (params) {
-                    return {q: params, verified: true};
+                    return {q: params, status: 1};
                 },
                 results: function (data) {
                     return {

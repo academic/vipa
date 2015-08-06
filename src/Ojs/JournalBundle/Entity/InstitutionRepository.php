@@ -20,21 +20,16 @@ class InstitutionRepository extends EntityRepository
     public function getAllWithDefaultTranslation($all = false)
     {
         $qb = $this->createQueryBuilder("i");
-        if($all) {
-            $qb->andWhere('i.verified = :verified')
-                ->setParameter('verified', true);
+        if (!$all) {
+            $qb->andWhere($qb->expr()->eq('i.status', 1));
         }
-        $qb->andWhere(
-            $qb->expr()->eq('i.status',1)
-        );
-
 
         $query = $qb->getQuery();
-
         $query->setHint(
             Query::HINT_CUSTOM_OUTPUT_WALKER,
             'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
         );
+
         return $query->getResult();
     }
 }

@@ -156,7 +156,6 @@ class AdminInstitutionApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $entity->setVerified(true);
         $entity->setStatus(1);
         $em->persist($entity);
         $em->flush();

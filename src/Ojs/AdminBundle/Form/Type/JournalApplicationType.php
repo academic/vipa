@@ -61,8 +61,8 @@ class JournalApplicationType extends AbstractType
                     'class' => 'OjsJournalBundle:Institution',
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('i')
-                                    ->andWhere('i.verified = :verified')
-                                    ->setParameter('verified', true);
+                                    ->andWhere('i.status = :status')
+                                    ->setParameter('status', 1);
                     },
                     'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.institution',
