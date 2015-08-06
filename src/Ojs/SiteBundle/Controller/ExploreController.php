@@ -21,10 +21,10 @@ class ExploreController extends Controller
         $institutionFilters = !empty($getInstitutions) ? explode(',', $getInstitutions) : [];
 
         $journalSearcher = $this->get('fos_elastica.index.search.journal');
-        $journalQuery = new Query(new Query\MatchAll());
         $boolQuery = new Query\Bool();
+
         $match = new Query\Match();
-        $match->setField('status', 3);
+        $match->setField('status', 1);
         $boolQuery->addMust($match);
 
         $match = new Query\Match();
@@ -50,10 +50,9 @@ class ExploreController extends Controller
                 $match->setField('institution.name', $institution);
                 $boolQuery->addMust($match);
             }
-
         }
-        $journalQuery->setQuery($boolQuery);
 
+        $journalQuery = new Query($boolQuery);
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('institution.institution_type.name');

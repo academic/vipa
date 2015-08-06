@@ -221,6 +221,7 @@ fos_elastica:
                   type: object
                   properties:
                     name: { index: not_analyzed }
+            image: ~
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Journal
