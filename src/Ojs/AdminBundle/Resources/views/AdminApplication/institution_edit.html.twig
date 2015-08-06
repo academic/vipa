@@ -23,7 +23,9 @@
         <div class="panel">
             <h1>{{ "application.institution.edit"|trans }}</h1>
             {{ form(form) }}
-
+            <a class="btn btn-success" href="{{ url('ojs_admin_application_institution_save', {id: entity.id}) }}">
+                {{ "institute.merge_as_new_institute"|trans }}
+            </a>
             {{ getLogs(entity) }}
         </div>
     </div>

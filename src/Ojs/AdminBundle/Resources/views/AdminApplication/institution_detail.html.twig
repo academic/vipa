@@ -104,8 +104,9 @@
                     <td>{{ entity.createdBy|user }}</td>
                 </tr>
             </table>
-            <a class="btn btn-primary"
-               href="{{ url('ojs_admin_application_institution_save',{id: entity.id}) }}">{{ "institute.merge_as_new_institute"|trans }}</a>
+            <a class="btn btn-success" href="{{ url('ojs_admin_application_institution_save', {id: entity.id}) }}">
+                {{ "institute.merge_as_new_institute"|trans }}
+            </a>
         </div>
     </div>
 {% endblock %}
