@@ -58,8 +58,8 @@ class AdminInstitutionApplicationController extends Controller
         ]);
 
         $rowAction[] = $saveAction;
-        $rowAction[] = $gridAction->editAction('ojs_admin_application_institution_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_institution_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_application_institution_edit', 'id');
         $rowAction[] = $gridAction->deleteAction('ojs_admin_application_institution_delete', 'id');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
