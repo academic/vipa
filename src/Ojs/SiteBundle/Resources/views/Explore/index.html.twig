@@ -146,7 +146,13 @@
                     <div class="row">
                 {% endif %}
                 <div class="col-md-4 thumbnail">
-                    <img src="{{ journal.logo|imagine_filter('journal_cover') }}"
+                    {% if journal.image is defined %}
+                        {% set src = journal.image|imagine_filter('journal_cover') %}
+                    {% else %}
+                        {% set src = '#' %}
+                    {% endif %}
+
+                    <img src="{{ src }}"
                          data-src="holder.js/300x190/text: {{ journal.title }}"
                          class="img-responsive" alt="{{ journal.title }}">
 

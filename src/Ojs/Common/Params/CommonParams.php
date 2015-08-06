@@ -22,7 +22,7 @@ class CommonParams
         0 => 'application.status.onhold',
         1 => 'application.status.complete',
     ];
-    protected static $statusArray = array(
+    protected static $journalStatusArray = array(
         -3 => "status.rejected",
         -2 => "status.unpublished",
         -1 => "status.not_submitted",
@@ -50,7 +50,7 @@ class CommonParams
      */
     public static function getStatusTexts()
     {
-        return self::$statusArray;
+        return self::$journalStatusArray;
     }
 
     /**
@@ -59,17 +59,17 @@ class CommonParams
      */
     public static function getStatusCode($statusText)
     {
-        $i = array_search($statusText, self::$statusArray);
+        $i = array_search($statusText, self::$journalStatusArray);
 
         return $i ?: null;
     }
 
     public static function statusText($statusNum = null)
     {
-        if (array_key_exists($statusNum, self::$statusArray)) {
-            return self::$statusArray[$statusNum];
+        if (array_key_exists($statusNum, self::$journalStatusArray)) {
+            return self::$journalStatusArray[$statusNum];
         } else {
-            return self::$statusArray;
+            return self::$journalStatusArray;
         }
     }
 
