@@ -310,8 +310,8 @@ createOne: 'Yeni Oluştur'
 created: Oluşturulmuş
 created.templates: 'Oluşturulmuş Şablonlar'
 d: Sil
-dashboard: 'Gösterge Paneli'
-dashboard.admin: 'Yönetici Paneli'
+dashboard: 'Yönetim Paneli'
+dashboard.admin: 'Yönetim Paneli'
 dashboard.application: 'Uygulama Paneli'
 dashboard.editor: 'Editor Paneli'
 dashboard.general.stats: 'Genel İstatistikler'
