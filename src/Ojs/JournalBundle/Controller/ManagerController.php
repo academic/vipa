@@ -268,7 +268,7 @@ class ManagerController extends Controller
         $dispatcher = $this->get('event_dispatcher');
 
         $response = $response = $this->render(
-            'OjsJournalBundle:User:userwelcome.html.twig'
+            'OjsJournalBundle:User:home.html.twig'
         );
 
         $event = new WorkflowEvent($request);
