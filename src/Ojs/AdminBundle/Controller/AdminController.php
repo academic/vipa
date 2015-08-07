@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleEventLogParams;
 use Ojs\JournalBundle\Entity\Journal;
@@ -31,7 +32,8 @@ class AdminController extends Controller
     public function dashboardAction()
     {
         if ($this->isGranted('VIEW', new Journal())) {
-            return $this->render('OjsAdminBundle:Admin:dashboard.html.twig');
+            $switcher = $this->createForm(new QuickSwitchType())->createView();
+            return $this->render('OjsAdminBundle:Admin:dashboard.html.twig', ['switcher' => $switcher]);
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         }
