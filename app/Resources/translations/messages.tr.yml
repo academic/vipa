@@ -121,6 +121,7 @@ admin: Yönetici
 admin.dashboard.applications: Başvurular
 admin.dashboard.journal_settings: 'Dergi Ayarları'
 admin.dashboard.system_settings: 'Sistem Ayarları'
+admin.dashboard.switcher.title: 'Bir Derginin Yönetim Paneline Geç'
 admin.log.field: 'Sistem Günlüğü'
 admin.log.history: 'Sistem Günlüğü Tarihçesi'
 admin.log.newValue: 'Yeni Değer'
@@ -930,6 +931,7 @@ sure: 'Are you sure?'
 sure.ban: 'You will ban this user. Are you sure?'
 sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
 system.templates: 'System templates'
+switch: 'Geç'
 tag.search.results: 'Tag Search Result'
 tags: Tags
 tags.cloud: 'Tag Cloud'

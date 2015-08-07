@@ -49,6 +49,7 @@ assetic:
         - @OjsReportBundle/Resources/public/js/analytics.js
         - @PUGXAutocompleterBundle/Resources/public/js/autocompleter-select2.js
         - @OjsUserBundle/Resources/public/js/user.js
+        - @OjsAdminBundle/Resources/public/js/dashboard.js
 
     admin_main_css:
       inputs:

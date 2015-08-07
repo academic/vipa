@@ -7,7 +7,30 @@
         <div class="panel-heading">
             <h1 class="text-center">{{ 'title.admin_dashboard'|trans }}</h1>
         </div>
+
         <div class="panel-body">
+            <div class="col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="fa fa-gears"></i>
+                            {{ 'admin.dashboard.switcher.title'|trans }}
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                {{ form_label(switcher.journal) }}
+                                {{ form_widget(switcher.journal) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_widget(switcher.switch) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-6 col-xs-12">
                 {% include '::flashbag.html.twig' %}
                 <div class="panel panel-info">
@@ -145,7 +168,6 @@
                         </h4>
                     </div>
                     <div class="panel-body">
-
                         <div class="col-sm-12">
                             <a href="{{ path('ojs_admin_application_institution_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">

@@ -1,3 +1,5 @@
 ojs_journal_dashboard_index:
     path:     /{journalId}/dashboard
     defaults: { _controller: "OjsJournalBundle:Dashboard:index" }
+    options:
+        expose: true

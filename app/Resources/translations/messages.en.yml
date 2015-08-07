@@ -121,6 +121,7 @@ admin: Admin
 admin.dashboard.applications: Applications
 admin.dashboard.journal_settings: 'Journal Settings'
 admin.dashboard.system_settings: 'System Settings'
+admin.dashboard.switcher.title: 'Switch to a Journal''s Dashboard'
 admin.log.field: 'Changed field'
 admin.log.history: Changelog
 admin.log.newValue: 'new value'
@@ -930,6 +931,7 @@ sure: 'Are you sure?'
 sure.ban: 'You will ban this user. Are you sure?'
 sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
 system.templates: 'System templates'
+switch: Switch
 tag.search.results: 'Tag Search Result'
 tags: Tags
 tags.cloud: 'Tag Cloud'
