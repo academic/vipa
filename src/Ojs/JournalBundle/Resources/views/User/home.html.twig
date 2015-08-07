@@ -2,10 +2,7 @@
 {% block title %}{{ 'title.user_welcome'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
-    {% set list = [
-    { 'title': 'title.user_welcome'|trans }
-    ] %}
-    {{ breadcrumb(list) }}
+    {{ breadcrumb([{ 'title': 'title.user_welcome'|trans }]) }}
 {% endblock %}
 
 {% block body %}
