@@ -47,101 +47,12 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 .modal_close:after{content:"x";}
 
 
-.col-item
-{
-    border: 1px solid #E1E1E1;
-    border-radius: 5px;
-    background: #FFF;
-}
-.col-item .photo img
-{
-    margin: 0 auto;
-    width: 100%;
-}
-
-.col-item .info
-{
-    padding: 10px;
-    border-radius: 0 0 5px 5px;
-    margin-top: 1px;
-}
-
-.col-item:hover .info {
-    background-color: #F5F5DC;
-}
-.col-item .price
-{
-    /*width: 50%;*/
-    float: left;
-    margin-top: 5px;
-}
-
-.col-item .price h5
-{
-    line-height: 20px;
-    margin: 0;
-}
-
-.price-text-color
-{
-    color: #219FD1;
-}
-
-.col-item .info .rating
-{
-    color: #777;
-}
-
-.col-item .rating
-{
-    /*width: 50%;*/
-    float: left;
-    font-size: 17px;
-    text-align: right;
-    line-height: 52px;
-    margin-bottom: 10px;
-    height: 52px;
-}
-
-.col-item .separator
-{
-    border-top: 1px solid #E1E1E1;
-}
-
 .clear-left
 {
     clear: left;
 }
 
-.col-item .separator p
-{
-    line-height: 20px;
-    margin-bottom: 0;
-    margin-top: 10px;
-    text-align: center;
-}
 
-.col-item .separator p i
-{
-    margin-right: 5px;
-}
-.col-item .btn-add
-{
-    width: 50%;
-    float: left;
-}
-
-.col-item .btn-add
-{
-    border-right: 1px solid #E1E1E1;
-}
-
-.col-item .btn-details
-{
-    width: 50%;
-    float: left;
-    padding-left: 10px;
-}
 .controls
 {
     margin-top: 20px;
@@ -157,14 +68,6 @@ strong.fstrong{background-color: #f1685e; padding:4px;border-radius:4px;color:#f
 strong.gstrong{background-color: #5ed168; padding:4px;border-radius:4px;color:#fff}
 
 a:hover .strong{text-decoration: none;}
-
-
-.dropdown-submenu{position:relative;}
-.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
-.dropdown-submenu:hover>.dropdown-menu{display:block;}
-.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
-.dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
-.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
 
 /* -- color classes -- */
@@ -188,79 +91,7 @@ a:hover .strong{text-decoration: none;}
     color: #fff!important;
 }
 
-/* -- The "User's Menu Container" specific elements. Custom container for the snippet -- */
-div.user-menu-container {
-    z-index: 10;
-    background-color: #fff;
-    margin-top: 20px;
-    background-clip: padding-box;
-    opacity: 0.97;
-    filter: alpha(opacity=97);
-    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-}
 
-div.user-menu-container .btn-lg {
-    padding: 0 12px;
-}
-
-div.user-menu-container h4 {
-    font-weight: 300;
-    color: #8b8b8b;
-}
-
-div.user-menu-container a, div.user-menu-container .btn  {
-    transition: 1s ease;
-}
-
-div.user-menu-container .thumbnail {
-    width:100%;
-    min-height:200px;
-    border: 0!important;
-    padding: 0;
-    border-radius: 0;
-}
-
-/* -- Vertical Button Group -- */
-div.user-menu-container .btn-group-vertical {
-    display: block;
-}
-
-div.user-menu-container .btn-group-vertical>a {
-    padding: 20px 25px;
-    background-color: #46D8D2;
-    color: white;
-    border-color: #fff;
-}
-
-div.btn-group-vertical>a:hover {
-    color: white;
-    border-color: white;
-}
-
-div.btn-group-vertical>a.active {
-    background: #FA396F;
-    box-shadow: none;
-    color: white;
-}
-/* -- Individual button styles of vertical btn group -- */
-div.user-menu-btns {
-    padding-right: 0;
-    padding-left: 0;
-    padding-bottom: 0;
-}
-
-div.user-menu-btns div.btn-group-vertical>a.active:after{
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    margin-top: -13px;
-    border-left: 0;
-    border-bottom: 13px solid transparent;
-    border-top: 13px solid transparent;
-    border-left: 10px solid #46D8D2;
-}
 /* -- The main tab & content styling of the vertical buttons info-- */
 div.user-menu-content {
     color: #323232;
