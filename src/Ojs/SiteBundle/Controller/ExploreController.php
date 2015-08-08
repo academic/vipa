@@ -2,8 +2,8 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Elastica\Query;
 use Elastica\Aggregation;
+use Elastica\Query;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -90,7 +90,8 @@ class ExploreController extends Controller
             'subject_filters' => $subjectFilters,
             'institution_filters' => $institutionFilters,
             'journals' => $journals,
-            'pagerfanta' => $pagerfanta
+            'pagerfanta' => $pagerfanta,
+            'page' => 'explore'
         ];
 
         return $this->render('OjsSiteBundle:Explore:index.html.twig', $data);
