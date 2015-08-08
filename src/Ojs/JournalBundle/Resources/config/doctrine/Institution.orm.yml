@@ -147,7 +147,6 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             nullable: TRUE
             gedmo:
-                - translatable
                 - versioned
         wiki:
             type: string
