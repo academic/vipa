@@ -13,6 +13,27 @@ Same thing for all classes starting with jb_
 {% endblock %}
 
 {% block jb_file_ajax_widget %}
+    <div class="jb_loading progress" style="display: none">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+            <span class="sr-only">45% Complete</span>
+        </div>
+    </div>
+
+    {% if download_link %}
+        <br>
+        {% if file_history is not null %}
+            <a class="jb_result_preview btn btn-default btn-lg" data-default="#no-preview" href="{{ file_history_url }}">
+                <i class="fa fa-file-text"></i>
+                <span class="jb_result_name">{{ file_history.originalName }}</span>
+            </a>
+        {% else %}
+            <a class="jb_result_preview btn btn-default btn-lg" data-default="#no-preview" href="#no-preview">
+                <i class="fa fa-file-text"></i>&nbsp;
+                <span class="jb_result_name"></span>
+            </a>
+        {% endif %}
+    {% endif %}
+
     <br>
     <span class="fileinput-button">
         <a class="btn btn-success btn-sm" href="#importFile">
@@ -28,21 +49,12 @@ Same thing for all classes starting with jb_
                 data-use-crop="{{ use_crop ? "true" : "false" }}"/>
     </span>
     {% if remove_link %}
-        <a class="btn btn-danger btn-sm" href="#removePicture" class="jb_remove_link">
+        <a class="btn btn-danger btn-sm file-remove-button" href="#removePicture" class="jb_remove_link">
             <i class="fa fa-trash"></i>
             {{ 'Remove'|trans({}, translation_domain) }}
         </a>
     {% endif %}
     <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-    {% if download_link %}
-        {% if file_history is not null %}
-            <a class="jb_result_preview" data-default="#no-preview" href="{{ file_history_url }}"><span
-                        class="jb_result_name">{{ file_history.originalName }}</span></a>
-        {% else %}
-            <a class="jb_result_preview" data-default="#no-preview" href="#no-preview"><span
-                        class="jb_result_name"></span></a>
-        {% endif %}
-    {% endif %}
     
     <br><br>
 {% endblock %}
@@ -58,16 +70,11 @@ Same thing for all classes starting with jb_
          {% if img_width is defined %}width="{{ img_width }}"{% endif %}
             {% if img_height is defined %}height="{{ img_height }}"{% endif %} />
 
-    <img class="jb_loading"
-         src="{{ asset(loading_file) }}"
-         style="display: none;"/>
-
     {{ block('jb_file_ajax_widget') }}
-    {% set loading_generated = true %}
 {% endblock %}
 
 {% block jb_crop_image_ajax_widget %}
-    <div class="jb_crop_upload col-md-12">
+    <div class="jb_crop_upload">
         {{ block('jb_image_ajax_widget') }}
     </div>
     <div class="jb_crop_tool" style="display: none;">

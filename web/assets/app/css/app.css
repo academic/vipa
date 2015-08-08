@@ -771,5 +771,11 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     margin-bottom: 5px;
 }
 .jb_crop_upload {
-    padding: 0 !important;
+    width: 100%;
+}
+.fileinput-button:hover a {
+     text-decoration: none !important;
+}
+.file-remove-button, .jb_crop_reset {
+    margin-left: 2px;
 }
