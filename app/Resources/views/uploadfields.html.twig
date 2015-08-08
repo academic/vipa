@@ -1,0 +1,95 @@
+{#
+The id on the row and the attribute data-row-id are important. They are used in the js code.
+Same thing for all classes starting with jb_
+#}
+
+{% block jb_file_ajax_row %}
+    <div id="{{ id }}_row" class="file-upload">
+        <div class="alert alert-danger jb_result_error" style="display: none;"></div>
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+{% endblock %}
+
+{% block jb_file_ajax_widget %}
+    <span class="fileinput-button">
+        <span><a href="#importFile">{{ 'Import a file'|trans({}, translation_domain) }}</a></span>
+        <input
+                class="jb_fileupload"
+                type="file"
+                name="{{ id }}_file"
+                data-url="{{ oneup_uploader_endpoint(endpoint) }}"
+                data-row-id="{{ id }}_row"
+                data-use-crop="{{ use_crop ? "true" : "false" }}"/>
+    </span>
+    {% if remove_link %}
+        <span> | </span>
+        <span>
+            <a href="#removePicture" class="jb_remove_link" title="{{ 'Remove'|trans({}, translation_domain) }}">
+                {{ 'Remove'|trans({}, translation_domain) }}
+            </a>
+        </span>
+    {% endif %}
+    <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% if download_link %}
+        {% if file_history is not null %}
+            <a class="jb_result_preview" data-default="#no-preview" href="{{ file_history_url }}"><span
+                        class="jb_result_name">{{ file_history.originalName }}</span></a>
+        {% else %}
+            <a class="jb_result_preview" data-default="#no-preview" href="#no-preview"><span
+                        class="jb_result_name"></span></a>
+        {% endif %}
+    {% endif %}
+    {% if loading_generated is not defined %}
+        <img class="jb_loading"
+             src="{{ asset(loading_file) }}"
+             style="display: none;"/>
+    {% endif %}
+{% endblock %}
+
+{% block jb_image_ajax_widget %}
+    {% set previewSrc = asset(default_image) %}
+    {% if file_history is not null %}
+        {% set previewSrc = file_history_url %}
+    {% endif %}
+
+    <img class="jb_result_preview"
+         src="{{ previewSrc }}"
+         data-default="{{ asset(default_image) }}"
+         {% if img_width is defined %}width="{{ img_width }}"{% endif %}
+            {% if img_height is defined %}width="{{ img_height }}"{% endif %} />
+
+    <img class="jb_loading"
+         src="{{ asset(loading_file) }}"
+         style="display: none;"/>
+
+    {% set loading_generated = true %}
+    {{ block('jb_file_ajax_widget') }}
+{% endblock %}
+
+{% block jb_crop_image_ajax_widget %}
+    <div class="jb_crop_upload">
+        {{ block('jb_image_ajax_widget') }}
+    </div>
+    <div class="jb_crop_tool" style="display: none;">
+        <img class="jb_crop_img" src="" {{ block('jb_crop_attributes') }}
+             style="max-width: {{ max_width }}px; max-height: {{ max_height }}px;"/>
+        <button class="jb_crop_confirm">{{ confirm_button_label|trans({}, translation_domain) }}</button>
+        {% if reset_button %}
+            <button type="submit" class="jb_crop_reset">{{ reset_button_label|trans({}, translation_domain) }}</button>
+        {% endif %}
+        <input type="hidden" class="jb_crop_field jb_crop_x" name="jb_fileuploader_crop[x]" value=""/>
+        <input type="hidden" class="jb_crop_field jb_crop_y" name="jb_fileuploader_crop[y]" value=""/>
+        <input type="hidden" class="jb_crop_field jb_crop_width" name="jb_fileuploader_crop[width]" value=""/>
+        <input type="hidden" class="jb_crop_field jb_crop_height" name="jb_fileuploader_crop[height]" value=""/>
+        <input type="hidden" class="jb_crop_field jb_crop_filename" name="jb_fileuploader_crop[filename]" value=""/>
+    </div>
+{% endblock %}
+
+{% block jb_crop_attributes -%}
+    {% for key, option in crop_options %}
+        data-{{ key }}="{{ option }}"
+    {% endfor %}
+    data-url="{{ jb_fileuploader_crop_endpoint(endpoint) }}"
+{%- endblock %}
