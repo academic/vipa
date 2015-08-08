@@ -13,8 +13,12 @@ Same thing for all classes starting with jb_
 {% endblock %}
 
 {% block jb_file_ajax_widget %}
+    <br>
     <span class="fileinput-button">
-        <span><a href="#importFile">{{ 'Import a file'|trans({}, translation_domain) }}</a></span>
+        <a class="btn btn-success btn-sm" href="#importFile">
+            <i class="fa fa-upload"></i>
+            {{ 'Import a file'|trans({}, translation_domain) }}
+        </a>
         <input
                 class="jb_fileupload"
                 type="file"
@@ -24,12 +28,10 @@ Same thing for all classes starting with jb_
                 data-use-crop="{{ use_crop ? "true" : "false" }}"/>
     </span>
     {% if remove_link %}
-        <span> | </span>
-        <span>
-            <a href="#removePicture" class="jb_remove_link" title="{{ 'Remove'|trans({}, translation_domain) }}">
-                {{ 'Remove'|trans({}, translation_domain) }}
-            </a>
-        </span>
+        <a class="btn btn-danger btn-sm" href="#removePicture" class="jb_remove_link">
+            <i class="fa fa-trash"></i>
+            {{ 'Remove'|trans({}, translation_domain) }}
+        </a>
     {% endif %}
     <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     {% if download_link %}
@@ -41,11 +43,8 @@ Same thing for all classes starting with jb_
                         class="jb_result_name"></span></a>
         {% endif %}
     {% endif %}
-    {% if loading_generated is not defined %}
-        <img class="jb_loading"
-             src="{{ asset(loading_file) }}"
-             style="display: none;"/>
-    {% endif %}
+    
+    <br><br>
 {% endblock %}
 
 {% block jb_image_ajax_widget %}
@@ -53,31 +52,37 @@ Same thing for all classes starting with jb_
     {% if file_history is not null %}
         {% set previewSrc = file_history_url %}
     {% endif %}
-
     <img class="jb_result_preview"
          src="{{ previewSrc }}"
          data-default="{{ asset(default_image) }}"
          {% if img_width is defined %}width="{{ img_width }}"{% endif %}
-            {% if img_height is defined %}width="{{ img_height }}"{% endif %} />
+            {% if img_height is defined %}height="{{ img_height }}"{% endif %} />
 
     <img class="jb_loading"
          src="{{ asset(loading_file) }}"
          style="display: none;"/>
 
-    {% set loading_generated = true %}
     {{ block('jb_file_ajax_widget') }}
+    {% set loading_generated = true %}
 {% endblock %}
 
 {% block jb_crop_image_ajax_widget %}
-    <div class="jb_crop_upload">
+    <div class="jb_crop_upload col-md-12">
         {{ block('jb_image_ajax_widget') }}
     </div>
     <div class="jb_crop_tool" style="display: none;">
         <img class="jb_crop_img" src="" {{ block('jb_crop_attributes') }}
              style="max-width: {{ max_width }}px; max-height: {{ max_height }}px;"/>
-        <button class="jb_crop_confirm">{{ confirm_button_label|trans({}, translation_domain) }}</button>
+        <br>
+        <button class="jb_crop_confirm btn btn-success btn-sm">
+            <i class="fa fa-check"></i>
+            {{ confirm_button_label|trans({}, translation_domain) }}
+        </button>
         {% if reset_button %}
-            <button type="submit" class="jb_crop_reset">{{ reset_button_label|trans({}, translation_domain) }}</button>
+            <button type="submit" class="jb_crop_reset btn btn-primary btn-sm">
+                <i class="fa fa-refresh"></i>
+                {{ reset_button_label|trans({}, translation_domain) }}
+            </button>
         {% endif %}
         <input type="hidden" class="jb_crop_field jb_crop_x" name="jb_fileuploader_crop[x]" value=""/>
         <input type="hidden" class="jb_crop_field jb_crop_y" name="jb_fileuploader_crop[y]" value=""/>

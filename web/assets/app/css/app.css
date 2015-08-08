@@ -765,3 +765,11 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     border: 1px solid #CCC;
     padding: 10px;
 }
+
+.jb_result_preview {
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+.jb_crop_upload {
+    padding: 0 !important;
+}
