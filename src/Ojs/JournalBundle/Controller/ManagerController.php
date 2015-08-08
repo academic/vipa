@@ -32,7 +32,7 @@ class ManagerController extends Controller
         }
 
         if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
+            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
         }
 
         $form = $this->createJournalEditForm($journal);
@@ -52,7 +52,7 @@ class ManagerController extends Controller
             new JournalType(),
             $journal,
             array(
-                'action' => $this->generateUrl('ojs_journal_settings_update', array('journalId' => $journal->getId())),
+                'action' => $this->generateUrl('ojs_journal_settings_update', ['journalId' => $journal->getId()]),
                 'method' => 'PUT',
             )
         );
@@ -100,6 +100,11 @@ class ManagerController extends Controller
         $journal = !$journalId ?
             $this->get("ojs.journal_service")->getSelectedJournal() :
             $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
+        }
+
         if ($request->getMethod() == 'POST') {
             $submissionMandatoryLanguages = $request->get('submissionMandatoryLanguages');
             if (!empty($submissionMandatoryLanguages)) {
@@ -170,8 +175,9 @@ class ManagerController extends Controller
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
         if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
+            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
         }
+
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetting $setting */
         $setting = $em->
@@ -198,23 +204,24 @@ class ManagerController extends Controller
     public function journalSettingsMailAction(Request $req, $journalId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        /* @var $journal  Journal */
+        /* @var $journal Journal */
         $journal = !$journalId ?
             $this->get("ojs.journal_service")->getSelectedJournal() :
             $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
+        }
+
         if ($req->getMethod() == 'POST' && !empty($req->get('emailSignature'))) {
             $this->updateJournalSetting($journal, 'emailSignature', $req->get('emailSignature'), false);
         }
-        $emailSignature = $journal->getSetting('emailSignature') ? $journal->getSetting('emailSignature')->getValue(
-        ) : null;
 
-        return $this->render(
-            'OjsJournalBundle:Manager:journal_settings_mail.html.twig',
-            array(
-                'journal' => $journal,
-                'emailSignature' => $emailSignature,
-            )
-        );
+        $emailSignature = $journal->getSetting('emailSignature') ?
+            $journal->getSetting('emailSignature')->getValue() : null;
+
+        return $this->render('OjsJournalBundle:Manager:journal_settings_mail.html.twig',
+            ['journal' => $journal, 'emailSignature' => $emailSignature]);
     }
 
     /**
@@ -224,8 +231,14 @@ class ManagerController extends Controller
     public function journalSettingsPageAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        
+        if (!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
+        }
+
         $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
         $object = $twig->encode($journal);
+
         $source = new Entity("Okulbilisim\\CmsBundle\\Entity\\Post");
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
@@ -244,6 +257,7 @@ class ManagerController extends Controller
                     );
             }
         );
+
         $grid = $this->get('grid');
         $grid->setSource($source);
         $grid->getColumn('title')->setSafe(false);
