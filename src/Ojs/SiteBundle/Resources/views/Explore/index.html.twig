@@ -8,6 +8,16 @@
     {% stylesheets '@site_css' output="assets/prod/css/site.css" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
+    <style type="text/css">
+        .no-padding {
+            padding: 0 !important;
+        }
+        @media (min-width: 768px) {
+            .padding-10 {
+                padding: 0 0 0 10px !important;
+            }
+        }
+    </style>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -21,7 +31,7 @@
 
 {% block body %}
     <div class="container">
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-3">
             <div class="row">
                 <div class="panel panel-primary">
                     <div class="panel-heading"><h4>{{ 'title.institution_types'|trans }}</h4></div>
@@ -140,37 +150,33 @@
             </div>
         </div>
 
-        <div id="journals" class="col-md-10">
+        <div id="journals" class="col-md-10 col-sm-9 no-padding">
             {% for journal in journals %}
-                {% if loop.index % 3 == 1 %}
-                    <div class="row">
-                {% endif %}
-                <div class="col-md-4 thumbnail">
-                    {% if journal.image is defined %}
-                        {% set src = journal.image|imagine_filter('journal_cover') %}
-                    {% else %}
-                        {% set src = '#' %}
-                    {% endif %}
+                <div class="col-md-4 col-sm-6 padding-10">
+                    <div class="thumbnail">
+                        {% if journal.image is defined %}
+                            {% set src = journal.image|imagine_filter('journal_cover') %}
+                        {% else %}
+                            {% set src = '#' %}
+                        {% endif %}
 
-                    <img src="{{ src }}"
-                         data-src="holder.js/300x190/text: {{ journal.title }}"
-                         class="img-responsive" alt="{{ journal.title }}">
+                        <img src="{{ src }}"
+                             data-src="holder.js/300x190/text: {{ journal.title }}"
+                             class="img-responsive" alt="{{ journal.title }}">
 
-                    <div class="caption">
-                        <a href="{{ path('ojs_journal_index', {slug: journal.slug, institution: journal.institution.slug}) }}">
-                            <h3 class="text-center">{{ journal.title }}</h3>
-                        </a>
+                        <div class="caption">
+                            <a href="{{ path('ojs_journal_index', {slug: journal.slug, institution: journal.institution.slug}) }}">
+                                <h3 class="text-center">{{ journal.title }}</h3>
+                            </a>
 
-                        <div>
-                            {% for subject in journal.subjects %}
-                                <h4><span class="label label-primary">{{ subject.subject }}</span></h4>
-                            {% endfor %}
+                            <div>
+                                {% for subject in journal.subjects %}
+                                    <h4><span class="label label-primary">{{ subject.subject }}</span></h4>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
-                {% if loop.index % 3 == 0 %}
-                    </div>
-                {% endif %}
             {% endfor %}
         </div>
 
@@ -183,18 +189,16 @@
         <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
         <script>
             $(document).ready(function() {
-                $('#journals .row').each(function() {
-                    var tallest = 0;
-                    var captions = $(this).find('.thumbnail .caption');
-                    captions.each(function() {
-                        if ($(this).height() > tallest) {
-                            tallest = $(this).height();
-                        }
-                    });
+                var tallest = 0;
+                var captions = $('#journals').find('.thumbnail .caption');
+                captions.each(function() {
+                    if ($(this).height() > tallest) {
+                        tallest = $(this).height();
+                    }
+                });
 
-                    captions.each(function() {
-                        $(this).height(tallest);
-                    });
+                captions.each(function() {
+                    $(this).height(tallest);
                 });
             });
         </script>

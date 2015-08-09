@@ -1,6 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.search'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .margin-top {
+            margin-top: 10px;
+        }
+    </style>
+{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
@@ -12,40 +21,37 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2">
                 <a href="{{ path('ojs_tags_cloud') }}" class="btn btn-success"><i
                             class="fa fa-tags"></i> {{ 'tags.cloud'|trans }}</a>
-            </div>
-            <div class="col-sm-8">
-                <form action="/search" method="get">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false"><span
-                                        id="search-type-text">{{ (queryType~'search')|trans }}</span> <span
-                                        class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="javascript:void(0)" class="select-search-type"
-                                       data-type="basic">{{ ('basicsearch')|trans }}</a></li>
-                                <li><a href="javascript:void(0)" class="select-search-type"
-                                       data-type="tag">{{ ('tagsearch')|trans }}</a></li>
-                            </ul>
-                        </div>
-                        <input type="text" name="q" class="form-control" value="{{ query }}">
+                <a href="{{ path('ojs_search_advanced') }}" class="btn btn-warning"><i
+                            class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
+            <div class="margin-top">
+                <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1">
+                    <form action="/search" method="get">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><span
+                                            id="search-type-text">{{ (queryType~'search')|trans }}</span> <span
+                                            class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)" class="select-search-type"
+                                           data-type="basic">{{ ('basicsearch')|trans }}</a></li>
+                                    <li><a href="javascript:void(0)" class="select-search-type"
+                                           data-type="tag">{{ ('tagsearch')|trans }}</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" name="q" class="form-control" value="{{ query }}">
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="submit"><i
                                         class="fa fa-search"></i> {{ "search"|trans }}</button>
                         </span>
-                    </div>
-                    <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
-                </form>
+                        </div>
+                        <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
+                    </form>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="col-sm-2">
-                <a href="{{ path('ojs_search_advanced') }}" class="btn btn-warning"><i
-                            class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
-            </div>
-        </div>
         <hgroup class="page-header">
             <h2 class="lead">
                 {% trans with {'%total%':total_count, '%term%':query} %}
@@ -56,7 +62,7 @@
         </hgroup>
 
         <section class="col-xs-12 col-sm-12 col-md-12">
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-4">
                 {% if results is defined %}
                     <ul class="nav nav-pills nav-stacked">
                         {% for key,result in results %}
@@ -175,7 +181,7 @@
                 </div>
             </div>
 
-            <div class="tab-content col-sm-9">
+            <div class="tab-content col-md-9 col-sm-8">
 
                 {% if results is defined %}
                     {% if total_count < 1 %}
@@ -228,11 +234,11 @@
                 <h2>{{ 'search.history' }}</h2>
                 <table class="table table-bordered">
                     <thead>
-                    <td>{{ 'search'|trans }}</td>
-                    <td>{{ 'query'|trans }}</td>
-                    <td>{{ 'items.found'|trans }}</td>
-                    <td>{{ 'type'|trans }}</td>
-                    <td>{{ 'time'|trans }}</td>
+                    <th>{{ 'search'|trans }}</th>
+                    <th>{{ 'query'|trans }}</th>
+                    <th>{{ 'items.found'|trans }}</th>
+                    <th>{{ 'type'|trans }}</th>
+                    <th>{{ 'time'|trans }}</th>
                     </thead>
                     <tbody>
                     {% for queryLog in app.session.get('_query_history') %}

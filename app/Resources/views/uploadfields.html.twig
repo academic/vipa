@@ -4,7 +4,8 @@ Same thing for all classes starting with jb_
 #}
 
 {% block jb_file_ajax_row %}
-    <div id="{{ id }}_row" class="file-upload row">
+    <div id="{{ id }}_row" class="file-upload row
+        {% if attr['custom_class'] is defined %}{{ attr['custom_class'] }}{% endif %}">
         <div class="col-xs-12">
             <div class="well">
                 <div class="alert alert-danger jb_result_error" style="display: none;"></div>

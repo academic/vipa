@@ -135,7 +135,6 @@ div.user-menu div.user-menu-content:not(.active){
 
 .overview h3 {
     font-weight: 300;
-    margin-top: 15px;
     margin: 10px 0 0 0;
 }
 
@@ -776,4 +775,32 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 }
 .file-remove-button, .jb_crop_reset {
     margin-left: 2px;
+}
+
+.navbar-search-box {
+    float: left;
+    margin: 0;
+    padding: 0 5px;
+}
+.navbar-search-box .navbar-form {
+    padding: 0;
+}
+@media (min-width: 768px) and (max-width: 980px) {
+    .navbar .container {
+        width: 100% !important;
+    }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+    .navbar-search-box {
+        width: 145px;
+    }
+}
+@media (max-width: 767px) {
+    .navbar-search-box {
+        width: 100%;
+    }
+}
+
+.select2-selection {
+    max-width: 100%;
 }

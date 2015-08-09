@@ -23,7 +23,7 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, institution: journal.institution.slug}) }}">{{ "volume"|trans }} {{ article.issue.volume }}
@@ -216,7 +216,7 @@
 
                 <!-- /content -->
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                 <div class="list-group journal-stats">
                     <div class="list-group-item ">
                         <form role="search" action="/search" method="get">

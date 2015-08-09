@@ -1,6 +1,24 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.journal_application'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .graphics-panel .control-label {
+            text-align: left !important;
+            font-size: 14px;
+            padding: 5px 0 !important;
+        }
+        .apply-journal-cf .control-label {
+            text-align: left !important;
+            font-size: 14px;
+            padding: 5px 0 !important;
+            display: block;
+            float: none;
+        }
+    </style>
+{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
@@ -73,7 +91,7 @@
                     </div>
                 </div>
 
-                <div class="panel panel-info">
+                <div class="panel panel-info graphics-panel">
                     <div class="panel-heading"><h4>{{ "application.graphics"|trans }}</h4></div>
                     <div class="panel-body">
                         {{ form_row(form.image) }}
