@@ -8,7 +8,6 @@ Same thing for all classes starting with jb_
         {% if attr['custom_class'] is defined %}{{ attr['custom_class'] }}{% endif %}">
         <div class="col-xs-12">
             <div class="well">
-                <div class="alert alert-danger jb_result_error" style="display: none;"></div>
                 {{- form_label(form) -}}
                 {{- form_errors(form) -}}
                 {{- form_widget(form) -}}
@@ -18,6 +17,7 @@ Same thing for all classes starting with jb_
 {% endblock %}
 
 {% block jb_file_ajax_widget %}
+    <div class="alert alert-danger jb_result_error" style="display: none;"></div>
     <span class="fileinput-button">
         <span><a href="javascript:void(0);" class="btn btn-primary"><i class="fa fa-upload"></i> {{ 'file'|trans }}</a></span>
         <input
