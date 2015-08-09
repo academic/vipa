@@ -770,9 +770,7 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     max-width: 100%;
     margin-bottom: 5px;
 }
-.jb_crop_upload {
-    width: 100%;
-}
+
 .fileinput-button:hover a {
      text-decoration: none !important;
 }
