@@ -2,6 +2,22 @@
 
 {% set hideleft = 1 %}
 {% block title %}{{ "title.people_directory"|trans }} {{ parent() }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        @media (max-width: 1000px) {
+            .well h3 a {
+                /*font-size: 16px;*/
+            }
+        }
+        .padding-5 {
+            padding: 5px !important;
+        }
+        .no-padding {
+            padding: 0 !important;
+        }
+    </style>
+{% endblock %}
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'title.home'|trans},
@@ -16,7 +32,7 @@
             {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
         </ul>
     </div>
-    <div class="container">
+    <div class="container no-padding">
         <div class="col-sm-3">
             <div class="panel-group">
                 <div class="panel panel-primary">
@@ -134,25 +150,27 @@
 
         <div class="col-sm-9">
             {% for person in people %}
-                <div class="well col-sm-3" style="height: 20em; margin: 0 0 10px 10px;">
-                    <div class="text-center">
-                        <a href="/@{{ person.username }}" class="thumbnail">
-                            <img class="img-circle"
-                                 src="{{ person.avatar is defined ? person.avatar|imagine_filter('avatar_thumb') : '#' }}"
-                                 alt="{{ person.username|default('image'|trans) }}"
-                                 data-src="holder.js/100x100/random"
-                                 style="width: 100px; height: 100px;">
-                        </a>
-
-                        <h3>
-                            <a href="/@{{ person.username|default('') }}">
-                                {% if person.firstName is defined and person.lastName is defined %}
-                                    {{ person.firstName|default('') }} {{ person.lastName|default('') }}
-                                {% else %}
-                                    {{ person.username }}
-                                {% endif %}
+                <div class="col-sm-4 col-md-3 padding-5">
+                    <div class="well col-sm-12" style="height: 20em; margin: 0;">
+                        <div class="text-center">
+                            <a href="/@{{ person.username }}" class="thumbnail">
+                                <img class="img-circle"
+                                     src="{{ person.avatar is defined ? person.avatar|imagine_filter('avatar_thumb') : '#' }}"
+                                     alt="{{ person.username|default('image'|trans) }}"
+                                     data-src="holder.js/100x100/random"
+                                     style="width: 100px; height: 100px;">
                             </a>
-                        </h3>
+
+                            <h4>
+                                <a href="/@{{ person.username|default('') }}">
+                                    {% if person.firstName is defined and person.lastName is defined %}
+                                        {{ person.firstName|default('') }} {{ person.lastName|default('') }}
+                                    {% else %}
+                                        {{ person.username }}
+                                    {% endif %}
+                                </a>
+                            </h4>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

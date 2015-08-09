@@ -1,6 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.journal_contacts'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .float-left {
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
@@ -15,42 +25,42 @@
 
     <div class="container">
         <br>
+        <!-- The carousel -->
+        <div class="page-header">
+            <img src="
+                {% if journal.issues|length and journal.issues[journal.issues|length-1].cover is not null %}
+                    {{ journal.issues[journal.issues|length-1].cover|imagine_filter('issue_cover') }}
+                {% endif %}"
+                 data-src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive float-left"/>
+            <div>
+                <h1>{{ journal.title }}</h1>
+                <h6>{{ journal.subtitle }}</h6>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
 
         <div class="row">
-            <!-- The carousel -->
-            <div class="page-header row">
-                <div class="col-md-1 hidden-sm hidden-xs">
-                    <img src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive"/>
-                </div>
-                <div class="col-md-11">
-                    <h1>{{ journal.title }}</h1>
-                    <h6>{{ journal.subtitle }}</h6>
+
+            <div class="col-md-9 col-sm-8">
+                <div class="panel panel-default">
+                    {% for contact in contacts %}
+                        <div class="panel-heading">{{ contact.contactType.name }}</div>
+                        <div class="panel-body">
+                            <strong>{{ "name"|trans }}
+                                :</strong> {{ contact.contact.title }} {{ contact.contact.firstName }} {{ contact.contact.lastName }}
+                            <br/>
+                            <strong>{{ "email"|trans }}:</strong> {{ contact.contact.email }} <br/>
+                            <strong>{{ "phone"|trans }}:</strong> {{ contact.contact.phone }} <br/>
+                            <strong>{{ "fax"|trans }}:</strong> {{ contact.contact.fax }} <br/>
+                            <strong>{{ "address"|trans }}:</strong> {{ contact.contact.address }} <br/>
+                        </div>
+                    {% endfor %}
+
                 </div>
             </div>
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        {% for contact in contacts %}
-                            <div class="panel-heading">{{ contact.contactType.name }}</div>
-                            <div class="panel-body">
-                                <strong>{{ "name"|trans }}
-                                    :</strong> {{ contact.contact.title }} {{ contact.contact.firstName }} {{ contact.contact.lastName }}
-                                <br/>
-                                <strong>{{ "email"|trans }}:</strong> {{ contact.contact.email }} <br/>
-                                <strong>{{ "phone"|trans }}:</strong> {{ contact.contact.phone }} <br/>
-                                <strong>{{ "fax"|trans }}:</strong> {{ contact.contact.fax }} <br/>
-                                <strong>{{ "address"|trans }}:</strong> {{ contact.contact.address }} <br/>
-                            </div>
-                        {% endfor %}
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
-                </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
             </div>
         </div>
     </div>

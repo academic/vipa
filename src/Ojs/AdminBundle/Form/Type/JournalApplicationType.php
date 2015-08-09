@@ -110,7 +110,8 @@ class JournalApplicationType extends AbstractType
             ))
             ->add('competingFile', 'jb_file_ajax',
                 array(
-                    'endpoint' => 'journalCompeting'
+                    'endpoint' => 'journalCompeting',
+                    'attr' => ['custom_class' => 'apply-journal-cf']
                 )
             )
             ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])

@@ -1,6 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.archives'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .thumbnail {
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+{% endblock %}
 
 {% if isInstitutionHosting is defined %}
     {% set journalUrl = url('institution_hosting_journal_index',{slug:journal.slug}) %}
@@ -22,63 +32,57 @@
 {% block body %}
 
     <div class="container">
+        <!-- The carousel -->
+        <div class="page-header">
+            <h1>{{ journal.title }}</h1>
+            <h6>{{ journal.subtitle }}</h6>
+        </div>
         <div class="row">
-            <!-- The carousel -->
-            <div class="page-header">
-                <h1>{{ journal.title }}</h1>
-                <h6>{{ journal.subtitle }}</h6>
+            <div class="col-md-9 col-sm-8">
+                {% for year in groupedIssues|keys %}
+                    <div class="panel panel-default" id="issues_list">
+                        <div class="panel-heading toggle-list">
+                            <a class="panel-title archive-year-title btn-block" data-toggle="collapse"
+                               data-parent="#issues_list" href="#issue_of_{{ year }}">
+                                {{ year }}
+                                <span class="pull-right fa fa-list"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body collapse" id="issue_of_{{ year }}">
+                            {% for issue in groupedIssues[year] %}
+                                <div class="thumbnail">
+                                    <a class="btn" href="{% if isInstitutionHosting is defined %}
+                                            {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
+                                        {% elseif isJournalHosting is defined %}
+                                            {{ url('journal_hosting_issue',{id: issue.id}) }}
+                                        {% else %}
+                                            {{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}
+                                        {% endif %}">
+
+                                        {% if issue.cover is not null %}
+                                            <img src="{{ issue.cover|imagine_filter('issue_cover_medium') }}"
+                                                 data-src="holder.js/180x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
+                                                 class="img-responsive"/>
+                                        {% endif %}
+
+                                        {{ "volume"|trans }} : {{ issue.volume }}
+                                        {{ "issue"|trans }} : {{ issue.number }}
+
+                                        {% if issue.title %}-  {{ issue.title }} {% endif %}
+
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        {{ ojs.any_content|trans }}
+                    </div>
+                {% endfor %}
             </div>
-            <div class="row">
-                <div class="col-md-9">
-                    {% for year in groupedIssues|keys %}
-                        <div class="panel panel-default" id="issues_list">
-                            <div class="panel-heading toggle-list">
-                                <a class="panel-title archive-year-title btn-block" data-toggle="collapse"
-                                   data-parent="#issues_list" href="#issue_of_{{ year }}">
-                                    {{ year }}
-                                    <span class="pull-right fa fa-list"></span>
-                                </a>
-                            </div>
-                            <div class="panel-body collapse" id="issue_of_{{ year }}">
-                                {% for issue in groupedIssues[year] %}
-                                    <div class="col-md-3">
-                                        <div class="thumbnail">
-                                            <a class="btn" href="{% if isInstitutionHosting is defined %}
-                                                    {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
-                                                {% elseif isJournalHosting is defined %}
-                                                    {{ url('journal_hosting_issue',{id: issue.id}) }}
-                                                {% else %}
-                                                    {{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}
-                                                {% endif %}">
-
-                                                {% if issue.cover is not null %}
-                                                    <img src="{{ issue.cover|imagine_filter('issue_cover_medium') }}"
-                                                         data-src="holder.js/180x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
-                                                         class="img-responsive"/>
-                                                {% endif %}
-
-                                                {{ "volume"|trans }} : {{ issue.volume }}
-                                                {{ "issue"|trans }} : {{ issue.number }}
-
-                                                {% if issue.title %}-  {{ issue.title }} {% endif %}
-
-                                            </a>
-                                        </div>
-
-
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="alert alert-info">
-                            {{ ojs.any_content|trans }}
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
-                </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
             </div>
         </div>
     </div>
