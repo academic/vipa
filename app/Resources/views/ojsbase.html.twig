@@ -131,11 +131,10 @@
             {{ journal.footerText|raw }}
         </div>
     {% endif %}
-</div>
+</div><!-- .container -->
 {% block footer %}
     {% include '::ojsfooter.html.twig' %}
 {% endblock %}
-</div><!-- .container -->
 
 {% block javascripts %}
 
@@ -159,7 +158,7 @@
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/js/vendor/jquery.ui.widget.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/js/jquery.iframe-transport.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/js/jquery.fileupload.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/js/jbfileupload.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/app/js/jbfileupload.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jcrop/js/jquery.Jcrop.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function()
