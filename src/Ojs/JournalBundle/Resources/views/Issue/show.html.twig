@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_issue_index', {'journalId': app.request.get('journalId')}),'title': 'issue'|trans},
+    {'link': path('ojs_journal_issue_index', {'journalId': selectedJournal().id}),'title': 'issue'|trans},
     {'title': 'title.issue_show'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -95,9 +95,9 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_issue_index', {'journalId': app.request.get('journalId')})},
-        'edit': {'href': path('ojs_journal_issue_edit', {'id': entity.id, 'journalId': app.request.get('journalId')})},
-        'delete': {'href': path('ojs_journal_issue_delete', {'id': entity.id, 'journalId': app.request.get('journalId')}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_issue_index', {'journalId': selectedJournal().id})},
+        'edit': {'href': path('ojs_journal_issue_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_issue_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}
