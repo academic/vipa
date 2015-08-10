@@ -176,4 +176,56 @@ class Theme implements Translatable
     {
         return $this->isPublic;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Theme
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Theme
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Add journalTheme
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
+     *
+     * @return Theme
+     */
+    public function addJournalTheme(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
+    {
+        $this->journalThemes[] = $journalTheme;
+
+        return $this;
+    }
+
+    /**
+     * Remove journalTheme
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
+     */
+    public function removeJournalTheme(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
+    {
+        $this->journalThemes->removeElement($journalTheme);
+    }
 }

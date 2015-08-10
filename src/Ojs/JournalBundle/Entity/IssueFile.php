@@ -286,4 +286,28 @@ class IssueFile
         return $this->issue;
     }
 
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return IssueFile
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \Ojs\JournalBundle\Entity\IssueFileTranslation $translation
+     */
+    public function removeTranslation(\Ojs\JournalBundle\Entity\IssueFileTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+    }
 }
