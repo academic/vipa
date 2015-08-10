@@ -1,10 +1,13 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+
 use Ojs\CmsBundle\Entity\Announcement;
+use APY\DataGridBundle\Grid\Mapping\Source;
 
 /**
  * JournalAnnouncement
+ * @Source(columns="id, title, content")
  */
 class JournalAnnouncement extends Announcement
 {
