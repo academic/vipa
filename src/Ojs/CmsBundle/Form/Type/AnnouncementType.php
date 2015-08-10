@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\AdminBundle\Form\Type;
+namespace Ojs\CmsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
