@@ -221,6 +221,7 @@ class ArticleSubmissionController extends Controller
                 $i++;
             }
             foreach ($article->getArticleFiles() as $f_articleFile) {
+                $f_articleFile->setArticle($article);
                 $f_articleFile->setVersion(0);
             }
             $em->persist($article);
@@ -366,9 +367,12 @@ class ArticleSubmissionController extends Controller
                 $f_citations->setLocale($journal->getMandatoryLang()->getCode());
                 $i++;
             }
+
             foreach ($article->getArticleFiles() as $f_articleFile) {
                 $f_articleFile->setVersion(0);
+                $f_articleFile->setArticle($article);
             }
+
             $em->persist($article);
             $em->flush();
 
