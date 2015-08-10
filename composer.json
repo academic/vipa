@@ -63,7 +63,8 @@
     "friendsofsymfony/jsrouting-bundle": "^1.5",
     "wdalmut/php-deb-packager": "^0.0.13",
     "okulbilisim/workflow-bundle": "dev-master",
-    "jbouzekri/file-uploader-bundle": "~2.0"
+    "jbouzekri/file-uploader-bundle": "~2.0",
+    "friendsofsymfony/user-bundle": "dev-master"
   },
   "require-dev": {
     "okulbilisim/ojs-message-bundle": "v1.0",

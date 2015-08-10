@@ -1,3 +1,5 @@
+
+
 journal_institution_hosting:
   prefix:   /
   resource: "@OjsSiteBundle/Resources/config/routing/hosting.yml"
@@ -86,3 +88,5 @@ workflow:
 
 jb_fileupload_crop:
   resource: "@JbFileUploaderBundle/Resources/config/routing.yml"
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

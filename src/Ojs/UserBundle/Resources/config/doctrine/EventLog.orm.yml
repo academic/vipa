@@ -1,29 +1,29 @@
 Ojs\UserBundle\Entity\EventLog:
-    type: entity
-    table: event_log
-    repositoryClass: Ojs\UserBundle\Entity\EventLogRepository
+  type: entity
+  table: event_log
+  repositoryClass: Ojs\UserBundle\Entity\EventLogRepository
+  id:
     id:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-    fields:
-        eventInfo:
-            type: text
-            column: event_info
-        eventDate:
-            type: datetime
-            column: event_date
-            nullable: true
-        ip:
-            type: string
-            length: '50'
-        userId:
-            type: integer
-            column: user_id
-        affectedUserId:
-            type: integer
-            column: affected_user_id
-            nullable: true
-    lifecycleCallbacks: {  }
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    eventInfo:
+      type: text
+      column: event_info
+    eventDate:
+      type: datetime
+      column: event_date
+      nullable: true
+    ip:
+      type: string
+      length: '50'
+    userId:
+      type: integer
+      column: user_id
+    affectedUserId:
+      type: integer
+      column: affected_user_id
+      nullable: true
+  lifecycleCallbacks: {  }

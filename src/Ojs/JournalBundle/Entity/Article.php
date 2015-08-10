@@ -1286,4 +1286,42 @@ class Article implements Translatable
     {
         return $this->getTitle()."[#{$this->getId()}]";
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Article
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Article
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleTranslation $translation
+     */
+    public function removeTranslation(\Ojs\JournalBundle\Entity\ArticleTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+    }
 }

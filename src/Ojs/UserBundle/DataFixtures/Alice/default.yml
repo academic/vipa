@@ -5,11 +5,12 @@
     firstName: Author
     lastName: Demo
     email (unique): demo.author@ojs.io
-    isActive: true
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
-    status: 1
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
     title: Dr.
-    isActive: 1
     tags: <text(20)>, <text(10)>
   user_journal_manager:
     username (unique): demo_journal_manager
@@ -17,43 +18,47 @@
     firstName: Journal Manager
     lastName: Demo
     email (unique): demo.manager@ojs.io
-    isActive: true
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
-    status: 1
     title: Prof. Dr.
-    isActive: 0
     tags: <text(20)>, <text(10)>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
   user_demo_tester:
     username (unique): demo_journal_tester
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
     firstName: Journal Tester
     lastName: Demo
     email (unique): demo.tester@ojs.io
-    isActive: true
     apikey (unique): 'NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw=='
-    status: 1
     title: Prof. Dr.
-    isActive: 0
     tags: <text(20)>, <text(10)>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
   user_demo_editor:
     username (unique): demo_editor
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
     firstName: Journal Editor
     lastName: Demo
     email (unique): demo.editor@ojs.io
-    isActive: true
     apikey (unique): 'NTg3HjluYmSzZDE0MDZyMWY4ITlnOTMwEWQyRmNtMTYwMzU0NjY0Yw=='
-    status: 1
     title: Prof. Dr.
-    isActive: 0
     tags: <text(20)>, <text(10)>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
   random_user_{1..100}:
     username (unique): <userName()>
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
     firstName: <firstName()>
     lastName: <lastName()>
     email (unique): <companyEmail()>
-    isActive: true
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
-    status: 1
-    isActive: 0
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
