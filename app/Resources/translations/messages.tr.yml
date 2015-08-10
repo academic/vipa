@@ -951,6 +951,11 @@ theme.new: 'New Theme'
 theme.plural: Themes
 title: Title
 title.admin_dashboard: 'Admin Dashboard'
+title.announcement: Duyuru
+title.announcements: Duyurular
+title.announcement_edit: 'Duyuruyu Düzenle'
+title.announcement_new: 'Yeni Duyuru'
+title.announcement_show: 'Duyuru Ayrıntıları'
 title.announcements: Announcements
 title.api: 'API Home'
 title.archives: Archives
