@@ -15,30 +15,37 @@
     {% stylesheets '@apptour_css' output="assets/prod/css/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
+
+    <style type="text/css">
+        .btn {
+            margin-bottom: 5px;
+        }
+        .btn-xs {
+            margin-bottom: 0;
+        }
+    </style>
 {% endblock %}
 
 {% block body -%}
-    <div class="large-12 columns">
-        <div class="panel">
-            <h1>{{ "journal.list"|trans }}</h1>
-            {% include '::flashbag.html.twig' %}
+    <div class="panel">
+        <h1>{{ "journal.list"|trans }}</h1>
+        {% include '::flashbag.html.twig' %}
 
-            <a class="btn btn-info" href="{{ path('ojs_admin_journal_index') }}">
-                <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{ "journal.all"|trans }}</a>
-            <a class="btn btn-default" id="link-admin-my-journals" href="{{ path('ojs_journal_user_my') }}">
-                <i class="fa fa-user"></i> {{ "journal.my"|trans }}</a>
-            <a class="btn btn-default" href="{{ path('ojs_admin_journal_not_finished') }}">
-                {{ "not.finished"|trans }}
-            </a>
-            <a href="{{ path('ojs_admin_journal_new') }}" class="btn btn-success">
-                {{ "c"|trans }}
-            </a>
+        <a class="btn btn-info" href="{{ path('ojs_admin_journal_index') }}">
+            <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{ "journal.all"|trans }}</a>
+        <a class="btn btn-default" id="link-admin-my-journals" href="{{ path('ojs_journal_user_my') }}">
+            <i class="fa fa-user"></i> {{ "journal.my"|trans }}</a>
+        <a class="btn btn-default" href="{{ path('ojs_admin_journal_not_finished') }}">
+            {{ "not.finished"|trans }}
+        </a>
+        <a href="{{ path('ojs_admin_journal_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
 
-            <hr>
-            {{ grid(grid) }}
+        <hr>
+        {{ grid(grid) }}
 
 
-        </div>
     </div>
 {% endblock %}
 

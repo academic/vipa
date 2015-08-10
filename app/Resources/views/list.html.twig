@@ -14,13 +14,15 @@
                     {% endif %}
                 </div>
                 <div class="grid_body">
-                    <table CLASS="table table-bordered table-striped">
-                        {% if grid.isTitleSectionVisible %}
-                            {{ grid_titles(grid) }}
-                        {% endif %}
+                    <div class="table-responsive">
+                        <table CLASS="table table-bordered table-striped">
+                            {% if grid.isTitleSectionVisible %}
+                                {{ grid_titles(grid) }}
+                            {% endif %}
 
-                        {{ grid_rows(grid) }}
-                    </table>
+                            {{ grid_rows(grid) }}
+                        </table>
+                    </div>
                 </div>
                 <div class="grid_footer">
                     {% if grid.isPagerSectionVisible %}
