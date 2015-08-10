@@ -1,5 +1,19 @@
 {% extends '::ojsbase.html.twig' %}
 {% set hideleft = true %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        @media (max-width: 400px) {
+            .btn-primary {
+                font-size: 12px !important;
+            }
+        }
+        .margin-bot {
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock %}
 {% block title %}{{ 'title.admin_dashboard'|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
@@ -41,7 +55,7 @@
                         </h4>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-6 col-xs-12">
+                        <div class="col-md-6 col-xs-12 margin-bot">
                             <a href="{{ path('ojs_admin_user_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">
                                 <span class="btn-label pull-left col-md-3 col-xs-3">

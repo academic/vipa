@@ -663,7 +663,7 @@ a.vimeo:hover * { color:#FFF; }
 
 .grid-row-actions{ margin: 0; width: auto;
                    padding: 0;}
-.grid-row-actions li{ float: left; list-style-type: none}
+.grid-row-actions li{ display: inline-block; list-style-type: none}
 
 .select2-container.select2-container-multi.form-control{height: auto!important;}
 .select2-container{width: 100%;}
@@ -769,6 +769,12 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     max-width: 100%;
     margin-bottom: 5px;
 }
+.jb_crop_upload, .jcrop-holder, .jb_crop_img {
+    max-width: 100% !important;
+}
+.jcrop-holder {
+    margin-bottom: 5px;
+}
 
 .fileinput-button:hover a {
      text-decoration: none !important;
@@ -803,4 +809,10 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 
 .select2-selection {
     max-width: 100%;
+}
+
+@media (max-width: 360px) {
+    .img-in-table {
+        max-width: 150px;
+    }
 }

@@ -17,6 +17,7 @@ Same thing for all classes starting with jb_
 {% endblock %}
 
 {% block jb_file_ajax_widget %}
+    <br />
     <div class="alert alert-danger jb_result_error" style="display: none;"></div>
     <span class="fileinput-button">
         <span><a href="javascript:void(0);" class="btn btn-primary"><i class="fa fa-upload"></i> {{ 'file'|trans }}</a></span>
@@ -62,7 +63,7 @@ Same thing for all classes starting with jb_
                  src="{{ previewSrc }}"
                  data-default="{{ asset(default_image) }}"
                  {% if img_width is defined %}width="{{ img_width }}"{% endif %}
-                    {% if img_height is defined %}width="{{ img_height }}"{% endif %} />
+                    {% if img_height is defined %}height="{{ img_height }}"{% endif %} />
 
             <img class="jb_loading"
                  src="{{ asset(loading_file) }}"
