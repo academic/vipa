@@ -65,8 +65,9 @@
         <link href="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/css/jquery.fileupload.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('bundles/jbfileuploader/css/jbfileupload.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('bundles/jbfileuploader/lib/jcrop/css/jquery.Jcrop.min.css') }}" type="text/css" rel="stylesheet" />
-
-
+        {% if form is defined %}
+            {{ form_stylesheet(form) }}
+        {% endif %}
     {% endblock %}
 
 
@@ -143,6 +144,9 @@
     {% endjavascripts %}
     {% if currentJournal is defined and journal.theme %}
     <script type="text/javascript" src="/assets/theme/{{ journal.theme.name }}/js/main.js"></script>
+    {% endif %}
+    {% if form is defined %}
+        {{ form_javascript(form) }}
     {% endif %}
 
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
