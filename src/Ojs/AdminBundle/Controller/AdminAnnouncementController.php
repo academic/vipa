@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
-use Ojs\AdminBundle\Form\Type\AnnouncementType;
+use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\Common\Controller\OjsController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
