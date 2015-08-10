@@ -23,9 +23,8 @@ class Theme implements Translatable
 
     /**
      * @var string
-     * @GRID\Column(title="name")
      */
-    private $name;
+    private $css;
 
     /**
      * @var string
@@ -115,27 +114,6 @@ class Theme implements Translatable
     }
 
     /**
-     * Set name
-     * @param  string $name
-     * @return Theme
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Set title
      * @param  string $title
      * @return Theme
@@ -175,5 +153,21 @@ class Theme implements Translatable
     public function getIsPublic()
     {
         return $this->isPublic;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCss()
+    {
+        return $this->css;
+    }
+
+    /**
+     * @param string $css
+     */
+    public function setCss($css)
+    {
+        $this->css = $css;
     }
 }

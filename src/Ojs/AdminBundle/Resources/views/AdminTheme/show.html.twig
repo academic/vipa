@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ entity.name|trans }}</h1>
+    <h1>{{ entity.title|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
@@ -21,8 +21,8 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>{{ "name"|trans }}</th>
-            <td>{{ entity.name }}</td>
+            <th>{{ "title"|trans }}</th>
+            <td>{{ entity.title }}</td>
         </tr>
         <tr>
             <th>{{ "content"|trans }}</th>

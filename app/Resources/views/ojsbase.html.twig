@@ -60,7 +60,7 @@
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
         {% if journal is defined and journal.theme %}
-            <link rel="stylesheet" href="/assets/theme/{{ journal.theme.name }}/css/style.css"/>
+            {{ journal.theme.css|raw }}
         {% endif %}
         <link href="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/css/jquery.fileupload.css') }}" type="text/css" rel="stylesheet" />
         <link href="{{ asset('bundles/jbfileuploader/css/jbfileupload.css') }}" type="text/css" rel="stylesheet" />
