@@ -10,7 +10,7 @@ Author: Author
 Authors: Authors
 Avatar: Avatar
 Chamber: Chamber
-workflow.competing_of_interest_file: 'competing of interest file'
+workflow.competing_interests_file: 'Competing interests file'
 Confirm: Confirm
 Content: 'Content'
 Copyeditor: Copyeditor
@@ -287,7 +287,7 @@ collapse: Collapse
 color: Color
 color.generate: 'Generate color'
 common: Common
-competingOfInterest: 'Competing of Interest'
+competingInterests: 'Competing Interests'
 conference: Conference
 confidential: Confidential
 contact: Contact
@@ -1312,9 +1312,9 @@ waiting: Waiting
 wiki: Wiki
 workflow: Workflow
 workflow.advanced_settings: 'Advanced Settings'
-workflow.competing_guide: 'Guidelines for filling a <i>competing of Interest</i> statement.'
-workflow.competing_interest: 'Competing of interest statement'
-workflow.competing_question: 'User must send a competing of interest statement.'
+workflow.competing_guide: 'Guidelines for filling a <i>competing interests</i> statement.'
+workflow.competing_interest: 'Competing interests statement'
+workflow.competing_question: 'User must send a competing interests statement.'
 workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
 workflow.each_field_one_line: 'Add each field text as one line'
 workflow.first_step: 'First Step'
