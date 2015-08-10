@@ -78,12 +78,18 @@
             </div>
             {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
             <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-heading">{{ "journal.manager"|trans }}</div>
-                <div class="list-group">
+                <div class="panel-heading">
+                    {{ "journal.manager"|trans }}
+                    <a class="btn btn-default btn-xs hidden-sm hidden-md hidden-lg pull-right" role="button" data-toggle="collapse" href="#journalManagerMenu" aria-expanded="false" aria-controls="journalManagerMenu">
+                        <i class="fa fa-caret-down"></i>
+                        {{ "Expand"|trans }}
+                    </a>
+                </div>
+                <div id="journalManagerMenu" class="list-group collapse" aria-expanded="false">
                     {% if is_granted('EDIT', selectedJournal()) %}
                         <a class="list-group-item" href="{{ path('ojs_journal_settings_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-cog"></i>
+                                <i class="fa fa-cog fa-fw"></i>
                             </span>
                             {{ "settings"|trans }}
                         </a>
@@ -91,7 +97,7 @@
 
                     <a class="list-group-item" href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-key"></i>
+                            <i class="fa fa-key fa-fw"></i>
                         </span>
                         {{ "journal.users"|trans }}
                     </a>
@@ -99,7 +105,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'articles') %}
                         <a class="list-group-item" href="{{ path('ojs_journal_article_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-file-text"></i>
+                            <i class="fa fa-file-text fa-fw"></i>
                         </span>
                             {{"journal.articles"|trans}}
                         </a>
@@ -108,7 +114,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'sections') %}
                         <a class="list-group-item" href="{{ path('ojs_journal_section_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-square"></i>
+                                <i class="fa fa-square fa-fw"></i>
                             </span>
                             {{ "journalsection"|trans }}
                         </a>
@@ -117,7 +123,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'issues') %}
                         <a class="list-group-item" href="{{ path('ojs_journal_issue_index', {journalId: selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-newspaper-o"></i>
+                                <i class="fa fa-newspaper-o fa-fw"></i>
                             </span>
                             {{ "issue.manager"|trans }}
                         </a>
@@ -126,7 +132,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'contacts') %}
                     <a class="list-group-item" href="{{ path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-credit-card"></i>
+                            <i class="fa fa-credit-card fa-fw"></i>
                         </span>
                         {{ "contact.plural"|trans }}
                     </a>
@@ -135,7 +141,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'mailTemplate') %}
                     <a class="list-group-item" href="{{ path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-envelope fa-fw"></i>
                         </span>
                         {{"mail.templates"|trans}}
                     </a>
@@ -144,7 +150,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'design') %}
                     <a class="list-group-item" href="{{ path('ojs_journal_design_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-navicon"></i>
+                            <i class="fa fa-navicon fa-fw"></i>
                         </span>
                         {{ "journal.design"|trans }}
                     </a>
@@ -153,7 +159,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'design') %}
                     <a class="list-group-item" href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-th-large"></i>
+                            <i class="fa fa-th-large fa-fw"></i>
                         </span>
                         {{ "journal.theme"|trans }}
                     </a>
@@ -162,7 +168,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'boards') %}
                         <a class="list-group-item" href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-users fa-fw"></i>
                             </span>
                             {{ "boards"|trans }}
                         </a>
@@ -171,7 +177,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'boards') %}
                         <a class="list-group-item" href="{{ path('okul_bilisim_workflow_step_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-random"></i>
+                                <i class="fa fa-random fa-fw"></i>
                             </span>
                             {{ "workflow.steps"|trans }}
                         </a>
@@ -179,7 +185,7 @@
 
                     <a class="list-group-item" href="{{ path('reports_index') }}">
                         <span style="color: #3c763d; margin-right: 3px;">
-                            <i class="fa fa-file"></i>
+                            <i class="fa fa-file fa-fw"></i>
                         </span>
                         {{ "reports.title"|trans }}
                     </a>

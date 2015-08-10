@@ -775,6 +775,9 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 .jcrop-holder {
     margin-bottom: 5px;
 }
+.fileinput-button {
+    display: inline !important;
+}
 
 .fileinput-button:hover a {
      text-decoration: none !important;
@@ -801,6 +804,11 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
         width: 145px;
     }
 }
+@media (min-width: 768px) {
+    #journalManagerMenu {
+        display: block !important;
+    }
+}
 @media (max-width: 767px) {
     .navbar-search-box {
         width: 100%;
@@ -814,5 +822,9 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 @media (max-width: 360px) {
     .img-in-table {
         max-width: 150px;
+    }
+
+    #adminLogHistory {
+        font-size: 10px;
     }
 }
