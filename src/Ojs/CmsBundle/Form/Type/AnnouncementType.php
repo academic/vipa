@@ -22,7 +22,7 @@ class AnnouncementType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'Ojs\AdminBundle\Entity\AdminAnnouncement']);
+        $resolver->setDefaults(['data_class' => 'Ojs\CmsBundle\Entity\Announcement']);
     }
 
     /**
@@ -30,6 +30,6 @@ class AnnouncementType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_admin_announcement';
+        return 'ojs_cms_announcement';
     }
 }
