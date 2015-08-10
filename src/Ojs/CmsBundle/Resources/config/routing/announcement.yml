@@ -1,0 +1,30 @@
+announcement:
+    path:     /
+    defaults: { _controller: "OjsCmsBundle:Announcement:index" }
+
+announcement_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsCmsBundle:Announcement:show" }
+
+announcement_new:
+    path:     /new
+    defaults: { _controller: "OjsCmsBundle:Announcement:new" }
+
+announcement_create:
+    path:     /create
+    defaults: { _controller: "OjsCmsBundle:Announcement:create" }
+    methods:  POST
+
+announcement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsCmsBundle:Announcement:edit" }
+
+announcement_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsCmsBundle:Announcement:update" }
+    methods:  [POST, PUT]
+
+announcement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsCmsBundle:Announcement:delete" }
+    methods:  [POST, DELETE]
