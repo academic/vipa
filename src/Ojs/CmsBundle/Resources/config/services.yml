@@ -1,0 +1,4 @@
+services:
+#    ojs_cms.example:
+#        class: Ojs\CmsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,4 @@
+ojs_cms_announcement:
+    resource: "@OjsCmsBundle/Resources/config/routing/announcement.yml"
+    prefix:   /announcement
+
