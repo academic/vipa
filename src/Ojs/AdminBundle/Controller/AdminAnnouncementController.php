@@ -45,6 +45,9 @@ class AdminAnnouncementController extends OjsController
      */
     public function newAction()
     {
+        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new AdminAnnouncement();
         $form = $this->createCreateForm($entity);
 
@@ -62,7 +65,7 @@ class AdminAnnouncementController extends OjsController
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new AdminAnnouncement())) {
+        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
@@ -131,6 +134,7 @@ class AdminAnnouncementController extends OjsController
     public function editAction(AdminAnnouncement $entity)
     {
         $this->throw404IfNotFound($entity);
+        
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
