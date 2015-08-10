@@ -24,7 +24,7 @@ class ArticleStartType extends AbstractType
                 'jb_file_ajax',
                 array(
                     'endpoint' => 'articlefiles',
-                    'label' => 'workflow.competing_of_interest_file',
+                    'label' => 'workflow.competing_interests_file',
                     'constraints' => array(
                         new NotBlank()
                     )
