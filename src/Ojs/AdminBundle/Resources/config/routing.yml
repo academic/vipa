@@ -77,3 +77,7 @@ ojs_admin_index:
 ojs_admin_system_settings:
     resource: "@OjsAdminBundle/Resources/config/routing/system_settings.yml"
     prefix:   settings
+
+ojs_admin_announcement:
+    resource: "@OjsAdminBundle/Resources/config/routing/announcement.yml"
+    prefix:   announcement

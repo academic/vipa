@@ -951,7 +951,11 @@ theme.new: 'New Theme'
 theme.plural: Themes
 title: Title
 title.admin_dashboard: 'Admin Dashboard'
+title.announcement: Announcement
 title.announcements: Announcements
+title.announcement_edit: 'Edit Announcement'
+title.announcement_new: 'New Announcement'
+title.announcement_show: 'Announcement Details'
 title.api: 'API Home'
 title.archives: Archives
 title.article: Article
