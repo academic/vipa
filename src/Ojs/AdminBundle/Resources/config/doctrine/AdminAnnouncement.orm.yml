@@ -1,0 +1,4 @@
+Ojs\AdminBundle\Entity\AdminAnnouncement:
+    type: entity
+    repositoryClass: Ojs\AdminBundle\Entity\AdminAnnouncementRepository
+    lifecycleCallbacks: {  }

@@ -307,6 +307,11 @@ class Journal implements Translatable
     private $designs;
 
     /**
+     * @var ArrayCollection|JournalAnnouncement[]
+     */
+    private $announcements;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1630,5 +1635,21 @@ class Journal implements Translatable
     public function getDesigns()
     {
         return $this->designs;
+    }
+
+    /**
+     * @return ArrayCollection|JournalAnnouncement[]
+     */
+    public function getAnnouncements()
+    {
+        return $this->announcements;
+    }
+
+    /**
+     * @param ArrayCollection|JournalAnnouncement[] $announcements
+     */
+    public function setAnnouncements($announcements)
+    {
+        $this->announcements = $announcements;
     }
 }
