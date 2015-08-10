@@ -16,14 +16,14 @@ Ojs\JournalBundle\Entity\Theme:
             generator:
                 strategy: AUTO
     fields:
-        name:
-            type: string
-            length: 255
-            gedmo:
-              - versioned
         title:
             type: string
             length: 255
+            nullable: true
+            gedmo:
+              - versioned
+        css:
+            type: text
             nullable: true
             gedmo:
               - versioned
