@@ -198,16 +198,9 @@
                         {% if article.articleFiles|length > 0 %}
                             <div id="articlePreview">
                                 {% for file in article.articleFiles %}
-                                    {#{% if file.type == 0 %}
-                                        <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
-                                           class="embed btn btn-lg btn-primary"><i
-                                                    class="fa fa-download"></i> {{ file.title }}</a>
-                                    {% else %}#}
-                                        <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
-                                           class="btn btn-lg btn-primary"><i
-                                                    class="fa fa-download"></i> {{ file.title }}</a>
-
-                                    {#{% endif %}#}
+                                    <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
+                                       class="btn btn-lg btn-primary" target="_blank"><i
+                                                class="fa fa-download"></i> {{ file.title }}</a>
                                 {% endfor %}
                             </div>
                         {% endif %}
