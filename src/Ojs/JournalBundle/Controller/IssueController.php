@@ -415,7 +415,6 @@ class IssueController extends Controller
         $articles = $articleRepo->getOrderedArticlesByIssue($issue, true);
         $articlesUnissued = $articleRepo->getArticlesUnissued();
         $sections = $journal->getSections();
-
         $data = [
             'articles' => $articles,
             'journal' => $journal,
@@ -454,10 +453,10 @@ class IssueController extends Controller
         $selectedSection = $request->get('section', null);
 
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->find(
+        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
             array(
                 'id' => $articleId,
-                'journal' => $journal,
+                'journal' => $journal
             )
         );
 
@@ -466,8 +465,11 @@ class IssueController extends Controller
 
         if ($selectedSection) {
             /** @var JournalSection $section */
-            $section = $em->getRepository('OjsJournalBundle:JournalSection')->find(
-                array('id' => $selectedSection, 'journal' => $journal)
+            $section = $em->getRepository('OjsJournalBundle:JournalSection')->findOneBy(
+                array(
+                    'id' => $selectedSection,
+                    'journal' => $journal
+                )
             );
             $this->throw404IfNotFound($section);
         }

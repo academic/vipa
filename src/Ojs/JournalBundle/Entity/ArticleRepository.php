@@ -15,7 +15,7 @@ class ArticleRepository extends EntityRepository
      * @param  int $status
      * @return Article[]
      */
-    public function getArticlesUnissued($status = 3)
+    public function getArticlesUnissued($status = 1)
     {
         $q = $this->createQueryBuilder('a')
             ->select('a')
