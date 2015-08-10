@@ -15,7 +15,7 @@
                 </div>
                 <div class="grid_body">
                     <div class="table-responsive">
-                        <table CLASS="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped">
                             {% if grid.isTitleSectionVisible %}
                                 {{ grid_titles(grid) }}
                             {% endif %}
@@ -153,7 +153,13 @@
             {% set gridColumns %}
             {% for column in grid.columns %}
                 {% if column.visible(grid.isReadyForExport) %}
-                    <td class="grid-column-{{ column.renderBlockId }}{% if column.class %} {{ column.class }}{% endif %}{% if column.align != 'left'%} align-{{ column.align }}{% endif %}{% if loop.last %} last-column{% endif %}{% if last_row %} last-row{% endif %}">{{ grid_cell(column, row, grid)|raw }}</td>
+                    <td class="grid-column-{{ column.renderBlockId }}{% if column.class %} {{ column.class }}{% endif %}{% if column.align != 'left'%} align-{{ column.align }}{% endif %}{% if loop.last %} last-column{% endif %}{% if last_row %} last-row{% endif %}">
+                        {% if column.renderBlockId == 'description' %}
+                            {{ grid_cell(column, row, grid)|raw|truncate(100, true) }}
+                        {% else %}
+                            {{ grid_cell(column, row, grid)|raw }}
+                        {% endif %}
+                    </td>
                 {% endif %}
             {% endfor %}
             {% endset %}
