@@ -30,7 +30,7 @@ class CheckController extends Controller
         <li>from your web server using the web/config.php script.</li>
         </ul></div>';
 
-        $data['result'] .= '<table class="table table-striped">';
+        $data['result'] .= '<div class="table-responsive"><table id="checkTable" class="table table-striped">';
 
         $checkPassed = true;
         foreach ($symfonyRequirements->getRequirements() as $req) {
@@ -45,7 +45,7 @@ class CheckController extends Controller
             $data['result'] .= $this->echo_requirement($req);
         }
 
-        $data['result'] .= '</table>';
+        $data['result'] .= '</table></div>';
 
         return $this->render('OjsInstallerBundle:Default:check.html.twig', array('data' => $data));
     }
