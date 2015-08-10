@@ -116,6 +116,7 @@ jms_di_extra:
     all_bundles: false
     bundles: [OjsJournalBundle]
     directories: ["%kernel.root_dir%/../src"]
+
 sc_datetimepicker:
   picker: ~
 
