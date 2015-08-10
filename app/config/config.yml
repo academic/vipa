@@ -125,3 +125,9 @@ a2lix_translation_form:
   default_required: false      # [2]
   manager_registry: doctrine      # [3]
   templating: "::translationForm.html.twig"      # [4]
+
+norzechowicz_ace_editor:
+    base_path: "bundles/norzechowiczaceeditor/ace"
+    autoinclude: true
+    debug: false # sources not minified with uglify.js
+    noconflict: true # uses ace.require instead of require
