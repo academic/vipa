@@ -5,7 +5,7 @@ namespace Ojs\CmsBundle\Entity;
 /**
  * Announcement
  */
-class Announcement
+abstract class Announcement
 {
     /**
      * @var integer

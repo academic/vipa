@@ -1,0 +1,11 @@
+Ojs\JournalBundle\Entity\JournalAnnouncement:
+    type: entity
+    repositoryClass: Ojs\JournalBundle\Entity\JournalAnnouncementRepository
+    manyToOne:
+        journal:
+            targetEntity: Ojs\JournalBundle\Entity\Journal
+            inversedBy: announcements
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
