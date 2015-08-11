@@ -286,7 +286,7 @@ class InstallCommand extends ContainerAwareCommand
         $classes = [
             'OjsJournalBundle:Journal' => [
                 'adminMenu','boards','sections','issues','articles','design','contacts','block','theme','index',
-                'checklist','mailTemplate','report','userRole','citation','steps','announcements'
+                'checklist','mailTemplate','report','userRole','citation','steps','announcements', 'pages'
             ],
             'OjsUserBundle:User' => null, 'OjsJournalBundle:Institution' => null, 'OjsJournalBundle:InstitutionTypes' => null,
             'OjsUserBundle:Role' => null, 'OjsJournalBundle:JournalContact' => null, 'OjsJournalBundle:ContactTypes' => null,
@@ -388,6 +388,9 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('announcements')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('pages')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )->permit(MaskBuilder::MASK_OWNER)->save();
 
