@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\CmsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;

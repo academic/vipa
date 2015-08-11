@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Form\Type;
+namespace Ojs\CmsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +16,7 @@ class PageType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\SiteBundle\Entity\Page'
+                'translatable_class' => 'Ojs\CmsBundle\Entity\Page'
             ])
             ->add('tags', 'tags')
             ->add('image');
@@ -29,7 +29,7 @@ class PageType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\SiteBundle\Entity\Page',
+                'data_class' => 'Ojs\CmsBundle\Entity\Page',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -43,6 +43,6 @@ class PageType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_sitebundle_page';
+        return 'ojs_cms_page';
     }
 }

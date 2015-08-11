@@ -1,4 +1,4 @@
-Ojs\SiteBundle\Entity\PageTranslation:
+Ojs\CmsBundle\Entity\PageTranslation:
     type: entity
     table: page_translations
     id:

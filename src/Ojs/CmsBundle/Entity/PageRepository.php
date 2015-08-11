@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\CmsBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
