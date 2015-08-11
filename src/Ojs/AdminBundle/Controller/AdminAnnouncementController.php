@@ -127,7 +127,7 @@ class AdminAnnouncementController extends OjsController
     }
 
     /**
-     * Displays a form to edit an existing Lang entity.
+     * Displays a form to edit an existing AdminAnnouncement entity.
      * @param  AdminAnnouncement $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -156,7 +156,7 @@ class AdminAnnouncementController extends OjsController
     }
 
     /**
-     * Edits an existing Lang entity.
+     * Edits an existing AdminAnnouncement entity.
      * @param  Request $request
      * @param  AdminAnnouncement $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -189,7 +189,7 @@ class AdminAnnouncementController extends OjsController
     }
 
     /**
-     * Creates a form to edit a Lang entity.
+     * Creates a form to edit a AdminAnnouncement entity.
      *
      * @param  AdminAnnouncement $entity The entity
      * @return \Symfony\Component\Form\Form The form

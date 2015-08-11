@@ -92,7 +92,7 @@ class AdminPageController extends Controller
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminAnnouncement:new.html.twig',
+            'OjsAdminBundle:AdminPage:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
     }
@@ -191,7 +191,7 @@ class AdminPageController extends Controller
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminAnnouncement:edit.html.twig',
+            'OjsAdminBundle:AdminPage:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),

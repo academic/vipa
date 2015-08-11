@@ -5,7 +5,7 @@ namespace Ojs\AdminBundle\Entity;
 use Ojs\CmsBundle\Entity\Page;
 
 /**
- * AdminAnnouncement
+ * AdminPage
  */
 class AdminPage extends Page
 {
