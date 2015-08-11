@@ -291,10 +291,11 @@ class InstallCommand extends ContainerAwareCommand
             ],
             'OjsUserBundle:User' => null, 'OjsJournalBundle:Institution' => null, 'OjsJournalBundle:InstitutionTypes' => null,
             'OjsUserBundle:Role' => null, 'OjsJournalBundle:JournalContact' => null, 'OjsJournalBundle:ContactTypes' => null,
-            'OjsJournalBundle:Theme' => null, 'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null, 'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null,
-            'OjsJournalBundle:Design' => null, 'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null,
-            'OjsJournalBundle:Subject' => null, 'OjsUserBundle:Proxy' => null, 'OjsUserBundle:Notification' => null,
-            'OjsJournalBundle:ArticleTypes' => null, 'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null,
+            'OjsJournalBundle:Theme' => null, 'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null,
+            'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:Design' => null,
+            'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
+            'OjsUserBundle:Proxy' => null, 'OjsUserBundle:Notification' => null, 'OjsJournalBundle:ArticleTypes' => null,
+            'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,
         ];
         foreach ($classes as $className => $fields) {
             $realClassName = $em->getRepository($className)->getClassName();

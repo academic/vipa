@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\CmsBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -8,9 +8,9 @@ use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Page
- * @GRID\Source(columns="id,title,body,tags,image")
+ * @GRID\Source(columns="id, title, body, tags, image")
  */
-class Page
+abstract class Page
 {
     use GenericEntityTrait;
     /**
