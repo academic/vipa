@@ -270,7 +270,6 @@ class InstallCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $theme = new Theme();
-        $theme->setName('default');
         $theme->setTitle('Ojs');
         $em->persist($theme);
         $em->flush();
