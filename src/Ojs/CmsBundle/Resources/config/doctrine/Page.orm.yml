@@ -8,7 +8,7 @@ Ojs\CmsBundle\Entity\Page:
         type: string
     discriminatorMap:
         admin: Ojs\AdminBundle\Entity\AdminPage
-        #journal: Ojs\JournalBundle\Entity\JournalPage
+        journal: Ojs\JournalBundle\Entity\JournalPage
     oneToMany:
         translations:
             targetEntity: Ojs\CmsBundle\Entity\PageTranslation
