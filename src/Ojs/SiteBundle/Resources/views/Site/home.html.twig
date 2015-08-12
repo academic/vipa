@@ -96,101 +96,68 @@
                         </div>
                     </div>
                     <hr/>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="content">
-                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                                    <!-- Indicators -->
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#carousel-example-generic" data-slide-to="0"
-                                            class="active"></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                    </ol>
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel-inner">
-                                        <div class="item active">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="thumbnail adjust1">
-                                                        <div class="col-md-2 col-sm-2 col-xs-12"><img
-                                                                    class="media-object img-rounded img-responsive"
-                                                                    src="http://placehold.it/100"></div>
-                                                        <div class="col-md-10 col-sm-10 col-xs-12">
-                                                            <div class="caption"><p class="text-info lead adjust2">I
-                                                                    can't wait to test this out.</p>
+                                {% if announcement_count > 0 %}
+                                    <div id="announcement-carousel" class="carousel slide" data-ride="carousel">
+                                        <!-- Indicators -->
+                                        <ol class="carousel-indicators">
+                                            {% for i in 0..announcement_count - 1 %}
+                                                {% if loop.first %}
+                                                    <li data-target="#announcement-carousel" data-slide-to="0" class="active"></li>
+                                                {% else %}
+                                                    <li data-target="#announcement-carousel" data-slide-to="{{ i }}"></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ol>
 
-                                                                <p><span class="glyphicon glyphicon-thumbs-up"></span> This
-                                                                    is a testimonial window. Feedback of user can be
-                                                                    displayed here.</p>
-                                                                <blockquote class="adjust2"><p>Abhijit Goswami</p>
-                                                                    <small><cite title="Source Title"><i
-                                                                                    class="glyphicon glyphicon-globe"></i>
-                                                                            www.example1.com</cite></small>
-                                                                </blockquote>
+                                        <!-- Wrapper for slides -->
+                                        <div class="carousel-inner">
+                                            {% for announcement in announcements %}
+                                                {% if loop.first %}
+                                                    <div class="item active">
+                                                        <div class="row">
+                                                            <div class="col-xs-1 col-xs-offset-3">
+                                                                <h1>
+                                                                    <i class="fa fa-bullhorn"></i>
+                                                                </h1>
+                                                            </div>
+                                                            <div class="col-xs-5">
+                                                                <h3>{{ announcement.title }}</h3>
+                                                                <p>{{ announcement.content }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="thumbnail adjust1">
-                                                        <div class="col-md-2 col-sm-2 col-xs-12"><img
-                                                                    class="media-object img-rounded img-responsive"
-                                                                    src="http://placehold.it/100"></div>
-                                                        <div class="col-md-10 col-sm-10 col-xs-12">
-                                                            <div class="caption"><p class="text-info lead adjust2">I
-                                                                    can't wait to test this out.</p>
-
-                                                                <p><span class="glyphicon glyphicon-thumbs-up"></span> This
-                                                                    is a testimonial window. Feedback of user can be
-                                                                    displayed here.</p>
-                                                                <blockquote class="adjust2"><p>Abhijit Goswami</p>
-                                                                    <small><cite title="Source Title"><i
-                                                                                    class="glyphicon glyphicon-globe"></i>
-                                                                            www.example2.com</cite></small>
-                                                                </blockquote>
+                                                {% else %}
+                                                    <div class="item">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <div class="col-xs-1 col-xs-offset-3">
+                                                                    <h1>
+                                                                        <i class="fa fa-bullhorn"></i>
+                                                                    </h1>
+                                                                </div>
+                                                                <div class="col-xs-5">
+                                                                    <h3>{{ announcement.title }}</h3>
+                                                                    <p>{{ announcement.content }}</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
-                                        <div class="item">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="thumbnail adjust1">
-                                                        <div class="col-md-2 col-sm-2 col-xs-12"><img
-                                                                    class="media-object img-rounded img-responsive"
-                                                                    src="http://placehold.it/100"></div>
-                                                        <div class="col-md-10 col-sm-10 col-xs-12">
-                                                            <div class="caption"><p class="text-info lead adjust2">I
-                                                                    can't wait to test this out.</p>
-
-                                                                <p><span class="glyphicon glyphicon-thumbs-up"></span> This
-                                                                    is a testimonial window. Feedback of user can be
-                                                                    displayed here.</p>
-                                                                <blockquote class="adjust2"><p>Abhijit Goswami</p>
-                                                                    <small><cite title="Source Title"><i
-                                                                                    class="glyphicon glyphicon-globe"></i>
-                                                                            www.example3.com</cite></small>
-                                                                </blockquote>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <!-- Controls -->
+                                        <a class="left carousel-control" href="#announcement-carousel" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </a>
+                                        <a class="right carousel-control" href="#announcement-carousel" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </a>
                                     </div>
-                                    <!-- Controls --> <a class="left carousel-control" href="#carousel-example-generic"
-                                                         data-slide="prev"> <span
-                                                class="glyphicon glyphicon-chevron-left"></span> </a> <a
-                                            class="right carousel-control" href="#carousel-example-generic"
-                                            data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </a></div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
