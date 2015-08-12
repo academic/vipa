@@ -10,7 +10,7 @@
         }
     </style>
 {% endblock %}
-{% set enable_social = true %}
+
 {% if isInstitutionHosting is defined %}
     {% set journalUrl = url('institution_hosting_journal_index',{slug:journal.slug}) %}
 {% elseif isJournalHosting is defined %}
