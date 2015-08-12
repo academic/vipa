@@ -34,10 +34,6 @@ ojs_admin_contact_type:
     resource: "@OjsAdminBundle/Resources/config/routing/contact_type.yml"
     prefix:   contact-type
 
-ojs_admin_theme:
-    resource: "@OjsAdminBundle/Resources/config/routing/theme.yml"
-    prefix:   theme
-
 ojs_admin_language:
     resource: "@OjsAdminBundle/Resources/config/routing/language.yml"
     prefix:   language
