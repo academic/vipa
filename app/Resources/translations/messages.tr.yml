@@ -1128,6 +1128,12 @@ title.password_create: 'Create Password'
 title.password_forgot: 'Forgot Password'
 title.password_reset: 'Reset Password'
 title.people_directory: 'Kişi Dizini'
+title.post: Gönderi
+title.post_detail: 'Gönderi Detail'
+title.post_edit: 'Edit Gönderi'
+title.post_new: 'New Gönderi'
+title.post_show: 'Show Gönderi'
+title.posts: Gönderiler
 title.privacy: Privacy
 title.private_account: 'Private Account'
 title.profile: Profile
