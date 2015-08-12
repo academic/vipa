@@ -12,21 +12,18 @@
 
 {% block breadcrumb %}
     <div class="text-center">
-        <h3>{{ "dashboard.admin"|trans }}</h3>
+        <h3>{{ "dashboard"|trans }}</h3>
     </div>
 {% endblock %}
 
 {% block body %}
     {% include '::flashbag.html.twig' %}
-
-    {% if selectedJournal() %}
+    {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
         <a href="{{ path("dashboard_editor") }}" class="btn btn-primary pull-right btn-wrap">
             <i class="fa fa-external-link"></i>
             {{ selectedJournal().title }} {{ "dashboard.editor"|trans }}
         </a>
-        <div class="clearfix"></div>
-        <br />
-    {% endif %}
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h4>{{ 'admin.dashboard.journal_settings'|trans }}</h4>
@@ -104,4 +101,10 @@
     <div>
         {{ getLogs(selectedJournal()) }}
     </div>
+
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            <h5>{{ "dashboard.use_left"|trans }}</h5>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
+use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
@@ -231,9 +232,15 @@ class ManagerController extends Controller
     public function userIndexAction(Request $request)
     {
         $dispatcher = $this->get('event_dispatcher');
+        $switcher = $this->createForm(new QuickSwitchType())->createView();
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->findBy(['submitterId' => $this->getUser()->getId()]);
 
         $response = $response = $this->render(
-            'OjsJournalBundle:User:home.html.twig'
+            'OjsJournalBundle:User:home.html.twig',
+            ['switcher' => $switcher, 'articles' => $articles]
         );
 
         $event = new WorkflowEvent($request);

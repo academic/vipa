@@ -17,11 +17,17 @@ class AdminController extends Controller
      */
     public function dashboardCheckAction()
     {
-        if ($this->isGranted('VIEW', new Journal())) {
+        if ($this->getUser()->isAdmin()) {
             return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
-        } elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
-            return $this->redirect($this->generateUrl('dashboard_editor'));
-        } else {
+        }
+
+        /* TODO: Redirect to journal dashboard
+        elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
+            return $this->redirect($this->generateUrl('ojs_journal_dashboard_index'));
+        }
+        */
+
+        else {
             return $this->redirect($this->generateUrl('ojs_user_index'));
         }
     }

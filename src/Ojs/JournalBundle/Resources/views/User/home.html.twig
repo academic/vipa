@@ -1,24 +1,52 @@
 {% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
 {% block title %}{{ 'title.user_welcome'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
-    {{ breadcrumb([{ 'title': 'title.user_welcome'|trans }]) }}
+    <h1 class="text-center">
+        {{ breadcrumb([{ 'title': 'title.user_welcome'|trans }]) }}
+    </h1>
 {% endblock %}
 
 {% block body %}
-
     {% include '::flashbag.html.twig' %}
-    <div class="panel panel panel-success">
-        <div class="panel-heading toggle-body">
-            <i class="fa fa-bar-chart-o fa-fw"></i> {{ "articles.needAction"|trans }} <i
-                    class="pull-right fa fa-angle-double-up"></i>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4>
+                <i class="fa fa-random"></i>
+                {{ 'admin.dashboard.switcher.title'|trans }}
+            </h4>
         </div>
+
         <div class="panel-body">
-
-
+            {{ form(switcher) }}
         </div>
-        <!-- /.panel-body -->
     </div>
 
+    <div class="panel panel-success">
+        <div class="panel-heading toggle-body">
+            <i class="fa fa-bar-chart-o fa-fw"></i> {{ "title.articles"|trans }}
+            <i class="pull-right fa fa-angle-double-up"></i>
+        </div>
 
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>{{ 'title.journal'|trans }}</th>
+                    <th>{{ 'title.article'|trans }}</th>
+                    <th>{{ 'status'|trans }}</th>
+                    <th>{{ 'submissionDate'|trans }}</th>
+                </tr>
+
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.journal.title }}</td>
+                        <td>{{ article.title }}</td>
+                        <td>{{ statusText(article.status)|trans }}</td>
+                        <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}
