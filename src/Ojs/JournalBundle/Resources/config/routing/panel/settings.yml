@@ -14,7 +14,3 @@ ojs_journal_settings_submission:
 ojs_journal_settings_mail:
     path:  /{journalId}/settings/mail
     defaults: { _controller: OjsJournalBundle:Manager:journalSettingsMail }
-
-ojs_journal_settings_page:
-    path:  /{journalId}/settings/page
-    defaults: { _controller: OjsJournalBundle:Manager:journalSettingsPage }

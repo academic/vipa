@@ -1,68 +1,51 @@
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.post_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_journal_post_index', {'journalId': selectedJournal().id}),'title': 'title.posts'|trans},
+        {'title': 'title.post_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Post</h1>
-
-    <table class="record_properties">
+    <h1>{{ 'title.post_show'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    <table class="record_properties table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{ "title"|trans }}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Slug</th>
-                <td>{{ entity.slug }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
+                <th>{{ "content"|trans }}</th>
                 <td>{{ entity.content }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ entity.status }}</td>
-            </tr>
-            <tr>
-                <th>Post_type</th>
-                <td>{{ entity.posttype }}</td>
-            </tr>
-            <tr>
-                <th>Object</th>
-                <td>{{ entity.object }}</td>
-            </tr>
-            <tr>
-                <th>Objectid</th>
-                <td>{{ entity.objectId }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Deletedat</th>
-                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('post') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('post_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    {{
+        actions({
+            'back': {'href': path('ojs_journal_post_index', {'journalId': selectedJournal().id})},
+            'edit': {'href': path('ojs_journal_post_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+            'delete': {
+                'href': path('ojs_journal_post_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
+                'permission': is_granted('DELETE', entity),
+                'attributes': {'data-token': token}
+            },
+        })
+    }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('post', {{ entity.id }})
+    </script>
 {% endblock %}

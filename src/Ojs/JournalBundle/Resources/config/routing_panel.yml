@@ -64,4 +64,3 @@ ojs_journal_page:
 
 ojs_journal_post:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/post.yml"
-    prefix: post

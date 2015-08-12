@@ -1,36 +1,30 @@
-post:
-    path:     /
-    defaults: { _controller: "OjsJournalBundle:JournalPost:index" }
+ojs_journal_post_index:
+    path:     /{journalId}/post
+    defaults: { _controller: OjsJournalBundle:JournalPost:index }
 
-post_show:
-    path:     /{id}/show
-    defaults: { _controller: "OjsJournalBundle:JournalPost:show" }
+ojs_journal_post_new:
+    path:     /{journalId}/post/new
+    defaults: { _controller: OjsJournalBundle:JournalPost:new }
 
-post_new:
-    path:     /new/{post_type}/{object}/{objectId}/{parentPost}
-    defaults: { _controller: "OjsJournalBundle:JournalPost:new", post_type: 'default', object: null, objectId: 0, parentPost: 0}
-post_create:
-    path:     /create/{post_type}/{object}/{objectId}/{parentPost}
-    defaults: { _controller: "OjsJournalBundle:JournalPost:create", post_type: 'default', object: null, objectId: 0, parentPost: 0}
-    methods:  [POST,PUT]
+ojs_journal_post_create:
+    path:     /{journalId}/post/create
+    defaults: { _controller: OjsJournalBundle:JournalPost:create }
+    methods:  [POST]
 
-post_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "OjsJournalBundle:JournalPost:edit" }
+ojs_journal_post_show:
+    path:     /{journalId}/post/{id}/show
+    defaults: { _controller: OjsJournalBundle:JournalPost:show }
 
-post_update:
-    path:     /{id}/update
-    defaults: { _controller: "OjsJournalBundle:JournalPost:update" }
-    methods:  [POST,PUT]
+ojs_journal_post_edit:
+    path:     /{journalId}/post/{id}/edit
+    defaults: { _controller: OjsJournalBundle:JournalPost:edit }
 
-post_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalPost:delete" }
-    
-okulbilisim_cms_admin:
-    path:     /cms/post/{posttype}/{object}/{id}
-    defaults: { _controller: OjsJournalBundle:JournalPost:adminIndex, posttype: 'default' }
+ojs_journal_post_update:
+    path:     /{journalId}/post/{id}/update
+    defaults: { _controller: OjsJournalBundle:JournalPost:update }
+    methods:  [PUT]
 
-okulbilisim_cms_post_detail:
-    path:     /cms/{pageType}/{slug}
-    defaults: { _controller: OjsJournalBundle:JournalPost:detail }
+ojs_journal_post_delete:
+    path:     /{journalId}/post/{id}/delete
+    defaults: { _controller: OjsJournalBundle:JournalPost:delete }
+    methods:  [DELETE]
