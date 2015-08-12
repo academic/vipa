@@ -1,0 +1,258 @@
+{% macro journalImage() %}
+    {% raw %}
+        <!--<img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
+            data-src="holder.js/280x380/random/text:{{ journal.title }} "
+            class="img-responsive img-rounded float-left" alt=""/>-->
+    {% endraw %}
+{% endmacro %}
+
+{% macro imageOptions() %}
+    {% raw %}
+        <!--{% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}-->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalUrl() %}
+    {% raw %}
+        <!--
+        {% if journal.url %}
+        <a href="{{ journal.url }}" target="_blank">
+            <small>{{ journal.url }}</small>
+        </a>
+        {% endif %}
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalSearchBox() %}
+    {% raw %}
+        <!--
+        <form role="search"
+              action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}"
+              method="get" id="search_on_journal">
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro articleSubmission() %}
+    {% raw %}
+        <!--
+        <a href="//{{ base_host }}{{ path('ojs_journal_submission_journal',{"journalId":journal.id}) }}"
+           class="list-group-item list-group-item-success"><h5><i
+                        class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+        </a>
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalArchive() %}
+    {% raw %}
+        <!--
+        <a href="{% if isInstitutionHosting is defined %}
+            {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+        {% elseif isJournalHosting is defined %}
+            {{ url('journal_hosting_archive') }}
+        {% else %}
+            {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+        {% endif %}"
+           class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
+        </a>
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalContact() %}
+    {% raw %}
+        <!--
+        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+           class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
+            </h5>
+        </a>
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalAnnouncements() %}
+    {% raw %}
+        <!--
+        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+           class="list-group-item ">
+           <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+        </a>
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalSubscribeForm() %}
+{% endmacro %}
+
+{% macro a() %}
+    {% raw %}
+        <!--
+        <form role="search"
+              action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}"
+              method="post">
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro socialButtons() %}
+    {% raw %}
+        <!--
+        {% if enable_social is defined %}
+            <a href="#" class="list-group-item facebook-like">
+                <h3 class="pull-right">
+                    <i class="fa fa-facebook-square"></i>
+                </h3>
+                <h5 class="list-group-item-heading count">
+                    {{ random(10000) }}</h5>
+
+                <p class="list-group-item-text">
+                    Facebook Likes</p>
+            </a>
+            <a href="#" class="list-group-item google-plus">
+                <h3 class="pull-right">
+                    <i class="fa fa-google-plus-square"></i>
+                </h3>
+                <h5 class="list-group-item-heading count">
+                    {{ random(10000) }}</h5>
+
+                <p class="list-group-item-text">
+                    Google+</p>
+            </a>
+            <a href="#" class="list-group-item twitter">
+                <h3 class="pull-right">
+                    <i class="fa fa-twitter-square"></i>
+                </h3>
+                <h5 class="list-group-item-heading count">
+                    {{ random(10000) }}</h5>
+
+                <p class="list-group-item-text">
+                    Twitter Followers</p>
+            </a>
+        {% endif %}
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalIndexes() %}
+    {% raw %}
+        <!--
+        {% for index in journal.journalsIndexs %}
+            <div class="list-group-item">
+                <a href="{{ index.link }}" target="_blank">
+                    <h5>
+                        {% if index.journalIndex.logo %}
+                        <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
+                             alt="{{ index.journalIndex }}"/>
+                        {% endif %}
+                        {{ index.journalIndex.name }}
+                    </h5>
+                </a>
+            </div>
+        {% endfor %}
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro issuesByYear() %}
+    {% raw %}
+        <!--
+        <ul>
+            {% for key, issues in years %}
+            <li>
+                <h4 title=" {{ "year"|trans }}"> {{ key }}</h4>
+                <ul>
+                    {% for issue in issues %}
+                    <li>
+                        <a href="
+                            {% if isInstitutionHosting is defined %}
+                                {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
+                            {% elseif isJournalHosting is defined %}
+                                {{ url('journal_hosting_issue',{id: issue.id}) }}
+                            {% else %}
+                                {{ url('ojs_issue_page',{journal_slug:journal.slug,id: issue.id, institution: journal.institution.slug}) }}
+                            {% endif %}">
+                            {{ "volume"|trans }}  {{ issue.volume }}
+                            - {{ "issue.number"|trans }} {{ issue.number }}
+                            {% if issue.special %}
+                                <span class="label label-success">
+                                        <i class="fa fa-star"
+                                           title="{{ "special.issue"|trans }}"></i>
+                                    {{ "special.issue"|trans }}
+                                    </span>
+                            {% endif %}&nbsp;
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalArchiveButton() %}
+    {% raw %}
+        <!--
+        <a class="btn btn-primary "
+           href="{% if isInstitutionHosting is defined %}
+                {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
+            {% elseif isJournalHosting is defined %}
+                {{ url('journal_hosting_archive') }}
+            {% else %}
+                {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
+            {% endif %}">
+            <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}
+        </a>
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro journalLastIssue() %}
+    {% raw %}
+        <!--
+        {% if last_issue %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>{{ last_issue.title }}</strong>
+                    {{ "issue.number"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
+                    - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                    <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        {% for article in last_issue.articles[:10] %}
+                        <li>
+                            <a href="
+                                {% if isInstitutionHosting is defined %}
+                                    {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
+                                {% elseif isJournalHosting is defined %}
+                                    {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
+                                {% else %}
+                                    {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
+                                {% endif %}">{{ article.title }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+        {% endif %}
+        -->
+    {% endraw %}
+{% endmacro %}
+
+{% macro rightBlockInclude() %}
+    {% raw %}
+        <!--{% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}-->
+    {% endraw %}
+{% endmacro %}
+
+{% macro a() %}
+{% endmacro %}
+
+
+
