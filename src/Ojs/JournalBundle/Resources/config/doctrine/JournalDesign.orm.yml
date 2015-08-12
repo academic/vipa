@@ -1,23 +1,21 @@
-Ojs\JournalBundle\Entity\Design:
+Ojs\JournalBundle\Entity\JournalDesign:
     type: entity
-    table: design
-    repositoryClass: Ojs\JournalBundle\Entity\DesignRepository
-    manyToMany:
-        journals:
-            targetEntity: Journal
-            mappedBy: designs
+    table: journal_design
+    repositoryClass: Ojs\JournalBundle\Entity\JournalDesignRepository
     id:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
+    manyToOne:
+        journal:
+            targetEntity: Journal
+            inversedBy: journalDesigns
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
     fields:
-        name:
-            type: string
-            length: 255
-            gedmo:
-                  - versioned
         title:
             type: string
             length: 255
@@ -71,3 +69,4 @@ Ojs\JournalBundle\Entity\Design:
           field_name: deletedAt
           time_aware: false
     lifecycleCallbacks: {  }
+
