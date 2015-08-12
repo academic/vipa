@@ -27,10 +27,10 @@ class SiteController extends Controller
     public function indexAction()
     {
         $data['page'] = 'index';
-        $em = $this->getDoctrine()->getManager();
 
-        $journals = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList();
-        $data["journals"] = $journals;
+        $em = $this->getDoctrine()->getManager();
+        $data['journals'] = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList();
+
         /** @var SubjectRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Subject');
         $options = [
@@ -41,13 +41,12 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="' . $this->generateUrl(
-                    'ojs_site_explore_index',
-                    ['filter' => ['subject' => $node['id']]]
-                ) . '">'
-                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
+                return '<a href="' . $this->generateUrl('ojs_site_explore_index',
+                    ['filter' => ['subject' => $node['id']]]) . '">' . $node['subject'] .
+                    ' (' . $node['totalJournalCount'] . ')</a>';
             },
         ];
+
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
 
@@ -58,12 +57,15 @@ class SiteController extends Controller
             'institution' => 0,
             'user' => 0,
         ];
+
         $data['stats']['journal'] = $this->get('fos_elastica.index.search.journal')->count(new MatchAll());
         $data['stats']['article'] = $this->get('fos_elastica.index.search.articles')->count(new MatchAll());
         $data['stats']['subject'] = $this->get('fos_elastica.index.search.subject')->count(new MatchAll());
         $data['stats']['institution'] = $this->get('fos_elastica.index.search.institution')->count(new MatchAll());
         $data['stats']['user'] = $this->get('fos_elastica.index.search.user')->count(new MatchAll());
 
+        $data['announcements'] = $em->getRepository('OjsAdminBundle:AdminAnnouncement')->findAll();
+        $data['announcement_count'] = count($data['announcements']);
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
