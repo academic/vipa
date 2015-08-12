@@ -205,7 +205,8 @@ articlefile.version: 'File version'
 articles: Articles
 articles.needAction: 'Articles That Need Action'
 articles.waiting: 'Waiting Articles'
-articles_in_journal: 'Articles In Journal'
+articles_in_journal: 'Articles in Journal'
+articles_in_review: 'Articles in Review'
 author: Author
 author.add: 'Add Author'
 author.creation: 'Author Creation'
@@ -319,6 +320,7 @@ dashboard.editor: 'Editor Dashboard'
 dashboard.general.stats: 'General Stats'
 dashboard.objects: Objects
 dashboard.operations: Operations
+dashboard.use_left: 'Use the menu on the left for article submission.'
 date.publish: 'Publication Date'
 datePublished: 'Published date'
 delete: Delete

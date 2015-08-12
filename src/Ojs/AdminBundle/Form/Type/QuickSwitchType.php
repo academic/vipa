@@ -23,7 +23,7 @@ class QuickSwitchType extends AbstractType
                     'placeholder' => 'Type a journal name to switch to its dashboard',
                 ],
             ]
-        )->add('switch', 'submit');
+        )->add('switch', 'submit', ['label' => 'switch']);
     }
 
     /**

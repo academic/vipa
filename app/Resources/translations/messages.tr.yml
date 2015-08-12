@@ -122,7 +122,7 @@ admin: Yönetici
 admin.dashboard.applications: Başvurular
 admin.dashboard.journal_settings: 'Dergi Ayarları'
 admin.dashboard.system_settings: 'Sistem Ayarları'
-admin.dashboard.switcher.title: 'Bir Derginin Yönetim Paneline Geç'
+admin.dashboard.switcher.title: 'Dergi Paneline Geç'
 admin.log.field: 'Sistem Günlüğü'
 admin.log.history: 'Sistem Günlüğü Tarihçesi'
 admin.log.newValue: 'Yeni Değer'
@@ -206,6 +206,7 @@ articles: Makaleler
 articles.needAction: 'İşlem Gereken Makaleler'
 articles.waiting: 'Bekleyen Makaleler'
 articles_in_journal: 'Dergideki Makaleler'
+articles_in_review: 'İncelemedeki Makaleler'
 author: Yazar
 author.add: 'Yazar Ekle'
 author.creation: 'Yazar Oluşturma'
@@ -312,13 +313,14 @@ createOne: 'Yeni Oluştur'
 created: Oluşturulmuş
 created.templates: 'Oluşturulmuş Şablonlar'
 d: Sil
-dashboard: 'Yönetim Paneli'
-dashboard.admin: 'Yönetim Paneli'
+dashboard: 'Panel'
+dashboard.admin: 'Panel'
 dashboard.application: 'Uygulama Paneli'
-dashboard.editor: 'Editor Paneli'
+dashboard.editor: 'Editör Paneli'
 dashboard.general.stats: 'Genel İstatistikler'
 dashboard.objects: 'Nesne Paneli'
 dashboard.operations: 'İşlem Paneli'
+dashboard.use_left: 'Makale gönderimi için soldaki menüyü kullanın.'
 date.publish: 'Yayın Tarihi'
 datePublished: 'Yayımlanma Tarihi'
 delete: Sil
@@ -1187,7 +1189,7 @@ title.user_author_register: 'Register as Author'
 title.user_edit: 'Edit User'
 title.user_new: 'New User'
 title.user_show: 'Show User'
-title.user_welcome: Welcome
+title.user_welcome: Hoşgeldiniz
 title.users: Users
 title.workflow_step_edit: 'Edit Workflow Step'
 title.workflow_step_graph: 'Workflow Step Graph'
