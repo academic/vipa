@@ -125,8 +125,7 @@ class SiteController extends Controller
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
-        $data['design'] = $journal->getDesigns()->count() > 0 ?
-            $journal->getDesigns()->first()->getContent() : null;
+        $data['design'] = $journal->getDesign();
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }

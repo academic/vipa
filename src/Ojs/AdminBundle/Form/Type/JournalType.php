@@ -195,6 +195,23 @@ class JournalType extends AbstractType
                     'error_bubbling'=>true,
                 )
             )
+            ->add(
+                'design',
+                'entity',
+                array(
+                    'label' => 'design',
+                    'class' => 'Ojs\JournalBundle\Entity\Design',
+                    'property' => 'title',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('t')
+                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    },
+                    'error_bubbling'=>true,
+                )
+            )
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
                 'label' => 'Header Image',
