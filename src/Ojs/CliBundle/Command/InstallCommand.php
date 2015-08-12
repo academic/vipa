@@ -4,6 +4,7 @@ namespace Ojs\CliBundle\Command;
 
 use Composer\Script\CommandEvent;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Theme;
 use Ojs\SiteBundle\Acl\AclChainManager;
@@ -269,7 +270,7 @@ class InstallCommand extends ContainerAwareCommand
     protected function insertTheme()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $theme = new Theme();
+        $theme = new JournalTheme();
         $theme->setTitle('Ojs');
         $em->persist($theme);
         $em->flush();
@@ -290,8 +291,8 @@ class InstallCommand extends ContainerAwareCommand
             ],
             'OjsUserBundle:User' => null, 'OjsJournalBundle:Institution' => null, 'OjsJournalBundle:InstitutionTypes' => null,
             'OjsUserBundle:Role' => null, 'OjsJournalBundle:JournalContact' => null, 'OjsJournalBundle:ContactTypes' => null,
-            'OjsJournalBundle:Theme' => null, 'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null,
-            'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:Design' => null,
+            'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null,
+            'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null,
             'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
             'OjsUserBundle:Proxy' => null, 'OjsUserBundle:Notification' => null, 'OjsJournalBundle:ArticleTypes' => null,
             'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,

@@ -10,13 +10,13 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
           inversedBy: journals
         theme:
-          targetEntity: Theme
+          targetEntity: Ojs\JournalBundle\Entity\JournalTheme
           joinColumn:
             name: theme_id
             referencedColumnName: id
           inversedBy: journals
         design:
-          targetEntity: Ojs\JournalBundle\Entity\Design
+          targetEntity: Ojs\JournalBundle\Entity\JournalDesign
           joinColumn:
             name: design_id
             referencedColumnName: id
@@ -60,6 +60,9 @@ Ojs\JournalBundle\Entity\Journal:
             fetch: LAZY
         journalThemes:
             targetEntity: JournalTheme
+            mappedBy: journal
+        journalDesigns:
+            targetEntity: JournalDesign
             mappedBy: journal
         journals_indexs:
             targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
@@ -112,20 +115,6 @@ Ojs\JournalBundle\Entity\Journal:
                         name: subject_id
                         referencedColumnName: id
                         onDelete: CASCADE
-        designs:
-            targetEntity: Design
-            inversedBy: journals
-            joinTable:
-                name: journal_design_x
-                joinColumns:
-                    -
-                        name: journal_id
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    -
-                        name: design_id
-                        referencedColumnName: id
-
         bannedUsers:
             targetEntity: Ojs\UserBundle\Entity\User
             cascase: ["all"]

@@ -7,10 +7,10 @@ use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
- * JournalTheme
+ * JournalDesign
  * @GRID\Source(columns="id,journal.title,title")
  */
-class JournalTheme implements Translatable
+class JournalDesign implements Translatable
 {
     use GenericEntityTrait;
 
@@ -22,16 +22,25 @@ class JournalTheme implements Translatable
 
     /**
      * @var string
+     * @GRID\Column(title="content")
      */
     private $title;
 
     /**
      * @var string
+     * @GRID\Column(title="content")
      */
-    private $css;
+    private $content;
+
+    /**
+     * @var string
+     * @GRID\Column(title="editableContent")
+     */
+    private $editableContent;
 
     /**
      * @var boolean
+     * @GRID\Column(title="basedesign")
      */
     private $isPublic;
 
@@ -90,22 +99,6 @@ class JournalTheme implements Translatable
     }
 
     /**
-     * @return string
-     */
-    public function getCss()
-    {
-        return $this->css;
-    }
-
-    /**
-     * @param string $css
-     */
-    public function setCss($css)
-    {
-        $this->css = $css;
-    }
-
-    /**
      * @return boolean
      */
     public function isIsPublic()
@@ -120,4 +113,38 @@ class JournalTheme implements Translatable
     {
         $this->isPublic = $isPublic;
     }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEditableContent()
+    {
+        return $this->editableContent;
+    }
+
+    /**
+     * @param string $editableContent
+     */
+    public function setEditableContent($editableContent)
+    {
+        $this->editableContent = $editableContent;
+    }
+
+
 }

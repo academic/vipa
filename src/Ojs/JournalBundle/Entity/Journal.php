@@ -243,6 +243,13 @@ class Journal implements Translatable
      * @Expose
      */
     private $journalThemes;
+
+    /**
+     * @var JournalDesign Collection
+     * @Expose
+     */
+    private $journalDesigns;
+
     /**
      * @var integer
      */
@@ -318,11 +325,6 @@ class Journal implements Translatable
     private $mandatoryLangId;
 
     /**
-     * @var ArrayCollection|Design[]
-     */
-    private $designs;
-
-    /**
      * @var ArrayCollection|JournalAnnouncement[]
      */
     private $announcements;
@@ -342,7 +344,7 @@ class Journal implements Translatable
         $this->subjects = new ArrayCollection();
         $this->journalThemes = new ArrayCollection();
         $this->translations = new ArrayCollection();
-        $this->designs = new ArrayCollection();
+        $this->journalDesigns = new ArrayCollection();
     }
 
     public function getTranslations()
@@ -1620,40 +1622,6 @@ class Journal implements Translatable
     }
 
     /**
-     * @param Design $design
-     * @return Journal
-     */
-    public function addDesign(Design $design)
-    {
-        if(!$this->designs->contains($design)){
-            $this->designs->add($design);
-            $design->addJournal($this);
-        }
-        return $this;
-    }
-
-    /**
-     * @param Design $design
-     * @return Journal
-     */
-    public function removeDesign(Design $design)
-    {
-        if($this->designs->contains($design)){
-            $this->designs->removeElement($design);
-            $design->removeJournal($this);
-        }
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection|Design[]
-     */
-    public function getDesigns()
-    {
-        return $this->designs;
-    }
-
-    /**
      * @return ArrayCollection|JournalAnnouncement[]
      */
     public function getAnnouncements()
@@ -1686,7 +1654,7 @@ class Journal implements Translatable
     }
 
     /**
-     * @return Design
+     * @return JournalDesign
      */
     public function getDesign()
     {
@@ -1694,10 +1662,26 @@ class Journal implements Translatable
     }
 
     /**
-     * @param Design $design
+     * @param JournalDesign $design
      */
-    public function setDesign(Design $design)
+    public function setDesign(JournalDesign $design)
     {
         $this->design = $design;
+    }
+
+    /**
+     * @return JournalDesign|ArrayCollection
+     */
+    public function getJournalDesigns()
+    {
+        return $this->journalDesigns;
+    }
+
+    /**
+     * @param JournalDesign|ArrayCollection $journalDesigns
+     */
+    public function setJournalDesigns($journalDesigns)
+    {
+        $this->journalDesigns = $journalDesigns;
     }
 }

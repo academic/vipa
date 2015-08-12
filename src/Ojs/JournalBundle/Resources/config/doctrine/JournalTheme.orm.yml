@@ -15,15 +15,39 @@ Ojs\JournalBundle\Entity\JournalTheme:
             joinColumn:
                 name: journal_id
                 referencedColumnName: id
-        theme:
-            targetEntity: Theme
-            inversedBy: journalThemes
-            joinColumn:
-                name: theme_id
-                referencedColumnName: id
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+              - versioned
+        css:
+            type: text
+            nullable: true
+            gedmo:
+              - versioned
+        isPublic:
+            column: is_public
+            type: boolean
+            nullable: true
             gedmo:
                 - versioned
-    fields:
+            options:
+                default: true
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
         createdBy:
            type: string
            gedmo:
@@ -34,6 +58,10 @@ Ojs\JournalBundle\Entity\JournalTheme:
            gedmo:
              blameable:
                on: update
-    lifecycleCallbacks: {  }
     gedmo:
         loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }
+
