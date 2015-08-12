@@ -1,14 +1,10 @@
 {% macro journalImage() %}
     {% raw %}
-        <!--<img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
+        <!--
+        <img src="{{ journal.image|imagine_filter('journal_cover') }}"
             data-src="holder.js/280x380/random/text:{{ journal.title }} "
-            class="img-responsive img-rounded float-left" alt=""/>-->
-    {% endraw %}
-{% endmacro %}
-
-{% macro imageOptions() %}
-    {% raw %}
-        <!--{% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}-->
+            class="img-responsive img-rounded float-left" alt=""/>
+        -->
     {% endraw %}
 {% endmacro %}
 
@@ -37,9 +33,12 @@
 {% macro articleSubmission() %}
     {% raw %}
         <!--
-        <a href="//{{ base_host }}{{ path('ojs_journal_submission_journal',{"journalId":journal.id}) }}"
-           class="list-group-item list-group-item-success"><h5><i
-                        class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
+        <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
+                           class="list-group-item list-group-item-success">
+            <h5>
+                <i class="fa fa-plus-circle"></i>
+                {{ "article.submit"|trans }}
+            </h5>
         </a>
         -->
     {% endraw %}
@@ -140,8 +139,8 @@
                 <a href="{{ index.link }}" target="_blank">
                     <h5>
                         {% if index.journalIndex.logo %}
-                        <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
-                             alt="{{ index.journalIndex }}"/>
+                            <img src="{{ index.journalIndex.logo|imagine_filter('journalindex_logo') }}"
+                                 alt="{{ index.journalIndex }}"/>
                         {% endif %}
                         {{ index.journalIndex.name }}
                     </h5>
@@ -224,11 +223,11 @@
                         <li>
                             <a href="
                                 {% if isInstitutionHosting is defined %}
-                                    {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
+                                    {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issue.id  , article_id:article.id}) }}
                                 {% elseif isJournalHosting is defined %}
-                                    {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
+                                    {{ url('journal_hosting_issue_article',{issue_id:article.issue.id  , article_id:article.id}) }}
                                 {% else %}
-                                    {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
+                                    {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issue.id  , article_id:article.id,institution:journal.institution.slug}) }}
                                 {% endif %}">{{ article.title }}
                             </a>
                         </li>
