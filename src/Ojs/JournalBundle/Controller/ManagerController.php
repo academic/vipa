@@ -225,55 +225,6 @@ class ManagerController extends Controller
     }
 
     /**
-     *
-     * @return Response
-     */
-    public function journalSettingsPageAction()
-    {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        
-        if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
-        }
-
-        $twig = $this->get('ojs.cms.twig.post_extension');
-        $object = $twig->encode($journal);
-
-        $source = new Entity('OjsJournalBundle:JournalPost');
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($ta, $journal, $object) {
-                return $qb->andWhere(
-                    $qb->expr()->andX(
-                        $qb->expr()->eq("$ta.object", ":object"),
-                        $qb->expr()->eq("$ta.objectId", ":journalId")
-                    )
-                )
-                    ->setParameters(
-                        [
-                            'object' => $object,
-                            'journalId' => $journal->getId(),
-                        ]
-                    );
-            }
-        );
-
-        $grid = $this->get('grid');
-        $grid->setSource($source);
-        $grid->getColumn('title')->setSafe(false);
-        $gridAction = $this->get('grid_action');
-
-        $grid->addRowAction($gridAction->editAction('post_edit', 'id'));
-        $grid->addRowAction($gridAction->deleteAction('post_delete', 'id'));
-
-        $data = [];
-        $data['grid'] = $grid;
-        $data['journal'] = $journal;
-
-        return $grid->getGridResponse('OjsJournalBundle:Manager:journal_settings_pages/list.html.twig', $data);
-    }
-
-    /**
      * @param  Request  $request
      * @return Response
      */

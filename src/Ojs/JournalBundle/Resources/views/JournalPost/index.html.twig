@@ -1,51 +1,24 @@
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.posts'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'title.posts'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Post list</h1>
+    <h1>{{ "title.posts"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
 
-    <table class="records_list table table-bordered table-responsive">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>URL</th>
-            <th>Status</th>
-            <th>Post Type</th>
-            <th>Object Type</th>
-            <th>Object</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.title|raw }}</td>
-                <td>{{ url('okulbilisim_cms_post_detail',{pageType: entity.postType, slug: entity.slug}) }}</td>
-                <td>{{ entity.status|post_status }}</td>
-                <td>{{ entity.posttype }}</td>
-                <td>{{ entity.object }}</td>
-                <td>{{ getPostObject(entity) }}</td>
-                <td>
-                    <div class="btn-group">
-                        <a class="btn-xs btn btn-success" href="{{ path('post_show', { 'id': entity.id }) }}">
-                            <i class="fa fa-info-circle"></i>
-                        </a>
-                        <a class="btn-xs btn btn-warning" href="{{ path('post_edit', { 'id': entity.id }) }}">
-                            <i class="fa fa-pencil"></i>
-                        </a>
-                        <a class="btn-xs btn btn-danger" onclick="return confirm('{% trans %}Are you sure?{% endtrans %}');"
-                           href="{{ path('post_delete', { 'id': entity.id }) }}">
-                            <i class="fa fa-trash-o"></i>
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if is_granted('CREATE', getEntity('OjsAdminBundle:AdminAnnouncement')) %}
+        <a href="{{ path('ojs_journal_post_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+            {{ "create"|trans }}
+        </a>
+    {% endif %}
 
-    <a href="{{ path('post_new') }}" class="btn btn-primary">
-        {{ "create"|trans }}
-    </a>
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}
