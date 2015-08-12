@@ -49,7 +49,6 @@ class AppKernel extends Kernel
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),
-            new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),
             new Ojs\SearchBundle\OjsSearchBundle(),

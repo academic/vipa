@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Okulbilisim\CmsBundle\Entity\Post;
+use Ojs\JournalBundle\Entity\JournalPost;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Ojs\Common\Services\JournalService;
@@ -272,12 +272,13 @@ class JournalSetupController extends Controller
         $setup->setCurrentStep(2);
         $data = $request->request->all();
         $pages = $data['page'];
-        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $twig = $this->get('ojs.cms.twig.post_extension');
         foreach ($pages as $page) {
             if (empty($page['title'])) {
                 return new JsonResponse(['success' => '0']);
             }
-            $page_ = new Post();
+            $page_ = new JournalPost();
+            $page_->setJournal($journal);
             $page_
                 ->setStatus(1)
                 ->setContent($page['content'])

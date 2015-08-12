@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Entity;
 
-use Okulbilisim\CmsBundle\Entity\Post;
+use Ojs\AdminBundle\Entity\AdminPost;
 
 /**
  * BlockLink
@@ -183,7 +183,7 @@ class BlockLink
     }
 
     /**
-     * @return \Okulbilisim\CmsBundle\Entity\Post
+     * @return \Ojs\AdminBundle\Entity\AdminPost
      */
     public function getPost()
     {
@@ -191,7 +191,7 @@ class BlockLink
     }
 
     /**
-     * @param  \Okulbilisim\CmsBundle\Entity\Post $post
+     * @param  \Ojs\AdminBundle\Entity\AdminPost $post
      * @return $this
      */
     public function setPost($post)

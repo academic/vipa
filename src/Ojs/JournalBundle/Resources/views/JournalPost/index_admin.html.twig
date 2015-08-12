@@ -1,0 +1,44 @@
+{% extends admin_base_view %}
+{% block body -%}
+    <ul class="nav nav-tabs">
+        {% for key,posttype in post_types %}
+            <li class="{% if selected_posttype==key %}active{% endif %}">
+                <a href="{{ url('okulbilisim_cms_admin',{posttype: key,object: object, id: objectId}) }}">{{ posttype|trans }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class=" content">
+        <a class="btn btn-primary navbar-btn pull-right" href="{{ path('post_new',{'post_type':selected_posttype,'object':object,'objectId':objectId}) }}">{{ "c"|trans }}</a>
+
+        <table class="table table-responsive table-hovered ">
+            <thead>
+            <tr>
+                <th>{{ "cms.id"|trans }}</th>
+                <th>{{ "cms.title"|trans }}</th>
+                <th>{{ "cms.slug"|trans }}</th>
+                <th>{{ "cms.object"|trans }}</th>
+                <th>{{ "cms.action"|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.id }}</td>
+                    <td>{{ entity.title|raw }}</td>
+                    <td>{{ entity.slug }}</td>
+                    <td>{{ getPostObject(entity)|raw }}</td>
+                    <td>
+                        <a class="btn-xs btn btn-warning" href="{{ path('post_edit', { 'id': entity.id }) }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn-xs btn btn-danger" onclick="return confirm('{% trans %}sure{% endtrans %}');"
+                           href="{{ path('post_delete', { 'id': entity.id }) }}">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -213,7 +213,7 @@ class SiteController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-        $service = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $service = $this->get('ojs.cms.twig.post_extension');
         $data['announcements'] = $em->getRepository('OkulbilisimCmsBundle:Post')
             ->getByType('announcement', $service->cmsobject($journal), $journal->getId());
 
@@ -300,7 +300,7 @@ class SiteController extends Controller
         if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
         }
-        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $twig = $this->get('ojs.cms.twig.post_extension');
         $journalKey = $twig->encode($journal);
 
         $page = $em->getRepository('OkulbilisimCmsBundle:Post')->findOneBy(

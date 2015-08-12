@@ -236,10 +236,10 @@ class ManagerController extends Controller
             throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
         }
 
-        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $twig = $this->get('ojs.cms.twig.post_extension');
         $object = $twig->encode($journal);
 
-        $source = new Entity("Okulbilisim\\CmsBundle\\Entity\\Post");
+        $source = new Entity('OjsJournalBundle:JournalPost');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($ta, $journal, $object) {

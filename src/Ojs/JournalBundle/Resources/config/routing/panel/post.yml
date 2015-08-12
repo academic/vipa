@@ -1,0 +1,36 @@
+post:
+    path:     /
+    defaults: { _controller: "OjsJournalBundle:JournalPost:index" }
+
+post_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsJournalBundle:JournalPost:show" }
+
+post_new:
+    path:     /new/{post_type}/{object}/{objectId}/{parentPost}
+    defaults: { _controller: "OjsJournalBundle:JournalPost:new", post_type: 'default', object: null, objectId: 0, parentPost: 0}
+post_create:
+    path:     /create/{post_type}/{object}/{objectId}/{parentPost}
+    defaults: { _controller: "OjsJournalBundle:JournalPost:create", post_type: 'default', object: null, objectId: 0, parentPost: 0}
+    methods:  [POST,PUT]
+
+post_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:JournalPost:edit" }
+
+post_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsJournalBundle:JournalPost:update" }
+    methods:  [POST,PUT]
+
+post_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:JournalPost:delete" }
+    
+okulbilisim_cms_admin:
+    path:     /cms/post/{posttype}/{object}/{id}
+    defaults: { _controller: OjsJournalBundle:JournalPost:adminIndex, posttype: 'default' }
+
+okulbilisim_cms_post_detail:
+    path:     /cms/{pageType}/{slug}
+    defaults: { _controller: OjsJournalBundle:JournalPost:detail }
