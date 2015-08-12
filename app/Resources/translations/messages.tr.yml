@@ -944,7 +944,7 @@ template.name: 'Şablon Adı'
 templates: Şablonlar
 theme: Tema
 theme.edit: 'Temayı Düzenle'
-theme.id: 'Tema ID'si'
+theme.id: 'Tema Nosu'
 theme.list: 'Tema Listesi'
 theme.new: 'Yeni Tema'
 theme.plural: Temalar
