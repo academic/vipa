@@ -1,4 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
+{% import "::design_macros.html.twig" as macros %}
 {% set hideleft = true %}
 {% block title %}{{ 'title.design_new'|trans }} {{ parent() }}{% endblock %}
 
@@ -54,14 +55,12 @@
     <div id="gridDesign">
         <div class="row">
             <div class="col-md-3">
-                <span class="design-hide-span hide">{% raw %} <!--{% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}--> {% endraw %} </span>
+                <span class="design-hide-span hide">
+                    {{ macros.imageOptions() }}
+                </span>
 
                 <span class="design-hide-block hide">
-                    {% raw %}
-                        <!--<img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
-                            data-src="holder.js/280x380/random/text:{{ journal.title }} "
-                            class="img-responsive img-rounded float-left" alt=""/>-->
-                    {% endraw %}
+                    {{ macros.journalImage() }}
                 </span>
                 <img src="" data-src="holder.js/280x380/random/text: Örnek Dergi "
                      class="img-responsive img-rounded float-left holder-remove" alt=""/>
@@ -85,17 +84,9 @@
             </div>
             <div class="col-md-6">
                 <span class="design-hide-block hide">
-                    {% raw %}
-                        <!--
-                        {% if journal.url %}
-                        <a href="{{ journal.url }}" target="_blank">
-                            <small>{{ journal.url }}</small>
-                        </a>
-                        {% endif %}
-                        -->
-                    {% endraw %}
+                    {{ macros.journalUrl() }}
                 </span>
-                <a href=#" target="_blank">
+                <a href="#" target="_blank">
                     <small>http://demo.io</small>
                 </a>
                 <span class="design-hide-endblock hide"></span>
@@ -122,13 +113,7 @@
                 <div class="list-group journal-stats">
                     <div class="list-group-item ">
                         <span class="design-hide-block hide">
-                            {% raw %}
-                                <!--
-                                <form role="search"
-                                      action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}"
-                                      method="get" id="search_on_journal">
-                                -->
-                            {% endraw %}
+                            {{ macros.journalSearchBox() }}
                         </span>
                         <form role="search" action="#" method="get">
                             <span class="design-hide-endblock hide"></span>
@@ -143,14 +128,7 @@
                     </div>
 
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            <a href="//{{ base_host }}{{ path('ojs_journal_submission_journal',{"journalId":journal.id}) }}"
-                               class="list-group-item list-group-item-success"><h5><i
-                                            class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
-                            </a>
-                            -->
-                        {% endraw %}
+                        {{ macros.articleSubmission() }}
                     </span>
                     <a href="#"
                        class="list-group-item list-group-item-success"><h5><i
@@ -163,19 +141,7 @@
                     </a>
 
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            <a href="{% if isInstitutionHosting is defined %}
-                                {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
-                            {% elseif isJournalHosting is defined %}
-                                {{ url('journal_hosting_archive') }}
-                            {% else %}
-                                {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
-                            {% endif %}"
-                               class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
-                            </a>
-                            -->
-                        {% endraw %}
+                        {{ macros.journalArchive() }}
                     </span>
                     <a href="#" class="list-group-item ">
                         <h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
@@ -183,14 +149,7 @@
                     <span class="design-hide-endblock hide"></span>
 
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                               class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
-                                </h5>
-                            </a>
-                            -->
-                        {% endraw %}
+                        {{ macros.journalContact() }}
                     </span>
                     <a href="#" class="list-group-item ">
                         <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
@@ -198,14 +157,7 @@
                     <span class="design-hide-endblock hide"></span>
 
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                               class="list-group-item ">
-                               <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
-                            </a>
-                            -->
-                        {% endraw %}
+                        {{ macros.journalAnnouncements() }}
                     </span>
                     <a href="#" class="list-group-item ">
                         <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
@@ -214,13 +166,7 @@
 
                     <div class="list-group-item ">
                         <span class="design-hide-block hide">
-                            {% raw %}
-                                <!--
-                                <form role="search"
-                                      action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                                      method="post">
-                                -->
-                            {% endraw %}
+                            {{ macros.journalSubscribeForm() }}
                         </span>
                         <form role="search" action="#" method="post">
                         <span class="design-hide-endblock"></span>
@@ -238,42 +184,7 @@
                 <!--gm-editable-region-->
                 <div>
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            {% if enable_social is defined %}
-                                <a href="#" class="list-group-item facebook-like">
-                                    <h3 class="pull-right">
-                                        <i class="fa fa-facebook-square"></i>
-                                    </h3>
-                                    <h5 class="list-group-item-heading count">
-                                        {{ random(10000) }}</h5>
-
-                                    <p class="list-group-item-text">
-                                        Facebook Likes</p>
-                                </a>
-                                <a href="#" class="list-group-item google-plus">
-                                    <h3 class="pull-right">
-                                        <i class="fa fa-google-plus-square"></i>
-                                    </h3>
-                                    <h5 class="list-group-item-heading count">
-                                        {{ random(10000) }}</h5>
-
-                                    <p class="list-group-item-text">
-                                        Google+</p>
-                                </a>
-                                <a href="#" class="list-group-item twitter">
-                                    <h3 class="pull-right">
-                                        <i class="fa fa-twitter-square"></i>
-                                    </h3>
-                                    <h5 class="list-group-item-heading count">
-                                        {{ random(10000) }}</h5>
-
-                                    <p class="list-group-item-text">
-                                        Twitter Followers</p>
-                                </a>
-                            {% endif %}
-                            -->
-                        {% endraw %}
+                        {{ macros.socialButtons() }}
                     </span>
                     <a href="#" class="list-group-item facebook-like">
                         <h3 class="pull-right">
@@ -311,23 +222,7 @@
                 <!--gm-editable-region-->
                 <div class="list-group">
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            {% for index in journal.journalsIndexs %}
-                                <div class="list-group-item">
-                                    <a href="{{ index.link }}" target="_blank">
-                                        <h5>
-                                            {% if index.journalIndex.logo %}
-                                            <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}"
-                                                 alt="{{ index.journalIndex }}"/>
-                                            {% endif %}
-                                            {{ index.journalIndex.name }}
-                                        </h5>
-                                    </a>
-                                </div>
-                            {% endfor %}
-                            -->
-                        {% endraw %}
+                        {{ macros.journalIndexes }}
                     </span>
                     <div class="list-group-item">
                         <a href="#" target="_blank">
@@ -362,41 +257,7 @@
             <div class="col-md-4">
                 <div id="issuetree">
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            <ul>
-                                {% for key, issues in years %}
-                                <li>
-                                    <h4 title=" {{ "year"|trans }}"> {{ key }}</h4>
-                                    <ul>
-                                        {% for issue in issues %}
-                                        <li>
-                                            <a href="
-                                                {% if isInstitutionHosting is defined %}
-                                                    {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
-                                                {% elseif isJournalHosting is defined %}
-                                                    {{ url('journal_hosting_issue',{id: issue.id}) }}
-                                                {% else %}
-                                                    {{ url('ojs_issue_page',{journal_slug:journal.slug,id: issue.id, institution: journal.institution.slug}) }}
-                                                {% endif %}">
-                                                {{ "volume"|trans }}  {{ issue.volume }}
-                                                - {{ "issue.number"|trans }} {{ issue.number }}
-                                                {% if issue.special %}
-                                                    <span class="label label-success">
-                                                            <i class="fa fa-star"
-                                                               title="{{ "special.issue"|trans }}"></i>
-                                                        {{ "special.issue"|trans }}
-                                                        </span>
-                                                {% endif %}&nbsp;
-                                            </a>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            -->
-                        {% endraw %}
+                        {{ macros.issuesByYear() }}
                     </span>
                     <ul>
                         <li>
@@ -450,20 +311,7 @@
                     </ul>
                     <span class="design-hide-endblock hide"></span>
                     <span class="design-hide-block hide">
-                        {% raw %}
-                            <!--
-                            <a class="btn btn-primary "
-                               href="{% if isInstitutionHosting is defined %}
-                                    {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
-                                {% elseif isJournalHosting is defined %}
-                                    {{ url('journal_hosting_archive') }}
-                                {% else %}
-                                    {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
-                                {% endif %}">
-                                <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}
-                            </a>
-                            -->
-                        {% endraw %}
+                        {{ macros.journalArchiveButton }}ç
                     </span>
                     <a class="btn btn-primary" href="#">
                         <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}
@@ -473,38 +321,7 @@
             </div>
             <div class="col-md-5">
                 <span class="design-hide-block hide">
-                    {% raw %}
-                        <!--
-                        {% if last_issue %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <strong>{{ last_issue.title }}</strong>
-                                    {{ "issue.number"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
-                                    - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
-                                    <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
-                                </div>
-                                <div class="panel-body">
-                                    <ul>
-                                        {% for article in last_issue.articles[:10] %}
-                                        <li>
-                                            <a href="
-                                                {% if isInstitutionHosting is defined %}
-                                                    {{ url('institution_hosting_journal_issue_article',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id}) }}
-                                                {% elseif isJournalHosting is defined %}
-                                                    {{ url('journal_hosting_issue_article',{issue_id:article.issueId  , article_id:article.id}) }}
-                                                {% else %}
-                                                    {{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}
-                                                {% endif %}">{{ article.title }}
-                                            </a>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-
-                                </div>
-                            </div>
-                        {% endif %}
-                        -->
-                    {% endraw %}
+                    {{ macros.journalLastIssue() }}
                 </span>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -532,9 +349,7 @@
             </div>
             <div class="col-md-3">
                 <span class="design-hide-block hide">
-                    {% raw %}
-                        <!--{% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}-->
-                    {% endraw %}
+                    {{ macros.rightBlockInclude() }}
                 </span>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -563,63 +378,6 @@
         </div>
     </div>
 
-    <div id="gridDesign2">
-        <div class="container">
-            <!-- Page Content -->
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="page-header">Ojs </h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div itemscope="" itemtype="http://schema.org/Organization">
-                                <span itemprop="name">Ojs</span>
-                                Contact Details:
-                                <div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
-                                    Main address:
-                                    <span itemprop="address"></span>
-                                    <span itemprop="addressLat"></span>
-                                    <span itemprop="addressLong"></span>
-                                    <span itemprop="addressLocality">,</span>
-                                </div>
-                                Tel:<span itemprop="telephone"></span>,
-                                Fax:<span itemprop="faxNumber"></span>,
-                                E-mail: <span itemprop="email">ojs@localhost</span>
-                                Web: <span itemprop="url"></span>
-                                Wiki: <span itemprop="url"></span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="panel-footer">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        <div class="panel-heading">Journals</div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="                            http://www.ojs.dev/help
-                        ">Ojs Help Journal</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
     {% set back_path = 'ojs_admin_design_index' %}
     {% include '::actionbuttons.html.twig' %}
 
@@ -644,7 +402,7 @@
             $('#widgetNoColumn').removeClass('hide');
             $('#customCode').hide();
             $('#customCode').removeClass('hide');
-            var gm = $("#gridDesign,#gridDesign2").gridmanager().data('gridmanager');
+            var gm = $("#gridDesign").gridmanager().data('gridmanager');
 
             $('#widgetButton').on('click', function (e) {
 
