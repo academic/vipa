@@ -1,0 +1,4 @@
+Ojs\AdminBundle\Entity\AdminPost:
+    type: entity
+    repositoryClass: Ojs\AdminBundle\Entity\AdminPostRepository
+    lifecycleCallbacks: {  }

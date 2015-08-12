@@ -206,7 +206,7 @@ class UpdateCommand extends ContainerAwareCommand
             $statObject = new $updater(
                 $this->em,
                 $this->dm,
-                $this->getContainer()->get('okulbilisimcmsbundle.twig.post_extension')
+                $this->getContainer()->get('ojs.cms.twig.post_extension')
             );
             foreach ($statObject->count() as $objectId => $stat) {
                 $object = new ObjectCommonStat();

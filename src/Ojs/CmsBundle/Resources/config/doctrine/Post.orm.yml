@@ -1,0 +1,84 @@
+Ojs\CmsBundle\Entity\Post:
+  type: entity
+  repositoryClass: PostRepository
+  table: posts
+  inheritanceType: SINGLE_TABLE
+  discriminatorColumn:
+      name: discriminator
+      type: string
+  discriminatorMap:
+      #admin: Ojs\AdminBundle\Entity\AdminPost
+      #journal: Ojs\JournalBundle\Entity\JournalPost
+  oneToMany:
+    translations:
+      targetEntity: Ojs\CmsBundle\Entity\PostTranslation
+      mappedBy: object
+      cascade: ["persist"]
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+    translation:
+      locale: locale
+      entity: Ojs\CmsBundle\Entity\PostTranslation
+    loggable: true
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    title:
+      type: string
+      length: 255
+      nullable: false
+      gedmo:
+        - translatable
+        - versioned
+    slug:
+      type: string
+      gedmo:
+        slug:
+          seperator: _
+          unique_base: unique_key
+          fields:
+            - title
+    content:
+      type: text
+      nullable: true
+      gedmo:
+        - translatable
+        - versioned
+    status:
+      type: integer
+      length: 2
+    post_type:
+      type: string
+      length: 50
+    object:
+      type: string
+      nullable: true
+    objectId:
+      type: integer
+      nullable: true
+    unique_key:
+      type: string
+      nullable: true
+    locale:
+      type: string
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+      nullable: false
+    updatedAt:
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: datetime
+      nullable: true

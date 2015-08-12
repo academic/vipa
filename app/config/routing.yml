@@ -51,9 +51,6 @@ rest:
 OkulbilisimMessageBundle:
   resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
 
-okulbilisim_cms:
-  resource: "@OkulbilisimCmsBundle/Resources/config/routing.yml"
-
 feedback:
   resource: "@OkulbilisimFeedbackBundle/Resources/config/routing.yml"
 

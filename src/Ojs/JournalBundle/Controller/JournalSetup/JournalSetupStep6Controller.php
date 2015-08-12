@@ -33,7 +33,7 @@ class JournalSetupStep6Controller extends Controller
         $router = $this->get('router');
         if ($step6Form->isValid()) {
             //add blocks
-            $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+            $twig = $this->get('ojs.cms.twig.post_extension');
             $journalKey = $twig->encode($currentJournal);
             $pages = $em->getRepository("OkulbilisimCmsBundle:Post")->findBy(
                 ['object' => $journalKey, 'objectId' => $currentJournal->getId()]

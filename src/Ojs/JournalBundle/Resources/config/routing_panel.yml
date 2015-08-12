@@ -61,3 +61,7 @@ ojs_journal_announcement:
 
 ojs_journal_page:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/page.yml"
+
+ojs_journal_post:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/post.yml"
+    prefix: post

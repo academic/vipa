@@ -4,7 +4,7 @@ namespace Ojs\Common\Services;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Row;
-use Okulbilisim\CmsBundle\Twig\PostExtension;
+use Ojs\CmsBundle\Twig\PostExtension;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Translation\TranslatorInterface;
 
