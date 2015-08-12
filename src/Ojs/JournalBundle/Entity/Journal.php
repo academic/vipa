@@ -156,17 +156,33 @@ class Journal implements Translatable
      * @Expose
      */
     private $slug;
+
     /**
      * @var integer
      * @Expose
      */
     private $themeId;
+
     /**
      * @var Theme
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $theme;
+
+    /**
+     * @var integer
+     * @Expose
+     */
+    private $designId;
+
+    /**
+     * @var Design
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $design;
+
     /**
      * @var boolean
      * @Expose
@@ -1651,5 +1667,37 @@ class Journal implements Translatable
     public function setAnnouncements($announcements)
     {
         $this->announcements = $announcements;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDesignId()
+    {
+        return $this->designId;
+    }
+
+    /**
+     * @param int $designId
+     */
+    public function setDesignId($designId)
+    {
+        $this->designId = $designId;
+    }
+
+    /**
+     * @return Design
+     */
+    public function getDesign()
+    {
+        return $this->design;
+    }
+
+    /**
+     * @param Design $design
+     */
+    public function setDesign(Design $design)
+    {
+        $this->design = $design;
     }
 }
