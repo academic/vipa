@@ -1129,6 +1129,12 @@ title.password_create: 'Create Password'
 title.password_forgot: 'Forgot Password'
 title.password_reset: 'Reset Password'
 title.people_directory: 'People Directory'
+title.post: Post
+title.post_detail: 'Post Detail'
+title.post_edit: 'Edit Post'
+title.post_new: 'New Post'
+title.post_show: 'Show Post'
+title.posts: Posts
 title.privacy: Privacy
 title.private_account: 'Private Account'
 title.profile: Profile
