@@ -292,7 +292,22 @@ fos_elastica:
               type: string
           persistence:
             driver: orm
-            model: Ojs\SiteBundle\Entity\Page
+            model: Ojs\AdminBundle\Entity\AdminPage
+            provider: ~
+            listener: ~
+            finder: ~
+        journal_page:
+          mappings:
+            id:
+              type: integer
+            title:
+              type: string
+            tags:
+              analyzer: "keyword"
+              type: string
+          persistence:
+            driver: orm
+            model: Ojs\JournalBundle\Entity\JournalPage
             provider: ~
             listener: ~
             finder: ~
