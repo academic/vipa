@@ -15,6 +15,12 @@ Ojs\JournalBundle\Entity\Journal:
             name: theme_id
             referencedColumnName: id
           inversedBy: journals
+        design:
+          targetEntity: Ojs\JournalBundle\Entity\Design
+          joinColumn:
+            name: design_id
+            referencedColumnName: id
+          inversedBy: journals
         country:
           targetEntity: Ojs\LocationBundle\Entity\Country
           joinColumn:
@@ -298,6 +304,14 @@ Ojs\JournalBundle\Entity\Journal:
         themeId:
             type: integer
             column: theme_id
+            nullable: true
+            options:
+                default: 0
+            gedmo:
+                  - versioned
+        designId:
+            type: integer
+            column: design_id
             nullable: true
             options:
                 default: 0
