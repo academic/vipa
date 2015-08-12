@@ -215,8 +215,7 @@ class SiteController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
         $service = $this->get('ojs.cms.twig.post_extension');
-        $data['announcements'] = $em->getRepository('OkulbilisimCmsBundle:Post')
-            ->getByType('announcement', $service->cmsobject($journal), $journal->getId());
+        $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(['journal' => $journal]);
 
         $data['page'] = 'announcement';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
