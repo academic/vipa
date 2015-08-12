@@ -772,51 +772,51 @@ proxy.lastlogin: 'Son Giriş'
 proxy.list: 'Vekil Listesi'
 proxy.proxy.user.id: 'Vekil Kullanıcı ID'
 proxy.singular: Vekil
-proxy.target.user.email: 'Target User Email'
-proxy.target.user.username: 'Target Username'
-proxy.user.email: Email
-proxy.username: Username
-proxy.your.client.user.list: 'Users that you can login as'
-proxy.your.proxy.user.list: 'Your Proxy User List'
-proxy_users: 'Proxy Users'
-pubdate: 'Published Date'
-publishdate: 'Publish Date'
-published: Published
-read.article: 'Read Article'
-read.lastissue: 'Son Sayı'
-regenerate.apikey: 'Regenerate APIKEY'
-register: Kayıt Ol
-register.yourself.as.author: 'Register Yourself As Author'
-register_journal: 'Register Journal'
-rejected: Rejected
-remove: Remove
-reports.analytics: 'Analytics Reports'
-reports.article: 'Article Reports'
-reports.author: 'Author Reports'
-reports.journal: 'Journal Reports'
-reports.title: Reports
-reports.user: 'User Reports'
+proxy.target.user.email: 'Hedef Kullanıcı E-postası'
+proxy.target.user.username: 'Hedef Kullanıcı Adı'
+proxy.user.email: E-Posta
+proxy.username: Kullanıcı Adı
+proxy.your.client.user.list: 'Olarak Giriş Yapabileceğiniz Kullanıcılar'
+proxy.your.proxy.user.list: 'Vekil Kullanıcı Listeniz'
+proxy_users: 'Vekil Kullanıcılar'
+pubdate: 'Yayımlanma Tarihi'
+publishdate: 'Yayın Tarihi'
+published: Yayımlanmış
+read.article: 'Makaleyi Oku'
+read.lastissue: 'Son Sayıyı Oku'
+regenerate.apikey: 'Yeniden APIKEY Üret'
+register: 'Kayıt Ol'
+register.yourself.as.author: 'Yazar Olarak Kayıt Olun'
+register_journal: 'Dergi Kaydet'
+rejected: Reddedilmiş
+remove: Sil
+reports.analytics: 'Analitik Raporlar'
+reports.article: 'Makale Raporları'
+reports.author: 'Yazar Raporları'
+reports.journal: 'Dergi Raporları'
+reports.title: Raporlar
+reports.user: 'Kullanıcı Raporları'
 res: Res
-restart: Restart
-review: Review
-review.form: 'Review Form'
-review.form.detail: 'Review Form Detail'
-review.form.item.detail: 'Review Form Item Detail'
-review.form.item.new: 'Review Form New Item'
-review.form.item.update: 'Review Form Item Upate'
-review.form.new: 'New Review Form'
-review.form.preview: 'Review Form Preview'
-review.form.update: 'Update Review Form'
-review.forms: 'Review Forms'
-review.result: 'Review Result'
-reviewForms.manage: 'Manage review forms'
-reviewResultCodes.0: Reject
-reviewResultCodes.1: 'Must Rewrite'
-reviewResultCodes.2: 'Major Revision'
-reviewResultCodes.3: 'Minor Revision'
-reviewResultCodes.4: Kabul Et
+restart: Yeniden Başlat
+review: İncele
+review.form: 'Hakem Formu'
+review.form.detail: 'Hakem Formu Detayı'
+review.form.item.detail: 'Hakem Formu Madde Detayı'
+review.form.item.new: 'Hakem Formu Yeni Madde'
+review.form.item.update: 'Haken Formu Madde Güncelle'
+review.form.new: 'Yeni Hakem Formu'
+review.form.preview: 'Hakem Formu Önizleme'
+review.form.update: 'Hakem Formu Güncelle'
+review.forms: 'Hakem Formları'
+review.result: 'İnceleme Sonucu'
+reviewForms.manage: 'Hakem Formlarını Yönet'
+reviewResultCodes.0: Reddet
+reviewResultCodes.1: 'Yeniden Yazılmalı'
+reviewResultCodes.2: 'Büyük Revizyon'
+reviewResultCodes.3: 'Küçük Revizyon'
+reviewResultCodes.4: 'Kabul Et'
 role.edit: 'Görev Düzenle'
-role.forusers: Kullanıcılar için
+role.forusers: 'Kullanıcılar İçin'
 role.id: ID
 role.issystemrole: 'Sistem Görevi mi?'
 role.list: 'Görev Listesi'
@@ -840,7 +840,6 @@ search.result.headline: '`%term%` kelimesi için toplam %total% sonuç bulundu.'
 search.results: 'Arama Sonuçları'
 search.on.everywhere: 'Bu sitede ara'
 search.on.journal: 'Dergide ara'
-
 search.advanced: "Gelişmiş Arama"
 search.query: "Sorgu"
 search.useQueryBuilder: "Sorgu Aracını Kullan"
@@ -849,156 +848,156 @@ search.or: "VEYA"
 search.and: "VE"
 search.not: "DEĞİL"
 search.field: "Giriş elemanı"
-search.removeFieldItem: "Giriş elemanını kaldır"
-search.addFieldItem: "Giriş elemanı ekle"
+search.removeFieldItem: "Giriş Elemanını Kaldır"
+search.addFieldItem: "Giriş Elemanı Ekle"
 search.value: "Değer"
-search_query: 'type keyword(s) here'
-searchon.crossref: 'Crossref`de ara'
-searchon.doaj: 'Doaj`da ara'
+search_query: 'Anahtar Kelime Gir'
+searchon.crossref: 'CrossRef`de ara'
+searchon.doaj: 'DOAJ`da ara'
 searchon.google: 'Google`da ara'
-searchon.pubmed: 'Pubmed`de ara'
+searchon.pubmed: 'PubMed`de ara'
 searchon.wikipedia: 'Wikipedia`da ara'
 section: Bölüm
 select.article.file: 'Dosya Seç'
 select.image.file: 'Resim Dosyası Seç...'
-select_all: 'Tümünü seç'
+select_all: 'Tümünü Seç'
 select_article_file: 'Makale Dosyası Seç'
 select_supplementary_article_file: 'Ek Makale Dosyası Seç'
-select_visible: 'Select visible'
+select_visible: 'Görünenleri Seç'
 send_article: 'Makale Gönder'
-sendmail: 'Eposta Gönder'
+sendmail: 'E-posta Gönder'
 services: Hizmetler
-setting: Setting
-settings: Settings
-setup.step: 'Step #number'
+setting: Ayar
+settings: Ayarlar
+setup.step: 'Adım Sayısı'
 show: Göster
-sign.in: 'Sign In'
-size: Size
-source: Source
-special: Special
-special.issue: 'Special Issue'
-stats.most.downloaded.article: 'Most downloaded article'
-stats.most.viewed.article: 'Most viewed article'
-status: Status
-status.inreview: in-Review
-status.not_submitted: 'Not Submitted'
-status.published: Published
-status.rejected: Rejected
+sign.in: 'Giriş Yap'
+size: Boyut
+source: Kaynak
+special: Özel
+special.issue: 'Özel Sayı'
+stats.most.downloaded.article: 'En Çok İndirilen Makale'
+stats.most.viewed.article: 'En Çok Görüntülenen Makale'
+status: Durum
+status.inreview: İncelemede
+status.not_submitted: 'Gönderilmedi'
+status.published: Yayımlandı
+status.rejected: Reddedildi
 status.spam: Spam
-status.unpublished: Unpublished
+status.unpublished: Yayımlanmadı
 status.unknown: Bilinmiyor
-statusText: 'Status Text'
-step.edit: 'Edit step'
-step.new: 'New Step'
-subject: Subject
-subject.edit: 'Edit Subject'
-subject.list: 'Subject List'
-subject.new: 'New Subject'
+statusText: 'Durum Metni'
+step.edit: 'Adımı Düzenle'
+step.new: 'Yeni Adım'
+subject: Konu
+subject.edit: 'Konuyu Düzenle'
+subject.list: 'Konu Listesi'
+subject.new: 'Yeni Konu'
 subject.plural: Konular
-subjects: Subjects
-submission.attention: 'After submission your manuscript you can not change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.'
-submission.starting: Starting
-submission.success: 'Submission sending complete.'
-submissionDate: 'Submission Date'
-submission_checklist: 'Submission Checklist'
-submission_checklist.create: 'New item'
-submission_checklist.detail: Detail
-submission_checklist.label: Label
-submission_checklist.show: Show
-submission_checklist.visible: 'Is visible?'
-submit: Submit
-submitRoles: 'Roles that can submit articles'
-submit_action: 'Submit Action'
-subtitle: Subtitle
-success: Success
-successful.create: 'Successfully created.'
-successful.remove: 'Successfully removed.'
-successful.update: 'Successfully updated.'
-successfully.subscribed: 'Successfully Subscribed'
-suggest: Suggest
-suggestedMaxDays: 'Suggested maximum days count'
-summary: Summary
-suppfiles.data: 'Data Analysis'
-suppfiles.resins: 'Research Instruments'
-suppfiles.resmat: 'Research Materials'
-suppfiles.resres: 'Research Results'
-suppfiles.set: 'Data Set'
-suppfiles.source: 'Source Text'
-suppfiles.supp: 'Supplementary File'
-suppfiles.trans: Transcripts
-supplement: 'Is Supplement?'
-support: Support
-sure: 'Are you sure?'
-sure.ban: 'You will ban this user. Are you sure?'
-sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
-system.templates: 'System templates'
+subjects: Konular
+submission.attention: 'Makalenizi gönderdikten sonra verileri değiştiremezsiniz.  <br>Eğer emin değilseniz, bu pencereyi kapatmış olsanız bile gönderime daha sonra devam edebilirsiniz.'
+submission.starting: Başlarken
+submission.success: 'Makale Gönderim Tamamlandı'
+submissionDate: 'Gönderi Tarihi'
+submission_checklist: 'Gönderi Kontrol Listesi'
+submission_checklist.create: 'Yeni Madde'
+submission_checklist.detail: Detay
+submission_checklist.label: Etiket
+submission_checklist.show: Göster
+submission_checklist.visible: 'Kontrol Listesi Görünsün mü?'
+submit: Gönder
+submitRoles: 'Makale Gönderebilen Roller'
+submit_action: 'Gönderme Aksiyonu'
+subtitle: Altbaşlık
+success: Başarılı
+successful.create: 'Başarıyla Oluşturuldu.'
+successful.remove: 'Başarıyla Silindi.'
+successful.update: 'Başarıyla Güncellendi.'
+successfully.subscribed: 'Başarıyla Abone Olundu.'
+suggest: Öner
+suggestedMaxDays: 'Önerilen Maksimum Gün Sayısı'
+summary: Özet
+suppfiles.data: 'Veri Analizi'
+suppfiles.resins: 'Araştırma Enstrümanları'
+suppfiles.resmat: 'Araştırma Malzemeleri'
+suppfiles.resres: 'Araştırma Sonuçları'
+suppfiles.set: 'Veri Seti'
+suppfiles.source: 'Kaynak Metin'
+suppfiles.supp: 'Ek Dosya'
+suppfiles.trans: Belgeler
+supplement: 'Ek Dosya mı?'
+support: Destek
+sure: 'Emin misiniz?'
+sure.ban: 'Bu kullanıcıyı yasaklayacaksınız. Emin misiniz?'
+sure_data_lost: 'Bu sayfadan ayrılmak istediğinize emin misiniz?\n\nDeğişiklikleriniz kaybolabilir.'
+system.templates: 'Sistem Şablonları'
 switch: 'Geç'
-tag.search.results: 'Tag Search Result'
-tags: Tags
-tags.cloud: 'Tag Cloud'
-tagsearch: 'Tag Search'
-techreport: 'Technical Report'
-temaplate.name: 'Template Name'
-template: Template
-template.loadDefault: 'Load default templates'
-template.name: 'Template Name'
-templates: Templates
-theme: Theme
-theme.edit: 'Edit Theme'
-theme.id: 'Theme ID'
-theme.list: 'Theme List'
-theme.new: 'New Theme'
-theme.plural: Themes
-title: Title
-title.admin_dashboard: 'Admin Dashboard'
+tag.search.results: 'Arama Sonucunu Etiketle'
+tags: Etiketler
+tags.cloud: 'Etiket Bulutu'
+tagsearch: 'Etiket Arama'
+techreport: 'Teknik Rapor'
+temaplate.name: 'Şablon Adı'
+template: Şablon
+template.loadDefault: 'Tanımlı Şablonları Yükle'
+template.name: 'Şablon Adı'
+templates: Şablonlar
+theme: Tema
+theme.edit: 'Temayı Düzenle'
+theme.id: 'Tema ID'si'
+theme.list: 'Tema Listesi'
+theme.new: 'Yeni Tema'
+theme.plural: Temalar
+title: Başlık
+title.admin_dashboard: 'Yönetici Paneli'
 title.announcement: Duyuru
 title.announcements: Duyurular
 title.announcement_edit: 'Duyuruyu Düzenle'
 title.announcement_new: 'Yeni Duyuru'
 title.announcement_show: 'Duyuru Ayrıntıları'
-title.announcements: Announcements
+title.announcements: Duyurular
 title.api: 'API Home'
-title.archives: Archives
-title.article: Article
-title.article_authors: 'Article Authors'
-title.article_authors_edit: 'Edit Article Authors'
-title.article_authors_new: 'Add a new Author'
-title.article_authors_show: 'Show Article Authors'
-title.article_edit: 'Edit Article'
-title.article_files: 'Article Files'
-title.article_files_edit: 'Edit Article File'
-title.article_files_new: 'New Article File'
-title.article_files_show: 'Show Article File'
-title.article_new: 'New Article'
-title.article_show: 'Show Article'
-title.article_type_edit: 'Edit Article Type'
-title.article_type_new: 'New Article Type'
-title.article_type_show: 'Show Article Type'
-title.article_types: 'Article Types'
-title.articles: Articles
-title.articles_assign: 'Assign Articles'
-title.articles_assigned: 'Assigned Articles'
-title.articles_published: 'Published Articles'
-title.articles_rejected: 'Rejected Articles'
-title.articles_uncomplete: 'Uncomplete Articles'
-title.articles_unpublished: 'Unpublished Articles'
-title.articles_waiting: 'Waiting Articles'
-title.author_edit: 'Edit Author'
-title.author_new: 'New Author'
-title.author_preview: 'Author Preview'
-title.author_show: 'Show Author'
-title.authors: Authors
-title.block_create: 'Create Block'
-title.block_link_create: 'Create Block Link'
-title.board_edit: 'Edit Board'
-title.board_new: 'New Board'
-title.board_show: 'Show Board'
-title.boards: Boards
-title.browse: Browse
-title.categories: Categories
-title.citation: Citation
-title.citation_edit: 'Edit Citation'
-title.citation_new: 'New Citation'
+title.archives: Arşivler
+title.article: Makale
+title.article_authors: 'Makale Yazarları'
+title.article_authors_edit: 'Makale Yazarlarını Düzenle'
+title.article_authors_new: 'Yeni Bir Yazar Ekle'
+title.article_authors_show: 'Makale Yazarlarını Göster'
+title.article_edit: 'Makaleyi Düzenle'
+title.article_files: 'Makale Dosyaları'
+title.article_files_edit: 'Makale Dosyasını Düzenle'
+title.article_files_new: 'Yeni Makale Dosyası'
+title.article_files_show: 'Makale Dosyasını Göster'
+title.article_new: 'Yeni Makale'
+title.article_show: 'Makaleyi Göster'
+title.article_type_edit: 'Makale Türü Düzenle'
+title.article_type_new: 'Yeni Makale Türü'
+title.article_type_show: 'Makale Türünü Göster'
+title.article_types: 'Makale Türleri'
+title.articles: Makaleler
+title.articles_assign: 'Makaleleri Ata'
+title.articles_assigned: 'Atanan Makaleler'
+title.articles_published: 'Yayımlanmış Makaleler'
+title.articles_rejected: 'Reddedilen Makaleler'
+title.articles_uncomplete: 'Tamamlanmamış Makaleler'
+title.articles_unpublished: 'Yayımlanmamış Makaleler'
+title.articles_waiting: 'Bekleyen Makaleler'
+title.author_edit: 'Yazar Düzenle'
+title.author_new: 'Yeni Yazar'
+title.author_preview: 'Yazar Önizleme'
+title.author_show: 'Yazarı Göster'
+title.authors: Yazarlar
+title.block_create: 'Blok Oluştur'
+title.block_link_create: 'Blok Linki Oluştur'
+title.board_edit: 'Kurulu Düzenle'
+title.board_new: 'Yeni Kurul'
+title.board_show: 'Kurulu Göster'
+title.boards: Kurullar
+title.browse: Gözat
+title.categories: Kategoriler
+title.citation: Atıf
+title.citation_edit: 'Atıfı Düzenle'
+title.citation_new: 'Yeni Atıf'
 title.citation_setting_edit: 'Edit Citation Setting'
 title.citation_setting_new: 'New Citation Setting'
 title.citation_setting_show: 'Show Citation Setting'
