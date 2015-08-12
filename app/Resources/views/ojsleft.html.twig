@@ -195,7 +195,7 @@
                     {% if is_granted('VIEW', selectedJournal(), 'pages') %}
                         <a class="list-group-item" href="{{ path('ojs_journal_page_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-random fa-page-o"></i>
+                                <i class="fa fa-file-o"></i>
                             </span>
                             {{ "title.pages"|trans }}
                         </a>
@@ -204,9 +204,9 @@
                     {% if is_granted('VIEW', selectedJournal(), 'posts') %}
                         <a class="list-group-item" href="{{ path('ojs_journal_post_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
-                                <i class="fa fa-random fa-page-o"></i>
+                                <i class="fa fa-file"></i>
                             </span>
-                            {{ "title.pages"|trans }}
+                            {{ "title.posts"|trans }}
                         </a>
                     {% endif %}
 
