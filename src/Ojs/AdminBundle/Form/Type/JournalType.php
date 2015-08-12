@@ -183,7 +183,7 @@ class JournalType extends AbstractType
                 'entity',
                 array(
                     'label' => 'theme',
-                    'class' => 'Ojs\JournalBundle\Entity\Theme',
+                    'class' => 'Ojs\JournalBundle\Entity\JournalTheme',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
@@ -200,7 +200,7 @@ class JournalType extends AbstractType
                 'entity',
                 array(
                     'label' => 'design',
-                    'class' => 'Ojs\JournalBundle\Entity\Design',
+                    'class' => 'Ojs\JournalBundle\Entity\JournalDesign',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,

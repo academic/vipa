@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * JournalTheme controller.
@@ -34,6 +35,14 @@ class JournalThemeController extends Controller
         }
         $source = new Entity('OjsJournalBundle:JournalTheme');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $tableAlias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function (QueryBuilder $query) use ($tableAlias, $journal) {
+                $query->andWhere($tableAlias.'.journal = :journal')
+                    ->setParameter('journal', $journal);
+            }
+        );
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

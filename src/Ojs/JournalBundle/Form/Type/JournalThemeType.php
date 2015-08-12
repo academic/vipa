@@ -17,18 +17,16 @@ class JournalThemeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'theme',
-                'entity',
-                array(
-                    'class' => 'OjsJournalBundle:Theme',
-                    'property' => 'title',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('t')
-                            ->where('t.isPublic = FALSE');
-                    },
-                )
-            );
+            ->add('title', 'text', [
+                'label' => 'Title'
+                ]
+            )
+            ->add('isPublic', 'checkbox', [
+                'label' => 'ojs.is_public'
+                ]
+            )
+            ->add('css', 'textarea')
+        ;
     }
 
     /**
