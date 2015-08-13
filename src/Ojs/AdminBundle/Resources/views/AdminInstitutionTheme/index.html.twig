@@ -1,0 +1,25 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.institution_themes'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
+        { 'title': 'title.institution_theme'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "institutiontheme.list"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    {% if is_granted('CREATE', getEntity('OjsJournalBundle:InstitutionTheme')) %}
+        <a href="{{ path('ojs_admin_institution_theme_new') }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

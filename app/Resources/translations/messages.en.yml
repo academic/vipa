@@ -1368,3 +1368,7 @@ workflows: Workflows
 year: Year
 you: You
 404: 'Not found'
+title.institution_theme_edit: 'Edit Institution Theme'
+title.institution_theme_new: 'New Institution Theme'
+title.institution_theme_show: 'Show Institution Theme'
+title.institution_theme: 'Institution Theme'
