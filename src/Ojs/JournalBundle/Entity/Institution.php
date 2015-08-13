@@ -161,16 +161,30 @@ class Institution implements Translatable
 
     /**
      * @var InstitutionTheme
-     * @Expose
-     * @Groups({"JournalDetail"})
      */
     private $theme;
+
+    /**
+     * @var integer
+     */
+    private $designId;
+
+    /**
+     * @var InstitutionTheme
+     */
+    private $design;
 
     /**
      * @var Collection
      * @Expose
      */
     private $institutionThemes;
+
+    /**
+     * @var JournalDesign Collection
+     * @Expose
+     */
+    private $institutionDesigns;
 
     /**
      * @var boolean
@@ -187,7 +201,8 @@ class Institution implements Translatable
         $this->journals = new ArrayCollection();
         $this->authors = new ArrayCollection();
         $this->translations = new ArrayCollection();
-        $this->journalThemes = new ArrayCollection();
+        $this->institutionThemes = new ArrayCollection();
+        $this->institutionDesigns = new ArrayCollection();
     }
 
     public function getTranslations()
@@ -929,6 +944,54 @@ class Institution implements Translatable
         $this->theme = $theme;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDesignId()
+    {
+        return $this->designId;
+    }
+
+    /**
+     * @param int $designId
+     */
+    public function setDesignId($designId)
+    {
+        $this->designId = $designId;
+    }
+
+    /**
+     * @return InstitutionDesign
+     */
+    public function getDesign()
+    {
+        return $this->design;
+    }
+
+    /**
+     * @param InstitutionDesign $design
+     */
+    public function setDesign(InstitutionDesign $design)
+    {
+        $this->design = $design;
+    }
+
+    /**
+     * @return InstitutionDesign|ArrayCollection
+     */
+    public function getInstitutionDesigns()
+    {
+        return $this->institutionDesigns;
+    }
+
+    /**
+     * @param InstitutionDesign|ArrayCollection $institutionDesigns
+     */
+    public function setInstitutionDesigns($institutionDesigns)
+    {
+        $this->institutionDesigns = $institutionDesigns;
     }
 
     public function __toString()
