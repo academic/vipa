@@ -1,0 +1,30 @@
+ojs_admin_institution_theme_index:
+    path:  /
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:index }
+
+ojs_admin_institution_theme_show:
+    path:  /{id}/show
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:show }
+
+ojs_admin_institution_theme_new:
+    path:  /new
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:new }
+
+ojs_admin_institution_theme_create:
+    path:  /create
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:create }
+    methods: [POST]
+
+ojs_admin_institution_theme_edit:
+    path:  /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:edit }
+
+ojs_admin_institution_theme_update:
+    path:  /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:update }
+    methods:  [PUT]
+
+ojs_admin_institution_theme_delete:
+    path:  /{id}/delete
+    defaults: { _controller: OjsAdminBundle:AdminInstitutionTheme:delete }
+    methods:  [DELETE]
