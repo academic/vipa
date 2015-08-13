@@ -276,9 +276,8 @@ class JournalDesignController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
 
-        $design = $em->getRepository('OjsJournalBundle:Design')->find($id);
-        $journal->removeDesign($design);
-        $em->persist($journal);
+        $design = $em->getRepository('OjsJournalBundle:JournalDesign')->find($id);
+        $em->remove($design);
         $em->flush();
         $this->successFlashBag('successful.remove');
 
@@ -319,32 +318,32 @@ class JournalDesignController extends Controller
             },
             $editableContent
         );
-        $editableContent = str_replace(
-            [
-                '<!--gm-editable-region-->',
-                '<!--/gm-editable-region-->'
-            ],
-            '',
-            $editableContent
-        );
+        $editableContent = str_ireplace('<!--gm-editable-region-->', '', $editableContent);
+        $editableContent = str_ireplace('<!--/gm-editable-region-->', '', $editableContent);
         return $editableContent;
     }
 
     /**
-     * Warning: This method is not working correctly. method is on process.
      * @param  String                                            $editableContent
      * @return String
      */
     private function prepareEditContent($editableContent)
     {
+        $editableContent = str_ireplace('<!--raw-->', '{% raw %}<!--raw-->', $editableContent);
+        $editableContent = str_ireplace('<!--endraw-->', '{% endraw %}<!--endraw-->', $editableContent);
+
         $editableContent = preg_replace_callback(
-            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
             function($matches)
             {
-                preg_match('/<!--.*-->/Us', $matches[0], $matched);
-                $matched[0] = str_ireplace('<!--', '{% raw %}<!--', $matched[0]);
-                $matched[0] = str_ireplace('-->', '-->{% endraw %}', $matched[0]);
-                return $matched[0];
+                return preg_replace_callback(
+                    '/{{.*}}/Us',
+                    function($matched)
+                    {
+                        return '{{ "'.addcslashes($matched[0], '"').'" }}';
+                    },
+                    $matches[0]
+                );
             },
             $editableContent
         );

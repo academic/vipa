@@ -872,3 +872,11 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
         font-size: 10px;
     }
 }
+
+.half-column {
+    width: 50%;
+    float: left;
+    position: relative;
+    padding-right: 15px;
+    padding-left: 15px;
+}
