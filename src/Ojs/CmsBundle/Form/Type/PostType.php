@@ -33,11 +33,22 @@ class PostType extends AbstractType
             $post_types = [];
         $builder
             ->add('title')
-            ->add('content', 'textarea', [
-                'attr' => [
-                    'class' => 'tinymce'
-                ]
-            ])
+            ->add('content', 'ace_editor', array(
+                    'label' => 'content',
+                    'wrapper_attr' => array(),
+                    'width' => 700,
+                    'height' => 200,
+                    'font_size' => 12,
+                    'mode' => 'ace/mode/html',
+                    'theme' => 'ace/theme/twilight',
+                    'tab_size' => null,
+                    'read_only' => null,
+                    'use_soft_tabs' => null,
+                    'use_wrap_mode' => null,
+                    'show_print_margin' => null,
+                    'highlight_active_line' => null
+                )
+            )
             ->add('status', 'choice', [
                 'choices' => [
                     0 => 'Disable',
