@@ -26,6 +26,10 @@ ojs_admin_institution_type:
     resource: "@OjsAdminBundle/Resources/config/routing/institution_type.yml"
     prefix:   institution-type
 
+ojs_admin_institution_theme:
+    resource: "@OjsAdminBundle/Resources/config/routing/institution_theme.yml"
+    prefix:   institution-theme
+
 ojs_admin_subject:
     resource: "@OjsAdminBundle/Resources/config/routing/subject.yml"
     prefix:   subject
