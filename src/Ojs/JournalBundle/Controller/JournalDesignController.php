@@ -8,6 +8,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Elastica\Exception\NotFoundException;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\JournalDesign;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 use Ojs\JournalBundle\Form\Type\JournalDesignType;
+use Ojs\JournalBundle\Entity\Journal;
 
 /**
  * JournalDesign controller.
@@ -33,13 +35,12 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
-        $source = new Entity('OjsJournalBundle:Design');
+        $source = new Entity('OjsJournalBundle:JournalDesign');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
-        $ta = $source->getTableAlias();
+        $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb
-                    ->where(':journal MEMBER OF '.$ta.'.journals')
+            function (QueryBuilder $query) use ($tableAlias, $journal) {
+                $query->andWhere($tableAlias.'.journal = :journal')
                     ->setParameter('journal', $journal);
             }
         );
@@ -73,19 +74,20 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
-        $form = $this->createCreateForm();
+        $entity = new JournalDesign();
+        $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $design = $em->getRepository('OjsJournalBundle:Design')->find(
-                $request->get('ojs_journalbundle_journaldesign')['design']
+            $entity->setContent(
+                $this->prepareDesignContent($entity->getEditableContent())
             );
-            $journal->addDesign($design);
-            $em->persist($journal);
+            $entity->setJournal($journal);
+            $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_journal_design_show', ['id' => $design->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute('ojs_journal_design_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
         return $this->render(
             'OjsJournalBundle:JournalDesign:new.html.twig',
@@ -96,19 +98,19 @@ class JournalDesignController extends Controller
     }
 
     /**
-     *
-     *
-     * @return Form The form
+     * @param Journal $journal
+     * @return Form
      */
-    private function createCreateForm()
+    private function createCreateForm(JournalDesign $entity, Journal $journal)
     {
         $form = $this->createForm(
             new JournalDesignType(),
+            $entity,
             array(
+                'action' => $this->generateUrl('ojs_journal_design_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
             )
         );
-
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -125,7 +127,8 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
-        $form = $this->createCreateForm();
+        $entity = new JournalDesign();
+        $form = $this->createCreateForm($entity, $journal);
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:new.html.twig',
@@ -136,7 +139,7 @@ class JournalDesignController extends Controller
     }
 
     /**
-     * @param  integer  $id
+     * @param $id
      * @return Response
      */
     public function showAction($id)
@@ -146,13 +149,10 @@ class JournalDesignController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's design!");
         }
-
-        $designRepo = $em->getRepository('OjsJournalBundle:Design');
-        $design = $designRepo->find($id);
-        if (!$design) {
-            throw new NotFoundHttpException("Design not found!");
-        }
-        if(!$design->getJournals()->contains($journal))
+        /** @var JournalDesign $design */
+        $design = $em->getRepository('OjsJournalBundle:JournalDesign')->find($id);
+        $this->throw404IfNotFound($design);
+        if($design->getJournal()->getId() !== $journal->getId())
         {
             throw new NotFoundException("Journal Design not found!");
         }
@@ -163,8 +163,7 @@ class JournalDesignController extends Controller
         return $this->render(
             'OjsJournalBundle:JournalDesign:show.html.twig',
             array(
-                'journalId' => $journal->getId(),
-                'designId' => $design->getId(),
+                'entity' => $design,
                 'token'  => $token,
             )
         );
@@ -284,5 +283,50 @@ class JournalDesignController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_journal_design_index', ['journalId' => $journal->getId()]);
+    }
+
+    /**
+     * @param  String                                            $editableContent
+     * @return String
+     */
+    private function prepareDesignContent($editableContent)
+    {
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!--.*-->/Us', $matches[0], $matched);
+                return str_ireplace(['<!--', '-->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-span[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!--.*-->/Us', $matches[0], $matched);
+                return str_ireplace(['<!--', '-->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/title\s*=\s*"\s*{.*}\s*"/Us', $matches[0], $matched);
+                $matched[0] = preg_replace('/title\s*=\s*"/Us', '', $matched[0]);
+                return str_replace('"', '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = str_replace(
+            [
+                '<!--gm-editable-region-->',
+                '<!--/gm-editable-region-->'
+            ],
+            '',
+            $editableContent
+        );
+        return $editableContent;
     }
 }
