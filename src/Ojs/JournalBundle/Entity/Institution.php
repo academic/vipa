@@ -154,6 +154,25 @@ class Institution implements Translatable
     private $institution_type_id;
 
     /**
+     * @var integer
+     * @Expose
+     */
+    private $themeId;
+
+    /**
+     * @var InstitutionTheme
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $theme;
+
+    /**
+     * @var Collection
+     * @Expose
+     */
+    private $institutionThemes;
+
+    /**
      * @var boolean
      * @GRID\Column(title="verified")
      */
@@ -168,6 +187,7 @@ class Institution implements Translatable
         $this->journals = new ArrayCollection();
         $this->authors = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->journalThemes = new ArrayCollection();
     }
 
     public function getTranslations()
@@ -838,9 +858,81 @@ class Institution implements Translatable
         $this->children->removeElement($children);
     }
 
+    /**
+     * @param  InstitutionTheme $institutionTheme
+     * @return Institution
+     */
+    public function addInstitutionThemes(InstitutionTheme $institutionTheme)
+    {
+        $this->institutionThemes[] = $institutionTheme;
+
+        return $this;
+    }
+
+    /**
+     * @param InstitutionTheme $institutionTheme
+     */
+    public function removeInstitutionThemes(InstitutionTheme $institutionTheme)
+    {
+        $this->institutionThemes->removeElement($institutionTheme);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getInstitutionThemes()
+    {
+        return $this->institutionThemes;
+    }
+
+    /**
+     * Get themeId
+     *
+     * @return integer
+     */
+    public function getThemeId()
+    {
+        return $this->themeId;
+    }
+
+    /**
+     * Set themeId
+     *
+     * @param  integer $themeId
+     * @return Institution
+     */
+    public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return InstitutionTheme
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * Set theme
+     *
+     * @param  InstitutionTheme   $theme
+     * @return Institution
+     */
+    public function setTheme(InstitutionTheme $theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->name;
     }
-
 }
