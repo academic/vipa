@@ -6,8 +6,8 @@ use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\InstitutionTheme;
-use Ojs\AdminBundle\Form\Type\InstitutionThemeType;
+use Ojs\JournalBundle\Entity\InstitutionDesign;
+use Ojs\AdminBundle\Form\Type\InstitutionDesignType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,51 +15,51 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * InstitutionThemes controller.
+ * InstitutionDesign controller.
  *
  */
-class AdminInstitutionThemeController extends Controller
+class AdminInstitutionDesignController extends Controller
 {
     /**
-     * Lists all InstitutionThemes entities.
+     * Lists all InstitutionDesigns entities.
      *
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new InstitutionTheme())) {
+        if (!$this->isGranted('VIEW', new InstitutionDesign())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $source = new Entity('OjsJournalBundle:InstitutionTheme');
+        $source = new Entity('OjsJournalBundle:InstitutionDesign');
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('ojs_admin_institution_theme_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_admin_institution_theme_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_institution_theme_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_institution_design_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_institution_design_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_institution_design_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsAdminBundle:AdminInstitutionTheme:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminInstitutionDesign:index.html.twig', $data);
     }
 
     /**
-     * Creates a new InstitutionTheme entity.
+     * Creates a new InstitutionDesign entity.
      *
      * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new InstitutionTheme())) {
+        if (!$this->isGranted('CREATE', new InstitutionDesign())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $entity = new InstitutionTheme();
+        $entity = new InstitutionDesign();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -69,11 +69,11 @@ class AdminInstitutionThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_admin_institution_theme_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_institution_design_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminInstitutionTheme:new.html.twig',
+            'OjsAdminBundle:AdminInstitutionDesign:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -84,17 +84,17 @@ class AdminInstitutionThemeController extends Controller
     /**
      * Creates a form to create a InstitutionTypes entity.
      *
-     * @param InstitutionTheme $entity The entity
+     * @param InstitutionDesign $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(InstitutionTheme $entity)
+    private function createCreateForm(InstitutionDesign $entity)
     {
         $form = $this->createForm(
-            new InstitutionThemeType(),
+            new InstitutionDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_admin_institution_theme_create'),
+                'action' => $this->generateUrl('ojs_admin_institution_design_create'),
                 'method' => 'POST',
             )
         );
@@ -104,19 +104,19 @@ class AdminInstitutionThemeController extends Controller
     }
 
     /**
-     * Displays a form to create a new InstitutionTheme entity.
+     * Displays a form to create a new InstitutionDesign entity.
      *
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new InstitutionTheme())) {
+        if (!$this->isGranted('CREATE', new InstitutionDesign())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $entity = new InstitutionTheme();
+        $entity = new InstitutionDesign();
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsAdminBundle:AdminInstitutionTheme:new.html.twig',
+            'OjsAdminBundle:AdminInstitutionDesign:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -125,7 +125,7 @@ class AdminInstitutionThemeController extends Controller
     }
 
     /**
-     * Finds and displays a InstitutionTheme entity.
+     * Finds and displays a InstitutionDesign entity.
      *
      * @param $id
      * @return Response
@@ -133,23 +133,23 @@ class AdminInstitutionThemeController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:InstitutionTheme')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:InstitutionDesign')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_admin_institution_theme'.$entity->getId());
+            ->refreshToken('ojs_admin_institution_Design'.$entity->getId());
 
         return $this->render(
-            'OjsAdminBundle:AdminInstitutionTheme:show.html.twig',
+            'OjsAdminBundle:AdminInstitutionDesign:show.html.twig',
             ['entity' => $entity, 'token' => $token]
         );
     }
 
     /**
-     * Displays a form to edit an existing InstitutionTheme entity.
+     * Displays a form to edit an existing InstitutionDesign entity.
      *
      * @param $id
      * @return Response
@@ -157,8 +157,8 @@ class AdminInstitutionThemeController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var InstitutionTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:InstitutionTheme')->find($id);
+        /** @var InstitutionDesign $entity */
+        $entity = $em->getRepository('OjsJournalBundle:InstitutionDesign')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -166,7 +166,7 @@ class AdminInstitutionThemeController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsAdminBundle:AdminInstitutionTheme:edit.html.twig',
+            'OjsAdminBundle:AdminInstitutionDesign:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -177,17 +177,17 @@ class AdminInstitutionThemeController extends Controller
     /**
      * Creates a form to edit a InstitutionTypes entity.
      *
-     * @param InstitutionTheme $entity The entity
+     * @param InstitutionDesign $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(InstitutionTheme $entity)
+    private function createEditForm(InstitutionDesign $entity)
     {
         $form = $this->createForm(
-            new InstitutionThemeType(),
+            new InstitutionDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_admin_institution_theme_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_institution_design_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -197,7 +197,7 @@ class AdminInstitutionThemeController extends Controller
     }
 
     /**
-     * Edits an existing InstitutionThemes entity.
+     * Edits an existing InstitutionDesigns entity.
      *
      * @param  Request                   $request
      * @param $id
@@ -206,7 +206,7 @@ class AdminInstitutionThemeController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var InstitutionTheme $entity */
+        /** @var InstitutionDesign $entity */
         $entity = $em->getRepository('OjsJournalBundle:InstitutionDesign')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
@@ -218,11 +218,11 @@ class AdminInstitutionThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_admin_institution_theme_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_admin_institution_design_edit', ['id' => $id]);
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminInstitutionTheme:edit.html.twig',
+            'OjsAdminBundle:AdminInstitutionDesign:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -232,11 +232,11 @@ class AdminInstitutionThemeController extends Controller
 
     /**
      * @param  Request                                            $request
-     * @param  InstitutionTheme                                   $entity
+     * @param  InstitutionDesign                                   $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws TokenNotFoundException
      */
-    public function deleteAction(Request $request, InstitutionTheme $entity)
+    public function deleteAction(Request $request, InstitutionDesign $entity)
     {
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -245,7 +245,7 @@ class AdminInstitutionThemeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_institution_theme'.$entity->getId());
+        $token = $csrf->getToken('ojs_admin_institution_design'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -253,6 +253,6 @@ class AdminInstitutionThemeController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_admin_institution_theme_index');
+        return $this->redirectToRoute('ojs_admin_institution_design_index');
     }
 }
