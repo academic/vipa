@@ -1,0 +1,23 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ adminPage.title }} {{ parent() }}{% endblock %}
+{% set hideleft = true %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'about'|trans},
+        {'title': 'about'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="board">
+            <div class="board-inner">
+                <h1>{{ adminPage.title }}</h1>
+                <p>{{ adminPage.body|raw }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

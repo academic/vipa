@@ -160,3 +160,7 @@ privacy:
 ojs_site_download:
     prefix:   /download
     resource: '@OjsSiteBundle/Resources/config/routing/download.yml'
+
+ojs_site_page:
+    path: /{slug}
+    defaults: { _controller: OjsSiteBundle:Site:pageDetail }

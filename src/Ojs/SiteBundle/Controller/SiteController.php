@@ -310,4 +310,16 @@ class SiteController extends Controller
 
         return $this->render('OjsSiteBundle:Journal:page.html.twig', ['journalPage' => $page]);
     }
+
+    public function pageDetailAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $slug]);
+
+        if (!$page) {
+            throw new NotFoundHttpException("Page not found!");
+        }
+
+        return $this->render('OjsSiteBundle:Site:page.html.twig', ['adminPage' => $page]);
+    }
 }
