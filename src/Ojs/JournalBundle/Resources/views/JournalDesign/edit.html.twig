@@ -1,4 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
+{% import "::design_macros.html.twig" as macros %}
+{% set hideleft = true %}
 {% block title %}{{ 'title.journal_design_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
@@ -10,13 +12,135 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@jqueryui_css' output="assets/prod/css/jqueryui_min.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('vendor/gridmanager.js/dist/css/jquery.gridmanager-light.css') }}"/>
+
+    <style type="text/css">
+        .gm-save {
+            display: none !important;
+        }
+    </style>
+{% endblock %}
+
 {% block body -%}
-    <h1>{{ 'title.journal_design_edit'|trans }}</h1>
-    {% include '::flashbag.html.twig' %}
-    {{ form( edit_form, { 'method': 'PUT', action: path('ojs_journal_design_update', {'id': designId, 'journalId': selectedJournal().id}) } ) }}
-    {{
-    actions({
-        'back': {'href': path('ojs_journal_design_index', {'journalId': selectedJournal().id})},
-    })
-    }}
+    <h1>{{ "title.journal_design_edit"|trans }}</h1>
+
+    {{ form(edit_form) }}
+
+    <p id="widgetNotSelected" class="text-danger hide">Lütfen bir bileşen seçin!</p>
+    <p id="widgetNoColumn" class="text-danger hide">Lütfen bileşen eklemek istediğiniz alanları seçin!</p>
+    <select id="widgetSelect">
+        <option value="default">Bileşen seç ..</option>
+        <option value="cover">Dergi Kapağı</option>
+        <option value="description">Tanım</option>
+        <option value="journalMenu">Dergi Menüsü</option>
+        <option value="socialButtons">Sosyal Ağlar</option>
+        <option value="journalIndexes">Dergi Dizinleri</option>
+        <option value="archive">Arşiv</option>
+        <option value="articles">Yazılar</option>
+        <option value="pages">Sayfalar</option>
+        <option value="custom">Özel</option>
+    </select>
+    <button id="widgetButton" class="btn btn-sm btn-success">Bileşen Ekle</button>
+    <br>
+    <textarea id="customCode" class="hide"></textarea>
+    <br>
+    <br>
+
+    <div id="gridDesign">
+        {% include template_from_string(entity.editableContent) %}
+    </div>
+
+    <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_design_index', {journalId: selectedJournal().id}) }}" title="{{"b"|trans}}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+
+    <!-- Widgets -->
+    {% include '::designWidgets.html.twig' %}
+{% endblock %}
+
+{% block javascripts -%}
+    {{ parent() }}
+    <script></script>
+
+    {% javascripts "@jqueryui_js" output="assets/prod/js/jqueryui_min.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="{{ asset('vendor/gridmanager.js/dist/js/jquery.gridmanager.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#widgetNotSelected').hide();
+            $('#widgetNotSelected').removeClass('hide');
+            $('#widgetNoColumn').hide();
+            $('#widgetNoColumn').removeClass('hide');
+            $('#customCode').hide();
+            $('#customCode').removeClass('hide');
+            var gm = $("#gridDesign").gridmanager().data('gridmanager');
+
+            $('#widgetButton').on('click', function (e) {
+
+                if (!$('.' + gm.options.gmEditClassSelected).length) {
+                    $('#widgetNoColumn').show();
+                    return;
+                }
+                else {
+                    $('#widgetNoColumn').hide();
+                }
+
+                if ($('#widgetSelect').val() == 'default') {
+                    $('#widgetNotSelected').show();
+                    return;
+                }
+                else if ($('#widgetSelect').val() == 'custom') {
+                    var widgetHtml = $('#customCode').val();
+                }
+                else {
+                    var widgetHtml = $('#' + $('#widgetSelect').val()).html();
+                }
+                $('#widgetNotSelected').hide();
+
+                var canvas = gm.$el.find("#" + gm.options.canvasId);
+                var cols = canvas.find(gm.options.colSelector);
+                $.each(cols, function () {
+                    if ($(this).hasClass(gm.options.gmEditClassSelected)) {
+                        var cTagOpen = '<!--' + gm.options.gmEditRegion + '-->',
+                                cTagClose = '<!--\/' + gm.options.gmEditRegion + '-->',
+                                elem = null;
+                        $(('.' + gm.options.gmToolClass + ':last'), this)
+                                .before(elem = $('<div>').addClass(gm.options.gmEditRegion + ' ' + gm.options.contentDraggableClass)
+                                        .append(gm.options.controlContentElem + '<div class="' + gm.options.gmContentRegion + '"></div>')).before(cTagClose).prev().before(cTagOpen);
+                        gm.initNewContentElem(elem);
+                        $('.' + gm.options.gmEditRegion, this).last().append(widgetHtml);
+                    }
+                });
+            });
+
+            $('#widgetSelect').on('change', function () {
+                if ($(this).val() != 'custom') {
+                    $('#customCode').slideUp();
+                }
+                else {
+                    $('#customCode').slideDown();
+                }
+            });
+
+            $('#ojs_journalbundle_journaldesign_submit').attr('type', 'button');
+            $('#ojs_journalbundle_journaldesign_submit').on('click', function(){
+                gm.deinitCanvas();
+                $('.holder-remove').removeAttr("src");
+                $('.holder-remove').removeAttr("data-holder-rendered");
+                $('#ojs_journalbundle_journaldesign_editableContent').val($("#" + gm.options.canvasId).html());
+                $("form[name='ojs_journalbundle_journaldesign']").submit();
+            });
+        });
+
+
+    </script>
 {% endblock %}

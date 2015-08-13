@@ -171,37 +171,44 @@ class JournalDesignController extends Controller
 
     /**
      *
-     * @param  integer  $id
+     * @param  JournalDesign  $journalDesign
      * @return Response
      */
-    public function editAction($id)
+    public function editAction(JournalDesign $journalDesign)
     {
-        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's design!");
         }
-
-        $editForm = $this->createEditForm();
+        $journalDesign->setEditableContent($this->prepareEditContent($journalDesign->getEditableContent()));
+        $editForm = $this->createEditForm($journalDesign, $journal);
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:edit.html.twig',
             array(
-                'designId' => $id,
+                'journal' => $journal,
+                'entity' => $journalDesign,
                 'edit_form' => $editForm->createView(),
             )
         );
     }
 
     /**
-     *
-     * @return Form The form
+     * @param JournalDesign $entity
+     * @param Journal $journal
+     * @return Form
      */
-    private function createEditForm()
+    private function createEditForm(JournalDesign $entity, Journal $journal)
     {
         $form = $this->createForm(
             new JournalDesignType(),
+            $entity,
             array(
+                'action' => $this->generateUrl('ojs_journal_design_update', [
+                    'journalId' => $journal->getId(),
+                    'id'=> $entity->getId()
+                    ]
+                ),
                 'method' => 'PUT',
             )
         );
@@ -325,6 +332,26 @@ class JournalDesignController extends Controller
                 '<!--/gm-editable-region-->'
             ],
             '',
+            $editableContent
+        );
+        return $editableContent;
+    }
+
+    /**
+     * @param  String                                            $editableContent
+     * @return String
+     */
+    private function prepareEditContent($editableContent)
+    {
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!--.*-->/Us', $matches[0], $matched);
+                $matched[0] = str_ireplace('<!--', '{% raw %}<!--', $matched[0]);
+                $matched[0] = str_ireplace('-->', '-->{% endraw %}', $matched[0]);
+                return $matched[0];
+            },
             $editableContent
         );
         return $editableContent;
