@@ -221,10 +221,10 @@ class JournalDesignController extends Controller
     /**
      *
      * @param  Request                   $request
-     * @param  integer                   $id
+     * @param  JournalDesign                   $journalDesign
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, JournalDesign $journalDesign)
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -232,32 +232,25 @@ class JournalDesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
 
-        $editForm = $this->createEditForm();
+        $editForm = $this->createEditForm($journalDesign, $journal);
         $editForm->handleRequest($request);
 
-        /*
-         * @TODO
-         * $editForm->isValid() returns false even when the form is valid
-         */
-        if ($editForm->isValid() && $id != $request->get('ojs_journalbundle_journaldesign')['design']) {
-            $design = $em->getRepository('OjsJournalBundle:Design')->find($id);
-            $newDesign = $em->getRepository('OjsJournalBundle:Design')->find(
-                $request->get('ojs_journalbundle_journaldesign')['design']
-            );
+        if ($editForm->isValid()) {
 
-            $journal->removeDesign($design);
-            $journal->addDesign($newDesign);
-            $em->persist($journal);
+            $journalDesign->setContent(
+                $this->prepareDesignContent($journalDesign->getEditableContent())
+            );
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_design_edit', ['id' => $newDesign->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute('ojs_journal_design_edit', ['id' => $journalDesign->getId(), 'journalId' => $journal->getId()]);
         }
 
         return $this->render(
             'OjsJournalBundle:JournalDesign:edit.html.twig',
             array(
-                'designId' => $id,
+                'journal' => $journal,
+                'entity' => $journalDesign,
                 'edit_form' => $editForm->createView(),
             )
         );
@@ -338,6 +331,7 @@ class JournalDesignController extends Controller
     }
 
     /**
+     * Warning: This method is not working correctly. method is on process.
      * @param  String                                            $editableContent
      * @return String
      */
