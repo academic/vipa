@@ -484,8 +484,15 @@ div.user-menu div.user-menu-content:not(.active){
     right: 0;
     left: 0;
     z-index: 20;
-} 
-.navbar-alt { min-height:44px; border-radius:0}
+}
+
+.navbar-alt {
+    min-height: 44px;
+    border-radius: 0;
+    border-top: 3px solid #EB0000;
+    background: #eee;
+    translationg: width .2s;
+}
 
 .navbar-alt .navbar-brand {
     padding: 2px 8px;
@@ -501,6 +508,43 @@ div.user-menu div.user-menu-content:not(.active){
 
 .navbar-alt .navbar-nav > li:last-child > a {
     border-right: 0
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        padding-top: 80px;
+    }
+}
+
+.navbar-ng {
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.navbar-ng:before, .navbar-ng:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    top: 50%;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    -moz-border-radius: 100px / 10px;
+    border-radius: 100px / 10px;
+}
+
+.navbar-ng:after {
+    right: 10px;
+    left: auto;
+    -webkit-transform: skew(8deg) rotate(3deg);
+    -moz-transform: skew(8deg) rotate(3deg);
+    -ms-transform: skew(8deg) rotate(3deg);
+    -o-transform: skew(8deg) rotate(3deg);
+    transform: skew(8deg) rotate(3deg);
 }
 
 /**/
