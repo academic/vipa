@@ -33,6 +33,11 @@ abstract class Page
      */
     private $image;
 
+    /**
+     * @var string
+     */
+    private $slug;
+
     protected $translations;
 
     /**
@@ -140,5 +145,21 @@ abstract class Page
         $this->image = $image;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }

@@ -15,30 +15,39 @@ ojs_user_profile:
 ojs_user_edit_profile:
     path: /user/update
     defaults: { _controller: "OjsSiteBundle:User:editProfile"}
+
 ojs_user_custom_field:
     path: /user/custom_field
     defaults: { _controller: "OjsSiteBundle:User:customField"}
+
 ojs_user_custom_field_create:
     path: /user/custom_field/create/{id}
     defaults: { _controller: "OjsSiteBundle:User:createCustomField", id: null}
+
 ojs_user_custom_field_delete:
     path: /user/custom_field/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteCustomField"}
+
 ojs_user_connected_account:
     path: /user/connected_accounts
     defaults: { _controller: "OjsSiteBundle:User:connectedAccount" }
+
 ojs_user_change_password:
     path: /user/change_password
     defaults: { _controller: "OjsSiteBundle:User:changePassword" }
+
 ojs_user_connected_account_add:
     path: /user/connected_accounts/add
     defaults: { _controller: "OjsSiteBundle:User:addConnectedAccount"}
+
 ojs_user_connected_account_delete:
     path: /user/connected_accounts/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteConnectedAccount"}
+
 ojs_user_add_orcid_account:
     path: /user/connected_accounts/add/orcid
     defaults: { _controller: "OjsSiteBundle:User:addOrcidAccount" }
+
 ojs_public_index:
     path:  /
     host: %base_host%
@@ -47,9 +56,11 @@ ojs_public_index:
 ojs_institutions_index:
     path:  /institutions
     defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
+
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
+
 ojs_sitemap:
     prefix: /sitemap
     resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"
@@ -77,10 +88,12 @@ ojs_journal_index_articles:
     path: /{slug}/articles
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
-ojs_journal_index_page_detail:
-    path: /{journal_slug}/pages/{slug}
+
+ojs_site_journal_page:
+    path: /{journal_slug}/page/{slug}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalPageDetail }
+
 ojs_last_articles_index:
     path:  /{slug}/last
     host: "{institution}.%base_host%"
@@ -105,10 +118,12 @@ ojs_issue_page:
     path: /{journal_slug}/issue/{id}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:issuePage}
+
 ojs_article_page:
     path:  /{slug}/issue/{issue_id}/{article_id}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Article:articlePage, issue_id: null}
+
 ojs_journal_contacts:
     path: /{slug}/contacts
     host: "{institution}.%base_host%"
@@ -120,19 +135,23 @@ ojs_people:
 
 tos:
     path: /tos
-    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' }
+    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'tos' }
+
 about:
     path: /about
-    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'about' }
+    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'about' }
+
 wiki:
     path: /wiki
-    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'wiki' }
+    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'wiki' }
+
 faq:
     path: /faq
-    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'faq' }
+    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'faq' }
+
 support:
     path: /support
-    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'support' }
+    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'support' }
 
 privacy:
     path: /privacy

@@ -65,7 +65,7 @@ class JournalSetupStep6Controller extends Controller
                             ->setText($page->getTitle())
                             ->setUrl(
                                 $router->generate(
-                                    'ojs_journal_index_page_detail',
+                                    'ojs_site_journal_page',
                                     [
                                         'journal_slug' => $currentJournal->getSlug(),
                                         'slug' => $page->getSlug(),

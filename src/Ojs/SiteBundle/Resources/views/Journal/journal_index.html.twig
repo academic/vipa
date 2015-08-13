@@ -125,12 +125,8 @@
                         </div>
 
                         <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
-                           class="list-group-item list-group-item-success"><h5><i
-                                        class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
-                        </a>
-
-
-                        <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+                           class="list-group-item list-group-item-success">
+                            <h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                         </a>
 
                         <a href="{% if isInstitutionHosting is defined %}
@@ -143,13 +139,20 @@
                            class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                           class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
-                            </h5>
+                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}" class="list-group-item ">
+                            <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
                         </a>
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                           class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+
+                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="list-group-item ">
+                            <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                         </a>
+
+                        {% for journalPage in journalPages %}
+                        <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug, institution: journal.institution.slug}) }}" class="list-group-item ">
+                            <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                        </a>
+                        {% endfor %}
+
                         <div class="list-group-item ">
                             <form role="search" action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}" method="post">
                                 <div class="input-group">

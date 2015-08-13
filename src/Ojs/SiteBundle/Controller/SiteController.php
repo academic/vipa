@@ -128,6 +128,7 @@ class SiteController extends Controller
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['design'] = $journal->getDesign();
+        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
@@ -294,28 +295,19 @@ class SiteController extends Controller
 
     public function journalPageDetailAction($slug, $journal_slug)
     {
-        $data = [];
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
+
         if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
         }
-        $twig = $this->get('ojs.cms.twig.post_extension');
-        $journalKey = $twig->encode($journal);
 
-        $page = $em->getRepository('OkulbilisimCmsBundle:Post')->findOneBy(
-            [
-                'slug' => $slug,
-                'object' => $journalKey,
-                'objectId' => $journal->getId(),
-            ]
-        );
+        $page = $em->getRepository('OjsJournalBundle:JournalPage')->findOneBy(['journal' => $journal, 'slug' => $slug]);
+
         if (!$page) {
             throw new NotFoundHttpException("Page not found!");
         }
-        $data['journal'] = $journal;
-        $data['content'] = $page;
 
-        return $this->render('OjsSiteBundle:Page:detail.html.twig', $data);
+        return $this->render('OjsSiteBundle:Journal:page.html.twig', ['journalPage' => $page]);
     }
 }
