@@ -42,10 +42,6 @@ ojs_admin_article_type:
     resource: "@OjsAdminBundle/Resources/config/routing/article_type.yml"
     prefix:   article-type
 
-ojs_admin_design:
-    resource: "@OjsAdminBundle/Resources/config/routing/design.yml"
-    prefix:   design
-
 ojs_admin_application:
     resource: "@OjsAdminBundle/Resources/config/routing/journal_application.yml"
     prefix:   application
