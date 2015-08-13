@@ -1,23 +1,23 @@
 {% extends '::ojsbase.html.twig' %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.institution_theme_edit'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.institution_design_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_admin_institution_theme_index'),'title': 'title.institution_theme'|trans},
-        {'title': 'title.institution_theme_edit'|trans}
+        {'link': path('ojs_admin_institution_design_index'),'title': 'title.institution_design'|trans},
+        {'title': 'title.institution_design_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "institutiontheme.edit"|trans }}</h1>
+    <h1>{{ "institutiondesign.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'ojs_admin_institution_theme_index' %}
+    {% set back_path = 'ojs_admin_institution_design_index' %}
     {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'ojs_admin_institution_theme_delete' %}
+        {% set delete_path = 'ojs_admin_institution_design_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
