@@ -54,7 +54,7 @@
     <br>
 
     <div id="gridDesign">
-        {% include template_from_string(entity.editableContent) %}
+        {% include template_from_string( entity.editableContent|raw ) %}
     </div>
 
     <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_design_index', {journalId: selectedJournal().id}) }}" title="{{"b"|trans}}">
@@ -62,7 +62,37 @@
     </a>
 
     <!-- Widgets -->
-    {% include '::designWidgets.html.twig' %}
+    <div id="cover" class="hide">
+        {{ macros.journalCover() }}
+    </div>
+
+    <div id="description" class="hide">
+        {{ macros.journalDescription() }}
+    </div>
+
+    <div id="journalMenu" class="hide">
+        {{ macros.journalMenu() }}
+    </div>
+
+    <div id="socialButtons" class="hide">
+        {{ macros.socialButtons() }}
+    </div>
+
+    <div id="journalIndexes" class="hide">
+        {{ macros.journalIndexes() }}
+    </div>
+
+    <div id="archive" class="hide">
+        {{ macros.archive() }}
+    </div>
+
+    <div id="articles" class="hide">
+        {{ macros.journalLastIssue() }}
+    </div>
+
+    <div id="pages" class="hide">
+        {{ macros.rightBlock() }}
+    </div>
 {% endblock %}
 
 {% block javascripts -%}
