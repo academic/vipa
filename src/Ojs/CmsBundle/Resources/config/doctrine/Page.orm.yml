@@ -39,6 +39,15 @@ Ojs\CmsBundle\Entity\Page:
         image:
             type: string
             length: 255
+        slug:
+            type: string
+            length: 255
+            unique: true
+            gedmo:
+                slug:
+                    seperator: _
+                    fields:
+                      - title
         created:
            type: datetime
            gedmo:
