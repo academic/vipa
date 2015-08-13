@@ -277,7 +277,7 @@ class GridAction
      */
     public function cmsAction($role = null)
     {
-        $route = 'okulbilisim_cms_admin';
+        $route = 'ojs_admin_page_index';
         $rowAction = new RowAction('<i class="fa fa-anchor"></i>', $route);
         $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "CMS"]);
 
