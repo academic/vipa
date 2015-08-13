@@ -47,6 +47,8 @@
     "jquery-locationpicker-plugin": "*",
     "c3": "~0.4.10",
     "trianglify": "*",
-    "gridmanager.js": "*"
+    "gridmanager.js": "*",
+    "ace-builds": "*",
+    "ace": "*"
   }
 }
