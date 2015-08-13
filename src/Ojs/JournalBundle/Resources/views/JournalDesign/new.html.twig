@@ -374,8 +374,9 @@
         </div>
     </div>
 
-    {% set back_path = 'ojs_admin_design_index' %}
-    {% include '::actionbuttons.html.twig' %}
+    <a class="btn btn-default btn-sm" href="{{ path('ojs_journal_design_index', {journalId: selectedJournal().id}) }}" title="{{"b"|trans}}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
 
     <!-- Widgets -->
     {% include '::designWidgets.html.twig' %}
