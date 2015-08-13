@@ -127,7 +127,7 @@ a2lix_translation_form:
   templating: "::translationForm.html.twig"      # [4]
 
 norzechowicz_ace_editor:
-    base_path: "bundles/norzechowiczaceeditor/ace"
+    base_path: "vendor/ace-builds"
     autoinclude: true
     debug: false # sources not minified with uglify.js
     noconflict: true # uses ace.require instead of require
