@@ -17,12 +17,12 @@ class AnnouncementType extends AbstractType
         $builder
             ->add('title', 'text')
             ->add('content', 'ace_editor', array(
-                    'wrapper_attr' => array(), // aceeditor wrapper html attributes.
+                    'wrapper_attr' => array(),
                     'width' => 700,
                     'height' => 200,
                     'font_size' => 12,
-                    'mode' => 'ace/mode/html', // every single default mode must have ace/mode/* prefix
-                    'theme' => 'ace/theme/twilight', // every single default theme must have ace/theme/* prefix
+                    'mode' => 'ace/mode/html',
+                    'theme' => 'ace/theme/twilight',
                     'tab_size' => null,
                     'read_only' => null,
                     'use_soft_tabs' => null,
