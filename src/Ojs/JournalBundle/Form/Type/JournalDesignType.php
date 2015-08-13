@@ -13,16 +13,16 @@ class JournalDesignType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'design',
-                'entity',
-                [
-                    'class' => 'Ojs\JournalBundle\Entity\Design',
-                    'property' => 'title',
-                    'multiple' => false,
-                    'expanded' => false,
+            ->add('title', 'text', [
+                'label' => 'Title'
                 ]
-            );
+            )
+            ->add('editableContent', 'hidden')
+            ->add('isPublic', 'checkbox', [
+                'label' => 'ojs.is_public'
+                ]
+            )
+        ;
     }
     /**
      * @param OptionsResolver $resolver

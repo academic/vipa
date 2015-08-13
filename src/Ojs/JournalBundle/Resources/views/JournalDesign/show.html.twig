@@ -16,12 +16,12 @@
     <table class="record_properties  table">
         <tbody>
         <tr>
-            <th>{{ "journal.id"|trans }}</th>
-            <td>{{ journalId }}</td>
+            <th>{{ "id"|trans }}</th>
+            <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>{{ "theme.id"|trans }}</th>
-            <td>{{ designId }}</td>
+            <th>{{ "title"|trans }}</th>
+            <td>{{ entity.title }}</td>
         </tr>
         </tbody>
     </table>
@@ -29,8 +29,8 @@
     {{
     actions({
         'back': {'href': path('ojs_journal_design_index', {'journalId': selectedJournal().id})},
-        'edit': {'href': path('ojs_journal_design_edit', {'id': designId, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_design_delete', {'id': designId, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        'edit': {'href': path('ojs_journal_design_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+        'delete': {'href': path('ojs_journal_design_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}

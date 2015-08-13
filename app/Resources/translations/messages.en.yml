@@ -509,7 +509,7 @@ journal.boards: 'Journal Boards'
 journal.country: Country
 journal.cover_image: 'Cover Image'
 journal.createdAt: 'Created at'
-journal.design: 'Journal Layout'
+journal.design: 'Journal Design'
 journal.detail: 'Journal Detail'
 journal.domain: Domain
 journal.edit: 'Journal Edit'
