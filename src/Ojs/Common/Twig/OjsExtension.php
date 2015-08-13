@@ -118,6 +118,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('generateJournalUrl', array($this, 'generateJournalUrl'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
+            new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
         );
     }
 
@@ -421,6 +422,16 @@ class OjsExtension extends \Twig_Extension
         $entityClassName = $this->em->getClassMetadata($entityObjectName)->name;
 
         return new $entityClassName();
+    }
+
+    /**
+     * Returns all AdminPage entities
+     *
+     * @return array
+     */
+    public function getAdminPages()
+    {
+        return $this->em->getRepository('OjsAdminBundle:AdminPage')->findAll();
     }
 
     public function getName()

@@ -23,6 +23,9 @@
                     <li><a href="{{ path('wiki') }}">{{ "wiki"|trans }}</a></li>
                     <li><a href="{{ path('support') }}">{{ "support"|trans }}</a></li>
                     <li><a href="{{ path('faq') }}">{{ "faq"|trans }}</a></li>
+                    {% for adminPage in getAdminPages() %}
+                        <li><a href="{{ path('ojs_site_page', {'slug': adminPage.slug}) }}">{{ adminPage.title }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
