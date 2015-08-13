@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
-class InstitutionThemeType extends AbstractType
+class InstitutionDesignType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -33,11 +33,11 @@ class InstitutionThemeType extends AbstractType
                     'label' => 'Title'
                 ]
             )
+            ->add('editableContent', 'hidden')
             ->add('isPublic', 'checkbox', [
                     'label' => 'ojs.is_public'
                 ]
             )
-            ->add('css', 'textarea')
         ;
     }
 
@@ -48,7 +48,7 @@ class InstitutionThemeType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\InstitutionTheme',
+                'data_class' => 'Ojs\JournalBundle\Entity\InstitutionDesign',
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
@@ -62,6 +62,6 @@ class InstitutionThemeType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_adminbundle_institution_theme';
+        return 'ojs_adminbundle_institution_design';
     }
 }
