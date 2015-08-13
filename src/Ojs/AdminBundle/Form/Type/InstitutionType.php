@@ -7,6 +7,7 @@ use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class InstitutionType extends AbstractType
 {
@@ -65,6 +66,23 @@ class InstitutionType extends AbstractType
                         "placeholder" => "type a institution name",
                     ],
                 ]
+            )
+            ->add(
+                'theme',
+                'entity',
+                array(
+                    'label' => 'theme',
+                    'class' => 'Ojs\JournalBundle\Entity\InstitutionTheme',
+                    'property' => 'title',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('t')
+                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    },
+                    'error_bubbling'=>true,
+                )
             )
             ->add('address', 'textarea', ['label' => 'address'])
             ->add('phone', 'text', ['label' => 'phone'])
