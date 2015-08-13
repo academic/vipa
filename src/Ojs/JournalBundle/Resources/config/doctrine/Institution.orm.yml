@@ -31,6 +31,9 @@ Ojs\JournalBundle\Entity\Institution:
         institutionThemes:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
             mappedBy: institution
+        institutionDesigns:
+            targetEntity: Ojs\JournalBundle\Entity\InstitutionDesign
+            mappedBy: institution
     manyToOne:
         institution_type:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
@@ -61,6 +64,12 @@ Ojs\JournalBundle\Entity\Institution:
           targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
           joinColumn:
             name: theme_id
+            referencedColumnName: id
+          inversedBy: institutions
+        design:
+          targetEntity: Ojs\JournalBundle\Entity\InstitutionDesign
+          joinColumn:
+            name: design_id
             referencedColumnName: id
           inversedBy: institutions
     fields:
@@ -160,6 +169,14 @@ Ojs\JournalBundle\Entity\Institution:
         themeId:
             type: integer
             column: theme_id
+            nullable: true
+            options:
+                default: 0
+            gedmo:
+                  - versioned
+        designId:
+            type: integer
+            column: design_id
             nullable: true
             options:
                 default: 0
