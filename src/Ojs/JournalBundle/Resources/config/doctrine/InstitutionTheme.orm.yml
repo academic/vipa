@@ -1,0 +1,67 @@
+Ojs\JournalBundle\Entity\InstitutionTheme:
+    type: entity
+    table: institution_theme
+    repositoryClass: Ojs\JournalBundle\Entity\InstitutionThemeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        institution:
+            targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
+            inversedBy: institutionThemes
+            joinColumn:
+                name: institution_id
+                referencedColumnName: id
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+              - versioned
+        css:
+            type: text
+            nullable: true
+            gedmo:
+              - versioned
+        isPublic:
+            column: is_public
+            type: boolean
+            nullable: true
+            gedmo:
+                - versioned
+            options:
+                default: true
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }
+

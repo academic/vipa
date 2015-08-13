@@ -164,7 +164,7 @@ class Journal implements Translatable
     private $themeId;
 
     /**
-     * @var Theme
+     * @var JournalTheme
      * @Expose
      * @Groups({"JournalDetail"})
      */
@@ -1006,7 +1006,7 @@ class Journal implements Translatable
     /**
      * Get theme
      *
-     * @return Theme
+     * @return JournalTheme
      */
     public function getTheme()
     {
@@ -1016,7 +1016,7 @@ class Journal implements Translatable
     /**
      * Set theme
      *
-     * @param  Theme   $theme
+     * @param  JournalTheme   $theme
      * @return Journal
      */
     public function setTheme($theme)

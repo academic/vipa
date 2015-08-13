@@ -28,6 +28,9 @@ Ojs\JournalBundle\Entity\Institution:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTranslation
             mappedBy: object
             cascade: ["persist"]
+        institutionThemes:
+            targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
+            mappedBy: institution
     manyToOne:
         institution_type:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
@@ -54,6 +57,12 @@ Ojs\JournalBundle\Entity\Institution:
                     onDelete: CASCADE
               gedmo:
                 - treeParent
+        theme:
+          targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
+          joinColumn:
+            name: theme_id
+            referencedColumnName: id
+          inversedBy: institutions
     fields:
         lft:
            type: integer
@@ -148,6 +157,14 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                 - versioned
+        themeId:
+            type: integer
+            column: theme_id
+            nullable: true
+            options:
+                default: 0
+            gedmo:
+                  - versioned
         wiki:
             type: string
             length: 255
