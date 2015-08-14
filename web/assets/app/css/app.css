@@ -880,3 +880,7 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.fileinput-button input {
+    font-size: inherit !important;
+}
