@@ -30,18 +30,15 @@ ojs_journal_panel:
   resource: "@OjsJournalBundle/Resources/config/routing_panel.yml"
   prefix:   /journal
 
+auth:
+  resource: "@OjsUserBundle/Resources/config/routing.yml"
+
 ojs_user:
   resource: "@OjsUserBundle/Controller/"
   type:   annotation
 
 ojs_location:
   resource: "@OjsLocationBundle/Resources/config/routing.yml"
-
-ojs_site:
-  resource: "@OjsSiteBundle/Resources/config/routing.yml"
-
-auth:
-  resource: "@OjsUserBundle/Resources/config/routing.yml"
 
 rest:
   type: rest
@@ -83,3 +80,6 @@ workflow:
 
 jb_fileupload_crop:
   resource: "@JbFileUploaderBundle/Resources/config/routing.yml"
+
+ojs_site:
+  resource: "@OjsSiteBundle/Resources/config/routing.yml"
