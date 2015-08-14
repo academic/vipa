@@ -162,5 +162,5 @@ ojs_site_download:
     resource: '@OjsSiteBundle/Resources/config/routing/download.yml'
 
 ojs_site_page:
-    path: /{slug}
+    path: /page/{slug}
     defaults: { _controller: OjsSiteBundle:Site:pageDetail }
