@@ -43,7 +43,7 @@ class InstitutionThemeType extends AbstractType
                     'height' => 200,
                     'font_size' => 12,
                     'mode' => 'ace/mode/css', // every single default mode must have ace/mode/* prefix
-                    'theme' => 'ace/theme/twilight', // every single default theme must have ace/theme/* prefix
+                    'theme' => 'ace/theme/chrome', // every single default theme must have ace/theme/* prefix
                     'tab_size' => null,
                     'read_only' => null,
                     'use_soft_tabs' => null,

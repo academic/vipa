@@ -22,7 +22,7 @@ class AnnouncementType extends AbstractType
                     'height' => 200,
                     'font_size' => 12,
                     'mode' => 'ace/mode/html',
-                    'theme' => 'ace/theme/twilight',
+                    'theme' => 'ace/theme/chrome',
                     'tab_size' => null,
                     'read_only' => null,
                     'use_soft_tabs' => null,
