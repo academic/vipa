@@ -294,8 +294,8 @@ class JournalDesignController extends Controller
             '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
             function($matches)
             {
-                preg_match('/<!--.*-->/Us', $matches[0], $matched);
-                return str_ireplace(['<!--', '-->'], '', $matched[0]);
+                preg_match('/<!---.*--->/Us', $matches[0], $matched);
+                return str_ireplace(['<!---', '--->'], '', $matched[0]);
             },
             $editableContent
         );
@@ -303,8 +303,8 @@ class JournalDesignController extends Controller
             '/<span\s*class\s*=\s*"\s*design-hide-span[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
             function($matches)
             {
-                preg_match('/<!--.*-->/Us', $matches[0], $matched);
-                return str_ireplace(['<!--', '-->'], '', $matched[0]);
+                preg_match('/<!---.*--->/Us', $matches[0], $matched);
+                return str_ireplace(['<!---', '--->'], '', $matched[0]);
             },
             $editableContent
         );
