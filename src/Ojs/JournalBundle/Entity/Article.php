@@ -12,7 +12,6 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity as CommonTraits;
 use Ojs\Common\Params\ArticleParams;
-use Ojs\UserBundle\Entity\UserArticleRole;
 
 /**
  * Article
@@ -276,9 +275,6 @@ class Article implements Translatable
      */
     private $slug;
 
-    /** @var ArrayCollection|UserArticleRole[] */
-    private $userRoles;
-
     protected $translations;
 
     /**
@@ -314,7 +310,6 @@ class Article implements Translatable
         $this->languages = new ArrayCollection();
         $this->articleAuthors = new ArrayCollection();
         $this->articleFiles = new ArrayCollection();
-        $this->userRoles = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -1252,36 +1247,6 @@ class Article implements Translatable
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getUserRoles()
-    {
-        return $this->userRoles;
-    }
-
-    /**
-     * @param  UserArticleRole $role
-     * @return $this
-     */
-    public function addUserRole(UserArticleRole $role)
-    {
-        $this->userRoles->add($role);
-
-        return $this;
-    }
-
-    /**
-     * @param  UserArticleRole $role
-     * @return $this
-     */
-    public function removeUserRole(UserArticleRole $role)
-    {
-        $this->userRoles->removeElement($role);
-
-        return $this;
-    }
-    
     public function __toString()
     {
         return $this->getTitle()."[#{$this->getId()}]";

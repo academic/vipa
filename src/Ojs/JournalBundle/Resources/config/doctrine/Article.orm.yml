@@ -50,11 +50,6 @@ Ojs\JournalBundle\Entity\Article:
       targetEntity: ArticleFile
       mappedBy: article
       cascade: ["persist"]
-    userRoles:
-      targetEntity: Ojs\UserBundle\Entity\UserArticleRole
-      mappedBy: article
-      cascade: ["all"]
-      fetch: EXTRA_LAZY
     translations:
         targetEntity: Ojs\JournalBundle\Entity\ArticleTranslation
         mappedBy: object
