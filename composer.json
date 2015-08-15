@@ -65,7 +65,7 @@
     "okulbilisim/workflow-bundle": "dev-master",
     "jbouzekri/file-uploader-bundle": "~2.0",
     "norzechowicz/aceeditor-bundle": "0.1.*",
-    "friendsofsymfony/user-bundle": "~1.3.6",
+    "friendsofsymfony/user-bundle": "~1.3.6"
   },
   "require-dev": {
     "okulbilisim/ojs-message-bundle": "v1.0",
