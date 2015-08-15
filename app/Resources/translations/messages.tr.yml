@@ -790,6 +790,7 @@ regenerate.apikey: 'Yeniden APIKEY Üret'
 register: 'Kayıt Ol'
 register.yourself.as.author: 'Yazar Olarak Kayıt Olun'
 register_journal: 'Dergi Kaydet'
+registration.activation: 'Hesabınızı aktifleştirmek için e-mailinizi kontrol edin.'
 rejected: Reddedilmiş
 remove: Sil
 reports.analytics: 'Analitik Raporlar'
