@@ -10,13 +10,20 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@timeline_css' output="assets/prod/css/timeline.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="profile-container">
             <header class="page-header text-center">
                 <figure>
-                    <img class="img-circle" alt="" src="{{ user.avatar|imagine_filter('avatar_thumb') }}"
-                         data-src="holder.js/200x200/random/text:{{ user.username }}"/>
+                    <img class="img-circle tri" alt="" src="{{ user.avatar|imagine_filter('avatar_thumb') }}"
+                            />
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} /
                     @{{ user.username }}</h1>
