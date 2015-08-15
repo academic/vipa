@@ -89,7 +89,7 @@ class PeopleController extends Controller
             'role_filters' => $roleFilters,
             'subject_filters' => $subjectFilters,
             'journal_filters' => $journalFilters,
-            'page' => 'explore'
+            'page' => 'ojs_site_people_index'
         ];
 
         return $this->render('OjsSiteBundle:People:index.html.twig', $data);

@@ -1,23 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
-
 {% set hideleft = 1 %}
 {% block title %}{{ "title.people_directory"|trans }} {{ parent() }}{% endblock %}
-{% block stylesheets %}
-    {{ parent() }}
-    <style type="text/css">
-        @media (max-width: 1000px) {
-            .well h3 a {
-                /*font-size: 16px;*/
-            }
-        }
-        .padding-5 {
-            padding: 5px !important;
-        }
-        .no-padding {
-            padding: 0 !important;
-        }
-    </style>
-{% endblock %}
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'title.home'|trans},
@@ -26,17 +9,37 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+            height: 160px;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .card .avatar img {
+            width: 100px;
+            height: 100px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            border: 1px solid #eb959e;
+            margin: 5px;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <div class="text-center">
-        <ul class="pagination">
-            {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-        </ul>
-    </div>
-    <div class="container no-padding">
+    <div class="row">
         <div class="col-sm-3">
             <div class="panel-group">
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><h4>{{ 'subjects'|trans }}</h4></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ 'subjects'|trans }}</div>
                     <ul class="list-group">
                         {% for subject in subjects %}
                             <li class="list-group-item">
@@ -72,8 +75,8 @@
                     </ul>
                 </div>
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><h4>{{ 'journals'|trans }}</h4></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ 'journals'|trans }}</div>
                     <ul class="list-group">
                         {% for journal in journals %}
                             <li class="list-group-item">
@@ -109,8 +112,8 @@
                     </ul>
                 </div>
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading"><h4>{{ 'roles'|trans }}</h4></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ 'roles'|trans }}</div>
                     <ul class="list-group">
                         {% for role in roles %}
                             <li class="list-group-item">
@@ -148,62 +151,72 @@
             </div>
         </div>
 
-        <div class="col-sm-8">
+        <div class="col-sm-9">
+
             {% for person in people %}
-                <div class="col-sm-6 padding-5">
-                    <div class="well col-sm-12" style="height: 20em; margin: 0;">
-                        <div class="col-sm-4">
-                            <a href="/@{{ person.username }}" class="thumbnail">
-                                <img class="img-circle"
+                <div class="col-sm-3">
+                    <div class="card ng">
+                        <div class="avatar">
+                            <a href="/@{{ person.username }}">
+                                <img
                                      src="{{ person.avatar is defined ? person.avatar|imagine_filter('avatar_thumb') : '#' }}"
                                      alt="{{ person.username|default('image'|trans) }}"
-                                     data-src="holder.js/100x100/random"
+                                     class="tri"
                                      style="width: 100px; height: 100px;">
                             </a>
-                            <div class="text-center">
+                        </div>
+                        <div class="content">
+                            <a class="hovercard" href="/@{{ person.username|default('') }}">
                                 {% if person.title is defined %}
-                                    <h5>{{ person.title }}</h5>
+                                    {{ person.title }}
                                 {% endif %}
-
-                                <h4>
-                                    <a href="/@{{ person.username|default('') }}">
-                                        {% if person.firstName is defined and person.lastName is defined %}
-                                            {{ person.firstName|default('') }} {{ person.lastName|default('') }}
-                                        {% else %}
-                                            {{ person.username }}
-                                        {% endif %}
-                                    </a>
-                                </h4>
-                            </div>
-                        </div>
-
-                        {% if person.journalUsers is not null %}
-                        <div class="col-sm-8">
-                            <h5>{{ 'journals'|trans }}</h5>
-                            <ul class="list-unstyled">
-                                {% for journalUser in person.journalUsers %}
-                                    <li>
-                                        <span class="btn btn-sm btn-danger">{{ journalUser.journal.title }}</span>
+                                {% if person.firstName is defined and person.lastName is defined %}
+                                    {{ person.firstName|default('') }} {{ person.lastName|default('') }}
+                                {% else %}
+                                    {{ person.username }}
+                                {% endif %}
+                            </a>
+                            {% if person.journalUsers is not null %}
+                                <div class="hovercard-content hidden">
+                                    {% for journalUser in person.journalUsers %}
+                                        <h5>{{ journalUser.journal.title }}</h5>
                                         {% for role in journalUser.roles %}
-                                        <ul class="list-unstyled">
-                                            <li style="margin-top: 3px; margin-left: 7px">
-                                                <span class="btn btn-xs btn-primary">{{ role|trans }}</span>
-                                            </li>
-                                        </ul>
+                                            <span class="badge">{{ role|trans }}</span>
                                         {% endfor %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
+
+            <div class="text-center">
+                <ul class="pagination">
+                    {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="text-center">
-        <ul class="pagination">
-            {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-        </ul>
-    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts "@hovercard_js" output="assets/prod/js/hovercard.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function () {
+            $('.hovercard').each(function () {
+                var elm, detail;
+                elm = $(this);
+                detail = $.trim(elm.parent().find('.hovercard-content').html());
+
+                if (detail) {
+                    elm.hovercard({
+                        detailsHTML: detail
+                    });
+                }
+            });
+        });
+    </script>
 {% endblock %}
