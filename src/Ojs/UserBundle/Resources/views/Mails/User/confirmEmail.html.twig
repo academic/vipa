@@ -389,7 +389,7 @@
                                                         </small>
                                                         <br/>
                                                         <code>
-                                                            <small>{{ path('email_confirm',{code : user.token}) }}  </small>
+                                                            <small>{{ path('email_confirm',{code : user.confirmationToken}) }}  </small>
                                                         </code>
                                                         <br/>
                                                     </div>
@@ -404,7 +404,7 @@
                                                             <td valign="middle" class="templateButtonContent">
 
                                                                 <a style="color: #FFFFFF; font-family: Arial;  font-size: 15px; font-weight: bold; letter-spacing: -.5px; line-height: 100%; text-align: center;text-decoration: none;"
-                                                                   href="http://{{ base_host }}{{ path('email_confirm',{code : user.token}) }}"
+                                                                   href="http://{{ base_host }}{{ path('email_confirm',{code : user.confirmationToken}) }}"
                                                                    target="_blank">{{ "Activate Now"|trans }}</a>
 
                                                             </td>

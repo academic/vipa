@@ -141,4 +141,32 @@ class CitationSetting implements Translatable
     {
         return $this->value;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return CitationSetting
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return CitationSetting
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
 }

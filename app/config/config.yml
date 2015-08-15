@@ -51,6 +51,7 @@ twig:
     resources:
       - 'OjsUserBundle:Form:fields.html.twig'
       - '::uploadfields.html.twig'
+      - 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig'
   globals:
     languages : "%languages%"
     base_host: %base_host%
@@ -131,3 +132,23 @@ norzechowicz_ace_editor:
     autoinclude: true
     debug: false # sources not minified with uglify.js
     noconflict: true # uses ace.require instead of require
+
+fos_user:
+  db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+  firewall_name: main
+  user_class: Ojs\UserBundle\Entity\User
+  registration:
+    form:
+      type: ojs_user_register
+  registration:
+    confirmation:
+        enabled: true
+  from_email:
+    address: %system_email%
+    sender_name: %project_name%
+  service:
+    mailer: fos_user.mailer.twig_swift
+    user_manager: ojs_user.manager
+  resetting:
+    email:
+      template: @OjsUserBundle:Mails/User:password_resetting.email.twig

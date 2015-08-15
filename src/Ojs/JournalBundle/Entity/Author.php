@@ -769,4 +769,42 @@ class Author implements Translatable
     {
         $this->authorDetails = $authorDetails;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Author
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Author
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \Ojs\JournalBundle\Entity\AuthorTranslation $translation
+     */
+    public function removeTranslation(\Ojs\JournalBundle\Entity\AuthorTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+    }
 }

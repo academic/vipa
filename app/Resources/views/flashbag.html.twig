@@ -2,7 +2,7 @@
     {% for message in messages %}
         {%if type == 'error'%} {% set type = 'danger' %} {%endif%}
         <div class="alert alert-{{ type }}">
-            {{ message|raw }}
+            {{ message|trans }}
         </div>
     {% endfor %}
 {% endfor %}

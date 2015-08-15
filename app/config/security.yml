@@ -1,15 +1,16 @@
 security:
   encoders:
     Ojs\UserBundle\Entity\User:
-        algorithm: bcrypt
+      algorithm: bcrypt
+    FOS\UserBundle\Model\UserInterface: bcrypt
   acl:
     connection: default
   role_hierarchy:
     ROLE_ADMIN: [ROLE_USER]
     ROLE_SUPER_ADMIN:  [ROLE_ADMIN]
   providers:
-    user_db:
-      id: ojs.user_provider.username_email
+    fos_userbundle:
+      id: fos_user.user_provider.username_email
   firewalls:
     dev:
       pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -33,7 +34,7 @@ security:
       pattern: ^/api/
       stateless: true
       security: true
-      provider: user_db
+      provider: fos_userbundle
       anonymous: true
       simple_preauth:
         authenticator: apikey_authenticator
@@ -41,12 +42,13 @@ security:
       switch_user: {parameter: _su}
       pattern: ^/
       anonymous: true
-      provider: user_db
+      provider: fos_userbundle
       form_login:
         login_path: /login
         check_path: /login_check
         always_use_default_target_path: false
-        default_target_path:            /user
+        csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
+        default_target_path:      /user 
       logout:
         path: /logout
         target: /
@@ -61,7 +63,7 @@ security:
   access_control:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/journal, roles: IS_AUTHENTICATED_FULLY }
     - { path: /manager, roles: [IS_AUTHENTICATED_FULLY] }
     - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -3,7 +3,6 @@
 
 {% block body %}
     <div class="row">
-        {% include '::flashbag.html.twig' %}
         <div class="container">
             <div class="col-md-6 col-sm-8 col-sm-offset-2 col-md-offset-3">
                 <div class="panel panel-success">
@@ -12,14 +11,10 @@
                     <div class="panel-body">
                         <form action="{{ path('fos_user_registration_register') }}" method="POST" class="validate-form"
                               novalidate="novalidate">
-                            {{ form_errors(form) }}
-
                             {{ form_widget(form) }}
-
                             <button type="submit" id="userRegisterButton" class="btn btn-primary pull-right">
-                                <i class="fa fa-sign-in"></i> {{ "register"|trans }}
+                                <i class="fa fa-sign-in"></i> {{ "user.register.submit"|trans({},'forms') }}
                             </button>
-
                         </form>
                     </div>
                 </div>
