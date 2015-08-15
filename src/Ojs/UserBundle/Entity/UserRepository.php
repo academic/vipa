@@ -24,10 +24,10 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->join('u.journalUsers', 'ju')
             ->andWhere('ju.journal = :journal')
             ->andWhere('u.username LIKE :query OR u.email LIKE :query')
-            ->andWhere('u.isActive = :active')
+            ->andWhere('u.enabled = :enabled')
             ->setParameter('journal', $journal)
             ->setParameter('query', $query.'%')
-            ->setParameter('active', true)
+            ->setParameter('enabled', true)
             ->setMaxResults($limit)
             ->getQuery();
 
