@@ -51,6 +51,12 @@ class WaitingFiles
      * @var string
      */
     protected $download_start_at;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $type;
     /**
      * @return int
      */
@@ -177,6 +183,24 @@ class WaitingFiles
     public function setDownloadStartAt($download_start_at)
     {
         $this->download_start_at = $download_start_at;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 
