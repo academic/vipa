@@ -42,10 +42,8 @@ class AppKernel extends Kernel
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Norzechowicz\AceEditorBundle\NorzechowiczAceEditorBundle(),
-
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Jb\Bundle\FileUploaderBundle\JbFileUploaderBundle(),
-
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),
@@ -62,6 +60,7 @@ class AppKernel extends Kernel
             new Ojs\InstallerBundle\OjsInstallerBundle(),
             new OkulBilisim\WorkflowBundle\WorkflowBundle(),
             new Ojs\CmsBundle\OjsCmsBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

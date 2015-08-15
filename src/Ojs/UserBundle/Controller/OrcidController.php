@@ -43,7 +43,7 @@ class OrcidController extends Controller
         );
         $session->save();
 
-        return $this->redirect($this->get('router')->generate('register'));
+        return $this->redirect($this->get('router')->generate('fos_user_registration_register'));
     }
 
     /**

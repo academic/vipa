@@ -790,6 +790,7 @@ regenerate.apikey: 'Regenerate APIKEY'
 register: Register
 register.yourself.as.author: 'Register Yourself As Author'
 register_journal: 'Register Journal'
+registration.activation: 'Check your e-mail to activate your account.'
 rejected: Rejected
 remove: Remove
 reports.analytics: 'Analytics Reports'

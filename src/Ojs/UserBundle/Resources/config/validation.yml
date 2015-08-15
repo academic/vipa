@@ -1,24 +1,15 @@
 Ojs\UserBundle\Entity\User:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [email]
-            message: "Email already registered!"
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [username]
-            message: "Username already registered!"
-    properties:
-        username:
-            - NotBlank: ~
-        email:
-            - NotBlank: ~
-            - Email: ~
+
+
 Ojs\JournalBundle\Entity\JournalRole:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [role, user, journal]
-            message: "User Journal Role already registered!"
-    properties:
-        user:
-            - NotBlank: ~
-        journal:
-            - NotBlank: ~
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: [role, user, journal]
+        message: "user.register.journal_role.error.allready_registered"
+  properties:
+    user:
+      - NotBlank:
+          message: "user.register.user.error.not_blank"
+    journal:
+      - NotBlank:
+          message: "user.register.journal.error.not_blank"

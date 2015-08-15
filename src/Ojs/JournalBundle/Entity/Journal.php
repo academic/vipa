@@ -1684,4 +1684,100 @@ class Journal implements Translatable
     {
         $this->journalDesigns = $journalDesigns;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Journal
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Journal
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get printed
+     *
+     * @return boolean
+     */
+    public function getPrinted()
+    {
+        return $this->printed;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalTranslation $translation
+     */
+    public function removeTranslation(\Ojs\JournalBundle\Entity\JournalTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+    }
+
+    /**
+     * Add journalUser
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
+     *
+     * @return Journal
+     */
+    public function addJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
+    {
+        $this->journalUsers[] = $journalUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove journalUser
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
+     */
+    public function removeJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
+    {
+        $this->journalUsers->removeElement($journalUser);
+    }
+
+    /**
+     * Add journalContact
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalContact $journalContact
+     *
+     * @return Journal
+     */
+    public function addJournalContact(\Ojs\JournalBundle\Entity\JournalContact $journalContact)
+    {
+        $this->journalContacts[] = $journalContact;
+
+        return $this;
+    }
+
+    /**
+     * Remove journalContact
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalContact $journalContact
+     */
+    public function removeJournalContact(\Ojs\JournalBundle\Entity\JournalContact $journalContact)
+    {
+        $this->journalContacts->removeElement($journalContact);
+    }
 }
