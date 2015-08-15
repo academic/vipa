@@ -13,12 +13,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
-use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class SecurityController extends BaseSecurityController
+class SecurityController extends Controller
 {
 
     /**
@@ -79,51 +76,122 @@ class SecurityController extends BaseSecurityController
         if ($this->getUser()) {
             return $this->redirect($this->generateUrl('ojs_public_index'));
         }
-
-        /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();
-
-        if (class_exists('\Symfony\Component\Security\Core\Security')) {
-            $authErrorKey = Security::AUTHENTICATION_ERROR;
-            $lastUsernameKey = Security::LAST_USERNAME;
+        // get the login error if there is one
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                Security::AUTHENTICATION_ERROR
+            );
         } else {
-            // BC for SF < 2.6
-            $authErrorKey = SecurityContextInterface::AUTHENTICATION_ERROR;
-            $lastUsernameKey = SecurityContextInterface::LAST_USERNAME;
+            $error = $session->get(Security::AUTHENTICATION_ERROR);
+            $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
-        // get the error if any (works with forward and redirect -- see below)
-        if ($request->attributes->has($authErrorKey)) {
-            $error = $request->attributes->get($authErrorKey);
-        } elseif (null !== $session && $session->has($authErrorKey)) {
-            $error = $session->get($authErrorKey);
-            $session->remove($authErrorKey);
-        } else {
-            $error = null;
-        }
-
-        if (!$error instanceof AuthenticationException) {
-            $error = null; // The value does not come from the security component.
-        }
-
-        // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
-
-        if ($this->has('security.csrf.token_manager')) {
-            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
-        } else {
-            // BC for SF < 2.4
-            $csrfToken = $this->has('form.csrf_provider')
-                ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
-                : null;
-        }
-
-        return $this->render('OjsUserBundle:Security:login.html.twig',array(
-            'last_username' => $lastUsername,
-            'error' => $error,
-            'csrf_token' => $csrfToken,
-        ));
+        return $this->render(
+            'OjsUserBundle:Security:login.html.twig',
+            array(
+                // last username entered by the user
+                'last_username' => $session->get(Security::LAST_USERNAME),
+                'error' => $error,
+            )
+        );
     }
+
+    /**
+     * @return string
+     */
+    private function encodePassword(User $user, $plainPassword)
+    {
+        $encoder = $this->container->get('security.encoder_factory')
+            ->getEncoder($user);
+
+        return $encoder->encodePassword($plainPassword, $user->getSalt());
+    }
+
+    public function registerAction(Request $request)
+    {
+        $allowanceSetting = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'user_registration']);
+
+        if ($allowanceSetting) {
+            if (!$allowanceSetting->getValue()) {
+                return $this->render(
+                    'OjsSiteBundle:Site:not_available.html.twig',
+                    [
+                        'title' => 'title.register',
+                        'message' => 'message.registration_not_available'
+                    ]
+                );
+            }
+        }
+
+        $error = null;
+        $user = new User();
+        $session = $this->get('session');
+
+        //Add default data for oauth login
+        $oauth_login = $session->get('oauth_login', false);
+        if ($oauth_login) {
+            $name = explode(' ', $oauth_login['full_name']);
+            $firstName = $name[0];
+            unset($name[0]);
+            $lastName = implode(' ', $name);
+            $user
+                ->setFirstName($firstName)
+                ->setLastName($lastName)
+                ->setUsername($this->slugify($oauth_login['full_name']));
+        }
+        $form = $this->createForm(new RegisterFormType(), $user);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // check user name exists
+            $em = $this->getDoctrine()->getManager();
+            $user->setPassword($this->encodePassword($user, $user->getPassword()));
+            $user->setToken($user->generateToken());
+            $user->generateApiKey();
+            $user->setStatus(1);
+            $user->setIsActive(0);
+            $em->persist($user);
+
+            if ($oauth_login) {
+                $oauth = new UserOauthAccount();
+                $oauth->setProvider($oauth_login['provider'])
+                    ->setProviderAccessToken($oauth_login['access_token'])
+                    ->setProviderRefreshToken($oauth_login['refresh_token'])
+                    ->setProviderUserId($oauth_login['user_id'])
+                    ->setUser($user);
+                $em->persist($oauth);
+                $user->addOauthAccount($oauth);
+                $em->persist($user);
+            }
+            $em->flush();
+            //$this->authenticateUser($user); // auth. user
+
+            $session->getFlashBag()
+                ->add('success', 'Success. <br>You are registered. Check your email to activate your account.');
+
+            $session->remove('oauth_login');
+            $session->save();
+
+            $event = new UserEvent($user);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('user.register.complete', $event);
+
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+        return $this->render(
+            'OjsUserBundle:Security:register.html.twig',
+            array(
+                'form' => $form->createView(),
+                'errors' => $form->getErrors(),
+            )
+        );
+    }
+
 
     public function forgotPasswordAction(Request $request)
     {
@@ -226,7 +294,7 @@ class SecurityController extends BaseSecurityController
                 throw new AccessDeniedException("ojs.403");
             }
             $user->generateApiKey();
-            $user->setEnabled(true);
+            $user->setIsActive(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -260,6 +328,7 @@ class SecurityController extends BaseSecurityController
         $form = $this->createForm(new CreatePasswordType(), $user);
         $form->handleRequest($request);
         if ($request->getMethod() == 'POST' && $form->isValid()) {
+            $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

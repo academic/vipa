@@ -1,58 +1,58 @@
 Ojs\UserBundle\Entity\Proxy:
-  indexes:
-    users_x:
-      columns: proxy_user_id,client_user_id
-  type: entity
-  table: proxy
-  repositoryClass: Ojs\UserBundle\Entity\ProxyRepository
-  manyToOne:
-    clientUser:
-      targetEntity: User
-      joinColumn:
-        name: client_user_id
-        referencedColumnName: id
-    proxyUser:
-      targetEntity: User
-      joinColumn:
-        name: proxy_user_id
-        referencedColumnName: id
-  id:
+    indexes:
+        users_x:
+          columns: proxy_user_id,client_user_id
+    type: entity
+    table: proxy
+    repositoryClass: Ojs\UserBundle\Entity\ProxyRepository
+    manyToOne:
+        clientUser:
+            targetEntity: User
+            joinColumn:
+                name: client_user_id
+                referencedColumnName: id
+        proxyUser:
+            targetEntity: User
+            joinColumn:
+                name: proxy_user_id
+                referencedColumnName: id
     id:
-      type: integer
-      id: true
-      generator:
-        strategy: AUTO
-  fields:
-    ttl:
-      type: datetime
-      column: ttl
-      nullable: true
-    proxyUserId:
-      type: integer
-      column: proxy_user_id
-      gedmo:
-        - versioned
-    clientUserId:
-      type: integer
-      column: client_user_id
-      gedmo:
-        - versioned
-    created:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: create
-    updated:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: update
-    deletedAt:
-      type: date
-      nullable: true
-  gedmo:
-    soft_deleteable:
-      field_name: deletedAt
-      time_aware: false
-    loggable: true
-  lifecycleCallbacks: {  }
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        ttl:
+            type: datetime
+            column: ttl
+            nullable: true
+        proxyUserId:
+            type: integer
+            column: proxy_user_id
+            gedmo:
+                - versioned
+        clientUserId:
+            type: integer
+            column: client_user_id
+            gedmo:
+                - versioned
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
+        loggable: true
+    lifecycleCallbacks: {  }

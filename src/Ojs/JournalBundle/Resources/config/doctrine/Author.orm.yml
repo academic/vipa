@@ -64,7 +64,6 @@ Ojs\JournalBundle\Entity\Author:
         locale:
             type: string
             length: 20
-            nullable: true
         title:
             type: string
             nullable: true

@@ -299,32 +299,4 @@ class Notification implements Translatable
     {
         return $this->action;
     }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Notification
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return Notification
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
 }

@@ -17,7 +17,7 @@ class CreatePasswordType extends AbstractType
     {
         $builder
             ->add(
-                'plain_password',
+                'password',
                 'repeated',
                 [
                     'attr' => [

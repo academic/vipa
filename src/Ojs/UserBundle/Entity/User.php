@@ -20,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use FOS\UserBundle\Model\User as BaseUser;
+
 /**
  * User
  * @ExclusionPolicy("all")
@@ -28,7 +28,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @UniqueEntity(fields="email", message="That email is taken!")
  * @GRID\Source(columns="id,username,email,status")
  */
-class User extends BaseUser implements Translatable, UserInterface, \Serializable, AdvancedUserInterface
+class User implements Translatable, UserInterface, \Serializable, AdvancedUserInterface
 {
     use GenericEntityTrait;
 
@@ -42,6 +42,29 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
      */
     protected $id;
 
+    /**
+     * @var string
+     * @Expose
+     * @Assert\NotBlank(message="Username can't be blank")
+     * @Assert\Length(min=3, minMessage="Username should be longer then 3 characters.")
+     * @GRID\Column(title="user.username")
+     */
+    protected $username;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message="Password can't be blank")
+     */
+    protected $password = null;
+
+    /**
+     * @var string
+     * @Expose
+     * @Assert\NotBlank(message="Email can't be blank")
+     * @Assert\Email
+     * @GRID\Column(title="user.email")
+     */
+    protected $email;
 
     /**
      * @var string
@@ -59,7 +82,28 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
      */
     protected $lastName;
 
+    /**
+     * @var boolean
+     * @Expose
+     */
+    protected $isActive = true;
 
+    /**
+     * @var boolean
+     * @Expose
+     */
+    protected $isAdmin = false;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    protected $token = null;
+
+    /**
+     * @var \DateTime
+     */
+    protected $lastlogin;
 
     /**
      * @var string
@@ -71,11 +115,20 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
      */
     protected $apiKey;
 
+    /**
+     * @var integer
+     * @GRID\Column(title="user.status",filter="select",selectFrom="values",values={0="Passive",1="Active"} )
+     */
+    protected $status = 1;
 
     /** @var  ArrayCollection */
     protected $restrictedJournals;
 
-
+    /**
+     * @var array
+     * @Expose
+     */
+    protected $roles;
 
     /** @var  string */
     protected $gender;
@@ -93,8 +146,11 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     protected $billing_address;
     /** @var  string */
     protected $locales;
+    /** @var  string */
+    protected $disable_reason;
     /** @var  ArrayCollection|Author[] */
     protected $authorDetails;
+
 
     private $title;
 
@@ -141,10 +197,8 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     /** @var Collection */
     private $journalUsers;
 
-
     public function __construct()
     {
-        parent::__construct();
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
         $this->authorDetails = new ArrayCollection();
@@ -208,6 +262,198 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         $this->apiKey = $apiKey;
     }
 
+    /**
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param  integer $status
+     * @return User
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param  string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param  String $token
+     * @return $this
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastlogin()
+    {
+        return $this->lastlogin;
+    }
+
+    /**
+     * @param \DateTime $lastlogin
+     */
+    public function setLastlogin(\DateTime $lastlogin)
+    {
+        $this->lastlogin = $lastlogin;
+    }
+
+    public function getSalt()
+    {
+        return "";
+    }
+
+    public function eraseCredentials()
+    {
+        //$this->setPassword(NULL);
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(
+            array(
+                $this->id,
+                $this->username,
+                $this->password,
+            )
+        );
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * Add role
+     *
+     * @param string $role
+     * @return User
+     */
+    public function addRole($role)
+    {
+        if ($role === static::ROLE_DEFAULT) {
+            return $this;
+        }
+        if ($role === static::ROLE_ADMIN) {
+            $this->setAdmin(true);
+
+            return $this;
+        }
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = strtoupper($role);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param  boolean $isAdmin
+     * @return User $this
+     */
+    public function setAdmin($isAdmin)
+    {
+        $this->isAdmin = !!$isAdmin;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @param  string $role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    /**
+     *
+     * @return string[]
+     */
+    public function getRoles()
+    {
+        $this->roles[] = static::ROLE_DEFAULT;
+        if ($this->isAdmin()) {
+            $this->roles[] = static::ROLE_ADMIN;
+        }
+
+        return array_unique($this->roles);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param $role
+     * @return $this
+     */
+    public function removeRole($role)
+    {
+        if ($role === static::ROLE_ADMIN) {
+            $this->setAdmin(false);
+        }
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+
+        return $this;
+    }
 
     /**
      *
@@ -237,12 +483,64 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         $this->subjects->removeElement($subject);
     }
 
+    /**
+     *
+     * - fileName: The filename.
+     * - fileExtension: The extension of the file (including the dot). Example: .jpg
+     * - fileWithoutExt: The filename without the extension.
+     * - filePath: The file path. Example: /my/path/filename.jpg
+     * - fileMimeType: The mime-type of the file. Example: text/plain.
+     * - fileSize: Size of the file in bytes. Example: 140000.
+     *
+     * @param array $info
+     */
+    public function avatarFileCallback(array $info)
+    {
+        // noob
+    }
 
     public function generateToken()
     {
         return md5($this->getEmail()).md5(uniqid($this->getUsername(), true));
     }
 
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param  string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param  string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
 
     /**
      * Generates an API Key
@@ -283,6 +581,85 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     public function getRestrictedJournals()
     {
         return $this->restrictedJournals;
+    }
+
+    /**
+     * Checks whether the user's account has expired.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw an AccountExpiredException and prevent login.
+     *
+     * @return bool true if the user's account is non expired, false otherwise
+     *
+     * @see AccountExpiredException
+     */
+    public function isAccountNonExpired()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param  boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a LockedException and prevent login.
+     *
+     * @return bool true if the user is not locked, false otherwise
+     *
+     * @see LockedException
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a CredentialsExpiredException and prevent login.
+     *
+     * @return bool true if the user's credentials are non expired, false otherwise
+     *
+     * @see CredentialsExpiredException
+     */
+    public function isCredentialsNonExpired()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a DisabledException and prevent login.
+     *
+     * @return bool true if the user is enabled, false otherwise
+     *
+     * @see DisabledException
+     */
+    public function isEnabled()
+    {
+        return $this->getIsActive();
     }
 
     /**
@@ -441,6 +818,25 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     /**
      * @return string
      */
+    public function getDisableReason()
+    {
+        return $this->disable_reason;
+    }
+
+    /**
+     * @param  string $disable_reason
+     * @return $this
+     */
+    public function setDisableReason($disable_reason)
+    {
+        $this->disable_reason = $disable_reason;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getFax()
     {
         return $this->fax;
@@ -589,12 +985,12 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         return $this->firstName;
     }
 
-    /**
-     * Set firstName
-     *
-     * @param  string $firstName
-     * @return User
-     */
+    /*
+         * Set firstName
+         *
+         * @param  string $firstName
+         * @return User
+         */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -773,73 +1169,4 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     {
         return $this->journalUsers;
     }
-
-    /**
-     * Get privacy
-     *
-     * @return boolean
-     */
-    public function getPrivacy()
-    {
-        return $this->privacy;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return User
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return User
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Add journalUser
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
-     *
-     * @return User
-     */
-    public function addJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
-    {
-        $this->journalUsers[] = $journalUser;
-
-        return $this;
-    }
-
-    /**
-     * Remove journalUser
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
-     */
-    public function removeJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
-    {
-        $this->journalUsers->removeElement($journalUser);
-    }
-
-    public function isAdmin()
-    {
-        return $this->hasRole('ROLE_ADMIN') || $this->hasRole('ROLE_SUPER_ADMIN');
-    }
-
-
 }

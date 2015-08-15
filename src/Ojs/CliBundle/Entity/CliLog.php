@@ -10,7 +10,6 @@ use Ojs\Common\Entity\GenericEntityTrait;
  */
 class CliLog implements Translatable
 {
-
     use GenericEntityTrait;
 
     /**

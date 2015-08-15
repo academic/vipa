@@ -240,14 +240,4 @@ class JournalSection implements Translatable
     {
         return $this->journal;
     }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalSectionTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\JournalSectionTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
-    }
 }

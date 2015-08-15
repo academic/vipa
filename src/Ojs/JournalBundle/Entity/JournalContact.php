@@ -418,14 +418,4 @@ class JournalContact implements Translatable
             $this->addTranslation($translation);
         }
     }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalContactTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\JournalContactTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
-    }
 }

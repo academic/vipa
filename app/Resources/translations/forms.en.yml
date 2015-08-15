@@ -1,7 +1,0 @@
-user.register.firstname: First Name
-user.register.lastname: Last Name
-user.register.username: Username
-user.register.email: Email
-user.register.password.first: Password
-user.register.password.second: Password (Repeat)
-user.register.submit: Register

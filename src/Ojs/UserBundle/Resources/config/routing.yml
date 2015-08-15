@@ -28,6 +28,10 @@ orcid_login:
     path: /orcid_login
     defaults: { _controller: OjsUserBundle:Orcid:login }
 
+register:
+    path: /register
+    defaults: { _controller: OjsUserBundle:Security:register }
+
 email_confirm:
     path: /confirm/email/{code}
     defaults: { _controller: OjsUserBundle:Security:confirmEmail }

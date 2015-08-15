@@ -123,42 +123,4 @@ class ArticleTypes implements Translatable
     {
         return $this->getName();
     }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return ArticleTypes
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return ArticleTypes
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\ArticleTypesTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\ArticleTypesTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
-    }
 }

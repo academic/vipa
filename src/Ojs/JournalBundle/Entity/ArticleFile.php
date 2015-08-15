@@ -270,18 +270,4 @@ class ArticleFile
 
         return $this;
     }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return ArticleFile
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
 }
