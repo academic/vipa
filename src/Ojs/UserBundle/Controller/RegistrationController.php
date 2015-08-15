@@ -49,7 +49,6 @@ class RegistrationController extends  BaseController
 
         /** @var User $user */
         $user = $userManager->createUser();
-        $user->setEnabled(true);
         //Add default data for oauth login
         $session = $this->get('session');
         $oauth_login = $session->get('oauth_login', false);
@@ -86,7 +85,7 @@ class RegistrationController extends  BaseController
             $user->setConfirmationToken($tokenGenerator->generateToken());
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('dashboard');
+                $url = $this->generateUrl('login');
                 $response = new RedirectResponse($url);
             }
 
@@ -104,8 +103,7 @@ class RegistrationController extends  BaseController
                 $em->persist($user);
             }
 
-            $session->getFlashBag()
-                ->add('success', 'Success. <br>You are registered. Check your email to activate your account.');
+            $session->getFlashBag()->add('success', 'registration.activation');
 
             $session->remove('oauth_login');
             $session->save();
