@@ -9,6 +9,7 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Util\TokenGenerator;
 use Ojs\Common\Helper\StringHelper;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
@@ -80,6 +81,9 @@ class RegistrationController extends  BaseController
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
             $user->generateApiKey();
             $userManager->updateUser($user);
+
+            $tokenGenerator = new TokenGenerator();
+            $user->setConfirmationToken($tokenGenerator->generateToken());
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('dashboard');
