@@ -2,25 +2,24 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\JournalSetupProgress;
-use Ojs\JournalBundle\Entity\Journal;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Yaml\Parser;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Ojs\JournalBundle\Entity\JournalPost;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Ojs\Common\Services\JournalService;
 use Gedmo\Sluggable\Util\Urlizer;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Services\JournalService;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalPost;
+use Ojs\JournalBundle\Entity\JournalSetupProgress;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step1;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step2;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step3;
-use Ojs\JournalBundle\Form\Type\JournalSetup\Step4;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step5;
 use Ojs\JournalBundle\Form\Type\JournalSetup\Step6;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Journal Setup Wizard controller.
@@ -48,10 +47,10 @@ class JournalSetupController extends Controller
             throw new NotFoundHttpException();
         }
         $journalSetup = new JournalSetupProgress();
-        if($journalCreatePermission){
+        if ($journalCreatePermission) {
             /** @var JournalSetupProgress $journalSetup */
             $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUser($user);
-            if(!$journalSetup){
+            if (!$journalSetup) {
                 $newJournal = new Journal();
                 $newJournal->setTitle('');
                 $newJournal->setTitleAbbr('');
@@ -65,11 +64,11 @@ class JournalSetupController extends Controller
                 $em->persist($journalSetup);
                 $em->flush();
             }
-        }elseif(!$selectedJournal->getSetupStatus()){
+        } elseif (!$selectedJournal->getSetupStatus()) {
 
             /** @var JournalSetupProgress $userSetup */
             $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByJournal($selectedJournal);
-        }elseif($selectedJournal->getSetupStatus()){
+        } elseif ($selectedJournal->getSetupStatus()) {
 
             $selectedJournal->setSetupStatus(false);
             $journalSetup->setUser($user);
@@ -84,7 +83,7 @@ class JournalSetupController extends Controller
                 [
                     'setupId' => $journalSetup->getId(),
                 ]
-            ).'#'.
+            ) . '#' .
             $journalSetup->getCurrentStep()
         );
     }
@@ -106,12 +105,12 @@ class JournalSetupController extends Controller
         $stepsForms = array();
         //for 6 step create update forms
         foreach (range(1, 6) as $stepValue) {
-            $stepsForms['step'.$stepValue] = $this->createFormView($journal, $stepValue);
+            $stepsForms['step' . $stepValue] = $this->createFormView($journal, $stepValue);
         }
         $yamlParser = new Parser();
         $default_pages = $yamlParser->parse(
             file_get_contents(
-                $this->container->getParameter('kernel.root_dir').
+                $this->container->getParameter('kernel.root_dir') .
                 '/../src/Ojs/JournalBundle/Resources/data/pagetemplates.yml'
             )
         );
@@ -134,7 +133,7 @@ class JournalSetupController extends Controller
      */
     private function createFormView($setup, $stepCount)
     {
-        $stepClassName = 'Ojs\JournalBundle\Form\Type\JournalSetup\Step'.$stepCount;
+        $stepClassName = 'Ojs\JournalBundle\Form\Type\JournalSetup\Step' . $stepCount;
 
         return $this->createForm(
             new $stepClassName(),
@@ -153,7 +152,7 @@ class JournalSetupController extends Controller
      */
     public function stepControlAction(Request $request, $setupId, $step)
     {
-        switch($step){
+        switch ($step) {
             case 1:
                 return $this->step1Control($request, $setupId);
             case 2:
@@ -173,7 +172,7 @@ class JournalSetupController extends Controller
 
     /**
      * Journal Setup Wizard Step 1 - Saves Journal 's step 1 data
-     * @param  Request      $request
+     * @param  Request $request
      * @param $setupId
      * @return JsonResponse
      */
@@ -200,8 +199,8 @@ class JournalSetupController extends Controller
 
     /**
      * Journal Setup Wizard Step 2 - Saves Journal 's step 2 data
-     * @param  Request      $request
-     * @param  null         $setupId
+     * @param  Request $request
+     * @param  null $setupId
      * @return JsonResponse
      */
     private function step2Control(Request $request, $setupId)
@@ -228,8 +227,8 @@ class JournalSetupController extends Controller
 
     /**
      * Journal Setup Wizard Step 3 - Saves Journal 's step 3 data
-     * @param  Request      $request
-     * @param  null         $setupId
+     * @param  Request $request
+     * @param  null $setupId
      * @return JsonResponse
      */
     private function step3Control(Request $request, $setupId)
@@ -255,8 +254,8 @@ class JournalSetupController extends Controller
 
     /**
      * Journal Setup Wizard Step 4 - Saves Journal 's step 4 data
-     * @param  Request      $request
-     * @param  null         $setupId
+     * @param  Request $request
+     * @param  null $setupId
      * @return JsonResponse
      */
     private function step4Control(Request $request, $setupId)
@@ -294,8 +293,8 @@ class JournalSetupController extends Controller
 
     /**
      * Journal Setup Wizard Step 5 - Saves Journal 's step 5 data
-     * @param  Request      $request
-     * @param  null         $setupId
+     * @param  Request $request
+     * @param  null $setupId
      * @return JsonResponse
      */
     private function step5Control(Request $request, $setupId)
@@ -321,7 +320,7 @@ class JournalSetupController extends Controller
 
     /**
      * Journal Setup Wizard Step 6 - Saves Journal 's step 6 data
-     * @param  Request      $request
+     * @param  Request $request
      * @param $setupId
      * @return JsonResponse
      */
