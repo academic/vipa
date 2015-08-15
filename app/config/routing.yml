@@ -83,6 +83,3 @@ jb_fileupload_crop:
 
 ojs_site:
   resource: "@OjsSiteBundle/Resources/config/routing.yml"
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

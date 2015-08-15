@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: emreyilmaz
+ * Date: 4.02.15
+ * Time: 23:44
+ */
 namespace Ojs\Common\Services;
 
 use Monolog\Logger;

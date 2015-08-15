@@ -136,3 +136,4 @@ class JournalUser
         return $this;
     }
 }
+

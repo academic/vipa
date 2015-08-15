@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: emreyilmaz
+ * Date: 20.05.15
+ * Time: 13:43
+ */
 namespace Ojs\ReportBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;

@@ -183,42 +183,4 @@ class InstitutionTypes implements Translatable
     {
         return $this->getName();
     }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return InstitutionTypes
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return InstitutionTypes
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\InstitutionTypesTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\InstitutionTypesTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
-    }
 }

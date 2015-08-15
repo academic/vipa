@@ -11,16 +11,41 @@ class RegisterFormType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
+                'username',
+                'text',
+                array(
+                    'label' => 'username',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'email',
+                'email',
+                array(
+                    'label' => 'email',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'password',
+                'repeated',
+                array(
+                    'label' => 'email',
+                    'type' => 'password',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'firstName',
                 'text',
                 array(
-                    'label' => 'user.register.firstname',
+                    'label' => 'firstname',
                     'required' => true,
                 )
             )
@@ -28,39 +53,7 @@ class RegisterFormType extends AbstractType
                 'lastName',
                 'text',
                 array(
-                    'label' => 'user.register.lastname',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'username',
-                'text',
-                array(
-                    'label' => 'user.register.username',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'email',
-                'email',
-                array(
-                    'label' => 'user.register.email',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'plain_password',
-                'repeated',
-                array(
-                    'first_options' => [
-                        'label' => 'user.register.password.first',
-                        'error_bubbling'=>true
-                    ],
-                    'second_options' => [
-                        'label' => 'user.register.password.second',
-                        'error_bubbling'=>true
-                    ],
-                    'type' => 'password',
+                    'label' => 'lastname',
                     'required' => true,
                 )
             );
@@ -78,8 +71,6 @@ class RegisterFormType extends AbstractType
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
-                'translation_domain' => 'forms',
-                'validation_groups'=>['ojs_register']
             )
         );
     }

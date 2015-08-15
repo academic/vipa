@@ -1,12 +1,5 @@
 services:
-  ojs_user.soft_delete:
-    class: Ojs\UserBundle\Listeners\SoftDeleteListener
-    tags:
-      - { name: doctrine.event_listener, event: preSoftDelete }
-  ojs_user.manager:
-    class: Ojs\UserBundle\Manager\UserManager
-    arguments: [@security.encoder_factory,@fos_user.util.username_canonicalizer,@fos_user.util.email_canonicalizer,@fos_user.entity_manager,'Ojs\UserBundle\Entity\User']
-  ojs_form.register:
-    class: Ojs\UserBundle\Form\Type\RegisterFormType
-    tags:
-      - { name: form.type, alias: ojs_user_register}
+    ojs_user.soft_delete:
+        class: Ojs\UserBundle\Listeners\SoftDeleteListener
+        tags:
+            - { name: doctrine.event_listener, event: preSoftDelete }

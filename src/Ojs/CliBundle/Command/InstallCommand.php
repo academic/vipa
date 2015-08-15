@@ -249,11 +249,22 @@ class InstallCommand extends ContainerAwareCommand
             );
         }
         if (is_null($user)) {
-            $kernel = $this->getContainer()->get('kernel');
-            $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
-            $application->setAutoExit(false);
-            $application->run(new \Symfony\Component\Console\Input\StringInput('fos:user:create --super-admin '.$username.' '.$email.' '.$password));
+            $user = new User();
         }
+
+        $encoder = $factory->getEncoder($user);
+        $pass_encoded = $encoder->encodePassword($password, $user->getSalt());
+        $user->setEmail($email);
+        $user->setPassword($pass_encoded);
+        $user->setUsername($username);
+        $user->setIsActive(true);
+        $user->setStatus(1);
+        $user->generateApiKey();
+
+        $user->setAdmin(true);
+
+        $em->persist($user);
+        $em->flush();
     }
 
     protected function insertTheme()

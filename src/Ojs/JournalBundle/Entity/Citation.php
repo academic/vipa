@@ -221,32 +221,4 @@ class Citation implements Translatable
     {
         return $this->orderNum;
     }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Citation
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return Citation
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
 }
