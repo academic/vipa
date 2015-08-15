@@ -296,6 +296,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
             'OjsUserBundle:Proxy' => null, 'OjsUserBundle:Notification' => null, 'OjsJournalBundle:ArticleTypes' => null,
             'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,
+            'OjsAdminBundle:AdminPost' => null,
         ];
         foreach ($classes as $className => $fields) {
             $realClassName = $em->getRepository($className)->getClassName();

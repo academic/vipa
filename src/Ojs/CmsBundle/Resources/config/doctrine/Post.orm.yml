@@ -7,8 +7,8 @@ Ojs\CmsBundle\Entity\Post:
       name: discriminator
       type: string
   discriminatorMap:
-      #admin: Ojs\AdminBundle\Entity\AdminPost
-      #journal: Ojs\JournalBundle\Entity\JournalPost
+      admin: Ojs\AdminBundle\Entity\AdminPost
+      journal: Ojs\JournalBundle\Entity\JournalPost
   oneToMany:
     translations:
       targetEntity: Ojs\CmsBundle\Entity\PostTranslation

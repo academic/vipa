@@ -66,6 +66,7 @@ class SiteController extends Controller
 
         $data['announcements'] = $em->getRepository('OjsAdminBundle:AdminAnnouncement')->findAll();
         $data['announcement_count'] = count($data['announcements']);
+        $data['posts'] = $em->getRepository('OjsAdminBundle:AdminPost')->findAll();
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
@@ -129,6 +130,7 @@ class SiteController extends Controller
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['design'] = $journal->getDesign();
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+        $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
@@ -321,5 +323,35 @@ class SiteController extends Controller
         }
 
         return $this->render('OjsSiteBundle:Site:page.html.twig', ['adminPage' => $page]);
+    }
+
+    public function journalPostDetailAction($slug, $journal_slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
+
+        if (!$journal) {
+            throw new NotFoundHttpException("Journal not found!");
+        }
+
+        $post = $em->getRepository('OjsJournalBundle:JournalPost')->findOneBy(['journal' => $journal, 'slug' => $slug]);
+
+        if (!$post) {
+            throw new NotFoundHttpException("Post not found!");
+        }
+
+        return $this->render('OjsSiteBundle:Journal:post.html.twig', ['journalPost' => $post]);
+    }
+
+    public function postDetailAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('OjsAdminBundle:AdminPost')->findOneBy(['slug' => $slug]);
+
+        if (!$post) {
+            throw new NotFoundHttpException("Post not found!");
+        }
+
+        return $this->render('OjsSiteBundle:Site:post.html.twig', ['post' => $post]);
     }
 }

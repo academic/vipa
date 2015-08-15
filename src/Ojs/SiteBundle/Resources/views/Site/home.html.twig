@@ -198,6 +198,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <ul>
+                    {% for post in posts %}
+                    <li>
+                        <a href="{{ path('ojs_site_post', {'slug': post.slug}) }}">{{ post.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </section>
         {% if services is defined %}
             {% include '@OjsSite/Site/services.html.twig' %}

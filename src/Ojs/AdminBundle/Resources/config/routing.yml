@@ -85,3 +85,7 @@ ojs_admin_announcement:
 ojs_admin_page:
     resource: "@OjsAdminBundle/Resources/config/routing/page.yml"
     prefix:   page
+
+ojs_admin_post:
+    resource: "@OjsAdminBundle/Resources/config/routing/post.yml"
+    prefix:   post

@@ -94,6 +94,11 @@ ojs_site_journal_page:
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalPageDetail }
 
+ojs_site_journal_post:
+    path: /{journal_slug}/post/{slug}
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalPostDetail }
+
 ojs_last_articles_index:
     path:  /{slug}/last
     host: "{institution}.%base_host%"
@@ -164,3 +169,7 @@ ojs_site_download:
 ojs_site_page:
     path: /page/{slug}
     defaults: { _controller: OjsSiteBundle:Site:pageDetail }
+
+ojs_site_post:
+    path: /post/{slug}
+    defaults: { _controller: OjsSiteBundle:Site:postDetail }
