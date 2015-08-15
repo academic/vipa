@@ -1,84 +1,73 @@
 security:
-    encoders:
-        Ojs\UserBundle\Entity\User:
-            algorithm: bcrypt
-    acl:
-        connection: default
-    role_hierarchy:
-        ROLE_ADMIN: [ROLE_USER]
-        ROLE_SUPER_ADMIN:  [ROLE_ADMIN]
-    providers:
-        user_db:
-            id: ojs.user_provider.username_email
-            #entity: {  class: Ojs\UserBundle\Entity\User, property: username }
-    firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        api_doc:
-            pattern: ^/api/public
-            stateless: true
-            security: false
-            anonymous: true
-        api_home:
-            pattern: /api/$
-            stateless: true
-            security: false
-            anonymous: true
-        api_mail_template:
-            pattern: ^/api/mail_template*
-            stateless: true
-            security: false
-            anonymous: true
-        api:
-            pattern: ^/api/
-            stateless: true
-            security: true
-            provider: user_db
-            anonymous: true
-            simple_preauth:
-                authenticator: apikey_authenticator
-
-        main:
-            switch_user: {parameter: _su}
-            pattern: ^/
-            anonymous: true
-            provider: user_db
-            form_login:
-                login_path: /login
-                check_path: /login_check
-                always_use_default_target_path: false
-                default_target_path:            /user 
-            logout:
-                path: /logout
-                target: /
-                success_handler: ojs.logout_listener
-#                invalidate_session: false
-#                delete_cookies:
-#                    a: { path: null, domain: null }
-#                    b: { path: null, domain: null }
-#                handlers: [some.service.id, another.service.id]
-#                success_handler: some.service.id
-            remember_me:
-                key: df716bb554af3c6f04c34e0c6518253b
-                lifetime: 1800
-                path: /.*
-                domain: ~
-            security: true
-            anonymous: true
-    access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
-        - { path: /manager, roles: [IS_AUTHENTICATED_FULLY] }
-        - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /user, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/author, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/editor, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/*, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/suggest, roles: IS_AUTHENTICATED_FULLY }
-        - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
-#jms_security_extra:
-#    method_access_control:
-#        "JMSJobQueueBundle:.*:.*": "hasRole('ROLE_ADMIN')"
+  encoders:
+    Ojs\UserBundle\Entity\User:
+        algorithm: bcrypt
+  acl:
+    connection: default
+  role_hierarchy:
+    ROLE_ADMIN: [ROLE_USER]
+    ROLE_SUPER_ADMIN:  [ROLE_ADMIN]
+  providers:
+    user_db:
+      id: ojs.user_provider.username_email
+  firewalls:
+    dev:
+      pattern:  ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    api_doc:
+      pattern: ^/api/public
+      stateless: true
+      security: false
+      anonymous: true
+    api_home:
+      pattern: /api/$
+      stateless: true
+      security: false
+      anonymous: true
+    api_mail_template:
+      pattern: ^/api/mail_template*
+      stateless: true
+      security: false
+      anonymous: true
+    api:
+      pattern: ^/api/
+      stateless: true
+      security: true
+      provider: user_db
+      anonymous: true
+      simple_preauth:
+        authenticator: apikey_authenticator
+    main:
+      switch_user: {parameter: _su}
+      pattern: ^/
+      anonymous: true
+      provider: user_db
+      form_login:
+        login_path: /login
+        check_path: /login_check
+        always_use_default_target_path: false
+        default_target_path:            /user
+      logout:
+        path: /logout
+        target: /
+        success_handler: ojs.logout_listener
+      remember_me:
+        key: df716bb554af3c6f04c34e0c6518253b
+        lifetime: 1800
+        path: /.*
+        domain: ~
+      security: true
+      anonymous: true
+  access_control:
+    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/journal, roles: IS_AUTHENTICATED_FULLY }
+    - { path: /manager, roles: [IS_AUTHENTICATED_FULLY] }
+    - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: /user, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/author, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/editor, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/*, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/suggest, roles: IS_AUTHENTICATED_FULLY }
+    - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
