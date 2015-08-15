@@ -998,4 +998,42 @@ class Institution implements Translatable
     {
         return $this->name;
     }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Institution
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return Institution
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \Ojs\JournalBundle\Entity\InstitutionTranslation $translation
+     */
+    public function removeTranslation(\Ojs\JournalBundle\Entity\InstitutionTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+    }
 }
