@@ -11,7 +11,7 @@ class SecurityControllerTest extends BaseTestCase
     {
         //$this->client->enableProfiler();
 
-        $this->isAccessible(['register']);
+        $this->isAccessible(['fos_user_registration_register']);
         $form = $this->crawler->selectButton('Register')->form();
         $form['ojs_user_register[username]'] = "test-user";
         $form['ojs_user_register[email]'] = "test@user.com";

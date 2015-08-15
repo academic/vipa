@@ -48,7 +48,7 @@ class SecurityController extends BaseSecurityController
         /**
          * @var User $user
          */
-        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['token' => $code]);
+        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['confirmation_token' => $code]);
         if (!$user) {
             $session->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
 
