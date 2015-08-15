@@ -217,7 +217,6 @@
                 </div>
             </div>
 
-
             <div class="row">
                 <div class="col-sm-12">
                     <h5 class="page-header"><span class="panel-title">{{ "journal_index.issues"|trans }}</span></h5>
@@ -306,6 +305,19 @@
                 <div class="col-md-3 col-sm-4">
                     {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
                 </div>
+            </div>
+
+            <div class="row">
+                <h3>{{ 'title.posts'|trans }}</h3>
+                <ul>
+                    {% for post in posts %}
+                        <li>
+                            <a href="{{ path('ojs_site_journal_post',
+                            {'slug': post.slug, 'institution': journal.institution.slug, 'journal_slug': journal.slug}) }}">
+                                {{ post.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endif %}
     </div>
