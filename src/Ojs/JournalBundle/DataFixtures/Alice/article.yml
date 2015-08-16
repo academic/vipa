@@ -1,5 +1,6 @@
 \Ojs\JournalBundle\Entity\Article:
   article1:
+    currentLocale: en
     doi: 10.5281/zenodo.14791
     firstPage: 1
     lastPage: 5
@@ -14,4 +15,3 @@
     section: @section1
     issue: @issue1
     orderNum: <randomDigit()>
-    locale: en

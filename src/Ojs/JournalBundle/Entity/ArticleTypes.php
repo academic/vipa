@@ -59,6 +59,7 @@ class ArticleTypes extends AbstractTranslatable
             $locale = $this->currentLocale;
         }
         if (!$locale) {
+            var_dump($this);exit();
             throw new \RuntimeException('No locale has been set and currentLocale is empty');
         }
         if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
