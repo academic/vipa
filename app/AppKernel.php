@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new Prezent\Doctrine\TranslatableBundle\PrezentDoctrineTranslatableBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Norzechowicz\AceEditorBundle\NorzechowiczAceEditorBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
