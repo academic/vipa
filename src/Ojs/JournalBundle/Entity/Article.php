@@ -5,13 +5,14 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use Ojs\Common\Entity as CommonTraits;
 use Ojs\Common\Params\ArticleParams;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Article
@@ -19,20 +20,16 @@ use Ojs\Common\Params\ArticleParams;
  * @GRID\Source(columns="id, status, title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
-class Article implements Translatable
+class Article extends AbstractTranslatable
 {
-    use CommonTraits\BlameableTrait;
-    use CommonTraits\SoftDeletableTrait;
-    use CommonTraits\TimestampableTrait;
-    use CommonTraits\TranslateableTrait;
-
+    use GenericEntityTrait;
     /**
      * auto-incremented article unique id
      * @GRID\Column(title="id")
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @var integer
@@ -275,6 +272,9 @@ class Article implements Translatable
      */
     private $slug;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ArticleTranslation")
+     */
     protected $translations;
 
     /**
@@ -313,24 +313,38 @@ class Article implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\ArticleTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(ArticleTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        /** @var ArticleTranslation $defaultTranslation */
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new ArticleTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setAbstract($defaultTranslation->getAbstract());
+                $translation->setKeywords($defaultTranslation->getKeywords());
+                $translation->setSubjects($defaultTranslation->getSubjects());
+                $translation->setSubtitle($defaultTranslation->getSubtitle());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -390,7 +404,7 @@ class Article implements Translatable
      */
     public function getSubjects()
     {
-        return $this->subjects;
+        return $this->translate()->getSubjects();
     }
 
     /**
@@ -401,7 +415,7 @@ class Article implements Translatable
      */
     public function setSubjects($subjects = null)
     {
-        $this->subjects = $subjects;
+        $this->translate()->setSubjects($subjects);
 
         return $this;
     }
@@ -656,7 +670,7 @@ class Article implements Translatable
      */
     public function getKeywords()
     {
-        return $this->keywords;
+        return $this->translate()->getKeywords();
     }
 
     /**
@@ -665,7 +679,7 @@ class Article implements Translatable
      */
     public function setKeywords($keywords)
     {
-        $this->keywords = $keywords;
+        $this->translate()->setKeywords($keywords);
 
         return $this;
     }
@@ -836,7 +850,7 @@ class Article implements Translatable
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -848,7 +862,7 @@ class Article implements Translatable
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -905,7 +919,7 @@ class Article implements Translatable
      */
     public function setSubtitle($subtitle)
     {
-        $this->subtitle = $subtitle;
+        $this->translate()->setSubtitle($subtitle);
 
         return $this;
     }
@@ -917,7 +931,7 @@ class Article implements Translatable
      */
     public function getSubtitle()
     {
-        return $this->subtitle;
+        return $this->translate()->getSubtitle();
     }
 
     /**
@@ -1112,7 +1126,7 @@ class Article implements Translatable
      */
     public function setAbstract($abstract)
     {
-        $this->abstract = $abstract;
+        $this->translate()->setAbstract($abstract);
 
         return $this;
     }
@@ -1124,7 +1138,7 @@ class Article implements Translatable
      */
     public function getAbstract()
     {
-        return $this->abstract;
+        return $this->translate()->getAbstract();
     }
 
     /**
@@ -1278,15 +1292,5 @@ class Article implements Translatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\ArticleTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\ArticleTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }
