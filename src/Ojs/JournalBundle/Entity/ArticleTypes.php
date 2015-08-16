@@ -3,15 +3,17 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
 
 /**
  * ArticleTypes
  * @GRID\Source(columns="id,name,description")
  */
-class ArticleTypes implements Translatable
+class ArticleTypes extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -19,7 +21,7 @@ class ArticleTypes implements Translatable
      * @var integer
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -33,6 +35,9 @@ class ArticleTypes implements Translatable
      */
     private $description;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ArticleTypesTranslation")
+     */
     protected $translations;
 
     /**
@@ -43,24 +48,34 @@ class ArticleTypes implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\ArticleTypesTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(ArticleTypesTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new ArticleTypesTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setName($defaultTranslation->getName());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -73,6 +88,7 @@ class ArticleTypes implements Translatable
         return $this->id;
     }
 
+    // Proxy getters and setters
     /**
      * Set name
      *
@@ -81,8 +97,7 @@ class ArticleTypes implements Translatable
      */
     public function setName($name)
     {
-        $this->name = $name;
-
+        $this->translate()->setName($name);
         return $this;
     }
 
@@ -93,7 +108,7 @@ class ArticleTypes implements Translatable
      */
     public function getName()
     {
-        return $this->name;
+        return $this->translate()->getName();
     }
 
     /**
@@ -104,8 +119,7 @@ class ArticleTypes implements Translatable
      */
     public function setDescription($description)
     {
-        $this->description = $description;
-
+        $this->translate()->setDescription($description);
         return $this;
     }
 
@@ -116,49 +130,15 @@ class ArticleTypes implements Translatable
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     public function __toString()
     {
-        return $this->getName();
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return ArticleTypes
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return ArticleTypes
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\ArticleTypesTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\ArticleTypesTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
+        if(!is_string($this->getName())){
+            return $this->translations->first()->getName();
+        }else{
+            return $this->getName();
+        }
     }
 }
