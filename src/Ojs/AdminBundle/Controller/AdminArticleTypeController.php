@@ -38,7 +38,7 @@ class AdminArticleTypeController extends Controller
             {
                 /**
                  * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var ArticleTypesTranslation $entity
+                 * @var ArticleTypes $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
@@ -82,7 +82,6 @@ class AdminArticleTypeController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');

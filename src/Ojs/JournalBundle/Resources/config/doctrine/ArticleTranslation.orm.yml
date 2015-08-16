@@ -8,20 +8,30 @@ Ojs\JournalBundle\Entity\ArticleTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        title:
+          type: text
+          gedmo:
+            - versioned
+        subjects:
             type: string
-            length: 8
-        field:
+            nullable: TRUE
+            gedmo:
+              - versioned
+        subtitle:
+          length: 255
+          type: string
+          nullable: TRUE
+          gedmo:
+            - versioned
+        keywords:
             type: string
-            length: 32
-        content:
-            type: text
-            nullable: true
-    manyToOne:
-        object:
-            targetEntity: Article
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
-
+            nullable: TRUE
+            gedmo:
+              - versioned
+        abstract:
+          type: text
+          nullable: TRUE
+          gedmo:
+            - versioned
+    gedmo:
+      loggable: true
