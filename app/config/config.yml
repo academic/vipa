@@ -122,10 +122,12 @@ sc_datetimepicker:
   picker: ~
 
 a2lix_translation_form:
-  locales: "%locale_support%"       # [1]
-  default_required: false      # [2]
-  manager_registry: doctrine      # [3]
-  templating: "::translationForm.html.twig"      # [4]
+    locale_provider: default
+    locales: %locale_support%
+    default_locale: %locale%
+    required_locales: [%locale%]
+    manager_registry: doctrine
+    templating: "A2lixTranslationFormBundle::default.html.twig"
 
 norzechowicz_ace_editor:
     base_path: "vendor/ace-builds"
@@ -152,3 +154,6 @@ fos_user:
   resetting:
     email:
       template: @OjsUserBundle:Mails/User:password_resetting.email.twig
+
+prezent_doctrine_translatable:
+    fallback_locale: %locale%
