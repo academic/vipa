@@ -26,13 +26,28 @@ class AdminSubjectController extends Controller
      * Lists all Subject entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new Subject())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity("OjsJournalBundle:Subject");
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var Subject $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('subject', $entity->getSubject());
+                    $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
@@ -60,7 +75,8 @@ class AdminSubjectController extends Controller
                 return '<a href="'.$this->generateUrl(
                     'ojs_admin_subject_show',
                     array('id' => $node['id'])
-                ).'">'.$node['subject'].'</a>';
+                ).'">@todo_this_will_fixed</a>';
+                //).'">'.$node['subject'].'</a>';
             },
         );
         $data['htmlTree'] = $repo->childrenHierarchy(null, false, $options);
@@ -84,7 +100,6 @@ class AdminSubjectController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -150,12 +165,13 @@ class AdminSubjectController extends Controller
      * @param  Subject  $entity
      * @return Response
      */
-    public function showAction(Subject $entity)
+    public function showAction(Request $request, Subject $entity)
     {
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_subject'.$entity->getId());
