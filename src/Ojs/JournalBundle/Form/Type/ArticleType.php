@@ -21,8 +21,7 @@ class ArticleType extends AbstractType
         /** @var Journal $journal */
         $journal = $options['journal'];
         $builder
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\Article',
+            ->add('translations', 'a2lix_translations',[
                 'fields' => [
                     'title' => [
                         'field_type' => 'text'
