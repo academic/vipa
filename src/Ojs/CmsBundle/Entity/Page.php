@@ -5,26 +5,30 @@ namespace Ojs\CmsBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Page
  * @GRID\Source(columns="id, title, body, tags, image")
  */
-abstract class Page
+abstract class Page extends AbstractTranslatable
 {
     use GenericEntityTrait;
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
+     * @GRID\Column(title="title")
      */
     private $title;
 
     /**
      * @var string
+     * @GRID\Column(title="body")
      */
     private $body;
 
@@ -38,6 +42,9 @@ abstract class Page
      */
     private $slug;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\CmsBundle\Entity\PageTranslation")
+     */
     protected $translations;
 
     /**
@@ -48,24 +55,34 @@ abstract class Page
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\CmsBundle\Entity\PageTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(PageTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new PageTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setBody($defaultTranslation->getBody());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -85,7 +102,7 @@ abstract class Page
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -96,7 +113,7 @@ abstract class Page
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -108,7 +125,7 @@ abstract class Page
      */
     public function getBody()
     {
-        return $this->body;
+        return $this->translate()->getBody();
     }
 
     /**
@@ -119,7 +136,7 @@ abstract class Page
      */
     public function setBody($body)
     {
-        $this->body = $body;
+        $this->translate()->setBody($body);
 
         return $this;
     }

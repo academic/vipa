@@ -8,20 +8,8 @@ Ojs\CmsBundle\Entity\PageTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        title:
             type: string
-            length: 8
-        field:
-            type: string
-            length: 32
-        content:
+            length: 255
+        body:
             type: text
-            nullable: true
-    manyToOne:
-        object:
-            targetEntity: Page
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
-

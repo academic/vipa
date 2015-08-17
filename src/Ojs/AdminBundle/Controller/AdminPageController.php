@@ -24,14 +24,29 @@ class AdminPageController extends Controller
     /**
      * Lists all Page entities.
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new AdminPage())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
         $source = new Entity('OjsAdminBundle:AdminPage');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var AdminPage $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    $row->setField('body', $entity->getBody());
+                }
+                return $row;
+            }
+        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -81,8 +96,8 @@ class AdminPageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $entity->setTranslatableLocale($request->getDefaultLocale());
 
+            $entity->setSlug($entity->getTranslations()->first()->getTitle());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
