@@ -8,6 +8,11 @@ Ojs\JournalBundle\Entity\ArticleFile:
             id: true
             generator:
                 strategy: AUTO
+    oneToMany:
+        statistics:
+            targetEntity: Ojs\AnalyticsBundle\Entity\ArticleFileStatistic
+            mappedBy: articleFile
+            cascade: ["persist"]
     manyToOne:
         article:
             targetEntity: Article

@@ -21,6 +21,10 @@ Ojs\JournalBundle\Entity\IssueFile:
             targetEntity: Ojs\JournalBundle\Entity\IssueFileTranslation
             mappedBy: object
             cascade: ["persist"]
+        statistics:
+            targetEntity: Ojs\AnalyticsBundle\Entity\ArticleFileStatistic
+            mappedBy: articleFile
+            cascade: ["persist"]
     fields:
         type:
             type: integer

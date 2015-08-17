@@ -54,6 +54,10 @@ Ojs\JournalBundle\Entity\Article:
         targetEntity: Ojs\JournalBundle\Entity\ArticleTranslation
         mappedBy: object
         cascade: ["persist"]
+    statistics:
+      targetEntity: Ojs\AnalyticsBundle\Entity\ArticleStatistic
+      mappedBy: article
+      cascade: ["persist"]
   manyToMany:
     languages:
       targetEntity: Lang
