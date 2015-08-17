@@ -32,7 +32,7 @@ class IssueController extends Controller
      *
      * @return  Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -41,7 +41,22 @@ class IssueController extends Controller
         }
 
         $source = new Entity('OjsJournalBundle:Issue');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var Issue $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
 
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
@@ -178,7 +193,7 @@ class IssueController extends Controller
      * @param   int $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -193,7 +208,7 @@ class IssueController extends Controller
         );
 
         $this->throw404IfNotFound($entity);
-
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_journal_issue'.$entity->getId());

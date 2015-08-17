@@ -1,5 +1,6 @@
 \Ojs\JournalBundle\Entity\Issue:
   issue1:
+    currentLocale: en
     datePublished: <dateTimeThisYear()>
     number: 1
     title: Issue 1
@@ -8,4 +9,3 @@
     journal: @journal1
     special: 0
     tags: "fisrt issue, ojs"
-    locale: en
