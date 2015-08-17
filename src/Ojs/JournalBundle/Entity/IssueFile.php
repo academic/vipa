@@ -332,4 +332,22 @@ class IssueFile
     {
         $this->statistics = $statistics;
     }
+
+    /**
+     * Returns the issue's download count
+     *
+     * @return int
+     */
+    public function getDownloadCount()
+    {
+        $count = 0;
+
+        if ($this->statistics != null) {
+            foreach ($this->statistics as $stat) {
+                $count += $stat->getDownload();
+            }
+        }
+
+        return $count;
+    }
 }

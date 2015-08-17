@@ -1311,4 +1311,22 @@ class Article implements Translatable
     {
         $this->statistics = $statistics;
     }
+
+    /**
+     * Returns the article's view count
+     *
+     * @return int
+     */
+    public function getViewCount()
+    {
+        $count = 0;
+
+        if ($this->statistics != null) {
+            foreach ($this->statistics as $stat) {
+                $count += $stat->getView();
+            }
+        }
+
+        return $count;
+    }
 }
