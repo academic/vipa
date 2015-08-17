@@ -2,11 +2,6 @@ Ojs\JournalBundle\Entity\ContactTypes:
     type: entity
     table: contact_types
     repositoryClass: Ojs\JournalBundle\Entity\ContactTypesRepository
-    oneToMany:
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\ContactTypesTranslation
-            mappedBy: object
-            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -14,22 +9,6 @@ Ojs\JournalBundle\Entity\ContactTypes:
             generator:
                 strategy: AUTO
     fields:
-        name:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-                - versioned
-        description:
-            type: string
-            length: 255
-            nullable: TRUE
-            gedmo:
-                - translatable
-        locale:
-            type: string
-            length: 20
-            nullable: TRUE
         created:
             type: datetime
             gedmo:
@@ -57,8 +36,5 @@ Ojs\JournalBundle\Entity\ContactTypes:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\ContactTypesTranslation
         loggable: true
     lifecycleCallbacks: {  }

@@ -3,7 +3,9 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Gedmo\Translatable\Translatable;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -11,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ContactTypes
  * @GRID\Source(columns="id,name,description")
  */
-class ContactTypes implements Translatable
+class ContactTypes extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -19,7 +21,7 @@ class ContactTypes implements Translatable
      * @var integer
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -33,6 +35,9 @@ class ContactTypes implements Translatable
      */
     private $description;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ContactTypesTranslation")
+     */
     protected $translations;
 
     /**
@@ -43,24 +48,34 @@ class ContactTypes implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\ContactTypesTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(ContactTypesTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new ContactTypesTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setName($defaultTranslation->getName());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -81,7 +96,7 @@ class ContactTypes implements Translatable
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->translate()->setName($name);
 
         return $this;
     }
@@ -93,7 +108,7 @@ class ContactTypes implements Translatable
      */
     public function getName()
     {
-        return $this->name;
+        return $this->translate()->getName();
     }
 
     /**
@@ -104,7 +119,7 @@ class ContactTypes implements Translatable
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->translate()->setDescription($description);
 
         return $this;
     }
@@ -116,7 +131,7 @@ class ContactTypes implements Translatable
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     public function __toString()
@@ -150,15 +165,5 @@ class ContactTypes implements Translatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\ContactTypesTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\ContactTypesTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }

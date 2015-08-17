@@ -8,19 +8,10 @@ Ojs\JournalBundle\Entity\ContactTypesTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        name:
             type: string
-            length: 8
-        field:
+            length: 255
+        description:
             type: string
-            length: 32
-        content:
-            type: text
-            nullable: true
-    manyToOne:
-        object:
-            targetEntity: ContactTypes
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
+            length: 255
+            nullable: TRUE
