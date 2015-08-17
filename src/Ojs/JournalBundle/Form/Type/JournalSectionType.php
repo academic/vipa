@@ -18,9 +18,7 @@ class JournalSectionType extends AbstractType
         //$journal = $options['journal'];
         //$user = $options['user'];
         $builder
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\JournalSection'
-            ])
+            ->add('translations', 'a2lix_translations')
             ->add(
                 'allowIndex',
                 'checkbox',

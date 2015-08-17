@@ -15,10 +15,6 @@ Ojs\JournalBundle\Entity\JournalSection:
             mappedBy: section
             cascade: ["persist", "merge"]
             fetch: LAZY
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\JournalSectionTranslation
-            mappedBy: object
-            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -26,15 +22,6 @@ Ojs\JournalBundle\Entity\JournalSection:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-                - versioned
-        locale:
-            type: string
-            length: 20
         allowIndex:
             type: boolean
             column: allow_index
@@ -65,6 +52,3 @@ Ojs\JournalBundle\Entity\JournalSection:
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\JournalSectionTranslation
