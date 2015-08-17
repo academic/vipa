@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  */
 class IssueFileController extends Controller
 {
-    public function indexAction($issueId)
+    public function indexAction(Request $request, $issueId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
@@ -33,8 +33,22 @@ class IssueFileController extends Controller
         }
 
         $source = new Entity('OjsJournalBundle:IssueFile');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var IssueFile $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
 
         /** @var Issue $issue */
         $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
@@ -181,7 +195,7 @@ class IssueFileController extends Controller
      * @param $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -203,6 +217,7 @@ class IssueFileController extends Controller
 
         $this->throw404IfNotFound($entity);
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_journal_issue_file'.$entity->getId());
