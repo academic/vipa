@@ -61,14 +61,20 @@
                                                 <i class="fa fa-file-text"></i> {{ article.title }}
                                             </a>
                                             <br/>
+
                                             <i class="fa fa-users"></i>
-                                    <span class="text-muted">
-                                        (
-                                        {% if article.created.date %}
-                                            {{ article.created.date|date('Y-m-d') }}
-                                        {% endif %}
-                                        )
-                                    </span>
+                                            {% if article.created.date %}
+                                                <span class="text-muted">
+                                                        ({{ article.created.date|date('d.m.Y') }})
+                                                </span>
+                                            {% endif %}
+
+                                            <i class="fa fa-eye"></i>
+                                            {% if article.viewCount %}
+                                                <span class="text-muted">
+                                                        {{ article.viewCount }}
+                                                </span>
+                                            {% endif %}
                                         </li>
                                     {% endif %}
                                 {% endfor %}
