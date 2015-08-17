@@ -26,10 +26,6 @@ Ojs\JournalBundle\Entity\Issue:
             targetEntity: IssueFile
             mappedBy: issue
             fetch: EXTRA_LAZY
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\IssueTranslation
-            mappedBy: object
-            cascade: ["persist"]
     manyToOne:
       journal:
           targetEntity: Journal
@@ -56,20 +52,10 @@ Ojs\JournalBundle\Entity\Issue:
             gedmo:
                 - versioned
             nullable: true
-        locale:
-            type: string
-            length: 20
         number:
             type: string
             length: 255
             gedmo:
-                - versioned
-            nullable: true
-        title:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
                 - versioned
             nullable: true
         cover:
@@ -92,12 +78,6 @@ Ojs\JournalBundle\Entity\Issue:
             options:
                 default: TRUE
             gedmo:
-                - versioned
-        description:
-            type: text
-            nullable: TRUE
-            gedmo:
-                - translatable
                 - versioned
         year:
             type: string
@@ -166,8 +146,5 @@ Ojs\JournalBundle\Entity\Issue:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\IssueTranslation
         loggable: true
     lifecycleCallbacks: {  }
