@@ -23,6 +23,28 @@ trait TranslateableTrait
     protected $defaultLocale;
 
     /**
+     *
+     * @var Deprecated
+     */
+    protected $locale;
+
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
      * @return mixed
      */
     public function getCurrentLocale()
@@ -52,5 +74,22 @@ trait TranslateableTrait
     public function setDefaultLocale($defaultLocale)
     {
         $this->defaultLocale = $defaultLocale;
+    }
+
+    /**
+     * Returns translation of given locale
+     * @param null $locale
+     * @return mixed
+     */
+    public function getTranslationByLocale($locale = null)
+    {
+        if(null === $locale){
+            throw new \RuntimeException('please support an locale');
+        }
+        $translations = [];
+        foreach($this->translations as $translation){
+            $translations[$translation->getLocale()] = $translation;
+        }
+        return $translations[$locale];
     }
 }

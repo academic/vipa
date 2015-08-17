@@ -32,7 +32,7 @@ class PostType extends AbstractType
         if (!$post_types)
             $post_types = [];
         $builder
-            ->add('title')
+            ->add('translations', 'a2lix_translations')
             ->add('content', 'ace_editor', array(
                     'label' => 'content',
                     'wrapper_attr' => array(),
@@ -67,10 +67,6 @@ class PostType extends AbstractType
                 'choices' => $post_types,
             ]);
         }
-
-        $builder->add('locale','choice',[
-            'choices'=>$langs
-        ]);
 
         if (isset($options['object']) && $options['object']) {
             $builder
