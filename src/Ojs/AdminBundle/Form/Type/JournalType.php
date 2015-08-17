@@ -18,29 +18,7 @@ class JournalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\Journal',
-                'fields' => [
-                    'title' => [
-                        'label' => 'title'
-                    ],
-                    'subtitle' => [
-                        'locale_options' => [
-                            'tr' => [
-                                'display' => false
-                            ],
-                            'en' => [
-                                'display' => false
-                            ],
-                            'fr' => [
-                                'display' => false
-                            ]
-
-                        ]
-                    ]
-                ],
-                'error_bubbling'=>true
-            ])
+            ->add('translations', 'a2lix_translations')
             ->add('titleAbbr', 'text', ['label' => 'titleabbr',
                 'error_bubbling'=>true])
             ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated',
@@ -176,8 +154,6 @@ class JournalType extends AbstractType
             ->add('slug', 'text', ['label' => 'journal.slug',
                 'error_bubbling'=>true])
             ->add('tags', 'tags')
-            ->add('description', 'textarea', ['label' => 'description',
-                'error_bubbling'=>true, 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'theme',
                 'entity',

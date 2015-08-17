@@ -25,14 +25,28 @@ class AdminJournalController extends Controller
     /**
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new Journal())) {
             throw new AccessDeniedException("You not authorized for list journals!");
         }
 
         $source = new Entity('OjsJournalBundle:Journal');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var Journal $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -67,7 +81,7 @@ class AdminJournalController extends Controller
      * Returns setupStatus == false journals
      * @return Response
      */
-    public function notFinishedAction()
+    public function notFinishedAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new Journal())) {
             throw new AccessDeniedException("You not authorized for list journals!");
@@ -81,7 +95,23 @@ class AdminJournalController extends Controller
                 $query->andWhere($tableAlias . '.setup_status = 0');
             }
         );
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var Journal $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    $row->setField('subtitle', $entity->getSubtitle());
+                    $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -116,6 +146,7 @@ class AdminJournalController extends Controller
     public function createAction(Request $request)
     {
         $entity = new Journal();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         if (!$this->isGranted('CREATE', $entity)) {
             throw new AccessDeniedException("You not authorized for create a journal!");
         }
@@ -123,8 +154,6 @@ class AdminJournalController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -165,9 +194,10 @@ class AdminJournalController extends Controller
      *
      * @return Response
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $entity = new Journal();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
 
         return $this->render(
@@ -182,17 +212,17 @@ class AdminJournalController extends Controller
     /**
      * Finds and displays a Journal entity.
      *
-     * @param $id
+     * @param Request $request
+     * @param Journal $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, Journal $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You not authorized for view this journal!");
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_journal'.$entity->getId());

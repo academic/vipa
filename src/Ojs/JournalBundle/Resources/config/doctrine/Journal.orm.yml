@@ -74,10 +74,6 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
             cascade: ["all"]
             fetch: EXTRA_LAZY
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\JournalTranslation
-            mappedBy: object
-            cascade: ["persist"]
         journalUsers:
             targetEntity: Ojs\JournalBundle\Entity\JournalUser
             mappedBy: journal
@@ -138,12 +134,6 @@ Ojs\JournalBundle\Entity\Journal:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-                - versioned
         titleAbbr:
             type: string
             length: 255
@@ -171,13 +161,6 @@ Ojs\JournalBundle\Entity\Journal:
             column: domain
             nullable: true
             gedmo:
-                - versioned
-        subtitle:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                - translatable
                 - versioned
         issn:
             type: string
@@ -289,7 +272,7 @@ Ojs\JournalBundle\Entity\Journal:
                 slug:
                     seperator: _
                     fields:
-                      - title
+                      - id
         themeId:
             type: integer
             column: theme_id
@@ -353,11 +336,6 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
-        description:
-            type: text
-            nullable: true
-            gedmo:
-                  - versioned
         setup_status:
             type: boolean
             nullable: true
@@ -387,9 +365,6 @@ Ojs\JournalBundle\Entity\Journal:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\JournalTranslation
         loggable: true
     uniqueConstraints:
         slugx:
