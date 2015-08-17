@@ -1,5 +1,6 @@
 \Ojs\JournalBundle\Entity\Author:
   author1:
+    currentLocale: en
     address: Ankara, Turkey
     email: info@ojs.io
     firstName: Ojs
@@ -9,4 +10,3 @@
     title: Dr.
     institutionId: @default->id
     user(unique): @user_author
-    locale: en

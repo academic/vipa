@@ -16,8 +16,9 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
+            ->add('translations', 'a2lix_translations')
             ->add('middleName')
+            ->add('firstName')
             ->add('lastName')
             ->add('firstNameTransliterated')
             ->add('middleNameTransliterated')
