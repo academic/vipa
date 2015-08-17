@@ -4,7 +4,8 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Translatable\Translatable;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -19,31 +20,39 @@ use Ojs\LocationBundle\Entity\Province;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
-class Author implements Translatable
+class Author extends  AbstractTranslatable
 {
     use GenericEntityTrait;
 
     /** @var  Country */
     protected $country;
+
     /** @var  Province */
     protected $city;
+
     /** @var  string */
     protected $url;
+
     /** @var  string */
     protected $phone;
+
     /** @var  string */
     protected $fax;
+
     /** @var  string */
     protected $billing_address;
+
     /** @var  string */
     protected $locales;
+
     /**
      * @var integer
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
+
     /**
      * @var string
      * @Expose
@@ -51,6 +60,7 @@ class Author implements Translatable
      * @GRID\Column(title="firstname")
      */
     private $firstName;
+
     /**
      * @var string
      * @Expose
@@ -58,6 +68,7 @@ class Author implements Translatable
      * @GRID\Column(title="middlename")
      */
     private $middleName;
+
     /**
      * @var string
      * @Expose
@@ -65,27 +76,32 @@ class Author implements Translatable
      * @GRID\Column(title="lastname")
      */
     private $lastName;
+
     /**
      * @var string
      * @JMS\Expose
      * @GRID\Column(title="email")
      */
     private $email;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $firstNameTransliterated;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $middleNameTransliterated;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $lastNameTransliterated;
+
     /**
      * @var string
      * @Expose
@@ -93,42 +109,50 @@ class Author implements Translatable
      * @GRID\Column(title="initials")
      */
     private $initials;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $address;
+
     /**
      * @var integer
      * @JMS\Expose
      */
     private $institutionId;
+
     /**
      * @var Institution
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $institution;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $summary;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $authorDetails;
+
     /**
      * @var integer
      * @JMS\Expose
      */
     private $userId;
+
     /**
      * @var User
      * @JMS\Expose
      */
     private $user;
+
     /**
      * title + firstname + middlename + lastname
      * @var string
@@ -137,12 +161,14 @@ class Author implements Translatable
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
+
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
+
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Jms\Expose
@@ -156,6 +182,9 @@ class Author implements Translatable
      */
     private $title;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\AuthorTranslation")
+     */
     protected $translations;
 
 
@@ -165,24 +194,34 @@ class Author implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\AuthorTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(AuthorTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new AuthorTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setSummary($defaultTranslation->getSummary());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -502,7 +541,7 @@ class Author implements Translatable
      */
     public function getSummary()
     {
-        return $this->summary;
+        return $this->translate()->getSummary();
     }
 
     /**
@@ -513,7 +552,7 @@ class Author implements Translatable
      */
     public function setSummary($summary)
     {
-        $this->summary = $summary;
+        $this->translate()->setSummary($summary);
 
         return $this;
     }
@@ -553,7 +592,7 @@ class Author implements Translatable
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -562,7 +601,7 @@ class Author implements Translatable
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -796,15 +835,5 @@ class Author implements Translatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\AuthorTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\AuthorTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }
