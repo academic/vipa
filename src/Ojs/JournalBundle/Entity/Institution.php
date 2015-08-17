@@ -5,12 +5,13 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Institution
@@ -18,7 +19,7 @@ use Ojs\LocationBundle\Entity\Province;
  * @GRID\Source(columns="id,name,address,email,verified")
  * @GRID\Source(columns="id,name,status", groups={"application"})
  */
-class Institution implements Translatable
+class Institution extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -29,7 +30,8 @@ class Institution implements Translatable
      * @Expose
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
+
     private $lft;
 
     /*
@@ -38,30 +40,38 @@ class Institution implements Translatable
      * @GRID\Column(title="parent")
      */
     private $lvl;
+
     private $rgt;
+
     private $root;
+
     private $parent;
+
     /**
      * @var ArrayCollection|Institution[]
      */
     private $children;
+
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="name")
      */
     private $name;
+
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="address")
      */
     private $address;
+
     /**
      * @var string
      * @Expose
      */
     private $about;
+
     /**
      * @var Province
      * @Expose
@@ -81,36 +91,43 @@ class Institution implements Translatable
      * @Expose
      */
     private $addressLat;
+
     /**
      * @var string
      * @Expose
      */
     private $addressLong;
+
     /**
      * @var string
      * @Expose
      */
     private $phone;
+
     /**
      * @var string
      * @Expose
      */
     private $fax;
+
     /**
      * @var string
      * @Expose
      */
     private $email;
+
     /**
      * @var string
      * @Expose
      */
     private $url;
+
     /**
      * @var string
      * @Expose
      */
     private $wiki;
+
     /**
      * @var string
      * @Expose
@@ -133,6 +150,7 @@ class Institution implements Translatable
      * @var Collection
      */
     private $journals;
+
     /**
      * @var Collection
      */
@@ -194,6 +212,9 @@ class Institution implements Translatable
 
     private $status = 0;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\InstitutionTranslation")
+     */
     protected $translations;
 
     public function __construct()
@@ -205,24 +226,33 @@ class Institution implements Translatable
         $this->institutionDesigns = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\InstitutionTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(InstitutionTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new InstitutionTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setAbout($defaultTranslation->getAbout());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -441,7 +471,7 @@ class Institution implements Translatable
      */
     public function getAbout()
     {
-        return $this->about;
+        return $this->translate()->getAbout();
     }
 
     /**
@@ -452,7 +482,7 @@ class Institution implements Translatable
      */
     public function setAbout($about)
     {
-        $this->about = $about;
+        $this->translate()->setAbout($about);
 
         return $this;
     }
@@ -1025,15 +1055,5 @@ class Institution implements Translatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\InstitutionTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\InstitutionTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }

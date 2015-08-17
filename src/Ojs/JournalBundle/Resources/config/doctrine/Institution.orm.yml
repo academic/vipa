@@ -24,10 +24,6 @@ Ojs\JournalBundle\Entity\Institution:
             mappedBy: parent
             orderBy:
                   lft: ASC
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\InstitutionTranslation
-            mappedBy: object
-            cascade: ["persist"]
         institutionThemes:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
             mappedBy: institution
@@ -113,12 +109,6 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                 - versioned
-        about:
-            type: text
-            nullable: TRUE
-            gedmo:
-                - translatable
-                - versioned
         addressLat:
             type: string
             length: 255
@@ -126,9 +116,6 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                   - versioned
-        locale:
-            type: string
-            length: 20
         addressLong:
             type: string
             length: 255
@@ -243,9 +230,6 @@ Ojs\JournalBundle\Entity\Institution:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\InstitutionTranslation
         loggable: true
         tree:
              type: nested

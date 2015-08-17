@@ -7,6 +7,7 @@
 # Parameters are only available in Alice version 2.0.0
 # See: https://github.com/h4cc/AliceFixturesBundle/pull/50
 #   slug: <{defaultInstitutionSlug}>
+    currentLocale: en
     slug: www
     name: Ojs
     url: ""
@@ -15,4 +16,3 @@
     address: ""
     institution_type: @i_type0
     verified: 1
-    locale: en
