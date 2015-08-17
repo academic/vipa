@@ -8,20 +8,6 @@ Ojs\JournalBundle\Entity\JournalSectionTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        title:
             type: string
-            length: 8
-        field:
-            type: string
-            length: 32
-        content:
-            type: text
-            nullable: true
-    manyToOne:
-        object:
-            targetEntity: JournalSection
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
-
+            length: 255

@@ -5,21 +5,24 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalSection
  * @GRID\Source(columns="id,title,allowIndex,hideTitle,journal.title")
  */
-class JournalSection implements Translatable
+class JournalSection extends AbstractTranslatable
 {
     use GenericEntityTrait;
+
     /**
      * @var integer
      * @GRID\Column(title="ID")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -55,6 +58,9 @@ class JournalSection implements Translatable
      */
     private $journal;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalSectionTranslation")
+     */
     protected $translations;
 
     public function __construct()
@@ -63,24 +69,33 @@ class JournalSection implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalSectionTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(JournalSectionTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new JournalSectionTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -134,7 +149,7 @@ class JournalSection implements Translatable
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -146,7 +161,7 @@ class JournalSection implements Translatable
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -239,15 +254,5 @@ class JournalSection implements Translatable
     public function getJournal()
     {
         return $this->journal;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalSectionTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\JournalSectionTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }

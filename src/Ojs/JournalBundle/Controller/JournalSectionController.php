@@ -28,14 +28,13 @@ class JournalSectionController extends Controller
      * Lists all JournalSection entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
         $source = new Entity('OjsJournalBundle:JournalSection');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($journal, $ta) {
@@ -47,9 +46,18 @@ class JournalSectionController extends Controller
             }
         );
         $source->manipulateRow(
-            function (Row $row) {
-                if ($row->getField("title") && strlen($row->getField('title')) > 20) {
-                    $row->setField('title', substr($row->getField('title'), 0, 20)."...");
+            function (Row $row) use ($request) {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var JournalSection $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    if ($row->getField("title") && strlen($row->getField('title')) > 20) {
+                        $row->setField('title', substr($row->getField('title'), 0, 20)."...");
+                    }
                 }
 
                 return $row;
@@ -168,19 +176,18 @@ class JournalSectionController extends Controller
     /**
      * Finds and displays a JournalSection entity.
      *
-     * @param $id
+     * @param Request $request
+     * @param JournalSection $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, JournalSection $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for view this journal's section!");
         }
-        $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
-
+        $entity->setDefaultLocale($request->getDefaultLocale());
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
