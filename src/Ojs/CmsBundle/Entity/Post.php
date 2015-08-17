@@ -5,12 +5,15 @@ namespace Ojs\CmsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Post
  * @GRID\Source(columns="id ,title , status, post_type")
  */
-abstract class Post
+abstract class Post extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -18,7 +21,7 @@ abstract class Post
      * @var integer
      * @GRID\Column(title="ID")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -74,11 +77,46 @@ abstract class Post
     private $posts;
 
     /**
+     * @Prezent\Translations(targetEntity="Ojs\CmsBundle\Entity\PostTranslation")
+     */
+    protected $translations;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\CmsBundle\Entity\PostTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new PostTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -99,7 +137,7 @@ abstract class Post
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -111,7 +149,7 @@ abstract class Post
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -357,43 +395,5 @@ abstract class Post
     public function getUniqueKey()
     {
         return $this->getObject() . $this->getObjectId();
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $translations;
-
-
-    /**
-     * Add translations
-     *
-     * @param \Ojs\CmsBundle\Entity\PostTranslation $translations
-     * @return Post
-     */
-    public function addTranslation(\Ojs\CmsBundle\Entity\PostTranslation $translations)
-    {
-        $this->translations[] = $translations;
-
-        return $this;
-    }
-
-    /**
-     * Remove translations
-     *
-     * @param \Ojs\CmsBundle\Entity\PostTranslation $translations
-     */
-    public function removeTranslation(\Ojs\CmsBundle\Entity\PostTranslation $translations)
-    {
-        $this->translations->removeElement($translations);
-    }
-
-    /**
-     * Get translations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
     }
 }

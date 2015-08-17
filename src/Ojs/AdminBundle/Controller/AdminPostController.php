@@ -8,6 +8,7 @@ use Doctrine\ORM\Query;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\CmsBundle\Form\Type\PostType;
+use Ojs\CmsBundle\Entity\Post;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,14 +25,28 @@ class AdminPostController extends Controller
     /**
      * Lists all Post entities.
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new AdminPost())) {
             throw new AccessDeniedException("You are not authorized for this post!");
         }
 
         $source = new Entity('OjsAdminBundle:AdminPost');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var Post $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                }
+                return $row;
+            }
+        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -81,9 +96,9 @@ class AdminPostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $entity->setTranslatableLocale($request->getDefaultLocale());
-
             $em = $this->getDoctrine()->getManager();
+            $formData = $form->getData();
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em->persist($entity);
             $em->flush();
 
@@ -207,7 +222,7 @@ class AdminPostController extends Controller
      */
     private function createEditForm(AdminPost $entity)
     {
-        $form = $this->createForm(new PostType(), $entity,
+        $form = $this->createForm(new PostType($this->container), $entity,
             [
                 'action' => $this->generateUrl('ojs_admin_post_update', ['id' => $entity->getId()]),
                 'method' => 'PUT',
