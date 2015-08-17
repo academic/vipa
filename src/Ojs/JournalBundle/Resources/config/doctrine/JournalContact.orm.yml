@@ -30,19 +30,7 @@ Ojs\JournalBundle\Entity\JournalContact:
                 joinColumn:
                   name: contact_type_id
                   referencedColumnName: id
-    oneToMany:
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\JournalContactTranslation
-            mappedBy: object
-            cascade: ["persist"]
     fields:
-        title:
-            type: string
-            length: 255
-            nullable: TRUE
-            gedmo:
-                - versioned
-                - translatable
         affiliation:
             type: text
             nullable: true
@@ -87,9 +75,6 @@ Ojs\JournalBundle\Entity\JournalContact:
             gedmo:
                 - versioned
             nullable: true
-        locale:
-            type: string
-            lenght: 20
         created:
             type: datetime
             gedmo:
@@ -122,8 +107,5 @@ Ojs\JournalBundle\Entity\JournalContact:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\JournalContactTranslation
         loggable: true
     lifecycleCallbacks: {  }

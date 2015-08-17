@@ -27,14 +27,13 @@ class JournalContactController extends Controller
      * Lists all JournalContact entities.
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalContact');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($tableAlias, $journal) {
@@ -42,7 +41,22 @@ class JournalContactController extends Controller
                     ->setParameter('journal', $journal);
             }
         );
-
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var JournalContact $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    $row->setField('contactTypeName', $entity->getContactType()->getName());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid');
         $grid->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -146,10 +160,12 @@ class JournalContactController extends Controller
 
     /**
      * Finds and displays a JournalContact entity.
-     * @param  integer  $id
+     *
+     * @param Request $request
+     * @param $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -162,6 +178,7 @@ class JournalContactController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_journal_journal_contact'.$entity->getId());

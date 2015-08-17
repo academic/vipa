@@ -136,7 +136,11 @@ class ContactTypes extends AbstractTranslatable
 
     public function __toString()
     {
-        return $this->getName();
+        if(!is_string($this->getName())){
+            return $this->translations->first()->getName();
+        }else{
+            return $this->getName();
+        }
     }
 
     /**
