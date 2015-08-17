@@ -24,13 +24,28 @@ class AdminInstitutionTypeController extends Controller
      * Lists all InstitutionTypes entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new InstitutionTypes())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:InstitutionTypes');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var InstitutionTypes $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('name', $entity->getName());
+                    $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -127,17 +142,17 @@ class AdminInstitutionTypeController extends Controller
     /**
      * Finds and displays a InstitutionTypes entity.
      *
-     * @param $id
+     * @param Request $request
+     * @param InstitutionTypes $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, InstitutionTypes $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:InstitutionTypes')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_institution_type'.$entity->getId());
