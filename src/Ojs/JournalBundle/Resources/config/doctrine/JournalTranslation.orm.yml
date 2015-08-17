@@ -8,20 +8,13 @@ Ojs\JournalBundle\Entity\JournalTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        title:
             type: string
-            length: 8
-        field:
+            length: 255
+        subtitle:
             type: string
-            length: 32
-        content:
+            length: 255
+            nullable: true
+        description:
             type: text
             nullable: true
-    manyToOne:
-        object:
-            targetEntity: Journal
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
-            cascade: ["persist"]

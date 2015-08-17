@@ -4,8 +4,9 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
+use Doctrine\Common\Collections\Collection;;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
@@ -18,104 +19,122 @@ use Ojs\LocationBundle\Entity\Country;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,issn,eissn,country.name,institution.name")
  */
-class Journal implements Translatable
+class Journal extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
     /** @var  boolean */
     protected $setup_status;
+
     /** @var  string */
     protected $footer_text;
+
     /**
      * @var integer
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
-    private $id;
+    protected $id;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
+     * @Grid\Column(title="Title")
      */
     private $title;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $titleAbbr;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $titleTransliterated;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $subtitle;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $path;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $domain;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $issn;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $eissn;
+
     /**
      * @var \DateTime
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $firstPublishDate;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $period;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $url;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $address;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $phone;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $email;
+
     /**
      * @var Country
      * @Expose
@@ -129,28 +148,33 @@ class Journal implements Translatable
      * @Expose
      */
     private $published;
+
     /**
      * @var integer
      * @Expose
      */
     private $status;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $image;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $header;
+
     /**
      * @var string
      * @Expose
      */
     private $googleAnalyticsId;
+
     /**
      * @var string
      * @Expose
@@ -188,49 +212,58 @@ class Journal implements Translatable
      * @Expose
      */
     private $isConfigured;
+
     /**
      * @var Collection
      */
     private $users;
+
     /**
      * @var Collection
      * @Expose
      * @Groups({"IssueDetail"})
      */
     private $articles;
+
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $issues;
+
     /**
      * @var Collection
      */
     private $boards;
+
     /**
      * @var ArrayCollection|Lang[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $languages;
+
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $subjects;
+
     /**
      * @var Collection
      * @Groups({"JournalDetail"})
      */
     private $sections;
+
     /**
      *
      * arbitrary settings
      * @var ArrayCollection|JournalSetting[]
      */
     private $settings;
+
     /**
      * @var Institution
      * @Expose
@@ -238,6 +271,7 @@ class Journal implements Translatable
      * @Grid\Column(field="institution.name", title="institution")
      */
     private $institution;
+
     /**
      * @var Collection
      * @Expose
@@ -254,46 +288,54 @@ class Journal implements Translatable
      * @var integer
      */
     private $institutionId;
+
     /**
      * @var Collection
      */
     private $bannedUsers;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
+
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $logo;
+
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $journals_indexs;
+
     /**
      * @var ArrayCollection|SubmissionChecklist[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $submissionChecklist;
+
     /**
      * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $view_count;
+
     /**
      * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $download_count;
+
     /**
      * @var boolean
      * @Expose
@@ -301,6 +343,9 @@ class Journal implements Translatable
      */
     private $printed;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
+     */
     protected $translations;
 
     /** @var Collection */
@@ -347,24 +392,35 @@ class Journal implements Translatable
         $this->journalDesigns = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(JournalTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new JournalTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setSubtitle($defaultTranslation->getSubtitle());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -638,7 +694,7 @@ class Journal implements Translatable
      */
     public function getSubtitle()
     {
-        return $this->subtitle;
+        return $this->translate()->getSubtitle();
     }
 
     /**
@@ -649,7 +705,7 @@ class Journal implements Translatable
      */
     public function setSubtitle($subtitle)
     {
-        $this->subtitle = $subtitle;
+        $this->translate()->setSubtitle($subtitle);
 
         return $this;
     }
@@ -1280,7 +1336,7 @@ class Journal implements Translatable
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -1291,7 +1347,7 @@ class Journal implements Translatable
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -1424,7 +1480,7 @@ class Journal implements Translatable
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     /**
@@ -1432,7 +1488,7 @@ class Journal implements Translatable
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->translate()->setDescription($description);
     }
 
     /**
@@ -1721,16 +1777,6 @@ class Journal implements Translatable
     public function getPrinted()
     {
         return $this->printed;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\JournalTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 
     /**
