@@ -9,11 +9,6 @@ Ojs\CmsBundle\Entity\Page:
     discriminatorMap:
         admin: Ojs\AdminBundle\Entity\AdminPage
         journal: Ojs\JournalBundle\Entity\JournalPage
-    oneToMany:
-        translations:
-            targetEntity: Ojs\CmsBundle\Entity\PageTranslation
-            mappedBy: object
-            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -21,21 +16,9 @@ Ojs\CmsBundle\Entity\Page:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-        body:
-            type: text
-            gedmo:
-                - translatable
         tags:
             type: string
             length: 255
-        locale:
-            type: string
-            length: 20
         image:
             type: string
             length: 255
@@ -47,7 +30,7 @@ Ojs\CmsBundle\Entity\Page:
                 slug:
                     seperator: _
                     fields:
-                      - title
+                      - id
         created:
            type: datetime
            gedmo:
@@ -66,7 +49,4 @@ Ojs\CmsBundle\Entity\Page:
             field_name: deletedAt
             time_aware: false
         loggable: true
-        translation:
-            locale: locale
-            entity: Ojs\CmsBundle\Entity\PageTranslation
     lifecycleCallbacks: {  }
