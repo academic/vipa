@@ -65,6 +65,9 @@ class AdminInstitutionDesignController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setTranslatableLocale($request->getDefaultLocale());
+            $entity->setContent(
+                $this->prepareDesignContent($entity->getEditableContent())
+            );
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -163,6 +166,7 @@ class AdminInstitutionDesignController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $entity->setEditableContent($this->prepareEditContent($entity->getEditableContent()));
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -215,6 +219,10 @@ class AdminInstitutionDesignController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $entity->setContent(
+                $this->prepareDesignContent($entity->getEditableContent())
+            );
+
             $em->flush();
             $this->successFlashBag('successful.update');
 
@@ -254,5 +262,71 @@ class AdminInstitutionDesignController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_admin_institution_design_index');
+    }
+
+    /**
+     * @param  String                                            $editableContent
+     * @return String
+     */
+    private function prepareDesignContent($editableContent)
+    {
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!---.*--->/Us', $matches[0], $matched);
+                return str_ireplace(['<!---', '--->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-span[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/<!---.*--->/Us', $matches[0], $matched);
+                return str_ireplace(['<!---', '--->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                preg_match('/title\s*=\s*"\s*{.*}\s*"/Us', $matches[0], $matched);
+                $matched[0] = preg_replace('/title\s*=\s*"/Us', '', $matched[0]);
+                return str_replace('"', '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = str_ireplace('<!--gm-editable-region-->', '', $editableContent);
+        $editableContent = str_ireplace('<!--/gm-editable-region-->', '', $editableContent);
+        return $editableContent;
+    }
+
+    /**
+     * @param  String                                            $editableContent
+     * @return String
+     */
+    private function prepareEditContent($editableContent)
+    {
+        $editableContent = str_ireplace('<!--raw-->', '{% raw %}<!--raw-->', $editableContent);
+        $editableContent = str_ireplace('<!--endraw-->', '{% endraw %}<!--endraw-->', $editableContent);
+
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function($matches)
+            {
+                return preg_replace_callback(
+                    '/{{.*}}/Us',
+                    function($matched)
+                    {
+                        return '{{ "'.addcslashes($matched[0], '"').'" }}';
+                    },
+                    $matches[0]
+                );
+            },
+            $editableContent
+        );
+        return $editableContent;
     }
 }

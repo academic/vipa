@@ -569,6 +569,165 @@
     <span class="design-hide-endblock hide"></span>
 {% endmacro %}
 
+{% macro institutionHeader() %}
+    <span class="design-hide-block hide">
+        {% raw %}
+            <!--raw-->
+            <!---
+                <img src="{{ entity.header|imagine_filter('institution_header') }}"
+                    data-src="holder.js/960x200/random/text:{{ entity.name }} "
+                    class="img-responsive img-rounded float-left img-center" alt=""/>
+            --->
+            <!--endraw-->
+        {% endraw %}
+    </span>
+    <img src="" data-src="holder.js/960x200"
+         class="img-responsive img-rounded float-left img-center holder-remove" alt=""/>
+    <span class="design-hide-endblock hide"></span>
+{% endmacro %}
 
+{% macro institutionLogo() %}
+    <span class="design-hide-block hide">
+        {% raw %}
+            <!--raw-->
+            <!---
+                <img src="{{ entity.logo|imagine_filter('institution_logo') }}"
+                    data-src="holder.js/200x200/random/text:{{ entity.name }} "
+                    class="img-responsive img-rounded float-left img-center" alt=""/>
+            --->
+            <!--endraw-->
+        {% endraw %}
+    </span>
+    <img src="" data-src="holder.js/200x200"
+         class="img-responsive img-rounded float-left img-center holder-remove" alt=""/>
+    <span class="design-hide-endblock hide"></span>
+{% endmacro %}
 
+{% macro institutionAbout() %}
+    <h5> <span class="design-inline" title="{{ "{{ 'about'|trans }}" }}">{{ 'about'|trans }}</span> </h5>
+    <span class="design-inline" title="{{ "{{ entity.about }}" }}">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum interdum leo quis pretium.
+        Sed id suscipit est, vitae posuere ante. Aenean semper commodo molestie. Donec nulla est, aliquam
+        sit amet feugiat eu, lobortis sed enim. Morbi vestibulum vitae nisl id aliquet. Donec felis urna,
+        pharetra varius sollicitudin eu, placerat non quam
+    </span>
+    <hr>
+    <p>
+        <i class="fa fa-tags"></i>
+        <span class="design-inline" title="{{ "{{ 'tags'|trans }}" }}">{{ 'tags'|trans }}</span>
+        <span class="design-hide-block hide">
+            {% raw %}
+                <!--raw-->
+                <!---
+                    {% if entity.tags %}
+                        {% set tags = entity.tags|split(',') %}
+                        {% for tag in tags %}
+                            <a href="#"><span class="badge">{{ tag }}</span></a>
+                        {% endfor %}
+                    {% endif %}
+                --->
+                <!--endraw-->
+            {% endraw %}
+        </span>
+            <a href="#"><span class="badge">Örnek</span></a>
+            <a href="#"><span class="badge">Diğer</span></a>
+        <span class="design-hide-endblock hide"></span>
+    </p>
+{% endmacro %}
 
+{% macro contactDetails() %}
+    <div itemscope itemtype="http://schema.org/Organization">
+        <span itemprop="name">Örnek Kurum</span>
+        Contact Details:
+        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            Main address:
+            <span itemprop="address">
+                <span class="design-inline" title="{{ "{{ entity.address }}" }}">
+                    Hürriyet Mah. 968. Sokak No:9/1 Yenimahalle / ANKARA
+                </span>
+            </span>
+            <span itemprop="addressLat">
+                <span class="design-inline" title="{{ "{{ entity.addressLat }}" }}">
+                    40.7324319
+                </span>
+            </span>
+            <span itemprop="addressLong">
+                <span class="design-inline" title="{{ "{{ entity.addressLong }}" }}">
+                    -73.82480799999996
+                </span>
+            </span>
+            <span itemprop="addressLocality">
+                <span class="design-inline" title="{{ "{{ entity.city }}" }}">
+                    Ankara
+                </span>,
+                <span class="design-inline" title="{{ "{{ entity.country }}" }}">
+                    Türkiye
+                </span>
+            </span>
+        </div>
+        Tel:    <span itemprop="telephone">
+                    <span class="design-inline" title="{{ "{{ entity.phone }}" }}">
+                        0316 123 45 67
+                    </span>
+                </span>,
+        Fax:    <span itemprop="faxNumber">
+                    <span class="design-inline" title="{{ "{{ entity.fax }}" }}">
+                        0316 123 45 68
+                    </span>
+                </span>,
+        E-mail: <span itemprop="email">
+                    <span class="design-inline" title="{{ "{{ entity.email }}" }}">
+                        o.kurum@localhost.com
+                    </span>
+                </span>
+        Web:    <span itemprop="url">
+                    <span class="design-inline" title="{{ "{{ entity.url }}" }}">
+                        ornekkurum.com.tr
+                    </span>
+                </span>
+        Wiki:    <span itemprop="url">
+                    <span class="design-inline" title="{{ "{{ entity.wiki }}" }}">
+                        wiki.ornekkurum.com.tr
+                    </span>
+                </span>
+    </div>
+{% endmacro %}
+
+{% macro institutionJournals() %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="design-inline" title="{{ "{{ 'journal.plural'|trans }}" }}">
+                {{ 'journal.plural'|trans }}
+            </span>
+        </div>
+        <ul class="list-group">
+            <span class="design-hide-block hide">
+                {% raw %}
+                    <!--raw-->
+                    <!---
+                        {% for journal in entity.journals %}
+                            <li class="list-group-item">
+                                <a href="{% if isInstitutionHosting is defined %}
+                                    {{ url('institution_hosting_journal_index', {slug: journal.slug}) }}
+                                {% else %}
+                                    {{ generateJournalUrl(journal) }}
+                                {% endif %}">{{ journal.title }}</a>
+                            </li>
+                        {% endfor %}
+                    --->
+                    <!--endraw-->
+                {% endraw %}
+            </span>
+                <li class="list-group-item">
+                    <a href="#">Örnek Dergi</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Örnek Dergi 2</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Örnek Dergi 3</a>
+                </li>
+            <span class="design-hide-endblock hide"></span>
+        </ul>
+    </div>
+{% endmacro %}

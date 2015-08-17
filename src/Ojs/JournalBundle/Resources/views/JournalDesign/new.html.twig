@@ -19,12 +19,6 @@
     {% endstylesheets %}
 
     <link rel="stylesheet" href="{{ asset('vendor/gridmanager.js/dist/css/jquery.gridmanager-light.css') }}"/>
-
-    <style type="text/css">
-        .gm-save {
-            display: none !important;
-        }
-    </style>
 {% endblock %}
 
 {% block body -%}
@@ -127,7 +121,6 @@
 
 {% block javascripts -%}
     {{ parent() }}
-    <script></script>
 
     {% javascripts "@jqueryui_js" output="assets/prod/js/jqueryui_min.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

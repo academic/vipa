@@ -93,13 +93,11 @@ class SiteController extends Controller
     public function institutionPageAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
+        $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
+        $data['entity'] = $entity;
         $data['page'] = 'organizations';
+        $data['design'] = $entity->getInstitutionDesigns()[0]->getContent();
 
-        /*
-         * @todo implement string from db
-         * $data['design']
-         */
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
