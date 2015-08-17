@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\Common\Entity as CommonTraits;
 use Ojs\Common\Params\ArticleParams;
 
@@ -284,6 +285,11 @@ class Article implements Translatable
 
     /** @var  string */
     private $note;
+
+    /**
+     * @var ArrayCollection|ArticleStatistic[]
+     */
+    private $statistics;
 
     /**
      * @return string
@@ -1288,5 +1294,21 @@ class Article implements Translatable
     public function removeTranslation(\Ojs\JournalBundle\Entity\ArticleTranslation $translation)
     {
         $this->translations->removeElement($translation);
+    }
+
+    /**
+     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\ArticleStatistic[]
+     */
+    public function getStatistics()
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\ArticleStatistic[] $statistics
+     */
+    public function setStatistics($statistics)
+    {
+        $this->statistics = $statistics;
     }
 }

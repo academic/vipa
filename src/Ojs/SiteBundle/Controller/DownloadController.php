@@ -4,6 +4,8 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\IssueFile;
+use Ojs\SiteBundle\Event\DownloadArticleFileEvent;
+use Ojs\SiteBundle\Event\SiteEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -25,6 +27,10 @@ class DownloadController extends Controller
             preg_replace('/[[:^print:]]/', '_', $fileHistory->getOriginalName())
         );
 
+        $event = new DownloadArticleFileEvent($articleFile);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(SiteEvents::DOWNLOAD_ARTICLE_FILE, $event);
+
         return $response;
     }
 
@@ -42,6 +48,10 @@ class DownloadController extends Controller
             ResponseHeaderBag::DISPOSITION_INLINE,
             preg_replace('/[[:^print:]]/', '_', $fileHistory->getOriginalName())
         );
+
+        $event = new DownloadArticleFileEvent($issueFile);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(SiteEvents::DOWNLOAD_ARTICLE_FILE, $event);
 
         return $response;
     }

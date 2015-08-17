@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -64,6 +65,11 @@ class IssueFile
     private $issue;
 
     protected $translations;
+
+    /**
+     * @var ArrayCollection|IssueFileStatistic[]
+     */
+    private $statistics;
 
     public function __construct()
     {
@@ -309,5 +315,21 @@ class IssueFile
     public function removeTranslation(\Ojs\JournalBundle\Entity\IssueFileTranslation $translation)
     {
         $this->translations->removeElement($translation);
+    }
+
+    /**
+     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\IssueFileStatistic[]
+     */
+    public function getStatistics()
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\IssueFileStatistic[] $statistics
+     */
+    public function setStatistics($statistics)
+    {
+        $this->statistics = $statistics;
     }
 }

@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -69,6 +70,11 @@ class ArticleFile
     private $langCode;
 
     protected $translations;
+
+    /**
+     * @var ArrayCollection|ArticleFileStatistic[]
+     */
+    private $statistics;
 
     /**
      * Constructor
@@ -283,5 +289,21 @@ class ArticleFile
         $this->updated = $updated;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\ArticleFileStatistic[]
+     */
+    public function getStatistics()
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\ArticleFileStatistic[] $statistics
+     */
+    public function setStatistics($statistics)
+    {
+        $this->statistics = $statistics;
     }
 }

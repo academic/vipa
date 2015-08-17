@@ -204,3 +204,10 @@ services:
       logger: "@logger"
     tags:
       - { name: kernel.event_listener, event: console.exception }
+
+  analytics.listener:
+    class: Ojs\AnalyticsBundle\Listener\AnalyticsSubscriber
+    arguments:
+      - @doctrine.orm.entity_manager
+    tags:
+      - { name: kernel.event_subscriber }

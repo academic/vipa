@@ -61,6 +61,7 @@ class AppKernel extends Kernel
             new OkulBilisim\WorkflowBundle\WorkflowBundle(),
             new Ojs\CmsBundle\OjsCmsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
