@@ -8,20 +8,10 @@ Ojs\JournalBundle\Entity\IssueFileTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        title:
             type: string
-            length: 8
-        field:
-            type: string
-            length: 32
-        content:
+            length: 255
+            nullable: TRUE
+        description:
             type: text
-            nullable: true
-    manyToOne:
-        object:
-            targetEntity: IssueFile
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
-
+            nullable: TRUE

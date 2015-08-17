@@ -30,9 +30,7 @@ class IssueFileType extends AbstractType
             ->add('langCode','choice',[
                 'choices'=>$languages
             ])
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\JournalBundle\Entity\IssueFile'
-            ])
+            ->add('translations', 'a2lix_translations')
         ;
     }
     
