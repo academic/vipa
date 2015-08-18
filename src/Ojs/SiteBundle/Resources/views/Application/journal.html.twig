@@ -62,8 +62,8 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.title, form.titleAbbr, form.titleTransliterated,
-                        form.subtitle, form.domain, form.country, form.issn, form.eissn,
+                        {% for field in [form.translations, form.titleAbbr, form.titleTransliterated,
+                        form.domain, form.country, form.issn, form.eissn,
                         form.firstPublishDate, form.period, form.tags, form.url, form.languages, form.subjects] %}
                             {{ form_row(field) }}
                         {% endfor %}
