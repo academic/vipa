@@ -41,7 +41,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.name, form.institution_type, form.about, form.tags, form.locale,] %}
+                        {% for field in [form.name, form.institution_type, form.translations, form.tags] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>
