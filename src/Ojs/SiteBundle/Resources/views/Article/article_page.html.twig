@@ -54,7 +54,6 @@
                     <div class="panel-body">
                         <div id="articleTitle">
                             {% if article.header %}
-                                {% set imageoptions=getImageOptions(article,'header','article_header') %}
                                 <a href="
                                 {% if isInstitutionHosting is defined %}
                                     {{ url('institution_hosting_journal_index', {slug: article.journal.slug}) }}

@@ -66,11 +66,11 @@
     "okulbilisim/workflow-bundle": "dev-master",
     "jbouzekri/file-uploader-bundle": "~2.0",
     "norzechowicz/aceeditor-bundle": "0.1.*",
-    "friendsofsymfony/user-bundle": "dev-master"
-  },
-  "require-dev": {
+    "friendsofsymfony/user-bundle": "dev-master",
     "okulbilisim/ojs-message-bundle": "v1.0",
     "pugx/autocompleter-bundle": "dev-master"
+  },
+  "require-dev": {
   },
   "repositories": [
     {
