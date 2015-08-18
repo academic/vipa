@@ -3,17 +3,17 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * Lang
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,code,name,rtl")
  */
-class Lang implements Translatable
+class Lang
 {
     use GenericEntityTrait;
 
