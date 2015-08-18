@@ -16,7 +16,7 @@ class UpdateUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', ['label' => 'user'])
+            ->add('username', 'text', ['label' => 'user'])
             ->add(
                 'firstName',
                 'text',
@@ -66,14 +66,7 @@ class UpdateUserType extends AbstractType
                     'label' => 'user.hide_account',
                     'required' => false,
                 ]
-            )
-//                ->add('journals', 'entity', array(
-//                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-//                    'property' => 'title',
-//                    'multiple' => true,
-//                    'expanded' => false,
-//                ))
-        ;
+            );
     }
 
     /**

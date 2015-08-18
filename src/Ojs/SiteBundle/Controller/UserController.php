@@ -48,7 +48,7 @@ class UserController extends Controller
             throw new AccessDeniedException();
         }
         $form = $this->createForm(new UpdateUserType(), $user)
-            ->add('update','submit',array('label' => 'c'));
+            ->add('update', 'submit', ['label' => 'update']);
         $data = [];
 
         $form->handleRequest($request);
