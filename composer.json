@@ -39,8 +39,6 @@
     "stof/doctrine-extensions-bundle": "1.1.0",
     "caseyamcl/Phpoaipmh": "v2.4",
     "knplabs/knp-paginator-bundle": "2.4.2",
-    "doctrine/mongodb-odm": "1.0.*@dev",
-    "doctrine/mongodb-odm-bundle": "3.0.*@dev",
     "friendsofsymfony/elastica-bundle": "dev-master",
     "braincrafted/bootstrap-bundle": "~2.0",
     "ircmaxell/password-compat": "~1.0",

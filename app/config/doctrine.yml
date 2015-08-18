@@ -1,19 +1,5 @@
 # Doctrine Configuration
 
-doctrine_mongodb:
-    connections:
-        default:
-            #you can change to your setting
-            server: mongodb://%mongodb_host%:27017
-            options: {}
-    default_database: ojs
-    document_managers:
-        default:
-            auto_mapping: true
-            mappings:
-              OjsSiteBundle: yml
-    auto_generate_hydrator_classes: true
-
 doctrine:
     dbal:
         driver:   "%database_driver%"

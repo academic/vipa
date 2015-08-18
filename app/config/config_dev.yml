@@ -39,10 +39,3 @@ h4cc_alice_fixtures:
 
             schema_tool: null                           # default
             doctrine: orm                               # default
-        mongodb:
-            locale: en_US
-            seed: 1
-            do_flush: true
-
-            schema_tool: null
-            doctrine: mongodb-odm
