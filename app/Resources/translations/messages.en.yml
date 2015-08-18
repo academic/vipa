@@ -71,6 +71,7 @@ ROLE_READER: Reader
 ROLE_SECTION_EDITOR: 'Section Editor'
 ROLE_SUBSCRIPTION_MANAGER: 'Subscription Manager'
 ROLE_REVIEWER: 'Reviewer'
+ROLE_USER: 'User'
 Reader: Reader
 ojs.repeat_password: 'Repeat Password'
 'workflow.research_materials': research materials
