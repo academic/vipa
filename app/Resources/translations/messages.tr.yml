@@ -70,6 +70,8 @@ ROLE_PROOFREADER: 'Son Okuyucu'
 ROLE_READER: Okuyucu
 ROLE_SECTION_EDITOR: 'Bölüm Editörü'
 ROLE_SUBSCRIPTION_MANAGER: 'Abonelik Yöneticisi'
+ROLE_REVIEWER: 'Hakem'
+ROLE_USER: 'Kullanıcı'
 Reader: Okuyucu
 ojs.repeat_password: 'Şifreyi Tekrar Yaz.'
 workflow.research_materials: 'Araştıra Materyalleri'
