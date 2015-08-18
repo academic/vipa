@@ -317,7 +317,7 @@ dashboard: 'Panel'
 dashboard.admin: 'Panel'
 dashboard.application: 'Uygulama Paneli'
 dashboard.editor: 'Editör Paneli'
-dashboard.general.stats: 'Genel İstatistikler'
+dashboard.general_stats: 'Genel İstatistikler'
 dashboard.objects: 'Nesne Paneli'
 dashboard.operations: 'İşlem Paneli'
 dashboard.use_left: 'Makale gönderimi için soldaki menüyü kullanın.'
@@ -879,8 +879,13 @@ size: Boyut
 source: Kaynak
 special: Özel
 special.issue: 'Özel Sayı'
-stats.most.downloaded.article: 'En Çok İndirilen Makale'
-stats.most.viewed.article: 'En Çok Görüntülenen Makale'
+stats.most_downloaded_article_files: 'En Çok İndirilen Makale Dosyaları'
+stats.most_downloaded_issue_files: 'En Çok İndirilen Sayı Dosyaları'
+stats.most_viewed_articles: 'En Çok Görüntülenen Makaleler'
+stats.views: 'Görüntülemeler'
+stats.downloads: 'İndirilmeler'
+stats.this_month: 'Bu Ay'
+stats.all_time: 'Tüm Zamanlar'
 status: Durum
 status.inreview: İncelemede
 status.not_submitted: 'Gönderilmedi'

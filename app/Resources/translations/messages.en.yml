@@ -317,7 +317,7 @@ dashboard: Dashboard
 dashboard.admin: 'Admin Dashboard'
 dashboard.application: Suggestions
 dashboard.editor: 'Editor Dashboard'
-dashboard.general.stats: 'General Stats'
+dashboard.general_stats: 'General Stats'
 dashboard.objects: Objects
 dashboard.operations: Operations
 dashboard.use_left: 'Use the menu on the left for article submission.'
@@ -880,8 +880,13 @@ size: Size
 source: Source
 special: Special
 special.issue: 'Special Issue'
-stats.most.downloaded.article: 'Most downloaded article'
-stats.most.viewed.article: 'Most viewed article'
+stats.most_downloaded_article_files: 'Most downloaded article files'
+stats.most_downloaded_issue_files: 'Most downloaded issue files'
+stats.most_viewed_articles: 'Most viewed articles'
+stats.views: 'Views'
+stats.downloads: 'Downloads'
+stats.this_month: 'This Month'
+stats.all_time: 'All Time'
 status: Status
 status.inreview: in-Review
 status.not_submitted: 'Not Submitted'

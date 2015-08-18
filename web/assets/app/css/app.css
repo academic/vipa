@@ -516,3 +516,26 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 .img-center {
     margin: 0 auto !important;
 }
+
+#statistics {
+    margin: 20px 0;
+}
+
+#statistics .table thead td {
+    font-weight: bold;
+    color: #888;
+    text-align: center;
+}
+
+#statistics .table tbody tr:first-child td {
+    border-top: 0 none;
+}
+
+#statistics .table tbody td {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#statistics .table tbody tr td:nth-child(2) {
+    text-align: center;
+}

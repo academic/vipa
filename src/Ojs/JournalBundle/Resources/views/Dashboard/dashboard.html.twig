@@ -3,6 +3,8 @@
 {% block stylesheets %}
     {{ parent() }}
 
+    <link rel="stylesheet" href="{{ asset('vendor/c3/c3.min.css') }}"/>
+
     <style type="text/css">
         .btn-wrap {
             white-space: normal !important;
@@ -23,88 +25,284 @@
             <i class="fa fa-external-link"></i>
             {{ selectedJournal().title }} {{ "dashboard.editor"|trans }}
         </a>
+        <h1>{{ "dashboard.general_stats"|trans }}</h1>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab" data-toggle="tab">{{ "title.articles"|trans }}</a></li>
+            <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
+            <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
+        </ul>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4>{{ 'admin.dashboard.journal_settings'|trans }}</h4>
+        <div id="statistics" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="article">
+                <div id="articles"></div>
+                <h3>{{ "stats.most_viewed_articles"|trans }}</h3>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#articleMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                    <li role="presentation"><a href="#articleAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="articleMonthly">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td>{{ "stats.views"|trans }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for article in articlesMonthly %}
+                                    <tr>
+                                        <td>{{ article[0] }}</td>
+                                        <td>{{ article[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="articleAllTime">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td><b>{{ "stats.views"|trans }}</b></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for article in articles %}
+                                    <tr>
+                                        <td>{{ article[0] }}</td>
+                                        <td>{{ article[1] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="articleFile">
+                <div id="articleFiles"></div>
+                <h3>{{ "stats.most_downloaded_article_files"|trans }}</h3>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#articleFileMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                    <li role="presentation"><a href="#articleFileAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="articleFileMonthly">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td>{{ "stats.downloads"|trans }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for articleFile in articleFilesMonthly %}
+                                <tr>
+                                    <td>{{ articleFile[0] }}</td>
+                                    <td>{{ articleFile[1] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="articleFileAllTime">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td>{{ "stats.downloads"|trans }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for articleFile in articleFiles %}
+                                <tr>
+                                    <td>{{ articleFile[0] }}</td>
+                                    <td>{{ articleFile[1] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="issueFile">
+                <div id="issueFiles"></div>
+                <h3>{{ "stats.most_downloaded_issue_files"|trans }}</h3>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#issueFileMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                    <li role="presentation"><a href="#issueFileAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="issueFileMonthly">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td>{{ "stats.downloads"|trans }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for issueFile in articleFilesMonthly %}
+                                <tr>
+                                    <td>{{ issueFile[0] }}</td>
+                                    <td>{{ issueFile[1] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="issueFileAllTime">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td></td>
+                                <td>{{ "stats.downloads"|trans }}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for issueFile in articleFiles %}
+                                <tr>
+                                    <td>{{ issueFile[0] }}</td>
+                                    <td>{{ issueFile[1] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="list-group">
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_settings_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-cog fa-fw"></i> {{ "settings"|trans }}
-            </a>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>{{ 'admin.dashboard.journal_settings'|trans }}</h4>
+            </div>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
+            <div class="list-group">
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_settings_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-cog fa-fw"></i> {{ "settings"|trans }}
+                </a>
 
-                <i class="fa fa-key fa-fw"></i>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
 
-                {{ "journal.users"|trans }}
-            </a>
+                    <i class="fa fa-key fa-fw"></i>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_article_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-file-text fa-fw"></i>
-                {{ "journal.articles"|trans }}
-            </a>
+                    {{ "journal.users"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_section_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-square fa-fw"></i>
-                {{ "journalsection"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_article_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-file-text fa-fw"></i>
+                    {{ "journal.articles"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_issue_index', {journalId: selectedJournal().id}) }}">
-                <i class="fa fa-newspaper-o fa-fw"></i>
-                {{ "issue.manager"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_section_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-square fa-fw"></i>
+                    {{ "journalsection"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-credit-card fa-fw"></i>
-                {{ "contact.plural"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_issue_index', {journalId: selectedJournal().id}) }}">
+                    <i class="fa fa-newspaper-o fa-fw"></i>
+                    {{ "issue.manager"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-envelope fa-fw"></i>
-                {{ "mail.templates"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-credit-card fa-fw"></i>
+                    {{ "contact.plural"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_design_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-navicon fa-fw"></i>
-                {{ "journal.design"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-envelope fa-fw"></i>
+                    {{ "mail.templates"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-th-large fa-fw"></i>
-                {{ "journal.theme"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_design_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-navicon fa-fw"></i>
+                    {{ "journal.design"|trans }}
+                </a>
 
-            <a class="list-group-item"
-               href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}">
-                <i class="fa fa-users fa-fw"></i>
-                {{ "boards"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-th-large fa-fw"></i>
+                    {{ "journal.theme"|trans }}
+                </a>
 
-            <a class="list-group-item" href="{{ path('reports_index') }}">
-                <i class="fa fa-file fa-fw"></i>
-                {{ "reports.title"|trans }}
-            </a>
+                <a class="list-group-item"
+                   href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}">
+                    <i class="fa fa-users fa-fw"></i>
+                    {{ "boards"|trans }}
+                </a>
+
+                <a class="list-group-item" href="{{ path('reports_index') }}">
+                    <i class="fa fa-file fa-fw"></i>
+                    {{ "reports.title"|trans }}
+                </a>
+            </div>
         </div>
-    </div>
 
-    <div>
-        {{ getLogs(selectedJournal()) }}
-    </div>
+        <div>
+            {{ getLogs(selectedJournal()) }}
+        </div>
 
     {% else %}
         <div class="alert alert-info" role="alert">
             <h5>{{ "dashboard.use_left"|trans }}</h5>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block javascripts -%}
+    {{ parent() }}
+
+    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>
+    <script src="{{ asset('vendor/c3/c3.min.js') }}"></script>
+    <script type="text/javascript">
+        var data = {{ stats|raw }};
+
+        function createChart(id, column)
+        {
+            var chart = c3.generate({
+                bindto: id,
+                data: {
+                    x: 'x',
+                    columns: [
+                        data['dates'],
+                        column
+                    ],
+                    type: 'bar'
+                },
+                subchart: {
+                    show: false
+                },
+                zoom: {
+                    enabled: true
+                },
+                axis : {
+                    x : {
+                        type : 'timeseries',
+                        tick: {
+                            format: function (x) { return x.toLocaleDateString(); },
+                            culling: {max: 8}
+                        }
+                    }
+                },
+                bar: {
+                    width: {
+                        ratio: 0.6
+                    }
+                }
+            });
+        }
+
+        createChart('#articles', data['articleViews']);
+        createChart('#articleFiles', data['articleFileDownloads']);
+        createChart('#issueFiles', data['issueFileDownloads']);
+    </script>
 {% endblock %}
