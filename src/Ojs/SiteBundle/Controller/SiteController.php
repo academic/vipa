@@ -96,7 +96,9 @@ class SiteController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
         $data['entity'] = $entity;
         $data['page'] = 'organizations';
-        $data['design'] = $entity->getInstitutionDesigns()[0]->getContent();
+        if ($entity->getInstitutionDesigns()[0]) {
+            $data['design'] = $entity->getInstitutionDesigns()[0]->getContent();
+        }
 
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
