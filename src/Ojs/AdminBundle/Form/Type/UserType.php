@@ -71,15 +71,7 @@ class UserType extends AbstractType
                     ],
                 ]
             )
-            ->add('isActive', 'checkbox', ['label' => 'user.isActive'])
-            ->add(
-                'status',
-                'choice',
-                [
-                    'label' => 'status',
-                    'choices' => CommonParams::$userStatusArray,
-                ]
-            )
+            ->add('enabled', 'checkbox', ['label' => 'user.isActive'])
             ->add(
                 'subjects',
                 'entity',

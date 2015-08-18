@@ -1257,7 +1257,7 @@ user.email: Email
 user.forgot_password: 'Forgot Password'
 user.hide_account: 'Hide my account'
 user.id: 'User id'
-user.isActive: 'Have the user completed the activation progress?'
+user.isActive: 'Is user enabled?'
 user.join_journal: 'Register yourself as author'
 user.join_journal_confirm: 'You are not an author of this journal. Confirm to register yourself as author.'
 user.journal_roles: 'User Journal Roles'

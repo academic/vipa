@@ -311,16 +311,19 @@ class AdminUserController extends Controller
      */
     public function blockAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
         /** @var User $user */
+        $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
+
         if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+
         if (!$user) {
             throw new NotFoundResourceException("User not found.");
         }
-        $user->setIsActive(false);
+
+        $user->setEnabled(false);
         $em->persist($user);
         $em->flush();
 
@@ -334,16 +337,19 @@ class AdminUserController extends Controller
      */
     public function unblockAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
         /** @var User $user */
+        $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
+
         if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+
         if (!$user) {
             throw new NotFoundResourceException("User not found.");
         }
-        $user->setIsActive(true);
+
+        $user->setEnabled(true);
         $em->persist($user);
         $em->flush();
 
