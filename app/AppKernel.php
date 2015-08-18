@@ -3,7 +3,6 @@
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\HttpKernel\Kernel;
-use Unifik\DatabaseConfigBundle\DependencyInjection\Compiler\ContainerBuilder;
 
 class AppKernel extends Kernel
 {
@@ -33,7 +32,6 @@ class AppKernel extends Kernel
             new JMS\JobQueueBundle\JMSJobQueueBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
-            new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
@@ -76,10 +74,5 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
-    }
-
-    protected function getContainerBuilder()
-    {
-        return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }
 }
