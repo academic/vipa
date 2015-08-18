@@ -21,6 +21,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+
 /**
  * User
  * @ExclusionPolicy("all")
