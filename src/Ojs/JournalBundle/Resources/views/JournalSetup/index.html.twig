@@ -185,12 +185,7 @@
                             <img src="{{ journal.logo | imagine_filter('journal_logo') }}"
                                  data-src="holder.js/200x200/random/text:{{ journal.title }}"
                                  id="preview_image_logo_img"/>
-                            {% set imageoptions=getImageOptions(journal,'logo','journal_logo') %}
-                            <input id="logo_height" name="logo[height]" type="hidden"
-                                   value="{{ imageoptions.height }}"/>
-                            <input id="logo_width" name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                            <input id="logo_x" name="logo[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="logo_y" name="logo[y]" type="hidden" value="{{ imageoptions.y }}"/>
+
                         </div>
                             <span class="btn btn-success fileinput-button form-control">
                                 <i class="fa fa-plus"></i>
@@ -208,12 +203,7 @@
                         <div id="preview_image_cover" style="width:200px">
                             <img src="{{ journal.image | imagine_filter('journal_logo') }}"
                                  data-src="holder.js/200x300/random/text:{{ journal.title }}"/>
-                            {% set imageoptions=getImageOptions(journal,'cover','wide_200') %}
-                            <input id="cover_height" name="cover[height]" type="hidden"
-                                   value="{{ imageoptions.height }}"/>
-                            <input id="cover_width" name="cover[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                            <input id="cover_x" name="cover[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="cover_y" name="cover[y]" type="hidden" value="{{ imageoptions.y }}"/>
+
                         </div>
                         <span class="btn btn-success fileinput-button form-control">
                             <i class="fa fa-plus"></i>
@@ -231,13 +221,7 @@
                         <div id="preview_image_header">
                             <img src="{{ journal.header| imagine_filter('article_header') }}"
                                  data-src="holder.js/960x200/random/text:{{ journal.title }}" alt=""/>
-                            {% set imageoptions=getImageOptions(journal,'header','article_header') %}
-                            <input id="header_height" name="header[height]" type="hidden"
-                                   value="{{ imageoptions.height }}"/>
-                            <input id="header_width" name="header[width]" type="hidden"
-                                   value="{{ imageoptions.width }}"/>
-                            <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
+
                         </div>
                         <span class="btn btn-success fileinput-button form-control">
                             <i class="fa fa-plus"></i>

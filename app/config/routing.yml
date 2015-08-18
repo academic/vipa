@@ -15,9 +15,6 @@ ojs_admin_root:
 ojs_installer:
   resource: "@OjsInstallerBundle/Resources/config/routing.yml"
 
-ojs_report:
-  resource: "@OjsReportBundle/Resources/config/routing.yml"
-
 ojs_oai:
   resource: "@OjsOAIBundle/Resources/config/routing.yml"
   prefix:   /api/public/oai

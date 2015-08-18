@@ -3,7 +3,7 @@ assetic:
   node: node
   debug:      "%kernel.debug%"
   use_controller: false
-  bundles:    [ OjsAdminBundle,  OjsJournalBundle, OjsSiteBundle, OjsApiBundle, OjsSearchBundle, OjsReportBundle, WorkflowBundle ]
+  bundles:    [ OjsAdminBundle,  OjsJournalBundle, OjsSiteBundle, OjsApiBundle, OjsSearchBundle, WorkflowBundle ]
   filters:
     cssrewrite: ~
     uglifyjs:
@@ -46,7 +46,6 @@ assetic:
         - @OjsLocationBundle/Resources/public/js/location.js
         - @OjsSiteBundle/Resources/public/js/block.js
         - @A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js
-        - @OjsReportBundle/Resources/public/js/analytics.js
         - @PUGXAutocompleterBundle/Resources/public/js/autocompleter-select2.js
         - @OjsUserBundle/Resources/public/js/user.js
         - @OjsAdminBundle/Resources/public/js/dashboard.js

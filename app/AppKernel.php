@@ -56,7 +56,6 @@ class AppKernel extends Kernel
             new Ojs\JournalBundle\OjsJournalBundle(),
             new Ojs\UserBundle\OjsUserBundle(),
             new Ojs\OAIBundle\OjsOAIBundle(),
-            new Ojs\ReportBundle\OjsReportBundle(),
             new Ojs\LocationBundle\OjsLocationBundle(),
             new Ojs\InstallerBundle\OjsInstallerBundle(),
             new OkulBilisim\WorkflowBundle\WorkflowBundle(),
@@ -77,7 +76,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 
     protected function getContainerBuilder()

@@ -33,11 +33,6 @@ services:
     tags:
       - { name: twig.extension }
 
-  ojs.twig.analytics_extension:
-    class: Ojs\ReportBundle\Twig\AnalyticsExtension
-    arguments: [@doctrine.odm.mongodb.document_manager]
-    tags:
-      - { name: twig.extension }
 
   ojs.twig.history_extension:
     class: Ojs\Common\Twig\HistoryExtension
