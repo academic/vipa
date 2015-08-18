@@ -425,7 +425,7 @@ class JournalRepository extends EntityRepository
     public function getHomePageList()
     {
         $query = $this->createQueryBuilder('j')
-            ->select('partial j.{id,slug,issn,title,image}, partial i.{id,slug}')
+            ->select('partial j.{id,slug,issn,image}, partial i.{id,slug}')
             ->join('j.institution', 'i')
             ->andWhere('j.status = :status')
             ->setParameter('status', 1)
