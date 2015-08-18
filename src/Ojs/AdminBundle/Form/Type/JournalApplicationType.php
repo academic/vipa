@@ -18,10 +18,9 @@ class JournalApplicationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['label' => 'journal.title', 'attr' => ['class' => 'validate[required]']])
+            ->add('translations', 'a2lix_translations')
             ->add('titleAbbr', null, ['label' => 'journal.titleAbbr', 'attr' => ['class' => 'validate[required]']])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
-            ->add('subtitle', null, ['label' => 'journal.subtitle', 'attr' => ['class' => 'validate[required]']])
             ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])
             ->add(
                 'country',
