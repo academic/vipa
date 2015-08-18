@@ -23,12 +23,13 @@ trait TranslateableTrait
     protected $defaultLocale;
 
     /**
-     *
-     * @var Deprecated
+     * @deprecated
+     * @var string
      */
     protected $locale;
 
     /**
+     * @deprecated
      * @return mixed
      */
     public function getLocale()
@@ -37,6 +38,7 @@ trait TranslateableTrait
     }
 
     /**
+     * @deprecated
      * @param mixed $locale
      */
     public function setLocale($locale)
@@ -86,7 +88,6 @@ trait TranslateableTrait
         if(null === $locale){
             throw new \RuntimeException('please support an locale');
         }
-        $translations = [];
         foreach($this->translations as $translation){
             $translations[$translation->getLocale()] = $translation;
         }
