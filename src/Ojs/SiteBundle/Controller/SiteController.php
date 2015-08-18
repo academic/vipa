@@ -42,7 +42,7 @@ class SiteController extends Controller
             'idField' => true,
             'nodeDecorator' => function ($node) {
                 return '<a href="' . $this->generateUrl('ojs_site_explore_index',
-                    ['filter' => ['subject' => $node['id']]]) . '">' . $node['subject'] .
+                    ['filter' => ['subject' => $node['id']]]) . '">@todo_this_will_fixed' . //$node['subject'] .
                     ' (' . $node['totalJournalCount'] . ')</a>';
             },
         ];
