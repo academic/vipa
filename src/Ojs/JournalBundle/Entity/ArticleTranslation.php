@@ -1,8 +1,10 @@
 <?php
 namespace Ojs\JournalBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
+
 class ArticleTranslation extends AbstractTranslation
 {
     /**
