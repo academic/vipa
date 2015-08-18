@@ -1,5 +1,6 @@
 \Ojs\JournalBundle\Entity\Journal:
   journal1:
+    currentLocale: en
     issn: null
     eissn: 2148-2357
     period: 3
@@ -15,5 +16,4 @@
     languages: [@lang1, @lang2]
     status: '3'
     setupStatus: true
-    locale: en
     mandatoryLang: @lang1

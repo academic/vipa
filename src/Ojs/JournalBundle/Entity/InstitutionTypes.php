@@ -4,14 +4,16 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\JournalBundle\Entity\InstitutionTypesTranslation;
 
 /**
  * InstitutionTypes
  * @GRID\Source(columns="id,name,description")
  */
-class InstitutionTypes implements Translatable
+class InstitutionTypes extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -19,7 +21,7 @@ class InstitutionTypes implements Translatable
      * @var integer
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -43,6 +45,9 @@ class InstitutionTypes implements Translatable
      */
     private $institutions;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\InstitutionTypesTranslation")
+     */
     protected $translations;
 
     public function __construct()
@@ -51,24 +56,34 @@ class InstitutionTypes implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\InstitutionTypesTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(InstitutionTypesTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new InstitutionTypesTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setName($defaultTranslation->getName());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -89,7 +104,7 @@ class InstitutionTypes implements Translatable
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->translate()->setName($name);
 
         return $this;
     }
@@ -101,7 +116,7 @@ class InstitutionTypes implements Translatable
      */
     public function getName()
     {
-        return $this->name;
+        return $this->translate()->getName();
     }
 
     /**
@@ -112,7 +127,7 @@ class InstitutionTypes implements Translatable
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->translate()->setDescription($description);
 
         return $this;
     }
@@ -124,7 +139,7 @@ class InstitutionTypes implements Translatable
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     /**
@@ -181,7 +196,11 @@ class InstitutionTypes implements Translatable
      */
     public function __toString()
     {
-        return $this->getName();
+        if(!is_string($this->getName())){
+            return $this->translations->first()->getName();
+        }else{
+            return $this->getName();
+        }
     }
 
     /**
@@ -210,15 +229,5 @@ class InstitutionTypes implements Translatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\InstitutionTypesTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\InstitutionTypesTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }

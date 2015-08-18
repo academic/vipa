@@ -50,10 +50,6 @@ Ojs\JournalBundle\Entity\Article:
       targetEntity: ArticleFile
       mappedBy: article
       cascade: ["persist"]
-    translations:
-        targetEntity: Ojs\JournalBundle\Entity\ArticleTranslation
-        mappedBy: object
-        cascade: ["persist"]
     statistics:
       targetEntity: Ojs\AnalyticsBundle\Entity\ArticleStatistic
       mappedBy: article
@@ -83,30 +79,12 @@ Ojs\JournalBundle\Entity\Article:
         name: article_citation
       cascade: ["persist"]
   fields:
-    title:
-      type: text
-      gedmo:
-        - translatable
-        - versioned
     titleTransliterated:
       column: title_transliterated
       length: 255
       type: string
       nullable: TRUE
       gedmo:
-        - versioned
-    subjects:
-        type: string
-        nullable: TRUE
-        gedmo:
-          - translatable
-          - versioned
-    subtitle:
-      length: 255
-      type: string
-      nullable: TRUE
-      gedmo:
-        - translatable
         - versioned
     submitterId:
         column: submitter_id
@@ -153,18 +131,6 @@ Ojs\JournalBundle\Entity\Article:
         nullable: TRUE
         gedmo:
           - versioned
-    keywords:
-        type: string
-        nullable: TRUE
-        gedmo:
-          - translatable
-          - versioned
-    abstract:
-      type: text
-      nullable: TRUE
-      gedmo:
-        - translatable
-        - versioned
     abstractTransliterated:
       column: abstract_transliterated
       type: text
@@ -228,10 +194,6 @@ Ojs\JournalBundle\Entity\Article:
       nullable: TRUE
       gedmo:
           - versioned
-    locale:
-      length: 20
-      type: string
-      nullable: true
     submissionDate:
       column: submission_date
       type: datetime
@@ -254,7 +216,6 @@ Ojs\JournalBundle\Entity\Article:
         slug:
           seperator: _
           fields:
-            - title
             - id
     uri:
       length: 255
@@ -292,9 +253,6 @@ Ojs\JournalBundle\Entity\Article:
     soft_deleteable:
         field_name: deletedAt
         time_aware: false
-    translation:
-        locale: locale
-        entity: Ojs\JournalBundle\Entity\ArticleTranslation
     loggable: true
   indexes:
     doix:

@@ -7,10 +7,6 @@ Ojs\JournalBundle\Entity\Author:
             targetEntity: ArticleAuthor
             mappedBy: author
             cascade: ["persist"]
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\AuthorTranslation
-            mappedBy: object
-            cascade: ["persist"]
     manyToOne:
           institution:
                 targetEntity: Institution
@@ -61,17 +57,6 @@ Ojs\JournalBundle\Entity\Author:
             column: last_name
             gedmo:
                 - versioned
-        locale:
-            type: string
-            length: 20
-            nullable: true
-        title:
-            type: string
-            nullable: true
-            length: 255
-            gedmo:
-                - versioned
-                - translatable
         firstNameTransliterated:
             type: string
             length: 255
@@ -153,12 +138,6 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             gedmo:
                 - versioned
-        summary:
-            type: text
-            nullable: TRUE
-            gedmo:
-                - translatable
-                - versioned
         created:
             type: datetime
             gedmo:
@@ -191,8 +170,5 @@ Ojs\JournalBundle\Entity\Author:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\AuthorTranslation
         loggable: true
     lifecycleCallbacks: {  }

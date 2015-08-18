@@ -8,6 +8,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\AdminBundle\Form\Type\ArticleTypesType;
+use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,13 +27,28 @@ class AdminArticleTypeController extends Controller
      *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new ArticleTypes())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:ArticleTypes');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var ArticleTypes $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                        $row->setField('name', $entity->getName());
+                        $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -66,7 +82,6 @@ class AdminArticleTypeController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -130,18 +145,18 @@ class AdminArticleTypeController extends Controller
     /**
      * Finds and displays a ArticleTypes entity.
      *
-     * @param $id
+     * @param Request $request
+     * @param ArticleTypes $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request , ArticleTypes $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:ArticleTypes')->find($id);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
         $this->throw404IfNotFound($entity);
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_article_type'.$entity->getId());

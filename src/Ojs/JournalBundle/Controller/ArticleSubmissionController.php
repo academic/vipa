@@ -201,8 +201,9 @@ class ArticleSubmissionController extends Controller
         foreach ($submissionLangObjects as $submissionLangObject) {
             $locales[] = $submissionLangObject->getCode();
         }
+        $defaultLocale = $journal->getMandatoryLang()->getCode();
 
-        $form = $this->createCreateForm($article, $journal, $locales);
+        $form = $this->createCreateForm($article, $journal, $locales, $defaultLocale);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -273,7 +274,7 @@ class ArticleSubmissionController extends Controller
      * @param $locales
      * @return FormInterface
      */
-    private function createCreateForm(Article $article, Journal $journal, $locales)
+    private function createCreateForm(Article $article, Journal $journal, $locales, $defaultLocale)
     {
         $form = $this->createForm(
             new ArticleSubmissionType(),
@@ -285,6 +286,7 @@ class ArticleSubmissionController extends Controller
                 ),
                 'method' => 'POST',
                 'locales' => $locales,
+                'default_locale' => $defaultLocale,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types'))
             )
         )

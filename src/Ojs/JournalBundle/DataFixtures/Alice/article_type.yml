@@ -1,52 +1,52 @@
 \Ojs\JournalBundle\Entity\ArticleTypes:
   at_0:
+    currentLocale: en
     name: Research
-    locale: en
   at_1:
+    currentLocale: en
     name: Analysis
-    locale: en
   at_2:
+    currentLocale: en
     name: Clinical Review
-    locale: en
   at_3:
+    currentLocale: en
     name: Practice
-    locale: en
   at_4:
+    currentLocale: en
     name: Research Methods and Reporting
-    locale: en
   at_5:
+    currentLocale: en
     name: Christmas issue
-    locale: en
   at_6:
+    currentLocale: en
     name: Editorials
-    locale: en
   at_7:
+    currentLocale: en
     name: Blogs
-    locale: en
   at_8:
+    currentLocale: en
     name: Case Reports
-    locale: en
   at_9:
+    currentLocale: en
     name: Letters (rapid responses)
-    locale: en
   at_10:
+    currentLocale: en
     name: Obituaries
-    locale: en
   at_11:
+    currentLocale: en
     name: Personal Views
-    locale: en
   at_12:
+    currentLocale: en
     name: Fillers
-    locale: en
   at_13:
+    currentLocale: en
     name: Minerva pictures
-    locale: en
   at_14:
+    currentLocale: en
     name: Endgames
-    locale: en
   at_15:
+    currentLocale: en
     name: What Your Patient Is Thinking
-    locale: en
   at_16:
+    currentLocale: en
     name: Other
-    locale: en

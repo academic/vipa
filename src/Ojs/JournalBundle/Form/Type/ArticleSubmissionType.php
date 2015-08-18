@@ -25,15 +25,12 @@ class ArticleSubmissionType extends AbstractType
                     'required' => false
                 )
             )
-            ->add('translations', 'a2lix_translations_gedmo',[
+            ->add('translations', 'a2lix_translations',[
                 'locales' => $options['locales'],
-                'translatable_class' => 'Ojs\JournalBundle\Entity\Article',
+                'default_locale' => $options['default_locale'],
                 'fields' => [
                     'title' => [
                         'field_type' => 'text'
-                    ],
-                    'titleTransliterated' => [
-                        'field_type' => 'hidden'
                     ],
                     'subtitle' => [],
                     'subjects' => [
@@ -87,6 +84,7 @@ class ArticleSubmissionType extends AbstractType
         $resolver->setDefaults(
             array(
                 'locales' => [],
+                'default_locale' => '',
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'citationTypes' => [],
                 'attr' => [

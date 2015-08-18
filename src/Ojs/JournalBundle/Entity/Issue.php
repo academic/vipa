@@ -5,18 +5,20 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\JournalBundle\Entity\IssueTranslation;
 
 /**
  * Issue
  * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
  * @ExclusionPolicy("all")
  */
-class Issue implements Translatable
+class Issue extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -26,7 +28,7 @@ class Issue implements Translatable
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
-    private $id;
+    protected $id;
 
     /**
      * @var integer
@@ -123,6 +125,9 @@ class Issue implements Translatable
      */
     private $sections;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueTranslation")
+     */
     protected $translations;
 
     public function __construct()
@@ -133,24 +138,34 @@ class Issue implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\IssueTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(IssueTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new IssueTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -262,7 +277,7 @@ class Issue implements Translatable
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -274,7 +289,7 @@ class Issue implements Translatable
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -336,7 +351,7 @@ class Issue implements Translatable
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->translate()->setDescription($description);
 
         return $this;
     }
@@ -348,7 +363,7 @@ class Issue implements Translatable
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     /**
@@ -652,15 +667,5 @@ class Issue implements Translatable
     public function getSupplement()
     {
         return $this->supplement;
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\IssueTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\IssueTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }

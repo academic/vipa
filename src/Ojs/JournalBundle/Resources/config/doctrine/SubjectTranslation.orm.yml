@@ -8,20 +8,10 @@ Ojs\JournalBundle\Entity\SubjectTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
+        subject:
             type: string
-            length: 8
-        field:
-            type: string
-            length: 32
-        content:
+            length: 255
+        description:
             type: text
-            nullable: true
-    manyToOne:
-        object:
-            targetEntity: Subject
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
+            nullable: TRUE
 

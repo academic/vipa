@@ -15,9 +15,7 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations_gedmo',[
-                'translatable_class' => 'Ojs\CmsBundle\Entity\Page'
-            ])
+            ->add('translations', 'a2lix_translations')
             ->add('tags', 'tags')
             ->add('image');
     }

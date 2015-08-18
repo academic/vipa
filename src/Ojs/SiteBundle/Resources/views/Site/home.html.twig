@@ -176,6 +176,7 @@
                 <div class="col-md-8 col-xs-12">
                     <div class="row">
                         {% for journal in journals %}
+                            {% set journalDefault = journal.setDefaultLocale(app.request.defaultLocale) %}
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{ generateJournalUrl(journal) }}">
                                     <img
@@ -185,7 +186,7 @@
                                             src="#"
                                         {% endif %}
                                          width="96" height="128"
-                                         data-src="holder.js/96x128/random/text:{{ journal.title }}"
+                                         data-src="holder.js/96x128/random/text:{{ journal.translate(app.request.locale).title }}"
                                          class="img-rounded"/>
                                     <small>{{ journal.title }}</small>
                                     <br/>

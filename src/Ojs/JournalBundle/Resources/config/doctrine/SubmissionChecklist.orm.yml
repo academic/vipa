@@ -23,9 +23,6 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
     visible:
       type: boolean
       nullable: true
-    locale:
-      type: string
-      nullable: true
     deletedAt:
       type: datetime
       nullable: true

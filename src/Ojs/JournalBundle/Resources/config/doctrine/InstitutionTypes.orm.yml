@@ -8,10 +8,6 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
             mappedBy: institution_type
             fetch: EXTRA_LAZY
             cascade: ["all"]
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\InstitutionTypesTranslation
-            mappedBy: object
-            cascade: ["persist"]
     id:
         id:
             type: integer
@@ -19,12 +15,6 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
             generator:
                 strategy: AUTO
     fields:
-        name:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-                - versioned
         slug:
             type: string
             length: 255
@@ -32,15 +22,7 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
               slug:
                 seperator: _
                 fields:
-                  - name
-        locale:
-            type: string
-            length: 20
-        description:
-            type: text
-            nullable: true
-            gedmo:
-                - translatable
+                  - id
         created:
             type: datetime
             gedmo:
@@ -68,8 +50,5 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-          locale: locale
-          entity: Ojs\JournalBundle\Entity\InstitutionTypesTranslation
         loggable: true
     lifecycleCallbacks: {  }

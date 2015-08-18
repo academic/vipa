@@ -2,7 +2,6 @@ Ojs\JournalBundle\Entity\Subject:
     type: entity
     table: subject
     repositoryClass: Ojs\JournalBundle\Entity\SubjectRepository
-    translationClass: Ojs\JournalBundle\Entity\SubjectTranslation
     id:
         id:
             type: integer
@@ -27,15 +26,6 @@ Ojs\JournalBundle\Entity\Subject:
             type: integer
             gedmo:
               - treeLevel
-        subject:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-                - versioned
-        locale:
-            type: string
-            length: 20
         slug:
             type: string
             length: 255
@@ -43,13 +33,7 @@ Ojs\JournalBundle\Entity\Subject:
                 slug:
                     seperator: _
                     fields:
-                      - subject
-        description:
-            type: text
-            nullable: TRUE
-            gedmo:
-                - translatable
-                - versioned
+                      - id
         totalJournalCount:
             column: total_journal_count
             nullable: TRUE
@@ -105,9 +89,6 @@ Ojs\JournalBundle\Entity\Subject:
         loggable: true
         tree:
             type: nested
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\SubjectTranslation
     lifecycleCallbacks: {  }
     manyToOne:
         parent:
@@ -126,7 +107,3 @@ Ojs\JournalBundle\Entity\Subject:
             mappedBy: parent
             orderBy:
                 lft: ASC
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\SubjectTranslation
-            mappedBy: object
-            cascade: ["persist"]

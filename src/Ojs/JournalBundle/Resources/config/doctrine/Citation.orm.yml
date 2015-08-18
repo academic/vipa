@@ -29,10 +29,6 @@ Ojs\JournalBundle\Entity\Citation:
             gedmo:
                 - versioned
             nullable: true
-        locale:
-            type: string
-            length: 20
-            nullable: true
         orderNum:
             type: integer
             column: order_num
@@ -66,7 +62,5 @@ Ojs\JournalBundle\Entity\Citation:
        soft_deleteable:
          field_name: deletedAt
          time_aware: false
-       translation:
-           locale: locale
        loggable: true
     lifecycleCallbacks: {  }

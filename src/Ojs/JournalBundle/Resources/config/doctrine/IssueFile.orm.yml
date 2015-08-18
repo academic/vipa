@@ -17,10 +17,6 @@ Ojs\JournalBundle\Entity\IssueFile:
                 referencedColumnName: id
             cascade: ["persist"]
     oneToMany:
-        translations:
-            targetEntity: Ojs\JournalBundle\Entity\IssueFileTranslation
-            mappedBy: object
-            cascade: ["persist"]
         statistics:
             targetEntity: Ojs\AnalyticsBundle\Entity\ArticleFileStatistic
             mappedBy: articleFile
@@ -41,22 +37,6 @@ Ojs\JournalBundle\Entity\IssueFile:
             nullable: TRUE
             gedmo:
                 - versioned
-        description:
-            type: text
-            nullable: TRUE
-            gedmo:
-                - translatable
-                - versioned
-        title:
-            type: string
-            length: 255
-            nullable: TRUE
-            gedmo:
-                - translatable
-                - versioned
-        locale:
-            type: string
-            length: 20
         langCode:
             column: lang_code
             type: string
@@ -87,7 +67,4 @@ Ojs\JournalBundle\Entity\IssueFile:
         soft_deleteable:
             field_name: deletedAt
             time_aware: false
-        translation:
-            locale: locale
-            entity: Ojs\JournalBundle\Entity\IssueFileTranslation
     lifecycleCallbacks: {  }

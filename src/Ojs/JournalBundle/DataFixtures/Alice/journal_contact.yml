@@ -1,5 +1,6 @@
 \Ojs\JournalBundle\Entity\JournalContact:
   contact{1..25}:
+    currentLocale: en
     address: <address()>
     email: <email()>
     firstName: <firstName()>
@@ -7,4 +8,3 @@
     phone: <phoneNumber()>
     journal: @journal1
     contactType: @c_type*
-    locale: en

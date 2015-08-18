@@ -5,11 +5,12 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use Ojs\JournalBundle\Entity\SubjectTranslation;
 
 /**
@@ -17,7 +18,7 @@ use Ojs\JournalBundle\Entity\SubjectTranslation;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,subject,description")
  */
-class Subject implements Translatable
+class Subject extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -26,7 +27,7 @@ class Subject implements Translatable
      * @Expose
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
     private $lft;
     private $lvl;
     private $rgt;
@@ -75,6 +76,9 @@ class Subject implements Translatable
      */
     private $slug;
 
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\SubjectTranslation")
+     */
     protected $translations;
 
     public function __construct()
@@ -84,24 +88,40 @@ class Subject implements Translatable
         $this->translations = new ArrayCollection();
     }
 
-    public function getTranslations()
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\SubjectTranslation
+     */
+    public function translate($locale = null)
     {
-        return $this->translations;
-    }
-
-    public function addTranslation(SubjectTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (null === $locale) {
+            $locale = $this->currentLocale;
         }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
+        if (!$locale) {
+            $locale = $this->parent->getCurrentLocale();
+            if(!$locale){
+                throw new \RuntimeException('No locale has been set and currentLocale is empty');
+            }
+        }
+        /** @var SubjectTranslation $currentTranslation */
+        $currentTranslation = $this->currentTranslation;
+        if ($currentTranslation && $currentTranslation->getLocale() === $locale) {
+            return $currentTranslation;
+        }
+        /** @var SubjectTranslation $defaultTranslation */
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new SubjectTranslation();
+            if(!is_null($defaultTranslation)){
+                $translation->setSubject($defaultTranslation->getSubject());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     public function setParent(Subject $parent = null)
@@ -146,7 +166,7 @@ class Subject implements Translatable
      */
     public function setSubject($subject)
     {
-        $this->subject = $subject;
+        $this->translate()->setSubject($subject);
 
         return $this;
     }
@@ -158,7 +178,7 @@ class Subject implements Translatable
      */
     public function getSubject()
     {
-        return $this->subject;
+        return $this->translate()->getSubject();
     }
 
     /**
@@ -190,7 +210,7 @@ class Subject implements Translatable
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->translate()->setDescription($description);
 
         return $this;
     }
@@ -202,7 +222,7 @@ class Subject implements Translatable
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
     }
 
     /**
@@ -301,7 +321,11 @@ class Subject implements Translatable
 
     public function __toString()
     {
-        return $this->subject;
+        if(!is_string($this->getSubject())){
+            return $this->translations->first()->getSubject();
+        }else{
+            return $this->getSubject();
+        }
     }
 
     /**
@@ -440,15 +464,5 @@ class Subject implements Translatable
     public function removeChild(\Ojs\JournalBundle\Entity\Subject $child)
     {
         $this->children->removeElement($child);
-    }
-
-    /**
-     * Remove translation
-     *
-     * @param \Ojs\JournalBundle\Entity\SubjectTranslation $translation
-     */
-    public function removeTranslation(\Ojs\JournalBundle\Entity\SubjectTranslation $translation)
-    {
-        $this->translations->removeElement($translation);
     }
 }

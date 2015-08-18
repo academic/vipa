@@ -26,13 +26,28 @@ class AdminContactTypeController extends Controller
      *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new ContactTypes())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:ContactTypes');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var ContactTypes $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('name', $entity->getName());
+                    $row->setField('description', $entity->getDescription());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -66,7 +81,6 @@ class AdminContactTypeController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -130,16 +144,16 @@ class AdminContactTypeController extends Controller
     /**
      * Finds and displays a ContactTypes entity.
      *
-     * @param $id
+     * @param Request $request
+     * @param ContactTypes $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, ContactTypes $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
+        $entity->setDefaultLocale($request->getDefaultLocale());
         $this->throw404IfNotFound($entity);
 
         $token = $this

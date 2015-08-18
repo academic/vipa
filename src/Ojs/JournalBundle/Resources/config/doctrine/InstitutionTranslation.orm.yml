@@ -8,20 +8,7 @@ Ojs\JournalBundle\Entity\InstitutionTranslation:
             generator:
                 strategy: AUTO
     fields:
-        locale:
-            type: string
-            length: 8
-        field:
-            type: string
-            length: 32
-        content:
+        about:
             type: text
             nullable: true
-    manyToOne:
-        object:
-            targetEntity: Institution
-            inversedBy: translations
-            joinColumn:
-                name: object_id
-                referencedColumnName: id
 
