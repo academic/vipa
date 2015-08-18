@@ -1,7 +1,6 @@
 <?php
 namespace Ojs\SiteBundle\Twig;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use Ojs\Common\Services\OrcidService;
@@ -14,11 +13,6 @@ class CommonExtension extends \Twig_Extension
      * @var EntityManagerInterface
      */
     private $em;
-
-    /**
-     * @var DocumentManager
-     */
-    private $dm;
 
     /**
      * @var OrcidService
@@ -38,12 +32,10 @@ class CommonExtension extends \Twig_Extension
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        DocumentManager $documentManager,
         OrcidService $orcidService,
         FilterManager $filterManager
     ) {
         $this->em = $entityManager;
-        $this->dm = $documentManager;
         $this->orcidService = $orcidService;
         $this->filterManager = $filterManager;
     }

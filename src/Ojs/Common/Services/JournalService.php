@@ -4,7 +4,6 @@ namespace Ojs\Common\Services;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
@@ -29,11 +28,6 @@ class JournalService
      * @var Session
      */
     private $session;
-
-    /**
-     * @var DocumentManager
-     */
-    private $dm;
 
     /**
      * @var Router
@@ -62,7 +56,6 @@ class JournalService
      */
     public function __construct(
         EntityManager $em,
-        DocumentManager $dm,
         Session $session,
         Router $router,
         TokenStorageInterface $tokenStorage,
@@ -72,7 +65,6 @@ class JournalService
     {
         $this->session = $session;
         $this->em = $em;
-        $this->dm = $dm;
         $this->router = $router;
         $this->tokenStorage = $tokenStorage;
         $this->requestStack = $requestStack;
