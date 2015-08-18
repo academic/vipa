@@ -26,7 +26,6 @@ class ArticleType extends AbstractType
                     'title' => [
                         'field_type' => 'text'
                     ],
-                    'titleTransliterated' => [],
                     'subtitle' => [],
                     'subjects' => [],
                     'keywords' => [
@@ -40,6 +39,7 @@ class ArticleType extends AbstractType
                     ]
                 ]
             ])
+            ->add('titleTransliterated')
             ->add(
                 'issue',
                 'entity',
