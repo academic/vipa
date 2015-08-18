@@ -144,20 +144,12 @@ $(document).ready(function () {
     });
     $('.select2-element').select2();
 
-    $(document).on('pjax:send', function () {
-        $('#loading').show();
-    });
-    $(document).on('pjax:complete', function () {
-        $('#loading').hide();
-    });
 
     $('a[title]').tooltip();
     $(".panel-heading.toggle-body").click(function () {
         $(this).next(".panel-body").slideToggle();
     });
 
-    /* float placeholders to labels */
-    $('.float-label').jvFloat();
 
     //Loads the correct sidebar on window load,
     //collapses the sidebar on window resize.
@@ -176,9 +168,7 @@ $(document).ready(function () {
             data: alternateData,
             onNodeSelected: function (event, node) {
                 /* @todo we should get issue content by ajax */
-                // $.pjax({url: node.href, container: '#issue-container'})
 
-                console.log(node.text + ':' + node.href);
             }
         });
     }
@@ -205,30 +195,6 @@ $(document).ready(function () {
             $(this).find('.caption').slideUp(250); //.fadeOut(205)
         }
     );
-    window.alert = function (message) {
-        var n = noty({
-            text: message,
-            type: "alert",
-            dismissQueue: true,
-            layout: 'center',
-            theme: "relax",
-            closeWith: ['button', 'click'],
-            maxVisible: 20,
-            modal: true
-        });
-    };
-    window.notify = function (message, type) {
-        var n = noty({
-            text: message,
-            type: type,
-            dismissQueue: true,
-            layout: 'topCenter',
-            theme: "relax",
-            closeWith: ['button', 'click'],
-            maxVisible: 20,
-            modal: false
-        });
-    };
 
 
     function deleteSubmit(link) {

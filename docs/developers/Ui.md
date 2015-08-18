@@ -25,8 +25,5 @@ Here some important packages that will be installed via bower.
 Font Awesome(Fa) is a css library for icons. 
 > Fa gives you scalable vector icons that can instantly be customized.
 
-####Modals
-The Ojs project is using bootstrap-dialog for any type of modals.
-
 Documentation http://nakupanda.github.io/bootstrap3-dialog/
 

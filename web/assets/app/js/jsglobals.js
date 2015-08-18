@@ -36,33 +36,6 @@ var OjsCommon = {
             }}
         );
     },
-    modalTypes: {
-        default: BootstrapDialog.TYPE_DEFAULT,
-        info: BootstrapDialog.TYPE_INFO,
-        primary: BootstrapDialog.TYPE_PRIMARY,
-        success: BootstrapDialog.TYPE_SUCCESS,
-        warning: BootstrapDialog.TYPE_WARNING,
-        danger: BootstrapDialog.TYPE_DANGER
-    },
-    errorModal: function (message, title) {
-        this.hideallModals();
-        BootstrapDialog.show({
-            title: title ? title : 'Warning',
-            message: message,
-            type: OjsCommon.modalTypes.danger
-        });
-    },
-    hideallModals: function () {
-        BootstrapDialog.closeAll();
-    },
-    waitModal: function (customWaitingMessage) {
-        BootstrapDialog.show({
-            title: 'Wait',
-            message: customWaitingMessage ? customWaitingMessage : 'Please wait...',
-            type: OjsCommon.modalTypes.info,
-            closable: false
-        });
-    },
     inArray: function (needle, haystack) {
         var length = haystack.length;
         for (var i = 0; i < length; i++) {

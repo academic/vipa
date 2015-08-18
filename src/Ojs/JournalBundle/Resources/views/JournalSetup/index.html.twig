@@ -280,11 +280,6 @@
         window.onSetup = true;
     </script>
     {{ parent() }}
-    {% javascripts  '@submission_js'
-    '@OjsJournalBundle/Resources/public/js/journal_setup.js'
-    output="assets/prod/js/setup_js.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 
     {% javascripts '@apptour_js' output="assets/prod/js/apptour.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

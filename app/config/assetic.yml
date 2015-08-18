@@ -22,21 +22,14 @@ assetic:
       inputs:
         - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
         - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
-        - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/js/bootstrap-dialog.min.js
         - %kernel.root_dir%/../web/vendor/holderjs/holder.js
         - %kernel.root_dir%/../web/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.js
-        - %kernel.root_dir%/../web/vendor/jquery-pjax/jquery.pjax.js
         - %kernel.root_dir%/../web/assets/app/js/jsglobals.js
         - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
         - %kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js
         - %kernel.root_dir%/../web/assets/app/js/common.js
-        - %kernel.root_dir%/../web/vendor/typeahead.js/dist/typeahead.bundle.min.js
-        - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
-        - %kernel.root_dir%/../web/vendor/JVFloat/jvfloat.js
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js
-        - %kernel.root_dir%/../web/vendor/noty/js/noty/packaged/jquery.noty.packaged.js
-        - %kernel.root_dir%/../web/vendor/noty/js/noty/themes/bootstrap.js
         - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
         - %kernel.root_dir%/../web/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.min.js
         - %kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js
@@ -53,13 +46,11 @@ assetic:
     admin_main_css:
       inputs:
         - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css
-        - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/css/bootstrap-dialog.min.css
         - %kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css
         - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.min.css
         - %kernel.root_dir%/../web/assets/app/css/app.css
         - %kernel.root_dir%/../web/vendor/select2/dist/css/select2.min.css
         - %kernel.root_dir%/../web/assets/app/css/admin.css
-        - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css
         - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css
         - %kernel.root_dir%/../web/assets/app/css/_history.css
@@ -78,17 +69,10 @@ assetic:
         - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js
         - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.iframe-transport.js
         - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.fileupload.js
-        - %kernel.root_dir%/../web/vendor/mustache/mustache.js
-        - %kernel.root_dir%/../web/vendor/jquery-sortable/source/js/jquery-sortable-min.js
-        - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
-        - %kernel.root_dir%/../web/vendor/MathJax/MathJax.js
-        - @OjsJournalBundle/Resources/public/js/article_submission.js
-        - @OjsJournalBundle/Resources/public/js/article_cite.js
     submission_css:
       inputs:
         - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload.css
         - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload-ui.css
-        - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
     jqueryui_js:
       inputs:
         - %kernel.root_dir%/../web/assets/app/js/plugins/jqueryui/jquery-ui.min.js
