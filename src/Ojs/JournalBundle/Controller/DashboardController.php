@@ -50,16 +50,61 @@ class DashboardController extends OjsController
             }
         }
 
-        $articleFileDownloads = ['Download'];
-        for($i = 0; $i < 30; $i++)
+        $articleFileDownloads = [];
+        $articleFileDownloads['mainChart'] = [];
+        $articleFileDownloads['mainChartNames'] = [];
+        $articleFileDownloads['charts'] = [];
+        for($i = 0; $i < rand(2, 20); $i++)
         {
-            array_push($articleFileDownloads, rand(0, 100));
+            $uniqueId = 'aUniqueIdHere'.rand(0, 10000);
+            array_push(
+                $articleFileDownloads['mainChart'],
+                [$uniqueId, rand(0, 100)]
+            );
+            array_push(
+                $articleFileDownloads['mainChartNames'],
+                [$uniqueId, 'Makale '.$i]
+            );
+        }
+        foreach($articleFileDownloads['mainChart'] as $articleFile)
+        {
+            $articleFileDownloads['charts'][$articleFile[0]] = [];
+            for($i = 0; $i < rand(2, 5); $i++)
+            {
+                array_push(
+                    $articleFileDownloads['charts'][$articleFile[0]],
+                    ['Veri '.$i, rand(0, 100)]
+                );
+            }
         }
 
-        $issueFileDownloads = ['Download'];
-        for($i = 0; $i < 30; $i++)
+
+        $issueFileDownloads = [];
+        $issueFileDownloads['mainChart'] = [];
+        $issueFileDownloads['mainChartNames'] = [];
+        $issueFileDownloads['charts'] = [];
+        for($i = 0; $i < rand(2, 20); $i++)
         {
-            array_push($issueFileDownloads, rand(0, 100));
+            $uniqueId = 'aUniqueIdHere'.rand(0, 10000);
+            array_push(
+                $issueFileDownloads['mainChart'],
+                [$uniqueId, rand(0, 100)]
+            );
+            array_push(
+                $issueFileDownloads['mainChartNames'],
+                [$uniqueId, 'Makale '.$i]
+            );
+        }
+        foreach($issueFileDownloads['mainChart'] as $articleFile)
+        {
+            $issueFileDownloads['charts'][$articleFile[0]] = [];
+            for($i = 0; $i < rand(2, 5); $i++)
+            {
+                array_push(
+                    $issueFileDownloads['charts'][$articleFile[0]],
+                    ['Veri '.$i, rand(0, 100)]
+                );
+            }
         }
 
         $articlesMonthly = [];

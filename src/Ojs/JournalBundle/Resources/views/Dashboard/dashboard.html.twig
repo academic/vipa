@@ -227,8 +227,51 @@
             });
         }
 
+        function createPieChart(id, columns)
+        {
+            var newDatas = columns['charts'];
+            newDatas['mainChart'] = columns['mainChart'];
+
+            var chart = c3.generate({
+                bindto: id,
+                data: {
+                    columns: newDatas['mainChart'],
+                    type : 'pie',
+                    onclick: function (d, i) {
+                        if(newDatas[d.id])
+                        {
+                            chart.load({
+                                unload: true,
+                                columns : newDatas[d.id]
+                            });
+                        }
+                        else
+                        {
+                            chart.load({
+                                unload: true,
+                                columns : newDatas['mainChart']
+                            });
+                        }
+                    },
+                },
+                tooltip: {
+                    format: {
+                        value: function(x)
+                        {
+                            return x;
+                        }
+                    }
+                },
+            });
+            var newNames = {};
+            columns['mainChartNames'].forEach(function(article){
+                newNames[article[0]] = article[1];
+            });
+            chart.data.names(newNames);
+        }
+
         createChart('#articles', data['articleViews']);
-        createChart('#articleFiles', data['articleFileDownloads']);
-        createChart('#issueFiles', data['issueFileDownloads']);
+        createPieChart('#articleFiles', data['articleFileDownloads']);
+        createPieChart('#issueFiles', data['issueFileDownloads']);
     </script>
 {% endblock %}
