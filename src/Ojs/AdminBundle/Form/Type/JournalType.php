@@ -17,6 +17,7 @@ class JournalType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $journalId = $options['data']->getId()?$options['data']->getId(): null;
         $builder
             ->add('translations', 'a2lix_translations')
             ->add('titleAbbr', 'text', ['label' => 'titleabbr',
@@ -164,9 +165,15 @@ class JournalType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('t')
-                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    'query_builder' => function (EntityRepository $er) use ($journalId, $options) {
+                        $query = $er->createQueryBuilder('t');
+                        if(is_null($journalId)){
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                        }else{
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.journal = :journal')
+                            ->setParameter('journal', $options['data']);
+                        }
+                        return $query;
                     },
                     'error_bubbling'=>true,
                 )
@@ -181,9 +188,15 @@ class JournalType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('t')
-                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    'query_builder' => function (EntityRepository $er) use ($journalId, $options){
+                        $query = $er->createQueryBuilder('t');
+                        if(is_null($journalId)){
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                        }else{
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.journal = :journal')
+                                ->setParameter('journal', $options['data']);
+                        }
+                        return $query;
                     },
                     'error_bubbling'=>true,
                 )
