@@ -37,8 +37,7 @@
                     {% if journal.header %}
                         <div class="col-md-12"><img
                                     src="{{ journal.header|imagine_filter('journal_header') }}"
-                                    data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef"
-                                    class="width100 img-responsive"/>
+                                    class="width100 img-responsive tri"/>
                         </div>
                     {% endif %}
                     <h1>{{ journal.title }}</h1>
@@ -82,8 +81,7 @@
                         {% else %}
                         src="#"
                         {% endif %}
-                         data-src="holder.js/253x180/random/text:{{ journal.title }} "
-                         class="img-responsive img-rounded float-left" alt=""/>
+                            class="img-responsive img-rounded float-left tri" alt=""/>
 
                     <a href="#" class="list-group-item ">
                         <span class="pull-right">

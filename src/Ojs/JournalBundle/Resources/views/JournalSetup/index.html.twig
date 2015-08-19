@@ -183,8 +183,7 @@
 
                         <div id="preview_image_logo" style="width:200px">
                             <img src="{{ journal.logo | imagine_filter('journal_logo') }}"
-                                 data-src="holder.js/200x200/random/text:{{ journal.title }}"
-                                 id="preview_image_logo_img"/>
+                                 id="preview_image_logo_img" class="tri"/>
 
                         </div>
                             <span class="btn btn-success fileinput-button form-control">
@@ -202,7 +201,7 @@
 
                         <div id="preview_image_cover" style="width:200px">
                             <img src="{{ journal.image | imagine_filter('journal_logo') }}"
-                                 data-src="holder.js/200x300/random/text:{{ journal.title }}"/>
+                                 class="tri"/>
 
                         </div>
                         <span class="btn btn-success fileinput-button form-control">
@@ -220,7 +219,7 @@
 
                         <div id="preview_image_header">
                             <img src="{{ journal.header| imagine_filter('article_header') }}"
-                                 data-src="holder.js/960x200/random/text:{{ journal.title }}" alt=""/>
+                                 class="tri" alt=""/>
 
                         </div>
                         <span class="btn btn-success fileinput-button form-control">
