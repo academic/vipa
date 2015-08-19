@@ -3,14 +3,14 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Gedmo\Translatable\Translatable;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalTheme
  * @GRID\Source(columns="id,journal.title,title")
  */
-class JournalTheme implements Translatable
+class JournalTheme
 {
     use GenericEntityTrait;
 
