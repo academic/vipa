@@ -2,6 +2,7 @@
 
 namespace Ojs\AnalyticsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,55 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleStatisticRepository extends EntityRepository
 {
+    /**
+     * Gets statistics of given articles on given dates
+     *
+     * @param array $articles
+     * @param array $dates
+     * @return ArrayCollection
+     */
+    public function getByArticlesAndDates($articles, $dates)
+    {
+        $builder = $this->createQueryBuilder('stat');
+        $builder
+            ->andWhere('stat.article IN (:articles)')
+            ->andWhere('stat.date IN (:dates)')
+            ->orderBy('stat.date', 'DESC')
+            ->setParameters([
+                'articles'  => $articles,
+                'dates'     => $dates
+            ]);
+
+        return new ArrayCollection($builder->getQuery()->getResult());
+    }
+
+    /**
+     * Gets statistics of most viewed amongst given articles
+     *
+     * @param array $articles
+     * @param array $dates
+     * @param int $limit
+     * @return ArrayCollection
+     */
+    public function getMostViewed($articles, $dates = null, $limit = null)
+    {
+        $builder = $this->createQueryBuilder('stat');
+
+        if ($dates !== null) {
+            $builder
+                ->andWhere('stat.date IN (:dates)')
+                ->setParameter('dates', $dates);
+        }
+
+        $builder
+            ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'article = stat.article')
+            ->addSelect('SUM(stat.view) as totalViews')
+            ->andWhere('stat.article IN (:articles)')
+            ->setParameter('articles', $articles)
+            ->groupBy('stat.article')
+            ->orderBy('stat.view', 'ASC')
+            ->setMaxResults($limit);
+
+        return new ArrayCollection($builder->getQuery()->getResult());
+    }
 }

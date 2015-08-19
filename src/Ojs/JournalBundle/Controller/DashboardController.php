@@ -2,37 +2,52 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\Common\Controller\OjsController;
 
 class DashboardController extends OjsController
 {
+    const DATE_FORMAT = "Y-m-d";
+
     public function indexAction()
     {
         return $this->render('OjsJournalBundle:Dashboard:dashboard.html.twig', $this->createStats());
     }
 
     /**
-     *  Creates sample stats
-     *  @TODO Stats need to be taken from database
-     *
-     *  @return Array
+     *  Arranges statistics
+     *  @return array
      */
     private function createStats()
     {
-        $dates = ['x'];
-        for($i = 1; $i < 10; $i++)
-        {
-            array_push($dates, '2015-08-0'.$i);
-        }
-        for($i = 10; $i < 31; $i++)
-        {
-            array_push($dates, '2015-08-'.$i);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        $lastMonth = ['x'];
+        for($i = 0; $i < 30; $i++) {
+            $lastMonth[] = date($this::DATE_FORMAT, strtotime('-' . $i . ' days'));
         }
 
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->findBy(['journal' => $journal]);
+
+        $articleStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:ArticleStatistic');
+
+        $articleStats = $articleStatRepo->getByArticlesAndDates($articles, array_slice($lastMonth, 1));
+
         $articleViews = ['View'];
-        for($i = 0; $i < 30; $i++)
-        {
-            array_push($articleViews, rand(0, 100));
+        foreach (array_slice($lastMonth, 1) as $date) {
+            /** @var ArticleStatistic $stat */
+            $stat = $articleStats->first();
+            if ($stat && $date == $stat->getDate()->format($this::DATE_FORMAT)) {
+                $articleViews[] = $stat->getView();
+                $articleStats->removeElement($stat);
+            } else {
+                $articleViews[] = 0;
+            }
         }
 
         $articleFileDownloads = ['Download'];
@@ -48,19 +63,25 @@ class DashboardController extends OjsController
         }
 
         $articlesMonthly = [];
-        for($i = 0; $i < 10; $i++)
-        {
-            array_push($articlesMonthly, [
-                'Article '.rand(0, 100), rand((90 - $i*10), (100 - $i*10))
-            ]);
+        $articlesMonthlyStats = $articleStatRepo->getMostViewed($articles, array_slice($lastMonth, 1), 10);
+        foreach ($articlesMonthlyStats as $stat) {
+            /** @var ArticleStatistic $articleStat */
+            $articleStat = $stat[0];
+            $articlesMonthly[] = array(
+                $articleStat->getArticle()->getTitle(),
+                $stat['totalViews']
+            );
         }
 
-        $articles = [];
-        for($i = 0; $i < 10; $i++)
-        {
-            array_push($articles, [
-                'Article '.rand(0, 100), rand((900 - $i*100), (1000 - $i*100))
-            ]);
+        $articlesAllTime = [];
+        $articlesAllTimeStats = $articleStatRepo->getMostViewed($articles, null, 10);
+        foreach ($articlesAllTimeStats as $stat) {
+            /** @var ArticleStatistic $articleStat */
+            $articleStat = $stat[0];
+            $articlesAllTime[] = array(
+                $articleStat->getArticle()->getTitle(),
+                $stat['totalViews']
+            );
         }
 
         $articleFilesMonthly = [];
@@ -71,10 +92,10 @@ class DashboardController extends OjsController
             ]);
         }
 
-        $articleFiles = [];
+        $articleFilesAllTime = [];
         for($i = 0; $i < 10; $i++)
         {
-            array_push($articleFiles, [
+            array_push($articleFilesAllTime, [
                 'Article File '.rand(0, 100), rand((900 - $i*100), (1000 - $i*100))
             ]);
         }
@@ -87,17 +108,17 @@ class DashboardController extends OjsController
             ]);
         }
 
-        $issueFiles = [];
+        $issueFilesAllTime = [];
         for($i = 0; $i < 10; $i++)
         {
-            array_push($issueFiles, [
+            array_push($issueFilesAllTime, [
                 'Issue File '.rand(0, 100), rand((900 - $i*100), (1000 - $i*100))
             ]);
         }
 
 
         $json = [
-            'dates' => $dates,
+            'dates' => $lastMonth,
             'articleViews' => $articleViews,
             'articleFileDownloads' => $articleFileDownloads,
             'issueFileDownloads' => $issueFileDownloads
@@ -106,11 +127,11 @@ class DashboardController extends OjsController
         $data = [
             'stats' => json_encode($json),
             'articlesMonthly' => $articlesMonthly,
-            'articles' => $articles,
+            'articles' => $articlesAllTime,
             'articleFilesMonthly' => $articleFilesMonthly,
-            'articleFiles' => $articleFiles,
+            'articleFiles' => $articleFilesAllTime,
             'issueFilesMonthly' => $issueFilesMonthly,
-            'issueFiles' => $issueFiles
+            'issueFiles' => $issueFilesAllTime
         ];
 
         return $data;
