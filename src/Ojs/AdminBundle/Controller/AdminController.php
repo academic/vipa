@@ -9,6 +9,7 @@ use Ojs\Common\Params\ArticleEventLogParams;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminController extends Controller
 {
@@ -17,18 +18,20 @@ class AdminController extends Controller
      */
     public function dashboardCheckAction()
     {
-        if ($this->getUser()->isAdmin()) {
-            return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
-        }
+        if ($this->getUser()) {
+            if ($this->getUser()->isAdmin()) {
+                return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
+            } /* TODO: Redirect to journal dashboard
+            elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
+                return $this->redirect($this->generateUrl('ojs_journal_dashboard_index'));
+            }
+            */
 
-        /* TODO: Redirect to journal dashboard
-        elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
-            return $this->redirect($this->generateUrl('ojs_journal_dashboard_index'));
-        }
-        */
-
-        else {
-            return $this->redirect($this->generateUrl('ojs_user_index'));
+            else {
+                return $this->redirect($this->generateUrl('ojs_user_index'));
+            }
+        } else {
+            throw new AccessDeniedException('You are not allowed to see this page');
         }
     }
 
