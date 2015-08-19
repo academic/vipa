@@ -96,24 +96,28 @@ class ArticleSubmissionController extends Controller
         $drafts = $gridManager->createGrid('drafts');
         $source1->manipulateRow(
             function (Row $row) use ($translator) {
+                $entity = $row->getEntity();
                 $statusText = ArticleParams::statusText($row->getField('status'));
                 if (!is_array($statusText)) {
                     $row->setField('status', $translator->trans($statusText));
                 } else {
                     $row->setField('status', $translator->trans('status.unknown'));
                 }
+                $row->setField('title', $entity->getTitle());
                 return $row;
             }
         );
 
         $source2->manipulateRow(
             function (Row $row) use ($translator) {
+                $entity = $row->getEntity();
                 $statusText = ArticleParams::statusText($row->getField('status'));
                 if (!is_array($statusText)) {
                     $row->setField('status', $translator->trans($statusText));
                 } else {
                     $row->setField('status', $translator->trans('status.unknown'));
                 }
+                $row->setField('title', $entity->getTitle());
                 return $row;
             }
         );
@@ -195,13 +199,13 @@ class ArticleSubmissionController extends Controller
             ->addCitation(new Citation())
             ->addArticleFile(new ArticleFile())
             ->addArticleAuthor($articleAuthor);
-
         $locales = [];
         $submissionLangObjects = $journal->getLanguages();
         foreach ($submissionLangObjects as $submissionLangObject) {
             $locales[] = $submissionLangObject->getCode();
         }
         $defaultLocale = $journal->getMandatoryLang()->getCode();
+        $article->setCurrentLocale($defaultLocale);
 
         $form = $this->createCreateForm($article, $journal, $locales, $defaultLocale);
 
@@ -211,14 +215,10 @@ class ArticleSubmissionController extends Controller
             foreach ($article->getArticleAuthors() as $f_articleAuthor) {
                 $f_articleAuthor->setAuthorOrder($k);
                 $k++;
-                if (empty($f_articleAuthor->getAuthor()->getLocale())) {
-                    $f_articleAuthor->getAuthor()->setLocale($journal->getMandatoryLang()->getCode());
-                }
             }
             $i = 0;
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($i);
-                $f_citations->setLocale($journal->getMandatoryLang()->getCode());
                 $i++;
             }
             foreach ($article->getArticleFiles() as $f_articleFile) {
@@ -425,11 +425,6 @@ class ArticleSubmissionController extends Controller
         );
         $this->throw404IfNotFound($article);
 
-        $translations = [];
-        foreach ($article->getTranslations() as $translation) {
-            $translations[$translation->getLocale()][$translation->getField()] = $translation->getContent();
-        }
-
         $form = $this->createForm(new ArticlePreviewType(), $article, array(
             'action' => $this->generateUrl(
                 'ojs_journal_submission_preview',
@@ -487,7 +482,7 @@ class ArticleSubmissionController extends Controller
             'OjsJournalBundle:ArticleSubmission:preview.html.twig',
             array(
                 'article' => $article,
-                'translations' => $translations,
+                'translations' => $article->getTranslations(),
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
                 'form' => $form->createView()
             )

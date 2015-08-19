@@ -37,33 +37,6 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">Article Meta Data</div>
-                    <div class="panel panel-body table-responsive">
-                        <table class="table table-striped">
-                            <tr colspan="2">
-                                <td><span class="label label-info">{{ app.request.locale }}</span></td>
-                            </tr>
-                            <tr>
-                                <td>{{ "title"|trans }}</td>
-                                <td>{{ article.title }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ "subtitle"|trans }}</td>
-                                <td>{{ article.subtitle }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ "keywords"|trans }}</td>
-                                <td>{{ article.keywords }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ "subjects"|trans }}</td>
-                                <td>{{ article.subjects }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ "abstract"|trans }}</td>
-                                <td>{{ article.abstract|raw }}</td>
-                            </tr>
-                        </table>
-                    </div>
                     {% for lang, translation in  translations %}
                         <div class="panel panel-body table-responsive">
                             <table class="table table-striped">

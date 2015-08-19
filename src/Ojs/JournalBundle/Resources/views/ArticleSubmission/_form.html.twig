@@ -6,6 +6,7 @@
         <div class="panel-body">
             {{ form_row(form.articleType) }}
             {{ form_row(form.translations) }}
+            {{ form_row(form._token) }}
         </div>
     </div>
 
@@ -59,5 +60,4 @@
     </div>
     <hr>
     {{ form_row(form.save) }}
-    {{ form_end(form) }}
 </div>
