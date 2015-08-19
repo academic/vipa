@@ -44,9 +44,6 @@ rest:
   resource : "routing_rest.yml"
   prefix: /api/
 
-OkulbilisimMessageBundle:
-  resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
-
 feedback:
   resource: "@OkulbilisimFeedbackBundle/Resources/config/routing.yml"
 
@@ -64,11 +61,6 @@ change_locale:
 apidoc:
   resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
   prefix:   /api/public/doc
-  
-jms_job_queue_bundle:
-  resource: "@JMSJobQueueBundle/Controller/"
-  type: annotation
-  prefix: /admin/jobs
 
 fos_js_routing:
   resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

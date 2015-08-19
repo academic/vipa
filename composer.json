@@ -42,7 +42,6 @@
     "friendsofsymfony/elastica-bundle": "dev-master",
     "braincrafted/bootstrap-bundle": "~2.0",
     "ircmaxell/password-compat": "~1.0",
-    "jms/job-queue-bundle": "1.2.0",
     "pagerfanta/pagerfanta": "1.0.3",
     "white-october/pagerfanta-bundle": "1.0.*@dev",
     "apy/datagrid-bundle": "2.2.16",
@@ -60,7 +59,6 @@
     "jbouzekri/file-uploader-bundle": "~2.0",
     "norzechowicz/aceeditor-bundle": "0.1.*",
     "friendsofsymfony/user-bundle": "dev-master",
-    "okulbilisim/ojs-message-bundle": "v1.0",
     "pugx/autocompleter-bundle": "dev-master"
   },
   "require-dev": {
@@ -70,10 +68,6 @@
     "h4cc/alice-fixtures-bundle": "~0.5"
   },
   "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/okulbilisim/OjsMessageBundle.git"
-    },
     {
       "type": "vcs",
       "url": "https://github.com/okulbilisim/PUGXAutoCompleterBundle.git"

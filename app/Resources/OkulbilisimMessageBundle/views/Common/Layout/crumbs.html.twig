@@ -1,9 +1,0 @@
-{%- spaceless -%}
-<ol class="breadcrumb">
-    {%- for key, crumb in crumbs.getTrail -%}
-    <li>
-        <a href="{{- crumb.url -}}" title="{{- crumb.label -}}">{{- crumb.label |raw -}}</a>
-    </li>
-    {%- endfor -%}
-</ol>
-{%- endspaceless -%}

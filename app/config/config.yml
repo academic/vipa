@@ -31,17 +31,6 @@ framework:
   fragments:       ~
   http_method_override: true
 
-okulbilisim_message:
-  entity:
-    user:
-      class: Ojs\UserBundle\Entity\User
-  component:
-    dashboard:
-      integrator:
-        class: Okulbilisim\MessageBundle\Component\Dashboard\DashboardIntegrator
-    twig_extension:
-      folder_list:
-        class: Okulbilisim\MessageBundle\Component\TwigExtension\FolderListExtension
 
 # Twig Configuration
 twig:
