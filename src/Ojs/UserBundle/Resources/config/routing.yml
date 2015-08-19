@@ -45,10 +45,3 @@ regenerate_apikey:
 user_create_password:
     path: /password/create
     defaults: { _controller: "OjsUserBundle:Security:createPassword" }
-
-ojs_user_forgot_password:
-    path: /forgot_password
-    defaults: { _controller: "OjsUserBundle:Security:forgotPassword" }
-ojs_user_reset_password:
-    path: /reset_password/{token}
-    defaults: { _controller: "OjsUserBundle:Security:resetPassword" }

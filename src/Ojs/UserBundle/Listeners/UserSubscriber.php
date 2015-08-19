@@ -47,7 +47,6 @@ class UserSubscriber implements EventSubscriberInterface
         return [
             'user.register.complete' => 'onRegisterComplete',
             'user.password.change' => 'onPasswordChange',
-            'user.password.reset' => 'onPasswordReset',
         ];
     }
 
@@ -66,19 +65,6 @@ class UserSubscriber implements EventSubscriberInterface
 
     public function onPasswordChange(UserEvent $event)
     {
-        $message = $this->mailer->createMessage()
-            ->setSubject(ojs . change_password)
-            ->setFrom($this->systemEmail)
-            ->setTo($event->getUser()->getEmail())
-            ->setBody(
-                $this->twig->render(
-                    'OjsUserBundle:Mails:User/password_changed.html.twig',
-                    ['user' => $event->getUser()]
-                )
-            )
-            ->setContentType('text/html');
-        $this->mailer->send($message);
-
         try {
             //log as eventlog
             $eventLog = new EventLog();
@@ -89,22 +75,7 @@ class UserSubscriber implements EventSubscriberInterface
 
             $this->em->flush();
         } catch (\Exception $e) {
+            // Nothing to do.
         }
-    }
-
-    public function onPasswordReset(UserEvent $event)
-    {
-        $message = $this->mailer->createMessage()
-            ->setSubject('Password Reset Completed')
-            ->setFrom($this->systemEmail)
-            ->setTo($event->getUser()->getEmail())
-            ->setBody(
-                $this->twig->render(
-                    'OjsUserBundle:Mails:User/password_reset_successful.html.twig',
-                    ['user' => $event->getUser()]
-                )
-            )
-            ->setContentType('text/html');
-        $this->mailer->send($message);
     }
 }

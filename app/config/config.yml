@@ -140,9 +140,6 @@ fos_user:
   service:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
-  resetting:
-    email:
-      template: @OjsUserBundle:Mails/User:password_resetting.email.twig
 
 prezent_doctrine_translatable:
     fallback_locale: %locale%
