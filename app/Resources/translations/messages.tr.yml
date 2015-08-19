@@ -1245,6 +1245,8 @@ user.activitylog: 'Kullanıcı İşlem Günlüğü'
 user.anonym.create_password: 'Şifre Oluştur'
 user.apikey: 'Api Anahtarı'
 user.change_password: 'Şifre Değiştir'
+user.change_password_fail: 'Parola değiştirilemedi'
+user.changed_password: 'Parola başarıyla değiştirildi'
 user.connected_accounts: 'İlişkili Hesaplar'
 user.connected_accounts.action: Hareketler
 user.connected_accounts.add: 'Hesap Ekle'

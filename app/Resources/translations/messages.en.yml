@@ -1246,6 +1246,8 @@ user.activitylog: 'User Activity Log'
 user.anonym.create_password: 'Create password'
 user.apikey: 'Api Key'
 user.change_password: 'Change Password'
+user.change_password_fail: 'Couldn''t change the password'
+user.change_password_success: 'Your password has been changed'
 user.connected_accounts: 'Connected Accounts'
 user.connected_accounts.action: Actions
 user.connected_accounts.add: 'Add Account'

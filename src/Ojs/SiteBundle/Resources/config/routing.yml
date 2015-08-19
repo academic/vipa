@@ -32,10 +32,6 @@ ojs_user_connected_account:
     path: /user/connected_accounts
     defaults: { _controller: "OjsSiteBundle:User:connectedAccount" }
 
-ojs_user_change_password:
-    path: /user/change_password
-    defaults: { _controller: "OjsSiteBundle:User:changePassword" }
-
 ojs_user_connected_account_add:
     path: /user/connected_accounts/add
     defaults: { _controller: "OjsSiteBundle:User:addConnectedAccount"}

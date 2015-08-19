@@ -4,10 +4,12 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Exception\NotFoundException;
+use FOS\UserBundle\Form\Type\ChangePasswordFormType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\CustomField;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
+use Ojs\UserBundle\Form\Type\CreatePasswordType;
 use Ojs\UserBundle\Form\Type\CustomFieldType;
 use Ojs\UserBundle\Form\Type\UpdateUserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -196,29 +198,5 @@ class UserController extends Controller
         $em->flush();
 
         return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
-    }
-
-    public function changePasswordAction(Request $req)
-    {
-        $data = [];
-        if ($req->isMethod('POST')) {
-            $userManager = $this->get('user.helper');
-            $user = $this->getUser();
-            $password = $req->get('password');
-
-            $session = $this->get('session');
-            $flashBag = $session->getFlashBag();
-            $translator = $this->get('translator');
-
-            $update = $userManager->changePassword($user, $password['new']['second'], $password['old']);
-            if (!$update) {
-                $flashBag->set('danger', $translator->trans('Old password has wrong.'));
-            } else {
-                $flashBag->set('success', $translator->trans('Your password has been changed.'));
-            }
-            $session->save();
-        }
-
-        return $this->render('OjsSiteBundle:User:change_password.html.twig', $data);
     }
 }
