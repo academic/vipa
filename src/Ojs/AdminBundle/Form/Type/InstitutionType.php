@@ -17,7 +17,8 @@ class InstitutionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+         $institutionId = $options['data']->getId() ? $options['data']->getId(): null;
+         $builder
             ->add(
                 'name',
                 'text',
@@ -69,15 +70,21 @@ class InstitutionType extends AbstractType
                 'theme',
                 'entity',
                 array(
-                    'label' => 'design',
+                    'label' => 'theme',
                     'class' => 'Ojs\JournalBundle\Entity\InstitutionTheme',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('t')
-                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    'query_builder' => function (EntityRepository $er) use ($institutionId) {
+                        $query = $er->createQueryBuilder('t');
+                        if(is_null($institutionId)){
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                        }else{
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.institution = :institutionId')
+                            ->setParameter('institutionId', $institutionId);
+                        }
+                        return $query;
                     },
                     'error_bubbling'=>true,
                 )
@@ -86,7 +93,7 @@ class InstitutionType extends AbstractType
                 'design',
                 'entity',
                 array(
-                    'label' => 'theme',
+                    'label' => 'design',
                     'class' => 'Ojs\JournalBundle\Entity\InstitutionDesign',
                     'property' => 'title',
                     'multiple' => false,
@@ -158,6 +165,7 @@ class InstitutionType extends AbstractType
                 'data_class' => 'Ojs\JournalBundle\Entity\Institution',
                 'institutionsEndPoint' => '/',
                 'institutionEndPoint' => '/',
+                'institution' => null,
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'validate-form',
