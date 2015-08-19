@@ -18,7 +18,6 @@ class InstitutionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations')
             ->add(
                 'name',
                 'text',
@@ -30,6 +29,7 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
+            ->add('translations', 'a2lix_translations')
             ->add(
                 'slug',
                 'text',
@@ -69,8 +69,25 @@ class InstitutionType extends AbstractType
                 'theme',
                 'entity',
                 array(
-                    'label' => 'theme',
+                    'label' => 'design',
                     'class' => 'Ojs\JournalBundle\Entity\InstitutionTheme',
+                    'property' => 'title',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('t')
+                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    },
+                    'error_bubbling'=>true,
+                )
+            )
+            ->add(
+                'design',
+                'entity',
+                array(
+                    'label' => 'theme',
+                    'class' => 'Ojs\JournalBundle\Entity\InstitutionDesign',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
