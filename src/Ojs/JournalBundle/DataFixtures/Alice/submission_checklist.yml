@@ -1,5 +1,6 @@
 \Ojs\JournalBundle\Entity\SubmissionChecklist:
     checkItem1:
+        locale: en
         label: The title page should include
         detail:   |
                              <ul><li>The name(s) of the author(s)</li>
@@ -9,14 +10,17 @@
         journal: @journal1
         visible: true
     checkItem2:
+        locale: en
         label: All authors have read and approved the most recent version of the manuscript
         journal: @journal1
         visible: true
     checkItem3:
+        locale: en
         label: Ensure your manuscript has been <i>spell checked</i>
         journal: @journal1
         visible: true
     checkItem4:
+        locale: tr
         label: Sayfa başlığı eklenmeli
         detail:   |
                              <ul><li>Yazarların adları</li>
@@ -26,10 +30,12 @@
         journal: @journal1
         visible: true
     checkItem5:
+        locale: tr
         label: Tüm yazarlar taslağı okumuş ve onaylamış olmalılar.
         journal: @journal1
         visible: true
     checkItem6:
+        locale: tr
         label: Taslağın gramer ve dil kontrolü yapılmış olmalı
         journal: @journal1
         visible: true

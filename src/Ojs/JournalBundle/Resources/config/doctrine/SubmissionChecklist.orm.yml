@@ -13,6 +13,9 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
       type: string
       gedmo:
           - versioned
+    locale:
+      type: string
+      nullable: true
     detail:
       type: text
       nullable: true
