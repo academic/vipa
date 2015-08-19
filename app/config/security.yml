@@ -53,11 +53,6 @@ security:
         path: /logout
         target: /
         success_handler: ojs.logout_listener
-      remember_me:
-        key: df716bb554af3c6f04c34e0c6518253b
-        lifetime: 1800
-        path: /.*
-        domain: ~
       security: true
       anonymous: true
   access_control:
