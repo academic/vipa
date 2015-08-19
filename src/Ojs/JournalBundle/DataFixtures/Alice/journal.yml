@@ -14,6 +14,6 @@
     institution: @default
     subjects: [@subject1, @subject2]
     languages: [@lang1, @lang2]
-    status: '3'
+    status: '1'
     setupStatus: true
     mandatoryLang: @lang1
