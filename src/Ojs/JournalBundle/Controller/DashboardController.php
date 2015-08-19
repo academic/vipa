@@ -54,47 +54,47 @@ class DashboardController extends OjsController
         $articleFileDownloads['mainChart'] = [];
         $articleFileDownloads['mainChartNames'] = [];
         $articleFileDownloads['charts'] = [];
-        for($i = 0; $i < rand(2, 20); $i++)
-        {
-            $uniqueId = 'aUniqueIdHere'.rand(0, 10000);
-            array_push(
-                $articleFileDownloads['mainChart'],
-                [$uniqueId, rand(0, 100)]
-            );
-            array_push(
-                $articleFileDownloads['mainChartNames'],
-                [$uniqueId, 'Makale '.$i]
-            );
-        }
-        foreach($articleFileDownloads['mainChart'] as $articleFile)
-        {
-            $articleFileDownloads['charts'][$articleFile[0]] = [];
-            for($i = 0; $i < rand(2, 5); $i++)
-            {
-                array_push(
-                    $articleFileDownloads['charts'][$articleFile[0]],
-                    ['Veri '.$i, rand(0, 100)]
-                );
+
+        foreach ($articles as $article) {
+            $key = $article->getId();
+            $articleFileStatRepo = $this->getDoctrine()->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+            $allFilesStat = $articleFileStatRepo->getTotalDownloadsOfAllFiles($article, $lastMonth);
+
+            if (!empty($allFilesStat)) {
+                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
+                $articleFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
+                $articleFileDownloads['mainChartNames'][] = [$key, $article->getTitle()];
+
+                foreach ($article->getArticleFiles() as $articleFile) {
+                    $fileStat = $articleFileStatRepo->getTotalDownloadsByDates($articleFile, $lastMonth);
+
+                    if (!empty($fileStat)) {
+                        $totalDownloads = $fileStat[0][1];
+                        $articleFileDownloads['charts'][$key][] = [$articleFile->getTitle(), $totalDownloads];
+                    }
+
+                }
             }
         }
-
 
         $issueFileDownloads = [];
         $issueFileDownloads['mainChart'] = [];
         $issueFileDownloads['mainChartNames'] = [];
         $issueFileDownloads['charts'] = [];
+
         for($i = 0; $i < rand(2, 20); $i++)
         {
-            $uniqueId = 'aUniqueIdHere'.rand(0, 10000);
+            $key = 'aUniqueIdHere'.rand(0, 10000);
             array_push(
                 $issueFileDownloads['mainChart'],
-                [$uniqueId, rand(0, 100)]
+                [$key, rand(0, 100)]
             );
             array_push(
                 $issueFileDownloads['mainChartNames'],
-                [$uniqueId, 'Makale '.$i]
+                [$key, 'Makale '.$i]
             );
         }
+
         foreach($issueFileDownloads['mainChart'] as $articleFile)
         {
             $issueFileDownloads['charts'][$articleFile[0]] = [];
