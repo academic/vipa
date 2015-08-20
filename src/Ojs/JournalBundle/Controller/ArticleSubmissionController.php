@@ -71,8 +71,8 @@ class ArticleSubmissionController extends Controller
                     ->setParameter('journal', $currentJournal)
                     ->setParameter('notDraftStatuses', array(-3, -2, 0 ,1));
                 if(!$all){
-                    $qb->andWhere($source1TableAlias.'.submitterId = :userId')
-                        ->setParameter('userId', $user->getId());
+                    $qb->andWhere($source1TableAlias.'.submitterUser = :user')
+                        ->setParameter('user', $user);
                 }
                 return $qb;
             }
@@ -85,8 +85,8 @@ class ArticleSubmissionController extends Controller
                     ->setParameter('journal', $currentJournal)
                     ->setParameter('status', -1);
                 if(!$all){
-                    $qb->andWhere($source2TableAlias.'.submitterId = :userId')
-                        ->setParameter('userId', $user->getId());
+                    $qb->andWhere($source2TableAlias.'.submitterUser = :user')
+                        ->setParameter('user', $user);
                 }
             }
         );
@@ -214,6 +214,7 @@ class ArticleSubmissionController extends Controller
             $k = 0;
             foreach ($article->getArticleAuthors() as $f_articleAuthor) {
                 $f_articleAuthor->setAuthorOrder($k);
+                $f_articleAuthor->setArticle($article);
                 $k++;
             }
             $i = 0;
@@ -339,7 +340,7 @@ class ArticleSubmissionController extends Controller
         $article = $articleRepository->findOneBy(
             array(
                 'id' => $id,
-                'submitterId' => $user->getId(),
+                'submitterUser' => $user,
                 'status' => -1
             )
         );
@@ -419,7 +420,7 @@ class ArticleSubmissionController extends Controller
         $article = $articleRepository->findOneBy(
             array(
                 'id' => $articleId,
-                'submitterId' => $user->getId(),
+                'submitterUser' => $user,
                 'status' => -1
             )
         );
@@ -586,7 +587,7 @@ class ArticleSubmissionController extends Controller
         /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
             'journal' => $journal,
-            'submitterId' => $this->getUser()->getId(),
+            'submitterUser' => $this->getUser(),
             'id' => $id,
             'status' => -1
         ));
