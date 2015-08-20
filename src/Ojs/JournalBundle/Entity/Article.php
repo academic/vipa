@@ -16,6 +16,7 @@ use Ojs\Common\Params\ArticleParams;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\UserBundle\Entity\User;
 
 /**
  * Article
@@ -46,13 +47,6 @@ class Article extends AbstractTranslatable
      * @GRID\Column(type="text", groups={"submission"})
      */
     private $status;
-
-    /**
-     * user id of the owner of this article
-     * @var integer
-     * @Expose
-     */
-    private $submitterId;
 
     /**
      * (optional)
@@ -226,6 +220,11 @@ class Article extends AbstractTranslatable
      * @var JournalSection
      */
     private $section;
+
+    /**
+     * @var User
+     */
+    private $submitterUser;
 
     /**
      * @var string
@@ -655,20 +654,20 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * @return integer
+     * @return User
      */
-    public function getSubmitterId()
+    public function getSubmitterUser()
     {
-        return $this->submitterId;
+        return $this->submitterUser;
     }
 
     /**
-     * @param $submitterId
+     * @param User $submitterUser
      * @return $this
      */
-    public function setSubmitterId($submitterId)
+    public function setSubmitterUser(User $submitterUser)
     {
-        $this->submitterId = $submitterId;
+        $this->submitterUser = $submitterUser;
 
         return $this;
     }
