@@ -69,7 +69,7 @@ class AdminRoleController extends Controller
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminContactType:new.html.twig',
+            'OjsAdminBundle:AdminRole:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
