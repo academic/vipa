@@ -236,7 +236,7 @@ class ManagerController extends Controller
         $articles = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
-            ->findBy(['submitter' => $this->getUser()]);
+            ->findBy(['submitterUser' => $this->getUser()]);
 
         $response = $response = $this->render(
             'OjsJournalBundle:User:home.html.twig',
