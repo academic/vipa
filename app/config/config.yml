@@ -10,8 +10,10 @@ imports:
   - { resource: api.yml }
   - { resource: swift.yml }
   - { resource: media.yml }
+
 parameters:
   admin_base_view: '::ojsbase.html.twig'
+
 framework:
   translator:      { fallback: %locale% }
   secret:          "%secret%"
@@ -30,7 +32,7 @@ framework:
     cookie_domain: ".%base_host%"
   fragments:       ~
   http_method_override: true
-
+  validation:    { enabled: true}
 
 # Twig Configuration
 twig:

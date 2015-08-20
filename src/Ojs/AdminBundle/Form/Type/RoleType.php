@@ -28,6 +28,7 @@ class RoleType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\UserBundle\Entity\Role',
+                'cascade_validation' => true,
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

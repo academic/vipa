@@ -68,9 +68,12 @@ class AdminRoleController extends Controller
             return $this->redirectToRoute('ojs_admin_role_show', ['id' => $entity->getId()]);
         }
 
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+        return $this->render(
+            'OjsAdminBundle:AdminContactType:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
         );
     }
 
