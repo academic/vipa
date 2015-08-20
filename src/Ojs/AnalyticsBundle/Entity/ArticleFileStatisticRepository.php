@@ -77,6 +77,6 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->setMaxResults($limit)
             ->setParameter('articles', $articles);
 
-        return new ArrayCollection($builder->getQuery()->getResult());
+        return $builder->getQuery()->getResult();
     }
 }

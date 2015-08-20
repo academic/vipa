@@ -142,7 +142,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for issueFile in articleFilesMonthly %}
+                            {% for issueFile in issueFilesMonthly %}
                                 <tr>
                                     <td>{{ issueFile[0] }}</td>
                                     <td>{{ issueFile[1] }}</td>
@@ -160,7 +160,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for issueFile in articleFiles %}
+                            {% for issueFile in issueFiles %}
                                 <tr>
                                     <td>{{ issueFile[0] }}</td>
                                     <td>{{ issueFile[1] }}</td>
@@ -229,6 +229,20 @@
 
         function createPieChart(id, columns)
         {
+            var newNames = {};
+            columns['mainChartNames'].forEach(function(article){
+                newNames[article[0]] = article[1];
+            });
+
+            for(var key in columns['charts'])
+            {
+                columns['charts'][key].forEach(function(file){
+                    newNames[file[2]] = file[0];
+                    file[0] = file[2];
+                    file.splice(2);
+                });
+            }
+
             var newDatas = columns['charts'];
             newDatas['mainChart'] = columns['mainChart'];
 
@@ -263,10 +277,7 @@
                     }
                 },
             });
-            var newNames = {};
-            columns['mainChartNames'].forEach(function(article){
-                newNames[article[0]] = article[1];
-            });
+
             chart.data.names(newNames);
         }
 

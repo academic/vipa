@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Controller;
 
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
+use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\Common\Controller\OjsController;
 
 class DashboardController extends OjsController
@@ -74,39 +75,43 @@ class DashboardController extends OjsController
 
                     if (!empty($fileStat)) {
                         $totalDownloads = $fileStat[0][1];
-                        $articleFileDownloads['charts'][$key][] = [$articleFile->getTitle(), $totalDownloads];
+                        $articleFileDownloads['charts'][$key][] = [$articleFile->getTitle(), $totalDownloads, 'articleFile'.$articleFile->getId()];
                     }
                 }
             }
         }
 
+        $issues = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Issue')
+            ->findBy(['journal' => $journal]);
+
+        $issueFileStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
+
         $issueFileDownloads = [];
         $issueFileDownloads['mainChart'] = [];
         $issueFileDownloads['mainChartNames'] = [];
         $issueFileDownloads['charts'] = [];
-
-        for($i = 0; $i < rand(2, 20); $i++)
+        foreach ($issues as $issue)
         {
-            $key = 'aUniqueIdHere'.rand(0, 10000);
-            array_push(
-                $issueFileDownloads['mainChart'],
-                [$key, rand(0, 100)]
-            );
-            array_push(
-                $issueFileDownloads['mainChartNames'],
-                [$key, 'Makale '.$i]
-            );
-        }
+            $key = $issue->getId();
+            $allFilesStat = $issueFileStatRepo->getTotalDownloadsOfAllFiles($issue, array_slice($lastMonth, 1));
 
-        foreach($issueFileDownloads['mainChart'] as $articleFile)
-        {
-            $issueFileDownloads['charts'][$articleFile[0]] = [];
-            for($i = 0; $i < rand(2, 5); $i++)
-            {
-                array_push(
-                    $issueFileDownloads['charts'][$articleFile[0]],
-                    ['Veri '.$i, rand(0, 100)]
-                );
+            if (!empty($allFilesStat)) {
+                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
+                $issueFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
+                $issueFileDownloads['mainChartNames'][] = [$key, $issue->getTitle()];
+
+                foreach ($issue->getIssueFiles() as $issueFile) {
+                    $fileStat = $issueFileStatRepo->getTotalDownloads($issueFile, array_slice($lastMonth, 1));
+
+                    if (!empty($fileStat)) {
+                        $totalDownloads = $fileStat[0][1];
+                        $issueFileDownloads['charts'][$key][] = [$issueFile->getTitle(), $totalDownloads, 'issueFile'.$issueFile->getId()];
+                    }
+                }
             }
         }
 
@@ -157,22 +162,29 @@ class DashboardController extends OjsController
         }
 
         $issueFilesMonthly = [];
-        for($i = 0; $i < 10; $i++)
-        {
-            array_push($issueFilesMonthly, [
-                'Issue File '.rand(0, 100), rand((90 - $i*10), (100 - $i*10))
-            ]);
+        $issueFilesMonthlyStats = $issueFileStatRepo->getMostDownloadedFiles($issues, array_slice($lastMonth, 1), 10);
+        foreach ($issueFilesMonthlyStats as $stat) {
+            /** @var IssueFileStatistic $issueFileStat */
+            $issueFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $issueFilesMonthly[] = array(
+                $issueFileStat->getIssueFile()->getTitle(),
+                $totalDownloads
+            );
         }
 
         $issueFilesAllTime = [];
-        for($i = 0; $i < 10; $i++)
-        {
-            array_push($issueFilesAllTime, [
-                'Issue File '.rand(0, 100), rand((900 - $i*100), (1000 - $i*100))
-            ]);
+        $issueFilesAllTimeStats = $issueFileStatRepo->getMostDownloadedFiles($issues, null, 10);
+        foreach ($issueFilesAllTimeStats as $stat) {
+            /** @var IssueFileStatistic $issueFileStat */
+            $issueFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $issueFilesAllTime[] = array(
+                $issueFileStat->getIssueFile()->getTitle(),
+                $totalDownloads
+            );
         }
-
-
+        
         $json = [
             'dates' => $lastMonth,
             'articleViews' => $articleViews,
@@ -189,6 +201,10 @@ class DashboardController extends OjsController
             'issueFilesMonthly' => $issueFilesMonthly,
             'issueFiles' => $issueFilesAllTime
         ];
+
+        echo "<pre>";
+        var_dump($issueFileDownloads);
+        echo "</pre>";
 
         return $data;
     }
