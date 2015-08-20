@@ -1,0 +1,12 @@
+Ojs\JournalBundle\Entity\Lang:
+    properties:
+        name:
+          - NotBlank: ~
+        code:
+          - NotBlank: ~
+          - Length:
+              max: 10
+          - Regex:
+              pattern: "/[\$\(\)\*\+\.\?\[\\\^\{\|!@%&_:;'`<>,~#=\"\\/]/"
+              message: "userInput.invalidCharacters"
+              match:   false
