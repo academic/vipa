@@ -9,13 +9,13 @@ use Ojs\JournalBundle\Entity\ArticleFile;
 class ArticleFileStatisticRepository extends EntityRepository
 {
     /**
-     * Gets statistics of given article files on given dates
+     * Returns the download count of the given article file on given dates
      *
      * @param ArticleFile $articleFile
      * @param array $dates
-     * @return ArrayCollection
+     * @return array
      */
-    public function getTotalDownloadsByDates($articleFile, $dates)
+    public function getTotalDownloads($articleFile, $dates)
     {
         $builder = $this->createQueryBuilder('stat');
         $builder
@@ -32,6 +32,13 @@ class ArticleFileStatisticRepository extends EntityRepository
         return $builder->getQuery()->getResult();
     }
 
+    /**
+     * Returns the download count of the given article's files on given dates
+     *
+     * @param $article
+     * @param $dates
+     * @return array
+     */
     public function getTotalDownloadsOfAllFiles($article, $dates)
     {
         $builder = $this->createQueryBuilder('stat');

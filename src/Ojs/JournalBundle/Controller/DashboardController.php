@@ -66,13 +66,12 @@ class DashboardController extends OjsController
                 $articleFileDownloads['mainChartNames'][] = [$key, $article->getTitle()];
 
                 foreach ($article->getArticleFiles() as $articleFile) {
-                    $fileStat = $articleFileStatRepo->getTotalDownloadsByDates($articleFile, $lastMonth);
+                    $fileStat = $articleFileStatRepo->getTotalDownloads($articleFile, $lastMonth);
 
                     if (!empty($fileStat)) {
                         $totalDownloads = $fileStat[0][1];
                         $articleFileDownloads['charts'][$key][] = [$articleFile->getTitle(), $totalDownloads];
                     }
-
                 }
             }
         }
