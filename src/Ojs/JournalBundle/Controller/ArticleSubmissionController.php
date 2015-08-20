@@ -193,7 +193,7 @@ class ArticleSubmissionController extends Controller
         $articleAuthor->setAuthor($author);
         $article
             ->setCompetingFile($session->get('competingFile'))
-            ->setSubmitterId($user->getId())
+            ->setSubmitterUser($user)
             ->setStatus(-1)
             ->setJournal($journal)
             ->addCitation(new Citation())

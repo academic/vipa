@@ -28,6 +28,7 @@ class ArticleSubmissionType extends AbstractType
             ->add('translations', 'a2lix_translations',[
                 'locales' => $options['locales'],
                 'default_locale' => $options['default_locale'],
+                'required_locales' => [$options['default_locale']],
                 'fields' => [
                     'title' => [
                         'field_type' => 'text'
