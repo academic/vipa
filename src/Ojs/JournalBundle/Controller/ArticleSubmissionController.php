@@ -295,7 +295,7 @@ class ArticleSubmissionController extends Controller
 
         return $form;
     }
-    private function createEditForm(Article $article, Journal $journal, $locales)
+    private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
     {
         $form = $this->createForm(
             new ArticleSubmissionType(),
@@ -307,6 +307,7 @@ class ArticleSubmissionController extends Controller
                 ),
                 'method' => 'POST',
                 'locales' => $locales,
+                'default_locale' => $defaultLocale,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types'))
             )
         )
@@ -351,23 +352,22 @@ class ArticleSubmissionController extends Controller
         foreach ($submissionLangObjects as $submissionLangObject) {
             $locales[] = $submissionLangObject->getCode();
         }
+        $defaultLocale = $journal->getMandatoryLang()->getCode();
+        $article->setCurrentLocale($defaultLocale);
 
-        $form = $this->createEditForm($article, $journal, $locales);
+        $form = $this->createEditForm($article, $journal, $locales, $defaultLocale);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             $k = 0;
             foreach ($article->getArticleAuthors() as $f_articleAuthor) {
                 $f_articleAuthor->setAuthorOrder($k);
+                $f_articleAuthor->setArticle($article);
                 $k++;
-                if (empty($f_articleAuthor->getAuthor()->getLocale())) {
-                    $f_articleAuthor->getAuthor()->setLocale($journal->getMandatoryLang()->getCode());
-                }
             }
             $i = 0;
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($i);
-                $f_citations->setLocale($journal->getMandatoryLang()->getCode());
                 $i++;
             }
 
