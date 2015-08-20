@@ -9,6 +9,11 @@
             margin-bottom: 10px;
         }
     </style>
+    {% if journal is defined and journal.theme %}
+        <style>
+            {{ journal.theme.css|raw }}
+        </style>
+    {% endif %}
 {% endblock %}
 
 {% if isInstitutionHosting is defined %}
