@@ -56,4 +56,27 @@ class ArticleFileStatisticRepository extends EntityRepository
 
         return $builder->getQuery()->getResult();
     }
+
+    public function getMostDownloadedFiles($articles, $dates = null, $limit = null)
+    {
+        $builder = $this->createQueryBuilder('stat');
+
+        if ($dates !== null) {
+            $builder
+                ->andWhere('stat.date IN (:dates)')
+                ->setParameter('dates', $dates);
+        }
+
+        $builder
+            ->join('OjsJournalBundle:ArticleFile', 'file', 'WHERE', 'stat.articleFile = file')
+            ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'file.article = article')
+            ->addSelect('SUM(stat.download)')
+            ->andWhere('article IN (:articles)')
+            ->groupBy('stat.articleFile')
+            ->orderBy('stat.download', 'ASC')
+            ->setMaxResults($limit)
+            ->setParameter('articles', $articles);
+
+        return new ArrayCollection($builder->getQuery()->getResult());
+    }
 }

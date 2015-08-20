@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\Common\Controller\OjsController;
 
@@ -50,6 +51,10 @@ class DashboardController extends OjsController
             }
         }
 
+        $articleFileStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+
         $articleFileDownloads = [];
         $articleFileDownloads['mainChart'] = [];
         $articleFileDownloads['mainChartNames'] = [];
@@ -57,8 +62,7 @@ class DashboardController extends OjsController
 
         foreach ($articles as $article) {
             $key = $article->getId();
-            $articleFileStatRepo = $this->getDoctrine()->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
-            $allFilesStat = $articleFileStatRepo->getTotalDownloadsOfAllFiles($article, $lastMonth);
+            $allFilesStat = $articleFileStatRepo->getTotalDownloadsOfAllFiles($article, array_slice($lastMonth, 1));
 
             if (!empty($allFilesStat)) {
                 $totalDownloadsOfAllFiles = $allFilesStat[0][1];
@@ -66,7 +70,7 @@ class DashboardController extends OjsController
                 $articleFileDownloads['mainChartNames'][] = [$key, $article->getTitle()];
 
                 foreach ($article->getArticleFiles() as $articleFile) {
-                    $fileStat = $articleFileStatRepo->getTotalDownloads($articleFile, $lastMonth);
+                    $fileStat = $articleFileStatRepo->getTotalDownloads($articleFile, array_slice($lastMonth, 1));
 
                     if (!empty($fileStat)) {
                         $totalDownloads = $fileStat[0][1];
@@ -129,19 +133,27 @@ class DashboardController extends OjsController
         }
 
         $articleFilesMonthly = [];
-        for($i = 0; $i < 10; $i++)
-        {
-            array_push($articleFilesMonthly, [
-                'Article File '.rand(0, 100), rand((90 - $i*10), (100 - $i*10))
-            ]);
+        $articleFilesMonthlyStats = $articleFileStatRepo->getMostDownloadedFiles($articles, array_slice($lastMonth, 1), 10);
+        foreach ($articleFilesMonthlyStats as $stat) {
+            /** @var ArticleFileStatistic $articleFileStat */
+            $articleFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $articleFilesMonthly[] = array(
+                $articleFileStat->getArticleFile()->getTitle(),
+                $totalDownloads
+            );
         }
 
         $articleFilesAllTime = [];
-        for($i = 0; $i < 10; $i++)
-        {
-            array_push($articleFilesAllTime, [
-                'Article File '.rand(0, 100), rand((900 - $i*100), (1000 - $i*100))
-            ]);
+        $articleFilesAllTimeStats = $articleFileStatRepo->getMostDownloadedFiles($articles, null, 10);
+        foreach ($articleFilesAllTimeStats as $stat) {
+            /** @var ArticleFileStatistic $articleFileStat */
+            $articleFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $articleFilesAllTime[] = array(
+                $articleFileStat->getArticleFile()->getTitle(),
+                $totalDownloads
+            );
         }
 
         $issueFilesMonthly = [];
