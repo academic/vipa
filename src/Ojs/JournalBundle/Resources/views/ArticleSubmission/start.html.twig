@@ -42,6 +42,16 @@
                 </div>
                 <div class="panel-body">
                     {{ form_start(form) }}
+                        {% if journal.competingFile is not null %}
+                            <div class="alert alert-info" role="alert">
+                                <span>
+                                    {{ 'suggested.competingFile.can.view' }}
+                                </span>
+                                <a href="{{ asset('uploads/journal/' ~ journal.competingFile) }}" target="_blank">
+                                    {{ 'from here'|trans }}
+                                </a>
+                            </div>
+                        {% endif %}
                         {{ form_row(form.competingFile) }}
 
                         <hr>

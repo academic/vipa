@@ -1396,3 +1396,5 @@ institutiondesign.edit: 'Edit Institution Design'
 institutiondesign.list: 'Institution Design List'
 institutiondesign.new: 'New Institution Design'
 institutiondesign.plural: 'Institution Designs'
+suggested.competingFile.can.view: Suggested competing file can view.
+from.here: From here
