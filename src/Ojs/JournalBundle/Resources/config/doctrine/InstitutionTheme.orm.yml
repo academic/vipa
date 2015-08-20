@@ -10,7 +10,7 @@ Ojs\JournalBundle\Entity\InstitutionTheme:
                 strategy: AUTO
     manyToOne:
         institution:
-            targetEntity: Ojs\JournalBundle\Entity\InstitutionTheme
+            targetEntity: Ojs\JournalBundle\Entity\Institution
             inversedBy: institutionThemes
             joinColumn:
                 name: institution_id
