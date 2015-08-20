@@ -59,7 +59,7 @@ class ArticleStatisticRepository extends EntityRepository
             ->andWhere('stat.article IN (:articles)')
             ->setParameter('articles', $articles)
             ->groupBy('stat.article')
-            ->orderBy('stat.view', 'ASC')
+            ->orderBy('stat.view', 'DESC')
             ->setMaxResults($limit);
 
         return new ArrayCollection($builder->getQuery()->getResult());

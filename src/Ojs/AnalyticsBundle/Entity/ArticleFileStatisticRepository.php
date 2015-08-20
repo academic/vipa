@@ -73,7 +73,7 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->addSelect('SUM(stat.download)')
             ->andWhere('article IN (:articles)')
             ->groupBy('stat.articleFile')
-            ->orderBy('stat.download', 'ASC')
+            ->orderBy('stat.download', 'DESC')
             ->setMaxResults($limit)
             ->setParameter('articles', $articles);
 
