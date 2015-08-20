@@ -119,7 +119,6 @@ class IssueFileController extends Controller
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $entity->setIssue($issue);
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
 
