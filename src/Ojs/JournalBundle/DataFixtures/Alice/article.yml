@@ -11,7 +11,7 @@
     status: 3
     subjects: "computer science, technology"
     title: Getting Started with Ojs
-    submitterId: @user_author->id
+    submitterUser: @user_author
     section: @section1
     issue: @issue1
     orderNum: <randomDigit()>
