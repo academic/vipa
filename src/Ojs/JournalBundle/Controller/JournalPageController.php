@@ -89,7 +89,6 @@ class JournalPageController extends OjsController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $entity->setJournal($journal);
             
             $em = $this->getDoctrine()->getManager();

@@ -64,7 +64,6 @@ class AdminInstitutionDesignController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $entity->setContent(
                 $this->prepareDesignContent($entity->getEditableContent())
             );

@@ -124,7 +124,6 @@ class IssueController extends Controller
         if ($form->isValid()) {
             $entity->setJournal($journal);
 
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');

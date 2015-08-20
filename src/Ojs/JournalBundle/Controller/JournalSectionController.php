@@ -103,7 +103,6 @@ class JournalSectionController extends Controller
         if ($form->isValid()) {
             $entity->setJournal($journal);
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
 

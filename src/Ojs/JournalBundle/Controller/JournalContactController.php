@@ -97,7 +97,6 @@ class JournalContactController extends Controller
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
-            $entity->setTranslatableLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
 
