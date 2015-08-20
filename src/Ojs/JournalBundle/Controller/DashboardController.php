@@ -201,11 +201,7 @@ class DashboardController extends OjsController
             'issueFilesMonthly' => $issueFilesMonthly,
             'issueFiles' => $issueFilesAllTime
         ];
-
-        echo "<pre>";
-        var_dump($issueFileDownloads);
-        echo "</pre>";
-
+        
         return $data;
     }
 }
