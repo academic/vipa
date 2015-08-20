@@ -163,6 +163,7 @@ class InstitutionType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Institution',
+                'cascade_validation' => true,
                 'institutionsEndPoint' => '/',
                 'institutionEndPoint' => '/',
                 'institution' => null,

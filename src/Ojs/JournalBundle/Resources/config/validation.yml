@@ -1,12 +1,3 @@
-Ojs\JournalBundle\Entity\Institution:
-  properties:
-    name:
-      - NotBlank: ~
-    address:
-      - NotBlank: ~
-    email:
-      - Email: ~
-
 Ojs\JournalBundle\Entity\Journal:
   properties:
       title:
