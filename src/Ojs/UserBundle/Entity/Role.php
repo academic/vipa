@@ -5,6 +5,7 @@ namespace Ojs\UserBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * Role

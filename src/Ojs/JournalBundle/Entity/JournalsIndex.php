@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalsIndex

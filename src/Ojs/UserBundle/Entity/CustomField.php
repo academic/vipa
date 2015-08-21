@@ -2,6 +2,8 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+
 /**
  * CustomField
  */

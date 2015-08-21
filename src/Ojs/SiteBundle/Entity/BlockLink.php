@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Entity;
 
 use Ojs\AdminBundle\Entity\AdminPost;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * BlockLink

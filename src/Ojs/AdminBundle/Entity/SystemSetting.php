@@ -2,6 +2,8 @@
 
 namespace Ojs\AdminBundle\Entity;
 
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+
 /**
  * AdminSystemSetting
  */

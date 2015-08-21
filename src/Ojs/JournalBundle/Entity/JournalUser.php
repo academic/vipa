@@ -7,6 +7,7 @@ use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Doctrine\Common\Collections\Collection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalUser

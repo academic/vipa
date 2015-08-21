@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * BoardMember

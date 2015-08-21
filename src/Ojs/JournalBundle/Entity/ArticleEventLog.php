@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+
 /**
  * ArticleEventLog
  */

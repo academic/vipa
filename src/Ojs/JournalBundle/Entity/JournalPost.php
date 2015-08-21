@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Ojs\CmsBundle\Entity\Post;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalPost
