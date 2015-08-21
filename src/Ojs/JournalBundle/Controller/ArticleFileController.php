@@ -81,7 +81,8 @@ class ArticleFileController extends Controller
      */
     public function createAction(Request $request, $articleId)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -95,7 +96,7 @@ class ArticleFileController extends Controller
 
         $entity = new ArticleFile();
 
-        $form = $this->createCreateForm($entity, $journal, $article)
+        $form = $this->createCreateForm($entity, $journal, $article, $journalService->getJournalLocales())
             ->add('create', 'submit', array('label' => 'c'));
 
         $form->handleRequest($request);
@@ -128,7 +129,7 @@ class ArticleFileController extends Controller
      * @param   Article     $article
      * @return  Form
      */
-    private function createCreateForm(ArticleFile $entity, Journal $journal, Article $article)
+    private function createCreateForm(ArticleFile $entity, Journal $journal, Article $article, $locales)
     {
         $form = $this->createForm(
             new ArticleFileType(),
@@ -136,6 +137,7 @@ class ArticleFileController extends Controller
             array(
                 'action' => $this->generateUrl('ojs_journal_article_file_create', ['journalId' => $journal->getId(), 'articleId' => $article->getId()]),
                 'method' => 'POST',
+                'locales' => $locales
             )
         );
 
@@ -150,7 +152,8 @@ class ArticleFileController extends Controller
      */
     public function newAction($articleId)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -162,7 +165,7 @@ class ArticleFileController extends Controller
 
         $entity = new ArticleFile();
         $entity->setArticle($article);
-        $form = $this->createCreateForm($entity, $journal, $article)
+        $form = $this->createCreateForm($entity, $journal, $article, $journalService->getJournalLocales())
             ->add('create', 'submit', array('label' => 'c'));
 
         return $this->render(
@@ -228,7 +231,8 @@ class ArticleFileController extends Controller
      */
     public function editAction($id, $articleId)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
 
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
@@ -246,7 +250,7 @@ class ArticleFileController extends Controller
         ));
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity, $journal, $article)
+        $editForm = $this->createEditForm($entity, $journal, $article, $journalService->getJournalLocales())
             ->add('save', 'submit', array('label' => 'save'));
 
         $token = $this
@@ -272,7 +276,7 @@ class ArticleFileController extends Controller
      *
      * @return Form The form
      */
-    private function createEditForm(ArticleFile $entity, Journal $journal, Article $article)
+    private function createEditForm(ArticleFile $entity, Journal $journal, Article $article, $locales)
     {
         $form = $this->createForm(
             new ArticleFileType(),
@@ -280,6 +284,7 @@ class ArticleFileController extends Controller
             array(
                 'action' => $this->generateUrl('ojs_journal_article_file_update', ['id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $article->getId()]),
                 'method' => 'PUT',
+                'locales' => $locales
             )
         );
 
@@ -296,7 +301,8 @@ class ArticleFileController extends Controller
      */
     public function updateAction(Request $request, $id, $articleId)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
 
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
@@ -315,7 +321,7 @@ class ArticleFileController extends Controller
         ));
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity, $journal, $article)
+        $editForm = $this->createEditForm($entity, $journal, $article, $journalService->getJournalLocales())
             ->add('save', 'submit', array('label' => 'save'));
         $editForm->handleRequest($request);
 

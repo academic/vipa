@@ -121,6 +121,21 @@ class JournalService
 
     /**
      * @param  Journal $journal
+     * @return bool|Journal
+     */
+    public function getJournalLocales(Journal $journal = null)
+    {
+        $journal = $this->getSelectedJournal();
+        $submissionLangObjects = $journal->getLanguages();
+        $locales = [];
+        foreach ($submissionLangObjects as $submissionLangObject) {
+            $locales[] = $submissionLangObject->getCode();
+        }
+        return $locales;
+    }
+
+    /**
+     * @param  Journal $journal
      * @return Collection
      */
     public function getSelectedJournalRoles(Journal $journal = null)
