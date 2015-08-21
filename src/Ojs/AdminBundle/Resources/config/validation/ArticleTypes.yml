@@ -1,0 +1,9 @@
+Ojs\JournalBundle\Entity\ArticleTypesTranslation:
+  properties:
+    name:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\ArticleTypes:
+    properties:
+        translations:
+            - Valid: ~

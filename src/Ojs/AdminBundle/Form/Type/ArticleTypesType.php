@@ -27,6 +27,7 @@ class ArticleTypesType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
+                'cascade_validation' => true,
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
