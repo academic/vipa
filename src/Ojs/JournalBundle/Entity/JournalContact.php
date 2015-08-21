@@ -404,7 +404,6 @@ class JournalContact extends AbstractTranslatable
      */
     public function getContactType()
     {
-        $this->contactType->setDefaultLocale($this->getDefaultLocale());
         return $this->contactType;
     }
 
