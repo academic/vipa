@@ -329,11 +329,13 @@ class JournalRepository extends EntityRepository
         /* @var $issue Issue */
         $count = 0;
         foreach ($issues as $issue) {
-            if ($count++ > $maxYearCount) {
-                break;
+            if($issue->getPublished()){
+                if ($count++ > $maxYearCount) {
+                    break;
+                }
+                $year = $issue->getYear();
+                $years[$year][] = $issue;
             }
-            $year = $issue->getYear();
-            $years[$year][] = $issue;
         }
         krsort($years);
 
