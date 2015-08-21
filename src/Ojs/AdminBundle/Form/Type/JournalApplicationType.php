@@ -107,12 +107,6 @@ class JournalApplicationType extends AbstractType
                     'maxSize' => "[200, 300]"
                 )
             ))
-            ->add('competingFile', 'jb_file_ajax',
-                array(
-                    'endpoint' => 'journalCompeting',
-                    'attr' => ['custom_class' => 'apply-journal-cf']
-                )
-            )
             ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])
             ->add('phone', null, ['label' => 'journal.phone', 'attr' => ['class' => 'validate[required,custom[email]]']])
             ->add('email', 'email', ['label' => 'journal.email', 'attr' => ['class' => 'validate[required,custom[email]]']])
