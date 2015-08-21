@@ -55,6 +55,7 @@ class JournalSectionController extends Controller
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
                     $row->setField('title', $entity->getTitle());
+                    $row->setField('journal', $entity->getJournal()->getTitle());
                     if ($row->getField("title") && strlen($row->getField('title')) > 20) {
                         $row->setField('title', substr($row->getField('title'), 0, 20)."...");
                     }

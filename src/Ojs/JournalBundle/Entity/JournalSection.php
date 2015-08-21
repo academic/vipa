@@ -12,7 +12,7 @@ use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalSection
- * @GRID\Source(columns="id,title,allowIndex,hideTitle,journal.title")
+ * @GRID\Source(columns="id,title,allowIndex,hideTitle,journal")
  */
 class JournalSection extends AbstractTranslatable
 {
@@ -54,7 +54,7 @@ class JournalSection extends AbstractTranslatable
 
     /**
      * @var Journal
-     * @GRID\Column(title="journalsection.journal", field="journal.title")
+     * @GRID\Column(title="journal")
      */
     private $journal;
 
