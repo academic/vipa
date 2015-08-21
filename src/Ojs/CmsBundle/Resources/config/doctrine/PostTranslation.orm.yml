@@ -12,4 +12,6 @@ Ojs\CmsBundle\Entity\PostTranslation:
           type: string
           length: 255
           nullable: false
-
+        content:
+          type: text
+          nullable: false

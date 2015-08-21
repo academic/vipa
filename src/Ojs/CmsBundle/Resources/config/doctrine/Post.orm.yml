@@ -24,31 +24,9 @@ Ojs\CmsBundle\Entity\Post:
       type: string
       gedmo:
         slug:
-          seperator: _
-          unique_base: unique_key
+          seperator: -
           fields:
             - id
-    content:
-      type: text
-      nullable: true
-      gedmo:
-        - translatable
-        - versioned
-    status:
-      type: integer
-      length: 2
-    post_type:
-      type: string
-      length: 50
-    object:
-      type: string
-      nullable: true
-    objectId:
-      type: integer
-      nullable: true
-    unique_key:
-      type: string
-      nullable: true
     createdAt:
       type: datetime
       gedmo:

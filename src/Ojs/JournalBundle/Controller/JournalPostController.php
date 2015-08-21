@@ -53,7 +53,7 @@ class JournalPostController extends OjsController
     /**
      * Displays a form to create a new JournalPost entity.
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -62,6 +62,7 @@ class JournalPostController extends OjsController
         }
 
         $entity = new JournalPost();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
 
         return $this->render(

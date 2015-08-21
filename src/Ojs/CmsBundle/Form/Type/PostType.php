@@ -22,17 +22,8 @@ class PostType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $post_types = $this->container->getParameter('post_types');
-        $languages  = $this->container->getParameter('languages');
-        $langs = [];
-        foreach ($languages as $key => $lang) {
-            $langs[$lang['code']]=$lang['name'];
-        }
-
-        if (!$post_types)
-            $post_types = [];
         $builder
-            ->add('translations', 'a2lix_translations')
+            ->add('title', 'text')
             ->add('content', 'ace_editor', array(
                     'label' => 'content',
                     'wrapper_attr' => array(),
@@ -48,40 +39,7 @@ class PostType extends AbstractType
                     'show_print_margin' => null,
                     'highlight_active_line' => null
                 )
-            )
-            ->add('status', 'choice', [
-                'choices' => [
-                    0 => 'Disable',
-                    1 => 'Enable',
-                    2 => 'Canceled'
-                ]
-            ])
-            ;
-        if(isset($options['post_type'])){
-            $builder->add('post_type','choice',[
-                'choices' => $post_types,
-                'data' => $options['post_type']
-            ]);
-        }else{
-            $builder->add('post_type','choice',[
-                'choices' => $post_types,
-            ]);
-        }
-
-        if (isset($options['object']) && $options['object']) {
-            $builder
-                ->add('object', 'hidden', [
-                    'attr' => [
-                        'value' => $options['object']
-                    ]
-                ])
-                ->add('objectId', 'hidden', [
-                    'attr' => [
-                        'value' => $options['objectId']
-                    ]
-                ]);
-
-        };
+            );
     }
 
     /**

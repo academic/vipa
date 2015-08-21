@@ -25,41 +25,8 @@ abstract class Post extends AbstractTranslatable
 
     /**
      * @var string
-     * @GRID\Column(title="title")
-     */
-    private $title;
-
-    /**
-     * @var string
      */
     private $slug;
-
-    /**
-     * @var string
-     */
-    private $content;
-
-    /**
-     * @var integer
-     * @GRID\Column(title="status")
-     */
-    private $status;
-
-    /**
-     * @var string
-     * @GRID\Column(title="Post Type")
-     */
-    private $post_type;
-
-    /**
-     * @var string
-     */
-    private $object;
-
-    /**
-     * @var integer
-     */
-    private $objectId;
 
     /**
      * @var \DateTime
@@ -70,11 +37,6 @@ abstract class Post extends AbstractTranslatable
      * @var \DateTime
      */
     private $updatedAt;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $posts;
 
     /**
      * @Prezent\Translations(targetEntity="Ojs\CmsBundle\Entity\PostTranslation")
@@ -100,21 +62,27 @@ abstract class Post extends AbstractTranslatable
         if (null === $locale) {
             $locale = $this->currentLocale;
         }
+
         if (!$locale) {
             throw new \RuntimeException('No locale has been set and currentLocale is empty');
         }
+
         if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
             return $this->currentTranslation;
         }
+
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
             $translation = new PostTranslation();
+
             if(!is_null($defaultTranslation)){
                 $translation->setTitle($defaultTranslation->getTitle());
             }
+
             $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+
         $this->currentTranslation = $translation;
         return $translation;
     }
@@ -153,6 +121,29 @@ abstract class Post extends AbstractTranslatable
     }
 
     /**
+     * Set content
+     *
+     * @param string $content
+     * @return Post
+     */
+    public function setContent($content)
+    {
+        $this->translate()->setContent($content);
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->translate()->getContent();
+    }
+
+    /**
      * Set slug
      *
      * @param string $slug
@@ -173,121 +164,6 @@ abstract class Post extends AbstractTranslatable
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     * @return Post
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     * @return Post
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set post_type
-     *
-     * @param string $postType
-     * @return Post
-     */
-    public function setPostType($postType)
-    {
-        $this->post_type = $postType;
-
-        return $this;
-    }
-
-    /**
-     * Get post_type
-     *
-     * @return string
-     */
-    public function getPostType()
-    {
-        return $this->post_type;
-    }
-
-    /**
-     * Set object
-     *
-     * @param string $object
-     * @return Post
-     */
-    public function setObject($object)
-    {
-        $this->object = $object;
-
-        return $this;
-    }
-
-    /**
-     * Get object
-     *
-     * @return string
-     */
-    public function getObject()
-    {
-        return $this->object;
-    }
-
-    /**
-     * Set objectId
-     *
-     * @param integer $objectId
-     * @return Post
-     */
-    public function setObjectId($objectId)
-    {
-        $this->objectId = $objectId;
-
-        return $this;
-    }
-
-    /**
-     * Get objectId
-     *
-     * @return integer
-     */
-    public function getObjectId()
-    {
-        return $this->objectId;
     }
 
     /**
@@ -334,66 +210,5 @@ abstract class Post extends AbstractTranslatable
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Add posts
-     *
-     * @param \Ojs\CmsBundle\Entity\Post $posts
-     * @return Post
-     */
-    public function addPost(\Ojs\CmsBundle\Entity\Post $posts)
-    {
-        $this->posts[] = $posts;
-
-        return $this;
-    }
-
-    /**
-     * Remove posts
-     *
-     * @param \Ojs\CmsBundle\Entity\Post $posts
-     */
-    public function removePost(\Ojs\CmsBundle\Entity\Post $posts)
-    {
-        $this->posts->removeElement($posts);
-    }
-
-    /**
-     * Get posts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPosts()
-    {
-        return $this->posts;
-    }
-
-    /**
-     * @var string
-     */
-    private $unique_key;
-
-    /**
-     * Set unique_key
-     *
-     * @param string $uniqueKey
-     * @return Post
-     */
-    public function setUniqueKey($uniqueKey)
-    {
-        $this->unique_key = $uniqueKey;
-
-        return $this;
-    }
-
-    /**
-     * Get unique_key
-     *
-     * @return string
-     */
-    public function getUniqueKey()
-    {
-        return $this->getObject() . $this->getObjectId();
     }
 }
