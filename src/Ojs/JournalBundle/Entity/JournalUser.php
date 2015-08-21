@@ -10,7 +10,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalUser
- * @GRID\Source(columns="id, user.username, journal.title")
+ * @GRID\Source(columns="id, user.username, journal")
  */
 class JournalUser
 {
@@ -25,7 +25,7 @@ class JournalUser
 
     /**
      * @var Journal
-     * @Grid\Column(field="journal.title", title="journal")
+     * @Grid\Column(title="journal")
      */
     private $journal;
 

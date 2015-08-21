@@ -32,7 +32,7 @@ class JournalUserController extends Controller
      * Finds and displays a Users of a Journal with roles
      * @return mixed
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'userRole')) {
@@ -40,8 +40,21 @@ class JournalUserController extends Controller
         }
 
         $source = new Entity('OjsJournalBundle:JournalUser');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var JournalUser $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('journal', $entity->getJournal()->getTitle());
+                }
+                return $row;
+            }
+        );
 
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
