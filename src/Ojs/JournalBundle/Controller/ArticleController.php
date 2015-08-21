@@ -48,7 +48,9 @@ class ArticleController extends Controller
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
                     $row->setField('title', $entity->getTitle());
-                    $row->setField('issue', $entity->getIssue()->getTitle());
+                    if(!is_null($entity->getIssue())){
+                        $row->setField('issue', $entity->getIssue()->getTitle());
+                    }
                 }
                 return $row;
             }
