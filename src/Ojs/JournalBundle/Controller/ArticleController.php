@@ -126,13 +126,13 @@ class ArticleController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
+            $entity->setCurrentLocale($request->getDefaultLocale());
             $em->persist($entity);
             $em->flush();
 
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_journal_article_file_index', ['article' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_journal_article_file_index', ['article' => $entity->getId(), 'journalId' => $entity->getJournal()->getId(), 'articleId'=> $entity->getId()]);
         }
 
         return $this->render(
@@ -159,6 +159,7 @@ class ArticleController extends Controller
                 'journal' => $journal,
             ]
         );
+        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }

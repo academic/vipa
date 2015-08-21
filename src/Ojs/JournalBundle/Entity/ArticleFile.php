@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * ArticleFile
