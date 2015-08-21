@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalsIndex
- * @GRID\Source(columns="id,journal.title,journal_index.name,link")
+ * @GRID\Source(columns="id,journal,journal_index.name,link")
  */
 class JournalsIndex
 {
@@ -33,7 +33,7 @@ class JournalsIndex
     private $link;
     /**
      * @var Journal
-     * @GRID\Column(title="Journal",field="journal.title")
+     * @GRID\Column(title="Journal")
      */
     private $journal;
     /**

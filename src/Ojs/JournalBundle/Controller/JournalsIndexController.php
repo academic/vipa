@@ -27,14 +27,13 @@ class JournalsIndexController extends Controller
      * Lists all JournalsIndex entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalsIndex');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         if ($journal) {
             $ta = $source->getTableAlias();
             $source->manipulateQuery(
@@ -46,6 +45,21 @@ class JournalsIndexController extends Controller
                 }
             );
         }
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var JournalsIndex $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity->getJournal())){
+                    $row->setField('journal', $entity->getJournal()->getTitle());
+                }
+                return $row;
+            }
+        );
         if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
         }
