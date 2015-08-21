@@ -20,7 +20,7 @@ use Ojs\UserBundle\Entity\User;
 
 /**
  * Article
- * @GRID\Source(columns="id ,title, issue.title, doi, journal.title, pubdate, section.title")
+ * @GRID\Source(columns="id ,title, issue, doi, journal.title, pubdate, section.title")
  * @GRID\Source(columns="id, status, title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
@@ -195,7 +195,7 @@ class Article extends AbstractTranslatable
 
     /**
      * @var Issue
-     * @GRID\Column(field="issue.title", title="issue")
+     * @GRID\Column(title="issue Title")
      */
     private $issue;
 
