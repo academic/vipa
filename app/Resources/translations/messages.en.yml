@@ -572,6 +572,7 @@ journal.update: 'Journal Update'
 journal.url: URL
 journal.user: User
 journal.users: 'Journal Users'
+journal.subscribe: 'Subscribe this journal'
 journalContact.contact.id: 'Contact ID'
 journalContact.contact.type.id: 'Contact Type ID'
 journalContact.creation: 'Journal Contact Creation'

@@ -572,6 +572,7 @@ journal.update: 'Dergi Güncelle'
 journal.url: URL
 journal.user: Kullanıcı
 journal.users: 'Dergi Kullanıcıları'
+journal.subscribe: 'Bu dergiye abone ol'
 journalContact.contact.id: 'İletişim No'
 journalContact.contact.type.id: 'İletişim Türü ID'
 journalContact.creation: 'Dergi İletişim Oluşturma'
