@@ -25,7 +25,6 @@ class AdminAnnouncementController extends OjsController
         }
 
         $source = new Entity('OjsAdminBundle:AdminAnnouncement');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');

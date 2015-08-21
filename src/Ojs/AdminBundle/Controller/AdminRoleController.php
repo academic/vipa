@@ -25,7 +25,6 @@ class AdminRoleController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsUserBundle:Role');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid');
         $gridAction = $this->get('grid_action');
         $grid->setSource($source);

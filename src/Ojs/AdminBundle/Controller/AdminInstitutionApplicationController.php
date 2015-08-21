@@ -36,9 +36,6 @@ class AdminInstitutionApplicationController extends Controller
             }
         );
 
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
-
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $grid->getColumn('status')->manipulateRenderCell(

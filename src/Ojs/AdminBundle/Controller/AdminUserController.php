@@ -36,7 +36,6 @@ class AdminUserController extends Controller
         }
 
         $source = new Entity("OjsUserBundle:User");
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $grid = $this->get('grid');
         $gridAction = $this->get('grid_action');
         $grid->setSource($source);
