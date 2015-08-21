@@ -1,0 +1,11 @@
+Ojs\JournalBundle\Entity\SubjectTranslation:
+  properties:
+    subject:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\Subject:
+    properties:
+        translations:
+            - Valid: ~
+        tags:
+          - NotBlank: ~
