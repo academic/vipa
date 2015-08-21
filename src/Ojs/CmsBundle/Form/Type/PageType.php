@@ -28,6 +28,7 @@ class PageType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\CmsBundle\Entity\Page',
+                'cascade_validation' => true,
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

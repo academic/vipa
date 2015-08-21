@@ -98,6 +98,7 @@ class AdminPageController extends Controller
         if ($form->isValid()) {
 
             $entity->setSlug($entity->getTranslations()->first()->getTitle());
+            $entity->setCurrentLocale($request->getDefaultLocale());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();

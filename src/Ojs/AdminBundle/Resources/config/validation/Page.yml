@@ -1,0 +1,15 @@
+Ojs\CmsBundle\Entity\PageTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    body:
+      - NotBlank: ~
+
+Ojs\CmsBundle\Entity\Page:
+    properties:
+        translations:
+            - Valid: ~
+        tags:
+            - NotBlank: ~
+        image:
+            - Url: ~
