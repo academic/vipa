@@ -7,42 +7,42 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('ojs_public_index') }}"><img src="{{ ojs_logo }}"
+            <a class="navbar-brand" href="{{ url('ojs_public_index') }}"><img src="{{ ojs_logo }}"
                                                                                alt="{{ "ojs"|trans }}"/></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="{% if page == 'index' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('ojs_public_index') }}" title="{{ "home"|trans }}" data-placement="bottom">
+                    <a href="{{ url('ojs_public_index') }}" title="{{ "home"|trans }}" data-placement="bottom">
                         <i class="fa fa-home fa-fw"></i>
                         <span class="hidden-sm hidden-md hidden-lg">{{ "home"|trans }}</span>
                     </a>
                 </li>
                 <li class="{% if page == 'about' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('about') }}" data-placement="bottom" title="{{ "about"|trans }}"><i
+                    <a href="{{ url('about') }}" data-placement="bottom" title="{{ "about"|trans }}"><i
                                 class="fa fa-info fa-fw"></i>
                         <span class="hidden-sm hidden-md hidden-lg">{{ "about"|trans }}</span>
                     </a>
                 </li>
                 <li class="{% if page == 'ojs_admin_institution_index' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('ojs_institutions_index') }}" data-placement="bottom"
+                    <a href="{{ url('ojs_institutions_index') }}" data-placement="bottom"
                        title="{{ "title.institutions"|trans }}"><i
                                 class="fa fa-institution fa-fw"></i> {{ "title.institutions"|trans }}</a>
                 </li>
                 <li class="{% if page == 'ojs_site_people_index' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('ojs_site_people_index') }}" data-placement="bottom"
+                    <a href="{{ url('ojs_site_people_index') }}" data-placement="bottom"
                        title="{{ "title.people_directory"|trans }}"><i
                                 class="fa fa-user fa-fw"></i> {{ "title.people_directory"|trans }}</a>
                 </li>
                 <li class="{% if page == 'explore' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('ojs_site_explore_index') }}" data-placement="bottom"
+                    <a href="{{ url('ojs_site_explore_index') }}" data-placement="bottom"
                        title="{{ "title.explore"|trans }}"><i
                                 class="fa fa-compass fa-fw"></i> {{ "title.explore"|trans }}</a>
                 </li>
             </ul>
             {% if page != 'index' %}
                 <div class="navbar-search-box">
-                    <form class="navbar-form" role="search" action="{{ path('ojs_search_index') }}" method="get">
+                    <form class="navbar-form" role="search" action="{{ url('ojs_search_index') }}" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="{{ "search.on.everywhere"|trans }}"
                                    name="q">
@@ -62,7 +62,7 @@
 
                     {% if app.user %}
                         <li class="navbar-btn">
-                            <a title="{{ "dashboard"|trans }}" data-placement="bottom" href="{{ path('dashboard') }}">
+                            <a title="{{ "dashboard"|trans }}" data-placement="bottom" href="{{ url('dashboard') }}">
                                 <i class="fa fa-cog fa-fw"></i> {{ "dashboard"|trans }}
                             </a>
                         </li>
@@ -74,16 +74,16 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path('myprofile') }}"
+                                <li><a href="{{ url('myprofile') }}"
                                        title="{{ "you"|trans }}"><b>{{ app.user.username }}</b></a></li>
                                 <li>
-                                    <a href="{{ path('dashboard') }}" title="{{ "dashboard"|trans }}"
+                                    <a href="{{ url('dashboard') }}" title="{{ "dashboard"|trans }}"
                                        data-placement="left"><i
                                                 class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
                                 </li>
 
                                 <li>
-                                    <a href="{{ path('ojs_user_index') }}">
+                                    <a href="{{ url('ojs_user_index') }}">
                                         <i class="fa fa-cog"></i> {{ "user_page"|trans }}</a>
                                 </li>
                                 <li>
@@ -95,11 +95,11 @@
 
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{ path('user_my_proxy_parents') }}">{{ "proxy_users"|trans }}</a>
+                                    <a href="{{ url('user_my_proxy_parents') }}">{{ "proxy_users"|trans }}</a>
                                 </li>
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="{{ path('ojs_public_index') }}?_su=_exit"
+                                        <a class="btn btn-link" href="{{ url('ojs_public_index') }}?_su=_exit"
                                            title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
                                                     class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>
@@ -116,7 +116,7 @@
                                     {% else %}
                                         {% set activity_log_path = "user_eventlog" %}
                                     {% endif %}
-                                    <a href="{{ path(activity_log_path) }}" title="{{ "user.activitylog"|trans }}"
+                                    <a href="{{ url(activity_log_path) }}" title="{{ "user.activitylog"|trans }}"
                                        data-placement="left">
                                         <i class="fa fa-cogs"></i>
                                         {{ "user.activitylog"|trans }}
@@ -124,7 +124,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{ path('logout') }}">
+                                    <a href="{{ url('logout') }}">
                                         <i class="fa fa-sign-out"></i> {{ "log_out"|trans }}</a>
                                 </li>
                             </ul>
