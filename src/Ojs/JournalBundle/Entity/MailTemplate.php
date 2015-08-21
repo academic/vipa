@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
