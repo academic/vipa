@@ -1,6 +1,6 @@
 Ojs\CmsBundle\Entity\Post:
   type: entity
-  repositoryClass: PostRepository
+  repositoryClass: Ojs\CmsBundle\Entity\PostRepository
   table: posts
   inheritanceType: SINGLE_TABLE
   discriminatorColumn:

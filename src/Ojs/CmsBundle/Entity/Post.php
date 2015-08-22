@@ -23,6 +23,10 @@ abstract class Post extends AbstractTranslatable
      */
     protected $id;
 
+    private $title;
+
+    private $content;
+
     /**
      * @var string
      */

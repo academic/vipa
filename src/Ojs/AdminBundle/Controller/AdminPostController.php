@@ -94,12 +94,12 @@ class AdminPostController extends Controller
         }
 
         $entity = new AdminPost();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $formData = $form->getData();
             $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em->persist($entity);
             $em->flush();
