@@ -16,8 +16,7 @@ class PageType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations')
-            ->add('tags', 'tags')
-            ->add('image');
+            ->add('tags', 'tags');
     }
 
     /**

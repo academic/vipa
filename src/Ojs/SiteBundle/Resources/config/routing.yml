@@ -134,30 +134,6 @@ ojs_people:
     resource: "@OjsSiteBundle/Resources/config/routing/people.yml"
     prefix: /people
 
-tos:
-    path: /tos
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'tos' }
-
-about:
-    path: /about
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'about' }
-
-wiki:
-    path: /wiki
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'wiki' }
-
-faq:
-    path: /faq
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'faq' }
-
-support:
-    path: /support
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'support' }
-
-privacy:
-    path: /privacy
-    defaults: { _controller: OjsSiteBundle:Site:staticPages, page: 'privacy'}
-
 ojs_site_download:
     prefix:   /download
     resource: '@OjsSiteBundle/Resources/config/routing/download.yml'

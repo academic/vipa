@@ -19,9 +19,6 @@ Ojs\CmsBundle\Entity\Page:
         tags:
             type: string
             length: 255
-        image:
-            type: string
-            length: 255
         slug:
             type: string
             length: 255

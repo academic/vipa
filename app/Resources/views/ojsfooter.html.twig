@@ -17,12 +17,6 @@
 
             <div class="col-md-4">
                 <ul class="list-inline text-center">
-                    <li><a href="{{ path('about') }}">{{ "about"|trans }}</a></li>
-                    <li><a href="{{ path('privacy') }}">{{ "privacy"|trans }}</a></li>
-                    <li><a href="{{ path('tos') }}">{{ "tos"|trans }}</a></li>
-                    <li><a href="{{ path('wiki') }}">{{ "wiki"|trans }}</a></li>
-                    <li><a href="{{ path('support') }}">{{ "support"|trans }}</a></li>
-                    <li><a href="{{ path('faq') }}">{{ "faq"|trans }}</a></li>
                     {% for adminPage in getAdminPages() %}
                         <li><a href="{{ path('ojs_site_page', {'slug': adminPage.slug}) }}">{{ adminPage.translate(app.request.locale).title }}</a></li>
                     {% endfor %}

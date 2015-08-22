@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Page
- * @GRID\Source(columns="id, title, body, tags, image")
+ * @GRID\Source(columns="id, title, body, tags")
  */
 abstract class Page extends AbstractTranslatable
 {
@@ -31,11 +31,6 @@ abstract class Page extends AbstractTranslatable
      * @GRID\Column(title="body")
      */
     private $body;
-
-    /**
-     * @var string
-     */
-    private $image;
 
     /**
      * @var string
@@ -137,29 +132,6 @@ abstract class Page extends AbstractTranslatable
     public function setBody($body)
     {
         $this->translate()->setBody($body);
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Set image
-     *
-     * @param  string $image
-     * @return Page
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
 
         return $this;
     }

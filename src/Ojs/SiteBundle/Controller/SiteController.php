@@ -72,12 +72,6 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
     }
 
-    public function staticPagesAction($page = 'static')
-    {
-        $data['page'] = $page;
-        return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
-    }
-
     public function institutionsIndexAction()
     {
         /** @var EntityManager $em */

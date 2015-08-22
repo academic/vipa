@@ -3,6 +3,7 @@
 namespace Ojs\CliBundle\Command;
 
 use Composer\Script\CommandEvent;
+use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\JournalUser;
@@ -96,12 +97,13 @@ class InstallCommand extends ContainerAwareCommand
         $this
             ->setName('ojs:install')
             ->setDescription('Ojs first installation')
-            ->addOption('no-role', null, InputOption::VALUE_NONE, 'Whitout Role Data')
-            ->addOption('no-admin', null, InputOption::VALUE_NONE, 'Whitout Admin Record')
-            ->addOption('no-location', null, InputOption::VALUE_NONE, 'Whitout Location Data')
-            ->addOption('no-theme', null, InputOption::VALUE_NONE, 'Whitout Theme')
-            ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Whitout ACL Data')
-            ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix Acl Structure');
+            ->addOption('no-role', null, InputOption::VALUE_NONE, 'Without role data')
+            ->addOption('no-admin', null, InputOption::VALUE_NONE, 'Without admin records')
+            ->addOption('no-location', null, InputOption::VALUE_NONE, 'Without location data')
+            ->addOption('no-theme', null, InputOption::VALUE_NONE, 'Without themes')
+            ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Without ACL Data')
+            ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix ACL structure')
+            ->addOption('no-page', null, InputOption::VALUE_NONE, 'Without default pages');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -179,13 +181,20 @@ class InstallCommand extends ContainerAwareCommand
             $output->writeln($sb.'Inserting default theme record'.$se);
             $this->insertTheme();
         }
+
         if (!$input->getOption('no-acl')) {
             $output->writeln($sb.'Inserting default ACL records'.$se);
             $this->insertAcls();
         }
+
         if ($input->getOption('fix-acl')) {
             $output->writeln($sb.'Fixing ACL Records'.$se);
             $this->fixAcls($output);
+        }
+
+        if (!$input->getOption('no-page')) {
+            $output->writeln($sb.'Creating default pages'.$se);
+            $this->createDefaultPages();
         }
 
         $output->writeln("\nDONE\n");
@@ -663,6 +672,33 @@ class InstallCommand extends ContainerAwareCommand
             }
         }
 
+        $em->flush();
+    }
+
+    protected function createDefaultPages()
+    {
+        $pages = [
+            ['about', 'About', 'About page content goes here.'],
+            ['privacy', 'Privacy', 'Privacy page content goes here.'],
+            ['faq', 'FAQ', 'A list of frequently answered questions goes here.'],
+            ['tos', 'Terms of Service', 'TOS page content goes here.'],
+        ];
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        
+        foreach ($pages as $page) {
+            $entity = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $page[0]]);
+
+            if (!$entity) {
+                $entity = new AdminPage();
+                $entity->setCurrentLocale($this->getContainer()->getParameter('locale'));
+                $entity->setSlug($page[0]);
+                $entity->setTitle($page[1]);
+                $entity->setBody($page[2]);
+                $em->persist($entity);
+            }
+        }
+        
         $em->flush();
     }
 }

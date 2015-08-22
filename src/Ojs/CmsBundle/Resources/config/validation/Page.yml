@@ -11,5 +11,3 @@ Ojs\CmsBundle\Entity\Page:
             - Valid: ~
         tags:
             - NotBlank: ~
-        image:
-            - Url: ~
