@@ -67,7 +67,6 @@ class AdminPostController extends Controller
     public function newAction(Request $request)
     {
         $entity = new AdminPost();
-        $entity->setCurrentLocale($request->getDefaultLocale());
 
         if (!$this->isGranted('CREATE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this post!");
