@@ -39,7 +39,11 @@ class AnnouncementType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'Ojs\CmsBundle\Entity\Announcement']);
+        $resolver->setDefaults([
+            'data_class' => 'Ojs\CmsBundle\Entity\Announcement',
+            'cascade_validation' => true
+            ]
+        );
     }
 
     /**

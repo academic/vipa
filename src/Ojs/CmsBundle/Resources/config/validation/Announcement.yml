@@ -1,6 +1,6 @@
-Ojs\CmsBundle\Entity\Page:
+Ojs\CmsBundle\Entity\Announcement:
     properties:
-        translations:
-            - Valid: ~
-        tags:
+        title:
+            - NotBlank: ~
+        content:
             - NotBlank: ~
