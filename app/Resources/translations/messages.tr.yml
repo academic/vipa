@@ -358,8 +358,6 @@ event.id: 'Olay No'
 event.info: 'Olay Bilgisi'
 event.ip: 'Olay IP'
 event.user.id: 'Olay Kullanıcı No'
-eventlog: 'Olay Kayıtları'
-eventlog.list: 'Olay Kayıt Listesi'
 faq: SSS
 fax: Fax
 featured: 'Öne Çıkan'

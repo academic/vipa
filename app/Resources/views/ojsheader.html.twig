@@ -104,18 +104,6 @@
                                             : {{ app.user.getLastlogin()|date('Y-m-d H:i:s') }}</small>
                                     </a>
                                 </li>
-                                <li>
-                                    {% if isSystemAdmin() %}
-                                        {% set activity_log_path = 'ojs_admin_event_log_index' %}
-                                    {% else %}
-                                        {% set activity_log_path = "user_eventlog" %}
-                                    {% endif %}
-                                    <a href="{{ url(activity_log_path) }}" title="{{ "user.activitylog"|trans }}"
-                                       data-placement="left">
-                                        <i class="fa fa-cogs"></i>
-                                        {{ "user.activitylog"|trans }}
-                                    </a>
-                                </li>
 
                                 <li>
                                     <a href="{{ url('logout') }}">

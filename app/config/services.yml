@@ -50,18 +50,6 @@ services:
     tags:
       - { name: twig.extension }
 
-  ojs.loginlistener:
-    class: Ojs\UserBundle\Listeners\LoginListener
-    arguments: [@doctrine.orm.entity_manager]
-    tags:
-      - { name: kernel.event_listener, event: security.interactive_login }
-
-  ojs.logout_listener:
-     class:  Ojs\UserBundle\Listeners\LogoutListener
-     arguments:  [@doctrine.orm.entity_manager, @security.token_storage, @router]
-     tags:
-      - { name: kernel.event_listener ,event: security.logout}
-
   ojs.security_switch_user:
     class: Ojs\Common\Services\SecuritySwitchUserListener
     arguments: [@security.token_storage]
@@ -128,18 +116,6 @@ services:
     tags:
       -  { name: h4cc_alice_fixtures.provider }
 
-  user.event_subscriber:
-    class: Ojs\UserBundle\Listeners\UserSubscriber
-    arguments: [ @mailer, @twig, @doctrine.orm.entity_manager, @request_stack, "%system_email%" ]
-    tags:
-      -  { name: kernel.event_subscriber }
-
-  user.event_listener:
-    class: Ojs\UserBundle\Listeners\UserListener
-    arguments: [@request_stack]
-    tags:
-      - { name: doctrine.event_listener, event: postPersist }
-
   user.helper:
     class: Ojs\Common\Services\UserListener
     arguments:
@@ -150,20 +126,6 @@ services:
       - @security.encoder_factory
       - @security.authorization_checker
       - @security.token_storage
-
-  proxy.event_listener:
-    class: Ojs\UserBundle\Listeners\ProxyListener
-    arguments: [@request_stack]
-    tags:
-      - { name: doctrine.event_listener, event: postPersist }
-      - { name: doctrine.event_listener, event: preRemove }
-
-  article.event_listener:
-    class: Ojs\UserBundle\Listeners\ArticleListener
-    arguments: [@security.token_storage, @request_stack]
-    tags:
-      - { name: doctrine.event_listener, event: postPersist }
-      - { name: doctrine.event_listener, event: preRemove }
 
   grid_action:
     class: Ojs\Common\Services\GridAction

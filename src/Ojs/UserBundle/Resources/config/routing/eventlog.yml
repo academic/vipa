@@ -1,7 +1,0 @@
-user_eventlog:
-    path:  /
-    defaults: { _controller: "OjsUserBundle:EventLog:index" }
-
-user_eventlog_show:
-    path:  /{id}/show
-    defaults: { _controller: "OjsUserBundle:EventLog:show" }

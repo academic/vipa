@@ -52,7 +52,6 @@ security:
       logout:
         path: /logout
         target: /
-        success_handler: ojs.logout_listener
       security: true
       anonymous: true
   access_control:
