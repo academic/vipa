@@ -1,0 +1,6 @@
+Ojs\JournalBundle\Entity\InstitutionTheme:
+    properties:
+        title:
+            - NotBlank: ~
+        css:
+            - NotBlank: ~

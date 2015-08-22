@@ -24,7 +24,6 @@ Ojs\JournalBundle\Entity\InstitutionTheme:
               - versioned
         css:
             type: text
-            nullable: true
             gedmo:
               - versioned
         isPublic:
