@@ -85,6 +85,7 @@ class JournalPageController extends OjsController
         }
 
         $entity = new JournalPage();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
