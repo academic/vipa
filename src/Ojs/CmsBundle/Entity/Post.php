@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Post
- * @GRID\Source(columns="id ,title , status, post_type")
+ * @GRID\Source(columns="id ,title ,content")
  */
 abstract class Post extends AbstractTranslatable
 {
@@ -23,8 +23,16 @@ abstract class Post extends AbstractTranslatable
      */
     protected $id;
 
+    /**
+     * @var string
+     * @GRID\Column(title="Title")
+     */
     private $title;
 
+    /**
+     * @var string
+     * @GRID\Column(title="Content")
+     */
     private $content;
 
     /**
