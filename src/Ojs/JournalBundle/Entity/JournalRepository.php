@@ -287,7 +287,7 @@ class JournalRepository extends EntityRepository
         $q = $this->_em
             ->createQuery(
                 'SELECT i FROM OjsJournalBundle:Issue i WHERE i.journalId =:j '
-                .'AND i.datePublished IS NOT NULL ORDER BY i.datePublished DESC'
+                .'AND i.datePublished IS NOT NULL AND i.published = TRUE ORDER BY i.datePublished DESC'
             )
             ->setMaxResults(1)
             ->setParameter('j', $journal->getId());
