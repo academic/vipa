@@ -1,0 +1,6 @@
+Ojs\CmsBundle\Entity\Page:
+    properties:
+        translations:
+            - Valid: ~
+        tags:
+            - NotBlank: ~

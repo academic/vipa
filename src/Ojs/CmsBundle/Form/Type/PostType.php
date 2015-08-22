@@ -54,6 +54,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\CmsBundle\Entity\Post',
+            'cascade_validation' =>true,
             'object' => null,
             'objectId' => null,
             'post_type' => 'default'

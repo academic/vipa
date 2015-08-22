@@ -1,0 +1,11 @@
+Ojs\CmsBundle\Entity\PostTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
+
+Ojs\CmsBundle\Entity\Post:
+    properties:
+        translations:
+            - Valid: ~
