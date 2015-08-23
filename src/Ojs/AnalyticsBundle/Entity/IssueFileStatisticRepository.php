@@ -38,20 +38,23 @@ class IssueFileStatisticRepository extends EntityRepository
      * @param $dates
      * @return array
      */
-    public function getTotalDownloadsOfAllFiles($issue, $dates)
+    public function getTotalDownloadsOfAllFiles($issue, $dates = null)
     {
         $builder = $this->createQueryBuilder('stat');
+
+        if ($dates !== null) {
+            $builder
+                ->andWhere('stat.date IN (:dates)')
+                ->setParameter('dates', $dates);
+        }
+
         $builder
             ->join('OjsJournalBundle:IssueFile', 'file', 'WHERE', 'stat.issueFile = file')
             ->join('OjsJournalBundle:Issue', 'issue', 'WHERE', 'file.issue = issue')
             ->addSelect('SUM(stat.download)')
             ->andWhere('issue = :issue')
-            ->andWhere('stat.date IN (:dates)')
             ->groupBy('issue')
-            ->setParameters([
-                'issue'  => $issue,
-                'dates'    => $dates
-            ]);
+            ->setParameter('issue', $issue);
 
         return $builder->getQuery()->getResult();
     }

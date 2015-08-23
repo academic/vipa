@@ -267,21 +267,24 @@ class SiteController extends Controller
          * @var Issue $issue
          */
 
-        $data = array();
-
         $em = $this->getDoctrine()->getManager();
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        $issueFileStatsRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
 
         $issue = $issueRepo->find($id);
+        $blocks = $blockRepo->journalBlocks($issue->getJournal());
+        $downloads = $issueFileStatsRepo->getTotalDownloadsOfAllFiles($issue);
+
         $event = new ViewIssueEvent($issue);
         $dispatcher = $this->get('event_dispatcher');
         $dispatcher->dispatch(SiteEvents::VIEW_ISSUE, $event);
 
-        $data['issue'] = $issue;
-        $data['blocks'] = $blockRepo->journalBlocks($issue->getJournal());
-
-        return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
+        return $this->render('OjsSiteBundle:Issue:detail.html.twig', [
+            'issue' => $issue,
+            'blocks' => $blocks,
+            'downloads' => $downloads,
+        ]);
     }
 
     public function journalContactsAction($slug)
