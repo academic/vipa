@@ -7,11 +7,14 @@ use Elastica\Query\MatchAll;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\SiteBundle\Entity\BlockRepository;
+use Ojs\SiteBundle\Event\SiteEvents;
+use Ojs\SiteBundle\Event\ViewIssueEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -258,13 +261,23 @@ class SiteController extends Controller
 
     public function issuePageAction($id)
     {
-        $data = [];
+        /**
+         * @var BlockRepository $blockRepo
+         * @var IssueRepository $issueRepo
+         * @var Issue $issue
+         */
+
+        $data = array();
+
         $em = $this->getDoctrine()->getManager();
-        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
-        /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
-        /** @var Issue $issue */
+        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+
         $issue = $issueRepo->find($id);
+        $event = new ViewIssueEvent($issue);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(SiteEvents::VIEW_ISSUE, $event);
+
         $data['issue'] = $issue;
         $data['blocks'] = $blockRepo->journalBlocks($issue->getJournal());
 

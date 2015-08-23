@@ -26,6 +26,10 @@ Ojs\JournalBundle\Entity\Issue:
             targetEntity: IssueFile
             mappedBy: issue
             fetch: EXTRA_LAZY
+        statistics:
+          targetEntity: Ojs\AnalyticsBundle\Entity\IssueStatistic
+          mappedBy: issue
+          cascade: ["persist"]
     manyToOne:
       journal:
           targetEntity: Journal

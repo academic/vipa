@@ -23,9 +23,7 @@
 
     <div class="container">
         <div class=" col-md-12">
-
-            <h1>{{ issue.title }}   {% if issue.special %}
-                {% endif %}&nbsp; </h1>
+            <h1>{{ issue.title }}</h1>
             <h4>
                 {% if issue.special %}
                     <span class="label label-success">
@@ -34,8 +32,10 @@
                         </span> &nbsp;
                 {% endif %}
                 {{ "issue.number"|trans }}: {{ issue.number }} - {{ "volume"|trans }} : {{ issue.volume }}
-
             </h4>
+            <h5>
+                <i class="fa fa-eye"></i> {{ issue.viewCount }}
+            </h5>
         </div>
 
 

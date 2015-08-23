@@ -6,11 +6,13 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
+use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\SiteBundle\Event\DownloadArticleFileEvent;
 use Ojs\SiteBundle\Event\DownloadIssueFileEvent;
 use Ojs\SiteBundle\Event\SiteEvents;
 use Ojs\SiteBundle\Event\ViewArticleEvent;
+use Ojs\SiteBundle\Event\ViewIssueEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AnalyticsSubscriber implements EventSubscriberInterface
@@ -53,6 +55,7 @@ class AnalyticsSubscriber implements EventSubscriberInterface
     {
         return array(
             SiteEvents::VIEW_ARTICLE            => 'onArticleView',
+            SiteEvents::VIEW_ISSUE              => 'onIssueView',
             SiteEvents::DOWNLOAD_ARTICLE_FILE   => 'onArticleFileDownload',
             SiteEvents::DOWNLOAD_ISSUE_FILE     => 'onIssueFileDownload'
         );
@@ -69,7 +72,25 @@ class AnalyticsSubscriber implements EventSubscriberInterface
             $stat->setDate(new \DateTime());
             $stat->setArticle($event->getArticle());
             $stat->setView(1);
+        } else {
+            $stat->setView($stat->getView() + 1);
+        }
 
+        $this->em->persist($stat);
+        $this->em->flush($stat);
+    }
+
+    public function onIssueView(ViewIssueEvent $event)
+    {
+        $stat = $this->em
+            ->getRepository('OjsAnalyticsBundle:IssueStatistic')
+            ->findOneBy(['date' => new \DateTime(), 'issue' => $event->getIssue()]);
+
+        if (!$stat) {
+            $stat = new IssueStatistic();
+            $stat->setDate(new \DateTime());
+            $stat->setIssue($event->getIssue());
+            $stat->setView(1);
         } else {
             $stat->setView($stat->getView() + 1);
         }

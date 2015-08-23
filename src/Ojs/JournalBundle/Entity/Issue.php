@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
@@ -129,6 +130,11 @@ class Issue extends AbstractTranslatable
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueTranslation")
      */
     protected $translations;
+
+    /**
+     * @var ArrayCollection|IssueStatistic[]
+     */
+    private $statistics;
 
     public function __construct()
     {
@@ -667,5 +673,39 @@ class Issue extends AbstractTranslatable
     public function getSupplement()
     {
         return $this->supplement;
+    }
+
+    /**
+     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\IssueStatistic[]
+     */
+    public function getStatistics()
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\IssueStatistic[] $statistics
+     */
+    public function setStatistics($statistics)
+    {
+        $this->statistics = $statistics;
+    }
+
+    /**
+     * Returns the article's view count
+     *
+     * @return int
+     */
+    public function getViewCount()
+    {
+        $count = 0;
+
+        if ($this->statistics != null) {
+            foreach ($this->statistics as $stat) {
+                $count += $stat->getView();
+            }
+        }
+
+        return $count;
     }
 }
