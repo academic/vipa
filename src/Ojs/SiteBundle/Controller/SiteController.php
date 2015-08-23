@@ -283,7 +283,7 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', [
             'issue' => $issue,
             'blocks' => $blocks,
-            'downloads' => $downloads,
+            'downloads' => $downloads[0][1],
         ]);
     }
 
