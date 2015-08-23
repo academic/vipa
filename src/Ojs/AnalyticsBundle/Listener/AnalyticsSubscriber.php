@@ -123,7 +123,7 @@ class AnalyticsSubscriber implements EventSubscriberInterface
     {
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:IssueFileStatistic')
-            ->findOneBy(['date' => new \DateTime(), 'articleFile' => $event->getIssueFile()]);
+            ->findOneBy(['date' => new \DateTime(), 'issueFile' => $event->getIssueFile()]);
 
         if (!$stat) {
             $stat = new IssueFileStatistic();

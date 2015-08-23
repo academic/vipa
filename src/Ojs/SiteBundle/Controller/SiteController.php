@@ -122,8 +122,8 @@ class SiteController extends Controller
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'institution' => $institutionEntity]);
         $this->throw404IfNotFound($journal);
 
-        $issueDownloads = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic')->getTotalDownloadsOfAllFiles($journal->getIssues());
-        $articleDownloads = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic')->getTotalDownloadsOfAllFiles($journal->getArticles());
+        $issueDownloads = $issueFileStatRepo->getTotalDownloadsOfAllFiles($journal->getIssues());
+        $articleDownloads = $articleFileStatRepo->getTotalDownloadsOfAllFiles($journal->getArticles());
 
         $data['page'] = 'journal';
         $data['journal'] = $journal;
@@ -133,8 +133,8 @@ class SiteController extends Controller
         $data['last_issue'] = $journalRepo->getLastIssueId($journal);
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
-        $data['issueDownloads'] = $issueDownloads[0][1];
-        $data['articleDownloads'] = $articleDownloads[0][1];
+        $data['issueDownloads'] = isset($issueDownloads[0][1]) ? $issueDownloads[0][1] : 0;
+        $data['articleDownloads'] = isset($articleDownloads[0][1]) ? $articleDownloads[0][1] : 0;
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
@@ -290,7 +290,7 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', [
             'issue' => $issue,
             'blocks' => $blocks,
-            'downloads' => $downloads[0][1],
+            'downloads' => isset($downloads[0][1]) ? $downloads[0][1] : 0,
         ]);
     }
 

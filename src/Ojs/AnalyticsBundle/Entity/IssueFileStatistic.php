@@ -26,11 +26,11 @@ class IssueFileStatistic extends Statistic
     }
 
     /**
-     * @param IssueFile $issue
+     * @param IssueFile $issueFile
      */
-    public function setIssueFile($issue)
+    public function setIssueFile($issueFile)
     {
-        $this->issueFile = $issue;
+        $this->issueFile = $issueFile;
     }
 }
 

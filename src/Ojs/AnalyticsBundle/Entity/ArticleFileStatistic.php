@@ -3,7 +3,7 @@
 namespace Ojs\AnalyticsBundle\Entity;
 
 use Ojs\AnalyticsBundle\Traits\DownloadableTrait;
-use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleFile;
 
 /**
  * ArticleFileStatistic
@@ -13,12 +13,12 @@ class ArticleFileStatistic extends Statistic
     use DownloadableTrait;
 
     /**
-     * @var Article
+     * @var ArticleFile
      */
     private $articleFile;
 
     /**
-     * @return Article
+     * @return ArticleFile
      */
     public function getArticleFile()
     {
@@ -26,11 +26,11 @@ class ArticleFileStatistic extends Statistic
     }
 
     /**
-     * @param Article $article
+     * @param ArticleFile $articleFile
      */
-    public function setArticleFile($article)
+    public function setArticleFile($articleFile)
     {
-        $this->articleFile = $article;
+        $this->articleFile = $articleFile;
     }
 }
 
