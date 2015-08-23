@@ -41,7 +41,6 @@ class AuthorType extends AbstractType
                 'data_class' => 'Ojs\JournalBundle\Entity\Author',
                 'cascade_validatio' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

@@ -42,9 +42,9 @@ class ArticleFileType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
+                'cascade_validation' => true,
                 'locales' => [],
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

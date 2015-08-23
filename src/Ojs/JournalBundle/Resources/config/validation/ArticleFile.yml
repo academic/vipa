@@ -1,0 +1,12 @@
+Ojs\JournalBundle\Entity\ArticleFile:
+    properties:
+        type:
+            - NotBlank: ~
+        langCode:
+            - NotBlank: ~
+        title:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+        file:
+            - NotBlank: ~
