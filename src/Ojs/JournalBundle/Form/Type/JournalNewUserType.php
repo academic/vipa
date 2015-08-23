@@ -72,15 +72,6 @@ class JournalNewUserType extends AbstractType
                     ],
                 ]
             )
-            ->add('isActive', 'checkbox', ['label' => 'user.isActive'])
-            ->add(
-                'status',
-                'choice',
-                [
-                    'label' => 'status',
-                    'choices' => CommonParams::$userStatusArray,
-                ]
-            )
             ->add(
                 'subjects',
                 'entity',
