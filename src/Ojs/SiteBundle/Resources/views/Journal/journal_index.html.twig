@@ -45,7 +45,17 @@
                                     class="width100 img-responsive tri"/>
                         </div>
                     {% endif %}
-                    <h1>{{ journal.title }}</h1>
+                    <h1>
+                        {{ journal.title }}
+                        <small>
+                            <i class="fa fa-newspaper-o"></i>
+                            {{ issueDownloads }}
+                        </small>
+                        <small>
+                            <i class="fa fa-file"></i>
+                            {{ articleDownloads }}
+                        </small>
+                    </h1>
                     <div class="col-md-12">
                         {% include '::flashbag.html.twig' %}
                         <dl class="journal-meta">
@@ -53,6 +63,7 @@
                                 <dt>ISSN</dt>
                                 <dd>{{ journal.issn }}</dd>
                             {% endif %}
+
                             {% if journal.eissn %}
                                 <dt>e-ISSN</dt>
                                 <dd>{{ journal.eissn }}</dd>

@@ -113,6 +113,8 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $issueFileStatRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
+        $articleFileStatRepo = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
 
         $institutionEntity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $institution]);
         $this->throw404IfNotFound($institutionEntity);
@@ -120,14 +122,19 @@ class SiteController extends Controller
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'institution' => $institutionEntity]);
         $this->throw404IfNotFound($journal);
 
-        $data['last_issue'] = $journalRepo->getLastIssueId($journal);
-        $data['years'] = $journalRepo->getIssuesByYear($journal);
-        $data['journal'] = $journal;
+        $issueDownloads = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic')->getTotalDownloadsOfAllFiles($journal->getIssues());
+        $articleDownloads = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic')->getTotalDownloadsOfAllFiles($journal->getArticles());
+
         $data['page'] = 'journal';
-        $data['blocks'] = $blockRepo->journalBlocks($journal);
+        $data['journal'] = $journal;
         $data['design'] = $journal->getDesign();
-        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+        $data['blocks'] = $blockRepo->journalBlocks($journal);
+        $data['years'] = $journalRepo->getIssuesByYear($journal);
+        $data['last_issue'] = $journalRepo->getLastIssueId($journal);
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
+        $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+        $data['issueDownloads'] = $issueDownloads[0][1];
+        $data['articleDownloads'] = $articleDownloads[0][1];
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }

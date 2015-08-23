@@ -35,24 +35,27 @@ class ArticleFileStatisticRepository extends EntityRepository
     /**
      * Returns the download count of the given article's files on given dates
      *
-     * @param $article
+     * @param $articles
      * @param $dates
      * @return array
      */
-    public function getTotalDownloadsOfAllFiles($article, $dates)
+    public function getTotalDownloadsOfAllFiles($articles, $dates = null)
     {
         $builder = $this->createQueryBuilder('stat');
+
+        if ($dates !== null) {
+            $builder
+                ->andWhere('stat.date IN (:dates)')
+                ->setParameter('dates', $dates);
+        }
+
         $builder
             ->join('OjsJournalBundle:ArticleFile', 'file', 'WHERE', 'stat.articleFile = file')
-            ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'file.article = article')
+            ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'file.article IN (:articles)')
             ->addSelect('SUM(stat.download)')
-            ->andWhere('article = :article')
-            ->andWhere('stat.date IN (:dates)')
+            ->andWhere('article IN (:articles)')
             ->groupBy('article')
-            ->setParameters([
-                'article'  => $article,
-                'dates'    => $dates
-            ]);
+            ->setParameter('articles', $articles);
 
         return $builder->getQuery()->getResult();
     }
