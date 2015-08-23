@@ -14,17 +14,20 @@ class IssueStatisticRepository extends EntityRepository
      * @param array $dates
      * @return ArrayCollection
      */
-    public function getByIssuesAndDates($issues, $dates)
+    public function findByIssues($issues, $dates = null)
     {
         $builder = $this->createQueryBuilder('stat');
+
+        if ($dates !== null) {
+            $builder
+                ->andWhere('stat.date IN (:dates)')
+                ->setParameter('dates', $dates);
+        }
+
         $builder
             ->andWhere('stat.issue IN (:issues)')
-            ->andWhere('stat.date IN (:dates)')
             ->orderBy('stat.date', 'DESC')
-            ->setParameters([
-                'issues' => $issues,
-                'dates' => $dates
-            ]);
+            ->setParameter('issues', $issues);
 
         return $builder->getQuery()->getResult();
     }

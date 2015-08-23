@@ -38,7 +38,7 @@ class DashboardController extends OjsController
             ->getDoctrine()
             ->getRepository('OjsAnalyticsBundle:ArticleStatistic');
 
-        $articleStats = $articleStatRepo->getByArticlesAndDates($articles, array_slice($lastMonth, 1));
+        $articleStats = $articleStatRepo->findByArticles($articles, array_slice($lastMonth, 1));
 
         $articleViews = ['View'];
         foreach (array_slice($lastMonth, 1) as $date) {

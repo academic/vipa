@@ -20,17 +20,20 @@ class ArticleStatisticRepository extends EntityRepository
      * @param array $dates
      * @return ArrayCollection
      */
-    public function getByArticlesAndDates($articles, $dates)
+    public function findByArticles($articles, $dates = null)
     {
         $builder = $this->createQueryBuilder('stat');
+
+        if ($dates !== null) {
+            $builder
+                ->andWhere('stat.date IN (:dates)')
+                ->setParameter('dates', $dates);
+        }
+
         $builder
             ->andWhere('stat.article IN (:articles)')
-            ->andWhere('stat.date IN (:dates)')
             ->orderBy('stat.date', 'DESC')
-            ->setParameters([
-                'articles'  => $articles,
-                'dates'     => $dates
-            ]);
+            ->setParameter('articles', $articles);
 
         return new ArrayCollection($builder->getQuery()->getResult());
     }
