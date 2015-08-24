@@ -51,8 +51,8 @@ class JournalThemeType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\JournalTheme',
+                'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
