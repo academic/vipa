@@ -1,0 +1,6 @@
+Ojs\JournalBundle\Entity\Citation:
+    properties:
+        raw:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
