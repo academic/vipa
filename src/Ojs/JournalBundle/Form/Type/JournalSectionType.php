@@ -43,10 +43,10 @@ class JournalSectionType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\JournalSection',
+                'cascade_validation' => true,
                 'user' => null,
                 'journal' => null,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

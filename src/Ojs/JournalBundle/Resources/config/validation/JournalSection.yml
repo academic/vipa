@@ -1,0 +1,9 @@
+Ojs\JournalBundle\Entity\JournalSectionTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\JournalSection:
+    properties:
+        translations:
+            - Valid: ~
