@@ -880,6 +880,7 @@ size: Boyut
 source: Kaynak
 special: Özel
 special.issue: 'Özel Sayı'
+stats: İstatistikler
 stats.most_downloaded_article_files: 'En Çok İndirilen Makale Dosyaları'
 stats.most_downloaded_issue_files: 'En Çok İndirilen Sayı Dosyaları'
 stats.most_viewed_articles: 'En Çok Görüntülenen Makaleler'

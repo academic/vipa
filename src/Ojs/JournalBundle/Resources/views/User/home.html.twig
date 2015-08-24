@@ -8,6 +8,11 @@
     </h1>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('vendor/c3/c3.min.css') }}"/>
+{% endblock %}
+
 {% block body %}
     {% include '::flashbag.html.twig' %}
     <div class="panel panel-success">
@@ -20,6 +25,17 @@
 
         <div class="panel-body">
             {{ form(switcher) }}
+        </div>
+    </div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading toggle-body">
+            <i class="fa fa-bar-chart-o fa-fw"></i> {{ "stats"|trans }}
+            <i class="pull-right fa fa-angle-double-up"></i>
+        </div>
+
+        <div class="panel-body">
+            <div id="articles"></div>
         </div>
     </div>
 
@@ -50,3 +66,50 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts -%}
+    {{ parent() }}
+    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>
+    <script src="{{ asset('vendor/c3/c3.min.js') }}"></script>
+    <script type="text/javascript">
+        var data = {{ stats|raw }};
+
+        function createChart(id, column)
+        {
+            var chart = c3.generate({
+                bindto: id,
+                data: {
+                    x: 'x',
+                    columns: [
+                        data['dates'],
+                        column
+                    ],
+                    type: 'bar'
+                },
+                subchart: {
+                    show: false
+                },
+                zoom: {
+                    enabled: true
+                },
+                axis : {
+                    x : {
+                        type : 'timeseries',
+                        tick: {
+                            format: function (x) { return x.toLocaleDateString(); },
+                            culling: {max: 8}
+                        }
+                    }
+                },
+                bar: {
+                    width: {
+                        ratio: 0.6
+                    }
+                }
+            });
+        }
+
+        createChart('#articles', data['articleViews']);
+    </script>
+{% endblock %}
+

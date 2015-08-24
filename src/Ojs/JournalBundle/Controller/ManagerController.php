@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
+use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
@@ -240,7 +241,11 @@ class ManagerController extends Controller
 
         $response = $response = $this->render(
             'OjsJournalBundle:User:home.html.twig',
-            ['switcher' => $switcher, 'articles' => $articles]
+            [
+                'switcher' => $switcher,
+                'articles' => $articles,
+                'stats' => $this->createStats()
+            ]
         );
 
         $event = new WorkflowEvent($request);
@@ -251,5 +256,50 @@ class ManagerController extends Controller
         }
 
         return $response;
+    }
+
+    /**
+     *  Arranges statistics
+     *  @return array
+     */
+    private function createStats()
+    {
+        $dateFormat = "Y-m-d";
+        $lastMonth = ['x'];
+
+        for($i = 0; $i < 30; $i++) {
+            $lastMonth[] = date($dateFormat, strtotime('-' . $i . ' days'));
+        }
+
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->findBy(['submitterUser' => $this->getUser()]);
+
+        $articleStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:ArticleStatistic');
+
+        $articleStats = $articleStatRepo->findByArticles($articles, array_slice($lastMonth, 1));
+
+        $articleViews = ['View'];
+
+        foreach (array_slice($lastMonth, 1) as $date) {
+            /** @var ArticleStatistic $stat */
+            $total = 0;
+            $stat = $articleStats->first();
+            while ($stat && $stat->getDate()->format($dateFormat) == $date) {
+                $total += $stat->getView();
+                $articleStats->removeElement($stat);
+                $stat = $articleStats->first();
+            }
+
+            $articleViews[] = $total;
+        }
+
+        return json_encode([
+            'dates' => $lastMonth,
+            'articleViews' => $articleViews
+        ]);
     }
 }
