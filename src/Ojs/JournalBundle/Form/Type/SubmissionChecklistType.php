@@ -39,12 +39,12 @@ class SubmissionChecklistType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
+                'cascade_validation' => true,
                 'languages' => array(
                     array('tr' => 'Türkçe'),
                     array('en' => 'English'),
                 ),
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
