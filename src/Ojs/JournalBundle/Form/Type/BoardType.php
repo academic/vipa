@@ -28,6 +28,7 @@ class BoardType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Board',
+                'cascade_validation' => true,
             )
         );
     }

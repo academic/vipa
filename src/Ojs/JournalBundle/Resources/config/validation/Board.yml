@@ -1,0 +1,6 @@
+Ojs\JournalBundle\Entity\Board:
+    properties:
+        name:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
