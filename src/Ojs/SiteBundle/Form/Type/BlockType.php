@@ -65,8 +65,8 @@ class BlockType extends AbstractType
                 'data_class' => 'Ojs\SiteBundle\Entity\Block',
                 'object_id' => null,
                 'object_type' => null,
+                'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

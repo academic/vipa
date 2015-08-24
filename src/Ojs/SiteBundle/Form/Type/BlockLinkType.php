@@ -29,8 +29,8 @@ class BlockLinkType extends AbstractType
             array(
                 'data_class' => 'Ojs\SiteBundle\Entity\BlockLink',
                 'block_id' => null,
+                'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

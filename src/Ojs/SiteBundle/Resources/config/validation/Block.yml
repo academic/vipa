@@ -1,0 +1,10 @@
+Ojs\SiteBundle\Entity\Block:
+    properties:
+        title:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
+        content:
+            - NotBlank: ~
+        color:
+            - NotBlank: ~
