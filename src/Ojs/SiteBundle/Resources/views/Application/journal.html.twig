@@ -33,14 +33,6 @@
         <!-- Page Content -->
         <h1 class="page-header">{{ "application.journal.apply"|trans }}</h1>
 
-        {% for label, flashes in app.session.flashbag.all %}
-            {% for flash in flashes %}
-                <div class="alert alert-{{ label }}">
-                    {{ flash }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
         <div class="panel panel-default">
             <div class="panel-heading"><h4>{{ "journal.about"|trans }}</h4></div>
@@ -62,7 +54,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.translations, form.titleAbbr, form.titleTransliterated,
+                        {% for field in [form.translations, form.mandatoryLang, form.titleAbbr, form.titleTransliterated,
                         form.domain, form.country, form.issn, form.eissn,
                         form.firstPublishDate, form.period, form.tags, form.url, form.languages, form.subjects] %}
                             {{ form_row(field) }}

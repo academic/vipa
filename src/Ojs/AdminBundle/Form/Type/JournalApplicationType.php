@@ -50,6 +50,17 @@ class JournalApplicationType extends AbstractType
                     ],
                 ]
             )
+            ->add(
+                'mandatoryLang',
+                'entity',
+                [
+                    'label' => 'Mandatory Lang',
+                    'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'attr' => [
+                        'class' => 'select2-element ',
+                    ]
+                ]
+            )
             ->add('period', null, ['label' => 'journal.period', 'attr' => ['class' => 'validate[required]']])
             ->add('tags', 'tags', ['attr' => ['class' => 'validate[required]', 'label' => 'journal.tags']])
             ->add('url', 'url', ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
@@ -121,7 +132,10 @@ class JournalApplicationType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-                'attr' => ['class' => 'form-validate'],
+                'cascade_validation' => true,
+                'attr' => [
+                    'class' => 'form-validate',
+                ],
             )
         );
     }
