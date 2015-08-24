@@ -1,15 +1,15 @@
 Ojs\JournalBundle\Entity\ArticleTranslation:
   properties:
     title:
-      - NotBlank: ~
+      - NotBlank: { groups: [submission] }
     subjects:
-      - NotBlank: ~
+      - NotBlank: { groups: [submission] }
     subtitle:
-      - NotBlank: ~
+      - NotBlank: { groups: [submission] }
     keywords:
-      - NotBlank: ~
+      - NotBlank: { groups: [submission] }
     abstract:
-      - NotBlank: ~
+      - NotBlank: { groups: [submission] }
 
 Ojs\JournalBundle\Entity\Article:
     properties:
@@ -30,4 +30,4 @@ Ojs\JournalBundle\Entity\Article:
         submissionDate:
             - NotBlank: ~
         competingFile:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
