@@ -209,8 +209,8 @@ class ArticleType extends AbstractType
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'journal' => new Journal(),
+                'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

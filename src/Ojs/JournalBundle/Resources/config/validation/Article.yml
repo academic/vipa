@@ -1,0 +1,33 @@
+Ojs\JournalBundle\Entity\ArticleTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    subjects:
+      - NotBlank: ~
+    subtitle:
+      - NotBlank: ~
+    keywords:
+      - NotBlank: ~
+    abstract:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\Article:
+    properties:
+        translations:
+            - Valid: ~
+        status:
+            - NotBlank: ~
+        pubdate:
+            - NotBlank: ~
+        pubdateSeason:
+            - NotBlank: ~
+        part:
+            - NotBlank: ~
+        firstPage:
+            - NotBlank: ~
+        lastPage:
+            - NotBlank: ~
+        submissionDate:
+            - NotBlank: ~
+        competingFile:
+            - NotBlank: ~
