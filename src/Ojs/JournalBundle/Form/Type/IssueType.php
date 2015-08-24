@@ -72,8 +72,8 @@ class IssueType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Issue',
+                'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
