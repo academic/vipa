@@ -41,10 +41,10 @@ class CitationSettingType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\CitationSetting',
+                'cascade_validation' => true,
                 'citationsEndPoint' => '/',
                 'citationEndPoint' => '/',
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

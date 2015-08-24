@@ -1,0 +1,6 @@
+Ojs\JournalBundle\Entity\CitationSetting:
+    properties:
+        setting:
+            - NotBlank: ~
+        value:
+            - NotBlank: ~
