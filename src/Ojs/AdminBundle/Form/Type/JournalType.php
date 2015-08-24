@@ -78,7 +78,7 @@ class JournalType extends AbstractType
                 ]
             );
 
-        $builder->add('subtitle', 'hidden', ['label' => 'subtitle'])
+        $builder
             ->add('path', 'hidden', ['label' => 'journal.path',
                 'error_bubbling'=>true])
             ->add('domain', 'hidden', ['label' => 'journal.domain',
@@ -246,8 +246,8 @@ class JournalType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'validate-form',
                 ],
                 'translation_domain' => 'messages',

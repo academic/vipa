@@ -1,14 +1,27 @@
-Ojs\JournalBundle\Entity\Journal:
+Ojs\JournalBundle\Entity\JournalTranslation:
   properties:
-      title:
-          - NotBlank: { groups: [setupStep1] }
-      titleAbbr:
-          - NotBlank: { groups: [setupStep1] }
-      subtitle:
-          - NotBlank: { groups: [setupStep1] }
-      issn:
-          - NotBlank: { groups: [setupStep2] }
-      languages:
-          - NotBlank: { groups: [setupStep3] }
-      theme:
-          - NotBlank: { groups: [setupStep6] }
+    title:
+      - NotBlank: ~
+    subtitle:
+      - NotBlank: ~
+    description:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\Journal:
+    properties:
+        translations:
+            - Valid: ~
+        mandatoryLang:
+            - NotBlank: ~
+        languages:
+            - NotBlank: ~
+        issn:
+            - Issn: ~
+        eissn:
+            - Issn: ~
+        firstPublishDate:
+            - NotBlank: ~
+        status:
+            - NotBlank: ~
+        submissionDate:
+            - NotBlank: ~
