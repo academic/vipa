@@ -1,9 +1,11 @@
 <?php
 namespace Ojs\JournalBundle\Form\Type;
+
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 class JournalDesignType extends AbstractType
 {
     /**
@@ -31,6 +33,11 @@ class JournalDesignType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalDesign',
+                'cascade_validation' => true,
+                'attr' => [
+                    'class' => 'form-validate',
+                ]
             )
         );
     }

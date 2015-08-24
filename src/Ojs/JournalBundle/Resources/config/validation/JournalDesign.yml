@@ -1,0 +1,4 @@
+Ojs\JournalBundle\Entity\JournalDesign:
+    properties:
+        title:
+            - NotBlank: ~
