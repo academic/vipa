@@ -43,13 +43,15 @@ class DashboardController extends OjsController
         $articleViews = ['View'];
         foreach (array_slice($lastMonth, 1) as $date) {
             /** @var ArticleStatistic $stat */
+            $total = 0;
             $stat = $articleStats->first();
-            if ($stat && $date == $stat->getDate()->format($this::DATE_FORMAT)) {
-                $articleViews[] = $stat->getView();
+            while ($stat && $stat->getDate()->format($this::DATE_FORMAT) == $date) {
+                $total += $stat->getView();
                 $articleStats->removeElement($stat);
-            } else {
-                $articleViews[] = 0;
+                $stat = $articleStats->first();
             }
+
+            $articleViews[] = $total;
         }
 
         $articleFileStatRepo = $this
