@@ -1,6 +1,3 @@
-Ojs\UserBundle\Entity\User:
-
-
 Ojs\JournalBundle\Entity\JournalRole:
   constraints:
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:

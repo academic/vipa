@@ -1,0 +1,17 @@
+Ojs\UserBundle\Entity\User:
+  properties:
+    username:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
+    email:
+      - NotBlank: ~
+      - Email: ~
+    title:
+      - NotBlank: ~
+    firstName:
+      - NotBlank: ~
+    lastName:
+      - NotBlank: ~
+    tags:
+      - NotBlank: ~
