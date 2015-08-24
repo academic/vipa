@@ -1,0 +1,19 @@
+Ojs\JournalBundle\Entity\JournalContactTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\JournalContact:
+    properties:
+        translations:
+            - Valid: ~
+        firstName:
+            - NotBlank: ~
+        lastName:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+        tags:
+            - NotBlank: ~
+        contactType:
+            - NotBlank: ~
