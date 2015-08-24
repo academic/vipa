@@ -1,0 +1,14 @@
+Ojs\AnalyticsBundle\Entity\JournalStatistic:
+    type: entity
+    repositoryClass: Ojs\AnalyticsBundle\Entity\JournalStatisticRepository
+    lifecycleCallbacks: { }
+    manyToOne:
+        journal:
+            targetEntity: Ojs\JournalBundle\Entity\Journal
+            inversedBy: statistics
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+    fields:
+        view:
+            type: integer

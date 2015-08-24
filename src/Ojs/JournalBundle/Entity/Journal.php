@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -373,6 +374,11 @@ class Journal extends AbstractTranslatable
      * @var ArrayCollection|JournalAnnouncement[]
      */
     private $announcements;
+
+    /**
+     * @var ArrayCollection|JournalStatistic[]
+     */
+    private $statistics;
 
     /**
      * Constructor
@@ -1825,5 +1831,21 @@ class Journal extends AbstractTranslatable
     public function removeJournalContact(\Ojs\JournalBundle\Entity\JournalContact $journalContact)
     {
         $this->journalContacts->removeElement($journalContact);
+    }
+
+    /**
+     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\JournalStatistic[]
+     */
+    public function getStatistics()
+    {
+        return $this->statistics;
+    }
+
+    /**
+     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\JournalStatistic[] $statistics
+     */
+    public function setStatistics($statistics)
+    {
+        $this->statistics = $statistics;
     }
 }

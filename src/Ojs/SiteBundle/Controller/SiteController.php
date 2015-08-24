@@ -115,6 +115,7 @@ class SiteController extends Controller
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         $issueFileStatRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
         $articleFileStatRepo = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+        $journalStatRepo = $em->getRepository('OjsAnalyticsBundle:JournalStatistic');
 
         $institutionEntity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $institution]);
         $this->throw404IfNotFound($institutionEntity);
@@ -122,9 +123,15 @@ class SiteController extends Controller
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'institution' => $institutionEntity]);
         $this->throw404IfNotFound($journal);
 
+        $journalViews = $journalStatRepo->getTotalViewCounts($journal);
         $issueDownloads = $issueFileStatRepo->getTotalDownloadsOfAllFiles($journal->getIssues());
         $articleDownloads = $articleFileStatRepo->getTotalDownloadsOfAllFiles($journal->getArticles());
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('journal_view');
+
+        $data['token'] = $token;
         $data['page'] = 'journal';
         $data['journal'] = $journal;
         $data['design'] = $journal->getDesign();
@@ -133,6 +140,7 @@ class SiteController extends Controller
         $data['last_issue'] = $journalRepo->getLastIssueId($journal);
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
+        $data['journalViews'] = isset($journalViews[0][1]) ? $journalViews[0][1] : 0;
         $data['issueDownloads'] = isset($issueDownloads[0][1]) ? $issueDownloads[0][1] : 0;
         $data['articleDownloads'] = isset($articleDownloads[0][1]) ? $articleDownloads[0][1] : 0;
 

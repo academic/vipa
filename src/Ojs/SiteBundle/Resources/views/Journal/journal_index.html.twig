@@ -48,6 +48,10 @@
                     <h1>
                         {{ journal.title }}
                         <small>
+                            <i class="fa fa-eye"></i>
+                            {{ journalViews }}
+                        </small>
+                        <small>
                             <i class="fa fa-newspaper-o"></i>
                             {{ issueDownloads }}
                         </small>
@@ -340,7 +344,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal', {{ journal.id }})
+        $(document).ready(function() {
+            analytics.view('journal', {{ journal.id }}, '{{ token }}');
+        });
     </script>
     {% if journal.googleAnalyticsId is not null %}
         <script>

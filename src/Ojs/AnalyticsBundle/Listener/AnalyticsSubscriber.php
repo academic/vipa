@@ -7,12 +7,14 @@ use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
+use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\SiteBundle\Event\DownloadArticleFileEvent;
 use Ojs\SiteBundle\Event\DownloadIssueFileEvent;
 use Ojs\SiteBundle\Event\SiteEvents;
 use Ojs\SiteBundle\Event\ViewArticleEvent;
 use Ojs\SiteBundle\Event\ViewIssueEvent;
+use Ojs\SiteBundle\Event\ViewJournalEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AnalyticsSubscriber implements EventSubscriberInterface
@@ -54,10 +56,11 @@ class AnalyticsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            SiteEvents::VIEW_ARTICLE            => 'onArticleView',
             SiteEvents::VIEW_ISSUE              => 'onIssueView',
+            SiteEvents::VIEW_JOURNAL            => 'onJournalView',
+            SiteEvents::VIEW_ARTICLE            => 'onArticleView',
+            SiteEvents::DOWNLOAD_ISSUE_FILE     => 'onIssueFileDownload',
             SiteEvents::DOWNLOAD_ARTICLE_FILE   => 'onArticleFileDownload',
-            SiteEvents::DOWNLOAD_ISSUE_FILE     => 'onIssueFileDownload'
         );
     }
 
@@ -90,6 +93,25 @@ class AnalyticsSubscriber implements EventSubscriberInterface
             $stat = new IssueStatistic();
             $stat->setDate(new \DateTime());
             $stat->setIssue($event->getIssue());
+            $stat->setView(1);
+        } else {
+            $stat->setView($stat->getView() + 1);
+        }
+
+        $this->em->persist($stat);
+        $this->em->flush($stat);
+    }
+
+    public function onJournalView(ViewJournalEvent $event)
+    {
+        $stat = $this->em
+            ->getRepository('OjsAnalyticsBundle:JournalStatistic')
+            ->findOneBy(['date' => new \DateTime(), 'journal' => $event->getJournal()]);
+
+        if (!$stat) {
+            $stat = new JournalStatistic();
+            $stat->setDate(new \DateTime());
+            $stat->setJournal($event->getJournal());
             $stat->setView(1);
         } else {
             $stat->setView($stat->getView() + 1);

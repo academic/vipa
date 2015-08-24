@@ -82,6 +82,10 @@ Ojs\JournalBundle\Entity\Journal:
             targetEntity: Ojs\JournalBundle\Entity\JournalContact
             mappedBy: journal
             cascade: ["persist"]
+        statistics:
+              targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
+              mappedBy: journal
+              cascade: ["persist"]
     manyToMany:
         languages:
               targetEntity: Lang
