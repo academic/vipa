@@ -24,11 +24,10 @@ class ArticleController extends Controller
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
 
-        /* @var $entity Article */
-        $entity = $data['article'];
-        $event = new ViewArticleEvent($entity);
-        $dispatcher = $this->get('event_dispatcher');
-        $dispatcher->dispatch(SiteEvents::VIEW_ARTICLE, $event);
+        $data['token'] = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('article_view');
+
 
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }

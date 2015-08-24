@@ -1,8 +1,8 @@
 var analytics = {
-
-    increase: function (entity, times) {
-        // @todo make ajax request.
-        return;
+    view: function (entity, id, token) {
+        var path = 'api_' + entity + '_view';
+        var url = Routing.generate(path, {id: id, _format: 'json'}, true);
+        var data = { token: token };
+        $.ajax({ url: url, data: data, method: 'POST' });
     }
-
 };

@@ -283,13 +283,14 @@ class SiteController extends Controller
         $blocks = $blockRepo->journalBlocks($issue->getJournal());
         $downloads = $issueFileStatsRepo->getTotalDownloadsOfAllFiles($issue);
 
-        $event = new ViewIssueEvent($issue);
-        $dispatcher = $this->get('event_dispatcher');
-        $dispatcher->dispatch(SiteEvents::VIEW_ISSUE, $event);
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('issue_view');
 
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', [
             'issue' => $issue,
             'blocks' => $blocks,
+            'token' => $token,
             'downloads' => isset($downloads[0][1]) ? $downloads[0][1] : 0,
         ]);
     }

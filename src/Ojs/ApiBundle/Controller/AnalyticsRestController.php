@@ -1,91 +1,64 @@
 <?php
+
 namespace Ojs\ApiBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Ojs\SiteBundle\Event\SiteEvents;
+use Ojs\SiteBundle\Event\ViewArticleEvent;
+use Ojs\SiteBundle\Event\ViewIssueEvent;
 use Symfony\Component\HttpFoundation\Request;
 
 class AnalyticsRestController extends FOSRestController
 {
     /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Increment object view count",
-     *  requirements={
-     *      {
-     *          "name"="page_url",
-     *          "dataType"="string",
-     *          "description"="Requested page url"
-     *      }
-     *  }
-     * )
-     * @Put("/stats/view/{entity}/{id}")
-     *
-     * @param  Request $request
-     * @param $id
-     * @param $entity
-     * @return null
+     * @Post("stats/article/{id}/view")
      */
-    public function putObjectViewAction(Request $request, $id, $entity)
+    public function articleViewAction(Request $request, $id)
     {
+        $entity = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->find($id);
 
-        return null;
+        $event = new ViewArticleEvent($entity);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(SiteEvents::VIEW_ARTICLE, $event);
+
+        $token = $this->get('security.csrf.token_manager')->getToken('article_view');
+
+        if ($request->get('token') != $token) {
+            $view = $this->view(array('status' => 'error'), 403);
+        } else {
+            $view = $this->view(array('status' => 'ok'), 200);
+        }
+
+        return $this->handleView($view);
     }
 
     /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get object total Views"
-     * )
-     * @Get("/stats/view/{entity}/{id}/")
-     *
-     * @param $id
-     * @param $entity
-     * @return null
+     * @Post("stats/issue/{id}/view")
      */
-    public function getObjectViewAction($id, $entity)
+    public function issueViewAction(Request $request, $id)
     {
+        $entity = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Issue')
+            ->find($id);
 
-        return null;
-    }
+        $event = new ViewIssueEvent($entity);
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(SiteEvents::VIEW_ISSUE, $event);
 
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Increment object download count"
-     * )
-     * @Put("/stats/download/{entity}/{id}/")
-     *
-     * @param  Request $request
-     * @param $id
-     * @param $entity
-     * @return null
-     */
-    public function putObjectDownloadAction(Request $request, $id, $entity)
-    {
+        $token = $this->get('security.csrf.token_manager')->getToken('issue_view');
 
-        return null;
-    }
+        if ($request->get('token') != $token) {
+            $view = $this->view(array('status' => 'error'), 403);
+        } else {
+            $view = $this->view(array('status' => 'ok'), 200);
+        }
 
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get object total download count"
-     * )
-     * @Get("/stats/download/{entity}/{id}/")
-     *
-     * @param  Request $request
-     * @param $id
-     * @param $entity
-     * @return null
-     */
-    public function getObjectDownloadAction(Request $request, $id, $entity)
-    {
-
-        return null;
+        return $this->handleView($view);
     }
 }

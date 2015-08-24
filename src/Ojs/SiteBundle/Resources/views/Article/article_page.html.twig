@@ -308,6 +308,8 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('article', {{ article.id }})
+        $(document).ready(function() {
+            analytics.view('article', {{ article.id }}, '{{ token }}');
+        });
     </script>
 {% endblock %}
