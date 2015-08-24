@@ -42,6 +42,7 @@ class ApplicationController extends Controller
         }
 
         $application = new Journal();
+        $application->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createForm(new JournalApplicationType(), $application);
 
         if ($request->isMethod('POST')) {
@@ -50,8 +51,10 @@ class ApplicationController extends Controller
                 $application->setStatus(0);
 
                 /** @var JournalContact $contact */
-                foreach ($application->getJournalContacts() as $contact) {
-                    $contact->setJournal($application);
+                if($application->getJournalContacts()){
+                    foreach ($application->getJournalContacts() as $contact) {
+                        $contact->setJournal($application);
+                    }
                 }
 
                 $em = $this->getDoctrine()->getManager();

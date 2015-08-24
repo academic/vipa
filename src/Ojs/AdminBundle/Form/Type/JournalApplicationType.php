@@ -94,8 +94,9 @@ class JournalApplicationType extends AbstractType
                 array(
                     'class' => 'OjsJournalBundle:Subject',
                     'multiple' => true,
+                    'required' => false,
                     'label' => 'journal.subjects',
-                    'attr' => ['class' => 'select2-element validate[required]'],
+                    'attr' => ['class' => 'select2-element'],
                 )
             )
             ->add('header', 'jb_crop_image_ajax', array(
