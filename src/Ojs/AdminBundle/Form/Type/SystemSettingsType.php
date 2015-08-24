@@ -21,24 +21,34 @@ class SystemSettingsType extends AbstractType
                 'label'     => 'title.user_new',
                 'expanded'  => true,
                 'required'  => true
-            ])->add('journal_application', 'choice', [
+                ]
+            )
+            ->add('journal_application', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                 'label'     => 'title.journal_application',
                 'expanded'  => true,
                 'required'  => true
-            ])->add('institution_application', 'choice', [
+                ]
+            )
+            ->add('institution_application', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                 'label'     => 'title.institution_application',
                 'expanded'  => true,
                 'required'  => true
-            ])->add('article_submission', 'choice', [
+                ]
+            )
+            ->add('article_submission', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                 'label'     => 'title.submission_new',
                 'expanded'  => true,
                 'required'  => true
-            ])->add('submit', 'submit', [
+                ]
+            )
+            ->add('submit', 'submit', [
                 'label'     => 'update',
-            ]);
+                ]
+            )
+        ;
     }
 
     /**

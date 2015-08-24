@@ -115,9 +115,9 @@ class UserType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => 'Ojs\UserBundle\Entity\User',
+                'cascade_validation' => true,
                 'attr' => [
                     'class' => 'validate-form',
-                    'novalidate' => 'novalidate',
                 ],
             ]
         );

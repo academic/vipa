@@ -65,7 +65,6 @@ class InstitutionThemeType extends AbstractType
                 'data_class' => 'Ojs\JournalBundle\Entity\InstitutionTheme',
                 'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

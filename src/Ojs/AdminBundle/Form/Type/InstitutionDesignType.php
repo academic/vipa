@@ -50,7 +50,6 @@ class InstitutionDesignType extends AbstractType
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\InstitutionDesign',
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

@@ -29,7 +29,6 @@ class ContactTypesType extends AbstractType
                 'data_class' => 'Ojs\JournalBundle\Entity\ContactTypes',
                 'cascade_validation'=>true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

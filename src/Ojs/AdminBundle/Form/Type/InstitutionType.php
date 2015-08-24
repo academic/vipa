@@ -168,7 +168,6 @@ class InstitutionType extends AbstractType
                 'institutionEndPoint' => '/',
                 'institution' => null,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'validate-form',
                 ],
             )

@@ -38,7 +38,6 @@ class SubjectType extends AbstractType
                 'data_class' => 'Ojs\JournalBundle\Entity\Subject',
                 'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

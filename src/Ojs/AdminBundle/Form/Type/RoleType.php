@@ -30,7 +30,6 @@ class RoleType extends AbstractType
                 'data_class' => 'Ojs\UserBundle\Entity\Role',
                 'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

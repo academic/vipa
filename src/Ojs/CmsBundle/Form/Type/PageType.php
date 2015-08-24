@@ -29,7 +29,6 @@ class PageType extends AbstractType
                 'data_class' => 'Ojs\CmsBundle\Entity\Page',
                 'cascade_validation' => true,
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
