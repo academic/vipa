@@ -1,0 +1,15 @@
+Ojs\JournalBundle\Entity\IssueFileTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\IssueFile:
+    properties:
+        translations:
+            - Valid: ~
+        file:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
+        langCode:
+            - NotBlank: ~
