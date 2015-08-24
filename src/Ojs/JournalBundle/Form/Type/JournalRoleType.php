@@ -50,10 +50,10 @@ class JournalRoleType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\JournalRole',
+                'cascade_validation' => true,
                 'usersEndPoint' => '/',
                 'userEndPoint' => '/',
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
