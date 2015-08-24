@@ -5,48 +5,267 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('stats_admin'),'title': 'stats'|trans},
+    {'link': path('ojs_admin_stats'),'title': 'stats'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('vendor/c3/c3.min.css') }}"/>
+{% endblock %}
+
 {% block body %}
-    <h1>{{ "dashboard.admin"|trans }}</h1>
-
     {% include '::flashbag.html.twig' %}
+    <h1>{{ "dashboard.general_stats"|trans }}</h1>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab" data-toggle="tab">{{ "title.articles"|trans }}</a></li>
+        <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
+        <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
+    </ul>
 
-    <div class="col-md-12">
-        <h2>{{ "dashboard.general.stats"|trans }}</h2>
-        <ul class="list-group">
-            <li class="list-group-item">{{ "total.user"|trans }} <span class="badge">{{ stats.userCount }}</span></li>
-            <li class="list-group-item">{{ "total.article"|trans }} <span class="badge">{{ stats.articleCount }}</span>
-            </li>
-            <li class="list-group-item">{{ "total.issue"|trans }} <span class="badge">{{ stats.issueCount }}</span></li>
-        </ul>
+    <div id="statistics" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="article">
+            <div id="articles"></div>
+            <h3>{{ "stats.most_viewed_articles"|trans }}</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#articleMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                <li role="presentation"><a href="#articleAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="articleMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ "article.title"|trans }}</th>
+                            <th>{{ "stats.views"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articlesMonthly %}
+                            <tr>
+                                <td>{{ article[0] }}</td>
+                                <td>{{ article[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="articleAllTime">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ "article.title"|trans }}</th>
+                            <th>{{ "stats.views"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ article[0] }}</td>
+                                <td>{{ article[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="articleFile">
+            <div id="articleFiles"></div>
+            <h3>{{ "stats.most_downloaded_article_files"|trans }}</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#articleFileMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                <li role="presentation"><a href="#articleFileAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="articleFileMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.downloads"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for articleFile in articleFilesMonthly %}
+                            <tr>
+                                <td>{{ articleFile[0] }}</td>
+                                <td>{{ articleFile[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="articleFileAllTime">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.downloads"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for articleFile in articleFiles %}
+                            <tr>
+                                <td>{{ articleFile[0] }}</td>
+                                <td>{{ articleFile[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="issueFile">
+            <div id="issueFiles"></div>
+            <h3>{{ "stats.most_downloaded_issue_files"|trans }}</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#issueFileMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                <li role="presentation"><a href="#issueFileAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="issueFileMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.downloads"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for issueFile in issueFilesMonthly %}
+                            <tr>
+                                <td>{{ issueFile[0] }}</td>
+                                <td>{{ issueFile[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="issueFileAllTime">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.downloads"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for issueFile in issueFiles %}
+                            <tr>
+                                <td>{{ issueFile[0] }}</td>
+                                <td>{{ issueFile[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-12">
-        {% if stats.article.mostViewedArticle is defined %}
-            {% set article = stats.article.mostViewedArticle %}
-            <h2>{{ "stats.most.viewed.article"|trans }}<span
-                        class="badge">{{ stats.article.mostViewedArticleCount }}</span></h2>
-            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
-                {{ article.title }}
-            </a>
-        {% else %}
-            <h3>{{ "Any article viewed yet"|trans }}</h3>
-        {% endif %}
-    </div>
-    <div class="col-md-12">
-        {% if stats.article.mostDownloadedArticle is defined %}
-            {% set article = stats.article.mostDownloadedArticle %}
-            <h2>{{ "stats.most.downloaded.article"|trans }}<span
-                        class="badge">{{ stats.article.mostDownloadedArticleCount }}</span></h2>
-            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
-                {{ article.title }}
-            </a>
-        {% else %}
-            <h3>{{ "Any article downloaded yet"|trans }}</h3>
-        {% endif %}
-    </div>
+{% endblock %}
+
+{% block javascripts -%}
+    {{ parent() }}
+
+    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>
+    <script src="{{ asset('vendor/c3/c3.min.js') }}"></script>
+    <script type="text/javascript">
+        var data = {{ stats|raw }};
+
+        function createChart(id, column)
+        {
+            var chart = c3.generate({
+                bindto: id,
+                data: {
+                    x: 'x',
+                    columns: [
+                        data['dates'],
+                        column
+                    ],
+                    type: 'bar'
+                },
+                subchart: {
+                    show: false
+                },
+                zoom: {
+                    enabled: true
+                },
+                axis : {
+                    x : {
+                        type : 'timeseries',
+                        tick: {
+                            format: function (x) { return x.toLocaleDateString(); },
+                            culling: {max: 8}
+                        }
+                    }
+                },
+                bar: {
+                    width: {
+                        ratio: 0.6
+                    }
+                }
+            });
+        }
+
+        function createPieChart(id, columns)
+        {
+            var newNames = {};
+            columns['mainChartNames'].forEach(function(article){
+                newNames[article[0]] = article[1];
+            });
+
+            for(var key in columns['charts'])
+            {
+                columns['charts'][key].forEach(function(file){
+                    newNames[file[2]] = file[0];
+                    file[0] = file[2];
+                    file.splice(2);
+                });
+            }
+
+            var newDatas = columns['charts'];
+            newDatas['mainChart'] = columns['mainChart'];
+
+            var chart = c3.generate({
+                bindto: id,
+                data: {
+                    columns: newDatas['mainChart'],
+                    type : 'pie',
+                    onclick: function (d, i) {
+                        if(newDatas[d.id])
+                        {
+                            chart.load({
+                                unload: true,
+                                columns : newDatas[d.id]
+                            });
+                        }
+                        else
+                        {
+                            chart.load({
+                                unload: true,
+                                columns : newDatas['mainChart']
+                            });
+                        }
+                    },
+                },
+                tooltip: {
+                    format: {
+                        value: function(x)
+                        {
+                            return x;
+                        }
+                    }
+                },
+            });
+
+            chart.data.names(newNames);
+        }
+
+        createChart('#articles', data['articleViews']);
+        createPieChart('#articleFiles', data['articleFileDownloads']);
+        createPieChart('#issueFiles', data['issueFileDownloads']);
+    </script>
 {% endblock %}

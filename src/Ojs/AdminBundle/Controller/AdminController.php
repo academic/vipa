@@ -4,6 +4,9 @@ namespace Ojs\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
+use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
+use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
+use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleEventLogParams;
 use Ojs\JournalBundle\Entity\Journal;
@@ -13,6 +16,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminController extends Controller
 {
+    const DATE_FORMAT = "Y-m-d";
+
     /**
      * @return RedirectResponse
      */
@@ -54,75 +59,194 @@ class AdminController extends Controller
     public function statsAction()
     {
         if ($this->isGranted('VIEW', new Journal())) {
-            return $this->render(
-                'OjsAdminBundle:Admin:stats.html.twig',
-                [
-                    'stats' => $this->getStats(),
-                ]
-            );
+            return $this->render('OjsAdminBundle:Admin:stats.html.twig', $this->createStats());
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         }
     }
 
-    /**
-     * Returns general stats;
-     * - Journal user count
-     * - Journal article count
-     * - Journal issue count
-     * - Last 30 day most viewed article entity
-     * - Last 30 day most viewed article view count
-     * - Last 30 day most downloaded article entity
-     * - Last 30 day most downloaded article download count
-     * @return mixed
-     */
-    private function getStats()
+    private function createStats()
     {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $stats['userCount'] = $em->getRepository('OjsUserBundle:User')->getCountBy('journalId', $journal->getId());
-        $stats['articleCount'] = $em->getRepository('OjsJournalBundle:Article')->getCountBy('journalId', $journal->getId());
-        $stats['issueCount'] = $em->getRepository('OjsJournalBundle:Issue')->getCountBy('journalId', $journal->getId());
-
-        /**
-         * get most common value from article_event_log
-         * for query {@link http://stackoverflow.com/a/7693627/2438520}
-         * @todo query result can set session or memcache for more performance.
-         * @todo SQL code will be moved
-         */
-        $now = new \DateTime('-30 days');
-        $last30Day = $now->format("Y-m-d H:i:s");
-        $mostViewedArticleLog = $em
-            ->createQuery(
-                'SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC'
-            )
-            ->setParameter('event_info', ArticleEventLogParams::$ARTICLE_VIEW)
-            ->setParameter('date', $last30Day)
-            ->setMaxResults(1)
-            ->getResult();
-        if (isset($mostViewedArticleLog[0])) {
-            $stats['article']['mostViewedArticle'] = $em
-                ->getRepository('OjsJournalBundle:Article')
-                ->find($mostViewedArticleLog[0]['articleId']);
-            $stats['article']['mostViewedArticleCount'] = $mostViewedArticleLog[0]['viewCount'];
+        $lastMonth = ['x'];
+        for($i = 0; $i < 30; $i++) {
+            $lastMonth[] = date($this::DATE_FORMAT, strtotime('-' . $i . ' days'));
         }
 
-        $mostDownloadedArticleLog = $em
-            ->createQuery(
-                'SELECT a.articleId,COUNT(a) AS downloadCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY downloadCount DESC'
-            )
-            ->setParameter('event_info', ArticleEventLogParams::$ARTICLE_DOWNLOAD)
-            ->setParameter('date', $last30Day)
-            ->setMaxResults(1)
-            ->getResult();
-        if (isset($mostDownloadedArticleLog[0])) {
-            $stats['article']['mostDownloadedArticle'] = $em
-                ->getRepository('OjsJournalBundle:Article')
-                ->find($mostDownloadedArticleLog[0]['articleId']);
-            $stats['article']['mostDownloadedArticleCount'] = $mostDownloadedArticleLog[0]['downloadCount'];
+        $articles = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->findAll();
+
+        $articleStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:ArticleStatistic');
+
+        $articleStats = $articleStatRepo->findByArticles($articles, array_slice($lastMonth, 1));
+
+        $articleViews = ['View'];
+        foreach (array_slice($lastMonth, 1) as $date) {
+            /** @var ArticleStatistic $stat */
+            $total = 0;
+            $stat = $articleStats->first();
+            while ($stat && $stat->getDate()->format($this::DATE_FORMAT) == $date) {
+                $total += $stat->getView();
+                $articleStats->removeElement($stat);
+                $stat = $articleStats->first();
+            }
+
+            $articleViews[] = $total;
         }
 
-        return $stats;
+        $articleFileStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+
+        $articleFileDownloads = [];
+        $articleFileDownloads['mainChart'] = [];
+        $articleFileDownloads['mainChartNames'] = [];
+        $articleFileDownloads['charts'] = [];
+
+        foreach ($articles as $article) {
+            $key = $article->getId();
+            $allFilesStat = $articleFileStatRepo->getTotalDownloadsOfAllFiles($article, array_slice($lastMonth, 1));
+
+            if (!empty($allFilesStat)) {
+                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
+                $articleFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
+                $articleFileDownloads['mainChartNames'][] = [$key, $article->getTitle()];
+
+                foreach ($article->getArticleFiles() as $articleFile) {
+                    $fileStat = $articleFileStatRepo->getTotalDownloads($articleFile, array_slice($lastMonth, 1));
+
+                    if (!empty($fileStat)) {
+                        $totalDownloads = $fileStat[0][1];
+                        $articleFileDownloads['charts'][$key][] = [$articleFile->getTitle(), $totalDownloads, 'articleFile'.$articleFile->getId()];
+                    }
+                }
+            }
+        }
+
+        $issues = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Issue')
+            ->findAll();
+
+        $issueFileStatRepo = $this
+            ->getDoctrine()
+            ->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
+
+        $issueFileDownloads = [];
+        $issueFileDownloads['mainChart'] = [];
+        $issueFileDownloads['mainChartNames'] = [];
+        $issueFileDownloads['charts'] = [];
+        foreach ($issues as $issue)
+        {
+            $key = $issue->getId();
+            $allFilesStat = $issueFileStatRepo->getTotalDownloadsOfAllFiles($issue, array_slice($lastMonth, 1));
+
+            if (!empty($allFilesStat)) {
+                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
+                $issueFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
+                $issueFileDownloads['mainChartNames'][] = [$key, $issue->getTitle()];
+
+                foreach ($issue->getIssueFiles() as $issueFile) {
+                    $fileStat = $issueFileStatRepo->getTotalDownloads($issueFile, array_slice($lastMonth, 1));
+
+                    if (!empty($fileStat)) {
+                        $totalDownloads = $fileStat[0][1];
+                        $issueFileDownloads['charts'][$key][] = [$issueFile->getTitle(), $totalDownloads, 'issueFile'.$issueFile->getId()];
+                    }
+                }
+            }
+        }
+
+        $articlesMonthly = [];
+        $articlesMonthlyStats = $articleStatRepo->getMostViewed($articles, array_slice($lastMonth, 1), 10);
+        foreach ($articlesMonthlyStats as $stat) {
+            /** @var ArticleStatistic $articleStat */
+            $articleStat = $stat[0];
+            $articlesMonthly[] = array(
+                $articleStat->getArticle()->getTitle(),
+                $stat['totalViews']
+            );
+        }
+
+        $articlesAllTime = [];
+        $articlesAllTimeStats = $articleStatRepo->getMostViewed($articles, null, 10);
+        foreach ($articlesAllTimeStats as $stat) {
+            /** @var ArticleStatistic $articleStat */
+            $articleStat = $stat[0];
+            $articlesAllTime[] = array(
+                $articleStat->getArticle()->getTitle(),
+                $stat['totalViews']
+            );
+        }
+
+        $articleFilesMonthly = [];
+        $articleFilesMonthlyStats = $articleFileStatRepo->getMostDownloadedFiles($articles, array_slice($lastMonth, 1), 10);
+        foreach ($articleFilesMonthlyStats as $stat) {
+            /** @var ArticleFileStatistic $articleFileStat */
+            $articleFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $articleFilesMonthly[] = array(
+                $articleFileStat->getArticleFile()->getTitle(),
+                $totalDownloads
+            );
+        }
+
+        $articleFilesAllTime = [];
+        $articleFilesAllTimeStats = $articleFileStatRepo->getMostDownloadedFiles($articles, null, 10);
+        foreach ($articleFilesAllTimeStats as $stat) {
+            /** @var ArticleFileStatistic $articleFileStat */
+            $articleFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $articleFilesAllTime[] = array(
+                $articleFileStat->getArticleFile()->getTitle(),
+                $totalDownloads
+            );
+        }
+
+        $issueFilesMonthly = [];
+        $issueFilesMonthlyStats = $issueFileStatRepo->getMostDownloadedFiles($issues, array_slice($lastMonth, 1), 10);
+        foreach ($issueFilesMonthlyStats as $stat) {
+            /** @var IssueFileStatistic $issueFileStat */
+            $issueFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $issueFilesMonthly[] = array(
+                $issueFileStat->getIssueFile()->getTitle(),
+                $totalDownloads
+            );
+        }
+
+        $issueFilesAllTime = [];
+        $issueFilesAllTimeStats = $issueFileStatRepo->getMostDownloadedFiles($issues, null, 10);
+        foreach ($issueFilesAllTimeStats as $stat) {
+            /** @var IssueFileStatistic $issueFileStat */
+            $issueFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $issueFilesAllTime[] = array(
+                $issueFileStat->getIssueFile()->getTitle(),
+                $totalDownloads
+            );
+        }
+
+        $json = [
+            'dates' => $lastMonth,
+            'articleViews' => $articleViews,
+            'articleFileDownloads' => $articleFileDownloads,
+            'issueFileDownloads' => $issueFileDownloads
+        ];
+
+        $data = [
+            'stats' => json_encode($json),
+            'articlesMonthly' => $articlesMonthly,
+            'articles' => $articlesAllTime,
+            'articleFilesMonthly' => $articleFilesMonthly,
+            'articleFiles' => $articleFilesAllTime,
+            'issueFilesMonthly' => $issueFilesMonthly,
+            'issueFiles' => $issueFilesAllTime
+        ];
+
+        return $data;
     }
 }
