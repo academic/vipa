@@ -19,8 +19,16 @@ class IssueType extends AbstractType
             ->add('translations', 'a2lix_translations')
             ->add('volume', 'text', array('label' => 'volume'))
             ->add('number', 'text', array('label' => 'number'))
-            ->add('special', 'checkbox', array('label' => 'special'))
-            ->add('supplement', 'checkbox', array('label' => 'supplement'))
+            ->add('special', 'checkbox', array(
+                'label' => 'special',
+                'required' => false,
+                )
+            )
+            ->add('supplement', 'checkbox', array(
+                'label' => 'supplement',
+                'required' => false,
+                )
+            )
             ->add('year', 'text', array('label' => 'year'))
             ->add(
                 'datePublished',
