@@ -23,5 +23,3 @@ Ojs\JournalBundle\Entity\Journal:
             - NotBlank: ~
         status:
             - NotBlank: ~
-        submissionDate:
-            - NotBlank: ~

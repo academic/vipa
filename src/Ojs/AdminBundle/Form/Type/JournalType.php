@@ -20,10 +20,16 @@ class JournalType extends AbstractType
         $journalId = $options['data']->getId()?$options['data']->getId(): null;
         $builder
             ->add('translations', 'a2lix_translations')
-            ->add('titleAbbr', 'text', ['label' => 'titleabbr',
-                'error_bubbling'=>true])
-            ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated',
-                'error_bubbling'=>true])
+            ->add('titleAbbr', 'text', [
+                'label' => 'titleabbr',
+                'required' => false
+                ]
+            )
+            ->add('titleTransliterated', 'text', [
+                'label' => 'titleTransliterated',
+                'required' => false
+                ]
+            )
             ->add(
                 'institution',
                 null,
@@ -31,8 +37,7 @@ class JournalType extends AbstractType
                     'label' => 'institution',
                     'attr' => [
                         'class' => 'select2-element validate[required]',
-                    ],
-                    'error_bubbling'=>true
+                    ]
                 ]
             )
             ->add(
@@ -43,8 +48,7 @@ class JournalType extends AbstractType
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'attr' => [
                         'class' => 'select2-element ',
-                    ],
-                    'error_bubbling'=>true,
+                    ]
                 ]
             )
             ->add(
@@ -56,11 +60,9 @@ class JournalType extends AbstractType
                     'property' => 'name',
                     'multiple' => true,
                     'expanded' => false,
-                    'required' => false,
                     'attr' => [
                         'class' => 'select2-element validate[required]',
-                    ],
-                    'error_bubbling'=>true
+                    ]
                 )
             )
             ->add(
@@ -73,20 +75,37 @@ class JournalType extends AbstractType
                     'multiple' => true,
                     'attr' => [
                         'class' => 'select2-element',
-                    ],
-                    'error_bubbling'=>true,
+                    ]
                 ]
             );
 
         $builder
-            ->add('path', 'hidden', ['label' => 'journal.path',
-                'error_bubbling'=>true])
-            ->add('domain', 'hidden', ['label' => 'journal.domain',
-                'error_bubbling'=>true])
-            ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn'),
-                'error_bubbling'=>true))
-            ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn'),
-                'error_bubbling'=>true))
+            ->add('path', 'hidden', [
+                'label' => 'journal.path',
+                'required' => false
+                ]
+            )
+            ->add('domain', 'hidden', [
+                'label' => 'journal.domain',
+                'required' => false
+                ]
+            )
+            ->add('issn', 'text', [
+                'label' => 'ISSN',
+                'required' => false,
+                'attr' => [
+                    'class' => 'maskissn',
+                ]
+                ]
+            )
+            ->add('eissn', 'text', array(
+                'label' => 'eISSN',
+                'required' => false,
+                'attr' => array(
+                    'class' => 'maskissn'
+                )
+                )
+            )
             ->add(
                 'firstPublishDate',
                 'collot_datetime',
@@ -101,21 +120,27 @@ class JournalType extends AbstractType
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',
                     ],
-                    'error_bubbling'=>true,
                 )
             )
             ->add('domain')
-            ->add('period', 'text', ['label' => 'journal.period',
-                'error_bubbling'=>true])
+            ->add('period', 'text', [
+                'label' => 'journal.period',
+                'required' => false,
+                ]
+            )
             ->add(
                 'googleAnalyticsId',
                 'text',
                 [
                     'label' => 'journal.google.analytics.id',
-                    'error_bubbling'=>true,
+                    'required' => false,
                 ]
             )
-            ->add('url', 'text', ['label' => 'url'])
+            ->add('url', 'text', [
+                'label' => 'url',
+                'required' => false,
+                ]
+            )
             ->add(
                 'country',
                 'entity',
@@ -125,7 +150,6 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element ',
                     ],
-                    'error_bubbling'=>true,
                 ]
             )
             ->add(
@@ -133,27 +157,35 @@ class JournalType extends AbstractType
                 'textarea',
                 [
                     'label' => 'footer_text',
+                    'required' => false,
                     'attr' => [
-                        'class' => 'wysihtml5 ',
+                        'class' => 'wysihtml5',
                     ],
-                    'error_bubbling'=>true,
                 ]
             )
-            ->add('published', 'checkbox', ['label' => 'published',
-                'error_bubbling'=>true])
-            ->add('printed', 'checkbox', ['label' => 'printed',
-                'error_bubbling'=>true])
+            ->add('published', 'checkbox', [
+                'label' => 'published',
+                'required' => false
+                ]
+            )
+            ->add('printed', 'checkbox', [
+                'label' => 'printed',
+                'required' => false
+                ]
+            )
             ->add(
                 'status',
                 'choice',
                 [
                     'label' => 'status',
                     'choices' => CommonParams::getStatusTexts(),
-                    'error_bubbling'=>true,
                 ]
             )
-            ->add('slug', 'text', ['label' => 'journal.slug',
-                'error_bubbling'=>true])
+            ->add('slug', 'text', [
+                'label' => 'journal.slug',
+                'required' => false,
+                ]
+            )
             ->add('tags', 'tags')
             ->add(
                 'theme',
@@ -248,7 +280,6 @@ class JournalType extends AbstractType
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
                 'cascade_validation' => true,
                 'attr' => [
-                    'class' => 'validate-form',
                 ],
                 'translation_domain' => 'messages',
                 'csrf_protection'=>false

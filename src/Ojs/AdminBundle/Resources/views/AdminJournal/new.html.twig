@@ -16,14 +16,6 @@
     <h1>{{ "journal.new"|trans }}</h1>
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <div class="alert alert-{{ label }}">
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {{ form_errors(form) }}
 
     {{ form_widget(form) }}
 
