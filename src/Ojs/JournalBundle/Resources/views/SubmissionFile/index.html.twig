@@ -1,0 +1,24 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.submission_files'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'title': 'title.submission_files'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':6} only %}
+    {% include '::flashbag.html.twig' %}
+    <br>
+    {% if is_granted('CREATE', selectedJournal(), 'file') %}
+        <a href="{{ path('ojs_journal_file_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}

@@ -74,6 +74,11 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
             cascade: ["all"]
             fetch: EXTRA_LAZY
+        submissionFile:
+            targetEntity: Ojs\JournalBundle\Entity\SubmissionFile
+            mappedBy: journal
+            cascade: ["all"]
+            fetch: EXTRA_LAZY
         journalUsers:
             targetEntity: Ojs\JournalBundle\Entity\JournalUser
             mappedBy: journal
@@ -240,12 +245,6 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
-        competingFile:
-            type: string
-            length: 255
-            nullable: TRUE
-            gedmo:
-              - versioned
         mandatoryLangId:
             type: integer
             nullable: TRUE

@@ -262,11 +262,6 @@ class JournalType extends AbstractType
                     'maxSize' => "[200, 200]"
                 )
             ))
-            ->add('competingFile', 'jb_file_ajax',
-                    array(
-                        'endpoint' => 'journalCompeting'
-                    )
-                )
             ;
     }
 

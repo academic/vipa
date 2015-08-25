@@ -324,6 +324,13 @@ class Journal extends AbstractTranslatable
     private $submissionChecklist;
 
     /**
+     * @var ArrayCollection|SubmissionFile[]
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $submissionFile;
+
+    /**
      * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
@@ -354,11 +361,6 @@ class Journal extends AbstractTranslatable
 
     /** @var ArrayCollection */
     private $journalContacts;
-
-    /**
-     * @var string
-     */
-    private $competingFile;
 
     /**
      * @var Lang
@@ -1482,6 +1484,44 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * Add submission file item
+     *
+     * @param  SubmissionFile $submissionFile
+     * @return Journal
+     */
+    public function addSubmissionFile(SubmissionFile $submissionFile)
+    {
+        if(!$this->submissionFile->contains($submissionFile)){
+            $this->submissionFile->add($submissionFile);
+            $submissionFile->setJournal($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove submission file item
+     *
+     * @param SubmissionFile $submissionFile
+     */
+    public function removeSubmissionFile(SubmissionFile $submissionFile)
+    {
+        if($this->submissionFile->contains($submissionFile)){
+            $this->submissionFile->removeElement($submissionFile);
+        }
+    }
+
+    /**
+     * Get submission file
+     *
+     * @return ArrayCollection|SubmissionFile[]
+     */
+    public function getSubmissionFile()
+    {
+        return $this->submissionFile;
+    }
+
+    /**
      * @return string
      */
     public function getDescription()
@@ -1624,25 +1664,6 @@ class Journal extends AbstractTranslatable
     public function setJournalContacts($journalContacts)
     {
         $this->journalContacts = $journalContacts;
-    }
-
-    /**
-     * @param  string $competingFile
-     * @return $this
-     */
-    public function setCompetingFile($competingFile)
-    {
-        $this->competingFile = $competingFile;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompetingFile()
-    {
-        return $this->competingFile;
     }
 
     /**
