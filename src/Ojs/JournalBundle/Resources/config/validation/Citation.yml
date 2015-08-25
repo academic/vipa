@@ -1,6 +1,8 @@
 Ojs\JournalBundle\Entity\Citation:
     properties:
         raw:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         type:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
+        orderNum:
+            - NotBlank: { groups: [submission] }

@@ -15,6 +15,12 @@ Ojs\JournalBundle\Entity\Article:
     properties:
         translations:
             - Valid: ~
+        articleFiles:
+            - Valid: ~
+        articleAuthors:
+            - Valid: ~
+        citations:
+            - Valid: ~
         status:
             - NotBlank: ~
         pubdate:

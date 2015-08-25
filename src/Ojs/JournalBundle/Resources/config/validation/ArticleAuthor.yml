@@ -1,0 +1,4 @@
+Ojs\JournalBundle\Entity\ArticleAuthor:
+    properties:
+        author:
+            - Valid: ~

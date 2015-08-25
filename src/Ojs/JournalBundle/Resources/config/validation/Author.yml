@@ -8,8 +8,8 @@ Ojs\JournalBundle\Entity\Author:
         translations:
             - Valid: ~
         firstName:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         lastName:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         email:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }

@@ -1,12 +1,12 @@
 Ojs\JournalBundle\Entity\ArticleFile:
     properties:
         type:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         langCode:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         title:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         description:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
         file:
-            - NotBlank: ~
+            - NotBlank: { groups: [submission] }
