@@ -2,9 +2,12 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\ORMException;
+use Ojs\AdminBundle\Form\Type\ChangePasswordType;
+use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
@@ -40,10 +43,21 @@ class AdminUserController extends Controller
         $gridAction = $this->get('grid_action');
         $grid->setSource($source);
 
+        $passwordAction = new RowAction('<i class="fa fa-key"></i>', 'ojs_admin_user_password');
+        $passwordAction->setRouteParameters('id');
+        $passwordAction->setAttributes(
+            [
+                'class' => 'btn btn-info btn-xs',
+                'data-toggle' => 'tooltip',
+                'title' => $this->get('translator')->trans('title.password_change'),
+            ]
+        );
+
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->switchUserAction('ojs_public_index', ['username']);
         $rowAction[] = $gridAction->showAction('ojs_admin_user_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_user_edit', 'id');
+        $rowAction[] = $passwordAction;
         $rowAction[] = $gridAction->userBanAction();
         $rowAction[] = $gridAction->deleteAction('ojs_admin_user_delete', 'id');
 
@@ -211,7 +225,7 @@ class AdminUserController extends Controller
     private function createEditForm(User $entity)
     {
         $form = $this->createForm(
-            new UserType(),
+            new UpdateUserType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_user_update', array('id' => $entity->getId())),
@@ -372,5 +386,30 @@ class AdminUserController extends Controller
         );
 
         return $form;
+    }
+
+    public function changePasswordAction(Request $request, $id)
+    {
+        /** @var User $user */
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->find('OjsUserBundle:User', $id);
+
+        if (!$this->isGranted('EDIT', $user)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+
+        $form = $this->createForm(new ChangePasswordType());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $password = $form->get('password')->getData();
+            $manipulator = $this->get('fos_user.util.user_manipulator');
+            $manipulator->changePassword($user->getUsername(), $password);
+            $this->successFlashBag('successful.update');
+        } elseif ($request->isMethod('POST')) {
+            $this->successFlashBag('user.change_password_fail');
+        }
+
+        return $this->render('OjsAdminBundle:AdminUser:password.html.twig', ['form' => $form->createView()]);
     }
 }

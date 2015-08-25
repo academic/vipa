@@ -35,3 +35,7 @@ ojs_admin_user_block:
 ojs_admin_user_unblock:
     path: /{id}/unblock
     defaults: { _controller: OjsAdminBundle:AdminUser:unblock }
+
+ojs_admin_user_password:
+    path:  /{id}/password
+    defaults: { _controller: OjsAdminBundle:AdminUser:changePassword }
