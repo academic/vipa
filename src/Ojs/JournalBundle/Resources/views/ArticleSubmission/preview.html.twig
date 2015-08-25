@@ -138,29 +138,31 @@
                     <div class="panel panel-body table-responsive">
                         <table class="table">
                             {% for key,articleFile  in article.articleFiles %}
-                                <tr>
-                                    <td>
-                                        <a class="label label-info" target="_blank"
-                                           href="{{ asset('uploads/articlefiles/' ~ articleFile.file) }}">
-                                            {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
-                                            <i class="fa fa-download"></i>
-                                        </a>
+                                {% if articleFile.type != -1 %}
+                                    <tr>
+                                        <td>
+                                            <a class="label label-info" target="_blank"
+                                               href="{{ asset('uploads/articlefiles/' ~ articleFile.file) }}">
+                                                {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
+                                                <i class="fa fa-download"></i>
+                                            </a>
 
-                                        {% if articleFile.title is defined %}
-                                            <br>
-                                            <small><b>{{ "title"|trans }} : </b>
-                                                {{ articleFile.title }}
-                                            </small>
-                                        {% endif %}
-                                        {% if articleFile.description is defined %}
-                                            <br>
-                                            <small>
-                                                <b>{{ "desc"|trans }} : </b>
-                                                {{ articleFile.description }}
-                                            </small>
-                                        {% endif %}
-                                    </td>
-                                </tr>
+                                            {% if articleFile.title is defined %}
+                                                <br>
+                                                <small><b>{{ "title"|trans }} : </b>
+                                                    {{ articleFile.title }}
+                                                </small>
+                                            {% endif %}
+                                            {% if articleFile.description is defined %}
+                                                <br>
+                                                <small>
+                                                    <b>{{ "desc"|trans }} : </b>
+                                                    {{ articleFile.description }}
+                                                </small>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
 
                         </table>

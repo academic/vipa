@@ -16,13 +16,15 @@ class ArticleFileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $fileTypes = ArticleFileParams::$FILE_TYPES;
+        array_shift($fileTypes);
         $builder
             ->add('file', 'jb_file_ajax', array(
                 'endpoint' => 'articlefiles'
             ))
             ->add('type', 'choice',
                 [
-                    'choices' => ArticleFileParams::$FILE_TYPES,
+                    'choices' => $fileTypes,
                 ]
             )
             ->add('langCode', 'choice',

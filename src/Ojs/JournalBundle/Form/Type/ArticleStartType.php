@@ -7,7 +7,6 @@ use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\EqualTo;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ArticleStartType extends AbstractType
 {
@@ -19,14 +18,11 @@ class ArticleStartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'competingFile',
-                'jb_file_ajax',
-                array(
-                    'endpoint' => 'articlefiles',
-                    'label' => 'workflow.competing_interests_file',
-                    'constraints' => array(
-                        new NotBlank()
+            ->add('submissionFiles', 'collection', array(
+                    'type' => new SubmissionFileType(1),
+                    'allow_add' => false,
+                    'allow_delete' => false,
+                    'options' => array(
                     )
                 )
             )
@@ -49,7 +45,8 @@ class ArticleStartType extends AbstractType
                         )
                     )
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -59,7 +56,9 @@ class ArticleStartType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'data_class' => 'Ojs\JournalBundle\Entity\ArticleSubmissionStart',
                 'checkListsChoices' => [],
+                'submissionFilesChoices' => [],
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',

@@ -42,18 +42,28 @@
                 </div>
                 <div class="panel-body">
                     {{ form_start(form) }}
-                        {% if journal.competingFile is not null %}
-                            <div class="alert alert-info" role="alert">
-                                <span>
-                                    {{ 'suggested.competingFile.can.view' }}
-                                </span>
-                                <a href="{{ asset('uploads/journal/' ~ journal.competingFile) }}" target="_blank">
-                                    {{ 'from here'|trans }}
-                                </a>
-                            </div>
-                        {% endif %}
-                        {{ form_row(form.competingFile) }}
 
+                        <div class="panel panel-info submission-subform-panel">
+                            <div class="panel-heading">Journal Files</div>
+                            <div class="submission-subform-container panel-body">
+                                {% for index,submissionFileForm in form.submissionFiles %}
+                                    <div class="alert alert-info" role="alert">
+                                        <span>
+                                            {{ submissionFiles[index].label }}
+                                            {% if submissionFiles[index].required %}
+                                                <b>(Required)</b>
+                                            {% else %}
+                                                <b>(Optinal)</b>
+                                            {% endif %}
+                                        </span>
+                                        <a href="{{ asset('uploads/journal/' ~ submissionFiles[index].file) }}" target="_blank">
+                                            {{ 'from.here'|trans }}
+                                        </a>
+                                    </div>
+                                    {{ form_row(submissionFileForm.file) }}
+                                {% endfor %}
+                            </div>
+                        </div>
                         <hr>
                         {{ form_errors(form.checks) }}
                         {% for index, formCheck in form.checks %}

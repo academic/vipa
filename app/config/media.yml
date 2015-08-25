@@ -166,7 +166,7 @@ oneup_uploader:
     articlefiles:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel']
+      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
       storage:
         type: gaufrette
         filesystem: gaufrette.articlefiles_filesystem

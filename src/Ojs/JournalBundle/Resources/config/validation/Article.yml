@@ -29,5 +29,3 @@ Ojs\JournalBundle\Entity\Article:
             - NotBlank: ~
         submissionDate:
             - NotBlank: ~
-        competingFile:
-            - NotBlank: { groups: [submission] }

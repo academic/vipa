@@ -12,13 +12,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SubmissionFileType extends AbstractType
 {
+    private $isArticleSubmissionStartProcess;
+
+    public function __construct($isArticleSubmissionStartProcess = false)
+    {
+        $this->isArticleSubmissionStartProcess = $isArticleSubmissionStartProcess;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if($this->isArticleSubmissionStartProcess){
+            $builder->add('file', 'jb_file_ajax',
+                array(
+                    'endpoint' => 'articlefiles'
+                )
+            );
+            return;
+
+        }
         $builder
+            ->add('file', 'jb_file_ajax',
+                array(
+                    'endpoint' => 'articlefiles'
+                )
+            )
             ->add('label', 'text', [
                 'label' => 'submission_checklist.label'
                 ]
@@ -33,11 +54,6 @@ class SubmissionFileType extends AbstractType
                 [
                     'choices' => $options['languages'],
                 ]
-            )
-            ->add('file', 'jb_file_ajax',
-                array(
-                    'endpoint' => 'journalCompeting'
-                )
             )
             ->add('visible', 'checkbox', [
                 'label' => 'submission_checklist.visible'

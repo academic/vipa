@@ -14,11 +14,13 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleRepository;
+use Ojs\JournalBundle\Entity\ArticleSubmissionStart;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
+use Ojs\JournalBundle\Entity\SubmissionFile;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
@@ -169,8 +171,7 @@ class ArticleSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $session = $this->get('session');
-
-        if(!$session->has('competingFile')){
+        if(!$session->has('submissionFiles')){
             return $this->redirectToRoute('ojs_journal_submission_start', array('journalId' => $journal->getId()));
         }
 
@@ -192,7 +193,6 @@ class ArticleSubmissionController extends Controller
 
         $articleAuthor->setAuthor($author);
         $article
-            ->setCompetingFile($session->get('competingFile'))
             ->setSubmitterUser($user)
             ->setStatus(-1)
             ->setJournal($journal)
@@ -225,6 +225,22 @@ class ArticleSubmissionController extends Controller
             foreach ($article->getArticleFiles() as $f_articleFile) {
                 $f_articleFile->setArticle($article);
                 $f_articleFile->setVersion(0);
+            }
+            foreach($session->get('submissionFiles') as $fileKey => $submissionFile){
+                if(!is_null($submissionFile)){
+                    $journalEqualFile = $journal->getSubmissionFile()[$fileKey];
+                    $articleFile = new ArticleFile();
+                    $articleFile
+                        ->setFile($submissionFile)
+                        ->setArticle($article)
+                        ->setDescription($journalEqualFile->getDetail())
+                        ->setLangCode($journalEqualFile->getLocale())
+                        ->setTitle($journalEqualFile->getLabel())
+                        ->setVersion(0)
+                        ->setType(-1)
+                        ;
+                    $em->persist($articleFile);
+                }
             }
             $em->persist($article);
             $em->flush();
@@ -519,10 +535,32 @@ class ArticleSubmissionController extends Controller
             }
         }
 
-        $form = $this->createStartForm($checkListsChoices);
+        $entity = new ArticleSubmissionStart();
+        foreach($journal->getSubmissionFile() as $file){
+
+            $fileEntity = new SubmissionFile();
+            $entity->addSubmissionFile($fileEntity);
+        }
+        $form = $this->createStartForm($checkListsChoices, $entity);
         $form->handleRequest($request);
-        if($form->isValid()){
-            $session->set('competingFile', $form->getData()['competingFile']);
+
+        $submissionFiles = [];
+        if($form->isValid() && $form->isSubmitted()){
+            foreach ($entity->getSubmissionFiles() as $fileKey => $submissionFile) {
+                if(empty($submissionFile->getFile()) && $journal->getSubmissionFile()[$fileKey]->getRequired()){
+                    return $this->render(
+                        'OjsJournalBundle:ArticleSubmission:start.html.twig',
+                        array(
+                            'journal' => $journal,
+                            'checkLists' => $checkLists,
+                            'submissionFiles' => $journal->getSubmissionFile(),
+                            'form' => $form->createView()
+                        )
+                    );
+                }
+                $submissionFiles[$fileKey] = $submissionFile->getFile();
+            }
+            $session->set('submissionFiles', $submissionFiles);
             return $this->redirectToRoute('ojs_journal_submission_new', array('journalId' => $journal->getId()));
         }
 
@@ -531,6 +569,7 @@ class ArticleSubmissionController extends Controller
             array(
                 'journal' => $journal,
                 'checkLists' => $checkLists,
+                'submissionFiles' => $journal->getSubmissionFile(),
                 'form' => $form->createView()
             )
         );
@@ -540,11 +579,11 @@ class ArticleSubmissionController extends Controller
      * @param Array $checkListsChoices
      * @return FormInterface
      */
-    private function createStartForm(array $checkListsChoices)
+    private function createStartForm(array $checkListsChoices, $entity)
     {
         $form = $this->createForm(
             new ArticleStartType(),
-            null,
+            $entity,
             array(
                 'checkListsChoices' => $checkListsChoices,
                 'method' => 'POST'
