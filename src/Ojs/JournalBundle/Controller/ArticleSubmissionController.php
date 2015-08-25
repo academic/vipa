@@ -2,9 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
@@ -475,7 +475,7 @@ class ArticleSubmissionController extends Controller
                 }
             }
             catch(\Exception $e){
-
+                throw $e;
             }
             return $response;
         }
