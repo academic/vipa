@@ -53,12 +53,10 @@ class RegisterFormType extends AbstractType
                 'repeated',
                 array(
                     'first_options' => [
-                        'label' => 'user.register.password.first',
-                        'error_bubbling'=>true
+                        'label' => 'user.register.password.first'
                     ],
                     'second_options' => [
-                        'label' => 'user.register.password.second',
-                        'error_bubbling'=>true
+                        'label' => 'user.register.password.second'
                     ],
                     'type' => 'password',
                     'required' => true,
@@ -74,12 +72,12 @@ class RegisterFormType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\UserBundle\Entity\User',
+                'cascade_validation' => true,
+                'validation_groups' => ['ojs_register'],
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
-                'translation_domain' => 'forms',
-                'validation_groups'=>['ojs_register']
+                'translation_domain' => 'forms'
             )
         );
     }

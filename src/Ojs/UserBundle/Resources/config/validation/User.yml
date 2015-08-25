@@ -1,17 +1,14 @@
 Ojs\UserBundle\Entity\User:
   properties:
     username:
-      - NotBlank: ~
+      - NotBlank: { groups: [ojs_register] }
     password:
-      - NotBlank: ~
+      - NotBlank: { groups: [ojs_register] }
+      - Length: { min: 6, groups: [ojs_register] }
     email:
-      - NotBlank: ~
-      - Email: ~
-    title:
-      - NotBlank: ~
+      - NotBlank: { groups: [ojs_register] }
+      - Email: { groups: [ojs_register] }
     firstName:
-      - NotBlank: ~
+      - NotBlank: { groups: [ojs_register] }
     lastName:
-      - NotBlank: ~
-    tags:
-      - NotBlank: ~
+      - NotBlank: { groups: [ojs_register] }
