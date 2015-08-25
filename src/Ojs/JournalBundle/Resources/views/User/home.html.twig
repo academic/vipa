@@ -73,43 +73,7 @@
     <script src="{{ asset('vendor/c3/c3.min.js') }}"></script>
     <script type="text/javascript">
         var data = {{ stats|raw }};
-
-        function createChart(id, column)
-        {
-            var chart = c3.generate({
-                bindto: id,
-                data: {
-                    x: 'x',
-                    columns: [
-                        data['dates'],
-                        column
-                    ],
-                    type: 'bar'
-                },
-                subchart: {
-                    show: false
-                },
-                zoom: {
-                    enabled: true
-                },
-                axis : {
-                    x : {
-                        type : 'timeseries',
-                        tick: {
-                            format: function (x) { return x.toLocaleDateString(); },
-                            culling: {max: 8}
-                        }
-                    }
-                },
-                bar: {
-                    width: {
-                        ratio: 0.6
-                    }
-                }
-            });
-        }
-
-        createChart('#articles', data['articleViews']);
+        analytics.createChart('#articles', data['articleViews']);
     </script>
 {% endblock %}
 
