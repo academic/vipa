@@ -49,6 +49,7 @@ class RegistrationController extends  BaseController
 
         /** @var User $user */
         $user = $userManager->createUser();
+        $user->setEnabled(true);
         //Add default data for oauth login
         $session = $this->get('session');
         $oauth_login = $session->get('oauth_login', false);
