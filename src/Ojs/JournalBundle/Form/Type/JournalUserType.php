@@ -15,16 +15,13 @@ class JournalUserType extends AbstractType implements FormTypeInterface
         $builder
             ->add(
                 'user',
-                'autocomplete',
+                'entity',
                 [
                     'class' => 'Ojs\UserBundle\Entity\User',
                     'label' => 'user',
-                    'attr' => [
-                        'class' => 'autocomplete',
-                        'data-list' => $options['usersEndpoint'],
-                        'data-get' => $options['userEndpoint'],
-                        "placeholder" => "Type a username",
-                    ],
+                    'multiple' => false,
+                    'expanded' => false,
+                    'attr' => array("class" => "select2-element"),
                 ]
             )
             ->add(

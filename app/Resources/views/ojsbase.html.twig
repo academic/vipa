@@ -153,6 +153,7 @@
     <script>
         {% if apiKey() %}
         $(document).ready(function () {
+            OjsCommon.api.userApikey = "{{apiKey()}}";
         });
         {% endif%}
     </script>
