@@ -19,13 +19,60 @@
     {% include '::flashbag.html.twig' %}
     <h1>{{ "dashboard.general_stats"|trans }}</h1>
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab" data-toggle="tab">{{ "title.articles"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="#journal" aria-controls="home" role="tab" data-toggle="tab">{{ "title.journals"|trans }}</a></li>
+        <li role="presentation"><a href="#article" aria-controls="home" role="tab" data-toggle="tab">{{ "title.articles"|trans }}</a></li>
         <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
     </ul>
 
     <div id="statistics" class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="article">
+        <div role="tabpanel" class="tab-pane fade in active" id="journal">
+            <div id="journals"></div>
+            <h3>{{ "stats.most_viewed_journals"|trans }}</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#journalMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
+                <li role="presentation"><a href="#journalAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="journalMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ "journal.title"|trans }}</th>
+                            <th>{{ "stats.views"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for journal in journalsMonthly %}
+                            <tr>
+                                <td>{{ journal[0] }}</td>
+                                <td>{{ journal[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="journalAllTime">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ "journal.title"|trans }}</th>
+                            <th>{{ "stats.views"|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for journal in journals %}
+                            <tr>
+                                <td>{{ journal[0] }}</td>
+                                <td>{{ journal[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="article">
             <div id="articles"></div>
             <h3>{{ "stats.most_viewed_articles"|trans }}</h3>
             <ul class="nav nav-tabs" role="tablist">
@@ -173,6 +220,7 @@
     <script src="{{ asset('vendor/c3/c3.min.js') }}"></script>
     <script type="text/javascript">
         var data = {{ stats|raw }};
+        analytics.createChart('#journals', data['journalViews']);
         analytics.createChart('#articles', data['articleViews']);
         analytics.createPieChart('#articleFiles', data['articleFileDownloads']);
         analytics.createPieChart('#issueFiles', data['issueFileDownloads']);

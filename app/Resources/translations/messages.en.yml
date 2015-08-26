@@ -885,6 +885,7 @@ stats: Statistics
 stats.most_downloaded_article_files: 'Most downloaded article files'
 stats.most_downloaded_issue_files: 'Most downloaded issue files'
 stats.most_viewed_articles: 'Most viewed articles'
+stats.most_viewed_journals: 'Most viewed journals'
 stats.views: 'Views'
 stats.downloads: 'Downloads'
 stats.this_month: 'This Month'

@@ -135,7 +135,7 @@ class SiteController extends Controller
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'institution' => $institutionEntity]);
         $this->throw404IfNotFound($journal);
 
-        $journalViews = $journalStatRepo->getTotalViewCounts($journal);
+        $journalViews = $journalStatRepo->getMostViewed($journal);
         $issueDownloads = $issueFileStatRepo->getTotalDownloadsOfAllFiles($journal->getIssues());
         $articleDownloads = $articleFileStatRepo->getTotalDownloadsOfAllFiles($journal->getArticles());
 

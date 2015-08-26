@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
+use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 
@@ -27,6 +28,46 @@ class GraphDataGenerator
         $this->manager = $manager;
     }
 
+    /**
+     * Returns generator's date format
+     *
+     * @return string
+     */
+    public function getDateFormat()
+    {
+        return $this::DATE_FORMAT;
+    }
+
+    /**
+     * Returns an array which can be passed to C3.js for bar chart graph creation
+     *
+     * @param array $journals
+     * @param array $dates
+     * @return array
+     */
+    public function generateJournalBarChartData($journals, $dates)
+    {
+        $journalStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:JournalStatistic');
+        $journalStats = $journalStatRepo->findByJournals($journals, $dates);
+        $journalViews = ['View'];
+
+        foreach ($dates as $date) {
+            $total = 0;
+            /** @var JournalStatistic $stat */
+            $stat = $journalStats->first();
+
+            while ($stat && $stat->getDate()->format($this::DATE_FORMAT) == $date) {
+                $total += $stat->getView();
+                $journalStats->removeElement($stat);
+                $stat = $journalStats->first();
+            }
+
+            $journalViews[] = $total;
+        }
+
+        return $journalViews;
+    }
+    
     /**
      * Returns an array which can be passed to C3.js for bar chart graph creation
      *
@@ -142,6 +183,31 @@ class GraphDataGenerator
         }
         
         return $articleFileDownloads;
+    }
+
+    /**
+     * Returns an array of journal download statistics which can be displayed in a table
+     *
+     * @param array $journals
+     * @param array $dates
+     * @return array
+     */
+    public function generateJournalViewsData($journals, $dates = null)
+    {
+        $journalStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:JournalStatistic');
+        $stats = $journalStatRepo->getMostViewed($journals, $dates, 10);
+        $result = [];
+
+        foreach ($stats as $stat) {
+            /** @var JournalStatistic $journalStat */
+            $journalStat = $stat[0];
+            $result[] = array(
+                $journalStat->getJournal()->getTitle(),
+                $stat[1]
+            );
+        }
+
+        return $result;
     }
 
     /**

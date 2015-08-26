@@ -30,7 +30,7 @@ class JournalStatisticRepository extends EntityRepository
             ->orderBy('stat.date', 'DESC')
             ->setParameter('journals', $journals);
 
-        return $builder->getQuery()->getResult();
+        return new ArrayCollection($builder->getQuery()->getResult());
     }
 
     /**
@@ -41,7 +41,7 @@ class JournalStatisticRepository extends EntityRepository
      * @param int $limit
      * @return ArrayCollection
      */
-    public function getTotalViewCounts($journals, $dates = null, $limit = null)
+    public function getMostViewed($journals, $dates = null, $limit = null)
     {
         $builder = $this->createQueryBuilder('stat');
 
@@ -60,6 +60,6 @@ class JournalStatisticRepository extends EntityRepository
             ->orderBy('stat.view', 'DESC')
             ->setMaxResults($limit);
 
-        return $builder->getQuery()->getResult();
+        return new ArrayCollection($builder->getQuery()->getResult());
     }
 }
