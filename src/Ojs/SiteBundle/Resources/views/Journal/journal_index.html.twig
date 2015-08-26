@@ -40,9 +40,8 @@
             {% block journalheader %}
                 <div id="header">
                     {% if journal.header %}
-                        <div class="col-md-12"><img
-                                    src="{{ journal.header|imagine_filter('journal_header') }}"
-                                    class="width100 img-responsive tri"/>
+                        <div class="col-md-12">
+                            <img src="{{ journal.header|imagine_filter('journal_header') }}" class="width100 img-responsive"/>
                         </div>
                     {% endif %}
                     <h1>
@@ -97,11 +96,11 @@
                 <div class="col-md-2 col-sm-3 col-xs-8 col-xs-offset-2 col-sm-offset-0 margin-bot">
                     <img
                         {% if journal.image is not null %}
-                        src="{{ journal.image|imagine_filter('journal_cover') }}"
+                        src="{{ journal.image|imagine_filter('journal_cover') }}" class="img-responsive img-rounded float-left"
                         {% else %}
-                        src="#"
+                        src="#" class="img-responsive img-rounded float-left tri"
                         {% endif %}
-                            class="img-responsive img-rounded float-left tri" alt=""/>
+                            alt="{{ 'cover_image'|trans }} "/>
 
                     <a href="#" class="list-group-item ">
                         <span class="pull-right">
