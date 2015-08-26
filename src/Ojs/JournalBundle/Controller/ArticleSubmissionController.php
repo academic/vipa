@@ -47,7 +47,7 @@ class ArticleSubmissionController extends Controller
      * @param  bool     $all
      * @return Response
      */
-    public function indexAction($all = false)
+    public function indexAction($all = false, Request $request)
     {
         $translator = $this->get('translator');
         /** @var Journal $currentJournal */
@@ -97,8 +97,10 @@ class ArticleSubmissionController extends Controller
         $submissionsGrid = $gridManager->createGrid('submission');
         $drafts = $gridManager->createGrid('drafts');
         $source1->manipulateRow(
-            function (Row $row) use ($translator) {
+            function (Row $row) use ($translator, $currentJournal) {
+                /** @var Article $entity */
                 $entity = $row->getEntity();
+                $entity->setDefaultLocale($currentJournal->getMandatoryLang()->getCode());
                 $statusText = ArticleParams::statusText($row->getField('status'));
                 if (!is_array($statusText)) {
                     $row->setField('status', $translator->trans($statusText));
@@ -111,8 +113,10 @@ class ArticleSubmissionController extends Controller
         );
 
         $source2->manipulateRow(
-            function (Row $row) use ($translator) {
+            function (Row $row) use ($translator, $request) {
                 $entity = $row->getEntity();
+                /** @var Article $entity */
+                $entity->setDefaultLocale($request->getDefaultLocale());
                 $statusText = ArticleParams::statusText($row->getField('status'));
                 if (!is_array($statusText)) {
                     $row->setField('status', $translator->trans($statusText));
