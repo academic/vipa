@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Helper;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
@@ -13,8 +14,6 @@ use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\SiteBundle\Entity\BlockRepository;
-use Ojs\SiteBundle\Event\SiteEvents;
-use Ojs\SiteBundle\Event\ViewIssueEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -46,7 +45,7 @@ class SiteController extends Controller
             'nodeDecorator' => function ($node) {
                 return '<a href="' . $this->generateUrl('ojs_site_explore_index',
                     ['filter' => ['subject' => $node['id']]]) . '">@todo_this_will_fixed' . //$node['subject'] .
-                    ' (' . $node['totalJournalCount'] . ')</a>';
+                ' (' . $node['totalJournalCount'] . ')</a>';
             },
         ];
 
