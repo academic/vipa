@@ -77,22 +77,29 @@
                         <div class="col-md-12">
                             <p id="homepage-buttons" class="text-center">
                                 {% if not app.user %}
-                                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-labeled"><span
-                                                class="btn-label pull-left"><i
-                                                    class="fa fa-user fa-fw"></i></span> {{ "register"|trans }}
+                                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-labeled">
+                                        <span class="btn-label pull-left">
+                                            <i class="fa fa-user fa-fw"></i>
+                                        </span>
+                                        {{ "register"|trans }}
                                     </a>
                                 {% endif %}
 
                                 {% if institutionApplicationAllowance %}
                                     <a href="{{ url("ojs_apply_institution") }}"
-                                       class="btn btn-primary  btn-labeled"><span class="btn-label pull-left"><i
-                                                    class="fa fa-institution fa-fw"></i></span> {{ 'application.institution.apply'|trans }}
+                                       class="btn btn-primary  btn-labeled">
+                                        <span class="btn-label pull-left">
+                                            <i class="fa fa-institution fa-fw"></i>
+                                        </span>
+                                        {{ 'application.institution.apply'|trans }}
                                     </a>
                                 {% endif %}
                                 {% if journalApplicationAllowance %}
-                                    <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled"><span
-                                                class="btn-label pull-left"><i
-                                                    class="fa fa-book fa-fw"></i></span> {{ "application.journal.apply"|trans }}
+                                    <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled">
+                                        <span class="btn-label pull-left">
+                                            <i class="fa fa-book fa-fw"></i>
+                                        </span>
+                                        {{ "application.journal.apply"|trans }}
                                     </a>
                                 {% endif %}
                             </p>
