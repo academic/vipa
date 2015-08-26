@@ -27,10 +27,25 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  */
 class AdminJournalApplicationController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $data = array();
         $source = new Entity('OjsJournalBundle:Journal');
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var Journal $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                }
+                return $row;
+            }
+        );
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($alias) {
