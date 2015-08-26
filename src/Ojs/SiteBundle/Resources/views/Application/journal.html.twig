@@ -37,6 +37,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h4>{{ "journal.about"|trans }}</h4></div>
             <div class="panel-body">
+                {% include '::flashbag.html.twig' %}
                 {{ form_errors(form) }}
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.journal.institution"|trans }}</h4></div>
