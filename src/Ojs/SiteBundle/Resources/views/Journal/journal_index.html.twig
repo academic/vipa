@@ -1,5 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.journal'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ journal.title }} &raquo; {{ 'title.journal'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
     {{ parent() }}
