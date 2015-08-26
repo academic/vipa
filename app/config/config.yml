@@ -118,7 +118,7 @@ a2lix_translation_form:
     default_locale: %locale%
     required_locales: [%locale%]
     manager_registry: doctrine
-    templating: "A2lixTranslationFormBundle::default.html.twig"
+    templating: "::translation_form.html.twig"
 
 norzechowicz_ace_editor:
     base_path: "vendor/ace-builds"
