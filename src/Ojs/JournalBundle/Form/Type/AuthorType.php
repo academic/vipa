@@ -20,6 +20,7 @@ class AuthorType extends AbstractType
             ->add('middleName')
             ->add('firstName')
             ->add('lastName')
+            ->add('phone')
             ->add('firstNameTransliterated')
             ->add('middleNameTransliterated')
             ->add('lastNameTransliterated')
