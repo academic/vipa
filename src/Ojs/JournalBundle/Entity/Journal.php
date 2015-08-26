@@ -1334,7 +1334,7 @@ class Journal extends AbstractTranslatable
      */
     public function __toString()
     {
-        return $this->getTitle()."[{$this->getId()}]";
+        return $this->getTitle();
     }
 
     /**
