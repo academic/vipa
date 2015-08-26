@@ -83,15 +83,18 @@
                                     </a>
                                 {% endif %}
 
-                                <a href="{{ url("ojs_apply_institution") }}"
-                                   class="btn btn-primary  btn-labeled"><span class="btn-label pull-left"><i
-                                                class="fa fa-institution fa-fw"></i></span> {{ 'application.institution.apply'|trans }}
-                                </a>
-
-                                <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled"><span
-                                            class="btn-label pull-left"><i
-                                                class="fa fa-book fa-fw"></i></span> {{ "application.journal.apply"|trans }}
-                                </a>
+                                {% if institutionApplicationAllowance.value %}
+                                    <a href="{{ url("ojs_apply_institution") }}"
+                                       class="btn btn-primary  btn-labeled"><span class="btn-label pull-left"><i
+                                                    class="fa fa-institution fa-fw"></i></span> {{ 'application.institution.apply'|trans }}
+                                    </a>
+                                {% endif %}
+                                {% if journalApplicationAllowance.value %}
+                                    <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled"><span
+                                                class="btn-label pull-left"><i
+                                                    class="fa fa-book fa-fw"></i></span> {{ "application.journal.apply"|trans }}
+                                    </a>
+                                {% endif %}
                             </p>
                         </div>
                     </div>

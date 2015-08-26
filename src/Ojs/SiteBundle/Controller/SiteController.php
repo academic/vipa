@@ -61,6 +61,16 @@ class SiteController extends Controller
             'user' => 0,
         ];
 
+        $data['journalApplicationAllowance'] = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'journal_application']);
+
+        $data['institutionApplicationAllowance'] = $this
+            ->getDoctrine()
+            ->getRepository('OjsAdminBundle:SystemSetting')
+            ->findOneBy(['name' => 'institution_application']);
+
         $data['stats']['journal'] = $this->get('fos_elastica.index.search.journal')->count(new MatchAll());
         $data['stats']['article'] = $this->get('fos_elastica.index.search.articles')->count(new MatchAll());
         $data['stats']['subject'] = $this->get('fos_elastica.index.search.subject')->count(new MatchAll());
