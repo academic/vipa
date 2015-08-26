@@ -59,8 +59,7 @@
     "jbouzekri/file-uploader-bundle": "~2.0",
     "norzechowicz/aceeditor-bundle": "0.1.*",
     "friendsofsymfony/user-bundle": "dev-master",
-    "pugx/autocompleter-bundle": "dev-master",
-    "sendgrid/sendgrid": "~3.2"
+    "pugx/autocompleter-bundle": "dev-master"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
