@@ -1399,3 +1399,11 @@ institutiondesign.new: 'New Institution Design'
 institutiondesign.plural: 'Institution Designs'
 suggested.competingFile.can.view: Suggested competing file can view.
 from.here: From here
+
+validation:
+  submission:
+    title: Title field for the default language can not be blank
+    subjects: Subjects field for the default language can not be blank
+    subtitle: Subtitle field for the default language can not be blank
+    keywords: Keywords field for the default language can not be blank
+    abstract: Abstract field for the default language can not be blank

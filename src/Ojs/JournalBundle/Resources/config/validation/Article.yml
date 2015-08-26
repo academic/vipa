@@ -1,15 +1,15 @@
 Ojs\JournalBundle\Entity\ArticleTranslation:
   properties:
     title:
-      - NotBlank: { groups: [submission] }
+      - NotBlank: { groups: [submission], message: 'Title field for the default language can not be blank.' }
     subjects:
-      - NotBlank: { groups: [submission] }
+      - NotBlank: { groups: [submission], message: 'Subjects field for the default language can not be blank.' }
     subtitle:
-      - NotBlank: { groups: [submission] }
+      - NotBlank: { groups: [submission], message: 'Subtitle field for the default language can not be blank.' }
     keywords:
-      - NotBlank: { groups: [submission] }
+      - NotBlank: { groups: [submission], message: 'Keywords field for the default language can not be blank.' }
     abstract:
-      - NotBlank: { groups: [submission] }
+      - NotBlank: { groups: [submission], message: 'Abstract field for the default language can not be blank.' }
 
 Ojs\JournalBundle\Entity\Article:
     properties:
