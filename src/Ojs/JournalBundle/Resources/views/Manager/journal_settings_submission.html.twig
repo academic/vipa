@@ -21,22 +21,11 @@
 
             <div class="form-group">
                 <fieldset>
-                    <legend>1. {{ "journal.settings.submission.language"|trans }}</legend>
+                    <legend>1. {{ "journal.settings.last.step.confirm"|trans }}</legend>
                     <div class="form-row">
-                        <div class="form-group">
-                            {% for lang in settings.submissionMandatoryLanguages %}
-                                <span class="badge">{{ lang }}</span>
-                            {% endfor %}
-                        </div>
-                        <label>{{ "journal.settings.submission.language.text"|trans }}</label>
-                        <select name="submissionMandatoryLanguages[]" class="select2-element form-control" multiple>
-                            {% for lang in allLanguages %}
-                                <option value="{{ lang.code }}"
-                                        {% if lang.code in settings.submissionMandatoryLanguages %}selected{% endif %}>
-                                    {{ lang.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                        <label>{{ "journal.settings.last.step.confirm"|trans }}</label>
+                        <textarea class="form-control" style="width:100%"
+                                  name="submissionConfirmText">{{ settings.submissionConfirmText }}</textarea>
                     </div>
                     <br>
 

@@ -104,17 +104,16 @@ class ManagerController extends Controller
             $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
         if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
+            throw new AccessDeniedException("You not authorized for this page!");
         }
 
         if ($request->getMethod() == 'POST') {
-            $submissionMandatoryLanguages = $request->get('submissionMandatoryLanguages');
-            if (!empty($submissionMandatoryLanguages)) {
+            $submissionConfirmText = $request->get('submissionConfirmText');
+            if (!empty($submissionConfirmText)) {
                 $this->updateJournalSetting(
                     $journal,
-                    'submissionMandatoryLanguages',
-                    $submissionMandatoryLanguages,
-                    true
+                    'submissionConfirmText',
+                    $submissionConfirmText
                 );
             }
             $submissionAbstractTemplate = $request->get('submissionAbstractTemplate');
@@ -138,8 +137,8 @@ class ManagerController extends Controller
         $root = $this->container->getParameter('kernel.root_dir');
         $data = array(
             'settings' => array(
-                'submissionMandatoryLanguages' => $journal->getSetting('submissionMandatoryLanguages') ?
-                    json_decode($journal->getSetting('submissionMandatoryLanguages')->getValue()) :
+                'submissionConfirmText' => $journal->getSetting('submissionConfirmText') ?
+                    $journal->getSetting('submissionConfirmText')->getValue() :
                     null,
                 'submissionAbstractTemplate' => $journal->getSetting('submissionAbstractTemplate') ?
                     $journal->getSetting('submissionAbstractTemplate')->getValue() :
@@ -161,7 +160,6 @@ class ManagerController extends Controller
                 )
             ),
             'journal' => $journal,
-            'allLanguages' => $journal->getLanguages(),
         );
 
         return $this->render('OjsJournalBundle:Manager:journal_settings_submission.html.twig', $data);
