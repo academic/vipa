@@ -51,7 +51,7 @@ class DashboardController extends OjsController
             'stats' => json_encode($json),
             'articles' => $generator->generateArticleViewsData($articles),
             'issueFiles' => $generator->generateIssueFileDownloadsData($issues),
-            'articleFiles' => $generator->generateArticleFileDownloadsData($issues),
+            'articleFiles' => $generator->generateArticleFileDownloadsData($articles),
             'articlesMonthly' => $generator->generateArticleViewsData($articles, $slicedLastMonth),
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($issues, $slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($articles, $slicedLastMonth),

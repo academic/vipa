@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
+use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
@@ -242,7 +243,7 @@ class ManagerController extends Controller
             [
                 'switcher' => $switcher,
                 'articles' => $articles,
-                'stats' => $this->createStats()
+                'data' => $this->createStats()
             ]
         );
 
@@ -262,42 +263,34 @@ class ManagerController extends Controller
      */
     private function createStats()
     {
-        $dateFormat = "Y-m-d";
-        $lastMonth = ['x'];
+        $generator = new GraphDataGenerator($this->getDoctrine()->getManager());
 
+        $lastMonth = ['x'];
         for($i = 0; $i < 30; $i++) {
-            $lastMonth[] = date($dateFormat, strtotime('-' . $i . ' days'));
+            $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
         }
+
+        $slicedLastMonth = array_slice($lastMonth, 1);
 
         $articles = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['submitterUser' => $this->getUser()]);
 
-        $articleStatRepo = $this
-            ->getDoctrine()
-            ->getRepository('OjsAnalyticsBundle:ArticleStatistic');
-
-        $articleStats = $articleStatRepo->findByArticles($articles, array_slice($lastMonth, 1));
-
-        $articleViews = ['View'];
-
-        foreach (array_slice($lastMonth, 1) as $date) {
-            /** @var ArticleStatistic $stat */
-            $total = 0;
-            $stat = $articleStats->first();
-            while ($stat && $stat->getDate()->format($dateFormat) == $date) {
-                $total += $stat->getView();
-                $articleStats->removeElement($stat);
-                $stat = $articleStats->first();
-            }
-
-            $articleViews[] = $total;
-        }
-
-        return json_encode([
+        $json = [
             'dates' => $lastMonth,
-            'articleViews' => $articleViews
-        ]);
+            'articleViews' => $generator->generateArticleBarChartData($articles, $slicedLastMonth),
+            'articleFileDownloads' => $generator->generateArticleFilePieChartData($articles, $slicedLastMonth),
+        ];
+
+        $data = [
+            'stats' => json_encode($json),
+            'articles' => $generator->generateArticleViewsData($articles),
+            'articleFiles' => $generator->generateArticleFileDownloadsData($articles),
+            'articlesMonthly' => $generator->generateArticleViewsData($articles, $slicedLastMonth),
+            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($articles, $slicedLastMonth),
+        ];
+
+        return $data;
     }
 }
