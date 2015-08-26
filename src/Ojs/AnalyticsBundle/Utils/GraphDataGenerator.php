@@ -28,7 +28,8 @@ class GraphDataGenerator
     }
 
     /**
-     * Returns an array which can be passed to C3.js for chart graph creation
+     * Returns an array which can be passed to C3.js for bar chart graph creation
+     *
      * @param array $articles
      * @param array $dates
      * @return array
@@ -56,6 +57,13 @@ class GraphDataGenerator
         return $articleViews;
     }
 
+    /**
+     * Returns an array which can be passed to C3.js for pie chart graph creation
+     *
+     * @param array $issues
+     * @param array $dates
+     * @return array
+     */
     public function generateIssueFilePieChartData($issues, $dates)
     {
         $issueFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
@@ -93,7 +101,13 @@ class GraphDataGenerator
 
         return $issueFileDownloads;
     }
-
+    /**
+     * Returns an array which can be passed to C3.js for pie chart graph creation
+     *
+     * @param array $articles
+     * @param array $dates
+     * @return array
+     */
     public function generateArticleFilePieChartData($articles, $dates)
     {
         $articleFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
