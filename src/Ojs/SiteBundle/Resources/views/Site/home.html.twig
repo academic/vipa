@@ -192,11 +192,12 @@
                                     <img
                                         {% if journal.image is not null %}
                                             src="{{ journal.image|imagine_filter('journal_cover') }}"
+                                            class="img-rounded"
                                         {% else %}
                                             src="#"
+                                            class="img-rounded tri"
                                         {% endif %}
-                                         width="96" height="128"
-                                         class="img-rounded tri"/>
+                                         width="96" height="128"/>
                                     <small>{{ journal.title }}</small>
                                     <br/>
                                     {% if journal.issn %}
