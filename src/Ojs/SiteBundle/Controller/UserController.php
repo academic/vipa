@@ -4,12 +4,10 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Exception\NotFoundException;
-use FOS\UserBundle\Form\Type\ChangePasswordFormType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\CustomField;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
-use Ojs\UserBundle\Form\Type\CreatePasswordType;
 use Ojs\UserBundle\Form\Type\CustomFieldType;
 use Ojs\UserBundle\Form\Type\UpdateUserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,12 +30,20 @@ class UserController extends Controller
         if (!$user) {
             throw new NotFoundHttpException("User not found");
         }
+
         $data = [];
         $data['user'] = $user;
         $data['me'] = $this->getUser();
+
         if ($user->isPrivacy()) {
             return $this->render('OjsSiteBundle:User:private_account.html.twig', $data);
         }
+// 'status' => 1
+        $data['articles'] = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->findBy(['submitterUser' => $user], ['pubdate' => 'DESC']);
+
 
         return $this->render('OjsSiteBundle:User:profile_index.html.twig', $data);
     }
