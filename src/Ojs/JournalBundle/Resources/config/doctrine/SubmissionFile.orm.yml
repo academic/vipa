@@ -21,8 +21,14 @@ Ojs\JournalBundle\Entity\SubmissionFile:
       nullable: true
       gedmo:
           - versioned
-    journal_id:
+    journalId:
+      column: journal_id
       type: integer
+      nullable: true
+    articleId:
+      column: article_id
+      type: integer
+      nullable: true
     visible:
       type: boolean
       nullable: true
@@ -43,8 +49,14 @@ Ojs\JournalBundle\Entity\SubmissionFile:
       targetEntity: Ojs\JournalBundle\Entity\Journal
       joinColumn:
         referencedColumnName: id
-        name: journal_id
+        name: journalId
       inversedBy: submissionFile
+    article:
+      targetEntity: Ojs\JournalBundle\Entity\Article
+      joinColumn:
+        referencedColumnName: id
+        name: article_id
+      inversedBy: submissionFiles
   gedmo:
     loggable: true
     soft_deleteable:

@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Ojs\JournalBundle\Form\Type\SubmissionFileType;
 
 /**
  * This collection holds article submission start data
@@ -40,7 +39,7 @@ class ArticleSubmissionStart
     /**
      * Add submissionFiles
      *
-     * @param  ArticleFile $articleFile
+     * @param  SubmissionFile $articleFile
      * @return $this
      */
     public function addSubmissionFile(SubmissionFile $articleFile)
@@ -55,7 +54,7 @@ class ArticleSubmissionStart
     /**
      * Remove submissionFiles
      *
-     * @param ArticleFile $articleFile
+     * @param SubmissionFile $articleFile
      */
     public function removeSubmissionFile(SubmissionFile $articleFile)
     {

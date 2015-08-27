@@ -31,7 +31,12 @@ class SubmissionFile
     /**
      * @var integer
      */
-    private $journal_id;
+    private $journalId;
+
+    /**
+     * @var integer
+     */
+    private $articleId;
 
     /**
      * @var boolean
@@ -54,6 +59,11 @@ class SubmissionFile
      * @var Journal
      */
     private $journal;
+
+    /**
+     * @var Journal
+     */
+    private $article;
 
     /**
      * @var string
@@ -124,24 +134,24 @@ class SubmissionFile
     }
 
     /**
-     * Get journal_id
+     * Get journalId
      *
      * @return integer
      */
     public function getJournalId()
     {
-        return $this->journal_id;
+        return $this->journalId;
     }
 
     /**
-     * Set journal_id
+     * Set journalId
      *
      * @param  integer             $journalId
      * @return SubmissionFile
      */
     public function setJournalId($journalId)
     {
-        $this->journal_id = $journalId;
+        $this->journalId = $journalId;
 
         return $this;
     }
@@ -275,5 +285,37 @@ class SubmissionFile
     public function setFile($file)
     {
         $this->file = $file;
+    }
+
+    /**
+     * @return int
+     */
+    public function getArticleId()
+    {
+        return $this->articleId;
+    }
+
+    /**
+     * @param int $articleId
+     */
+    public function setArticleId($articleId)
+    {
+        $this->articleId = $articleId;
+    }
+
+    /**
+     * @return Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * @param Article $article
+     */
+    public function setArticle(Article $article)
+    {
+        $this->article = $article;
     }
 }
