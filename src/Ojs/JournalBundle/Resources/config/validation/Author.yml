@@ -13,3 +13,4 @@ Ojs\JournalBundle\Entity\Author:
             - NotBlank: { groups: [submission] }
         email:
             - NotBlank: { groups: [submission] }
+            - Email: { groups: [submission] }
