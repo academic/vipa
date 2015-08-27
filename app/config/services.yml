@@ -81,7 +81,7 @@ services:
 
   ojs.twig.common_extension:
     class: Ojs\SiteBundle\Twig\CommonExtension
-    arguments: [@doctrine.orm.entity_manager, @ojs.orcid_service, @liip_imagine.filter.manager]
+    arguments: [@doctrine.orm.entity_manager, @liip_imagine.filter.manager]
     tags:
       - {name: twig.extension }
 
@@ -105,10 +105,6 @@ services:
   ojs.article_service:
     class: Ojs\Common\Services\ArticleService
     arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
-
-  ojs.orcid_service:
-    class: Ojs\Common\Services\OrcidService
-    arguments: [ "%orcid%", @logger ]
 
   ojs.alice.provider:
     class: Ojs\Common\Services\AliceDataProvider

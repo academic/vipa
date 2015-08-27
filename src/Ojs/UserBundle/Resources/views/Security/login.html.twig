@@ -42,8 +42,6 @@
                                        id="password" placeholder="{{ "password"|trans }}">
                             </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                            <a class="btn btn-sm btn-warning"
-                               href="{{ orcidLoginUrl() }}">{{ "orcid.login"|trans }}</a>
                             <button type="submit" class="btn btn-sm btn-primary pull-right">
                                 <i class="fa fa-sign-in"></i> {{ "login"|trans }}
                             </button>

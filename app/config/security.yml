@@ -48,12 +48,21 @@ security:
         check_path: /login_check
         always_use_default_target_path: false
         csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
-        default_target_path:      /user 
+        default_target_path: /user
       logout:
         path: /logout
         target: /
       security: true
       anonymous: true
+      oauth:
+        resource_owners:
+          orcid: "/oauth/login/check-orcid"
+        login_path:   /oauth/login
+        use_forward:  false
+        failure_path: /oauth/login
+        oauth_user_provider:
+          service: hwi_oauth.user.provider
+
   access_control:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -67,3 +76,9 @@ security:
     - { path: ^/api/*, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/suggest, roles: IS_AUTHENTICATED_FULLY }
     - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+security:
+    firewalls:
+        secured_area:
+            anonymous: ~
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

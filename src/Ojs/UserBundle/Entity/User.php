@@ -6,6 +6,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
+use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
@@ -17,6 +19,7 @@ use Ojs\JournalBundle\Entity\Subject;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,7 +33,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  * @UniqueEntity(fields="email", message="That email is taken!")
  * @GRID\Source(columns="id,username,email,status")
  */
-class User extends BaseUser implements Translatable, UserInterface, \Serializable, AdvancedUserInterface
+class User extends BaseUser implements Translatable, UserInterface, \Serializable, AdvancedUserInterface, OAuthAwareUserProviderInterface
 {
     use GenericEntityTrait;
 
@@ -843,5 +846,17 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         return $this->hasRole('ROLE_ADMIN') || $this->hasRole('ROLE_SUPER_ADMIN');
     }
 
-
+    /**
+     * Loads the user by a given UserResponseInterface object.
+     *
+     * @param UserResponseInterface $response
+     *
+     * @return UserInterface
+     *
+     * @throws UsernameNotFoundException if the user is not found
+     */
+    public function loadUserByOAuthUserResponse(UserResponseInterface $response)
+    {
+        // TODO: Implement loadUserByOAuthUserResponse() method.
+    }
 }

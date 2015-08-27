@@ -3,7 +3,6 @@ namespace Ojs\SiteBundle\Twig;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
-use Ojs\Common\Services\OrcidService;
 use Ojs\UserBundle\Entity\User;
 
 class CommonExtension extends \Twig_Extension
@@ -15,28 +14,19 @@ class CommonExtension extends \Twig_Extension
     private $em;
 
     /**
-     * @var OrcidService
-     */
-    private $orcidService;
-
-    /**
      * @var FilterManager
      */
     private $filterManager;
 
     /**
      * @param EntityManagerInterface $entityManager
-     * @param DocumentManager        $documentManager
-     * @param OrcidService           $orcidService
      * @param FilterManager          $filterManager
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        OrcidService $orcidService,
         FilterManager $filterManager
     ) {
         $this->em = $entityManager;
-        $this->orcidService = $orcidService;
         $this->filterManager = $filterManager;
     }
 
@@ -49,26 +39,6 @@ class CommonExtension extends \Twig_Extension
             new \Twig_SimpleFilter('user', [$this, 'getUserByIdOrUsername']),
 
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getFunctions()
-    {
-        return [
-            new \Twig_SimpleFunction('orcidLoginUrl', [$this, 'orcidLoginUrl']),
-        ];
-    }
-
-
-
-    /**
-     * @return string
-     */
-    public function orcidLoginUrl()
-    {
-        return $this->orcidService->loginUrl();
     }
 
     /**

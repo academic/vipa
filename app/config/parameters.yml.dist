@@ -30,11 +30,8 @@ parameters:
             parameters:
                 - id
                 - journalId
-    orcid:
-        client_id:
-        client_secret:
-        redirect_uri:
-        sandbox: true
+    orcid.client_id:
+    orcid.client_secret:
     https: false
     feedback_categories:
         -

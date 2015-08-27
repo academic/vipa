@@ -1,7 +1,10 @@
+ojs_user_oauth:
+    resource: "@OjsUserBundle/Resources/config/routing/oauth.yml"
+    prefix:   /oauth
+
 proxy:
     resource: "@OjsUserBundle/Resources/config/routing/proxy.yml"
     prefix:   /manager/proxy
-
 
 admin_notification:
     resource: "@OjsUserBundle/Resources/config/routing/notification_admin.yml"
