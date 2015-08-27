@@ -2,6 +2,15 @@
 {% block title %}{{ 'title.institution'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% if entity.theme is defined and entity.theme %}
+        <style>
+            {{ entity.theme.css|raw }}
+        </style>
+    {% endif %}
+{% endblock %}
+
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
