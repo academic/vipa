@@ -40,7 +40,6 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:MailTemplate');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $source->manipulateRow(
             function (Row $row) {
                 if ($row->getField("title") && strlen($row->getField('title')) > 20) {

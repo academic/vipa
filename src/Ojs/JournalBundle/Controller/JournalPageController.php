@@ -27,7 +27,6 @@ class JournalPageController extends OjsController
         }
 
         $source = new Entity('OjsJournalBundle:JournalPage');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($alias, $journal) {

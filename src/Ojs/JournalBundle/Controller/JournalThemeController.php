@@ -34,7 +34,6 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $source = new Entity('OjsJournalBundle:JournalTheme');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($tableAlias, $journal) {

@@ -38,8 +38,6 @@ class CitationController extends Controller
         }
 
         $source = new Entity('OjsJournalBundle:Citation');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 
         if($articleId != null) {
             $alias = $source->getTableAlias();

@@ -25,10 +25,6 @@ class InstitutionRepository extends EntityRepository
         }
 
         $query = $qb->getQuery();
-        $query->setHint(
-            Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
-        );
 
         return $query->getResult();
     }

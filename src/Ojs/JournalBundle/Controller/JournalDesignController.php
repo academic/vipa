@@ -36,7 +36,6 @@ class JournalDesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
         $source = new Entity('OjsJournalBundle:JournalDesign');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($tableAlias, $journal) {

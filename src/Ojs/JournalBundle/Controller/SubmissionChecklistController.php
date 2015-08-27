@@ -32,7 +32,6 @@ class SubmissionChecklistController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:SubmissionChecklist');
-        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         if ($journal) {
             $ta = $source->getTableAlias();
             $source->manipulateQuery(

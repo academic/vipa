@@ -55,11 +55,6 @@ class ORMQueryBuilderLoader implements EntityLoaderInterface
     {
         $query = $this->queryBuilder->getQuery();
 
-        $query->setHint(
-            Query::HINT_CUSTOM_OUTPUT_WALKER,
-            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
-        );
-
         return $query->execute();
     }
 
