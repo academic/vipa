@@ -47,9 +47,28 @@ $(document).ready(function () {
     $('.select2-element').select2();
 
     $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
-        $("select[data-role=tagsinputautocomplete]").select2();
+        $("select[data-role=tagsinputautocomplete]").select2({
+            ajax: {
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            templateResult: function (user) {
+                return user.text;
+            },
+            templateSelection: function (user) {
+                return user.text;
+            }
+        });
     });
-
 
 
     $('a[title],[rel="tooltip"]').tooltip();
