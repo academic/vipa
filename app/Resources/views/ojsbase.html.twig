@@ -74,10 +74,15 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <script src="{{ asset('vendor/ace-builds/src-min-noconflict/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+
     <script type="text/javascript">
-        var userApikey = "{{apiKey()}}";
+        {% if apiKey() %}
+        $(document).ready(function () {
+            var userApikey = "{{apiKey()}}";
+        });
+        {% endif%}
     </script>
+    <script src="{{ asset('vendor/ace-builds/src-min-noconflict/ace.js') }}" type="text/javascript" charset="utf-8"></script>
 </head>
 <body class="page-{{ page }}">
 {% block header %}
@@ -152,6 +157,7 @@
 
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/js/vendor/jquery.ui.widget.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/js/jquery.iframe-transport.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/jbfileuploader/lib/jquery-file-upload/js/jquery.fileupload.js') }}"></script>
