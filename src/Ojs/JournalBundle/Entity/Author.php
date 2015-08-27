@@ -718,25 +718,6 @@ class Author extends  AbstractTranslatable
     }
 
     /**
-     * @return mixed
-     */
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    /**
-     * @param  mixed $locale
-     * @return $this
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getLocales()
