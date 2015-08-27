@@ -1,12 +1,12 @@
 Ojs\JournalBundle\Entity\ArticleFile:
     properties:
         type:
-            - NotBlank: { groups: [submission] }
+            - NotBlank: { groups: [submission], message: 'Type fields of article files can not be blank.' }
         langCode:
-            - NotBlank: { groups: [submission] }
+            - NotBlank: { groups: [submission], message: 'Language fields of article files can not be blank.' }
         title:
-            - NotBlank: { groups: [submission] }
+            - NotBlank: { groups: [submission], message: 'Title fields of article files can not be blank.' }
         description:
-            - NotBlank: { groups: [submission] }
+            - NotBlank: { groups: [submission], message: 'Description fields of article files can not be blank.' }
         file:
-            - NotBlank: { groups: [submission] }
+            - NotBlank: { groups: [submission], message: 'File fields of article files can not be blank.' }

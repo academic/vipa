@@ -10,27 +10,28 @@ Ojs\JournalBundle\Entity\ArticleTranslation:
     fields:
         title:
           type: text
+          nullable: true
           gedmo:
             - versioned
         subjects:
             type: string
-            nullable: TRUE
+            nullable: true
             gedmo:
               - versioned
         subtitle:
           length: 255
           type: string
-          nullable: TRUE
+          nullable: true
           gedmo:
             - versioned
         keywords:
             type: string
-            nullable: TRUE
+            nullable: true
             gedmo:
               - versioned
         abstract:
           type: text
-          nullable: TRUE
+          nullable: true
           gedmo:
             - versioned
     gedmo:

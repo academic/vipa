@@ -1381,6 +1381,8 @@ you: Sen
 suggested.competingFile.can.view: Önerilen çıkar çatışması dosyası görülebilir.
 from.here: Buradan
 
+submission.whats_missing: 'Ne eksik?'
+
 validation:
   submission:
     title: Başlık alanı zorunlu dil için boş bırakılamaz

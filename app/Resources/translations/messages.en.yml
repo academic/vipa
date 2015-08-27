@@ -1400,6 +1400,8 @@ institutiondesign.plural: 'Institution Designs'
 suggested.competingFile.can.view: Suggested competing file can view.
 from.here: From here
 
+submission.whats_missing: 'What''s missing?'
+
 validation:
   submission:
     title: Title field for the default language can not be blank

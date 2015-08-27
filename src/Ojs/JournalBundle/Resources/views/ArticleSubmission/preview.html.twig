@@ -9,6 +9,20 @@
 {% endblock %}
 
 {% block body -%}
+    {% if draftErrors|length > 0 %}
+        {% if app.request.method == 'POST' %}
+        <div class="alert alert-danger">
+        {% else %}
+        <div class="alert alert-warning">
+        {% endif %}
+        {{ 'submission.whats_missing'|trans }}
+        <ul>
+            {% for error in draftErrors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+    {% endif %}
     <div class="panel panel-info panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
@@ -172,7 +186,10 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">Onay</div>
                     <div class="panel panel-body">
-                        {{ form(form) }}
+                        {{ form_start(form) }}
+                            {{ form_row(form.note) }}
+                            {{ form_row(form.submit) }}
+                        {{ form_end(form) }}
                         <hr>
                         <a href="{{ path('ojs_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}" class="btn btn-danger btn-block">Düzenlemeye devam et</a>
                     </div>

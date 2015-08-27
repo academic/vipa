@@ -21,16 +21,19 @@ Ojs\JournalBundle\Entity\Citation:
     fields:
         raw:
             type: text
+            nullable: true
             gedmo:
                 - versioned
         type:
             type: string
+            nullable: true
             length: 20
             gedmo:
                 - versioned
             nullable: true
         orderNum:
             type: integer
+            nullable: true
             column: order_num
             gedmo:
                 - versioned

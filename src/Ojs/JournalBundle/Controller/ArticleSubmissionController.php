@@ -171,12 +171,16 @@ class ArticleSubmissionController extends Controller
         if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
         }
+
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
-
         $session = $this->get('session');
+
         if(!$session->has('submissionFiles')){
-            return $this->redirectToRoute('ojs_journal_submission_start', array('journalId' => $journal->getId()));
+            return $this->redirectToRoute(
+                'ojs_journal_submission_start',
+                array('journalId' => $journal->getId())
+            );
         }
 
         /** @var User $user */
@@ -203,35 +207,46 @@ class ArticleSubmissionController extends Controller
             ->addCitation(new Citation())
             ->addArticleFile(new ArticleFile())
             ->addArticleAuthor($articleAuthor);
+
         $locales = [];
         $submissionLangObjects = $journal->getLanguages();
         foreach ($submissionLangObjects as $submissionLangObject) {
             $locales[] = $submissionLangObject->getCode();
         }
+
         $defaultLocale = $journal->getMandatoryLang()->getCode();
         $article->setCurrentLocale($defaultLocale);
 
         $form = $this->createCreateForm($article, $journal, $locales, $defaultLocale);
-
         $form->handleRequest($request);
-        if ($form->isValid()) {
+
+        if ($request->isMethod('POST')) {
             $k = 0;
             foreach ($article->getArticleAuthors() as $f_articleAuthor) {
                 $f_articleAuthor->setAuthorOrder($k);
                 $f_articleAuthor->setArticle($article);
                 $k++;
             }
+
             $i = 0;
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($i);
                 $i++;
             }
+
             foreach ($article->getArticleFiles() as $f_articleFile) {
                 $f_articleFile->setArticle($article);
                 $f_articleFile->setVersion(0);
             }
-            $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:SubmissionFile')
-                ->findBy(['journal' => $journal, 'visible' => true, 'locale' => $request->getLocale()]);
+
+            $journalSubmissionFiles = $em
+                ->getRepository('OjsJournalBundle:SubmissionFile')
+                ->findBy([
+                    'journal' => $journal,
+                    'visible' => true,
+                    'locale' => $request->getLocale()
+                ]);
+
             foreach($session->get('submissionFiles') as $fileKey => $submissionFile){
                 if(!is_null($submissionFile)){
                     /** @var SubmissionFile $journalEqualFile */
@@ -245,12 +260,16 @@ class ArticleSubmissionController extends Controller
                     $em->persist($articleSubmissionFile);
                 }
             }
+
             $em->persist($article);
             $em->flush();
 
             return $this->redirectToRoute(
                 'ojs_journal_submission_preview',
-                array('journalId' => $journal->getId(), 'articleId' => $article->getId())
+                array(
+                    'journalId' => $journal->getId(),
+                    'articleId' => $article->getId()
+                )
             );
         }
 
@@ -454,9 +473,13 @@ class ArticleSubmissionController extends Controller
             ),
             'method' => 'POST'
         ))
-        ->add('submit', 'submit', array('label' => 'article.submit'));
+        ->add('submit', 'submit', array('label' => 'article.submit', 'attr' => ['class' => 'btn-block']));
         $form->handleRequest($request);
-        if($form->isValid()) {
+
+        $validator = $this->get('validator');
+        $draftErrors = $validator->validate($article, null, ['groups' => 'submission']);
+
+        if($form->isValid() && count($draftErrors) == 0) {
             if($session->has('competingFile')) {
                 $session->remove('competingFile');
             }
@@ -506,7 +529,8 @@ class ArticleSubmissionController extends Controller
                 'article' => $article,
                 'translations' => $article->getTranslations(),
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'draftErrors' => $draftErrors
             )
         );
     }

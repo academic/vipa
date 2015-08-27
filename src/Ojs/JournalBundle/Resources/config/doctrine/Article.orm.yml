@@ -88,62 +88,62 @@ Ojs\JournalBundle\Entity\Article:
       column: title_transliterated
       length: 255
       type: string
-      nullable: TRUE
+      nullable: true
       gedmo:
         - versioned
     articleTypeId:
         column: article_type_id
         type: integer
-        nullable: TRUE
+        nullable: true
         gedmo:
           - versioned
     primaryLanguage:
         column: primary_language
         type: string
-        nullable: TRUE
+        nullable: true
         gedmo:
           - versioned
     orderNum:
         type: integer
         options:
           default: 0
-        nullable: TRUE
+        nullable: true
         gedmo:
           - versioned
     status:
         type: integer
         options:
           default: 0
-        nullable: TRUE
+        nullable: true
         gedmo:
           - versioned
     setupStatus:
         type: boolean
         options:
           default: 1
-        nullable: TRUE
+        nullable: true
     competingFile:
         type: string
         length: 255
-        nullable: TRUE
+        nullable: true
         gedmo:
           - versioned
     abstractTransliterated:
       column: abstract_transliterated
       type: text
-      nullable: TRUE
+      nullable: true
       gedmo:
         - versioned
     doi:
       length: 255
       type: string
-      nullable: TRUE
+      nullable: true
       gedmo:
         - versioned
     firstPage:
       column: first_page
       type: integer
-      nullable: TRUE
+      nullable: true
       gedmo:
         - versioned
     isAnonymous:
@@ -151,32 +151,32 @@ Ojs\JournalBundle\Entity\Article:
       type: boolean
       options:
           default: 0
-      nullable: TRUE
+      nullable: true
       gedmo:
          - versioned
     journalId:
       column: journal_id
       type: integer
-      nullable: TRUE
+      nullable: true
       gedmo:
           - versioned
     sectionId:
       column: section_id
       type: integer
-      nullable: TRUE
+      nullable: true
       gedmo:
           - versioned
     lastPage:
       column: last_page
       type: integer
-      nullable: TRUE
+      nullable: true
       gedmo:
         - versioned
     otherId:
       column: other_id
       length: 255
       type: string
-      nullable: TRUE
+      nullable: true
       gedmo:
         - versioned
     header:
@@ -188,27 +188,27 @@ Ojs\JournalBundle\Entity\Article:
     part:
       length: 255
       type: string
-      nullable: TRUE
+      nullable: true
       gedmo:
           - versioned
     submissionDate:
       column: submission_date
       type: datetime
-      nullable: TRUE
+      nullable: true
     pubdate:
       type: datetime
-      nullable: TRUE
+      nullable: true
       gedmo:
           - versioned
     pubdateSeason:
       column: pubdate_season
       length: 255
       type: string
-      nullable: TRUE
+      nullable: true
     slug:
       type: string
       length: 40
-      nullable: TRUE
+      nullable: true
       gedmo:
         slug:
           seperator: _
@@ -217,10 +217,10 @@ Ojs\JournalBundle\Entity\Article:
     uri:
       length: 255
       type: string
-      nullable: TRUE
+      nullable: true
     note:
       type: text
-      nullable: TRUE
+      nullable: true
     created:
         type: datetime
         gedmo:

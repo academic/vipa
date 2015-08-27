@@ -86,7 +86,7 @@ class ArticleSubmissionType extends AbstractType
             array(
                 'locales' => [],
                 'default_locale' => '',
-                'validation_groups' => ['submission'],
+                'validation_groups' => false,
                 'cascade_validation' => true,
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'citationTypes' => [],
