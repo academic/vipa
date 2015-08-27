@@ -101,6 +101,16 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             gedmo:
                 - versioned
+        institutionNotListed:
+            type: boolean
+            nullable: true
+            gedmo:
+                - versioned
+        institutionName:
+            type: string
+            nullable: true
+            gedmo:
+                - versioned
         phone:
             type: string
             nullable: true

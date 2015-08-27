@@ -170,6 +170,20 @@ class Author extends  AbstractTranslatable
     private $orcid;
 
     /**
+     * @var boolean
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
+     */
+    private $institutionNotListed;
+
+    /**
+     * @var string
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
+     */
+    private $institutionName;
+
+    /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Jms\Expose
      */
@@ -814,6 +828,44 @@ class Author extends  AbstractTranslatable
     public function setUpdated($updated)
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstitutionName()
+    {
+        return $this->institutionName;
+    }
+
+    /**
+     * @param string $institutionName
+     * @return $this
+     */
+    public function setInstitutionName($institutionName)
+    {
+        $this->institutionName = $institutionName;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInstitutionNotListed()
+    {
+        return $this->institutionNotListed;
+    }
+
+    /**
+     * @param boolean $institutionNotListed
+     * @return $this
+     */
+    public function setInstitutionNotListed($institutionNotListed)
+    {
+        $this->institutionNotListed = $institutionNotListed;
 
         return $this;
     }
