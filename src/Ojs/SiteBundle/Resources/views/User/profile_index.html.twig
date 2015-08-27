@@ -1,12 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.profile'|trans }} {{ parent() }}{% endblock %}
+{% block title %} {{ user.title ~' '~ user.firstName ~' '~ user.lastName }} @  {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'title': 'user.profile'|trans}
+    {'title': 'user.profile'|trans},
+    {'title':  user.title ~' '~ user.firstName ~' '~ user.lastName }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -40,14 +41,14 @@
 
             </header>
 
+
             <div class="bs-callout bs-callout-danger">
-                <h6 class="text-muted">Summary</h6>
+                <h6 class="text-muted">{{ "subjects"|trans }}</h6>
 
                 <p class="lead">
-                    Lorem ipsum dolor sit amet, ea vel prima adhuc, scripta liberavisse ea quo, te vel vidit mollis
-                    complectitur. Quis verear mel ne. Munere vituperata vis cu,
-                    te pri duis timeam scaevola, nam postea diceret ne. Cum ex quod aliquip mediocritatem, mei habemus
-                    persecuti mediocritatem ei.
+                    {% for subjects  in user.subjects %}
+                        {{ subjects }}
+                    {% endfor %}
                 </p>
             </div>
 
@@ -97,11 +98,11 @@
                 {% if articles is defined %}
                     {% for article in articles %}
 
-                        <article class="timeline-entry">
+                        <article class="timeline-entry {{ random(['left-aligned', '']) }}">
 
                             <div class="timeline-entry-inner">
                                 <time class="timeline-time" datetime="{{ article.pubdate|date('Y-m-d H:i:s') }}">
-                                    <span>{{ article.pubdate|date('Y-m-d H:i:s') }}</span> <span>Today</span>
+                                    <span>{{ article.pubdate|date('Y-m-d') }}</span> <span>Today</span>
                                 </time>
 
                                 <div class="timeline-icon bg-success">
@@ -110,21 +111,10 @@
 
                                 <div class="timeline-label">
                                     <h2>
-                                        <a href="
-                                            {% if isInstitutionHosting is defined %}
-                                                {{ url('institution_hosting_journal_issue_article',{article_id: article.id,slug: article.journal.slug,issue_id: article.issue.id}) }}
-                                            {% elseif isJournalHosting is defined %}
-                                            {% else %}
-                                                {{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug,issue_id: article.issue.id,institution: article.journal.institution.slug}) }}
-                                            {% endif %}">{{ article.title }}</a> @
+                                        <span>{{ article.title }}</span> @
                                         <span>{{ article.journal.title }}</span>
-                                        {% if isInstitutionHosting is defined %}
-                                            {% set journalUrl = url('institution_hosting_journal_index',{slug:article.journal.slug}) %}
-                                        {% elseif isJournalHosting is defined %}
-                                            {% set journalUrl = url('institution_hosting_journal_index') %}
-                                        {% else %}
-                                            {% set journalUrl = generateJournalUrl(article.journal) %}
-                                        {% endif %}
+
+                                        {% set journalUrl = generateJournalUrl(article.journal) %}
 
                                     </h2>
                                     {% if article.abstract %}
@@ -140,25 +130,6 @@
                     {% endfor %}
                 {% endif %}
 
-
-                <article class="timeline-entry left-aligned">
-
-                    <div class="timeline-entry-inner">
-                        <time class="timeline-time" datetime="2014-01-10T03:45"><span>03:45 AM</span> <span>Today</span>
-                        </time>
-
-                        <div class="timeline-icon bg-secondary">
-                            <i class="entypo-suitcase"></i>
-                        </div>
-
-                        <div class="timeline-label">
-                            <h2><a href="#">Job Meeting</a></h2>
-
-                            <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>
-                        </div>
-                    </div>
-
-                </article>
 
                 <article class="timeline-entry begin">
 
