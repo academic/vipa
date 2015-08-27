@@ -42,10 +42,14 @@ $(document).ready(function () {
         },
         templateSelection: function (user) {
             return user.text;
-        },
-        width: 'resolve'
+        }
     });
-    $('.select2-element').select2({width: 'resolve'});
+    $('.select2-element').select2();
+
+    $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
+        $("select[data-role=tagsinputautocomplete]").select2();
+    });
+
 
 
     $('a[title],[rel="tooltip"]').tooltip();
