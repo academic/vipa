@@ -12,8 +12,8 @@
 
 {% block body %}
     <div class="container">
-        {% if design is defined and design is not null %}
-            {% include template_from_string(design) %}
+        {% if entity.design is defined and entity.design is not null %}
+            {% include template_from_string(entity.design.content) %}
         {% else %}
             <!-- Page Content -->
             <h1 class="page-header">{{ entity.name }} </h1>

@@ -574,9 +574,11 @@
         {% raw %}
             <!--raw-->
             <!---
+            {% if entity.header is not null %}
                 <img src="{{ entity.header|imagine_filter('institution_header') }}"
                     data-src="holder.js/960x200/random/text:{{ entity.name }} "
                     class="img-responsive img-rounded float-left img-center" alt=""/>
+            {% endif %}
             --->
             <!--endraw-->
         {% endraw %}
@@ -591,9 +593,11 @@
         {% raw %}
             <!--raw-->
             <!---
+                {% if entity.logo is not null %}
                 <img src="{{ entity.logo|imagine_filter('institution_logo') }}"
                     data-src="holder.js/200x200/random/text:{{ entity.name }} "
                     class="img-responsive img-rounded float-left img-center" alt=""/>
+               {% endif %}
             --->
             <!--endraw-->
         {% endraw %}

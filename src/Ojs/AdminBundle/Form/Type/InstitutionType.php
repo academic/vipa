@@ -99,9 +99,15 @@ class InstitutionType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('t')
-                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    'query_builder' => function (EntityRepository $er) use ($institutionId)  {
+                        $query = $er->createQueryBuilder('t');
+                        if(is_null($institutionId)){
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                        }else{
+                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.institution = :institutionId')
+                                ->setParameter('institutionId', $institutionId);
+                        }
+                        return $query;
                     },
                     'error_bubbling'=>true,
                 )
@@ -168,6 +174,7 @@ class InstitutionType extends AbstractType
                 'institutionEndPoint' => '/',
                 'institution' => null,
                 'attr' => [
+                    'novalidate' => 'novalidate',
                     'class' => 'validate-form',
                 ],
             )
