@@ -54,14 +54,14 @@ security:
         target: /
       security: true
       anonymous: true
-      oauth:
-        resource_owners:
-          orcid: "/oauth/login/check-orcid"
-        login_path:   /oauth/login
-        use_forward:  false
-        failure_path: /oauth/login
-        oauth_user_provider:
-          service: hwi_oauth.user.provider
+      #oauth:
+      #  resource_owners:
+      #    orcid: "/oauth/login/check-orcid"
+      #  login_path:   /oauth/login
+      #  use_forward:  false
+      #  failure_path: /oauth/login
+      #  oauth_user_provider:
+      #    service: hwi_oauth.user.provider
 
   access_control:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

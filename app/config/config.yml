@@ -146,19 +146,19 @@ fos_user:
 prezent_doctrine_translatable:
     fallback_locale: %locale%
 
-hwi_oauth:
-  firewall_name: main
-  resource_owners:
-    orcid:
-      type:                oauth2
-      client_id:           %orcid.client_id%
-      client_secret:       %orcid.client_secret%
-      access_token_url:    https://pub.orcid.org/oauth/token
-      authorization_url:   https://orcid.org/oauth/authorize
-      infos_url:           http://pub.orcid.org/v1.2
-      scope:               "read"
-      user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
-      paths:
-        identifier: id
-        nickname:   username
-        realname:   fullname
+#hwi_oauth:
+#  firewall_name: main
+#  resource_owners:
+#    orcid:
+#      type:                oauth2
+#      client_id:           %orcid.client_id%
+#      client_secret:       %orcid.client_secret%
+#      access_token_url:    https://pub.orcid.org/oauth/token
+#      authorization_url:   https://orcid.org/oauth/authorize
+#      infos_url:           http://pub.orcid.org/v1.2
+#      scope:               "read"
+#      user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+#      paths:
+#        identifier: id
+#        nickname:   username
+#        realname:   fullname

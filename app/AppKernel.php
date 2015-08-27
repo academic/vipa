@@ -56,7 +56,7 @@ class AppKernel extends Kernel
             new Ojs\CmsBundle\OjsCmsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
