@@ -439,16 +439,11 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('file')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(
-                new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR')
-            )
+            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit($viewEditDelete)->save();
-
-            $aclManager->on($journal)->field('steps')->to(
-                new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR')
-            )
+            $aclManager->on($journal)->field('steps')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
