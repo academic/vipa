@@ -88,6 +88,19 @@ class SubmissionFile
     }
 
     /**
+     * set id
+     *
+     * @param null $id
+     * @return $this
+     */
+    public function setId($id = null)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Get label
      *
      * @return string
@@ -280,11 +293,14 @@ class SubmissionFile
     }
 
     /**
-     * @param string $file
+     * @param $file
+     * @return $this
      */
     public function setFile($file)
     {
         $this->file = $file;
+
+        return $this;
     }
 
     /**
@@ -313,9 +329,12 @@ class SubmissionFile
 
     /**
      * @param Article $article
+     * @return $this
      */
     public function setArticle(Article $article)
     {
         $this->article = $article;
+
+        return $this;
     }
 }

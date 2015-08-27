@@ -230,20 +230,19 @@ class ArticleSubmissionController extends Controller
                 $f_articleFile->setArticle($article);
                 $f_articleFile->setVersion(0);
             }
+            $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:SubmissionFile')
+                ->findBy(['journal' => $journal, 'visible' => true, 'locale' => $request->getLocale()]);
             foreach($session->get('submissionFiles') as $fileKey => $submissionFile){
                 if(!is_null($submissionFile)){
-                    $journalEqualFile = $journal->getSubmissionFile()[$fileKey];
-                    $articleFile = new ArticleFile();
-                    $articleFile
+                    /** @var SubmissionFile $journalEqualFile */
+                    $journalEqualFile = $journalSubmissionFiles[$fileKey];
+                    $articleSubmissionFile = clone $journalEqualFile;
+                    $articleSubmissionFile
+                        ->setId(null)
+                        ->setJournal(null)
                         ->setFile($submissionFile)
-                        ->setArticle($article)
-                        ->setDescription($journalEqualFile->getDetail())
-                        ->setLangCode($journalEqualFile->getLocale())
-                        ->setTitle($journalEqualFile->getLabel())
-                        ->setVersion(0)
-                        ->setType(-1)
-                        ;
-                    $em->persist($articleFile);
+                        ->setArticle($article);
+                    $em->persist($articleSubmissionFile);
                 }
             }
             $em->persist($article);
@@ -413,10 +412,12 @@ class ArticleSubmissionController extends Controller
             )
         );
     }
+
     /**
      * @param Request $request
      * @param $articleId
      * @return RedirectResponse|Response
+     * @throws \Exception
      */
     public function previewAction(Request $request, $articleId)
     {
@@ -516,6 +517,7 @@ class ArticleSubmissionController extends Controller
      */
     public function startAction(Request $request)
     {
+        $em = $this->getDoctrine();
         if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
         }
@@ -540,7 +542,9 @@ class ArticleSubmissionController extends Controller
         }
 
         $entity = new ArticleSubmissionStart();
-        foreach($journal->getSubmissionFile() as $file){
+        $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:SubmissionFile')
+	            ->findBy(['journal' => $journal, 'visible' => true, 'locale' => $request->getLocale()]);
+        foreach($journalSubmissionFiles as $file){
 
             $fileEntity = new SubmissionFile();
             $entity->addSubmissionFile($fileEntity);
@@ -551,13 +555,13 @@ class ArticleSubmissionController extends Controller
         $submissionFiles = [];
         if($form->isValid() && $form->isSubmitted()){
             foreach ($entity->getSubmissionFiles() as $fileKey => $submissionFile) {
-                if(empty($submissionFile->getFile()) && $journal->getSubmissionFile()[$fileKey]->getRequired()){
+                if(empty($submissionFile->getFile()) && $journalSubmissionFiles[$fileKey]->getRequired()){
                     return $this->render(
                         'OjsJournalBundle:ArticleSubmission:start.html.twig',
                         array(
                             'journal' => $journal,
                             'checkLists' => $checkLists,
-                            'submissionFiles' => $journal->getSubmissionFile(),
+                            'journalSubmissionFiles' => $journalSubmissionFiles,
                             'form' => $form->createView()
                         )
                     );
@@ -573,7 +577,7 @@ class ArticleSubmissionController extends Controller
             array(
                 'journal' => $journal,
                 'checkLists' => $checkLists,
-                'submissionFiles' => $journal->getSubmissionFile(),
+                'journalSubmissionFiles' => $journalSubmissionFiles,
                 'form' => $form->createView()
             )
         );

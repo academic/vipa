@@ -49,14 +49,14 @@
                                 {% for index,submissionFileForm in form.submissionFiles %}
                                     <div class="alert alert-info" role="alert">
                                         <span>
-                                            {{ submissionFiles[index].label }}
-                                            {% if submissionFiles[index].required %}
+                                            {{ journalSubmissionFiles[index].label }}
+                                            {% if journalSubmissionFiles[index].required %}
                                                 <b>(Required)</b>
                                             {% else %}
                                                 <b>(Optinal)</b>
                                             {% endif %}
                                         </span>
-                                        <a href="{{ asset('uploads/articlefiles/' ~ submissionFiles[index].file) }}" target="_blank">
+                                        <a href="{{ asset('uploads/submissionfiles/' ~ journalSubmissionFiles[index].file) }}" target="_blank">
                                             {{ 'from.here'|trans }}
                                         </a>
                                     </div>

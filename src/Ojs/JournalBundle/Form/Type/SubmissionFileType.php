@@ -28,7 +28,7 @@ class SubmissionFileType extends AbstractType
         if($this->isArticleSubmissionStartProcess){
             $builder->add('file', 'jb_file_ajax',
                 array(
-                    'endpoint' => 'articlefiles'
+                    'endpoint' => 'submissionfiles'
                 )
             );
             return;
@@ -37,7 +37,7 @@ class SubmissionFileType extends AbstractType
         $builder
             ->add('file', 'jb_file_ajax',
                 array(
-                    'endpoint' => 'articlefiles'
+                    'endpoint' => 'submissionfiles'
                 )
             )
             ->add('label', 'text', [
@@ -80,6 +80,7 @@ class SubmissionFileType extends AbstractType
                     array('en' => 'English'),
                 ),
                 'attr' => [
+                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )

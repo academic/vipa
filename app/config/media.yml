@@ -53,6 +53,10 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/articlefiles
         create: true
+    submissionfiles:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/submissionfiles
+        create: true
   filesystems:
     institution:
       adapter: institution
@@ -93,6 +97,9 @@ knp_gaufrette:
     articlefiles:
       adapter: articlefiles
       alias: articlefiles_filesystem
+    submissionfiles:
+      adapter: submissionfiles
+      alias: submissionfiles_filesystem
 oneup_uploader:
   mappings:
     generic:
@@ -171,6 +178,14 @@ oneup_uploader:
         type: gaufrette
         filesystem: gaufrette.articlefiles_filesystem
         stream_wrapper: gaufrette://articlefiles/
+    submissionfiles:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.submissionfiles_filesystem
+        stream_wrapper: gaufrette://submissionfiles/
 liip_imagine:
   data_loader: stream.journal_filesystem
   loaders:
@@ -350,6 +365,9 @@ jb_file_uploader:
     articlefiles:
       assets:
         directory: uploads/articlefiles
+    submissionfiles:
+      assets:
+        directory: uploads/submissionfiles
   endpoints:
     issue:
       upload_resolver: issue
@@ -389,6 +407,8 @@ jb_file_uploader:
       crop_validators: {}
     articlefiles:
       upload_resolver: articlefiles
+    submissionfiles:
+      upload_resolver: submissionfiles
 
 parameters:
   jb_fileuploader.resolver.asset.prototype.class: Ojs\Common\Services\FileUploadResolver\AssetsResolver

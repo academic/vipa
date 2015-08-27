@@ -31,20 +31,20 @@ class SubmissionFileController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        if (!$journal) {
+            throw new NotFoundHttpException("Journal not found!");
+        }
         $source = new Entity('OjsJournalBundle:SubmissionFile');
         if ($journal) {
             $ta = $source->getTableAlias();
             $source->manipulateQuery(
                 function (QueryBuilder $qb) use ($journal, $ta) {
                     $qb->andWhere(
-                        $qb->expr()->eq("$ta.journal_id", ':journal')
+                        $qb->expr()->eq("$ta.journal", ':journal')
                     )
-                        ->setParameter('journal', $journal->getId());
+                        ->setParameter('journal', $journal);
                 }
             );
-        }
-        if (!$journal) {
-            throw new NotFoundHttpException("Journal not found!");
         }
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
