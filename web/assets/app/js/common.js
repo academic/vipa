@@ -42,9 +42,10 @@ $(document).ready(function () {
         },
         templateSelection: function (user) {
             return user.text;
-        }
+        },
+        width: 'resolve'
     });
-    $('.select2-element').select2();
+    $('.select2-element').select2({width: 'resolve'});
 
 
     $('a[title],[rel="tooltip"]').tooltip();
