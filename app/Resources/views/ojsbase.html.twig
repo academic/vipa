@@ -102,7 +102,7 @@
                     and is_granted('EDIT', selectedJournal())
                     and selectedJournal().setupStatus != true %}
                         <div class="alert alert-warning" role="alert">
-                            {{ ojs.setup_not_completed|trans({"%setup_url%":path('ojs_journal_setup')})|raw }}
+                            {{ 'ojs.setup_not_completed'|trans({"%setup_url%":path('ojs_journal_setup')})|raw }}
                         </div>
                     {% endif %}
                     <div class="panel panel-default sub-middle-panel">
