@@ -181,6 +181,42 @@ class AclOrmListener
                 new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('contacts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('block')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('pages')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('posts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('index')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('file')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
             )
