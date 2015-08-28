@@ -24,8 +24,13 @@
         <div class="profile-container">
             <header class="page-header text-center">
                 <figure>
-                    <img class="img-circle tri" alt="" src="{{ user.avatar }}"
-                            />
+                    <img
+                        {% if user.avatar is not null %}
+                        class="img-circle"
+                        {% else %}
+                        class="img-circle tri"
+                        {% endif %}
+                        alt="" src="{{ user.avatar|imagine_filter('user_croped') }}" />
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} /
                     @{{ user.username }}</h1>
