@@ -2,12 +2,19 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SubjectType extends AbstractType
 {
+    private $selfId;
+
+    function __construct($selfId = null)
+    {
+        $this->selfId = $selfId;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -15,6 +22,8 @@ class SubjectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $selfId = $this->selfId;
+        
         $builder
             ->add('translations', 'a2lix_translations')
             ->add('tags', 'tags')
@@ -26,7 +35,15 @@ class SubjectType extends AbstractType
                     'label' => 'parent',
                     'required' => false,
                     'placeholder' => 'none',
-                    'empty_data'  => null
+                    'empty_data'  => null,
+                    'query_builder' => function(SubjectRepository $repository) use ($selfId) {
+                        if ($selfId != null) {
+                            return $repository
+                                ->createQueryBuilder('subject')
+                                ->andWhere('subject.id != :selfId')
+                                ->setParameter('selfId', $selfId);
+                        }
+                    }
                 )
             );
     }

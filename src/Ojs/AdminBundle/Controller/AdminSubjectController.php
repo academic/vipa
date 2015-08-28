@@ -239,15 +239,15 @@ class AdminSubjectController extends Controller
     private function createEditForm(Subject $entity)
     {
         $form = $this->createForm(
-            new SubjectType(),
+            new SubjectType($entity->getId()),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_subject_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
+        $form->add('submit', 'submit', array('label' => 'Update'));
         return $form;
     }
 
