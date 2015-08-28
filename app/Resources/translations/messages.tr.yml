@@ -1,5 +1,6 @@
 '%count% Results,': '%count% Sonuç,'
 Abstract: Öz
+abstractTransliterated: 'Öz Tecümesi'
 Accept: Kabul
 Action: Aksiyon
 Admin: Yönetici
@@ -521,6 +522,7 @@ journal.editor_surname: 'Editor Soyadı'
 journal.eissn: e-ISSN
 journal.email: 'İletişim e-Postası'
 journal.firstPublishDate: 'İlk Yayın Tarihi'
+journal.file: 'Gönderim İçin Dosyalar'
 journal.google.analytics.id: 'Google Analytics IDsi'
 journal.header_image: 'Başlık Resmi'
 journal.id: 'Dergi IDsi'
@@ -542,6 +544,7 @@ journal.plural: Dergiler
 journal.register: 'Dergi Başvur'
 journal.scope: Kapsam
 journal.settings.abstractTemplate.desc: 'Butona tıklayarak öntanımlı şablonlardan yükleyebilirsiniz.'
+journal.settings.last.step.confirm: 'Makale Gönderimindeki Son Uyarı Yazısı'
 journal.settings.mail: 'e-Posta Ayarları'
 journal.settings.mail.signature: 'e-Posta İmzası'
 journal.settings.page: 'Sayfa Ayarları'
@@ -916,6 +919,7 @@ submission_checklist.detail: Detay
 submission_checklist.label: Etiket
 submission_checklist.show: Göster
 submission_checklist.visible: 'Kontrol Listesi Görünsün mü?'
+submission_checklist.required: 'Gönderim için gerekli mi?'
 submit: Gönder
 submitRoles: 'Makale Gönderebilen Roller'
 submit_action: 'Gönderme Aksiyonu'
@@ -1124,6 +1128,7 @@ title.mail_log_edit: 'E-Posta Günlüğünü Düzenle'
 title.mail_log_new: 'Yeni E-Posta Günlüğü'
 title.mail_log_show: 'E-Posta Günlüğünü Göster'
 title.mail_logs: 'E-Posta Günlükleri'
+title.mail_templates: 'E-Posta Taslakları'
 title.manager_dashboard: 'Yönetici Paneli'
 title.notification_edit: 'Bildirimi Düzenle'
 title.notification_new: 'Yeni Bildirim'

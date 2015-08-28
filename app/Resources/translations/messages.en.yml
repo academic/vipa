@@ -1,5 +1,6 @@
 '%count% Results,': '%count% Results,'
 Abstract: Abstract
+abstractTransliterated: 'Abstract Transliterated'
 Accept: Accept
 Action: Action
 Admin: Admin
@@ -521,6 +522,7 @@ journal.editor_surname: 'Editor surname'
 journal.eissn: 'Journal eISSN'
 journal.email: 'Journal''s contact email'
 journal.firstPublishDate: 'First Publish Date'
+journal.file: 'Submission Required Files'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
 journal.id: ID
@@ -542,6 +544,7 @@ journal.plural: Journals
 journal.register: 'Journal Register'
 journal.scope: Scope
 journal.settings.abstractTemplate.desc: 'You can load  predefined templates by clicking buttons listed above.'
+journal.settings.last.step.confirm: 'Submission last step confirm text'
 journal.settings.mail: 'Mail Settings'
 journal.settings.mail.signature: 'Email signature'
 journal.settings.page: 'Page Settings'
@@ -917,6 +920,7 @@ submission_checklist.detail: Detail
 submission_checklist.label: Label
 submission_checklist.show: Show
 submission_checklist.visible: 'Is visible?'
+submission_checklist.required: 'Is this required for submission?'
 submit: Submit
 submitRoles: 'Roles that can submit articles'
 submit_action: 'Submit Action'
@@ -1125,6 +1129,7 @@ title.mail_log_edit: 'Edit Mail Log'
 title.mail_log_new: 'New Mail Log'
 title.mail_log_show: 'Show Mail Log'
 title.mail_logs: 'Mail Logs'
+title.mail_templates: 'Mail Templates'
 title.manager_dashboard: 'Manager Dashboard'
 title.notification_edit: 'Edit Notification'
 title.notification_new: 'New Notification'
@@ -1182,6 +1187,7 @@ title.submission_checklist_edit: 'Edit Submission Checklist'
 title.submission_checklist_new: 'New Submission Checklist'
 title.submission_checklist_show: 'Show Submission Checklist'
 title.submission_checklists: 'Submission Checklists'
+title.submission_file_new: 'Submission New File'
 title.submission_edit: 'Edit Submission'
 title.submission_new: 'New Submission'
 title.submission_preview: 'Submission Preview'
