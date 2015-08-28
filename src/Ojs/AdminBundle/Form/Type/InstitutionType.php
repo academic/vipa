@@ -54,15 +54,12 @@ class InstitutionType extends AbstractType
             )
             ->add(
                 'parent',
-                'autocomplete',
+                'entity',
                 [
+                    'label' => 'parent',
                     'class' => 'Ojs\JournalBundle\Entity\Institution',
                     'attr' => [
-                        'class' => 'autocomplete',
-                        'style' => 'width:100%',
-                        'data-list' => $options['institutionsEndPoint'],
-                        'data-get' => $options['institutionEndPoint'],
-                        "placeholder" => "type a institution name",
+                        'class' => "validate[required] select2-element",
                     ],
                 ]
             )
