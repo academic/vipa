@@ -17,8 +17,9 @@ class JournalPostController extends OjsController
 {
     /**
      * Lists all JournalPost entities.
+     * @var Request $request
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -28,11 +29,31 @@ class JournalPostController extends OjsController
 
         $source = new Entity('OjsJournalBundle:JournalPost');
         $alias = $source->getTableAlias();
+
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($alias, $journal) {
                 $query
                     ->andWhere($alias.'.journal = :journal')
                     ->setParameter('journal', $journal);
+            }
+        );
+
+        $source->manipulateRow(
+            function ($row) use ($request)
+            {
+                /**
+                 * @var \APY\DataGridBundle\Grid\Row $row
+                 * @var JournalPost $entity
+                 */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+
+                if(!is_null($entity)){
+                    $row->setField('title', $entity->getTitle());
+                    $row->setField('content', $entity->getContent());
+                }
+
+                return $row;
             }
         );
 

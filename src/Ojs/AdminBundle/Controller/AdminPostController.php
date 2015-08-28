@@ -8,7 +8,6 @@ use Doctrine\ORM\Query;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\CmsBundle\Form\Type\PostType;
-use Ojs\CmsBundle\Entity\Post;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,14 +36,16 @@ class AdminPostController extends Controller
             {
                 /**
                  * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var Post $entity
+                 * @var AdminPost $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
+
                 if(!is_null($entity)){
                     $row->setField('title', $entity->getTitle());
                     $row->setField('content', $entity->getContent());
                 }
+
                 return $row;
             }
         );

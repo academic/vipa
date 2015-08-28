@@ -10,13 +10,14 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Page
- * @GRID\Source(columns="id, title, body, tags")
+ * @GRID\Source(columns="id, title, body")
  */
 abstract class Page extends AbstractTranslatable
 {
     use GenericEntityTrait;
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     protected $id;
 
