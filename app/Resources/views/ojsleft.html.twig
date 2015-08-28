@@ -21,35 +21,42 @@
                             <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
                                 {% for journal in userjournals %}
                                     {% if journal.id %}
-                                    <li class=list-group-item">
-                                        <a href="{{ path('ojs_journal_dashboard_index', {'journalId': journal.id}) }}">
-                                            <span class="label label-primary">{{ journal.institution.name }}</span> &raquo; {{ journal.title }}
-                                        </a>
-                                    </li>
-                                        {% endif %}
+                                        <li class=list-group-item">
+                                            <a href="{{ path('ojs_journal_dashboard_index', {'journalId': journal.id}) }}">
+                                                <span class="label label-primary">{{ journal.institution.name }}</span> &raquo; {{ journal.title }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <small>{{'loggedAs'|trans}} : <span style="color:#003399">{{app.user.username}}</span></small>
+                        <small>{{ 'loggedAs'|trans }} : <span style="color:#003399">{{ app.user.username }}</span>
+                        </small>
                         {% for journalRole in userJournalRoles() %}
                             <span class="label label-default">{{ journalRole.name|trans }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    <a class="list-group-item list-group-item-warning" href="{{ path('ojs_journal_user_register_list') }}">
-                        <i class="fa fa-exclamation-circle"></i> {{ "journal.join"|trans }}
+                    <a class="list-group-item list-group-item-warning"
+                       href="{{ path('ojs_journal_user_register_list') }}">
+                        <i class="fa fa-plus-square"></i> {{ "journal.join"|trans }}
                     </a>
+
+                    <a class="list-group-item list-group-item-default" href="{{ path('ojs_journal_user_my') }}">
+                        <i class="fa fa-book"></i>
+                        {{ "journals"|trans }} </a>
                 {% endif %}
             </div>
-            <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-collapse collapse in">
-                    {% if selectedJournal() %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
-                        <i class="fa fa-dashboard"></i>
-                        {{ "dashboard"|trans }}
-                    </a>
+            {% if selectedJournal() %}
+                <div class="panel panel-default left-menu-bgcolor">
+                    <div class="panel-collapse collapse in">
+                        <a class="list-group-item"
+                           href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
+                            <i class="fa fa-dashboard"></i>
+                            {{ "dashboard"|trans }}
+                        </a>
                         {% if is_granted('CREATE', selectedJournal(), 'articles') %}
                             <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
                                href="{{ path('ojs_journal_submission_new', {journalId: selectedJournal().id}) }}">
@@ -62,175 +69,190 @@
                             {% if is_granted('EDIT', selectedJournal()) %}
                                 {% set submissions_path = "ojs_journal_submission_all" %}
                             {% endif %}
-                            <a class="list-group-item list-group-item-info" href="{{ path(submissions_path, {journalId: selectedJournal().id}) }}">
+                            <a class="list-group-item list-group-item-info"
+                               href="{{ path(submissions_path, {journalId: selectedJournal().id}) }}">
                                 <i class="fa fa-flag"></i>
                                 {{ "articles"|trans }}
                             </a>
                         {% endif %}
-                        <a class="list-group-item list-group-item-warning" href="{{ path('okul_bilisim_workflow_articles_active', {journalId: selectedJournal().id}) }}">
+                        <a class="list-group-item list-group-item-warning"
+                           href="{{ path('okul_bilisim_workflow_articles_active', {journalId: selectedJournal().id}) }}">
                             <i class="fa fa-flag"></i>
                             {{ "articles_in_review"|trans }}
                         </a>
-
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
-            <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-heading">
-                    {{ "journal.manager"|trans }}
-                    <a class="btn btn-default btn-xs hidden-sm hidden-md hidden-lg pull-right" role="button" data-toggle="collapse" href="#journalManagerMenu" aria-expanded="false" aria-controls="journalManagerMenu">
-                        <i class="fa fa-caret-down"></i>
-                        {{ "Expand"|trans }}
-                    </a>
-                </div>
-                <div id="journalManagerMenu" class="list-group collapse" aria-expanded="false">
-                    {% if is_granted('EDIT', selectedJournal()) %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_settings_index', {'journalId': selectedJournal().id}) }}">
+                <div class="panel panel-default left-menu-bgcolor">
+                    <div class="panel-heading">
+                        {{ "journal.manager"|trans }}
+                        <a class="btn btn-default btn-xs hidden-sm hidden-md hidden-lg pull-right" role="button"
+                           data-toggle="collapse" href="#journalManagerMenu" aria-expanded="false"
+                           aria-controls="journalManagerMenu">
+                            <i class="fa fa-caret-down"></i>
+                            {{ "Expand"|trans }}
+                        </a>
+                    </div>
+                    <div id="journalManagerMenu" class="list-group collapse" aria-expanded="false">
+                        {% if is_granted('EDIT', selectedJournal()) %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_settings_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-cog fa-fw"></i>
                             </span>
-                            {{ "settings"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "settings"|trans }}
+                            </a>
+                        {% endif %}
 
-                    <a class="list-group-item" href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
+                        <a class="list-group-item"
+                           href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-key fa-fw"></i>
                         </span>
-                        {{ "journal.users"|trans }}
-                    </a>
+                            {{ "journal.users"|trans }}
+                        </a>
 
-                    {% if is_granted('VIEW', selectedJournal(), 'articles') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_article_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'articles') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_article_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-file-text fa-fw"></i>
                         </span>
-                            {{"journal.articles"|trans}}
-                        </a>
-                    {% endif %}
+                                {{ "journal.articles"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'sections') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_section_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'sections') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_section_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-square fa-fw"></i>
                             </span>
-                            {{ "journalsection"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "journalsection"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'issues') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_issue_index', {journalId: selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'issues') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_issue_index', {journalId: selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-newspaper-o fa-fw"></i>
                             </span>
-                            {{ "issue.manager"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "issue.manager"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'contacts') %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'contacts') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-credit-card fa-fw"></i>
                         </span>
-                        {{ "contact.plural"|trans }}
-                    </a>
-                    {% endif %}
+                                {{ "contact.plural"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'mailTemplate') %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'mailTemplate') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-envelope fa-fw"></i>
                         </span>
-                        {{"mail.templates"|trans}}
-                    </a>
-                    {% endif %}
+                                {{ "mail.templates"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'design') %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_design_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'design') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_design_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-navicon fa-fw"></i>
                         </span>
-                        {{ "journal.design"|trans }}
-                    </a>
-                    {% endif %}
+                                {{ "journal.design"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'design') %}
-                    <a class="list-group-item" href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'design') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-th-large fa-fw"></i>
                         </span>
-                        {{ "journal.theme"|trans }}
-                    </a>
-                    {% endif %}
+                                {{ "journal.theme"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'boards') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'boards') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_board_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-users fa-fw"></i>
                             </span>
-                            {{ "boards"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "boards"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'boards') %}
-                        <a class="list-group-item" href="{{ path('okul_bilisim_workflow_step_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'boards') %}
+                            <a class="list-group-item"
+                               href="{{ path('okul_bilisim_workflow_step_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-random fa-fw"></i>
                             </span>
-                            {{ "workflow.steps"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "workflow.steps"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'announcements') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_announcement_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'announcements') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_announcement_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-random fa-bullhorn"></i>
                             </span>
-                            {{ "title.announcements"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "title.announcements"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'pages') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_page_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'pages') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_page_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-file-o"></i>
                             </span>
-                            {{ "title.pages"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "title.pages"|trans }}
+                            </a>
+                        {% endif %}
 
-                    {% if is_granted('VIEW', selectedJournal(), 'posts') %}
-                        <a class="list-group-item" href="{{ path('ojs_journal_post_index', {'journalId': selectedJournal().id}) }}">
+                        {% if is_granted('VIEW', selectedJournal(), 'posts') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_post_index', {'journalId': selectedJournal().id}) }}">
                             <span style="color: #3c763d; margin-right: 3px;">
                                 <i class="fa fa-file"></i>
                             </span>
-                            {{ "title.posts"|trans }}
-                        </a>
-                    {% endif %}
+                                {{ "title.posts"|trans }}
+                            </a>
+                        {% endif %}
 
+                    </div>
                 </div>
-            </div>
 
             {% endif %}
             {% if isGrantedForInstitution() and selectedJournal().institution.id is defined %}
                 <div class="panel panel-default left-menu-bgcolor">
-                    <a class="list-group-item" href="{{ path('ojs_institution_manager_design_index', {institutionId: selectedJournal().institution.id}) }}">
+                    <a class="list-group-item"
+                       href="{{ path('ojs_institution_manager_design_index', {institutionId: selectedJournal().institution.id}) }}">
                         <i class="fa fa-list"></i>
                         {{ "institution.design"|trans }} </a>
-                    <a class="list-group-item" href="{{ path('ojs_institution_manager_theme_index', {institutionId: selectedJournal().institution.id}) }}">
+                    <a class="list-group-item"
+                       href="{{ path('ojs_institution_manager_theme_index', {institutionId: selectedJournal().institution.id}) }}">
                         <i class="fa fa-list"></i>
                         {{ "institution.theme"|trans }} </a>
-                    <a class="list-group-item" href="{{ path('ojs_institution_manager_edit', {institutionId: selectedJournal().institution.id}) }}">
+                    <a class="list-group-item"
+                       href="{{ path('ojs_institution_manager_edit', {institutionId: selectedJournal().institution.id}) }}">
                         <i class="fa fa-list"></i>
                         {{ "institution.edit"|trans }} </a>
                 </div>
             {% endif %}
-            <div class="panel panel-default left-menu-bgcolor">
-                <a class="list-group-item" href="{{ path('ojs_journal_user_my') }}">
-                    <i class="fa fa-list"></i>
-                    {{ "journals"|trans }} </a>
-            </div>
         </div>
     </div>
 {% endblock %}
