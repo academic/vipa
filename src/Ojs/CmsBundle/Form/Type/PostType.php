@@ -43,8 +43,8 @@ class PostType extends AbstractType
                         'highlight_active_line' => null
                     )
                 )
-                )
-            );
+            )
+        );
     }
 
     /**
