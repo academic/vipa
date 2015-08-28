@@ -8,8 +8,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
- * JournalUser
- * @GRID\Source(columns="id, user.username, journal")
+ * InstitutionManagers
+ * @GRID\Source(columns="id, user.username, institution.name")
  */
 class InstitutionManagers
 {
@@ -20,7 +20,7 @@ class InstitutionManagers
 
     /**
      * @var Institution
-     * @Grid\Column(title="journal")
+     * @Grid\Column(field="institution.name",title="institution")
      */
     private $institution;
 
