@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
@@ -11,14 +12,26 @@ use Doctrine\ORM\EntityRepository;
 
 class InstitutionType extends AbstractType
 {
+    private $selfId;
+
+    /**
+     * InstitutionType constructor.
+     * @param $selfId
+     */
+    public function __construct($selfId = null)
+    {
+        $this->selfId = $selfId;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $institutionId = $options['data']->getId() ? $options['data']->getId(): null;
-         $builder
+        $selfId = $this->selfId;
+        $institutionId = $options['data']->getId() ? $options['data']->getId(): null;
+        $builder
             ->add(
                 'name',
                 'text',
@@ -59,8 +72,18 @@ class InstitutionType extends AbstractType
                     'label' => 'parent',
                     'class' => 'Ojs\JournalBundle\Entity\Institution',
                     'attr' => [
-                        'class' => "validate[required] select2-element",
+                        'class' => "select2-element",
                     ],
+                    'placeholder' => 'none',
+                    'empty_data'  => null,
+                    'query_builder' => function (InstitutionRepository $repository) use ($selfId) {
+                        if ($selfId != null) {
+                            return $repository
+                                ->createQueryBuilder('institution')
+                                ->andWhere('institution.id != :selfId')
+                                ->setParameter('institution', $selfId);
+                        }
+                    }
                 ]
             )
             ->add(

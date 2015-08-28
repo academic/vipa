@@ -36,7 +36,7 @@ class SubjectType extends AbstractType
                     'required' => false,
                     'placeholder' => 'none',
                     'empty_data'  => null,
-                    'query_builder' => function(SubjectRepository $repository) use ($selfId) {
+                    'query_builder' => function (SubjectRepository $repository) use ($selfId) {
                         if ($selfId != null) {
                             return $repository
                                 ->createQueryBuilder('subject')

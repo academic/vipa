@@ -186,7 +186,7 @@ class AdminInstitutionController extends Controller
     private function createEditForm(Institution $entity)
     {
         $form = $this->createForm(
-            new InstitutionType(),
+            new InstitutionType($entity->getId()),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_institution_update', array('id' => $entity->getId())),
