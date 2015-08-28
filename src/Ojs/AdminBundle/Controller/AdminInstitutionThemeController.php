@@ -205,7 +205,7 @@ class AdminInstitutionThemeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var InstitutionTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:InstitutionDesign')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:InstitutionTheme')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
