@@ -43,7 +43,7 @@ class AdminController extends Controller
             $switcher = $this->createForm(new QuickSwitchType())->createView();
             return $this->render('OjsAdminBundle:Admin:dashboard.html.twig', ['switcher' => $switcher]);
         } else {
-            return $this->redirect($this->generateUrl('dashboard_editor'));
+            return $this->redirect($this->generateUrl('ojs_user_index'));
         }
     }
 
@@ -54,8 +54,6 @@ class AdminController extends Controller
     {
         if ($this->isGranted('VIEW', new Journal())) {
             return $this->render('OjsAdminBundle:Admin:stats.html.twig', $this->createStats());
-        } else {
-            return $this->redirect($this->generateUrl('dashboard_editor'));
         }
     }
 

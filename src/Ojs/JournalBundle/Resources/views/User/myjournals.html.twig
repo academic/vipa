@@ -22,8 +22,11 @@
             <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('editor_journal_show', { 'id': entity.journal.id }) }}">
-                            <span class="badge">#{{ entity.journal.id }}</span> {{ entity.journal.title }}</a>
+                    <td>
+                        <a href="{{ path('ojs_journal_dashboard_index', { 'journalId': entity.journal.id }) }}">
+                            <span class="badge">#{{ entity.journal.id }}</span>
+                            {{ entity.journal.title }}
+                        </a>
                     </td>
                     <td>
                         {% for role in entity.roles %}

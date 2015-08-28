@@ -1,15 +1,7 @@
-dashboard_editor:
-    path:  /editor/dashboard
-    defaults: { _controller: OjsJournalBundle:Editor:dashboard }
-
-editor_show_my_journals:
-    path:  /editor/myjournals
-    defaults: { _controller: OjsJournalBundle:Editor:myJournals}
-
-editor_journal_show:
-    path: /editor/journal/{id}
-    defaults: { _controller: OjsJournalBundle:Editor:showJournal}
-
 ojs_user_index:
     path:  /user
     defaults: { _controller: OjsJournalBundle:Manager:userIndex }
+
+ojs_user_myjournals:
+    path:  /editor/myjournals
+    defaults: { _controller: OjsJournalBundle:Manager:myJournals}

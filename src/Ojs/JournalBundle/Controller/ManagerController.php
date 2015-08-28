@@ -257,6 +257,31 @@ class ManagerController extends Controller
         return $response;
     }
 
+
+    /**
+     * @return Response
+     * @throws HttpException
+     */
+    public function myJournalsAction()
+    {
+        $user_id = $this->getUser()->getId();
+        if (!$user_id) {
+            throw new HttpException(403, 'ojs.403');
+        }
+
+        $entities = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['user' => $this->getUser()]);
+
+        return $this->render(
+            'OjsJournalBundle:User:myjournals.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
+    }
+
     /**
      *  Arranges statistics
      *  @return array
