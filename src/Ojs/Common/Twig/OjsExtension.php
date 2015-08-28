@@ -285,6 +285,7 @@ class OjsExtension extends \Twig_Extension
      */
     public function isGrantedForInstitution()
     {
+        return true;
         try {
             if($this->journalService->getSelectedJournal()){
                 $institution = $this->journalService->getSelectedJournal()->getInstitution();
