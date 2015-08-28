@@ -1,0 +1,30 @@
+Ojs\AdminBundle\Entity\InstitutionManagers:
+    type: entity
+    table: institution_managers
+    repositoryClass: Ojs\AdminBundle\Entity\InstitutionManagersRepository
+
+    manyToOne:
+        institution:
+            targetEntity: Ojs\JournalBundle\Entity\Institution
+            inversedBy: institutionManagers
+            joinColumn:
+                name: institution_id
+                referencedColumnName: id
+        user:
+            targetEntity: Ojs\UserBundle\Entity\User
+            inversedBy: institutionManagers
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    uniqueConstraints:
+        journal_user_idx:
+            columns: institution_id, user_id
+
+    lifecycleCallbacks: {  }
