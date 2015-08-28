@@ -133,11 +133,6 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             gedmo:
                 - versioned
-        locales:
-            type: string
-            nullable: true
-            gedmo:
-                - versioned
         institutionId:
             type: integer
             nullable: true

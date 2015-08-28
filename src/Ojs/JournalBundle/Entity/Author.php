@@ -42,9 +42,6 @@ class Author extends  AbstractTranslatable
     /** @var  string */
     protected $billing_address;
 
-    /** @var  string */
-    protected $locales;
-
     /**
      * @var integer
      * @Expose
@@ -727,25 +724,6 @@ class Author extends  AbstractTranslatable
     public function setFax($fax)
     {
         $this->fax = $fax;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocales()
-    {
-        return $this->locales;
-    }
-
-    /**
-     * @param  string $locales
-     * @return $this
-     */
-    public function setLocales($locales)
-    {
-        $this->locales = $locales;
 
         return $this;
     }
