@@ -33,7 +33,6 @@ Ojs\JournalBundle\Entity\Institution:
         institutionManagers:
             targetEntity: Ojs\AdminBundle\Entity\InstitutionManagers
             mappedBy: institution
-            fetch: EXTRA_LAZY
     manyToOne:
         institution_type:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
