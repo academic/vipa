@@ -213,6 +213,16 @@
             </div>
 
             {% endif %}
+            {% if isGrantedForInstitution() %}
+                <div class="panel panel-default left-menu-bgcolor">
+                    <a class="list-group-item" href="{{ path('ojs_institution_manager_theme_index', {institutionId: selectedJournal().institution.id}) }}">
+                        <i class="fa fa-list"></i>
+                        {{ "institution.design"|trans }} </a>
+                    <a class="list-group-item" href="{{ path('ojs_institution_manager_design_index', {institutionId: selectedJournal().institution.id}) }}">
+                        <i class="fa fa-list"></i>
+                        {{ "institution.theme"|trans }} </a>
+                </div>
+            {% endif %}
             <div class="panel panel-default left-menu-bgcolor">
                 <a class="list-group-item" href="{{ path('ojs_journal_user_my') }}">
                     <i class="fa fa-list"></i>
