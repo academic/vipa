@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block body -%}
-    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
     <h1>{{ 'title.journals_indexes'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', selectedJournal(), 'index') %}

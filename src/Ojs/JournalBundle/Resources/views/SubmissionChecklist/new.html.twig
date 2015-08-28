@@ -16,17 +16,13 @@
 {% endblock %}
 
 {% block body -%}
-    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
-
     <h1>{{ 'title.submission_checklist_new'|trans }}</h1>
 
     {{ form(form) }}
 
-    {{
-    actions({
+    {{ actions({
         'back': {'href': path('ojs_journal_checklist_index', {'journalId': selectedJournal().id})},
-    })
-    }}
+    }) }}
 {% endblock %}
 
 

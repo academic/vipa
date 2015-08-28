@@ -12,15 +12,11 @@
 {% endblock %}
 
 {% block body -%}
-    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':6} only %}
-
     <h1>{{ 'title.submission_file_new'|trans }}</h1>
 
     {{ form(form) }}
 
-    {{
-    actions({
+    {{ actions({
         'back': {'href': path('ojs_journal_file_index', {'journalId': selectedJournal().id})},
-    })
-    }}
+    }) }}
 {% endblock %}

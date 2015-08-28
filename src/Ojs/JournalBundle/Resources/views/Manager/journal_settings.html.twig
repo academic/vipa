@@ -8,8 +8,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'title': 'edit'|trans}
+    {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -22,7 +22,6 @@
     {% endif %}
     <div class="large-12 columns">
         <div class="panel">
-            {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':1} only %}
             {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
             {% include '::flashbag.html.twig' %}
             {{ form_errors(form) }}
@@ -31,7 +30,8 @@
 
             <div class="btn-group">
                 {% block cancelbtn %}
-                    <a class="btn btn-default" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
+                    <a class="btn btn-default"
+                       href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
                         <i class="fa fa-backward"></i> {{ "cancel"|trans }}
                     </a>
                 {% endblock %}

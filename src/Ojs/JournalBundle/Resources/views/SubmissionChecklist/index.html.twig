@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block body -%}
-    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
     {% include '::flashbag.html.twig' %}
     <br>
     {% if is_granted('CREATE', selectedJournal(), 'checklist') %}

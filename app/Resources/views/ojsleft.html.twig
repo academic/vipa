@@ -105,6 +105,17 @@
                             </a>
                         {% endif %}
 
+
+                        <a class="list-group-item"
+                           href="{{ url('ojs_journal_settings_submission', {'journalId': selectedJournal().id}) }}">- {{ "journal.settings.submission"|trans }}</a>
+                        <a class="list-group-item"
+                           href="{{ url('ojs_journal_index_index', {'journalId': selectedJournal().id}) }}">- {{ "journalsindex.plural"|trans }}</a>
+                        <a class="list-group-item"
+                           href="{{ url('ojs_journal_checklist_index', {'journalId': selectedJournal().id}) }}">- {{ "submission_checklist"|trans }}</a>
+                        <a class="list-group-item"
+                           href="{{ url('ojs_journal_settings_mail', {'journalId': selectedJournal().id}) }}">- {{ "journal.settings.mail"|trans }}</a>
+                        <a class="list-group-item"
+                           href="{{ url('ojs_journal_file_index', {'journalId': selectedJournal().id}) }}">- {{ "journal.file"|trans }}</a>
                         <a class="list-group-item"
                            href="{{ path('ojs_journal_user_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
