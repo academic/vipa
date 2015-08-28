@@ -6,12 +6,13 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
+use Ojs\AdminBundle\Form\Type\UserType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
-use Ojs\AdminBundle\Form\Type\UserType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Yaml;
-use Doctrine\ORM\Query;
 
 /**
  * User administration controller
@@ -175,17 +175,12 @@ class AdminUserController extends Controller
         $entity = $em->getRepository('OjsUserBundle:User')->find($user->getId());
         $this->throw404IfNotFound($entity);
 
-        $check = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-            array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
-        );
-
         return $this->render(
             'OjsUserBundle:User:profile.html.twig',
             array(
                 'entity' => $entity,
                 'delete_form' => array(),
-                'me' => ($sessionUser == $user),
-                'isProxy' => (bool) $check,
+                'me' => ($sessionUser == $user)
             )
         );
     }

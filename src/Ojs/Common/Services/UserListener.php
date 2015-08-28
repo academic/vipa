@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\User\User as SecurityUser;
 use Symfony\Component\Yaml\Parser;
 
 class UserListener
@@ -70,7 +69,6 @@ class UserListener
 
         if ($event->isMasterRequest()) {
             $this->journalService->setSelectedJournal();
-            $this->loadClientUsers();
         }
     }
 
@@ -97,27 +95,6 @@ class UserListener
         return (!$user && !in_array($usernameLower, $reservedUserNames));
     }
 
-    /**
-     * load users to session that I can login as them
-     * @return void
-     */
-    public function loadClientUsers()
-    {
-        $user = $this->checkUser();
-        if (!$user) {
-            return;
-        }
-
-        //for API_KEY based connection
-        if ($user instanceof SecurityUser) {
-            $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
-        }
-
-        $clients = $this->em->getRepository('OjsUserBundle:Proxy')->findBy(
-            array('proxyUserId' => $user->getId())
-        );
-        $this->session->set('userClients', $clients);
-    }
 
     /**
      * @return bool|User

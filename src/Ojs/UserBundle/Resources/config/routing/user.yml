@@ -2,14 +2,6 @@ myprofile:
     path:  /profile
     defaults: { _controller: "OjsUserBundle:User:profile" }
 
-user_make_proxy:
-    path:  /add-proxy/{proxyUserId}
-    defaults: { _controller: "OjsUserBundle:Proxy:give" }
-
-user_drop_proxy:
-    path:  /drop-proxy/{proxyUserId}
-    defaults: { _controller: "OjsUserBundle:Proxy:drop" }
-
 user_profile:
     path:  /profile/{username}
     defaults: { _controller: "OjsUserBundle:User:profile" }

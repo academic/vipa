@@ -8,7 +8,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Theme;
-use Ojs\SiteBundle\Acl\AclChainManager;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -292,7 +291,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null, 'OjsJournalBundle:InstitutionTheme' => null,
             'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:InstitutionDesign' => null,
             'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
-            'OjsUserBundle:Proxy' => null, 'OjsUserBundle:Notification' => null, 'OjsJournalBundle:ArticleTypes' => null,
+            'OjsUserBundle:Notification' => null, 'OjsJournalBundle:ArticleTypes' => null,
             'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,
             'OjsAdminBundle:AdminPost' => null, 'OjsAdminBundle:InstitutionManagers' => null,
         ];
