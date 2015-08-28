@@ -128,6 +128,9 @@
                                             {% for announcement in announcements %}
                                                 {% if loop.first %}
                                                     <div class="item active">
+                                                {% else %}
+                                                    <div class="item">
+                                                {% endif %}
                                                         <div class="row">
                                                             <div class="col-xs-1 col-xs-offset-3">
                                                                 <h1>
@@ -136,28 +139,10 @@
                                                             </div>
                                                             <div class="col-xs-5">
                                                                 <h3>{{ announcement.title }}</h3>
-
                                                                 <p>{{ announcement.content|raw }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                {% else %}
-                                                    <div class="item">
-                                                        <div class="row">
-                                                            <div class="col-xs-12">
-                                                                <div class="col-xs-1 col-xs-offset-3">
-                                                                    <h1>
-                                                                        <i class="fa fa-bullhorn"></i>
-                                                                    </h1>
-                                                                </div>
-                                                                <div class="col-xs-5">
-                                                                    <h3>{{ announcement.title }}</h3>
-                                                                    <p>{{ announcement.content }}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                         <!-- Controls -->
