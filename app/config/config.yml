@@ -23,7 +23,7 @@ framework:
   form:            ~
   csrf_protection: ~
   templating:
-     { engines: ['twig'], assets_version: v3 }
+     { engines: ['twig'] }
   default_locale:  "%locale%"
   trusted_hosts:   ~
   trusted_proxies: ~
