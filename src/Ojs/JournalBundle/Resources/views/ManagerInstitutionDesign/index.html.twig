@@ -1,0 +1,25 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.institution_design'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
+        { 'title': 'title.institution_design'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "institutiondesign.list"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+
+    {% if isGrantedForInstitution() %}
+        <a href="{{ path('ojs_institution_manager_design_new', {institutionId: institution.id}) }}" class="btn btn-success">
+            {{ "c"|trans }}
+        </a>
+    {% endif %}
+
+    <hr>
+    {{ grid(grid) }}
+{% endblock %}
