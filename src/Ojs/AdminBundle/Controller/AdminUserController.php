@@ -309,7 +309,7 @@ class AdminUserController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
 
-        $entity->setStatus(-1);
+        $entity->setEnabled(false);
         $em->remove($entity);
         $em->flush();
 
