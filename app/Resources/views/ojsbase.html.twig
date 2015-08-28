@@ -97,14 +97,6 @@
         <!-- Main content -->
         {% if app.user and hideleft is not defined %}
                 <div class="col-sm-9 col-md-9">
-                    {% if app.user and selectedJournal()
-                    and app.user.isAdmin == false
-                    and is_granted('EDIT', selectedJournal())
-                    and selectedJournal().setupStatus != true %}
-                        <div class="alert alert-warning" role="alert">
-                            {{ 'ojs.setup_not_completed'|trans({"%setup_url%":path('ojs_journal_setup')})|raw }}
-                        </div>
-                    {% endif %}
                     <div class="panel panel-default sub-middle-panel">
                         <div class="panel-heading">
                             <div class="panel-title">

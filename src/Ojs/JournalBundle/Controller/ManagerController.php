@@ -2,11 +2,8 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
-use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -125,14 +122,6 @@ class ManagerController extends Controller
                     $submissionAbstractTemplate
                 );
             }
-            $copyrightStatement = $request->get('copyrightStatement');
-            if (!empty($copyrightStatement)) {
-                $this->updateJournalSetting(
-                    $journal,
-                    'copyrightStatement',
-                    $copyrightStatement
-                );
-            }
         }
         $yamlParser = new Parser();
         $root = $this->container->getParameter('kernel.root_dir');
@@ -144,20 +133,11 @@ class ManagerController extends Controller
                 'submissionAbstractTemplate' => $journal->getSetting('submissionAbstractTemplate') ?
                     $journal->getSetting('submissionAbstractTemplate')->getValue() :
                     null,
-                'copyrightStatement' => $journal->getSetting('copyrightStatement') ?
-                    $journal->getSetting('copyrightStatement')->getValue() :
-                    null,
             ),
             'abstractTemplates' => $yamlParser->parse(
                 file_get_contents(
                     $root.
                     '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
-                )
-            ),
-            'copyrightTemplates' => $yamlParser->parse(
-                file_get_contents(
-                    $root.
-                    '/../src/Ojs/JournalBundle/Resources/data/copyrightTemplates.yml'
                 )
             ),
             'journal' => $journal,
