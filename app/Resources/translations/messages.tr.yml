@@ -475,6 +475,7 @@ institutiontype.edit: 'Kurum Türünü Düzenle'
 institutiontype.list: 'Kurum Türü Listesi'
 institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.plural: 'Kurum Türleri'
+institutionmanagers.list: 'Kurum Yöneticileri'
 introduction: Giriş
 isAnonymous: 'Anonim mi?'
 issue: Sayı
@@ -1056,6 +1057,7 @@ title.institution_type_new: 'Yeni Kurum Türü'
 title.institution_type_show: 'Kurum Türünü Göster'
 title.institution_types: 'Kurum Türleri'
 title.institutions: Kurumlar
+title.institution_managers: 'Kurum Yöneticileri'
 title.invitation_preview: 'Davet Önizleme'
 title.issue_arrange: 'Sayı Düzenle'
 title.issue_articles: 'Sayının Makaleleri'
