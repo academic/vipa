@@ -1,0 +1,43 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.institution_theme_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
+        { 'link': path('ojs_institution_manager_theme_index', {institutionId: institution.id}),'title': 'title.institution_theme'|trans},
+        {'title': 'title.institution_theme_show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ entity.title|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    <table class="record_properties  table">
+        <tbody>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "title"|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ "css"|trans }}</th>
+            <td>{{ entity.css }}</td>
+        </tr>
+        </tbody>
+    </table>
+    {#
+    {% set back_path = 'ojs_institution_manager_theme_index' %}
+    {% if isGrantedForInstitution() %}
+        {% set edit_path = 'ojs_institution_manager_theme_edit' %}
+    {% endif %}
+    {% if isGrantedForInstitution() %}
+        {% set delete_path = 'ojs_institution_manager_theme_delete' %}
+    {% endif %}
+    #}
+    {% include '::actionbuttons.html.twig' %}
+{% endblock %}
