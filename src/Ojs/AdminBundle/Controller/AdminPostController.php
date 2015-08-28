@@ -208,9 +208,14 @@ class AdminPostController extends Controller
             return $this->redirectToRoute('ojs_admin_post_edit', ['id' => $entity->getId()]);
         }
 
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_post'.$entity->getId());
+
         return $this->render(
             'OjsAdminBundle:AdminPost:edit.html.twig',
             array(
+                'token' => $token,
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
             )
