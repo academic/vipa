@@ -9,3 +9,7 @@ journal_apply:
 dashboard_routing:
     resource: "@OjsJournalBundle/Resources/config/routing/dashboard.yml"
     prefix:   /
+
+institution_routing:
+    resource: "@OjsJournalBundle/Resources/config/routing/institution/institution.yml"
+    prefix:   /institution/{institutionId}

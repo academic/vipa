@@ -1,0 +1,30 @@
+ojs_institution_manager_theme_index:
+    path:  /
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:index }
+
+ojs_institution_manager_theme_show:
+    path:  /{id}/show
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:show }
+
+ojs_institution_manager_theme_new:
+    path:  /new
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:new }
+
+ojs_institution_manager_theme_create:
+    path:  /create
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:create }
+    methods: [POST]
+
+ojs_institution_manager_theme_edit:
+    path:  /{id}/edit
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:edit }
+
+ojs_institution_manager_theme_update:
+    path:  /{id}/update
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:update }
+    methods:  [PUT]
+
+ojs_institution_manager_theme_delete:
+    path:  /{id}/delete
+    defaults: { _controller: OjsJournalBundle:ManagerInstitutionTheme:delete }
+    methods:  [DELETE]
