@@ -285,27 +285,23 @@ class OjsExtension extends \Twig_Extension
      */
     public function isGrantedForInstitution()
     {
-        return true;
-        try {
-            if($this->journalService->getSelectedJournal()){
-                $institution = $this->journalService->getSelectedJournal()->getInstitution();
-            }else{
-                $institutionId = $this->requestStack->getCurrentRequest()->attributes->get('institutionId');
-                if(!$institutionId){
-                    return false;
-                }
-                $institution = $this->em->getRepository('OjsJournalBundle:Institution')->find($institutionId);
+        $user = $this->userListener->checkUser();
+        $selectedJournal = $this->journalService->getSelectedJournal();
+        if($selectedJournal){
+            $institution = $this->journalService->getSelectedJournal()->getInstitution();
+        }else{
+            $institutionId = $this->requestStack->getCurrentRequest()->attributes->get('institutionId');
+            if(!$institutionId){
+                return false;
             }
-            $user = $this->userListener->checkUser();
-            foreach($institution->getInstitutionManagers() as $manager){
-                if($manager->getUser()->getId() == $user->getId()){
-                    return true;
-                }
-            }
-            return false;
-        } catch (\Exception $e) {
-            return false;
+            $institution = $this->em->getRepository('OjsJournalBundle:Institution')->find($institutionId);
         }
+        foreach($institution->getInstitutionManagers() as $manager){
+            if($manager->getUser()->getId() == $user->getId()){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
