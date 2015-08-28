@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class OjsExtension extends \Twig_Extension
 {
@@ -44,6 +45,8 @@ class OjsExtension extends \Twig_Extension
     private $ojs_tw;
     /** @var  string */
     private $ojs_fb;
+    /** @var RequestStack */
+    private $requestStack;
 
     /**
      * @param EntityManager $em
@@ -67,6 +70,7 @@ class OjsExtension extends \Twig_Extension
         UserListener $userListener = null,
         TokenStorageInterface $tokenStorage = null,
         Session $session = null,
+        RequestStack $requestStack,
         $cmsShowRoutes = null,
         $defaultInstitutionSlug,
         $ojs_logo,
@@ -83,6 +87,7 @@ class OjsExtension extends \Twig_Extension
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
+        $this->requestStack = $requestStack;
         $this->ojs_logo = $ojs_logo;
         $this->ojs_tw = $ojs_tw;
         $this->ojs_fb = $ojs_fb;
@@ -119,6 +124,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
+            new \Twig_SimpleFunction('isGrantedForInstitution', array($this, 'isGrantedForInstitution')),
         );
     }
 
@@ -267,6 +273,35 @@ class OjsExtension extends \Twig_Extension
     {
         try {
             return $this->journalService->getSelectedJournal();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Check if user is selected journal institution manager
+     *
+     * @return bool
+     */
+    public function isGrantedForInstitution()
+    {
+        try {
+            if($this->journalService->getSelectedJournal()){
+                $institution = $this->journalService->getSelectedJournal()->getInstitution();
+            }else{
+                $institutionId = $this->requestStack->getCurrentRequest()->attributes->get('institutionId');
+                if(!$institutionId){
+                    return false;
+                }
+                $institution = $this->em->getRepository('OjsJournalBundle:Institution')->find($institutionId);
+            }
+            $user = $this->userListener->checkUser();
+            foreach($institution->getInstitutionManagers() as $manager){
+                if($manager->getUser()->getId() == $user->getId()){
+                    return true;
+                }
+            }
+            return false;
         } catch (\Exception $e) {
             return false;
         }
