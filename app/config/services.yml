@@ -25,6 +25,7 @@ services:
       - @user.helper
       - @security.token_storage
       - @session
+      - @request_stack
       - "%cms_show_routes%"
       - "%defaultInstitutionSlug%"
       - "%ojs_logo%"
