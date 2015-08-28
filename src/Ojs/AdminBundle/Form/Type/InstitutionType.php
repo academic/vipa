@@ -81,7 +81,7 @@ class InstitutionType extends AbstractType
                             return $repository
                                 ->createQueryBuilder('institution')
                                 ->andWhere('institution.id != :selfId')
-                                ->setParameter('institution', $selfId);
+                                ->setParameter('selfId', $selfId);
                         }
                     }
                 ]
