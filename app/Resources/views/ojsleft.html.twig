@@ -221,6 +221,9 @@
                     <a class="list-group-item" href="{{ path('ojs_institution_manager_theme_index', {institutionId: selectedJournal().institution.id}) }}">
                         <i class="fa fa-list"></i>
                         {{ "institution.theme"|trans }} </a>
+                    <a class="list-group-item" href="{{ path('ojs_institution_manager_edit', {institutionId: selectedJournal().institution.id}) }}">
+                        <i class="fa fa-list"></i>
+                        {{ "institution.edit"|trans }} </a>
                 </div>
             {% endif %}
             <div class="panel panel-default left-menu-bgcolor">
