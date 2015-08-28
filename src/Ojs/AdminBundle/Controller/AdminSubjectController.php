@@ -4,6 +4,7 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Subject;
@@ -31,57 +32,80 @@ class AdminSubjectController extends Controller
         if (!$this->isGranted('VIEW', new Subject())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+
         $source = new Entity("OjsJournalBundle:Subject");
         $source->manipulateRow(
-            function ($row) use ($request)
-            {
+            function ($row) use ($request) {
                 /**
                  * @var \APY\DataGridBundle\Grid\Row $row
                  * @var Subject $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
+
                 if(!is_null($entity)){
                     $row->setField('subject', $entity->getSubject());
                     $row->setField('description', $entity->getDescription());
                 }
+
                 return $row;
             }
         );
+
         $grid = $this->get('grid')->setSource($source);
+
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-
         $rowAction[] = $gridAction->showAction('ojs_admin_subject_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_subject_edit', 'id');
         $rowAction[] = $gridAction->deleteAction('ojs_admin_subject_delete', 'id');
-
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        $data = [];
-        $data['grid'] = $grid;
-        /** @var SubjectRepository $repo */
-        $repo = $this->getDoctrine()->
-        getRepository('OjsJournalBundle:Subject');
-        $options = array(
-            'decorate' => true,
-            'rootOpen' => '<ul>',
-            'rootClose' => '</ul>',
-            'childOpen' => '<li>',
-            'childClose' => '</li>',
-            'idField' => true,
-            'nodeDecorator' => function ($node) {
-                return '<a href="'.$this->generateUrl(
-                    'ojs_admin_subject_show',
-                    array('id' => $node['id'])
-                ).'">@todo_this_will_fixed</a>';
-                //).'">'.$node['subject'].'</a>';
-            },
-        );
-        $data['htmlTree'] = $repo->childrenHierarchy(null, false, $options);
+        $all = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:Subject')
+            ->findAll();
+
+        $data = [
+            'grid' => $grid,
+            'tree' => $this->createTreeView($all)
+        ];
 
         return $grid->getGridResponse('OjsAdminBundle:AdminSubject:index.html.twig', $data);
+    }
+
+    /**
+     * @param ArrayCollection $subjects
+     * @param int|null $parentId
+     * @return string
+     */
+    private function createTreeView($subjects, $parentId = null)
+    {
+        $tree = '<ul>%s</ul>';
+        $item = '<li>%s</li>';
+        $link = '<a href="%s">%s</a>';
+        $items = "";
+
+        /**
+         * @var Subject $subject
+         * @var ArrayCollection $children
+         */
+        foreach ($subjects as $subject) {
+            if ($subject->getParent() == null || $subject->getParent()->getId() == $parentId) {
+                $path = $this->get('router')->generate('ojs_admin_subject_show', ['id' => $subject->getId()]);
+                $content = sprintf($link, $path, $subject->getSubject());
+                $children = $subject->getChildren();
+
+                if ($children->count() > 0) {
+                    $content = $content . $this->createTreeView($children, $subject->getId());
+                }
+
+                $items = $items . sprintf($item, $content);
+            }
+        }
+
+        return sprintf($tree, $items);
     }
 
     /**
