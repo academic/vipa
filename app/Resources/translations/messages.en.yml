@@ -680,6 +680,7 @@ new.block: 'New Block'
 new.link: 'New Link'
 nextSteps: 'Next Steps'
 nextSteps.possible: 'Possible Next Steps'
+none: None
 not.finished: 'Not Finished'
 notFound: 'The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.'
 notes_to_editor: 'Notes to Editor'

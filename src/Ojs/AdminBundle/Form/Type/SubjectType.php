@@ -24,6 +24,9 @@ class SubjectType extends AbstractType
                 array(
                     'class' => 'OjsJournalBundle:Subject',
                     'label' => 'parent',
+                    'required' => false,
+                    'placeholder' => 'none',
+                    'empty_data'  => null
                 )
             );
     }

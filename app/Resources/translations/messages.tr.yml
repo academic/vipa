@@ -680,6 +680,7 @@ new.block: 'Yeni Blok'
 new.link: 'Yeni Bağlantı'
 nextSteps: 'Sonraki Adımlar'
 nextSteps.possible: 'Muhtemel Sonraki Adımlar'
+none: Hiçbiri
 not.finished: 'Tamamlanmadı'
 notFound: 'Aradığınız kayıt sunucularımızda bulunamadı. Kayıt ya silinmiş olabilir ya da yanlış bağlantıya tıkladınız.'
 notes_to_editor: 'Editöre Notlar'
