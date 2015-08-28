@@ -72,12 +72,20 @@
                                 {{ "title.journals"|trans }}
                             </a>
 
-                            <a href="{{ path('ojs_admin_role_index') }}"
+                            <a href="{{ path('ojs_admin_institution_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">
                                 <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-key"></i>
+                                    <i class="fa fa-university"></i>
                                 </span>
-                                {{ "title.roles"|trans }}
+                                {{ "title.institutions"|trans }}
+                            </a>
+
+                            <a href="{{ path('ojs_admin_subject_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
+                                <span class="btn-label pull-left col-md-3 col-xs-3">
+                                    <i class="fa fa-bookmark"></i>
+                                </span>
+                                {{ "title.subjects"|trans }}
                             </a>
 
                             <a href="{{ path('ojs_admin_language_index') }}"
@@ -86,14 +94,6 @@
                                     <i class="fa fa-language"></i>
                                 </span>
                                 {{ "title.languages"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_institution_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-university"></i>
-                                </span>
-                                {{ "title.institutions"|trans }}
                             </a>
 
                             <a href="{{ path('ojs_admin_institution_type_index') }}"
@@ -120,6 +120,16 @@
                                 {{ "title.contact_types"|trans }}
                             </a>
 
+                            <a href="{{ path('ojs_admin_index_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
+                                <span class="btn-label pull-left col-md-3 col-xs-3">
+                                    <i class="fa fa-sitemap"></i>
+                                </span>
+                                {{ "title.journals_indexes"|trans }}
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-xs-12">
                             <a href="{{ path('ojs_admin_post_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">
                                 <span class="btn-label pull-left col-md-3 col-xs-3">
@@ -127,9 +137,7 @@
                                 </span>
                                 {{ "title.post"|trans }}
                             </a>
-                        </div>
 
-                        <div class="col-md-6 col-xs-12">
                             <a href="{{ path('ojs_admin_page_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">
                                 <span class="btn-label pull-left col-md-3 col-xs-3">
@@ -138,44 +146,12 @@
                                 {{ "title.pages"|trans }}
                             </a>
 
-                            <a href="{{ path('ojs_admin_subject_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-bookmark"></i>
-                                </span>
-                                {{ "title.subjects"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_index_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-sitemap"></i>
-                                </span>
-                                {{ "title.journals_indexes"|trans }}
-                            </a>
-
-                            <a href="{{ path('okulbilisim_feedback_homepage') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-envelope"></i>
-                                </span>
-                                {{ "feedback"|trans }}
-                            </a>
-
                             <a href="{{ path('ojs_admin_announcement_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">
                                 <span class="btn-label pull-left col-md-3 col-xs-3">
                                     <i class="fa fa-bullhorn"></i>
                                 </span>
                                 {{ "title.announcements"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_system_setting_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-gears"></i>
-                                </span>
-                                {{ "title.system_settings"|trans }}
                             </a>
 
                             <a href="{{ path('ojs_admin_institution_theme_index') }}"
@@ -200,6 +176,22 @@
                                     <i class="fa fa-users"></i>
                                 </span>
                                 {{ "title.institution_managers"|trans }}
+                            </a>
+
+                            <a href="{{ path('okulbilisim_feedback_homepage') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
+                                <span class="btn-label pull-left col-md-3 col-xs-3">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                {{ "feedback"|trans }}
+                            </a>
+
+                            <a href="{{ path('ojs_admin_system_setting_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
+                                <span class="btn-label pull-left col-md-3 col-xs-3">
+                                    <i class="fa fa-gears"></i>
+                                </span>
+                                {{ "title.system_settings"|trans }}
                             </a>
 
                             <a href="{{ path('ojs_admin_stats') }}"
