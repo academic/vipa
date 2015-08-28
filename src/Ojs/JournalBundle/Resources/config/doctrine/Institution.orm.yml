@@ -30,6 +30,17 @@ Ojs\JournalBundle\Entity\Institution:
         institutionDesigns:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionDesign
             mappedBy: institution
+    manyToMany:
+        institutionManagers:
+            targetEntity: Ojs\UserBundle\Entity\User
+            joinTable:
+                name: institution_managers
+                joinColumns:
+                    institution_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id
     manyToOne:
         institution_type:
             targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes

@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
+use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -213,6 +214,11 @@ class Institution extends AbstractTranslatable
     private $status = 0;
 
     /**
+     * @var ArrayCollection|User[]
+     */
+    private $institutionManagers;
+
+    /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\InstitutionTranslation")
      */
     protected $translations;
@@ -224,6 +230,7 @@ class Institution extends AbstractTranslatable
         $this->translations = new ArrayCollection();
         $this->institutionThemes = new ArrayCollection();
         $this->institutionDesigns = new ArrayCollection();
+        $this->institutionManagers = new ArrayCollection();
     }
 
     /**
@@ -1055,5 +1062,37 @@ class Institution extends AbstractTranslatable
         $this->updated = $updated;
 
         return $this;
+    }
+
+    /**
+     * Add institutionManager
+     *
+     * @param  User         $institutionManager
+     * @return $this
+     */
+    public function addInstitutionManager(User $institutionManager)
+    {
+        $this->institutionManagers[] = $institutionManager;
+        return $this;
+    }
+
+    /**
+     * Remove institutionManager
+     *
+     * @param User $institutionManager
+     */
+    public function removeInstitutionManager(User $institutionManager)
+    {
+        $this->institutionManagers->removeElement($institutionManager);
+    }
+
+    /**
+     * Get institutionManagers
+     *
+     * @return Collection
+     */
+    public function getInstitutionManagers()
+    {
+        return $this->institutionManagers;
     }
 }
