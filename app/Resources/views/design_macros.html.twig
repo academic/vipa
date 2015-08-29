@@ -13,7 +13,7 @@
     <img src=""
          class="img-responsive img-rounded float-left holder-remove tri" alt=""/>
     <span class="design-hide-endblock hide"></span>
-    <a href="#" class="list-group-item ">
+    <span class="list-group-item ">
         <span class="row-fluid">
             <span class="half-column nopadding">
                 <span class="list-group-item-heading count"><i class="fa fa-eye"></i>
@@ -27,7 +27,30 @@
             </span>
             <span class="clearfix"></span>
         </span>
-    </a>
+    </span>
+    <span>
+        <span class="row-fluid">
+            <span class="half-column nopadding">
+                <span class="list-group-item-heading count">
+                    <span class="design-inline" title="{{ "{{ journal.issn}}" }}">1234-1234</span>
+                </span>
+            </span>
+            {% raw %}
+            <!--raw-->
+                <!---
+            {% if journal.eissn is defined %}
+            <span class="half-column nopadding">
+                <span class="list-group-item-heading count">
+                    <span class="design-inline" title="{{ "{{ journal.eissn }}" }}">1234-1234</span>
+                </span>
+            </span>
+            {% endif %}
+            --->
+                <!--endraw-->
+            {% endraw %}
+            <span class="clearfix"></span>
+        </span>
+    </span>
 {% endmacro %}
 
 {% macro journalDescription() %}
@@ -230,81 +253,6 @@
     </div>
 {% endmacro %}
 
-{% macro socialButtons() %}
-    <div>
-        <span class="design-hide-block hide">
-            {% raw %}
-                <!--raw-->
-                <!---
-                    {% if enable_social is defined %}
-                        <a href="#" class="list-group-item facebook-like">
-                            <h3 class="pull-right">
-                                <i class="fa fa-facebook-square"></i>
-                            </h3>
-                            <h5 class="list-group-item-heading count">
-                                {{ random(10000) }}</h5>
-
-                            <p class="list-group-item-text">
-                                Facebook Likes</p>
-                        </a>
-                        <a href="#" class="list-group-item google-plus">
-                            <h3 class="pull-right">
-                                <i class="fa fa-google-plus-square"></i>
-                            </h3>
-                            <h5 class="list-group-item-heading count">
-                                {{ random(10000) }}</h5>
-
-                            <p class="list-group-item-text">
-                                Google+</p>
-                        </a>
-                        <a href="#" class="list-group-item twitter">
-                            <h3 class="pull-right">
-                                <i class="fa fa-twitter-square"></i>
-                            </h3>
-                            <h5 class="list-group-item-heading count">
-                                {{ random(10000) }}</h5>
-
-                            <p class="list-group-item-text">
-                                Twitter Followers</p>
-                        </a>
-                    {% endif %}
-                --->
-                <!--endraw-->
-            {% endraw %}
-        </span>
-            <a href="#" class="list-group-item facebook-like">
-                <h3 class="pull-right">
-                    <i class="fa fa-facebook-square"></i>
-                </h3>
-                <h5 class="list-group-item-heading count">
-                    {{ random(10000) }}</h5>
-
-                <p class="list-group-item-text">
-                    Facebook Likes</p>
-            </a>
-            <a href="#" class="list-group-item google-plus">
-                <h3 class="pull-right">
-                    <i class="fa fa-google-plus-square"></i>
-                </h3>
-                <h5 class="list-group-item-heading count">
-                    {{ random(10000) }}</h5>
-
-                <p class="list-group-item-text">
-                    Google+</p>
-            </a>
-            <a href="#" class="list-group-item twitter">
-                <h3 class="pull-right">
-                    <i class="fa fa-twitter-square"></i>
-                </h3>
-                <h5 class="list-group-item-heading count">
-                    {{ random(10000) }}</h5>
-
-                <p class="list-group-item-text">
-                    Twitter Followers</p>
-            </a>
-        <span class="design-hide-endblock hide"></span>
-    </div>
-{% endmacro %}
 
 {% macro journalIndexes() %}
     <div class="list-group">

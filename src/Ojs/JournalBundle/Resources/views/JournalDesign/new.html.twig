@@ -33,7 +33,6 @@
         <option value="cover">Dergi Kapağı</option>
         <option value="description">Tanım</option>
         <option value="journalMenu">Dergi Menüsü</option>
-        <option value="socialButtons">Sosyal Ağlar</option>
         <option value="journalIndexes">Dergi Dizinleri</option>
         <option value="archive">Arşiv</option>
         <option value="articles">Yazılar</option>
@@ -58,9 +57,6 @@
             <div class="col-md-3">
                 <!--gm-editable-region-->
                     {{ macros.journalMenu() }}
-                <!--/gm-editable-region-->
-                <!--gm-editable-region-->
-                    {{ macros.socialButtons() }}
                 <!--/gm-editable-region-->
                 <!--gm-editable-region-->
                     {{ macros.journalIndexes() }}
@@ -96,10 +92,6 @@
 
     <div id="journalMenu" class="hide">
         {{ macros.journalMenu() }}
-    </div>
-
-    <div id="socialButtons" class="hide">
-        {{ macros.socialButtons() }}
     </div>
 
     <div id="journalIndexes" class="hide">

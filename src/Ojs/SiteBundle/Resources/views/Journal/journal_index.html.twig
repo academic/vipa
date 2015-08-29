@@ -27,7 +27,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'link': journalUrl, 'title': journal.title}
+    {'link': journalUrl, 'title': journal.title }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -41,7 +41,8 @@
                 <div id="header">
                     {% if journal.header %}
                         <div class="col-md-12">
-                            <img src="{{ journal.header|imagine_filter('journal_header') }}" class="width100 img-responsive"/>
+                            <img src="{{ journal.header|imagine_filter('journal_header') }}"
+                                 class="width100 img-responsive"/>
                         </div>
                     {% endif %}
                     <h1>
