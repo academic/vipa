@@ -26,6 +26,8 @@ assetic:
         - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
         - %kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js
         - %kernel.root_dir%/../web/assets/app/js/common.js
+        - %kernel.root_dir%/../web/vendor/moment/min/moment-with-locales.min.js
+        - %kernel.root_dir%/../web/vendor/livestamp/livestamp.min.js
         - %kernel.root_dir%/../web/assets/app/js/plugins/analytics/analytics.js
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js
         - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js

@@ -1,10 +1,23 @@
 $(document).ready(function () {
-    if ($(".maskissn").length) {
-        $(".maskissn").inputmask({
+
+    /**
+     * Usage of abbr ago
+     *<abbr title="{{ post.created|date('Y-m-d H:i:s') }}"  class="ago">{{ post.created|date('Y-m-d H:i:s') }}</abbr>
+     **/
+
+    $('abbr.ago').each(function () {
+        if (moment($(this).attr('title')).isValid()) {
+            $(this).livestamp(new Date($(this).attr('title')));
+        }
+    });
+
+
+    $(".maskissn").each(function () {
+        $(this).inputmask({
             mask: "####-###M",
             definitions: {'#': {validator: "[0-9]", cardinality: 1}, 'M': {validator: "[0-9X]", cardinality: 1}}
         });
-    }
+    });
     $(".validate-form").validationEngine({
         promptPosition: 'inline', validateNonVisibleFields: true,
         updatePromptsPosition: true

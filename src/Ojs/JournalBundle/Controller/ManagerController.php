@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Parser;
 class ManagerController extends Controller
 {
     /**
-     * @param  null     $journalId
+     * @param  null $journalId
      * @return Response
      */
     public function journalSettingsAction($journalId = null)
@@ -59,7 +59,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function updateJournalAction(Request $request)
@@ -89,8 +89,8 @@ class ManagerController extends Controller
 
     /**
      * @todo setttings enumeration should be done, otherwise setting keys will be a garbage
-     * @param  Request  $request
-     * @param  integer  $journalId
+     * @param  Request $request
+     * @param  integer $journalId
      * @return Response
      */
     public function journalSettingsSubmissionAction(Request $request, $journalId = null)
@@ -136,7 +136,7 @@ class ManagerController extends Controller
             ),
             'abstractTemplates' => $yamlParser->parse(
                 file_get_contents(
-                    $root.
+                    $root .
                     '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
                 )
             ),
@@ -147,10 +147,10 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Journal            $journal
-     * @param  string             $settingName
-     * @param  string             $settingValue if null, function will return current value
-     * @param  bool               $encoded      set true if setting stored as json_encoded
+     * @param  Journal $journal
+     * @param  string $settingName
+     * @param  string $settingValue if null, function will return current value
+     * @param  bool $encoded set true if setting stored as json_encoded
      * @return array|mixed|string
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
@@ -178,7 +178,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request      $req
+     * @param  Request $req
      * @param  null|integer $journalId
      * @return Response
      */
@@ -206,7 +206,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function userIndexAction(Request $request)
@@ -264,14 +264,14 @@ class ManagerController extends Controller
 
     /**
      *  Arranges statistics
-     *  @return array
+     * @return array
      */
     private function createStats()
     {
         $generator = new GraphDataGenerator($this->getDoctrine()->getManager());
 
         $lastMonth = ['x'];
-        for($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
         }
 

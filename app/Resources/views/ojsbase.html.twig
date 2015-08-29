@@ -159,6 +159,7 @@
         $(document).ready(function()
         {
             $('.jb_fileupload').jbFileUpload();
+            moment.locale('{{ app.request.locale }}');
         });
     </script>
 {% endblock %}

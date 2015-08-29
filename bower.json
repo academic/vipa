@@ -36,6 +36,8 @@
     "trianglify": "*",
     "gridmanager.js": "*",
     "ace-builds": "*",
-    "ace": "*"
+    "ace": "*",
+    "moment": "*",
+    "livestamp": "*"
   }
 }
