@@ -159,10 +159,13 @@
                         <div class="avatar">
                             <a href="/@{{ person.username }}">
                                 <img
-                                     src="{{ person.avatar is defined ? person.avatar|imagine_filter('avatar_thumb') : '#' }}"
-                                     alt="{{ person.username|default('image'|trans) }}"
-                                     class="tri"
-                                     style="width: 100px; height: 100px;">
+                                        {% if person.avatar is not null %}
+                                            class="img-circle"
+                                        {% else %}
+                                            class="img-circle tri"
+                                        {% endif %}
+                                        alt="" src="{{ person.avatar|imagine_filter('user_croped') }}"
+                                        style="width: 100px; height: 100px;"/>
                             </a>
                         </div>
                         <div class="content">
