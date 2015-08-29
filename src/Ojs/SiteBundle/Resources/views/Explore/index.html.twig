@@ -181,14 +181,14 @@
                             </div>
                             <div>
                                 {% if journal.issn is defined %}
-                                    {{ "journal.issn"|trans }}{{ journal.issn }}
+                                    <strong>{{ "journal.issn"|trans }}</strong>:{{ journal.issn }}
                                 {% endif %}
 
                                 {% if journal.eissn is defined %}
-                                    {{ "journal.eissn"|trans }}: {{ journal.eissn }}
+                                    <strong>{{ "journal.eissn"|trans }}</strong>: {{ journal.eissn }}
                                 {% endif %}
                                 {% if journal.firstPublishDate is defined %}
-                                    {{ "journal.firstPublishDate"|trans }}: {{ journal.firstPublishDate }}
+                                    <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('YYYY') }}
                                 {% endif %}
 
                             </div>

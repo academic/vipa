@@ -111,11 +111,12 @@ class JournalType extends AbstractType
                 'collot_datetime',
                 array(
                     'label' => 'journal.firstPublishDate',
-                    'date_format' => 'dd-MM-yyyy',
+                    'date_format' => 'yyyy',
+                    'widget' => 'single_text',
                     'pickerOptions' => [
-                        'format' => 'dd-mm-yyyy',
-                        'startView' => 'month',
-                        'minView' => 'month',
+                        'format' => 'yyyy',
+                        'startView' => 'decade',
+                        'minView' => 'decade',
                         'todayBtn' => 'true',
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',

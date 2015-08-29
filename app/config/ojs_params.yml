@@ -8,18 +8,6 @@ parameters:
         en:
             name: English
             code: en
-        fr:
-            name: Français
-            code: fr
-        it:
-            name: Italiano
-            code: it
-        de:
-            name: Deutsch
-            code: de
-        ar:
-            name: العربية
-            code: ar
     roles:
         - 
             role: ROLE_JOURNAL_MANAGER
