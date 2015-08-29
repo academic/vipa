@@ -158,13 +158,15 @@
                     <div class="card ng">
                         <div class="avatar">
                             <a href="/@{{ person.username }}">
+
                                 <img
-                                        {% if person.avatar is not null %}
+                                        {% if person.avatar is defined and person.avatar is not null %}
                                             class="img-circle"
+
+                                            alt="" src="{{ person.avatar|imagine_filter('user_croped') }}"
                                         {% else %}
                                             class="img-circle tri"
                                         {% endif %}
-                                        alt="" src="{{ person.avatar|imagine_filter('user_croped') }}"
                                         style="width: 100px; height: 100px;"/>
                             </a>
                         </div>
