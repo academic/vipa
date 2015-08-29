@@ -204,6 +204,9 @@ fos_elastica:
             slug: { type: string }
             subtitle: { type: string }
             description: { type: string }
+            issn: { type: string }
+            eissn: { type: string }
+            firstPublishDate: { type: date }
             tags:
               analyzer: "keyword"
               type: string

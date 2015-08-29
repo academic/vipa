@@ -179,6 +179,19 @@
                                     <span class="label label-info">{{ subject.subject }}</span>
                                 {% endfor %}
                             </div>
+                            <div>
+                                {% if journal.issn is defined %}
+                                    {{ "journal.issn"|trans }}{{ journal.issn }}
+                                {% endif %}
+
+                                {% if journal.issue is defined %}
+                                    {{ "journal.eissn"|trans }}: {{ journal.eissn }}
+                                {% endif %}
+                                {% if journal.firstPublishDate is defined %}
+                                    {{ "journal.firstPublishDate"|trans }}: {{ journal.firstPublishDate }}
+                                {% endif %}
+
+                            </div>
                         </div>
                     </div>
                 </div>
