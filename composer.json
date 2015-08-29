@@ -55,6 +55,7 @@
     "a2lix/translation-form-bundle": "^2.0",
     "prezent/doctrine-translatable-bundle": "dev-master",
     "friendsofsymfony/jsrouting-bundle": "^1.5",
+    "okulbilisim/workflow-bundle": "dev-master",
     "jbouzekri/file-uploader-bundle": "~2.0",
     "norzechowicz/aceeditor-bundle": "0.1.*",
     "friendsofsymfony/user-bundle": "dev-master",
@@ -71,6 +72,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/okulbilisim/PUGXAutoCompleterBundle.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:okulbilisim/workflowbundle.git"
     }
   ],
   "scripts": {

@@ -75,6 +75,11 @@
                                 {{ "articles"|trans }}
                             </a>
                         {% endif %}
+                        <a class="list-group-item list-group-item-warning"
+                           href="{{ path('okul_bilisim_workflow_articles_active', {journalId: selectedJournal().id}) }}">
+                            <i class="fa fa-flag"></i>
+                            {{ "articles_in_review"|trans }}
+                        </a>
                     </div>
                 </div>
             {% endif %}
@@ -196,6 +201,16 @@
                                 <i class="fa fa-users fa-fw"></i>
                             </span>
                                 {{ "boards"|trans }}
+                            </a>
+                        {% endif %}
+
+                        {% if is_granted('VIEW', selectedJournal(), 'boards') %}
+                            <a class="list-group-item"
+                               href="{{ path('okul_bilisim_workflow_step_index', {'journalId': selectedJournal().id}) }}">
+                            <span style="color: #3c763d; margin-right: 3px;">
+                                <i class="fa fa-random fa-fw"></i>
+                            </span>
+                                {{ "workflow.steps"|trans }}
                             </a>
                         {% endif %}
 
