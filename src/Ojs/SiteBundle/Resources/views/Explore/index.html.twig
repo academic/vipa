@@ -181,21 +181,18 @@
                             </div>
                             <div>
                                 <ul class="list-unstyled">
-                                    {% for prop in "issn","eissn","firstPublishDate" %}
-                                        {% if journal.prop is defined %}
-                                            <li><strong>{{ "journal.prop"|trans }}</strong>:{{ journal.prop }}</li>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% if journal.issn is defined %}
+                                        <li><strong>{{ "journal.issn"|trans }}</strong>:{{ journal.issn }}</li>
+                                    {% endif %}
+                                    {% if journal.eissn is defined %}
+                                        <li><strong>{{ "journal.eissn"|trans }}</strong>: {{ journal.eissn }}</li>
+                                    {% endif %}
+                                    {% if journal.firstPublishDate is defined %}
+                                        <li>
+                                            <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('Y') }}
+                                        </li>
+                                    {% endif %}
                                 </ul>
-
-
-                                {% if journal.eissn is defined %}
-                                    <strong>{{ "journal.eissn"|trans }}</strong>: {{ journal.eissn }}
-                                {% endif %}
-                                {% if journal.firstPublishDate is defined %}
-                                    <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('Y') }}
-                                {% endif %}
-
                             </div>
                         </div>
                     </div>
