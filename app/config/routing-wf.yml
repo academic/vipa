@@ -64,6 +64,10 @@ apidoc:
 
 fos_js_routing:
   resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+  
+workflow:
+  resource: "@WorkflowBundle/Resources/config/routing.yml"
+  prefix:   /
 
 jb_fileupload_crop:
   resource: "@JbFileUploaderBundle/Resources/config/routing.yml"

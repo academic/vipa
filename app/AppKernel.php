@@ -52,7 +52,7 @@ class AppKernel extends Kernel
             new Ojs\OAIBundle\OjsOAIBundle(),
             new Ojs\LocationBundle\OjsLocationBundle(),
             new Ojs\InstallerBundle\OjsInstallerBundle(),
-            new OkulBilisim\WorkflowBundle\WorkflowBundle(),
+            //new OkulBilisim\WorkflowBundle\WorkflowBundle(),
             new Ojs\CmsBundle\OjsCmsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
