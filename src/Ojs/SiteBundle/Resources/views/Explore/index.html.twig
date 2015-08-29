@@ -180,15 +180,20 @@
                                 {% endfor %}
                             </div>
                             <div>
-                                {% if journal.issn is defined %}
-                                    <strong>{{ "journal.issn"|trans }}</strong>:{{ journal.issn }}
-                                {% endif %}
+                                <ul class="list-unstyled">
+                                    {% for prop in "issn","eissn","firstPublishDate" %}
+                                        {% if journal.prob is defined %}
+                                            <li><strong>{{ "journal.prop"|trans }}</strong>:{{ journal.prop }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+
 
                                 {% if journal.eissn is defined %}
                                     <strong>{{ "journal.eissn"|trans }}</strong>: {{ journal.eissn }}
                                 {% endif %}
                                 {% if journal.firstPublishDate is defined %}
-                                    <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('YYYY') }}
+                                    <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('Y') }}
                                 {% endif %}
 
                             </div>
