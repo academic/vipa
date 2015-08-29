@@ -548,3 +548,82 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 .well-inline {
     display: inline-block
 }
+
+.panelx {
+    position: relative;
+}
+
+.panel-default > .panel-leftheading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
+.panel-primary > .panel-leftheading {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+.panel-success > .panel-leftheading {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.panel-info > .panel-leftheading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.panel-warning > .panel-leftheading {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.panel-danger > .panel-leftheading {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.panel-leftheading {
+    width: 42px;
+    padding: 10px;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    float: left;
+    height: 100%;
+    position: absolute;
+}
+
+.panel-lefttitle {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 15px;
+    font-size: 16px;
+    color: inherit;
+    -webkit-transform: rotate(90deg);
+    -webkit-transform-origin: left top;
+    -moz-transform: rotate(90deg);
+    -moz-transform-origin: left top;
+    -ms-transform: rotate(90deg);
+    -ms-transform-origin: left top;
+    -o-transform: rotate(90deg);
+    -o-transform-origin: left top;
+    transform: rotate(90deg);
+    transform-origin: left top;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.panel-rightbody {
+    float: left;
+    margin-left: 45px;
+    padding: 15px;
+}
