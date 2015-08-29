@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    moment.locale(current_language);
 
     /**
      * Usage of abbr ago
@@ -7,7 +8,7 @@ $(document).ready(function () {
 
     $('abbr.ago').each(function () {
         if (moment($(this).attr('title')).isValid()) {
-            $(this).livestamp(new Date($(this).attr('title')));
+            $(this).livestamp($(this).attr('title'));
         }
     });
 

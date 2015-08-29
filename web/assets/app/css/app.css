@@ -41,7 +41,6 @@ ul.nav-wizard .active ~ li:after,ul.nav-wizard.nav-wizard-backnav .active ~ li:a
 ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:hover a,ul.nav-wizard.nav-wizard-backnav li:hover a:active,ul.nav-wizard.nav-wizard-backnav li:hover a:visited,ul.nav-wizard.nav-wizard-backnav li:hover a:focus{color:#468847;background:#f6fbfd;}
 /*nav-wizard css end*/
 
-
 .controls
 {
     margin-top: 20px;
@@ -50,9 +49,6 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 {
     margin-right: 10px;
 }
-
-
-
 
 .info {
     display: block;
@@ -538,4 +534,17 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 
 #statistics .table tbody tr td:nth-child(2) {
     text-align: center;
+}
+
+.avatar32 {
+    margin: 0 10px 5px 0
+}
+
+.well-xs {
+    padding: 0px;
+    margin: 0 2px;
+}
+
+.well-inline {
+    display: inline-block
 }
