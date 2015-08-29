@@ -1,7 +1,0 @@
-myprofile:
-    path:  /profile
-    defaults: { _controller: "OjsUserBundle:User:profile" }
-
-user_profile:
-    path:  /profile/{username}
-    defaults: { _controller: "OjsUserBundle:User:profile" }

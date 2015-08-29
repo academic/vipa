@@ -6,10 +6,6 @@ admin_notification:
     resource: "@OjsUserBundle/Resources/config/routing/notification_admin.yml"
     prefix:   /admin/notification
 
-user:
-    resource: "@OjsUserBundle/Resources/config/routing/user.yml"
-    prefix:   /user
-
 confirm_email_warning:
     path:  /unconfirmed
     defaults: { _controller: "OjsUserBundle:Security:unconfirmed" }

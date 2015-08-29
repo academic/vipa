@@ -68,7 +68,7 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('myprofile') }}"
+                                <li><a href="/@{{ app.user.username }}"
                                        title="{{ "you"|trans }}"><b>{{ app.user.username }}</b></a></li>
                                 <li>
                                     <a href="{{ url('dashboard') }}" title="{{ "dashboard"|trans }}"
