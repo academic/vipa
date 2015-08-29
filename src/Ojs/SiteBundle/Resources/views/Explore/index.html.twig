@@ -182,7 +182,7 @@
                             <div>
                                 <ul class="list-unstyled">
                                     {% for prop in "issn","eissn","firstPublishDate" %}
-                                        {% if journal.prob is defined %}
+                                        {% if journal.prop is defined %}
                                             <li><strong>{{ "journal.prop"|trans }}</strong>:{{ journal.prop }}</li>
                                         {% endif %}
                                     {% endfor %}
