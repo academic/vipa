@@ -38,9 +38,15 @@ class HostingController extends Controller
             }
             return $this->journalIndexAction($request, $getJournalByDomain->getSlug(), true);
         }
+        /** @var Journal $journal */
+        foreach($getInstitutionByDomain->getJournals() as $journal){
+            $journalPublicURI = $this->generateUrl('institution_hosting_journal_index', [
+                'slug' => $journal->getSlug()
+            ],true);
+            $journal->setPublicURI($journalPublicURI);
+        }
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', [
-            'entity' => $getInstitutionByDomain,
-            'isInstitutionHosting' => true
+            'entity' => $getInstitutionByDomain
         ]);
     }
 

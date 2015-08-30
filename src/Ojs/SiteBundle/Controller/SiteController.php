@@ -101,11 +101,16 @@ class SiteController extends Controller
 
     public function institutionPageAction($slug)
     {
+        $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
         $data['entity'] = $entity;
         $data['page'] = 'organizations';
 
+        /** @var Journal $journal */
+        foreach($entity->getJournals() as $journal){
+            $journal->setPublicURI($journalService->generateUrl($journal));
+        }
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 

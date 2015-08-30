@@ -352,6 +352,12 @@ class Journal extends AbstractTranslatable
     private $printed;
 
     /**
+     * Object public URI
+     * @var string
+     */
+    private $publicURI;
+
+    /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
      */
     protected $translations;
@@ -1868,5 +1874,21 @@ class Journal extends AbstractTranslatable
     public function setStatistics($statistics)
     {
         $this->statistics = $statistics;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicURI()
+    {
+        return $this->publicURI;
+    }
+
+    /**
+     * @param string $publicURI
+     */
+    public function setPublicURI($publicURI)
+    {
+        $this->publicURI = $publicURI;
     }
 }
