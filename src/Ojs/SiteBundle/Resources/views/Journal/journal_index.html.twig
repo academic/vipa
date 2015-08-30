@@ -43,14 +43,18 @@
                             <i class="fa fa-eye"></i>
                             {{ journalViews }}
                         </small>
-                        <small>
-                            <i class="fa fa-newspaper-o"></i>
-                            {{ issueDownloads }}
-                        </small>
-                        <small>
-                            <i class="fa fa-file"></i>
-                            {{ articleDownloads }}
-                        </small>
+                        {% if issueDownloads is defined %}
+                            <small>
+                                <i class="fa fa-newspaper-o"></i>
+                                {{ issueDownloads }}
+                            </small>
+                        {% endif %}
+                        {% if articleDownloads is defined %}
+                            <small>
+                                <i class="fa fa-file"></i>
+                                {{ articleDownloads }}
+                            </small>
+                        {% endif %}
                     </h1>
                     <div class="col-md-12">
                         {% include '::flashbag.html.twig' %}
@@ -88,11 +92,11 @@
             <div class="row">
                 <div class="col-md-2 col-sm-3 col-xs-8 col-xs-offset-2 col-sm-offset-0 margin-bot">
                     <img
-                        {% if journal.image is not null %}
-                        src="{{ journal.image|imagine_filter('journal_cover') }}" class="img-responsive img-rounded float-left"
-                        {% else %}
-                        src="#" class="img-responsive img-rounded float-left tri"
-                        {% endif %}
+                            {% if journal.image is not null %}
+                                src="{{ journal.image|imagine_filter('journal_cover') }}" class="img-responsive img-rounded float-left"
+                            {% else %}
+                                src="#" class="img-responsive img-rounded float-left tri"
+                            {% endif %}
                             alt="{{ 'cover_image'|trans }} "/>
 
                     <a href="#" class="list-group-item ">
@@ -101,10 +105,12 @@
                         </span>
                         <span class="row-fluid">
                             <span class="col-md-6 nopadding">
-                                <span class="list-group-item-heading count"><i class="fa fa-eye"></i> {{ journal.viewCount|number_format(0,'.','.') }}</span>
+                                <span class="list-group-item-heading count"><i
+                                            class="fa fa-eye"></i> {{ journal.viewCount|number_format(0,'.','.') }}</span>
                             </span>
                             <span class="col-md-6 nopadding">
-                                <span class="list-group-item-heading count"><i class="fa fa-download"></i> {{ journal.downloadCount|number_format(0,'.','.') }} </span>
+                                <span class="list-group-item-heading count"><i
+                                            class="fa fa-download"></i> {{ journal.downloadCount|number_format(0,'.','.') }} </span>
                             </span>
                             <span class="clearfix"></span>
                         </span>
@@ -123,12 +129,16 @@
 
                     <div class="list-group journal-stats">
                         <div class="list-group-item ">
-                            <form role="search" action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}" method="get" id="search_on_journal">
+                            <form role="search"
+                                  action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}"
+                                  method="get" id="search_on_journal">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}" name="q">
+                                    <input type="text" class="form-control"
+                                           placeholder="{{ "search.on.journal"|trans }}" name="q">
 
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -143,81 +153,57 @@
                            class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}" class="list-group-item ">
+                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                           class="list-group-item ">
                             <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="list-group-item ">
+                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                           class="list-group-item ">
                             <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                         </a>
 
                         {% for journalPage in journalPages %}
-                        <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug, institution: journal.institution.slug}) }}" class="list-group-item ">
-                            <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
-                        </a>
+                            <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug, institution: journal.institution.slug}) }}"
+                               class="list-group-item ">
+                                <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                            </a>
                         {% endfor %}
 
                         <div class="list-group-item ">
-                            <form role="search" action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}" method="post">
+                            <form role="search"
+                                  action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                                  method="post">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="{{ "subscribe.this.journal"|trans }}" name="mail">
+                                    <input type="text" class="form-control"
+                                           placeholder="{{ "subscribe.this.journal"|trans }}" name="mail">
 
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><i class="fa fa-send"></i></button>
+                                        <button class="btn btn-default" type="submit"><i class="fa fa-send"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
-
-                        {% if enable_social is defined %}
-                            <a href="#" class="list-group-item facebook-like">
-                                <h3 class="pull-right">
-                                    <i class="fa fa-facebook-square"></i>
-                                </h3>
-                                <h5 class="list-group-item-heading count">
-                                    {{ random(10000) }}</h5>
-
-                                <p class="list-group-item-text">
-                                    Facebook Likes</p>
-                            </a>
-                            <a href="#" class="list-group-item google-plus">
-                                <h3 class="pull-right">
-                                    <i class="fa fa-google-plus-square"></i>
-                                </h3>
-                                <h5 class="list-group-item-heading count">
-                                    {{ random(10000) }}</h5>
-
-                                <p class="list-group-item-text">
-                                    Google+</p>
-                            </a>
-                            <a href="#" class="list-group-item twitter">
-                                <h3 class="pull-right">
-                                    <i class="fa fa-twitter-square"></i>
-                                </h3>
-                                <h5 class="list-group-item-heading count">
-                                    1000</h5>
-
-                                <p class="list-group-item-text">
-                                    Twitter Followers</p>
-                            </a>
-                        {% endif %}
                     </div>
-                    <div class="list-group">
-                        {% for index in journal.journalsIndexs %}
-                            <div class="list-group-item">
-                                <a href="{{ index.link }}" target="_blank">
-                                    <h5>
-                                        {% if index.journalIndex.logo %}
-                                            <img src="{{ index.journalIndex.logo|imagine_filter('journalindex_logo') }}"
-                                                 alt="{{ index.journalIndex }}"/>
-                                        {% endif %}
-                                        {{ index.journalIndex.name }}
-                                    </h5>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
+                    {% if journal.journalsIndexs|length>0 %}
+                        <div class="list-group">
+                            {% for index in journal.journalsIndexs %}
+                                <div class="list-group-item">
+                                    <a href="{{ index.link }}" target="_blank">
+                                        <h5>
+                                            {% if index.journalIndex.logo %}
+                                                <img src="{{ index.journalIndex.logo|imagine_filter('journalindex_logo') }}"
+                                                     alt="{{ index.journalIndex }}"/>
+                                            {% endif %}
+                                            {{ index.journalIndex.name }}
+                                        </h5>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -291,19 +277,20 @@
                     {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
                 </div>
             </div>
-
-            <div class="row">
-                <h3>{{ 'title.posts'|trans }}</h3>
-                <ul>
-                    {% for post in posts %}
-                        <li>
-                            <a href="{{ path('ojs_site_journal_post',
-                            {'slug': post.slug, 'institution': journal.institution.slug, 'journal_slug': journal.slug}) }}">
-                                {{ post.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+            {% if posts|length>0 %}
+                <div class="row">
+                    <h3>{{ 'title.posts'|trans }}</h3>
+                    <ul>
+                        {% for post in posts %}
+                            <li>
+                                <a href="{{ path('ojs_site_journal_post',
+                                {'slug': post.slug, 'institution': journal.institution.slug, 'journal_slug': journal.slug}) }}">
+                                    {{ post.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 
@@ -311,7 +298,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             analytics.view('journal', {{ journal.id }}, '{{ token }}');
         });
     </script>
@@ -320,8 +307,8 @@
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
                 i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
                 a = s.createElement(o),
                         m = s.getElementsByTagName(o)[0];
                 a.async = 1;
