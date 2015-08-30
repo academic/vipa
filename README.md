@@ -1,5 +1,3 @@
-**Warning**: This project will be released at late Q3 of 2015.
-
 #Open Journal Software
 
 [![Build Status](https://img.shields.io/travis/okulbilisim/ojs/master.svg?style=flat-square)](https://travis-ci.org/okulbilisim/ojs)
