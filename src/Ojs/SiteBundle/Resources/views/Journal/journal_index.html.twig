@@ -26,7 +26,7 @@
 
 {% block body %}
     <div class="container">
-        {% if design is defined and design is not null %}
+        {% if design is defined and design is not null and design.content is defined and design.content is not null %}
             {% include template_from_string(design.content) %}
         {% else %}
             {% block journalheader %}
