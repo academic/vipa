@@ -25,10 +25,12 @@
             <th>{{ "title"|trans }}</th>
             <td>{{ entity.title }}</td>
         </tr>
-        <tr>
-            <th>{{ 'contact.type'|trans }}</th>
-            <td>{{ entity.contactType.name }} - {{ entity.contactType.description }}</td>
-        </tr>
+        {% if entity.contactType is not null %}
+            <tr>
+                <th>{{ 'contact.type'|trans }}</th>
+                <td>{{ entity.contactType.name }} - {{ entity.contactType.description }}</td>
+            </tr>
+        {% endif %}
         <tr>
             <th>{{ "firstname"|trans }}</th>
             <td>{{ entity.firstName }}</td>

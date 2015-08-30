@@ -13,7 +13,6 @@ Ojs\JournalBundle\Entity\JournalContact:
             - NotBlank: ~
         email:
             - NotBlank: ~
+            - Email: ~
         tags:
-            - NotBlank: ~
-        contactType:
             - NotBlank: ~
