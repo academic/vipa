@@ -30,14 +30,15 @@ class IssueController extends Controller
     /**
      * Lists all Issue entities.
      *
-     * @return  Response
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's issues!");
+            throw new AccessDeniedException("You not authorized for this page!");
         }
 
         $source = new Entity('OjsJournalBundle:Issue');

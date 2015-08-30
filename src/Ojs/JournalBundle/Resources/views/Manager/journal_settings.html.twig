@@ -3,7 +3,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ form_stylesheet(form) }}
+    {{ form_stylesheet(edit_form) }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -22,24 +22,8 @@
     {% endif %}
     <div class="large-12 columns">
         <div class="panel">
-            {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
             {% include '::flashbag.html.twig' %}
-            {{ form_errors(form) }}
-
-            {{ form_widget(form) }}
-
-            <div class="btn-group">
-                {% block cancelbtn %}
-                    <a class="btn btn-default"
-                       href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
-                        <i class="fa fa-backward"></i> {{ "cancel"|trans }}
-                    </a>
-                {% endblock %}
-                <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-                    {{ "update"|trans }}
-                </button>
-            </div>
-            {{ form_end(form) }}
+            {{ form(edit_form) }}
 
             {{ getLogs(entity) }}
         </div>
@@ -50,5 +34,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ form_javascript(form) }}
+    {{ form_javascript(edit_form) }}
 {% endblock %}

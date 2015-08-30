@@ -19,36 +19,30 @@ use Symfony\Component\Yaml\Parser;
 class ManagerController extends Controller
 {
     /**
-     * @param  null $journalId
+     * @param Request $request
      * @return Response
      */
-    public function journalSettingsAction($journalId = null)
+    public function journalSettingsAction(Request $request)
     {
-        if (!$journalId) {
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        } else {
-            $em = $this->getDoctrine()->getManager();
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
-        }
-
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $this->throw404IfNotFound($journal);
         if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
+            throw new AccessDeniedException("You not authorized for this page!");
         }
 
         $form = $this->createJournalEditForm($journal);
-
         return $this->render(
             'OjsJournalBundle:Manager:journal_settings.html.twig',
             array(
                 'entity' => $journal,
-                'form' => $form->createView(),
+                'edit_form' => $form->createView(),
             )
         );
     }
 
     private function createJournalEditForm(Journal $journal)
     {
-        return $this->createForm(
+        $form = $this->createForm(
             new JournalType(),
             $journal,
             array(
@@ -56,6 +50,9 @@ class ManagerController extends Controller
                 'method' => 'PUT',
             )
         );
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
     }
 
     /**
@@ -67,24 +64,28 @@ class ManagerController extends Controller
         /** @var Journal $entity */
         $em = $this->getDoctrine()->getManager();
         $entity = $this->get('ojs.journal_service')->getSelectedJournal();
+        $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for edit this journal!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createJournalEditForm($entity);
-        $editForm->submit($request);
+        $editForm->handleRequest($request);
         if ($editForm->isValid()) {
 
-            $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');
 
             return $this->redirectToRoute('ojs_journal_settings_index', ['journalId' => $entity->getId()]);
         }
 
-        return $this->redirectToRoute('ojs_journal_settings_index', ['journalId' => $entity->getId()]);
+        return $this->render(
+            'OjsJournalBundle:Manager:journal_settings.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
