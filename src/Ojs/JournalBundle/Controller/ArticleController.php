@@ -265,7 +265,7 @@ class ArticleController extends Controller
 
         return $this->render(
             'OjsJournalBundle:Article:edit.html.twig',
-            ['entity' => $entity, 'edit_form' => $editForm->createView()]
+            ['entity' => $entity, 'form' => $editForm->createView()]
         );
     }
 
