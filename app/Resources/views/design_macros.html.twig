@@ -4,7 +4,6 @@
             <!--raw-->
             <!---
                 <img src="{{ journal.image|imagine_filter('journal_cover') }}"
-                    data-src="holder.js/280x380/random/text:{{ journal.title }} "
                     class="img-responsive img-rounded float-left" alt=""/>
             --->
             <!--endraw-->
@@ -41,7 +40,7 @@
             {% if journal.eissn is defined %}
             <span class="half-column nopadding">
                 <span class="list-group-item-heading count">
-                    <span class="design-inline" title="{{ "{{ journal.eissn }}" }}">1234-1234</span>
+                    <span class="design-inline" title="{{ journal.eissn }}">1234-1234</span>
                 </span>
             </span>
             {% endif %}
@@ -498,7 +497,6 @@
             <!---
             {% if entity.header is not null %}
                 <img src="{{ entity.header|imagine_filter('institution_header') }}"
-                    data-src="holder.js/960x200/random/text:{{ entity.name }} "
                     class="img-responsive img-rounded float-left img-center" alt=""/>
             {% endif %}
             --->
@@ -517,7 +515,6 @@
             <!---
                 {% if entity.logo is not null %}
                 <img src="{{ entity.logo|imagine_filter('institution_logo') }}"
-                    data-src="holder.js/200x200/random/text:{{ entity.name }} "
                     class="img-responsive img-rounded float-left img-center" alt=""/>
                {% endif %}
             --->
