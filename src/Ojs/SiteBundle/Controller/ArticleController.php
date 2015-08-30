@@ -4,8 +4,6 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\SiteBundle\Event\SiteEvents;
-use Ojs\SiteBundle\Event\ViewArticleEvent;
 
 class ArticleController extends Controller
 {
@@ -20,9 +18,7 @@ class ArticleController extends Controller
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
-        if (!$data['article']) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
-        }
+        $this->throw404IfNotFound($data['article']);
         //log article view event
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);

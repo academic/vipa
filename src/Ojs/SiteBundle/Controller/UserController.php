@@ -12,7 +12,6 @@ use Ojs\UserBundle\Form\Type\CustomFieldType;
 use Ojs\UserBundle\Form\Type\UpdateUserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserController extends Controller
@@ -27,9 +26,7 @@ class UserController extends Controller
         $user = ($slug == "me") ?
             $this->getUser() :
             $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $slug]);
-        if (!$user) {
-            throw new NotFoundHttpException("User not found");
-        }
+        $this->throw404IfNotFound($user);
 
         $data = [];
         $data['user'] = $user;

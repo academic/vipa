@@ -6,9 +6,9 @@ use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
@@ -17,7 +17,6 @@ use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 class SiteController extends Controller
@@ -94,7 +93,9 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var InstitutionRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Institution');
+
         $data['entities'] = $repo->getAllWithDefaultTranslation();
+        $this->throw404IfNotFound($data['entities']);
         $data['page'] = 'institution';
 
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
@@ -102,14 +103,14 @@ class SiteController extends Controller
 
     public function institutionPageAction($slug)
     {
+        $data['page'] = 'organizations';
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($entity);
         $data['entity'] = $entity;
-        $data['page'] = 'organizations';
-
         /** @var Journal $journal */
-        foreach($entity->getJournals() as $journal){
+        foreach ($entity->getJournals() as $journal) {
             $journal->setPublicURI($journalService->generateUrl($journal));
         }
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
@@ -175,14 +176,14 @@ class SiteController extends Controller
      */
     private function setupIssuesURIsByYear($years)
     {
-        foreach($years as $year){
+        foreach ($years as $year) {
             /** @var Issue $issue */
-            foreach($year as $issue){
+            foreach ($year as $issue) {
                 $issue->setPublicURI($this->generateUrl('ojs_issue_page', [
                     'institution' => $issue->getJournal()->getInstitution()->getSlug(),
                     'journal_slug' => $issue->getJournal()->getSlug(),
                     'id' => $issue->getId(),
-                ],true));
+                ], true));
             }
         }
         return $years;
@@ -195,13 +196,13 @@ class SiteController extends Controller
     private function setupArticleURIs($last_issue)
     {
         /** @var Article $article */
-        foreach($last_issue->getArticles() as $article){
-            $article->setPublicURI($this->generateUrl('ojs_article_page',[
+        foreach ($last_issue->getArticles() as $article) {
+            $article->setPublicURI($this->generateUrl('ojs_article_page', [
                 'institution' => $article->getIssue()->getJournal()->getInstitution()->getSlug(),
                 'slug' => $article->getIssue()->getJournal()->getSlug(),
                 'issue_id' => $article->getIssue()->getId(),
                 'article_id' => $article->getId(),
-            ],true)
+            ], true)
             );
         }
         return $last_issue;
@@ -215,6 +216,7 @@ class SiteController extends Controller
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($journal);
         $articles = $journal->getArticles();
         $data = [
             'journal' => $journal,
@@ -343,11 +345,14 @@ class SiteController extends Controller
          */
 
         $em = $this->getDoctrine()->getManager();
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        $issue = $issueRepo->find($id);
+        $this->throw404IfNotFound($issue);
+
+        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         $issueFileStatsRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
 
-        $issue = $issueRepo->find($id);
         $blocks = $blockRepo->journalBlocks($issue->getJournal());
         $downloads = $issueFileStatsRepo->getTotalDownloadsOfAllFiles($issue);
 
@@ -385,16 +390,9 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
-
-        if (!$journal) {
-            throw new NotFoundHttpException("Journal not found!");
-        }
-
+        $this->throw404IfNotFound($journal);
         $page = $em->getRepository('OjsJournalBundle:JournalPage')->findOneBy(['journal' => $journal, 'slug' => $slug]);
-
-        if (!$page) {
-            throw new NotFoundHttpException("Page not found!");
-        }
+        $this->throw404IfNotFound($page);
 
         return $this->render('OjsSiteBundle:Journal:page.html.twig', ['journalPage' => $page]);
     }
@@ -403,10 +401,7 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $slug]);
-
-        if (!$page) {
-            throw new NotFoundHttpException("Page not found!");
-        }
+        $this->throw404IfNotFound($page);
 
         return $this->render('OjsSiteBundle:Site:page.html.twig', ['adminPage' => $page]);
     }
@@ -415,16 +410,11 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
-
-        if (!$journal) {
-            throw new NotFoundHttpException("Journal not found!");
-        }
+        $this->throw404IfNotFound($journal);
 
         $post = $em->getRepository('OjsJournalBundle:JournalPost')->findOneBy(['journal' => $journal, 'slug' => $slug]);
+        $this->throw404IfNotFound($post);
 
-        if (!$post) {
-            throw new NotFoundHttpException("Post not found!");
-        }
 
         return $this->render('OjsSiteBundle:Journal:post.html.twig', ['journalPost' => $post]);
     }
@@ -433,10 +423,7 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('OjsAdminBundle:AdminPost')->findOneBy(['slug' => $slug]);
-
-        if (!$post) {
-            throw new NotFoundHttpException("Post not found!");
-        }
+        $this->throw404IfNotFound($post);
 
         return $this->render('OjsSiteBundle:Site:post.html.twig', ['post' => $post]);
     }

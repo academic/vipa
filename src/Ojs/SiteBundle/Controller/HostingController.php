@@ -4,14 +4,13 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Journal & Institution Hosting pages controller
@@ -31,12 +30,11 @@ class HostingController extends Controller
         $currentHost = $request->getHttpHost();
         /** @var Institution $getInstitutionByDomain */
         $getInstitutionByDomain = $em->getRepository('OjsJournalBundle:Institution')->findOneByDomain($currentHost);
+        $this->throw404IfNotFound($getInstitutionByDomain);
         if(!$getInstitutionByDomain){
             /** @var Journal $getJournalByDomain */
             $getJournalByDomain = $em->getRepository('OjsJournalBundle:Journal')->findOneByDomain($currentHost);
-            if(!$getJournalByDomain){
-                throw new NotFoundHttpException('This domain does not exist on this system');
-            }
+            $this->throw404IfNotFound($getJournalByDomain);
             return $this->journalIndexAction($request, $getJournalByDomain->getSlug(), true);
         }
         /** @var Journal $journal */
@@ -153,6 +151,7 @@ class HostingController extends Controller
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         /** @var Issue $issue */
         $issue = $issueRepo->find($id);
+        $this->throw404IfNotFound($issue);
         $data['issue'] = $issue;
         $data['blocks'] = $blockRepo->journalBlocks($issue->getJournal());
         if($isJournalHosting){
@@ -176,9 +175,8 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         /* @var $entity Article */
         $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
-        if (!$data['article']) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
-        }
+        $this->throw404IfNotFound($data['article']);
+
         //log article view event
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
