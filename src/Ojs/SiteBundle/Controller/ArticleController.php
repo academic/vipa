@@ -9,9 +9,15 @@ use Ojs\SiteBundle\Event\ViewArticleEvent;
 
 class ArticleController extends Controller
 {
-
+    /**
+     * @param $slug
+     * @param $article_id
+     * @param null $issue_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function articlePageAction($slug, $article_id, $issue_id = null)
     {
+        $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
         if (!$data['article']) {
@@ -23,7 +29,11 @@ class ArticleController extends Controller
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
-
+        $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
+        $data['archive_uri'] = $this->generateUrl('ojs_archive_index',[
+            'slug' => $data['journal']->getSlug(),
+            'institution' => $data['journal']->getInstitution()->getSlug(),
+        ], true);
         $data['token'] = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('article_view');

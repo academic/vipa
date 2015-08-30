@@ -2,19 +2,11 @@
 {% block title %}{{ 'title.article'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
-{% if isInstitutionHosting is defined %}
-    {% set journalUrl = url('institution_hosting_journal_index',{slug:article.journal.slug}) %}
-{% elseif isJournalHosting is defined %}
-    {% set journalUrl = url('institution_hosting_journal_index') %}
-{% else %}
-    {% set journalUrl = generateJournalUrl(article.journal) %}
-{% endif %}
-
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'link': journalUrl,'title': article.journal.title},
-    {'link': path("ojs_archive_index",{"slug" : article.journal.slug,institution: journal.institution.slug}), 'title': "archive"|trans },
+    {'link': journal.publicURI,'title': article.journal.title},
+    {'link': archive_uri, 'title': "archive"|trans },
     {'link': path('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, institution: journal.institution.slug}),'title': "volume"|trans~ article.issue.volume ~"," ~ "issue"|trans ~ article.issue.number }
     ] %}
     {{ breadcrumb(list) }}
@@ -54,12 +46,7 @@
                     <div class="panel-body">
                         <div id="articleTitle">
                             {% if article.header %}
-                                <a href="
-                                {% if isInstitutionHosting is defined %}
-                                    {{ url('institution_hosting_journal_index', {slug: article.journal.slug}) }}
-                                {% else %}
-                                    {{ generateJournalUrl(article.journal) }}
-                                {% endif %}">
+                                <a href="{{ journal.publicURI }}">
                                     <img src="{{ article.header|imagine_filter('article_header') }}"
                                          class="img-responsive img-rounded float-left tri" alt="{{ article.title }}"/>
                                 </a>
@@ -231,13 +218,7 @@
                     <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
 
-                    <a href="{% if isInstitutionHosting is defined %}
-                                {{ url('institution_hosting_journal_archive',{slug: journal.slug}) }}
-                            {% elseif isJournalHosting is defined %}
-                                {{ url('journal_hosting_archive') }}
-                            {% else %}
-                                {{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}
-                            {% endif %}"
+                    <a href="{{ archive_uri }}"
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
 

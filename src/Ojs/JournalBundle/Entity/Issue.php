@@ -136,6 +136,11 @@ class Issue extends AbstractTranslatable
      */
     private $statistics;
 
+    /**
+     * @var string
+     */
+    private $publicURI;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -707,5 +712,21 @@ class Issue extends AbstractTranslatable
         }
 
         return $count;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicURI()
+    {
+        return $this->publicURI;
+    }
+
+    /**
+     * @param string $publicURI
+     */
+    public function setPublicURI($publicURI)
+    {
+        $this->publicURI = $publicURI;
     }
 }

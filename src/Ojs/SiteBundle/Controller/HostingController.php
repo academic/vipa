@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\SiteBundle\Entity\BlockRepository;
@@ -67,18 +68,75 @@ class HostingController extends Controller
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-        $data['last_issue'] = $journalRepo->getLastIssueId($journal);
-        $data['years'] = $journalRepo->getIssuesByYear($journal);
+        $data['last_issue'] = $this->setupArticleURIs($journalRepo->getLastIssueId($journal), $isJournalHosting);
+        $data['years'] = $this->setupIssueURIsByYear($journalRepo->getIssuesByYear($journal), $isJournalHosting);
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         if($isJournalHosting){
-            $data['isJournalHosting'] = true;
+            $journal->setPublicURI($this->generateUrl('journal_institution_hosting', [], true));
+            $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
         }else{
-            $data['isInstitutionHosting'] = true;
+            $journal->setPublicURI($this->generateUrl('institution_hosting_journal_index', [
+                'slug', $journal->getSlug()
+            ], true)
+            );
+            $data['archive_uri'] = $this->generateUrl('institution_hosting_journal_archive', [], true);
         }
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
+    }
+
+    /**
+     * @param $years
+     * @param $isJournalHosting
+     * @return mixed
+     */
+    private function setupIssueURIsByYear($years, $isJournalHosting)
+    {
+        foreach($years as $year){
+            /** @var Issue $issue */
+            foreach($year as $issue){
+                if($isJournalHosting){
+                    $issue->setPublicURI($this->generateUrl('journal_hosting_issue', [
+                        'id' => $issue->getId()
+                    ],true));
+                }else{
+                    $issue->setPublicURI($this->generateUrl('institution_hosting_journal_issue', [
+                        'journal_slug' => $issue->getJournal()->getSlug(),
+                        'id' => $issue->getId()
+                    ],true));
+                }
+            }
+        }
+        return $years;
+    }
+
+    /**
+     * @param Issue $last_issue
+     * @param $isJournalHosting
+     * @return mixed
+     */
+    private function setupArticleURIs($last_issue, $isJournalHosting)
+    {
+        /** @var Article $article */
+        foreach($last_issue->getArticles() as $article){
+            if($isJournalHosting){
+                $article->setPublicURI($this->generateUrl('journal_hosting_issue_article',[
+                    'issue_id' => $article->getIssue()->getId(),
+                    'article_id' => $article->getId(),
+                    ],true)
+                );
+            }else{
+                $article->setPublicURI($this->generateUrl('institution_hosting_journal_issue_article',[
+                    'slug' => $article->getIssue()->getJournal()->getSlug(),
+                    'issue_id' => $article->getIssue()->getId(),
+                    'article_id' => $article->getId(),
+                ],true)
+                );
+            }
+        }
+        return $last_issue;
     }
 
     /**
@@ -128,9 +186,15 @@ class HostingController extends Controller
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
         if($isJournalHosting){
-            $data['isJournalHosting'] = true;
+            $data['journal']->setPublicURI($this->generateUrl('institution_hosting_journal_index',[], true));
+            $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
         }else{
-            $data['isInstitutionHosting'] = true;
+            $data['journal']->setPublicURI($this->generateUrl('institution_hosting_journal_index',[
+                'slug' => $data['article']->getJournal()->getSlug()
+            ], true));
+            $data['archive_uri'] = $this->generateUrl('institution_hosting_journal_archive', [
+                'slug' => $data['journal']->getSlug()
+            ], true);
         }
 
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);

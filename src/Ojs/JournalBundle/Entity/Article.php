@@ -293,6 +293,11 @@ class Article extends AbstractTranslatable
     private $statistics;
 
     /**
+     * @var string
+     */
+    private $publicURI;
+
+    /**
      * @return string
      */
     public function getNote()
@@ -1333,5 +1338,21 @@ class Article extends AbstractTranslatable
         }
 
         return $count;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicURI()
+    {
+        return $this->publicURI;
+    }
+
+    /**
+     * @param string $publicURI
+     */
+    public function setPublicURI($publicURI)
+    {
+        $this->publicURI = $publicURI;
     }
 }

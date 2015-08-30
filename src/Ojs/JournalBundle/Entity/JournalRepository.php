@@ -280,7 +280,7 @@ class JournalRepository extends EntityRepository
     /**
      * Just get journal's last issue id
      * @param  Journal $journal
-     * @return integer
+     * @return mixed
      */
     public function getLastIssueId($journal)
     {

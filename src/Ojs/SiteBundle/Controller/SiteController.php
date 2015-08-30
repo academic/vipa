@@ -8,6 +8,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
@@ -124,6 +125,7 @@ class SiteController extends Controller
          * @var Journal $journal
          */
 
+        $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
@@ -148,17 +150,61 @@ class SiteController extends Controller
         $data['token'] = $token;
         $data['page'] = 'journal';
         $data['journal'] = $journal;
+        $journal->setPublicURI($journalService->generateUrl($journal));
         $data['design'] = $journal->getDesign();
         $data['blocks'] = $blockRepo->journalBlocks($journal);
-        $data['years'] = $journalRepo->getIssuesByYear($journal);
-        $data['last_issue'] = $journalRepo->getLastIssueId($journal);
+        $data['years'] = $this->setupIssuesURIsByYear($journalRepo->getIssuesByYear($journal));
+        $data['last_issue'] = $this->setupArticleURIs($journalRepo->getLastIssueId($journal));
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
         $data['journalViews'] = isset($journalViews[0][1]) ? $journalViews[0][1] : 0;
         $data['issueDownloads'] = isset($issueDownloads[0][1]) ? $issueDownloads[0][1] : 0;
         $data['articleDownloads'] = isset($articleDownloads[0][1]) ? $articleDownloads[0][1] : 0;
 
+        $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
+            'slug' => $journal->getSlug(),
+            'institution' => $journal->getInstitution()->getSlug()
+        ], true);
+
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
+    }
+
+    /**
+     * @param $years
+     * @return mixed
+     */
+    private function setupIssuesURIsByYear($years)
+    {
+        foreach($years as $year){
+            /** @var Issue $issue */
+            foreach($year as $issue){
+                $issue->setPublicURI($this->generateUrl('ojs_issue_page', [
+                    'institution' => $issue->getJournal()->getInstitution()->getSlug(),
+                    'journal_slug' => $issue->getJournal()->getSlug(),
+                    'id' => $issue->getId(),
+                ],true));
+            }
+        }
+        return $years;
+    }
+
+    /**
+     * @param Issue $last_issue
+     * @return mixed
+     */
+    private function setupArticleURIs($last_issue)
+    {
+        /** @var Article $article */
+        foreach($last_issue->getArticles() as $article){
+            $article->setPublicURI($this->generateUrl('ojs_article_page',[
+                'institution' => $article->getIssue()->getJournal()->getInstitution()->getSlug(),
+                'slug' => $article->getIssue()->getJournal()->getSlug(),
+                'issue_id' => $article->getIssue()->getId(),
+                'article_id' => $article->getId(),
+            ],true)
+            );
+        }
+        return $last_issue;
     }
 
     public function journalArticlesAction($slug)
