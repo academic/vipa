@@ -246,6 +246,11 @@ class Journal extends AbstractTranslatable
     private $languages;
 
     /**
+     * @var string
+     */
+    private $languageCodeSet;
+
+    /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
@@ -582,6 +587,30 @@ class Journal extends AbstractTranslatable
     public function getLanguages()
     {
         return $this->languages;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguageCodeSet()
+    {
+        return $this->languageCodeSet;
+    }
+
+    /**
+     * @param ArrayCollection|Lang[] $languages
+     * @param $languages
+     * @return $this
+     */
+    public function setLanguageCodeSet($languages)
+    {
+        $langIds = [];
+        /** @var Lang $language */
+        foreach($languages as $language){
+            $langIds[] = $language->getCode();
+        }
+        $this->languageCodeSet = implode('-', $langIds);
+        return $this;
     }
 
     /**

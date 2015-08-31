@@ -257,6 +257,13 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
+        languageCodeSet:
+            languages_code_set:
+            type: string
+            length: 30
+            nullable: true
+            gedmo:
+                  - versioned
         googleAnalyticsId:
             type: string
             length: 50

@@ -72,7 +72,7 @@ class ManagerController extends Controller
         $editForm = $this->createJournalEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-
+            $entity->setLanguageCodeSet($entity->getLanguages());
             $em->flush();
             $this->successFlashBag('successful.update');
 
