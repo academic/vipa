@@ -102,7 +102,7 @@ class Journal extends AbstractTranslatable
     private $firstPublishDate;
 
     /**
-     * @var string
+     * @var JournalPeriod
      * @Expose
      * @Groups({"JournalDetail"})
      */
@@ -825,7 +825,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get period
      *
-     * @return string
+     * @return JournalPeriod
      */
     public function getPeriod()
     {
@@ -835,10 +835,10 @@ class Journal extends AbstractTranslatable
     /**
      * Set period
      *
-     * @param  string  $period
+     * @param  JournalPeriod  $period
      * @return Journal
      */
-    public function setPeriod($period)
+    public function setPeriod(JournalPeriod $period = null)
     {
         $this->period = $period;
 
@@ -1118,7 +1118,7 @@ class Journal extends AbstractTranslatable
      * @param  JournalTheme   $theme
      * @return Journal
      */
-    public function setTheme($theme)
+    public function setTheme(JournalTheme $theme = null)
     {
         $this->theme = $theme;
 

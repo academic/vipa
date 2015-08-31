@@ -15,6 +15,12 @@ Ojs\JournalBundle\Entity\Journal:
             name: theme_id
             referencedColumnName: id
           inversedBy: journals
+        period:
+          targetEntity: Ojs\JournalBundle\Entity\JournalPeriod
+          joinColumn:
+            name: period_id
+            referencedColumnName: id
+          inversedBy: journals
         design:
           targetEntity: Ojs\JournalBundle\Entity\JournalDesign
           joinColumn:
@@ -187,12 +193,6 @@ Ojs\JournalBundle\Entity\Journal:
             type: datetime
             column: first_publish_date
             nullable: true
-        period:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
         url:
             type: string
             length: 255

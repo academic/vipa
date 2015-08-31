@@ -124,10 +124,26 @@ class JournalType extends AbstractType
                 )
             )
             ->add('domain')
-            ->add('period', 'text', [
-                'label' => 'journal.period',
-                'required' => false,
-                ]
+            ->add(
+                'period',
+                'entity',
+                array(
+                    'label' => 'journal.period',
+                    'class' => 'Ojs\JournalBundle\Entity\JournalPeriod',
+                    'property' => 'period',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) use ($journalId, $options) {
+                        $query = $er->createQueryBuilder('t');
+                        if(!is_null($journalId)){
+                            $query->where('t.journal = :journal')
+                                ->setParameter('journal', $options['data']);
+                        }
+                        return $query;
+                    },
+                    'error_bubbling'=>true,
+                )
             )
             ->add(
                 'googleAnalyticsId',
