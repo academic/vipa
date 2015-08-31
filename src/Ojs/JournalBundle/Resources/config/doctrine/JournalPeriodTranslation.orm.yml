@@ -1,0 +1,14 @@
+Ojs\JournalBundle\Entity\JournalPeriodTranslation:
+    type: entity
+    table: journal_period_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        period:
+            type: text
+            nullable: false
+

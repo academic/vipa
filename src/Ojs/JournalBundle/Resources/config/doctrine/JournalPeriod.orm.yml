@@ -1,0 +1,48 @@
+Ojs\JournalBundle\Entity\JournalPeriod:
+    type: entity
+    table: journal_period
+    repositoryClass: Ojs\JournalBundle\Entity\JournalPeriodRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+            targetEntity: Journal
+            inversedBy: journalPeriods
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+    fields:
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }
+
