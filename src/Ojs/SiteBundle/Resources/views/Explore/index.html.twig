@@ -192,6 +192,11 @@
                                             <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('Y') }}
                                         </li>
                                     {% endif %}
+                                    {% if journal.period is defined and journal.period is not null %}
+                                        <li>
+                                            <strong>{{ "journal.period"|trans }}</strong>: {{ journal.period.period }}
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
