@@ -283,7 +283,7 @@ class InstallCommand extends ContainerAwareCommand
 
         $classes = [
             'OjsJournalBundle:Journal' => [
-                'adminMenu','boards','sections','issues','articles','design','contacts','block','theme','index',
+                'adminMenu','boards','sections','issues','articles','design','contacts','block','theme','period','index',
                 'checklist','file','mailTemplate','report','userRole','citation','steps','announcements', 'pages', 'posts',
             ],
             'OjsUserBundle:User' => null, 'OjsJournalBundle:Institution' => null, 'OjsJournalBundle:InstitutionTypes' => null,
@@ -358,6 +358,10 @@ class InstallCommand extends ContainerAwareCommand
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('period')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('pages')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
@@ -428,6 +432,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('period')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('pages')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('posts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
@@ -473,6 +479,10 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -526,6 +536,10 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -583,6 +597,10 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -645,6 +663,10 @@ class InstallCommand extends ContainerAwareCommand
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('pages')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
             )
@@ -701,6 +723,10 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit($viewEdit)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
+                ->permit($viewEdit)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
             )
                 ->permit($viewEdit)->save();
