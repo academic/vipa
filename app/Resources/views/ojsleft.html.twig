@@ -184,13 +184,23 @@
                             </a>
                         {% endif %}
 
-                        {% if is_granted('VIEW', selectedJournal(), 'design') %}
+                        {% if is_granted('VIEW', selectedJournal(), 'theme') %}
                             <a class="list-group-item"
                                href="{{ path('ojs_journal_theme_index', {'journalId': selectedJournal().id}) }}">
                         <span style="color: #3c763d; margin-right: 3px;">
                             <i class="fa fa-th-large fa-fw"></i>
                         </span>
                                 {{ "journal.theme"|trans }}
+                            </a>
+                        {% endif %}
+
+                        {% if is_granted('VIEW', selectedJournal(), 'period') %}
+                            <a class="list-group-item"
+                               href="{{ path('ojs_journal_period_index', {'journalId': selectedJournal().id}) }}">
+                                <span style="color: #3c763d; margin-right: 3px;">
+                                    <i class="fa  fa-calendar-check-o-large fa-calendar-check-o"></i>
+                                </span>
+                                {{ "journal.period"|trans }}
                             </a>
                         {% endif %}
 
