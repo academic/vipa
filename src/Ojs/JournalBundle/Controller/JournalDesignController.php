@@ -269,16 +269,23 @@ class JournalDesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
 
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_design'.$id);
-        if ($token != $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
+        $requestedDesign = $em->getRepository('OjsJournalBundle:JournalDesign')->find($id);
 
-        $design = $em->getRepository('OjsJournalBundle:JournalDesign')->find($id);
-        $em->remove($design);
-        $em->flush();
-        $this->successFlashBag('successful.remove');
+        if ($id == $journal->getDesign()->getId()) {
+            $this->errorFlashBag('journal.design.cannot_delete_active');
+        } else {
+            $csrf = $this->get('security.csrf.token_manager');
+            $token = $csrf->getToken('ojs_journal_design' . $id);
+
+            if ($token != $request->get('_token')) {
+                throw new TokenNotFoundException("Token Not Found!");
+            }
+
+            $em->remove($requestedDesign);
+            $em->flush();
+
+            $this->successFlashBag('successful.remove');
+        }
 
         return $this->redirectToRoute('ojs_journal_design_index', ['journalId' => $journal->getId()]);
     }

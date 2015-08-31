@@ -1391,6 +1391,8 @@ from.here: Buradan
 
 submission.whats_missing: 'Ne eksik?'
 
+journal.design.cannot_delete_active: 'Derginin kullandığı tasarımı silemezsiniz. Silmek istiyorsanız önce derginin tasarımını değiştirin.'
+
 validation:
   submission:
     title: Başlık alanı zorunlu dil için boş bırakılamaz

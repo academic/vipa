@@ -1411,6 +1411,8 @@ from.here: From here
 
 submission.whats_missing: 'What''s missing?'
 
+journal.design.cannot_delete_active: 'You are not allowed to delete the active theme. Select another one before deleting this one.'
+
 validation:
   submission:
     title: Title field for the default language can not be blank
