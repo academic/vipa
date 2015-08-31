@@ -75,6 +75,10 @@ class AclOrmListener
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('period')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('pages')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
@@ -145,6 +149,8 @@ class AclOrmListener
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('period')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('pages')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('posts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
@@ -190,6 +196,10 @@ class AclOrmListener
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -243,6 +253,10 @@ class AclOrmListener
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -300,6 +314,10 @@ class AclOrmListener
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -362,6 +380,10 @@ class AclOrmListener
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('period')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('pages')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR')
             )
@@ -418,6 +440,10 @@ class AclOrmListener
             )
                 ->permit($viewEdit)->save();
             $aclManager->on($journal)->field('theme')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
+            )
+                ->permit($viewEdit)->save();
+            $aclManager->on($journal)->field('period')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
             )
                 ->permit($viewEdit)->save();

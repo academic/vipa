@@ -11,7 +11,7 @@ use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalPeriod
- * @GRID\Source(columns="id,journal.title,title")
+ * @GRID\Source(columns="id,journal.title,period")
  */
 class JournalPeriod extends AbstractTranslatable
 {
@@ -31,6 +31,7 @@ class JournalPeriod extends AbstractTranslatable
 
     /**
      * @var string
+     * @GRID\Column(title="period")
      */
     private $period;
 
