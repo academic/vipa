@@ -63,7 +63,7 @@ class JournalPeriod extends AbstractTranslatable
         }
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
-            $translation = new AuthorTranslation();
+            $translation = new JournalPeriodTranslation();
             if(!is_null($defaultTranslation)){
                 $translation->setPeriod($defaultTranslation->getPeriod());
             }
