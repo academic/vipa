@@ -9,6 +9,6 @@ Ojs\JournalBundle\Entity\JournalPeriodTranslation:
                 strategy: AUTO
     fields:
         period:
-            type: text
+            type: string
             nullable: false
 
