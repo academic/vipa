@@ -64,9 +64,9 @@
                                 {{ "article.submit"|trans }}
                             </a>
                         {% endif %}
-                        {% if is_granted('VIEW', selectedJournal()) %}
+                        {% if is_granted('VIEW', selectedJournal(), 'articles') %}
                             {% set submissions_path = "ojs_journal_submission_me" %}
-                            {% if is_granted('EDIT', selectedJournal()) %}
+                            {% if is_granted('EDIT', selectedJournal(), 'articles') %}
                                 {% set submissions_path = "ojs_journal_submission_all" %}
                             {% endif %}
                             <a class="list-group-item list-group-item-info"
