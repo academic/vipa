@@ -5,9 +5,9 @@ namespace Ojs\AdminBundle\Controller;
 use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\AdminBundle\Form\Type\ContactType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalContact;
-use Ojs\JournalBundle\Form\Type\JournalContactType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,7 +120,7 @@ class AdminContactController extends Controller
             'method' => 'POST',
         );
         
-        $form = $this->createForm(new JournalContactType(), $entity, $options);
+        $form = $this->createForm(new ContactType(), $entity, $options);
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -232,7 +232,7 @@ class AdminContactController extends Controller
     private function createEditForm(JournalContact $entity)
     {
         $form = $this->createForm(
-            new JournalContactType(),
+            new ContactType(),
             $entity,
             array(
                 'method' => 'PUT',
