@@ -1355,4 +1355,13 @@ class Article extends AbstractTranslatable
     {
         $this->publicURI = $publicURI;
     }
+
+    /**
+     * get object vars
+     * @return array
+     */
+    public function display()
+    {
+        return get_object_vars($this);
+    }
 }

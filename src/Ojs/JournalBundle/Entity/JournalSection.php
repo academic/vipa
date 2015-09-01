@@ -255,4 +255,9 @@ class JournalSection extends AbstractTranslatable
     {
         return $this->journal;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

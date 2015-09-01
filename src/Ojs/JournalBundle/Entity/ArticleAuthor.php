@@ -126,7 +126,6 @@ class ArticleAuthor implements Translatable
 
     public function __toString()
     {
-        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor(
-        )->getLastName();
+        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor()->getLastName();
     }
 }

@@ -64,6 +64,13 @@ class DisplayExtension extends \Twig_Extension
         }
         $entityToArray = $entity->display();
         foreach($entityToArray as $fieldName => $fieldValue){
+            if(method_exists($entity, 'getStatusText')){
+                if(!is_array($entity->getStatusText())){
+                    $entityToArray['status'] = '<span style="color: '.$entity->getStatusColor().'">'.$this->translator->trans($entity->getStatusText()).'</span>';
+                }else{
+                    $entityToArray['status'] = $this->translator->trans('status.unknown');
+                }
+            }
             foreach($files as $fileKey => $file){
                 if($fileKey == $fieldName){
                     $entityToArray[$fieldName] = '<a href="uploads/'.$files[$fieldName]["dir"].'/'.$fieldValue.'" target="_blank">'.$fieldValue.'</a>';
@@ -84,6 +91,18 @@ class DisplayExtension extends \Twig_Extension
             if(is_object($fieldValue)){
                 if(method_exists($fieldValue, '__toString')){
                     $entityToArray[$fieldName] = (string)$fieldValue;
+                }
+                if(method_exists($fieldValue, 'first')){
+                    foreach($fieldValue as $collectionObject){
+                        if(method_exists($collectionObject, '__toString')){
+                            $objectToString = (string)$collectionObject;
+                            if(is_object($entityToArray[$fieldName])){
+                                $entityToArray[$fieldName] = $objectToString;
+                            }else{
+                                $entityToArray[$fieldName].= '<br>'.$objectToString;
+                            }
+                        }
+                    }
                 }
                 if($fieldValue instanceof \DateTime){
                     $entityToArray[$fieldName] = $fieldValue->format('Y-m-d H:i:s');
