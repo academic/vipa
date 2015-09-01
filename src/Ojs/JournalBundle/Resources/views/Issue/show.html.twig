@@ -17,82 +17,8 @@
         <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('ojs_journal_issue_file_index', {issueId: entity.id,journalId: entity.journal.id}) }}">{{ "title.issue_files"|trans }}</a></li>
     </ul>
-
     <h1>{{ "issue"|trans }}</h1>
-    <table class="table record_properties">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "journal.id"|trans }}</th>
-            <td>{{ entity.journalId }}</td>
-        </tr>
-        <tr>
-            <th>{{ "volume"|trans }}</th>
-            <td>{{ entity.volume }}</td>
-        </tr>
-        <tr>
-            <th>{{ "issue.number"|trans }}</th>
-            <td>{{ entity.number }}</td>
-        </tr>
-        <tr>
-            <th>{{ "title"|trans }}</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>{{ "full_file"|trans }}</th>
-            <td>
-                <a href="{{ asset('uploads/issuefiles/'~ entity.fullFile) }}" target="_blank">{{ entity.fullFile }}</a>
-            </td>
-        </tr>
-        <tr>
-            <th>{{ "special"|trans }}</th>
-            <td>{{ entity.special }}</td>
-        </tr>
-        <tr>
-            <th>{{ "desc"|trans }}</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>{{ "year"|trans }}</th>
-            <td>{{ entity.year }}</td>
-        </tr>
-        <tr>
-            <th>{{ "publishdate"|trans }}</th>
-            <td>{{ entity.datePublished|date('Y-m-d') }}</td>
-        </tr>
-        <tr>
-            <th>{{ "created"|trans }}</th>
-            <td>{{ entity.created|date('Y-m-d') }}</td>
-        </tr>
-        <tr>
-            <th>{{ "updated"|trans }}</th>
-            <td>{{ entity.updated|date('Y-m-d') }}</td>
-        </tr>
-        <tr>
-            <th>{{ "deleted"|trans }}</th>
-            <td>{{ entity.deletedAt|date('Y-m-d') }}</td>
-        </tr>
-
-        </tbody>
-    </table>
-    <hr>
-    <label class="control-label">{{ "cover"|trans }}</label>
-    <div>
-        {% if entity.cover is not null %}
-            <img src="{{ entity.cover|imagine_filter('issue_cover') }}" />
-        {% endif %}
-    </div>
-    <label class="control-label">{{ "Header Image"|trans }}</label>
-    <div>
-        {% if entity.header is not null %}
-            <img class="img-responsive" src="{{ entity.header|imagine_filter('issue_header') }}" />
-        {% endif %}
-    </div>
-    <hr>
-
+    {{ display(entity, {files: {full_file:{dir:'issuefiles'}}}) }}
     {{
     actions({
         'back': {'href': path('ojs_journal_issue_index', {'journalId': selectedJournal().id})},

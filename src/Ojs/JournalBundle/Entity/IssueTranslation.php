@@ -54,4 +54,9 @@ class IssueTranslation extends AbstractTranslation
     {
         $this->description = $description;
     }
+
+    public function display()
+    {
+        return get_object_vars($this);
+    }
 }

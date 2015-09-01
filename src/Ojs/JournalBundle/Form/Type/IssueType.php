@@ -47,7 +47,10 @@ class IssueType extends AbstractType
                 )
             )
             ->add('tags', 'tags')
-            ->add('published', 'checkbox', ['label' => 'published'])
+            ->add('published', 'checkbox', [
+                'label' => 'published',
+                'required' => false
+            ])
             ->add('full_file', 'jb_file_ajax', array(
                 'endpoint' => 'issuefiles'
             ))
