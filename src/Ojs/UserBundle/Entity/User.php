@@ -96,8 +96,6 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     protected $address;
     /** @var  string */
     protected $billing_address;
-    /** @var  string */
-    protected $locales;
     /** @var  ArrayCollection|Author[] */
     protected $authorDetails;
 
@@ -515,25 +513,6 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     public function setLocale($locale)
     {
         $this->locale = $locale;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLocales()
-    {
-        return $this->locales;
-    }
-
-    /**
-     * @param  string $locales
-     * @return $this
-     */
-    public function setLocales($locales)
-    {
-        $this->locales = $locales;
 
         return $this;
     }

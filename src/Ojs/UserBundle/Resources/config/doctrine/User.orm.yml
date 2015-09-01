@@ -73,11 +73,6 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
-    locales:
-      type: string
-      nullable: true
-      gedmo:
-        - versioned
     privacy:
       type: boolean
       nullable: true
