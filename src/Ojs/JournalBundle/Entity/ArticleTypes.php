@@ -8,10 +8,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * ArticleTypes
  * @GRID\Source(columns="id,name,description")
+ * @ExclusionPolicy("all")
  */
 class ArticleTypes extends AbstractTranslatable
 {
@@ -20,23 +25,27 @@ class ArticleTypes extends AbstractTranslatable
     /**
      * @var integer
      * @GRID\Column(title="id")
+     * @Expose
      */
     protected $id;
 
     /**
      * @var string
      * @GRID\Column(title="name")
+     * @Expose
      */
     private $name;
 
     /**
      * @var string
      * @GRID\Column(title="description")
+     * @Expose
      */
     private $description;
 
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ArticleTypesTranslation")
+     * @Expose
      */
     protected $translations;
 
