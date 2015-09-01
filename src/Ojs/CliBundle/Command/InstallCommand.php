@@ -291,7 +291,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null, 'OjsJournalBundle:InstitutionTheme' => null,
             'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:InstitutionDesign' => null,
             'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
-            'OjsUserBundle:Notification' => null, 'OjsJournalBundle:ArticleTypes' => null,
+            'OjsJournalBundle:ArticleTypes' => null,
             'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,
             'OjsAdminBundle:AdminPost' => null, 'OjsAdminBundle:InstitutionManagers' => null,
         ];
