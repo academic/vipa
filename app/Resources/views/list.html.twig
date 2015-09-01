@@ -101,23 +101,26 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         {% trans %}Filters{% endtrans %}
-                        <div class="btn-group pull-right">
-                            <a href="#filter_{{ r }}" data-toggle="collapse" aria-expanded="false" aria-controls="filter" class="btn btn-primary btn-xs">{{ 'collapse'|trans }}</a>
-                        </div>
                     </div>
 
                 </div>
-                <div class="panel-body collapse" id="filter_{{ r }}">
-                    <div class="row"  >
+                <div class="panel-body" id="filter_{{ r }}">
+                    <div class="row">
                     {% for column in grid.columns %}
                         {% if column.visible(grid.isReadyForExport) %}
-                            <div class="col-md-4{% if column.class %}{{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}" >
+                            <div class="col-md-4
+                                {% if column.class %}
+                                    {{ column.class }}
+                                {% endif %}
+                                {% if loop.last %}
+                                    last-column
+                                {% endif %}">
                                 {% if column.filterable %}
                                     {{ grid_filter(column, grid)|raw }}
                                 {% endif %}
                             </div>
                         {% endif %}
-                        {% if loop.index%3==0 %}
+                        {% if loop.index % 3 == 0 %}
                             </div><div class="row" style="margin-top: 15px;">
                         {% endif %}
                     {% endfor %}
