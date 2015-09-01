@@ -54,12 +54,6 @@ services:
     tags:
       - { name: twig.extension }
 
-  ojs.security_switch_user:
-    class: Ojs\Common\Services\SecuritySwitchUserListener
-    arguments: [@security.token_storage]
-    tags:
-      - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
-
   ojs.ojs_mailer:
     class: Ojs\UserBundle\Service\MailerService
     arguments: [@mailer, @templating, @doctrine.orm.entity_manager, "%system_email%"]
@@ -115,17 +109,6 @@ services:
     arguments: [ "%defaultInstitutionSlug%", "%system_email%" ]
     tags:
       -  { name: h4cc_alice_fixtures.provider }
-
-  user.helper:
-    class: Ojs\Common\Services\UserListener
-    arguments:
-      - @router
-      - @doctrine.orm.entity_manager
-      - "%kernel.root_dir%"
-      - @ojs.journal_service
-      - @security.encoder_factory
-      - @security.authorization_checker
-      - @security.token_storage
 
   grid_action:
     class: Ojs\Common\Services\GridAction
