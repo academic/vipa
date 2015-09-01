@@ -32,17 +32,17 @@ class DisplayExtension extends \Twig_Extension
 
     /**
      * @param $entity
-     * @param null $extraOptions
+     * @param array $extraOptions
      * @return string
      */
-    public function getDisplay($entity, $extraOptions = null)
+    public function getDisplay($entity, $extraOptions = array())
     {
-        $preparedEntity = $this->prepareEntity($entity);
+        $preparedEntity = $this->prepareEntity($entity, $extraOptions);
         $table = '<table class="table"><tbody>';
         foreach($preparedEntity as $fieldName => $fieldValue){
-            if(!is_array($fieldValue)){
+            if(!is_array($fieldValue) && !is_object($fieldValue)){
                 $table.= '<tr>';
-                $table.= '<th>'.$fieldName.'</th>';
+                $table.= '<th>'.$this->translator->trans($fieldName).'</th>';
                 $table.= '<th>'.$fieldValue.'</th>';
                 $table.= '</tr>';
             }
@@ -53,22 +53,52 @@ class DisplayExtension extends \Twig_Extension
 
     /**
      * @param $entity
+     * @param array $options
      * @return mixed
      */
-    private function prepareEntity($entity)
+    private function prepareEntity($entity, $options = array())
     {
-        $entityToArray = json_decode($this->serializer->serialize($entity, 'json'), true);
+        $files = [];
+        if(isset($options['files'])){
+            $files = $options['files'];
+        }
+        $entityToArray = $entity->display();
         foreach($entityToArray as $fieldName => $fieldValue){
-            if(is_array($fieldValue)){
-                if($fieldName == 'translations'){
-                    foreach($fieldValue as $translationLocale => $translation){
-                        foreach($translation as $translationFieldName => $translationFieldValue){
-                            if($translationFieldName !== 'locale' && $translationFieldName !== 'id'){
-                                if(isset($entityToArray[$translationFieldName])){
-                                    $entityToArray[$translationFieldName].='<br>'.$translationFieldValue.' ['.$translationLocale.']';
-                                }else{
-                                    $entityToArray[$translationFieldName] = $translationFieldValue.' ['.$translationLocale.']';
-                                }
+            foreach($files as $fileKey => $file){
+                if($fileKey == $fieldName){
+                    $entityToArray[$fieldName] = '<a href="uploads/'.$files[$fieldName]["dir"].'/'.$fieldValue.'" target="_blank">'.$fieldValue.'</a>';
+                }
+            }
+            if(in_array($fieldName, $this->excludeVars())){
+                unset($entityToArray[$fieldName]);
+            }elseif(empty($fieldValue)){
+                $entityToArray[$fieldName] = '-';
+            }
+            if(is_bool($fieldValue)){
+                if($fieldValue){
+                    $entityToArray[$fieldName] = '<i class="fa fa-check-circle-o" style="color:green"></i>';
+                }else{
+                    $entityToArray[$fieldName] = '<i class="fa fa-times" style="color:red"></i>';
+                }
+            }
+            if(is_object($fieldValue)){
+                if(method_exists($fieldValue, '__toString')){
+                    $entityToArray[$fieldName] = (string)$fieldValue;
+                }
+                if($fieldValue instanceof \DateTime){
+                    $entityToArray[$fieldName] = $fieldValue->format('Y-m-d H:i:s');
+                }
+            }
+            if($fieldName == 'translations'){
+                foreach($fieldValue as $translation){
+                    $translation = $translation->display();
+                    foreach($translation as $translationFieldName => $translationFieldValue){
+                        if(!in_array($translationFieldName, $this->translationExcludeVars())
+                            && $translationFieldValue != ''){
+                            if(isset($entityToArray[$translationFieldName]) && $entityToArray[$translationFieldName] != '-'){
+                                $entityToArray[$translationFieldName].='<br>'.$translationFieldValue.' ['.$translation['locale'].']';
+                            }else{
+                                $entityToArray[$translationFieldName] = $translationFieldValue.' ['.$translation['locale'].']';
                             }
                         }
                     }
@@ -76,6 +106,24 @@ class DisplayExtension extends \Twig_Extension
             }
         }
         return $entityToArray;
+    }
+
+    /**
+     * exclude vars for basic entity
+     * @return array
+     */
+    private function excludeVars()
+    {
+        return ['locale', 'contentChanged', 'currentLocale', 'defaultLocale', 'publicURI', 'currentTranslation'];
+    }
+
+    /**
+     * exclude vars for translation entity
+     * @return array
+     */
+    private function translationExcludeVars()
+    {
+        return ['locale', 'id', 'translatable'];
     }
 
     public function getName()
