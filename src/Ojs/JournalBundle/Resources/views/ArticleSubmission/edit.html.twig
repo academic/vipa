@@ -64,6 +64,14 @@
                     $institutionSelect.parent().removeClass('hidden');
                 }
             });
+            $(document).on('click','.toggle-author-detail', function () {
+                var $authorDetails = $(this).parent().find('.author-details');
+                if($authorDetails.is(':visible')){
+                    $authorDetails.hide();
+                }else{
+                    $authorDetails.show();
+                }
+            });
         });
     </script>
 {% endblock %}
