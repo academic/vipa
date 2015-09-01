@@ -16,3 +16,7 @@ Ojs\JournalBundle\Entity\JournalContact:
             - Email: ~
         tags:
             - NotBlank: ~
+        contactType:
+            - NotBlank: { groups: [admin] }
+        journal:
+            - NotBlank: { groups: [admin] }
