@@ -132,6 +132,11 @@ class ArticleTypes extends AbstractTranslatable
         return $this;
     }
 
+    public function display()
+    {
+        return get_object_vars($this);
+    }
+
     /**
      * Get description
      *
