@@ -1369,7 +1369,11 @@ class Journal extends AbstractTranslatable
      */
     public function __toString()
     {
-        return $this->getTitle();
+        if(is_null($this->getTitle())){
+            return $this->translations->first()->getTitle();
+        }else{
+            return $this->getTitle();
+        }
     }
 
     /**
