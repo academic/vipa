@@ -155,7 +155,11 @@
         </tr>
         <tr>
             <th>{{ "abstract"|trans }}</th>
-            <td>{{ entity.abstract }}</td>
+            <td>
+                <div class="well">
+                    {{ entity.abstract|raw }}
+                </div>
+            </td>
         </tr>
         <tr>
             <th>{{ "abstract.transliterated"|trans }}</th>
