@@ -294,7 +294,7 @@ class ManagerInstitutionDesignController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_institution_manager_design_index');
+        return $this->redirectToRoute('ojs_institution_manager_design_index', ['institutionId' => $institutionId]);
     }
 
     /**
