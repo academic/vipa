@@ -15,7 +15,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 /**
  * Citation
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,raw,type,articles")
+ * @GRID\Source(columns="id,raw,type")
  */
 class Citation implements Translatable
 {
@@ -54,7 +54,6 @@ class Citation implements Translatable
 
     /**
      * @var Collection
-     * @GRID\Column(title="Articles", type="text",safe=false)
      */
     private $articles;
 
