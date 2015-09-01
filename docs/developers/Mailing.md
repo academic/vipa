@@ -45,5 +45,5 @@ In development environment swift mailer will send all mails to email that referr
 You can disable this feature by commenting these lines under config_dev.yml
 ```
 swiftmailer:
-    delivery_address: tayyar.besik@okulbilisim.com
+    delivery_address: info@okulbilisim.com
 ```
