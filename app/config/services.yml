@@ -22,15 +22,10 @@ services:
       - @router
       - @translator
       - @ojs.journal_service
-      - @user.helper
       - @security.token_storage
       - @session
       - @request_stack
       - "%cms_show_routes%"
-      - "%defaultInstitutionSlug%"
-      - "%ojs_logo%"
-      - "%ojs_tw%"
-      - "%ojs_fb%"
     tags:
       - { name: twig.extension }
 

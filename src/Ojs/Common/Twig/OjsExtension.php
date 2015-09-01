@@ -4,20 +4,18 @@ namespace Ojs\Common\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
-use Ojs\Common\Helper\DateHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\Common\Params\CommonParams;
 use Ojs\Common\Services\JournalService;
-use Ojs\Common\Services\UserListener;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class OjsExtension extends \Twig_Extension
 {
@@ -27,8 +25,6 @@ class OjsExtension extends \Twig_Extension
     private $router;
     /** @var JournalService */
     private $journalService;
-    /** @var UserListener */
-    private $userListener;
     /** @var TokenStorageInterface */
     private $tokenStorage;
     /** @var Session */
@@ -37,14 +33,6 @@ class OjsExtension extends \Twig_Extension
     private $translator;
     /** @var  string */
     private $cmsShowRoutes;
-    /** @var  string */
-    private $defaultInstitutionSlug;
-    /** @var  string */
-    private $ojs_logo;
-    /** @var  string */
-    private $ojs_tw;
-    /** @var  string */
-    private $ojs_fb;
     /** @var RequestStack */
     private $requestStack;
 
@@ -53,44 +41,29 @@ class OjsExtension extends \Twig_Extension
      * @param Router $router
      * @param TranslatorInterface $translator
      * @param JournalService $journalService
-     * @param UserListener $userListener
      * @param TokenStorageInterface $tokenStorage
      * @param Session $session
+     * @param RequestStack $requestStack
      * @param null $cmsShowRoutes
-     * @param $defaultInstitutionSlug
-     * @param $ojs_logo
-     * @param $ojs_tw
-     * @param $ojs_fb
      */
     public function __construct(
         EntityManager $em = null,
         Router $router = null,
         TranslatorInterface $translator = null,
         JournalService $journalService = null,
-        UserListener $userListener = null,
         TokenStorageInterface $tokenStorage = null,
         Session $session = null,
         RequestStack $requestStack,
-        $cmsShowRoutes = null,
-        $defaultInstitutionSlug,
-        $ojs_logo,
-        $ojs_tw,
-        $ojs_fb
-    )
-    {
+        $cmsShowRoutes = null
+    ) {
         $this->em = $em;
         $this->router = $router;
         $this->journalService = $journalService;
-        $this->userListener = $userListener;
         $this->tokenStorage = $tokenStorage;
         $this->session = $session;
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
-        $this->defaultInstitutionSlug = $defaultInstitutionSlug;
         $this->requestStack = $requestStack;
-        $this->ojs_logo = $ojs_logo;
-        $this->ojs_tw = $ojs_tw;
-        $this->ojs_fb = $ojs_fb;
     }
 
     public function getFilters()
@@ -106,13 +79,23 @@ class OjsExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('userJournalRoles', array($this, 'userJournalRoles')),
             new \Twig_SimpleFunction('isSystemAdmin', array($this, 'isSystemAdmin')),
-            new \Twig_SimpleFunction('userjournals', array($this, 'getUserJournals'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction(
+                'userjournals', array($this, 'getUserJournals'), array('is_safe' => array('html'))
+            ),
             new \Twig_SimpleFunction('userclients', array($this, 'getUserClients'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('session', array($this, 'getSession'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('hasid', array($this, 'hasId'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('hasIdInObjects', array($this, 'hasIdInObjects'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('breadcrumb', array($this, 'generateBreadcrumb'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('selectedJournal', array($this, 'selectedJournal'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction(
+                'hasIdInObjects', array($this, 'hasIdInObjects'), array('is_safe' => array('html'))
+            ),
+            new \Twig_SimpleFunction(
+                'breadcrumb', array($this, 'generateBreadcrumb'), array('is_safe' => array('html'))
+            ),
+            new \Twig_SimpleFunction(
+                'selectedJournal',
+                array($this, 'selectedJournal'),
+                array('is_safe' => array('html'))
+            ),
             new \Twig_SimpleFunction('printYesNo', array($this, 'printYesNo'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusText', array($this, 'statusText'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusColor', array($this, 'statusColor'), array('is_safe' => array('html'))),
@@ -120,7 +103,11 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('daysDiff', array($this, 'daysDiff'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('apiKey', array($this, 'apiKey'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('getObject', array($this, 'getObject'), []),
-            new \Twig_SimpleFunction('generateJournalUrl', array($this, 'generateJournalUrl'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction(
+                'generateJournalUrl',
+                array($this, 'generateJournalUrl'),
+                array('is_safe' => array('html'))
+            ),
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
@@ -145,8 +132,8 @@ class OjsExtension extends \Twig_Extension
         for ($i = 0; $i < $count; ++$i) {
             $item = $list[$i];
             $html .= !isset($item['link']) ?
-                '<li class="active">' . $this->translator->trans($item['title']) . '</li>' :
-                '<li><a  href = "' . $item['link'] . '">' . $this->translator->trans($item['title']) . '</a></li>';
+                '<li class="active">'.$this->translator->trans($item['title']).'</li>' :
+                '<li><a  href = "'.$item['link'].'">'.$this->translator->trans($item['title']).'</a></li>';
         }
         $html .= '</ol> ';
 
@@ -240,8 +227,11 @@ class OjsExtension extends \Twig_Extension
      */
     public function isSystemAdmin()
     {
-        $user = $this->userListener->checkUser();
-        if ($user) {
+        $token = $this->tokenStorage->getToken();
+        if ($token && method_exists($token, 'getUser')) {
+            /** @var User $user */
+            $user = $token->getUser();
+
             return $user->isAdmin();
         }
 
@@ -285,22 +275,28 @@ class OjsExtension extends \Twig_Extension
      */
     public function isGrantedForInstitution()
     {
-        $user = $this->userListener->checkUser();
+        $token = $this->tokenStorage->getToken();
+        if ($token && method_exists($token, 'getUser')) {
+            $user = $token->getUser();
+        } else {
+            return false;
+        }
         $selectedJournal = $this->journalService->getSelectedJournal();
-        if($selectedJournal){
-            $institution = $this->journalService->getSelectedJournal()->getInstitution();
-        }else{
+        if ($selectedJournal) {
+            $institution = $selectedJournal->getInstitution();
+        } else {
             $institutionId = $this->requestStack->getCurrentRequest()->attributes->get('institutionId');
-            if(!$institutionId){
+            if (!$institutionId) {
                 return false;
             }
             $institution = $this->em->getRepository('OjsJournalBundle:Institution')->find($institutionId);
         }
-        foreach($institution->getInstitutionManagers() as $manager){
-            if($manager->getUser()->getId() == $user->getId()){
+        foreach ($institution->getInstitutionManagers() as $manager) {
+            if ($manager->getUser()->getId() == $user->getId()) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -311,11 +307,11 @@ class OjsExtension extends \Twig_Extension
      */
     public function printYesNo($arg)
     {
-        return '' .
-        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $this->translator->trans(
+        return ''.
+        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> '.$this->translator->trans(
                 'yes'
-            ) . '</i></span>' :
-            '<span class="label label-danger"><i class="fa fa-ban"> ' . $this->translator->trans('no') . '</i></span>');
+            ).'</i></span>' :
+            '<span class="label label-danger"><i class="fa fa-ban"> '.$this->translator->trans('no').'</i></span>');
     }
 
     /**
@@ -355,28 +351,17 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     *
-     * @param  \DateTime $date1
-     * @param  \DateTime $date2
-     * @return string    formatted string like +12 or -20
-     */
-    public function daysDiff($date1, $date2)
-    {
-        $daysFormatted = DateHelper::calculateDaysDiff($date1, $date2);
-
-        return (strpos($daysFormatted, '+') !== false ?
-            '<span class="label label-info"  style="background-color: #69f;font-size:10px">' :
-            '<span class="label label-danger"  style="background-color: #69f;font-size:10px">')
-        . $daysFormatted . ' ' . $this->translator->trans('days') . '</span>';
-    }
-
-    /**
      * Get current user's api key
      * @return string
      */
     public function apiKey()
     {
-        $user = $this->userListener->checkUser();
+        $token = $this->tokenStorage->getToken();
+        if ($token && method_exists($token, 'getUser')) {
+            $user = $token->getUser();
+        } else {
+            return false;
+        }
 
         return $user ? $user->getApiKey() : null;
     }
@@ -393,7 +378,7 @@ class OjsExtension extends \Twig_Extension
         $object = $this->em->find($objectClass, $id);
         $route = $this->router->generate($this->cmsShowRoutes[$objectClass], ['id' => $id]);
 
-        return '<a href="' . $route . '" target="_blank" title="' . $object . '">' . substr($object, 0, 20) . '</a>';
+        return '<a href="'.$route.'" target="_blank" title="'.$object.'">'.substr($object, 0, 20).'</a>';
     }
 
     /**
@@ -405,7 +390,7 @@ class OjsExtension extends \Twig_Extension
     {
         $len = strlen($string);
         $piece = $len / 2;
-        $string = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
+        $string = substr($string, $piece, $len - 1).substr($string, 0, $piece);
         $decoded = base64_decode($string);
 
         return $decoded;
@@ -421,7 +406,7 @@ class OjsExtension extends \Twig_Extension
         $string = base64_encode($string);
         $len = strlen($string);
         $piece = $len / 2;
-        $encoded = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
+        $encoded = substr($string, $piece, $len - 1).substr($string, 0, $piece);
 
         return $encoded;
     }

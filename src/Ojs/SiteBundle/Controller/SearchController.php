@@ -7,7 +7,6 @@ use Elastica\Index;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper\StringHelper as StringHelper;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +36,7 @@ class SearchController extends Controller
 
         $query = filter_var($request->get('q'), FILTER_SANITIZE_STRING);
 
-        $section = filter_var($request->get('section'),FILTER_SANITIZE_STRING);
+        $section = filter_var($request->get('section'), FILTER_SANITIZE_STRING);
 
         $searcher = $this->get('fos_elastica.index.search');
         $searchQuery = new Query('_all');
@@ -47,7 +46,7 @@ class SearchController extends Controller
         $boolQuery->addShould($match);
 
         $match = new Query\Match();
-        $match->setField('published', TRUE);
+        $match->setField('published', true);
         $boolQuery->addShould($match);
 
         //set query according to query type
@@ -149,6 +148,7 @@ class SearchController extends Controller
             if (empty($section)) {
                 $section = array_keys($results)[0];
                 $redirectParams = array_merge($request->query->all(), ['section' => $section]);
+
                 return $this->redirectToRoute('ojs_search_index', $redirectParams);
             } else {
                 /**
@@ -159,6 +159,7 @@ class SearchController extends Controller
                         if ($result['total_item'] > 0) {
 
                             $redirectParams = array_merge($request->query->all(), ['section' => $resultKey]);
+
                             return $this->redirectToRoute('ojs_search_index', $redirectParams);
                         }
                     }
@@ -194,9 +195,10 @@ class SearchController extends Controller
                 'query' => $query,
                 'queryType' => $queryType,
                 'total_count' => $searchManager->getTotalHit(),
-                'journals'=>[]
+                'journals' => []
             ];
         }
+
         return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
     }
 
@@ -223,6 +225,7 @@ class SearchController extends Controller
         $setQuery['totalHits'] = $totalCount;
         $queryHistory[] = $setQuery;
         $session->set('_query_history', $queryHistory);
+
         return true;
     }
 
@@ -235,9 +238,12 @@ class SearchController extends Controller
         $search = $this->container->get('fos_elastica.index.search');
         $mapping = $search->getMapping();
 
-        return $this->render("OjsSiteBundle:Search:advanced.html.twig", [
-            'mapping' => $mapping
-        ]);
+        return $this->render(
+            "OjsSiteBundle:Search:advanced.html.twig",
+            [
+                'mapping' => $mapping
+            ]
+        );
     }
 
     /**
@@ -264,6 +270,7 @@ class SearchController extends Controller
         foreach ($results->getAggregations()['tags']['buckets'] as $result) {
             $data['tags'][] = $result['key'];
         }
+
         return $this->render('OjsSiteBundle:Search:tags_cloud.html.twig', $data);
     }
 }
