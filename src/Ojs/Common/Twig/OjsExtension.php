@@ -358,12 +358,12 @@ class OjsExtension extends \Twig_Extension
     {
         $token = $this->tokenStorage->getToken();
         if ($token && method_exists($token, 'getUser')) {
+            /** @var User $user */
             $user = $token->getUser();
+            return $user->getApiKey();
         } else {
             return false;
         }
-
-        return $user ? $user->getApiKey() : null;
     }
 
     /**

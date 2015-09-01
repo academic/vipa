@@ -2,12 +2,9 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserOauthAccount;
-use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\Type\CreatePasswordType;
-use Ojs\UserBundle\Form\Type\RegisterFormType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
-use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class SecurityController extends BaseSecurityController
