@@ -85,10 +85,6 @@
             {% endif %}
             {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {{ "journal.manager"|trans }}
-                    </div>
-
                     <div class="panel-body" style="padding: 0">
                         {{ knp_menu_render('OjsJournalBundle:MenuBuilder:leftMenu') }}
                     </div>
