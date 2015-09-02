@@ -5,20 +5,20 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Ojs\AnalyticsBundle\Entity\JournalStatistic;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
+use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\Common\Entity\GenericEntityTrait;
-use Ojs\UserBundle\Entity\User;
 use Ojs\LocationBundle\Entity\Country;
+use Ojs\UserBundle\Entity\User;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Journal
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,title,issn,eissn,country.name,institution.name")
+ * @GRID\Source(columns="id,title,issn,eissn,country.name,publisher.name")
  */
 class Journal extends AbstractTranslatable
 {
@@ -271,12 +271,12 @@ class Journal extends AbstractTranslatable
     private $settings;
 
     /**
-     * @var Institution
+     * @var Publisher
      * @Expose
      * @Groups({"JournalDetail"})
-     * @Grid\Column(field="institution.name", title="institution")
+     * @Grid\Column(field="publisher.name", title="publisher")
      */
-    private $institution;
+    private $publisher;
 
     /**
      * @var Collection
@@ -293,7 +293,7 @@ class Journal extends AbstractTranslatable
     /**
      * @var integer
      */
-    private $institutionId;
+    private $publisherId;
 
     /**
      * @var Collection
@@ -869,42 +869,42 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Get institutionId
+     * Get publisherId
      * @return integer
      */
-    public function getInstitutionId()
+    public function getPublisherId()
     {
-        return $this->institutionId;
+        return $this->publisherId;
     }
 
     /**
-     * Set institutionId
-     * @param  int     $institutionId
+     * Set publisherId
+     * @param  int $publisherId
      * @return Journal
      */
-    public function setInstitutionId($institutionId)
+    public function setPublisherId($publisherId)
     {
-        $this->institutionId = $institutionId;
+        $this->publisherId = $publisherId;
 
         return $this;
     }
 
     /**
-     * @return Institution
+     * @return Publisher
      */
-    public function getInstitution()
+    public function getPublisher()
     {
-        return $this->institution;
+        return $this->publisher;
     }
 
     /**
-     * Set institution
-     * @param  Institution $institution
+     * Set publisher
+     * @param  Publisher $publisher
      * @return Journal
      */
-    public function setInstitution($institution)
+    public function setPublisher($publisher)
     {
-        $this->institution = $institution;
+        $this->publisher = $publisher;
 
         return $this;
     }

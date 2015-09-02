@@ -111,7 +111,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getTagDefinition', array($this, 'getTagDefinition')),
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
-            new \Twig_SimpleFunction('isGrantedForInstitution', array($this, 'isGrantedForInstitution')),
+            new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
         );
     }
 
@@ -269,11 +269,11 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     * Check if user is selected journal institution manager
+     * Check if user is selected journal publisher manager
      *
      * @return bool
      */
-    public function isGrantedForInstitution()
+    public function isGrantedForPublisher()
     {
         $token = $this->tokenStorage->getToken();
         if ($token && method_exists($token, 'getUser')) {
@@ -283,15 +283,15 @@ class OjsExtension extends \Twig_Extension
         }
         $selectedJournal = $this->journalService->getSelectedJournal();
         if ($selectedJournal) {
-            $institution = $selectedJournal->getInstitution();
+            $publisher = $selectedJournal->getPublisher();
         } else {
-            $institutionId = $this->requestStack->getCurrentRequest()->attributes->get('institutionId');
-            if (!$institutionId) {
+            $publisherId = $this->requestStack->getCurrentRequest()->attributes->get('publisherId');
+            if (!$publisherId) {
                 return false;
             }
-            $institution = $this->em->getRepository('OjsJournalBundle:Institution')->find($institutionId);
+            $publisher = $this->em->getRepository('OjsJournalBundle:Publisher')->find($publisherId);
         }
-        foreach ($institution->getInstitutionManagers() as $manager) {
+        foreach ($publisher->getPublisherManagers() as $manager) {
             if ($manager->getUser()->getId() == $user->getId()) {
                 return true;
             }

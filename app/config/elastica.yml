@@ -108,7 +108,7 @@ fos_elastica:
                   index: not_analyzed
                 slug:
                   type: string
-                institution:
+                publisher:
                   type: object
                   properties:
                     slug:
@@ -144,7 +144,7 @@ fos_elastica:
             finder: ~
             provider:
               debug_logging: false
-        institution:
+        publisher:
           mappings:
             tags:
               analyzer: "keyword"
@@ -157,7 +157,7 @@ fos_elastica:
               type: boolean
           persistence:
             driver: orm
-            model: Ojs\JournalBundle\Entity\Institution
+            model: Ojs\JournalBundle\Entity\Publisher
             provider: ~
             listener: ~
             finder: ~
@@ -179,7 +179,7 @@ fos_elastica:
                   type: integer
                 titleAbbr:
                   type: string
-                institution:
+                publisher:
                   type: object
                   properties:
                     slug:
@@ -217,12 +217,12 @@ fos_elastica:
               properties:
                 id: { type: integer }
                 subject: { type: string }
-            institution:
+            publisher:
               type: object
               properties:
                 name: { type: string }
                 slug: { type: string }
-                institution_type:
+                publisher_type:
                   type: object
                   properties:
                     name: { index: not_analyzed }
@@ -355,7 +355,7 @@ fos_elastica:
                           type: integer
                         slug:
                           type: string
-                        institution:
+                        publisher:
                           type: object
                           properties:
                             slug:

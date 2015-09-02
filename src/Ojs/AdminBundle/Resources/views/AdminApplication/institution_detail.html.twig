@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.institution_detail'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.publisher_detail'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_application_institution_index'),'title': 'application.institute'|trans},
+    { 'link': path('ojs_admin_application_publisher_index'),'title': 'application.institute'|trans},
     {'title': 'show'|trans},
     {'title': entity.name}
     ] %}
@@ -36,7 +36,7 @@
                     <td>{{ entity.name }}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'institution.slug'|trans }}</th>
+                    <th>{{ 'publisher.slug'|trans }}</th>
                     <td>{{ entity.slug }}</td>
                 </tr>
                 <tr>
@@ -79,7 +79,8 @@
                     <th>{{ 'institute.logo'|trans }}</th>
                     <td>
                         {% if entity.logo %}
-                        <img src="{{ entity.logo|imagine_filter('institution_logo') }}" alt="" style="max-width: 100%"/>
+                            <img src="{{ entity.logo|imagine_filter('publisher_logo') }}" alt=""
+                                 style="max-width: 100%"/>
                         {% endif %}
                     </td>
                 </tr>
@@ -87,7 +88,8 @@
                     <th>{{ 'institute.header'|trans }}</th>
                     <td>
                         {% if entity.header %}
-                        <img src="{{ entity.header|imagine_filter('institution_header') }}" alt="" style="max-width: 100%"/>
+                            <img src="{{ entity.header|imagine_filter('publisher_header') }}" alt=""
+                                 style="max-width: 100%"/>
                         {% endif %}
                     </td>
                 </tr>
@@ -104,7 +106,7 @@
                     <td>{{ entity.createdBy|user }}</td>
                 </tr>
             </table>
-            <a class="btn btn-success" href="{{ url('ojs_admin_application_institution_save', {id: entity.id}) }}">
+            <a class="btn btn-success" href="{{ url('ojs_admin_application_publisher_save', {id: entity.id}) }}">
                 {{ "institute.merge_as_new_institute"|trans }}
             </a>
         </div>

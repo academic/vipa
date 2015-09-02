@@ -1,0 +1,66 @@
+Ojs\JournalBundle\Entity\PublisherTheme:
+    type: entity
+    table: publisher_theme
+    repositoryClass: Ojs\JournalBundle\Entity\PublisherThemeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        publisher:
+            targetEntity: Ojs\JournalBundle\Entity\Publisher
+            inversedBy: publisherThemes
+            joinColumn:
+                name: publisher_id
+                referencedColumnName: id
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+              - versioned
+        css:
+            type: text
+            gedmo:
+              - versioned
+        isPublic:
+            column: is_public
+            type: boolean
+            nullable: true
+            gedmo:
+                - versioned
+            options:
+                default: true
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }
+

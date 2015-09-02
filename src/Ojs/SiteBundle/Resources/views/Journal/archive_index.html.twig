@@ -12,10 +12,10 @@
     </style>
 {% endblock %}
 
-{% if isInstitutionHosting is defined %}
-    {% set journalUrl = url('institution_hosting_journal_index',{slug:journal.slug}) %}
+{% if isPublisherHosting is defined %}
+    {% set journalUrl = url('publisher_hosting_journal_index',{slug:journal.slug}) %}
 {% elseif isJournalHosting is defined %}
-    {% set journalUrl = url('journal_institution_hosting') %}
+    {% set journalUrl = url('journal_publisher_hosting') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(journal) %}
 {% endif %}
@@ -51,12 +51,12 @@
                         <div class="panel-body collapse" id="issue_of_{{ year }}">
                             {% for issue in groupedIssues[year] %}
                                 <div class="thumbnail">
-                                    <a class="btn" href="{% if isInstitutionHosting is defined %}
-                                            {{ url('institution_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
+                                    <a class="btn" href="{% if isPublisherHosting is defined %}
+                                            {{ url('publisher_hosting_journal_issue',{journal_slug:journal.slug,id: issue.id}) }}
                                         {% elseif isJournalHosting is defined %}
                                             {{ url('journal_hosting_issue',{id: issue.id}) }}
                                         {% else %}
-                                            {{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}
+                                            {{ url('ojs_issue_page',{journal_slug:journal.slug,publisher:journal.publisher.slug,id:issue.id}) }}
                                         {% endif %}">
 
                                         {% if issue.cover is not null %}

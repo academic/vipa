@@ -2,12 +2,12 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Ojs\AdminBundle\Form\Type\InstitutionApplicationType;
 use Ojs\AdminBundle\Form\Type\JournalApplicationType;
+use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalContact;
+use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,12 +73,12 @@ class ApplicationController extends Controller
         return $this->render('OjsSiteBundle:Application:journal.html.twig', array('form' => $form->createView()));
     }
 
-    public function institutionAction(Request $request)
+    public function publisherAction(Request $request)
     {
         $allowanceSetting = $this
             ->getDoctrine()
             ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'institution_application']);
+            ->findOneBy(['name' => 'publisher_application']);
 
         if ($allowanceSetting) {
             if (!$allowanceSetting->getValue()) {
@@ -93,9 +93,9 @@ class ApplicationController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $application = new Institution();
+        $application = new Publisher();
 
-        $form = $this->createForm(new InstitutionApplicationType(), $application);
+        $form = $this->createForm(new PublisherApplicationType(), $application);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -110,12 +110,12 @@ class ApplicationController extends Controller
                 ->trans('An error has occured. Please check form and resubmit.'));
         }
 
-        return $this->render('OjsSiteBundle:Application:institution.html.twig', array('form' => $form->createView()));
+        return $this->render('OjsSiteBundle:Application:publisher.html.twig', array('form' => $form->createView()));
     }
 
     public function instituteSuccessAction()
     {
-        return $this->render('OjsSiteBundle:Application:institution_success.html.twig');
+        return $this->render('OjsSiteBundle:Application:publisher_success.html.twig');
     }
 
     public function journalSuccessAction()

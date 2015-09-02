@@ -95,7 +95,7 @@ services:
       - @router
       - @security.token_storage
       - @request_stack
-      - "%defaultInstitutionSlug%"
+      - "%defaultPublisherSlug%"
       - "%ojs_logo%"
       - "%ojs_tw%"
       - "%ojs_fb%"
@@ -106,7 +106,7 @@ services:
 
   ojs.alice.provider:
     class: Ojs\Common\Services\AliceDataProvider
-    arguments: [ "%defaultInstitutionSlug%", "%system_email%" ]
+    arguments: [ "%defaultPublisherSlug%", "%system_email%" ]
     tags:
       -  { name: h4cc_alice_fixtures.provider }
 

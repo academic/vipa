@@ -43,7 +43,7 @@ parameters:
         -
             id: 3
             name: "Idea"
-    defaultInstitutionSlug: www
+    defaultPublisherSlug: www
     ojs_logo: http://ojs.io/assets/app/images/favicon.png?v3
     ojs_fb: openjournalsoftware
     ojs_tw: ojs_io

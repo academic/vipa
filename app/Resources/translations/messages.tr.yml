@@ -140,19 +140,19 @@ api_motto: 'OJS geliştiricilere tamamen api üzerinden çalıştırabilir bir s
 application.basic: Temel
 application.contact: İletişim
 application.graphics: Görseller
-application.institute: 'Kurum Başvurusu'
-application.institute.detail: Kurum Detayı
-application.institute.list: 'Kurum Listesi'
-application.institution.apply: 'Kurum Olarak Başvur'
-application.institution.edit: 'Kurum Başvurusunu Düzenle'
+application.institute: 'Yayıncı Başvurusu'
+application.institute.detail: Yayıncı Detayı
+application.institute.list: 'Yayıncı Listesi'
+application.publisher.apply: 'Yayıncı Olarak Başvur'
+application.publisher.edit: 'Yayıncı Başvurusunu Düzenle'
 application.journal: 'Dergi Başvurusu'
 application.journal.apply: 'Dergi Olarak Başvur'
 application.journal.detail: Detay
 application.journal.edit: 'Dergi Başvurusunu Düzenle'
-application.journal.institution: Derginin Kurumu
+application.journal.publisher: Derginin Yayıncıu
 application.journal.list: 'Dergi Önerileri'
-application.journal.new_institution: 'Yeni Kurum Olarak Başvur'
-application.journal.new_institution_help: 'Eğer yukarıda kurumunuzu bulamadıysanız yeni kurum başvurusunda bulununuz.'
+application.journal.new_publisher: 'Yeni Yayıncı Olarak Başvur'
+application.journal.new_publisher_help: 'Eğer yukarıda yayıncıunuzu bulamadıysanız yeni yayıncı başvurusunda bulununuz.'
 application.journal.add_contact: 'İletşim Kişisi Ekle'
 application.status.complete: 'İçe Aktarma Tamamlandı'
 application.status.deleted: Silinmiş
@@ -218,7 +218,7 @@ author.edit: 'Yazar Düzenleme'
 author.firstname: 'İlk adı'
 author.firstnametransliterated: 'Başka Dilde İlk Ad'
 author.initials: 'Yazar Başharfleri'
-author.institution: 'Yazarın Kurumu'
+author.publisher: 'Yazarın Yayıncıu'
 author.lastname: Soyadı
 author.lastnametransliterated: 'Başka Dilde Soyad'
 author.list: 'Yazar Listesi'
@@ -430,10 +430,10 @@ installer.update.welcome.title: 'OJS Güncelleyici'
 installer.welcome.message: 'Hoşgeldiniz Mesajı'
 installer.welcome.title: 'OJS Web Yükleyiciye Hoşgeldiniz.'
 institute.country: Ülke
-institute.id: 'Kurum ID'
-institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
-institute.name: Kurum Adı
-institute.register: 'Kurum Kaydet'
+institute.id: 'Yayıncı ID'
+institute.merge_as_new_institute: 'Yeni Yayıncı Olarak Birleştir'
+institute.name: Yayıncı Adı
+institute.register: 'Yayıncı Kaydet'
 institute.address: Address
 institute.about: About
 institute.city: City
@@ -448,34 +448,34 @@ institute.header: Header
 institute.tags: Tags
 institute.createdAt: Created At
 institute.user: User
-institution: Kurum
-institution.about: 'Kurum Hakkında'
-institution.address: Adres
-institution.country: Ülke
-institution.detail: 'Kurum Detayı'
-institution.edit: 'Kurum Düzenle'
-institution.email: E-posta
-institution.fax: 'Fax Numarası'
-institution.id: 'Kurum ID'
-institution.lat: Enlem
-institution.lon: Boylam
-institution.manager: 'Kurum Yöneticisi'
-institution.name: Ad
-institution.new: 'Yeni Kurum'
-institution.phone: 'Telefon Numarası'
-institution.plural: Kurumlar
-institution.slug: 'Geçersiz Ad'
-institution.tags: Etiketler
-institution.type: Tür
-institution.url: URL
-institution.wiki_url: 'Wiki URL'
-institutions: Kurumlar
-institutiontype: 'Kurum Türü'
-institutiontype.edit: 'Kurum Türünü Düzenle'
-institutiontype.list: 'Kurum Türü Listesi'
-institutiontype.new: 'Yeni Kurum Türü'
-institutiontype.plural: 'Kurum Türleri'
-institutionmanagers.list: 'Kurum Yöneticileri'
+publisher: Yayıncı
+publisher.about: 'Yayıncı Hakkında'
+publisher.address: Adres
+publisher.country: Ülke
+publisher.detail: 'Yayıncı Detayı'
+publisher.edit: 'Yayıncı Düzenle'
+publisher.email: E-posta
+publisher.fax: 'Fax Numarası'
+publisher.id: 'Yayıncı ID'
+publisher.lat: Enlem
+publisher.lon: Boylam
+publisher.manager: 'Yayıncı Yöneticisi'
+publisher.name: Ad
+publisher.new: 'Yeni Yayıncı'
+publisher.phone: 'Telefon Numarası'
+publisher.plural: Yayıncılar
+publisher.slug: 'Geçersiz Ad'
+publisher.tags: Etiketler
+publisher.type: Tür
+publisher.url: URL
+publisher.wiki_url: 'Wiki URL'
+publishers: Yayıncılar
+publishertype: 'Yayıncı Türü'
+publishertype.edit: 'Yayıncı Türünü Düzenle'
+publishertype.list: 'Yayıncı Türü Listesi'
+publishertype.new: 'Yeni Yayıncı Türü'
+publishertype.plural: 'Yayıncı Türleri'
+publishermanagers.list: 'Yayıncı Yöneticileri'
 introduction: Giriş
 isAnonymous: 'Anonim mi?'
 issue: Sayı
@@ -527,7 +527,7 @@ journal.file: 'Gönderim İçin Dosyalar'
 journal.google.analytics.id: 'Google Analytics IDsi'
 journal.header_image: 'Başlık Resmi'
 journal.id: 'Dergi IDsi'
-journal.institution: 'Derginin Kurumu'
+journal.publisher: 'Derginin Yayıncıu'
 journal.issn: ISSN
 journal.join: 'Dergiye Katıl'
 journal.langs: 'Derginin Dilleri'
@@ -1047,18 +1047,18 @@ title.file_new: 'Yeni Dosya'
 title.file_show: 'Dosya Göster'
 title.files: Dosyalar
 title.home: 'Ana Sayfa'
-title.institution: Kurum
-title.institution_application: 'Kurum Uygulaması'
-title.institution_detail: 'Kurum Detayı'
-title.institution_edit: 'Kurum Düzenle'
-title.institution_new: 'Yeni Kurum'
-title.institution_show: 'Kurum Göster'
-title.institution_type_edit: 'Kurum Türünü Düzenle'
-title.institution_type_new: 'Yeni Kurum Türü'
-title.institution_type_show: 'Kurum Türünü Göster'
-title.institution_types: 'Kurum Türleri'
-title.institutions: Kurumlar
-title.institution_managers: 'Kurum Yöneticileri'
+title.publisher: Yayıncı
+title.publisher_application: 'Yayıncı Uygulaması'
+title.publisher_detail: 'Yayıncı Detayı'
+title.publisher_edit: 'Yayıncı Düzenle'
+title.publisher_new: 'Yeni Yayıncı'
+title.publisher_show: 'Yayıncı Göster'
+title.publisher_type_edit: 'Yayıncı Türünü Düzenle'
+title.publisher_type_new: 'Yeni Yayıncı Türü'
+title.publisher_type_show: 'Yayıncı Türünü Göster'
+title.publisher_types: 'Yayıncı Türleri'
+title.publishers: Yayıncılar
+title.publisher_managers: 'Yayıncı Yöneticileri'
 title.invitation_preview: 'Davet Önizleme'
 title.issue_arrange: 'Sayı Düzenle'
 title.issue_articles: 'Sayının Makaleleri'

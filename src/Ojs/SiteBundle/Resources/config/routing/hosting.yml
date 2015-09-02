@@ -1,4 +1,4 @@
-journal_institution_hosting:
+journal_publisher_hosting:
     path:  /
     defaults: { _controller: OjsSiteBundle:Hosting:index }
 
@@ -6,11 +6,11 @@ journal_hosting_archive:
     path:  /archive
     defaults: { _controller: OjsSiteBundle:Hosting:archiveIndex, isJournalHosting: true }
 
-institution_hosting_journal_index:
+publisher_hosting_journal_index:
     path:  /{slug}
     defaults: { _controller: OjsSiteBundle:Hosting:journalIndex, slug: null}
 
-institution_hosting_journal_issue:
+publisher_hosting_journal_issue:
     path: /{journal_slug}/issue/{id}
     defaults: { _controller: OjsSiteBundle:Hosting:issuePage}
 
@@ -18,7 +18,7 @@ journal_hosting_issue:
     path: /issue/{id}
     defaults: { _controller: OjsSiteBundle:Hosting:issuePage, isJournalHosting: true}
 
-institution_hosting_journal_issue_article:
+publisher_hosting_journal_issue_article:
     path:  /{slug}/issue/{issue_id}/{article_id}
     defaults: { _controller: OjsSiteBundle:Hosting:articlePage, issue_id: null}
 
@@ -26,7 +26,7 @@ journal_hosting_issue_article:
     path:  /issue/{issue_id}/{article_id}
     defaults: { _controller: OjsSiteBundle:Hosting:articlePage, [issue_id: null, isJournalHosting: true]}
 
-institution_hosting_journal_archive:
+publisher_hosting_journal_archive:
     path:  /{slug}/archive
     defaults: { _controller: OjsSiteBundle:Hosting:archiveIndex }
 

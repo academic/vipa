@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.institution_edit'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.publisher_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
-        {'title': 'title.institution_edit'|trans}
+    {'title': 'title.publisher_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

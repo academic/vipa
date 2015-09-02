@@ -8,13 +8,11 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\AdminBundle\Form\Type\InstitutionApplicationType;
 use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Params\CommonParams;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Lang;
+use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * Institution controller.
+ * Publisher controller.
  *
  */
 class AdminJournalApplicationController extends Controller
@@ -98,15 +96,15 @@ class AdminJournalApplicationController extends Controller
             $subjects[] = "{$subj->getSubject()}";
         }
 
-        /** @var Institution $institution */
-        $institution = $em->find('OjsJournalBundle:Institution', $entity->getInstitution());
+        /** @var Publisher $publisher */
+        $publisher = $em->find('OjsJournalBundle:Publisher', $entity->getPublisher());
 
         /** @var Country $country */
         $country = $em->find('OjsLocationBundle:Country', $entity->getCountry());
 
         $data['entity'] = $entity;
         $data['languages'] = implode(',', $languages);
-        $data['institution'] = $institution->getName() . "[" . $institution->getSlug() . "]";
+        $data['publisher'] = $publisher->getName() . "[" . $publisher->getSlug() . "]";
         $data['country'] = $country->getName();
         $data['subjects'] = implode(',', $subjects);
 

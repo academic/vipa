@@ -5,10 +5,10 @@ namespace Ojs\Common\Services;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -43,7 +43,7 @@ class JournalService
     private $requestStack;
 
     /** @var  string */
-    private $defaultInstitutionSlug;
+    private $defaultPublisherSlug;
 
     /**
      * @param EntityManager $em
@@ -52,7 +52,7 @@ class JournalService
      * @param Router $router
      * @param TokenStorageInterface $tokenStorage
      * @param RequestStack $requestStack
-     * @param $defaultInstitutionSlug
+     * @param $defaultPublisherSlug
      */
     public function __construct(
         EntityManager $em,
@@ -60,7 +60,7 @@ class JournalService
         Router $router,
         TokenStorageInterface $tokenStorage,
         RequestStack $requestStack,
-        $defaultInstitutionSlug
+        $defaultPublisherSlug
     )
     {
         $this->session = $session;
@@ -68,7 +68,7 @@ class JournalService
         $this->router = $router;
         $this->tokenStorage = $tokenStorage;
         $this->requestStack = $requestStack;
-        $this->defaultInstitutionSlug = $defaultInstitutionSlug;
+        $this->defaultPublisherSlug = $defaultPublisherSlug;
     }
 
     /**
@@ -183,15 +183,15 @@ class JournalService
     }
 
     /**
-     * get default institution record
-     * @return Institution
+     * get default publisher record
+     * @return Publisher
      */
-    public function getDefaultInstitution()
+    public function getDefaultPublisher()
     {
-        $institution = $this->defaultInstitutionSlug ? $this->em->getRepository('OjsJournalBundle:Institution')
-            ->findOneBy(array('slug' => $this->defaultInstitutionSlug)) : null;
+        $publisher = $this->defaultPublisherSlug ? $this->em->getRepository('OjsJournalBundle:Publisher')
+            ->findOneBy(array('slug' => $this->defaultPublisherSlug)) : null;
 
-        return $institution;
+        return $publisher;
     }
 
     /**
@@ -201,13 +201,13 @@ class JournalService
      */
     public function generateUrl(Journal $journal)
     {
-        $institution = $journal->getInstitution();
-        $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
+        $publisher = $journal->getPublisher();
+        $publisherSlug = $publisher ? $publisher->getSlug() : $this->defaultPublisherSlug;
 
         return $this->router
             ->generate(
                 'ojs_journal_index',
-                array('slug' => $journal->getSlug(), 'institution' => $institutionSlug),
+                array('slug' => $journal->getSlug(), 'publisher' => $publisherSlug),
                 Router::ABSOLUTE_URL
             );
     }

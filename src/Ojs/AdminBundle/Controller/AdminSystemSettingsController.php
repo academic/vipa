@@ -16,7 +16,7 @@ class AdminSystemSettingsController extends OjsController
             'boolean' => [
                 'user_registration',
                 'journal_application',
-                'institution_application',
+                'publisher_application',
                 'article_submission',
             ]
         );

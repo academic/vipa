@@ -1,0 +1,14 @@
+Ojs\JournalBundle\Entity\PublisherTranslation:
+    type: entity
+    table: publisher_translations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        about:
+            type: text
+            nullable: true
+

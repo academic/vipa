@@ -30,9 +30,9 @@ class SystemSettingsType extends AbstractType
                 'required'  => true
                 ]
             )
-            ->add('institution_application', 'choice', [
+            ->add('publisher_application', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
-                'label'     => 'title.institution_application',
+                    'label' => 'title.publisher_application',
                 'expanded'  => true,
                 'required'  => true
                 ]

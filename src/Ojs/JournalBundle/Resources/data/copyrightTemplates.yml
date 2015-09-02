@@ -14,7 +14,7 @@
     type: template
     template:  >
                 Authors are able to enter into separate, additional contractual arrangements for the non-exclusive
-                distribution of the journal's published version of the work (e.g., post it to an institutional repository or publish it in a book),
+                distribution of the journal's published version of the work (e.g., post it to an publisheral repository or publish it in a book),
                 with an acknowledgement of its initial publication in this journal.
 -
     id: '3'
@@ -30,4 +30,4 @@
     type: template
     template:  >
             Yazar, eserin dergide yayımlanmış versiyonunun tam yetki vermeden dağıtımı
-            (örneğin,  kurumsal bir veri bankasına gönderilmesi ya da bir kitapta yayımlanması) için ayrı sözleşme düzenlemeleri yapabilir.
+            (örneğin,  yayıncısal bir veri bankasına gönderilmesi ya da bir kitapta yayımlanması) için ayrı sözleşme düzenlemeleri yapabilir.

@@ -49,9 +49,9 @@ ojs_public_index:
     host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:index }
 
-ojs_institutions_index:
-    path:  /institutions
-    defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
+ojs_publishers_index:
+    path:  /publishers
+    defaults: { _controller: OjsSiteBundle:Site:publishersIndex }
 
 ojs_block:
     prefix: /block
@@ -64,70 +64,70 @@ ojs_sitemap:
 ojs_search:
     resource: "@OjsSiteBundle/Resources/config/routing/search.yml"
 
-#institution subdomain
-ojs_institution_page:
+#publisher subdomain
+ojs_publisher_page:
     path:  /
     host: "{slug}.%base_host%"
-    defaults: { _controller: OjsSiteBundle:Site:institutionPage }
+    defaults: { _controller: OjsSiteBundle:Site:publisherPage }
 
 ojs_journal_index:
     path:  /{slug}
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalIndex }
 
 ojs_journal_index_search:
     path:  /{slug}/search
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Search:inJournal }
 
 ojs_journal_index_articles:
     path: /{slug}/articles
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 
 ojs_site_journal_page:
     path: /{journal_slug}/page/{slug}
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalPageDetail }
 
 ojs_site_journal_post:
     path: /{journal_slug}/post/{slug}
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalPostDetail }
 
 ojs_last_articles_index:
     path:  /{slug}/last
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:lastArticlesIndex }
 
 ojs_archive_index:
     path:  /{slug}/archive
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
 
 ojs_announcement_index:
     path:  /{slug}/announcements
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:announcementIndex }
 
 ojs_journal_subscribe:
     path:  /{slug}/subscribe
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:subscribe }
 
 ojs_issue_page:
     path: /{journal_slug}/issue/{id}
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:issuePage}
 
 ojs_article_page:
     path:  /{slug}/issue/{issue_id}/{article_id}
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Article:articlePage, issue_id: null}
 
 ojs_journal_contacts:
     path: /{slug}/contacts
-    host: "{institution}.%base_host%"
+    host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalContacts }
 
 ojs_people:

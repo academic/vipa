@@ -143,16 +143,16 @@ application.graphics: Graphics
 application.institute: 'Institute Suggestion'
 application.institute.detail: Detail
 application.institute.list: 'Institute Suggestions'
-application.institution.apply: 'Apply as Institution'
-application.institution.edit: 'Edit Institution Application'
+application.publisher.apply: 'Apply as Publisher'
+application.publisher.edit: 'Edit Publisher Application'
 application.journal: 'Journal Suggestion'
 application.journal.apply: 'Apply as a new Journal'
 application.journal.detail: Detail
 application.journal.edit: 'Edit Journal Application'
-application.journal.institution: Institution
+application.journal.publisher: Publisher
 application.journal.list: 'Journal Suggestions'
-application.journal.new_institution: 'Apply as an Institution'
-application.journal.new_institution_help: 'If you can not find your institution above, please apply as an institution using the button below.'
+application.journal.new_publisher: 'Apply as an Publisher'
+application.journal.new_publisher_help: 'If you can not find your publisher above, please apply as an publisher using the button below.'
 application.journal.add_contact: 'Add Contact Person'
 application.status.complete: 'Import Complete'
 application.status.deleted: Deleted
@@ -218,7 +218,7 @@ author.edit: 'Edit author'
 author.firstname: 'First Name'
 author.firstnametransliterated: 'Firstname Transliterated'
 author.initials: Initials
-author.institution: 'Author Institution'
+author.publisher: 'Author Publisher'
 author.lastname: 'Last Name'
 author.lastnametransliterated: 'Lastname Transliterated'
 author.list: 'List Author'
@@ -433,7 +433,7 @@ institute.country: Country
 institute.id: ID
 institute.merge_as_new_institute: 'Merge As New Institute'
 institute.name: Name
-institute.register: 'Register Institution'
+institute.register: 'Register Publisher'
 institute.address: Address
 institute.about: About
 institute.city: City
@@ -448,34 +448,34 @@ institute.header: Header
 institute.tags: Tags
 institute.createdAt: Created At
 institute.user: User
-institution: Institution
-institution.about: 'About Institution'
-institution.address: Address
-institution.country: Country
-institution.detail: 'Institution Detail'
-institution.edit: 'Edit Institution'
-institution.email: Email
-institution.fax: 'Fax Number'
-institution.id: 'Institution ID'
-institution.lat: Latitude
-institution.lon: Longitude
-institution.manager: 'Institution Manager'
-institution.name: Name
-institution.new: 'New Institution'
-institution.phone: 'Phone Number'
-institution.plural: Institutions
-institution.slug: 'Slug Name'
-institution.tags: Tags
-institution.type: Type
-institution.url: URL
-institution.wiki_url: 'Wiki URL'
-institutions: Institutions
-institutiontype: 'Institution Type'
-institutiontype.edit: 'Edit Institution Type'
-institutiontype.list: 'Institution Type List'
-institutiontype.new: 'New Institution Type'
-institutiontype.plural: 'Institution Types'
-institutionmanagers.list: 'Institution Manager List'
+publisher: Publisher
+publisher.about: 'About Publisher'
+publisher.address: Address
+publisher.country: Country
+publisher.detail: 'Publisher Detail'
+publisher.edit: 'Edit Publisher'
+publisher.email: Email
+publisher.fax: 'Fax Number'
+publisher.id: 'Publisher ID'
+publisher.lat: Latitude
+publisher.lon: Longitude
+publisher.manager: 'Publisher Manager'
+publisher.name: Name
+publisher.new: 'New Publisher'
+publisher.phone: 'Phone Number'
+publisher.plural: Publishers
+publisher.slug: 'Slug Name'
+publisher.tags: Tags
+publisher.type: Type
+publisher.url: URL
+publisher.wiki_url: 'Wiki URL'
+publishers: Publishers
+publishertype: 'Publisher Type'
+publishertype.edit: 'Edit Publisher Type'
+publishertype.list: 'Publisher Type List'
+publishertype.new: 'New Publisher Type'
+publishertype.plural: 'Publisher Types'
+publishermanagers.list: 'Publisher Manager List'
 introduction: Introduction
 isAnonymous: 'Is Anonymous'
 issue: Issue
@@ -527,7 +527,7 @@ journal.file: 'Submission Required Files'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
 journal.id: ID
-journal.institution: Institution
+journal.publisher: Publisher
 journal.issn: 'Journal ISSN'
 journal.join: 'Join Journal'
 journal.langs: Languages
@@ -1047,18 +1047,18 @@ title.file_new: 'New File'
 title.file_show: 'Show File'
 title.files: Files
 title.home: Home
-title.institution: Institution
-title.institution_application: 'Institution Application'
-title.institution_detail: 'Institution Detail'
-title.institution_edit: 'Edit Institution'
-title.institution_new: 'New Institution'
-title.institution_show: 'Show Institution'
-title.institution_type_edit: 'Edit Institution Type'
-title.institution_type_new: 'New Institution Type'
-title.institution_type_show: 'Show Institution Type'
-title.institution_types: 'Institution Types'
-title.institutions: Institutions
-title.institution_managers: 'Institution Managers'
+title.publisher: Publisher
+title.publisher_application: 'Publisher Application'
+title.publisher_detail: 'Publisher Detail'
+title.publisher_edit: 'Edit Publisher'
+title.publisher_new: 'New Publisher'
+title.publisher_show: 'Show Publisher'
+title.publisher_type_edit: 'Edit Publisher Type'
+title.publisher_type_new: 'New Publisher Type'
+title.publisher_type_show: 'Show Publisher Type'
+title.publisher_types: 'Publisher Types'
+title.publishers: Publishers
+title.publisher_managers: 'Publisher Managers'
 title.invitation_preview: 'Invitation Preview'
 title.issue_arrange: 'Arrange Issue'
 title.issue_articles: 'Issue''s Articles'
@@ -1388,24 +1388,24 @@ workflows: Workflows
 year: Year
 you: You
 404: 'Not found'
-title.institution_theme_edit: 'Edit Institution Theme'
-title.institution_theme_new: 'New Institution Theme'
-title.institution_theme_show: 'Show Institution Theme'
-title.institution_theme: 'Institution Theme'
-institutiontheme: 'Institution Theme'
-institutiontheme.edit: 'Edit Institution Theme'
-institutiontheme.list: 'Institution Theme List'
-institutiontheme.new: 'New Institution Theme'
-institutiontheme.plural: 'Institution Themes'
-title.institution_design_edit: 'Edit Institution Design'
-title.institution_design_new: 'New Institution Design'
-title.institution_design_show: 'Show Institution Design'
-title.institution_design: 'Institution Design'
-institutiondesign: 'Institution Design'
-institutiondesign.edit: 'Edit Institution Design'
-institutiondesign.list: 'Institution Design List'
-institutiondesign.new: 'New Institution Design'
-institutiondesign.plural: 'Institution Designs'
+title.publisher_theme_edit: 'Edit Publisher Theme'
+title.publisher_theme_new: 'New Publisher Theme'
+title.publisher_theme_show: 'Show Publisher Theme'
+title.publisher_theme: 'Publisher Theme'
+publishertheme: 'Publisher Theme'
+publishertheme.edit: 'Edit Publisher Theme'
+publishertheme.list: 'Publisher Theme List'
+publishertheme.new: 'New Publisher Theme'
+publishertheme.plural: 'Publisher Themes'
+title.publisher_design_edit: 'Edit Publisher Design'
+title.publisher_design_new: 'New Publisher Design'
+title.publisher_design_show: 'Show Publisher Design'
+title.publisher_design: 'Publisher Design'
+publisherdesign: 'Publisher Design'
+publisherdesign.edit: 'Edit Publisher Design'
+publisherdesign.list: 'Publisher Design List'
+publisherdesign.new: 'New Publisher Design'
+publisherdesign.plural: 'Publisher Designs'
 suggested.competingFile.can.view: Suggested competing file can view.
 from.here: From here
 

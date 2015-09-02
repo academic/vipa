@@ -105,7 +105,7 @@ class ArticleService
             }
             $meta->meta('DC.Creator.PersonalName', $authors);
             $meta->meta('citation_author', $authors);
-            $meta->meta('citation_author_institution', '');
+            $meta->meta('citation_author_publisher', '');
             $meta->meta('citation_title', $article->getTitle());
             !is_null($article->getPubdate()) && $meta->meta('citation_date', $article->getPubdate()->format('Y-m-d'));
             !is_null($article->getIssue()) && $meta->meta('citation_volume', $article->getIssue()->getVolume());

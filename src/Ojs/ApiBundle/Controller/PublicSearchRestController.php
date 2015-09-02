@@ -8,10 +8,10 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Entity\Citation;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\UserBundle\Entity\User;
+use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\LocationBundle\Entity\Province;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +27,7 @@ class PublicSearchRestController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="search Institutions",
+     *  description="search Publishers",
      *  parameters={
      * {
      *          "name"="q",
@@ -49,17 +49,17 @@ class PublicSearchRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Get("/public/search/institution")
+     * @Get("/public/search/publisher")
      *
      * @param  Request $request
      * @return array
      */
-    public function getInstitutionsAction(Request $request)
+    public function getPublishersAction(Request $request)
     {
         #$limit = $request->get('limit');
         #$verified = $request->get('verified');
         $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.institution');
+        $search = $this->container->get('fos_elastica.index.search.publisher');
 
         $prefix = new Query\Prefix();
         $prefix->setPrefix('name', strtolower($q));
@@ -79,7 +79,7 @@ class PublicSearchRestController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="search Institutions for autocomplete",
+     *  description="search Publishers for autocomplete",
      *  parameters={
      * {
      *          "name"="q",
@@ -109,7 +109,7 @@ class PublicSearchRestController extends FOSRestController
     public function getInstitutesAction(Request $request)
     {
         $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.institution');
+        $search = $this->container->get('fos_elastica.index.search.publisher');
 
         $prefix = new Query\Prefix();
         $prefix->setPrefix('name', strtolower($q));
@@ -135,18 +135,18 @@ class PublicSearchRestController extends FOSRestController
      * @throws \Doctrine\ORM\ORMException
      * @ApiDoc(
      *                                    resource=true,
-     *                                    description="get institution by id"
+     *                                    description="get publisher by id"
      *                                    )
-     * @Get("/public/institution/get/{id}", defaults={"id" = null})
+     * @Get("/public/publisher/get/{id}", defaults={"id" = null})
      */
-    public function getInstitutionAction($id)
+    public function getPublisherAction($id)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Institution $institution */
-        $institution = $em->find('OjsJournalBundle:Institution', $id);
-        if ($institution) {
-            return JsonResponse::create(['id' => $id, 'text' => $institution->getName()]);
+        /** @var Publisher $publisher */
+        $publisher = $em->find('OjsJournalBundle:Publisher', $id);
+        if ($publisher) {
+            return JsonResponse::create(['id' => $id, 'text' => $publisher->getName()]);
         }
         throw new NotFoundHttpException();
     }
@@ -154,7 +154,7 @@ class PublicSearchRestController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  description="search Institutions",
+     *  description="search Publishers",
      *  parameters={
      * {
      *          "name"="q",

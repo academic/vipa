@@ -12,7 +12,6 @@
                 <metadata>
                     <{{ metadataPrefix }}:dc
                             xmlns:dc="http://purl.org/dc/elements/1.1/"
-                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                             >
                         <dc:title xml:lang="en-US">{{ record.title }}</dc:title>
                         {% for author in record.articleAuthors %}
@@ -20,15 +19,15 @@
                         {% endfor %}
                         <dc:subject>{{ record.subjects }}</dc:subject>
                         <dc:description>{{ record.subtitle }}</dc:description>
-                        <dc:publisher>{{ record.journal.institution.name }}</dc:publisher>
+                        <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
                         <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
                         <dc:type>info:eu-repo/semantics/article</dc:type>
                         <dc:type xml:lang="en-US"></dc:type>
                         <dc:format>application/pdf</dc:format>
                         {% if record.issue %}
-                        <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: record.issue.id, slug: record.journal.slug,institution:record.journal.institution.slug}) }}</dc:identifier>
+                            <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: record.issue.id, slug: record.journal.slug,publisher:record.journal.publisher.slug}) }}</dc:identifier>
                         {% else %}
-                        <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: 0, slug: record.journal.slug, institution:record.journal.institution.slug}) }}</dc:identifier>
+                            <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: 0, slug: record.journal.slug, publisher:record.journal.publisher.slug}) }}</dc:identifier>
                         {% endif %}
                         <dc:identifier>{{ record.doi }}</dc:identifier>
                         {% if record.issue %}

@@ -48,9 +48,9 @@ api_mail_templates :
   resource:     "OjsApiBundle:MailTemplateRest"
   name_prefix:  api_
 
-api_institutions :
+api_publishers :
   type: rest
-  resource:     "OjsApiBundle:InstitutionRest"
+  resource:     "OjsApiBundle:PublisherRest"
   name_prefix:  api_
 
 api_public_search :

@@ -97,7 +97,7 @@
                         <!--raw-->
                         <!---
                             <form role="search"
-                                  action="{{ url('ojs_journal_index_search',{institution: journal.institution.slug, slug: journal.slug}) }}"
+                                  action="{{ url('ojs_journal_index_search',{publisher: journal.publisher.slug, slug: journal.slug}) }}"
                                   method="get" id="search_on_journal">
                         --->
                         <!--endraw-->
@@ -180,7 +180,7 @@
                 {% raw %}
                     <!--raw-->
                     <!---
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                            class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
                             </h5>
                         </a>
@@ -197,7 +197,7 @@
                 {% raw %}
                     <!--raw-->
                     <!---
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                            class="list-group-item ">
                            <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                         </a>
@@ -216,7 +216,7 @@
                         <!--raw-->
                         <!---
                             <form role="search"
-                                  action="{{ path('ojs_journal_subscribe',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                                  action="{{ path('ojs_journal_subscribe',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                                   method="post">
                         --->
                         <!--endraw-->
@@ -490,13 +490,13 @@
     <span class="design-hide-endblock hide"></span>
 {% endmacro %}
 
-{% macro institutionHeader() %}
+{% macro publisherHeader() %}
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
             <!---
             {% if entity.header is not null %}
-                <img src="{{ entity.header|imagine_filter('institution_header') }}"
+                <img src="{{ entity.header|imagine_filter('publisher_header') }}"
                     class="img-responsive img-rounded float-left img-center" alt=""/>
             {% endif %}
             --->
@@ -508,13 +508,13 @@
     <span class="design-hide-endblock hide"></span>
 {% endmacro %}
 
-{% macro institutionLogo() %}
+{% macro publisherLogo() %}
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
             <!---
                 {% if entity.logo is not null %}
-                <img src="{{ entity.logo|imagine_filter('institution_logo') }}"
+                <img src="{{ entity.logo|imagine_filter('publisher_logo') }}"
                     class="img-responsive img-rounded float-left img-center" alt=""/>
                {% endif %}
             --->
@@ -526,7 +526,7 @@
     <span class="design-hide-endblock hide"></span>
 {% endmacro %}
 
-{% macro institutionAbout() %}
+{% macro publisherAbout() %}
     <h5> <span class="design-inline" title="{{ "{{ 'about'|trans }}" }}">{{ 'about'|trans }}</span> </h5>
     <span class="design-inline" title="{{ "{{ entity.about }}" }}">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum interdum leo quis pretium.
@@ -560,7 +560,7 @@
 
 {% macro contactDetails() %}
     <div itemscope itemtype="http://schema.org/Organization">
-        <span itemprop="name">Örnek Kurum</span>
+        <span itemprop="name">Örnek Yayıncı</span>
         Contact Details:
         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
             Main address:
@@ -600,23 +600,23 @@
                 </span>,
         E-mail: <span itemprop="email">
                     <span class="design-inline" title="{{ "{{ entity.email }}" }}">
-                        o.kurum@localhost.com
+                        o.yayıncı@localhost.com
                     </span>
                 </span>
         Web:    <span itemprop="url">
                     <span class="design-inline" title="{{ "{{ entity.url }}" }}">
-                        ornekkurum.com.tr
+                        ornekyayıncı.com.tr
                     </span>
                 </span>
         Wiki:    <span itemprop="url">
                     <span class="design-inline" title="{{ "{{ entity.wiki }}" }}">
-                        wiki.ornekkurum.com.tr
+                        wiki.ornekyayıncı.com.tr
                     </span>
                 </span>
     </div>
 {% endmacro %}
 
-{% macro institutionJournals() %}
+{% macro publisherJournals() %}
     <div class="panel panel-default">
         <div class="panel-heading">
             <span class="design-inline" title="{{ "{{ 'journal.plural'|trans }}" }}">

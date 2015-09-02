@@ -1,0 +1,16 @@
+Ojs\JournalBundle\Entity\PublisherTranslation:
+  properties:
+
+Ojs\JournalBundle\Entity\Publisher:
+    properties:
+        translations:
+            - Valid: ~
+        name:
+          - NotBlank: ~
+        address:
+          - NotBlank: ~
+        phone:
+          - NotBlank: ~
+        email:
+          - NotBlank: ~
+          - Email: ~

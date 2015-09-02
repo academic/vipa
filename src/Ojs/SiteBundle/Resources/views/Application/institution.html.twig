@@ -1,5 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.institution_application'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.publisher_application'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block stylesheets %}
     {{ parent() }}
@@ -16,7 +16,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'title': 'application.institution.apply'|trans}
+    {'title': 'application.publisher.apply'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -24,7 +24,7 @@
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{ "application.institution.apply"|trans }}</h1>
+        <h1 class="page-header">{{ "application.publisher.apply"|trans }}</h1>
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
@@ -34,14 +34,14 @@
             {% endfor %}
         {% endfor %}
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>{{ "institution.about"|trans }}</h4></div>
+            <div class="panel-heading"><h4>{{ "publisher.about"|trans }}</h4></div>
             <div class="panel-body">
                 {{ form_errors(form) }}
 
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.name, form.institution_type, form.translations, form.tags] %}
+                        {% for field in [form.name, form.publisher_type, form.translations, form.tags] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>

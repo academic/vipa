@@ -15,10 +15,10 @@ class ExploreController extends Controller
     {
         $getTypes = $request->query->get('type_filters');
         $getSubjects = $request->query->get('subject_filters');
-        $getInstitutions = $request->query->get('institution_filters');
+        $getPublishers = $request->query->get('publisher_filters');
         $typeFilters = !empty($getTypes) ? explode(',', $getTypes) : [];
         $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
-        $institutionFilters = !empty($getInstitutions) ? explode(',', $getInstitutions) : [];
+        $publisherFilters = !empty($getPublishers) ? explode(',', $getPublishers) : [];
 
         $journalSearcher = $this->get('fos_elastica.index.search.journal');
         $boolQuery = new Query\Bool();
@@ -31,11 +31,11 @@ class ExploreController extends Controller
         $match->setField('published', true);
         $boolQuery->addMust($match);
 
-        if (!empty($typeFilters) || !empty($subjectFilters) || !empty($institutionFilters)) {
+        if (!empty($typeFilters) || !empty($subjectFilters) || !empty($publisherFilters)) {
 
             foreach ($typeFilters as $type) {
                 $match = new Query\Match();
-                $match->setField('institution.institution_type.name', $type);
+                $match->setField('publisher.publisher_type.name', $type);
                 $boolQuery->addMust($match);
             }
 
@@ -45,9 +45,9 @@ class ExploreController extends Controller
                 $boolQuery->addMust($match);
             }
 
-            foreach ($institutionFilters as $institution) {
+            foreach ($publisherFilters as $publisher) {
                 $match = new Query\Match();
-                $match->setField('institution.name', $institution);
+                $match->setField('publisher.name', $publisher);
                 $boolQuery->addMust($match);
             }
         }
@@ -55,7 +55,7 @@ class ExploreController extends Controller
         $journalQuery = new Query($boolQuery);
 
         $typeAgg = new Aggregation\Terms('types');
-        $typeAgg->setField('institution.institution_type.name');
+        $typeAgg->setField('publisher.publisher_type.name');
         $typeAgg->setOrder('_term', 'asc');
         $typeAgg->setSize(0);
         $journalQuery->addAggregation($typeAgg);
@@ -66,11 +66,11 @@ class ExploreController extends Controller
         $subjectAgg->setSize(0);
         $journalQuery->addAggregation($subjectAgg);
 
-        $institutionAgg = new Aggregation\Terms('institutions');
-        $institutionAgg->setField('institution.name');
-        $institutionAgg->setOrder('_term', 'asc');
-        $institutionAgg->setSize(0);
-        $journalQuery->addAggregation($institutionAgg);
+        $publisherAgg = new Aggregation\Terms('publishers');
+        $publisherAgg->setField('publisher.name');
+        $publisherAgg->setOrder('_term', 'asc');
+        $publisherAgg->setSize(0);
+        $journalQuery->addAggregation($publisherAgg);
 
         $adapter = new ElasticaAdapter($journalSearcher, $journalQuery);
         $pagerfanta = new Pagerfanta($adapter);
@@ -80,15 +80,15 @@ class ExploreController extends Controller
 
         $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
         $subjects = $adapter->getResultSet()->getAggregation('subjects')['buckets'];
-        $institutions = $adapter->getResultSet()->getAggregation('institutions')['buckets'];
+        $publishers = $adapter->getResultSet()->getAggregation('publishers')['buckets'];
 
         $data = [
             'types' => $types,
             'subjects' => $subjects,
-            'institutions' => $institutions,
+            'publishers' => $publishers,
             'type_filters' => $typeFilters,
             'subject_filters' => $subjectFilters,
-            'institution_filters' => $institutionFilters,
+            'publisher_filters' => $publisherFilters,
             'journals' => $journals,
             'pagerfanta' => $pagerfanta,
             'page' => 'explore'

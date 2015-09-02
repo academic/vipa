@@ -13,25 +13,25 @@ ojs_admin_journal:
     resource: "@OjsAdminBundle/Resources/config/routing/journal.yml"
     prefix:   journal
 
-ojs_admin_institution:
-    resource: "@OjsAdminBundle/Resources/config/routing/institution.yml"
-    prefix:   institution
+ojs_admin_publisher:
+    resource: "@OjsAdminBundle/Resources/config/routing/publisher.yml"
+    prefix:   publisher
 
-ojs_admin_institution_type:
-    resource: "@OjsAdminBundle/Resources/config/routing/institution_type.yml"
-    prefix:   institution-type
+ojs_admin_publisher_type:
+    resource: "@OjsAdminBundle/Resources/config/routing/publisher_type.yml"
+    prefix:   publisher-type
 
-ojs_admin_institution_theme:
-    resource: "@OjsAdminBundle/Resources/config/routing/institution_theme.yml"
-    prefix:   institution-theme
+ojs_admin_publisher_theme:
+    resource: "@OjsAdminBundle/Resources/config/routing/publisher_theme.yml"
+    prefix:   publisher-theme
 
-ojs_admin_institution_design:
-    resource: "@OjsAdminBundle/Resources/config/routing/institution_design.yml"
-    prefix:   institution-design
+ojs_admin_publisher_design:
+    resource: "@OjsAdminBundle/Resources/config/routing/publisher_design.yml"
+    prefix:   publisher-design
 
-ojs_admin_institution_manager:
-    resource: "@OjsAdminBundle/Resources/config/routing/institution_managers.yml"
-    prefix:   institution-manager
+ojs_admin_publisher_manager:
+    resource: "@OjsAdminBundle/Resources/config/routing/publisher_managers.yml"
+    prefix:   publisher-manager
 
 ojs_admin_subject:
     resource: "@OjsAdminBundle/Resources/config/routing/subject.yml"
@@ -53,8 +53,8 @@ ojs_admin_application:
     resource: "@OjsAdminBundle/Resources/config/routing/journal_application.yml"
     prefix:   application
 
-ojs_admin_institution_application:
-    resource: "@OjsAdminBundle/Resources/config/routing/institution_application.yml"
+ojs_admin_publisher_application:
+    resource: "@OjsAdminBundle/Resources/config/routing/publisher_application.yml"
     prefix:   application
 
 ojs_admin_event_log:

@@ -14,16 +14,16 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 class SubjectRepository extends NestedTreeRepository
 {
     /**
-     * @param $institution
+     * @param $publisher
      * @return Subject[]
      */
-    public function getByInstitution($institution)
+    public function getByPublisher($publisher)
     {
         $qb = $this->createQueryBuilder('s');
         $qb
             ->join('s.journals', 'j', 'WITH')
-            ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
-            ->setParameter('institution', $institution);
+            ->join('j.publisher', 'i', 'WITH', 'i.slug=:publisher')
+            ->setParameter('publisher', $publisher);
 
         return $qb->getQuery()->getResult();
     }

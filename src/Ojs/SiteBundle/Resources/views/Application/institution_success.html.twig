@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.institution_application'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.publisher_application'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-    {'title': 'application.institution.apply'|trans},
+    {'title': 'application.publisher.apply'|trans},
     {'title': 'success'}
     ] %}
     {{ breadcrumb(list) }}

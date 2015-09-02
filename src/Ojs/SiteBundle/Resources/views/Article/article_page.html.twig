@@ -7,7 +7,7 @@
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
     {'link': journal.publicURI,'title': article.journal.title},
     {'link': archive_uri, 'title': "archive"|trans },
-    {'link': path('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, institution: journal.institution.slug}),'title': "volume"|trans~ article.issue.volume ~"," ~ "issue"|trans ~ article.issue.number }
+    {'link': path('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}),'title': "volume"|trans~ article.issue.volume ~"," ~ "issue"|trans ~ article.issue.number }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -18,7 +18,7 @@
             <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, institution: journal.institution.slug}) }}">{{ "volume"|trans }} {{ article.issue.volume }}
+                        <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}) }}">{{ "volume"|trans }} {{ article.issue.volume }}
                             , {{ "issue"|trans }} {{ article.issue.number }}</a>,
                         {{ "page.plural"|trans }} <span
                                 title="{{ "first_page"|trans }}">{{ article.firstPage }}</span>-<span
@@ -222,11 +222,11 @@
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
 
-                    <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                    <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                        class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
                         </h5>
                     </a>
-                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                        class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                     </a>
 

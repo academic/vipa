@@ -4,17 +4,17 @@ namespace Ojs\JournalBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
 
-class InstitutionControllerTest extends BaseTestCase
+class PublisherControllerTest extends BaseTestCase
 {
 
     public function testStatus()
     {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
-        $this->client->request('GET', '/admin/institution/');
+        $this->client->request('GET', '/admin/publisher/');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
 
-        $this->client->request('GET', '/admin/institution/new');
+        $this->client->request('GET', '/admin/publisher/new');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 }

@@ -7,7 +7,7 @@ use Ojs\Common\Tests\BaseTestCase;
 class SitemapControllerTest extends BaseTestCase
 {
     const JOURNAL = 'acta-medica';
-    const INSTITUTION = 'anatoliamedica';
+    const PUBLISHER = 'anatoliamedica';
     const SUBJECT = 'guc-ve-enerji';
 
     public function testIndex()
@@ -18,7 +18,7 @@ class SitemapControllerTest extends BaseTestCase
     public function testJournals()
     {
         $this->assertTrue(
-            $this->isAccessible(['ojs_journals_sitemap', ['_format' => 'xml', 'institution' => self::INSTITUTION]])
+            $this->isAccessible(['ojs_journals_sitemap', ['_format' => 'xml', 'publisher' => self::PUBLISHER]])
         );
     }
 
@@ -28,7 +28,7 @@ class SitemapControllerTest extends BaseTestCase
             $this->isAccessible(
                 [
                     'ojs_journal_sitemap',
-                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'institution' => self::INSTITUTION],
+                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'publisher' => self::PUBLISHER],
                 ]
             )
         );
@@ -40,7 +40,7 @@ class SitemapControllerTest extends BaseTestCase
             $this->isAccessible(
                 [
                     'ojs_articles_sitemap',
-                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'institution' => self::INSTITUTION],
+                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'publisher' => self::PUBLISHER],
                 ]
             )
         );
@@ -52,7 +52,7 @@ class SitemapControllerTest extends BaseTestCase
             $this->isAccessible(
                 [
                     'ojs_issues_sitemap',
-                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'institution' => self::INSTITUTION],
+                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'publisher' => self::PUBLISHER],
                 ]
             )
         );
@@ -64,27 +64,27 @@ class SitemapControllerTest extends BaseTestCase
             $this->isAccessible(
                 [
                     'ojs_last_issue_sitemap',
-                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'institution' => self::INSTITUTION],
+                    ['_format' => 'xml', 'journal' => self::JOURNAL, 'publisher' => self::PUBLISHER],
                 ]
             )
         );
     }
 
-    public function testInstitution()
+    public function testPublisher()
     {
         $this->assertTrue(
             $this->isAccessible(
                 [
-                    'ojs_institution_sitemap',
-                    ['_format' => 'xml', 'institution' => self::INSTITUTION, 'institution' => self::INSTITUTION],
+                    'ojs_publisher_sitemap',
+                    ['_format' => 'xml', 'publisher' => self::PUBLISHER, 'publisher' => self::PUBLISHER],
                 ]
             )
         );
     }
 
-    public function testInstitutions()
+    public function testPublishers()
     {
-        $this->assertTrue($this->isAccessible(['ojs_institutions_sitemap', ['_format' => 'xml']]));
+        $this->assertTrue($this->isAccessible(['ojs_publishers_sitemap', ['_format' => 'xml']]));
     }
 
     public function testSubjects()
@@ -98,7 +98,7 @@ class SitemapControllerTest extends BaseTestCase
             $this->isAccessible(
                 [
                     'ojs_subject_sitemap',
-                    ['_format' => 'xml', 'subject' => self::SUBJECT, 'institution' => self::INSTITUTION],
+                    ['_format' => 'xml', 'subject' => self::SUBJECT, 'publisher' => self::PUBLISHER],
                 ]
             )
         );

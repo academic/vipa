@@ -8,27 +8,27 @@ namespace Ojs\Common\Services;
 class AliceDataProvider
 {
 
-    protected $defaultInstitutionSlug;
+    protected $defaultPublisherSlug;
 
     protected $systemEmail;
 
     /**
-     * @param $defaultInstitutionSlug
+     * @param $defaultPublisherSlug
      * @param $systemEmail
      */
-    public function __construct($defaultInstitutionSlug, $systemEmail)
+    public function __construct($defaultPublisherSlug, $systemEmail)
     {
-        $this->defaultInstitutionSlug = $defaultInstitutionSlug;
+        $this->defaultPublisherSlug = $defaultPublisherSlug;
         $this->systemEmail = $systemEmail;
     }
 
     /**
-     * get default institution record
+     * get default publisher record
      * @return string
      */
-    public function defaultInstitutionSlug()
+    public function defaultPublisherSlug()
     {
-        return $this->$defaultInstitutionSlug;
+        return $this->$defaultPublisherSlug;
     }
 
     /**

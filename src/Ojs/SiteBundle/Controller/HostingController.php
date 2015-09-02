@@ -5,15 +5,15 @@ namespace Ojs\SiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\SiteBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Journal & Institution Hosting pages controller
+ * Journal & Publisher Hosting pages controller
  * Class HostingController
  * @package Ojs\SiteBundle\Controller
  */
@@ -28,24 +28,24 @@ class HostingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
-        /** @var Institution $getInstitutionByDomain */
-        $getInstitutionByDomain = $em->getRepository('OjsJournalBundle:Institution')->findOneByDomain($currentHost);
-        $this->throw404IfNotFound($getInstitutionByDomain);
-        if(!$getInstitutionByDomain){
+        /** @var Publisher $getPublisherByDomain */
+        $getPublisherByDomain = $em->getRepository('OjsJournalBundle:Publisher')->findOneByDomain($currentHost);
+        $this->throw404IfNotFound($getPublisherByDomain);
+        if (!$getPublisherByDomain) {
             /** @var Journal $getJournalByDomain */
             $getJournalByDomain = $em->getRepository('OjsJournalBundle:Journal')->findOneByDomain($currentHost);
             $this->throw404IfNotFound($getJournalByDomain);
             return $this->journalIndexAction($request, $getJournalByDomain->getSlug(), true);
         }
         /** @var Journal $journal */
-        foreach($getInstitutionByDomain->getJournals() as $journal){
-            $journalPublicURI = $this->generateUrl('institution_hosting_journal_index', [
+        foreach ($getPublisherByDomain->getJournals() as $journal) {
+            $journalPublicURI = $this->generateUrl('publisher_hosting_journal_index', [
                 'slug' => $journal->getSlug()
             ],true);
             $journal->setPublicURI($journalPublicURI);
         }
-        return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', [
-            'entity' => $getInstitutionByDomain
+        return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', [
+            'entity' => $getPublisherByDomain
         ]);
     }
 
@@ -72,14 +72,14 @@ class HostingController extends Controller
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         if($isJournalHosting){
-            $journal->setPublicURI($this->generateUrl('journal_institution_hosting', [], true));
+            $journal->setPublicURI($this->generateUrl('journal_publisher_hosting', [], true));
             $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
         }else{
-            $journal->setPublicURI($this->generateUrl('institution_hosting_journal_index', [
+            $journal->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [
                 'slug', $journal->getSlug()
             ], true)
             );
-            $data['archive_uri'] = $this->generateUrl('institution_hosting_journal_archive', [], true);
+            $data['archive_uri'] = $this->generateUrl('publisher_hosting_journal_archive', [], true);
         }
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
@@ -100,7 +100,7 @@ class HostingController extends Controller
                         'id' => $issue->getId()
                     ],true));
                 }else{
-                    $issue->setPublicURI($this->generateUrl('institution_hosting_journal_issue', [
+                    $issue->setPublicURI($this->generateUrl('publisher_hosting_journal_issue', [
                         'journal_slug' => $issue->getJournal()->getSlug(),
                         'id' => $issue->getId()
                     ],true));
@@ -126,7 +126,7 @@ class HostingController extends Controller
                     ],true)
                 );
             }else{
-                $article->setPublicURI($this->generateUrl('institution_hosting_journal_issue_article',[
+                $article->setPublicURI($this->generateUrl('publisher_hosting_journal_issue_article', [
                     'slug' => $article->getIssue()->getJournal()->getSlug(),
                     'issue_id' => $article->getIssue()->getId(),
                     'article_id' => $article->getId(),
@@ -157,7 +157,7 @@ class HostingController extends Controller
         if($isJournalHosting){
             $data['isJournalHosting'] = true;
         }else{
-            $data['isInstitutionHosting'] = true;
+            $data['isPublisherHosting'] = true;
         }
 
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
@@ -184,13 +184,13 @@ class HostingController extends Controller
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
         if($isJournalHosting){
-            $data['journal']->setPublicURI($this->generateUrl('institution_hosting_journal_index',[], true));
+            $data['journal']->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [], true));
             $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
         }else{
-            $data['journal']->setPublicURI($this->generateUrl('institution_hosting_journal_index',[
+            $data['journal']->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [
                 'slug' => $data['article']->getJournal()->getSlug()
             ], true));
-            $data['archive_uri'] = $this->generateUrl('institution_hosting_journal_archive', [
+            $data['archive_uri'] = $this->generateUrl('publisher_hosting_journal_archive', [
                 'slug' => $data['journal']->getSlug()
             ], true);
         }
@@ -234,7 +234,7 @@ class HostingController extends Controller
         if($isJournalHosting){
             $data['isJournalHosting'] = true;
         }else{
-            $data['isInstitutionHosting'] = true;
+            $data['isPublisherHosting'] = true;
         }
 
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);

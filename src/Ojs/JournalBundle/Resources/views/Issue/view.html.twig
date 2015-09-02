@@ -44,7 +44,7 @@
                     <a title="{{ "page.plural"|trans }}" class="label label-default">{{ article.firstPage }}
                         - {{ article.lastPage }}</a>
                     <a target="_blank"
-                       href="{{ path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } ) }}">
+                       href="{{ path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'publisher' : article.journal.publisher.slug  } ) }}">
                         {{ article.title }}
                     </a>
                 </div>

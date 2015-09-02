@@ -65,17 +65,17 @@ class JournalApplicationType extends AbstractType
             ->add('tags', 'tags', ['attr' => ['class' => 'validate[required]', 'label' => 'journal.tags']])
             ->add('url', 'url', ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
             ->add(
-                'institution',
+                'publisher',
                 'entity',
                 array(
-                    'class' => 'OjsJournalBundle:Institution',
+                    'class' => 'OjsJournalBundle:Publisher',
                     'query_builder' => function(EntityRepository $er) {
                         return $er->createQueryBuilder('i')
                                     ->andWhere('i.status = :status')
                                     ->setParameter('status', 1);
                     },
                     'attr' => ['class' => 'select2-element validate[required]'],
-                    'label' => 'journal.institution',
+                    'label' => 'journal.publisher',
                 )
             )
             ->add(

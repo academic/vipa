@@ -19,7 +19,7 @@
     {% set list = [
     {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
     {'link':generateJournalUrl(journal), 'title': journal.title},
-    {'link':url('ojs_archive_index',{slug: journal.slug,institution: journal.institution.slug}), 'title': "archive"|trans}
+    {'link':url('ojs_archive_index',{slug: journal.slug,publisher: journal.publisher.slug}), 'title': "archive"|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -59,7 +59,7 @@
                             {% for article in articles %}
                                 <li class="list-group-item list-group-item-default">
                                     <a href="{{ url('ojs_article_page',{article_id: article.id,
-                                        slug: journal.slug, institution: journal.institution.slug, issue_id: article.issue.id}) }}"><i
+                                        slug: journal.slug, publisher: journal.publisher.slug, issue_id: article.issue.id}) }}"><i
                                                 class="fa fa-file-text"></i> {{ article.title }}
                                     </a><br/>
                                     <i class="fa fa-users"></i>

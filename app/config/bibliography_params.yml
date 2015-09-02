@@ -104,7 +104,7 @@ parameters:
                 must :
                     - author
                     - title
-                    - institution
+                    - publisher
                     - year
                 should :
                     - type
@@ -230,7 +230,7 @@ parameters:
         editor: The name(s) of the editor(s)
         eprint: A specification of an electronic publication, often a preprint or a technical report
         howpublished: How it was published, if the publishing method is nonstandard
-        institution: The institution that was involved in the publishing, but not necessarily the publisher
+        publisher: The publisher that was involved in the publishing, but not necessarily the publisher
         journal: The journal or magazine the work was published in
         key: A hidden field used for specifying or overriding the alphabetical order of entries (when the "author" and "editor" fields are missing). Note that this is very different from the key (mentioned just after this list) that is used to cite or cross-reference the entry.
         month: The month of publication (or, if unpublished, the month of creation)

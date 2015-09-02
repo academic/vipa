@@ -15,7 +15,7 @@ class CommonStatsCommand extends ContainerAwareCommand
         $this
             ->setName('ojs:count:common')
             ->setDescription(
-                'Count save results for common entities like  Journal, Article, Institution, Subject and User'
+                'Count save results for common entities like  Journal, Article, Publisher, Subject and User'
             );
     }
 
@@ -30,7 +30,7 @@ class CommonStatsCommand extends ContainerAwareCommand
         $this->countSaveEntity($em, 'OjsJournalBundle:Journal', $output);
         $this->countSaveEntity($em, 'OjsJournalBundle:Article', $output);
         $this->countSaveEntity($em, 'OjsJournalBundle:Subject', $output);
-        $this->countSaveEntity($em, 'OjsJournalBundle:Institution', $output);
+        $this->countSaveEntity($em, 'OjsJournalBundle:Publisher', $output);
         $this->countSaveEntity($em, 'OjsUserBundle:User', $output);
     }
 

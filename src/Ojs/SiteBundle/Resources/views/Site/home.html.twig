@@ -85,13 +85,13 @@
                                     </a>
                                 {% endif %}
 
-                                {% if institutionApplicationAllowance %}
-                                    <a href="{{ url("ojs_apply_institution") }}"
+                                {% if publisherApplicationAllowance %}
+                                    <a href="{{ url("ojs_apply_publisher") }}"
                                        class="btn btn-primary  btn-labeled">
                                         <span class="btn-label pull-left">
-                                            <i class="fa fa-institution fa-fw"></i>
+                                            <i class="fa fa-publisher fa-fw"></i>
                                         </span>
-                                        {{ 'application.institution.apply'|trans }}
+                                        {{ 'application.publisher.apply'|trans }}
                                     </a>
                                 {% endif %}
                                 {% if journalApplicationAllowance %}

@@ -1,11 +1,11 @@
 ojs_apply_journal:
   path: /journal
   defaults: { _controller: OjsSiteBundle:Application:journal }
-ojs_apply_institution:
-  path: /institution
-  defaults: { _controller: OjsSiteBundle:Application:institution }
+ojs_apply_publisher:
+  path: /publisher
+  defaults: { _controller: OjsSiteBundle:Application:publisher }
 ojs_apply_institute_success:
-  path: /institution/success
+  path: /publisher/success
   defaults: { _controller: OjsSiteBundle:Application:instituteSuccess }
 ojs_apply_journal_success:
   path: /journal/success

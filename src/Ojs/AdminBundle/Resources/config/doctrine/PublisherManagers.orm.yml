@@ -1,0 +1,30 @@
+Ojs\AdminBundle\Entity\PublisherManagers:
+    type: entity
+    table: publisher_managers
+    repositoryClass: Ojs\AdminBundle\Entity\PublisherManagersRepository
+
+    manyToOne:
+        publisher:
+            targetEntity: Ojs\JournalBundle\Entity\Publisher
+            inversedBy: publisherManagers
+            joinColumn:
+                name: publisher_id
+                referencedColumnName: id
+        user:
+            targetEntity: Ojs\UserBundle\Entity\User
+            inversedBy: publisherManagers
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    uniqueConstraints:
+        journal_user_idx:
+            columns: publisher_id, user_id
+
+    lifecycleCallbacks: {  }

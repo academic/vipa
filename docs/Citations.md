@@ -57,7 +57,7 @@ Optional fields: volume/number, series, address, edition, month, note, key
 - **booklet**
         Ojs\Common\Params\CitationParams::$CITATION_TYPE_BOOKLET 
 
-A work that is printed and bound, but without a named publisher or sponsoring institution.
+A work that is printed and bound, but without a named publisher or sponsoring publisher.
 
 Required fields: title
 
@@ -143,9 +143,9 @@ Optional fields: editor, volume/number, series, address, month, publisher, organ
 - **techreport**
         Ojs\Common\Params\CitationParams::$CITATION_TYPE_TECHREPORT 
 
-A report published by a school or other institution, usually numbered within a series.
+A report published by a school or other publisher, usually numbered within a series.
 
-Required fields: author, title, institution, year
+Required fields: author, title, publisher, year
 
 Optional fields: type, number, address, month, note, key
 
@@ -176,7 +176,7 @@ Some Entity\CitationSetting::setting values
 - **editor**: The name(s) of the editor(s)
 - **eprint**: A specification of an electronic publication, often a preprint or a technical report
 - **howpublished**: How it was published, if the publishing method is nonstandard
-- **institution**: The institution that was involved in the publishing, but not necessarily the publisher
+- **publisher**: The publisher that was involved in the publishing, but not necessarily the publisher
 - **journal**: The journal or magazine the work was published in
 - **key**: A hidden field used for specifying or overriding the alphabetical order of entries (when the "author" and "editor" fields are missing). Note that this is very different from the key (mentioned just after this list) that is used to cite or cross-reference the entry.
 - **month**: The month of publication (or, if unpublished, the month of creation)

@@ -3,10 +3,10 @@ Ojs\JournalBundle\Entity\Journal:
     table: journal
     repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
     manyToOne:
-        institution:
-          targetEntity: Institution
+        publisher:
+          targetEntity: Publisher
           joinColumn:
-            name: institution_id
+            name: publisher_id
             referencedColumnName: id
           inversedBy: journals
         theme:
@@ -295,9 +295,9 @@ Ojs\JournalBundle\Entity\Journal:
                 default: 0
             gedmo:
                   - versioned
-        institutionId:
+        publisherId:
             type: integer
-            column: institution_id
+            column: publisher_id
             nullable: true
             options:
                 default: 0

@@ -31,10 +31,10 @@ class JournalType extends AbstractType
                 ]
             )
             ->add(
-                'institution',
+                'publisher',
                 null,
                 [
-                    'label' => 'institution',
+                    'label' => 'publisher',
                     'attr' => [
                         'class' => 'select2-element validate[required]',
                     ]

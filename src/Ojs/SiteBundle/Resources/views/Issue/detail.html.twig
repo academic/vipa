@@ -2,10 +2,10 @@
 {% block title %}{{ 'title.issue_detail'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
-{% if isInstitutionHosting is defined %}
-    {% set journalUrl = url('institution_hosting_journal_index',{slug:issue.journal.slug}) %}
+{% if isPublisherHosting is defined %}
+    {% set journalUrl = url('publisher_hosting_journal_index',{slug:issue.journal.slug}) %}
 {% elseif isJournalHosting is defined %}
-    {% set journalUrl = url('institution_hosting_journal_index') %}
+    {% set journalUrl = url('publisher_hosting_journal_index') %}
 {% else %}
     {% set journalUrl = generateJournalUrl(issue.journal) %}
 {% endif %}
@@ -53,11 +53,11 @@
                                     {% if article.issue == issue %}
                                         <li class="list-group-item list-group-item-default">
                                             <a href="
-                                            {% if isInstitutionHosting is defined %}
-                                                {{ url('institution_hosting_journal_issue_article',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id}) }}
+                                            {% if isPublisherHosting is defined %}
+                                                {{ url('publisher_hosting_journal_issue_article',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id}) }}
                                             {% elseif isJournalHosting is defined %}
                                             {% else %}
-                                                {{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,institution: issue.journal.institution.slug}) }}
+                                                {{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,publisher: issue.journal.publisher.slug}) }}
                                             {% endif %}">
                                                 <i class="fa fa-file-text"></i> {{ article.title }}
                                             </a>

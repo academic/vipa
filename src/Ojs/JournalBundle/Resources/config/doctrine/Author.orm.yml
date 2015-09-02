@@ -8,10 +8,10 @@ Ojs\JournalBundle\Entity\Author:
             mappedBy: author
             cascade: ["persist"]
     manyToOne:
-          institution:
-                targetEntity: Institution
+          publisher:
+                targetEntity: Publisher
                 joinColumn:
-                    name: institution_id
+                    name: publisher_id
                     referencedColumnName: id
                 inversedBy: authors
           user:
@@ -103,12 +103,12 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             gedmo:
                 - versioned
-        institutionNotListed:
+        publisherNotListed:
             type: boolean
             nullable: true
             gedmo:
                 - versioned
-        institutionName:
+        publisherName:
             type: string
             nullable: true
             gedmo:
@@ -133,10 +133,10 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             gedmo:
                 - versioned
-        institutionId:
+        publisherId:
             type: integer
             nullable: true
-            column: institution_id
+            column: publisher_id
             nullable: true
             gedmo:
                 - versioned

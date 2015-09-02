@@ -50,7 +50,7 @@ class RedirectController extends Controller
                 array(
                     'slug' => $article->getJournal()->getSlug(),
                     'article_id' => $article->getId(),
-                    'institution' => $article->getJournal()->getInstitution()->getSlug(),
+                    'publisher' => $article->getJournal()->getPublisher()->getSlug(),
                 )
             )
         );

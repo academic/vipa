@@ -1,9 +1,0 @@
-Ojs\JournalBundle\Entity\InstitutionTypesTranslation:
-  properties:
-    name:
-      - NotBlank: ~
-
-Ojs\JournalBundle\Entity\InstitutionTypes:
-    properties:
-        translations:
-            - Valid: ~

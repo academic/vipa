@@ -3,7 +3,7 @@
 namespace Ojs\Common\Controller;
 
 use Doctrine\ORM\NoResultException;
-use Ojs\JournalBundle\Entity\Institution;
+use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -76,10 +76,10 @@ class OjsController extends Controller
         return true;
     }
 
-    protected function isGrantedForInstitution(Institution $institution)
+    protected function isGrantedForPublisher(Publisher $publisher)
     {
         $user = $this->getUser();
-        foreach($institution->getInstitutionManagers() as $manager){
+        foreach ($publisher->getPublisherManagers() as $manager) {
             if($manager->getUser()->getId() == $user->getId()){
                 return true;
             }

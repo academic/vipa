@@ -23,7 +23,7 @@
                                     {% if journal.id %}
                                         <li class=list-group-item">
                                             <a href="{{ path('ojs_journal_dashboard_index', {'journalId': journal.id}) }}">
-                                                <span class="label label-primary">{{ journal.institution.name }}</span> &raquo; {{ journal.title }}
+                                                <span class="label label-primary">{{ journal.publisher.name }}</span> &raquo; {{ journal.title }}
                                             </a>
                                         </li>
                                     {% endif %}
@@ -258,20 +258,20 @@
                 </div>
 
             {% endif %}
-            {% if isGrantedForInstitution() and selectedJournal().institution.id is defined %}
+            {% if isGrantedForPublisher() and selectedJournal().publisher.id is defined %}
                 <div class="panel panel-default left-menu-bgcolor">
                     <a class="list-group-item"
-                       href="{{ path('ojs_institution_manager_design_index', {institutionId: selectedJournal().institution.id}) }}">
+                       href="{{ path('ojs_publisher_manager_design_index', {publisherId: selectedJournal().publisher.id}) }}">
                         <i class="fa fa-list"></i>
-                        {{ "institution.design"|trans }} </a>
+                        {{ "publisher.design"|trans }} </a>
                     <a class="list-group-item"
-                       href="{{ path('ojs_institution_manager_theme_index', {institutionId: selectedJournal().institution.id}) }}">
+                       href="{{ path('ojs_publisher_manager_theme_index', {publisherId: selectedJournal().publisher.id}) }}">
                         <i class="fa fa-list"></i>
-                        {{ "institution.theme"|trans }} </a>
+                        {{ "publisher.theme"|trans }} </a>
                     <a class="list-group-item"
-                       href="{{ path('ojs_institution_manager_edit', {institutionId: selectedJournal().institution.id}) }}">
+                       href="{{ path('ojs_publisher_manager_edit', {publisherId: selectedJournal().publisher.id}) }}">
                         <i class="fa fa-list"></i>
-                        {{ "institution.edit"|trans }} </a>
+                        {{ "publisher.edit"|trans }} </a>
                 </div>
             {% endif %}
         </div>

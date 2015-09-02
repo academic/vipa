@@ -120,9 +120,9 @@ class SearchManager
                 $filterParam['filter'] = ['subject' => $object->getId()];
                 $data['route'] = $this->router->generate('ojs_site_explore_index', $filterParam, true);
                 break;
-            case 'institution':
+            case 'publisher':
                 $data['name'] = $source['name'];
-                $data['route'] = $this->router->generate('ojs_institution_page', ['slug' => $source['slug']], true);
+                $data['route'] = $this->router->generate('ojs_publisher_page', ['slug' => $source['slug']], true);
                 break;
             case 'user':
                 $data['name'] = $source['firstName'] . ' ' . $source['lastName'];
@@ -161,7 +161,7 @@ class SearchManager
                 [
                     'id' => $issueObject->getId(),
                     'journal_slug' => $source['journal']['slug'],
-                    'institution' => $source['journal']['institution']['slug'],
+                    'publisher' => $source['journal']['publisher']['slug'],
                 ],
                 true
             );
@@ -179,7 +179,7 @@ class SearchManager
                 'ojs_journal_index',
                 [
                     'slug' => $source['slug'],
-                    'institution' => $source['institution']['slug']
+                    'publisher' => $source['publisher']['slug']
                 ],
                 true
             );
@@ -202,7 +202,7 @@ class SearchManager
                     'slug' => $source['journal']['slug'],
                     'article_id' => $articleObject->getId(),
                     'issue_id' => $source['issue']['id'],
-                    'institution' => $source['journal']['institution']['slug'],
+                    'publisher' => $source['journal']['publisher']['slug'],
                 ],
                 true
             );
@@ -239,7 +239,7 @@ class SearchManager
                         'slug' => $article['journal']['slug'],
                         'article_id' => $article['id'],
                         'issue_id' => $article['issue']['id'],
-                        'institution' => $article['journal']['institution']['slug'],
+                        'publisher' => $article['journal']['publisher']['slug'],
                     ],
                     true
                 );

@@ -1,6 +1,6 @@
 
 
-journal_institution_hosting:
+journal_publisher_hosting:
   prefix:   /
   resource: "@OjsSiteBundle/Resources/config/routing/hosting.yml"
   condition: "not (context.getHost() matches '/%base_host%/')"

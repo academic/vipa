@@ -7,11 +7,11 @@ use Elastica\Query\MatchAll;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Helper;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\InstitutionRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\SiteBundle\Entity\BlockRepository;
@@ -56,7 +56,7 @@ class SiteController extends Controller
             'journal' => 0,
             'article' => 0,
             'subject' => 0,
-            'institution' => 0,
+            'publisher' => 0,
             'user' => 0,
         ];
 
@@ -65,18 +65,18 @@ class SiteController extends Controller
             ->getRepository('OjsAdminBundle:SystemSetting')
             ->findOneBy(['name' => 'journal_application']);
 
-        $institutionApplications = $this
+        $publisherApplications = $this
             ->getDoctrine()
             ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'institution_application']);
+            ->findOneBy(['name' => 'publisher_application']);
 
         $data['journalApplicationAllowance'] = $journalApplications ? $journalApplications->getValue() : true;
-        $data['institutionApplicationAllowance'] = $institutionApplications ? $institutionApplications->getValue() : true;
+        $data['publisherApplicationAllowance'] = $publisherApplications ? $publisherApplications->getValue() : true;
 
         $data['stats']['journal'] = $this->get('fos_elastica.index.search.journal')->count(new MatchAll());
         $data['stats']['article'] = $this->get('fos_elastica.index.search.articles')->count(new MatchAll());
         $data['stats']['subject'] = $this->get('fos_elastica.index.search.subject')->count(new MatchAll());
-        $data['stats']['institution'] = $this->get('fos_elastica.index.search.institution')->count(new MatchAll());
+        $data['stats']['publisher'] = $this->get('fos_elastica.index.search.publisher')->count(new MatchAll());
         $data['stats']['user'] = $this->get('fos_elastica.index.search.user')->count(new MatchAll());
 
         $data['announcements'] = $em->getRepository('OjsAdminBundle:AdminAnnouncement')->findAll();
@@ -87,37 +87,37 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
     }
 
-    public function institutionsIndexAction()
+    public function publishersIndexAction()
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var InstitutionRepository $repo */
-        $repo = $em->getRepository('OjsJournalBundle:Institution');
+        /** @var PublisherRepository $repo */
+        $repo = $em->getRepository('OjsJournalBundle:Publisher');
 
         $data['entities'] = $repo->getAllWithDefaultTranslation();
         $this->throw404IfNotFound($data['entities']);
-        $data['page'] = 'institution';
+        $data['page'] = 'publisher';
 
-        return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
+        return $this->render('OjsSiteBundle::Publisher/publishers_index.html.twig', $data);
     }
 
-    public function institutionPageAction($slug)
+    public function publisherPageAction($slug)
     {
         $data['page'] = 'organizations';
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
+        $entity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($entity);
         $data['entity'] = $entity;
         /** @var Journal $journal */
         foreach ($entity->getJournals() as $journal) {
             $journal->setPublicURI($journalService->generateUrl($journal));
         }
-        return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
+        return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', $data);
     }
 
 
-    public function journalIndexAction($institution, $slug)
+    public function journalIndexAction($publisher, $slug)
     {
         /**
          * @var EntityManager $em
@@ -134,10 +134,10 @@ class SiteController extends Controller
         $articleFileStatRepo = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
         $journalStatRepo = $em->getRepository('OjsAnalyticsBundle:JournalStatistic');
 
-        $institutionEntity = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $institution]);
-        $this->throw404IfNotFound($institutionEntity);
+        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $publisher]);
+        $this->throw404IfNotFound($publisherEntity);
 
-        $journal = $journalRepo->findOneBy(['slug' => $slug, 'institution' => $institutionEntity]);
+        $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity]);
         $this->throw404IfNotFound($journal);
 
         $journalViews = $journalStatRepo->getMostViewed($journal);
@@ -170,7 +170,7 @@ class SiteController extends Controller
 
         $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
             'slug' => $journal->getSlug(),
-            'institution' => $journal->getInstitution()->getSlug()
+            'publisher' => $journal->getPublisher()->getSlug()
         ], true);
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
@@ -186,7 +186,7 @@ class SiteController extends Controller
             /** @var Issue $issue */
             foreach ($year as $issue) {
                 $issue->setPublicURI($this->generateUrl('ojs_issue_page', [
-                    'institution' => $issue->getJournal()->getInstitution()->getSlug(),
+                    'publisher' => $issue->getJournal()->getPublisher()->getSlug(),
                     'journal_slug' => $issue->getJournal()->getSlug(),
                     'id' => $issue->getId(),
                 ], true));
@@ -206,7 +206,7 @@ class SiteController extends Controller
             /** @var Article $article */
             foreach ($last_issue->getArticles() as $article) {
                 $article->setPublicURI($this->generateUrl('ojs_article_page', [
-                    'institution' => $article->getIssue()->getJournal()->getInstitution()->getSlug(),
+                    'publisher' => $article->getIssue()->getJournal()->getPublisher()->getSlug(),
                     'slug' => $article->getIssue()->getJournal()->getSlug(),
                     'issue_id' => $article->getIssue()->getId(),
                     'article_id' => $article->getId(),

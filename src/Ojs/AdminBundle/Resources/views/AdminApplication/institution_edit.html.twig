@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.institution_edit'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.publisher_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('ojs_admin_application_institution_index'),'title': 'application.institute'|trans},
+    { 'link': path('ojs_admin_application_publisher_index'),'title': 'application.institute'|trans},
     {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -21,9 +21,9 @@
 {% block body -%}
     <div class="col-md-12">
         <div class="panel">
-            <h1>{{ "application.institution.edit"|trans }}</h1>
+            <h1>{{ "application.publisher.edit"|trans }}</h1>
             {{ form(form) }}
-            <a class="btn btn-success" href="{{ url('ojs_admin_application_institution_save', {id: entity.id}) }}">
+            <a class="btn btn-success" href="{{ url('ojs_admin_application_publisher_save', {id: entity.id}) }}">
                 {{ "institute.merge_as_new_institute"|trans }}
             </a>
             {{ getLogs(entity) }}

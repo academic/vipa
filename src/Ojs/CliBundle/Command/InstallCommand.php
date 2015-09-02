@@ -10,7 +10,6 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Theme;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Helper\DialogHelper;
@@ -286,14 +285,14 @@ class InstallCommand extends ContainerAwareCommand
                 'adminMenu','boards','sections','issues','articles','design','contacts','block','theme','period','index',
                 'checklist','file','mailTemplate','report','userRole','citation','steps','announcements', 'pages', 'posts',
             ],
-            'OjsUserBundle:User' => null, 'OjsJournalBundle:Institution' => null, 'OjsJournalBundle:InstitutionTypes' => null,
+            'OjsUserBundle:User' => null, 'OjsJournalBundle:Publisher' => null, 'OjsJournalBundle:PublisherTypes' => null,
             'OjsUserBundle:Role' => null, 'OjsJournalBundle:JournalContact' => null, 'OjsJournalBundle:ContactTypes' => null,
-            'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null, 'OjsJournalBundle:InstitutionTheme' => null,
-            'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:InstitutionDesign' => null,
+            'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null, 'OjsJournalBundle:PublisherTheme' => null,
+            'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:PublisherDesign' => null,
             'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
             'OjsJournalBundle:ArticleTypes' => null,
             'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,
-            'OjsAdminBundle:AdminPost' => null, 'OjsAdminBundle:InstitutionManagers' => null,
+            'OjsAdminBundle:AdminPost' => null, 'OjsAdminBundle:PublisherManagers' => null,
         ];
         foreach ($classes as $className => $fields) {
             $realClassName = $em->getRepository($className)->getClassName();

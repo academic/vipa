@@ -4,16 +4,16 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
-use Ojs\UserBundle\Entity\User;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
+use Ojs\UserBundle\Entity\User;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Author
@@ -117,14 +117,14 @@ class Author extends  AbstractTranslatable
      * @var integer
      * @JMS\Expose
      */
-    private $institutionId;
+    private $publisherId;
 
     /**
-     * @var Institution
+     * @var Publisher
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
-    private $institution;
+    private $publisher;
 
     /**
      * @var string
@@ -171,14 +171,14 @@ class Author extends  AbstractTranslatable
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
-    private $institutionNotListed;
+    private $publisherNotListed;
 
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
-    private $institutionName;
+    private $publisherName;
 
     /**
      * @var ArrayCollection|ArticleAuthor[]
@@ -523,24 +523,24 @@ class Author extends  AbstractTranslatable
     }
 
     /**
-     * Get institutionId
+     * Get publisherId
      *
      * @return integer
      */
-    public function getInstitutionId()
+    public function getPublisherId()
     {
-        return $this->institutionId;
+        return $this->publisherId;
     }
 
     /**
-     * Set institutionId
+     * Set publisherId
      *
-     * @param  integer $institutionId
+     * @param  integer $publisherId
      * @return Author
      */
-    public function setInstitutionId($institutionId)
+    public function setPublisherId($publisherId)
     {
-        $this->institutionId = $institutionId;
+        $this->publisherId = $publisherId;
 
         return $this;
     }
@@ -630,24 +630,24 @@ class Author extends  AbstractTranslatable
     }
 
     /**
-     * Get institution
+     * Get publisher
      *
-     * @return Institution
+     * @return Publisher
      */
-    public function getInstitution()
+    public function getPublisher()
     {
-        return $this->institution;
+        return $this->publisher;
     }
 
     /**
-     * Set institution
+     * Set publisher
      *
-     * @param  Institution $institution
+     * @param  Publisher $publisher
      * @return Author
      */
-    public function setInstitution(Institution $institution = null)
+    public function setPublisher(Publisher $publisher = null)
     {
-        $this->institution = $institution;
+        $this->publisher = $publisher;
 
         return $this;
     }
@@ -813,18 +813,18 @@ class Author extends  AbstractTranslatable
     /**
      * @return string
      */
-    public function getInstitutionName()
+    public function getPublisherName()
     {
-        return $this->institutionName;
+        return $this->publisherName;
     }
 
     /**
-     * @param string $institutionName
+     * @param string $publisherName
      * @return $this
      */
-    public function setInstitutionName($institutionName)
+    public function setPublisherName($publisherName)
     {
-        $this->institutionName = $institutionName;
+        $this->publisherName = $publisherName;
 
         return $this;
     }
@@ -832,18 +832,18 @@ class Author extends  AbstractTranslatable
     /**
      * @return boolean
      */
-    public function isInstitutionNotListed()
+    public function isPublisherNotListed()
     {
-        return $this->institutionNotListed;
+        return $this->publisherNotListed;
     }
 
     /**
-     * @param boolean $institutionNotListed
+     * @param boolean $publisherNotListed
      * @return $this
      */
-    public function setInstitutionNotListed($institutionNotListed)
+    public function setPublisherNotListed($publisherNotListed)
     {
-        $this->institutionNotListed = $institutionNotListed;
+        $this->publisherNotListed = $publisherNotListed;
 
         return $this;
     }

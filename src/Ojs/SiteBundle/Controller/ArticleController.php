@@ -3,7 +3,6 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
 
 class ArticleController extends Controller
 {
@@ -28,7 +27,7 @@ class ArticleController extends Controller
         $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
         $data['archive_uri'] = $this->generateUrl('ojs_archive_index',[
             'slug' => $data['journal']->getSlug(),
-            'institution' => $data['journal']->getInstitution()->getSlug(),
+            'publisher' => $data['journal']->getPublisher()->getSlug(),
         ], true);
         $data['token'] = $this
             ->get('security.csrf.token_manager')

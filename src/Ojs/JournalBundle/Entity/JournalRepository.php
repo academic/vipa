@@ -16,23 +16,23 @@ class JournalRepository extends EntityRepository
     private $filter = [];
     private $start;
     private $offset = 12;
-    private $institution = null;
+    private $publisher = null;
 
     /**
      * @return null
      */
-    public function getInstitution()
+    public function getPublisher()
     {
-        return empty($this->institution) ? false : $this->institution;
+        return empty($this->publisher) ? false : $this->publisher;
     }
 
     /**
-     * @param  null  $institution
+     * @param  null $publisher
      * @return $this
      */
-    public function setInstitution($institution)
+    public function setPublisher($publisher)
     {
-        $this->institution = $institution;
+        $this->publisher = $publisher;
 
         return $this;
     }
@@ -103,7 +103,7 @@ class JournalRepository extends EntityRepository
     public function setFilter(Request $request)
     {
         $filters = [];
-        $filters['institution_type'] = $this->parseFilter($request->get('institution_type'));
+        $filters['publisher_type'] = $this->parseFilter($request->get('publisher_type'));
         $filters['subject'] = $this->parseFilter($request->get('subject'));
         $this->filter = $filters;
 
@@ -178,24 +178,24 @@ class JournalRepository extends EntityRepository
             }
         }
 
-        if (isset($this->getFilter()['institution_type'])) {
-            $institutions = $this->getFilter()['institution_type'];
-            foreach ($institutions as $key => $institution) {
+        if (isset($this->getFilter()['publisher_type'])) {
+            $publishers = $this->getFilter()['publisher_type'];
+            foreach ($publishers as $key => $publisher) {
                 $qb
-                    ->join('j.institution', 'i_'.$key)
+                    ->join('j.publisher', 'i_' . $key)
                     ->join(
-                        'i_'.$key.'.institution_type',
+                        'i_' . $key . '.publisher_type',
                         'it_'.$key,
                         'WITH',
-                        'it_'.$key.'.slug=:institution_type_slug_'.$key
+                        'it_' . $key . '.slug=:publisher_type_slug_' . $key
                     )
-                    ->setParameter('institution_type_slug_'.$key, $institution);
+                    ->setParameter('publisher_type_slug_' . $key, $publisher);
             }
         }
-        if ($this->getInstitution()) {
+        if ($this->getPublisher()) {
             $qb
-                ->join('j.institution', 'inst', 'WITH', 'inst.slug=:institution')
-                ->setParameter('institution', $this->getInstitution());
+                ->join('j.publisher', 'inst', 'WITH', 'inst.slug=:publisher')
+                ->setParameter('publisher', $this->getPublisher());
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
@@ -303,15 +303,15 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @param string $institution
+     * @param string $publisher
      */
-    public function getByInstitutionAndSubject($institution, Subject $subject)
+    public function getByPublisherAndSubject($publisher, Subject $subject)
     {
         $qb = $this->createQueryBuilder('j');
         $qb
-            ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
+            ->join('j.publisher', 'i', 'WITH', 'i.slug=:publisher')
             ->join('j.subjects', 's', 'WITH', 's.id=:subject')
-            ->setParameter('institution', $institution)
+            ->setParameter('publisher', $publisher)
             ->setParameter('subject', $subject->getId());
 
         return $qb->getQuery()->getResult();
@@ -428,7 +428,7 @@ class JournalRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('j')
             ->select('partial j.{id,slug,issn,image}, partial i.{id,slug}')
-            ->join('j.institution', 'i')
+            ->join('j.publisher', 'i')
             ->andWhere('j.status = :status')
             ->setParameter('status', 1)
             ->setMaxResults(12)->getQuery();

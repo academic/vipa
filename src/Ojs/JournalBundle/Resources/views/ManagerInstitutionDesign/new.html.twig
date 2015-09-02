@@ -1,13 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 {% import "::design_macros.html.twig" as macros %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.institution_design_new'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.publisher_design_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_user_index'), 'title': 'user_page'|trans},
-        {'link': path('ojs_institution_manager_design_index', {institutionId: institution.id}),'title': 'title.institution_design'|trans},
-        {'title': 'title.institution_design_new'|trans}
+    {'link': path('ojs_publisher_manager_design_index', {publisherId: publisher.id}),'title': 'title.publisher_design'|trans},
+    {'title': 'title.publisher_design_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "institutiondesign.new"|trans }}</h1>
+    <h1>{{ "publisherdesign.new"|trans }}</h1>
 
     {{ form(form) }}
 
@@ -31,7 +31,7 @@
         <option value="logo">Logo</option>
         <option value="about">Hakkında</option>
         <option value="contact">İletişim Detayı</option>
-        <option value="journals">Kurum Dergileri</option>
+        <option value="journals">Yayıncı Dergileri</option>
         <option value="custom">Özel</option>
     </select>
     <button id="widgetButton" class="btn btn-sm btn-success">Bileşen Ekle</button>
@@ -43,18 +43,18 @@
     <div id="gridDesign">
         <div class="row">
             <div class="col-md-12">
-                {{ macros.institutionHeader() }}
+                {{ macros.publisherHeader() }}
             </div>
             <div class="col-md-12">
                 <h1 class="page-header">
-                    <span class="design-inline" title="{{ "{{ entity.name }}" }}">Örnek Kurum</span>
+                    <span class="design-inline" title="{{ "{{ entity.name }}" }}">Örnek Yayıncı</span>
                 </h1>
             </div>
             <div class="col-md-3">
-                {{ macros.institutionLogo() }}
+                {{ macros.publisherLogo() }}
             </div>
             <div class="col-md-9">
-                {{ macros.institutionAbout() }}
+                {{ macros.publisherAbout() }}
             </div>
             <div class="col-md-12">
                 <hr>
@@ -63,26 +63,26 @@
                 {{ macros.contactDetails() }}
             </div>
             <div class="col-md-6">
-                {{ macros.institutionJournals() }}
+                {{ macros.publisherJournals() }}
             </div>
         </div>
     </div>
 
-    <a class="btn btn-default btn-sm" href="{{ path('ojs_admin_institution_design_index') }}" title="{{"b"|trans}}">
+    <a class="btn btn-default btn-sm" href="{{ path('ojs_admin_publisher_design_index') }}" title="{{ "b"|trans }}">
         <i class="fa fa-arrow-left"></i>
     </a>
 
     <!-- Widgets -->
     <div id="header" class="hide">
-        {{ macros.institutionHeader() }}
+        {{ macros.publisherHeader() }}
     </div>
 
     <div id="logo" class="hide">
-        {{ macros.institutionLogo() }}
+        {{ macros.publisherLogo() }}
     </div>
 
     <div id="about" class="hide">
-        {{ macros.institutionAbout() }}
+        {{ macros.publisherAbout() }}
     </div>
 
     <div id="contact" class="hide">
@@ -90,7 +90,7 @@
     </div>
 
     <div id="journals" class="hide">
-        {{ macros.institutionJournals() }}
+        {{ macros.publisherJournals() }}
     </div>
 {% endblock %}
 
@@ -159,13 +159,13 @@
                 }
             });
 
-            $('#ojs_adminbundle_institution_design_submit').attr('type', 'button');
-            $('#ojs_adminbundle_institution_design_submit').on('click', function(){
+            $('#ojs_adminbundle_publisher_design_submit').attr('type', 'button');
+            $('#ojs_adminbundle_publisher_design_submit').on('click', function () {
                 gm.deinitCanvas();
                 $('.holder-remove').removeAttr("src");
                 $('.holder-remove').removeAttr("data-holder-rendered");
-                $('#ojs_adminbundle_institution_design_editableContent').val($("#" + gm.options.canvasId).html());
-                $("form[name='ojs_adminbundle_institution_design']").submit();
+                $('#ojs_adminbundle_publisher_design_editableContent').val($("#" + gm.options.canvasId).html());
+                $("form[name='ojs_adminbundle_publisher_design']").submit();
             });
         });
 
