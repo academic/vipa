@@ -2,6 +2,7 @@
 
 namespace Ojs\Common\Twig;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Translation\TranslatorInterface;
 use JMS\Serializer\SerializerInterface;
 
@@ -58,6 +59,9 @@ class DisplayExtension extends \Twig_Extension
      */
     private function prepareEntity($entity, $options = array())
     {
+        if(!method_exists($entity, 'display')){
+            throw new Exception('Please create an public display method for object');
+        }
         $files = [];
         if(isset($options['files'])){
             $files = $options['files'];
