@@ -4,8 +4,6 @@ Ojs\JournalBundle\Entity\ArticleTranslation:
       - NotBlank: { groups: [submission], message: 'Title field for the default language can not be blank.' }
     subjects:
       - NotBlank: { groups: [submission], message: 'Subjects field for the default language can not be blank.' }
-    subtitle:
-      - NotBlank: { groups: [submission], message: 'Subtitle field for the default language can not be blank.' }
     keywords:
       - NotBlank: { groups: [submission], message: 'Keywords field for the default language can not be blank.' }
     abstract:
