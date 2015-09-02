@@ -57,14 +57,6 @@ ojs_admin_publisher_application:
     resource: "@OjsAdminBundle/Resources/config/routing/publisher_application.yml"
     prefix:   application
 
-ojs_admin_event_log:
-    resource: "@OjsAdminBundle/Resources/config/routing/event_log.yml"
-    prefix:   event-log
-
-ojs_admin_mail_log:
-    resource: "@OjsAdminBundle/Resources/config/routing/mail_log.yml"
-    prefix:   mail-logb
-
 ojs_admin_index:
     resource: "@OjsAdminBundle/Resources/config/routing/index.yml"
     prefix:   index

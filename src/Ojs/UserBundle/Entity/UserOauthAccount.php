@@ -2,7 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * UserOauthAccount
@@ -67,7 +66,7 @@ class UserOauthAccount
     /**
      * Set user_id
      *
-     * @param  integer          $userId
+     * @param  integer $userId
      * @return UserOauthAccount
      */
     public function setUserId($userId)
@@ -90,7 +89,7 @@ class UserOauthAccount
     /**
      * Set provider
      *
-     * @param  string           $provider
+     * @param  string $provider
      * @return UserOauthAccount
      */
     public function setProvider($provider)
@@ -113,7 +112,7 @@ class UserOauthAccount
     /**
      * Set provider_user_id
      *
-     * @param  string           $providerUserId
+     * @param  string $providerUserId
      * @return UserOauthAccount
      */
     public function setProviderUserId($providerUserId)
@@ -136,7 +135,7 @@ class UserOauthAccount
     /**
      * Set provider_access_token
      *
-     * @param  string           $providerAccessToken
+     * @param  string $providerAccessToken
      * @return UserOauthAccount
      */
     public function setProviderAccessToken($providerAccessToken)
@@ -159,7 +158,7 @@ class UserOauthAccount
     /**
      * Set provider_refresh_token
      *
-     * @param  string           $providerRefreshToken
+     * @param  string $providerRefreshToken
      * @return UserOauthAccount
      */
     public function setProviderRefreshToken($providerRefreshToken)
@@ -182,7 +181,7 @@ class UserOauthAccount
     /**
      * Set user
      *
-     * @param  User             $user
+     * @param  User $user
      * @return UserOauthAccount
      */
     public function setUser(User $user = null)

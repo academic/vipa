@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
@@ -15,7 +16,7 @@ class SubjectRepository extends NestedTreeRepository
 {
     /**
      * @param $publisher
-     * @return Subject[]
+     * @return ArrayCollection|Subject[]
      */
     public function getByPublisher($publisher)
     {
@@ -30,7 +31,7 @@ class SubjectRepository extends NestedTreeRepository
 
     /**
      * @param  array     $data
-     * @return Subject[]
+     * @return ArrayCollection|Subject[]
      */
     public function getByIds(array $data)
     {

@@ -647,6 +647,10 @@ login_as: 'Login as'
 logo: Logo
 mail: Mail
 mail.templates: 'Mail Templates'
+maillog.edit: 'Edit Mail Log'
+maillog.id: 'Log id'
+maillog.mailobject: 'Mail Object'
+maillog.recipientemail: 'Recipient Email'
 mailtemplate.default.list: 'Default Templates'
 mailtemplate.default_template: 'Default Templates'
 mailtemplate.edit: 'Edit Mail Template'
@@ -1036,6 +1040,8 @@ title.designs: Designs
 title.editor_dashboard: 'Editor Dashboard'
 title.editor_myjournals: 'My Journals'
 title.explore: Explore
+title.event_log_show: 'Show Event Log'
+title.event_logs: 'Event Logs'
 title.file_edit: 'Edit File'
 title.file_new: 'New File'
 title.file_show: 'Show File'

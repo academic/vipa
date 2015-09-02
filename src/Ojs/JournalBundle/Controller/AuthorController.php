@@ -3,8 +3,8 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Form\Type\AuthorType;
@@ -23,6 +23,8 @@ class AuthorController extends Controller
     /**
      * Lists all Author entities.
      *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -33,17 +35,16 @@ class AuthorController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Author');
         $source->manipulateRow(
-            function ($row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var Author $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('title', $entity->getTitle());
                 }
+
                 return $row;
             }
         );
@@ -56,7 +57,10 @@ class AuthorController extends Controller
             $rowAction[] = $gridAction->editAction('ojs_journal_author_edit', ['id', 'journalId' => $journal->getId()]);
         }
         if ($this->isGranted('DELETE', new Author())) {
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_author_delete', ['id', 'journalId' => $journal->getId()]);
+            $rowAction[] = $gridAction->deleteAction(
+                'ojs_journal_author_delete',
+                ['id', 'journalId' => $journal->getId()]
+            );
         }
 
         $actionColumn->setRowActions($rowAction);
@@ -70,7 +74,7 @@ class AuthorController extends Controller
     /**
      * Creates a new Author entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -89,7 +93,12 @@ class AuthorController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirect($this->generateUrl('ojs_journal_author_show', array('id' => $entity->getId(), 'journalId' => $journal->getId())));
+            return $this->redirect(
+                $this->generateUrl(
+                    'ojs_journal_author_show',
+                    array('id' => $entity->getId(), 'journalId' => $journal->getId())
+                )
+            );
         }
 
         return $this->render(
@@ -104,9 +113,9 @@ class AuthorController extends Controller
     /**
      * Creates a form to create a Author entity.
      *
-     * @param Author $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param Author $entity
+     * @param $journalId
+     * @return \Symfony\Component\Form\Form
      */
     private function createCreateForm(Author $entity, $journalId)
     {
@@ -205,9 +214,9 @@ class AuthorController extends Controller
     /**
      * Creates a form to edit a Author entity.
      *
-     * @param Author $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param Author $entity
+     * @param $journalId
+     * @return \Symfony\Component\Form\Form
      */
     private function createEditForm(Author $entity, $journalId)
     {
@@ -215,7 +224,10 @@ class AuthorController extends Controller
             new AuthorType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_author_update', array('id' => $entity->getId(), 'journalId' => $journalId)),
+                'action' => $this->generateUrl(
+                    'ojs_journal_author_update',
+                    array('id' => $entity->getId(), 'journalId' => $journalId)
+                ),
                 'method' => 'PUT',
             )
         );
@@ -227,7 +239,7 @@ class AuthorController extends Controller
     /**
      * Edits an existing Author entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -248,7 +260,9 @@ class AuthorController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_journal_author_edit', array('id' => $id, 'journalId' => $journal->getId())));
+            return $this->redirect(
+                $this->generateUrl('ojs_journal_author_edit', array('id' => $id, 'journalId' => $journal->getId()))
+            );
         }
 
         $token = $this
@@ -268,7 +282,7 @@ class AuthorController extends Controller
     /**
      * Deletes a Author entity.
      *
-     * @param  Request          $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse
      */

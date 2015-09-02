@@ -2,9 +2,8 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Post;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\FOSRestController;
 use Ojs\SiteBundle\Event\SiteEvents;
 use Ojs\SiteBundle\Event\ViewArticleEvent;
 use Ojs\SiteBundle\Event\ViewIssueEvent;
@@ -15,6 +14,10 @@ class AnalyticsRestController extends FOSRestController
 {
     /**
      * @Post("stats/article/{id}/view")
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function articleViewAction(Request $request, $id)
     {
@@ -40,6 +43,10 @@ class AnalyticsRestController extends FOSRestController
 
     /**
      * @Post("stats/issue/{id}/view")
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function issueViewAction(Request $request, $id)
     {
@@ -65,6 +72,10 @@ class AnalyticsRestController extends FOSRestController
 
     /**
      * @Post("stats/journal/{id}/view")
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function journalViewAction(Request $request, $id)
     {

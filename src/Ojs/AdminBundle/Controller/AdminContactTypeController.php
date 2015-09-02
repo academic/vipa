@@ -3,8 +3,8 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\ContactTypesType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ContactTypes;
@@ -24,6 +24,7 @@ class AdminContactTypeController extends Controller
     /**
      * Lists all ContactTypes entities.
      *
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -33,18 +34,17 @@ class AdminContactTypeController extends Controller
         }
         $source = new Entity('OjsJournalBundle:ContactTypes');
         $source->manipulateRow(
-            function ($row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var ContactTypes $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('name', $entity->getName());
                     $row->setField('description', $entity->getDescription());
                 }
+
                 return $row;
             }
         );
@@ -68,7 +68,7 @@ class AdminContactTypeController extends Controller
     /**
      * Creates a new ContactTypes entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -150,8 +150,9 @@ class AdminContactTypeController extends Controller
      */
     public function showAction(Request $request, ContactTypes $entity)
     {
-        if (!$this->isGranted('VIEW', $entity))
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
+        }
 
         $entity->setDefaultLocale($request->getDefaultLocale());
         $this->throw404IfNotFound($entity);
@@ -159,6 +160,7 @@ class AdminContactTypeController extends Controller
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_contact_type'.$entity->getId());
+
         return $this->render(
             'OjsAdminBundle:AdminContactType:show.html.twig',
             ['entity' => $entity, 'token' => $token]
@@ -216,7 +218,7 @@ class AdminContactTypeController extends Controller
     /**
      * Edits an existing ContactTypes entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -249,7 +251,7 @@ class AdminContactTypeController extends Controller
     /**
      * Deletes a ContactTypes entity.
      *
-     * @param  Request          $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse
      */

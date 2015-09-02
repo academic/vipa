@@ -3,8 +3,8 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\PublisherTypesType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\PublisherTypes;
@@ -23,6 +23,8 @@ class AdminPublisherTypeController extends Controller
     /**
      * Lists all PublisherTypes entities.
      *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -31,18 +33,17 @@ class AdminPublisherTypeController extends Controller
         }
         $source = new Entity('OjsJournalBundle:PublisherTypes');
         $source->manipulateRow(
-            function ($row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var PublisherTypes $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('name', $entity->getName());
                     $row->setField('description', $entity->getDescription());
                 }
+
                 return $row;
             }
         );
@@ -66,7 +67,7 @@ class AdminPublisherTypeController extends Controller
     /**
      * Creates a new PublisherTypes entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -148,13 +149,14 @@ class AdminPublisherTypeController extends Controller
     public function showAction(Request $request, PublisherTypes $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity))
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
+        }
 
         $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_admin_publisher_type' . $entity->getId());
+            ->refreshToken('ojs_admin_publisher_type'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminPublisherType:show.html.twig',
@@ -213,7 +215,7 @@ class AdminPublisherTypeController extends Controller
     /**
      * Edits an existing PublisherTypes entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -245,7 +247,7 @@ class AdminPublisherTypeController extends Controller
     }
 
     /**
-     * @param  Request                                            $request
+     * @param  Request $request
      * @param  PublisherTypes $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws TokenNotFoundException
@@ -259,7 +261,7 @@ class AdminPublisherTypeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_publisher_type' . $entity->getId());
+        $token = $csrf->getToken('ojs_admin_publisher_type'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

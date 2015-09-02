@@ -647,6 +647,10 @@ login_as: 'Olarak Gir'
 logo: Logo
 mail: e-Posta
 mail.templates: 'e-Posta Şablonları'
+maillog.edit: 'e-Posta Kayıtlarını Düzenle'
+maillog.id: 'Kayıt ID'
+maillog.mailobject: 'e-Posta Nesnesi'
+maillog.recipientemail: 'Alıcı e-Postası'
 mailtemplate.default.list: 'Öntanımlı e-Posta Şablon Listesi'
 mailtemplate.default_template: 'Öntanımlı e-Posta Şablonu'
 mailtemplate.edit: 'e-Posta Şablonunu Düzenle'
@@ -1036,6 +1040,8 @@ title.designs: Tasarımlar
 title.editor_dashboard: 'Editör Paneli'
 title.editor_myjournals: 'Dergilerim'
 title.explore: Keşfet
+title.event_log_show: 'Olay Günlüğünü Göster'
+title.event_logs: 'Olay Günlükleri'
 title.file_edit: 'Dosya Düzenle'
 title.file_new: 'Yeni Dosya'
 title.file_show: 'Dosya Göster'

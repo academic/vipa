@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,7 +10,7 @@ class PublisherDesignType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,19 +25,24 @@ class PublisherDesignType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'error_bubbling'=>true,
+                    'error_bubbling' => true,
                 )
             )
-            ->add('title', 'text', [
+            ->add(
+                'title',
+                'text',
+                [
                     'label' => 'Title'
                 ]
             )
             ->add('editableContent', 'hidden')
-            ->add('isPublic', 'checkbox', [
+            ->add(
+                'isPublic',
+                'checkbox',
+                [
                     'label' => 'ojs.is_public'
                 ]
-            )
-        ;
+            );
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * SubmissionChecklist
@@ -76,7 +75,7 @@ class SubmissionChecklist
     /**
      * Set label
      *
-     * @param  string              $label
+     * @param  string $label
      * @return SubmissionChecklist
      */
     public function setLabel($label)
@@ -99,7 +98,7 @@ class SubmissionChecklist
     /**
      * Set detail
      *
-     * @param  string              $detail
+     * @param  string $detail
      * @return SubmissionChecklist
      */
     public function setDetail($detail)
@@ -122,7 +121,7 @@ class SubmissionChecklist
     /**
      * Set journal_id
      *
-     * @param  integer             $journalId
+     * @param  integer $journalId
      * @return SubmissionChecklist
      */
     public function setJournalId($journalId)
@@ -145,7 +144,7 @@ class SubmissionChecklist
     /**
      * Set visible
      *
-     * @param  boolean             $visible
+     * @param  boolean $visible
      * @return SubmissionChecklist
      */
     public function setVisible($visible)
@@ -168,7 +167,7 @@ class SubmissionChecklist
     /**
      * Set deletedAt
      *
-     * @param  \DateTime           $deletedAt
+     * @param  \DateTime $deletedAt
      * @return SubmissionChecklist
      */
     public function setDeletedAt($deletedAt)
@@ -191,7 +190,7 @@ class SubmissionChecklist
     /**
      * Set journal
      *
-     * @param  Journal             $journal
+     * @param  Journal $journal
      * @return SubmissionChecklist
      */
     public function setJournal(Journal $journal = null)
@@ -214,7 +213,7 @@ class SubmissionChecklist
     /**
      * Set locale
      *
-     * @param  string              $locale
+     * @param  string $locale
      * @return SubmissionChecklist
      */
     public function setLocale($locale)

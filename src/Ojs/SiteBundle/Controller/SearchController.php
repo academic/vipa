@@ -3,7 +3,6 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Aggregation;
-use Elastica\Index;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -15,7 +14,9 @@ class SearchController extends Controller
 {
     /**
      * search page index controller
+     *
      * @param Request $request
+     * @param int $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request, $page = 1)

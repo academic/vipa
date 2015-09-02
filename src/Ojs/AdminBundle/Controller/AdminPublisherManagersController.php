@@ -4,7 +4,6 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\PublisherManagers;
 use Ojs\AdminBundle\Form\Type\PublisherManagersType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -23,10 +22,9 @@ class AdminPublisherManagersController extends Controller
     /**
      * Lists all PublisherManagers entities.
      *
-     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $source = new Entity('OjsAdminBundle:PublisherManagers');
         $grid = $this->get('grid')->setSource($source);
@@ -49,7 +47,7 @@ class AdminPublisherManagersController extends Controller
     /**
      * Creates a new PublisherManagers entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -66,8 +64,10 @@ class AdminPublisherManagersController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_admin_publisher_managers_show', [
-                'id' => $entity->getId()
+            return $this->redirectToRoute(
+                'ojs_admin_publisher_managers_show',
+                [
+                    'id' => $entity->getId()
                 ]
             );
         }
@@ -133,12 +133,13 @@ class AdminPublisherManagersController extends Controller
     public function showAction(PublisherManagers $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity))
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
+        }
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_admin_publisher_managers' . $entity->getId());
+            ->refreshToken('ojs_admin_publisher_managers'.$entity->getId());
 
         return $this->render(
             'OjsAdminBundle:AdminPublisherManagers:show.html.twig',
@@ -224,7 +225,7 @@ class AdminPublisherManagersController extends Controller
     }
 
     /**
-     * @param  Request                                            $request
+     * @param  Request $request
      * @param  PublisherManagers $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws TokenNotFoundException
@@ -238,7 +239,7 @@ class AdminPublisherManagersController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_publisher_managers' . $entity->getId());
+        $token = $csrf->getToken('ojs_admin_publisher_managers'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

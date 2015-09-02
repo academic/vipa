@@ -3,8 +3,8 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\CmsBundle\Form\Type\PageType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -22,7 +22,10 @@ class AdminPageController extends Controller
 {
 
     /**
-     * Lists all Page entities.
+     * List all page entities
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -32,16 +35,14 @@ class AdminPageController extends Controller
 
         $source = new Entity('OjsAdminBundle:AdminPage');
         $source->manipulateRow(
-            function ($row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var AdminPage $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('title', $entity->getTitle());
                     $row->setField('body', $entity->getBody());
                 }
@@ -123,6 +124,7 @@ class AdminPageController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('ojs_admin_page_show', ['id' => $entity->getId()]);
         }
 
@@ -230,6 +232,7 @@ class AdminPageController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('ojs_admin_page_edit', ['id' => $entity->getId()]);
         }
 

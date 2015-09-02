@@ -4,7 +4,6 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\CoreBundle\Controller\OjsController;
@@ -96,6 +95,7 @@ class AdminAnnouncementController extends OjsController
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('ojs_admin_announcement_show', ['id' => $entity->getId()]);
         }
 
@@ -137,7 +137,7 @@ class AdminAnnouncementController extends OjsController
     public function editAction(AdminAnnouncement $entity)
     {
         $this->throw404IfNotFound($entity);
-        
+
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
@@ -201,6 +201,7 @@ class AdminAnnouncementController extends OjsController
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('ojs_admin_announcement_edit', ['id' => $entity->getId()]);
         }
 

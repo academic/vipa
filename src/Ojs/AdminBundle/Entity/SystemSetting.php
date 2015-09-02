@@ -2,8 +2,6 @@
 
 namespace Ojs\AdminBundle\Entity;
 
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-
 /**
  * AdminSystemSetting
  */
@@ -47,6 +45,16 @@ class SystemSetting
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -61,13 +69,13 @@ class SystemSetting
     }
 
     /**
-     * Get name
+     * Get value
      *
      * @return string
      */
-    public function getName()
+    public function getValue()
     {
-        return $this->name;
+        return $this->value;
     }
 
     /**
@@ -82,16 +90,6 @@ class SystemSetting
         $this->value = $value;
 
         return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**

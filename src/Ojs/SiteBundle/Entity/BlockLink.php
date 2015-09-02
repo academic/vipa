@@ -2,9 +2,6 @@
 
 namespace Ojs\SiteBundle\Entity;
 
-use Ojs\AdminBundle\Entity\AdminPost;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-
 /**
  * BlockLink
  */
@@ -58,7 +55,7 @@ class BlockLink
     /**
      * Set id
      *
-     * @param  integer   $id
+     * @param  integer $id
      * @return BlockLink
      */
     public function setId($id)
@@ -81,7 +78,7 @@ class BlockLink
     /**
      * Set block_id
      *
-     * @param  integer   $blockId
+     * @param  integer $blockId
      * @return BlockLink
      */
     public function setBlockId($blockId)
@@ -104,7 +101,7 @@ class BlockLink
     /**
      * Set text
      *
-     * @param  string    $text
+     * @param  string $text
      * @return BlockLink
      */
     public function setText($text)
@@ -127,7 +124,7 @@ class BlockLink
     /**
      * Set url
      *
-     * @param  string    $url
+     * @param  string $url
      * @return BlockLink
      */
     public function setUrl($url)
@@ -150,7 +147,7 @@ class BlockLink
     /**
      * Set block
      *
-     * @param  Block     $block
+     * @param  Block $block
      * @return BlockLink
      */
     public function setBlock(Block $block = null)
@@ -173,7 +170,7 @@ class BlockLink
     /**
      * Set link_order
      *
-     * @param  integer   $linkOrder
+     * @param  integer $linkOrder
      * @return BlockLink
      */
     public function setLinkOrder($linkOrder)
@@ -211,7 +208,7 @@ class BlockLink
     }
 
     /**
-     * @param  int   $post_id
+     * @param  int $post_id
      * @return $this
      */
     public function setPostId($post_id)

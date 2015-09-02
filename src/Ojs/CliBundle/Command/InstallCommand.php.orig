@@ -8,6 +8,7 @@ use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\Theme;
 use Ojs\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -321,6 +322,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsJournalBundle:Author' => null,
             'OjsJournalBundle:PublisherTheme' => null,
             'OjsJournalBundle:Lang' => null,
+            'OjsUserBundle:MailLog' => null,
             'OjsJournalBundle:PublisherDesign' => null,
             'OjsJournalBundle:Citation' => null,
             'OjsJournalBundle:CitationSetting' => null,

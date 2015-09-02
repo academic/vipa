@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,7 +10,7 @@ class PublisherThemeType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,18 +25,27 @@ class PublisherThemeType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'error_bubbling'=>true,
+                    'error_bubbling' => true,
                 )
             )
-            ->add('title', 'text', [
+            ->add(
+                'title',
+                'text',
+                [
                     'label' => 'Title'
                 ]
             )
-            ->add('isPublic', 'checkbox', [
+            ->add(
+                'isPublic',
+                'checkbox',
+                [
                     'label' => 'ojs.is_public'
                 ]
             )
-            ->add('css', 'ace_editor', array(
+            ->add(
+                'css',
+                'ace_editor',
+                array(
                     'wrapper_attr' => array(), // aceeditor wrapper html attributes.
                     'width' => 700,
                     'height' => 200,
@@ -51,8 +59,7 @@ class PublisherThemeType extends AbstractType
                     'show_print_margin' => null,
                     'highlight_active_line' => null
                 )
-            )
-        ;
+            );
     }
 
     /**

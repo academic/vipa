@@ -5,7 +5,6 @@ namespace Ojs\AdminBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\UserBundle\Entity\User;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * PublisherManagers
@@ -45,6 +44,7 @@ class PublisherManagers
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -63,6 +63,7 @@ class PublisherManagers
     public function setPublisher($publisher)
     {
         $this->publisher = $publisher;
+
         return $this;
     }
 
@@ -81,6 +82,7 @@ class PublisherManagers
     public function setUser($user)
     {
         $this->user = $user;
+
         return $this;
     }
 }

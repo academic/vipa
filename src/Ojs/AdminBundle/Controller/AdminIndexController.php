@@ -4,7 +4,6 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\JournalIndexType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalIndex;
@@ -49,7 +48,7 @@ class AdminIndexController extends Controller
     /**
      * Creates a new JournalIndex entity.
      *
-     * @param  Request                                                                                       $request
+     * @param  Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
@@ -127,14 +126,15 @@ class AdminIndexController extends Controller
     /**
      * Finds and displays a JournalIndex entity.
      *
-     * @param  JournalIndex                               $entity
+     * @param  JournalIndex $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity))
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
+        }
 
         $token = $this
             ->get('security.csrf.token_manager')
@@ -149,7 +149,7 @@ class AdminIndexController extends Controller
     /**
      * Displays a form to edit an existing JournalIndex entity.
      *
-     * @param  JournalIndex                               $entity
+     * @param  JournalIndex $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(JournalIndex $entity)
@@ -194,8 +194,8 @@ class AdminIndexController extends Controller
     /**
      * Edits an existing JournalIndex entity.
      *
-     * @param  Request                                                                                       $request
-     * @param  JournalIndex                                                                                  $entity
+     * @param  Request $request
+     * @param  JournalIndex $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, JournalIndex $entity)
@@ -230,8 +230,8 @@ class AdminIndexController extends Controller
     /**
      * Deletes a JournalIndex entity.
      *
-     * @param  Request                                            $request
-     * @param  JournalIndex                                       $entity
+     * @param  Request $request
+     * @param  JournalIndex $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, JournalIndex $entity)

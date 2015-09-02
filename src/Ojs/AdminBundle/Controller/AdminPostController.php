@@ -3,8 +3,8 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\CmsBundle\Form\Type\PostType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -23,6 +23,9 @@ class AdminPostController extends Controller
 
     /**
      * Lists all Post entities.
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -32,16 +35,14 @@ class AdminPostController extends Controller
 
         $source = new Entity('OjsAdminBundle:AdminPost');
         $source->manipulateRow(
-            function ($row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var AdminPost $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('title', $entity->getTitle());
                     $row->setField('content', $entity->getContent());
                 }
@@ -91,7 +92,7 @@ class AdminPostController extends Controller
     private function createCreateForm(AdminPost $entity)
     {
         $form = $this->createForm(
-            new PostType($this->container),
+            new PostType(),
             $entity,
             ['action' => $this->generateUrl('ojs_admin_post_create'), 'method' => 'POST']
         );
@@ -124,6 +125,7 @@ class AdminPostController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('ojs_admin_post_show', ['id' => $entity->getId()]);
         }
 
@@ -196,7 +198,7 @@ class AdminPostController extends Controller
     private function createEditForm(AdminPost $entity)
     {
         $form = $this->createForm(
-            new PostType($this->container),
+            new PostType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_admin_post_update', ['id' => $entity->getId()]),
@@ -231,6 +233,7 @@ class AdminPostController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('ojs_admin_post_edit', ['id' => $entity->getId()]);
         }
 

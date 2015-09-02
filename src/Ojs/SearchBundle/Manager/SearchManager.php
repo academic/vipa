@@ -1,8 +1,6 @@
 <?php
 namespace Ojs\SearchBundle\Manager;
 
-use Elastica\Filter;
-use Elastica\Query;
 use Elastica\Result;
 use Elastica\ResultSet;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -14,6 +12,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class SearchManager
 {
+    protected $totalHit;
     /** @var  TranslatorInterface */
     private $translator;
     /** @var Router */
@@ -22,12 +21,10 @@ class SearchManager
     public function __construct(
         TranslatorInterface $translator,
         Router $router = null
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->router = $router;
     }
-
 
     public function parseSearchQuery($searchTerm)
     {
@@ -43,7 +40,7 @@ class SearchManager
                 $termParse['condition'] = 'OR';
             }
             if (isset($termParse['condition'])) {
-                $searchText = preg_replace('/' . $termParse['condition'] . ' /', '', $termText);
+                $searchText = preg_replace('/'.$termParse['condition'].' /', '', $termText);
             } else {
                 $searchText = $termText;
             }
@@ -91,6 +88,7 @@ class SearchManager
         foreach ($results as $result) {
             $this->setTotalHit($this->getTotalHit() + $result['total_item']);
         }
+
         return $results;
     }
 
@@ -125,11 +123,11 @@ class SearchManager
                 $data['route'] = $this->router->generate('ojs_publisher_page', ['slug' => $source['slug']], true);
                 break;
             case 'user':
-                $data['name'] = $source['firstName'] . ' ' . $source['lastName'];
+                $data['name'] = $source['firstName'].' '.$source['lastName'];
                 $data['route'] = $this->router->generate('ojs_user_profile', ['slug' => $source['username']], true);
                 break;
             case 'author':
-                $data['name'] = $source['firstName'] . ' ' . $source['lastName'];
+                $data['name'] = $source['firstName'].' '.$source['lastName'];
                 $data['route'] = $this->generateAuthorUrl($object);
                 break;
             case 'page':
@@ -145,6 +143,7 @@ class SearchManager
                 $data['route'] = '#';
                 break;
         }
+
         return $data;
     }
 
@@ -155,6 +154,7 @@ class SearchManager
     private function generateIssueUrl(Result $issueObject)
     {
         $source = $issueObject->getSource();
+
         return $this->router
             ->generate(
                 'ojs_issue_page',
@@ -174,6 +174,7 @@ class SearchManager
     private function generateJournalUrl(Result $journalObject)
     {
         $source = $journalObject->getSource();
+
         return $this->router
             ->generate(
                 'ojs_journal_index',
@@ -195,6 +196,7 @@ class SearchManager
         if (!isset($source['issue']['id'])) {
             return false;
         }
+
         return $this->router
             ->generate(
                 'ojs_article_page',
@@ -232,6 +234,7 @@ class SearchManager
             if (!isset($article['issue']['id'])) {
                 return false;
             }
+
             return $this->router
                 ->generate(
                     'ojs_article_page',
@@ -245,7 +248,7 @@ class SearchManager
                 );
         }
     }
-    protected  $totalHit;
+
     /**
      * @return integer
      */
@@ -261,6 +264,7 @@ class SearchManager
     public function setTotalHit($totalHit)
     {
         $this->totalHit = $totalHit;
+
         return $this;
     }
 }

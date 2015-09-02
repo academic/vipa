@@ -2,8 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-
 /**
  * CustomField
  */
@@ -62,7 +60,7 @@ class CustomField
     /**
      * Set label
      *
-     * @param  string      $label
+     * @param  string $label
      * @return CustomField
      */
     public function setLabel($label)
@@ -85,7 +83,7 @@ class CustomField
     /**
      * Set value
      *
-     * @param  string      $value
+     * @param  string $value
      * @return CustomField
      */
     public function setValue($value)
@@ -108,7 +106,7 @@ class CustomField
     /**
      * Set is_url
      *
-     * @param  boolean     $isUrl
+     * @param  boolean $isUrl
      * @return CustomField
      */
     public function setIsUrl($isUrl)
@@ -131,7 +129,7 @@ class CustomField
     /**
      * Set user_id
      *
-     * @param  integer     $userId
+     * @param  integer $userId
      * @return CustomField
      */
     public function setUserId($userId)
@@ -154,7 +152,7 @@ class CustomField
     /**
      * Set user
      *
-     * @param  User        $user
+     * @param  User $user
      * @return CustomField
      */
     public function setUser(User $user = null)

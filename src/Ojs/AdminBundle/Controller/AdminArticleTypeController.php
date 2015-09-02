@@ -3,8 +3,8 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\ArticleTypesType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ArticleTypes;
@@ -23,7 +23,7 @@ class AdminArticleTypeController extends Controller
 {
     /**
      * Lists all ArticleTypes entities.
-     *
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -33,10 +33,9 @@ class AdminArticleTypeController extends Controller
         }
         $source = new Entity('OjsJournalBundle:ArticleTypes');
         $source->manipulateRow(
-            function ($row) use ($request)
+            function (Row $row) use ($request)
             {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var ArticleTypes $entity
                  */
                 $entity = $row->getEntity();

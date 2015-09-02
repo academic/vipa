@@ -1,7 +1,6 @@
 <?php
 namespace Ojs\JournalBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,17 +14,23 @@ class JournalDesignType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', [
-                'label' => 'Title'
+            ->add(
+                'title',
+                'text',
+                [
+                    'label' => 'Title'
                 ]
             )
             ->add('editableContent', 'hidden')
-            ->add('isPublic', 'checkbox', [
-                'label' => 'ojs.is_public'
+            ->add(
+                'isPublic',
+                'checkbox',
+                [
+                    'label' => 'ojs.is_public'
                 ]
-            )
-        ;
+            );
     }
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -41,6 +46,7 @@ class JournalDesignType extends AbstractType
             )
         );
     }
+
     /**
      * @return string
      */

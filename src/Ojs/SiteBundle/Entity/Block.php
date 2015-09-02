@@ -4,7 +4,6 @@ namespace Ojs\SiteBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * Block

@@ -3,9 +3,9 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\SubjectType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Subject;
@@ -25,6 +25,8 @@ class AdminSubjectController extends Controller
     /**
      * Lists all Subject entities.
      *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -34,15 +36,14 @@ class AdminSubjectController extends Controller
 
         $source = new Entity("OjsJournalBundle:Subject");
         $source->manipulateRow(
-            function ($row) use ($request) {
+            function (Row $row) use ($request) {
                 /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
                  * @var Subject $entity
                  */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('subject', $entity->getSubject());
                     $row->setField('description', $entity->getDescription());
                 }
@@ -61,6 +62,7 @@ class AdminSubjectController extends Controller
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
+        /** @var ArrayCollection|Subject[] $all */
         $all = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Subject')
@@ -97,10 +99,10 @@ class AdminSubjectController extends Controller
                 $children = $subject->getChildren();
 
                 if ($children->count() > 0) {
-                    $content = $content . $this->createTreeView($children, $subject->getId());
+                    $content = $content.$this->createTreeView($children, $subject->getId());
                 }
 
-                $items = $items . sprintf($item, $content);
+                $items = $items.sprintf($item, $content);
             }
         }
 
@@ -110,7 +112,7 @@ class AdminSubjectController extends Controller
     /**
      * Creates a new Subject entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -185,14 +187,16 @@ class AdminSubjectController extends Controller
     /**
      * Finds and displays a Subject entity.
      *
-     * @param  Subject  $entity
+     * @param Request $request
+     * @param Subject $entity
      * @return Response
      */
     public function showAction(Request $request, Subject $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity))
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
+        }
 
         $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
@@ -208,7 +212,7 @@ class AdminSubjectController extends Controller
     /**
      * Displays a form to edit an existing Subject entity.
      *
-     * @param  Subject  $entity
+     * @param  Subject $entity
      * @return Response
      */
     public function editAction(Subject $entity)
@@ -247,14 +251,15 @@ class AdminSubjectController extends Controller
         );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
     /**
      * Edits an existing Subject entity.
      *
-     * @param  Request                   $request
-     * @param  Subject                   $entity
+     * @param  Request $request
+     * @param  Subject $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, Subject $entity)
@@ -283,8 +288,8 @@ class AdminSubjectController extends Controller
     }
 
     /**
-     * @param  Request          $request
-     * @param  Subject          $entity
+     * @param  Request $request
+     * @param  Subject $entity
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Subject $entity)

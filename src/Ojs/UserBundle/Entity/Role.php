@@ -5,7 +5,6 @@ namespace Ojs\UserBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * Role
@@ -46,6 +45,16 @@ class Role
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set name
      *
      * @param  string $name
@@ -58,14 +67,19 @@ class Role
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getRole();
+    }
+
     /**
-     * Get name
+     * Get role
      *
      * @return string
      */
-    public function getName()
+    public function getRole()
     {
-        return $this->name;
+        return $this->role;
     }
 
     /**
@@ -79,20 +93,5 @@ class Role
         $this->role = $role;
 
         return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    public function __toString()
-    {
-        return $this->getRole();
     }
 }

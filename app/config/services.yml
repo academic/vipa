@@ -11,7 +11,7 @@ services:
 
   ojs.ojs_mailer:
     class: Ojs\UserBundle\Service\MailerService
-    arguments: [@mailer, @templating, @doctrine.orm.entity_manager, "%system_email%"]
+    arguments: [@mailer, @templating, "%system_email%"]
 
   gedmo.listener.softdeleteable:
     class: Gedmo\SoftDeleteable\SoftDeleteableListener

@@ -5,7 +5,6 @@ namespace Ojs\SiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\CoreBundle\Helper;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
@@ -43,9 +42,11 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="' . $this->generateUrl('ojs_site_explore_index',
-                    ['filter' => ['subject' => $node['id']]]) . '">@todo_this_will_fixed' . //$node['subject'] .
-                ' (' . $node['totalJournalCount'] . ')</a>';
+                return '<a href="'.$this->generateUrl(
+                    'ojs_site_explore_index',
+                    ['filter' => ['subject' => $node['id']]]
+                ).'">@todo_this_will_fixed'. //$node['subject'] .
+                ' ('.$node['totalJournalCount'].')</a>';
             },
         ];
 
@@ -113,6 +114,7 @@ class SiteController extends Controller
         foreach ($entity->getJournals() as $journal) {
             $journal->setPublicURI($journalService->generateUrl($journal));
         }
+
         return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', $data);
     }
 
@@ -168,10 +170,14 @@ class SiteController extends Controller
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
         $data['journalViews'] = isset($journalViews[0][1]) ? $journalViews[0][1] : 0;
 
-        $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
-            'slug' => $journal->getSlug(),
-            'publisher' => $journal->getPublisher()->getSlug()
-        ], true);
+        $data['archive_uri'] = $this->generateUrl(
+            'ojs_archive_index',
+            [
+                'slug' => $journal->getSlug(),
+                'publisher' => $journal->getPublisher()->getSlug()
+            ],
+            true
+        );
 
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
@@ -185,13 +191,20 @@ class SiteController extends Controller
         foreach ($years as $year) {
             /** @var Issue $issue */
             foreach ($year as $issue) {
-                $issue->setPublicURI($this->generateUrl('ojs_issue_page', [
-                    'publisher' => $issue->getJournal()->getPublisher()->getSlug(),
-                    'journal_slug' => $issue->getJournal()->getSlug(),
-                    'id' => $issue->getId(),
-                ], true));
+                $issue->setPublicURI(
+                    $this->generateUrl(
+                        'ojs_issue_page',
+                        [
+                            'publisher' => $issue->getJournal()->getPublisher()->getSlug(),
+                            'journal_slug' => $issue->getJournal()->getSlug(),
+                            'id' => $issue->getId(),
+                        ],
+                        true
+                    )
+                );
             }
         }
+
         return $years;
     }
 
@@ -205,16 +218,23 @@ class SiteController extends Controller
         if ($last_issue) {
             /** @var Article $article */
             foreach ($last_issue->getArticles() as $article) {
-                $article->setPublicURI($this->generateUrl('ojs_article_page', [
-                    'publisher' => $article->getIssue()->getJournal()->getPublisher()->getSlug(),
-                    'slug' => $article->getIssue()->getJournal()->getSlug(),
-                    'issue_id' => $article->getIssue()->getId(),
-                    'article_id' => $article->getId(),
-                ], true)
+                $article->setPublicURI(
+                    $this->generateUrl(
+                        'ojs_article_page',
+                        [
+                            'publisher' => $article->getIssue()->getJournal()->getPublisher()->getSlug(),
+                            'slug' => $article->getIssue()->getJournal()->getSlug(),
+                            'issue_id' => $article->getIssue()->getId(),
+                            'article_id' => $article->getId(),
+                        ],
+                        true
+                    )
                 );
             }
+
             return $last_issue;
         }
+
         return null;
     }
 
@@ -302,7 +322,9 @@ class SiteController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
         $service = $this->get('ojs.cms.twig.post_extension');
-        $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(['journal' => $journal]);
+        $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(
+            ['journal' => $journal]
+        );
 
         $data['page'] = 'announcement';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
@@ -333,6 +355,7 @@ class SiteController extends Controller
         );
         if (count($errors) > 0 || empty($email)) {
             $this->errorFlashBag('invalid.mail');
+
             return $this->redirect($referer);
         }
 
@@ -343,6 +366,7 @@ class SiteController extends Controller
         $em->flush();
 
         $this->successFlashBag('successfully.subscribed');
+
         return $this->redirect($referer);
     }
 
@@ -370,12 +394,15 @@ class SiteController extends Controller
             ->get('security.csrf.token_manager')
             ->refreshToken('issue_view');
 
-        return $this->render('OjsSiteBundle:Issue:detail.html.twig', [
-            'issue' => $issue,
-            'blocks' => $blocks,
-            'token' => $token,
-            'downloads' => isset($downloads[0][1]) ? $downloads[0][1] : 0,
-        ]);
+        return $this->render(
+            'OjsSiteBundle:Issue:detail.html.twig',
+            [
+                'issue' => $issue,
+                'blocks' => $blocks,
+                'token' => $token,
+                'downloads' => isset($downloads[0][1]) ? $downloads[0][1] : 0,
+            ]
+        );
     }
 
     public function journalContactsAction($slug)

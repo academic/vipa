@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * SubmissionFile
@@ -113,7 +112,7 @@ class SubmissionFile
     /**
      * Set label
      *
-     * @param  string              $label
+     * @param  string $label
      * @return SubmissionFile
      */
     public function setLabel($label)
@@ -136,7 +135,7 @@ class SubmissionFile
     /**
      * Set detail
      *
-     * @param  string              $detail
+     * @param  string $detail
      * @return SubmissionFile
      */
     public function setDetail($detail)
@@ -159,7 +158,7 @@ class SubmissionFile
     /**
      * Set journalId
      *
-     * @param  integer             $journalId
+     * @param  integer $journalId
      * @return SubmissionFile
      */
     public function setJournalId($journalId)
@@ -182,7 +181,7 @@ class SubmissionFile
     /**
      * Set visible
      *
-     * @param  boolean             $visible
+     * @param  boolean $visible
      * @return SubmissionFile
      */
     public function setVisible($visible)
@@ -205,7 +204,7 @@ class SubmissionFile
     /**
      * Set required
      *
-     * @param  boolean             $required
+     * @param  boolean $required
      * @return SubmissionFile
      */
     public function setRequired($required)
@@ -228,7 +227,7 @@ class SubmissionFile
     /**
      * Set deletedAt
      *
-     * @param  \DateTime           $deletedAt
+     * @param  \DateTime $deletedAt
      * @return SubmissionFile
      */
     public function setDeletedAt($deletedAt)
@@ -251,7 +250,7 @@ class SubmissionFile
     /**
      * Set journal
      *
-     * @param  Journal             $journal
+     * @param  Journal $journal
      * @return SubmissionFile
      */
     public function setJournal(Journal $journal = null)
@@ -274,7 +273,7 @@ class SubmissionFile
     /**
      * Set locale
      *
-     * @param  string              $locale
+     * @param  string $locale
      * @return SubmissionFile
      */
     public function setLocale($locale)

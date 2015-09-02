@@ -101,7 +101,7 @@ class JournalPostController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
-            new PostType($this->container),
+            new PostType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_journal_post_create', ['journalId' => $journal->getId()]),
@@ -223,7 +223,7 @@ class JournalPostController extends OjsController
     private function createEditForm(JournalPost $entity)
     {
         $form = $this->createForm(
-            new PostType($this->container),
+            new PostType(),
             $entity,
             [
                 'action' => $this->generateUrl(
