@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ojs\Common\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
@@ -11,6 +12,8 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
  */
 class PeriodTranslation extends AbstractTranslation
 {
+    use DisplayTrait;
+
     /**
      * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\Period")
      */
@@ -35,13 +38,5 @@ class PeriodTranslation extends AbstractTranslation
     public function setPeriod($period)
     {
         $this->period = $period;
-    }
-
-    /**
-     * @return array
-     */
-    public function display()
-    {
-        return get_object_vars($this);
     }
 }

@@ -100,12 +100,4 @@ class Period extends AbstractTranslatable
     {
         return $this->getPeriod();
     }
-
-    /**
-     * @return array
-     */
-    public function display()
-    {
-        return get_object_vars($this);
-    }
 }

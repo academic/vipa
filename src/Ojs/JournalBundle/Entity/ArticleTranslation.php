@@ -2,11 +2,14 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ojs\Common\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
 class ArticleTranslation extends AbstractTranslation
 {
+    use DisplayTrait;
+
     /**
      * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\Article")
      */
@@ -116,14 +119,5 @@ class ArticleTranslation extends AbstractTranslation
     public function setAbstract($abstract)
     {
         $this->abstract = $abstract;
-    }
-
-    /**
-     * get object vars
-     * @return array
-     */
-    public function display()
-    {
-        return get_object_vars($this);
     }
 }

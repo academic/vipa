@@ -729,9 +729,4 @@ class Issue extends AbstractTranslatable
     {
         $this->publicURI = $publicURI;
     }
-
-    public function display()
-    {
-        return get_object_vars($this);
-    }
 }

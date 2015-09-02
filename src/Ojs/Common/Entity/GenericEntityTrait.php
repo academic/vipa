@@ -13,4 +13,5 @@ trait GenericEntityTrait
     use TimestampableTrait;
     use TranslateableTrait;
     use TagsTrait;
+    use DisplayTrait;
 }
