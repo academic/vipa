@@ -1,2 +1,5 @@
 {% extends 'knp_menu.html.twig' %}
-{% block label %}{{ item.label|trans }}{% endblock %}
+{% block label %}
+    <i class="fa fa-{{ item.getExtra('icon', 'gear') }}"></i>
+    {{ item.label|trans }}
+{% endblock %}
