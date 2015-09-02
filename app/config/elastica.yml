@@ -1,5 +1,5 @@
 parameters:
-  fos_elastica.client.class: Ojs\Common\Services\ElasticaClient
+  fos_elastica.client.class: Ojs\CoreBundle\Service\ElasticaClient
 fos_elastica:
   clients:
     #you can change to your setting

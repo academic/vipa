@@ -4,7 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Aggregation;
 use Elastica\Query;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;

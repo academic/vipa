@@ -3,8 +3,8 @@
 namespace Ojs\CliBundle\Tests\Command;
 
 use Ojs\CliBundle\Command\InstallCommand;
-use Ojs\Common\Tests\BaseTestCase;
-use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
+use Ojs\CoreBundle\Tests\BaseTestCase;
+use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**

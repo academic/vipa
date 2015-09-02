@@ -2,17 +2,17 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Citation;
+use Ojs\JournalBundle\Form\Type\CitationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Citation;
-use Ojs\JournalBundle\Form\Type\CitationType;
 
 /**
  * Citation controller.

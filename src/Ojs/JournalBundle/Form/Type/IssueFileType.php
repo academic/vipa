@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use Ojs\Common\Params\ArticleFileParams;
+use Ojs\CoreBundle\Params\ArticleFileParams;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

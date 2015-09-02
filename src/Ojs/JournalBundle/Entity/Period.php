@@ -4,10 +4,10 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as JMS;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use JMS\Serializer\Annotation as JMS;
-use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Period
@@ -22,21 +22,52 @@ class Period extends AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\PeriodTranslation")
+     */
+    protected $translations;
     /**
      * @var string
      * @GRID\Column(title="period")
      */
     private $period;
 
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\PeriodTranslation")
-     */
-    protected $translations;
-
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->getPeriod();
+    }
+
+    /**
+     * @return string
+     */
+    public function getPeriod()
+    {
+        return $this->translate()->getPeriod();
+    }
+
+    /**
+     * @param $period
+     * @return $this
+     */
+    public function setPeriod($period)
+    {
+        $this->translate()->setPeriod($period);
+        return $this;
     }
 
     /**
@@ -58,46 +89,14 @@ class Period extends AbstractTranslatable
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
             $translation = new PeriodTranslation();
-            if(!is_null($defaultTranslation)){
+            if (!is_null($defaultTranslation)) {
                 $translation->setPeriod($defaultTranslation->getPeriod());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
         $this->currentTranslation = $translation;
+
         return $translation;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPeriod()
-    {
-        return $this->translate()->getPeriod();
-    }
-
-    /**
-     * @param $period
-     * @return $this
-     */
-    public function setPeriod($period)
-    {
-        $this->translate()->setPeriod($period);
-        return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->getPeriod();
     }
 }

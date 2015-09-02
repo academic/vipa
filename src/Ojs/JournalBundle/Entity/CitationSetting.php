@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -15,22 +15,24 @@ class CitationSetting implements Translatable
 {
     use GenericEntityTrait;
     /**
+     *
+     * @var Citation
+     */
+    protected $citation;
+    /**
      * @var integer
      * @GRID\Column(title="citation.id")
      */
     private $id;
-
     /**
      * @var integer
      */
     private $citationId;
-
     /**
      * @var string
      * @GRID\Column(title="citation.setting")
      */
     private $setting;
-
     /**
      * @var string
      * @GRID\Column(title="value")
@@ -39,9 +41,12 @@ class CitationSetting implements Translatable
 
     /**
      *
-     * @var Citation
+     * @return Citation
      */
-    protected $citation;
+    public function getCitation()
+    {
+        return $this->citation;
+    }
 
     /**
      *
@@ -56,15 +61,6 @@ class CitationSetting implements Translatable
     }
 
     /**
-     *
-     * @return Citation
-     */
-    public function getCitation()
-    {
-        return $this->citation;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -72,6 +68,16 @@ class CitationSetting implements Translatable
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get citationId
+     *
+     * @return integer
+     */
+    public function getCitationId()
+    {
+        return $this->citationId;
     }
 
     /**
@@ -88,13 +94,13 @@ class CitationSetting implements Translatable
     }
 
     /**
-     * Get citationId
+     * Get setting
      *
-     * @return integer
+     * @return string
      */
-    public function getCitationId()
+    public function getSetting()
     {
-        return $this->citationId;
+        return $this->setting;
     }
 
     /**
@@ -111,13 +117,13 @@ class CitationSetting implements Translatable
     }
 
     /**
-     * Get setting
+     * Get value
      *
      * @return string
      */
-    public function getSetting()
+    public function getValue()
     {
-        return $this->setting;
+        return $this->value;
     }
 
     /**
@@ -131,16 +137,6 @@ class CitationSetting implements Translatable
         $this->value = $value;
 
         return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**

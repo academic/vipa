@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\ArticleType;
@@ -105,6 +105,29 @@ class ArticleController extends Controller
     }
 
     /**
+     * Creates a form to create a Article entity.
+     *
+     * @param  Article $entity The entity
+     * @param  Journal $journal
+     * @return Form    The form
+     */
+    private function createCreateForm(Article $entity, Journal $journal)
+    {
+        $form = $this->createForm(
+            new ArticleType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
+                'method' => 'POST',
+                'journal' => $journal,
+            ]
+        );
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
      * Creates a new Article entity.
      *
      * @param  Request                   $request
@@ -139,29 +162,6 @@ class ArticleController extends Controller
             'OjsJournalBundle:Article:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
-    }
-
-    /**
-     * Creates a form to create a Article entity.
-     *
-     * @param  Article $entity  The entity
-     * @param  Journal $journal
-     * @return Form    The form
-     */
-    private function createCreateForm(Article $entity, Journal $journal)
-    {
-        $form = $this->createForm(
-            new ArticleType(),
-            $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
-                'method' => 'POST',
-                'journal' => $journal,
-            ]
-        );
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
     }
 
     /**
@@ -226,6 +226,28 @@ class ArticleController extends Controller
     }
 
     /**
+     * Creates a form to edit a Article entity.
+     *
+     * @param  Article $entity The entity
+     * @param  Journal $journal
+     * @return Form    The form
+     */
+    private function createEditForm(Article $entity, Journal $journal)
+    {
+        $action = $this->generateUrl(
+            'ojs_journal_article_update',
+            ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+        );
+        $form = $this->createForm(
+            new ArticleType(),
+            $entity,
+            ['action' => $action, 'method' => 'PUT', 'journal' => $journal]
+        );
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Article entity.
      *
      * @param  Request                   $request
@@ -267,28 +289,6 @@ class ArticleController extends Controller
             'OjsJournalBundle:Article:edit.html.twig',
             ['entity' => $entity, 'form' => $editForm->createView()]
         );
-    }
-
-    /**
-     * Creates a form to edit a Article entity.
-     *
-     * @param  Article $entity  The entity
-     * @param  Journal $journal
-     * @return Form    The form
-     */
-    private function createEditForm(Article $entity, Journal $journal)
-    {
-        $action = $this->generateUrl(
-            'ojs_journal_article_update',
-            ['id' => $entity->getId(), 'journalId' => $journal->getId()]
-        );
-        $form = $this->createForm(
-            new ArticleType(),
-            $entity,
-            ['action' => $action, 'method' => 'PUT', 'journal' => $journal]
-        );
-
-        return $form;
     }
 
     /**

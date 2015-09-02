@@ -2,7 +2,7 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;

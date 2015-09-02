@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**

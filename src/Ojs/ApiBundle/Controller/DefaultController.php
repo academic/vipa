@@ -2,7 +2,7 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller

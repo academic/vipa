@@ -1,0 +1,95 @@
+parameters:
+  problematic.acl_manager.class: Ojs\CoreBundle\Acl\AclChainManager
+  security.acl.dbal.provider.class: Ojs\CoreBundle\Acl\Dbal\MutableAclProvider
+  security.acl.security_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\SecurityIdentityRetrievalStrategy
+  security.acl.object_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\ObjectIdentityRetrievalStrategy
+services:
+  security.authorization_checker:
+    class: Ojs\CoreBundle\Acl\AuthorizationChecker
+    arguments:
+      - @security.token_storage
+      - @security.authentication.manager
+      - @security.access.decision_manager
+      - %security.access.always_authenticate_before_granting%
+  security.acl.security_identity_retrieval_strategy:
+    class: %security.acl.security_identity_retrieval_strategy.class%
+    arguments: [@security.role_hierarchy, @security.authentication.trust_resolver, @ojs.journal_service]
+  ojs_locale.locale_listener:
+    class: Ojs\CoreBundle\Service\LocaleListener
+    arguments: ["%kernel.default_locale%"]
+    tags:
+      - { name: kernel.event_subscriber }
+
+  ojs.twig.ojs_extension:
+    class: Ojs\CoreBundle\Service\Twig\OjsExtension
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @router
+      - @translator
+      - @ojs.journal_service
+      - @security.token_storage
+      - @session
+      - @request_stack
+      - "%cms_show_routes%"
+    tags:
+      - { name: twig.extension }
+
+
+  ojs.twig.history_extension:
+    class: Ojs\CoreBundle\Service\Twig\HistoryExtension
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @twig
+      - "::_history.html.twig"
+    tags:
+      - { name: twig.extension }
+
+  ojs.twig.display_extension:
+    class: Ojs\CoreBundle\Service\Twig\DisplayExtension
+    arguments:
+      - @translator
+    tags:
+      - { name: twig.extension }
+
+  ojs.twig.action_extension:
+    class: Ojs\CoreBundle\Service\Twig\ActionExtension
+    arguments:
+      - @translator
+    tags:
+      - { name: twig.extension }
+
+  ojs.journal_service:
+    class: Ojs\CoreBundle\Service\JournalService
+    arguments:
+      - @doctrine.orm.entity_manager
+      - @session
+      - @router
+      - @security.token_storage
+      - @request_stack
+      - "%defaultPublisherSlug%"
+
+  ojs.article_service:
+    class: Ojs\CoreBundle\Service\ArticleService
+    arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
+
+  ojs.alice.provider:
+    class: Ojs\CoreBundle\Service\AliceDataProvider
+    arguments: [ "%defaultPublisherSlug%", "%system_email%" ]
+    tags:
+      -  { name: h4cc_alice_fixtures.provider }
+
+  grid_action:
+    class: Ojs\CoreBundle\Service\GridAction
+    arguments: [@security.csrf.token_manager, @translator, @ojs.cms.twig.post_extension]
+
+  form.type.entity:
+    class: Ojs\CoreBundle\Form\Type\EntityType
+    arguments: [@doctrine]
+    tags:
+      - { name: form.type, alias: entity }
+
+  form.type.tags:
+    class: Ojs\CoreBundle\Form\Type\TagsType
+    arguments: [ @router, @translator ]
+    tags:
+      - { name: form.type, alias: tags }

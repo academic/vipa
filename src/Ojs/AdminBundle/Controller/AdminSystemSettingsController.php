@@ -4,24 +4,12 @@ namespace Ojs\AdminBundle\Controller;
 
 use Ojs\AdminBundle\Entity\SystemSetting;
 use Ojs\AdminBundle\Form\Type\SystemSettingsType;
-use Ojs\Common\Controller\OjsController;
+use Ojs\CoreBundle\Controller\OjsController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminSystemSettingsController extends OjsController
 {
-    private function getSettings()
-    {
-        return array(
-            'boolean' => [
-                'user_registration',
-                'journal_application',
-                'publisher_application',
-                'article_submission',
-            ]
-        );
-    }
-
     public function indexAction()
     {
         if (!$this->isGranted('VIEW', new SystemSetting())) {
@@ -39,6 +27,18 @@ class AdminSystemSettingsController extends OjsController
         }
 
         return $this->render('OjsAdminBundle:AdminSystemSetting:index.html.twig', ['form' => $form->createView()]);
+    }
+
+    private function getSettings()
+    {
+        return array(
+            'boolean' => [
+                'user_registration',
+                'journal_application',
+                'publisher_application',
+                'article_submission',
+            ]
+        );
     }
 
     public function updateAction(Request $request)

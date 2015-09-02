@@ -3,9 +3,9 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
-use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -16,62 +16,52 @@ class ArticleFile
 {
     use GenericEntityTrait;
 
+    protected $translations;
     /**
      * @var integer
      * @GRID\Column(title="articlefile.id")
      */
     private $id;
-
     /**
      * @var integer
      * @GRID\Column(title="articlefile.type")
      */
     private $type;
-
     /**
      * @var string
      */
     private $file;
-
     /**
      * @var integer
      * @GRID\Column(title="articlefile.version")
      */
     private $version;
-
     /**
      * @var Article
      */
     private $article;
-
     /**
      *
      * @var string
      */
     private $keywords = null;
-
     /**
      *
      * @var string
      */
     private $description = null;
-
     /**
      *
      * @var string
      * @GRID\Column(title="articlefile.title")
      */
     private $title = null;
-
     /**
      *
      * @var string
      * @GRID\Column(title="articlefile.langcode")
      */
     private $langCode;
-
-    protected $translations;
-
     /**
      * @var ArrayCollection|ArticleFileStatistic[]
      */
@@ -90,18 +80,18 @@ class ArticleFile
         return $this->translations;
     }
 
+    public function setTranslations($translations)
+    {
+        foreach ($translations as $translation) {
+            $this->addTranslation($translation);
+        }
+    }
+
     public function addTranslation(ArticleFileTranslation $t)
     {
         if (!$this->translations->contains($t)) {
             $this->translations[] = $t;
             $t->setObject($this);
-        }
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach($translations as $translation){
-            $this->addTranslation($translation);
         }
     }
 
@@ -116,6 +106,14 @@ class ArticleFile
     }
 
     /**
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * @param  integer     $type
      * @return ArticleFile
      */
@@ -127,11 +125,11 @@ class ArticleFile
     }
 
     /**
-     * @return integer
+     * @return string
      */
-    public function getType()
+    public function getTitle()
     {
-        return $this->type;
+        return $this->title;
     }
 
     /**
@@ -148,9 +146,9 @@ class ArticleFile
     /**
      * @return string
      */
-    public function getTitle()
+    public function getDescription()
     {
-        return $this->title;
+        return $this->description;
     }
 
     /**
@@ -167,9 +165,9 @@ class ArticleFile
     /**
      * @return string
      */
-    public function getDescription()
+    public function getKeywords()
     {
-        return $this->description;
+        return $this->keywords;
     }
 
     /**
@@ -186,9 +184,9 @@ class ArticleFile
     /**
      * @return string
      */
-    public function getKeywords()
+    public function getLangCode()
     {
-        return $this->keywords;
+        return $this->langCode;
     }
 
     /**
@@ -203,11 +201,13 @@ class ArticleFile
     }
 
     /**
+     * Get file
+     *
      * @return string
      */
-    public function getLangCode()
+    public function getFile()
     {
-        return $this->langCode;
+        return $this->file;
     }
 
     /**
@@ -224,13 +224,13 @@ class ArticleFile
     }
 
     /**
-     * Get file
+     * Get version
      *
-     * @return string
+     * @return integer
      */
-    public function getFile()
+    public function getVersion()
     {
-        return $this->file;
+        return $this->version;
     }
 
     /**
@@ -244,16 +244,6 @@ class ArticleFile
         $this->version = $version;
 
         return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return integer
-     */
-    public function getVersion()
-    {
-        return $this->version;
     }
 
     /**

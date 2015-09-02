@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\PublisherThemeType;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\PublisherTheme;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -41,7 +41,7 @@ class ManagerPublisherThemeController extends Controller
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($publisher, $alias) {
-                $qb->andWhere($alias . '.publisher = :publisher')
+                $qb->andWhere($alias.'.publisher = :publisher')
                     ->setParameter('publisher', $publisher);
             }
         );
@@ -50,9 +50,18 @@ class ManagerPublisherThemeController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('ojs_publisher_manager_theme_show', ['publisherId' => $publisher->getId(), 'id']);
-        $rowAction[] = $gridAction->editAction('ojs_publisher_manager_theme_edit', ['publisherId' => $publisher->getId(), 'id']);
-        $rowAction[] = $gridAction->deleteAction('ojs_publisher_manager_theme_delete', ['publisherId' => $publisher->getId(), 'id']);
+        $rowAction[] = $gridAction->showAction(
+            'ojs_publisher_manager_theme_show',
+            ['publisherId' => $publisher->getId(), 'id']
+        );
+        $rowAction[] = $gridAction->editAction(
+            'ojs_publisher_manager_theme_edit',
+            ['publisherId' => $publisher->getId(), 'id']
+        );
+        $rowAction[] = $gridAction->deleteAction(
+            'ojs_publisher_manager_theme_delete',
+            ['publisherId' => $publisher->getId(), 'id']
+        );
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -87,8 +96,11 @@ class ManagerPublisherThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_publisher_manager_theme_show', [
-                    'publisherId' => $publisher->getId(), 'id' => $entity->getId()
+            return $this->redirectToRoute(
+                'ojs_publisher_manager_theme_show',
+                [
+                    'publisherId' => $publisher->getId(),
+                    'id' => $entity->getId()
                 ]
             );
         }
@@ -107,16 +119,20 @@ class ManagerPublisherThemeController extends Controller
      * Creates a form to create a PublisherTypes entity.
      *
      * @param PublisherTheme $entity The entity
+     * @param Publisher $publisher
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(PublisherTheme $entity, $publisher)
+    private function createCreateForm(PublisherTheme $entity, Publisher $publisher)
     {
         $form = $this->createForm(
             new PublisherThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_publisher_manager_theme_create', ['publisherId' => $publisher->getId()]),
+                'action' => $this->generateUrl(
+                    'ojs_publisher_manager_theme_create',
+                    ['publisherId' => $publisher->getId()]
+                ),
                 'method' => 'POST',
             )
         );
@@ -170,7 +186,7 @@ class ManagerPublisherThemeController extends Controller
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_admin_publisher_theme' . $entity->getId());
+            ->refreshToken('ojs_admin_publisher_theme'.$entity->getId());
 
         return $this->render(
             'OjsJournalBundle:ManagerPublisherTheme:show.html.twig',
@@ -221,7 +237,10 @@ class ManagerPublisherThemeController extends Controller
             new PublisherThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_publisher_manager_theme_update', array('publisherId' => $publisher->getId(), 'id' => $entity->getId())),
+                'action' => $this->generateUrl(
+                    'ojs_publisher_manager_theme_update',
+                    array('publisherId' => $publisher->getId(), 'id' => $entity->getId())
+                ),
                 'method' => 'PUT',
             )
         );
@@ -253,7 +272,10 @@ class ManagerPublisherThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_publisher_manager_theme_edit', ['publisherId' => $publisherId, 'id' => $entity->getId()]);
+            return $this->redirectToRoute(
+                'ojs_publisher_manager_theme_edit',
+                ['publisherId' => $publisherId, 'id' => $entity->getId()]
+            );
         }
 
         return $this->render(
@@ -284,7 +306,7 @@ class ManagerPublisherThemeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_publisher_manager_theme' . $entity->getId());
+        $token = $csrf->getToken('ojs_publisher_manager_theme'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

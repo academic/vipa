@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Form\Type\JournalNewUserType;
@@ -99,6 +99,26 @@ class JournalUserController extends Controller
     }
 
     /**
+     * Creates a form to create a User entity.
+     * @param   integer $journalId
+     * @param   User $entity
+     * @return  Form    The form
+     */
+    private function createCreateForm(User $entity, $journalId)
+    {
+        $form = $this->createForm(
+            new JournalNewUserType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_journal_user_create', ['journalId' => $journalId]),
+                'method' => 'POST',
+            )
+        );
+
+        return $form;
+    }
+
+    /**
      * Creates a new User entity.
      *
      * @param  Request $request
@@ -148,26 +168,6 @@ class JournalUserController extends Controller
                 'form' => $form->createView(),
             )
         );
-    }
-
-    /**
-     * Creates a form to create a User entity.
-     * @param   integer $journalId
-     * @param   User    $entity
-     * @return  Form    The form
-     */
-    private function createCreateForm(User $entity, $journalId)
-    {
-        $form = $this->createForm(
-            new JournalNewUserType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl('ojs_journal_user_create', ['journalId' => $journalId]),
-                'method' => 'POST',
-            )
-        );
-
-        return $form;
     }
 
     public function addUserAction(Request $request)

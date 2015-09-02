@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
@@ -36,7 +36,10 @@ class Journal extends AbstractTranslatable
      * @Groups({"JournalDetail","IssueDetail"})
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
+     */
+    protected $translations;
     /**
      * @var string
      * @Expose
@@ -44,91 +47,78 @@ class Journal extends AbstractTranslatable
      * @Grid\Column(title="Title")
      */
     private $title;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $titleAbbr;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $titleTransliterated;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $subtitle;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $path;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $domain;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $issn;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $eissn;
-
     /**
      * @var \DateTime
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $firstPublishDate;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $url;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $address;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $phone;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $email;
-
     /**
      * @var Country
      * @Expose
@@ -136,140 +126,118 @@ class Journal extends AbstractTranslatable
      * @Grid\Column(field="country.name", title="country")
      */
     private $country;
-
     /**
      * @var boolean
      * @Expose
      */
     private $published;
-
     /**
      * @var integer
      * @Expose
      */
     private $status;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $image;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $header;
-
     /**
      * @var string
      * @Expose
      */
     private $googleAnalyticsId;
-
     /**
      * @var string
      * @Expose
      */
     private $slug;
-
     /**
      * @var integer
      * @Expose
      */
     private $themeId;
-
     /**
      * @var JournalTheme
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $theme;
-
     /**
      * @var integer
      * @Expose
      */
     private $designId;
-
     /**
      * @var Design
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $design;
-
     /**
      * @var boolean
      * @Expose
      */
     private $isConfigured;
-
     /**
      * @var Collection
      */
     private $users;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"IssueDetail"})
      */
     private $articles;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $issues;
-
     /**
      * @var Collection
      */
     private $boards;
-
     /**
      * @var ArrayCollection|Lang[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $languages;
-
     /**
      * @var ArrayCollection|Period[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $periods;
-
     /**
      * @var string
      */
     private $languageCodeSet;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $subjects;
-
     /**
      * @var Collection
      * @Groups({"JournalDetail"})
      */
     private $sections;
-
     /**
      *
      * arbitrary settings
      * @var ArrayCollection|JournalSetting[]
      */
     private $settings;
-
     /**
      * @var Publisher
      * @Expose
@@ -277,96 +245,77 @@ class Journal extends AbstractTranslatable
      * @Grid\Column(field="publisher.name", title="publisher")
      */
     private $publisher;
-
     /**
      * @var Collection
      * @Expose
      */
     private $journalThemes;
-
     /**
      * @var JournalDesign Collection
      * @Expose
      */
     private $journalDesigns;
-
     /**
      * @var integer
      */
     private $publisherId;
-
     /**
      * @var Collection
      */
     private $bannedUsers;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $logo;
-
     /**
      * @var Collection
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $journals_indexs;
-
     /**
      * @var ArrayCollection|SubmissionChecklist[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $submissionChecklist;
-
     /**
      * @var ArrayCollection|SubmissionFile[]
      * @Expose
      * @Groups({"JournalDetail"})
      */
     private $submissionFile;
-
     /**
      * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $view_count;
-
     /**
      * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $download_count;
-
     /**
      * @var boolean
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $printed;
-
     /**
      * Object public URI
      * @var string
      */
     private $publicURI;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
-     */
-    protected $translations;
-
     /** @var Collection */
     private $journalUsers;
 
@@ -409,37 +358,6 @@ class Journal extends AbstractTranslatable
         $this->journalThemes = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->journalDesigns = new ArrayCollection();
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new JournalTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setTitle($defaultTranslation->getTitle());
-                $translation->setSubtitle($defaultTranslation->getSubtitle());
-                $translation->setDescription($defaultTranslation->getDescription());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
     }
 
     /**
@@ -778,6 +696,38 @@ class Journal extends AbstractTranslatable
         $this->translate()->setSubtitle($subtitle);
 
         return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new JournalTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setSubtitle($defaultTranslation->getSubtitle());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
     }
 
     /**
@@ -1589,19 +1539,19 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param boolean $setup_status
-     */
-    public function setSetupStatus($setup_status)
-    {
-        $this->setup_status = $setup_status;
-    }
-
-    /**
      * @return boolean
      */
     public function getSetupStatus()
     {
         return $this->setup_status;
+    }
+
+    /**
+     * @param boolean $setup_status
+     */
+    public function setSetupStatus($setup_status)
+    {
+        $this->setup_status = $setup_status;
     }
 
     /**
@@ -1667,6 +1617,16 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * Get printed
+     *
+     * @return boolean
+     */
+    public function getPrinted()
+    {
+        return $this->printed;
+    }
+
+    /**
      * @param  boolean $printed
      * @return $this
      */
@@ -1710,6 +1670,14 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * @return Lang
+     */
+    public function getMandatoryLang()
+    {
+        return $this->mandatoryLang;
+    }
+
+    /**
      * @param  Lang $mandatoryLang
      * @return $this
      */
@@ -1721,11 +1689,11 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @return Lang
+     * @return integer
      */
-    public function getMandatoryLang()
+    public function getMandatoryLangId()
     {
-        return $this->mandatoryLang;
+        return $this->mandatoryLangId;
     }
 
     /**
@@ -1737,14 +1705,6 @@ class Journal extends AbstractTranslatable
         $this->mandatoryLangId = $mandatoryLangId;
 
         return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMandatoryLangId()
-    {
-        return $this->mandatoryLangId;
     }
 
     /**
@@ -1837,16 +1797,6 @@ class Journal extends AbstractTranslatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Get printed
-     *
-     * @return boolean
-     */
-    public function getPrinted()
-    {
-        return $this->printed;
     }
 
     /**

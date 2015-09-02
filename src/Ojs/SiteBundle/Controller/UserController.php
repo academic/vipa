@@ -4,7 +4,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Exception\NotFoundException;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\CustomField;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
@@ -190,7 +190,7 @@ class UserController extends Controller
         throw new \ErrorException("An error", serialize($post));
     }
 
-    public function deleteConnectedAccountAction(Request $request, $id)
+    public function deleteConnectedAccountAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $account = $em->find('OjsUserBundle:UserOauthAccount', $id);

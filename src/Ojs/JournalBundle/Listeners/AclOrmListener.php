@@ -3,9 +3,9 @@
 namespace Ojs\JournalBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 

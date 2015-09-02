@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Tests\Entity;
 
-use Ojs\Common\Tests\BaseTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 
 class JournalRepositoryTest extends BaseTestCase
 {

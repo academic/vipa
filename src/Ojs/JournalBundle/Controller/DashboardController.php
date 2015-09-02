@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
-use Ojs\Common\Controller\OjsController;
+use Ojs\CoreBundle\Controller\OjsController;
 
 class DashboardController extends OjsController
 {

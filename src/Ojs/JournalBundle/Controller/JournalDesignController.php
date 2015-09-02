@@ -2,21 +2,21 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Elastica\Exception\NotFoundException;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalDesign;
+use Ojs\JournalBundle\Form\Type\JournalDesignType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
-use Ojs\JournalBundle\Form\Type\JournalDesignType;
-use Ojs\JournalBundle\Entity\Journal;
 
 /**
  * JournalDesign controller.
@@ -116,6 +116,46 @@ class JournalDesignController extends Controller
     }
 
     /**
+     * @param  String $editableContent
+     * @return String
+     */
+    private function prepareDesignContent($editableContent)
+    {
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function ($matches) {
+                preg_match('/<!---.*--->/Us', $matches[0], $matched);
+
+                return str_ireplace(['<!---', '--->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-hide-span[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function ($matches) {
+                preg_match('/<!---.*--->/Us', $matches[0], $matched);
+
+                return str_ireplace(['<!---', '--->'], '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function ($matches) {
+                preg_match('/title\s*=\s*"\s*{.*}\s*"/Us', $matches[0], $matched);
+                $matched[0] = preg_replace('/title\s*=\s*"/Us', '', $matched[0]);
+
+                return str_replace('"', '', $matched[0]);
+            },
+            $editableContent
+        );
+        $editableContent = str_ireplace('<!--gm-editable-region-->', '', $editableContent);
+        $editableContent = str_ireplace('<!--/gm-editable-region-->', '', $editableContent);
+
+        return $editableContent;
+    }
+
+    /**
      * Displays a form to create a new JournalDesign entity.
      *
      * @return Response
@@ -190,6 +230,32 @@ class JournalDesignController extends Controller
                 'edit_form' => $editForm->createView(),
             )
         );
+    }
+
+    /**
+     * @param  String $editableContent
+     * @return String
+     */
+    private function prepareEditContent($editableContent)
+    {
+        $editableContent = str_ireplace('<!--raw-->', '{% raw %}<!--raw-->', $editableContent);
+        $editableContent = str_ireplace('<!--endraw-->', '{% endraw %}<!--endraw-->', $editableContent);
+
+        $editableContent = preg_replace_callback(
+            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
+            function ($matches) {
+                return preg_replace_callback(
+                    '/{{.*}}/Us',
+                    function ($matched) {
+                        return '{{ "'.addcslashes($matched[0], '"').'" }}';
+                    },
+                    $matches[0]
+                );
+            },
+            $editableContent
+        );
+
+        return $editableContent;
     }
 
     /**
@@ -288,71 +354,5 @@ class JournalDesignController extends Controller
         }
 
         return $this->redirectToRoute('ojs_journal_design_index', ['journalId' => $journal->getId()]);
-    }
-
-    /**
-     * @param  String                                            $editableContent
-     * @return String
-     */
-    private function prepareDesignContent($editableContent)
-    {
-        $editableContent = preg_replace_callback(
-            '/<span\s*class\s*=\s*"\s*design-hide-block[^"]*"[^>]*>.*<\s*\/\s*span\s*>.*<span\s*class\s*=\s*"\s*design-hide-endblock[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
-            function($matches)
-            {
-                preg_match('/<!---.*--->/Us', $matches[0], $matched);
-                return str_ireplace(['<!---', '--->'], '', $matched[0]);
-            },
-            $editableContent
-        );
-        $editableContent = preg_replace_callback(
-            '/<span\s*class\s*=\s*"\s*design-hide-span[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
-            function($matches)
-            {
-                preg_match('/<!---.*--->/Us', $matches[0], $matched);
-                return str_ireplace(['<!---', '--->'], '', $matched[0]);
-            },
-            $editableContent
-        );
-        $editableContent = preg_replace_callback(
-            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
-            function($matches)
-            {
-                preg_match('/title\s*=\s*"\s*{.*}\s*"/Us', $matches[0], $matched);
-                $matched[0] = preg_replace('/title\s*=\s*"/Us', '', $matched[0]);
-                return str_replace('"', '', $matched[0]);
-            },
-            $editableContent
-        );
-        $editableContent = str_ireplace('<!--gm-editable-region-->', '', $editableContent);
-        $editableContent = str_ireplace('<!--/gm-editable-region-->', '', $editableContent);
-        return $editableContent;
-    }
-
-    /**
-     * @param  String                                            $editableContent
-     * @return String
-     */
-    private function prepareEditContent($editableContent)
-    {
-        $editableContent = str_ireplace('<!--raw-->', '{% raw %}<!--raw-->', $editableContent);
-        $editableContent = str_ireplace('<!--endraw-->', '{% endraw %}<!--endraw-->', $editableContent);
-
-        $editableContent = preg_replace_callback(
-            '/<span\s*class\s*=\s*"\s*design-inline[^"]*"[^>]*>.*<\s*\/\s*span\s*>/Us',
-            function($matches)
-            {
-                return preg_replace_callback(
-                    '/{{.*}}/Us',
-                    function($matched)
-                    {
-                        return '{{ "'.addcslashes($matched[0], '"').'" }}';
-                    },
-                    $matches[0]
-                );
-            },
-            $editableContent
-        );
-        return $editableContent;
     }
 }

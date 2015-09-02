@@ -6,9 +6,9 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\JournalBundle\Entity\JournalPost;
 use Ojs\CmsBundle\Form\Type\PostType;
-use Ojs\Common\Controller\OjsController;
+use Ojs\CoreBundle\Controller\OjsController;
+use Ojs\JournalBundle\Entity\JournalPost;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -92,6 +92,28 @@ class JournalPostController extends OjsController
     }
 
     /**
+     * Creates a form to create a JournalPost entity.
+     *
+     * @param JournalPost $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(JournalPost $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $form = $this->createForm(
+            new PostType($this->container),
+            $entity,
+            [
+                'action' => $this->generateUrl('ojs_journal_post_create', ['journalId' => $journal->getId()]),
+                'method' => 'POST'
+            ]
+        );
+        $form->add('submit', 'submit', ['label' => 'Create']);
+
+        return $form;
+    }
+
+    /**
      * Creates a new JournalPost entity.
      *
      * @param  Request $request
@@ -125,24 +147,6 @@ class JournalPostController extends OjsController
             'OjsJournalBundle:JournalPost:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
-    }
-
-    /**
-     * Creates a form to create a JournalPost entity.
-     *
-     * @param JournalPost $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(JournalPost $entity)
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createForm(new PostType($this->container), $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_post_create', ['journalId' => $journal->getId()]),
-                'method' => 'POST'
-            ]);
-        $form->add('submit', 'submit', ['label' => 'Create']);
-        return $form;
     }
 
     /**
@@ -211,6 +215,31 @@ class JournalPostController extends OjsController
     }
 
     /**
+     * Creates a form to edit a Lang entity.
+     *
+     * @param  JournalPost $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(JournalPost $entity)
+    {
+        $form = $this->createForm(
+            new PostType($this->container),
+            $entity,
+            [
+                'action' => $this->generateUrl(
+                    'ojs_journal_post_update',
+                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]
+                ),
+                'method' => 'PUT',
+            ]
+        );
+
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Lang entity.
      * @param  Request $request
      * @param  int $id
@@ -248,26 +277,6 @@ class JournalPostController extends OjsController
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * Creates a form to edit a Lang entity.
-     *
-     * @param  JournalPost $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(JournalPost $entity)
-    {
-        $form = $this->createForm(new PostType($this->container), $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_post_update',
-                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]),
-                'method' => 'PUT',
-            ]
-        );
-
-        $form->add('submit', 'submit', ['label' => 'Update']);
-        return $form;
     }
 
     /**

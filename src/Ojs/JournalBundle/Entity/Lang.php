@@ -5,7 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -56,6 +56,16 @@ class Lang
     }
 
     /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
      * Set code
      *
      * @param  string $code
@@ -69,13 +79,13 @@ class Lang
     }
 
     /**
-     * Get code
+     * Get name
      *
      * @return string
      */
-    public function getCode()
+    public function getName()
     {
-        return $this->code;
+        return $this->name;
     }
 
     /**
@@ -92,13 +102,13 @@ class Lang
     }
 
     /**
-     * Get name
+     * Get rtl
      *
-     * @return string
+     * @return boolean
      */
-    public function getName()
+    public function getRtl()
     {
-        return $this->name;
+        return $this->rtl;
     }
 
     /**
@@ -112,16 +122,6 @@ class Lang
         $this->rtl = $rtl;
 
         return $this;
-    }
-
-    /**
-     * Get rtl
-     *
-     * @return boolean
-     */
-    public function getRtl()
-    {
-        return $this->rtl;
     }
 
     public function __toString()

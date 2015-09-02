@@ -9,7 +9,7 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -21,37 +21,32 @@ class Citation implements Translatable
 {
     use GenericEntityTrait;
     /**
+     * @var Array
+     */
+    protected $settings;
+    /**
      * @var integer
      * @GRID\Column(title="ID")
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $id;
-
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $raw;
-
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $type;
-
     /**
      * @var integer
      */
     private $orderNum;
-
-    /**
-     * @var Array
-     */
-    protected $settings;
-
     /**
      * @var Collection
      */
@@ -154,6 +149,16 @@ class Citation implements Translatable
     }
 
     /**
+     * Get raw
+     *
+     * @return string
+     */
+    public function getRaw()
+    {
+        return $this->raw;
+    }
+
+    /**
      * Set raw
      *
      * @param  string   $raw
@@ -167,13 +172,13 @@ class Citation implements Translatable
     }
 
     /**
-     * Get raw
+     * Get type
      *
      * @return string
      */
-    public function getRaw()
+    public function getType()
     {
-        return $this->raw;
+        return $this->type;
     }
 
     /**
@@ -190,13 +195,13 @@ class Citation implements Translatable
     }
 
     /**
-     * Get type
+     * Get orderNum
      *
-     * @return string
+     * @return integer
      */
-    public function getType()
+    public function getOrderNum()
     {
-        return $this->type;
+        return $this->orderNum;
     }
 
     /**
@@ -210,16 +215,6 @@ class Citation implements Translatable
         $this->orderNum = $orderNum;
 
         return $this;
-    }
-
-    /**
-     * Get orderNum
-     *
-     * @return integer
-     */
-    public function getOrderNum()
-    {
-        return $this->orderNum;
     }
 
     /**

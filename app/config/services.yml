@@ -9,50 +9,6 @@ services:
     tags:
       - { name: twig.extension }
 
-  ojs_locale.locale_listener:
-    class: Ojs\Common\Services\LocaleListener
-    arguments: ["%kernel.default_locale%"]
-    tags:
-      - { name: kernel.event_subscriber }
-
-  ojs.twig.ojs_extension:
-    class: Ojs\Common\Twig\OjsExtension
-    arguments:
-      - @doctrine.orm.entity_manager
-      - @router
-      - @translator
-      - @ojs.journal_service
-      - @security.token_storage
-      - @session
-      - @request_stack
-      - "%cms_show_routes%"
-    tags:
-      - { name: twig.extension }
-
-
-  ojs.twig.history_extension:
-    class: Ojs\Common\Twig\HistoryExtension
-    arguments:
-      - @doctrine.orm.entity_manager
-      - @twig
-      - "::_history.html.twig"
-    tags:
-      - { name: twig.extension }
-
-  ojs.twig.display_extension:
-    class: Ojs\Common\Twig\DisplayExtension
-    arguments:
-      - @translator
-    tags:
-      - { name: twig.extension }
-
-  ojs.twig.action_extension:
-    class: Ojs\Common\Twig\ActionExtension
-    arguments:
-      - @translator
-    tags:
-      - { name: twig.extension }
-
   ojs.ojs_mailer:
     class: Ojs\UserBundle\Service\MailerService
     arguments: [@mailer, @templating, @doctrine.orm.entity_manager, "%system_email%"]
@@ -85,45 +41,6 @@ services:
   ojs.user_provider.username_email:
     class: Ojs\UserBundle\Service\EmailUserProvider
     arguments: [@doctrine.orm.entity_manager]
-
-  ojs.journal_service:
-    class: Ojs\Common\Services\JournalService
-    arguments:
-      - @doctrine.orm.entity_manager
-      - @session
-      - @router
-      - @security.token_storage
-      - @request_stack
-      - "%defaultPublisherSlug%"
-      - "%ojs_logo%"
-      - "%ojs_tw%"
-      - "%ojs_fb%"
-
-  ojs.article_service:
-    class: Ojs\Common\Services\ArticleService
-    arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
-
-  ojs.alice.provider:
-    class: Ojs\Common\Services\AliceDataProvider
-    arguments: [ "%defaultPublisherSlug%", "%system_email%" ]
-    tags:
-      -  { name: h4cc_alice_fixtures.provider }
-
-  grid_action:
-    class: Ojs\Common\Services\GridAction
-    arguments: [@security.csrf.token_manager, @translator, @ojs.cms.twig.post_extension]
-
-  form.type.entity:
-    class: Ojs\Common\Form\Type\EntityType
-    arguments: [@doctrine]
-    tags:
-      - { name: form.type, alias: entity }
-
-  form.type.tags:
-    class: Ojs\Common\Form\Type\TagsType
-    arguments: [ @router, @translator ]
-    tags:
-      - { name: form.type, alias: tags }
 
   form.type.journal_user:
     class: Ojs\JournalBundle\Form\Type\JournalUserType

@@ -5,26 +5,26 @@ namespace Ojs\UserBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Translatable\Translatable;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericEntityTrait;
-use Ojs\Common\Helper\StringHelper;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use FOS\UserBundle\Model\User as BaseUser;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * User
@@ -358,6 +358,16 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
      * @return boolean
      */
     public function isPrivacy()
+    {
+        return $this->privacy;
+    }
+
+    /**
+     * Get privacy
+     *
+     * @return boolean
+     */
+    public function getPrivacy()
     {
         return $this->privacy;
     }
@@ -756,16 +766,6 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     public function getJournalUsers()
     {
         return $this->journalUsers;
-    }
-
-    /**
-     * Get privacy
-     *
-     * @return boolean
-     */
-    public function getPrivacy()
-    {
-        return $this->privacy;
     }
 
     /**

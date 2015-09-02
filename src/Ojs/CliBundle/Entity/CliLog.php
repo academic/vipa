@@ -3,7 +3,7 @@
 namespace Ojs\CliBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 
 /**
  * CliLog

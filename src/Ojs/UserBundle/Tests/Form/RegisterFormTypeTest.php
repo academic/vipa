@@ -2,7 +2,7 @@
 
 namespace Ojs\UserBundle\Tests\Form;
 
-use Ojs\Common\Tests\BaseTypeTestcase;
+use Ojs\CoreBundle\Tests\BaseTypeTestcase;
 use Ojs\UserBundle\Form\Type\RegisterFormType;
 
 class RegisterFormTypeTest extends BaseTypeTestcase

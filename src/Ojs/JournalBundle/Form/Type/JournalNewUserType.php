@@ -2,13 +2,12 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use Ojs\Common\Params\CommonParams;
+use Doctrine\ORM\EntityRepository;
 use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityRepository;
 
 class JournalNewUserType extends AbstractType
 {

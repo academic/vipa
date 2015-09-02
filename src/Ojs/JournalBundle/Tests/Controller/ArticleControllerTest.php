@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
-use Ojs\Common\Tests\BaseTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 
 /**
  * @todo new article, update article, delete article  and show article

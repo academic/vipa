@@ -3,14 +3,12 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * JournalContact
@@ -34,57 +32,51 @@ class JournalContact extends AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalContactTranslation")
+     */
+    protected $translations;
     /**
      * @var string
      * @GRID\Column(title="title")
      */
     private $title;
-
     /**
      * @var string
      * @GRID\Column(title="firstname")
      */
     private $firstName;
-
     /**
      * @var string
      * @GRID\Column(title="lastname")
      */
     private $lastName;
-
     /**
      * @var string
      */
     private $address;
-
     /**
      * @var string
      */
     private $phone;
-
     /**
      * @var string
      */
     private $fax;
-
     /**
      * @var string
      */
     private $email;
-
     /**
      *
      * @var ContactTypes
      */
     private $contactType;
-
     /**
      * @var ContactTypes
      * @GRID\Column(title="Contact Type")
      */
     private $contactTypeName;
-
     /**
      *
      * @var Journal
@@ -92,45 +84,11 @@ class JournalContact extends AbstractTranslatable
     private $journal;
 
     /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalContactTranslation")
-     */
-    protected $translations;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->translations = new ArrayCollection();
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalContactTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new JournalContactTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setTitle($defaultTranslation->getTitle());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
     }
 
     /**
@@ -164,6 +122,36 @@ class JournalContact extends AbstractTranslatable
         $this->translate()->setTitle($title);
 
         return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalContactTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new JournalContactTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
     }
 
     /**

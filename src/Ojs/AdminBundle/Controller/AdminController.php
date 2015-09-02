@@ -4,7 +4,7 @@ namespace Ojs\AdminBundle\Controller;
 
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

@@ -3,8 +3,8 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Gedmo\Sluggable\Util\Urlizer;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Services\JournalService;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalPost;
 use Ojs\JournalBundle\Entity\JournalSetupProgress;

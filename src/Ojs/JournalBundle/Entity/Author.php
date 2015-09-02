@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
 use Ojs\UserBundle\Entity\User;
@@ -49,7 +49,10 @@ class Author extends  AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\AuthorTranslation")
+     */
+    protected $translations;
     /**
      * @var string
      * @Expose
@@ -57,7 +60,6 @@ class Author extends  AbstractTranslatable
      * @GRID\Column(title="firstname")
      */
     private $firstName;
-
     /**
      * @var string
      * @Expose
@@ -65,7 +67,6 @@ class Author extends  AbstractTranslatable
      * @GRID\Column(title="middlename")
      */
     private $middleName;
-
     /**
      * @var string
      * @Expose
@@ -73,32 +74,27 @@ class Author extends  AbstractTranslatable
      * @GRID\Column(title="lastname")
      */
     private $lastName;
-
     /**
      * @var string
      * @JMS\Expose
      * @GRID\Column(title="email")
      */
     private $email;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $firstNameTransliterated;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $middleNameTransliterated;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $lastNameTransliterated;
-
     /**
      * @var string
      * @Expose
@@ -106,50 +102,42 @@ class Author extends  AbstractTranslatable
      * @GRID\Column(title="initials")
      */
     private $initials;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $address;
-
     /**
      * @var integer
      * @JMS\Expose
      */
     private $publisherId;
-
     /**
      * @var Publisher
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $publisher;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $summary;
-
     /**
      * @var string
      * @JMS\Expose
      */
     private $authorDetails;
-
     /**
      * @var integer
      * @JMS\Expose
      */
     private $userId;
-
     /**
      * @var User
      * @JMS\Expose
      */
     private $user;
-
     /**
      * title + firstname + middlename + lastname
      * @var string
@@ -158,34 +146,29 @@ class Author extends  AbstractTranslatable
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
-
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
-
     /**
      * @var boolean
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $publisherNotListed;
-
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $publisherName;
-
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Jms\Expose
      */
     private $articleAuthors;
-
     /**
      * @var string
      *
@@ -193,46 +176,10 @@ class Author extends  AbstractTranslatable
      */
     private $title;
 
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\AuthorTranslation")
-     */
-    protected $translations;
-
-
     public function __construct()
     {
         $this->articleAuthors = new ArrayCollection();
         $this->translations = new ArrayCollection();
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\AuthorTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new AuthorTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setTitle($defaultTranslation->getTitle());
-                $translation->setSummary($defaultTranslation->getSummary());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
     }
 
     /**
@@ -566,6 +513,37 @@ class Author extends  AbstractTranslatable
         $this->translate()->setSummary($summary);
 
         return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\AuthorTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new AuthorTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setSummary($defaultTranslation->getSummary());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
     }
 
     /**

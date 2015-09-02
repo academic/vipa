@@ -31,7 +31,7 @@ class ArticleRepository extends EntityRepository
      * Get article list by issue_id with orderNum attribute ordered
      * @param  Issue $issue
      * @param  bool $asc
-     * @param  int $status default 3 (published)  see Ojs\Common\CommonParams
+     * @param  int $status default 3 (published)  see Ojs\CoreBundle\CommonParams
      * @return Article[]
      */
     public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 3)

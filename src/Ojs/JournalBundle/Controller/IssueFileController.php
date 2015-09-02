@@ -7,13 +7,13 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\IssueFile;
+use Ojs\JournalBundle\Form\Type\IssueFileType;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\IssueFile;
-use Ojs\JournalBundle\Form\Type\IssueFileType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 

@@ -3,7 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
@@ -86,31 +86,6 @@ class HostingController extends Controller
     }
 
     /**
-     * @param $years
-     * @param $isJournalHosting
-     * @return mixed
-     */
-    private function setupIssueURIsByYear($years, $isJournalHosting)
-    {
-        foreach($years as $year){
-            /** @var Issue $issue */
-            foreach($year as $issue){
-                if($isJournalHosting){
-                    $issue->setPublicURI($this->generateUrl('journal_hosting_issue', [
-                        'id' => $issue->getId()
-                    ],true));
-                }else{
-                    $issue->setPublicURI($this->generateUrl('publisher_hosting_journal_issue', [
-                        'journal_slug' => $issue->getJournal()->getSlug(),
-                        'id' => $issue->getId()
-                    ],true));
-                }
-            }
-        }
-        return $years;
-    }
-
-    /**
      * @param Issue $last_issue
      * @param $isJournalHosting
      * @return mixed
@@ -135,6 +110,44 @@ class HostingController extends Controller
             }
         }
         return $last_issue;
+    }
+
+    /**
+     * @param $years
+     * @param $isJournalHosting
+     * @return mixed
+     */
+    private function setupIssueURIsByYear($years, $isJournalHosting)
+    {
+        foreach ($years as $year) {
+            /** @var Issue $issue */
+            foreach ($year as $issue) {
+                if ($isJournalHosting) {
+                    $issue->setPublicURI(
+                        $this->generateUrl(
+                            'journal_hosting_issue',
+                            [
+                                'id' => $issue->getId()
+                            ],
+                            true
+                        )
+                    );
+                } else {
+                    $issue->setPublicURI(
+                        $this->generateUrl(
+                            'publisher_hosting_journal_issue',
+                            [
+                                'journal_slug' => $issue->getJournal()->getSlug(),
+                                'id' => $issue->getId()
+                            ],
+                            true
+                        )
+                    );
+                }
+            }
+        }
+
+        return $years;
     }
 
     /**

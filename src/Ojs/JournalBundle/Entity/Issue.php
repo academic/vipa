@@ -9,10 +9,9 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\IssueTranslation;
 
 /**
  * Issue
@@ -30,21 +29,22 @@ class Issue extends AbstractTranslatable
      * @Groups({"JournalDetail","IssueDetail"})
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueTranslation")
+     */
+    protected $translations;
     /**
      * @var integer
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $journalId;
-
     /**
      *
      * @var Journal
      * @Groups({"IssueDetail"})
      */
     private $journal;
-
     /**
      * @var string
      * @GRID\Column(title="volume")
@@ -52,7 +52,6 @@ class Issue extends AbstractTranslatable
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $volume;
-
     /**
      * @var string
      * @GRID\Column(title="number")
@@ -60,14 +59,12 @@ class Issue extends AbstractTranslatable
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $number;
-
     /**
      * @var string
      * @GRID\Column(title="title")
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
-
     /**
      * @var string
      *             cover image path
@@ -75,7 +72,6 @@ class Issue extends AbstractTranslatable
      * @Groups({"IssueDetail"})
      */
     private $cover;
-
     /**
      * @var boolean
      * @GRID\Column(title="special")
@@ -83,14 +79,12 @@ class Issue extends AbstractTranslatable
      * @Groups({"IssueDetail"})
      */
     private $special;
-
     /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
-
     /**
      * @var string
      * @GRID\Column(title="year")
@@ -98,7 +92,6 @@ class Issue extends AbstractTranslatable
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $year;
-
     /**
      * @var \DateTime
      * @GRID\Column(title="publishdate")
@@ -106,31 +99,22 @@ class Issue extends AbstractTranslatable
      * @Groups({"IssueDetail"})
      */
     private $datePublished;
-
     /**
      * @var Collection
      * @Groups({"IssueDetail","JournalDetail"})
      */
     private $articles;
-
     /**
      * @var string
      * @Expose
      * @Groups({"IssueDetail"})
      */
     private $header;
-
     /**
      * @var Collection
      * @Groups({"IssueDetail"})
      */
     private $sections;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueTranslation")
-     */
-    protected $translations;
-
     /**
      * @var ArrayCollection|IssueStatistic[]
      */
@@ -140,6 +124,25 @@ class Issue extends AbstractTranslatable
      * @var string
      */
     private $publicURI;
+    /** @var  boolean */
+    private $published = false;
+    /**
+     * @var boolean
+     * @Expose
+     * @Groups({"IssueDetail"})
+     */
+    private $supplement;
+    /**
+     * @var string
+     * @Expose
+     * @Groups({"IssueDetail"})
+     */
+    private $full_file;
+    /**
+     * @var Collection|IssueFile[]
+     * @Expose
+     */
+    private $issueFiles;
 
     public function __construct()
     {
@@ -150,43 +153,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\IssueTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new IssueTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setTitle($defaultTranslation->getTitle());
-                $translation->setDescription($defaultTranslation->getDescription());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
-    }
-
-    /**
-     * Get id
+     * Get journal
      *
-     * @return integer
+     * @return Journal
      */
-    public function getId()
+    public function getJournal()
     {
-        return $this->id;
+        return $this->journal;
     }
 
     /**
@@ -202,13 +175,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get journal
+     * Get journalId
      *
-     * @return Journal
+     * @return integer
      */
-    public function getJournal()
+    public function getJournalId()
     {
-        return $this->journal;
+        return $this->journalId;
     }
 
     /**
@@ -225,13 +198,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get journalId
+     * Get volume
      *
-     * @return integer
+     * @return string
      */
-    public function getJournalId()
+    public function getVolume()
     {
-        return $this->journalId;
+        return $this->volume;
     }
 
     /**
@@ -248,13 +221,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get volume
+     * Get number
      *
      * @return string
      */
-    public function getVolume()
+    public function getNumber()
     {
-        return $this->volume;
+        return $this->number;
     }
 
     /**
@@ -271,36 +244,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get number
+     * Get cover image path
      *
      * @return string
      */
-    public function getNumber()
+    public function getCover()
     {
-        return $this->number;
-    }
-
-    /**
-     * Set title
-     *
-     * @param  string $title
-     * @return Issue
-     */
-    public function setTitle($title)
-    {
-        $this->translate()->setTitle($title);
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->translate()->getTitle();
+        return $this->cover;
     }
 
     /**
@@ -317,13 +267,18 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get cover image path
+     * is special
      *
-     * @return string
+     * @return boolean
      */
-    public function getCover()
+    public function getSpecial()
     {
-        return $this->cover;
+        return $this->special;
+    }
+
+    public function isSpecial()
+    {
+        return (bool)$this->special;
     }
 
     /**
@@ -340,18 +295,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * is special
+     * Get description
      *
-     * @return boolean
+     * @return string
      */
-    public function getSpecial()
+    public function getDescription()
     {
-        return $this->special;
-    }
-
-    public function isSpecial()
-    {
-        return (bool) $this->special;
+        return $this->translate()->getDescription();
     }
 
     /**
@@ -368,13 +318,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get description
+     * Get year
      *
      * @return string
      */
-    public function getDescription()
+    public function getYear()
     {
-        return $this->translate()->getDescription();
+        return $this->year;
     }
 
     /**
@@ -391,13 +341,13 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get year
+     * Get datePublished
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getYear()
+    public function getDatePublished()
     {
-        return $this->year;
+        return $this->datePublished;
     }
 
     /**
@@ -411,16 +361,6 @@ class Issue extends AbstractTranslatable
         $this->datePublished = $datePublished;
 
         return $this;
-    }
-
-    /**
-     * Get datePublished
-     *
-     * @return \DateTime
-     */
-    public function getDatePublished()
-    {
-        return $this->datePublished;
     }
 
     /**
@@ -516,13 +456,84 @@ class Issue extends AbstractTranslatable
         return $this->getTitle()."[#{$this->getId()}]";
     }
 
-    /** @var  boolean */
-    private $published = false;
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->translate()->getTitle();
+    }
+
+    /**
+     * Set title
+     *
+     * @param  string $title
+     * @return Issue
+     */
+    public function setTitle($title)
+    {
+        $this->translate()->setTitle($title);
+
+        return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\IssueTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new IssueTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return boolean
      */
     public function isPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
     {
         return $this->published;
     }
@@ -539,16 +550,19 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * @var boolean
-     * @Expose
-     * @Groups({"IssueDetail"})
-     */
-    private $supplement;
-
-    /**
      * @return boolean
      */
     public function isSupplement()
+    {
+        return $this->supplement;
+    }
+
+    /**
+     * Get supplement
+     *
+     * @return boolean
+     */
+    public function getSupplement()
     {
         return $this->supplement;
     }
@@ -563,13 +577,6 @@ class Issue extends AbstractTranslatable
 
         return $this;
     }
-
-    /**
-     * @var string
-     * @Expose
-     * @Groups({"IssueDetail"})
-     */
-    private $full_file;
 
     /**
      * @return string
@@ -591,17 +598,21 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * @var Collection|IssueFile[]
-     * @Expose
-     */
-    private $issueFiles;
-
-    /**
      * @return array|Collection|IssueFile[]
      */
     public function getIssueFiles()
     {
         return $this->issueFiles;
+    }
+
+    /**
+     * @param array|Collection|IssueFile[] $issueFiles
+     * @return $this
+     */
+    public function setIssueFiles($issueFiles)
+    {
+        $this->issueFiles = $issueFiles;
+        return $this;
     }
 
     /**
@@ -620,26 +631,6 @@ class Issue extends AbstractTranslatable
     public function removeIssueFile(IssueFile $issueFile)
     {
         $this->issueFiles->removeElement($issueFile);
-    }
-
-    /**
-     * @param array|Collection|IssueFile[] $issueFiles
-     * @return $this
-     */
-    public function setIssueFiles($issueFiles)
-    {
-        $this->issueFiles = $issueFiles;
-        return $this;
-    }
-
-    /**
-     * Get published
-     *
-     * @return boolean
-     */
-    public function getPublished()
-    {
-        return $this->published;
     }
 
     /**
@@ -668,16 +659,6 @@ class Issue extends AbstractTranslatable
         $this->updated = $updated;
 
         return $this;
-    }
-
-    /**
-     * Get supplement
-     *
-     * @return boolean
-     */
-    public function getSupplement()
-    {
-        return $this->supplement;
     }
 
     /**

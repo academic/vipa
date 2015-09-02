@@ -3,8 +3,8 @@
 namespace Ojs\OAIBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper\StringHelper;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,6 +41,20 @@ class DefaultController extends Controller
     public function identifyAction()
     {
         return $this->response("OjsOAIBundle:Default:identify.xml.twig");
+    }
+
+    /**
+     * Xml response
+     * @param string $template
+     * @param array $data
+     * @return Response
+     */
+    private function response($template, $data = [])
+    {
+        $response = new Response();
+        $response->headers->set('content-type', 'text/xml');
+
+        return $this->render($template, $data, $response);
     }
 
     /**
@@ -216,7 +230,6 @@ class DefaultController extends Controller
         return $this->response("OjsOAIBundle:Default:identifiers.xml.twig", $data);
     }
 
-
     /**
      * @param Request $request
      * @return Response
@@ -247,18 +260,5 @@ class DefaultController extends Controller
         }
         $data['metadataPrefix'] = $request->get('metadataPrefix','oai_dc');
         return $this->response('OjsOAIBundle:Default:record.xml.twig',$data);
-    }
-
-    /**
-     * Xml response
-     * @param string $template
-     * @param array $data
-     * @return Response
-     */
-    private function response($template, $data = [])
-    {
-        $response = new Response();
-        $response->headers->set('content-type', 'text/xml');
-        return $this->render($template, $data, $response);
     }
 }

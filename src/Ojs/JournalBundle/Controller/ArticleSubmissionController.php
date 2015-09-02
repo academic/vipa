@@ -6,10 +6,10 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Params\ArticleFileParams;
-use Ojs\Common\Params\ArticleParams;
-use Ojs\Common\Services\GridAction;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\ArticleFileParams;
+use Ojs\CoreBundle\Params\CommonParams;
+use Ojs\CoreBundle\Service\GridAction;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -101,7 +101,7 @@ class ArticleSubmissionController extends Controller
                 /** @var Article $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($currentJournal->getMandatoryLang()->getCode());
-                $statusText = ArticleParams::statusText($row->getField('status'));
+                $statusText = CommonParams::statusText($row->getField('status'));
                 if (!is_array($statusText)) {
                     $row->setField('status', $translator->trans($statusText));
                 } else {
@@ -117,7 +117,7 @@ class ArticleSubmissionController extends Controller
                 $entity = $row->getEntity();
                 /** @var Article $entity */
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                $statusText = ArticleParams::statusText($row->getField('status'));
+                $statusText = CommonParams::statusText($row->getField('status'));
                 if (!is_array($statusText)) {
                     $row->setField('status', $translator->trans($statusText));
                 } else {
@@ -333,26 +333,6 @@ class ArticleSubmissionController extends Controller
 
         return $form;
     }
-    private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
-    {
-        $form = $this->createForm(
-            new ArticleSubmissionType(),
-            $article,
-            array(
-                'action' => $this->generateUrl(
-                    'ojs_journal_submission_edit',
-                    array('journalId' => $journal->getId(), 'id' => $article->getId())
-                ),
-                'method' => 'POST',
-                'locales' => $locales,
-                'default_locale' => $defaultLocale,
-                'citationTypes' => array_keys($this->container->getParameter('citation_types'))
-            )
-        )
-            ->add('save', 'submit', array('label' => 'save', 'attr' => array('class' => 'btn-block')));
-
-        return $form;
-    }
 
     /**
      * @param Request $request
@@ -430,6 +410,27 @@ class ArticleSubmissionController extends Controller
                 'form' => $form->createView(),
             )
         );
+    }
+
+    private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
+    {
+        $form = $this->createForm(
+            new ArticleSubmissionType(),
+            $article,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_submission_edit',
+                    array('journalId' => $journal->getId(), 'id' => $article->getId())
+                ),
+                'method' => 'POST',
+                'locales' => $locales,
+                'default_locale' => $defaultLocale,
+                'citationTypes' => array_keys($this->container->getParameter('citation_types'))
+            )
+        )
+            ->add('save', 'submit', array('label' => 'save', 'attr' => array('class' => 'btn-block')));
+
+        return $form;
     }
 
     /**

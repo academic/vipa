@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Ojs\SiteBundle\Form\Type\BlockLinkType;

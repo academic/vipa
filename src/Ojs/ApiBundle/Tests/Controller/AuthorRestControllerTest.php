@@ -2,7 +2,7 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\Common\Tests\BaseTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 
 class AuthorRestControllerTest extends BaseTestCase
 {

@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
@@ -55,6 +55,16 @@ class BoardMember implements Translatable
     }
 
     /**
+     * Get userId
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
      * Set userId
      *
      * @param  integer     $userId
@@ -68,13 +78,13 @@ class BoardMember implements Translatable
     }
 
     /**
-     * Get userId
+     * Get boardId
      *
      * @return integer
      */
-    public function getUserId()
+    public function getBoardId()
     {
-        return $this->userId;
+        return $this->boardId;
     }
 
     /**
@@ -91,13 +101,13 @@ class BoardMember implements Translatable
     }
 
     /**
-     * Get boardId
+     * Get seq
      *
      * @return integer
      */
-    public function getBoardId()
+    public function getSeq()
     {
-        return $this->boardId;
+        return $this->seq;
     }
 
     /**
@@ -114,13 +124,13 @@ class BoardMember implements Translatable
     }
 
     /**
-     * Get seq
+     * Get board
      *
-     * @return integer
+     * @return Board
      */
-    public function getSeq()
+    public function getBoard()
     {
-        return $this->seq;
+        return $this->board;
     }
 
     /**
@@ -137,13 +147,13 @@ class BoardMember implements Translatable
     }
 
     /**
-     * Get board
+     * Get user
      *
-     * @return Board
+     * @return User
      */
-    public function getBoard()
+    public function getUser()
     {
-        return $this->board;
+        return $this->user;
     }
 
     /**
@@ -157,15 +167,5 @@ class BoardMember implements Translatable
         $this->user = $user;
 
         return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }

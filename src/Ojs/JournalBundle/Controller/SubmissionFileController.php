@@ -2,11 +2,11 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\SubmissionFile;
 use Ojs\JournalBundle\Form\Type\SubmissionFileType;
 use Symfony\Component\HttpFoundation\Request;

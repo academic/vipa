@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Tests\Form;
 
-use Ojs\Common\Tests\BaseTypeTestcase;
+use Ojs\CoreBundle\Tests\BaseTypeTestcase;
 
 class ArticleFileTypeTest extends BaseTypeTestcase
 {

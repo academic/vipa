@@ -4,8 +4,8 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Helper;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;

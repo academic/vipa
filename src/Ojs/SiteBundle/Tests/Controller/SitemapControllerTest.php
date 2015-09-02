@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Tests\Controller;
 
-use Ojs\Common\Tests\BaseTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 
 class SitemapControllerTest extends BaseTestCase
 {

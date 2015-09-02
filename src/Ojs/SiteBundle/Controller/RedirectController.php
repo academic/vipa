@@ -4,7 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\NoResultException;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RedirectController extends Controller

@@ -2,7 +2,6 @@
 
 namespace Ojs\AnalyticsBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\ArticleFile;
 
@@ -24,10 +23,12 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->andWhere('stat.date IN (:dates)')
             ->andWhere('file = :file')
             ->groupBy('file')
-            ->setParameters([
-                'file'  => $articleFile,
-                'dates' => $dates
-            ]);
+            ->setParameters(
+                [
+                    'file' => $articleFile,
+                    'dates' => $dates
+                ]
+            );
 
         return $builder->getQuery()->getResult();
     }

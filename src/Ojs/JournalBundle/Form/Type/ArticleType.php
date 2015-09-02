@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\Common\Params\CommonParams;
+use Ojs\CoreBundle\Params\CommonParams;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

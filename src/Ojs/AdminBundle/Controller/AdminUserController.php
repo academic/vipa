@@ -10,7 +10,7 @@ use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Component\Form\Form;
@@ -107,6 +107,25 @@ class AdminUserController extends Controller
                 'form' => $form->createView(),
             )
         );
+    }
+
+    /**
+     * Creates a form to create a User entity.
+     * @param  User $entity The entity
+     * @return Form The form
+     */
+    private function createCreateForm(User $entity)
+    {
+        $form = $this->createForm(
+            new UserType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_user_create'),
+                'method' => 'POST'
+            )
+        );
+
+        return $form;
     }
 
     /**
@@ -362,25 +381,6 @@ class AdminUserController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('ojs_admin_user_unblock'));
-    }
-
-    /**
-     * Creates a form to create a User entity.
-     * @param  User $entity The entity
-     * @return Form The form
-     */
-    private function createCreateForm(User $entity)
-    {
-        $form = $this->createForm(
-            new UserType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl('ojs_admin_user_create'),
-                'method' => 'POST'
-            )
-        );
-
-        return $form;
     }
 
     public function changePasswordAction(Request $request, $id)

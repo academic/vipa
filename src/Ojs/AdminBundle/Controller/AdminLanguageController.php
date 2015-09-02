@@ -2,12 +2,12 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Lang;
+use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\LangType;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Lang;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;

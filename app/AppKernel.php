@@ -42,6 +42,7 @@ class AppKernel extends Kernel
             new Jb\Bundle\FileUploaderBundle\JbFileUploaderBundle(),
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
+            new Ojs\CoreBundle\OjsCoreBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),
             new Ojs\SearchBundle\OjsSearchBundle(),

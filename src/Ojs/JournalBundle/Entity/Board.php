@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -69,6 +69,16 @@ class Board implements Translatable
     }
 
     /**
+     * Get journalId
+     *
+     * @return integer
+     */
+    public function getJournalId()
+    {
+        return $this->journalId;
+    }
+
+    /**
      * Set journalId
      *
      * @param  integer $journalId
@@ -82,36 +92,13 @@ class Board implements Translatable
     }
 
     /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set name
-     *
-     * @param  string $name
-     * @return Board
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
+     * Get description
      *
      * @return string
      */
-    public function getName()
+    public function getDescription()
     {
-        return $this->name;
+        return $this->description;
     }
 
     /**
@@ -128,13 +115,13 @@ class Board implements Translatable
     }
 
     /**
-     * Get description
+     * Get journal
      *
-     * @return string
+     * @return Journal
      */
-    public function getDescription()
+    public function getJournal()
     {
-        return $this->description;
+        return $this->journal;
     }
 
     /**
@@ -148,16 +135,6 @@ class Board implements Translatable
         $this->journal = $journal;
 
         return $this;
-    }
-
-    /**
-     * Get journal
-     *
-     * @return Journal
-     */
-    public function getJournal()
-    {
-        return $this->journal;
     }
 
     /**
@@ -196,5 +173,28 @@ class Board implements Translatable
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param  string $name
+     * @return Board
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

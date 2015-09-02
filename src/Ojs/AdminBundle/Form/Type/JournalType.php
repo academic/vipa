@@ -3,7 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\Common\Params\CommonParams;
+use Ojs\CoreBundle\Params\CommonParams;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

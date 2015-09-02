@@ -4,11 +4,11 @@ namespace Ojs\CliBundle\Command;
 
 use Composer\Script\CommandEvent;
 use Ojs\AdminBundle\Entity\AdminPage;
+use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Theme;
-use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -31,7 +31,8 @@ class InstallCommand extends ContainerAwareCommand
         $webDir = $options['symfony-web-dir'];
 
         if (!is_dir($webDir)) {
-            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd().', can not install assets.'.PHP_EOL;
+            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd(
+                ).', can not install assets.'.PHP_EOL;
 
             return;
         }
@@ -141,7 +142,8 @@ class InstallCommand extends ContainerAwareCommand
         $application->run(new StringInput($command2));
 
         if (!$input->getOption('no-location')) {
-            $location = $this->getContainer()->get('kernel')->getRootDir().'/../src/Ojs/LocationBundle/Resources/data/location.sql';
+            $location = $this->getContainer()->get('kernel')->getRootDir(
+                ).'/../src/Ojs/LocationBundle/Resources/data/location.sql';
             $locationSql = file_get_contents($location);
             $command3 = 'doctrine:query:sql "'.$locationSql.'"';
             $application->run(new StringInput($command3));
@@ -259,7 +261,11 @@ class InstallCommand extends ContainerAwareCommand
             $kernel = $this->getContainer()->get('kernel');
             $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
             $application->setAutoExit(false);
-            $application->run(new \Symfony\Component\Console\Input\StringInput('fos:user:create --super-admin '.$username.' '.$email.' '.$password));
+            $application->run(
+                new \Symfony\Component\Console\Input\StringInput(
+                    'fos:user:create --super-admin '.$username.' '.$email.' '.$password
+                )
+            );
         }
     }
 
@@ -282,24 +288,58 @@ class InstallCommand extends ContainerAwareCommand
 
         $classes = [
             'OjsJournalBundle:Journal' => [
-                'adminMenu','boards','sections','issues','articles','design','contacts','block','theme','index',
-                'checklist','file','mailTemplate','report','userRole','citation','steps','announcements', 'pages', 'posts',
+                'adminMenu',
+                'boards',
+                'sections',
+                'issues',
+                'articles',
+                'design',
+                'contacts',
+                'block',
+                'theme',
+                'index',
+                'checklist',
+                'file',
+                'mailTemplate',
+                'report',
+                'userRole',
+                'citation',
+                'steps',
+                'announcements',
+                'pages',
+                'posts',
             ],
-            'OjsUserBundle:User' => null, 'OjsJournalBundle:Publisher' => null, 'OjsJournalBundle:PublisherTypes' => null,
-            'OjsUserBundle:Role' => null, 'OjsJournalBundle:JournalContact' => null, 'OjsJournalBundle:ContactTypes' => null,
-            'OjsJournalBundle:JournalIndex' => null, 'OjsJournalBundle:Author' => null, 'OjsJournalBundle:PublisherTheme' => null,
-            'OjsJournalBundle:Lang' => null, 'OjsUserBundle:MailLog' => null, 'OjsJournalBundle:PublisherDesign' => null,
-            'OjsJournalBundle:Citation' => null, 'OjsJournalBundle:CitationSetting' => null, 'OjsJournalBundle:Subject' => null,
-            'OjsJournalBundle:ArticleTypes' => null,'OjsJournalBundle:Period' => null,
-            'OjsAdminBundle:SystemSetting' => null, 'OjsAdminBundle:AdminAnnouncement' => null, 'OjsAdminBundle:AdminPage' => null,
-            'OjsAdminBundle:AdminPost' => null, 'OjsAdminBundle:PublisherManagers' => null,
+            'OjsUserBundle:User' => null,
+            'OjsJournalBundle:Publisher' => null,
+            'OjsJournalBundle:PublisherTypes' => null,
+            'OjsUserBundle:Role' => null,
+            'OjsJournalBundle:JournalContact' => null,
+            'OjsJournalBundle:ContactTypes' => null,
+            'OjsJournalBundle:JournalIndex' => null,
+            'OjsJournalBundle:Author' => null,
+            'OjsJournalBundle:PublisherTheme' => null,
+            'OjsJournalBundle:Lang' => null,
+            'OjsUserBundle:MailLog' => null,
+            'OjsJournalBundle:PublisherDesign' => null,
+            'OjsJournalBundle:Citation' => null,
+            'OjsJournalBundle:CitationSetting' => null,
+            'OjsJournalBundle:Subject' => null,
+            'OjsJournalBundle:ArticleTypes' => null,
+            'OjsJournalBundle:Period' => null,
+            'OjsAdminBundle:SystemSetting' => null,
+            'OjsAdminBundle:AdminAnnouncement' => null,
+            'OjsAdminBundle:AdminPage' => null,
+            'OjsAdminBundle:AdminPost' => null,
+            'OjsAdminBundle:PublisherManagers' => null,
         ];
         foreach ($classes as $className => $fields) {
             $realClassName = $em->getRepository($className)->getClassName();
             $aclManager->on($realClassName)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
             if (is_array($fields) && !empty($fields)) {
                 foreach ($fields as $field) {
-                    $aclManager->on($realClassName)->field($field)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+                    $aclManager->on($realClassName)->field($field)->to('ROLE_ADMIN')->permit(
+                        MaskBuilder::MASK_OWNER
+                    )->save();
                 }
             }
         }
@@ -437,7 +477,9 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('file')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
-            $aclManager->on($journal)->field('mailTemplate')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+            $aclManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR')
+            )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit($viewEditDelete)->save();
@@ -745,9 +787,11 @@ class InstallCommand extends ContainerAwareCommand
             if (!$journalUser->getRoles()->contains($authorRole)) {
                 $journalUser->getRoles()->add($authorRole);
                 $em->persist($journalUser);
-                $output->writeln($sb . 'Author added: ' .
-                    $journalUser->getUser() . ' - ' .
-                    $journalUser->getJournal() . $se);
+                $output->writeln(
+                    $sb.'Author added: '.
+                    $journalUser->getUser().' - '.
+                    $journalUser->getJournal().$se
+                );
             }
         }
 
@@ -764,7 +808,7 @@ class InstallCommand extends ContainerAwareCommand
         ];
 
         $em = $this->getContainer()->get('doctrine')->getManager();
-        
+
         foreach ($pages as $page) {
             $entity = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $page[0]]);
 
@@ -777,7 +821,7 @@ class InstallCommand extends ContainerAwareCommand
                 $em->persist($entity);
             }
         }
-        
+
         $em->flush();
     }
 }

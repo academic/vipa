@@ -8,8 +8,9 @@ use APY\DataGridBundle\Grid\Column\TextColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Source\Vector;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\Type\MailTemplateType;
 use Symfony\Component\Form\Form;
@@ -19,7 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Yaml\Parser;
-use Doctrine\ORM\Query;
 
 /**
  * MailTemplate controller.

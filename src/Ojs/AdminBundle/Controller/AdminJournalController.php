@@ -2,14 +2,14 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Journal;
 use Ojs\AdminBundle\Form\Type\JournalType;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

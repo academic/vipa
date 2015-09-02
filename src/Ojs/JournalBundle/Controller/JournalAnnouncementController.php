@@ -6,9 +6,9 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
-use Ojs\Common\Controller\OjsController;
+use Ojs\CoreBundle\Controller\OjsController;
+use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -70,6 +70,28 @@ class JournalAnnouncementController extends OjsController
     }
 
     /**
+     * Creates a form to create a JournalAnnouncement entity.
+     *
+     * @param JournalAnnouncement $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(JournalAnnouncement $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $form = $this->createForm(
+            new AnnouncementType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('ojs_journal_announcement_create', ['journalId' => $journal->getId()]),
+                'method' => 'POST'
+            ]
+        );
+        $form->add('submit', 'submit', ['label' => 'Create']);
+
+        return $form;
+    }
+
+    /**
      * Creates a new JournalAnnouncement entity.
      *
      * @param  Request $request
@@ -102,24 +124,6 @@ class JournalAnnouncementController extends OjsController
             'OjsJournalBundle:JournalAnnouncement:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
-    }
-
-    /**
-     * Creates a form to create a JournalAnnouncement entity.
-     *
-     * @param JournalAnnouncement $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(JournalAnnouncement $entity)
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createForm(new AnnouncementType(), $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_announcement_create', ['journalId' => $journal->getId()]),
-                'method' => 'POST'
-            ]);
-        $form->add('submit', 'submit', ['label' => 'Create']);
-        return $form;
     }
 
     /**
@@ -188,6 +192,31 @@ class JournalAnnouncementController extends OjsController
     }
 
     /**
+     * Creates a form to edit a Lang entity.
+     *
+     * @param  JournalAnnouncement $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(JournalAnnouncement $entity)
+    {
+        $form = $this->createForm(
+            new AnnouncementType(),
+            $entity,
+            [
+                'action' => $this->generateUrl(
+                    'ojs_journal_announcement_update',
+                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]
+                ),
+                'method' => 'PUT',
+            ]
+        );
+
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Lang entity.
      * @param  Request $request
      * @param  int $id
@@ -225,26 +254,6 @@ class JournalAnnouncementController extends OjsController
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * Creates a form to edit a Lang entity.
-     *
-     * @param  JournalAnnouncement $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(JournalAnnouncement $entity)
-    {
-        $form = $this->createForm(new AnnouncementType(), $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_announcement_update',
-                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]),
-                'method' => 'PUT',
-            ]
-        );
-
-        $form->add('submit', 'submit', ['label' => 'Update']);
-        return $form;
     }
 
     /**

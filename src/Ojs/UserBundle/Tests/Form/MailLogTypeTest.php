@@ -2,8 +2,8 @@
 
 namespace Ojs\UserBundle\Tests\Form;
 
-use Ojs\Common\Tests\BaseTypeTestcase;
 use Ojs\AdminBundle\Form\Type\MailLogType;
+use Ojs\CoreBundle\Tests\BaseTypeTestcase;
 
 class MailLogTypeTest extends BaseTypeTestcase
 {

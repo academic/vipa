@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
 use Ojs\UserBundle\Entity\User;
@@ -32,196 +32,161 @@ class Publisher extends AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
-
-    private $lft;
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\PublisherTranslation")
+     */
+    protected $translations;
 
     /*
      * @var Publisher
      * @Expose
      * @GRID\Column(title="parent")
      */
+    private $lft;
     private $lvl;
-
     private $rgt;
-
     private $root;
-
     private $parent;
-
     /**
      * @var ArrayCollection|Publisher[]
      */
     private $children;
-
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="name")
      */
     private $name;
-
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="address")
      */
     private $address;
-
     /**
      * @var string
      * @Expose
      */
     private $about;
-
     /**
      * @var Province
      * @Expose
      * @GRID\Column(field="city.name",title="city")
      */
     private $city;
-
     /**
      * @var Country
      * @Expose
      * @GRID\Column(field="country.name",title="country")
      */
     private $country;
-
     /**
      * @var string
      * @Expose
      */
     private $addressLat;
-
     /**
      * @var string
      * @Expose
      */
     private $addressLong;
-
     /**
      * @var string
      * @Expose
      */
     private $phone;
-
     /**
      * @var string
      * @Expose
      */
     private $fax;
-
     /**
      * @var string
      * @Expose
      */
     private $email;
-
     /**
      * @var string
      * @Expose
      */
     private $url;
-
     /**
      * @var string
      * @Expose
      */
     private $wiki;
-
     /**
      * @var string
      * @Expose
      */
     private $logo;
-
     /**
      * @var string
      * @Expose
      */
     private $header;
-
     /**
      * @var string
      * @Expose
      */
     private $domain;
-
     /**
      * @var Collection
      */
     private $journals;
-
     /**
      * @var Collection
      */
     private $authors;
-
     /**
      * @var string
      */
     private $slug;
-
     /**
      * @var int
      */
     private $publisher_type;
-
     /**
      * @var
      */
     private $publisher_type_id;
-
     /**
      * @var integer
      * @Expose
      */
     private $themeId;
-
     /**
      * @var PublisherTheme
      */
     private $theme;
-
     /**
      * @var integer
      */
     private $designId;
-
     /**
      * @var PublisherTheme
      */
     private $design;
-
     /**
      * @var Collection
      * @Expose
      */
     private $publisherThemes;
-
     /**
      * @var JournalDesign Collection
      * @Expose
      */
     private $publisherDesigns;
-
     /**
      * @var boolean
      * @GRID\Column(title="verified")
      */
     private $verified = false;
-
     private $status = 0;
-
     /**
      * @var ArrayCollection|User[]
      */
     private $publisherManagers;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\PublisherTranslation")
-     */
-    protected $translations;
 
     public function __construct()
     {
@@ -231,35 +196,6 @@ class Publisher extends AbstractTranslatable
         $this->publisherThemes = new ArrayCollection();
         $this->publisherDesigns = new ArrayCollection();
         $this->publisherManagers = new ArrayCollection();
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\PublisherTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new PublisherTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setAbout($defaultTranslation->getAbout());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
     }
 
     /**
@@ -492,6 +428,36 @@ class Publisher extends AbstractTranslatable
         $this->translate()->setAbout($about);
 
         return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\PublisherTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new PublisherTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setAbout($defaultTranslation->getAbout());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
     }
 
     /**

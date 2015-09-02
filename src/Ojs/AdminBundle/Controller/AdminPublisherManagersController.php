@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\PublisherManagers;
 use Ojs\AdminBundle\Form\Type\PublisherManagersType;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

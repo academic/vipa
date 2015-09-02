@@ -2,12 +2,12 @@
 
 namespace Ojs\CmsBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Post
@@ -22,38 +22,32 @@ abstract class Post extends AbstractTranslatable
      * @GRID\Column(title="ID")
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\CmsBundle\Entity\PostTranslation")
+     */
+    protected $translations;
     /**
      * @var string
      * @GRID\Column(title="Title")
      */
     private $title;
-
     /**
      * @var string
      * @GRID\Column(title="Content")
      */
     private $content;
-
     /**
      * @var string
      */
     private $slug;
-
     /**
      * @var \DateTime
      */
     private $createdAt;
-
     /**
      * @var \DateTime
      */
     private $updatedAt;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\CmsBundle\Entity\PostTranslation")
-     */
-    protected $translations;
 
     /**
      * Constructor
@@ -62,6 +56,39 @@ abstract class Post extends AbstractTranslatable
     {
         $this->posts = new ArrayCollection();
         $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->translate()->getTitle();
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Post
+     */
+    public function setTitle($title)
+    {
+        $this->translate()->setTitle($title);
+
+        return $this;
     }
 
     /**
@@ -100,36 +127,13 @@ abstract class Post extends AbstractTranslatable
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Post
-     */
-    public function setTitle($title)
-    {
-        $this->translate()->setTitle($title);
-
-        return $this;
-    }
-
-    /**
-     * Get title
+     * Get content
      *
      * @return string
      */
-    public function getTitle()
+    public function getContent()
     {
-        return $this->translate()->getTitle();
+        return $this->translate()->getContent();
     }
 
     /**
@@ -146,13 +150,13 @@ abstract class Post extends AbstractTranslatable
     }
 
     /**
-     * Get content
+     * Get slug
      *
      * @return string
      */
-    public function getContent()
+    public function getSlug()
     {
-        return $this->translate()->getContent();
+        return $this->slug;
     }
 
     /**
@@ -169,13 +173,13 @@ abstract class Post extends AbstractTranslatable
     }
 
     /**
-     * Get slug
+     * Get createdAt
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getSlug()
+    public function getCreatedAt()
     {
-        return $this->slug;
+        return $this->createdAt;
     }
 
     /**
@@ -192,13 +196,13 @@ abstract class Post extends AbstractTranslatable
     }
 
     /**
-     * Get createdAt
+     * Get updatedAt
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getUpdatedAt()
     {
-        return $this->createdAt;
+        return $this->updatedAt;
     }
 
     /**
@@ -212,15 +216,5 @@ abstract class Post extends AbstractTranslatable
         $this->updatedAt = $updatedAt;
 
         return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 }

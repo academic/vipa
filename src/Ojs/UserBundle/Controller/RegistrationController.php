@@ -3,14 +3,13 @@
 namespace Ojs\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
-
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\TokenGenerator;
-use Ojs\Common\Helper\StringHelper;
+use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Event\UserEvent;

@@ -2,14 +2,13 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
-use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use JMS\Serializer\Annotation\ExclusionPolicy;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
 
 /**
  * IssueFile
@@ -25,54 +24,44 @@ class IssueFile extends AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueFileTranslation")
+     */
+    protected $translations;
     /**
      * @var integer
      */
     private $type;
-
     /**
      * @var string
      */
     private $file;
-
     /**
      * @var integer
      */
     private $version;
-
     /**
      * @var string
      */
     private $keywords;
-
     /**
      * @var string
      */
     private $description;
-
     /**
      * @var string
      * @GRID\Column(title="issuefile.title")
      */
     private $title;
-
     /**
      * @var string
      * @GRID\Column(title="issuefile.langcode")
      */
     private $langCode;
-
     /**
      * @var Issue
      */
     private $issue;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueFileTranslation")
-     */
-    protected $translations;
-
     /**
      * @var ArrayCollection|IssueFileStatistic[]
      */
@@ -81,6 +70,131 @@ class IssueFile extends AbstractTranslatable
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return IssueFile
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     * @return IssueFile
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return integer
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set version
+     *
+     * @param integer $version
+     * @return IssueFile
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * Set keywords
+     *
+     * @param string $keywords
+     * @return IssueFile
+     */
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->translate()->getDescription();
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return IssueFile
+     */
+    public function setDescription($description)
+    {
+        $this->translate()->setDescription($description);
+
+        return $this;
     }
 
     /**
@@ -102,7 +216,7 @@ class IssueFile extends AbstractTranslatable
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
             $translation = new IssueFileTranslation();
-            if(!is_null($defaultTranslation)){
+            if (!is_null($defaultTranslation)) {
                 $translation->setTitle($defaultTranslation->getTitle());
                 $translation->setDescription($defaultTranslation->getDescription());
             }
@@ -110,132 +224,18 @@ class IssueFile extends AbstractTranslatable
             $this->addTranslation($translation);
         }
         $this->currentTranslation = $translation;
+
         return $translation;
     }
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set type
-     *
-     * @param integer $type
-     * @return IssueFile
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return integer 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set file
-     *
-     * @param string $file
-     * @return IssueFile
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * Get file
+     * Get title
      *
      * @return string
      */
-    public function getFile()
+    public function getTitle()
     {
-        return $this->file;
-    }
-
-    /**
-     * Set version
-     *
-     * @param integer $version
-     * @return IssueFile
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return integer 
-     */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * Set keywords
-     *
-     * @param string $keywords
-     * @return IssueFile
-     */
-    public function setKeywords($keywords)
-    {
-        $this->keywords = $keywords;
-
-        return $this;
-    }
-
-    /**
-     * Get keywords
-     *
-     * @return string 
-     */
-    public function getKeywords()
-    {
-        return $this->keywords;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return IssueFile
-     */
-    public function setDescription($description)
-    {
-        $this->translate()->setDescription($description);
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->translate()->getDescription();
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -252,13 +252,13 @@ class IssueFile extends AbstractTranslatable
     }
 
     /**
-     * Get title
+     * Get langCode
      *
-     * @return string 
+     * @return string
      */
-    public function getTitle()
+    public function getLangCode()
     {
-        return $this->translate()->getTitle();
+        return $this->langCode;
     }
 
     /**
@@ -275,16 +275,14 @@ class IssueFile extends AbstractTranslatable
     }
 
     /**
-     * Get langCode
+     * Get issue
      *
-     * @return string 
+     * @return Issue
      */
-    public function getLangCode()
+    public function getIssue()
     {
-        return $this->langCode;
+        return $this->issue;
     }
-
-
 
     /**
      * Set issue
@@ -298,17 +296,6 @@ class IssueFile extends AbstractTranslatable
 
         return $this;
     }
-
-    /**
-     * Get issue
-     *
-     * @return Issue
-     */
-    public function getIssue()
-    {
-        return $this->issue;
-    }
-
 
     /**
      * Set updated

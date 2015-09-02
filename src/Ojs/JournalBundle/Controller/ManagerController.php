@@ -5,7 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\JournalBundle\Event\WorkflowEvent;
@@ -238,31 +238,6 @@ class ManagerController extends Controller
         return $response;
     }
 
-
-    /**
-     * @return Response
-     * @throws HttpException
-     */
-    public function myJournalsAction()
-    {
-        $user_id = $this->getUser()->getId();
-        if (!$user_id) {
-            throw new HttpException(403, 'ojs.403');
-        }
-
-        $entities = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:JournalUser')
-            ->findBy(['user' => $this->getUser()]);
-
-        return $this->render(
-            'OjsJournalBundle:User:myjournals.html.twig',
-            array(
-                'entities' => $entities,
-            )
-        );
-    }
-
     /**
      *  Arranges statistics
      * @return array
@@ -298,5 +273,29 @@ class ManagerController extends Controller
         ];
 
         return $data;
+    }
+
+    /**
+     * @return Response
+     * @throws HttpException
+     */
+    public function myJournalsAction()
+    {
+        $user_id = $this->getUser()->getId();
+        if (!$user_id) {
+            throw new HttpException(403, 'ojs.403');
+        }
+
+        $entities = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['user' => $this->getUser()]);
+
+        return $this->render(
+            'OjsJournalBundle:User:myjournals.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 }

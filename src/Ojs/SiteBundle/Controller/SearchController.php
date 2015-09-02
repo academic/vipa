@@ -6,7 +6,7 @@ use Elastica\Aggregation;
 use Elastica\Index;
 use Elastica\Query;
 use Elastica\ResultSet;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;

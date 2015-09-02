@@ -2,7 +2,7 @@
 
 namespace Ojs\InstallerBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\Type\UserFirstType;
@@ -42,42 +42,6 @@ class SetupController extends Controller
         return $this->render("OjsInstallerBundle:Default:setup.html.twig", $data);
     }
 
-    public function createUserAction(Request $request)
-    {
-        $user = new User();
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(
-            new UserFirstType(),
-            $user,
-            [
-                'method' => 'POST',
-                'action' => $this->get('router')->generate('ojs_installer_create_admin'),
-            ]
-        );
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $factory = $this->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($user);
-            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
-            $user->setPassword($password);
-            $user->setIsActive(true);
-            $user->generateApiKey();
-
-            $user->setAdmin(true);
-
-            $em->persist($user);
-            $em->flush();
-            $providerKey = 'main'; //  firewall name
-            $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-            $this->get('security.token_storage')->setToken($token);
-
-            return new RedirectResponse('/install/summary');
-        }
-
-        return new RedirectResponse($this->get('router')->generate('ojs_installer_setup'));
-    }
-
     private function insertRoles()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -100,5 +64,41 @@ class SetupController extends Controller
         $em->flush();
 
         return implode("\n", $return);
+    }
+
+    public function createUserAction(Request $request)
+    {
+        $user = new User();
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(
+            new UserFirstType(),
+            $user,
+            [
+                'method' => 'POST',
+                'action' => $this->get('router')->generate('ojs_installer_create_admin'),
+            ]
+        );
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+            $user->setPassword($password);
+            $user->setEnabled(true);
+            $user->generateApiKey();
+
+            $user->addRole('ROLE_ADMIN');
+
+            $em->persist($user);
+            $em->flush();
+            $providerKey = 'main'; //  firewall name
+            $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+
+            return new RedirectResponse('/install/summary');
+        }
+
+        return new RedirectResponse($this->get('router')->generate('ojs_installer_setup'));
     }
 }

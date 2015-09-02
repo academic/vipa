@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 
 /**
@@ -26,37 +26,30 @@ class ArticleSubmissionProgress implements Translatable
      * @GRID\Column(title="current.step")
      */
     protected $currentStep;
-
-    /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var int
-     */
-    private $userId;
-
     /**
      * @var string
      */
     protected $competingOfInterest;
-
-    /**
-     * @var Journal
-     */
-    private $journal;
-
-    /**
-     * @var int
-     */
-    private $journalId;
-
     /**
      * @var string
      */
     protected $primaryLanguage;
-
+    /**
+     * @var User
+     */
+    private $user;
+    /**
+     * @var int
+     */
+    private $userId;
+    /**
+     * @var Journal
+     */
+    private $journal;
+    /**
+     * @var int
+     */
+    private $journalId;
     /**
      * @var Article
      */
@@ -81,6 +74,16 @@ class ArticleSubmissionProgress implements Translatable
     }
 
     /**
+     * Get currentStep
+     *
+     * @return int $currentStep
+     */
+    public function getCurrentStep()
+    {
+        return $this->currentStep;
+    }
+
+    /**
      * Set currentStep
      *
      * @param  int  $currentStep
@@ -94,13 +97,13 @@ class ArticleSubmissionProgress implements Translatable
     }
 
     /**
-     * Get currentStep
+     * Get journalId
      *
-     * @return int $currentStep
+     * @return int $journalId
      */
-    public function getCurrentStep()
+    public function getJournalId()
     {
-        return $this->currentStep;
+        return $this->journalId;
     }
 
     /**
@@ -117,13 +120,13 @@ class ArticleSubmissionProgress implements Translatable
     }
 
     /**
-     * Get journalId
+     * Get userId
      *
-     * @return int $journalId
+     * @return int $userId
      */
-    public function getJournalId()
+    public function getUserId()
     {
-        return $this->journalId;
+        return $this->userId;
     }
 
     /**
@@ -140,15 +143,14 @@ class ArticleSubmissionProgress implements Translatable
     }
 
     /**
-     * Get userId
+     * Get submitted
      *
-     * @return int $userId
+     * @return boolean $submitted
      */
-    public function getUserId()
+    public function getSubmitted()
     {
-        return $this->userId;
+        return $this->submitted;
     }
-
 
     /**
      * Set submitted
@@ -161,16 +163,6 @@ class ArticleSubmissionProgress implements Translatable
         $this->submitted = $submitted;
 
         return $this;
-    }
-
-    /**
-     * Get submitted
-     *
-     * @return boolean $submitted
-     */
-    public function getSubmitted()
-    {
-        return $this->submitted;
     }
 
     /**
@@ -190,6 +182,16 @@ class ArticleSubmissionProgress implements Translatable
     }
 
     /**
+     * Get competingOfInterest
+     *
+     * @return string $competingOfInterest
+     */
+    public function getCompetingOfInterest()
+    {
+        return $this->competingOfInterest;
+    }
+
+    /**
      * Set competingOfInterest
      *
      * @param  string $competingOfInterest
@@ -203,13 +205,13 @@ class ArticleSubmissionProgress implements Translatable
     }
 
     /**
-     * Get competingOfInterest
+     * Get journal
      *
-     * @return string $competingOfInterest
+     * @return Journal
      */
-    public function getCompetingOfInterest()
+    public function getJournal()
     {
-        return $this->competingOfInterest;
+        return $this->journal;
     }
 
     /**
@@ -222,16 +224,6 @@ class ArticleSubmissionProgress implements Translatable
         $this->journal = $journal;
 
         return $this;
-    }
-
-    /**
-     * Get journal
-     *
-     * @return Journal
-     */
-    public function getJournal()
-    {
-        return $this->journal;
     }
 
     /**

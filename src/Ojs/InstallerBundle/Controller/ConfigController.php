@@ -2,7 +2,7 @@
 
 namespace Ojs\InstallerBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\InstallerBundle\Entity\Config;
 use Ojs\InstallerBundle\Form\Type\ConfigType;
 use Symfony\Component\Filesystem\Filesystem;

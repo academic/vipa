@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -52,6 +52,16 @@ class PublisherTheme
     }
 
     /**
+     * Get Publisher
+     *
+     * @return Publisher
+     */
+    public function getPublisher()
+    {
+        return $this->publisher;
+    }
+
+    /**
      * Set Publisher
      * @param  Publisher $publisher
      * @return PublisherTheme
@@ -61,16 +71,6 @@ class PublisherTheme
         $this->publisher = $publisher;
 
         return $this;
-    }
-
-    /**
-     * Get Publisher
-     *
-     * @return Publisher
-     */
-    public function getPublisher()
-    {
-        return $this->publisher;
     }
 
     /**

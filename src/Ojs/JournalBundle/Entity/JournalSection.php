@@ -5,10 +5,9 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
-use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalSection
@@ -23,79 +22,43 @@ class JournalSection extends AbstractTranslatable
      * @GRID\Column(title="ID")
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalSectionTranslation")
+     */
+    protected $translations;
     /**
      * @var string
      * @GRID\Column(title="journalsection.title")
      */
     private $title;
-
     /**
      * @var boolean
      * @GRID\Column(title="journalsection.allow_index")
      */
     private $allowIndex = true;
-
     /**
      * @var boolean
      * @GRID\Column(title="journalsection.hide_title")
      */
     private $hideTitle = false;
-
     /**
      * @var integer
      */
     private $journalId;
-
     /**
      * @var Collection|Article[]
      */
     private $articles;
-
     /**
      * @var Journal
      * @GRID\Column(title="journal")
      */
     private $journal;
 
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalSectionTranslation")
-     */
-    protected $translations;
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->translations = new ArrayCollection();
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalSectionTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new JournalSectionTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setTitle($defaultTranslation->getTitle());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
     }
 
     /**
@@ -142,26 +105,13 @@ class JournalSection extends AbstractTranslatable
     }
 
     /**
-     * Set title
+     * Get allowIndex
      *
-     * @param  string         $title
-     * @return JournalSection
+     * @return boolean
      */
-    public function setTitle($title)
+    public function getAllowIndex()
     {
-        $this->translate()->setTitle($title);
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->translate()->getTitle();
+        return $this->allowIndex;
     }
 
     /**
@@ -178,13 +128,13 @@ class JournalSection extends AbstractTranslatable
     }
 
     /**
-     * Get allowIndex
+     * Get hideTitle
      *
      * @return boolean
      */
-    public function getAllowIndex()
+    public function getHideTitle()
     {
-        return $this->allowIndex;
+        return $this->hideTitle;
     }
 
     /**
@@ -201,13 +151,13 @@ class JournalSection extends AbstractTranslatable
     }
 
     /**
-     * Get hideTitle
+     * Get journalId
      *
-     * @return boolean
+     * @return integer
      */
-    public function getHideTitle()
+    public function getJournalId()
     {
-        return $this->hideTitle;
+        return $this->journalId;
     }
 
     /**
@@ -224,13 +174,13 @@ class JournalSection extends AbstractTranslatable
     }
 
     /**
-     * Get journalId
+     * Get journal
      *
-     * @return integer
+     * @return Journal
      */
-    public function getJournalId()
+    public function getJournal()
     {
-        return $this->journalId;
+        return $this->journal;
     }
 
     /**
@@ -246,18 +196,61 @@ class JournalSection extends AbstractTranslatable
         return $this;
     }
 
-    /**
-     * Get journal
-     *
-     * @return Journal
-     */
-    public function getJournal()
-    {
-        return $this->journal;
-    }
-
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->translate()->getTitle();
+    }
+
+    /**
+     * Set title
+     *
+     * @param  string $title
+     * @return JournalSection
+     */
+    public function setTitle($title)
+    {
+        $this->translate()->setTitle($title);
+
+        return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalSectionTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new JournalSectionTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
     }
 }

@@ -6,9 +6,9 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\JournalBundle\Entity\JournalPage;
 use Ojs\CmsBundle\Form\Type\PageType;
-use Ojs\Common\Controller\OjsController;
+use Ojs\CoreBundle\Controller\OjsController;
+use Ojs\JournalBundle\Entity\JournalPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -91,6 +91,28 @@ class JournalPageController extends OjsController
     }
 
     /**
+     * Creates a form to create a JournalPage entity.
+     *
+     * @param JournalPage $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(JournalPage $entity)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $form = $this->createForm(
+            new PageType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('ojs_journal_page_create', ['journalId' => $journal->getId()]),
+                'method' => 'POST'
+            ]
+        );
+        $form->add('submit', 'submit', ['label' => 'Create']);
+
+        return $form;
+    }
+
+    /**
      * Creates a new JournalPage entity.
      *
      * @param  Request $request
@@ -111,7 +133,7 @@ class JournalPageController extends OjsController
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -125,24 +147,6 @@ class JournalPageController extends OjsController
             'OjsJournalBundle:JournalPage:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
-    }
-
-    /**
-     * Creates a form to create a JournalPage entity.
-     *
-     * @param JournalPage $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(JournalPage $entity)
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createForm(new PageType(), $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_page_create', ['journalId' => $journal->getId()]),
-                'method' => 'POST'
-            ]);
-        $form->add('submit', 'submit', ['label' => 'Create']);
-        return $form;
     }
 
     /**
@@ -211,6 +215,31 @@ class JournalPageController extends OjsController
     }
 
     /**
+     * Creates a form to edit a Lang entity.
+     *
+     * @param  JournalPage $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(JournalPage $entity)
+    {
+        $form = $this->createForm(
+            new PageType(),
+            $entity,
+            [
+                'action' => $this->generateUrl(
+                    'ojs_journal_page_update',
+                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]
+                ),
+                'method' => 'PUT',
+            ]
+        );
+
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Lang entity.
      * @param  Request $request
      * @param  int $id
@@ -248,26 +277,6 @@ class JournalPageController extends OjsController
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * Creates a form to edit a Lang entity.
-     *
-     * @param  JournalPage $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(JournalPage $entity)
-    {
-        $form = $this->createForm(new PageType(), $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_page_update',
-                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]),
-                'method' => 'PUT',
-            ]
-        );
-
-        $form->add('submit', 'submit', ['label' => 'Update']);
-        return $form;
     }
 
     /**

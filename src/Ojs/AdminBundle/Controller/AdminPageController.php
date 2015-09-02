@@ -5,9 +5,9 @@ namespace Ojs\AdminBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\CmsBundle\Form\Type\PageType;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,6 +82,24 @@ class AdminPageController extends Controller
     }
 
     /**
+     * Creates a form to create a Page entity.
+     *
+     * @param  AdminPage $entity The entity
+     * @return Form The form
+     */
+    private function createCreateForm(AdminPage $entity)
+    {
+        $form = $this->createForm(
+            new PageType(),
+            $entity,
+            ['action' => $this->generateUrl('ojs_admin_page_create'), 'method' => 'POST']
+        );
+        $form->add('submit', 'submit', ['label' => 'Create']);
+
+        return $form;
+    }
+
+    /**
      * Creates a new Page entity.
      *
      * @param  Request $request
@@ -112,20 +130,6 @@ class AdminPageController extends Controller
             'OjsAdminBundle:AdminPage:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
-    }
-
-    /**
-     * Creates a form to create a Page entity.
-     *
-     * @param  AdminPage $entity The entity
-     * @return Form The form
-     */
-    private function createCreateForm(AdminPage $entity)
-    {
-        $form = $this->createForm(new PageType(), $entity,
-            ['action' => $this->generateUrl('ojs_admin_page_create'), 'method' => 'POST']);
-        $form->add('submit', 'submit', ['label' => 'Create']);
-        return $form;
     }
 
     /**
@@ -183,6 +187,28 @@ class AdminPageController extends Controller
     }
 
     /**
+     * Creates a form to edit a Page entity.
+     *
+     * @param  AdminPage $entity The entity
+     * @return Form The form
+     */
+    private function createEditForm(AdminPage $entity)
+    {
+        $form = $this->createForm(
+            new PageType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('ojs_admin_page_update', ['id' => $entity->getId()]),
+                'method' => 'PUT',
+            ]
+        );
+
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Page entity.
      *
      * @param  Request $request
@@ -214,25 +240,6 @@ class AdminPageController extends Controller
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * Creates a form to edit a Page entity.
-     *
-     * @param  AdminPage $entity The entity
-     * @return Form The form
-     */
-    private function createEditForm(AdminPage $entity)
-    {
-        $form = $this->createForm(new PageType(), $entity,
-            [
-                'action' => $this->generateUrl('ojs_admin_page_update', ['id' => $entity->getId()]),
-                'method' => 'PUT',
-            ]
-        );
-
-        $form->add('submit', 'submit', ['label' => 'Update']);
-        return $form;
     }
 
     /**

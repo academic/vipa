@@ -4,7 +4,7 @@ namespace Ojs\UserBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -40,6 +40,15 @@ class MailLog implements Translatable
     }
 
     /**
+     * Get mailObject
+     * @return string
+     */
+    public function getMailObject()
+    {
+        return $this->mailObject;
+    }
+
+    /**
      * Set mailObject
      * @param  string  $mailObject
      * @return MailLog
@@ -52,12 +61,12 @@ class MailLog implements Translatable
     }
 
     /**
-     * Get mailObject
+     * Get recipientEmail
      * @return string
      */
-    public function getMailObject()
+    public function getRecipientEmail()
     {
-        return $this->mailObject;
+        return $this->recipientEmail;
     }
 
     /**
@@ -71,15 +80,6 @@ class MailLog implements Translatable
         $this->recipientEmail = $recipientEmail;
 
         return $this;
-    }
-
-    /**
-     * Get recipientEmail
-     * @return string
-     */
-    public function getRecipientEmail()
-    {
-        return $this->recipientEmail;
     }
 
     /**

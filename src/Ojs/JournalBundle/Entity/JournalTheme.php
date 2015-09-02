@@ -3,8 +3,8 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalTheme
@@ -52,6 +52,16 @@ class JournalTheme
     }
 
     /**
+     * Get journal
+     *
+     * @return Journal
+     */
+    public function getJournal()
+    {
+        return $this->journal;
+    }
+
+    /**
      * Set journal
      * @param  Journal      $journal
      * @return JournalTheme
@@ -61,16 +71,6 @@ class JournalTheme
         $this->journal = $journal;
 
         return $this;
-    }
-
-    /**
-     * Get journal
-     *
-     * @return Journal
-     */
-    public function getJournal()
-    {
-        return $this->journal;
     }
 
     /**

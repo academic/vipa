@@ -2,11 +2,11 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
-use Doctrine\Common\Collections\Collection;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -15,31 +15,29 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  */
 class JournalUser
 {
-    public function __construct()
-    {
-        $this->roles = new ArrayCollection();
-    }
     /**
      * @var integer
      */
     private $id;
-
     /**
      * @var Journal
      * @Grid\Column(title="journal")
      */
     private $journal;
-
     /**
      * @var User
      * @Grid\Column(field="user.username", title="user")
      */
     private $user;
-
     /**
      * @var Collection
      */
     private $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -56,6 +54,7 @@ class JournalUser
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -74,6 +73,7 @@ class JournalUser
     public function setJournal($journal)
     {
         $this->journal = $journal;
+
         return $this;
     }
 
@@ -92,6 +92,7 @@ class JournalUser
     public function setUser($user)
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -110,6 +111,7 @@ class JournalUser
     public function setRoles($roles)
     {
         $this->roles = $roles;
+
         return $this;
     }
 
@@ -119,9 +121,10 @@ class JournalUser
      */
     public function addRole(Role $role)
     {
-        if(!$this->roles->contains($role)){
+        if (!$this->roles->contains($role)) {
             $this->roles->add($role);
         }
+
         return $this;
     }
 
@@ -131,9 +134,10 @@ class JournalUser
      */
     public function removeRole(Role $role)
     {
-        if(!$this->roles->contains($role)){
+        if (!$this->roles->contains($role)) {
             $this->roles->removeElement($role);
         }
+
         return $this;
     }
 }

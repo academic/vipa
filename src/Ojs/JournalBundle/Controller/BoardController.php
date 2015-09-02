@@ -5,7 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Entity\BoardMember;
 use Ojs\JournalBundle\Form\Type\BoardType;

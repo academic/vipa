@@ -7,11 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\SubjectTranslation;
 
 /**
  * Subject
@@ -28,11 +27,14 @@ class Subject extends AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\SubjectTranslation")
+     */
+    protected $translations;
     private $lft;
     private $lvl;
     private $rgt;
     private $root;
-
     /**
      * @var Subject
      * @Expose
@@ -40,46 +42,35 @@ class Subject extends AbstractTranslatable
      */
     private $parent;
     private $children;
-
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="subject")
      */
     private $subject;
-
     /**
      * @var string
      * @Expose
      * @GRID\Column(title="description")
      */
     private $description;
-
     /**
      * @var Collection
      */
     private $users;
-
     /**
      * This data will be pre-calculated with scheduled tasks
      * @var int
      */
     private $totalJournalCount;
-
     /**
      * @var Collection
      */
     private $journals;
-
     /**
      * @var string
      */
     private $slug;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\SubjectTranslation")
-     */
-    protected $translations;
 
     public function __construct()
     {
@@ -89,53 +80,17 @@ class Subject extends AbstractTranslatable
     }
 
     /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\SubjectTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            $locale = $this->parent->getCurrentLocale();
-            if(!$locale){
-                throw new \RuntimeException('No locale has been set and currentLocale is empty');
-            }
-        }
-        /** @var SubjectTranslation $currentTranslation */
-        $currentTranslation = $this->currentTranslation;
-        if ($currentTranslation && $currentTranslation->getLocale() === $locale) {
-            return $currentTranslation;
-        }
-        /** @var SubjectTranslation $defaultTranslation */
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new SubjectTranslation();
-            if(!is_null($defaultTranslation)){
-                $translation->setSubject($defaultTranslation->getSubject());
-                $translation->setDescription($defaultTranslation->getDescription());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-        return $translation;
-    }
-
-    public function setParent(Subject $parent = null)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
      *
      * @return Subject
      */
     public function getParent()
     {
         return $this->parent;
+    }
+
+    public function setParent(Subject $parent = null)
+    {
+        $this->parent = $parent;
     }
 
     public function getChildren()
@@ -149,6 +104,20 @@ class Subject extends AbstractTranslatable
     }
 
     /**
+     * Set root
+     *
+     * @param integer $root
+     *
+     * @return Subject
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -159,26 +128,12 @@ class Subject extends AbstractTranslatable
     }
 
     /**
-     * Set subject
-     *
-     * @param  string  $subject
-     * @return Subject
+     * Get totalJournalCount
+     * @return integer
      */
-    public function setSubject($subject)
+    public function getTotalJournalCount()
     {
-        $this->translate()->setSubject($subject);
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->translate()->getSubject();
+        return $this->totalJournalCount;
     }
 
     /**
@@ -194,12 +149,13 @@ class Subject extends AbstractTranslatable
     }
 
     /**
-     * Get totalJournalCount
-     * @return integer
+     * Get description
+     *
+     * @return string
      */
-    public function getTotalJournalCount()
+    public function getDescription()
     {
-        return $this->totalJournalCount;
+        return $this->translate()->getDescription();
     }
 
     /**
@@ -213,16 +169,6 @@ class Subject extends AbstractTranslatable
         $this->translate()->setDescription($description);
 
         return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->translate()->getDescription();
     }
 
     /**
@@ -329,6 +275,76 @@ class Subject extends AbstractTranslatable
     }
 
     /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->translate()->getSubject();
+    }
+
+    /**
+     * Set subject
+     *
+     * @param  string $subject
+     * @return Subject
+     */
+    public function setSubject($subject)
+    {
+        $this->translate()->setSubject($subject);
+
+        return $this;
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\SubjectTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            $locale = $this->parent->getCurrentLocale();
+            if (!$locale) {
+                throw new \RuntimeException('No locale has been set and currentLocale is empty');
+            }
+        }
+        /** @var SubjectTranslation $currentTranslation */
+        $currentTranslation = $this->currentTranslation;
+        if ($currentTranslation && $currentTranslation->getLocale() === $locale) {
+            return $currentTranslation;
+        }
+        /** @var SubjectTranslation $defaultTranslation */
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new SubjectTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setSubject($defaultTranslation->getSubject());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
      * Set lft
      *
      * @param integer $lft
@@ -343,13 +359,13 @@ class Subject extends AbstractTranslatable
     }
 
     /**
-     * Get lft
+     * Get rgt
      *
      * @return integer
      */
-    public function getLft()
+    public function getRgt()
     {
-        return $this->lft;
+        return $this->rgt;
     }
 
     /**
@@ -367,27 +383,13 @@ class Subject extends AbstractTranslatable
     }
 
     /**
-     * Get rgt
+     * Get lvl
      *
      * @return integer
      */
-    public function getRgt()
+    public function getLvl()
     {
-        return $this->rgt;
-    }
-
-    /**
-     * Set root
-     *
-     * @param integer $root
-     *
-     * @return Subject
-     */
-    public function setRoot($root)
-    {
-        $this->root = $root;
-
-        return $this;
+        return $this->lvl;
     }
 
     /**
@@ -402,16 +404,6 @@ class Subject extends AbstractTranslatable
         $this->lvl = $lvl;
 
         return $this;
-    }
-
-    /**
-     * Get lvl
-     *
-     * @return integer
-     */
-    public function getLvl()
-    {
-        return $this->lvl;
     }
 
     /**

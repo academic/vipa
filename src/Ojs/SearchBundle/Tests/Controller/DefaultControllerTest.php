@@ -2,7 +2,7 @@
 
 namespace Ojs\SearchBundle\Tests\Controller;
 
-use Ojs\Common\Tests\BaseTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 
 class DefaultControllerTest extends BaseTestCase
 {

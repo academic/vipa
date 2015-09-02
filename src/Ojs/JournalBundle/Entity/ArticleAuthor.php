@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -60,6 +60,16 @@ class ArticleAuthor implements Translatable
     }
 
     /**
+     * Get authorOrder
+     *
+     * @return integer
+     */
+    public function getAuthorOrder()
+    {
+        return $this->authorOrder;
+    }
+
+    /**
      * Set authorOrder
      *
      * @param  integer $authorOrder
@@ -70,16 +80,6 @@ class ArticleAuthor implements Translatable
         $this->authorOrder = $authorOrder;
 
         return $this;
-    }
-
-    /**
-     * Get authorOrder
-     *
-     * @return integer
-     */
-    public function getAuthorOrder()
-    {
-        return $this->authorOrder;
     }
 
     /**
@@ -103,6 +103,12 @@ class ArticleAuthor implements Translatable
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor(
+        )->getLastName();
+    }
+
     /**
      *
      * @return Author
@@ -122,10 +128,5 @@ class ArticleAuthor implements Translatable
         $this->author = $author;
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor()->getLastName();
     }
 }

@@ -2,19 +2,18 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use Doctrine\ORM\Query;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Period;
+use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\PeriodType;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Period;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Period controller.
@@ -153,8 +152,6 @@ class AdminPeriodController extends Controller
      */
     public function showAction(Period $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
         if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
@@ -181,8 +178,6 @@ class AdminPeriodController extends Controller
      */
     public function editAction(Period $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }

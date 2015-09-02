@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 
 class ArticleController extends Controller
 {

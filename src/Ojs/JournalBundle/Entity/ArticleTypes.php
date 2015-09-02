@@ -3,15 +3,13 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Ojs\Common\Entity\GenericEntityTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\ArticleTypesTranslation;
 use JMS\Serializer\Annotation as JMS;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * ArticleTypes
@@ -28,14 +26,17 @@ class ArticleTypes extends AbstractTranslatable
      * @Expose
      */
     protected $id;
-
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ArticleTypesTranslation")
+     * @Expose
+     */
+    protected $translations;
     /**
      * @var string
      * @GRID\Column(title="name")
      * @Expose
      */
     private $name;
-
     /**
      * @var string
      * @GRID\Column(title="description")
@@ -44,17 +45,45 @@ class ArticleTypes extends AbstractTranslatable
     private $description;
 
     /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ArticleTypesTranslation")
-     * @Expose
-     */
-    protected $translations;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->translate()->getDescription();
+    }
+
+    // Proxy getters and setters
+
+    /**
+     * Set description
+     *
+     * @param  string $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->translate()->setDescription($description);
+        return $this;
     }
 
     /**
@@ -76,7 +105,7 @@ class ArticleTypes extends AbstractTranslatable
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
             $translation = new ArticleTypesTranslation();
-            if(!is_null($defaultTranslation)){
+            if (!is_null($defaultTranslation)) {
                 $translation->setName($defaultTranslation->getName());
                 $translation->setDescription($defaultTranslation->getDescription());
             }
@@ -84,30 +113,17 @@ class ArticleTypes extends AbstractTranslatable
             $this->addTranslation($translation);
         }
         $this->currentTranslation = $translation;
+
         return $translation;
     }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
-    }
-
-    // Proxy getters and setters
-    /**
-     * Set name
-     *
-     * @param  string $name
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->translate()->setName($name);
-        return $this;
+        if (!is_string($this->getName())) {
+            return $this->translations->first()->getName();
+        } else {
+            return $this->getName();
+        }
     }
 
     /**
@@ -121,33 +137,14 @@ class ArticleTypes extends AbstractTranslatable
     }
 
     /**
-     * Set description
+     * Set name
      *
-     * @param  string $description
+     * @param  string $name
      * @return $this
      */
-    public function setDescription($description)
+    public function setName($name)
     {
-        $this->translate()->setDescription($description);
+        $this->translate()->setName($name);
         return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->translate()->getDescription();
-    }
-
-    public function __toString()
-    {
-        if(!is_string($this->getName())){
-            return $this->translations->first()->getName();
-        }else{
-            return $this->getName();
-        }
     }
 }

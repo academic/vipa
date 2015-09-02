@@ -2,7 +2,7 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-use Ojs\Common\Tests\BaseTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
 
 class SecurityControllerTest extends BaseTestCase

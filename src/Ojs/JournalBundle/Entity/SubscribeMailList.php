@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -46,6 +46,16 @@ class SubscribeMailList implements Translatable
     }
 
     /**
+     * Get journal
+     *
+     * @return Journal
+     */
+    public function getJournal()
+    {
+        return $this->journal;
+    }
+
+    /**
      * Set journal
      * @param  Journal $journal
      * @return Issue
@@ -58,13 +68,13 @@ class SubscribeMailList implements Translatable
     }
 
     /**
-     * Get journal
+     * Get journalId
      *
-     * @return Journal
+     * @return integer
      */
-    public function getJournal()
+    public function getJournalId()
     {
-        return $this->journal;
+        return $this->journalId;
     }
 
     /**
@@ -81,13 +91,13 @@ class SubscribeMailList implements Translatable
     }
 
     /**
-     * Get journalId
+     * Get mail
      *
-     * @return integer
+     * @return string
      */
-    public function getJournalId()
+    public function getMail()
     {
-        return $this->journalId;
+        return $this->mail;
     }
 
     /**
@@ -101,16 +111,6 @@ class SubscribeMailList implements Translatable
         $this->mail = $mail;
 
         return $this;
-    }
-
-    /**
-     * Get mail
-     *
-     * @return string
-     */
-    public function getMail()
-    {
-        return $this->mail;
     }
 
     /**

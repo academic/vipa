@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
-use Ojs\Common\Controller\OjsController;
+use Ojs\CoreBundle\Controller\OjsController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -57,6 +57,24 @@ class AdminAnnouncementController extends OjsController
     }
 
     /**
+     * Creates a form to create a AdminAnnouncement entity.
+     *
+     * @param AdminAnnouncement $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(AdminAnnouncement $entity)
+    {
+        $form = $this->createForm(
+            new AnnouncementType(),
+            $entity,
+            ['action' => $this->generateUrl('ojs_admin_announcement_create'), 'method' => 'POST']
+        );
+        $form->add('submit', 'submit', ['label' => 'Create']);
+
+        return $form;
+    }
+
+    /**
      * Creates a new AdminAnnouncement entity.
      *
      * @param  Request $request
@@ -85,20 +103,6 @@ class AdminAnnouncementController extends OjsController
             'OjsAdminBundle:AdminAnnouncement:new.html.twig',
             ['entity' => $entity, 'form' => $form->createView()]
         );
-    }
-
-    /**
-     * Creates a form to create a AdminAnnouncement entity.
-     *
-     * @param AdminAnnouncement $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(AdminAnnouncement $entity)
-    {
-        $form = $this->createForm(new AnnouncementType(), $entity,
-            ['action' => $this->generateUrl('ojs_admin_announcement_create'), 'method' => 'POST']);
-        $form->add('submit', 'submit', ['label' => 'Create']);
-        return $form;
     }
 
     /**
@@ -155,6 +159,28 @@ class AdminAnnouncementController extends OjsController
     }
 
     /**
+     * Creates a form to edit a AdminAnnouncement entity.
+     *
+     * @param  AdminAnnouncement $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(AdminAnnouncement $entity)
+    {
+        $form = $this->createForm(
+            new AnnouncementType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('ojs_admin_announcement_update', ['id' => $entity->getId()]),
+                'method' => 'PUT',
+            ]
+        );
+
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
+    }
+
+    /**
      * Edits an existing AdminAnnouncement entity.
      * @param  Request $request
      * @param  AdminAnnouncement $entity
@@ -185,25 +211,6 @@ class AdminAnnouncementController extends OjsController
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * Creates a form to edit a AdminAnnouncement entity.
-     *
-     * @param  AdminAnnouncement $entity The entity
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(AdminAnnouncement $entity)
-    {
-        $form = $this->createForm(new AnnouncementType(), $entity,
-            [
-                'action' => $this->generateUrl('ojs_admin_announcement_update', ['id' => $entity->getId()]),
-                'method' => 'PUT',
-            ]
-        );
-
-        $form->add('submit', 'submit', ['label' => 'Update']);
-        return $form;
     }
 
     /**

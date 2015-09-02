@@ -2,17 +2,14 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\PublisherType;
-use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Publisher controller.
