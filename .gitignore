@@ -89,6 +89,10 @@ files
 # node
 node_modules/
 
+# Temporary and backup files
 *.php~
+*.orig
+*.rej
 
 web/assets/prod
+
