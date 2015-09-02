@@ -102,13 +102,6 @@ class Journal extends AbstractTranslatable
     private $firstPublishDate;
 
     /**
-     * @var JournalPeriod
-     * @Expose
-     * @Groups({"JournalDetail"})
-     */
-    private $period;
-
-    /**
      * @var string
      * @Expose
      * @Groups({"JournalDetail"})
@@ -244,6 +237,13 @@ class Journal extends AbstractTranslatable
      * @Groups({"JournalDetail"})
      */
     private $languages;
+
+    /**
+     * @var ArrayCollection|Period[]
+     * @Expose
+     * @Groups({"JournalDetail"})
+     */
+    private $periods;
 
     /**
      * @var string
@@ -590,6 +590,33 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * @param  Period    $period
+     * @return Journal
+     */
+    public function addPeriod(Period $period)
+    {
+        $this->periods[] = $period;
+
+        return $this;
+    }
+
+    /**
+     * @param Period $period
+     */
+    public function removePeriod(Period $period)
+    {
+        $this->periods->removeElement($period);
+    }
+
+    /**
+     * @return ArrayCollection|Period[]
+     */
+    public function getPeriods()
+    {
+        return $this->periods;
+    }
+
+    /**
      * @return string
      */
     public function getLanguageCodeSet()
@@ -818,29 +845,6 @@ class Journal extends AbstractTranslatable
     public function setFirstPublishDate($firstPublishDate)
     {
         $this->firstPublishDate = $firstPublishDate;
-
-        return $this;
-    }
-
-    /**
-     * Get period
-     *
-     * @return JournalPeriod
-     */
-    public function getPeriod()
-    {
-        return $this->period;
-    }
-
-    /**
-     * Set period
-     *
-     * @param  JournalPeriod  $period
-     * @return Journal
-     */
-    public function setPeriod(JournalPeriod $period = null)
-    {
-        $this->period = $period;
 
         return $this;
     }

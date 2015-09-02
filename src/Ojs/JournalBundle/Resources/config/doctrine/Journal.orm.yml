@@ -103,6 +103,16 @@ Ojs\JournalBundle\Entity\Journal:
                     referencedColumnName: id
                 name: journal_language
               fetch: EXTRA_LAZY
+        periods:
+              targetEntity: Ojs\JournalBundle\Entity\Period
+              joinTable:
+                inverseJoinColumns:
+                  period_id:
+                    referencedColumnName: id
+                joinColumns:
+                  journal_id:
+                    referencedColumnName: id
+                name: journal_period
         subjects:
             targetEntity: Subject
             cascade: ["persist"]
