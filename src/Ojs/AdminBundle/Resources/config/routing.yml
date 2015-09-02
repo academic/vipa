@@ -88,3 +88,7 @@ ojs_admin_post:
 ojs_admin_contact:
     resource: "@OjsAdminBundle/Resources/config/routing/contact.yml"
     prefix:   contact
+
+
+ojs_admin_period:
+    resource: "@OjsAdminBundle/Resources/config/routing/period.yml"

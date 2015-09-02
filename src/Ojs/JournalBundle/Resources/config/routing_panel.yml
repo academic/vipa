@@ -26,9 +26,6 @@ ojs_journal_board:
 ojs_journal_theme:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/theme.yml"
 
-ojs_journal_period:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/period.yml"
-
 ojs_journal_design:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/design.yml"
 

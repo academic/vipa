@@ -1,13 +1,13 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JournalPeriodType extends AbstractType
+class PeriodType extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class JournalPeriodType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalPeriod',
+                'data_class' => 'Ojs\JournalBundle\Entity\Period',
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
@@ -42,6 +42,6 @@ class JournalPeriodType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journalperiod';
+        return 'ojs_journalbundle_period';
     }
 }

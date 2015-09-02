@@ -15,12 +15,6 @@ Ojs\JournalBundle\Entity\Journal:
             name: theme_id
             referencedColumnName: id
           inversedBy: journals
-        period:
-          targetEntity: Ojs\JournalBundle\Entity\JournalPeriod
-          joinColumn:
-            name: period_id
-            referencedColumnName: id
-          inversedBy: journals
         design:
           targetEntity: Ojs\JournalBundle\Entity\JournalDesign
           joinColumn:
