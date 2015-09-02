@@ -194,9 +194,6 @@ class ArticleType extends AbstractType
                     'maxSize' => "[960, 200]"
                 )
             ))
-            ->add('competingFile', 'jb_file_ajax', array(
-                'endpoint' => 'articlefiles'
-            ))
             ;
     }
 

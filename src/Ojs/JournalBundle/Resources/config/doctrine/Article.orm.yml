@@ -122,12 +122,6 @@ Ojs\JournalBundle\Entity\Article:
         options:
           default: 1
         nullable: true
-    competingFile:
-        type: string
-        length: 255
-        nullable: true
-        gedmo:
-          - versioned
     abstractTransliterated:
       column: abstract_transliterated
       type: text

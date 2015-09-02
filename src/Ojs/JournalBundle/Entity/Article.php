@@ -227,11 +227,6 @@ class Article extends AbstractTranslatable
     private $submitterUser;
 
     /**
-     * @var string
-     */
-    private $competingFile;
-
-    /**
      *
      * @var int
      * @Expose
@@ -480,25 +475,6 @@ class Article extends AbstractTranslatable
     public function getIssue()
     {
         return $this->issue;
-    }
-
-    /**
-     * @param  string $competingFile
-     * @return Article
-     */
-    public function setCompetingFile($competingFile)
-    {
-        $this->competingFile = $competingFile;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompetingFile()
-    {
-        return $this->competingFile;
     }
 
     /**
