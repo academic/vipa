@@ -43,7 +43,6 @@ services:
     class: Ojs\Common\Twig\DisplayExtension
     arguments:
       - @translator
-      - @jms_serializer
     tags:
       - { name: twig.extension }
 
