@@ -20,18 +20,14 @@ class MenuBuilder extends ContainerAware
         $journal = $this->container->get('ojs.journal_service')->getSelectedJournal();
         $journalId = $journal->getId();
 
-        $menu = $factory->createItem('root');
-        $menu->setChildrenAttribute('class', 'list-group-item');
+        $menu = $factory->createItem('root')->setChildrenAttribute('class', 'nav nav-sidebar');
 
-        $menu->addChild('dashboard', [
-            'route' => 'ojs_journal_dashboard_index',
-            'routeParameters' => ['journalId' => $journalId]
-        ]);
-
-        $menu->addChild('settings', [
-            'route' => 'ojs_journal_settings_index',
-            'routeParameters' => ['journalId' => $journalId]
-        ]);
+        if ($checker->isGranted('EDIT', $journal)) {
+            $menu->addChild('settings', [
+                'route' => 'ojs_journal_settings_index',
+                'routeParameters' => ['journalId' => $journalId]
+            ]);
+        }
 
         $items = [
             // [field, label, options]

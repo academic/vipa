@@ -84,18 +84,12 @@
                 </div>
             {% endif %}
             {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
-                <div class="panel panel-default left-menu-bgcolor">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ "journal.manager"|trans }}
-                        <a class="btn btn-default btn-xs hidden-sm hidden-md hidden-lg pull-right" role="button"
-                           data-toggle="collapse" href="#journalManagerMenu" aria-expanded="false"
-                           aria-controls="journalManagerMenu">
-                            <i class="fa fa-caret-down"></i>
-                            {{ "Expand"|trans }}
-                        </a>
                     </div>
 
-                    <div class="list-group">
+                    <div class="panel-body" style="padding: 0">
                         {{ knp_menu_render('OjsJournalBundle:MenuBuilder:leftMenu') }}
                     </div>
                 </div>

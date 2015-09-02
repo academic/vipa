@@ -143,6 +143,10 @@ fos_user:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
 
+knp_menu:
+    twig:
+        template: ::menu.html.twig
+
 prezent_doctrine_translatable:
     fallback_locale: %locale%
 
