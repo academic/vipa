@@ -19,10 +19,9 @@ class JournalContactType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations')
-            ->add('firstName', 'text', ['label' => 'firstname'])
-            ->add('lastName', 'text', ['label' => 'lastname'])
+            ->add('fullName', 'text', ['label' => 'fullname'])
+            ->add('address', 'textarea')
             ->add('phone', 'text', ['label' => 'phone'])
-            ->add('fax', 'text', ['label' => 'fax'])
             ->add('email', 'email', ['label' => 'email'])
             ->add('tags', 'tags')
             ->add('contactType')

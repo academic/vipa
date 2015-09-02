@@ -15,63 +15,55 @@
         <small>#{{ entity.id }}</small>
     </h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
+    <table class="record_properties table">
         <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "title"|trans }}</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        {% if entity.contactType is not null %}
             <tr>
-                <th>{{ 'contact.type'|trans }}</th>
-                <td>{{ entity.contactType.name }} - {{ entity.contactType.description }}</td>
+                <th>{{ 'id'|trans }}</th>
+                <td>{{ entity.id }}</td>
             </tr>
-        {% endif %}
-        <tr>
-            <th>{{ "firstname"|trans }}</th>
-            <td>{{ entity.firstName }}</td>
-        </tr>
-        <tr>
-            <th>{{ "lastname"|trans }}</th>
-            <td>{{ entity.lastName }}</td>
-        </tr>
-        <tr>
-            <th>{{ "adress"|trans }}</th>
-            <td>{{ entity.address }}</td>
-        </tr>
-        <tr>
-            <th>{{ "country"|trans }}</th>
-            <td>{{ entity.city.country.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ "city"|trans }}</th>
-            <td>{{ entity.city.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ "phone"|trans }}</th>
-            <td>{{ entity.phone }}</td>
-        </tr>
-        <tr>
-            <th>{{ "fax"|trans }}</th>
-            <td>{{ entity.fax }}</td>
-        </tr>
-        <tr>
-            <th>{{ "email"|trans }}</th>
-            <td>{{ entity.email }}</td>
-        </tr>
+            <tr>
+                <th>{{ "title"|trans }}</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            {% if entity.contactType is not null %}
+                <tr>
+                    <th>{{ 'contact.type'|trans }}</th>
+                    <td>{{ entity.contactType.name }} - {{ entity.contactType.description }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th>{{ "fullname"|trans }}</th>
+                <td>{{ entity.fullName }}</td>
+            </tr>
+            <tr>
+                <th>{{ "email"|trans }}</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>{{ "phone"|trans }}</th>
+                <td>{{ entity.phone }}</td>
+            </tr>
+            <tr>
+                <th>{{ "adress"|trans }}</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>{{ "country"|trans }}</th>
+                <td>{{ entity.city.country.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ "city"|trans }}</th>
+                <td>{{ entity.city.name }}</td>
+            </tr>
         </tbody>
     </table>
 
     {{
-    actions({
-        'back': {'href': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id})},
-        'edit': {'href': path('ojs_journal_journal_contact_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_journal_contact_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
-    })
+        actions({
+            'back': {'href': path('ojs_journal_journal_contact_index', {'journalId': selectedJournal().id})},
+            'edit': {'href': path('ojs_journal_journal_contact_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
+            'delete': {'href': path('ojs_journal_journal_contact_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        })
     }}
 
 {% endblock %}

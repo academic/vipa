@@ -7,9 +7,7 @@ Ojs\JournalBundle\Entity\JournalContact:
     properties:
         translations:
             - Valid: ~
-        firstName:
-            - NotBlank: ~
-        lastName:
+        fullName:
             - NotBlank: ~
         email:
             - NotBlank: ~
