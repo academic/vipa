@@ -226,7 +226,7 @@ fos_elastica:
                   type: object
                   properties:
                     name: { index: not_analyzed }
-            period:
+            periods:
               type: object
               properties:
                 period: { type: string }
