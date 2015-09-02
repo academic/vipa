@@ -60,7 +60,8 @@
     "norzechowicz/aceeditor-bundle": "0.1.*",
     "friendsofsymfony/user-bundle": "dev-master",
     "pugx/autocompleter-bundle": "dev-master",
-    "hwi/oauth-bundle": "0.4.*@dev"
+    "hwi/oauth-bundle": "0.4.*@dev",
+    "knplabs/knp-menu-bundle": "~2"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
