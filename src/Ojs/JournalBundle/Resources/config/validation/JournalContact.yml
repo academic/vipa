@@ -1,12 +1,7 @@
-Ojs\JournalBundle\Entity\JournalContactTranslation:
-  properties:
-    title:
-      - NotBlank: ~
-
 Ojs\JournalBundle\Entity\JournalContact:
     properties:
-        translations:
-            - Valid: ~
+        title:
+            - NotBlank: ~
         fullName:
             - NotBlank: ~
         email:

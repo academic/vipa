@@ -312,9 +312,9 @@ class InstallCommand extends ContainerAwareCommand
             ],
             
             'OjsUserBundle:User' => null,
+            'OjsUserBundle:Role' => null,
             'OjsJournalBundle:Publisher' => null,
             'OjsJournalBundle:PublisherTypes' => null,
-            'OjsUserBundle:Role' => null,
             'OjsJournalBundle:JournalContact' => null,
             'OjsJournalBundle:ContactTypes' => null,
             'OjsJournalBundle:JournalIndex' => null,
@@ -327,6 +327,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsJournalBundle:Subject' => null,
             'OjsJournalBundle:ArticleTypes' => null,
             'OjsJournalBundle:Period' => null,
+            'OjsJournalBundle:PersonTitle' => null,
             'OjsAdminBundle:SystemSetting' => null,
             'OjsAdminBundle:AdminAnnouncement' => null,
             'OjsAdminBundle:AdminPage' => null,

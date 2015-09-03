@@ -112,14 +112,6 @@
                                 {{ "title.article_types"|trans }}
                             </a>
 
-                            <a href="{{ path('ojs_admin_contact_type_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-user"></i>
-                                </span>
-                                {{ "title.contact_types"|trans }}
-                            </a>
-
                             <a href="{{ path('ojs_admin_index_index') }}"
                                class="btn btn-primary btn-labeled btn-block btn-lg">
                                 <span class="btn-label pull-left col-md-3 col-xs-3">
@@ -134,6 +126,22 @@
                                     <i class="fa fa-users"></i>
                                 </span>
                                 {{ "title.contacts"|trans }}
+                            </a>
+
+                            <a href="{{ path('ojs_admin_contact_type_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
+                                <span class="btn-label pull-left col-md-3 col-xs-3">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                {{ "title.contact_types"|trans }}
+                            </a>
+
+                            <a href="{{ path('ojs_admin_person_title_index') }}"
+                               class="btn btn-primary btn-labeled btn-block btn-lg">
+                                <span class="btn-label pull-left col-md-3 col-xs-3">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                {{ "title.person_titles"|trans }}
                             </a>
                         </div>
 

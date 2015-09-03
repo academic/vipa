@@ -16,7 +16,7 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations')
+            ->add('title')
             ->add('fullName', 'text', ['label' => 'fullname'])
             ->add('address', 'textarea')
             ->add('phone', 'text', ['label' => 'phone'])
