@@ -48,6 +48,7 @@ services:
     class: Ojs\CoreBundle\Service\Twig\DisplayExtension
     arguments:
       - @translator
+      - @annotation_reader
     tags:
       - { name: twig.extension }
 

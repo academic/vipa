@@ -4,6 +4,9 @@ namespace Ojs\CoreBundle\Service\Twig;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Translation\TranslatorInterface;
+use Doctrine\Common\Annotations\Reader;
+use Ojs\CoreBundle\Annotation\Display\Exclude;
+use Ojs\CoreBundle\Annotation\Display\Expose;
 
 class DisplayExtension extends \Twig_Extension
 {
@@ -11,6 +14,11 @@ class DisplayExtension extends \Twig_Extension
      * @var TranslatorInterface
      */
     private $translator;
+
+    /**
+     * @var Reader
+     */
+    private $reader;
 
     /**
      * exclude vars for basic entity
@@ -45,9 +53,10 @@ class DisplayExtension extends \Twig_Extension
      */
     private $normalizedEntity;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, Reader $reader)
     {
         $this->translator = $translator;
+        $this->reader = $reader;
     }
 
     public function getFunctions()
@@ -68,9 +77,25 @@ class DisplayExtension extends \Twig_Extension
             throw new Exception('Please create an public display method for object');
         }
         $this->entity = $entity;
+        $this->setupAnnotationOptions();
         $this->setupOptions($options);
         $this->normalizedEntity = $this->normalizeEntity();
         return $this->createView();
+    }
+
+    private function setupAnnotationOptions()
+    {
+        $reflectionClass = new \ReflectionClass($this->entity);
+        foreach($reflectionClass->getProperties() as $property){
+            foreach($this->reader->getPropertyAnnotations($property) as $annotation){
+                if($annotation instanceof Exclude){
+                    $this->excludeVars[] =$property->name;
+                } elseif ($annotation instanceof Expose){
+                    $this->exposeVars[] = $property->name;
+                    $this->excludeVars = array_diff($this->excludeVars, $this->exposeVars);
+                }
+            }
+        }
     }
 
     private function setupOptions($options)
