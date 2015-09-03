@@ -121,10 +121,10 @@ class JournalType extends AbstractType
                 )
             )
             ->add(
-                'firstPublishDate',
+                'founded',
                 'collot_datetime',
                 array(
-                    'label' => 'journal.firstPublishDate',
+                    'label' => 'journal.founded',
                     'date_format' => 'yyyy',
                     'widget' => 'single_text',
                     'pickerOptions' => [

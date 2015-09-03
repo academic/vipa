@@ -19,5 +19,5 @@ Ojs\JournalBundle\Entity\Journal:
             - Issn: ~
         eissn:
             - Issn: ~
-        firstPublishDate:
+        founded:
             - NotBlank: ~

@@ -34,10 +34,10 @@ class JournalApplicationType extends AbstractType
             ->add('issn', null, ['label' => 'journal.issn', 'attr' => ['class' => 'validate[required] maskissn']])
             ->add('eissn', null, ['label' => 'journal.eissn', 'attr' => ['class' => 'validate[required] maskissn']])
             ->add(
-                'firstPublishDate',
+                'founded',
                 'collot_datetime',
                 [
-                    'label' => 'journal.firstPublishDate',
+                    'label' => 'journal.founded',
                     'attr' => ['class' => 'validate[required]'],
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [

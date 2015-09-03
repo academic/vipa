@@ -206,7 +206,7 @@ fos_elastica:
             description: { type: string }
             issn: { type: string }
             eissn: { type: string }
-            firstPublishDate: { type: date }
+            founded: { type: date }
             tags:
               analyzer: "keyword"
               type: string

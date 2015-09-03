@@ -27,7 +27,7 @@ class Step2 extends AbstractType
             )
             ->add('eissn', null)
             ->add(
-                'firstPublishDate',
+                'founded',
                 'collot_datetime',
                 array(
 

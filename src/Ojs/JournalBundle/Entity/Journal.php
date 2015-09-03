@@ -94,7 +94,7 @@ class Journal extends AbstractTranslatable
      * @Expose
      * @Groups({"JournalDetail"})
      */
-    private $firstPublishDate;
+    private $founded;
     /**
      * @var string
      * @Expose
@@ -777,24 +777,24 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Get firstPublishDate
+     * Get founded
      *
      * @return \DateTime
      */
-    public function getFirstPublishDate()
+    public function getFounded()
     {
-        return $this->firstPublishDate;
+        return $this->founded;
     }
 
     /**
-     * Set firstPublishDate
+     * Set founded
      *
-     * @param  \DateTime $firstPublishDate
+     * @param  \DateTime $founded
      * @return Journal
      */
-    public function setFirstPublishDate($firstPublishDate)
+    public function setFounded($founded)
     {
-        $this->firstPublishDate = $firstPublishDate;
+        $this->founded = $founded;
 
         return $this;
     }

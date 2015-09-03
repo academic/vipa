@@ -187,9 +187,9 @@
                                     {% if journal.eissn is defined %}
                                         <li><strong>{{ "journal.eissn"|trans }}</strong>: {{ journal.eissn }}</li>
                                     {% endif %}
-                                    {% if journal.firstPublishDate is defined %}
+                                    {% if journal.founded is defined %}
                                         <li>
-                                            <strong>{{ "journal.firstPublishDate"|trans }}</strong>: {{ journal.firstPublishDate|date('Y') }}
+                                            <strong>{{ "journal.founded"|trans }}</strong>: {{ journal.founded|date('Y') }}
                                         </li>
                                     {% endif %}
                                     {% if journal.periods is defined and journal.periods|length >0 %}

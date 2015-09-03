@@ -193,9 +193,9 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                 - versioned
-        firstPublishDate:
+        founded:
             type: datetime
-            column: first_publish_date
+            column: founded
             nullable: true
         url:
             type: string
