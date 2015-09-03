@@ -77,15 +77,6 @@ class ContactTypes extends AbstractTranslatable
         return $this;
     }
 
-    public function __toString()
-    {
-        if (!is_string($this->getName())) {
-            return $this->translations->first()->getName();
-        } else {
-            return $this->getName();
-        }
-    }
-
     /**
      * Get name
      *
@@ -166,5 +157,14 @@ class ContactTypes extends AbstractTranslatable
         $this->updated = $updated;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        if (!is_string($this->getName())) {
+            return $this->translations->first()->getName();
+        } else {
+            return $this->getName();
+        }
     }
 }

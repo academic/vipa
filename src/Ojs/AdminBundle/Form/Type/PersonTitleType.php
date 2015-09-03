@@ -15,7 +15,7 @@ class PersonTitleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('translations', 'a2lix_translations')
         ;
     }
     

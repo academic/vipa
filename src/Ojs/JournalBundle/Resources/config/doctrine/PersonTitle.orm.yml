@@ -9,7 +9,4 @@ Ojs\JournalBundle\Entity\PersonTitle:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            length: 255
     lifecycleCallbacks: {  }
