@@ -2,6 +2,7 @@
 
 namespace Ojs\CoreBundle\Service\Twig;
 
+use Ojs\CoreBundle\Annotation\Display\File;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\Common\Annotations\Reader;
@@ -42,6 +43,11 @@ class DisplayExtension extends \Twig_Extension
      * @var array
      */
     private $files = [];
+
+    /**
+     * @var array
+     */
+    private $images = [];
 
     /**
      * @var
@@ -93,6 +99,9 @@ class DisplayExtension extends \Twig_Extension
                 } elseif ($annotation instanceof Expose){
                     $this->exposeVars[] = $property->name;
                     $this->excludeVars = array_diff($this->excludeVars, $this->exposeVars);
+                } elseif ($annotation instanceof File){
+                    $file['path'] = $annotation->getPath();
+                    $this->files[$property->name] = $file;
                 }
             }
         }
@@ -105,6 +114,13 @@ class DisplayExtension extends \Twig_Extension
                 $this->files = $options['files'];
             }else{
                 throw new Exception('files option must be an array');
+            }
+        }
+        if(isset($options['images'])){
+            if(is_array($options['images'])){
+                $this->images = $options['images'];
+            }else{
+                throw new Exception('images option must be an array');
             }
         }
         if(isset($options['exclude'])){
@@ -162,6 +178,7 @@ class DisplayExtension extends \Twig_Extension
     {
         $this->normalizeTranslations();
         $this->normalizeFiles();
+        $this->normalizeImages();
         if (method_exists($this->entity, 'getStatusText')) {
             if (!is_array($this->entity->getStatusText())) {
                 $this->normalizedEntity['status'] = '<span style="color: '.$this->entity->getStatusColor(
@@ -208,7 +225,28 @@ class DisplayExtension extends \Twig_Extension
             if(!isset($this->normalizedEntity[$fileKey])){
                 throw new Exception('This file field not exists!');
             }
-            $this->normalizedEntity[$fileKey] = '<a href="uploads/'.$this->files[$fileKey]["dir"].'/'.$this->normalizedEntity[$fileKey].'" target="_blank">'.$this->normalizedEntity[$fileKey].'</a>';
+            if(!empty($this->normalizedEntity[$fileKey])) {
+                $this->normalizedEntity[$fileKey] = '<a href="uploads/' . $this->files[$fileKey]["path"] . '/' . $this->normalizedEntity[$fileKey] . '" target="_blank">' . $this->normalizedEntity[$fileKey] . '</a>';
+            }else{
+                $this->normalizedEntity[$fileKey] = '-';
+            }
+        }
+    }
+
+    private function normalizeImages()
+    {
+        if(empty($this->images)){
+            return;
+        }
+        foreach($this->images as $imageKey => $image){
+            if(!isset($this->normalizedEntity[$imageKey])){
+                throw new Exception('This file field not exists!');
+            }
+            if(!empty($this->normalizedEntity[$imageKey])) {
+                $this->normalizedEntity[$imageKey] = '<a href="uploads/' . $this->files[$fileKey]["path"] . '/' . $this->normalizedEntity[$fileKey] . '" target="_blank">' . $this->normalizedEntity[$fileKey] . '</a>';
+            }else{
+                $this->normalizedEntity[$fileKey] = '-';
+            }
         }
     }
 
