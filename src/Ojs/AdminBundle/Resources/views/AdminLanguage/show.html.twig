@@ -15,27 +15,7 @@
     <h1>{{ entity.name|trans }}
     </h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "lang.code"|trans }}</th>
-            <td>{{ entity.code }}</td>
-        </tr>
-        <tr>
-            <th>{{ "lang.name"|trans }}</th>
-            <td>{{ entity.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ "lang.rtl"|trans }}</th>
-            <td>{{ printYesNo(entity.rtl) }}</td>
-        </tr>
-        </tbody>
-    </table>
-
+    {{ display(entity) }}
     {{
         actions({
             'back': {'href': path('ojs_admin_language_index')},
