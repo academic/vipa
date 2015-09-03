@@ -18,7 +18,7 @@
         <li role="presentation"><a href="{{ path('ojs_journal_issue_file_index', {issueId: entity.id,journalId: entity.journal.id}) }}">{{ "title.issue_files"|trans }}</a></li>
     </ul>
     <h1>{{ "issue"|trans }}</h1>
-    {{ display(entity, {files: {full_file:{dir:'issuefiles'}}}) }}
+    {{ display(entity) }}
     {{
     actions({
         'back': {'href': path('ojs_journal_issue_index', {'journalId': selectedJournal().id})},
