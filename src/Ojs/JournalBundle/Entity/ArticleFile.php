@@ -16,7 +16,6 @@ class ArticleFile
 {
     use GenericEntityTrait;
 
-    protected $translations;
     /**
      * @var integer
      * @GRID\Column(title="articlefile.id")
@@ -72,27 +71,6 @@ class ArticleFile
      */
     public function __construct()
     {
-        $this->translations = new ArrayCollection();
-    }
-
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    public function setTranslations($translations)
-    {
-        foreach ($translations as $translation) {
-            $this->addTranslation($translation);
-        }
-    }
-
-    public function addTranslation(ArticleFileTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
     }
 
     /**
