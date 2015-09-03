@@ -14,22 +14,7 @@
 {% block body -%}
     <h1>{{ entity.name|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "name"|trans }}</th>
-            <td>{{ entity.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ "description"|trans }}</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
     {% set back_path = 'ojs_admin_contact_type_index' %}
     {% if is_granted('EDIT', entity) %}
         {% set edit_path = 'ojs_admin_contact_type_edit' %}
