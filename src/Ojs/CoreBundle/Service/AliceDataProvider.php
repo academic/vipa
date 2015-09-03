@@ -28,7 +28,7 @@ class AliceDataProvider
      */
     public function defaultPublisherSlug()
     {
-        return $this->$defaultPublisherSlug;
+        return $this->defaultPublisherSlug;
     }
 
     /**
