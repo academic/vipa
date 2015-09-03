@@ -16,6 +16,15 @@ class AnnouncementType extends AbstractType
     {
         $builder
             ->add('title', 'text')
+            ->add('image', 'jb_crop_image_ajax', array(
+                'endpoint' => 'announcement',
+                'img_width' => 128,
+                'img_height' => 128,
+                'crop_options' => array(
+                    'aspect-ratio' => 128 / 128,
+                    'maxSize' => "[128, 128]"
+                )
+            ))
             ->add('content', 'ace_editor', array(
                     'wrapper_attr' => array(),
                     'width' => 700,

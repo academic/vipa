@@ -1,12 +1,14 @@
 <?php
 
 namespace Ojs\CmsBundle\Entity;
+use Ojs\CoreBundle\Entity\DisplayTrait;
 
 /**
  * Announcement
  */
 abstract class Announcement
 {
+    use DisplayTrait;
     /**
      * @var integer
      */
@@ -21,6 +23,11 @@ abstract class Announcement
      * @var string
      */
     private $content;
+
+    /**
+     * @var string
+     */
+    private $image;
 
 
     /**
@@ -79,6 +86,22 @@ abstract class Announcement
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 }
 

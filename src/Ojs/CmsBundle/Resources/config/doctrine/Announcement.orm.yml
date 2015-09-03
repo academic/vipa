@@ -19,6 +19,10 @@ Ojs\CmsBundle\Entity\Announcement:
         title:
             type: string
             length: 255
+        image:
+            type: string
+            length: 255
+            nullable: true
         content:
             type: text
     lifecycleCallbacks: {  }

@@ -9,6 +9,14 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/publisher/croped
         create: true
+    announcement:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/announcement
+        create: true
+    announcement_croped:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/announcement/croped
+        create: true
     journal:
       local:
         directory: %kernel.root_dir%/../web/uploads/journal
@@ -64,6 +72,12 @@ knp_gaufrette:
     publisher_croped:
       adapter: publisher_croped
       alias: publisher_croped_filesystem
+    announcement:
+      adapter: announcement
+      alias: announcement_filesystem
+    announcement_croped:
+      adapter: announcement_croped
+      alias: announcement_croped_filesystem
     journal:
       adapter: journal
       alias: journal_filesystem
@@ -122,6 +136,14 @@ oneup_uploader:
         type: gaufrette
         filesystem: gaufrette.publisher_filesystem
         stream_wrapper: gaufrette://publisher/
+    announcement:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.announcement_filesystem
+        stream_wrapper: gaufrette://announcement/
     journal:
       enable_progress: true
       frontend: blueimp
@@ -195,6 +217,12 @@ liip_imagine:
     stream.publisher_croped_filesystem:
       stream:
         wrapper: gaufrette://publisher_croped/
+    stream.announcement_filesystem:
+      stream:
+        wrapper: gaufrette://announcement/
+    stream.announcement_croped_filesystem:
+      stream:
+        wrapper: gaufrette://announcement_croped/
     stream.journal_filesystem:
       stream:
         wrapper: gaufrette://journal/
@@ -237,6 +265,12 @@ liip_imagine:
       quality: 90
     publisher_croped:
       data_loader: stream.publisher_croped_filesystem
+      quality: 90
+    announcement_original:
+      data_loader: stream.announcement_filesystem
+      quality: 90
+    announcement_croped:
+      data_loader: stream.announcement_croped_filesystem
       quality: 90
     journalindex_original:
       data_loader: stream.journalindex_filesystem
@@ -335,6 +369,12 @@ jb_file_uploader:
     publisher_croped:
       assets:
         directory: uploads/publisher/croped
+    announcement:
+      assets:
+        directory: uploads/announcement
+    announcement_croped:
+      assets:
+        directory: uploads/announcement/croped
     journalindex:
       assets:
         directory: uploads/journalindex
@@ -385,6 +425,12 @@ jb_file_uploader:
       upload_resolver: publisher
       croped_resolver: publisher_croped
       croped_fs: publisher_croped
+      upload_validators: {}
+      crop_validators: {}
+    announcement:
+      upload_resolver: announcement
+      croped_resolver: announcement_croped
+      croped_fs: announcement_croped
       upload_validators: {}
       crop_validators: {}
     journalindex:
