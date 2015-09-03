@@ -3,6 +3,7 @@
 namespace Ojs\CmsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
@@ -11,6 +12,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
  */
 class PostTranslation  extends AbstractTranslation
 {
+    use DisplayTrait;
     /**
      * @Prezent\Translatable(targetEntity="Ojs\CmsBundle\Entity\Post")
      */

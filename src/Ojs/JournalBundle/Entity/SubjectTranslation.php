@@ -3,11 +3,13 @@
 namespace Ojs\JournalBundle\Entity;
 
 
+use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
 class SubjectTranslation extends AbstractTranslation
 {
+    use DisplayTrait;
     /**
      * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\Subject")
      */
