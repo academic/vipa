@@ -12,6 +12,7 @@ use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Annotation\Display as Display;
 
 /**
  * Issue
@@ -136,6 +137,7 @@ class Issue extends AbstractTranslatable
      * @var string
      * @Expose
      * @Groups({"IssueDetail"})
+     * @Display\File(path="issuefiles")
      */
     private $full_file;
     /**
