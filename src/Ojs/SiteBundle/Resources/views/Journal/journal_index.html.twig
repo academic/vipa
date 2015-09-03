@@ -69,9 +69,16 @@
                                 <dd>{{ journal.eissn }}</dd>
                             {% endif %}
 
-                            {% if journal.period %}
+                            {% if journal.periods|length > 0 %}
                                 <dt>{{ "period"|trans }}</dt>
-                                <dd>{{ journal.period }}</dd>
+                                <dd>
+                                    {% for period in journal.periods %}
+                                        {{ period.period }}
+                                        {% if not loop.last %}
+                                            ,
+                                        {% endif %}
+                                    {% endfor %}
+                                </dd>
                             {% endif %}
                             <!--
                             {% if journal.country %}
