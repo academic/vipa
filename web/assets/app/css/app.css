@@ -40,7 +40,10 @@ ul.nav-wizard .active ~ li,ul.nav-wizard .active ~ li a,ul.nav-wizard .active ~ 
 ul.nav-wizard .active ~ li:after,ul.nav-wizard.nav-wizard-backnav .active ~ li:after{border-left:16px solid #ededed;}
 ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:hover a,ul.nav-wizard.nav-wizard-backnav li:hover a:active,ul.nav-wizard.nav-wizard-backnav li:hover a:visited,ul.nav-wizard.nav-wizard-backnav li:hover a:focus{color:#468847;background:#f6fbfd;}
 /*nav-wizard css end*/
-
+.nav.nav-sidebar li.active {
+    text-decoration: none;
+    background-color: #F1F1F1;
+}
 .controls
 {
     margin-top: 20px;
