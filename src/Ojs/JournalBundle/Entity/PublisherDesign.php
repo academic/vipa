@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Ojs\CoreBundle\Annotation\Display as Display;
 
 /**
  * PublisherDesign
@@ -29,12 +30,14 @@ class PublisherDesign
     /**
      * @var string
      * @GRID\Column(title="content")
+     * @Display\Exclude
      */
     private $content;
 
     /**
      * @var string
      * @GRID\Column(title="editableContent")
+     * @Display\Exclude
      */
     private $editableContent;
 
