@@ -41,7 +41,7 @@ class SamplesCommand extends ContainerAwareCommand
         $subject1->setSubject('Computer Science');
 
         $subject2 = new Subject();
-        $subject1->setCurrentLocale('en');
+        $subject2->setCurrentLocale('en');
         $subject2->setSubject('Journalism');
 
         $em->persist($subject1);
@@ -62,6 +62,7 @@ class SamplesCommand extends ContainerAwareCommand
 
         $em->persist($language1);
         $em->persist($language2);
+        $em->flush();
 
         $journal = new Journal();
         $journal->setCurrentLocale('en');
