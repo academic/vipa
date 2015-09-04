@@ -194,7 +194,6 @@
                                     {% endif %}
                                     {% if journal.periods is defined and journal.periods|length >0 %}
                                         <li>
-                                            <strong>{{ "journal.periods"|trans }}:</strong>
                                             {% for period in journal.periods %}
                                                 <span class="label label-info">{{ period.period }}</span>
                                             {% endfor %}
