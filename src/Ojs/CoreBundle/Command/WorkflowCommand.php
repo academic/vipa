@@ -51,42 +51,13 @@ class WorkflowCommand extends ContainerAwareCommand
         $this->composerUpdate($output, $composerFile);
         $this->kernelManipulate($output, $kernel);
         $this->routingSet($output, $kernel);
+        $this->schemaUpdate($output, $kernel, $composerFile);
         $this->asseticDump($output, $kernel, $composerFile);
 
     }
-    private function routingSet(OutputInterface $output, KernelInterface $kernel)
+
+    private function composerUpdate(OutputInterface $output, $composerFile)
     {
-        $routingFile = $kernel->getRootDir().'/config/routing.yml';
-        $yaml = new Parser();
-        try {
-            $routingYml = $yaml->parse(file_get_contents($routingFile));
-            if (in_array('workflow', $routingYml, true)) {
-                $output->writeln(
-                    '<info>'.
-                    'Already defined in app/config/routing.yml'.
-                    '</info>'
-                );
-            } else {
-                $routingYml['workflow'] = array(
-                    'resource' => $this->workflowData['routing']['resource'],
-                    'prefix' =>   $this->workflowData['routing']['prefix']
-                );
-                $dumper = new Dumper();
-                $dumper->setIndentation(2);
-                $yaml = $dumper->dump($routingYml, 4);
-
-                file_put_contents($routingFile, $yaml);
-            }
-
-        } catch (ParseException $e) {
-            $output->writeln(
-                '<error>'.
-                "Unable to parse the routing YAML string: ".$e->getMessage().
-                '</error>'
-            );
-        }
-    }
-    private function composerUpdate(OutputInterface $output, $composerFile) {
         $composer = json_decode(file_get_contents($composerFile), true);
         if (!array_key_exists('repositories', $composer)) {
             $composer['repositories'] = array();
@@ -140,7 +111,9 @@ class WorkflowCommand extends ContainerAwareCommand
             $output->writeln('<error>Packages installation failed</error>');
         }
     }
-    private function kernelManipulate(OutputInterface $output, KernelInterface $kernel){
+
+    private function kernelManipulate(OutputInterface $output, KernelInterface $kernel)
+    {
         $kernelManipulator = new KernelManipulator($kernel);
         try {
             $addBundle = $kernelManipulator->addBundle($this->workflowData['bundlePath']);
@@ -160,7 +133,69 @@ class WorkflowCommand extends ContainerAwareCommand
             );
         }
     }
-    private function asseticDump(OutputInterface $output, KernelInterface $kernel, $composerFile) {
+
+    private function routingSet(OutputInterface $output, KernelInterface $kernel)
+    {
+        $routingFile = $kernel->getRootDir().'/config/routing.yml';
+        $yaml = new Parser();
+        try {
+            $routingYml = $yaml->parse(file_get_contents($routingFile));
+            if (in_array('workflow', $routingYml, true)) {
+                $output->writeln(
+                    '<info>'.
+                    'Already defined in app/config/routing.yml'.
+                    '</info>'
+                );
+            } else {
+                $routingYml['workflow'] = array(
+                    'resource' => $this->workflowData['routing']['resource'],
+                    'prefix' => $this->workflowData['routing']['prefix']
+                );
+                $dumper = new Dumper();
+                $dumper->setIndentation(2);
+                $yaml = $dumper->dump($routingYml, 4);
+
+                file_put_contents($routingFile, $yaml);
+            }
+
+        } catch (ParseException $e) {
+            $output->writeln(
+                '<error>'.
+                "Unable to parse the routing YAML string: ".$e->getMessage().
+                '</error>'
+            );
+        }
+    }
+
+    private function schemaUpdate(OutputInterface $output, KernelInterface $kernel, $composerFile)
+    {
+
+        $consolePath = $kernel->getRootDir().'/console';
+        $schemaProcess = new Process(
+            'php '.$consolePath.' doctrine:schema:update --force',
+            dirname($composerFile),
+            null,
+            null,
+            600
+        );
+        $schemaProcess->setPty(true);
+
+        try {
+            $schemaProcess->mustRun();
+            $output->writeln($schemaProcess->getOutput());
+        } catch (ProcessFailedException $e) {
+            echo $e->getMessage();
+            $output->writeln($e->getMessage());
+        }
+        if ($schemaProcess->isSuccessful()) {
+            $output->writeln('<info>Schema succesfully updated</info>');
+        } else {
+            $output->writeln('<error>Schema update failed</error>');
+        }
+    }
+
+    private function asseticDump(OutputInterface $output, KernelInterface $kernel, $composerFile)
+    {
         $yaml = new Parser();
         $asseticFile = $kernel->getRootDir().'/config/assetic.yml';
         try {

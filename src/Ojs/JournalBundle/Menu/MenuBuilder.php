@@ -58,7 +58,7 @@ class MenuBuilder extends ContainerAware
             $path  = $item[2];
             $icon  = $item[3];
 
-            if (!empty($field) && $checker->isGranted('VIEW', $journal, $field)) {
+            if (empty($field) || $checker->isGranted('VIEW', $journal, $field)) {
                 $menu->addChild($label, [
                     'route'           => $path,
                     'routeParameters' => ['journalId' => $journalId],
