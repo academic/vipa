@@ -86,8 +86,7 @@ class JournalUserController extends Controller
         }
 
         $entity = new User();
-        $form = $this->createCreateForm($entity, $journal->getId())
-            ->add('create', 'submit', array('label' => 'c'));
+        $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
             'OjsJournalBundle:JournalUser:new.html.twig',
@@ -114,6 +113,7 @@ class JournalUserController extends Controller
                 'method' => 'POST',
             )
         );
+        $form->add('create', 'submit', array('label' => 'c'));
 
         return $form;
     }
@@ -132,8 +132,7 @@ class JournalUserController extends Controller
         }
 
         $entity = new User();
-        $form = $this->createCreateForm($entity, $journal->getId())
-            ->add('create', 'submit', array('label' => 'c'));
+        $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
