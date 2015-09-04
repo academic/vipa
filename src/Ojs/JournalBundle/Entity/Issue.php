@@ -71,6 +71,7 @@ class Issue extends AbstractTranslatable
      *             cover image path
      * @Expose
      * @Groups({"IssueDetail"})
+     * @Display\Image(filter="issue_cover")
      */
     private $cover;
     /**
@@ -109,6 +110,7 @@ class Issue extends AbstractTranslatable
      * @var string
      * @Expose
      * @Groups({"IssueDetail"})
+     * @Display\Image(filter="issue_header")
      */
     private $header;
     /**

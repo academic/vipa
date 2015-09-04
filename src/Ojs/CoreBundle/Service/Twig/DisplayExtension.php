@@ -3,11 +3,13 @@
 namespace Ojs\CoreBundle\Service\Twig;
 
 use Ojs\CoreBundle\Annotation\Display\File;
+use Ojs\CoreBundle\Annotation\Display\Image;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\Common\Annotations\Reader;
 use Ojs\CoreBundle\Annotation\Display\Exclude;
 use Ojs\CoreBundle\Annotation\Display\Expose;
+use Liip\ImagineBundle\Templating\ImagineExtension;
 
 class DisplayExtension extends \Twig_Extension
 {
@@ -15,6 +17,11 @@ class DisplayExtension extends \Twig_Extension
      * @var TranslatorInterface
      */
     private $translator;
+
+    /**
+     * @var ImagineExtension
+     */
+    private $imagine;
 
     /**
      * @var Reader
@@ -59,10 +66,11 @@ class DisplayExtension extends \Twig_Extension
      */
     private $normalizedEntity;
 
-    public function __construct(TranslatorInterface $translator, Reader $reader)
+    public function __construct(TranslatorInterface $translator, Reader $reader , ImagineExtension $imagine)
     {
         $this->translator = $translator;
         $this->reader = $reader;
+        $this->imagine = $imagine;
     }
 
     public function getFunctions()
@@ -102,6 +110,9 @@ class DisplayExtension extends \Twig_Extension
                 } elseif ($annotation instanceof File){
                     $file['path'] = $annotation->getPath();
                     $this->files[$property->name] = $file;
+                } elseif ($annotation instanceof Image){
+                    $image['filter'] = $annotation->getFilter();
+                    $this->images[$property->name] = $image;
                 }
             }
         }
@@ -243,9 +254,13 @@ class DisplayExtension extends \Twig_Extension
                 throw new Exception('This file field not exists!');
             }
             if(!empty($this->normalizedEntity[$imageKey])) {
-                $this->normalizedEntity[$imageKey] = '<a href="uploads/' . $this->files[$fileKey]["path"] . '/' . $this->normalizedEntity[$fileKey] . '" target="_blank">' . $this->normalizedEntity[$fileKey] . '</a>';
+                $filteredImage = $this->imagine->filter(
+                    $this->normalizedEntity[$imageKey],
+                    $image['filter']
+                );
+                $this->normalizedEntity[$imageKey] = '<a href="'.$filteredImage.'" target="_blank"><img src="'.$filteredImage.'"/></a>';
             }else{
-                $this->normalizedEntity[$fileKey] = '-';
+                $this->normalizedEntity[$imageKey] = '-';
             }
         }
     }

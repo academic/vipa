@@ -49,6 +49,7 @@ services:
     arguments:
       - @translator
       - @annotation_reader
+      - @liip_imagine.twig.extension
     tags:
       - { name: twig.extension }
 
