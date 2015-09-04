@@ -307,17 +307,21 @@ class Subject extends AbstractTranslatable
         if (null === $locale) {
             $locale = $this->currentLocale;
         }
-        if (!$locale) {
+
+        if (!$locale && $this->parent !== null) {
             $locale = $this->parent->getCurrentLocale();
-            if (!$locale) {
-                throw new \RuntimeException('No locale has been set and currentLocale is empty');
-            }
         }
+
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+
         /** @var SubjectTranslation $currentTranslation */
         $currentTranslation = $this->currentTranslation;
         if ($currentTranslation && $currentTranslation->getLocale() === $locale) {
             return $currentTranslation;
         }
+
         /** @var SubjectTranslation $defaultTranslation */
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
@@ -329,6 +333,7 @@ class Subject extends AbstractTranslatable
             $translation->setLocale($locale);
             $this->addTranslation($translation);
         }
+
         $this->currentTranslation = $translation;
 
         return $translation;
