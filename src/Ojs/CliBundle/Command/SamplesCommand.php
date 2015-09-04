@@ -94,6 +94,7 @@ class SamplesCommand extends ContainerAwareCommand
 
         $journal = new Journal();
         $journal->setCurrentLocale('en');
+        $journal->setPublisher($publisher);
         $journal->setTitle('Introduction to OJS');
         $journal->setSubtitle('How to use OJS');
         $journal->setTitleAbbr('INTROJS');
