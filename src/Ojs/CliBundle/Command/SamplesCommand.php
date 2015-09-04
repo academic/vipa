@@ -2,7 +2,10 @@
 
 namespace Ojs\CliBundle\Command;
 
+use Ojs\AdminBundle\Entity\AdminAnnouncement;
+use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSection;
@@ -27,6 +30,28 @@ class SamplesCommand extends ContainerAwareCommand
     {
         $output->writeln('Creating sample data...');
         $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
+        $manipulator->create('sample_author', 'author', 'sample@ojs.io', false, false);
+
+        $announcement = new AdminAnnouncement();
+        $announcement->setTitle('We are online!');
+        $announcement->setContent('We are now online and accepting submissions!');
+
+        $em->persist($announcement);
+        $em->flush();
+
+        $post = new AdminPost();
+        $post->setCurrentLocale('en');
+        $post->setTitle('Welcome to OJS!');
+        $post->setContent(
+            'Hello! We are now online and waiting for your submissions. ' .
+            'Our readers will be able to follow you and read your work ' .
+            'right after it gets published!'
+        );
+
+        $em->persist($post);
+        $em->flush();
 
         $slug = $this->getContainer()->getParameter('defaultPublisherSlug');
         $publisher = new Publisher();
@@ -105,6 +130,13 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($section);
         $em->flush();
 
+        $citation1 = new Citation();
+        $citation1->setCurrentLocale('en');
+        $citation1->setRaw('The Matrix [Motion picture]. (2001). Warner Bros. Pictures.');
+
+        $em->persist($citation1);
+        $em->flush();
+
         $article1 = new Article();
         $article1->setCurrentLocale('en');
         $article1->setJournal($journal);
@@ -118,6 +150,7 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setFirstPage(1);
         $article1->setLastPage(5);
         $article1->setStatus(3);
+        $article1->addCitation($citation1);
 
         $em->persist($article1);
         $em->flush();
