@@ -198,9 +198,9 @@ class InstallCommand extends ContainerAwareCommand
 
         $output->writeln("\nDONE\n");
         $output->writeln(
-            'You can run '
-            .'<info>php app/console ojs:install:initial-data </info> '
-            ."to add initial data\n"
+            "You can run"
+            ." <info>php app/console ojs:install:samples</info> "
+            ."to add some sample data.\n"
         );
     }
 
