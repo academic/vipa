@@ -2,7 +2,10 @@
 
 namespace Ojs\CliBundle\Command;
 
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\Subject;
@@ -76,6 +79,47 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->setMandatoryLang($language2);
 
         $em->persist($journal);
+        $em->flush();
+
+        $issue = new Issue();
+        $issue->setCurrentLocale('en');
+        $issue->setJournal($journal);
+        $issue->setTitle('First Issue: Hello OJS!');
+        $issue->setNumber(1);
+        $issue->setVolume(1);
+        $issue->setYear(2015);
+        $issue->setSpecial(1);
+        $issue->setTags('fisrt, guide, tutorial');
+        $issue->setDatePublished(new \DateTime('now'));
+
+        $em->persist($issue);
+        $em->flush();
+
+        $section = new JournalSection();
+        $section->setCurrentLocale('en');
+        $section->setJournal($journal);
+        $section->setTitle('Tutorials');
+        $section->setHideTitle(0);
+        $section->setAllowIndex(1);
+
+        $em->persist($section);
+        $em->flush();
+
+        $article1 = new Article();
+        $article1->setCurrentLocale('en');
+        $article1->setJournal($journal);
+        $article1->setSection($section);
+        $article1->setIssue($issue);
+        $article1->setTitle('Getting Started with OJS');
+        $article1->setKeywords('ojs, intro, starting');
+        $article1->setDoi('10.5281/zenodo.14791');
+        $article1->setPubdate(new \DateTime('now'));
+        $article1->setIsAnonymous(0);
+        $article1->setFirstPage(1);
+        $article1->setLastPage(5);
+        $article1->setStatus(3);
+
+        $em->persist($article1);
         $em->flush();
     }
 }
