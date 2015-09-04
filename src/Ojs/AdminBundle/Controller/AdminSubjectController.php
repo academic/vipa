@@ -121,6 +121,7 @@ class AdminSubjectController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Subject();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {

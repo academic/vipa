@@ -34,7 +34,6 @@ class SubjectType extends AbstractType
                     'class' => 'OjsJournalBundle:Subject',
                     'label' => 'parent',
                     'required' => false,
-                    'placeholder' => 'none',
                     'empty_data'  => null,
                     'query_builder' => function (SubjectRepository $repository) use ($selfId) {
                         if ($selfId != null) {
