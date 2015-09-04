@@ -233,7 +233,7 @@ class DisplayExtension extends \Twig_Extension
             return;
         }
         foreach($this->files as $fileKey => $file){
-            if(!isset($this->normalizedEntity[$fileKey])){
+            if(!array_key_exists($fileKey, $this->normalizedEntity)){
                 throw new Exception('This file field not exists!');
             }
             if(!empty($this->normalizedEntity[$fileKey])) {
@@ -250,8 +250,8 @@ class DisplayExtension extends \Twig_Extension
             return;
         }
         foreach($this->images as $imageKey => $image){
-            if(!isset($this->normalizedEntity[$imageKey])){
-                throw new Exception('This file field not exists!');
+            if(!array_key_exists($imageKey, $this->normalizedEntity)){
+                throw new Exception('This image field not exists!');
             }
             if(!empty($this->normalizedEntity[$imageKey])) {
                 $filteredImage = $this->imagine->filter(
