@@ -175,17 +175,12 @@
                             </a>
 
                             <div>
-                                {% for subject in journal.subjects %}
-                                    <span class="label label-info">{{ subject.subject }}</span>
-                                {% endfor %}
-                            </div>
-                            <div>
                                 <ul class="list-unstyled">
                                     {% if journal.issn is defined %}
-                                        <li><strong>{{ "journal.issn"|trans }}</strong>:{{ journal.issn }}</li>
+                                        <li><strong>{{ "issn"|trans }}</strong>:{{ journal.issn }}</li>
                                     {% endif %}
                                     {% if journal.eissn is defined %}
-                                        <li><strong>{{ "journal.eissn"|trans }}</strong>: {{ journal.eissn }}</li>
+                                        <li><strong>{{ "eissn"|trans }}</strong>: {{ journal.eissn }}</li>
                                     {% endif %}
                                     {% if journal.founded is defined %}
                                         <li>
