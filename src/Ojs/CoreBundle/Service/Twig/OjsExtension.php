@@ -71,6 +71,7 @@ class OjsExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
             new \Twig_SimpleFilter('pop', array($this, 'popFilter')),
+            new \Twig_SimpleFilter('sanitize', array($this, 'sanitize'))
         );
     }
 
@@ -115,6 +116,61 @@ class OjsExtension extends \Twig_Extension
         );
     }
 
+    public function sanitize($string) {
+        $string = strip_tags($string, '<a><blockquote><b><u><i>');
+        $dom = new \DOMDocument();
+        $dom->loadHTML($string, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        foreach ($dom->getElementsByTagName('*') as $node) {
+            /** @var \DOMElement  $node */
+            for ($i = $node->attributes->length - 1; $i >= 0; $i--) {
+                /** @var \DOMAttr $attribute */
+                $attribute = $node->attributes->item($i);
+                if ($node->nodeName == 'a') {
+                    if ($attribute->name === 'href') {
+                        $url = filter_var($attribute->value, FILTER_SANITIZE_URL);
+                        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+                            $node->parentNode->removeChild($node);
+                        }
+                    } elseif ($attribute->name === 'rel') {
+                        $relValues = array(
+                            'alternate',
+                            'author',
+                            'bookmark',
+                            'help',
+                            'license',
+                            'next',
+                            'nofollow',
+                            'noreferer',
+                            'prefetch',
+                            'prev',
+                            'search',
+                            'tag'
+                        );
+                        if (!in_array($attribute->value, $relValues, true)) {
+                            $node->setAttributeNode(new \DOMAttr('rel', 'nofollow'));
+                        }
+                    }
+                    elseif ($attribute->name === 'target') {
+                        $targetValues = array(
+                            '_blank',
+                            '_self',
+                            '_parent',
+                            '_top',
+                        );
+                        if (!in_array($attribute->value, $targetValues, true)) {
+                            $node->setAttributeNode(new \DOMAttr('target', '_blank'));
+                        }
+                    }
+                    else {
+                        $node->removeAttributeNode($attribute);
+                    }
+                } else {
+                    $node->removeAttributeNode($attribute);
+                }
+            }
+        }
+        return $dom->saveHTML();
+    }
     public function generateJournalUrl($journal)
     {
         return $this->journalService->generateUrl($journal);
