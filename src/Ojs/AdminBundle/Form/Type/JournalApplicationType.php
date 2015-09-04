@@ -61,7 +61,20 @@ class JournalApplicationType extends AbstractType
                     ]
                 ]
             )
-            ->add('period', null, ['label' => 'journal.period', 'attr' => ['class' => 'validate[required]']])
+            ->add(
+                'periods',
+                'entity',
+                array(
+                    'label' => 'Periods',
+                    'class' => 'Ojs\JournalBundle\Entity\Period',
+                    'property' => 'period',
+                    'multiple' => true,
+                    'expanded' => false,
+                    'attr' => [
+                        'class' => 'select2-element validate[required]',
+                    ]
+                )
+            )
             ->add('tags', 'tags', ['attr' => ['class' => 'validate[required]', 'label' => 'journal.tags']])
             ->add('url', 'url', ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
             ->add(
