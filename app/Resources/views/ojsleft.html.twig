@@ -75,11 +75,6 @@
                                 {{ "articles"|trans }}
                             </a>
                         {% endif %}
-                        <a class="list-group-item list-group-item-warning"
-                           href="{{ path('okul_bilisim_workflow_articles_active', {journalId: selectedJournal().id}) }}">
-                            <i class="fa fa-flag"></i>
-                            {{ "articles_in_review"|trans }}
-                        </a>
                     </div>
                 </div>
             {% endif %}
