@@ -60,7 +60,8 @@
     "friendsofsymfony/user-bundle": "dev-master",
     "pugx/autocompleter-bundle": "dev-master",
     "hwi/oauth-bundle": "0.4.*@dev",
-    "knplabs/knp-menu-bundle": "~2"
+    "knplabs/knp-menu-bundle": "~2",
+    "wikimedia/composer-merge-plugin": "^1.2"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
@@ -104,6 +105,14 @@
     },
     "branch-alias": {
       "dev-master": "1.2.0-dev"
+    },
+    "merge-plugin": {
+      "include": [
+        "thirdparty/*.json"
+      ],
+      "recurse": false,
+      "replace": false,
+      "merge-extra": false
     }
   }
 }

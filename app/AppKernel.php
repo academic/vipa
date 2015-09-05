@@ -66,12 +66,30 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
         }
+        $thirdPartyDir = __DIR__.'/../thirdparty';
+        $fs = new \Symfony\Component\Filesystem\Filesystem();
+        if ($fs->exists($thirdPartyDir)) {
+            $finder = new \Symfony\Component\Finder\Finder();
+            $finder->files()->in($thirdPartyDir);
+
+            foreach ($finder as $file) {
+                /** @var \Symfony\Component\Finder\SplFileInfo $file */
+                $bundleConfig = json_decode(file_get_contents($file->getRealpath()), true);
+                if ($bundleConfig) {
+                    if (isset($bundleConfig['extra']) && isset($bundleConfig['extra']['bundle-class'])) {
+                        if (class_exists($bundleConfig['extra']['bundle-class'])) {
+                            $bundles[] = new $bundleConfig['extra']['bundle-class']();
+                        }
+                    }
+                }
+            }
+        }
 
         return $bundles;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
+        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 }
