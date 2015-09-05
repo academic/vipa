@@ -4,6 +4,7 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -33,12 +34,9 @@ class AdminJournalController extends Controller
 
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
-            function ($row) use ($request)
+            function (Row $row) use ($request)
             {
-                /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var Journal $entity
-                 */
+                /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
@@ -78,7 +76,9 @@ class AdminJournalController extends Controller
     }
 
     /**
-     * Returns setupStatus == false journals
+     * Returns setupFinished == false journals
+     *
+     * @param Request $request
      * @return Response
      */
     public function notFinishedAction(Request $request)
@@ -92,16 +92,13 @@ class AdminJournalController extends Controller
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($tableAlias)
             {
-                $query->andWhere($tableAlias . '.setup_status = 0');
+                $query->andWhere($tableAlias . '.setupFinished = 0');
             }
         );
         $source->manipulateRow(
-            function ($row) use ($request)
+            function (Row $row) use ($request)
             {
-                /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var Journal $entity
-                 */
+                /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){

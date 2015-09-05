@@ -117,7 +117,7 @@ Ojs\JournalBundle\Entity\Article:
         nullable: true
         gedmo:
           - versioned
-    setupStatus:
+    setupFinished:
         type: boolean
         options:
           default: 1

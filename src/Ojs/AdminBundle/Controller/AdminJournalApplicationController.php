@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
@@ -29,12 +30,9 @@ class AdminJournalApplicationController extends Controller
         $data = array();
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
-            function ($row) use ($request)
+            function (Row $row) use ($request)
             {
-                /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var Journal $entity
-                 */
+                /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){

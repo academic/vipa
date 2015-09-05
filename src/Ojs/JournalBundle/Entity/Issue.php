@@ -154,6 +154,7 @@ class Issue extends AbstractTranslatable
         $this->sections = new ArrayCollection();
         $this->issueFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->statistics = new ArrayCollection();
     }
 
     /**
@@ -533,16 +534,6 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * Get published
-     *
-     * @return boolean
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
-
-    /**
      * @param  boolean $published
      * @return $this
      */
@@ -690,10 +681,8 @@ class Issue extends AbstractTranslatable
     {
         $count = 0;
 
-        if ($this->statistics != null) {
-            foreach ($this->statistics as $stat) {
-                $count += $stat->getView();
-            }
+        foreach ($this->statistics as $stat) {
+            $count += $stat->getView();
         }
 
         return $count;

@@ -36,9 +36,7 @@ class AdminPageController extends Controller
         $source = new Entity('OjsAdminBundle:AdminPage');
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var AdminPage $entity
-                 */
+                /* @var AdminPage $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 

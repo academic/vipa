@@ -156,22 +156,6 @@ Ojs\JournalBundle\Entity\Publisher:
             nullable: TRUE
             gedmo:
                 - versioned
-        themeId:
-            type: integer
-            column: theme_id
-            nullable: true
-            options:
-                default: 0
-            gedmo:
-                  - versioned
-        designId:
-            type: integer
-            column: design_id
-            nullable: true
-            options:
-                default: 0
-            gedmo:
-                  - versioned
         wiki:
             type: string
             length: 255

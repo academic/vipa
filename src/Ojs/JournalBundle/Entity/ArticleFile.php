@@ -71,6 +71,7 @@ class ArticleFile
      */
     public function __construct()
     {
+        $this->statistics = new ArrayCollection();
     }
 
     /**
@@ -285,10 +286,8 @@ class ArticleFile
     {
         $count = 0;
 
-        if ($this->statistics != null) {
-            foreach ($this->statistics as $stat) {
-                $count += $stat->getDownload();
-            }
+        foreach ($this->statistics as $stat) {
+            $count += $stat->getDownload();
         }
 
         return $count;

@@ -5,9 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
@@ -17,7 +15,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Journal
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,issn,eissn,country.name,publisher.name")
  */
 class Journal extends AbstractTranslatable
@@ -25,15 +23,15 @@ class Journal extends AbstractTranslatable
     use GenericEntityTrait;
 
     /** @var  boolean */
-    protected $setup_status;
+    protected $setupFinished;
 
     /** @var  string */
-    protected $footer_text;
+    protected $footerText;
 
     /**
      * @var integer
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     protected $id;
     /**
@@ -42,179 +40,166 @@ class Journal extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      * @Grid\Column(title="Title")
      */
     private $title;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $titleAbbr;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $titleTransliterated;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $subtitle;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $path;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $domain;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $issn;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $eissn;
     /**
      * @var \DateTime
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $founded;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $url;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $address;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $phone;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $email;
     /**
      * @var Country
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      * @Grid\Column(field="country.name", title="country")
      */
     private $country;
     /**
      * @var boolean
-     * @Expose
+     * @JMS\Expose
      */
     private $published;
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $status;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $image;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $header;
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $googleAnalyticsId;
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $slug;
     /**
-     * @var integer
-     * @Expose
-     */
-    private $themeId;
-    /**
      * @var JournalTheme
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $theme;
     /**
-     * @var integer
-     * @Expose
-     */
-    private $designId;
-    /**
-     * @var Design
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @var JournalDesign
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $design;
     /**
      * @var boolean
-     * @Expose
+     * @JMS\Expose
      */
-    private $isConfigured;
+    private $configured;
+
     /**
-     * @var Collection
-     */
-    private $users;
-    /**
-     * @var Collection
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @var ArrayCollection|Article[]
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      */
     private $articles;
     /**
-     * @var Collection
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @var ArrayCollection|Issue[]
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $issues;
     /**
-     * @var Collection
+     * @var ArrayCollection|Board[]
      */
     private $boards;
     /**
      * @var ArrayCollection|Lang[]
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $languages;
     /**
      * @var ArrayCollection|Period[]
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $periods;
     /**
@@ -223,13 +208,13 @@ class Journal extends AbstractTranslatable
     private $languageCodeSet;
     /**
      * @var Collection
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $subjects;
     /**
      * @var Collection
-     * @Groups({"JournalDetail"})
+     * @JMS\Groups({"JournalDetail"})
      */
     private $sections;
     /**
@@ -240,75 +225,71 @@ class Journal extends AbstractTranslatable
     private $settings;
     /**
      * @var Publisher
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      * @Grid\Column(field="publisher.name", title="publisher")
      */
     private $publisher;
     /**
      * @var Collection
-     * @Expose
+     * @JMS\Expose
      */
     private $journalThemes;
     /**
      * @var JournalDesign Collection
-     * @Expose
+     * @JMS\Expose
      */
     private $journalDesigns;
-    /**
-     * @var integer
-     */
-    private $publisherId;
     /**
      * @var Collection
      */
     private $bannedUsers;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $logo;
     /**
      * @var Collection
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
-    private $journals_indexs;
+    private $journalsIndexs;
     /**
      * @var ArrayCollection|SubmissionChecklist[]
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $submissionChecklist;
     /**
      * @var ArrayCollection|SubmissionFile[]
-     * @Expose
-     * @Groups({"JournalDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $submissionFile;
     /**
      * @var int
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
-    private $view_count;
+    private $viewCount;
     /**
      * @var int
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
-    private $download_count;
+    private $downloadCount;
     /**
      * @var boolean
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $printed;
     /**
@@ -328,11 +309,6 @@ class Journal extends AbstractTranslatable
     private $mandatoryLang;
 
     /**
-     * @var integer
-     */
-    private $mandatoryLangId;
-
-    /**
      * @var ArrayCollection|JournalAnnouncement[]
      */
     private $announcements;
@@ -348,12 +324,10 @@ class Journal extends AbstractTranslatable
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-        $this->users = new ArrayCollection();
         $this->issues = new ArrayCollection();
         $this->boards = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->sections = new ArrayCollection();
-        $this->pages = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->journalThemes = new ArrayCollection();
         $this->translations = new ArrayCollection();
@@ -380,8 +354,8 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param  string  $settingName
-     * @param  string  $value
+     * @param  string $settingName
+     * @param  string $value
      * @return Journal
      */
     public function addSetting($settingName, $value)
@@ -408,7 +382,7 @@ class Journal extends AbstractTranslatable
 
     /**
      *
-     * @param  string                 $settingName
+     * @param  string $settingName
      * @return JournalSetting|boolean
      */
     public function getAttribute($settingName)
@@ -418,7 +392,7 @@ class Journal extends AbstractTranslatable
 
     /**
      *
-     * @param  string                 $settingName
+     * @param  string $settingName
      * @return JournalSetting|boolean
      */
     public function getSetting($settingName)
@@ -432,21 +406,16 @@ class Journal extends AbstractTranslatable
      */
     public function addSection(JournalSection $section)
     {
-        $this->sections[] = $section;
+        if (!$this->sections->contains($section)) {
+            $this->sections->add($section);
+            $section->setJournal($this);
+        }
 
         return $this;
     }
 
     /**
-     * @param JournalSection $section
-     */
-    public function removeSection(JournalSection $section)
-    {
-        $this->sections->removeElement($section);
-    }
-
-    /**
-     * @return Collection
+     * @return ArrayCollection|JournalSection[]
      */
     public function getSections()
     {
@@ -457,23 +426,18 @@ class Journal extends AbstractTranslatable
      * @param  JournalTheme $journalTheme
      * @return Journal
      */
-    public function addJournalThemes(JournalTheme $journalTheme)
+    public function addJournalTheme(JournalTheme $journalTheme)
     {
-        $this->journalThemes[] = $journalTheme;
+        if (!$this->journalThemes->contains($journalTheme)) {
+            $this->journalThemes->add($journalTheme);
+            $journalTheme->setJournal($this);
+        }
 
         return $this;
     }
 
     /**
-     * @param JournalTheme $journalTheme
-     */
-    public function removeJournalThemes(JournalTheme $journalTheme)
-    {
-        $this->journalThemes->removeElement($journalTheme);
-    }
-
-    /**
-     * @return Collection
+     * @return ArrayCollection|JournalTheme[]
      */
     public function getJournalThemes()
     {
@@ -481,23 +445,16 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param  Lang    $language
+     * @param  Lang $language
      * @return Journal
      */
     public function addLanguage(Lang $language)
     {
-        if(!$this->languages->contains($language)){
-            $this->languages[] = $language;
+        if (!$this->languages->contains($language)) {
+            $this->languages->add($language);
         }
-        return $this;
-    }
 
-    /**
-     * @param Lang $language
-     */
-    public function removeLanguage(Lang $language)
-    {
-        $this->languages->removeElement($language);
+        return $this;
     }
 
     /**
@@ -509,12 +466,14 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param  Period    $period
+     * @param  Period $period
      * @return Journal
      */
     public function addPeriod(Period $period)
     {
-        $this->periods[] = $period;
+        if (!$this->periods->contains($period)) {
+            $this->periods->add($period);
+        }
 
         return $this;
     }
@@ -524,7 +483,10 @@ class Journal extends AbstractTranslatable
      */
     public function removePeriod(Period $period)
     {
-        $this->periods->removeElement($period);
+        if ($this->periods->contains($period)) {
+            $this->periods->removeElement($period);
+        }
+
     }
 
     /**
@@ -552,10 +514,11 @@ class Journal extends AbstractTranslatable
     {
         $langIds = [];
         /** @var Lang $language */
-        foreach($languages as $language){
+        foreach ($languages as $language) {
             $langIds[] = $language->getCode();
         }
         $this->languageCodeSet = implode('-', $langIds);
+
         return $this;
     }
 
@@ -565,7 +528,10 @@ class Journal extends AbstractTranslatable
      */
     public function addSubject(Subject $subject)
     {
-        $this->subjects[] = $subject;
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects->add($subject);
+            $subject->addJournal($this);
+        }
 
         return $this;
     }
@@ -575,7 +541,10 @@ class Journal extends AbstractTranslatable
      */
     public function removeSubjects(Subject $subject)
     {
-        $this->subjects->removeElement($subject);
+        if ($this->subjects->contains($subject)) {
+            $this->subjects->removeElement($subject);
+            $subject->removeJournal($this);
+        }
     }
 
     /**
@@ -599,7 +568,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set path
      *
-     * @param  string  $path
+     * @param  string $path
      * @return Journal
      */
     public function setPath($path)
@@ -620,7 +589,7 @@ class Journal extends AbstractTranslatable
 
     /**
      * Set domain
-     * @param  string  $domain
+     * @param  string $domain
      * @return Journal
      */
     public function setDomain($domain)
@@ -643,7 +612,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set titleAbbr
      *
-     * @param  string  $titleAbbr
+     * @param  string $titleAbbr
      * @return Journal
      */
     public function setTitleAbbr($titleAbbr)
@@ -666,7 +635,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set titleTransliterated
      *
-     * @param  string  $titleTransliterated
+     * @param  string $titleTransliterated
      * @return Journal
      */
     public function setTitleTransliterated($titleTransliterated)
@@ -689,7 +658,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set subtitle
      *
-     * @param  string  $subtitle
+     * @param  string $subtitle
      * @return Journal
      */
     public function setSubtitle($subtitle)
@@ -745,7 +714,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set issn
      *
-     * @param  string  $issn
+     * @param  string $issn
      * @return Journal
      */
     public function setIssn($issn)
@@ -768,7 +737,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set eissn
      *
-     * @param  string  $eissn
+     * @param  string $eissn
      * @return Journal
      */
     public function setEissn($eissn)
@@ -814,33 +783,12 @@ class Journal extends AbstractTranslatable
     /**
      * Set url
      *
-     * @param  string  $url
+     * @param  string $url
      * @return Journal
      */
     public function setUrl($url)
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get publisherId
-     * @return integer
-     */
-    public function getPublisherId()
-    {
-        return $this->publisherId;
-    }
-
-    /**
-     * Set publisherId
-     * @param  int $publisherId
-     * @return Journal
-     */
-    public function setPublisherId($publisherId)
-    {
-        $this->publisherId = $publisherId;
 
         return $this;
     }
@@ -936,21 +884,11 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Get published
-     *
-     * @return boolean
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
-
-    /**
      * @return boolean
      */
     public function isPublished()
     {
-        return $this->published ? true : false;
+        return $this->published;
     }
 
     /**
@@ -1002,7 +940,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set image
      *
-     * @param  string  $image
+     * @param  string $image
      * @return Journal
      */
     public function setImage($image)
@@ -1025,35 +963,12 @@ class Journal extends AbstractTranslatable
     /**
      * Set slug
      *
-     * @param  string  $slug
+     * @param  string $slug
      * @return Journal
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get themeId
-     *
-     * @return integer
-     */
-    public function getThemeId()
-    {
-        return $this->themeId;
-    }
-
-    /**
-     * Set themeId
-     *
-     * @param  integer $themeId
-     * @return Journal
-     */
-    public function setThemeId($themeId)
-    {
-        $this->themeId = $themeId;
 
         return $this;
     }
@@ -1071,7 +986,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set theme
      *
-     * @param  JournalTheme   $theme
+     * @param  JournalTheme $theme
      * @return Journal
      */
     public function setTheme(JournalTheme $theme = null)
@@ -1094,7 +1009,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set googleAnalyticsId
      *
-     * @param  string  $googleAnalyticsId
+     * @param  string $googleAnalyticsId
      * @return Journal
      */
     public function setGoogleAnalyticsId($googleAnalyticsId)
@@ -1105,23 +1020,23 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Get isConfigured
+     * Get configured
      * @return boolean
      */
-    public function getIsConfigured()
+    public function isConfigured()
     {
-        return $this->isConfigured;
+        return $this->configured;
     }
 
     /**
-     * Set themeId
+     * Set configured
      *
-     * @param  boolean $isConfigured
+     * @param  boolean $configured
      * @return Journal
      */
-    public function setIsConfigured($isConfigured)
+    public function setConfigured($configured)
     {
-        $this->isConfigured = $isConfigured;
+        $this->configured = $configured;
 
         return $this;
     }
@@ -1134,25 +1049,18 @@ class Journal extends AbstractTranslatable
      */
     public function addArticle(Article $article)
     {
-        $this->articles[] = $article;
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setJournal($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove articles
-     *
-     * @param Article $article
-     */
-    public function removeArticle(Article $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
      * Get articles
      *
-     * @return Collection
+     * @return ArrayCollection|Article[]
      */
     public function getArticles()
     {
@@ -1166,25 +1074,18 @@ class Journal extends AbstractTranslatable
      */
     public function addBoard(Board $board)
     {
-        $this->boards[] = $board;
+        if (!$this->boards->contains($board)) {
+            $this->boards->add($board);
+            $board->setJournal($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove board
-     *
-     * @param Board $board
-     */
-    public function removeBoard(Board $board)
-    {
-        $this->boards->removeElement($board);
-    }
-
-    /**
      * Get boards
      *
-     * @return Collection
+     * @return ArrayCollection|Board[]
      */
     public function getBoards()
     {
@@ -1194,77 +1095,27 @@ class Journal extends AbstractTranslatable
     /**
      * Add issue
      *
-     * @param  Issue   $issue
+     * @param  Issue $issue
      * @return Journal
      */
     public function addIssue(Issue $issue)
     {
-        $this->issues[] = $issue;
+        if (!$this->issues->contains($issue)) {
+            $this->issues->add($issue);
+            $issue->setJournal($this);
+        }
 
         return $this;
-    }
-
-    /**
-     * Remove issue
-     *
-     * @param Issue $issue
-     */
-    public function removeIssue(Issue $issue)
-    {
-        $this->issues->removeElement($issue);
     }
 
     /**
      * Get issues
      *
-     * @return Collection
+     * @return ArrayCollection|Issue[]
      */
     public function getIssues()
     {
         return $this->issues;
-    }
-
-    /**
-     * Remove articles
-     *
-     * @param User $users
-     */
-    public function removeUser(User $users)
-    {
-        $this->users->removeElement($users);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Add articles
-     *
-     * @param  User    $users
-     * @return Journal
-     */
-    public function addUser(User $users)
-    {
-        $this->users[] = $users;
-
-        return $this;
-    }
-
-    /**
-     * Remove settings
-     *
-     * @param JournalSetting $settings
-     */
-    public function removeSetting(JournalSetting $settings)
-    {
-        $this->settings->removeElement($settings);
     }
 
     /**
@@ -1280,22 +1131,28 @@ class Journal extends AbstractTranslatable
     /**
      * Remove subjects
      *
-     * @param Subject $subjects
+     * @param Subject $subject
+     * @return Journal
      */
-    public function removeSubject(Subject $subjects)
+    public function removeSubject(Subject $subject)
     {
-        $this->subjects->removeElement($subjects);
+        if($this->subjects->contains($subject)){
+            $this->subjects->removeElement($subject);
+            $subject->removeJournal($this);
+        }
+
+        return $this;
     }
 
     /**
      * Add bannedUsers
      *
-     * @param  User    $bannedUsers
+     * @param  User $bannedUser
      * @return Journal
      */
-    public function addBannedUser(User $bannedUsers)
+    public function addBannedUser(User $bannedUser)
     {
-        $this->bannedUsers[] = $bannedUsers;
+        $this->bannedUsers[] = $bannedUser;
 
         return $this;
     }
@@ -1313,7 +1170,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get bannedUsers
      *
-     * @return Collection
+     * @return ArrayCollection|User[]
      */
     public function getBannedUsers()
     {
@@ -1325,9 +1182,9 @@ class Journal extends AbstractTranslatable
      */
     public function __toString()
     {
-        if(is_null($this->getTitle())){
+        if (is_null($this->getTitle())) {
             return $this->translations->first()->getTitle();
-        }else{
+        } else {
             return $this->getTitle();
         }
     }
@@ -1345,7 +1202,7 @@ class Journal extends AbstractTranslatable
     /**
      * Set title
      *
-     * @param  string  $title
+     * @param  string $title
      * @return Journal
      */
     public function setTitle($title)
@@ -1385,59 +1242,26 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Add journalThemes
-     *
-     * @param  JournalTheme $journalThemes
-     * @return Journal
-     */
-    public function addJournalTheme(JournalTheme $journalThemes)
-    {
-        $this->journalThemes[] = $journalThemes;
-
-        return $this;
-    }
-
-    /**
-     * Remove journalThemes
-     *
-     * @param JournalTheme $journalThemes
-     */
-    public function removeJournalTheme(JournalTheme $journalThemes)
-    {
-        $this->journalThemes->removeElement($journalThemes);
-    }
-
-    /**
-     * Add journals_indexs
+     * Add journalsIndexs
      *
      * @param  JournalsIndex $journalsIndexs
      * @return Journal
      */
     public function addJournalsIndex(JournalsIndex $journalsIndexs)
     {
-        $this->journals_indexs[] = $journalsIndexs;
+        $this->journalsIndexs[] = $journalsIndexs;
 
         return $this;
     }
 
     /**
-     * Remove journals_index
-     *
-     * @param JournalsIndex $journalsIndexs
-     */
-    public function removeJournalsIndex(JournalsIndex $journalsIndexs)
-    {
-        $this->journals_indexs->removeElement($journalsIndexs);
-    }
-
-    /**
-     * Get journals_indexs
+     * Get journalsIndexs
      *
      * @return Collection
      */
     public function getJournalsIndexs()
     {
-        return $this->journals_indexs;
+        return $this->journalsIndexs;
     }
 
     /**
@@ -1448,24 +1272,12 @@ class Journal extends AbstractTranslatable
      */
     public function addSubmissionChecklist(SubmissionChecklist $submissionChecklist)
     {
-        if(!$this->submissionChecklist->contains($submissionChecklist)){
+        if (!$this->submissionChecklist->contains($submissionChecklist)) {
             $this->submissionChecklist->add($submissionChecklist);
             $submissionChecklist->setJournal($this);
         }
 
         return $this;
-    }
-
-    /**
-     * Remove submission checklist item
-     *
-     * @param SubmissionChecklist $submissionChecklist
-     */
-    public function removeSubmissionChecklist(SubmissionChecklist $submissionChecklist)
-    {
-        if($this->submissionChecklist->contains($submissionChecklist)){
-            $this->submissionChecklist->removeElement($submissionChecklist);
-        }
     }
 
     /**
@@ -1486,24 +1298,12 @@ class Journal extends AbstractTranslatable
      */
     public function addSubmissionFile(SubmissionFile $submissionFile)
     {
-        if(!$this->submissionFile->contains($submissionFile)){
+        if (!$this->submissionFile->contains($submissionFile)) {
             $this->submissionFile->add($submissionFile);
             $submissionFile->setJournal($this);
         }
 
         return $this;
-    }
-
-    /**
-     * Remove submission file item
-     *
-     * @param SubmissionFile $submissionFile
-     */
-    public function removeSubmissionFile(SubmissionFile $submissionFile)
-    {
-        if($this->submissionFile->contains($submissionFile)){
-            $this->submissionFile->removeElement($submissionFile);
-        }
     }
 
     /**
@@ -1535,25 +1335,17 @@ class Journal extends AbstractTranslatable
     /**
      * @return boolean
      */
-    public function isSetupStatus()
+    public function isSetupFinished()
     {
-        return $this->setup_status;
+        return $this->setupFinished;
     }
 
     /**
-     * @return boolean
+     * @param boolean $setupFinished
      */
-    public function getSetupStatus()
+    public function setSetupFinished($setupFinished)
     {
-        return $this->setup_status;
-    }
-
-    /**
-     * @param boolean $setup_status
-     */
-    public function setSetupStatus($setup_status)
-    {
-        $this->setup_status = $setup_status;
+        $this->setupFinished = $setupFinished;
     }
 
     /**
@@ -1561,15 +1353,15 @@ class Journal extends AbstractTranslatable
      */
     public function getFooterText()
     {
-        return $this->footer_text;
+        return $this->footerText;
     }
 
     /**
-     * @param string $footer_text
+     * @param string $footerText
      */
-    public function setFooterText($footer_text)
+    public function setFooterText($footerText)
     {
-        $this->footer_text = $footer_text;
+        $this->footerText = $footerText;
     }
 
     /**
@@ -1577,16 +1369,16 @@ class Journal extends AbstractTranslatable
      */
     public function getDownloadCount()
     {
-        return $this->download_count;
+        return $this->downloadCount;
     }
 
     /**
-     * @param  int   $download_count
+     * @param  int $downloadCount
      * @return $this
      */
-    public function setDownloadCount($download_count)
+    public function setDownloadCount($downloadCount)
     {
-        $this->download_count = $download_count;
+        $this->downloadCount = $downloadCount;
 
         return $this;
     }
@@ -1596,16 +1388,16 @@ class Journal extends AbstractTranslatable
      */
     public function getViewCount()
     {
-        return $this->view_count;
+        return $this->viewCount;
     }
 
     /**
-     * @param  int   $view_count
+     * @param  int $viewCount
      * @return $this
      */
-    public function setViewCount($view_count)
+    public function setViewCount($viewCount)
     {
-        $this->view_count = $view_count;
+        $this->viewCount = $viewCount;
 
         return $this;
     }
@@ -1614,16 +1406,6 @@ class Journal extends AbstractTranslatable
      * @return boolean
      */
     public function isPrinted()
-    {
-        return $this->printed;
-    }
-
-    /**
-     * Get printed
-     *
-     * @return boolean
-     */
-    public function getPrinted()
     {
         return $this->printed;
     }
@@ -1691,25 +1473,6 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @return integer
-     */
-    public function getMandatoryLangId()
-    {
-        return $this->mandatoryLangId;
-    }
-
-    /**
-     * @param  integer $mandatoryLangId
-     * @return $this
-     */
-    public function setMandatoryLangId($mandatoryLangId)
-    {
-        $this->mandatoryLangId = $mandatoryLangId;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection|JournalAnnouncement[]
      */
     public function getAnnouncements()
@@ -1723,22 +1486,6 @@ class Journal extends AbstractTranslatable
     public function setAnnouncements($announcements)
     {
         $this->announcements = $announcements;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDesignId()
-    {
-        return $this->designId;
-    }
-
-    /**
-     * @param int $designId
-     */
-    public function setDesignId($designId)
-    {
-        $this->designId = $designId;
     }
 
     /**
@@ -1766,11 +1513,14 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param JournalDesign|ArrayCollection $journalDesigns
+     * @param JournalDesign|ArrayCollection $journalDesign
      */
-    public function setJournalDesigns($journalDesigns)
+    public function addJournalDesign($journalDesign)
     {
-        $this->journalDesigns = $journalDesigns;
+        if(!$this->journalDesigns->contains($journalDesign)){
+            $this->journalDesigns->add($journalDesign);
+            $journalDesign->setJournal($this);
+        }
     }
 
     /**
@@ -1804,53 +1554,39 @@ class Journal extends AbstractTranslatable
     /**
      * Add journalUser
      *
-     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
+     * @param JournalUser $journalUser
      *
      * @return Journal
      */
-    public function addJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
+    public function addJournalUser(JournalUser $journalUser)
     {
-        $this->journalUsers[] = $journalUser;
+        if (!$this->journalUsers->contains($journalUser)) {
+            $this->journalUsers->add($journalUser);
+            $journalUser->setJournal($this);
+        }
 
         return $this;
-    }
-
-    /**
-     * Remove journalUser
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
-     */
-    public function removeJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
-    {
-        $this->journalUsers->removeElement($journalUser);
     }
 
     /**
      * Add journalContact
      *
-     * @param \Ojs\JournalBundle\Entity\JournalContact $journalContact
+     * @param JournalContact $journalContact
      *
      * @return Journal
      */
-    public function addJournalContact(\Ojs\JournalBundle\Entity\JournalContact $journalContact)
+    public function addJournalContact(JournalContact $journalContact)
     {
-        $this->journalContacts[] = $journalContact;
+        if (!$this->journalContacts->contains($journalContact)) {
+            $this->journalContacts->add($journalContact);
+            $journalContact->setJournal($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove journalContact
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalContact $journalContact
-     */
-    public function removeJournalContact(\Ojs\JournalBundle\Entity\JournalContact $journalContact)
-    {
-        $this->journalContacts->removeElement($journalContact);
-    }
-
-    /**
-     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\JournalStatistic[]
+     * @return ArrayCollection|JournalStatistic[]
      */
     public function getStatistics()
     {
@@ -1858,7 +1594,7 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\JournalStatistic[] $statistics
+     * @param ArrayCollection|JournalStatistic[] $statistics
      */
     public function setStatistics($statistics)
     {

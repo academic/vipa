@@ -64,7 +64,7 @@ Ojs\JournalBundle\Entity\Journal:
         journalDesigns:
             targetEntity: JournalDesign
             mappedBy: journal
-        journals_indexs:
+        journalsIndexs:
             targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
             mappedBy: journal
             cascade: ["all"]
@@ -88,12 +88,12 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
             cascade: ["persist"]
         statistics:
-              targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
-              mappedBy: journal
-              cascade: ["persist"]
+            targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
+            mappedBy: journal
+            cascade: ["persist"]
     manyToMany:
         languages:
-              targetEntity: Lang
+              targetEntity: Ojs\JournalBundle\Entity\Lang
               joinTable:
                 inverseJoinColumns:
                   language_id:
@@ -242,12 +242,6 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
-        mandatoryLangId:
-            type: integer
-            nullable: TRUE
-            column: mandatory_lang_id
-            gedmo:
-              - versioned
         logo:
             type: string
             length: 255
@@ -276,31 +270,7 @@ Ojs\JournalBundle\Entity\Journal:
                     seperator: _
                     fields:
                       - id
-        themeId:
-            type: integer
-            column: theme_id
-            nullable: true
-            options:
-                default: 0
-            gedmo:
-                  - versioned
-        designId:
-            type: integer
-            column: design_id
-            nullable: true
-            options:
-                default: 0
-            gedmo:
-                  - versioned
-        publisherId:
-            type: integer
-            column: publisher_id
-            nullable: true
-            options:
-                default: 0
-            gedmo:
-                  - versioned
-        isConfigured:
+        configured:
             column: is_configured
             type: boolean
             options:
@@ -339,22 +309,26 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                   - versioned
-        setup_status:
+        setupFinished:
             type: boolean
             nullable: true
-        footer_text:
+            column: setup_finished
+        footerText:
             type: text
             nullable: true
+            column: footer_text
             gedmo:
                   - versioned
-        view_count:
+        viewCount:
             type: integer
             nullable: true
+            column: view_count
             options:
                 default: 0
-        download_count:
+        downloadCount:
             type: integer
             nullable: true
+            column: download_count
             options:
                 default: 0
         printed:

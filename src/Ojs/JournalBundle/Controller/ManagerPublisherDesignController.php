@@ -25,6 +25,8 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Lists all PublisherDesigns entities.
      *
+     * @param integer $publisherId
+     * @return Response
      */
     public function indexAction($publisherId)
     {
@@ -38,7 +40,7 @@ class ManagerPublisherDesignController extends Controller
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($publisher, $alias) {
-                $qb->andWhere($alias . '.publisher = :publisher')
+                $qb->andWhere($alias.'.publisher = :publisher')
                     ->setParameter('publisher', $publisher);
             }
         );
@@ -47,9 +49,18 @@ class ManagerPublisherDesignController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('ojs_publisher_manager_design_show', ['publisherId' => $publisher->getId(), 'id']);
-        $rowAction[] = $gridAction->editAction('ojs_publisher_manager_design_edit', ['publisherId' => $publisher->getId(), 'id']);
-        $rowAction[] = $gridAction->deleteAction('ojs_publisher_manager_design_delete', ['publisherId' => $publisher->getId(), 'id']);
+        $rowAction[] = $gridAction->showAction(
+            'ojs_publisher_manager_design_show',
+            ['publisherId' => $publisher->getId(), 'id']
+        );
+        $rowAction[] = $gridAction->editAction(
+            'ojs_publisher_manager_design_edit',
+            ['publisherId' => $publisher->getId(), 'id']
+        );
+        $rowAction[] = $gridAction->deleteAction(
+            'ojs_publisher_manager_design_delete',
+            ['publisherId' => $publisher->getId(), 'id']
+        );
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -63,10 +74,11 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Creates a new PublisherDesign entity.
      *
-     * @param  Request                   $request
+     * @param Request $request
+     * @param integer $publisherId
      * @return RedirectResponse|Response
      */
-    public function createAction($publisherId, Request $request)
+    public function createAction(Request $request, $publisherId)
     {
         $em = $this->getDoctrine()->getManager();
         $publisher = $em->getRepository('OjsJournalBundle:Publisher')->find($publisherId);
@@ -87,7 +99,10 @@ class ManagerPublisherDesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_publisher_manager_design_show', ['publisherId' => $publisher->getId(), 'id' => $entity->getId()]);
+            return $this->redirectToRoute(
+                'ojs_publisher_manager_design_show',
+                ['publisherId' => $publisher->getId(), 'id' => $entity->getId()]
+            );
         }
 
         return $this->render(
@@ -103,17 +118,20 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Creates a form to create a PublisherTypes entity.
      *
-     * @param PublisherDesign $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param PublisherDesign $entity
+     * @param Publisher $publisher
+     * @return \Symfony\Component\Form\Form
      */
-    private function createCreateForm(PublisherDesign $entity, $publisher)
+    private function createCreateForm(PublisherDesign $entity, Publisher $publisher)
     {
         $form = $this->createForm(
             new PublisherDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_publisher_manager_design_create', ['publisherId' => $publisher->getId()]),
+                'action' => $this->generateUrl(
+                    'ojs_publisher_manager_design_create',
+                    ['publisherId' => $publisher->getId()]
+                ),
                 'method' => 'POST',
             )
         );
@@ -166,6 +184,8 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Displays a form to create a new PublisherDesign entity.
      *
+     * @param integer $publisherId
+     * @return Response
      */
     public function newAction($publisherId)
     {
@@ -191,7 +211,8 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Finds and displays a PublisherDesign entity.
      *
-     * @param $id
+     * @param integer $publisherId
+     * @param PublisherDesign $entity
      * @return Response
      */
     public function showAction($publisherId, PublisherDesign $entity)
@@ -204,7 +225,7 @@ class ManagerPublisherDesignController extends Controller
         }
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_publisher_manager_design' . $entity->getId());
+            ->refreshToken('ojs_publisher_manager_design'.$entity->getId());
 
         return $this->render(
             'OjsJournalBundle:ManagerPublisherDesign:show.html.twig',
@@ -219,7 +240,8 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Displays a form to edit an existing PublisherDesign entity.
      *
-     * @param $id
+     * @param integer $publisherId
+     * @param PublisherDesign $entity
      * @return Response
      */
     public function editAction($publisherId, PublisherDesign $entity)
@@ -283,7 +305,10 @@ class ManagerPublisherDesignController extends Controller
             new PublisherDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_publisher_manager_design_update', array('publisherId' => $publisher->getId(), 'id' => $entity->getId())),
+                'action' => $this->generateUrl(
+                    'ojs_publisher_manager_design_update',
+                    array('publisherId' => $publisher->getId(), 'id' => $entity->getId())
+                ),
                 'method' => 'PUT',
             )
         );
@@ -296,8 +321,9 @@ class ManagerPublisherDesignController extends Controller
     /**
      * Edits an existing PublisherDesigns entity.
      *
-     * @param  Request                   $request
-     * @param $id
+     * @param Request $request
+     * @param integer $publisherId
+     * @param PublisherDesign $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $publisherId, PublisherDesign $entity)
@@ -319,8 +345,10 @@ class ManagerPublisherDesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_publisher_manager_design_edit', [
-                'id' => $entity->getId(),
+            return $this->redirectToRoute(
+                'ojs_publisher_manager_design_edit',
+                [
+                    'id' => $entity->getId(),
                     'publisherId' => $publisher->getId()
                 ]
             );
@@ -337,8 +365,9 @@ class ManagerPublisherDesignController extends Controller
     }
 
     /**
-     * @param  Request                                            $request
+     * @param  Request $request
      * @param  PublisherDesign $entity
+     * @param  integer $publisherId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws TokenNotFoundException
      */
@@ -354,7 +383,7 @@ class ManagerPublisherDesignController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_publisher_manager_design' . $entity->getId());
+        $token = $csrf->getToken('ojs_publisher_manager_design'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }

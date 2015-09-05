@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body -%}
-    {% if (selectedJournal() and selectedJournal().setupStatus)!=true %}
+    {% if (selectedJournal() and selectedJournal().setupFinished)!=true %}
         <div class="alert alert-warning">
             {{ 'ojs.setup_not_completed'|trans({"%setup_url%":path('ojs_journal_setup')})|raw }}
         </div>

@@ -20,13 +20,13 @@ Ojs\JournalBundle\Entity\JournalsIndex:
   manyToOne:
     journal:
       targetEntity: Ojs\JournalBundle\Entity\Journal
-      inversedBy: journals_indexs
+      inversedBy: journalsIndexs
       joinColumn:
         name: journal_id
         referencedColumnName: id
     journal_index:
       targetEntity: Ojs\JournalBundle\Entity\JournalIndex
-      inversedBy: journals_indexs
+      inversedBy: journalsIndexs
       joinColumn:
         name: journal_index_id
         referencedColumnName: id

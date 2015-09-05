@@ -47,10 +47,8 @@ class JournalSectionController extends Controller
         );
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var JournalSection $entity
-                 */
+
+                /* @var JournalSection $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){

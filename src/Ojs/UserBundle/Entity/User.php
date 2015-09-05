@@ -810,16 +810,6 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         return $this;
     }
 
-    /**
-     * Remove journalUser
-     *
-     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
-     */
-    public function removeJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
-    {
-        $this->journalUsers->removeElement($journalUser);
-    }
-
     public function isAdmin()
     {
         return $this->hasRole('ROLE_ADMIN') || $this->hasRole('ROLE_SUPER_ADMIN');

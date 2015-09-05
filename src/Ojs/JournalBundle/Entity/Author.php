@@ -5,9 +5,6 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
@@ -17,10 +14,10 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Author
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
-class Author extends  AbstractTranslatable
+class Author extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -44,8 +41,8 @@ class Author extends  AbstractTranslatable
 
     /**
      * @var integer
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="id")
      */
     protected $id;
@@ -55,22 +52,22 @@ class Author extends  AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="firstname")
      */
     private $firstName;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="middlename")
      */
     private $middleName;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="lastname")
      */
     private $lastName;
@@ -97,8 +94,8 @@ class Author extends  AbstractTranslatable
     private $lastNameTransliterated;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="initials")
      */
     private $initials;
@@ -107,15 +104,11 @@ class Author extends  AbstractTranslatable
      * @JMS\Expose
      */
     private $address;
-    /**
-     * @var integer
-     * @JMS\Expose
-     */
-    private $publisherId;
+
     /**
      * @var Publisher
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $publisher;
     /**
@@ -142,26 +135,26 @@ class Author extends  AbstractTranslatable
      * title + firstname + middlename + lastname
      * @var string
      * @GRID\Column(title="fullname",field="fullname")
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
     /**
      * @var boolean
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $publisherNotListed;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $publisherName;
     /**
@@ -222,7 +215,7 @@ class Author extends  AbstractTranslatable
     /**
      * Set user
      *
-     * @param  User   $user
+     * @param  User $user
      * @return Author
      */
     public function setUser(User $user = null)
@@ -327,7 +320,7 @@ class Author extends  AbstractTranslatable
      * @param  string $email
      * @return Author
      */
-    public function setEmail($email=null)
+    public function setEmail($email = null)
     {
         $this->email = $email;
 
@@ -344,7 +337,7 @@ class Author extends  AbstractTranslatable
     }
 
     /**
-     * @param  int   $userId
+     * @param  int $userId
      * @return $this
      */
     public function setUserId($userId)
@@ -470,29 +463,6 @@ class Author extends  AbstractTranslatable
     }
 
     /**
-     * Get publisherId
-     *
-     * @return integer
-     */
-    public function getPublisherId()
-    {
-        return $this->publisherId;
-    }
-
-    /**
-     * Set publisherId
-     *
-     * @param  integer $publisherId
-     * @return Author
-     */
-    public function setPublisherId($publisherId)
-    {
-        $this->publisherId = $publisherId;
-
-        return $this;
-    }
-
-    /**
      * Get summary
      *
      * @return string
@@ -554,7 +524,7 @@ class Author extends  AbstractTranslatable
      */
     public function addArticleAuthor(ArticleAuthor $articleAuthor)
     {
-        if(!$this->articleAuthors->contains($articleAuthor)){
+        if (!$this->articleAuthors->contains($articleAuthor)) {
             $this->articleAuthors->add($articleAuthor);
             $articleAuthor->setAuthor($this);
         }
@@ -570,9 +540,10 @@ class Author extends  AbstractTranslatable
      */
     public function removeArticleAuthor(ArticleAuthor $articleAuthor)
     {
-        if($this->articleAuthors->contains($articleAuthor)){
+        if ($this->articleAuthors->contains($articleAuthor)) {
             $this->articleAuthors->removeElement($articleAuthor);
         }
+
         return $this;
     }
 

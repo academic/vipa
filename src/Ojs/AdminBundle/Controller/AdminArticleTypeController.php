@@ -35,9 +35,7 @@ class AdminArticleTypeController extends Controller
         $source->manipulateRow(
             function (Row $row) use ($request)
             {
-                /**
-                 * @var ArticleTypes $entity
-                 */
+                /* @var ArticleTypes $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){

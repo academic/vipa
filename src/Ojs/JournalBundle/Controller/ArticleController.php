@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -38,12 +39,9 @@ class ArticleController extends Controller
 
         $source = new Entity('OjsJournalBundle:Article');
         $source->manipulateRow(
-            function ($row) use ($request)
+            function (Row $row) use ($request)
             {
-                /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var Article $entity
-                 */
+                /** @var Article $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){

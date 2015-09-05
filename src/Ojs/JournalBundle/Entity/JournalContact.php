@@ -285,7 +285,7 @@ class JournalContact
      * @param  Journal $journal
      * @return $this
      */
-    public function setJournal(Journal $journal)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
         return $this;

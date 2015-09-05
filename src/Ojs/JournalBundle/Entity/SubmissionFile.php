@@ -253,7 +253,7 @@ class SubmissionFile
      * @param  Journal $journal
      * @return SubmissionFile
      */
-    public function setJournal(Journal $journal = null)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 

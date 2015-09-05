@@ -240,8 +240,12 @@ class SitemapController extends Controller
         $router = $this->get('router');
         $em = $this->getDoctrine()->getManager();
 
+
+        /** @var Publisher $journals */
+        $publisher = $em->getRepository('OjsJournalBundle:Publisher')->find($publisher);
+
         /** @var Journal[] $journals */
-        $journals = $em->getRepository('OjsJournalBundle:Journal')->findBy(['publisherId' => $publisher]);
+        $journals = $em->getRepository('OjsJournalBundle:Journal')->findBy(['publisher' => $publisher]);
 
         foreach ($journals as $journal) {
             $siteMap->add(

@@ -35,9 +35,8 @@ class AdminContactTypeController extends Controller
         $source = new Entity('OjsJournalBundle:ContactTypes');
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var ContactTypes $entity
-                 */
+
+                /* @var ContactTypes $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {

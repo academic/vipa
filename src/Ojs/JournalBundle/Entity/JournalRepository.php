@@ -329,7 +329,7 @@ class JournalRepository extends EntityRepository
         /* @var $issue Issue */
         $count = 0;
         foreach ($issues as $issue) {
-            if($issue->getPublished()){
+            if($issue->isPublished()){
                 if ($count++ > $maxYearCount) {
                     break;
                 }

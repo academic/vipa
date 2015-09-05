@@ -36,9 +36,7 @@ class AdminPostController extends Controller
         $source = new Entity('OjsAdminBundle:AdminPost');
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var AdminPost $entity
-                 */
+                /* @var AdminPost $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 

@@ -221,7 +221,10 @@ class Subject extends AbstractTranslatable
      */
     public function addJournal(Journal $journal)
     {
-        $this->journals[] = $journal;
+        if(!$this->journals->contains($journal)){
+            $this->journals->add($journal);
+        }
+        $journal->addSubject($this);
 
         return $this;
     }
@@ -233,7 +236,10 @@ class Subject extends AbstractTranslatable
      */
     public function removeJournal(Journal $journal)
     {
-        $this->journals->removeElement($journal);
+        if($this->journals->contains($journal)){
+            $this->journals->removeElement($journal);
+        }
+        $journal->removeSubject($this);
     }
 
     /**

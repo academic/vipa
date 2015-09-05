@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
@@ -34,12 +35,9 @@ class IssueFileController extends Controller
 
         $source = new Entity('OjsJournalBundle:IssueFile');
         $source->manipulateRow(
-            function ($row) use ($request)
+            function (Row $row) use ($request)
             {
-                /**
-                 * @var \APY\DataGridBundle\Grid\Row $row
-                 * @var IssueFile $entity
-                 */
+                /* @var IssueFile $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
@@ -191,6 +189,7 @@ class IssueFileController extends Controller
     /**
      * Finds and displays a IssueFile entity.
      *
+     * @param Request $request
      * @param $id
      * @return Response
      */

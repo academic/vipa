@@ -239,7 +239,7 @@ class Article extends AbstractTranslatable
     /**
      * @var boolean
      */
-    private $setupStatus;
+    private $setupFinished;
 
     /** @var  string */
     private $note;
@@ -264,6 +264,7 @@ class Article extends AbstractTranslatable
         $this->articleAuthors = new ArrayCollection();
         $this->articleFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->statistics = new ArrayCollection();
     }
 
     /**
@@ -734,6 +735,7 @@ class Article extends AbstractTranslatable
     public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+        $journal->addArticle($this);
 
         return $this;
     }
@@ -784,24 +786,24 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * Get setupStatus
+     * Get setupFinished
      *
      * @return boolean
      */
-    public function getSetupStatus()
+    public function isSetupFinished()
     {
-        return $this->setupStatus;
+        return $this->setupFinished;
     }
 
     /**
-     * Set setupStatus
+     * Set setupFinished
      *
-     * @param  string $setupStatus
+     * @param  string $setupFinished
      * @return $this
      */
-    public function setSetupStatus($setupStatus)
+    public function setSetupFinished($setupFinished)
     {
-        $this->setupStatus = $setupStatus;
+        $this->setupFinished = $setupFinished;
 
         return $this;
     }
@@ -1254,7 +1256,7 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\ArticleStatistic[] $statistics
+     * @param ArrayCollection|ArticleStatistic[] $statistics
      */
     public function setStatistics($statistics)
     {
@@ -1270,10 +1272,8 @@ class Article extends AbstractTranslatable
     {
         $count = 0;
 
-        if ($this->statistics != null) {
-            foreach ($this->statistics as $stat) {
-                $count += $stat->getView();
-            }
+        foreach ($this->statistics as $stat) {
+            $count += $stat->getView();
         }
 
         return $count;

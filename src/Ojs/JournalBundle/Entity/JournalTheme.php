@@ -66,7 +66,7 @@ class JournalTheme
      * @param  Journal      $journal
      * @return JournalTheme
      */
-    public function setJournal($journal)
+    public function setJournal($journal = null)
     {
         $this->journal = $journal;
 

@@ -54,7 +54,7 @@ class JournalSetupController extends Controller
                 $newJournal = new Journal();
                 $newJournal->setTitle('');
                 $newJournal->setTitleAbbr('');
-                $newJournal->setSetupStatus(false);
+                $newJournal->setSetupFinished(false);
                 $em->persist($newJournal);
 
                 $journalSetup = new JournalSetupProgress();
@@ -64,13 +64,13 @@ class JournalSetupController extends Controller
                 $em->persist($journalSetup);
                 $em->flush();
             }
-        } elseif (!$selectedJournal->getSetupStatus()) {
+        } elseif (!$selectedJournal->isSetupFinished()) {
 
             /** @var JournalSetupProgress $userSetup */
             $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByJournal($selectedJournal);
-        } elseif ($selectedJournal->getSetupStatus()) {
+        } elseif ($selectedJournal->isSetupFinished()) {
 
-            $selectedJournal->setSetupStatus(false);
+            $selectedJournal->setSetupFinished(false);
             $journalSetup->setUser($user);
             $journalSetup->setJournal($selectedJournal);
             $journalSetup->setCurrentStep(1);
@@ -279,7 +279,6 @@ class JournalSetupController extends Controller
             $page_ = new JournalPost();
             $page_->setJournal($journal);
             $page_
-                ->setStatus(1)
                 ->setContent($page['content'])
                 ->setObject($twig->encode($journal))
                 ->setObjectId($journal->getId())
@@ -341,7 +340,7 @@ class JournalSetupController extends Controller
         $step6Form->handleRequest($request);
         if ($step6Form->isValid()) {
             $journal->setSlug(Urlizer::urlize($journal->getTitle(), '_'));
-            $journal->setSetupStatus(true);
+            $journal->setSetupFinished(true);
             $em->remove($setup);
             $em->flush();
 

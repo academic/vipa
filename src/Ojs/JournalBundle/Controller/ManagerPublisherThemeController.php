@@ -26,7 +26,7 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Lists all PublisherThemes entities.
      *
-     * @param $publisherId
+     * @param integer $publisherId
      * @return Response
      */
     public function indexAction($publisherId)
@@ -75,6 +75,7 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Creates a new PublisherTheme entity.
      *
+     * @param  integer $publisherId
      * @param  Request $request
      * @return RedirectResponse|Response
      */
@@ -145,7 +146,7 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Displays a form to create a new PublisherTheme entity.
      *
-     * @param $publisherId
+     * @param integer $publisherId
      * @return Response
      */
     public function newAction($publisherId)
@@ -172,7 +173,8 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Finds and displays a PublisherTheme entity.
      *
-     * @param $id
+     * @param  integer $publisherId
+     * @param  PublisherTheme $entity
      * @return Response
      */
     public function showAction($publisherId, PublisherTheme $entity)
@@ -201,7 +203,8 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Displays a form to edit an existing PublisherTheme entity.
      *
-     * @param $id
+     * @param integer $publisherId
+     * @param PublisherTheme $entity
      * @return Response
      */
     public function editAction($publisherId, PublisherTheme $entity)
@@ -227,9 +230,9 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Creates a form to edit a PublisherTypes entity.
      *
-     * @param PublisherTheme $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param PublisherTheme $entity
+     * @param Publisher $publisher
+     * @return \Symfony\Component\Form\Form
      */
     private function createEditForm(PublisherTheme $entity, Publisher $publisher)
     {
@@ -253,8 +256,9 @@ class ManagerPublisherThemeController extends Controller
     /**
      * Edits an existing PublisherThemes entity.
      *
-     * @param  Request $request
-     * @param $id
+     * @param Request $request
+     * @param integer $publisherId
+     * @param PublisherTheme $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $publisherId, PublisherTheme $entity)
@@ -289,9 +293,10 @@ class ManagerPublisherThemeController extends Controller
     }
 
     /**
-     * @param  Request $request
-     * @param  PublisherTheme $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request
+     * @param PublisherTheme $entity
+     * @param integer $publisherId
+     * @return RedirectResponse
      * @throws TokenNotFoundException
      */
     public function deleteAction(Request $request, PublisherTheme $entity, $publisherId)

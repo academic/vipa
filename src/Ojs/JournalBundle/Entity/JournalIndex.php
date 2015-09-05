@@ -32,14 +32,14 @@ class JournalIndex
     /**
      * @var Collection
      */
-    private $journals_indexs;
+    private $journalsIndexs;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->journals_indexs = new ArrayCollection();
+        $this->journalsIndexs = new ArrayCollection();
     }
 
     /**
@@ -99,36 +99,36 @@ class JournalIndex
     }
 
     /**
-     * Add journals_indexs
+     * Add journalsIndexs
      *
      * @param  JournalsIndex $journalsIndexs
      * @return JournalIndex
      */
     public function addJournalsIndex(JournalsIndex $journalsIndexs)
     {
-        $this->journals_indexs[] = $journalsIndexs;
+        $this->journalsIndexs[] = $journalsIndexs;
 
         return $this;
     }
 
     /**
-     * Remove journals_indexs
+     * Remove journalsIndexs
      *
      * @param JournalsIndex $journalsIndexs
      */
     public function removeJournalsIndex(JournalsIndex $journalsIndexs)
     {
-        $this->journals_indexs->removeElement($journalsIndexs);
+        $this->journalsIndexs->removeElement($journalsIndexs);
     }
 
     /**
-     * Get journals_indexs
+     * Get journalsIndexs
      *
      * @return Collection
      */
     public function getJournalsIndexs()
     {
-        return $this->journals_indexs;
+        return $this->journalsIndexs;
     }
 
     public function __toString()

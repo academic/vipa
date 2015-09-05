@@ -36,9 +36,7 @@ class AuthorController extends Controller
         $source = new Entity('OjsJournalBundle:Author');
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var Author $entity
-                 */
+                /* @var Author $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {

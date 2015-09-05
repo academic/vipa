@@ -133,13 +133,6 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             gedmo:
                 - versioned
-        publisherId:
-            type: integer
-            nullable: true
-            column: publisher_id
-            nullable: true
-            gedmo:
-                - versioned
         authorDetails:
             type: text
             nullable: true

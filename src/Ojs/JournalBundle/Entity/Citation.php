@@ -101,16 +101,6 @@ class Citation implements Translatable
     }
 
     /**
-     * Remove setting
-     *
-     * @param CitationSetting $setting
-     */
-    public function removeSetting(CitationSetting $setting)
-    {
-        $this->settings->removeElement($setting);
-    }
-
-    /**
      * Get settings
      *
      * @return Collection

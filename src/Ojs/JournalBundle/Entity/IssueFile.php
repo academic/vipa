@@ -70,6 +70,7 @@ class IssueFile extends AbstractTranslatable
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->statistics = new ArrayCollection();
     }
 
     /**
@@ -336,10 +337,8 @@ class IssueFile extends AbstractTranslatable
     {
         $count = 0;
 
-        if ($this->statistics != null) {
-            foreach ($this->statistics as $stat) {
-                $count += $stat->getDownload();
-            }
+        foreach ($this->statistics as $stat) {
+            $count += $stat->getDownload();
         }
 
         return $count;

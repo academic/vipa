@@ -20,7 +20,7 @@ class ManagerPublisherController extends Controller
     /**
      * Displays a form to edit an existing Publisher entity.
      *
-     * @param $id
+     * @param $publisherId
      * @return Response
      */
     public function editAction($publisherId)
@@ -69,7 +69,7 @@ class ManagerPublisherController extends Controller
      * Edits an existing Publisher entity.
      *
      * @param  Request                   $request
-     * @param $id
+     * @param $publisherId
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $publisherId)

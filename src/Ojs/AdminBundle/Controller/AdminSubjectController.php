@@ -37,9 +37,7 @@ class AdminSubjectController extends Controller
         $source = new Entity("OjsJournalBundle:Subject");
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var Subject $entity
-                 */
+                /* @var Subject $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 

@@ -34,9 +34,7 @@ class AdminPublisherTypeController extends Controller
         $source = new Entity('OjsJournalBundle:PublisherTypes');
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /**
-                 * @var PublisherTypes $entity
-                 */
+                /* @var PublisherTypes $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {

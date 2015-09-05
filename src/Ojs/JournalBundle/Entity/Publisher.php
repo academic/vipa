@@ -150,19 +150,13 @@ class Publisher extends AbstractTranslatable
      * @var
      */
     private $publisher_type_id;
-    /**
-     * @var integer
-     * @Expose
-     */
-    private $themeId;
+
     /**
      * @var PublisherTheme
      */
     private $theme;
     /**
      * @var integer
-     */
-    private $designId;
     /**
      * @var PublisherTheme
      */
@@ -904,29 +898,6 @@ class Publisher extends AbstractTranslatable
     }
 
     /**
-     * Get themeId
-     *
-     * @return integer
-     */
-    public function getThemeId()
-    {
-        return $this->themeId;
-    }
-
-    /**
-     * Set themeId
-     *
-     * @param  integer $themeId
-     * @return Publisher
-     */
-    public function setThemeId($themeId)
-    {
-        $this->themeId = $themeId;
-
-        return $this;
-    }
-
-    /**
      * Get theme
      *
      * @return PublisherTheme
@@ -947,22 +918,6 @@ class Publisher extends AbstractTranslatable
         $this->theme = $theme;
 
         return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDesignId()
-    {
-        return $this->designId;
-    }
-
-    /**
-     * @param int $designId
-     */
-    public function setDesignId($designId)
-    {
-        $this->designId = $designId;
     }
 
     /**
