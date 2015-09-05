@@ -31,6 +31,11 @@ class JournalTranslation extends AbstractTranslation
     private $description;
 
     /**
+     * @var string
+     */
+    private $titleAbbr;
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -76,5 +81,21 @@ class JournalTranslation extends AbstractTranslation
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleAbbr()
+    {
+        return $this->titleAbbr;
+    }
+
+    /**
+     * @param string $titleAbbr
+     */
+    public function setTitleAbbr($titleAbbr)
+    {
+        $this->titleAbbr = $titleAbbr;
     }
 }

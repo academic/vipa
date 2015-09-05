@@ -153,13 +153,6 @@ Ojs\JournalBundle\Entity\Journal:
             generator:
                 strategy: AUTO
     fields:
-        titleAbbr:
-            type: string
-            length: 255
-            column: title_abbr
-            nullable: true
-            gedmo:
-                  - versioned
         titleTransliterated:
             type: string
             length: 255

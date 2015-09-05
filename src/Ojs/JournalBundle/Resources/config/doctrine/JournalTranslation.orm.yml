@@ -18,3 +18,8 @@ Ojs\JournalBundle\Entity\JournalTranslation:
         description:
             type: text
             nullable: true
+        titleAbbr:
+            type: string
+            length: 255
+            column: title_abbr
+            nullable: true

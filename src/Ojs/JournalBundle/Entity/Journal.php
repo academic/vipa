@@ -636,7 +636,7 @@ class Journal extends AbstractTranslatable
      */
     public function getTitleAbbr()
     {
-        return $this->titleAbbr;
+        return $this->translate()->getTitleAbbr();
     }
 
     /**
@@ -647,7 +647,7 @@ class Journal extends AbstractTranslatable
      */
     public function setTitleAbbr($titleAbbr)
     {
-        $this->titleAbbr = $titleAbbr;
+        $this->translate()->setTitleAbbr($titleAbbr);
 
         return $this;
     }
@@ -721,6 +721,7 @@ class Journal extends AbstractTranslatable
                 $translation->setTitle($defaultTranslation->getTitle());
                 $translation->setSubtitle($defaultTranslation->getSubtitle());
                 $translation->setDescription($defaultTranslation->getDescription());
+                $translation->setTitleAbbr($defaultTranslation->getTitleAbbr());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
