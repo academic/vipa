@@ -73,9 +73,7 @@ class ManagerController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $entity->setLanguageCodeSet($entity->getLanguages());
-            if(!$entity->getLanguages()->contains($entity->getMandatoryLang())){
-                $entity->addLanguage($entity->getMandatoryLang());
-            }
+            $entity->addLanguage($entity->getMandatoryLang());
             $em->flush();
             $this->successFlashBag('successful.update');
 

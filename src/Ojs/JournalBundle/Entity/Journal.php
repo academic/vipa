@@ -486,8 +486,9 @@ class Journal extends AbstractTranslatable
      */
     public function addLanguage(Lang $language)
     {
-        $this->languages[] = $language;
-
+        if(!$this->languages->contains($language)){
+            $this->languages[] = $language;
+        }
         return $this;
     }
 
