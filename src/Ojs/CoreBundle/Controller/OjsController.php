@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Controller;
 
 use Doctrine\ORM\NoResultException;
 use Ojs\JournalBundle\Entity\Publisher;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -78,7 +79,11 @@ class OjsController extends Controller
 
     protected function isGrantedForPublisher(Publisher $publisher)
     {
+        /** @var User $user */
         $user = $this->getUser();
+        if($user->isAdmin()){
+            return true;
+        }
         foreach ($publisher->getPublisherManagers() as $manager) {
             if($manager->getUser()->getId() == $user->getId()){
                 return true;

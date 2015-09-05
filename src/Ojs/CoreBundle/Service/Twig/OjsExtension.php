@@ -333,6 +333,7 @@ class OjsExtension extends \Twig_Extension
     {
         $token = $this->tokenStorage->getToken();
         if ($token && method_exists($token, 'getUser')) {
+            /** @var User $user */
             $user = $token->getUser();
         } else {
             return false;
@@ -347,12 +348,14 @@ class OjsExtension extends \Twig_Extension
             }
             $publisher = $this->em->getRepository('OjsJournalBundle:Publisher')->find($publisherId);
         }
+        if($user->isAdmin()){
+            return true;
+        }
         foreach ($publisher->getPublisherManagers() as $manager) {
             if ($manager->getUser()->getId() == $user->getId()) {
                 return true;
             }
         }
-
         return false;
     }
 
