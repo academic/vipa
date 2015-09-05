@@ -1,6 +1,6 @@
 {% extends 'OjsOAIBundle:Default:layout.xml.twig' %}
 {% block content %}
-    <request verb="GetRecord" metadataPrefix="{{ metadataPrefix() }}"
+    <request verb="GetRecord" metadataPrefix="{{ metadataPrefix }}"
              identifier="oai:{{ base_host }}:record/{{ record.id }}">
         http://{{ base_host }}/api/oai
     </request>
