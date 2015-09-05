@@ -14,39 +14,7 @@
 {% block body -%}
     <h1>{{ entity.subject|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th width="200px">{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "subject"|trans }}</th>
-            <td>{{ entity.subject }}</td>
-        </tr>
-        <tr>
-            <th>{{ "description"|trans }}</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        {% if entity.parent %}
-            <tr>
-                <th>{{ "parent"|trans }}</th>
-                <td><a href="{{ path('ojs_admin_subject_show', {id: entity.parent.id}) }}">{{ entity.parent }}</a></td>
-            </tr>
-        {% endif %}
-        {% if  entity.children|length >0 %}
-            <tr>
-                <th>{{ "children"|trans }}</th>
-                <td>
-                    {% for c in entity.children %}
-                        <a class="badge" href="{{ path('ojs_admin_subject_show', {id: c.id}) }}">{{ c }}</a>
-                    {% endfor %}
-                </td>
-            </tr>
-        {% endif %}
-
-        </tbody>
-    </table>
+    {{ display(entity) }}
     {% set back_path = 'ojs_admin_subject_index' %}
     {% if is_granted('EDIT', entity) %}
         {% set edit_path = 'ojs_admin_subject_edit' %}

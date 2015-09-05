@@ -14,22 +14,7 @@
 {% block body -%}
     <h1>{{ entity.title|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "title"|trans }}</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>{{ "css"|trans }}</th>
-            <td>{{ entity.css }}</td>
-        </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
     {#
     {% set back_path = 'ojs_publisher_manager_theme_index' %}
     {% if isGrantedForPublisher() %}

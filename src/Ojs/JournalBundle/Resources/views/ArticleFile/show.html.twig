@@ -12,45 +12,7 @@
 {% block body -%}
     <h1>{{ "articlefile"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-
-        <tr>
-            <th>{{ "articlefile.title"|trans }}</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>{{ "articlefile.type"|trans }}</th>
-            <td>{{ type|trans }}</td>
-        </tr>
-        <tr>
-            <th>{{ "article"|trans }}</th>
-            <td><a target="_blank"
-                   href="{{ path('ojs_journal_article_edit', {'id': entity.article.id, 'journalId': selectedJournal().id}) }}">{{ entity.article.title }}</a></td>
-        </tr>
-        <tr>
-            <th>{{ "articlefile.version"|trans }}</th>
-            <td>{{ entity.version }}</td>
-        </tr>
-        <tr>
-            <th>{{ "keywords"|trans }}</th>
-            <td>{{ entity.keywords }}</td>
-        </tr>
-        <tr>
-            <th>{{ "file"|trans }}</th>
-            <td><a href="{{ asset(entity.file.path~entity.file.name) }}" target="_blank"> {{ entity.file.name }} </a>
-            </td>
-        </tr>
-        <tr>
-            <th>{{ "description"|trans }}</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>{{ "lang"|trans }}</th>
-            <td>{{ entity.langCode }}</td>
-        </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
     {{
     actions({
         'back': {'href': path('ojs_journal_article_file_index', {'articleId': entity.article.id, 'journalId': selectedJournal().id})},

@@ -13,27 +13,7 @@
 {% block body -%}
     <h1>{{ 'journalsindex.plural'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th>ID</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'journalsindex.journalindex'|trans }}</th>
-            <td>{{ entity.journalIndex }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'journalsindex.journal'|trans }}</th>
-            <td>{{ entity.journal }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'journalsindex.link'|trans }}</th>
-            <td>{{ entity.link }}</td>
-        </tr>
-        </tbody>
-    </table>
-
+    {{ display(entity) }}
     {{ actions({
         'back': {'href': path('ojs_journal_index_index', {'journalId': selectedJournal().id})},
         'edit': {'href': path('ojs_journal_index_edit', {'id': entity.id, 'journalId': selectedJournal().id})},

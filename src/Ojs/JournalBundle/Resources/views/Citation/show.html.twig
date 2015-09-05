@@ -13,46 +13,7 @@
 {% block body -%}
     <h2>{{ 'title.citation_show'|trans }}</h2>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>ID</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Raw</th>
-                <td>{{ entity.raw }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ entity.type }}</td>
-            </tr>
-            <tr>
-                <th>Ordernum</th>
-                <td>{{ entity.orderNum }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Deletedat</th>
-                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Createdby</th>
-                <td>{{ entity.createdBy }}</td>
-            </tr>
-            <tr>
-                <th>Updatedby</th>
-                <td>{{ entity.updatedBy }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
     {{
     actions({
         'back': {'href': path('ojs_journal_citation_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id})},

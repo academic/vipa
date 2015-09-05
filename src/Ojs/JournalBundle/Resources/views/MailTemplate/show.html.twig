@@ -12,43 +12,7 @@
 {% block body -%}
     <h1>{{ 'title.mail_template_show'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>#{{ entity.id }}</td>
-        </tr>
-        {% if entity.journal %}
-            <tr>
-                <th>{{ 'mailtemplate.journal'|trans }}</th>
-                <td>{{ entity.journal.title }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <th>{{ 'mailtemplate.default_template'|trans }}</th>
-                <td>{{ 'yes'|trans }}</td>
-            </tr>
-        {% endif %}
-        <tr>
-            <th>{{ 'mailtemplate.type'|trans }}</th>
-            <td>{{ entity.type }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'mailtemplate.subject'|trans }}</th>
-            <td>{{ entity.subject }}</td>
-        </tr>
-        <tr>
-            <th> {{ 'mailtemplate.language'|trans }}</th>
-            <td>{{ entity.lang }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'mailtemplate.template'|trans }}</th>
-            <td>
-                <div class="well">{{ entity.template|nl2br }}</div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
 
     {{
     actions({

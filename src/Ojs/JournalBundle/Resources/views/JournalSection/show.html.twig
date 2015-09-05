@@ -13,34 +13,7 @@
 {% block body -%}
     <h1>{{ "journalsection"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "journalsection.title"|trans }}</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>{{ "journalsection.allow_index"|trans }}</th>
-            <td>{{ entity.allowIndex }}</td>
-        </tr>
-        <tr>
-            <th>{{ "journalsection.hide_title"|trans }}</th>
-            <td>{{ entity.hideTitle }}</td>
-        </tr>
-        <tr>
-            <th>{{ "journalsection.journal"|trans }}</th>
-            <td>
-                <a href="#">
-                    <strong class="badge">{% if entity.journal %}{{ entity.journal.title }}{% endif %}</strong>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
 
     {{
     actions({

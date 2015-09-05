@@ -13,22 +13,7 @@
 {% block body -%}
     <h1>{{ 'title.announcement_show'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties table">
-        <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{ "title"|trans }}</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>{{ "content"|trans }}</th>
-                <td>{{ entity.content|raw }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {{ display(entity) }}
 
     {{
         actions({

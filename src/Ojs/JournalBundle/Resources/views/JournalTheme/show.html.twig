@@ -13,23 +13,7 @@
 {% block body -%}
     <h1>{{ "journaltheme"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="record_properties  table">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ "title"|trans }}</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>{{ "css"|trans }}</th>
-            <td>{{ entity.css }}</td>
-        </tr>
-        </tbody>
-    </table>
-
+    {{ display(entity) }}
     {{
     actions({
         'back': {'href': path('ojs_journal_theme_index', {'journalId': selectedJournal().id})},
