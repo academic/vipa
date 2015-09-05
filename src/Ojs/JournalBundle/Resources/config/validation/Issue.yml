@@ -19,5 +19,3 @@ Ojs\JournalBundle\Entity\Issue:
             - NotBlank: ~
         year:
             - NotBlank: ~
-        full_file:
-            - NotBlank: ~
