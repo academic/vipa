@@ -44,6 +44,7 @@ class SamplesCommand extends ContainerAwareCommand
         $post = new AdminPost();
         $post->setCurrentLocale('en');
         $post->setTitle('Welcome to OJS!');
+        $post->setSlug('Welcome to OJS!');
         $post->setContent(
             'Hello! We are now online and waiting for your submissions. ' .
             'Our readers will be able to follow you and read your work ' .
