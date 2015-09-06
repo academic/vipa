@@ -24,11 +24,6 @@ class Board implements Translatable
     private $id;
 
     /**
-     * @var integer
-     */
-    private $journalId;
-
-    /**
      * @var string
      * @GRID\Column(title="name")
      */
@@ -66,29 +61,6 @@ class Board implements Translatable
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer $journalId
-     * @return Board
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
-
-        return $this;
     }
 
     /**

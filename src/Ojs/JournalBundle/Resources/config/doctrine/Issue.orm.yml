@@ -45,11 +45,6 @@ Ojs\JournalBundle\Entity\Issue:
             generator:
                 strategy: AUTO
     fields:
-        journalId:
-            type: integer
-            column: journal_id
-            gedmo:
-                - versioned
         volume:
             type: string
             length: 255

@@ -23,11 +23,6 @@ Ojs\JournalBundle\Entity\Board:
                 cascade: ["persist", "merge"]
                 fetch: EXTRA_LAZY
     fields:
-        journalId:
-            type: integer
-            column: journal_id
-            gedmo:
-                - versioned
         name:
             type: string
             length: 255

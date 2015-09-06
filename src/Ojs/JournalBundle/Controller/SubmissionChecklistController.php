@@ -83,7 +83,6 @@ class SubmissionChecklistController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setJournal($journal);
-            $entity->setJournalId($journal->getId());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');

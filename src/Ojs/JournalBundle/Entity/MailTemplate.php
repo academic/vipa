@@ -28,10 +28,6 @@ class MailTemplate implements Translatable
      */
     private $id;
     /**
-     * @var integer
-     */
-    private $journalId;
-    /**
      * @var string
      * @GRID\Column(title="mailtemplate.type")
      */
@@ -68,29 +64,6 @@ class MailTemplate implements Translatable
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer      $journalId
-     * @return MailTemplate
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
-
-        return $this;
     }
 
     /**

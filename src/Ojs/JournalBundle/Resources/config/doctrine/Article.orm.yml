@@ -148,12 +148,6 @@ Ojs\JournalBundle\Entity\Article:
       nullable: true
       gedmo:
          - versioned
-    journalId:
-      column: journal_id
-      type: integer
-      nullable: true
-      gedmo:
-          - versioned
     sectionId:
       column: section_id
       type: integer

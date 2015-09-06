@@ -9,7 +9,7 @@ use Ojs\UserBundle\Entity\User;
 
 /**
  * This collection holds resumable article submission data
- * @GRID\Source(columns="id, currentStep, journalId , journal")
+ * @GRID\Source(columns="id, currentStep , journal")
  */
 class ArticleSubmissionProgress implements Translatable
 {
@@ -46,10 +46,6 @@ class ArticleSubmissionProgress implements Translatable
      * @var Journal
      */
     private $journal;
-    /**
-     * @var int
-     */
-    private $journalId;
     /**
      * @var Article
      */
@@ -92,29 +88,6 @@ class ArticleSubmissionProgress implements Translatable
     public function setCurrentStep($currentStep)
     {
         $this->currentStep = $currentStep;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return int $journalId
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  int  $journalId
-     * @return self
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
 
         return $this;
     }

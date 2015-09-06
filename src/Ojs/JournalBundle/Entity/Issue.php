@@ -35,12 +35,6 @@ class Issue extends AbstractTranslatable
      */
     protected $translations;
     /**
-     * @var integer
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
-     */
-    private $journalId;
-    /**
      *
      * @var Journal
      * @Groups({"IssueDetail"})
@@ -175,29 +169,6 @@ class Issue extends AbstractTranslatable
     public function setJournal($journal)
     {
         $this->journal = $journal;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer $journalId
-     * @return Issue
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
 
         return $this;
     }

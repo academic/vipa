@@ -223,7 +223,10 @@ class BoardController extends Controller
             new BoardType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_board_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournalId())),
+                'action' => $this->generateUrl(
+                    'ojs_journal_board_update',
+                    array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())
+                ),
                 'method' => 'PUT',
             )
         );

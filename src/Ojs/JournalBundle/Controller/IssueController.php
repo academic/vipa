@@ -303,7 +303,10 @@ class IssueController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_issue_edit', ['journalId' => $entity->getJournalId(),'id' => $id]);
+            return $this->redirectToRoute(
+                'ojs_journal_issue_edit',
+                ['journalId' => $entity->getJournal()->getId(), 'id' => $id]
+            );
         }
 
         return $this->render(

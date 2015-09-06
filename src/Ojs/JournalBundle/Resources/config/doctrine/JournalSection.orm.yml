@@ -36,9 +36,6 @@ Ojs\JournalBundle\Entity\JournalSection:
             nullable: true
             options:
                 default: false
-        journalId:
-            type: integer
-            column: journal_id
         createdBy:
            type: string
            gedmo:

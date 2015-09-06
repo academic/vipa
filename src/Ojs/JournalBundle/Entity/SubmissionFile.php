@@ -30,11 +30,6 @@ class SubmissionFile
     /**
      * @var integer
      */
-    private $journalId;
-
-    /**
-     * @var integer
-     */
     private $articleId;
 
     /**
@@ -141,29 +136,6 @@ class SubmissionFile
     public function setDetail($detail)
     {
         $this->detail = $detail;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer $journalId
-     * @return SubmissionFile
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
 
         return $this;
     }

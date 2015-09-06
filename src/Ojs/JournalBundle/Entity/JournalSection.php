@@ -42,10 +42,6 @@ class JournalSection extends AbstractTranslatable
      */
     private $hideTitle = false;
     /**
-     * @var integer
-     */
-    private $journalId;
-    /**
      * @var Collection|Article[]
      */
     private $articles;
@@ -146,29 +142,6 @@ class JournalSection extends AbstractTranslatable
     public function setHideTitle($hideTitle)
     {
         $this->hideTitle = $hideTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer        $journalId
-     * @return JournalSection
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
 
         return $this;
     }

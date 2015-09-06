@@ -27,12 +27,6 @@ Ojs\JournalBundle\Entity\MailTemplate:
             name: mail_template_language
           fetch: EXTRA_LAZY
     fields:
-        journalId:
-            type: integer
-            column: journal_id
-            gedmo:
-                - versioned
-            nullable: true
         type:
             type: string
             length: 255

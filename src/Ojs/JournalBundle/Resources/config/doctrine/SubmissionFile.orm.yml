@@ -21,10 +21,6 @@ Ojs\JournalBundle\Entity\SubmissionFile:
       nullable: true
       gedmo:
           - versioned
-    journalId:
-      column: journal_id
-      type: integer
-      nullable: true
     articleId:
       column: article_id
       type: integer

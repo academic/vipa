@@ -68,11 +68,6 @@ class Article extends AbstractTranslatable
      */
     private $otherId;
     /**
-     * @var integer
-     * @Expose
-     */
-    private $journalId;
-    /**
      * Original article title
      * @var string
      * @GRID\Column(title="title")
@@ -690,29 +685,6 @@ class Article extends AbstractTranslatable
     public function setArticleTypeId($articleTypeId)
     {
         $this->articleTypeId = $articleTypeId;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer $journalId
-     * @return $this
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
 
         return $this;
     }

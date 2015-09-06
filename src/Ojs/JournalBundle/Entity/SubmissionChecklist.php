@@ -28,11 +28,6 @@ class SubmissionChecklist
     private $detail;
 
     /**
-     * @var integer
-     */
-    private $journal_id;
-
-    /**
      * @var boolean
      * @GRID\Column(title="submission_checklist.visible")
      */
@@ -104,29 +99,6 @@ class SubmissionChecklist
     public function setDetail($detail)
     {
         $this->detail = $detail;
-
-        return $this;
-    }
-
-    /**
-     * Get journal_id
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journal_id;
-    }
-
-    /**
-     * Set journal_id
-     *
-     * @param  integer $journalId
-     * @return SubmissionChecklist
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journal_id = $journalId;
 
         return $this;
     }

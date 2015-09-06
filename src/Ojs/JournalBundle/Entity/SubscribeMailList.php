@@ -20,11 +20,6 @@ class SubscribeMailList implements Translatable
     private $id;
 
     /**
-     * @var integer
-     */
-    private $journalId;
-
-    /**
      *
      * @var Journal
      */
@@ -63,29 +58,6 @@ class SubscribeMailList implements Translatable
     public function setJournal($journal)
     {
         $this->journal = $journal;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return integer
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  integer $journalId
-     * @return Issue
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
 
         return $this;
     }
