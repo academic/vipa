@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
@@ -11,6 +12,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  */
 class JournalsIndex
 {
+    use DisplayTrait;
     /**
      * @var integer
      * @GRID\Column(title="ID")
