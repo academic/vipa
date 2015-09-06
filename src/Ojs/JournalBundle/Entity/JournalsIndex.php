@@ -22,12 +22,12 @@ class JournalsIndex
     /**
      * @var integer
      */
-    private $journal_index_id;
+    private $journalIndexId;
 
     /**
      * @var integer
      */
-    private $journal_id;
+    private $journalId;
 
     /**
      * @var string
@@ -43,7 +43,7 @@ class JournalsIndex
      * @var JournalIndex
      * @GRID\Column(title="Journal Index", field="journal_index.name")
      */
-    private $journal_index;
+    private $journalIndex;
 
     /**
      * Get id
@@ -56,47 +56,47 @@ class JournalsIndex
     }
 
     /**
-     * Get journal_index_id
+     * Get journalIndexId
      *
      * @return integer
      */
     public function getJournalIndexId()
     {
-        return $this->journal_index_id;
+        return $this->journalIndexId;
     }
 
     /**
-     * Set journal_index_id
+     * Set journalIndexId
      *
      * @param  integer       $journalIndexId
      * @return JournalsIndex
      */
     public function setJournalIndexId($journalIndexId)
     {
-        $this->journal_index_id = $journalIndexId;
+        $this->journalIndexId = $journalIndexId;
 
         return $this;
     }
 
     /**
-     * Get journal_id
+     * Get journalId
      *
      * @return integer
      */
     public function getJournalId()
     {
-        return $this->journal_id;
+        return $this->journalId;
     }
 
     /**
-     * Set journal_id
+     * Set journalId
      *
      * @param  integer       $journalId
      * @return JournalsIndex
      */
     public function setJournalId($journalId)
     {
-        $this->journal_id = $journalId;
+        $this->journalId = $journalId;
 
         return $this;
     }
@@ -148,24 +148,24 @@ class JournalsIndex
     }
 
     /**
-     * Get journal_index
+     * Get journalIndex
      *
      * @return JournalIndex
      */
     public function getJournalIndex()
     {
-        return $this->journal_index;
+        return $this->journalIndex;
     }
 
     /**
-     * Set journal_index
+     * Set journalIndex
      *
      * @param  JournalIndex  $journalIndex
      * @return JournalsIndex
      */
     public function setJournalIndex(JournalIndex $journalIndex = null)
     {
-        $this->journal_index = $journalIndex;
+        $this->journalIndex = $journalIndex;
 
         return $this;
     }

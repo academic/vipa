@@ -9,9 +9,8 @@ Ojs\JournalBundle\Entity\JournalsIndex:
       generator:
         strategy: AUTO
   fields:
-    journal_index_id:
-      type: integer
-    journal_id:
+    journalIndexId:
+      column: journal_index_id
       type: integer
     link:
       type: text
@@ -24,7 +23,7 @@ Ojs\JournalBundle\Entity\JournalsIndex:
       joinColumn:
         name: journal_id
         referencedColumnName: id
-    journal_index:
+    journalIndex:
       targetEntity: Ojs\JournalBundle\Entity\JournalIndex
       inversedBy: journalsIndexs
       joinColumn:
