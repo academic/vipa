@@ -23,7 +23,7 @@ $set->addFile(__DIR__.'/contact_type.yml', 'yaml'); //Contact Types
 $set->addFile(__DIR__.'/journal_theme.yml', 'yaml'); //themes
 $set->addFile(__DIR__.'/period.yml', 'yaml'); //periods
 $set->addFile(__DIR__.'/submission_checklist.yml', 'yaml'); //submission checklist
-$set->addFile(__DIR__.'/journal_index.yml', 'yaml'); // indexes
+$set->addFile(__DIR__.'/index.yml', 'yaml'); // indexes
 
 
 //$set->addFile(__DIR__ . '/journal_contact.yml', 'yaml'); //Journal Contacts

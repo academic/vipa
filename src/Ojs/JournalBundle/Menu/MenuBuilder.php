@@ -3,10 +3,10 @@
 namespace Ojs\JournalBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\MenuEvent;
 use Ojs\JournalBundle\JournalEvents;
-use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class MenuBuilder extends ContainerAware
@@ -38,7 +38,7 @@ class MenuBuilder extends ContainerAware
             ['checklist',          'title.submission_checklists',       'ojs_journal_checklist_index',       'list'],
             ['file',               'title.submission_files',            'ojs_journal_file_index',            'file'],
             ['userRole',           'title.users',                       'ojs_journal_user_index',            'key'],
-            ['index',              'title.journals_indexes',            'ojs_journal_index_index',           'sitemap'],
+            ['index', 'title.journal_indexes', 'ojs_journal_index_index', 'sitemap'],
             ['issues',             'title.issues',                      'ojs_journal_issue_index',           'newspaper-o'],
             ['sections',           'title.journal_sections',            'ojs_journal_section_index',         'folder'],
             ['articles',           'title.articles',                    'ojs_journal_article_index',         'file-text'],

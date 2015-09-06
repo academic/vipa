@@ -25,13 +25,13 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/journal/croped
         create: true
-    journalindex:
+    index:
       local:
-        directory: %kernel.root_dir%/../web/uploads/journalindex
+        directory: %kernel.root_dir%/../web/uploads/index
         create: true
-    journalindex_croped:
+    index_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/journalindex/croped
+        directory: %kernel.root_dir%/../web/uploads/index/croped
         create: true
     user:
       local:
@@ -84,12 +84,12 @@ knp_gaufrette:
     journal_croped:
       adapter: journal_croped
       alias: journal_croped_filesystem
-    journalindex:
-      adapter: journalindex
-      alias: journalindex_filesystem
-    journalindex_croped:
-      adapter: journalindex_croped
-      alias: journalindex_croped_filesystem
+    index:
+      adapter: index
+      alias: index_filesystem
+    index_croped:
+      adapter: index_croped
+      alias: index_croped_filesystem
     user:
       adapter: user
       alias: user_filesystem
@@ -160,14 +160,14 @@ oneup_uploader:
         type: gaufrette
         filesystem: gaufrette.journal_filesystem
         stream_wrapper: gaufrette://journal/
-    journalindex:
+    index:
       enable_progress: true
       frontend: blueimp
       allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
       storage:
         type: gaufrette
-        filesystem: gaufrette.journalindex_filesystem
-        stream_wrapper: gaufrette://journalindex/
+        filesystem: gaufrette.index_filesystem
+        stream_wrapper: gaufrette://index/
     issue:
       enable_progress: true
       frontend: blueimp
@@ -229,12 +229,12 @@ liip_imagine:
     stream.journal_croped_filesystem:
       stream:
         wrapper: gaufrette://journal_croped/
-    stream.journalindex_filesystem:
+    stream.index_filesystem:
       stream:
-        wrapper: gaufrette://journalindex/
-    stream.journalindex_croped_filesystem:
+        wrapper: gaufrette://index/
+    stream.index_croped_filesystem:
       stream:
-        wrapper: gaufrette://journalindex_croped/
+        wrapper: gaufrette://index_croped/
     stream.user_filesystem:
       stream:
         wrapper: gaufrette://user/
@@ -272,11 +272,11 @@ liip_imagine:
     announcement_croped:
       data_loader: stream.announcement_croped_filesystem
       quality: 90
-    journalindex_original:
-      data_loader: stream.journalindex_filesystem
+    index_original:
+      data_loader: stream.index_filesystem
       quality: 90
-    journalindex_croped:
-      data_loader: stream.journalindex_croped_filesystem
+    index_croped:
+      data_loader: stream.index_croped_filesystem
       quality: 90
     user_original:
       data_loader: stream.user_filesystem
@@ -324,8 +324,8 @@ liip_imagine:
       quality: 90
       filters:
         thumbnail: { size: [96, 128], mode: outbound }
-    journalindex_logo:
-      data_loader: stream.journalindex_croped_filesystem
+    index_logo:
+      data_loader: stream.index_croped_filesystem
       quality: 90
       filters:
         relative_resize: {  widen: 200 }
@@ -375,12 +375,12 @@ jb_file_uploader:
     announcement_croped:
       assets:
         directory: uploads/announcement/croped
-    journalindex:
+    index:
       assets:
-        directory: uploads/journalindex
-    journalindex_croped:
+        directory: uploads/index
+    index_croped:
       assets:
-        directory: uploads/journalindex/croped
+        directory: uploads/index/croped
     user:
       assets:
         directory: uploads/user
@@ -433,10 +433,10 @@ jb_file_uploader:
       croped_fs: announcement_croped
       upload_validators: {}
       crop_validators: {}
-    journalindex:
-      upload_resolver: journalindex
-      croped_resolver: journalindex_croped
-      croped_fs: journalindex_croped
+    index:
+      upload_resolver: index
+      croped_resolver: index_croped
+      croped_fs: index_croped
       upload_validators: {}
       crop_validators: {}
     user:

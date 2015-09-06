@@ -247,21 +247,21 @@
 {% endmacro %}
 
 
-{% macro journalIndexes() %}
+{% macro indexes() %}
     <div class="list-group">
         <span class="design-hide-block hide">
             {% raw %}
                 <!--raw-->
                 <!---
-                    {% for index in journal.journalsIndexs %}
+                    {% for journalIndex in journal.journalIndexs %}
                         <div class="list-group-item">
-                            <a href="{{ index.link }}" target="_blank">
+                            <a href="{{ journalIndex.link }}" target="_blank">
                                 <h5>
-                                    {% if index.journalIndex.logo %}
-                                        <img src="{{ index.journalIndex.logo|imagine_filter('journalindex_logo') }}"
-                                             alt="{{ index.journalIndex }}"/>
+                                    {% if journalIndex.index.logo %}
+                                        <img src="{{ journalIndex.index.logo|imagine_filter('index_logo') }}"
+                                             alt="{{ journalIndex.index.name }}"/>
                                     {% endif %}
-                                    {{ index.journalIndex.name }}
+                                    {{ journalIndex.index.name }}
                                 </h5>
                             </a>
                         </div>

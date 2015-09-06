@@ -1,0 +1,7 @@
+Ojs\JournalBundle\Entity\JournalIndex:
+  properties:
+    index:
+      - NotBlank: ~
+    link:
+      - NotBlank: ~
+      - Url: ~

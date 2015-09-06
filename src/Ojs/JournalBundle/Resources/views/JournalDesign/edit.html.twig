@@ -34,7 +34,7 @@
         <option value="cover">Dergi Kapağı</option>
         <option value="description">Tanım</option>
         <option value="journalMenu">Dergi Menüsü</option>
-        <option value="journalIndexes">Dergi Dizinleri</option>
+        <option value="indexes">Dergi Dizinleri</option>
         <option value="archive">Arşiv</option>
         <option value="articles">Yazılar</option>
         <option value="pages">Sayfalar</option>
@@ -67,8 +67,8 @@
         {{ macros.journalMenu() }}
     </div>
 
-    <div id="journalIndexes" class="hide">
-        {{ macros.journalIndexes() }}
+    <div id="indexes" class="hide">
+        {{ macros.indexes() }}
     </div>
 
     <div id="archive" class="hide">
@@ -95,12 +95,9 @@
     <script src="{{ asset('vendor/gridmanager.js/dist/js/jquery.gridmanager.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('#widgetNotSelected').hide();
-            $('#widgetNotSelected').removeClass('hide');
-            $('#widgetNoColumn').hide();
-            $('#widgetNoColumn').removeClass('hide');
-            $('#customCode').hide();
-            $('#customCode').removeClass('hide');
+            $('#widgetNotSelected').hide().removeClass('hide');
+            $('#widgetNoColumn').hide().removeClass('hide');
+            $('#customCode').hide().removeClass('hide');
             var gm = $("#gridDesign").gridmanager().data('gridmanager');
 
             $('#widgetButton').on('click', function (e) {
@@ -150,11 +147,10 @@
                 }
             });
 
-            $('#ojs_journalbundle_journaldesign_submit').attr('type', 'button');
-            $('#ojs_journalbundle_journaldesign_submit').on('click', function(){
+            $('#ojs_journalbundle_journaldesign_submit').attr('type', 'button')
+                    .on('click', function(){
                 gm.deinitCanvas();
-                $('.holder-remove').removeAttr("src");
-                $('.holder-remove').removeAttr("data-holder-rendered");
+                $('.holder-remove').removeAttr("src").removeAttr("data-holder-rendered");
                 $('#ojs_journalbundle_journaldesign_editableContent').val($("#" + gm.options.canvasId).html());
                 $("form[name='ojs_journalbundle_journaldesign']").submit();
             });

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JournalIndexType extends AbstractType
+class IndexType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,7 +17,7 @@ class JournalIndexType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'name'))
             ->add('logo', 'jb_crop_image_ajax', array(
-                'endpoint' => 'journalindex',
+                'endpoint' => 'index',
                 'img_width' => 200,
                 'img_height' => 200,
                 'crop_options' => array(
@@ -25,7 +25,7 @@ class JournalIndexType extends AbstractType
                     'maxSize' => "[200, 200]"
                 )
             ))
-            ->add('status', 'checkbox', ['label' => 'ojs.is_active']);
+            ->add('status', 'checkbox', ['label' => 'ojs.is_active', 'required' => false]);
     }
 
     /**
@@ -35,8 +35,7 @@ class JournalIndexType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalIndex',
-                'cascade_validation' => true,
+                'data_class' => 'Ojs\JournalBundle\Entity\Index',
                 'attr' => [
                     'class' => 'form-validate',
                 ],
@@ -49,6 +48,6 @@ class JournalIndexType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journalindex';
+        return 'ojs_journalbundle_index';
     }
 }

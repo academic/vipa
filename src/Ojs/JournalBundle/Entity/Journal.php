@@ -257,11 +257,11 @@ class Journal extends AbstractTranslatable
      */
     private $logo;
     /**
-     * @var Collection
+     * @var ArrayCollection|JournalIndex[]
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
      */
-    private $journalsIndexs;
+    private $journalIndexs;
     /**
      * @var ArrayCollection|SubmissionChecklist[]
      * @JMS\Expose
@@ -623,6 +623,39 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new JournalTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setSubtitle($defaultTranslation->getSubtitle());
+                $translation->setDescription($defaultTranslation->getDescription());
+                $translation->setTitleAbbr($defaultTranslation->getTitleAbbr());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
+    }
+
+    /**
      * Get titleTransliterated
      *
      * @return string
@@ -666,39 +699,6 @@ class Journal extends AbstractTranslatable
         $this->translate()->setSubtitle($subtitle);
 
         return $this;
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new JournalTranslation();
-            if (!is_null($defaultTranslation)) {
-                $translation->setTitle($defaultTranslation->getTitle());
-                $translation->setSubtitle($defaultTranslation->getSubtitle());
-                $translation->setDescription($defaultTranslation->getDescription());
-                $translation->setTitleAbbr($defaultTranslation->getTitleAbbr());
-            }
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-        $this->currentTranslation = $translation;
-
-        return $translation;
     }
 
     /**
@@ -1242,26 +1242,29 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * Add journalsIndexs
+     * Add journalIndexs
      *
-     * @param  JournalsIndex $journalsIndexs
+     * @param  JournalIndex $journalIndex
      * @return Journal
      */
-    public function addJournalsIndex(JournalsIndex $journalsIndexs)
+    public function addJournalIndex(JournalIndex $journalIndex)
     {
-        $this->journalsIndexs[] = $journalsIndexs;
+        if (!$this->journalIndexs->contains($journalIndex)) {
+            $this->journalIndexs->add($journalIndex);
+            $journalIndex->setJournal($this);
+        }
 
         return $this;
     }
 
     /**
-     * Get journalsIndexs
+     * Get journalIndexs
      *
-     * @return Collection
+     * @return ArrayCollection|JournalIndex[]
      */
-    public function getJournalsIndexs()
+    public function getJournalIndexs()
     {
-        return $this->journalsIndexs;
+        return $this->journalIndexs;
     }
 
     /**

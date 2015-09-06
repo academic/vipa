@@ -596,7 +596,7 @@ journal_licence.visible: 'Görünür mü?'
 journalcontact.list: 'Dergi İletişim Listesi'
 journalcontact.singular: 'İletişim'
 journalid: 'Dergi ID'
-journalindex.list: 'Dergi Dizin Listesi'
+index.list: 'Dergi Dizin Listesi'
 journals: Dergiler
 journalsection: 'Dergi Bölümü'
 journalsection.allow_index: 'Dizine İzin Ver'
@@ -608,14 +608,14 @@ journalsection.list: 'Dergi Bölüm Listesi'
 journalsection.new: 'Yeni Dergi Bölümü'
 journalsection.show: Göster
 journalsection.title: Başlık
-journalsindex.create: 'Dergi Dizini Oluştur'
-journalsindex.edit: 'Dergi Dizini Düzenle'
-journalsindex.journal: Dergi
-journalsindex.journalindex: 'Dergi Dizini'
-journalsindex.link: 'Dizindeki Dergiler İçin Link'
-journalsindex.list: 'Dergi Dizin Listesi'
-journalsindex.plural: Dizinler
-journalsindex.singular: Dizin
+journalindex.create: 'Dergi Dizini Oluştur'
+journalindex.edit: 'Dergi Dizini Düzenle'
+journalindex.journal: Dergi
+journalindex.journalindex: 'Dergi Dizini'
+journalindex.link: 'Dizindeki Dergiler İçin Link'
+journalindex.list: 'Dergi Dizin Listesi'
+journalindex.plural: Dizinler
+journalindex.singular: Dizin
 journaltheme: 'Dergi Teması'
 journaltheme.edit: 'Dergi Temasını Düzenle'
 journaltheme.list: 'Dergi Tema Listesi'
@@ -1080,10 +1080,10 @@ title.journal_design_show: 'Dergi Tasarımını Göster'
 title.journal_designs: 'Dergi Tasarımları'
 title.journal_detail: 'Dergi Detayı'
 title.journal_edit: 'Dergi Düzenle'
-title.journal_index_edit: 'Dergi İndeksini Düzenle'
-title.journal_index_new: 'Yeni Dergi İndeksi'
-title.journal_index_show: 'Dergi İndeksini Göster'
-title.journal_indexes: 'Dergi İndeksleri'
+title.index_edit: 'Dergi İndeksini Düzenle'
+title.index_new: 'Yeni Dergi İndeksi'
+title.index_show: 'Dergi İndeksini Göster'
+title.indexes: 'Dergi İndeksleri'
 title.journal_new: 'Yeni Dergi'
 title.journal_page_list: 'Sayfa Listesi'
 title.journal_role_edit: 'Dergi Rollerini Düzenle'
@@ -1111,10 +1111,10 @@ title.journal_user_add: 'Dergiye Kullanıcı Ekle'
 title.journal_user_create: 'Dergi İçin Kullanıcı Oluştur'
 title.journal_user_leave: 'Dergiden Ayrıl'
 title.journals: Dergiler
-title.journals_index_edit: 'Dergilerin İndeksini Düzenle'
-title.journals_index_new: 'Yeni Dergilerin İndeksleri'
-title.journals_index_show: 'Dergilerin İndeksini Göster'
-title.journals_indexes: İndeksler
+title.journal_index_edit: 'Dergilerin İndeksini Düzenle'
+title.journal_index_new: 'Yeni Dergilerin İndeksleri'
+title.journal_index_show: 'Dergilerin İndeksini Göster'
+title.journal_indexes: İndeksler
 title.language_edit: 'Dili Düzenle'
 title.language_new: 'Yeni Dil'
 title.language_show: 'Dili Göster'

@@ -1,17 +1,17 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.journals_index_edit'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.journal_index_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path('ojs_journal_index_index', {'journalId': selectedJournal().id}),'title': 'journalindex.list'|trans},
-    {'title': 'title.journals_index_edit'|trans}
+    {'title': 'title.journal_index_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'title.journals_index_edit'|trans }}</h1>
+    <h1>{{ 'title.journal_index_edit'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 

@@ -1,4 +1,0 @@
-Ojs\JournalBundle\Entity\JournalIndex:
-    properties:
-        name:
-          - NotBlank: ~

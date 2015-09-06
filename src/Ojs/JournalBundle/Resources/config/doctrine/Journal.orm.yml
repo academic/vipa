@@ -64,8 +64,8 @@ Ojs\JournalBundle\Entity\Journal:
         journalDesigns:
             targetEntity: JournalDesign
             mappedBy: journal
-        journalsIndexs:
-            targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
+        journalIndexs:
+            targetEntity: Ojs\JournalBundle\Entity\JournalIndex
             mappedBy: journal
             cascade: ["all"]
             fetch: EXTRA_LAZY

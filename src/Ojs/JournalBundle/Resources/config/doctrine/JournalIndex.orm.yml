@@ -1,31 +1,29 @@
 Ojs\JournalBundle\Entity\JournalIndex:
   type: entity
+  table: journal_index
   repositoryClass: Ojs\JournalBundle\Entity\JournalIndexRepository
-  table: journal_indexs
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
   fields:
-    name:
-      type: string
-      nullable: false
-      length: 255
-    logo:
-      type: string
-      length: 255
-      nullable: true
-    status:
-      type: boolean
+    link:
+      type: text
       gedmo:
           - versioned
-  id:
-     id:
-       generator:
-         strategy: AUTO
-       id: true
-       type: integer
-  oneToMany:
-    journalsIndexs:
-      targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
-      mappedBy: journalsIndexs
-      cascade: ["all"]
-      fetch: EXTRA_LAZY
+  manyToOne:
+    journal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      inversedBy: journalIndexs
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+    index:
+      targetEntity: Ojs\JournalBundle\Entity\Index
+      joinColumn:
+        name: index_id
+        referencedColumnName: id
   gedmo:
       loggable: true

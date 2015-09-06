@@ -1,18 +1,18 @@
 {% extends '::ojsbase.html.twig' %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.journal_index_new'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.index_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
         {'link': path('ojs_admin_index_index'),'title': 'title.journal_indexes'|trans},
-        {'title': 'title.journal_index_new'|trans}
+    {'title': 'title.index_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'journalindex.create' }}</h1>
+    <h1>{{ 'title.index_new'|trans }}</h1>
 
     {% include '::flashbag.html.twig' %}
 

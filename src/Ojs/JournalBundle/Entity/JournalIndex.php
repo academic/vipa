@@ -3,46 +3,37 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalIndex
- * @GRID\Source(columns="id,name,status")
+ * @GRID\Source(columns="id,journal,journal_index.name,link")
  */
 class JournalIndex
 {
     use DisplayTrait;
     /**
      * @var integer
+     * @GRID\Column(title="ID")
      */
     private $id;
-    /**
-     * @var string
-     */
-    private $name;
-    /**
-     * @var string
-     */
-    private $logo;
-    /**
-     * @var boolean
-     */
-    private $status;
-    /**
-     * @var Collection
-     */
-    private $journalsIndexs;
 
     /**
-     * Constructor
+     * @var string
+     * @GRID\Column(title="link")
      */
-    public function __construct()
-    {
-        $this->journalsIndexs = new ArrayCollection();
-    }
+    private $link;
+    /**
+     * @var Journal
+     * @GRID\Column(title="Journal")
+     */
+    private $journal;
+    /**
+     * @var Index
+     * @GRID\Column(title="Journal Index", field="index.name")
+     */
+    private $index;
 
     /**
      * Get id
@@ -55,108 +46,70 @@ class JournalIndex
     }
 
     /**
-     * Get logo
+     * Get link
      *
      * @return string
      */
-    public function getLogo()
+    public function getLink()
     {
-        return $this->logo;
+        return $this->link;
     }
 
     /**
-     * Set logo
+     * Set link
      *
-     * @param  string       $logo
+     * @param  string $link
      * @return JournalIndex
      */
-    public function setLogo($logo)
+    public function setLink($link)
     {
-        $this->logo = $logo;
+        $this->link = $link;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get journal
      *
-     * @return boolean
+     * @return Journal
      */
-    public function getStatus()
+    public function getJournal()
     {
-        return $this->status;
+        return $this->journal;
     }
 
     /**
-     * Set status
+     * Set journal
      *
-     * @param  boolean      $status
+     * @param  Journal $journal
      * @return JournalIndex
      */
-    public function setStatus($status)
+    public function setJournal(Journal $journal = null)
     {
-        $this->status = $status;
+        $this->journal = $journal;
 
         return $this;
     }
 
     /**
-     * Add journalsIndexs
+     * Get index
      *
-     * @param  JournalsIndex $journalsIndexs
+     * @return Index
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
+     * Set index
+     *
+     * @param  Index $index
      * @return JournalIndex
      */
-    public function addJournalsIndex(JournalsIndex $journalsIndexs)
+    public function setIndex(Index $index)
     {
-        $this->journalsIndexs[] = $journalsIndexs;
-
-        return $this;
-    }
-
-    /**
-     * Remove journalsIndexs
-     *
-     * @param JournalsIndex $journalsIndexs
-     */
-    public function removeJournalsIndex(JournalsIndex $journalsIndexs)
-    {
-        $this->journalsIndexs->removeElement($journalsIndexs);
-    }
-
-    /**
-     * Get journalsIndexs
-     *
-     * @return Collection
-     */
-    public function getJournalsIndexs()
-    {
-        return $this->journalsIndexs;
-    }
-
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param  string       $name
-     * @return JournalIndex
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+        $this->index = $index;
 
         return $this;
     }
