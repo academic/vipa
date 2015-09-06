@@ -4,10 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\CoreBundle\Annotation\Display;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
@@ -17,7 +14,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Issue
  * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  */
 class Issue extends AbstractTranslatable
 {
@@ -26,8 +23,8 @@ class Issue extends AbstractTranslatable
     /**
      * @var integer
      * @GRID\Column(title="id")
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     protected $id;
     /**
@@ -37,79 +34,79 @@ class Issue extends AbstractTranslatable
     /**
      *
      * @var Journal
-     * @Groups({"IssueDetail"})
+     * @JMS\Groups({"IssueDetail"})
      */
     private $journal;
     /**
      * @var string
      * @GRID\Column(title="volume")
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $volume;
     /**
      * @var string
      * @GRID\Column(title="number")
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $number;
     /**
      * @var string
      * @GRID\Column(title="title")
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
     /**
      * @var string
      *             cover image path
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      * @Display\Image(filter="issue_cover")
      */
     private $cover;
     /**
      * @var boolean
      * @GRID\Column(title="special")
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      */
-    private $special;
+    private $special = true;
     /**
      * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
     /**
      * @var string
      * @GRID\Column(title="year")
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $year;
     /**
      * @var \DateTime
      * @GRID\Column(title="publishdate")
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      */
     private $datePublished;
     /**
-     * @var Collection
-     * @Groups({"IssueDetail","JournalDetail"})
+     * @var ArrayCollection|Article[]
+     * @JMS\Groups({"IssueDetail","JournalDetail"})
      */
     private $articles;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      * @Display\Image(filter="issue_header")
      */
     private $header;
     /**
-     * @var Collection
-     * @Groups({"IssueDetail"})
+     * @var ArrayCollection|Section[]
+     * @JMS\Groups({"IssueDetail"})
      */
     private $sections;
     /**
@@ -125,20 +122,20 @@ class Issue extends AbstractTranslatable
     private $published = false;
     /**
      * @var boolean
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      */
-    private $supplement;
+    private $supplement = false;
     /**
      * @var string
-     * @Expose
-     * @Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"IssueDetail"})
      * @Display\File(path="issuefiles")
      */
-    private $full_file;
+    private $fullFile;
     /**
-     * @var Collection|IssueFile[]
-     * @Expose
+     * @var ArrayCollection|IssueFile[]
+     * @JMS\Expose
      */
     private $issueFiles;
 
@@ -374,11 +371,14 @@ class Issue extends AbstractTranslatable
      * Add article
      *
      * @param  Article $article
-     * @return $this
+     * @return Issue
      */
     public function addArticle(Article $article)
     {
-        $this->articles[] = $article;
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setIssue($this);
+        }
 
         return $this;
     }
@@ -387,16 +387,20 @@ class Issue extends AbstractTranslatable
      * Remove article
      *
      * @param Article $article
+     * @return Issue
      */
     public function removeArticle(Article $article)
     {
-        $this->articles->removeElement($article);
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            $article->setIssue(null);
+        }
     }
 
     /**
      * Get articles
      *
-     * @return Collection
+     * @return ArrayCollection|Article[]
      */
     public function getArticles()
     {
@@ -405,11 +409,12 @@ class Issue extends AbstractTranslatable
 
     /**
      * Add section to issue
-     * @param  JournalSection $section
+     * @param  Section $section
      * @return $this
      */
-    public function addSection(JournalSection $section)
+    public function addSection(Section $section)
     {
+
         $this->sections[] = $section;
 
         return $this;
@@ -418,9 +423,9 @@ class Issue extends AbstractTranslatable
     /**
      * Remove section from issue
      *
-     * @param JournalSection $section
+     * @param Section $section
      */
-    public function removeSection(JournalSection $section)
+    public function removeSection(Section $section)
     {
         $this->articles->removeElement($section);
     }
@@ -428,7 +433,7 @@ class Issue extends AbstractTranslatable
     /**
      * Get sections
      *
-     * @return Collection
+     * @return ArrayCollection|Section[]
      */
     public function getSections()
     {
@@ -549,36 +554,26 @@ class Issue extends AbstractTranslatable
      */
     public function getFullFile()
     {
-        return $this->full_file;
+        return $this->fullFile;
     }
 
     /**
-     * @param  string $full_file
+     * @param  string $fullFile
      * @return $this
      */
-    public function setFullFile($full_file)
+    public function setFullFile($fullFile)
     {
-        $this->full_file = $full_file;
+        $this->fullFile = $fullFile;
 
         return $this;
     }
 
     /**
-     * @return array|Collection|IssueFile[]
+     * @return ArrayCollection|IssueFile[]
      */
     public function getIssueFiles()
     {
         return $this->issueFiles;
-    }
-
-    /**
-     * @param array|Collection|IssueFile[] $issueFiles
-     * @return $this
-     */
-    public function setIssueFiles($issueFiles)
-    {
-        $this->issueFiles = $issueFiles;
-        return $this;
     }
 
     /**
@@ -587,16 +582,12 @@ class Issue extends AbstractTranslatable
      */
     public function addIssueFile(IssueFile $issueFile)
     {
-        $this->issueFiles->add($issueFile);
-        return $this;
-    }
+        if(!$this->issueFiles->contains($issueFile)){
+            $this->issueFiles->add($issueFile);
+            $issueFile->setIssue($this);
+        }
 
-    /**
-     * @param IssueFile $issueFile
-     */
-    public function removeIssueFile(IssueFile $issueFile)
-    {
-        $this->issueFiles->removeElement($issueFile);
+        return $this;
     }
 
     /**
@@ -628,7 +619,7 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * @return ArrayCollection|\Ojs\AnalyticsBundle\Entity\IssueStatistic[]
+     * @return ArrayCollection|IssueStatistic[]
      */
     public function getStatistics()
     {
@@ -636,7 +627,7 @@ class Issue extends AbstractTranslatable
     }
 
     /**
-     * @param ArrayCollection|\Ojs\AnalyticsBundle\Entity\IssueStatistic[] $statistics
+     * @param ArrayCollection|IssueStatistic[] $statistics
      */
     public function setStatistics($statistics)
     {

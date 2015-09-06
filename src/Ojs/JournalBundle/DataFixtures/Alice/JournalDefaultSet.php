@@ -11,7 +11,7 @@ $set->addFile(__DIR__.'/lang.yml', 'yaml');
 $set->addFile(__DIR__ . '/publisher_type.yml', 'yaml');
 $set->addFile(__DIR__ . '/publisher.yml', 'yaml');
 $set->addFile(__DIR__.'/journal.yml', 'yaml');
-$set->addFile(__DIR__.'/journal_section.yml', 'yaml');
+$set->addFile(__DIR__.'/section.yml', 'yaml');
 $set->addFile(__DIR__.'/issue.yml', 'yaml');
 $set->addFile(__DIR__.'/article.yml', 'yaml');
 $set->addFile(__DIR__.'/author.yml', 'yaml');
@@ -27,7 +27,6 @@ $set->addFile(__DIR__.'/index.yml', 'yaml'); // indexes
 
 
 //$set->addFile(__DIR__ . '/journal_contact.yml', 'yaml'); //Journal Contacts
-//$set->addFile(__DIR__ . '/citation_setting.yml', 'yaml'); //Citation Settings
 //$set->addFile(__DIR__ . '/article_attribute.yml', 'yaml'); //Article Attribute
 
 return $set;

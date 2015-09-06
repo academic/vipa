@@ -8,7 +8,7 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalSection;
+use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\Subject;
@@ -122,7 +122,7 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($issue);
         $em->flush();
 
-        $section = new JournalSection();
+        $section = new Section();
         $section->setCurrentLocale('en');
         $section->setJournal($journal);
         $section->setTitle('Tutorials');

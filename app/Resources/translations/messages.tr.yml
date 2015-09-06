@@ -598,16 +598,16 @@ journalcontact.singular: 'İletişim'
 journalid: 'Dergi ID'
 index.list: 'Dergi Dizin Listesi'
 journals: Dergiler
-journalsection: 'Dergi Bölümü'
-journalsection.allow_index: 'Dizine İzin Ver'
-journalsection.edit: 'Dergi Bölümü Düzenle'
-journalsection.hide_title: 'Başlığı Gizle'
-journalsection.journal: Dergi
-journalsection.label: Etiket
-journalsection.list: 'Dergi Bölüm Listesi'
-journalsection.new: 'Yeni Dergi Bölümü'
-journalsection.show: Göster
-journalsection.title: Başlık
+section: 'Dergi Bölümü'
+section.allow_index: 'Dizine İzin Ver'
+section.edit: 'Dergi Bölümü Düzenle'
+section.hide_title: 'Başlığı Gizle'
+section.journal: Dergi
+section.label: Etiket
+section.list: 'Dergi Bölüm Listesi'
+section.new: 'Yeni Dergi Bölümü'
+section.show: Göster
+section.title: Başlık
 journalindex.create: 'Dergi Dizini Oluştur'
 journalindex.edit: 'Dergi Dizini Düzenle'
 journalindex.journal: Dergi
@@ -1094,10 +1094,10 @@ title.journal_role_show: 'Dergi Rollerini Göster'
 title.journal_role_show_journals: 'Dergileri Göster'
 title.journal_role_show_users: 'Kullanıcıları Göster'
 title.journal_roles: 'Dergi Rolleri'
-title.journal_section_edit: 'Dergi Bölümünü Düzenle'
-title.journal_section_new: 'Yeni Dergi Bölümü'
-title.journal_section_show: 'Dergi Bölümü Göster'
-title.journal_sections: 'Dergi Bölümleri'
+title.section_edit: 'Dergi Bölümünü Düzenle'
+title.section_new: 'Yeni Dergi Bölümü'
+title.section_show: 'Dergi Bölümü Göster'
+title.sections: 'Dergi Bölümleri'
 title.journal_settings_mail: 'E-Posta Ayarları'
 title.journal_settings_submission: 'Gönderi Ayarları'
 title.journal_setup: 'Dergi Ayarları'

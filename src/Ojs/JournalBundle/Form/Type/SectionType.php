@@ -6,8 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CitationSettingType extends AbstractType
+class SectionType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -15,22 +16,21 @@ class CitationSettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('translations', 'a2lix_translations')
             ->add(
-                'citation',
-                'autocomplete',
-                [
-                    'class' => 'Ojs\JournalBundle\Entity\Citation',
-                    'attr' => [
-                        'class' => 'autocomplete',
-                        'style' => 'width:100%',
-                        'data-list' => $options['citationsEndPoint'],
-                        'data-get' => $options['citationEndPoint'],
-                        "placeholder" => "type a citation",
-                    ],
-                ]
+                'allowIndex',
+                'checkbox',
+                array(
+                    'label' => 'section.hide_title'
+                )
             )
-            ->add('setting')
-            ->add('value');
+            ->add(
+                'hideTitle',
+                'checkbox',
+                array(
+                    'label' => 'section.allow_index'
+                )
+            );
     }
 
     /**
@@ -40,10 +40,8 @@ class CitationSettingType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\CitationSetting',
+                'data_class' => 'Ojs\JournalBundle\Entity\Section',
                 'cascade_validation' => true,
-                'citationsEndPoint' => '/',
-                'citationEndPoint' => '/',
                 'attr' => [
                     'class' => 'form-validate',
                 ],
@@ -56,6 +54,6 @@ class CitationSettingType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_citationsetting';
+        return 'ojs_journalbundle_section';
     }
 }

@@ -13,7 +13,7 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalSection;
+use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Form\Type\IssueType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,8 +60,8 @@ class IssueController extends Controller
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $query) use ($ta, $journal) {
-                $query->andWhere($ta . '.journalId = :journal_id')
-                    ->setParameter('journal_id', $journal->getId());
+                $query->andWhere($ta . '.journal = :journal')
+                    ->setParameter('journal', $journal);
             }
         );
 
@@ -480,8 +480,8 @@ class IssueController extends Controller
         $section = null;
 
         if ($selectedSection) {
-            /** @var JournalSection $section */
-            $section = $em->getRepository('OjsJournalBundle:JournalSection')->findOneBy(
+            /** @var Section $section */
+            $section = $em->getRepository('OjsJournalBundle:Section')->findOneBy(
                 array(
                     'id' => $selectedSection,
                     'journal' => $journal

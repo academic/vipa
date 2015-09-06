@@ -1,6 +1,6 @@
-Ojs\JournalBundle\Entity\JournalSectionTranslation:
+Ojs\JournalBundle\Entity\SectionTranslation:
     type: entity
-    table: journal_section_translations
+    table: section_translations
     id:
         id:
             type: integer

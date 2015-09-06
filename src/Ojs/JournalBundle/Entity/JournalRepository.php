@@ -278,40 +278,17 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * Just get journal's last issue id
-     * @param  Journal $journal
-     * @return mixed
+     * @param $publisherSlug
+     * @param Subject $subject
+     * @return array
      */
-    public function getLastIssueId($journal)
-    {
-        $q = $this->_em
-            ->createQuery(
-                'SELECT i FROM OjsJournalBundle:Issue i WHERE i.journalId =:j '
-                .'AND i.datePublished IS NOT NULL AND i.published = TRUE ORDER BY i.datePublished DESC'
-            )
-            ->setMaxResults(1)
-            ->setParameter('j', $journal->getId());
-        try {
-            $issue = $q->getOneOrNullResult();
-
-            return $issue;
-        } catch (NoResultException $e) {
-            return false;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $publisher
-     */
-    public function getByPublisherAndSubject($publisher, Subject $subject)
+    public function getByPublisherAndSubject($publisherSlug, Subject $subject)
     {
         $qb = $this->createQueryBuilder('j');
         $qb
-            ->join('j.publisher', 'i', 'WITH', 'i.slug=:publisher')
-            ->join('j.subjects', 's', 'WITH', 's.id=:subject')
-            ->setParameter('publisher', $publisher)
+            ->join('j.publisher', 'i', 'WITH', 'i.slug = :publisherSlug')
+            ->join('j.subjects', 's', 'WITH', 's.id = :subject')
+            ->setParameter('publisherSlug', $publisherSlug)
             ->setParameter('subject', $subject->getId());
 
         return $qb->getQuery()->getResult();
@@ -319,7 +296,9 @@ class JournalRepository extends EntityRepository
 
     /**
      *  return all issues as array as grouped by year
-     * @param  Journal $journal
+     *
+     * @param Journal $journal
+     * @param int $maxYearCount
      * @return array
      */
     public function getIssuesByYear(Journal $journal, $maxYearCount = 10)

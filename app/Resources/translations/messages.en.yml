@@ -598,16 +598,16 @@ journalcontact.singular: 'Contact'
 journalid: 'Journal ID'
 index.list: 'Journal Index List'
 journals: Journals
-journalsection: 'Journal Section'
-journalsection.allow_index: 'Allow Index'
-journalsection.edit: 'Edit Journal Section'
-journalsection.hide_title: 'Hide Title'
-journalsection.journal: Journal
-journalsection.label: Label
-journalsection.list: 'Journal Section List'
-journalsection.new: 'New Journal Section'
-journalsection.show: Show
-journalsection.title: Title
+section: 'Journal Section'
+section.allow_index: 'Allow Index'
+section.edit: 'Edit Journal Section'
+section.hide_title: 'Hide Title'
+section.journal: Journal
+section.label: Label
+section.list: 'Journal Section List'
+section.new: 'New Journal Section'
+section.show: Show
+section.title: Title
 journalindex.create: 'Journal Index Create'
 journalindex.edit: 'Journal Index Edit'
 journalindex.journal: Journal
@@ -1094,10 +1094,10 @@ title.journal_role_show: 'Show Journal Role'
 title.journal_role_show_journals: 'Show Journals'
 title.journal_role_show_users: 'Show Users'
 title.journal_roles: 'Journal Roles'
-title.journal_section_edit: 'Edit Section'
-title.journal_section_new: 'New Section'
-title.journal_section_show: 'Show Section'
-title.journal_sections: 'Sections'
+title.section_edit: 'Edit Section'
+title.section_new: 'New Section'
+title.section_show: 'Show Section'
+title.sections: 'Sections'
 title.journal_settings_mail: 'Mail Settings'
 title.journal_settings_submission: 'Submission Settings'
 title.journal_setup: 'Journal Setup'

@@ -8,11 +8,11 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
 
-class JournalSectionTranslation extends AbstractTranslation
+class SectionTranslation extends AbstractTranslation
 {
     use DisplayTrait;
     /**
-     * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\JournalSection")
+     * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\Section")
      */
     protected $translatable;
 

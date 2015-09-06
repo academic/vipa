@@ -9,15 +9,11 @@ Ojs\JournalBundle\Entity\ArticleAttribute:
       id: true
       generator:
         strategy: AUTO
-
   fields:
     attribute:
       type: string
     value:
       type: string
-    article_id:
-      type: integer
-      nullable: true
     createdBy:
        type: string
        gedmo:

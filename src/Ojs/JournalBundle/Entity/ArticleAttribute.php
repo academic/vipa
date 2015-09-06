@@ -16,7 +16,6 @@ class ArticleAttribute implements Translatable
     private $article;
     private $attribute;
     private $value;
-    private $article_id;
     private $id;
 
     public function __construct($name = null, $value = null, $article = null)
@@ -40,25 +39,6 @@ class ArticleAttribute implements Translatable
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getArticleId()
-    {
-        return $this->article_id;
-    }
-
-    /**
-     * @param  mixed $article_id
-     * @return $this
-     */
-    public function setArticleId($article_id)
-    {
-        $this->article_id = $article_id;
-
-        return $this;
     }
 
     /**

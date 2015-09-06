@@ -4,16 +4,15 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
- * JournalSection
- * @GRID\Source(columns="id,title,allowIndex,hideTitle,journal")
+ * Section
+ * @GRID\Source(columns="id,title,allowIndex,hideTitle")
  */
-class JournalSection extends AbstractTranslatable
+class Section extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
@@ -23,31 +22,30 @@ class JournalSection extends AbstractTranslatable
      */
     protected $id;
     /**
-     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalSectionTranslation")
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\SectionTranslation")
      */
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="journalsection.title")
+     * @GRID\Column(title="section.title")
      */
     private $title;
     /**
      * @var boolean
-     * @GRID\Column(title="journalsection.allow_index")
+     * @GRID\Column(title="section.allow_index")
      */
     private $allowIndex = true;
     /**
      * @var boolean
-     * @GRID\Column(title="journalsection.hide_title")
+     * @GRID\Column(title="section.hide_title")
      */
     private $hideTitle = false;
     /**
-     * @var Collection|Article[]
+     * @var ArrayCollection|Article[]
      */
     private $articles;
     /**
      * @var Journal
-     * @GRID\Column(title="journal")
      */
     private $journal;
 
@@ -93,7 +91,7 @@ class JournalSection extends AbstractTranslatable
     /**
      * Get articles
      *
-     * @return Collection
+     * @return ArrayCollection
      */
     public function getArticles()
     {
@@ -114,7 +112,7 @@ class JournalSection extends AbstractTranslatable
      * Set allowIndex
      *
      * @param  boolean        $allowIndex
-     * @return JournalSection
+     * @return Section
      */
     public function setAllowIndex($allowIndex)
     {
@@ -137,7 +135,7 @@ class JournalSection extends AbstractTranslatable
      * Set hideTitle
      *
      * @param  boolean        $hideTitle
-     * @return JournalSection
+     * @return Section
      */
     public function setHideTitle($hideTitle)
     {
@@ -160,7 +158,7 @@ class JournalSection extends AbstractTranslatable
      * Set journal
      *
      * @param  Journal        $journal
-     * @return JournalSection
+     * @return Section
      */
     public function setJournal($journal)
     {
@@ -188,7 +186,7 @@ class JournalSection extends AbstractTranslatable
      * Set title
      *
      * @param  string $title
-     * @return JournalSection
+     * @return Section
      */
     public function setTitle($title)
     {
@@ -200,7 +198,7 @@ class JournalSection extends AbstractTranslatable
     /**
      * Translation helper method
      * @param null $locale
-     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalSectionTranslation
+     * @return mixed|null|\Ojs\JournalBundle\Entity\SectionTranslation
      */
     public function translate($locale = null)
     {
@@ -215,7 +213,7 @@ class JournalSection extends AbstractTranslatable
         }
         $defaultTranslation = $this->translations->get($this->getDefaultLocale());
         if (!$translation = $this->translations->get($locale)) {
-            $translation = new JournalSectionTranslation();
+            $translation = new SectionTranslation();
             if (!is_null($defaultTranslation)) {
                 $translation->setTitle($defaultTranslation->getTitle());
             }

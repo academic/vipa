@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Publisher;
@@ -61,13 +62,15 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
+        /** @var IssueRepository $issueRepo */
+        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
         /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-        $data['last_issue'] = $this->setupArticleURIs($journalRepo->getLastIssueId($journal), $isJournalHosting);
-        $data['years'] = $this->setupIssueURIsByYear($journalRepo->getIssuesByYear($journal), $isJournalHosting);
+        $data['last_issue'] = $this->setupArticleURIs($issueRepo->getLastIssueByJournal($journal), $isJournalHosting);
+        $data['years'] = $this->setupIssueURIsByYear($issueRepo->getLastIssueByJournal($journal), $isJournalHosting);
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $blockRepo->journalBlocks($journal);

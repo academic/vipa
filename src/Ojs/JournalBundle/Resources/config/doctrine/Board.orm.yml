@@ -17,11 +17,11 @@ Ojs\JournalBundle\Entity\Board:
             inversedBy: boards
             cascade: ["persist","merge"]
     oneToMany:
-            boardMembers:
-                targetEntity: BoardMember
-                mappedBy: board
-                cascade: ["persist", "merge"]
-                fetch: EXTRA_LAZY
+        boardMembers:
+            targetEntity: BoardMember
+            mappedBy: board
+            cascade: ["persist", "merge"]
+            fetch: EXTRA_LAZY
     fields:
         name:
             type: string

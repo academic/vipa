@@ -2,5 +2,3 @@ Ojs\JournalBundle\Entity\Index:
   properties:
     name:
       - NotBlank: ~
-    status:
-      - NotBlank: ~

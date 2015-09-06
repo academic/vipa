@@ -10,37 +10,37 @@ Ojs\JournalBundle\Entity\Article:
       type: integer
   lifecycleCallbacks: {}
   manyToOne:
-      section:
-          targetEntity: JournalSection
-          joinColumn:
-            name: section_id
-            referencedColumnName: id
-          inversedBy: articles
-      journal:
-          targetEntity: Journal
-          joinColumn:
-            name: journal_id
-            referencedColumnName: id
-          inversedBy: articles
-          fetch: EXTRA_LAZY
-      issue:
-          targetEntity: Issue
-          joinColumn:
-            name: issue_id
-            referencedColumnName: id
-          inversedBy: articles
-          fetch: EAGER
-      articleType:
-          targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
-          joinColumn:
-            name: article_type_id
-            referencedColumnName: id
-          fetch: EXTRA_LAZY
-      submitterUser:
-          targetEntity: Ojs\UserBundle\Entity\User
-          joinColumn:
-            name: submitter_id
-            referencedColumnName: id
+    section:
+      targetEntity: Section
+      joinColumn:
+        name: section_id
+        referencedColumnName: id
+      inversedBy: articles
+    journal:
+      targetEntity: Journal
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+      inversedBy: articles
+      fetch: EXTRA_LAZY
+    issue:
+      targetEntity: Issue
+      joinColumn:
+        name: issue_id
+        referencedColumnName: id
+      inversedBy: articles
+      fetch: EAGER
+    articleType:
+      targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
+      joinColumn:
+        name: article_type_id
+        referencedColumnName: id
+      fetch: EXTRA_LAZY
+    submitterUser:
+      targetEntity: Ojs\UserBundle\Entity\User
+      joinColumn:
+        name: submitter_id
+        referencedColumnName: id
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
@@ -91,37 +91,31 @@ Ojs\JournalBundle\Entity\Article:
       nullable: true
       gedmo:
         - versioned
-    articleTypeId:
-        column: article_type_id
-        type: integer
-        nullable: true
-        gedmo:
-          - versioned
     primaryLanguage:
-        column: primary_language
-        type: string
-        nullable: true
-        gedmo:
-          - versioned
+      column: primary_language
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
     orderNum:
-        type: integer
-        options:
-          default: 0
-        nullable: true
-        gedmo:
-          - versioned
+      type: integer
+      options:
+        default: 0
+      nullable: true
+      gedmo:
+        - versioned
     status:
-        type: integer
-        options:
-          default: 0
-        nullable: true
-        gedmo:
-          - versioned
+      type: integer
+      options:
+        default: 0
+      nullable: true
+      gedmo:
+        - versioned
     setupFinished:
-        type: boolean
-        options:
-          default: 1
-        nullable: true
+      type: boolean
+      options:
+        default: 1
+      nullable: true
     abstractTransliterated:
       column: abstract_transliterated
       type: text
@@ -144,16 +138,10 @@ Ojs\JournalBundle\Entity\Article:
       column: is_anonymous
       type: boolean
       options:
-          default: 0
+        default: 0
       nullable: true
       gedmo:
-         - versioned
-    sectionId:
-      column: section_id
-      type: integer
-      nullable: true
-      gedmo:
-          - versioned
+        - versioned
     lastPage:
       column: last_page
       type: integer
@@ -210,34 +198,34 @@ Ojs\JournalBundle\Entity\Article:
       type: text
       nullable: true
     created:
-        type: datetime
-        gedmo:
-          timestampable:
-            on: create
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
     updated:
-        type: datetime
-        gedmo:
-          timestampable:
-            on: update
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
     deletedAt:
-        type: date
-        nullable: true
+      type: date
+      nullable: true
     createdBy:
-        type: string
-        nullable: true
-        gedmo:
-          blameable:
-            on: create
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: create
     updatedBy:
-        type: string
-        nullable: true
-        gedmo:
-          blameable:
-            on: update
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: update
   gedmo:
     soft_deleteable:
-        field_name: deletedAt
-        time_aware: false
+      field_name: deletedAt
+      time_aware: false
     loggable: true
   indexes:
     doix:

@@ -1,149 +1,141 @@
 Ojs\JournalBundle\Entity\Issue:
-    type: entity
-    table: issue
-    repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
-    manyToMany:
-        sections:
-            targetEntity: JournalSection
-            #inversedBy: issues
-            joinTable:
-              inverseJoinColumns:
-                section_id:
-                  referencedColumnName: id
-              joinColumns:
-                issue_id:
-                  referencedColumnName: id
-              name: issue_journal_section
-              cascade: ["persist", "merge"]
-              fetch: LAZY
-    oneToMany:
-        articles:
-            targetEntity: Article
-            mappedBy: issue
-            cascade: ["persist", "merge"]
-            fetch: LAZY
-        issueFiles:
-            targetEntity: IssueFile
-            mappedBy: issue
-            fetch: EXTRA_LAZY
-        statistics:
-          targetEntity: Ojs\AnalyticsBundle\Entity\IssueStatistic
-          mappedBy: issue
-          cascade: ["persist"]
-    manyToOne:
-      journal:
-          targetEntity: Journal
-          joinColumn:
-            name: journal_id
+  type: entity
+  table: issue
+  repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
+  manyToMany:
+    sections:
+      targetEntity: Section
+      joinTable:
+        inverseJoinColumns:
+          section_id:
             referencedColumnName: id
-          inversedBy: issues
-          cascade: ["persist","merge"]
+        joinColumns:
+          issue_id:
+            referencedColumnName: id
+        name: issue_section
+        cascade: ["persist", "merge"]
+        fetch: LAZY
+  oneToMany:
+    articles:
+      targetEntity: Article
+      mappedBy: issue
+      cascade: ["persist", "merge"]
+      fetch: LAZY
+    issueFiles:
+      targetEntity: IssueFile
+      mappedBy: issue
+      fetch: EXTRA_LAZY
+    statistics:
+      targetEntity: Ojs\AnalyticsBundle\Entity\IssueStatistic
+      mappedBy: issue
+      cascade: ["persist"]
+  manyToOne:
+    journal:
+      targetEntity: Journal
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+      inversedBy: issues
+      cascade: ["persist","merge"]
+  id:
     id:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-    fields:
-        volume:
-            type: string
-            length: 255
-            gedmo:
-                - versioned
-            nullable: true
-        number:
-            type: string
-            length: 255
-            gedmo:
-                - versioned
-            nullable: true
-        cover:
-            type: string
-            column: cover
-            length: 255
-            nullable: TRUE
-            gedmo:
-                - versioned
-        header:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                - versioned
-        special:
-            type: boolean
-            column: special
-            nullable: TRUE
-            options:
-                default: TRUE
-            gedmo:
-                - versioned
-        year:
-            type: string
-            length: 255
-            gedmo:
-                - versioned
-            nullable: true
-        datePublished:
-            type: datetime
-            column: date_published
-            nullable: true
-            gedmo:
-                  - versioned
-        published:
-            type: boolean
-            nullable: true
-            options:
-                default: false
-            gedmo:
-                  - versioned
-
-        created:
-            type: datetime
-            gedmo:
-              timestampable:
-                on: create
-        updated:
-            type: datetime
-            gedmo:
-              timestampable:
-                on: update
-        deletedAt:
-            type: date
-            nullable: true
-        createdBy:
-           type: string
-           nullable: true
-           gedmo:
-             blameable:
-               on: create
-        updatedBy:
-           type: string
-           nullable: true
-           gedmo:
-             blameable:
-               on: update
-        tags:
-            type: string
-            nullable: true
-            gedmo:
-                  - versioned
-        supplement:
-            type: boolean
-            nullable: true
-            options:
-                default: false
-            gedmo:
-                  - versioned
-        full_file:
-            type: string
-            nullable: true
-            gedmo:
-                  - versioned
-
-    gedmo:
-        soft_deleteable:
-          field_name: deletedAt
-          time_aware: false
-        loggable: true
-    lifecycleCallbacks: {  }
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    volume:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    number:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    cover:
+      type: string
+      column: cover
+      length: 255
+      nullable: TRUE
+      gedmo:
+        - versioned
+    header:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    special:
+      type: boolean
+      column: special
+      nullable: TRUE
+      gedmo:
+        - versioned
+    year:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+          - versioned
+    datePublished:
+      type: datetime
+      column: date_published
+      nullable: true
+      gedmo:
+        - versioned
+    published:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: create
+    updatedBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: update
+    tags:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    supplement:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    fullFile:
+      type: string
+      nullable: true
+      column: full_file
+      gedmo:
+        - versioned
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  lifecycleCallbacks: {  }

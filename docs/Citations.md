@@ -10,26 +10,6 @@ Citation
 - **orderNum**
 
 
-
-
-CitationSetting
-----------------
-A key-value citation metadata container
-
-- **citationId **
-- **setting**
-- **value**
-
-**Sample Record**
-
------------------------------------------
-| id | citation_id | setting | value    |
-|----|-------------|---------|----------|
-|  1 |           1 | doi     | 32132132 |
-
-
-
-
 Description of Citation Types
 -----------------------------
 
@@ -164,7 +144,7 @@ Optional fields: month, year, key
 Standart Bibliographic Attributes
 --------------------------------
 
-Some Entity\CitationSetting::setting values
+Some Entity\Citation::settings values
 
 - **address**: Publisher's address (usually just the city, but can be the full address for lesser-known publishers)
 - **annote**: An annotation for annotated bibliography styles (not typical)

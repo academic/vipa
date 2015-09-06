@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 /**
  * IssueRepository
@@ -27,5 +28,29 @@ class IssueRepository extends EntityRepository
             )
             ->setParameter("value", $value);
         return $qb->getQuery()->getSingleScalarResult();
+    }
+    /**
+     * Just get journal's last issue id
+     * @param  Journal $journal
+     * @return mixed
+     */
+    public function getLastIssueByJournal(Journal $journal)
+    {
+        $query = $this->createQueryBuilder("i")
+            ->andWhere('i.journal = :journal')
+            ->andWhere('i.published = :published')
+            ->andWhere('t.datePublished IS NOT NULL')
+            ->orderBy('i.datePublished', 'DESC')
+            ->setParameter('journal', $journal)
+            ->setParameter('published', true)
+            ->setMaxResults(1)
+            ->getQuery();
+        try {
+            $issue = $query->getOneOrNullResult();
+
+            return $issue;
+        } catch (NoResultException $e) {
+            return false;
+        }
     }
 }

@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalSection:
+Ojs\JournalBundle\Entity\Section:
     type: entity
-    repositoryClass: Ojs\JournalBundle\Entity\JournalSectionRepository
-    table: journal_section
+    repositoryClass: Ojs\JournalBundle\Entity\SectionRepository
+    table: section
     manyToOne:
        journal:
           targetEntity: Journal

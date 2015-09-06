@@ -28,11 +28,6 @@ class SubmissionFile
     private $detail;
 
     /**
-     * @var integer
-     */
-    private $articleId;
-
-    /**
      * @var boolean
      * @GRID\Column(title="submission_file.visible")
      */
@@ -55,7 +50,7 @@ class SubmissionFile
     private $journal;
 
     /**
-     * @var Journal
+     * @var Article
      */
     private $article;
 
@@ -272,22 +267,6 @@ class SubmissionFile
         $this->file = $file;
 
         return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getArticleId()
-    {
-        return $this->articleId;
-    }
-
-    /**
-     * @param int $articleId
-     */
-    public function setArticleId($articleId)
-    {
-        $this->articleId = $articleId;
     }
 
     /**

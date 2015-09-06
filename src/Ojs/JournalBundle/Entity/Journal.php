@@ -401,10 +401,10 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param  JournalSection $section
+     * @param  Section $section
      * @return Journal
      */
-    public function addSection(JournalSection $section)
+    public function addSection(Section $section)
     {
         if (!$this->sections->contains($section)) {
             $this->sections->add($section);
@@ -415,7 +415,7 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @return ArrayCollection|JournalSection[]
+     * @return ArrayCollection|Section[]
      */
     public function getSections()
     {

@@ -46,11 +46,6 @@ class Article extends AbstractTranslatable
     /**
      * @var integer
      * @Expose
-     */
-    private $articleTypeId;
-    /**
-     * @var integer
-     * @Expose
      * @GRID\Column(type="text", groups={"submission"})
      */
     private $status;
@@ -194,19 +189,13 @@ class Article extends AbstractTranslatable
      */
     private $journal;
     /**
-     * @var JournalSection
+     * @var Section
      */
     private $section;
     /**
      * @var User
      */
     private $submitterUser;
-    /**
-     *
-     * @var int
-     * @Expose
-     */
-    private $sectionId;
     /**
      *
      * arbitrary attributes
@@ -668,28 +657,6 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * Get articleTypeId
-     * @return integer
-     */
-    public function getArticleTypeId()
-    {
-        return $this->articleTypeId;
-    }
-
-    /**
-     * Set articleTypeId
-     *
-     * @param  integer $articleTypeId
-     * @return $this
-     */
-    public function setArticleTypeId($articleTypeId)
-    {
-        $this->articleTypeId = $articleTypeId;
-
-        return $this;
-    }
-
-    /**
      * Get journal
      *
      * @return Journal
@@ -713,32 +680,9 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * Get sectionId
-     *
-     * @return integer
-     */
-    public function getSectionId()
-    {
-        return $this->sectionId;
-    }
-
-    /**
-     * Set sectionId
-     *
-     * @param  integer $sectionId
-     * @return $this
-     */
-    public function setSectionId($sectionId)
-    {
-        $this->sectionId = $sectionId;
-
-        return $this;
-    }
-
-    /**
      * Get section
      *
-     * @return JournalSection
+     * @return Section
      */
     public function getSection()
     {
@@ -747,7 +691,7 @@ class Article extends AbstractTranslatable
 
     /**
      * Set section
-     * @param  JournalSection $section
+     * @param  Section $section
      * @return $this
      */
     public function setSection($section)

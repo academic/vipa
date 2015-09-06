@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * IssueFile
  * @GRID\Source(columns="id,title,langCode,file.name")
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  */
 class IssueFile extends AbstractTranslatable
 {
@@ -291,9 +291,10 @@ class IssueFile extends AbstractTranslatable
      * @param Issue $issue
      * @return IssueFile
      */
-    public function setIssue(Issue $issue = null)
+    public function setIssue(Issue $issue)
     {
         $this->issue = $issue;
+        $issue->addIssueFile($this);
 
         return $this;
     }

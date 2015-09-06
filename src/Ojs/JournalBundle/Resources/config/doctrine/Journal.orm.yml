@@ -54,7 +54,7 @@ Ojs\JournalBundle\Entity\Journal:
             cascade: ["persist", "merge"]
             fetch: EXTRA_LAZY
         sections:
-            targetEntity: JournalSection
+            targetEntity: Section
             mappedBy: journal
             cascade: ["persist", "merge"]
             fetch: LAZY

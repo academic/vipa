@@ -20,10 +20,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 class Citation implements Translatable
 {
     use GenericEntityTrait;
-    /**
-     * @var Array
-     */
-    protected $settings;
+
     /**
      * @var integer
      * @GRID\Column(title="ID")
@@ -57,7 +54,6 @@ class Citation implements Translatable
      */
     public function __construct()
     {
-        $this->settings = new ArrayCollection();
         $this->articles = new ArrayCollection();
     }
 
@@ -98,34 +94,6 @@ class Citation implements Translatable
     public function getArticles()
     {
         return $this->articles;
-    }
-
-    /**
-     * Get settings
-     *
-     * @return Collection
-     */
-    public function getSettings()
-    {
-        return $this->settings;
-    }
-
-    public function getSetting($key)
-    {
-        return $this->settings[$key];
-    }
-
-    /**
-     * Add setting
-     *
-     * @param  CitationSetting $setting
-     * @return Citation
-     */
-    public function addSetting(CitationSetting $setting)
-    {
-        $this->settings[] = $setting;
-
-        return $this;
     }
 
     /**

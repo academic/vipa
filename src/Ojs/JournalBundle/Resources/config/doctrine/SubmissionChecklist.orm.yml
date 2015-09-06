@@ -21,8 +21,6 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
       nullable: true
       gedmo:
           - versioned
-    journal_id:
-      type: integer
     visible:
       type: boolean
       nullable: true

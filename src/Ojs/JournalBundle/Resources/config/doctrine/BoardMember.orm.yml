@@ -12,16 +12,15 @@ Ojs\JournalBundle\Entity\BoardMember:
         board:
             targetEntity: Board
             joinColumn:
-              name: board_id
-              referencedColumnName: id
+                name: board_id
+                referencedColumnName: id
             inversedBy: boardMembers
             cascade: ["persist","merge"]
         user:
             targetEntity: Ojs\UserBundle\Entity\User
             joinColumn:
-              name: user_id
-              referencedColumnName: id
-#            inversedBy: boardMembers
+                name: user_id
+                referencedColumnName: id
             cascade: ["persist","merge"]
     fields:
         seq:

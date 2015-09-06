@@ -8,8 +8,9 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\JournalSection;
-use Ojs\JournalBundle\Form\Type\JournalSectionType;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\Section;
+use Ojs\JournalBundle\Form\Type\SectionType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,15 +19,17 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * JournalSection controller.
+ * Section controller.
  *
  */
-class JournalSectionController extends Controller
+class SectionController extends Controller
 {
 
     /**
-     * Lists all JournalSection entities.
+     * Lists all Section entities.
      *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -34,27 +37,24 @@ class JournalSectionController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
-        $source = new Entity('OjsJournalBundle:JournalSection');
+        $source = new Entity('OjsJournalBundle:Section');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(
             function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb->where(
-                    $qb->expr()->eq($ta.'.journalId', $journal->getId())
-                );
-
+                $qb->andWhere($ta . '.journal = :journal')
+                    ->setParameter('journal', $journal);
                 return $qb;
             }
         );
         $source->manipulateRow(
             function (Row $row) use ($request) {
 
-                /* @var JournalSection $entity */
+                /* @var Section $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
                     $row->setField('title', $entity->getTitle());
-                    $row->setField('journal', $entity->getJournal()->getTitle());
-                    if ($row->getField("title") && strlen($row->getField('title')) > 20) {
+                    if ($row->getField('title') && strlen($row->getField('title')) > 20) {
                         $row->setField('title', substr($row->getField('title'), 0, 20)."...");
                     }
                 }
@@ -81,11 +81,11 @@ class JournalSectionController extends Controller
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalSection:index.html.twig', $data);
+        return $grid->getGridResponse('OjsJournalBundle:Section:index.html.twig', $data);
     }
 
     /**
-     * Creates a new JournalSection entity.
+     * Creates a new Section entity.
      *
      * @param  Request                   $request
      * @return RedirectResponse|Response
@@ -96,8 +96,8 @@ class JournalSectionController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
-        $entity = new JournalSection();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $entity = new Section();
+        $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entity->setJournal($journal);
@@ -117,7 +117,7 @@ class JournalSectionController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:JournalSection:new.html.twig',
+            'OjsJournalBundle:Section:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -126,20 +126,20 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Creates a form to create a JournalSection entity.
-     * @param  JournalSection $entity The entity
-     * @return Form           The form
+     * Creates a form to create a Section entity.
+     *
+     * @param Section $entity
+     * @param Journal $journal
+     * @return Form
      */
-    private function createCreateForm(JournalSection $entity, $journalId)
+    private function createCreateForm(Section $entity, Journal $journal)
     {
         $form = $this->createForm(
-            new JournalSectionType(),
+            new SectionType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_section_create', ['journalId' => $journalId]),
+                'action' => $this->generateUrl('ojs_journal_section_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
-                'user' => $this->getUser(),
-                'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
             )
         );
 
@@ -149,7 +149,7 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Displays a form to create a new JournalSection entity.
+     * Displays a form to create a new Section entity.
      *
      * @return Response
      */
@@ -159,11 +159,11 @@ class JournalSectionController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
-        $entity = new JournalSection();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $entity = new Section();
+        $form = $this->createCreateForm($entity, $journal);
 
         return $this->render(
-            'OjsJournalBundle:JournalSection:new.html.twig',
+            'OjsJournalBundle:Section:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -172,13 +172,13 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Finds and displays a JournalSection entity.
+     * Finds and displays a Section entity.
      *
      * @param Request $request
-     * @param JournalSection $entity
+     * @param Section $entity
      * @return Response
      */
-    public function showAction(Request $request, JournalSection $entity)
+    public function showAction(Request $request, Section $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'sections')) {
@@ -195,7 +195,7 @@ class JournalSectionController extends Controller
             ->refreshToken('ojs_journal_section'.$entity->getId());
 
         return $this->render(
-            'OjsJournalBundle:JournalSection:show.html.twig',
+            'OjsJournalBundle:Section:show.html.twig',
             array(
                 'entity' => $entity,
                 'token'  => $token,
@@ -204,7 +204,7 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing JournalSection entity.
+     * Displays a form to edit an existing Section entity.
      *
      * @param $id
      * @return Response
@@ -217,7 +217,7 @@ class JournalSectionController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Section')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
@@ -226,7 +226,7 @@ class JournalSectionController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:JournalSection:edit.html.twig',
+            'OjsJournalBundle:Section:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -235,22 +235,20 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Creates a form to edit a JournalSection entity.
+     * Creates a form to edit a Section entity.
      *
-     * @param JournalSection $entity The entity
+     * @param Section $entity The entity
      *
      * @return Form The form
      */
-    private function createEditForm(JournalSection $entity)
+    private function createEditForm(Section $entity)
     {
         $form = $this->createForm(
-            new JournalSectionType(),
+            new SectionType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_section_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
                 'method' => 'PUT',
-                'user' => $this->getUser(),
-                'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
             )
         );
 
@@ -260,7 +258,7 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Edits an existing JournalSection entity.
+     * Edits an existing Section entity.
      *
      * @param  Request                   $request
      * @param $id
@@ -274,7 +272,7 @@ class JournalSectionController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Section')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
@@ -298,7 +296,7 @@ class JournalSectionController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:JournalSection:edit.html.twig',
+            'OjsJournalBundle:Section:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -307,7 +305,7 @@ class JournalSectionController extends Controller
     }
 
     /**
-     * Deletes a JournalSection entity.
+     * Deletes a Section entity.
      *
      * @param  Request          $request
      * @param $id
@@ -320,7 +318,7 @@ class JournalSectionController extends Controller
             throw new AccessDeniedException("You are not authorized for delete this journal's section!");
         }
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Section')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }

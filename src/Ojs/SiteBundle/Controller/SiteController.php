@@ -121,17 +121,15 @@ class SiteController extends Controller
 
     public function journalIndexAction($publisher, $slug)
     {
-        /**
-         * @var EntityManager $em
-         * @var JournalRepository $journalRepo
-         * @var BlockRepository $blockRepo
-         * @var Journal $journal
-         */
-
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
+        /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
+        /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        /** @var IssueRepository $issueRepo */
+        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+
         $issueFileStatRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
         $articleFileStatRepo = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
         $journalStatRepo = $em->getRepository('OjsAnalyticsBundle:JournalStatistic');
@@ -139,6 +137,7 @@ class SiteController extends Controller
         $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $publisher]);
         $this->throw404IfNotFound($publisherEntity);
 
+        /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity]);
         $this->throw404IfNotFound($journal);
 
@@ -165,7 +164,7 @@ class SiteController extends Controller
         $data['design'] = $journal->getDesign();
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['years'] = $this->setupIssuesURIsByYear($journalRepo->getIssuesByYear($journal));
-        $data['last_issue'] = $this->setupArticleURIs($journalRepo->getLastIssueId($journal));
+        $data['last_issue'] = $this->setupArticleURIs($issueRepo->getLastIssueByJournal($journal));
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
         $data['journalViews'] = isset($journalViews[0][1]) ? $journalViews[0][1] : 0;
