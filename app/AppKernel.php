@@ -57,6 +57,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
             // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
