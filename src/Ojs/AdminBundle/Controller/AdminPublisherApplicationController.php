@@ -41,7 +41,7 @@ class AdminPublisherApplicationController extends Controller
         $grid->getColumn('status')->manipulateRenderCell(
             function ($value) {
                 return $this->get('translator')->trans(
-                    CommonParams::publisherStatus($value)
+                /** @Ignore */CommonParams::publisherStatus($value)
                 );
             }
         );
