@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Entity\BoardMember;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\Type\BoardType;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
@@ -43,7 +44,10 @@ class BoardController extends Controller
         $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()]);
         if ($this->isGranted('EDIT', $journal, 'boards')) {
             $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', ['id', 'journalId' => $journal->getId()]);
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_board_delete', ['id', 'journalId' => $journal->getId()]);
+            $rowAction[] = $gridAction->deleteAction(
+                'ojs_journal_board_delete',
+                ['id', 'journalId' => $journal->getId()]
+            );
         }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -67,7 +71,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
         }
         $entity = new Board();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -76,7 +80,10 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_journal_board_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute(
+                'ojs_journal_board_show',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -91,17 +98,17 @@ class BoardController extends Controller
     /**
      * Creates a form to create a Board entity.
      *
-     * @param Board $entity The entity
-     *
-     * @return Form The form
+     * @param  Board   $entity  The entity
+     * @param  Journal $journal
+     * @return Form    The form
      */
-    private function createCreateForm(Board $entity, $journalId)
+    private function createCreateForm(Board $entity, Journal $journal)
     {
         $form = $this->createForm(
             new BoardType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_board_create', ['journalId' => $journalId]),
+                'action' => $this->generateUrl('ojs_journal_board_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
             )
         );
@@ -122,7 +129,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
         }
         $entity = new Board();
-        $form = $this->createCreateForm($entity, $journal->getId());
+        $form = $this->createCreateForm($entity, $journal);
 
         return $this->render(
             'OjsJournalBundle:Board:new.html.twig',
@@ -141,30 +148,28 @@ class BoardController extends Controller
      *              - add members to a board
      *              - change orders of the members
      *
-     * @param $id
+     * @param  Board    $board
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Board $board)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
-        $em = $this->getDoctrine()->getManager();
-        $board = $em->getRepository('OjsJournalBundle:Board')->find($id);
-        $this->throw404IfNotFound($board);
-        $members = $em->getRepository('OjsJournalBundle:BoardMember')->findBy(array('board' => $board));
+
+        $members = $board->getBoardMembers();
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_journal_board'.$id);
+            ->refreshToken('ojs_journal_board'.$board->getId());
 
         return $this->render(
             'OjsJournalBundle:Board:show.html.twig',
             array(
                 'members' => $members,
                 'entity' => $board,
-                'token' => $token
+                'token' => $token,
             )
         );
     }
@@ -173,27 +178,22 @@ class BoardController extends Controller
      * Displays a form to edit an existing Board entity.
      *
      *
-     * @param $id
+     * @param  Board    $board
      * @return Response
      */
-    public function editAction($id)
+    public function editAction(Board $board)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for edit this journal's boards!");
         }
-        $em = $this->getDoctrine()->getManager();
-        /** @var Board $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
-        $this->throw404IfNotFound($entity);
-
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($board);
 
         return $this->render(
             'OjsJournalBundle:Board:edit.html.twig',
             array(
-                'entity' => $entity,
+                'entity' => $board,
                 'edit_form' => $editForm->createView(),
             )
         );
@@ -226,35 +226,35 @@ class BoardController extends Controller
     /**
      * Edits an existing Board entity.
      *
-     * @param  Request                                                     $request
-     * @param $id
-     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param  Request                   $request
+     * @param  Board                     $board
+     * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Board $board)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for edit this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        /** @var Board $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
-        $this->throw404IfNotFound($entity);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($board);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_board_edit', ['id' => $id, 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute(
+                'ojs_journal_board_edit',
+                ['id' => $board->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
             'OjsJournalBundle:Board:edit.html.twig',
             array(
-                'entity' => $entity,
+                'entity' => $board,
                 'edit_form' => $editForm->createView(),
             )
         );
@@ -264,25 +264,23 @@ class BoardController extends Controller
      * Deletes a Board entity.
      *
      * @param  Request          $request
-     * @param $id
+     * @param  Board            $board
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Board $board)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('DELETE', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for delete this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
-        $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_board'.$id);
+        $token = $csrf->getToken('ojs_journal_board'.$board->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-        $em->remove($entity);
+        $em->remove($board);
         $em->flush();
         $this->successFlashBag('successful.remove');
 
@@ -292,10 +290,10 @@ class BoardController extends Controller
     /**
      *  add posted user id  as board member with given board id
      * @param  Request          $req
-     * @param  int              $boardId
+     * @param  Board            $board
      * @return RedirectResponse
      */
-    public function addMemberAction(Request $req, $boardId)
+    public function addMemberAction(Request $req, Board $board)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'boards')) {
@@ -305,8 +303,7 @@ class BoardController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $this->throw404IfNotFound($user);
-        /** @var Board $board */
-        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
+
         $seq = (int) $req->get('seq');
         $boardMember = new BoardMember();
         $boardMember->setBoard($board);
@@ -315,26 +312,24 @@ class BoardController extends Controller
         $em->persist($boardMember);
         $em->flush();
 
-        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId, 'journalId' => $journal->getId()]);
+        return $this->redirectToRoute(
+            'ojs_journal_board_show',
+            ['id' => $board->getId(), 'journalId' => $journal->getId()]
+        );
     }
 
     /**
-     * @param  int              $boardId
-     * @param  int              $userId
+     * @param  Board            $board
+     * @param  User             $user
      * @return RedirectResponse
      */
-    public function removeMemberAction($boardId, $userId)
+    public function removeMemberAction(Board $board, User $user)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for edit this journal's board!");
         }
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('OjsUserBundle:User')->find($userId);
-        $this->throw404IfNotFound($user);
-
-        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
-        $this->throw404IfNotFound($board);
 
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(
             array(
@@ -346,6 +341,9 @@ class BoardController extends Controller
         $em->remove($boardMember);
         $em->flush();
 
-        return $this->redirectToRoute('ojs_journal_board_show', ['id' => $boardId, 'journalId' => $journal->getId()]);
+        return $this->redirectToRoute(
+            'ojs_journal_board_show',
+            ['id' => $board->getId(), 'journalId' => $journal->getId()]
+        );
     }
 }
