@@ -14,6 +14,7 @@ use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\Subject;
+use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -153,7 +154,7 @@ class SamplesCommand extends ContainerAwareCommand
         $issue->setVolume(1);
         $issue->setYear(2015);
         $issue->setSpecial(1);
-        $issue->setTags('fisrt, guide, tutorial');
+        $issue->setTags('first, guide, tutorial');
         $issue->setDatePublished(new \DateTime('now'));
 
         $em->persist($issue);
@@ -192,6 +193,33 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->addCitation($citation1);
 
         $em->persist($article1);
+        $em->flush();
+
+        $checklistItems = [
+            [
+                'The title page should include necessary information.',
+                "<ul>
+                    <li>The name(s) of the author(s)</li>
+                     <li>A concise and informative title</li>
+                     <li>The affiliation(s) of the author(s)</li>
+                     <li>The e-mail address, telephone number of the corresponding author </li>
+                 </ul>"
+            ],
+            ['All authors must have read and approved the most recent version of the manuscript.', null],
+            ['Manuscript must be <i>spell checked</i>.', null],
+        ];
+
+        foreach ($checklistItems as $checklistItem) {
+            $label = $checklistItem[0];
+            $detail = $checklistItem[1];
+
+            $item = new SubmissionChecklist();
+            $item->setLabel($label);
+            $item->setDetail($detail);
+            $item->setJournal($journal);
+            $em->persist($item);
+        }
+
         $em->flush();
     }
 }
