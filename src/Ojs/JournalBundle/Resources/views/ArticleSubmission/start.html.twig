@@ -51,20 +51,29 @@
                             <div class="panel-heading">Journal Files</div>
                             <div class="submission-subform-container panel-body">
                                 {% for index,submissionFileForm in form.submissionFiles %}
-                                    <div class="alert alert-info" role="alert">
-                                        <span>
-                                            {{ journalSubmissionFiles[index].label }}
-                                            {% if journalSubmissionFiles[index].required %}
-                                                <b>(Required)</b>
-                                            {% else %}
-                                                <b>(Optional)</b>
+                                    <div class="well">
+                                        <div class="alert alert-info" role="alert">
+                                            <span>
+                                                {{ journalSubmissionFiles[index].label }}
+                                                {% if journalSubmissionFiles[index].required %}
+                                                    <b>(Required)</b>
+                                                {% else %}
+                                                    <b>(Optional)</b>
+                                                {% endif %}
+                                            </span>
+                                            <a href="{{ asset('uploads/submissionfiles/' ~ journalSubmissionFiles[index].file) }}" target="_blank">
+                                                {{ 'from.here'|trans }}
+                                            </a>
+                                            {% if journalSubmissionFiles[index].detail is not null %}
+                                                <br>
+                                                <p>
+                                                    <b>{{ 'description'|trans }}</b>:
+                                                    {{ journalSubmissionFiles[index].detail }}
+                                                </p>
                                             {% endif %}
-                                        </span>
-                                        <a href="{{ asset('uploads/submissionfiles/' ~ journalSubmissionFiles[index].file) }}" target="_blank">
-                                            {{ 'from.here'|trans }}
-                                        </a>
+                                        </div>
+                                        {{ form_row(submissionFileForm.file) }}
                                     </div>
-                                    {{ form_row(submissionFileForm.file) }}
                                 {% endfor %}
                             </div>
                         </div>
