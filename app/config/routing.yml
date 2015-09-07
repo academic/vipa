@@ -55,3 +55,8 @@ ojs_site:
   resource: '@OjsSiteBundle/Resources/config/routing.yml'
 fos_user:
   resource: '@FOSUserBundle/Resources/config/routing/all.xml'
+
+JMSTranslationBundle_ui:
+    resource: @JMSTranslationBundle/Controller/
+    type:     annotation
+    prefix:   /_trans
