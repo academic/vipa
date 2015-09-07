@@ -15,14 +15,15 @@
     <h1>{{ entity.title|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ display(entity) }}
-    {#
-    {% set back_path = 'ojs_publisher_manager_theme_index' %}
     {% if isGrantedForPublisher() %}
-        {% set edit_path = 'ojs_publisher_manager_theme_edit' %}
+        <div class="record_actions">
+            {{
+            actions({
+                'back': {'href': path('ojs_publisher_manager_theme_index', {'publisherId': entity.publisher.id})},
+                'edit': {'href': path('ojs_publisher_manager_theme_edit', {'publisherId': entity.publisher.id, 'id': entity.id})},
+                'delete': {'href': path('ojs_publisher_manager_theme_delete', {'publisherId': entity.publisher.id, 'id': entity.id})},
+            })
+            }}
+        </div>
     {% endif %}
-    {% if isGrantedForPublisher() %}
-        {% set delete_path = 'ojs_publisher_manager_theme_delete' %}
-    {% endif %}
-    #}
-    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
