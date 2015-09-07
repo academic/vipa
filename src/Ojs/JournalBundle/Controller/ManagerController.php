@@ -215,7 +215,7 @@ class ManagerController extends Controller
     public function userIndexAction(Request $request)
     {
         $dispatcher = $this->get('event_dispatcher');
-        $switcher = $this->createForm(new QuickSwitchType())->createView();
+        $switcher = $this->createForm(new QuickSwitchType(), null, ['user' => $this->getUser()])->createView();
         $articles = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')

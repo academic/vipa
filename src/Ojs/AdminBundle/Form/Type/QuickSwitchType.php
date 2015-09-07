@@ -2,8 +2,11 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class QuickSwitchType extends AbstractType
 {
@@ -12,6 +15,8 @@ class QuickSwitchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
+        $user = $options['user'];
         $builder->add(
             'journal',
             'entity',
@@ -22,8 +27,30 @@ class QuickSwitchType extends AbstractType
                     'class' => 'select2-element',
                     'placeholder' => 'Type a journal name to switch to its dashboard',
                 ],
+                'query_builder' => function (EntityRepository $er) use ($user){
+                    if(!$user->isAdmin()){
+                        return $er->createQueryBuilder('i')
+                            ->innerJoin('i.journalUsers','u')
+                            ->andWhere('u.user = :user')
+                            ->setParameter('user', $user);
+                    }
+                },
             ]
+
         )->add('switch', 'submit', ['label' => 'switch']);
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => null,
+                'user' => null
+            )
+        );
     }
 
     /**
