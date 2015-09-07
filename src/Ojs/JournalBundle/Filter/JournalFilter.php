@@ -37,7 +37,11 @@ class JournalFilter extends SQLFilter
         if(!array_key_exists('journal', $mappings) || $mappings['journal']['targetEntity'] !== 'Ojs\JournalBundle\Entity\Journal'){
             return '';
         }
-        $selectedJournal = $this->journalService->getSelectedJournal();
+        try {
+            $selectedJournal = $this->journalService->getSelectedJournal();
+        } catch (\Exception $e) {
+            return '';
+        }
         if(!$selectedJournal){
             return '';
         }
