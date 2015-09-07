@@ -7,6 +7,7 @@ use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\Citation;
+use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
@@ -110,6 +111,24 @@ class SamplesCommand extends ContainerAwareCommand
             $type->setName($typeName);
             $em->persist($type);
         }
+
+        $em->flush();
+
+        $contactTypes = [
+            'Journal Contact', 'Primary Contact',
+            'Technical Contact', 'Author Support',
+            'Subscription Support', 'Publisher Support',
+            'Submission Support', 'Advertising', 'Media'
+        ];
+
+        foreach ($contactTypes as $typeName) {
+            $type = new ContactTypes();
+            $type->setCurrentLocale('en');
+            $type->setName($typeName);
+            $em->persist($type);
+        }
+
+        $em->flush();
 
         $journal = new Journal();
         $journal->setCurrentLocale('en');
