@@ -68,8 +68,12 @@
             $(document).on('click','.toggle-author-detail', function () {
                 var $authorDetails = $(this).parent().find('.author-details');
                 if($authorDetails.is(':visible')){
+                    $(this).find('i').removeClass('fa-arrow-up');
+                    $(this).find('i').addClass('fa-arrow-down');
                     $authorDetails.hide();
                 }else{
+                    $(this).find('i').removeClass('fa-arrow-down');
+                    $(this).find('i').addClass('fa-arrow-up');
                     $authorDetails.show();
                 }
             });
