@@ -18,6 +18,14 @@ class JournalRepository extends EntityRepository
     private $offset = 12;
     private $publisher = null;
 
+    public function getById($id) {
+        $query = $this->createQueryBuilder('j')
+            ->andWhere('j.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+        $query->useResultCache(true);
+        return $query->getSingleResult();
+    }
     /**
      * @return null
      */

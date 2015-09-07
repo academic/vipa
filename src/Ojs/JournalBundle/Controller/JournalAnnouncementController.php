@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalAnnouncement;
@@ -27,14 +26,6 @@ class JournalAnnouncementController extends OjsController
         }
 
         $source = new Entity('OjsJournalBundle:JournalAnnouncement');
-        $alias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias, $journal) {
-                $query
-                    ->andWhere($alias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -139,7 +130,7 @@ class JournalAnnouncementController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('VIEW', $journal, 'announcements')) {
@@ -168,7 +159,7 @@ class JournalAnnouncementController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'announcements')) {
@@ -229,7 +220,7 @@ class JournalAnnouncementController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'announcements')) {
@@ -268,7 +259,7 @@ class JournalAnnouncementController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('DELETE', $journal, 'announcements')) {

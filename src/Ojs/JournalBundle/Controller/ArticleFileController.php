@@ -88,9 +88,7 @@ class ArticleFileController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-           'journal' => $journal, 'id' => $articleId
-        ));
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
 
         $this->throw404IfNotFound($article);
 
@@ -159,9 +157,7 @@ class ArticleFileController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-           'journal' => $journal, 'id' => $articleId
-        ));
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
 
         $entity = new ArticleFile();
         $entity->setArticle($article);
@@ -190,9 +186,7 @@ class ArticleFileController extends Controller
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
 
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-           'journal' => $journal, 'id' => $articleId
-        ));
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         $this->throw404IfNotFound($article);
 
         /** @var ArticleFile $entity */
@@ -239,9 +233,7 @@ class ArticleFileController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-            'journal' => $journal, 'id' => $articleId
-        ));
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         $this->throw404IfNotFound($article);
 
         /** @var ArticleFile $entity */
@@ -310,9 +302,7 @@ class ArticleFileController extends Controller
         }
 
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-            'journal' => $journal, 'id' => $articleId
-        ));
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         $this->throw404IfNotFound($article);
 
         /** @var ArticleFile $entity */
@@ -359,9 +349,7 @@ class ArticleFileController extends Controller
         }
 
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-            'journal' => $journal, 'id' => $articleId
-        ));
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         $this->throw404IfNotFound($article);
 
         /** @var ArticleFile $entity */

@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Elastica\Exception\NotFoundException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -36,13 +35,7 @@ class JournalDesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
         $source = new Entity('OjsJournalBundle:JournalDesign');
-        $tableAlias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($tableAlias, $journal) {
-                $query->andWhere($tableAlias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -63,7 +56,7 @@ class JournalDesignController extends Controller
     /**
      * Creates a new JournalDesign entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -86,8 +79,12 @@ class JournalDesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_journal_design_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute(
+                'ojs_journal_design_show',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
+
         return $this->render(
             'OjsJournalBundle:JournalDesign:new.html.twig',
             array(
@@ -97,6 +94,7 @@ class JournalDesignController extends Controller
     }
 
     /**
+     * @param JournalDesign $entity
      * @param Journal $journal
      * @return Form
      */
@@ -191,8 +189,7 @@ class JournalDesignController extends Controller
         /** @var JournalDesign $design */
         $design = $em->getRepository('OjsJournalBundle:JournalDesign')->find($id);
         $this->throw404IfNotFound($design);
-        if($design->getJournal()->getId() !== $journal->getId())
-        {
+        if ($design->getJournal()->getId() !== $journal->getId()) {
             throw new NotFoundException("Journal Design not found!");
         }
         $token = $this
@@ -203,14 +200,14 @@ class JournalDesignController extends Controller
             'OjsJournalBundle:JournalDesign:show.html.twig',
             array(
                 'entity' => $design,
-                'token'  => $token,
+                'token' => $token,
             )
         );
     }
 
     /**
      *
-     * @param  JournalDesign  $journalDesign
+     * @param  JournalDesign $journalDesign
      * @return Response
      */
     public function editAction(JournalDesign $journalDesign)
@@ -269,9 +266,11 @@ class JournalDesignController extends Controller
             new JournalDesignType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_design_update', [
-                    'journalId' => $journal->getId(),
-                    'id'=> $entity->getId()
+                'action' => $this->generateUrl(
+                    'ojs_journal_design_update',
+                    [
+                        'journalId' => $journal->getId(),
+                        'id' => $entity->getId()
                     ]
                 ),
                 'method' => 'PUT',
@@ -285,8 +284,8 @@ class JournalDesignController extends Controller
 
     /**
      *
-     * @param  Request                   $request
-     * @param  JournalDesign                   $journalDesign
+     * @param  Request $request
+     * @param  JournalDesign $journalDesign
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, JournalDesign $journalDesign)
@@ -308,7 +307,10 @@ class JournalDesignController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_journal_design_edit', ['id' => $journalDesign->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute(
+                'ojs_journal_design_edit',
+                ['id' => $journalDesign->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -322,8 +324,8 @@ class JournalDesignController extends Controller
     }
 
     /**
-     * @param  Request                $request
-     * @param  integer                $id
+     * @param  Request $request
+     * @param  integer $id
      * @return RedirectResponse
      * @throws TokenNotFoundException
      */
@@ -341,7 +343,7 @@ class JournalDesignController extends Controller
             $this->errorFlashBag('journal.design.cannot_delete_active');
         } else {
             $csrf = $this->get('security.csrf.token_manager');
-            $token = $csrf->getToken('ojs_journal_design' . $id);
+            $token = $csrf->getToken('ojs_journal_design'.$id);
 
             if ($token != $request->get('_token')) {
                 throw new TokenNotFoundException("Token Not Found!");

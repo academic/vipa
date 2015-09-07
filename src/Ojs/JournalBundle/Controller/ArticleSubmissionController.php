@@ -44,10 +44,12 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Lists all new Article submissions entities.
-     * @param  bool     $all
-     * @return Response
+     *
+     * @param Request $request
+     * @param bool $all
+     * @return RedirectResponse|Response
      */
-    public function indexAction($all = false, Request $request)
+    public function indexAction(Request $request, $all = false)
     {
         $translator = $this->get('translator');
         /** @var Journal $currentJournal */
@@ -68,9 +70,7 @@ class ArticleSubmissionController extends Controller
 
         $source1->manipulateQuery(
             function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal, $all) {
-                $qb->andWhere($source1TableAlias.'.journal = :journal')
-                    ->andWhere($source1TableAlias.'.status IN (:notDraftStatuses)')
-                    ->setParameter('journal', $currentJournal)
+                $qb->andWhere($source1TableAlias.'.status IN (:notDraftStatuses)')
                     ->setParameter('notDraftStatuses', array(-3, -2, 0 ,1));
                 if(!$all){
                     $qb->andWhere($source1TableAlias.'.submitterUser = :user')
@@ -82,9 +82,7 @@ class ArticleSubmissionController extends Controller
 
         $source2->manipulateQuery(
             function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal, $all) {
-                $qb->andWhere($source2TableAlias.'.journal = :journal')
-                    ->andWhere($source2TableAlias.'.status = :status')
-                    ->setParameter('journal', $currentJournal)
+                $qb->andWhere($source2TableAlias.'.status = :status')
                     ->setParameter('status', -1);
                 if(!$all){
                     $qb->andWhere($source2TableAlias.'.submitterUser = :user')
@@ -496,7 +494,7 @@ class ArticleSubmissionController extends Controller
 
             /** @var JournalUser $journalUser */
             $journalUser = $em->getRepository('OjsJournalBundle:JournalUser')->findOneBy(array(
-                'journal' => $journal, 'user' => $user
+                'user' => $user
             ));
             if(!$journalUser) {
                 $journalUser = new JournalUser();
@@ -568,7 +566,7 @@ class ArticleSubmissionController extends Controller
 
         $entity = new ArticleSubmissionStart();
         $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:SubmissionFile')
-	            ->findBy(['journal' => $journal, 'visible' => true, 'locale' => $request->getLocale()]);
+	            ->findBy(['visible' => true, 'locale' => $request->getLocale()]);
         foreach($journalSubmissionFiles as $file){
 
             $fileEntity = new SubmissionFile();
@@ -658,7 +656,6 @@ class ArticleSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
-            'journal' => $journal,
             'submitterUser' => $this->getUser(),
             'id' => $id,
             'status' => -1

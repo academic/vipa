@@ -50,13 +50,6 @@ class MailTemplateController extends Controller
             }
         );
 
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $ta) {
-                return $qb->andWhere($ta.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
         $grid = $this->get('grid.manager');
         $gridAction = $this->get('grid_action');
 
@@ -160,7 +153,7 @@ class MailTemplateController extends Controller
      * Creates a form to create a MailTemplate entity.
      *
      * @param MailTemplate $entity The entity
-     *
+     * @param $journalId
      * @return Form The form
      */
     private function createCreateForm(MailTemplate $entity, $journalId)
@@ -215,9 +208,7 @@ class MailTemplateController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -247,9 +238,7 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var MailTemplate $entity */
-        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
@@ -306,9 +295,7 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var MailTemplate $entity */
-        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
@@ -349,9 +336,7 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var MailTemplate $entity */
-        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

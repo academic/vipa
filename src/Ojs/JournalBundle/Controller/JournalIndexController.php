@@ -27,6 +27,8 @@ class JournalIndexController extends Controller
     /**
      * Lists all JournalIndex entities.
      *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -35,30 +37,17 @@ class JournalIndexController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalIndex');
-        if ($journal) {
-            $ta = $source->getTableAlias();
-            $source->manipulateQuery(
-                function (QueryBuilder $qb) use ($journal, $ta) {
-                    $qb->andWhere($ta.'.journal = :journal')
-                        ->setParameter('journal', $journal);
-                }
-            );
-        }
+
         $source->manipulateRow(
             function (Row $row) use ($request) {
                 /* @var JournalIndex $entity */
                 $entity = $row->getEntity();
                 $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity->getJournal())) {
-                    $row->setField('journal', $entity->getJournal()->getTitle());
-                }
 
                 return $row;
             }
         );
-        if (!$journal) {
-            throw new NotFoundHttpException("Journal not found!");
-        }
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

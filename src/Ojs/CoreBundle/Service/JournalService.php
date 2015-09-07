@@ -123,7 +123,7 @@ class JournalService
             return false;
         }
 
-        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
 
         if (!$selectedJournal) {
             return false;

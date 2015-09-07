@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
@@ -31,7 +30,9 @@ class JournalUserController extends Controller
 {
     /**
      * Finds and displays a Users of a Journal with roles
-     * @return mixed
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -51,14 +52,6 @@ class JournalUserController extends Controller
                     $row->setField('journal', $entity->getJournal()->getTitle());
                 }
                 return $row;
-            }
-        );
-
-        $alias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $alias) {
-                $qb->andWhere($alias . '.journal = :journal')
-                    ->setParameter('journal', $journal);
             }
         );
 
@@ -186,7 +179,7 @@ class JournalUserController extends Controller
             $entity->setJournal($journal);
             $existingJournalUser = $em
                 ->getRepository('OjsJournalBundle:JournalUser')
-                ->findOneBy(['user' => $entity->getUser(), 'journal' => $entity->getJournal()]);
+                ->findOneBy(['user' => $entity->getUser()]);
 
             if ($existingJournalUser) {
                 if ($existingJournalUser->getRoles()) {
@@ -240,7 +233,7 @@ class JournalUserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         // Although 'id' column is unique, looking for a matching journal as well is beneficial security-wise
-        $entity = $em->getRepository('OjsJournalBundle:JournalUser')->findOneBy(['id' => $id, 'journal' => $journal]);
+        $entity = $em->getRepository('OjsJournalBundle:JournalUser')->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'userRole')) {
@@ -339,7 +332,7 @@ class JournalUserController extends Controller
             // Check if the user is in journal already
             $journalUser = $doctrine
                 ->getRepository('OjsJournalBundle:JournalUser')
-                ->findOneBy(['user' => $user, 'journal' => $journal]
+                ->findOneBy(['user' => $user]
             );
 
             $journalUser = !$journalUser ? new JournalUser() : $journalUser;
@@ -412,7 +405,7 @@ class JournalUserController extends Controller
         $journalUser = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalUser')
-            ->findOneBy(['user' => $user, 'journal' => $journal]);
+            ->findOneBy(['user' => $user]);
 
         $this->throw404IfNotFound($journalUser);
         $em = $this->getDoctrine()->getManager();

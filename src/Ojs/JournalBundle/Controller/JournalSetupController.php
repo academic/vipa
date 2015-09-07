@@ -49,7 +49,9 @@ class JournalSetupController extends Controller
         $journalSetup = new JournalSetupProgress();
         if ($journalCreatePermission) {
             /** @var JournalSetupProgress $journalSetup */
-            $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUser($user);
+            $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneBy(array(
+                'user' => $user
+            ));
             if (!$journalSetup) {
                 $newJournal = new Journal();
                 $newJournal->setTitle('');
@@ -67,7 +69,9 @@ class JournalSetupController extends Controller
         } elseif (!$selectedJournal->isSetupFinished()) {
 
             /** @var JournalSetupProgress $userSetup */
-            $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByJournal($selectedJournal);
+            $journalSetup = $em->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneBy(array(
+                'journal' => $selectedJournal
+            ));
         } elseif ($selectedJournal->isSetupFinished()) {
 
             $selectedJournal->setSetupFinished(false);

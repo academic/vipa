@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Form\Type\JournalThemeType;
@@ -34,13 +33,6 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $source = new Entity('OjsJournalBundle:JournalTheme');
-        $tableAlias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($tableAlias, $journal) {
-                $query->andWhere($tableAlias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -156,9 +148,7 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -190,9 +180,7 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -245,9 +233,7 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
@@ -284,9 +270,7 @@ class JournalThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

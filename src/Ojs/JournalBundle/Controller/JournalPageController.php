@@ -11,14 +11,15 @@ use Ojs\CmsBundle\Form\Type\PageType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalPage;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 class JournalPageController extends OjsController
 {
     /**
-     * Lists all JournalPage entities.
-     * @var Request $request
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -29,15 +30,6 @@ class JournalPageController extends OjsController
         }
 
         $source = new Entity('OjsJournalBundle:JournalPage');
-        $alias = $source->getTableAlias();
-
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias, $journal) {
-                $query
-                    ->andWhere($alias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
 
         $source->manipulateRow(
             function (Row $row) use ($request)
@@ -160,7 +152,7 @@ class JournalPageController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('VIEW', $journal, 'pages')) {
@@ -189,7 +181,7 @@ class JournalPageController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'pages')) {
@@ -250,7 +242,7 @@ class JournalPageController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'pages')) {
@@ -289,7 +281,7 @@ class JournalPageController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('DELETE', $journal, 'pages')) {

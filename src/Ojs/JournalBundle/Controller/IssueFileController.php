@@ -49,12 +49,7 @@ class IssueFileController extends Controller
         );
 
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $issueId
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         $this->throw404IfNotFound($issue);
 
         $alias = $source->getTableAlias();
@@ -98,12 +93,7 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $issueId
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         $this->throw404IfNotFound($issue);
 
         $entity = new IssueFile();
@@ -166,12 +156,7 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for create  issue file for this journal!');
         }
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $issueId
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         $this->throw404IfNotFound($issue);
 
         $entity = new IssueFile();
@@ -205,12 +190,7 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for edit this  issue file!');
         }
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $entity->getIssue()->getId()
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($entity->getIssue()->getId());
         $this->throw404IfNotFound($issue);
 
         $this->throw404IfNotFound($entity);
@@ -245,12 +225,7 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for edit this  issue file!');
         }
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $entity->getIssue()->getId()
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($entity->getIssue()->getId());
         $this->throw404IfNotFound($issue);
 
         $this->throw404IfNotFound($entity);
@@ -308,12 +283,7 @@ class IssueFileController extends Controller
         }
 
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $entity->getIssue()->getId()
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($entity->getIssue()->getId());
         $this->throw404IfNotFound($issue);
         $this->throw404IfNotFound($entity);
 
@@ -351,12 +321,7 @@ class IssueFileController extends Controller
             throw new AccessDeniedException('You are not authorized for delete this issue file!');
         }
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array(
-                'journal' => $journal,
-                'id' => $entity->getIssue()->getId()
-            )
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($entity->getIssue()->getId());
         $this->throw404IfNotFound($issue);
 
         $this->throw404IfNotFound($entity);

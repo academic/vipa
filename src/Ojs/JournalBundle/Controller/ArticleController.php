@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
@@ -26,6 +25,7 @@ class ArticleController extends Controller
     /**
      * Lists all article entities for journal
      *
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -51,14 +51,6 @@ class ArticleController extends Controller
                     }
                 }
                 return $row;
-            }
-        );
-        $alias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias, $journal) {
-                $query
-                    ->andWhere($alias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
             }
         );
 
@@ -179,12 +171,8 @@ class ArticleController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
-        $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
-            array('journal' => $journal, 'id' => $id)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
-
-
 
         $token = $this
             ->get('security.csrf.token_manager')
@@ -205,9 +193,7 @@ class ArticleController extends Controller
 
         /** @var Article $entity */
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
-            array('journal' => $journal, 'id' => $id)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity, $journal)
@@ -263,9 +249,7 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
-            array('journal' => $journal, 'id' => $id)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity, $journal)
@@ -307,9 +291,7 @@ class ArticleController extends Controller
         }
 
         /** @var Article $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
-            array('journal' => $journal, 'id' => $id)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

@@ -33,12 +33,12 @@ class DashboardController extends OjsController
         $articles = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
-            ->findBy(['journal' => $journal]);
+            ->findAll();
 
         $issues = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Issue')
-            ->findBy(['journal' => $journal]);
+            ->findAll();
 
         $json = [
             'dates' => $lastMonth,

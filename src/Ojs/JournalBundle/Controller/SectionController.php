@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
@@ -38,14 +37,7 @@ class SectionController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
         $source = new Entity('OjsJournalBundle:Section');
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $qb) use ($journal, $ta) {
-                $qb->andWhere($ta . '.journal = :journal')
-                    ->setParameter('journal', $journal);
-                return $qb;
-            }
-        );
+
         $source->manipulateRow(
             function (Row $row) use ($request) {
 

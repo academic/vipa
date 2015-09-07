@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleRepository;
@@ -54,14 +53,6 @@ class IssueController extends Controller
                     $row->setField('description', $entity->getDescription());
                 }
                 return $row;
-            }
-        );
-
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($ta, $journal) {
-                $query->andWhere($ta . '.journal = :journal')
-                    ->setParameter('journal', $journal);
             }
         );
 
@@ -188,7 +179,8 @@ class IssueController extends Controller
     /**
      * Finds and displays a Issue entity.
      *
-     * @param   int $id
+     * @param Request $request
+     * @param $id
      * @return Response
      */
     public function showAction(Request $request, $id)
@@ -201,9 +193,7 @@ class IssueController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($entity);
         $entity->setDefaultLocale($request->getDefaultLocale());
@@ -236,9 +226,7 @@ class IssueController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity, $journal->getId());
@@ -290,9 +278,7 @@ class IssueController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity, $journal->getId());
@@ -332,9 +318,7 @@ class IssueController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($entity);
 
@@ -365,9 +349,7 @@ class IssueController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($issue);
         /** @var ArticleRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Article');
@@ -401,9 +383,7 @@ class IssueController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($issue);
 
@@ -460,33 +440,21 @@ class IssueController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         /** @var Issue $issue */
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($issue);
 
         $selectedSection = $request->get('section', null);
 
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
-            array(
-                'id' => $articleId,
-                'journal' => $journal
-            )
-        );
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
 
         $this->throw404IfNotFound($article);
         $section = null;
 
         if ($selectedSection) {
             /** @var Section $section */
-            $section = $em->getRepository('OjsJournalBundle:Section')->findOneBy(
-                array(
-                    'id' => $selectedSection,
-                    'journal' => $journal
-                )
-            );
+            $section = $em->getRepository('OjsJournalBundle:Section')->find($selectedSection);
             $this->throw404IfNotFound($section);
         }
 
@@ -527,15 +495,11 @@ class IssueController extends Controller
         $referrer = $request->headers->get('referer');
         $em = $this->getDoctrine()->getManager();
 
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($issue);
         /** @var Article $article */
-        $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(
-            array('id' => $articleId, 'journal' => $journal)
-        );
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
 
         $this->throw404IfNotFound($article);
 

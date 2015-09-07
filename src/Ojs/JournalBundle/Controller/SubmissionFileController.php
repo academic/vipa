@@ -35,17 +35,7 @@ class SubmissionFileController extends Controller
             throw new NotFoundHttpException("Journal not found!");
         }
         $source = new Entity('OjsJournalBundle:SubmissionFile');
-        if ($journal) {
-            $ta = $source->getTableAlias();
-            $source->manipulateQuery(
-                function (QueryBuilder $qb) use ($journal, $ta) {
-                    $qb->andWhere(
-                        $qb->expr()->eq("$ta.journal", ':journal')
-                    )
-                        ->setParameter('journal', $journal);
-                }
-            );
-        }
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -104,9 +94,9 @@ class SubmissionFileController extends Controller
     /**
      * Creates a form to create a SubmissionFile entity.
      *
-     * @param SubmissionFile $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param SubmissionFile $entity
+     * @param integer $journalId
+     * @return \Symfony\Component\Form\Form
      */
     private function createCreateForm(SubmissionFile $entity, $journalId)
     {

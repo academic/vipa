@@ -6,11 +6,11 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CmsBundle\Form\Type\PostType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalPost;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
@@ -18,7 +18,9 @@ class JournalPostController extends OjsController
 {
     /**
      * Lists all JournalPost entities.
-     * @var Request $request
+     *
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -29,15 +31,6 @@ class JournalPostController extends OjsController
         }
 
         $source = new Entity('OjsJournalBundle:JournalPost');
-        $alias = $source->getTableAlias();
-
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias, $journal) {
-                $query
-                    ->andWhere($alias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
 
         $source->manipulateRow(
             function (Row $row) use ($request)
@@ -70,6 +63,9 @@ class JournalPostController extends OjsController
 
     /**
      * Displays a form to create a new JournalPost entity.
+     *
+     * @param Request $request
+     * @return Response
      */
     public function newAction(Request $request)
     {
@@ -160,7 +156,7 @@ class JournalPostController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPost')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('VIEW', $journal, 'posts')) {
@@ -189,7 +185,7 @@ class JournalPostController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPost')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'posts')) {
@@ -250,7 +246,7 @@ class JournalPostController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPost')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $journal, 'posts')) {
@@ -289,7 +285,7 @@ class JournalPostController extends OjsController
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPost')
-            ->findOneBy(['id' => $id, 'journal' => $journal]);
+            ->find($id);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('DELETE', $journal, 'posts')) {

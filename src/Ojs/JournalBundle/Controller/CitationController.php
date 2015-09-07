@@ -10,9 +10,11 @@ use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Form\Type\CitationType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
  * Citation controller.
@@ -39,7 +41,7 @@ class CitationController extends Controller
 
         $source = new Entity('OjsJournalBundle:Citation');
 
-        if($articleId != null) {
+        if ($articleId != null) {
             $alias = $source->getTableAlias();
             $source->manipulateQuery(
                 function (QueryBuilder $query) use ($alias, $articleId) {
@@ -54,14 +56,24 @@ class CitationController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_citation_show', ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]);
-        $rowAction[] = $gridAction->editAction('ojs_journal_citation_edit', ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]);
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_citation_delete', ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]);
+        $rowAction[] = $gridAction->showAction(
+            'ojs_journal_citation_show',
+            ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]
+        );
+        $rowAction[] = $gridAction->editAction(
+            'ojs_journal_citation_edit',
+            ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]
+        );
+        $rowAction[] = $gridAction->deleteAction(
+            'ojs_journal_citation_delete',
+            ['id', 'journalId' => $journal->getId(), 'articleId' => $articleId]
+        );
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
         return $grid->getGridResponse('OjsJournalBundle:Citation:index.html.twig');
     }
+
     /**
      * Creates a new Citation entity.
      * @param Request $request
@@ -93,14 +105,21 @@ class CitationController extends Controller
             $em->persist($article);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_citation_show',
-                array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)));
+            return $this->redirect(
+                $this->generateUrl(
+                    'ojs_journal_citation_show',
+                    array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)
+                )
+            );
         }
 
-        return $this->render('OjsJournalBundle:Citation:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Citation:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -114,10 +133,17 @@ class CitationController extends Controller
     private function createCreateForm(Citation $entity, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createForm(new CitationType(), $entity, array(
-            'action' => $this->generateUrl('ojs_journal_citation_create', array('journalId' => $journal->getId(), 'articleId' => $articleId)),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new CitationType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_citation_create',
+                    array('journalId' => $journal->getId(), 'articleId' => $articleId)
+                ),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -139,12 +165,15 @@ class CitationController extends Controller
         }
 
         $entity = new Citation();
-        $form   = $this->createCreateForm($entity, $articleId);
+        $form = $this->createCreateForm($entity, $articleId);
 
-        return $this->render('OjsJournalBundle:Citation:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Citation:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -171,10 +200,13 @@ class CitationController extends Controller
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_journal_citation'.$entity->getId());
 
-        return $this->render('OjsJournalBundle:Citation:show.html.twig', array(
-            'entity'      => $entity,
-            'token'       => $token,
-        ));
+        return $this->render(
+            'OjsJournalBundle:Citation:show.html.twig',
+            array(
+                'entity' => $entity,
+                'token' => $token,
+            )
+        );
     }
 
     /**
@@ -200,36 +232,50 @@ class CitationController extends Controller
 
         $editForm = $this->createEditForm($entity, $articleId);
 
-        return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Citation:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-    * Creates a form to edit a Citation entity.
-    *
-    * @param Citation $entity The entity
-    * @param Integer $articleId
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Citation entity.
+     *
+     * @param Citation $entity The entity
+     * @param Integer $articleId
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Citation $entity, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createForm(new CitationType(), $entity, array(
-            'action' => $this->generateUrl('ojs_journal_citation_update', array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new CitationType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_citation_update',
+                    array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)
+                ),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing Citation entity.
      *
-     * @param   Integer $articleId
+     * @param Request $request
+     * @param $id
+     * @param integer $articleId
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id, $articleId)
     {
@@ -253,18 +299,31 @@ class CitationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ojs_journal_citation_edit', array('id' => $id, 'journalId' => $journal->getId(), 'articleId' => $articleId)));
+            return $this->redirect(
+                $this->generateUrl(
+                    'ojs_journal_citation_edit',
+                    array('id' => $id, 'journalId' => $journal->getId(), 'articleId' => $articleId)
+                )
+            );
         }
 
-        return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Citation:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
+
     /**
      * Deletes a Citation entity.
      *
-     * @param   Integer $articleId
+     * @param Request $request
+     * @param $id
+     * @param $articleId
+     * @return RedirectResponse
+     * @throws TokenNotFoundException
      */
     public function deleteAction(Request $request, $id, $articleId)
     {
@@ -291,6 +350,11 @@ class CitationController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('ojs_journal_citation_index', array('journalId' => $journal->getId(), 'articleId' => $articleId)));
+        return $this->redirect(
+            $this->generateUrl(
+                'ojs_journal_citation_index',
+                array('journalId' => $journal->getId(), 'articleId' => $articleId)
+            )
+        );
     }
 }

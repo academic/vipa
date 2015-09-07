@@ -32,20 +32,7 @@ class SubmissionChecklistController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:SubmissionChecklist');
-        if ($journal) {
-            $ta = $source->getTableAlias();
-            $source->manipulateQuery(
-                function (QueryBuilder $qb) use ($journal, $ta) {
-                    $qb->andWhere(
-                        $qb->expr()->eq("$ta.journal_id", ':journal')
-                    )
-                        ->setParameter('journal', $journal->getId());
-                }
-            );
-        }
-        if (!$journal) {
-            throw new NotFoundHttpException("Journal not found!");
-        }
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

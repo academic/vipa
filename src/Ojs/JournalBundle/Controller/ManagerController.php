@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Event\WorkflowEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Yaml\Parser;
 
@@ -165,7 +166,7 @@ class ManagerController extends Controller
         /** @var JournalSetting $setting */
         $setting = $em->
         getRepository('OjsJournalBundle:JournalSetting')->
-        findOneBy(array('journal' => $journal, 'setting' => $settingName));
+        findOneBy(array('setting' => $settingName));
 
         $settingString = $encoded ? json_encode($settingValue) : $settingValue;
         if ($setting) {

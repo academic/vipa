@@ -26,6 +26,8 @@ class JournalContactController extends Controller
 
     /**
      * Lists all JournalContact entities.
+     *
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -35,13 +37,7 @@ class JournalContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalContact');
-        $tableAlias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($tableAlias, $journal) {
-                $query->andWhere($tableAlias.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
+
         $source->manipulateRow(
             function (Row $row) use ($request)
             {
@@ -170,9 +166,7 @@ class JournalContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var JournalContact $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
         $this->throw404IfNotFound($entity);
 
         $entity->setDefaultLocale($request->getDefaultLocale());
@@ -204,9 +198,7 @@ class JournalContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var JournalContact $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity, $journal->getId());
@@ -265,9 +257,7 @@ class JournalContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var JournalContact $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity, $journal->getId());
@@ -303,9 +293,7 @@ class JournalContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         /** @var JournalContact $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Entity\BoardMember;
@@ -36,13 +35,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
         $source = new Entity('OjsJournalBundle:Board');
-        $ta = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($ta, $journal) {
-                $query->andWhere($ta.'.journal = :journal')
-                    ->setParameter('journal', $journal);
-            }
-        );
+
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -158,9 +151,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        $board = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($id);
         $this->throw404IfNotFound($board);
         $members = $em->getRepository('OjsJournalBundle:BoardMember')->findBy(array('board' => $board));
 
@@ -193,9 +184,7 @@ class BoardController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         /** @var Board $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         $this->throw404IfNotFound($entity);
 
@@ -249,9 +238,7 @@ class BoardController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         /** @var Board $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
@@ -287,9 +274,7 @@ class BoardController extends Controller
             throw new AccessDeniedException("You not authorized for delete this journal's boards!");
         }
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
-            array('id' => $id, 'journal' => $journal)
-        );
+        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
@@ -321,9 +306,7 @@ class BoardController extends Controller
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $this->throw404IfNotFound($user);
         /** @var Board $board */
-        $board = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
-            array('id' => $boardId, 'journal' => $journal)
-        );
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
         $seq = (int) $req->get('seq');
         $boardMember = new BoardMember();
         $boardMember->setBoard($board);
@@ -350,9 +333,7 @@ class BoardController extends Controller
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $this->throw404IfNotFound($user);
 
-        $board = $em->getRepository('OjsJournalBundle:Board')->findOneBy(
-            array('id' => $boardId, 'journal' => $journal)
-        );
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($boardId);
         $this->throw404IfNotFound($board);
 
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(
