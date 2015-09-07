@@ -3,7 +3,7 @@ user.register.username.error.allready_registered: "Username allready registered!
 user.register.username.error.not_blank: "Username cannot blank!"
 user.register.email.error.not_blank: "Email cannot blank!"
 user.register.email.error.not_valid: "Email address is not valid!"
-user.register.journal_role.error.allready_registered: "Journal role allready added!"
+user.register.journal_role.error.allready_registered: "Journal role already added!"
 user.register.user.error.not_blank: "User must be selected!"
 user.register.journal.error.not_blank: "Journal must be selected!"
 user.register.password.error.not_blank: "Password cannot blank!"
