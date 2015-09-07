@@ -5,6 +5,7 @@ namespace Ojs\CliBundle\Command;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
@@ -92,6 +93,23 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($language1);
         $em->persist($language2);
         $em->flush();
+
+        $articleTypes = [
+            'Research', 'Analysis', 'Clinical Review',
+            'Practice', 'Research Methods and Reporting',
+            'Christmas Issue', 'Editorials', 'Blogs',
+            'Case Reports', 'Letters (rapid responses)',
+            'Obituaries', 'Personal Views', 'Fillers',
+            'Minerva Pictures', 'Endgames',
+            'What Your Patient is Thinking'
+        ];
+
+        foreach ($articleTypes as $typeName) {
+            $type = new ArticleTypes();
+            $type->setCurrentLocale('en');
+            $type->setName($typeName);
+            $em->persist($type);
+        }
 
         $journal = new Journal();
         $journal->setCurrentLocale('en');
