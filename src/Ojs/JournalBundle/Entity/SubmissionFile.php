@@ -3,6 +3,8 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\CoreBundle\Entity\DisplayTrait;
+use Ojs\CoreBundle\Annotation\Display as Display;
 
 /**
  * SubmissionFile
@@ -10,6 +12,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class SubmissionFile
 {
+    use DisplayTrait;
     /**
      * @var integer
      * @GRID\Column(title="ID")
@@ -63,6 +66,7 @@ class SubmissionFile
     /**
      * @var string
      * @GRID\Column(title="file")
+     * @Display\File(path="submissionfiles")
      */
     private $file;
 
