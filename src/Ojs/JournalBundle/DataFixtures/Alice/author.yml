@@ -8,5 +8,5 @@
     lastName: Author
     summary: This is a virtual author for Ojs Help Journal.
     title: Dr.
-    publisherId: @default->id
+    publisher: @default
     user(unique): @user_author
