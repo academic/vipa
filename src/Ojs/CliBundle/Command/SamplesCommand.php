@@ -16,6 +16,7 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Period;
+use Ojs\JournalBundle\Entity\PublisherTypes;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
@@ -66,7 +67,23 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($post);
         $em->flush();
 
+        $publisherTypes = [
+            'University', 'Government', 'Association',
+            'Foundation', 'Hospital', 'Chamber', 'Private'
+        ];
+
+        foreach ($publisherTypes as $typeName) {
+            $publisherType = new PublisherTypes();
+            $publisherType->setCurrentLocale('en');
+            $publisherType->setName($typeName);
+            $em->persist($publisherType);
+        }
+
+        $em->flush();
+
         $slug = $this->getContainer()->getParameter('defaultPublisherSlug');
+        $publisherType = $em->getRepository('OjsJournalBundle:PublisherTypes')->find(1);
+
         $publisher = new Publisher();
         $publisher->setCurrentLocale('en');
         $publisher->setName('OJS');
@@ -76,6 +93,7 @@ class SamplesCommand extends ContainerAwareCommand
         $publisher->setPhone('+908501234567');
         $publisher->setVerified(1);
         $publisher->setStatus(1);
+        $publisher->setPublisherType($publisherType);
 
         $em->persist($publisher);
         $em->flush();
@@ -163,6 +181,7 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->setIssn('1234-5679');
         $journal->setEissn('1234-5679');
         $journal->setStatus(1);
+        $journal->setPublished(1);
 
         $em->persist($journal);
         $em->flush();
