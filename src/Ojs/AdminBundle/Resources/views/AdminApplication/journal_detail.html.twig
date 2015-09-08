@@ -69,7 +69,13 @@
                     </tr>
                     <tr>
                         <th>{{ 'journal.period'|trans }}</th>
-                        <td>{{ entity.period }}</td>
+                        <td>
+                            <ul>
+                                {% for period in entity.periods %}
+                                    <li>{{ period.period }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th>{{ 'journal.url'|trans }}</th>
