@@ -47,9 +47,11 @@ class JournalUserController extends Controller
             {
                 /* @var JournalUser $entity */
                 $entity = $row->getEntity();
-                $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
-                    $row->setField('journal', $entity->getJournal()->getTitle());
+                    $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
+                    if(!is_null($entity)){
+                        $row->setField('journal', $entity->getJournal()->getTitle());
+                    }
                 }
                 return $row;
             }
