@@ -224,7 +224,7 @@ class SubmissionFile
      * @param  Journal $journal
      * @return SubmissionFile
      */
-    public function setJournal(Journal $journal)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
@@ -285,7 +285,7 @@ class SubmissionFile
      * @param Article $article
      * @return $this
      */
-    public function setArticle(Article $article)
+    public function setArticle(Article $article = null)
     {
         $this->article = $article;
 
