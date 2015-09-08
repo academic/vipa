@@ -567,7 +567,7 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
 
     public function __toString()
     {
-        return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
+        return $this->getUsername().'('.$this->getFullName().', '.$this->getEmail().')';
     }
 
     public function getFullName()
