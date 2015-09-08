@@ -483,7 +483,7 @@ class Journal extends AbstractTranslatable
      */
     public function removePeriod(Period $period)
     {
-        if ($this->periods->contains($period)) {
+        if ($this->periods !== null && $this->periods->contains($period)) {
             $this->periods->removeElement($period);
         }
 
