@@ -150,6 +150,7 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->addLanguage($language1);
         $journal->addLanguage($language2);
         $journal->setMandatoryLang($language2);
+        $journal->setStatus(1);
 
         $em->persist($journal);
         $em->flush();
