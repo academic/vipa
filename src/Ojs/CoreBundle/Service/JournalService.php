@@ -113,23 +113,24 @@ class JournalService
     }
 
     /**
-     * @return Journal
+     * @return Journal|boolean
      */
     public function getSelectedJournal()
     {
-        $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
-
-        if (!$journalId) {
+        try {
+            $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
+            if (!$journalId) {
+                throw new \Exception;
+            }
+            $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
+            if (!$selectedJournal) {
+                throw new \Exception;
+            }
+            return $selectedJournal;
+        }
+        catch(\Exception $e) {
             return false;
         }
-
-        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
-
-        if (!$selectedJournal) {
-            return false;
-        }
-
-        return $selectedJournal;
     }
 
     /**
