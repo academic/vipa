@@ -2,8 +2,6 @@ Ojs\JournalBundle\Entity\ContactTypesTranslation:
   properties:
     name:
       - NotBlank: ~
-    description:
-      - NotBlank: ~
 
 Ojs\JournalBundle\Entity\ContactTypes:
     properties:

@@ -6,8 +6,10 @@ use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleTypes;
+use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Issue;
@@ -40,7 +42,7 @@ class SamplesCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
-        $manipulator->create('sample_author', 'author', 'sample@ojs.io', false, false);
+        $manipulator->create('sample_author', 'author', 'author@example.com', false, false);
 
         $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => 'sample_author']);
 
@@ -69,6 +71,9 @@ class SamplesCommand extends ContainerAwareCommand
         $publisher->setCurrentLocale('en');
         $publisher->setName('OJS');
         $publisher->setSlug($slug);
+        $publisher->setEmail('publisher@example.com');
+        $publisher->setAddress('First Avenue, Exampletown');
+        $publisher->setPhone('+908501234567');
         $publisher->setVerified(1);
         $publisher->setStatus(1);
 
@@ -78,10 +83,12 @@ class SamplesCommand extends ContainerAwareCommand
         $subject1 = new Subject();
         $subject1->setCurrentLocale('en');
         $subject1->setSubject('Computer Science');
+        $subject1->setTags('computer, science');
 
         $subject2 = new Subject();
         $subject2->setCurrentLocale('en');
         $subject2->setSubject('Journalism');
+        $subject2->setTags('journalism');
 
         $em->persist($subject1);
         $em->persist($subject2);
@@ -143,6 +150,7 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->setPublisher($publisher);
         $journal->setTitle('Introduction to OJS');
         $journal->setSubtitle('How to use OJS');
+        $journal->setDescription('A journal about OJS');
         $journal->setTitleAbbr('INTROJS');
         $journal->setUrl('http://ojs.io');
         $journal->setSlug('intro');
@@ -151,6 +159,9 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->addLanguage($language1);
         $journal->addLanguage($language2);
         $journal->setMandatoryLang($language2);
+        $journal->setFounded(new \DateTime('now'));
+        $journal->setIssn('1234-5679');
+        $journal->setEissn('1234-5679');
         $journal->setStatus(1);
 
         $em->persist($journal);
@@ -163,6 +174,8 @@ class SamplesCommand extends ContainerAwareCommand
         $issueFile->setTitle('Demo File');
         $issueFile->setDescription('A file');
         $issueFile->setFile('issue.txt');
+        $issueFile->setLangCode('en');
+        $issueFile->setType(0);
         $issueFile->setVersion(0);
         $issueFile->setUpdatedBy($user->getUsername());
 
@@ -179,10 +192,12 @@ class SamplesCommand extends ContainerAwareCommand
         $issue->setCurrentLocale('en');
         $issue->setJournal($journal);
         $issue->setTitle('First Issue: Hello OJS!');
+        $issue->setDescription('First issue of the journal');
         $issue->setNumber(1);
         $issue->setVolume(1);
         $issue->setYear(2015);
         $issue->setSpecial(1);
+        $issue->setDatePublished(new \DateTime('now'));
         $issue->setTags('first, guide, tutorial');
         $issue->setDatePublished(new \DateTime('now'));
         $issue->addIssueFile($issueFile);
@@ -203,6 +218,7 @@ class SamplesCommand extends ContainerAwareCommand
         $citation1 = new Citation();
         $citation1->setCurrentLocale('en');
         $citation1->setRaw('The Matrix [Motion picture]. (2001). Warner Bros. Pictures.');
+        $citation1->setOrderNum(0);
 
         $em->persist($citation1);
         $em->flush();
@@ -212,6 +228,8 @@ class SamplesCommand extends ContainerAwareCommand
         $articleFile->setTitle('Demo File');
         $articleFile->setDescription('A file');
         $articleFile->setFile('article.txt');
+        $articleFile->setLangCode('en');
+        $articleFile->setType(0);
         $articleFile->setVersion(0);
         $articleFile->setUpdatedBy($user->getUsername());
 
@@ -224,15 +242,29 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($articleFileHistory);
         $em->flush();
 
+        $author = new Author();
+        $author->setCurrentLocale('en');
+        $author->setTitle('Dr.');
+        $author->setFirstName('John');
+        $author->setLastName('Doe');
+        $author->setEmail('doe@example.com');
+
+        $em->persist($author);
+        $em->flush();
+
         $article1 = new Article();
         $article1->setCurrentLocale('en');
         $article1->setJournal($journal);
         $article1->setSection($section);
         $article1->setIssue($issue);
         $article1->setTitle('Getting Started with OJS');
+        $article1->setAbstract('A tutorial about using OJS');
+        $article1->setSubjects('OJS');
         $article1->setKeywords('ojs, intro, starting');
         $article1->setDoi('10.5281/zenodo.14791');
+        $article1->setSubmissionDate(new \DateTime('now'));
         $article1->setPubdate(new \DateTime('now'));
+        $article1->setPart('Part 1');
         $article1->setIsAnonymous(0);
         $article1->setFirstPage(1);
         $article1->setLastPage(5);
@@ -241,6 +273,14 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->addArticleFile($articleFile);
 
         $em->persist($article1);
+        $em->flush();
+
+        $articleAuthor = new ArticleAuthor();
+        $articleAuthor->setAuthor($author);
+        $articleAuthor->setArticle($article1);
+        $articleAuthor->setAuthorOrder(0);
+
+        $em->persist($articleAuthor);
         $em->flush();
 
         $checklistItems = [
@@ -253,8 +293,14 @@ class SamplesCommand extends ContainerAwareCommand
                      <li>The e-mail address, telephone number of the corresponding author </li>
                  </ul>"
             ],
-            ['All authors must have read and approved the most recent version of the manuscript.', null],
-            ['Manuscript must be <i>spell checked</i>.', null],
+            [
+                'Manuscript must be approved.',
+                'All authors must have read and approved the most recent version of the manuscript.'
+            ],
+            [
+                'Manuscript must be <i>spell checked</i>.',
+                'The most recent version of the manuscript must be spell checked.'
+            ],
         ];
 
         foreach ($checklistItems as $checklistItem) {
@@ -264,6 +310,7 @@ class SamplesCommand extends ContainerAwareCommand
             $item = new SubmissionChecklist();
             $item->setLabel($label);
             $item->setDetail($detail);
+            $item->setLocale('en');
             $item->setJournal($journal);
             $em->persist($item);
         }
