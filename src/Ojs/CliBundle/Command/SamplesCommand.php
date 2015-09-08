@@ -2,13 +2,16 @@
 
 namespace Ojs\CliBundle\Command;
 
+use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Lang;
@@ -18,6 +21,7 @@ use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class SamplesCommand extends ContainerAwareCommand
 {
@@ -36,6 +40,8 @@ class SamplesCommand extends ContainerAwareCommand
 
         $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
         $manipulator->create('sample_author', 'author', 'sample@ojs.io', false, false);
+
+        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => 'sample_author']);
 
         $announcement = new AdminAnnouncement();
         $announcement->setTitle('We are online!');
@@ -148,6 +154,25 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($journal);
         $em->flush();
 
+        $this->createDemoFiles();
+
+        $issueFile = new IssueFile();
+        $issueFile->setCurrentLocale('en');
+        $issueFile->setTitle('Demo File');
+        $issueFile->setDescription('A file');
+        $issueFile->setFile('issue.txt');
+        $issueFile->setVersion(0);
+        $issueFile->setUpdatedBy($user->getUsername());
+
+        $issueFileHistory = new FileHistory();
+        $issueFileHistory->setFileName('issue.txt');
+        $issueFileHistory->setOriginalName('issue.txt');
+        $issueFileHistory->setType('issuefiles');
+
+        $em->persist($issueFile);
+        $em->persist($issueFileHistory);
+        $em->flush();
+
         $issue = new Issue();
         $issue->setCurrentLocale('en');
         $issue->setJournal($journal);
@@ -158,6 +183,7 @@ class SamplesCommand extends ContainerAwareCommand
         $issue->setSpecial(1);
         $issue->setTags('first, guide, tutorial');
         $issue->setDatePublished(new \DateTime('now'));
+        $issue->addIssueFile($issueFile);
 
         $em->persist($issue);
         $em->flush();
@@ -179,6 +205,23 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($citation1);
         $em->flush();
 
+        $articleFile = new ArticleFile();
+        $articleFile->setCurrentLocale('en');
+        $articleFile->setTitle('Demo File');
+        $articleFile->setDescription('A file');
+        $articleFile->setFile('article.txt');
+        $articleFile->setVersion(0);
+        $articleFile->setUpdatedBy($user->getUsername());
+
+        $articleFileHistory = new FileHistory();
+        $articleFileHistory->setFileName('article.txt');
+        $articleFileHistory->setOriginalName('article.txt');
+        $articleFileHistory->setType('articlefiles');
+
+        $em->persist($articleFile);
+        $em->persist($articleFileHistory);
+        $em->flush();
+
         $article1 = new Article();
         $article1->setCurrentLocale('en');
         $article1->setJournal($journal);
@@ -193,6 +236,7 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setLastPage(5);
         $article1->setStatus(3);
         $article1->addCitation($citation1);
+        $article1->addArticleFile($articleFile);
 
         $em->persist($article1);
         $em->flush();
@@ -223,5 +267,18 @@ class SamplesCommand extends ContainerAwareCommand
         }
 
         $em->flush();
+    }
+
+    private function createDemoFiles()
+    {
+        $rootDir = $this->getContainer()->get('kernel')->getRootDir();
+        $articleFileDir = $rootDir . '/../web/uploads/articlefiles';
+        $issueFileDir = $rootDir . '/../web/uploads/issuefiles';
+
+        $fs = new Filesystem();
+        $fs->mkdir($articleFileDir);
+        $fs->mkdir($issueFileDir);
+        $fs->dumpFile($articleFileDir . '/article.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
+        $fs->dumpFile($issueFileDir . '/issue.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
     }
 }

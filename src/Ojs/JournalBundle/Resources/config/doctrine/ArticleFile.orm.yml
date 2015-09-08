@@ -70,6 +70,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
              blameable:
                on: create
         updatedBy:
+           nullable: true
            type: string
            gedmo:
              blameable:
