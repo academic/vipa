@@ -192,8 +192,7 @@ class DisplayExtension extends \Twig_Extension
         $this->normalizeImages();
         if (method_exists($this->entity, 'getStatusText')) {
             if (!is_array($this->entity->getStatusText())) {
-                $this->normalizedEntity['status'] = '<span style="color: '.$this->entity->getStatusColor(
-                    ).'">'.$this->translator->trans($this->entity->getStatusText()).'</span>';
+                $this->normalizedEntity['status'] = $this->translator->trans($this->entity->getStatusText());
             } else {
                 $this->normalizedEntity['status'] = $this->translator->trans('status.unknown');
             }
