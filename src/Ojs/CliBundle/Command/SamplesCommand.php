@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\Period;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
@@ -265,6 +266,20 @@ class SamplesCommand extends ContainerAwareCommand
             $item->setDetail($detail);
             $item->setJournal($journal);
             $em->persist($item);
+        }
+
+        $em->flush();
+
+        $periods = [
+            'Monthly', 'Bimonthly', 'Quarterly', 'Biannually',
+            'Annually', 'Spring', 'Summer', 'Fall', 'Winter'
+        ];
+
+        foreach ($periods as $period) {
+            $journalPeriod = new Period();
+            $journalPeriod->setCurrentLocale('en');
+            $journalPeriod->setPeriod($period);
+            $em->persist($journalPeriod);
         }
 
         $em->flush();
