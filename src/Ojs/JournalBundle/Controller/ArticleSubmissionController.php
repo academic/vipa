@@ -566,7 +566,11 @@ class ArticleSubmissionController extends Controller
 
         $entity = new ArticleSubmissionStart();
         $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:SubmissionFile')
-	            ->findBy(['visible' => true, 'locale' => $request->getLocale()]);
+	            ->findBy([
+                    'visible' => true,
+                    'locale' => $request->getLocale(),
+                    'journal' => $journal
+                ]);
         foreach($journalSubmissionFiles as $file){
 
             $fileEntity = new SubmissionFile();

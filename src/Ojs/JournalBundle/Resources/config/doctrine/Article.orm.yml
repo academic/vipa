@@ -55,6 +55,10 @@ Ojs\JournalBundle\Entity\Article:
       targetEntity: ArticleFile
       mappedBy: article
       cascade: ["persist"]
+    submissionFiles:
+      targetEntity: Ojs\JournalBundle\Entity\SubmissionFile
+      mappedBy: article
+      cascade: ["persist"]
     statistics:
       targetEntity: Ojs\AnalyticsBundle\Entity\ArticleStatistic
       mappedBy: article

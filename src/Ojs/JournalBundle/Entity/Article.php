@@ -213,6 +213,11 @@ class Article extends AbstractTranslatable
      */
     private $articleFiles;
     /**
+     * @var Collection|SubmissionFile[]
+     * @Expose
+     */
+    private $submissionFiles;
+    /**
      * @var string
      */
     private $header;
@@ -247,6 +252,7 @@ class Article extends AbstractTranslatable
         $this->languages = new ArrayCollection();
         $this->articleAuthors = new ArrayCollection();
         $this->articleFiles = new ArrayCollection();
+        $this->submissionFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->statistics = new ArrayCollection();
     }
@@ -449,6 +455,14 @@ class Article extends AbstractTranslatable
     public function getArticleFiles()
     {
         return $this->articleFiles;
+    }
+
+    /**
+     * @return Collection|SubmissionFile[]
+     */
+    public function getSubmissionFiles()
+    {
+        return $this->submissionFiles;
     }
 
     /**
@@ -1075,6 +1089,34 @@ class Article extends AbstractTranslatable
     {
         if($this->articleFiles->contains($articleFile)){
             $this->articleFiles->removeElement($articleFile);
+        }
+    }
+
+    /**
+     * Add submissionFiles
+     *
+     * @param  SubmissionFile $submissionFile
+     * @return $this
+     */
+    public function addSubmissionFile(SubmissionFile $submissionFile)
+    {
+        if(!$this->submissionFiles->contains($submissionFile)){
+            $this->submissionFiles->add($submissionFile);
+            $submissionFile->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove submissionFiles
+     *
+     * @param SubmissionFile $submissionFile
+     */
+    public function removeSubmissionFile(SubmissionFile $submissionFile)
+    {
+        if($this->submissionFiles->contains($submissionFile)){
+            $this->submissionFiles->removeElement($submissionFile);
         }
     }
 

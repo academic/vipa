@@ -41,8 +41,8 @@ Ojs\JournalBundle\Entity\SubmissionFile:
       targetEntity: Ojs\JournalBundle\Entity\Journal
       joinColumn:
         referencedColumnName: id
-        name: journalId
-      inversedBy: submissionFile
+        name: journal_id
+      inversedBy: submissionFiles
     article:
       targetEntity: Ojs\JournalBundle\Entity\Article
       joinColumn:
