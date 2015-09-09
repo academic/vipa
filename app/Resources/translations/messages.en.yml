@@ -99,17 +99,17 @@ Turkish: Turkish
 Tweak: Tweak
 Tweaks: Tweaks
 URL: URL
-USER_LOGIN_EVENT: 'User login event'
-USER_LOGOUT_EVENT: 'User logout event'
+USER_LOGIN_EVENT: 'User Login Event'
+USER_LOGOUT_EVENT: 'User Logout Event'
 University: University
-Update: 'Update'
+Update: Update
 User: User
-'Yes': 'Yes'
-ojs.password_reset_requested: 'password reset requested'
+Yes: Yes
+ojs.password_reset_requested: 'Password Reset Requested'
 about: About
 abstract: Abstract
 abstract.transliterated: 'Abstract Transliterated'
-accept: 'Accept'
+accept: Accept
 accepted: Accepted
 actions: Actions
 add: Add
@@ -128,8 +128,8 @@ admin.dashboard.system_settings: 'System Settings'
 admin.dashboard.switcher.title: 'Switch to a Journal''s Dashboard'
 admin.log.field: 'Changed field'
 admin.log.history: Changelog
-admin.log.newValue: 'new value'
-admin.log.oldValue: 'old value'
+admin.log.newValue: 'New Value'
+admin.log.oldValue: 'Old Value'
 adress: Address
 advancedsearch: 'Advanced Search'
 allow_index: 'Allow Index'
@@ -146,15 +146,15 @@ application.institute.list: 'Institute Suggestions'
 application.publisher.apply: 'Apply as Publisher'
 application.publisher.edit: 'Edit Publisher Application'
 application.journal: 'Journal Suggestion'
-application.journal.apply: 'Apply as a new Journal'
+application.journal.apply: 'Apply as a New Journal'
 application.journal.detail: Detail
 application.journal.edit: 'Edit Journal Application'
 application.journal.publisher: Publisher
 application.journal.list: 'Journal Suggestions'
 application.journal.new_publisher: 'Apply as an Publisher'
-application.journal.new_publisher_help: 'If you can not find your publisher above, please apply as an publisher using the button below.'
+application.journal.new_publisher_help: 'If you can''t find your publisher above, please apply as an publisher using the button below.'
 application.journal.add_contact: 'Add Contact Person'
-application.status.complete: 'Import Complete'
+application.status.complete: 'Import Completed'
 application.status.deleted: Deleted
 application.status.onhold: 'On Hold'
 application.status.rejected: Rejected
@@ -173,11 +173,11 @@ article.detail: 'Article Detail'
 article.files: 'Article Files'
 article.fulltext: 'Full Text'
 article.header_image: 'Header Image'
-article.language.other: 'Article Other Languages'
-article.language.primary: 'Article Primary Language'
+article.language.other: 'Other Languages of Article'
+article.language.primary: 'Primary Language of Article'
 article.licensing: Prerequisite
 article.manager: 'Article Manager'
-article.metadata: 'Article Meta Data'
+article.metadata: 'Article Metadata'
 article.mysubmits: 'My Submissions'
 article.new: 'New Article'
 article.plural: Articles
@@ -191,20 +191,20 @@ article.type: 'Article Type'
 article.type.list: 'Article Type List'
 article.type.new: 'New Article Type'
 article.types: 'Article Types'
-article_author_edit: 'Article Author Edit'
+article_author_edit: 'Edit Article Author'
 article_author_list: 'List Article Author'
 article_id: 'Article ID'
 articleauthor: 'Article Author'
-articleauthor_create: 'Article Author Create'
+articleauthor_create: 'Create Article Author'
 articleauthor_new: 'New Article Author'
 articlefile: 'Article File'
 articlefile.actions: Actions
 articlefile.id: ID
-articlefile.langcode: 'File language'
+articlefile.langcode: 'File Language'
 articlefile.new: 'New Article File'
-articlefile.title: 'File title'
-articlefile.type: 'Article file type'
-articlefile.version: 'File version'
+articlefile.title: 'File Title'
+articlefile.type: 'Article File Type'
+articlefile.version: 'File Version'
 articles: Articles
 articles.needAction: 'Articles That Need Action'
 articles.waiting: 'Waiting Articles'
@@ -214,11 +214,11 @@ author: Author
 author.add: 'Add Author'
 author.creation: 'Author Creation'
 author.details: 'Author Details'
-author.edit: 'Edit author'
+author.edit: 'Edit Author'
 author.firstname: 'First Name'
 author.firstnametransliterated: 'Firstname Transliterated'
 author.initials: Initials
-author.publisher: 'Author Publisher'
+author.publisher: 'Author''s Publisher'
 author.lastname: 'Last Name'
 author.lastnametransliterated: 'Lastname Transliterated'
 author.list: 'List Author'
@@ -227,7 +227,7 @@ author.middlename: 'Middle Name'
 author.middlenametransliterated: 'Middle Name Transliterated'
 author.new: 'New Author'
 author.orcid: ORCID
-author.order: 'Order'
+author.order: Order
 author.phone: Phone
 author.plural: Authors
 author.singular: Author
@@ -246,7 +246,7 @@ block: Block
 blog: Blog
 board: Board
 board.addUser: 'Add User to Board'
-board.can_not_add_user: 'You can add member from your journals users only.'
+board.can_not_add_user: 'You can add member from your journals''s users only.'
 board.create: 'Create Board'
 board.delete: 'Delete Board'
 board.detail: 'Board Detail'
@@ -265,7 +265,7 @@ c: 'Create New'
 'roles.can_reject_submission': 'Can reject submission?'
 'roles.can_review': 'Can review?'
 'roles.can_see_author': 'Can user see author information?'
-canOnlyReply: 'User can not decide next step, can only reply back.'
+canOnlyReply: 'User can''t decide next step, can only reply back.'
 cancel: Cancel
 check: Check
 children: Children
@@ -292,7 +292,7 @@ collapse: Collapse
 color: Color
 color.generate: 'Generate color'
 common: Common
-competingInterests: 'Competing Interests'
+competingInterests: 'Conflict of Interest'
 conference: Conference
 confidential: Confidential
 contact: Contact
