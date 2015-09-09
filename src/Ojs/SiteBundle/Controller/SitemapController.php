@@ -11,7 +11,7 @@ use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Tackk\Cartographer\Sitemap;
 use Tackk\Cartographer\SitemapIndex;
 
@@ -73,7 +73,7 @@ class SitemapController extends Controller
                     'subject' => $subject->getSlug(),
                     'publisher' => $publisher,
                 ],
-                Router::ABSOLUTE_URL
+                RouterInterface::ABSOLUTE_URL
             )
         );
 
@@ -86,7 +86,7 @@ class SitemapController extends Controller
                         'slug' => $journal->getSlug(),
                         'publisher' => $journal->getPublisher()->getSlug(),
                     ],
-                    Router::ABSOLUTE_URL
+                    RouterInterface::ABSOLUTE_URL
                 ),
                 $journal->getUpdated()->format('Y-m-d')
             );
