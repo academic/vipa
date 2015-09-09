@@ -8,7 +8,9 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\ArticleType;
+use Ojs\JournalBundle\JournalEvents;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +31,7 @@ class ArticleController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $eventDispatcher = $this->get('event_dispatcher');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
 
@@ -64,6 +67,11 @@ class ArticleController extends Controller
         );
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
+
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(JournalEvents::ARTICLE_LIST_INITIALIZED, $listEvent);
+        $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse(
             'OjsJournalBundle:Article:index.html.twig',
