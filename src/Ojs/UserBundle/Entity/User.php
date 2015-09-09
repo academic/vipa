@@ -143,6 +143,9 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     /** @var Collection */
     private $journalUsers;
 
+    /** @var Collection */
+    private $journalRoles;
+
 
     public function __construct()
     {
@@ -757,6 +760,17 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         }
 
         return $journalRoles;
+    }
+
+    /**
+     * @param Role[]|Collection $roles
+     * @return $this
+     */
+    public function setJournalRoles($roles = array())
+    {
+        $this->journalRoles = $roles;
+
+        return $this;
     }
 
     /**
