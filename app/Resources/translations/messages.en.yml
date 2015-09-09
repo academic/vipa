@@ -1420,3 +1420,5 @@ validation:
     subtitle: Subtitle field for the default language can not be blank
     keywords: Keywords field for the default language can not be blank
     abstract: Abstract field for the default language can not be blank
+yes: Yes
+no: No

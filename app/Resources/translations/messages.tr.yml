@@ -1401,3 +1401,5 @@ validation:
     subtitle: Alt başlık alanı zorunlu dil için boş bırakılamaz
     keywords: Anahtar kelimeler alanı zorunlu dil için boş bırakılamaz
     abstract: Özet alanı zorunlu dil için boş bırakılamaz
+yes: Evet
+no: Hayır

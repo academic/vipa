@@ -8,12 +8,10 @@ use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\CommonParams;
 use Ojs\CoreBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -21,7 +19,7 @@ class OjsExtension extends \Twig_Extension
 {
     /** @var EntityManager */
     private $em;
-    /** @var Router */
+    /** @var RouterInterface */
     private $router;
     /** @var JournalService */
     private $journalService;
@@ -37,18 +35,18 @@ class OjsExtension extends \Twig_Extension
     private $requestStack;
 
     /**
-     * @param EntityManager $em
-     * @param Router $router
-     * @param TranslatorInterface $translator
-     * @param JournalService $journalService
+     * @param EntityManager         $em
+     * @param RouterInterface       $router
+     * @param TranslatorInterface   $translator
+     * @param JournalService        $journalService
      * @param TokenStorageInterface $tokenStorage
-     * @param Session $session
-     * @param RequestStack $requestStack
-     * @param null $cmsShowRoutes
+     * @param Session               $session
+     * @param RequestStack          $requestStack
+     * @param null                  $cmsShowRoutes
      */
     public function __construct(
         EntityManager $em = null,
-        Router $router = null,
+        RouterInterface $router = null,
         TranslatorInterface $translator = null,
         JournalService $journalService = null,
         TokenStorageInterface $tokenStorage = null,
@@ -71,7 +69,7 @@ class OjsExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
             new \Twig_SimpleFilter('pop', array($this, 'popFilter')),
-            new \Twig_SimpleFilter('sanitize', array($this, 'sanitize'))
+            new \Twig_SimpleFilter('sanitize', array($this, 'sanitize')),
         );
     }
 
@@ -80,9 +78,6 @@ class OjsExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('userJournalRoles', array($this, 'userJournalRoles')),
             new \Twig_SimpleFunction('isSystemAdmin', array($this, 'isSystemAdmin')),
-            new \Twig_SimpleFunction(
-                'userjournals', array($this, 'getUserJournals'), array('is_safe' => array('html'))
-            ),
             new \Twig_SimpleFunction('userclients', array($this, 'getUserClients'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('session', array($this, 'getSession'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('hasid', array($this, 'hasId'), array('is_safe' => array('html'))),
@@ -116,12 +111,13 @@ class OjsExtension extends \Twig_Extension
         );
     }
 
-    public function sanitize($string) {
+    public function sanitize($string)
+    {
         $string = strip_tags($string, '<a><blockquote><b><u><i>');
         $dom = new \DOMDocument();
         $dom->loadHTML($string, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         foreach ($dom->getElementsByTagName('*') as $node) {
-            /** @var \DOMElement  $node */
+            /** @var \DOMElement $node */
             for ($i = $node->attributes->length - 1; $i >= 0; $i--) {
                 /** @var \DOMAttr $attribute */
                 $attribute = $node->attributes->item($i);
@@ -144,13 +140,12 @@ class OjsExtension extends \Twig_Extension
                             'prefetch',
                             'prev',
                             'search',
-                            'tag'
+                            'tag',
                         );
                         if (!in_array($attribute->value, $relValues, true)) {
                             $node->setAttributeNode(new \DOMAttr('rel', 'nofollow'));
                         }
-                    }
-                    elseif ($attribute->name === 'target') {
+                    } elseif ($attribute->name === 'target') {
                         $targetValues = array(
                             '_blank',
                             '_self',
@@ -160,8 +155,7 @@ class OjsExtension extends \Twig_Extension
                         if (!in_array($attribute->value, $targetValues, true)) {
                             $node->setAttributeNode(new \DOMAttr('target', '_blank'));
                         }
-                    }
-                    else {
+                    } else {
                         $node->removeAttributeNode($attribute);
                     }
                 } else {
@@ -169,8 +163,10 @@ class OjsExtension extends \Twig_Extension
                 }
             }
         }
+
         return $dom->saveHTML();
     }
+
     public function generateJournalUrl($journal)
     {
         return $this->journalService->generateUrl($journal);
@@ -178,7 +174,7 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
-     * @param  null $list
+     * @param  null   $list
      * @return string
      */
     public function generateBreadcrumb($list = null)
@@ -198,8 +194,8 @@ class OjsExtension extends \Twig_Extension
 
     /**
      *
-     * @param  mixed $needle
-     * @param  array $haystack
+     * @param  mixed   $needle
+     * @param  array   $haystack
      * @return boolean
      */
     public function hasId($needle, $haystack)
@@ -240,33 +236,6 @@ class OjsExtension extends \Twig_Extension
     public function getSession($session_key)
     {
         return $this->session->get($session_key);
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getUserJournals()
-    {
-        $token = $this->tokenStorage->getToken();
-        if ($token instanceof AnonymousToken || !is_object($token)) {
-            return array();
-        }
-        $user = $token->getUser();
-        /** @var JournalRepository $journalRepo */
-        $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
-        $userJournals = $journalRepo->findAllByUser($user);
-        $journals = array();
-
-        if ($userJournals) {
-            foreach ($userJournals as $userJournal) {
-                $journals[$userJournal->getId()] = $userJournal;
-            }
-        } else {
-            return array();
-        }
-
-        return $journals;
     }
 
     /**
@@ -348,7 +317,7 @@ class OjsExtension extends \Twig_Extension
             }
             $publisher = $this->em->getRepository('OjsJournalBundle:Publisher')->find($publisherId);
         }
-        if($user->isAdmin()){
+        if ($user->isAdmin()) {
             return true;
         }
         foreach ($publisher->getPublisherManagers() as $manager) {
@@ -356,6 +325,7 @@ class OjsExtension extends \Twig_Extension
                 return true;
             }
         }
+
         return false;
     }
 
@@ -419,6 +389,7 @@ class OjsExtension extends \Twig_Extension
         if ($token && method_exists($token, 'getUser')) {
             /** @var User $user */
             $user = $token->getUser();
+
             return $user->getApiKey();
         } else {
             return false;
