@@ -314,6 +314,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsUserBundle:User' => null,
             'OjsUserBundle:Role' => null,
             'OjsJournalBundle:Publisher' => null,
+            'OjsJournalBundle:Institution' => null,
             'OjsJournalBundle:PublisherTypes' => null,
             'OjsJournalBundle:JournalContact' => null,
             'OjsJournalBundle:ContactTypes' => null,

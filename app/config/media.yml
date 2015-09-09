@@ -9,6 +9,14 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../web/uploads/publisher/croped
         create: true
+    institution:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/institution
+        create: true
+    institution_croped:
+      local:
+        directory: %kernel.root_dir%/../web/uploads/institution/croped
+        create: true
     announcement:
       local:
         directory: %kernel.root_dir%/../web/uploads/announcement
@@ -72,6 +80,12 @@ knp_gaufrette:
     publisher_croped:
       adapter: publisher_croped
       alias: publisher_croped_filesystem
+    institution:
+      adapter: institution
+      alias: institution_filesystem
+    institution_croped:
+      adapter: institution_croped
+      alias: institution_croped_filesystem
     announcement:
       adapter: announcement
       alias: announcement_filesystem
@@ -136,6 +150,14 @@ oneup_uploader:
         type: gaufrette
         filesystem: gaufrette.publisher_filesystem
         stream_wrapper: gaufrette://publisher/
+    institution:
+      enable_progress: true
+      frontend: blueimp
+      allowed_mimetypes: ['image/jpeg','image/png','image/svg+xml' ]
+      storage:
+        type: gaufrette
+        filesystem: gaufrette.institution_filesystem
+        stream_wrapper: gaufrette://institution/
     announcement:
       enable_progress: true
       frontend: blueimp
@@ -217,6 +239,12 @@ liip_imagine:
     stream.publisher_croped_filesystem:
       stream:
         wrapper: gaufrette://publisher_croped/
+    stream.institution_filesystem:
+      stream:
+        wrapper: gaufrette://institution/
+    stream.institution_croped_filesystem:
+      stream:
+        wrapper: gaufrette://institution_croped/
     stream.announcement_filesystem:
       stream:
         wrapper: gaufrette://announcement/
@@ -265,6 +293,12 @@ liip_imagine:
       quality: 90
     publisher_croped:
       data_loader: stream.publisher_croped_filesystem
+      quality: 90
+    institution_original:
+      data_loader: stream.institution_filesystem
+      quality: 90
+    institution_croped:
+      data_loader: stream.institution_croped_filesystem
       quality: 90
     announcement_original:
       data_loader: stream.announcement_filesystem
@@ -342,6 +376,18 @@ liip_imagine:
       filters:
         relative_resize: {  widen: 960 }
         crop: {start:[0,0], size: [960, 200]}
+    institution_logo:
+      data_loader: stream.institution_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: {  widen: 200 }
+        crop: {start:[0,0], size: [200, 200]}
+    institution_header:
+      data_loader: stream.institution_croped_filesystem
+      quality: 90
+      filters:
+        relative_resize: {  widen: 960 }
+        crop: {start:[0,0], size: [960, 200]}
     article_header:
       data_loader: stream.article_croped_filesystem
       quality: 90
@@ -369,6 +415,12 @@ jb_file_uploader:
     publisher_croped:
       assets:
         directory: uploads/publisher/croped
+    institution:
+      assets:
+        directory: uploads/institution
+    institution_croped:
+      assets:
+        directory: uploads/institution/croped
     announcement:
       assets:
         directory: uploads/announcement
@@ -425,6 +477,12 @@ jb_file_uploader:
       upload_resolver: publisher
       croped_resolver: publisher_croped
       croped_fs: publisher_croped
+      upload_validators: {}
+      crop_validators: {}
+    institution:
+      upload_resolver: institution
+      croped_resolver: institution_croped
+      croped_fs: institution_croped
       upload_validators: {}
       crop_validators: {}
     announcement:
