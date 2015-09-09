@@ -106,11 +106,11 @@ class Author extends AbstractTranslatable
     private $address;
 
     /**
-     * @var Publisher
+     * @var Institution
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
-    private $publisher;
+    private $institution;
     /**
      * @var string
      * @JMS\Expose
@@ -150,13 +150,13 @@ class Author extends AbstractTranslatable
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
-    private $publisherNotListed;
+    private $institutionNotListed;
     /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
-    private $publisherName;
+    private $institutionName;
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Jms\Expose
@@ -579,24 +579,24 @@ class Author extends AbstractTranslatable
     }
 
     /**
-     * Get publisher
+     * Get institution
      *
-     * @return Publisher
+     * @return Institution
      */
-    public function getPublisher()
+    public function getInstitution()
     {
-        return $this->publisher;
+        return $this->institution;
     }
 
     /**
-     * Set publisher
+     * Set institution
      *
-     * @param  Publisher $publisher
+     * @param  Institution $institution
      * @return Author
      */
-    public function setPublisher(Publisher $publisher = null)
+    public function setInstitution(Institution $institution = null)
     {
-        $this->publisher = $publisher;
+        $this->institution = $institution;
 
         return $this;
     }
@@ -762,18 +762,18 @@ class Author extends AbstractTranslatable
     /**
      * @return string
      */
-    public function getPublisherName()
+    public function getInstitutionName()
     {
-        return $this->publisherName;
+        return $this->institutionName;
     }
 
     /**
-     * @param string $publisherName
+     * @param string $institutionName
      * @return $this
      */
-    public function setPublisherName($publisherName)
+    public function setInstitutionName($institutionName)
     {
-        $this->publisherName = $publisherName;
+        $this->institutionName = $institutionName;
 
         return $this;
     }
@@ -781,18 +781,18 @@ class Author extends AbstractTranslatable
     /**
      * @return boolean
      */
-    public function isPublisherNotListed()
+    public function isInstitutionNotListed()
     {
-        return $this->publisherNotListed;
+        return $this->institutionNotListed;
     }
 
     /**
-     * @param boolean $publisherNotListed
+     * @param boolean $institutionNotListed
      * @return $this
      */
-    public function setPublisherNotListed($publisherNotListed)
+    public function setInstitutionNotListed($institutionNotListed)
     {
-        $this->publisherNotListed = $publisherNotListed;
+        $this->institutionNotListed = $institutionNotListed;
 
         return $this;
     }

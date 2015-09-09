@@ -10,6 +10,7 @@ $set->addFile(__DIR__.'/subject.yml', 'yaml');
 $set->addFile(__DIR__.'/lang.yml', 'yaml');
 $set->addFile(__DIR__ . '/publisher_type.yml', 'yaml');
 $set->addFile(__DIR__ . '/publisher.yml', 'yaml');
+$set->addFile(__DIR__ . '/institution.yml', 'yaml');
 $set->addFile(__DIR__.'/journal.yml', 'yaml');
 $set->addFile(__DIR__.'/section.yml', 'yaml');
 $set->addFile(__DIR__.'/issue.yml', 'yaml');
