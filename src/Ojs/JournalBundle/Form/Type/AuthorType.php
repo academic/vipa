@@ -27,19 +27,19 @@ class AuthorType extends AbstractType
             ->add('initials')
             ->add('email', 'email')
             ->add('address', 'textarea')
-            ->add('publisher', null, [
+            ->add('institution', null, [
                 'attr' => [
-                    'class' => 'publisher'
+                    'class' => 'institution'
                 ]
             ])
-            ->add('publisherNotListed', null, [
+            ->add('institutionNotListed', null, [
                 'attr' => [
-                    'class' => 'publisherNotListed'
+                    'class' => 'institutionNotListed'
                 ]
             ])
-            ->add('publisherName', null, [
+            ->add('institutionName', null, [
                 'attr' => [
-                    'class' => 'publisherName'
+                    'class' => 'institutionName'
                 ]
             ])
             ->add('country')

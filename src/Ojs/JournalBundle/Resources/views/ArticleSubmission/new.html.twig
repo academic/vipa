@@ -43,26 +43,26 @@
     {{ parent() }}
     <script>
         $(function() {
-            $.each($('.publisherNotListed'), function (index, value) {
-                var $publisherSelect = $(this).parent().parent().parent().parent().find('.publisher');
-                var $publisherName = $(this).parent().parent().parent().parent().find('.publisherName');
+            $.each($('.institutionNotListed'), function (index, value) {
+                var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
                 if(this.checked){
-                    $publisherName.parent().removeClass('hidden');
-                    $publisherSelect.parent().addClass('hidden');
+                    $institutionName.parent().removeClass('hidden');
+                    $institutionSelect.parent().addClass('hidden');
                 }else{
-                    $publisherName.parent().addClass('hidden');
-                    $publisherSelect.parent().removeClass('hidden');
+                    $institutionName.parent().addClass('hidden');
+                    $institutionSelect.parent().removeClass('hidden');
                 }
             });
-            $(document).on('change', '.publisherNotListed', function () {
-                var $publisherSelect = $(this).parent().parent().parent().parent().find('.publisher');
-                var $publisherName = $(this).parent().parent().parent().parent().find('.publisherName');
+            $(document).on('change', '.institutionNotListed', function () {
+                var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
                 if(this.checked){
-                    $publisherName.parent().removeClass('hidden');
-                    $publisherSelect.parent().addClass('hidden');
+                    $institutionName.parent().removeClass('hidden');
+                    $institutionSelect.parent().addClass('hidden');
                 }else{
-                    $publisherName.parent().addClass('hidden');
-                    $publisherSelect.parent().removeClass('hidden');
+                    $institutionName.parent().addClass('hidden');
+                    $institutionSelect.parent().removeClass('hidden');
                 }
             });
             $(document).on('click','.toggle-author-detail', function () {
