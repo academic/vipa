@@ -17,6 +17,10 @@ ojs_admin_publisher:
     resource: "@OjsAdminBundle/Resources/config/routing/publisher.yml"
     prefix:   publisher
 
+ojs_admin_institution:
+    resource: "@OjsAdminBundle/Resources/config/routing/institution.yml"
+    prefix:   institution
+
 ojs_admin_publisher_type:
     resource: "@OjsAdminBundle/Resources/config/routing/publisher_type.yml"
     prefix:   publisher-type
