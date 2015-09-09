@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Controller;
 
+use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -53,7 +54,16 @@ class AdminJournalApplicationController extends Controller
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
+
+        $saveAction = new RowAction('<i class="fa fa-save"></i>', 'ojs_admin_application_journal_save');
+        $saveAction->setRouteParameters(['id']);
+        $saveAction->setAttributes([
+            'class' => 'btn btn-primary btn-xs',
+            'title' => $this->get('translator')->trans('journal.merge_as_new_journal')
+        ]);
+
         $rowAction = array();
+        $rowAction[] = $saveAction;
         $rowAction[] = $gridAction->editAction('ojs_admin_application_journal_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_journal_show', 'id');
         $rowAction[] = $gridAction->deleteAction('ojs_admin_application_journal_delete', 'id');
