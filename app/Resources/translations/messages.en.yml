@@ -4,24 +4,24 @@ abstractTransliterated: 'Abstract Transliterated'
 Accept: Accept
 Action: Action
 Admin: Admin
-Arabic: 'Arabic'
+Arabic: Arabic
 Articles: Articles
 Association: Association
 Author: Author
 Authors: Authors
 Avatar: Avatar
 Chamber: Chamber
-workflow.competing_interests_file: 'Competing interests file'
+'workflow.competing_interests_file': 'Conflict of Interest File'
 Confirm: Confirm
-Content: 'Content'
+Content: Content
 Copyeditor: Copyeditor
-workflow.copyright_transfer_form: 'copyright transfer form'
-Create: 'Create'
-article.data_analysis: 'data analysis'
+'workflow.copyright_transfer_form': 'Transfer of Copyright Form'
+Create: Create
+'article.data_analysis': 'Data Analysis'
 'Data Set': 'Data Set'
 Decline: Decline
-roles.default_registered_user: 'Default registered user'
-Description: 'Description'
+'roles.default_registered_user': 'Default Registered User'
+Description: Description
 Drafts: Drafts
 Editor: Editor
 English: English
@@ -33,13 +33,13 @@ Files: Files
 Filters: Filters
 Foundation: Foundation
 French: French
-'workflow.full_text': Full Text
+'workflow.full_text': 'Full Text'
 German: German
 Go: Go
 Government: Government
 Guidelines: Guidelines
 Hospital: Hospital
-ID: Id
+ID: ID
 ISSN: ISSN
 Info: Info
 Information: Information
@@ -47,13 +47,13 @@ Information: Information
 'ojs.is_public': 'Is public?'
 Issue: Issue
 Italian: Italian
-roles.journal_manager: 'Journal Manager'
+'roles.journal_manager': 'Journal Manager'
 Keywords: Keywords
-'workflow.last_step': Last Step
+'workflow.last_step': 'Last Step'
 'Layout Editor': 'Layout Editor'
 Name: Name
 'No': 'No'
-'No data': No Data
+'No data': 'No Data'
 Other: Other
 Page: Page
 Password: Password
@@ -75,26 +75,26 @@ ROLE_REVIEWER: 'Reviewer'
 ROLE_USER: 'User'
 Reader: Reader
 ojs.repeat_password: 'Repeat Password'
-'workflow.research_materials': research materials
-'workflow.research_results': research results
+'workflow.research_materials': 'Research Materials'
+'workflow.research_results': 'Research Results'
 Reset: Reset
 Reviewer: Reviewer
 Russian: Russian
 Search: Search
 Section: Section
 roles.section_editor: 'Section Editor'
-'workflow.source_text': source text
+'workflow.source_text': 'Source Text'
 Subject: Subject
 Subjects: Subjects
 Submissions: Submissions
 roles.subs_manager: 'Subscription Manager'
-'workflow.supp_file': Supplementary File
+'workflow.supp_file': 'Supplementary File'
 Supplementary.File: 'Supplementary File'
 roles.sys_manager: 'System Super Administrator'
-Tables: 'Tables'
+Tables: Tables
 Template: Template
-Title: 'Title'
-Transcripts: 'Transcripts'
+Title: Title
+Transcripts: Transcripts
 Turkish: Turkish
 Tweak: Tweak
 Tweaks: Tweaks
