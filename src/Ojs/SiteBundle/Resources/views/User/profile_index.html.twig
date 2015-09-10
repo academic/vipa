@@ -30,7 +30,7 @@
                         {% else %}
                         class="img-circle tri"
                         {% endif %}
-                        alt="" src="{{ user.avatar|imagine_filter('user_croped') }}" />
+                        alt="" src="{% if user.avatar %}{{ user.avatar|imagine_filter('user_croped') }}{% endif %}" />
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} /
                     @{{ user.username }}</h1>
