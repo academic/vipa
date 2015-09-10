@@ -135,6 +135,7 @@ class JournalUserController extends Controller
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
+            $entity->setEnabled(true);
 
             $em->persist($entity);
 
@@ -397,13 +398,9 @@ class JournalUserController extends Controller
         return $this->render('OjsJournalBundle:JournalUser:journals.html.twig', ['journalUsers' => $journalUsers]);
     }
 
-    public function leaveJournalAction($journalId, $roleId = null)
+    public function leaveJournalAction($roleId = null)
     {
         $user = $this->getUser();
-        $journal = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:Journal')
-            ->find($journalId);
         $journalUser = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalUser')
