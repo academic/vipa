@@ -74,8 +74,8 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
             cascade: ["all"]
             fetch: EXTRA_LAZY
-        submissionFiles:
-            targetEntity: Ojs\JournalBundle\Entity\SubmissionFile
+        journalSubmissionFiles:
+            targetEntity: Ojs\JournalBundle\Entity\JournalSubmissionFile
             mappedBy: journal
             cascade: ["all"]
             fetch: EXTRA_LAZY

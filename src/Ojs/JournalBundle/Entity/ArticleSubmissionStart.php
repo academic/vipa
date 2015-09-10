@@ -11,9 +11,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 class ArticleSubmissionStart
 {
     /**
-     * @var Collection|ArticleFile[]
+     * @var Collection|ArticleSubmissionFile[]
      */
-    private $submissionFiles;
+    private $articleSubmissionFiles;
 
     /**
      * @var string
@@ -25,41 +25,41 @@ class ArticleSubmissionStart
      */
     public function __construct()
     {
-        $this->submissionFiles = new ArrayCollection();
+        $this->articleSubmissionFiles = new ArrayCollection();
     }
 
     /**
-     * @return Collection|ArticleFile[]
+     * @return Collection|ArticleSubmissionFile[]
      */
-    public function getSubmissionFiles()
+    public function getArticleSubmissionFiles()
     {
-        return $this->submissionFiles;
+        return $this->articleSubmissionFiles;
     }
 
     /**
      * Add submissionFiles
      *
-     * @param  SubmissionFile $articleFile
+     * @param  ArticleSubmissionFile $articleSubmissionFile
      * @return $this
      */
-    public function addSubmissionFile(SubmissionFile $articleFile)
+    public function addArticleSubmissionFile(ArticleSubmissionFile $articleSubmissionFile)
     {
-        if(!$this->submissionFiles->contains($articleFile)){
-            $this->submissionFiles->add($articleFile);
+        if(!$this->articleSubmissionFiles->contains($articleSubmissionFile)){
+            $this->articleSubmissionFiles->add($articleSubmissionFile);
         }
 
         return $this;
     }
 
     /**
-     * Remove submissionFiles
+     * Remove articleSubmissionFiles
      *
-     * @param SubmissionFile $articleFile
+     * @param ArticleSubmissionFile $articleSubmissionFile
      */
-    public function removeSubmissionFile(SubmissionFile $articleFile)
+    public function removeArticleSubmissionFile(ArticleSubmissionFile $articleSubmissionFile)
     {
-        if($this->submissionFiles->contains($articleFile)){
-            $this->submissionFiles->removeElement($articleFile);
+        if($this->articleSubmissionFiles->contains($articleSubmissionFile)){
+            $this->articleSubmissionFiles->removeElement($articleSubmissionFile);
         }
     }
 

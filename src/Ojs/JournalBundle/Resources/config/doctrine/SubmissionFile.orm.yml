@@ -1,55 +1,49 @@
 Ojs\JournalBundle\Entity\SubmissionFile:
-  type: entity
-  repositoryClass: Ojs\JournalBundle\Entity\SubmissionFileRepository
-  table: submission_file
-  id:
+    type: entity
+    table: submission_file
+    repositoryClass: Ojs\JournalBundle\Entity\SubmissionFileRepository
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+        name: discriminator
+        type: string
+    discriminatorMap:
+        article: Ojs\JournalBundle\Entity\ArticleSubmissionFile
+        journal: Ojs\JournalBundle\Entity\JournalSubmissionFile
     id:
-      type: integer
-      id: true
-      generator:
-        strategy: AUTO
-  fields:
-    label:
-      type: string
-      gedmo:
+      id:
+        type: integer
+        id: true
+        generator:
+          strategy: AUTO
+    fields:
+      title:
+        type: string
+        gedmo:
+            - versioned
+      locale:
+        type: string
+        nullable: true
+      detail:
+        type: text
+        nullable: true
+        gedmo:
+            - versioned
+      visible:
+        type: boolean
+        nullable: true
+      required:
+        type: boolean
+        nullable: true
+      file:
+        type: string
+        length: 255
+        nullable: TRUE
+        gedmo:
           - versioned
-    locale:
-      type: string
-      nullable: true
-    detail:
-      type: text
-      nullable: true
-      gedmo:
-          - versioned
-    visible:
-      type: boolean
-      nullable: true
-    required:
-      type: boolean
-      nullable: true
-    file:
-      type: string
-      length: 255
-      nullable: TRUE
-      gedmo:
-        - versioned
-    deletedAt:
-      type: datetime
-      nullable: true
-  manyToOne:
-    journal:
-      targetEntity: Ojs\JournalBundle\Entity\Journal
-      joinColumn:
-        referencedColumnName: id
-        name: journal_id
-      inversedBy: submissionFiles
-    article:
-      targetEntity: Ojs\JournalBundle\Entity\Article
-      joinColumn:
-        referencedColumnName: id
-        name: article_id
-      inversedBy: submissionFiles
-  gedmo:
-    loggable: true
-    soft_deleteable:
-      field_name: deletedAt
+      deletedAt:
+        type: datetime
+        nullable: true
+    gedmo:
+      loggable: true
+      soft_deleteable:
+        field_name: deletedAt

@@ -5,20 +5,20 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Entity\SubmissionFile;
-use Ojs\JournalBundle\Form\Type\SubmissionFileType;
+use Ojs\JournalBundle\Form\Type\JournalSubmissionFileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * SubmissionFile controller.
+ * JournalSubmissionFile controller.
  *
  */
-class SubmissionFileController extends Controller
+class JournalSubmissionFileController extends Controller
 {
 
     /**
@@ -66,7 +66,7 @@ class SubmissionFileController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $entity = new SubmissionFile();
+        $entity = new JournalSubmissionFile();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
 
@@ -92,13 +92,11 @@ class SubmissionFileController extends Controller
     }
 
     /**
-     * Creates a form to create a SubmissionFile entity.
-     *
-     * @param SubmissionFile $entity
-     * @param integer $journalId
+     * @param JournalSubmissionFile $entity
+     * @param $journalId
      * @return \Symfony\Component\Form\Form
      */
-    private function createCreateForm(SubmissionFile $entity, $journalId)
+    private function createCreateForm(JournalSubmissionFile $entity, $journalId)
     {
         $languages = [];
         if (is_array($this->container->getParameter('languages'))) {
@@ -109,7 +107,7 @@ class SubmissionFileController extends Controller
             }
         }
         $form = $this->createForm(
-            new SubmissionFileType(),
+            new JournalSubmissionFileType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_file_create', ['journalId' => $journalId]),
@@ -134,7 +132,7 @@ class SubmissionFileController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $entity = new SubmissionFile();
+        $entity = new JournalSubmissionFile();
         $form = $this->createCreateForm($entity, $journal->getId());
 
         return $this->render(
@@ -176,10 +174,10 @@ class SubmissionFileController extends Controller
     /**
      * Displays a form to edit an existing SubmissionFile entity.
      *
-     * @param  SubmissionFile                        $entity
+     * @param  JournalSubmissionFile                        $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(SubmissionFile $entity)
+    public function editAction(JournalSubmissionFile $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -200,11 +198,10 @@ class SubmissionFileController extends Controller
     /**
      * Creates a form to edit a SubmissionFile entity.
      *
-     * @param SubmissionFile $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param JournalSubmissionFile $entity
+     * @return \Symfony\Component\Form\Form
      */
-    private function createEditForm(SubmissionFile $entity)
+    private function createEditForm(JournalSubmissionFile $entity)
     {
         $languages = [];
         if (is_array($this->container->getParameter('languages'))) {
@@ -216,7 +213,7 @@ class SubmissionFileController extends Controller
         }
 
         $form = $this->createForm(
-            new SubmissionFileType(),
+            new JournalSubmissionFileType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_file_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
@@ -234,10 +231,10 @@ class SubmissionFileController extends Controller
      * Edits an existing SubmissionFile entity.
      *
      * @param  Request                                                                                       $request
-     * @param  SubmissionFile                                                                           $entity
+     * @param  JournalSubmissionFile                                                                           $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateAction(Request $request, SubmissionFile $entity)
+    public function updateAction(Request $request, JournalSubmissionFile $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();

@@ -269,11 +269,11 @@ class Journal extends AbstractTranslatable
      */
     private $submissionChecklist;
     /**
-     * @var ArrayCollection|SubmissionFile[]
+     * @var ArrayCollection|JournalSubmissionFile[]
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
      */
-    private $submissionFiles;
+    private $journalSubmissionFiles;
     /**
      * @var int
      * @JMS\Expose
@@ -1296,14 +1296,14 @@ class Journal extends AbstractTranslatable
     /**
      * Add submission file item
      *
-     * @param  SubmissionFile $submissionFile
+     * @param  JournalSubmissionFile $journalSubmissionFile
      * @return Journal
      */
-    public function addSubmissionFile(SubmissionFile $submissionFile)
+    public function addJournalSubmissionFile(JournalSubmissionFile $journalSubmissionFile)
     {
-        if (!$this->submissionFiles->contains($submissionFile)) {
-            $this->submissionFiles->add($submissionFile);
-            $submissionFile->setJournal($this);
+        if (!$this->journalSubmissionFiles->contains($journalSubmissionFile)) {
+            $this->journalSubmissionFiles->add($journalSubmissionFile);
+            $journalSubmissionFile->setJournal($this);
         }
 
         return $this;
@@ -1312,11 +1312,11 @@ class Journal extends AbstractTranslatable
     /**
      * Get submission file
      *
-     * @return ArrayCollection|SubmissionFile[]
+     * @return ArrayCollection|JournalSubmissionFile[]
      */
-    public function getSubmissionFiles()
+    public function getJournalSubmissionFiles()
     {
-        return $this->submissionFiles;
+        return $this->journalSubmissionFiles;
     }
 
     /**

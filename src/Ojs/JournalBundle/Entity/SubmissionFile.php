@@ -8,9 +8,9 @@ use Ojs\CoreBundle\Annotation\Display as Display;
 
 /**
  * SubmissionFile
- * @GRID\Source(columns="id,label,locale,visible")
+ * @GRID\Source(columns="id,title,locale,visible")
  */
-class SubmissionFile
+abstract class SubmissionFile
 {
     use DisplayTrait;
     /**
@@ -21,9 +21,9 @@ class SubmissionFile
 
     /**
      * @var string
-     * @GRID\Column(title="submission_file.label",safe = false)
+     * @GRID\Column(title="submission_file.title",safe = false)
      */
-    private $label;
+    private $title;
 
     /**
      * @var string
@@ -94,24 +94,24 @@ class SubmissionFile
     }
 
     /**
-     * Get label
+     * Get title
      *
      * @return string
      */
-    public function getLabel()
+    public function getTitle()
     {
-        return $this->label;
+        return $this->title;
     }
 
     /**
-     * Set label
+     * Set title
      *
-     * @param  string $label
+     * @param  string $title
      * @return SubmissionFile
      */
-    public function setLabel($label)
+    public function setTitle($title)
     {
-        $this->label = $label;
+        $this->title = $title;
 
         return $this;
     }

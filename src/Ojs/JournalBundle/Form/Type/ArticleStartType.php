@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\ArticleSubmissionFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,8 +19,8 @@ class ArticleStartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('submissionFiles', 'collection', array(
-                    'type' => new SubmissionFileType(1),
+            ->add('articleSubmissionFiles', 'collection', array(
+                    'type' => new ArticleSubmissionFileType(),
                     'allow_add' => false,
                     'allow_delete' => false,
                     'options' => array(

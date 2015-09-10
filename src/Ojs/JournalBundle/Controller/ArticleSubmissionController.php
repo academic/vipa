@@ -14,13 +14,14 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleRepository;
+use Ojs\JournalBundle\Entity\ArticleSubmissionFile;
 use Ojs\JournalBundle\Entity\ArticleSubmissionStart;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
-use Ojs\JournalBundle\Entity\SubmissionFile;
+use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
@@ -238,21 +239,22 @@ class ArticleSubmissionController extends Controller
             }
 
             $journalSubmissionFiles = $em
-                ->getRepository('OjsJournalBundle:SubmissionFile')
+                ->getRepository('OjsJournalBundle:JournalSubmissionFile')
                 ->findBy([
-                    'journal' => $journal,
                     'visible' => true,
                     'locale' => $request->getLocale()
                 ]);
 
             foreach($session->get('submissionFiles') as $fileKey => $submissionFile){
                 if(!is_null($submissionFile)){
-                    /** @var SubmissionFile $journalEqualFile */
+                    /** @var JournalSubmissionFile $journalEqualFile */
                     $journalEqualFile = $journalSubmissionFiles[$fileKey];
-                    $articleSubmissionFile = clone $journalEqualFile;
+                    $articleSubmissionFile = new ArticleSubmissionFile();
                     $articleSubmissionFile
-                        ->setId(null)
-                        ->setJournal(null)
+                        ->setTitle($journalEqualFile->getTitle())
+                        ->setDetail($journalEqualFile->getDetail())
+                        ->setLocale($journalEqualFile->getLocale())
+                        ->setRequired($journalEqualFile->getRequired())
                         ->setFile($submissionFile)
                         ->setArticle($article);
                     $em->persist($articleSubmissionFile);
@@ -565,7 +567,7 @@ class ArticleSubmissionController extends Controller
         }
 
         $entity = new ArticleSubmissionStart();
-        $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:SubmissionFile')
+        $journalSubmissionFiles = $em->getRepository('OjsJournalBundle:JournalSubmissionFile')
 	            ->findBy([
                     'visible' => true,
                     'locale' => $request->getLocale(),
@@ -573,15 +575,15 @@ class ArticleSubmissionController extends Controller
                 ]);
         foreach($journalSubmissionFiles as $file){
 
-            $fileEntity = new SubmissionFile();
-            $entity->addSubmissionFile($fileEntity);
+            $fileEntity = new ArticleSubmissionFile();
+            $entity->addArticleSubmissionFile($fileEntity);
         }
         $form = $this->createStartForm($checkListsChoices, $entity);
         $form->handleRequest($request);
 
         $submissionFiles = [];
         if($form->isValid() && $form->isSubmitted()){
-            foreach ($entity->getSubmissionFiles() as $fileKey => $submissionFile) {
+            foreach ($entity->getArticleSubmissionFiles() as $fileKey => $submissionFile) {
                 if(empty($submissionFile->getFile()) && $journalSubmissionFiles[$fileKey]->getRequired()){
                     return $this->render(
                         'OjsJournalBundle:ArticleSubmission:start.html.twig',

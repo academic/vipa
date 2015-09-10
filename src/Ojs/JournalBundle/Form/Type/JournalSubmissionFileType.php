@@ -7,10 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class SubmissionFileType
+ * Class JournalSubmissionFileType
  * @package Ojs\JournalBundle\Form\Type
  */
-class SubmissionFileType extends AbstractType
+class JournalSubmissionFileType extends AbstractType
 {
     private $isArticleSubmissionStartProcess;
 
@@ -40,8 +40,8 @@ class SubmissionFileType extends AbstractType
                     'endpoint' => 'submissionfiles'
                 )
             )
-            ->add('label', 'text', [
-                'label' => 'submission_checklist.label'
+            ->add('title', 'text', [
+                'label' => 'submission_checklist.title'
                 ]
             )
             ->add('detail', 'textarea', [
@@ -73,7 +73,7 @@ class SubmissionFileType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\SubmissionFile',
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalSubmissionFile',
                 'cascade_validation' => true,
                 'languages' => array(
                     array('tr' => 'Türkçe'),
@@ -92,6 +92,6 @@ class SubmissionFileType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_submissionfile';
+        return 'ojs_journalbundle_journal_submissionfile';
     }
 }
