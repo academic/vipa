@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
@@ -94,21 +93,6 @@ class JournalNewUserType extends AbstractType
                     'maxSize' => "[200, 200]"
                 )
             ))
-            ->add(
-                'journalRoles',
-                'entity',
-                [
-                    'label' => 'journal.roles',
-                    'class' => 'Ojs\UserBundle\Entity\Role',
-                    'property' => 'name',
-                    'multiple' => true,
-                    'expanded' => false,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('ujr');
-                    },
-                    'attr' => array("class" => "select2-element"),
-                ]
-            )
             ->addEventSubscriber(new AddProvinceFieldSubscriber())
             ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
     }

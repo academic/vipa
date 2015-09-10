@@ -130,7 +130,6 @@ class JournalUserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $formData = $form->getData();
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
@@ -142,10 +141,6 @@ class JournalUserController extends Controller
             $journalUser = new JournalUser();
             $journalUser->setUser($entity);
             $journalUser->setJournal($journal);
-
-            if (count($formData->getJournalRoles()) > 0) {
-                $journalUser->setRoles($formData->getJournalRoles());
-            }
 
             $em->persist($journalUser);
 
