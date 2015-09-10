@@ -60,7 +60,7 @@
                     </div>
                 </div>
             {% endif %}
-            {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
+            {% if selectedJournal() %}
                 <div class="panel panel-default">
                     <div class="panel-body" style="padding: 0">
                         {{ knp_menu_render('OjsJournalBundle:MenuBuilder:leftMenu', {'currentClass': 'active'}) }}
