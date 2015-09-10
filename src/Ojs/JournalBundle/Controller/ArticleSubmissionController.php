@@ -481,8 +481,8 @@ class ArticleSubmissionController extends Controller
         $draftErrors = $validator->validate($article, null, ['groups' => 'submission']);
 
         if($form->isValid() && count($draftErrors) == 0) {
-            if($session->has('competingFile')) {
-                $session->remove('competingFile');
+            if($session->has('submissionFiles')) {
+                $session->remove('submissionFiles');
             }
             $article->setStatus(0);
             $em->persist($article);

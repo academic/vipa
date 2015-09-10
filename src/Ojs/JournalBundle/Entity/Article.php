@@ -213,10 +213,10 @@ class Article extends AbstractTranslatable
      */
     private $articleFiles;
     /**
-     * @var Collection|SubmissionFile[]
+     * @var Collection|ArticleSubmissionFile[]
      * @Expose
      */
-    private $submissionFiles;
+    private $articleSubmissionFiles;
     /**
      * @var string
      */
@@ -252,7 +252,7 @@ class Article extends AbstractTranslatable
         $this->languages = new ArrayCollection();
         $this->articleAuthors = new ArrayCollection();
         $this->articleFiles = new ArrayCollection();
-        $this->submissionFiles = new ArrayCollection();
+        $this->articleSubmissionFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->statistics = new ArrayCollection();
     }
@@ -458,11 +458,11 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * @return Collection|SubmissionFile[]
+     * @return Collection|ArticleSubmissionFile[]
      */
-    public function getSubmissionFiles()
+    public function getArticleSubmissionFiles()
     {
-        return $this->submissionFiles;
+        return $this->articleSubmissionFiles;
     }
 
     /**
@@ -1093,30 +1093,30 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * Add submissionFiles
+     * Add articleSubmissionFiles
      *
-     * @param  SubmissionFile $submissionFile
+     * @param  ArticleSubmissionFile $articleSubmissionFile
      * @return $this
      */
-    public function addSubmissionFile(SubmissionFile $submissionFile)
+    public function addArticleSubmissionFile(ArticleSubmissionFile $articleSubmissionFile)
     {
-        if(!$this->submissionFiles->contains($submissionFile)){
-            $this->submissionFiles->add($submissionFile);
-            $submissionFile->setArticle($this);
+        if(!$this->articleSubmissionFiles->contains($articleSubmissionFile)){
+            $this->articleSubmissionFiles->add($articleSubmissionFile);
+            $articleSubmissionFile->setArticle($this);
         }
 
         return $this;
     }
 
     /**
-     * Remove submissionFiles
+     * Remove articleSubmissionFiles
      *
-     * @param SubmissionFile $submissionFile
+     * @param ArticleSubmissionFile $articleSubmissionFile
      */
-    public function removeSubmissionFile(SubmissionFile $submissionFile)
+    public function removeArticleSubmissionFile(ArticleSubmissionFile $articleSubmissionFile)
     {
-        if($this->submissionFiles->contains($submissionFile)){
-            $this->submissionFiles->removeElement($submissionFile);
+        if($this->articleSubmissionFiles->contains($articleSubmissionFile)){
+            $this->articleSubmissionFiles->removeElement($articleSubmissionFile);
         }
     }
 
