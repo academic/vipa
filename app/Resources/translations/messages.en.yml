@@ -312,7 +312,7 @@ country: Country
 cover: Cover
 cover_image: 'Cover Image'
 create: Create
-createOne: 'Create new one'
+createOne: 'Create New One'
 created: Created
 created.templates: 'Created Templates'
 d: Delete
@@ -353,13 +353,13 @@ empty: Empty
 error: Error
 error.oops: 'Oops! An Error Occurred'
 explore: Explore
-event.affectedUser.id: __event.affectedUser.id
+event.affectedUser.id: 'Event Affected User'
 event.date: 'Event Date'
 event.id: 'Event ID'
 event.info: 'Event Info'
 event.ip: 'Event IP'
-event.user.id: __event.user.id
-faq: Faq
+event.user.id: 'Event User ID'
+faq: FAQ
 fax: Fax
 featured: Featured
 featured.desc: ''
@@ -374,18 +374,18 @@ file.new: 'New File'
 file.path: 'File Path'
 file.select: 'Select File'
 file.type: 'File Type'
-filter.remove: 'Remove filter'
-firstStep: 'Firt Step'
+filter.remove: 'Remove Filter'
+firstStep: 'First Step'
 first_page: 'First Page'
 first_step: 'First Step'
-firstname: Firstname
+firstname: 'First name'
 founded: 'Founded'
-flush.all.log: 'Flush all log'
-footer_text: 'Footer text'
+flush.all.log: 'Flush All Log'
+footer_text: 'Footer Text'
 for.author_editor: 'For Autors and Editors'
 for.authors: 'For Authors'
 for.readers: 'For Readers'
-forgot.password: 'Forgot password'
+forgot.password: 'Forgot Password'
 form.item.new: 'New Form Item'
 form.item.update: 'Form Item Update'
 form.items: 'Form Items'
@@ -400,20 +400,20 @@ hide_title: 'Hide Title'
 home: Home
 id: ID
 image: Image
-inbook: In-book
-incollection: In-collection
+inbook: 'In-book'
+incollection: 'In-collection'
 initials: Initials
-inproceedings: In-proceedings
-input_type: 'Input type'
+inproceedings: 'In-proceedings'
+input_type: 'Input Type'
 input_types: 'Input Types'
-input_types.checkboxes: checkboxes
-input_types.dropdown: dropdown
-input_types.radiobutton: radiobutton
-input_types.scale_1_5: scale_1_5
-input_types.textarea: textarea
-input_types.textbox: textbox
+input_types.checkboxes: Checkboxes
+input_types.dropdown: Dropdown
+input_types.radiobutton: Radiobutton
+input_types.scale_1_5: Scale_1_5
+input_types.textarea: Textarea
+input_types.textbox: Textbox
 installer.check_configuration: 'Check Configuration'
-installer.congrat: 'Congrat! Installation has completed.'
+installer.congrat: 'Congrats! Installation has completed.'
 installer.gohome: 'Go Home!'
 installer.menu.check: Check
 installer.menu.configure: Configure
@@ -424,10 +424,10 @@ installer.menu.update: Updater
 installer.menu.update_confirm: Complete
 installer.setup: Setup
 installer.update: Upgrade
-installer.update.congrat: Update is successfull
+installer.update.congrat: 'Update is successfull'
 installer.update.welcome.message: 'Database differences will be apply to production database.'
 installer.update.welcome.title: 'OJS Updater'
-installer.welcome.message: 'Welcome message'
+installer.welcome.message: 'Welcome Message'
 installer.welcome.title: 'Welcome to OJS Web Installer'
 institute.country: Country
 institute.id: ID
@@ -442,11 +442,11 @@ institute.phone: Phone
 institute.fax: Fax
 institute.email: Email
 institute.url: URL
-institute.wiki_url: Wiki URL
+institute.wiki_url: 'Wiki URL'
 institute.logo: Logo
 institute.header: Header
 institute.tags: Tags
-institute.createdAt: Created At
+institute.createdAt: 'Created At'
 institute.user: User
 publisher: Publisher
 publisher.about: 'About Publisher'
@@ -493,20 +493,20 @@ issuefile.langcode: Language
 issuefile.list: 'Issue Files'
 issuefile.new: 'New Issue File'
 issuefile.title: Title
-items_per_page: 'Items per page'
+items_per_page: 'Items Per Page'
 journal: Journal
 journal.about: 'About Journal'
-journal.address: 'Journal''s postal address'
+journal.address: 'Journal''s Postal Address'
 journal.all: 'All Journals'
 journal.any_have: 'You don''t have any journals!'
-journal.application_success_message: 'Your application saved successfully.'
+journal.application_success_message: 'Your application was saved successfully.'
 journal.apply: 'Apply Journal'
 journal.articles: 'Journal Articles'
 journal.assistant_editor: 'Assistant Editor'
-journal.assistant_editor_email: 'Assistant editor e-mail'
-journal.assistant_editor_name: 'Assistant editor name'
-journal.assistant_editor_phone: 'Assistant editor phone'
-journal.assistant_editor_surname: 'Assistant editor surname'
+journal.assistant_editor_email: 'Assistant Editor''s e-mail'
+journal.assistant_editor_name: 'Assistant Editor''s Name'
+journal.assistant_editor_phone: 'Assistant Editor''s Phone'
+journal.assistant_editor_surname: 'Assistant Editor''s Surname'
 journal.boards: 'Journal Boards'
 journal.country: Country
 journal.cover_image: 'Cover Image'
@@ -514,16 +514,16 @@ journal.createdAt: 'Created at'
 journal.design: 'Journal Design'
 journal.detail: 'Journal Detail'
 journal.domain: Domain
-journal.edit: 'Journal Edit'
+journal.edit: 'Edit Journal'
 journal.editor: Editor
-journal.editor_email: 'Editor e-mail'
-journal.editor_name: 'Editor name'
-journal.editor_phone: 'Editor phone'
-journal.editor_surname: 'Editor surname'
+journal.editor_email: 'Editor E-mail'
+journal.editor_name: 'Editor Name'
+journal.editor_phone: 'Editor Phone'
+journal.editor_surname: 'Editor Surname'
 journal.eissn: 'Journal eISSN'
-journal.email: 'Journal''s contact email'
+journal.email: 'Journal''s Contact E-mail'
 journal.founded: 'Founded'
-journal.file: 'Submission Required Files'
+journal.file: 'Required Files'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
 journal.id: ID
@@ -547,7 +547,7 @@ journal.scope: Scope
 journal.settings.abstractTemplate.desc: 'You can load  predefined templates by clicking buttons listed above.'
 journal.settings.last.step.confirm: 'Submission last step confirm text'
 journal.settings.mail: 'Mail Settings'
-journal.settings.mail.signature: 'Email signature'
+journal.settings.mail.signature: 'Email Signature'
 journal.settings.page: 'Page Settings'
 journal.settings.submission: 'Submission Settings'
 journal.settings.submission.abstractTemplate: 'Submission Abstract Template'
@@ -560,7 +560,7 @@ journal.singular: Journal
 journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
 journal.subjects: Subjects
 journal.subtitle: Subtitle
-journal.tags: 'Tags'
+journal.tags: Tags
 journal.tech_contact: 'Tech Contact'
 journal.tech_contact_email: 'Tech contact e-mail'
 journal.tech_contact_name: 'Tech contact name'
@@ -574,7 +574,7 @@ journal.update: 'Journal Update'
 journal.url: URL
 journal.user: User
 journal.users: 'Journal Users'
-journal.subscribe: 'Subscribe this journal'
+journal.subscribe: 'Subscribe to This Journal'
 journalContact.contact.id: 'Contact ID'
 journalContact.contact.type.id: 'Contact Type ID'
 journalContact.creation: 'Journal Contact Creation'
