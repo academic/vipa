@@ -19,6 +19,7 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\LocationBundle\Entity\Country;
 use Ojs\LocationBundle\Entity\Province;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -64,7 +65,6 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     protected $lastName;
 
 
-
     /**
      * @var string
      */
@@ -78,7 +78,6 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
 
     /** @var  ArrayCollection */
     protected $restrictedJournals;
-
 
 
     /** @var  string */
