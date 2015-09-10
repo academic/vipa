@@ -608,8 +608,8 @@ section.list: 'Journal Section List'
 section.new: 'New Journal Section'
 section.show: Show
 section.title: Title
-journalindex.create: 'Journal Index Create'
-journalindex.edit: 'Journal Index Edit'
+journalindex.create: 'Create Journal Index'
+journalindex.edit: 'Edit Journal Index'
 journalindex.journal: Journal
 journalindex.journalindex: 'Journal Index'
 journalindex.link: 'Link for Journal on Index'
@@ -638,12 +638,12 @@ last_step: 'Last Step'
 lastname: Lastname
 linked.user: 'Linked User'
 list: List
-list_my_proxys: 'List my proxies'
+list_my_proxys: 'List My Proxies'
 log_out: Logout
-log_out_from_user: 'Logout from user'
-loggedAs: 'Logged in as'
+log_out_from_user: 'Logout From User'
+loggedAs: 'Logged in As'
 login: Login
-login_as: 'Login as'
+login_as: 'Login As'
 logo: Logo
 mail: Mail
 mail.templates: 'Mail Templates'
@@ -652,7 +652,7 @@ mailtemplate.default_template: 'Default Templates'
 mailtemplate.edit: 'Edit Mail Template'
 mailtemplate.journal: Journal
 mailtemplate.language: Language
-mailtemplate.languages: Language
+mailtemplate.languages: Languages
 mailtemplate.list: 'Mail Templates'
 mailtemplate.new: 'Create Mail Template'
 mailtemplate.show: Show
@@ -709,34 +709,34 @@ ojs.change_password: 'Password Change'
 ojs.changed_password: 'Your password has been changed'
 ojs.click_to_Review: 'Click link below for login to ojs if you are accept invitation'
 ojs.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
-ojs.have_message: 'You have a message from Ojs'
+ojs.have_message: 'You have a message from OJS'
 ojs.install.confirm: 'Confirm Installation'
-ojs.install.title: 'Ojs Installation'
+ojs.install.title: 'OJS Installation'
 ojs.install.title.confirm: 'Installlation will start. Ok?'
-ojs.invited: 'You have invited to OJS'
-ojs.invited_to_review: 'Review invitation from'
+ojs.invited: 'You have been invited to OJS'
+ojs.invited_to_review: 'Review Invitation From'
 ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
 ojs.one_more_step: 'One More Step'
 ojs.password_reset: 'Password Reset'
-ojs.password_reset_link: 'Click link below for reset to ojs account password'
+ojs.password_reset_link: 'Click link below for reset to OJS account password'
 ojs.password_reset_now: 'Reset Now'
 ojs.password_reset_process: 'Password Reset Process'
-ojs.password_reset_request: 'You are request password reset'
-ojs.password_reseted: 'Your password has been reset'
+ojs.password_reset_request: 'You are requested password reset.'
+ojs.password_reseted: 'Your password has been reset.'
 ojs.preview_article: 'Preview Article Before Submit'
 ojs.required_field: 'This field is required!'
 ojs.selected: (selected)
 ojs.setup: 'OJS Setup'
-ojs.setup_not_completed: 'It seems that you have not finished  <a href=''%setup_url%''>Journal Setup</a>'
+ojs.setup_not_completed: 'It seems that you have not finished  <a href=''%setup_url%''>Journal Setup</a>.'
 ojs.title: OJS
 ojs.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 ojs.uniq_name: 'This will be your unique short name in application'
 ojs.updater: 'OJS Updater'
-ojs.view_in_browser: 'view this in your browser'
+ojs.view_in_browser: 'View this in your browser'
 ojs.welcome_msg: 'You have joined to OJS'
 onlineSubmission: 'Online Submission'
 optional: Optional
-orcid.login: 'Orcid login'
+orcid.login: 'ORCID login'
 order: Order
 order_by: 'Order by'
 otherid: 'Other ID'
@@ -746,22 +746,22 @@ page.plural: Pages
 page.singular: Page
 pagerfanta.nex: Next
 pagerfanta.previous: Previous
-pages.all: 'All pages'
-pages.detail: 'Page detail'
-pages.edit: 'Edit page'
-pages.management: 'Page management'
-pages.new: 'New page'
+pages.all: 'All Pages'
+pages.detail: 'Page Detail'
+pages.edit: 'Edit Page'
+pages.management: 'Page Management'
+pages.new: 'New Page'
 parent: Parent
 parse: Parse
 part: Part
 password: Password
 period: Period
-phdthesis: 'Phd Thesis'
+phdthesis: 'PhD Thesis'
 phone: Phone
 photos: Photos
 presentations: Presentations
 preview: Preview
-primaly_language: 'Primaly Language'
+primary_language: 'Primary Language'
 printed: 'Is Printed?'
 privacy: Privacy
 proceedings: Proceedings
