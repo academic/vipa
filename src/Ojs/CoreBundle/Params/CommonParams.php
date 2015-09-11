@@ -4,12 +4,6 @@ namespace Ojs\CoreBundle\Params;
 
 class CommonParams
 {
-
-    public static $userStatusArray = [
-        0 => "Passive",
-        1 => "Active",
-        2 => "Banned",
-    ];
     public static $journalApplicationStatusArray = [
         2 => 'application.status.waiting',
         1 => 'application.status.complete',
@@ -36,17 +30,6 @@ class CommonParams
     public static function getStatusTexts()
     {
         return self::$journalStatusArray;
-    }
-
-    /**
-     * @param  string       $statusText
-     * @return null|integer
-     */
-    public static function getStatusCode($statusText)
-    {
-        $i = array_search($statusText, self::$journalStatusArray);
-
-        return $i ?: null;
     }
 
     public static function statusText($statusNum = null)
