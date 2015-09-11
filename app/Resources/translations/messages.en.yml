@@ -11,16 +11,13 @@ Author: Author
 Authors: Authors
 Avatar: Avatar
 Chamber: Chamber
-'workflow.conflict_of_interest_file': 'Conflict of Interest File'
 Confirm: Confirm
 Content: Content
 Copyeditor: Copyeditor
-'workflow.copyright_transfer_form': 'Transfer of Copyright Form'
 Create: Create
 'article.data_analysis': 'Data Analysis'
 'Data Set': 'Data Set'
 Decline: Decline
-'roles.default_registered_user': 'Default Registered User'
 Description: Description
 Drafts: Drafts
 Editor: Editor
@@ -47,9 +44,7 @@ Information: Information
 'ojs.is_public': 'Is public?'
 Issue: Issue
 Italian: Italian
-'roles.journal_manager': 'Journal Manager'
 Keywords: Keywords
-'workflow.last_step': 'Last Step'
 'Layout Editor': 'Layout Editor'
 Name: Name
 'No': 'No'
@@ -82,8 +77,6 @@ Reviewer: Reviewer
 Russian: Russian
 Search: Search
 Section: Section
-roles.section_editor: 'Section Editor'
-'workflow.source_text': 'Source Text'
 Subject: Subject
 Subjects: Subjects
 Submissions: Submissions
@@ -1210,17 +1203,9 @@ title.user_show: 'Show User'
 title.user_welcome: Welcome
 title.users: Users
 title.workflow_step_edit: 'Edit Workflow Step'
-title.workflow_step_graph: 'Workflow Step Graph'
 title.workflow_step_new: 'New Workflow Step'
 title.workflow_step_show: 'Show Workflow Step'
 title.workflow_steps: 'Workflow Steps'
-title.workflow_template: 'Workflow Template'
-title.workflow_template_edit: 'Edit Workflow Template'
-title.workflow_template_new: 'New Workflow Template'
-title.workflow_template_step_edit: 'Edit Workflow Template Step'
-title.workflow_template_step_new: 'New Workflow Template Step'
-title.workflow_template_step_show: 'Show Workflow Template Step'
-title.workflow_templates: 'Workflow Templates'
 title.working_step_preview: 'Preview Working Step'
 title.search_advanced: "Gelişmiş Arama"
 titleTransliterated: 'Transliterated Title'
@@ -1343,46 +1328,7 @@ volume: Volume
 waiting: Waiting
 wiki: Wiki
 workflow: Workflow
-workflow.advanced_settings: 'Advanced Settings'
-workflow.competing_guide: 'Guidelines for filling a <i>Conflict of Interest</i> statement.'
-workflow.competing_interest: 'Conflict of Interest Statement'
-workflow.competing_question: 'User must send a conflict of interest statement.'
-workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
-workflow.each_field_one_line: 'Add each field text as one line.'
-workflow.first_step: 'First Step'
-workflow.fw_reviewer_403: 'You don''t have submission privilege.'
-workflow.group_set_name: 'Questions will be grouped under fieldset names.'
-workflow.is_question_confiential: 'If this question''s answer may contain confidential data please check.'
-workflow.is_question_mandatory: 'Is this question mandatory?'
-workflow.is_visible_author: 'Is visible to author?'
-workflow.must_assigned_someone: 'Must be assigned to someone?'
-workflow.no_review: '[No review form]'
-workflow.poll_reset: 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
-workflow.previous_review_report: 'Previous Review Report'
-workflow.reject_completely: 'Can reject the submission completely?'
-workflow.remaining_day: 'Enter number as day count'
-workflow.remove_author: 'You should remove author forms by clicking ''Remove'' button on left bottom corner of every form.'
-workflow.remove_author_all: 'Remove all author forms!'
-workflow.review_notes: 'Review Notes'
-workflow.review_report: 'Review Report'
-workflow.should_be_assigned: 'These articles were submitted but waiting to be assigned.'
-workflow.step.detail: 'Workflow Step Detail'
-workflow.step.graph: 'Workflow Step Graph'
-workflow.step.new: 'New Workflow Step'
-workflow.step.template.edit: 'Edit Workflow Step Template'
-workflow.step.template.new: 'New Workflow Step Template'
-workflow.step.update: 'Update Workflow'
 workflow.steps: 'Workflow Steps'
-workflow.template.addStep: 'Add Step'
-workflow.template.create: 'Template Create'
-workflow.template.details: 'Workflow Template Details'
-workflow.template.edit: 'Edit Workflow Template'
-workflow.template.new: 'New Workflow Template'
-workflow.template.step.detail: 'Workflow Template Step Detail'
-workflow.template.update: 'Update Template'
-workflow.template.updateStep: 'Update Step'
-workflow.templates: 'Workflow Templates'
-workflow.templates.create: 'Create Workflow Template'
 workflows: Workflows
 year: Year
 you: You

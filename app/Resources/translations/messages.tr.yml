@@ -11,16 +11,13 @@ Author: Yazar
 Authors: Yazarlar
 Avatar: Avatar
 Chamber: Oda
-'workflow.conflict_of_interest_file': 'Çıkar Çatışması Dosyası'
 Confirm: Onayla
 Content: İçerik
 Copyeditor: 'Sayfa Düzenleyici'
-'workflow.copyright_transfer_form': 'Telif Hakkı Devir Formu'
 Create: 'Oluştur'
 'article.data_analysis': 'Veri Analizi'
 'Data Set': 'Veri Seti'
 Decline: Reddet
-'roles.default_registered_user': 'Varsayılan Kayıtlı Kullanıcı'
 Description: Açıklama
 Drafts: Taslaklar
 Editor: Editör
@@ -47,9 +44,7 @@ Information: Bilgi
 'ojs.is_public': 'Görünür mü?'
 Issue: Sayı
 Italian: İtalyanca
-roles.journal_manager: 'Dergi Yöneticisi'
 Keywords: Anahtar Kelimeler
-'workflow.last_step': 'Son Adım'
 'Layout Editor': Mizanpajcı
 Name: Ad
 No: Hayır
@@ -82,8 +77,6 @@ Reviewer: Hakem
 Russian: Rusça
 Search: Arama
 Section: Bölüm
-roles.section_editor: 'Bölüm Editörü'
-'workflow.source_text': 'Kaynak Metin'
 Subject: Konu
 Subjects: Konular
 Submissions: Gönderiler
@@ -1210,17 +1203,9 @@ title.user_show: 'Kullanıcıyı Göster'
 title.user_welcome: Hoşgeldiniz
 title.users: Kullanıcılar
 title.workflow_step_edit: 'İş Akışı Adımını Düzenle'
-title.workflow_step_graph: 'İş Akışı Adım Grafiği'
 title.workflow_step_new: 'Yeni İş Akışı Adımı'
 title.workflow_step_show: 'İş Akışı Adımını Göster'
 title.workflow_steps: 'İş Akışı Adımları'
-title.workflow_template: 'İş Akışı Şablonu'
-title.workflow_template_edit: 'İş Akışı Şablonunu Düzenle'
-title.workflow_template_new: 'Yeni İş Akışı Şablonu'
-title.workflow_template_step_edit: 'İş Akışı Şablonu Adımı Düzenle'
-title.workflow_template_step_new: 'Yeni İş Akışı Şablon Adımı'
-title.workflow_template_step_show: 'İş Akışı Şablon Adımını Göster'
-title.workflow_templates: 'İş Akışı Şablonları'
 title.working_step_preview: 'Çalışma Adımını Önizleme'
 title.search_advanced: "Gelişmiş Arama"
 titleTransliterated: 'Başka Dilde Yazılmış Başlık'
@@ -1343,46 +1328,7 @@ volume: Cilt
 waiting: Bekliyor
 wiki: Wiki
 workflow: İş Akışı
-workflow.advanced_settings: 'İleri Seviye Ayarlar'
-workflow.competing_guide: '<i>Çıkar Çatışması</i> beyanı doldurmak için kılavuz.'
-workflow.competing_interest: 'Çıkar Çatışması Beyanı'
-workflow.competing_question: 'Kullanıcılar Çıkar Çatışması Beyanı göndermelidirler.'
-workflow.design_reset: 'Mevcut iş akışı tasarımı üzerine yazılacak! Emin misiniz?'
-workflow.each_field_one_line: 'Her bir alan metnini tek satır olarak ekleyin.'
-workflow.first_step: 'İlk Adım'
-workflow.fw_reviewer_403: 'Gönderim hakkınız yoktur.'
-workflow.group_set_name: 'Sorular alan kümesi adı altında gruplandırılacaktır.'
-workflow.is_question_confiential: 'Eğer bu sorunun cevabı gizli bilgiler içeriyorsa lütfen kontrol edin.'
-workflow.is_question_mandatory: 'Bu soru zorunlu mu?'
-workflow.is_visible_author: 'Yazara görünür mü?'
-workflow.must_assigned_someone: 'Birine atanmalı mı?'
-workflow.no_review: '[Hakem Formu Yok]'
-workflow.poll_reset: 'Bu form için tüm form elemanlarınız silinecek ve tanımlı elemanlar eklenecektir. Emin misiniz?'
-workflow.previous_review_report: 'Önceki Hakem Raporu'
-workflow.reject_completely: 'Gönderiyi tamamıyla reddedebilir mi?'
-workflow.remaining_day: 'Gün sayacı için numara gir.'
-workflow.remove_author: 'Her formun sol alt köşesindeki sil butonuna tıklayarak yazar formlarını silmelisiniz.'
-workflow.remove_author_all: 'Tüm yazar formlarını sil!'
-workflow.review_notes: 'Değerlendirme Notları'
-workflow.review_report: 'Değerlendirme Raporu'
-workflow.should_be_assigned: 'Bu makaleler gönderildi fakat atanmak için bekliyor.'
-workflow.step.detail: 'İş Akışı Adım Detayı'
-workflow.step.graph: 'İş Akışı Adım Grafiği'
-workflow.step.new: 'Yeni İş Akışı Adımı'
-workflow.step.template.edit: 'İş Akışı Adım Şablonunu Düzenle'
-workflow.step.template.new: 'Yeni İş Akışı Adım Şablonu'
-workflow.step.update: 'İş Akışını Güncelle'
 workflow.steps: 'İş Akışı Adımları'
-workflow.template.addStep: 'Adım Ekle'
-workflow.template.create: 'Şablon Oluştur'
-workflow.template.details: 'İş Akışı Şablonu Detayları'
-workflow.template.edit: 'İş Akışı Şablonunu Düzenle'
-workflow.template.new: 'Yeni İş Akışı Şablonu'
-workflow.template.step.detail: 'İş Akışı Şablon Adım Detayı'
-workflow.template.update: 'Şablon Güncelle'
-workflow.template.updateStep: 'Adım Güncelle'
-workflow.templates: 'İş Akışı Şablonları'
-workflow.templates.create: 'İş Akışı Şablonu Oluştur'
 workflows: 'İş Akışları'
 year: Yıl
 you: Sen

@@ -33,8 +33,6 @@ class ArticleFileParams
         7 => 'suppfiles.source',
         8 => 'Pictures',
         9 => 'Tables',
-        10 => 'workflow.copyright_transfer_form',
-        11 => 'workflow.competing_interests_file',
     );
 
     /**
