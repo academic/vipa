@@ -34,7 +34,7 @@ class ArticleRepository extends EntityRepository
      * @param  int $status default 3 (published)  see Ojs\CoreBundle\CommonParams
      * @return Article[]
      */
-    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 3)
+    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 1)
     {
         $q = $this->createQueryBuilder('a')
             ->select('a')
