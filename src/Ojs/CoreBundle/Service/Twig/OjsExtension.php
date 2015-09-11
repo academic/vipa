@@ -94,7 +94,6 @@ class OjsExtension extends \Twig_Extension
             ),
             new \Twig_SimpleFunction('printYesNo', array($this, 'printYesNo'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('statusText', array($this, 'statusText'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('statusColor', array($this, 'statusColor'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('fileType', array($this, 'fileType'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('daysDiff', array($this, 'daysDiff'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('apiKey', array($this, 'apiKey'), array('is_safe' => array('html'))),
@@ -341,18 +340,6 @@ class OjsExtension extends \Twig_Extension
                 'yes'
             ).'</i></span>' :
             '<span class="label label-danger"><i class="fa fa-ban"> '.$this->translator->trans('no').'</i></span>');
-    }
-
-    /**
-     * Returns status color from given status integer value
-     * @param  integer $arg
-     * @return string
-     */
-    public function statusColor($arg)
-    {
-        $colors = CommonParams::getStatusColors();
-
-        return isset($colors[$arg]) ? $colors[$arg] : '#fff';
     }
 
     /**

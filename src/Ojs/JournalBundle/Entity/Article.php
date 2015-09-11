@@ -517,15 +517,6 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     *
-     * @return string
-     */
-    public function getStatusColor()
-    {
-        return CommonParams::statusColor($this->status);
-    }
-
-    /**
      * @return int
      */
     public function getStatus()

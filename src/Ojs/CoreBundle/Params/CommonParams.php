@@ -29,21 +29,6 @@ class CommonParams
         0 => "status.inreview",
         1 => "status.published",
     );
-    protected static $statusColorArray = array(
-        -3 => '#FF2924',
-        -2 => '#FF4724',
-        -1 => '#9A9',
-        0 => '#E8CC56',
-        1 => '#3FFF23',
-    );
-
-    /**
-     * @return array
-     */
-    public static function getStatusColors()
-    {
-        return self::$statusColorArray;
-    }
 
     /**
      * @return array
@@ -71,16 +56,6 @@ class CommonParams
         } else {
             return self::$journalStatusArray;
         }
-    }
-
-    /**
-     * Return color of this status via status code
-     * @param  int    $statusNum
-     * @return string
-     */
-    public static function statusColor($statusNum)
-    {
-        return isset(self::$statusColorArray[$statusNum]) ? self::$statusColorArray[$statusNum] : null;
     }
 
     /**
