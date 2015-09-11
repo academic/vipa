@@ -11,35 +11,35 @@ Author: Yazar
 Authors: Yazarlar
 Avatar: Avatar
 Chamber: Oda
-workflow.competing_interests_file: 'Çıkar Çatışması Dosyası'
+'workflow.conflict_of_interest_file': 'Çıkar Çatışması Dosyası'
 Confirm: Onayla
 Content: İçerik
 Copyeditor: 'Sayfa Düzenleyici'
-workflow.copyright_transfer_form: 'Telif Hakkı Devir Formu'
+'workflow.copyright_transfer_form': 'Telif Hakkı Devir Formu'
 Create: 'Oluştur'
-article.data_analysis: 'Veri Analizleri'
+'article.data_analysis': 'Veri Analizi'
 'Data Set': 'Veri Seti'
 Decline: Reddet
-roles.default_registered_user: 'Varsayılan Kayıtlı Kullanıcı'
-Description: 'Açıklama'
+'roles.default_registered_user': 'Varsayılan Kayıtlı Kullanıcı'
+Description: Açıklama
 Drafts: Taslaklar
 Editor: Editör
-English: 'İngilizce'
+English: İngilizce
 Expand: Genişlet
 Export: Dışa aktar
-Fieldset: Grup
+Fieldset: 'Alan Kümesi'
 File: Dosya
 Files: Dosyalar
 Filters: Filtreler
-Foundation: Dernek
+Foundation: Vakıf
 French: Fransızca
-workflow.full_text: Tam Metin
+'workflow.full_text': 'Tam Metin'
 German: Almanca
 Go: Git
 Government: Devlet
 Guidelines: Lejant
 Hospital: Hastane
-ID: 'No'
+ID: ID
 ISSN: ISSN
 Info: Bilgi
 Information: Bilgi
@@ -51,8 +51,8 @@ roles.journal_manager: 'Dergi Yöneticisi'
 Keywords: Anahtar Kelimeler
 'workflow.last_step': 'Son Adım'
 'Layout Editor': Mizanpajcı
-Name: 'Ad'
-'No': 'Hayır'
+Name: Ad
+No: Hayır
 'No data': 'Veri Yok'
 Other: Diğer
 Page: Sayfa
