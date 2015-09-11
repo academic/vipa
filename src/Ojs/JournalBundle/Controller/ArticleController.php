@@ -116,7 +116,6 @@ class ArticleController extends Controller
             [
                 'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
-                'journal' => $journal,
             ]
         );
         $form->add('submit', 'submit', array('label' => 'Create'));

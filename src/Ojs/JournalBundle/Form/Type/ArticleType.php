@@ -2,9 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,8 +16,6 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var Journal $journal */
-        $journal = $options['journal'];
         $builder
             ->add('translations', 'a2lix_translations',[
                 'fields' => [
@@ -48,13 +44,6 @@ class ArticleType extends AbstractType
                     'class' => 'Ojs\JournalBundle\Entity\Issue',
                     'required' => false,
                     'attr' => array('class' => ' form-control select2-element'),
-                    'query_builder' => function (EntityRepository $er) use ($journal) {
-                        $qb = $er->createQueryBuilder('i');
-                        $qb->where('i.journal = :journal')
-                            ->setParameter('journal', $journal);
-
-                        return $qb;
-                    },
                 )
             )
             ->add(
@@ -205,7 +194,6 @@ class ArticleType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
-                'journal' => new Journal(),
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
