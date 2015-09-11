@@ -814,14 +814,14 @@ review.form.preview: 'Review Form Preview'
 review.form.update: 'Update Review Form'
 review.forms: 'Review Forms'
 review.result: 'Review Result'
-reviewForms.manage: 'Manage review forms'
+reviewForms.manage: 'Manage Review Forms'
 reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'
 reviewResultCodes.2: 'Major Revision'
 reviewResultCodes.3: 'Minor Revision'
 reviewResultCodes.4: Accept
 role.edit: 'Edit Role'
-role.forusers: __role.forusers
+role.forusers: 'Role for Users'
 role.id: ID
 role.issystemrole: 'Is System Role?'
 role.list: 'Role List'
@@ -843,35 +843,34 @@ search.main: 'Search Journal, Article and Author'
 search.noresult: 'We could not find any results matching.'
 search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
-search.on.everywhere: 'Search on this site'
-search.on.journal: 'Search on journal'
+search.on.everywhere: 'Search On This Site'
+search.on.journal: 'Search On Journal'
 search.advanced: "Advanced Search"
 search.query: "Query"
-search.useQueryBuilder: "Use query builder"
+search.useQueryBuilder: "Use Query Builder"
 search.submit: "Search"
 search.or: "OR"
 search.and: "AND"
 search.not: "NOT"
 search.field: "Field"
-search.removeFieldItem: "Remove field item"
-search.addFieldItem: "Add field item"
+search.removeFieldItem: "Remove Field Item"
+search.addFieldItem: "Add Field Item"
 search.value: "Value"
-
-search_query: 'type keyword(s) here'
-searchon.crossref: 'Search on Crossref'
-searchon.doaj: 'Search on Doaj'
+search_query: 'Type Keyword(s) Here'
+searchon.crossref: 'Search on CrossRef'
+searchon.doaj: 'Search on DOAJ'
 searchon.google: 'Search on Google'
-searchon.pubmed: 'Search on Pubmed'
+searchon.pubmed: 'Search on PubMed'
 searchon.wikipedia: 'Search on Wikipedia'
 section: Section
 select.article.file: 'Select File'
 select.image.file: 'Select Image File...'
-select_all: 'Select all'
+select_all: 'Select All'
 select_article_file: 'Select Article File'
 select_supplementary_article_file: 'Select Supplementary Article File'
-select_visible: 'Select visible'
+select_visible: 'Select Visible'
 send_article: 'Send Article'
-sendmail: 'Send email'
+sendmail: 'Send E-mail'
 services: Services
 setting: Setting
 settings: Settings
@@ -883,12 +882,12 @@ source: Source
 special: Special
 special.issue: 'Special Issue'
 stats: Statistics
-stats.most_downloaded_article_files: 'Most downloaded article files'
-stats.most_downloaded_issue_files: 'Most downloaded issue files'
-stats.most_viewed_articles: 'Most viewed articles'
-stats.most_viewed_journals: 'Most viewed journals'
-stats.views: 'Views'
-stats.downloads: 'Downloads'
+stats.most_downloaded_article_files: 'Most Downloaded Article Files'
+stats.most_downloaded_issue_files: 'Most Downloaded Issue Files'
+stats.most_viewed_articles: 'Most Viewed Articles'
+stats.most_viewed_journals: 'Most Viewed Journals'
+stats.views: Views
+stats.downloads: Downloads
 stats.this_month: 'This Month'
 stats.all_time: 'All Time'
 status: Status
@@ -900,7 +899,7 @@ status.spam: Spam
 status.unpublished: Unpublished
 status.unknown: Unknown
 statusText: 'Status Text'
-step.edit: 'Edit step'
+step.edit: 'Edit Step'
 step.new: 'New Step'
 subject: Subject
 subject.edit: 'Edit Subject'
@@ -909,8 +908,8 @@ subject.new: 'New Subject'
 subject.plural: Subjects
 subjects: Subjects
 submission.attention: 'After submission your manuscript you can''t change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.'
-submission.starting: Starting
-submission.success: 'Submission sending complete.'
+submission.starting: Start
+submission.success: 'Submission Sending Complete.'
 submissionDate: 'Submission Date'
 submission_checklist: 'Submission Checklist'
 submission_checklist.create: 'New item'
@@ -920,14 +919,14 @@ submission_checklist.show: Show
 submission_checklist.visible: 'Is visible?'
 submission_checklist.required: 'Is this required for submission?'
 submit: Submit
-submitRoles: 'Roles that can submit articles'
+submitRoles: 'Roles That Can Submit Articles'
 submit_action: 'Submit Action'
 subtitle: Subtitle
 success: Success
 successful.create: 'Successfully created.'
 successful.remove: 'Successfully removed.'
 successful.update: 'Successfully updated.'
-successfully.subscribed: 'Successfully Subscribed'
+successfully.subscribed: 'Successfully subscribed'
 suggest: Suggest
 suggestedMaxDays: 'Suggested maximum days count'
 summary: Summary
@@ -944,7 +943,7 @@ support: Support
 sure: 'Are you sure?'
 sure.ban: 'You will ban this user. Are you sure?'
 sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
-system.templates: 'System templates'
+system.templates: 'System Templates'
 switch: Switch
 tag.search.results: 'Tag Search Result'
 tags: Tags
@@ -953,7 +952,7 @@ tagsearch: 'Tag Search'
 techreport: 'Technical Report'
 temaplate.name: 'Template Name'
 template: Template
-template.loadDefault: 'Load default templates'
+template.loadDefault: 'Load Default Templates'
 template.name: 'Template Name'
 templates: Templates
 theme: Theme
@@ -974,7 +973,7 @@ title.archives: Archives
 title.article: Article
 title.article_authors: 'Article''s Authors'
 title.article_authors_edit: 'Edit Article''s Authors'
-title.article_authors_new: 'Add a new Author'
+title.article_authors_new: 'Add a New Author'
 title.article_authors_show: 'Show Article''s Authors'
 title.article_edit: 'Edit Article'
 title.article_files: 'Article Files'
@@ -1089,7 +1088,7 @@ title.journal_page_list: 'Page List'
 title.journal_role_edit: 'Edit Journal Role'
 title.journal_role_myjournals: 'My Journals'
 title.journal_role_new: 'New Journal Role'
-title.journal_role_send_mail: 'Send email'
+title.journal_role_send_mail: 'Send E-mail'
 title.journal_role_show: 'Show Journal Role'
 title.journal_role_show_journals: 'Show Journals'
 title.journal_role_show_users: 'Show Users'
@@ -1231,26 +1230,26 @@ toggle_navigation: 'Toggle Navigation'
 tools: Tools
 topics: Topics
 tos: Tos
-total.article: 'Total article'
-total.issue: 'Total issue'
-total.user: 'Total user'
+total.article: 'Total Article'
+total.issue: 'Total Issue'
+total.user: 'Total User'
 trans: Transliterated
 tubitak: TÜBİTAK
 tubitak_journals: 'TÜBİTAK Journals'
 type: Type
 u: Update
 ujs: UJS
-ulakbim: Ulakbim
+ulakbim: ULAKBİM
 unconfirmed.user: 'Unconfirmed user'
 unpublished: Unpublished
 update: Update
 update.article.file: 'Update Article File'
-update.end.time: 'Update end time'
+update.end.time: 'Update End Time'
 update.ttl: 'Update TTL'
 updated: Updated
 uploading: Uploading...
 url: URL
-useThisTemplate: 'Use this template'
+useThisTemplate: 'Use This Template'
 user: User
 user.activitylog: 'User Activity Log'
 user.anonym.create_password: 'Create password'
@@ -1264,18 +1263,18 @@ user.connected_accounts.add: 'Add Account'
 user.connected_accounts.add_orcid_account: 'Connect ORCID'
 user.connected_accounts.provider: Provider
 user.connected_accounts.provider_user_id: 'Provider User ID'
-user.current_roles: 'Current roles'
+user.current_roles: 'Current Roles'
 user.custom_field.action: Actions
 user.custom_field.create: Create
-user.custom_field.is_url: 'Is Url?'
+user.custom_field.is_url: 'Is URL?'
 user.custom_field.label: Label
 user.custom_field.value: Value
 user.custom_fields: 'Custom Fields'
 user.edit: 'Edit User'
-user.email: Email
+user.email: E-mail
 user.forgot_password: 'Forgot Password'
-user.hide_account: 'Hide my account'
-user.id: 'User id'
+user.hide_account: 'Hide My Account'
+user.id: 'User ID'
 user.isActive: 'Is user enabled?'
 user.join_journal: 'Register yourself as author'
 user.join_journal_confirm: 'You are not an author of this journal. Confirm to register yourself as author.'
@@ -1284,7 +1283,7 @@ user.journalrole: 'Journal Roles'
 user.journalrole.alljournals: 'All Journals'
 user.journalrole.creation: 'Journal Role Creation'
 user.journalrole.edit: 'Edit Journal Role'
-user.journalrole.email: Email
+user.journalrole.email: E-mail
 user.journalrole.id: ID
 user.journalrole.journal: Journal
 user.journalrole.journal.id: ID
@@ -1304,7 +1303,7 @@ user.journalrole.thisjournalhasnouser: 'This journal has no user!'
 user.journalrole.user: User
 user.journalrole.user.id: ID
 user.journalrole.user.username: Username
-user.journalrole.usersofjournal: 'Users of journal'
+user.journalrole.usersofjournal: 'Users of Journal'
 user.journalrole.youhavenojournal: 'You have no journal'
 user.lastlogin: 'Last Login'
 user.list: 'User List'
@@ -1321,8 +1320,8 @@ user.profile.edit: 'Edit User Profile'
 user.proxy_allow: 'You can allow this user to login as you, by clicking this button'
 user.reset_password: 'Reset Password'
 user.roles: 'User Roles'
-user.select_to_submit: 'Select journal to submit'
-user.show: 'User Show'
+user.select_to_submit: 'Select Journal to Submit'
+user.show: 'Show Users'
 user.status: Status
 user.subjects: Subjects
 user.title: Title
@@ -1334,7 +1333,7 @@ user.username_not_available: 'This username  is <strong>not</strong> available. 
 user.username_taken: 'This username  is already taken'
 user_page: 'User Page'
 username: Username
-username.or.email: 'Username or Email'
+username.or.email: 'Username or E-mail'
 users: Users
 value: Value
 verified: Verified
@@ -1345,11 +1344,11 @@ waiting: Waiting
 wiki: Wiki
 workflow: Workflow
 workflow.advanced_settings: 'Advanced Settings'
-workflow.competing_guide: 'Guidelines for filling a <i>competing interests</i> statement.'
-workflow.competing_interest: 'Competing interests statement'
-workflow.competing_question: 'User must send a competing interests statement.'
+workflow.competing_guide: 'Guidelines for filling a <i>Conflict of Interest</i> statement.'
+workflow.competing_interest: 'Conflict of Interest Statement'
+workflow.competing_question: 'User must send a conflict of interest statement.'
 workflow.design_reset: 'Your existing workflow design will be overwritten! Are you sure?'
-workflow.each_field_one_line: 'Add each field text as one line'
+workflow.each_field_one_line: 'Add each field text as one line.'
 workflow.first_step: 'First Step'
 workflow.fw_reviewer_403: 'You don''t have submission privilege.'
 workflow.group_set_name: 'Questions will be grouped under fieldset names.'
@@ -1366,21 +1365,21 @@ workflow.remove_author: 'You should remove author forms by clicking ''Remove'' b
 workflow.remove_author_all: 'Remove all author forms!'
 workflow.review_notes: 'Review Notes'
 workflow.review_report: 'Review Report'
-workflow.should_be_assigned: 'These articlese submitted but waiting to be assigned.'
+workflow.should_be_assigned: 'These articles were submitted but waiting to be assigned.'
 workflow.step.detail: 'Workflow Step Detail'
 workflow.step.graph: 'Workflow Step Graph'
 workflow.step.new: 'New Workflow Step'
 workflow.step.template.edit: 'Edit Workflow Step Template'
 workflow.step.template.new: 'New Workflow Step Template'
-workflow.step.update: 'Update Workflow Update'
+workflow.step.update: 'Update Workflow'
 workflow.steps: 'Workflow Steps'
 workflow.template.addStep: 'Add Step'
 workflow.template.create: 'Template Create'
-workflow.template.details: 'Workflow Templat Details'
-workflow.template.edit: 'Workflow Template Edit'
+workflow.template.details: 'Workflow Template Details'
+workflow.template.edit: 'Edit Workflow Template'
 workflow.template.new: 'New Workflow Template'
 workflow.template.step.detail: 'Workflow Template Step Detail'
-workflow.template.update: 'Template Update'
+workflow.template.update: 'Update Template'
 workflow.template.updateStep: 'Update Step'
 workflow.templates: 'Workflow Templates'
 workflow.templates.create: 'Create Workflow Template'
@@ -1406,19 +1405,16 @@ publisherdesign.edit: 'Edit Publisher Design'
 publisherdesign.list: 'Publisher Design List'
 publisherdesign.new: 'New Publisher Design'
 publisherdesign.plural: 'Publisher Designs'
-suggested.competingFile.can.view: Suggested competing file can view.
-from.here: From here
-
-submission.whats_missing: 'What''s missing?'
-
+suggested.competingFile.can.view: 'Suggested competing file can view.'
+from.here: 'From Here'
+submission.whats_missing: 'What''s Missing?'
 journal.design.cannot_delete_active: 'You are not allowed to delete the active theme. Select another one before deleting this one.'
-
 validation:
   submission:
-    title: Title field for the default language can not be blank
-    subjects: Subjects field for the default language can not be blank
-    subtitle: Subtitle field for the default language can not be blank
-    keywords: Keywords field for the default language can not be blank
-    abstract: Abstract field for the default language can not be blank
+    title: 'Title field for the default language is mandatory'
+    subjects: 'Subjects field for the default language is mandatory'
+    subtitle: 'Subtitle field for the default language is mandatory'
+    keywords: 'Keywords field for the default language is mandatory'
+    abstract: 'Abstract field for the default language is mandatory'
 yes: Yes
 no: No
