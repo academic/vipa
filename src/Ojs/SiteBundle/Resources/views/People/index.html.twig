@@ -157,7 +157,7 @@
                 <div class="col-sm-3">
                     <div class="card ng">
                         <div class="avatar">
-                            <a href="/@{{ person.username }}">
+                            <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
 
                                 <img
                                         {% if person.avatar is defined and person.avatar is not null %}
@@ -171,7 +171,7 @@
                             </a>
                         </div>
                         <div class="content">
-                            <a class="hovercard" href="/@{{ person.username|default('') }}">
+                            <a class="hovercard" href="{{ path('ojs_user_profile', {slug: person.username}) }}">
                                 {% if person.title is defined %}
                                     {{ person.title }}
                                 {% endif %}

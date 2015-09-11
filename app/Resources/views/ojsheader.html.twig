@@ -68,7 +68,7 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/@{{ app.user.username }}"
+                                <li><a href="{{ path('ojs_user_profile', {slug: app.user.username}) }}"
                                        title="{{ "you"|trans }}"><b>{{ app.user.username }}</b></a></li>
                                 <li>
                                     <a href="{{ url('dashboard') }}" title="{{ "dashboard"|trans }}"
