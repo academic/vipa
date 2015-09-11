@@ -88,12 +88,6 @@ services:
     class: Ojs\CoreBundle\Service\GridAction
     arguments: [@security.csrf.token_manager, @translator, @ojs.cms.twig.post_extension]
 
-  form.type.entity:
-    class: Ojs\CoreBundle\Form\Type\EntityType
-    arguments: [@doctrine]
-    tags:
-      - { name: form.type, alias: entity }
-
   form.type.tags:
     class: Ojs\CoreBundle\Form\Type\TagsType
     arguments: [ @router, @translator ]
