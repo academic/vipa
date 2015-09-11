@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\CoreBundle\Params\CommonParams;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,7 +63,7 @@ class ArticleType extends AbstractType
                 array(
                     'label' => 'status',
                     'attr' => array('class' => ' form-control'),
-                    'choices' => CommonParams::statusText(),
+                    'choices' => Article::$statuses,
                 )
             )
             ->add(

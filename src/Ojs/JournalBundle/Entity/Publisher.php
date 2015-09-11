@@ -24,8 +24,6 @@ class Publisher extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
-    public $statusTexts = array(0 => 'application.status.onhold', 1 => 'application.status.rejected');
-
     /**
      * @var integer
      * @Expose
@@ -182,6 +180,16 @@ class Publisher extends AbstractTranslatable
      */
     private $publisherManagers;
 
+    /**
+     * List of Publisher Status
+     * @var array
+     */
+    public static $statuses = array(
+        -1 => 'application.status.rejected',
+        0 => 'application.status.onhold',
+        1 => 'application.status.complete',
+    );
+
     public function __construct()
     {
         $this->journals = new ArrayCollection();
@@ -214,7 +222,11 @@ class Publisher extends AbstractTranslatable
      */
     public function getStatusText()
     {
-        return array_key_exists($this->status, $this->statusTexts) ? $this->statusTexts[$this->status] : "-";
+        if (!isset(Publisher::$statuses[$this->status])) {
+            return null;
+        }
+
+        return Publisher::$statuses[$this->status];
     }
 
     /**

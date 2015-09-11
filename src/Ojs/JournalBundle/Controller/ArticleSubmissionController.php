@@ -8,7 +8,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleFileParams;
-use Ojs\CoreBundle\Params\CommonParams;
 use Ojs\CoreBundle\Service\GridAction;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
@@ -100,12 +99,9 @@ class ArticleSubmissionController extends Controller
                 /** @var Article $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($currentJournal->getMandatoryLang()->getCode());
-                $statusText = CommonParams::statusText($row->getField('status'));
-                if (!is_array($statusText)) {
-                    $row->setField('status', $translator->trans($statusText));
-                } else {
-                    $row->setField('status', $translator->trans('status.unknown'));
-                }
+
+                $row->setField('status', $translator->trans($entity->getStatusText()));
+
                 $row->setField('title', $entity->getTitle());
                 return $row;
             }
@@ -116,12 +112,8 @@ class ArticleSubmissionController extends Controller
                 $entity = $row->getEntity();
                 /** @var Article $entity */
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                $statusText = CommonParams::statusText($row->getField('status'));
-                if (!is_array($statusText)) {
-                    $row->setField('status', $translator->trans($statusText));
-                } else {
-                    $row->setField('status', $translator->trans('status.unknown'));
-                }
+
+                $row->setField('status', $translator->trans($entity->getStatusText()));
                 $row->setField('title', $entity->getTitle());
                 return $row;
             }

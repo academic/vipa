@@ -5,7 +5,6 @@ namespace Ojs\CoreBundle\Service\Twig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Ojs\CoreBundle\Params\ArticleFileParams;
-use Ojs\CoreBundle\Params\CommonParams;
 use Ojs\CoreBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
@@ -93,7 +92,6 @@ class OjsExtension extends \Twig_Extension
                 array('is_safe' => array('html'))
             ),
             new \Twig_SimpleFunction('printYesNo', array($this, 'printYesNo'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('statusText', array($this, 'statusText'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('fileType', array($this, 'fileType'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('daysDiff', array($this, 'daysDiff'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('apiKey', array($this, 'apiKey'), array('is_safe' => array('html'))),
@@ -340,18 +338,6 @@ class OjsExtension extends \Twig_Extension
                 'yes'
             ).'</i></span>' :
             '<span class="label label-danger"><i class="fa fa-ban"> '.$this->translator->trans('no').'</i></span>');
-    }
-
-    /**
-     * Returns status text string from given status integer value
-     * @param  integer $arg
-     * @return string
-     */
-    public function statusText($arg)
-    {
-        $texts = CommonParams::getStatusTexts();
-
-        return isset($texts[$arg]) ? $this->translator->trans($texts[$arg]) : null;
     }
 
     /**

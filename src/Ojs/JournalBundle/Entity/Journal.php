@@ -319,6 +319,18 @@ class Journal extends AbstractTranslatable
     private $statistics;
 
     /**
+     * List of Journal Status
+     * @var array
+     */
+    public static $statuses = array(
+        -3 => 'status.rejected',
+        -2 => 'status.unpublished',
+        -1 => 'status.not_submitted',
+        0 => 'status.inreview',
+        1 => 'status.published',
+    );
+
+    /**
      * Constructor
      */
     public function __construct()

@@ -9,7 +9,6 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\CoreBundle\Params\CommonParams;
 use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,7 +40,7 @@ class AdminPublisherApplicationController extends Controller
         $grid->getColumn('status')->manipulateRenderCell(
             function ($value) {
                 return $this->get('translator')->trans(
-                /** @Ignore */CommonParams::publisherStatus($value)
+                /** @Ignore */Publisher::$statuses[$value]
                 );
             }
         );

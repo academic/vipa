@@ -12,7 +12,6 @@ use JMS\Serializer\Annotation\Groups;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\CoreBundle\Entity as CommonTraits;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
-use Ojs\CoreBundle\Params\CommonParams;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
@@ -242,6 +241,19 @@ class Article extends AbstractTranslatable
      * @var string
      */
     private $publicURI;
+
+    /**
+     * List of Article Status
+     * @var array
+     */
+    public static $statuses = array(
+        -4 => 'status.withdrawn',
+        -3 => 'status.rejected',
+        -2 => 'status.unpublished',
+        -1 => 'status.not_submitted',
+        0 => 'status.inreview',
+        1 => 'status.published',
+    );
 
     /**
      * Constructor
@@ -513,7 +525,11 @@ class Article extends AbstractTranslatable
      */
     public function getStatusText()
     {
-        return CommonParams::statusText($this->status);
+        if (!isset(Article::$statuses[$this->status])) {
+            return null;
+        }
+
+        return Article::$statuses[$this->status];
     }
 
     /**

@@ -155,7 +155,7 @@
                     <tr>
                         <td>{{ article.journal.title }}</td>
                         <td>{{ article.title }}</td>
-                        <td>{{ statusText(article.status)|trans }}</td>
+                        <td>{{ article.statusText|trans }}</td>
                         <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
                     </tr>
                 {% endfor %}

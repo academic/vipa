@@ -3,7 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\CoreBundle\Params\CommonParams;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -188,7 +188,7 @@ class JournalType extends AbstractType
                 'choice',
                 [
                     'label' => 'status',
-                    'choices' => CommonParams::getStatusTexts(),
+                    'choices' => Journal::$statuses,
                 ]
             )
             ->add('slug', 'text', [
