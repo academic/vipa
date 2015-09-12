@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Filter;
 
 use Doctrine\ORM\Mapping\ClassMetaData;
 use Doctrine\ORM\Query\Filter\SQLFilter;
-use Ojs\CoreBundle\Service\JournalService;
+use Ojs\JournalBundle\Service\JournalService;
 
 class JournalFilter extends SQLFilter
 {

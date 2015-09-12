@@ -5,7 +5,7 @@ namespace Ojs\CoreBundle\Service\Twig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Ojs\CoreBundle\Params\ArticleFileParams;
-use Ojs\CoreBundle\Service\JournalService;
+use Ojs\JournalBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Routing\RouterInterface;

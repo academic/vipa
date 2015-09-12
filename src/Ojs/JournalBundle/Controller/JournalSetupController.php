@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use Gedmo\Sluggable\Util\Urlizer;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\CoreBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalPost;
 use Ojs\JournalBundle\Entity\JournalSetupProgress;
@@ -329,7 +328,6 @@ class JournalSetupController extends Controller
      */
     private function step6Control(Request $request, $setupId)
     {
-        /** @var JournalService $journalService */
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */

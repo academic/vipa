@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CoreBundle\Service;
+namespace Ojs\JournalBundle\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

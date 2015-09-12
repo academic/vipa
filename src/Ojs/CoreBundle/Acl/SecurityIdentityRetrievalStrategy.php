@@ -2,7 +2,7 @@
 
 namespace Ojs\CoreBundle\Acl;
 
-use Ojs\CoreBundle\Service\JournalService;
+use Ojs\JournalBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;

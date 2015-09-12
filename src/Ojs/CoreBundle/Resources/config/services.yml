@@ -63,17 +63,6 @@ services:
       - @translator
     tags:
       - { name: twig.extension }
-
-  ojs.journal_service:
-    class: Ojs\CoreBundle\Service\JournalService
-    arguments:
-      - @doctrine.orm.entity_manager
-      - @session
-      - @router
-      - @security.token_storage
-      - @request_stack
-      - "%defaultPublisherSlug%"
-
   ojs.article_service:
     class: Ojs\CoreBundle\Service\ArticleService
     arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
