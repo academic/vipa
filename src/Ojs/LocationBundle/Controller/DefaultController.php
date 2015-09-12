@@ -2,24 +2,21 @@
 
 namespace Ojs\LocationBundle\Controller;
 
-use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\LocationBundle\Entity\Country;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
-    public function citiesAction(Request $request, $country)
+    public function citiesAction($country)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw new NotFoundHttpException();
-        }
         $em = $this->getDoctrine()->getManager();
 
         /** @var Country $country */
         $country = $em->getRepository('OjsLocationBundle:Country')->find($country);
-        $this->throw404IfNotFound($country);
+        if (!$country) {
+            throw $this->createNotFoundException();
+        }
 
         $cities_array = [];
         foreach ($country->getProvinces() as $city) {
