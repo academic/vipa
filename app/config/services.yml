@@ -18,7 +18,7 @@ services:
     tags:
       - { name: doctrine.event_subscriber, connection: default }
     calls:
-      - [ setAnnotationReader, [ @annotations.cached_reader ] ]
+      - [ setAnnotationReader, [ @annotation_reader ] ]
 
   api_key_user_provider:
     class: Ojs\ApiBundle\Security\ApiKeyUserProvider

@@ -52,7 +52,7 @@ services:
     class: Ojs\CoreBundle\Service\Twig\DisplayExtension
     arguments:
       - @translator
-      - @annotations.cached_reader
+      - @annotation_reader
       - @liip_imagine.twig.extension
     tags:
       - { name: twig.extension }
