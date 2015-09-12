@@ -47,7 +47,6 @@
     "apy/datagrid-bundle": "2.2.16",
     "tackk/cartographer": "1.1.0",
     "okulbilisim/feedback-bundle": "dev-master",
-    "okulbilisim/cms-bundle": "dev-master",
     "okulbilisim/ojs-tools-bundle": "dev-master",
     "jms/di-extra-bundle": "~1.5",
     "stephanecollot/datetimepicker-bundle": "~1.0",
