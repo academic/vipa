@@ -53,13 +53,6 @@ services:
     tags:
         - { name: form.type, alias: users_type }
 
-  kernel.listener.command_dispatch:
-    class: Ojs\CliBundle\EventListener\ConsoleExceptionListener
-    arguments:
-      logger: "@logger"
-    tags:
-      - { name: kernel.event_listener, event: console.exception }
-
   analytics.listener:
     class: Ojs\AnalyticsBundle\Listener\AnalyticsSubscriber
     arguments:

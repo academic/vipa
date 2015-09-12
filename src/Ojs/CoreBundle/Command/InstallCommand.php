@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CliBundle\Command;
+namespace Ojs\CoreBundle\Command;
 
 use Composer\Script\CommandEvent;
 use Ojs\AdminBundle\Entity\AdminPage;
@@ -247,7 +247,6 @@ class InstallCommand extends ContainerAwareCommand
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getManager();
 
-        $factory = $this->getContainer()->get('security.encoder_factory');
         $user = $em->getRepository('OjsUserBundle:User')->findOneBy(
             array('email' => $email)
         );

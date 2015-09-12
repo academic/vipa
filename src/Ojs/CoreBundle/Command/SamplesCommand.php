@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CliBundle\Command;
+namespace Ojs\CoreBundle\Command;
 
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;

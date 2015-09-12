@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CliBundle\EventListener;
+namespace Ojs\CoreBundle\EventListener;
 
 use Symfony\Component\Console\Event\ConsoleExceptionEvent;
 use Psr\Log\LoggerInterface;
@@ -17,6 +17,7 @@ class ConsoleExceptionListener
     public function onConsoleException(ConsoleExceptionEvent $event)
     {
         $command = $event->getCommand();
+        /** @var \Exception $exception */
         $exception = $event->getException();
 
         $message = sprintf(

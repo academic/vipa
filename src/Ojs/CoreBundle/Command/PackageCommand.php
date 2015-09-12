@@ -1,12 +1,13 @@
 <?php
 
-namespace Ojs\CliBundle\Command;
+namespace Ojs\CoreBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 use wdm\debian\control\StandardFile;
 use wdm\debian\Packager;
@@ -49,7 +50,7 @@ class PackageCommand extends ContainerAwareCommand
 
         if ($type == 'deb' || $type == 'DEB') {
             $output->writeln('<info>Creating a Debian package...</info>');
-            $filesystem = new FileSystem();
+            $filesystem = new Filesystem();
 
             try {
                 $filesystem->mkdir(self::REPO_DIRECTORY);

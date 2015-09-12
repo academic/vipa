@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CliBundle\Command;
+namespace Ojs\CoreBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;

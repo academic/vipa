@@ -82,3 +82,10 @@ services:
     arguments: [ @router, @translator ]
     tags:
       - { name: form.type, alias: tags }
+
+  kernel.listener.command_dispatch:
+    class: Ojs\CoreBundle\EventListener\ConsoleExceptionListener
+    arguments:
+      logger: "@logger"
+    tags:
+      - { name: kernel.event_listener, event: console.exception }

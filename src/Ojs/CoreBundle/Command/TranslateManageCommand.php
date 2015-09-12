@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CliBundle\Command;
+namespace Ojs\CoreBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\Table;
@@ -76,7 +76,7 @@ EOF
         $locale = $input->getArgument('locale');
         $domain = $input->getOption('domain');
         $bundle_array = explode(",", $input->getArgument('bundle'));
-
+        $fallbackCatalogues = array();
         foreach ($bundle_array as $bundle_name) {
             $bundle_name = "Ojs".$bundle_name."Bundle";
 
