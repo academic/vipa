@@ -533,6 +533,21 @@ class Article extends AbstractTranslatable
     }
 
     /**
+     * @param $statusText
+     * @return Article
+     */
+    public function setStatusText($statusText)
+    {
+        $flippedStatuses = array_flip(Article::$statuses);
+        $this->status = null;
+        if (isset($flippedStatuses[$statusText])) {
+            $this->status = $flippedStatuses[$statusText];
+        }
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getStatus()
