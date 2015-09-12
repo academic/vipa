@@ -2,8 +2,6 @@ Ojs\JournalBundle\Entity\JournalTranslation:
   properties:
     title:
       - NotBlank: ~
-    subtitle:
-      - NotBlank: ~
     description:
       - NotBlank: ~
 
