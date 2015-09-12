@@ -32,31 +32,9 @@
                 {% endif %}
             </div>
             {% if selectedJournal() %}
-                <div class="panel panel-default left-menu-bgcolor">
-                    <div class="panel-collapse collapse in">
-                        <a class="list-group-item"
-                           href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
-                            <i class="fa fa-dashboard"></i>
-                            {{ "dashboard"|trans }}
-                        </a>
-                        {% if is_granted('CREATE', selectedJournal(), 'articles') %}
-                            <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
-                               href="{{ path('ojs_journal_submission_new', {journalId: selectedJournal().id}) }}">
-                                <i class="fa fa-plus-circle"></i>
-                                {{ "article.submit"|trans }}
-                            </a>
-                        {% endif %}
-                        {% if is_granted('VIEW', selectedJournal(), 'articles') %}
-                            {% set submissions_path = "ojs_journal_submission_me" %}
-                            {% if is_granted('EDIT', selectedJournal(), 'articles') %}
-                                {% set submissions_path = "ojs_journal_submission_all" %}
-                            {% endif %}
-                            <a class="list-group-item list-group-item-info"
-                               href="{{ path(submissions_path, {journalId: selectedJournal().id}) }}">
-                                <i class="fa fa-flag"></i>
-                                {{ "articles"|trans }}
-                            </a>
-                        {% endif %}
+                <div class="panel panel-default">
+                    <div class="panel-body" style="padding: 0">
+                        {{ knp_menu_render('OjsJournalBundle:MenuBuilder:topLeftMenu', {'currentClass': 'active'}) }}
                     </div>
                 </div>
             {% endif %}
