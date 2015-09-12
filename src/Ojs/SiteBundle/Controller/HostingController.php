@@ -30,13 +30,17 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
         /** @var Publisher $getPublisherByDomain */
-        $getPublisherByDomain = $em->getRepository('OjsJournalBundle:Publisher')->findOneByDomain($currentHost);
+        $getPublisherByDomain = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(
+            array('domain' => $currentHost)
+        );
         $this->throw404IfNotFound($getPublisherByDomain);
         if (!$getPublisherByDomain) {
             /** @var Journal $getJournalByDomain */
-            $getJournalByDomain = $em->getRepository('OjsJournalBundle:Journal')->findOneByDomain($currentHost);
+            $getJournalByDomain = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(
+                array('domain' => $currentHost)
+            );
             $this->throw404IfNotFound($getJournalByDomain);
-            return $this->journalIndexAction($request, $getJournalByDomain->getSlug(), true);
+            return $this->journalIndexAction($getJournalByDomain->getSlug(), true);
         }
         /** @var Journal $journal */
         foreach ($getPublisherByDomain->getJournals() as $journal) {
@@ -51,12 +55,11 @@ class HostingController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param string $slug
      * @param bool $isJournalHosting
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function journalIndexAction(Request $request, $slug, $isJournalHosting = false)
+    public function journalIndexAction($slug, $isJournalHosting = false)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -228,7 +231,9 @@ class HostingController extends Controller
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
         /** @var Journal $journal */
         if(is_null($slug)){
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneByDomain($currentHost);
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(
+                array('domain' => $currentHost)
+            );
         }else{
             $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         }
@@ -236,7 +241,7 @@ class HostingController extends Controller
 
         /** @var Issue[] $issues */
         $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(
-            array('journalId' => $journal->getId())
+            array('journal' => $journal)
         );
         $groupedIssues = [];
         foreach ($issues as $issue) {

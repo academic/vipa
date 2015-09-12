@@ -272,7 +272,7 @@ class SiteController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
         $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findBy(
-            array('journalId' => $journal->getId())
+            array('journal' => $journal)
         );
         $data['page'] = 'articles';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
@@ -292,7 +292,7 @@ class SiteController extends Controller
 
         /** @var Issue[] $issues */
         $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(
-            array('journalId' => $journal->getId())
+            array('journal' => $journal)
         );
         $groupedIssues = [];
         foreach ($issues as $issue) {
@@ -320,7 +320,6 @@ class SiteController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-        $service = $this->get('ojs.cms.twig.post_extension');
         $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(
             ['journal' => $journal]
         );
