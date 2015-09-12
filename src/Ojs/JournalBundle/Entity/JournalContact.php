@@ -23,7 +23,7 @@ class JournalContact
     protected $id;
 
     /**
-     * @var string
+     * @var PersonTitle
      * @GRID\Column(title="title")
      */
     private $title;
@@ -87,7 +87,7 @@ class JournalContact
     /**
      * Get title
      *
-     * @return string
+     * @return PersonTitle
      */
     public function getTitle()
     {
@@ -97,7 +97,7 @@ class JournalContact
     /**
      * Set title
      *
-     * @param  string $title
+     * @param  PersonTitle $title
      * @return JournalContact
      */
     public function setTitle($title)
