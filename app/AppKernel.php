@@ -57,6 +57,7 @@ class AppKernel extends Kernel
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
+            new Okulbilisim\OjsImportBundle\OkulbilisimOjsImportBundle()
             // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
