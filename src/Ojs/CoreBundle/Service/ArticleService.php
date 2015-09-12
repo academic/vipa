@@ -7,6 +7,7 @@ use Ojs\CoreBundle\Model\Meta;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleFileRepository;
+use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
