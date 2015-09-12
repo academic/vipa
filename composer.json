@@ -59,7 +59,8 @@
     "hwi/oauth-bundle": "0.4.*@dev",
     "knplabs/knp-menu-bundle": "~2",
     "wikimedia/composer-merge-plugin": "^1.2",
-    "jms/translation-bundle": "dev-master"
+    "jms/translation-bundle": "dev-master",
+    "okulbilisim/location-bundle": "dev-master"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",

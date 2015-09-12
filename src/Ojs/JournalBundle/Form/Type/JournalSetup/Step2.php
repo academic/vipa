@@ -48,7 +48,7 @@ class Step2 extends AbstractType
                 'country',
                 'entity',
                 [
-                    'class' => 'Ojs\LocationBundle\Entity\Country',
+                    'class' => 'OkulBilisim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element',
                     ],

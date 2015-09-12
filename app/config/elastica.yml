@@ -260,7 +260,7 @@ fos_elastica:
               type: string
           persistence:
             driver: orm
-            model: Ojs\LocationBundle\Entity\Country
+            model: OkulBilisim\LocationBundle\Entity\Country
             provider: ~
             listener: ~
             finder: ~
@@ -272,7 +272,7 @@ fos_elastica:
               type: string
           persistence:
             driver: orm
-            model: Ojs\LocationBundle\Entity\Province
+            model: OkulBilisim\LocationBundle\Entity\Province
             provider: ~
             listener: ~
             finder: ~

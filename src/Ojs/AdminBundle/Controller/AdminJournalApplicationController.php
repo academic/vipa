@@ -15,7 +15,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\Subject;
-use Ojs\LocationBundle\Entity\Country;
+use OkulBilisim\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -107,7 +107,7 @@ class AdminJournalApplicationController extends Controller
         $publisher = $em->find('OjsJournalBundle:Publisher', $entity->getPublisher());
 
         /** @var Country $country */
-        $country = $em->find('OjsLocationBundle:Country', $entity->getCountry());
+        $country = $em->find('OkulBilisimLocationBundle:Country', $entity->getCountry());
 
         $data['entity'] = $entity;
         $data['languages'] = implode(',', $languages);

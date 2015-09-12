@@ -26,7 +26,7 @@ class JournalApplicationType extends AbstractType
                 'country',
                 'entity',
                 array(
-                    'class' => 'OjsLocationBundle:Country',
+                    'class' => 'OkulBilisimLocationBundle:Country',
                     'label' => 'journal.country',
                     'attr' => ['class' => 'select2-element validate[required]'],
                 )

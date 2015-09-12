@@ -10,7 +10,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Publisher;
-use Ojs\LocationBundle\Entity\Province;
+use OkulBilisim\LocationBundle\Entity\Province;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -441,7 +441,7 @@ class PublicSearchRestController extends FOSRestController
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Province $province */
-        $province = $em->find('OjsLocationBundle:Province', $id);
+        $province = $em->find('OkulBilisimLocationBundle:Province', $id);
         if ($province) {
             return JsonResponse::create(['id' => $id, 'name' => $province->getName()]);
         }

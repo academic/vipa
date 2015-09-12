@@ -1,3 +1,0 @@
-ojs_location_cities:
-  path: /location/cities/{country}
-  defaults: { _controller: OjsLocationBundle:Default:cities }

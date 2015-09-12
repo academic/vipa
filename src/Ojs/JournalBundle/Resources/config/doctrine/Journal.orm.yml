@@ -22,7 +22,7 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
           inversedBy: journals
         country:
-          targetEntity: Ojs\LocationBundle\Entity\Country
+          targetEntity: OkulBilisim\LocationBundle\Entity\Country
           joinColumn:
             name: country_id
             referencedColumnName: id

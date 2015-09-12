@@ -28,7 +28,7 @@ ojs_user:
   resource: '@OjsUserBundle/Controller/'
   type: annotation
 ojs_location:
-  resource: '@OjsLocationBundle/Resources/config/routing.yml'
+  resource: '@OkulBilisimLocationBundle/Resources/config/routing.yml'
 rest:
   type: rest
   resource: routing_rest.yml

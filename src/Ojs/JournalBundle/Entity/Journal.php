@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
-use Ojs\LocationBundle\Entity\Country;
+use OkulBilisim\LocationBundle\Entity\Country;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;

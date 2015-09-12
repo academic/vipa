@@ -2,8 +2,8 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Ojs\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use Ojs\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
+use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
+use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

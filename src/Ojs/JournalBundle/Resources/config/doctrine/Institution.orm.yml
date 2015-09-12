@@ -22,12 +22,12 @@ Ojs\JournalBundle\Entity\Institution:
                 referencedColumnName: id
             inversedBy: institutions
         country:
-            targetEntity: Ojs\LocationBundle\Entity\Country
+            targetEntity: OkulBilisim\LocationBundle\Entity\Country
             joinColumn:
                   name: country_id
                   referencedColumnName: id
         city:
-            targetEntity: Ojs\LocationBundle\Entity\Province
+            targetEntity: OkulBilisim\LocationBundle\Entity\Province
             joinColumn:
                   name: city_id
                   referencedColumnName: id
