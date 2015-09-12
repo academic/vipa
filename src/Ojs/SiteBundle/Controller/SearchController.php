@@ -21,9 +21,6 @@ class SearchController extends Controller
      */
     public function indexAction(Request $request, $page = 1)
     {
-        /**
-         * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
-         */
         $searchManager = $this->get('ojs_search_manager');
 
         $getRoles = $request->query->get('role_filters');

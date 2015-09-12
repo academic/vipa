@@ -52,7 +52,7 @@ services:
     class: Ojs\CoreBundle\Service\Twig\DisplayExtension
     arguments:
       - @translator
-      - @annotation_reader
+      - @annotations.cached_reader
       - @liip_imagine.twig.extension
     tags:
       - { name: twig.extension }
@@ -82,6 +82,10 @@ services:
     arguments: [ @router, @translator ]
     tags:
       - { name: form.type, alias: tags }
+
+  ojs_search_manager:
+    class: Ojs\CoreBundle\Service\SearchManager
+    arguments: [@translator, @router]
 
   kernel.listener.command_dispatch:
     class: Ojs\CoreBundle\EventListener\ConsoleExceptionListener

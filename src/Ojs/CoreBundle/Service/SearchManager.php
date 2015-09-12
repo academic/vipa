@@ -1,5 +1,5 @@
 <?php
-namespace Ojs\SearchBundle\Manager;
+namespace Ojs\CoreBundle\Service;
 
 use Elastica\Result;
 use Elastica\ResultSet;
@@ -8,7 +8,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class $this
- * @package Ojs\SearchBundle\Manager
+ * @package Ojs\CoreBundle\Service
  */
 class SearchManager
 {

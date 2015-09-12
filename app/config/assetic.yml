@@ -58,7 +58,7 @@ assetic:
     apptour_js:
       inputs: ['%kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour.min.js']
     advanced_search_js:
-      inputs: ['@OjsSiteBundle/Resources/public/js/search.js']
+      inputs: ['@OjsCoreBundle/Resources/public/js/search.js']
     submission_js:
       inputs:
         - '%kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js'
