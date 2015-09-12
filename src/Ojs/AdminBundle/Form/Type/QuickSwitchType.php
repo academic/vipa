@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,12 +29,14 @@ class QuickSwitchType extends AbstractType
                     'placeholder' => 'Type a journal name to switch to its dashboard',
                 ],
                 'query_builder' => function (EntityRepository $er) use ($user){
+                    $query = $er->createQueryBuilder('i');
                     if(!$user->isAdmin()){
-                        return $er->createQueryBuilder('i')
+                        return $query
                             ->innerJoin('i.journalUsers','u')
                             ->andWhere('u.user = :user')
                             ->setParameter('user', $user);
                     }
+                    return $query;
                 },
             ]
 
