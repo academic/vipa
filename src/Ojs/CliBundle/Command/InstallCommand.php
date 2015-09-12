@@ -142,7 +142,7 @@ class InstallCommand extends ContainerAwareCommand
 
         if (!$input->getOption('no-location')) {
             $location = $this->getContainer()->get('kernel')->getRootDir(
-                ).'/../src/Ojs/LocationBundle/Resources/data/location.sql';
+                ).'/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
             $locationSql = file_get_contents($location);
             $command3 = 'doctrine:query:sql "'.$locationSql.'"';
             $application->run(new StringInput($command3));
