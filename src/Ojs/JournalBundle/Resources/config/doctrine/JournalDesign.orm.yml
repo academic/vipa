@@ -32,12 +32,10 @@ Ojs\JournalBundle\Entity\JournalDesign:
             nullable: true
             gedmo:
                   - versioned
-        isPublic:
+        public:
             column: is_public
             type: boolean
             nullable: true
-            options:
-                default: true
             gedmo:
                   - versioned
         created:

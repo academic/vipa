@@ -27,14 +27,12 @@ Ojs\JournalBundle\Entity\JournalTheme:
             nullable: true
             gedmo:
               - versioned
-        isPublic:
+        public:
             column: is_public
             type: boolean
             nullable: true
             gedmo:
                 - versioned
-            options:
-                default: true
         created:
             type: datetime
             gedmo:

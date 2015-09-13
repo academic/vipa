@@ -470,7 +470,7 @@ publishertype.new: 'Yeni Yayıncı Türü'
 publishertype.plural: 'Yayıncı Türleri'
 publishermanagers.list: 'Yayıncı Yöneticileri'
 introduction: Giriş
-isAnonymous: 'Anonim mi?'
+anonymous: 'Anonim mi?'
 issue: Sayı
 issue.add.articles: 'Bu Sayıya Makale Ekle'
 issue.all_articles: 'Seçilmiş sayı için tüm makaleleri burada bulabilirsiniz.'

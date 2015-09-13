@@ -470,7 +470,7 @@ publishertype.new: 'New Publisher Type'
 publishertype.plural: 'Publisher Types'
 publishermanagers.list: 'Publisher Manager List'
 introduction: Introduction
-isAnonymous: 'Is Anonymous'
+anonymous: 'Is Anonymous'
 issue: Issue
 issue.add.articles: 'Add article to this issue'
 issue.all_articles: 'Here you can find all articles for selected issue'

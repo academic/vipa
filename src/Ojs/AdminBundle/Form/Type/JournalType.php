@@ -210,9 +210,9 @@ class JournalType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($journalId, $options) {
                         $query = $er->createQueryBuilder('t');
                         if(is_null($journalId)){
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                            $query->where('t.public IS NULL OR t.public = TRUE');
                         }else{
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.journal = :journal')
+                            $query->where('t.public IS NULL OR t.public = TRUE OR t.journal = :journal')
                             ->setParameter('journal', $options['data']);
                         }
                         return $query;
@@ -233,9 +233,9 @@ class JournalType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($journalId, $options){
                         $query = $er->createQueryBuilder('t');
                         if(is_null($journalId)){
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                            $query->where('t.public IS NULL OR t.public = TRUE');
                         }else{
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.journal = :journal')
+                            $query->where('t.public IS NULL OR t.public = TRUE OR t.journal = :journal')
                                 ->setParameter('journal', $options['data']);
                         }
                         return $query;

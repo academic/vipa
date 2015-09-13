@@ -31,7 +31,7 @@ class Step6 extends AbstractType
                     ],
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                            ->where('t.public IS NULL OR t.public = TRUE');
                     },
                 )
             );

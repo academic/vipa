@@ -138,11 +138,9 @@ Ojs\JournalBundle\Entity\Article:
       nullable: true
       gedmo:
         - versioned
-    isAnonymous:
+    anonymous:
       column: is_anonymous
       type: boolean
-      options:
-        default: 0
       nullable: true
       gedmo:
         - versioned

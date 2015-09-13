@@ -23,7 +23,7 @@ class JournalDesignType extends AbstractType
             )
             ->add('editableContent', 'hidden')
             ->add(
-                'isPublic',
+                'public',
                 'checkbox',
                 [
                     'label' => 'ojs.is_public'

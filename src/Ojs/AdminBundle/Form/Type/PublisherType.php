@@ -99,9 +99,9 @@ class PublisherType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($publisherId) {
                         $query = $er->createQueryBuilder('t');
                         if (is_null($publisherId)) {
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                            $query->where('t.public IS NULL OR t.public = TRUE');
                         }else{
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.publisher = :publisherId')
+                            $query->where('t.public IS NULL OR t.public = TRUE OR t.publisher = :publisherId')
                                 ->setParameter('publisherId', $publisherId);
                         }
                         return $query;
@@ -122,9 +122,9 @@ class PublisherType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($publisherId) {
                         $query = $er->createQueryBuilder('t');
                         if (is_null($publisherId)) {
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                            $query->where('t.public IS NULL OR t.public = TRUE');
                         }else{
-                            $query->where('t.isPublic IS NULL OR t.isPublic = TRUE OR t.publisher = :publisherId')
+                            $query->where('t.public IS NULL OR t.public = TRUE OR t.publisher = :publisherId')
                                 ->setParameter('publisherId', $publisherId);
                         }
                         return $query;

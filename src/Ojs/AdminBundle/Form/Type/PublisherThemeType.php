@@ -36,7 +36,7 @@ class PublisherThemeType extends AbstractType
                 ]
             )
             ->add(
-                'isPublic',
+                'public',
                 'checkbox',
                 [
                     'label' => 'ojs.is_public'

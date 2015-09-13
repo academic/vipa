@@ -94,7 +94,7 @@ class Article extends AbstractTranslatable
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
-    private $isAnonymous;
+    private $anonymous = false;
     /**
      * @var \DateTime
      * @Expose
@@ -807,24 +807,24 @@ class Article extends AbstractTranslatable
     }
 
     /**
-     * Get isAnonymous
+     * Get anonymous
      *
      * @return boolean
      */
-    public function getIsAnonymous()
+    public function isAnonymous()
     {
-        return $this->isAnonymous;
+        return $this->anonymous;
     }
 
     /**
-     * Set isAnonymous
+     * Set anonymous
      *
-     * @param  boolean $isAnonymous
-     * @return $this
+     * @param  boolean $anonymous
+     * @return Article
      */
-    public function setIsAnonymous($isAnonymous)
+    public function setAnonymous($anonymous)
     {
-        $this->isAnonymous = $isAnonymous;
+        $this->anonymous = $anonymous;
 
         return $this;
     }

@@ -4,7 +4,7 @@
     doi: 10.5281/zenodo.14791
     firstPage: 1
     lastPage: 5
-    isAnonymous: false
+    Anonymous: false
     journal: @journal1
     keywords: "help, ojs, open journal"
     pubdate: <dateTimeThisYear()>

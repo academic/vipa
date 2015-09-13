@@ -45,7 +45,7 @@ class PublisherDesign
      * @var boolean
      * @GRID\Column(title="basedesign")
      */
-    private $isPublic;
+    private $public = true;
 
     /**
      *
@@ -104,17 +104,17 @@ class PublisherDesign
     /**
      * @return boolean
      */
-    public function isIsPublic()
+    public function isPublic()
     {
-        return $this->isPublic;
+        return $this->public;
     }
 
     /**
-     * @param boolean $isPublic
+     * @param boolean $public
      */
-    public function setIsPublic($isPublic)
+    public function setPublic($public)
     {
-        $this->isPublic = $isPublic;
+        $this->public = $public;
     }
 
     /**
