@@ -10,3 +10,9 @@ services:
     class: Ojs\UserBundle\Form\Type\RegisterFormType
     tags:
       - { name: form.type, alias: ojs_user_register}
+
+  form.type.users_type:
+    class: Ojs\UserBundle\Form\Type\UsersFieldType
+    arguments: [ @doctrine.orm.entity_manager, @router, "2", "10" ]
+    tags:
+        - { name: form.type, alias: users_type }
