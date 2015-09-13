@@ -10,42 +10,59 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Console\Input\InputArgument;
 
 class ThirdPartyInstallCommand extends ContainerAwareCommand
 {
+    private $packageName;
+
     private $packageData = array(
-        'name' => 'workflow',
-        'description' => 'Ojs workflow installation',
-        'repositories' => array(
-            array(
-                'type' => 'vcs',
-                'url' => 'git@bitbucket.org:okulbilisim/workflowbundle.git',
+        'workflow' => array(
+            'name' => 'workflow',
+            'description' => 'Ojs workflow installation',
+            'repositories' => array(
+                array(
+                    'type' => 'vcs',
+                    'url' => 'git@bitbucket.org:okulbilisim/workflowbundle.git',
+                ),
             ),
-        ),
-        'require' => array(
-            "okulbilisim/workflow-bundle" => "dev-master",
-        ),
-        'extra' => array(
-            'bundle-class' => 'OkulBilisim\\WorkflowBundle\\WorkflowBundle',
-        ),
+            'require' => array(
+                "okulbilisim/workflow-bundle" => "dev-master",
+            ),
+            'extra' => array(
+                'bundle-class' => 'OkulBilisim\\WorkflowBundle\\WorkflowBundle',
+            ),
+        )
     );
 
     protected function configure()
     {
         $this
-            ->setName('ojs:install:'.$this->packageData['name'])
-            ->setDescription($this->packageData['description']);
+            ->setName('ojs:install:package')
+            ->setDefinition(
+                array(
+                    new InputArgument('packageName', InputArgument::REQUIRED, 'Package Name'),
+                )
+            )
+            ->setDescription('OJS Package Installation');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->packageName = $input->getArgument('packageName');
+        if(!array_key_exists($this->packageName, $this->packageData)){
+            $output->writeln(
+                '<error>Package not exists!</error>'
+            );
+            exit();
+        }
         /** @var KernelInterface $kernel */
         $kernel = $this->getContainer()->get('kernel');
         $application = new Application($kernel);
         $application->setAutoExit(false);
         $output->writeln(
             '<info>'.
-            $this->packageData['description'].
+            $this->packageData[$this->packageName]['description'].
             '</info>'
         );
 
@@ -59,7 +76,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         $fs = new Filesystem();
         $thirdPartyDir = $kernel->getRootDir().'/../thirdparty';
         $composerFile = $thirdPartyDir.'/'.
-            str_replace(array('-', '/'), '_', $this->packageData['name']).'.json';
+            str_replace(array('-', '/'), '_', $this->packageData[$this->packageName]['name']).'.json';
         if (!$fs->exists($composerFile)) {
             if (!$fs->exists($thirdPartyDir)) {
                 $fs->mkdir($thirdPartyDir);
@@ -69,7 +86,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
 
         file_put_contents(
             $composerFile,
-            str_replace('    ', '  ', json_encode($this->packageData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))."\n"
+            str_replace('    ', '  ', json_encode($this->packageData[$this->packageName], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))."\n"
         );
 
         $install = new Process('php composer.phar update', $kernel->getRootDir().'/..', null, null, 600);
