@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use JMS\TranslationBundle\Annotation as JMS;
 
 /**
  * Publisher controller.
@@ -40,7 +41,7 @@ class AdminPublisherApplicationController extends Controller
         $grid->getColumn('status')->manipulateRenderCell(
             function ($value) {
                 return $this->get('translator')->trans(
-                /** @Ignore */Publisher::$statuses[$value]
+                /** @JMS\Ignore */Publisher::$statuses[$value]
                 );
             }
         );
