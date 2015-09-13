@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 
 /**
  * IssueRepository

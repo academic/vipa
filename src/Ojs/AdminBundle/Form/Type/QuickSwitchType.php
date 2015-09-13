@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

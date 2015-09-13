@@ -257,10 +257,10 @@ class InstallCommand extends ContainerAwareCommand
         }
         if (is_null($user)) {
             $kernel = $this->getContainer()->get('kernel');
-            $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
+            $application = new Application($kernel);
             $application->setAutoExit(false);
             $application->run(
-                new \Symfony\Component\Console\Input\StringInput(
+                new StringInput(
                     'fos:user:create --super-admin '.$username.' '.$email.' '.$password
                 )
             );

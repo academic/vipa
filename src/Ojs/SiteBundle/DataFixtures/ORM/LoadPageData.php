@@ -4,13 +4,13 @@ namespace Ojs\SiteBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\SiteBundle\Entity\Page;
+use Ojs\AdminBundle\Entity\AdminPage;
 
 class LoadPageData implements FixtureInterface
 {
     public function load(ObjectManager $om)
     {
-        $page = new Page();
+        $page = new AdminPage();
         $page->setBody(
             "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
  Autem maxime molestiae, perspiciatis praesentium qui ut voluptatem! Ab aliquid amet

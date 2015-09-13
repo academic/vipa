@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use Ojs\JournalBundle\Entity\ArticleSubmissionFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;

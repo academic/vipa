@@ -24,6 +24,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 class AdminJournalController extends Controller
 {
     /**
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -189,6 +190,7 @@ class AdminJournalController extends Controller
     /**
      * Displays a form to create a new Journal entity.
      *
+     * @param Request $request
      * @return Response
      */
     public function newAction(Request $request)

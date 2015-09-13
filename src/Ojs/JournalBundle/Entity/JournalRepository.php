@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
@@ -125,7 +124,7 @@ class JournalRepository extends EntityRepository
     public function parseFilter($filter)
     {
         if (empty($filter)) {
-            return;
+            return null;
         }
 
         return explode('|', $filter);

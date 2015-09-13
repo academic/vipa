@@ -68,7 +68,7 @@ class SitemapController extends Controller
         $router = $this->get('router');
         $siteMap->add(
             $router->generate(
-                'ojs_journals_index',
+                'ojs_journal_index',
                 [
                     'subject' => $subject->getSlug(),
                     'publisher' => $publisher,

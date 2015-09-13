@@ -8,7 +8,6 @@ use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
-use Ojs\JournalBundle\Entity\Article;
 use Ojs\SiteBundle\Event\DownloadArticleFileEvent;
 use Ojs\SiteBundle\Event\DownloadIssueFileEvent;
 use Ojs\SiteBundle\Event\SiteEvents;

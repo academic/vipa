@@ -76,7 +76,7 @@ class SitemapControllerTest extends BaseTestCase
             $this->isAccessible(
                 [
                     'ojs_publisher_sitemap',
-                    ['_format' => 'xml', 'publisher' => self::PUBLISHER, 'publisher' => self::PUBLISHER],
+                    ['_format' => 'xml', 'publisher' => self::PUBLISHER],
                 ]
             )
         );

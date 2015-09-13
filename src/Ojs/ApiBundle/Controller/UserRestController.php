@@ -254,7 +254,7 @@ class UserRestController extends FOSRestController
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('api_get_user', array('username' => $entity->getUsername())));
+            return $this->redirect($this->generateUrl('api_get_users', array('username' => $entity->getUsername())));
         }
         throw new HttpException(400, 'Missing parameter');
     }
@@ -320,7 +320,10 @@ class UserRestController extends FOSRestController
     }
 
     /**
-     * @param string $field
+     * @param $field
+     * @param $user_id
+     * @param Request $request
+     * @return User
      */
     protected function patch($field, $user_id, Request $request)
     {

@@ -811,11 +811,11 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     /**
      * Add journalUser
      *
-     * @param \Ojs\JournalBundle\Entity\JournalUser $journalUser
+     * @param JournalUser $journalUser
      *
      * @return User
      */
-    public function addJournalUser(\Ojs\JournalBundle\Entity\JournalUser $journalUser)
+    public function addJournalUser(JournalUser $journalUser)
     {
         $this->journalUsers[] = $journalUser;
 

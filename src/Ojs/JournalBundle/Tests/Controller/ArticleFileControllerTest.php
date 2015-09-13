@@ -9,7 +9,7 @@ class ArticleFileControllerTest extends BaseTestCase
     public function testList()
     {
         $this->logIn();
-        $this->isAccessible([ojs_journal_article_file_index, ['article' => 1]]);
+        $this->isAccessible(['ojs_journal_article_file_index', ['article' => 1]]);
     }
 
     public function testNew()

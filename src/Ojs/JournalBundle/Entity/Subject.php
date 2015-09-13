@@ -448,11 +448,11 @@ class Subject extends AbstractTranslatable
     /**
      * Add child
      *
-     * @param \Ojs\JournalBundle\Entity\Subject $child
+     * @param Subject $child
      *
      * @return Subject
      */
-    public function addChild(\Ojs\JournalBundle\Entity\Subject $child)
+    public function addChild(Subject $child)
     {
         $this->children[] = $child;
 
@@ -462,9 +462,9 @@ class Subject extends AbstractTranslatable
     /**
      * Remove child
      *
-     * @param \Ojs\JournalBundle\Entity\Subject $child
+     * @param Subject $child
      */
-    public function removeChild(\Ojs\JournalBundle\Entity\Subject $child)
+    public function removeChild(Subject $child)
     {
         $this->children->removeElement($child);
     }

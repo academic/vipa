@@ -203,7 +203,6 @@ class GridAction
     /**
      * @param string $route
      * @param $key
-     * @param  null      $role
      * @return RowAction
      */
     public function submissionResumeAction($route, $key = 'id')

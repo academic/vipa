@@ -151,7 +151,7 @@
             });
             $("#issueManagerAddArticle").click(function () {
                 redirectUrl = $("#unissuedArticles option:selected").attr("rel");
-                var selectedSection = $("#section option:selected").val()
+                var selectedSection = $("#section option:selected").val();
 
                 if (redirectUrl.length > 0) {
                     window.location.href = redirectUrl + '?section=' + selectedSection;

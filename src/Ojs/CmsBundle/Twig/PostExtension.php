@@ -59,7 +59,7 @@ class PostExtension  extends \Twig_Extension{
 
     public function getobject($object, $id)
     {
-        $repo = $this->em->find($object,$id);
+        $this->em->find($object,$id);
     }
     /**
      * Basic encoding

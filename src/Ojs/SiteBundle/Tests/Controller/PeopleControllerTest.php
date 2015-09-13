@@ -10,13 +10,13 @@ class PeopleControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/index');
+        $client->request('GET', '/index');
     }
 
     public function testShow()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/show');
+        $client->request('GET', '/show');
     }
 }

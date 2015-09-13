@@ -2,6 +2,8 @@
 
 namespace Ojs\SiteBundle\Entity;
 
+use Ojs\CmsBundle\Entity\Post;
+
 /**
  * BlockLink
  */
@@ -32,7 +34,7 @@ class BlockLink
      */
     private $block;
 
-    /** @var  Post */
+    /** @var Post */
     private $post;
 
     /** @var  integer */

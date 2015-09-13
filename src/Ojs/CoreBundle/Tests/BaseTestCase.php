@@ -65,8 +65,9 @@ abstract class BaseTestCase extends WebTestCase
 
     /**
      *
-     * @param string $username
-     * @param array $role
+     * @param null $username
+     * @param null $role
+     * @throws \Exception
      */
     protected function logIn($username = null, $role = null)
     {

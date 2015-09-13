@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\InstitutionRepository;
 use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;

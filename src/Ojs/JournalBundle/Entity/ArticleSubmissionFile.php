@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Ojs\CoreBundle\Entity\DisplayTrait;
 use Ojs\CoreBundle\Annotation\Display as Display;
 
 /**

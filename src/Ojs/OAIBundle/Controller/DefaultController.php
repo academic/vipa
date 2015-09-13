@@ -20,13 +20,13 @@ class DefaultController extends Controller
         $verb = $request->get('verb');
         switch ($verb) {
             case 'Identify':
-                return $this->identifyAction($request);
+                return $this->identifyAction();
             case 'ListRecords':
                 return $this->recordsAction($request);
             case 'ListSets':
                 return $this->listSetsAction($request);
             case 'ListMetadataFormats':
-                return $this->listMetadataFormatsAction($request);
+                return $this->listMetadataFormatsAction();
             case 'ListIdentifiers':
                 return $this->listIdentifierAction($request);
             case 'GetRecord':

@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\JournalBundle\Entity\JournalIndex;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

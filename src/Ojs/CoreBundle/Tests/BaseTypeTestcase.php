@@ -2,6 +2,7 @@
 
 namespace Ojs\CoreBundle\Tests;
 
+use Faker\Factory;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class BaseTypeTestcase extends TypeTestCase
@@ -11,7 +12,7 @@ class BaseTypeTestcase extends TypeTestCase
 
     public function __construct($name = null, $data = [], $dataName = '')
     {
-        $this->faker = \Faker\Factory::create();
+        $this->faker = Factory::create();
 
         return parent::__construct($name, $data, $dataName);
     }
