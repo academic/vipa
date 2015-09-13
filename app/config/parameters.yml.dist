@@ -15,7 +15,7 @@ parameters:
 
     locale:            en
     locale_support: [tr,en,fr]
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            884310f89c4aa13453c463ccae442f2e0f853503
 
     base_host: localhost
 
