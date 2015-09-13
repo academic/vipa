@@ -10,7 +10,7 @@ class CheckController extends Controller
     public function checkAction()
     {
         $data['page'] = 'check';
-        require_once __DIR__.'/../../../../app/SymfonyRequirements.php';
+        require_once $this->get('kernel')->getRootDir().DIRECTORY_SEPARATOR.'SymfonyRequirements.php';
 
         $symfonyRequirements = new \SymfonyRequirements();
 
@@ -32,17 +32,13 @@ class CheckController extends Controller
 
         $data['result'] .= '<div class="table-responsive"><table id="checkTable" class="table table-striped">';
 
-        $checkPassed = true;
         foreach ($symfonyRequirements->getRequirements() as $req) {
-            /** @var $req Requirement */
-            $data['result'] .= $this->echo_requirement($req);
-            if (!$req->isFulfilled()) {
-                $checkPassed = false;
-            }
+            /** @var $req \Requirement */
+            $data['result'] .= $this->echoRequirement($req);
         }
 
         foreach ($symfonyRequirements->getRecommendations() as $req) {
-            $data['result'] .= $this->echo_requirement($req);
+            $data['result'] .= $this->echoRequirement($req);
         }
 
         $data['result'] .= '</table></div>';
@@ -53,7 +49,7 @@ class CheckController extends Controller
     /**
      * Prints a Requirement instance
      */
-    private function echo_requirement(\Requirement $requirement)
+    private function echoRequirement(\Requirement $requirement)
     {
         $result = $requirement->isFulfilled() ? 'OK' : ($requirement->isOptional() ? 'WARNING' : 'ERROR');
         $data = '';

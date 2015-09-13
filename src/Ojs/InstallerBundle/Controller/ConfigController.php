@@ -19,7 +19,7 @@ class ConfigController extends Controller
     {
         $data = [];
         $data['data']['page'] = 'config';
-        $parametersFile = __DIR__.'/../../../../app/config/parameters.yml';
+        $parametersFile = $this->get('kernel')->getRootDir().DIRECTORY_SEPARATOR.'config.'.DIRECTORY_SEPARATOR.'parameters.yml';
         $parametersFileDist = $parametersFile.'.dist';
         $formData = new Config();
         $parser = new Parser();
@@ -70,7 +70,7 @@ class ConfigController extends Controller
         if ($form->isValid()) {
             $dumper = new Dumper();
             $yaml = $dumper->dump($entity->toArray(), 2, 0);
-            $parametersFile = __DIR__.'/../../../../app/config/parameters.yml';
+            $parametersFile = $parametersFile = $this->get('kernel')->getRootDir().DIRECTORY_SEPARATOR.'config.'.DIRECTORY_SEPARATOR.'parameters.yml';
             $fs = new Filesystem();
             $fs->dumpFile($parametersFile, $yaml);
 
