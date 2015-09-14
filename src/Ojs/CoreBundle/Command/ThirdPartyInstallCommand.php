@@ -4,13 +4,13 @@ namespace Ojs\CoreBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Console\Input\InputArgument;
 
 class ThirdPartyInstallCommand extends ContainerAwareCommand
 {
@@ -63,6 +63,10 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             ->setDescription('OJS Package Installation');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->packageName = $input->getArgument('packageName');
@@ -70,7 +74,8 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             $output->writeln(
                 '<error>Package not exists!</error>'
             );
-            exit();
+
+            return;
         }
         /** @var KernelInterface $kernel */
         $kernel = $this->getContainer()->get('kernel');
