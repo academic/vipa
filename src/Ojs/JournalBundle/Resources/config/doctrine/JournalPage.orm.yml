@@ -4,7 +4,6 @@ Ojs\JournalBundle\Entity\JournalPage:
     manyToOne:
         journal:
             targetEntity: Ojs\JournalBundle\Entity\Journal
-            inversedBy: pages
             joinColumn:
                 name: journal_id
                 referencedColumnName: id

@@ -8,8 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
-use OkulBilisim\LocationBundle\Entity\Country;
 use Ojs\UserBundle\Entity\User;
+use OkulBilisim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -22,12 +22,21 @@ class Journal extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
+    /**
+     * List of Journal Status
+     * @var array
+     */
+    public static $statuses = array(
+        -3 => 'status.rejected',
+        -2 => 'status.unpublished',
+        -1 => 'status.not_submitted',
+        0 => 'status.inreview',
+        1 => 'status.published',
+    );
     /** @var  boolean */
     protected $setupFinished;
-
     /** @var  string */
     protected $footerText;
-
     /**
      * @var integer
      * @JMS\Expose
@@ -128,12 +137,12 @@ class Journal extends AbstractTranslatable
      * @var boolean
      * @JMS\Expose
      */
-    private $published;
+    private $published = 0;
     /**
      * @var integer
      * @JMS\Expose
      */
-    private $status;
+    private $status = 0;
     /**
      * @var string
      * @JMS\Expose
@@ -172,8 +181,7 @@ class Journal extends AbstractTranslatable
      * @var boolean
      * @JMS\Expose
      */
-    private $configured;
-
+    private $configured = false;
     /**
      * @var ArrayCollection|Article[]
      * @JMS\Expose
@@ -279,19 +287,19 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
-    private $viewCount;
+    private $viewCount = 0;
     /**
      * @var int
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
-    private $downloadCount;
+    private $downloadCount = 0;
     /**
      * @var boolean
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
-    private $printed;
+    private $printed = false;
     /**
      * Object public URI
      * @var string
@@ -299,36 +307,20 @@ class Journal extends AbstractTranslatable
     private $publicURI;
     /** @var Collection */
     private $journalUsers;
-
     /** @var ArrayCollection */
     private $journalContacts;
-
     /**
      * @var Lang
      */
     private $mandatoryLang;
-
     /**
      * @var ArrayCollection|JournalAnnouncement[]
      */
     private $announcements;
-
     /**
      * @var ArrayCollection|JournalStatistic[]
      */
     private $statistics;
-
-    /**
-     * List of Journal Status
-     * @var array
-     */
-    public static $statuses = array(
-        -3 => 'status.rejected',
-        -2 => 'status.unpublished',
-        -1 => 'status.not_submitted',
-        0 => 'status.inreview',
-        1 => 'status.published',
-    );
 
     /**
      * Constructor

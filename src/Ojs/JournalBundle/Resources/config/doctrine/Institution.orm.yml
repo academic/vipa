@@ -20,7 +20,6 @@ Ojs\JournalBundle\Entity\Institution:
             joinColumn:
                 name: institution_type_id
                 referencedColumnName: id
-            inversedBy: institutions
         country:
             targetEntity: OkulBilisim\LocationBundle\Entity\Country
             joinColumn:

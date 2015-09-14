@@ -4,7 +4,6 @@ Ojs\JournalBundle\Entity\JournalAnnouncement:
     manyToOne:
         journal:
             targetEntity: Ojs\JournalBundle\Entity\Journal
-            inversedBy: announcements
             joinColumn:
                 name: journal_id
                 referencedColumnName: id

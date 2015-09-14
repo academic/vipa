@@ -10,13 +10,11 @@ Ojs\JournalBundle\Entity\JournalSetupProgress:
     manyToOne:
         journal:
             targetEntity: Journal
-            inversedBy: journalSetupProgress
             joinColumn:
                 name: journal_id
                 referencedColumnName: id
         user:
             targetEntity: Ojs\UserBundle\Entity\User
-            inversedBy: journalSetupProgress
             joinColumn:
                 name: user_id
                 referencedColumnName: id

@@ -1,349 +1,335 @@
 Ojs\JournalBundle\Entity\Journal:
-    type: entity
-    table: journal
-    repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
-    manyToOne:
-        publisher:
-          targetEntity: Publisher
-          joinColumn:
-            name: publisher_id
+  type: entity
+  table: journal
+  repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
+  manyToOne:
+    publisher:
+      targetEntity: Publisher
+      joinColumn:
+        name: publisher_id
+        referencedColumnName: id
+      inversedBy: journals
+    theme:
+      targetEntity: Ojs\JournalBundle\Entity\JournalTheme
+      joinColumn:
+        name: theme_id
+        referencedColumnName: id
+    design:
+      targetEntity: Ojs\JournalBundle\Entity\JournalDesign
+      joinColumn:
+        name: design_id
+        referencedColumnName: id
+    country:
+      targetEntity: OkulBilisim\LocationBundle\Entity\Country
+      joinColumn:
+        name: country_id
+        referencedColumnName: id
+    mandatoryLang:
+      targetEntity: Ojs\JournalBundle\Entity\Lang
+      joinColumn:
+        name: mandatory_lang_id
+        referencedColumnName: id
+  oneToMany:
+    settings:
+      targetEntity: JournalSetting
+      mappedBy: journal
+      cascade: ["ALL"]
+      indexBy: setting
+      fetch: EXTRA_LAZY
+    articles:
+      targetEntity: Article
+      mappedBy: journal
+      cascade: ["persist", "merge"]
+      fetch: LAZY
+    issues:
+      targetEntity: Issue
+      mappedBy: journal
+      cascade: ["persist", "merge"]
+      fetch: EXTRA_LAZY
+    boards:
+      targetEntity: Board
+      mappedBy: journal
+      cascade: ["persist", "merge"]
+      fetch: EXTRA_LAZY
+    sections:
+      targetEntity: Section
+      mappedBy: journal
+      cascade: ["persist", "merge"]
+      fetch: LAZY
+    journalThemes:
+      targetEntity: JournalTheme
+      mappedBy: journal
+    journalDesigns:
+      targetEntity: JournalDesign
+      mappedBy: journal
+    journalIndexs:
+      targetEntity: Ojs\JournalBundle\Entity\JournalIndex
+      mappedBy: journal
+      cascade: ["all"]
+      fetch: EXTRA_LAZY
+    submissionChecklist:
+      targetEntity: Ojs\JournalBundle\Entity\SubmissionChecklist
+      mappedBy: journal
+      cascade: ["all"]
+      fetch: EXTRA_LAZY
+    journalSubmissionFiles:
+      targetEntity: Ojs\JournalBundle\Entity\JournalSubmissionFile
+      mappedBy: journal
+      cascade: ["all"]
+      fetch: EXTRA_LAZY
+    journalUsers:
+      targetEntity: Ojs\JournalBundle\Entity\JournalUser
+      mappedBy: journal
+      fetch: EXTRA_LAZY
+    journalContacts:
+      targetEntity: Ojs\JournalBundle\Entity\JournalContact
+      mappedBy: journal
+      cascade: ["persist"]
+    statistics:
+      targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
+      mappedBy: journal
+      cascade: ["persist"]
+  manyToMany:
+    languages:
+      targetEntity: Ojs\JournalBundle\Entity\Lang
+      joinTable:
+        inverseJoinColumns:
+          language_id:
             referencedColumnName: id
-          inversedBy: journals
-        theme:
-          targetEntity: Ojs\JournalBundle\Entity\JournalTheme
-          joinColumn:
-            name: theme_id
+        joinColumns:
+          journal_id:
             referencedColumnName: id
-          inversedBy: journals
-        design:
-          targetEntity: Ojs\JournalBundle\Entity\JournalDesign
-          joinColumn:
-            name: design_id
+        name: journal_language
+      fetch: EXTRA_LAZY
+    periods:
+      targetEntity: Ojs\JournalBundle\Entity\Period
+      joinTable:
+        inverseJoinColumns:
+          period_id:
             referencedColumnName: id
-          inversedBy: journals
-        country:
-          targetEntity: OkulBilisim\LocationBundle\Entity\Country
-          joinColumn:
-            name: country_id
+        joinColumns:
+          journal_id:
             referencedColumnName: id
-        mandatoryLang:
-            targetEntity: Ojs\JournalBundle\Entity\Lang
-            joinColumn:
-              name: mandatory_lang_id
-              referencedColumnName: id
-    oneToMany:
-        settings:
-            targetEntity: JournalSetting
-            mappedBy: journal
-            cascade: ["ALL"]
-            indexBy: setting
-            fetch: EXTRA_LAZY
-        articles:
-            targetEntity: Article
-            mappedBy: journal
-            cascade: ["persist", "merge"]
-            fetch: LAZY
-        issues:
-            targetEntity: Issue
-            mappedBy: journal
-            cascade: ["persist", "merge"]
-            fetch: EXTRA_LAZY
-        boards:
-            targetEntity: Board
-            mappedBy: journal
-            cascade: ["persist", "merge"]
-            fetch: EXTRA_LAZY
-        sections:
-            targetEntity: Section
-            mappedBy: journal
-            cascade: ["persist", "merge"]
-            fetch: LAZY
-        journalThemes:
-            targetEntity: JournalTheme
-            mappedBy: journal
-        journalDesigns:
-            targetEntity: JournalDesign
-            mappedBy: journal
-        journalIndexs:
-            targetEntity: Ojs\JournalBundle\Entity\JournalIndex
-            mappedBy: journal
-            cascade: ["all"]
-            fetch: EXTRA_LAZY
-        submissionChecklist:
-            targetEntity: Ojs\JournalBundle\Entity\SubmissionChecklist
-            mappedBy: journal
-            cascade: ["all"]
-            fetch: EXTRA_LAZY
-        journalSubmissionFiles:
-            targetEntity: Ojs\JournalBundle\Entity\JournalSubmissionFile
-            mappedBy: journal
-            cascade: ["all"]
-            fetch: EXTRA_LAZY
-        journalUsers:
-            targetEntity: Ojs\JournalBundle\Entity\JournalUser
-            mappedBy: journal
-            fetch: EXTRA_LAZY
-        journalContacts:
-            targetEntity: Ojs\JournalBundle\Entity\JournalContact
-            mappedBy: journal
-            cascade: ["persist"]
-        statistics:
-            targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
-            mappedBy: journal
-            cascade: ["persist"]
-    manyToMany:
-        languages:
-              targetEntity: Ojs\JournalBundle\Entity\Lang
-              joinTable:
-                inverseJoinColumns:
-                  language_id:
-                    referencedColumnName: id
-                joinColumns:
-                  journal_id:
-                    referencedColumnName: id
-                name: journal_language
-              fetch: EXTRA_LAZY
-        periods:
-              targetEntity: Ojs\JournalBundle\Entity\Period
-              joinTable:
-                inverseJoinColumns:
-                  period_id:
-                    referencedColumnName: id
-                joinColumns:
-                  journal_id:
-                    referencedColumnName: id
-                name: journal_period
-        subjects:
-            targetEntity: Subject
-            cascade: ["persist"]
-            mappedBy: null
-            inversedBy: journals
-            joinTable:
-                name: journal_subject
-                joinColumns:
-                    -
-                        name: journal_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-                inverseJoinColumns:
-                    -
-                        name: subject_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-        bannedUsers:
-            targetEntity: Ojs\UserBundle\Entity\User
-            cascase: ["all"]
-            inversedBy: restrictedJournals
-            joinTable:
-                name: journal_banned_users
-                joinColumns:
-                    -
-                        name: journal_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-                inverseJoinColumns:
-                    -
-                        name: user_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
+        name: journal_period
+    subjects:
+      targetEntity: Subject
+      cascade: ["persist"]
+      mappedBy: null
+      inversedBy: journals
+      joinTable:
+        name: journal_subject
+        joinColumns:
+          -
+            name: journal_id
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          -
+            name: subject_id
+            referencedColumnName: id
+            onDelete: CASCADE
+    bannedUsers:
+      targetEntity: Ojs\UserBundle\Entity\User
+      cascase: ["all"]
+      inversedBy: restrictedJournals
+      joinTable:
+        name: journal_banned_users
+        joinColumns:
+          -
+            name: journal_id
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          -
+            name: user_id
+            referencedColumnName: id
+            onDelete: CASCADE
+  id:
     id:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-    fields:
-        titleTransliterated:
-            type: string
-            length: 255
-            column: title_transliterated
-            nullable: true
-            gedmo:
-                  - versioned
-        path:
-            type: string
-            length: 255
-            column: path
-            nullable: true
-            gedmo:
-                - versioned
-        domain:
-            type: string
-            length: 255
-            column: domain
-            nullable: true
-            gedmo:
-                - versioned
-        issn:
-            type: string
-            length: '11'
-            nullable: true
-            gedmo:
-                - versioned
-        eissn:
-            type: string
-            length: '11'
-            nullable: true
-            gedmo:
-                - versioned
-        founded:
-            type: datetime
-            column: founded
-            nullable: true
-        url:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        address:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        phone:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        email:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        published:
-            type: boolean
-            column: published
-            gedmo:
-                - versioned
-            nullable: true
-            options:
-                default: 0
-        status:
-            type: integer
-            gedmo:
-                - versioned
-            nullable: true
-            options:
-                default: 0
-        image:
-            type: string
-            length: 255
-            column: image
-            nullable: true
-            gedmo:
-                  - versioned
-        header:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        logo:
-            type: string
-            length: 255
-            nullable: true
-            gedmo:
-                  - versioned
-        languageCodeSet:
-            languages_code_set:
-            type: string
-            length: 30
-            nullable: true
-            gedmo:
-                  - versioned
-        googleAnalyticsId:
-            type: string
-            length: 50
-            nullable: true
-            column: google_analytics_id
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    titleTransliterated:
+      type: string
+      length: 255
+      column: title_transliterated
+      nullable: true
+      gedmo:
+        - versioned
+    path:
+      type: string
+      length: 255
+      column: path
+      nullable: true
+      gedmo:
+        - versioned
+    domain:
+      type: string
+      length: 255
+      column: domain
+      nullable: true
+      gedmo:
+        - versioned
+    issn:
+      type: string
+      length: 11
+      nullable: true
+      gedmo:
+        - versioned
+    eissn:
+      type: string
+      length: 11
+      nullable: true
+      gedmo:
+        - versioned
+    founded:
+      type: datetime
+      column: founded
+      nullable: true
+    url:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    address:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    phone:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    email:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    published:
+      type: boolean
+      column: published
+      gedmo:
+          - versioned
+      nullable: true
+    status:
+      type: integer
+      gedmo:
+          - versioned
+      nullable: true
+    image:
+      type: string
+      length: 255
+      column: image
+      nullable: true
+      gedmo:
+        - versioned
+    header:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    logo:
+      type: string
+      length: 255
+      nullable: true
+      gedmo:
+        - versioned
+    languageCodeSet:
+      languages_code_set:
+      type: string
+      length: 30
+      nullable: true
+      gedmo:
+        - versioned
+    googleAnalyticsId:
+      type: string
+      length: 50
+      nullable: true
+      column: google_analytics_id
+    slug:
+      type: string
+      length: 255
+      unique: true
+      gedmo:
+        versioned : ~
         slug:
-            type: string
-            length: 255
-            unique: true
-            gedmo:
-                versioned : ~
-                slug:
-                    seperator: _
-                    fields:
-                      - id
-        configured:
-            column: is_configured
-            type: boolean
-            options:
-                default: 0
-            nullable: TRUE
-            gedmo:
-                  - versioned
-        created:
-            type: datetime
-            gedmo:
-              timestampable:
-                on: create
-        updated:
-            type: datetime
-            gedmo:
-              timestampable:
-                on: update
-            nullable: true
-        deletedAt:
-            type: date
-            nullable: true
-        createdBy:
-           type: string
-           gedmo:
-             blameable:
-               on: create
-           nullable: true
-        updatedBy:
-           type: string
-           gedmo:
-             blameable:
-               on: update
-           nullable: true
-        tags:
-            type: string
-            nullable: true
-            gedmo:
-                  - versioned
-        setupFinished:
-            type: boolean
-            nullable: true
-            column: setup_finished
-        footerText:
-            type: text
-            nullable: true
-            column: footer_text
-            gedmo:
-                  - versioned
-        viewCount:
-            type: integer
-            nullable: true
-            column: view_count
-            options:
-                default: 0
-        downloadCount:
-            type: integer
-            nullable: true
-            column: download_count
-            options:
-                default: 0
-        printed:
-            type: boolean
-            nullable: true
-            options:
-                default: false
-            gedmo:
-                  - versioned
-    gedmo:
-        soft_deleteable:
-          field_name: deletedAt
-          time_aware: false
-        loggable: true
-    uniqueConstraints:
-        slugx:
-            columns: slug
-    lifecycleCallbacks: {  }
+          seperator: _
+          fields:
+            - id
+    configured:
+      column: is_configured
+      type: boolean
+      nullable: TRUE
+      gedmo:
+        - versioned
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+      nullable: true
+    deletedAt:
+      type: date
+      nullable: true
+    createdBy:
+      type: string
+      gedmo:
+       blameable:
+         on: create
+      nullable: true
+    updatedBy:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+      nullable: true
+    tags:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    setupFinished:
+      type: boolean
+      nullable: true
+      column: setup_finished
+    footerText:
+      type: text
+      nullable: true
+      column: footer_text
+      gedmo:
+        - versioned
+    viewCount:
+      type: integer
+      nullable: true
+      column: view_count
+    downloadCount:
+      type: integer
+      nullable: true
+      column: download_count
+    printed:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
+      time_aware: false
+    loggable: true
+  uniqueConstraints:
+    slugx:
+      columns: slug
+  lifecycleCallbacks: {  }

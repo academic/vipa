@@ -13,7 +13,6 @@ Ojs\JournalBundle\Entity\Author:
       joinColumn:
         name: institution_id
         referencedColumnName: id
-      inversedBy: authors
     user:
       targetEntity: Ojs\UserBundle\Entity\User
       joinColumn:

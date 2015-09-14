@@ -1,11 +1,11 @@
 Ojs\JournalBundle\Entity\JournalSubmissionFile:
-    type: entity
-    repositoryClass: Ojs\JournalBundle\Entity\JournalSubmissionFileRepository
-    lifecycleCallbacks: {  }
-    manyToOne:
-      journal:
-        targetEntity: Ojs\JournalBundle\Entity\Journal
-        joinColumn:
-          referencedColumnName: id
-          name: journal_id
-        inversedBy: articleSubmissionFiles
+  type: entity
+  repositoryClass: Ojs\JournalBundle\Entity\JournalSubmissionFileRepository
+  lifecycleCallbacks: {  }
+  manyToOne:
+    journal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      joinColumn:
+        referencedColumnName: id
+        name: journal_id
+      inversedBy: journalSubmissionFiles
