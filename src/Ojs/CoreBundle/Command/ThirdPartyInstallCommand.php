@@ -32,6 +32,22 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'extra' => array(
                 'bundle-class' => 'OkulBilisim\\WorkflowBundle\\WorkflowBundle',
             ),
+        ),
+        'endorsement' => array(
+            'name' => 'endorsement',
+            'description' => 'Ojs endorsement installation',
+            'repositories' => array(
+                array(
+                    'type' => 'vcs',
+                    'url' => 'git@bitbucket.org:okulbilisim/endorsment.git',
+                ),
+            ),
+            'require' => array(
+                "okulbilisim/endorsement-bundle" => "dev-master",
+            ),
+            'extra' => array(
+                'bundle-class' => 'OkulBilisim\\EndorsementBundle\\EndorsementBundle',
+            ),
         )
     );
 
