@@ -119,7 +119,7 @@ admin.dashboard.applications: Başvurular
 admin.dashboard.journal_settings: 'Dergi Ayarları'
 admin.dashboard.system_settings: 'Sistem Ayarları'
 admin.dashboard.switcher.title: 'Dergi Paneline Geç'
-admin.log.field: 'Sistem Günlüğü'
+admin.log.field: 'Değiştirilmiş Alan'
 admin.log.history: 'Sistem Günlüğü Tarihçesi'
 admin.log.newValue: 'Yeni Değer'
 admin.log.oldValue: 'Eski Değer'
