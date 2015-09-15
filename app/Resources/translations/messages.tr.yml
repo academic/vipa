@@ -1349,3 +1349,5 @@ validation:
     abstract: Özet alanı zorunlu dil için boş bırakılamaz
 yes: Evet
 no: Hayır
+default: Varsayılan
+optional: İsteğe Bağlı

@@ -1364,3 +1364,5 @@ validation:
     abstract: 'Abstract field for the default language is mandatory'
 yes: Yes
 no: No
+default: Default
+optional: Optinal

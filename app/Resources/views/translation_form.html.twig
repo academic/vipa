@@ -9,8 +9,8 @@
                     <a href="#" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
                         {{ locale|capitalize }}
                         {% if form.vars.default_locale != locale
-                            or translationsFields.vars.required != true %}[Optional]{% endif %}
-                        {% if form.vars.default_locale == locale %}[Default]{% endif %}
+                            or translationsFields.vars.required != true %}[{{ 'optinal'|trans }}]{% endif %}
+                        {% if form.vars.default_locale == locale %}[{{ 'default'|trans }}]{% endif %}
                         {% if translationsFields.vars.required %}*{% endif %}
                     </a>
                 </li>
