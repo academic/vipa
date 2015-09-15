@@ -515,7 +515,7 @@ journal.editor_phone: 'Editor Telefon No'
 journal.editor_surname: 'Editor Soyadı'
 journal.eissn: e-ISSN
 journal.email: 'İletişim e-Postası'
-journal.founded: 'İlk Yayın Tarihi'
+journal.founded: 'Başlangıç'
 journal.file: 'Gönderim İçin Dosyalar'
 journal.google.analytics.id: 'Google Analytics IDsi'
 journal.header_image: 'Başlık Resmi'
