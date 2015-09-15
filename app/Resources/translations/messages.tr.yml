@@ -1220,6 +1220,7 @@ total.article: 'Toplam Makale'
 total.issue: 'Toplam Sayı'
 total.user: 'Toplam Kullanıcı'
 trans: 'Başka Dilde Yazılmış'
+Translations: 'Diller'
 tubitak: TÜBİTAK
 tubitak_journals: 'TÜBİTAK Dergileri'
 type: Tip
