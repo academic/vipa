@@ -12,6 +12,8 @@ $(document).ready(function () {
         }
     });
 
+    $("form").sisyphus({timeout: 10});
+
 
     $(".maskissn").each(function () {
         $(this).inputmask({

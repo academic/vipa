@@ -17,7 +17,7 @@
     "tests"
   ],
   "resolutions": {
-    "select2": "4.*"
+    "jquery": "*"
   },
   "dependencies": {
     "jquery": "*",
@@ -38,6 +38,7 @@
     "ace-builds": "*",
     "ace": "*",
     "moment": "*",
-    "livestamp": "*"
+    "livestamp": "*",
+    "sisyphus": "*"
   }
 }
