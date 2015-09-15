@@ -480,6 +480,7 @@ issue.manager: 'Issue Manager'
 issue.new: 'New Issue'
 issue.number: Number
 issue.plural: Issues
+issue.supplement: 'Supplement'
 issuefile.edit: 'Edit Issue File'
 issuefile.file: File
 issuefile.langcode: Language

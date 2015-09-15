@@ -480,6 +480,7 @@ issue.manager: 'Sayı Yöneticisi'
 issue.new: 'Yeni Sayı'
 issue.number: Numara
 issue.plural: Sayılar
+issue.supplement: 'Ek Sayı'
 issuefile.edit: 'Sayı Dosyasını Düzenle'
 issuefile.file: Dosya
 issuefile.langcode: Dil

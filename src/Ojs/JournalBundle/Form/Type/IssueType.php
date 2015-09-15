@@ -25,7 +25,7 @@ class IssueType extends AbstractType
                 )
             )
             ->add('supplement', 'checkbox', array(
-                'label' => 'supplement',
+                    'label' => 'issue.supplement',
                 'required' => false,
                 )
             )

@@ -11,8 +11,6 @@ Ojs\JournalBundle\Entity\Issue:
             - Valid: ~
         volume:
             - NotBlank: ~
-        number:
-            - NotBlank: ~
         datePublished:
             - NotBlank: ~
         tags:
