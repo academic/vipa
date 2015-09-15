@@ -20,7 +20,7 @@ class IssueType extends AbstractType
             ->add('volume', 'text', array('label' => 'volume'))
             ->add('number', 'text', array('label' => 'number'))
             ->add('special', 'checkbox', array(
-                'label' => 'special',
+                    'label' => 'special.issue',
                 'required' => false,
                 )
             )
