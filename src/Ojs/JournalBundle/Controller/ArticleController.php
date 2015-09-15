@@ -223,7 +223,7 @@ class ArticleController extends Controller
         $form = $this->createForm(
             new ArticleType(),
             $entity,
-            ['action' => $action, 'method' => 'PUT', 'journal' => $journal]
+            ['action' => $action, 'method' => 'PUT']
         );
 
         return $form;
