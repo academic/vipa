@@ -46,22 +46,6 @@
                 </div>
 
             {% endif %}
-            {% if isGrantedForPublisher() and selectedJournal().publisher.id is defined %}
-                <div class="panel panel-default left-menu-bgcolor">
-                    <a class="list-group-item"
-                       href="{{ path('ojs_publisher_manager_design_index', {publisherId: selectedJournal().publisher.id}) }}">
-                        <i class="fa fa-list"></i>
-                        {{ "publisher.design"|trans }} </a>
-                    <a class="list-group-item"
-                       href="{{ path('ojs_publisher_manager_theme_index', {publisherId: selectedJournal().publisher.id}) }}">
-                        <i class="fa fa-list"></i>
-                        {{ "publisher.theme"|trans }} </a>
-                    <a class="list-group-item"
-                       href="{{ path('ojs_publisher_manager_edit', {publisherId: selectedJournal().publisher.id}) }}">
-                        <i class="fa fa-list"></i>
-                        {{ "publisher.edit"|trans }} </a>
-                </div>
-            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -21,6 +21,7 @@ class MenuBuilder extends ContainerAware
         $checker = $this->container->get('security.authorization_checker');
         $journal = $this->container->get('ojs.journal_service')->getSelectedJournal();
         $journalId = $journal->getId();
+        $ojsTwigExtension = $this->container->get('ojs.twig.ojs_extension');
 
         $menu = $factory->createItem('root')->setChildrenAttribute('class', 'nav nav-sidebar');
 
@@ -50,6 +51,9 @@ class MenuBuilder extends ContainerAware
             ['announcements',      'title.announcements',               'ojs_journal_announcement_index',    'bullhorn'],
             ['pages',              'title.pages',                       'ojs_journal_page_index',            'file'],
             ['posts',              'title.posts',                       'ojs_journal_post_index',            'file-o'],
+            ['publisherManager',   'publisher.design',                  'ojs_publisher_manager_design_index','wrench'],
+            ['publisherManager',   'publisher.theme',                   'ojs_publisher_manager_theme_index', 'css3'],
+            ['publisherManager',   'publisher.edit',                    'ojs_publisher_manager_edit',        'university'],
         ];
 
         foreach ($items as $item) {
@@ -58,13 +62,22 @@ class MenuBuilder extends ContainerAware
             $path  = $item[2];
             $icon  = $item[3];
 
-            if (empty($field) || $checker->isGranted('VIEW', $journal, $field)) {
+            if (empty($field) || $checker->isGranted('VIEW', $journal, $field) && $field != 'publisherManager') {
                 $menu->addChild($label, [
                     'route'           => $path,
                     'routeParameters' => ['journalId' => $journalId],
                     'extras'          => ['icon'      => $icon]
                 ]);
+            }elseif($field == 'publisherManager'){
+                if($ojsTwigExtension->isGrantedForPublisher()){
+                    $menu->addChild($label, [
+                        'route'           => $path,
+                        'routeParameters' => ['publisherId' => $journal->getPublisher()->getId()],
+                        'extras'          => ['icon'      => $icon]
+                    ]);
+                }
             }
+
         }
         $menuEvent = new MenuEvent();
         $menuEvent->setMenuItem($menu);
