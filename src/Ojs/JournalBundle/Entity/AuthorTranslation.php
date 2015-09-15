@@ -17,7 +17,7 @@ class AuthorTranslation extends AbstractTranslation
 
     private $title;
 
-    private $summary;
+    private $biography;
 
     /**
      * @return mixed
@@ -38,16 +38,16 @@ class AuthorTranslation extends AbstractTranslation
     /**
      * @return mixed
      */
-    public function getSummary()
+    public function getBiography()
     {
-        return $this->summary;
+        return $this->biography;
     }
 
     /**
-     * @param mixed $summary
+     * @param mixed $biography
      */
-    public function setSummary($summary)
+    public function setBiography($biography)
     {
-        $this->summary = $summary;
+        $this->biography = $biography;
     }
 }

@@ -1,24 +1,24 @@
 <div class="submission-subform">
-    {{ form_row(form.author.translations) }}
     {{ form_row(form.author.firstName) }}
     {{ form_row(form.author.lastName) }}
     {{ form_row(form.author.email) }}
     {{ form_row(form.author.institution) }}
     {{ form_row(form.author.institutionNotListed) }}
     {{ form_row(form.author.institutionName) }}
+    {{ form_row(form.author.country) }}
     {{ form_row(form.author.phone) }}
     <button type="button" class="btn btn-info btn-sm toggle-author-detail">
         {{ 'details'|trans }}
         <i class="fa fa-arrow-down"></i>
     </button>
     <div class="author-details" style="display: none">
+        {{ form_row(form.author.translations) }}
         {{ form_row(form.author.middleName) }}
         {{ form_row(form.author.firstNameTransliterated) }}
         {{ form_row(form.author.middleNameTransliterated) }}
         {{ form_row(form.author.lastNameTransliterated) }}
         {{ form_row(form.author.initials) }}
         {{ form_row(form.author.address) }}
-        {{ form_row(form.author.country) }}
     </div>
     <button type="button" class="btn btn-warning btn-sm submission-subform-remove-panel remove-articleauthor"><i class="fa fa-trash"></i></button>
 </div>

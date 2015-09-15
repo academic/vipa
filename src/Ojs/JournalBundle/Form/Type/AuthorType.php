@@ -42,7 +42,9 @@ class AuthorType extends AbstractType
                     'class' => 'institutionName'
                 ]
             ])
-            ->add('country')
+            ->add('country', null ,[
+                'required' => true
+            ])
             ->add('authorDetails', 'textarea');
     }
 

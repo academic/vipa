@@ -115,7 +115,7 @@ class Author extends AbstractTranslatable
      * @var string
      * @JMS\Expose
      */
-    private $summary;
+    private $biograpy;
     /**
      * @var string
      * @JMS\Expose
@@ -463,24 +463,24 @@ class Author extends AbstractTranslatable
     }
 
     /**
-     * Get summary
+     * Get biograpy
      *
      * @return string
      */
-    public function getSummary()
+    public function getBiography()
     {
-        return $this->translate()->getSummary();
+        return $this->translate()->getBiography();
     }
 
     /**
-     * Set summary
+     * Set biograpy
      *
-     * @param  string $summary
+     * @param  string $biograpy
      * @return Author
      */
-    public function setSummary($summary)
+    public function setBiography($biograpy)
     {
-        $this->translate()->setSummary($summary);
+        $this->translate()->setBiography($biograpy);
 
         return $this;
     }
@@ -506,7 +506,7 @@ class Author extends AbstractTranslatable
             $translation = new AuthorTranslation();
             if (!is_null($defaultTranslation)) {
                 $translation->setTitle($defaultTranslation->getTitle());
-                $translation->setSummary($defaultTranslation->getSummary());
+                $translation->setBiography($defaultTranslation->getBiography());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);

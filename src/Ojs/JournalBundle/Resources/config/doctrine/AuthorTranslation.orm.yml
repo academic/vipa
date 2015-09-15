@@ -12,6 +12,6 @@ Ojs\JournalBundle\Entity\AuthorTranslation:
             type: string
             nullable: true
             length: 255
-        summary:
+        biography:
             type: text
             nullable: TRUE
