@@ -19,6 +19,15 @@ ojs_admin_journal_create:
     defaults: { _controller: OjsAdminBundle:AdminJournal:create }
     methods: [POST]
 
+ojs_admin_journal_edit:
+    path:  /{id}/edit
+    defaults: { _controller: OjsAdminBundle:AdminJournal:edit }
+
+ojs_admin_journal_update:
+    path:  /{id}/update
+    defaults: { _controller: OjsAdminBundle:AdminJournal:update }
+    methods:  [PUT]
+
 ojs_admin_journal_delete:
     path:  /{id}/delete
     defaults: { _controller: OjsAdminBundle:AdminJournal:delete }

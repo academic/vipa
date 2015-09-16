@@ -51,9 +51,7 @@ class AdminJournalController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
-        $rowAction[] = $gridAction
-            ->editAction('ojs_journal_settings_index', 'id')
-            ->setRouteParametersMapping(['id' => 'journalId']);
+        $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
         $rowAction[] = $gridAction->cmsAction();
         $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
@@ -116,9 +114,7 @@ class AdminJournalController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
 
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
-        $rowAction[] = $gridAction
-            ->editAction('ojs_journal_settings_index', 'id')
-            ->setRouteParametersMapping(['id' => 'journalId']);
+        $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
         $rowAction[] = $gridAction->cmsAction();
         $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
@@ -135,6 +131,89 @@ class AdminJournalController extends Controller
         $data['grid'] = $grid;
 
         return $grid->getGridResponse('OjsAdminBundle:AdminJournal:index.html.twig', $data);
+    }
+
+    /**
+     * Displays a form to edit an existing Journal entity.
+     *
+     * @param $id
+     * @return Response
+     */
+    public function editAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Journal $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
+        $this->throw404IfNotFound($entity);
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        $editForm = $this->createEditForm($entity);
+
+        return $this->render(
+            'OjsAdminBundle:AdminJournal:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * Edits an existing Journal entity.
+     *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
+     */
+    public function updateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Journal $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        $this->throw404IfNotFound($entity);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+        if ($editForm->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+            $this->successFlashBag('successful.update');
+
+            return $this->redirectToRoute('ojs_admin_journal_edit', ['id' => $id]);
+        }
+
+        return $this->render(
+            'OjsAdminBundle:AdminJournal:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $editForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * Creates a form to edit a Publisher entity.
+     *
+     * @param Journal $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Journal $entity)
+    {
+        $form = $this->createForm(
+            new JournalType($entity->getId()),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
     }
 
     /**

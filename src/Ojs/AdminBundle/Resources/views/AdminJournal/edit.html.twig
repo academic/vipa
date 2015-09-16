@@ -1,0 +1,34 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ 'title.journal_edit'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('ojs_admin_journal_index'),'title': 'journal.manager'|trans},
+    {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+
+    <h1>{{ "journal.edit"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+    <div class="record_actions">
+        {% set back_path = 'ojs_admin_journal_index' %}
+        {% include '::actionbuttons.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(edit_form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(edit_form) }}
+
+{% endblock %}
