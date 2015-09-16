@@ -311,6 +311,12 @@ Ojs\JournalBundle\Entity\Journal:
       column: footer_text
       gedmo:
         - versioned
+    note:
+      type: text
+      nullable: true
+      column: note
+      gedmo:
+        - versioned
     viewCount:
       type: integer
       nullable: true

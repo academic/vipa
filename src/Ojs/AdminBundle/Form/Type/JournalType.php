@@ -270,6 +270,11 @@ class JournalType extends AbstractType
                     'maxSize' => "[200, 200]"
                 )
             ))
+            ->add('note', 'textarea', [
+                    'label' => 'journal.note',
+                    'required' => false,
+                ]
+            )
             ;
     }
 

@@ -37,6 +37,8 @@ class Journal extends AbstractTranslatable
     protected $setupFinished;
     /** @var  string */
     protected $footerText;
+    /** @var  string */
+    protected $note;
     /**
      * @var integer
      * @JMS\Expose
@@ -1369,6 +1371,22 @@ class Journal extends AbstractTranslatable
     public function setFooterText($footerText)
     {
         $this->footerText = $footerText;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param string $note
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
     }
 
     /**
