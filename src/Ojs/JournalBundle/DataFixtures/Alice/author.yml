@@ -6,7 +6,7 @@
     firstName: Ojs
     initials: OA
     lastName: Author
-    summary: This is a virtual author for Ojs Help Journal.
+    biograpy: This is a virtual author for Ojs Help Journal.
     title: Dr.
     institution: @institution
     user(unique): @user_author
