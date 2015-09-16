@@ -129,7 +129,7 @@ allow_index: 'İndekslenebilir'
 allow_index.list: 'İzin Verilmiş İndex Listesi'
 announcements: Duyurular
 api: 'Uygulama Geliştirme Arayüzü'
-api_motto: 'OJS geliştiricilere tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
+api_motto: 'OJS geliştiriciler için tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
 application.basic: Temel
 application.contact: İletişim
 application.graphics: Görseller
@@ -137,16 +137,16 @@ application.institute: 'Yayıncı Başvurusu'
 application.institute.detail: Yayıncı Detayı
 application.institute.list: 'Yayıncı Listesi'
 application.publisher.apply: 'Yayıncı Olarak Başvur'
-application.publisher.edit: 'Yayıncı Başvurusunu Düzenle'
+application.publisher.edit: 'Yayıncı Düzenle'
 application.journal: 'Dergi Başvurusu'
-application.journal.apply: 'Dergi Olarak Başvur'
+application.journal.apply: 'Yeni Dergi Olarak Başvur'
 application.journal.detail: Detay
 application.journal.edit: 'Dergi Başvurusunu Düzenle'
-application.journal.publisher: Derginin Yayıncıu
-application.journal.list: 'Dergi Önerileri'
+application.journal.publisher: Yayıncı
+application.journal.list: 'Dergi Başvuruları'
 application.journal.new_publisher: 'Yeni Yayıncı Olarak Başvur'
-application.journal.new_publisher_help: 'Eğer yukarıda yayıncıunuzu bulamadıysanız yeni yayıncı başvurusunda bulununuz.'
-application.journal.add_contact: 'İletşim Kişisi Ekle'
+application.journal.new_publisher_help: 'Eğer yukarıda yayıncınızı bulamadıysanız, yeni yayıncı başvurusunda bulununuz.'
+application.journal.add_contact: 'İletişim Kişisi Ekle'
 application.status.complete: 'İçe Aktarma Tamamlandı'
 application.status.deleted: Silinmiş
 application.status.onhold: 'Beklemede'
@@ -161,20 +161,20 @@ article.all: 'Tüm Makaleler'
 article.any_article_viewed: 'Hiç Makale Görüntülenmedi.'
 article.any_downloaded: 'Hiç Makale İndirilmedi.'
 article.authors: 'Makale Yazarları'
-article.citations: 'Makale Atıfları'
-article.detail: 'Makale Detayları'
+article.citations: 'Makale Kaynakçası'
+article.detail: 'Makale Detayı'
 article.files: 'Makale Dosyaları'
 article.fulltext: 'Tam Metin'
 article.header_image: 'Makale Üst Resmi'
 article.language.other: 'Makale Diğer Dilleri'
 article.language.primary: 'Makalenin Birincil Dili'
-article.licensing: Lisanslama
+article.licensing: Önşart
 article.manager: 'Makale Yöneticisi'
 article.metadata: 'Makale Üstverisi'
 article.mysubmits: 'Gönderdiğim Makaleler'
-article.new: Yeni Makale
+article.new: 'Yeni Makale'
 article.plural: Makaleler
-article.preview: 'Makale Önizle'
+article.preview: 'Makale Önizleme'
 article.singular: Makale
 article.submit: 'Makale Gönder'
 article.subtitle: 'Makalenin Alt Başlığı'
@@ -188,15 +188,15 @@ article_author_edit: 'Makalenin Yazarlarını Düzenle'
 article_author_list: 'Makalenin Yazarlarını Listele'
 article_id: 'Makale No'
 articleauthor: 'Makale Yazarı'
-articleauthor_create: 'Makale Yazarı Oluştur'
+articleauthor_create: 'Yazar Oluştur'
 articleauthor_new: 'Yeni Yazar'
 articlefile: 'Makale Dosyası'
 articlefile.actions: İşlemler
 articlefile.id: 'Dosya No'
 articlefile.langcode: 'Dosya Dili'
-articlefile.new: 'Yeni Makale Dosyası'
+articlefile.new: 'Yeni Dosya'
 articlefile.title: 'Dosya Başlığı'
-articlefile.type: 'Makale Dosya Tipi'
+articlefile.type: 'Dosya Tipi'
 articlefile.version: 'Dosya Sürümü'
 articles: Makaleler
 articles.needAction: 'İşlem Gereken Makaleler'
@@ -207,11 +207,11 @@ author: Yazar
 author.add: 'Yazar Ekle'
 author.creation: 'Yazar Oluşturma'
 author.details: 'Yazar Detayları'
-author.edit: 'Yazar Düzenleme'
+author.edit: 'Yazar Düzenle'
 author.firstname: 'İlk adı'
 author.firstnametransliterated: 'Başka Dilde İlk Ad'
 author.initials: 'Yazar Başharfleri'
-author.publisher: 'Yazarın Yayıncıu'
+author.publisher: 'Yazarın Yayıncısı'
 author.lastname: Soyadı
 author.lastnametransliterated: 'Başka Dilde Soyad'
 author.list: 'Yazar Listesi'
@@ -224,7 +224,7 @@ author.order: Sıra
 author.phone: Telefon
 author.plural: Yazarlar
 author.singular: Yazar
-author.summary: 'Yazar Özeti'
+author.summary: 'Yazar Hakkında'
 author.title: Ünvan
 author_id: 'Yazar No'
 author_order: 'Yazar Sırası'
