@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Ojs\AdminBundle\Form\Type\JournalType;
+use Ojs\JournalBundle\Form\Type\JournalType;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;

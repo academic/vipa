@@ -91,9 +91,7 @@ class JournalType extends AbstractType
                         'class' => 'select2-element',
                     ]
                 ]
-            );
-
-        $builder
+            )
             ->add('path', 'hidden', [
                 'label' => 'journal.path',
                 'required' => false
