@@ -18,6 +18,11 @@
                         <span class="hidden-sm hidden-md hidden-lg">{{ "home"|trans }}</span>
                     </a>
                 </li>
+                <li class="{% if page == 'ojs_public_index' %}active{% endif %} navbar-btn">
+                    <a href="/page/about" data-placement="bottom"
+                       title="{{ "title.about"|trans }}"><i
+                                class="fa fa-info fa-fw"></i></a>
+                </li>
                 <li class="{% if page == 'ojs_admin_publisher_index' %}active{% endif %} navbar-btn">
                     <a href="{{ url('ojs_publishers_index') }}" data-placement="bottom"
                        title="{{ "title.publishers"|trans }}"><i
