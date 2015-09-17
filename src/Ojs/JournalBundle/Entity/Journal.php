@@ -1556,7 +1556,7 @@ class Journal extends AbstractTranslatable
     /**
      * @param JournalDesign $design
      */
-    public function setDesign(JournalDesign $design)
+    public function setDesign(JournalDesign $design = null)
     {
         $this->design = $design;
     }

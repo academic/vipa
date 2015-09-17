@@ -17,6 +17,7 @@ Ojs\JournalBundle\Entity\Journal:
     design:
       targetEntity: Ojs\JournalBundle\Entity\JournalDesign
       joinColumn:
+        nullable: true
         name: design_id
         referencedColumnName: id
     country:

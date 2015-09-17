@@ -339,13 +339,13 @@ class JournalDesignController extends Controller
 
         $requestedDesign = $em->getRepository('OjsJournalBundle:JournalDesign')->find($id);
 
-        if ($id == $journal->getDesign()->getId()) {
+        if ($requestedDesign === $journal->getDesign()) {
             $this->errorFlashBag('journal.design.cannot_delete_active');
         } else {
             $csrf = $this->get('security.csrf.token_manager');
             $token = $csrf->getToken('ojs_journal_design'.$id);
 
-            if ($token != $request->get('_token')) {
+            if ((string)$token !== $request->get('_token')) {
                 throw new TokenNotFoundException("Token Not Found!");
             }
 
