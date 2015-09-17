@@ -285,6 +285,12 @@ class Journal extends AbstractTranslatable
      */
     private $journalSubmissionFiles;
     /**
+     * @var ArrayCollection|JournalApplicationUploadFile[]
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
+     */
+    private $journalApplicationUploadFiles;
+    /**
      * @var int
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
@@ -1323,6 +1329,32 @@ class Journal extends AbstractTranslatable
     public function getJournalSubmissionFiles()
     {
         return $this->journalSubmissionFiles;
+    }
+
+    /**q
+     * Add application file item
+     *
+     * @param  JournalApplicationUploadFile $journalApplicationUploadFile
+     * @return Journal
+     */
+    public function addJournalApplicationUploadFile(JournalApplicationUploadFile $journalApplicationUploadFile)
+    {
+        if (!$this->journalApplicationUploadFiles->contains($journalApplicationUploadFile)) {
+            $this->journalApplicationUploadFiles->add($journalApplicationUploadFile);
+            $journalApplicationUploadFile->setJournal($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get application files
+     *
+     * @return ArrayCollection|JournalApplicationUploadFile[]
+     */
+    public function getJournalApplicationUploadFiles()
+    {
+        return $this->journalApplicationUploadFiles;
     }
 
     /**
