@@ -337,7 +337,7 @@ done: Tamamlandı
 drop: 'İptal Et'
 drop.proxy.user: 'Vekil Kullanıcıyı İptal Et'
 e: Düzenle
-e-ISSN: e-ISSN
+eissn: e-issn
 edit: Düzenle
 editor.dashboard: 'Editör Paneli'
 editorial: Editoryal

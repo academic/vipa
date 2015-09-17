@@ -337,7 +337,7 @@ done: Done
 drop: Drop
 drop.proxy.user: 'Drop Proxy User'
 e: Edit
-eISSN: eISSN
+eissn: e-issn
 edit: Edit
 editor.dashboard: 'Editor Dashboard'
 editorial: Editorial
