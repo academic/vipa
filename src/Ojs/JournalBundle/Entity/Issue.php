@@ -94,6 +94,7 @@ class Issue extends AbstractTranslatable
     private $datePublished;
     /**
      * @var ArrayCollection|Article[]
+     * @JMS\Expose
      * @JMS\Groups({"IssueDetail","JournalDetail"})
      */
     private $articles;
