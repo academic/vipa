@@ -23,8 +23,6 @@ Ojs\JournalBundle\Entity\Article:
             - NotBlank: ~
         pubdate:
             - NotBlank: ~
-        part:
-            - NotBlank: ~
         firstPage:
             - NotBlank: ~
         lastPage:

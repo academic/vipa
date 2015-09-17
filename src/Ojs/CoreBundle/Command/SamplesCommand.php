@@ -283,7 +283,6 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setDoi('10.5281/zenodo.14791');
         $article1->setSubmissionDate(new \DateTime('now'));
         $article1->setPubdate(new \DateTime('now'));
-        $article1->setPart('Part 1');
         $article1->setAnonymous(0);
         $article1->setFirstPage(1);
         $article1->setLastPage(5);

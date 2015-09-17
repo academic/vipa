@@ -114,12 +114,6 @@ class Article extends AbstractTranslatable
      */
     private $pubdateSeason;
     /**
-     * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
-     */
-    private $part;
-    /**
      * @var integer
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
@@ -897,29 +891,6 @@ class Article extends AbstractTranslatable
     public function setPubdateSeason($pubDateSeason)
     {
         $this->pubdateSeason = $pubDateSeason;
-
-        return $this;
-    }
-
-    /**
-     * Get part
-     *
-     * @return string
-     */
-    public function getPart()
-    {
-        return $this->part;
-    }
-
-    /**
-     * Set part
-     *
-     * @param  string $part
-     * @return $this
-     */
-    public function setPart($part)
-    {
-        $this->part = $part;
 
         return $this;
     }

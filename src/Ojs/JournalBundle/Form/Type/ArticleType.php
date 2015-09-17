@@ -107,15 +107,6 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'part',
-                'text',
-                array(
-                    'label' => 'part',
-                    'required' => false,
-                    'attr' => array('class' => ' form-control'),
-                )
-            )
-            ->add(
                 'firstPage',
                 'integer',
                 array('label' => 'first_page', 'required' => false, 'attr' => array('class' => ' form-control'))
