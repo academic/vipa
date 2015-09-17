@@ -23,6 +23,7 @@
             margin: 5px;
             padding-bottom: 35px;
             overflow: hidden;
+            height: 420px;
         }
 
         .card img {
@@ -30,6 +31,12 @@
             width: 100%;
             height: 300px;
             margin: -5px -5px 5px 0;
+        }
+
+        .card .card-link {
+            display: block;
+            height: 30px;
+            font-size: 16px;
         }
     </style>
 {% endblock %}
@@ -170,12 +177,13 @@
                         {% endif %}
 
                         <div class="caption">
-                            <a href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
-                                {{ journal.title }}
+                            <a class="card-link"
+                               href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
+                                <strong>{{ journal.title }}</strong>
                             </a>
 
                             <div>
-                                <ul class="list-unstyled">
+                                <ul class="list-inline">
                                     {% if journal.issn is defined %}
                                         <li><strong>{{ "issn"|trans }}</strong>:{{ journal.issn }}</li>
                                     {% endif %}
@@ -194,6 +202,10 @@
                                             {% endfor %}
                                         </li>
                                     {% endif %}
+                                </ul>
+                                <ul class="list-inline">
+                                    <li><i class="fa fa-eye"></i> 12.310</li>
+                                    <li><i class="fa fa-download"></i> 1.120</li>
                                 </ul>
                             </div>
                         </div>
