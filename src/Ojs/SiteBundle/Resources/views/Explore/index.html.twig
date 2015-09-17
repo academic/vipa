@@ -26,6 +26,11 @@
             height: 420px;
         }
 
+        .card > a {
+            text-decoration: none;
+            color: #000;
+        }
+
         .card img {
             display: block;
             width: 100%;
@@ -37,6 +42,7 @@
             display: block;
             height: 30px;
             font-size: 16px;
+            color: #337ab7;
         }
     </style>
 {% endblock %}
@@ -167,48 +173,49 @@
             {% for journal in journals %}
                 <div class="col-md-4 col-sm-4">
                     <div class="card ng">
-                        {% if journal.image is defined %}
-                            {% set src = journal.image|imagine_filter('journal_cover') %}
-                            <img src="{{ src }}"
-                                 class="img-responsive avatar" alt="{{ journal.title }}">
-                        {% else %}
-                            <img src="#"
-                                 class="img-responsive avatar tri" alt="{{ journal.title }}">
-                        {% endif %}
+                        <a href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
+                            {% if journal.image is defined %}
+                                {% set src = journal.image|imagine_filter('journal_cover') %}
+                                <img src="{{ src }}"
+                                     class="img-responsive avatar" alt="{{ journal.title }}">
+                            {% else %}
+                                <img src="#"
+                                     class="img-responsive avatar tri" alt="{{ journal.title }}">
+                            {% endif %}
 
-                        <div class="caption">
-                            <a class="card-link"
-                               href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
-                                <strong>{{ journal.title }}</strong>
-                            </a>
+                            <div class="caption">
 
-                            <div>
-                                <ul class="list-inline">
-                                    {% if journal.issn is defined %}
-                                        <li><strong>{{ "issn"|trans }}</strong>:{{ journal.issn }}</li>
-                                    {% endif %}
-                                    {% if journal.eissn is defined %}
-                                        <li><strong>{{ "eissn"|trans }}</strong>: {{ journal.eissn }}</li>
-                                    {% endif %}
-                                    {% if journal.founded is defined %}
-                                        <li>
-                                            <strong>{{ "journal.founded"|trans }}</strong>: {{ journal.founded|date('Y') }}
-                                        </li>
-                                    {% endif %}
-                                    {% if journal.periods is defined and journal.periods|length >0 %}
-                                        <li>
-                                            {% for period in journal.periods %}
-                                                <span class="label label-info">{{ period.period }}</span>
-                                            {% endfor %}
-                                        </li>
-                                    {% endif %}
-                                </ul>
-                                <ul class="list-inline">
-                                    <li><i class="fa fa-eye"></i> 12.310</li>
-                                    <li><i class="fa fa-download"></i> 1.120</li>
-                                </ul>
+                                <strong class="card-link">{{ journal.title }}</strong>
+
+                                <div>
+                                    <ul class="list-inline">
+                                        {% if journal.issn is defined %}
+                                            <li><strong>{{ "issn"|trans }}</strong>:{{ journal.issn }}</li>
+                                        {% endif %}
+                                        {% if journal.eissn is defined %}
+                                            <li><strong>{{ "eissn"|trans }}</strong>: {{ journal.eissn }}</li>
+                                        {% endif %}
+                                        {% if journal.founded is defined %}
+                                            <li>
+                                                <strong>{{ "journal.founded"|trans }}</strong>: {{ journal.founded|date('Y') }}
+                                            </li>
+                                        {% endif %}
+                                        {% if journal.periods is defined and journal.periods|length >0 %}
+                                            <li>
+                                                {% for period in journal.periods %}
+                                                    <span class="label label-info">{{ period.period }}</span>
+                                                {% endfor %}
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                    <ul class="list-inline">
+                                        <li><i class="fa fa-eye"></i> 12.310</li>
+                                        <li><i class="fa fa-download"></i> 1.120</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        </a>
+
                     </div>
                 </div>
             {% endfor %}
