@@ -227,7 +227,7 @@ author.singular: Yazar
 author.summary: 'Yazar Hakkında'
 author.title: Ünvan
 author_id: 'Yazar No'
-author_order: 'Yazar Sırası'
+author_order: 'Sıra'
 authors: Yazarlar
 authors.count: 'Yazar Sayısı'
 b: Geri
@@ -238,8 +238,8 @@ basicsearch: 'Basit Arama'
 block: Blok
 blog: Blog
 board: Kurul
-board.addUser: 'Kurula Kullanıcı Ekle'
-board.can_not_add_user: 'Sadece kayıtlı olduğunuz derginin kuruluna ekleme yapabilirsiniz.'
+board.addUser: 'Kullanıcı Ekle'
+board.can_not_add_user: 'Sadece derginizin kullanıcılarından üye ekleyebilirsiniz..'
 board.create: 'Kurul Oluştur'
 board.delete: 'Kurul Sil'
 board.detail: 'Kurul Detayı'
@@ -253,32 +253,32 @@ boards: Kurullar
 book: Kitap
 booklet: Broşür
 button.toggle_tree: 'Ağacı Aç'
-c: 'Oluştur'
-roles.can_edit: 'Düzenleyebilir'
-roles.can_reject_submission: 'Gönderiyi Reddedebilir'
-roles.can_review: 'Gözden Geçirebilir'
-roles.can_see_author: 'Yazar Bilgisini Görebilir'
-canOnlyReply: 'Sadece Cevaplayabilir'
+c: 'Yeni Oluştur'
+roles.can_edit: 'Düzenleyebilir mi?'
+roles.can_reject_submission: 'Gönderiyi reddedebilir mi?'
+roles.can_review: 'Gözden geçirebilir mi?'
+roles.can_see_author: 'Yazar bilgisini görebilir mi?'
+canOnlyReply: 'Kullanıcı sonraki adıma karar veremez, sadece cevaplayabilir.'
 cancel: Vazgeç
 check: 'Kontrol Et'
 children: 'Alt Öge'
-citation: Atıf
-citation.add: 'Atıf Ekle'
-citation.citation: Atıf
-citation.clear: 'Atıf Sil'
-citation.create: Atıf Oluştur'
-citation.edit: Atıf Düzenle'
-citation.editor: Atıf Editörü'
-citation.id: 'Atıf No'
-citation.list: 'Atıf Listesi'
-citation.new: 'Yeni Atıf'
+citation: Referans
+citation.add: 'Referans Ekle'
+citation.citation: Referans
+citation.clear: 'Referans Sil'
+citation.create: 'Referans Oluştur'
+citation.edit: 'Referans Düzenle'
+citation.editor: 'Referans Editörü'
+citation.id: 'Ref. No'
+citation.list: 'Referans Listesi'
+citation.new: 'Yeni Referans'
 citation.paste_extract: 'Yapıştır ve Parçala'
-citation.setting: 'Atıf Ayarları'
-citation.setting.edit: 'Atıf Ayarlarını Düzenle'
-citation.setting.list: 'Atıf Ayarları Listesi'
-citation.setting.new: 'Yeni Atıf Ayarı'
-citation.type: 'Atıf Tipi'
-citations: Atıflar
+citation.setting: 'Referans Ayarları'
+citation.setting.edit: 'Ayarları Düzenle'
+citation.setting.list: 'Ayar Listesi'
+citation.setting.new: 'Yeni Referans Ayarı'
+citation.type: 'Referans Tipi'
+citations: Referanslar
 city: Şehir
 cms: İYS
 collapse: Kapat
@@ -289,15 +289,15 @@ competingInterests: 'Çıkar Çatışması'
 conference: Konferans
 confidential: Gizli
 contact: İletişim
-contact.detail: 'Bağlantı Detayı'
-contact.edit: 'Bağlantı Düzenle'
-contact.manager: 'Bağlantı Yöneticisi'
-contact.new: 'Yeni Bağlantı'
-contact.plural: Bağlantılar
-contact.type: 'Bağlantı Tipi'
-contact.type.list: 'Bağlantı Tiplerini Listele'
-contact.type.new: 'Yeni Bağlantı Tipi'
-contacttype.plural: 'Bağlantı Tipleri'
+contact.detail: 'İletişim Detayı'
+contact.edit: 'İletişim Düzenle'
+contact.manager: 'İletişim Yöneticisi'
+contact.new: 'Yeni İletişim Kişisi'
+contact.plural: 'İletişim Kişileri'
+contact.type: 'İletişim Türü'
+contact.type.list: 'İletişim Türlerini Listele'
+contact.type.new: 'Yeni İletişim Türü'
+contacttype.plural: 'İletişim Kişileri'
 content: İçerik
 controlPanel: 'Kontrol Paneli'
 copy: Kopyala
@@ -310,7 +310,7 @@ created: Oluşturulmuş
 created.templates: 'Oluşturulmuş Şablonlar'
 d: Sil
 dashboard: 'Panel'
-dashboard.admin: 'Panel'
+dashboard.admin: 'Yönetici Paneli'
 dashboard.application: 'Uygulama Paneli'
 dashboard.editor: 'Editör Paneli'
 dashboard.general_stats: 'Genel İstatistikler'
@@ -334,17 +334,17 @@ discovery: Keşif
 documents: Belgeler
 doi: DOI
 done: Tamamlandı
-drop: İptal Et
+drop: 'İptal Et'
 drop.proxy.user: 'Vekil Kullanıcıyı İptal Et'
 e: Düzenle
 e-ISSN: e-ISSN
 edit: Düzenle
-editor.dashboard: 'Editör Gösterge Paneli'
+editor.dashboard: 'Editör Paneli'
 editorial: Editoryal
 email: E-posta
 empty: Boş
 error: Hata
-error.oops: 'Haydaa! Bir hata meydana geldi.'
+error.oops: 'Bir hata meydana geldi.'
 explore: Keşfet
 event.affectedUser.id: 'Olaydan Etkilenmiş Kullanıcı'
 event.date: 'Olay Tarihi'
@@ -369,7 +369,7 @@ file.select: 'Dosya Seç'
 file.type: 'Dosya Türü'
 filter.remove: 'Filtreyi Kaldır'
 firstStep: 'İlk Adım'
-first_page: 'İlk sayfa'
+first_page: 'İlk Sayfa'
 first_step: 'İlk Adım'
 firstname: 'İlk Ad'
 founded: 'Başlangıç'
