@@ -262,23 +262,23 @@ canOnlyReply: 'User can''t decide next step, can only reply back.'
 cancel: Cancel
 check: Check
 children: Children
-citation: Citation
-citation.add: 'Add Citation'
-citation.citation: Citation
-citation.clear: 'Clear Citation'
-citation.create: 'Create Citation'
-citation.edit: 'Edit Citation'
-citation.editor: 'Citation Editor'
-citation.id: 'Citation ID'
-citation.list: 'Citation List'
-citation.new: 'New Citation'
-citation.paste_extract: 'Paste and Extract Citation'
-citation.setting: 'Citation Setting'
-citation.setting.edit: 'Edit Citation Setting'
-citation.setting.list: 'Citation Setting List'
-citation.setting.new: 'New Citation Setting'
-citation.type: 'Citation Type'
-citations: Citations
+citation: Reference
+citation.add: 'Add Reference'
+citation.citation: Reference
+citation.clear: 'Clear Reference'
+citation.create: 'Create Reference'
+citation.edit: 'Edit Reference'
+citation.editor: 'Reference Editor'
+citation.id: 'Reference ID'
+citation.list: 'Reference List'
+citation.new: 'New Reference'
+citation.paste_extract: 'Paste and Extract Reference'
+citation.setting: 'Reference Setting'
+citation.setting.edit: 'Edit Setting'
+citation.setting.list: 'Setting List'
+citation.setting.new: 'New Reference Setting'
+citation.type: 'Reference Type'
+citations: References
 city: City
 cms: CMS
 collapse: Collapse
@@ -344,7 +344,7 @@ editorial: Editorial
 email: E-mail
 empty: Empty
 error: Error
-error.oops: 'Oops! An Error Occurred'
+error.oops: 'An Error Occurred'
 explore: Explore
 event.affectedUser.id: 'Event Affected User'
 event.date: 'Event Date'
@@ -355,7 +355,7 @@ event.user.id: 'Event User ID'
 faq: FAQ
 fax: Fax
 featured: Featured
-featured.desc: ''
+featured.desc: 'Featured Description'
 fields: Fields
 fieldset: Fieldset
 file: File
