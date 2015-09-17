@@ -175,6 +175,8 @@ class Article extends AbstractTranslatable
     private $issue;
     /**
      * @var ArticleTypes
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $articleType;
     /**
