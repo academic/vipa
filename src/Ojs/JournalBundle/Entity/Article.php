@@ -206,6 +206,7 @@ class Article extends AbstractTranslatable
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Groups({"IssueDetail","ArticleDetail"})
+     * @Expose
      */
     private $articleAuthors;
     /**
