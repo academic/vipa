@@ -150,9 +150,12 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
     border-right: 0
 }
 
-@media screen and (min-width: 768px) {
+body {
+    padding-top: 80px;
+}
+@media screen and (min-width: 768px) and (max-width: 799px) {
     body {
-        padding-top: 80px;
+        padding-top: 120px;
     }
 }
 
@@ -493,6 +496,14 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 
     #adminLogHistory {
         font-size: 10px;
+    }
+
+    #feedback-form {
+        padding-top: 80px !important;
+    }
+
+    #feedback .btn-close {
+        top: 42px !important;
     }
 }
 
