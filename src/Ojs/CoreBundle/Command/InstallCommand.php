@@ -318,6 +318,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsJournalBundle:JournalContact' => null,
             'OjsJournalBundle:ContactTypes' => null,
             'OjsJournalBundle:Index' => null,
+            'OjsJournalBundle:JournalApplicationFile' => null,
             'OjsJournalBundle:Author' => null,
             'OjsJournalBundle:PublisherTheme' => null,
             'OjsJournalBundle:Lang' => null,

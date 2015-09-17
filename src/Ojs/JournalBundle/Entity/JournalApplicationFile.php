@@ -10,7 +10,7 @@ use Ojs\CoreBundle\Annotation\Display as Display;
  * JournalApplicationFile
  * @GRID\Source(columns="id,title,locale,visible")
  */
-abstract class JournalApplicationFile
+class JournalApplicationFile
 {
     use DisplayTrait;
     /**

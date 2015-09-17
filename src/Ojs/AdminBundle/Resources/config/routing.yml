@@ -65,6 +65,10 @@ ojs_admin_index:
     resource: "@OjsAdminBundle/Resources/config/routing/index.yml"
     prefix:   index
 
+ojs_admin_application_file_application_file:
+    resource: "@OjsAdminBundle/Resources/config/routing/application_file.yml"
+    prefix:   journal-application-file
+
 ojs_admin_system_settings:
     resource: "@OjsAdminBundle/Resources/config/routing/system_settings.yml"
     prefix:   settings
