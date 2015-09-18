@@ -99,7 +99,7 @@ class ThemeController extends Controller
             new ThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_theme_create', ['journalId' => $entity->getJournal()->getId()]),
+                'action' => $this->generateUrl('ojs_journal_theme_create', ['journalId' => $entity->getOwner()->getId()]),
                 'method' => 'POST',
             )
         );
@@ -206,7 +206,7 @@ class ThemeController extends Controller
             new ThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_theme_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
+                'action' => $this->generateUrl('ojs_journal_theme_update', array('id' => $entity->getId(), 'journalId' => $entity->getOwner()->getId())),
                 'method' => 'PUT',
             )
         );
