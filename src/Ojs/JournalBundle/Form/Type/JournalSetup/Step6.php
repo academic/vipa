@@ -21,7 +21,7 @@ class Step6 extends AbstractType
                 'theme',
                 'entity',
                 array(
-                    'class' => 'Ojs\JournalBundle\Entity\JournalTheme',
+                    'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,

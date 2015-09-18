@@ -6,8 +6,8 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\JournalTheme;
-use Ojs\JournalBundle\Form\Type\JournalThemeType;
+use Ojs\JournalBundle\Entity\Theme;
+use Ojs\JournalBundle\Form\Type\ThemeType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +16,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * JournalTheme controller.
+ * Theme controller.
  *
  */
-class JournalThemeController extends Controller
+class ThemeController extends Controller
 {
 
     /**
-     * Lists all JournalTheme entities.
+     * Lists all Theme entities.
      *
      */
     public function indexAction()
@@ -32,7 +32,7 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $source = new Entity('OjsJournalBundle:JournalTheme');
+        $source = new Entity('OjsJournalBundle:Theme');
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -48,11 +48,11 @@ class JournalThemeController extends Controller
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalTheme:index.html.twig', $data);
+        return $grid->getGridResponse('OjsJournalBundle:Theme:index.html.twig', $data);
     }
 
     /**
-     * Creates a new JournalTheme entity.
+     * Creates a new Theme entity.
      *
      * @param  Request                   $request
      * @return RedirectResponse|Response
@@ -63,7 +63,7 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $entity = new JournalTheme();
+        $entity = new Theme();
         $entity->setJournal($journal);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -78,7 +78,7 @@ class JournalThemeController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:JournalTheme:new.html.twig',
+            'OjsJournalBundle:Theme:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -87,16 +87,16 @@ class JournalThemeController extends Controller
     }
 
     /**
-     * Creates a form to create a JournalTheme entity.
+     * Creates a form to create a Theme entity.
      *
-     * @param JournalTheme $entity The entity
+     * @param Theme $entity The entity
      *
      * @return Form The form
      */
-    private function createCreateForm(JournalTheme $entity)
+    private function createCreateForm(Theme $entity)
     {
         $form = $this->createForm(
-            new JournalThemeType(),
+            new ThemeType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_theme_create', ['journalId' => $entity->getJournal()->getId()]),
@@ -110,7 +110,7 @@ class JournalThemeController extends Controller
     }
 
     /**
-     * Displays a form to create a new JournalTheme entity.
+     * Displays a form to create a new Theme entity.
      *
      */
     public function newAction()
@@ -119,12 +119,12 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $entity = new JournalTheme();
+        $entity = new Theme();
         $entity->setJournal($journal);
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:JournalTheme:new.html.twig',
+            'OjsJournalBundle:Theme:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -133,7 +133,7 @@ class JournalThemeController extends Controller
     }
 
     /**
-     * Finds and displays a JournalTheme entity.
+     * Finds and displays a Theme entity.
      *
      * @param  integer  $id
      * @return Response
@@ -147,8 +147,8 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
+        /** @var Theme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -156,7 +156,7 @@ class JournalThemeController extends Controller
             ->refreshToken('ojs_journal_theme'.$entity->getId());
 
         return $this->render(
-            'OjsJournalBundle:JournalTheme:show.html.twig',
+            'OjsJournalBundle:Theme:show.html.twig',
             array(
                 'entity' => $entity,
                 'token'  => $token,
@@ -165,7 +165,7 @@ class JournalThemeController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing JournalTheme entity.
+     * Displays a form to edit an existing Theme entity.
      *
      * @param  integer  $id
      * @return Response
@@ -179,13 +179,13 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
+        /** @var Theme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsJournalBundle:JournalTheme:edit.html.twig',
+            'OjsJournalBundle:Theme:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -194,16 +194,16 @@ class JournalThemeController extends Controller
     }
 
     /**
-     * Creates a form to edit a JournalTheme entity.
+     * Creates a form to edit a Theme entity.
      *
-     * @param JournalTheme $entity The entity
+     * @param Theme $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(JournalTheme $entity)
+    private function createEditForm(Theme $entity)
     {
         $form = $this->createForm(
-            new JournalThemeType(),
+            new ThemeType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_theme_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
@@ -217,7 +217,7 @@ class JournalThemeController extends Controller
     }
 
     /**
-     * Edits an existing JournalTheme entity.
+     * Edits an existing Theme entity.
      *
      * @param  Request                   $request
      * @param  integer                   $id
@@ -232,8 +232,8 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
+        /** @var Theme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
@@ -246,7 +246,7 @@ class JournalThemeController extends Controller
         }
 
         return $this->render(
-            'OjsJournalBundle:JournalTheme:edit.html.twig',
+            'OjsJournalBundle:Theme:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -269,8 +269,8 @@ class JournalThemeController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        /** @var JournalTheme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
+        /** @var Theme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

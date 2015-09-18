@@ -10,12 +10,12 @@ Ojs\JournalBundle\Entity\Journal:
         referencedColumnName: id
       inversedBy: journals
     theme:
-      targetEntity: Ojs\JournalBundle\Entity\JournalTheme
+      targetEntity: Ojs\JournalBundle\Entity\Theme
       joinColumn:
         name: theme_id
         referencedColumnName: id
     design:
-      targetEntity: Ojs\JournalBundle\Entity\JournalDesign
+      targetEntity: Ojs\JournalBundle\Entity\Design
       joinColumn:
         nullable: true
         name: design_id
@@ -57,12 +57,6 @@ Ojs\JournalBundle\Entity\Journal:
       mappedBy: journal
       cascade: ["persist", "merge"]
       fetch: LAZY
-    journalThemes:
-      targetEntity: JournalTheme
-      mappedBy: journal
-    journalDesigns:
-      targetEntity: JournalDesign
-      mappedBy: journal
     journalIndexs:
       targetEntity: Ojs\JournalBundle\Entity\JournalIndex
       mappedBy: journal

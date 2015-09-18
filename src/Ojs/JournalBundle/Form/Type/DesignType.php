@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JournalDesignType extends AbstractType
+class DesignType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -38,7 +38,7 @@ class JournalDesignType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalDesign',
+                'data_class' => 'Ojs\JournalBundle\Entity\Design',
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
@@ -52,6 +52,6 @@ class JournalDesignType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journaldesign';
+        return 'ojs_journalbundle_design';
     }
 }

@@ -200,7 +200,7 @@ class JournalType extends AbstractType
                 'entity',
                 array(
                     'label' => 'theme',
-                    'class' => 'Ojs\JournalBundle\Entity\JournalTheme',
+                    'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
@@ -210,7 +210,7 @@ class JournalType extends AbstractType
                         if(is_null($journalId)){
                             $query->where('t.public IS NULL OR t.public = TRUE');
                         }else{
-                            $query->where('t.public IS NULL OR t.public = TRUE OR t.journal = :journal')
+                            $query->where('t.public IS NULL OR t.public = TRUE OR t.owner = :journal')
                             ->setParameter('journal', $options['data']);
                         }
                         return $query;
@@ -223,7 +223,7 @@ class JournalType extends AbstractType
                 'entity',
                 array(
                     'label' => 'design',
-                    'class' => 'Ojs\JournalBundle\Entity\JournalDesign',
+                    'class' => 'Ojs\JournalBundle\Entity\Design',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
@@ -233,7 +233,7 @@ class JournalType extends AbstractType
                         if(is_null($journalId)){
                             $query->where('t.public IS NULL OR t.public = TRUE');
                         }else{
-                            $query->where('t.public IS NULL OR t.public = TRUE OR t.journal = :journal')
+                            $query->where('t.public IS NULL OR t.public = TRUE OR t.owner = :journal')
                                 ->setParameter('journal', $options['data']);
                         }
                         return $query;

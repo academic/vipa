@@ -1,13 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 {% import "::design_macros.html.twig" as macros %}
 {% set hideleft = true %}
-{% block title %}{{ 'title.journal_design_new'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.design_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path('ojs_journal_design_index', {'journalId': selectedJournal().id}),'title': 'journal.design'|trans},
-    {'title': 'title.journal_design_new'|trans}
+    {'title': 'title.design_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "title.journal_design_new"|trans }}</h1>
+    <h1>{{ "title.design_new"|trans }}</h1>
 
     {{ form(form) }}
 
@@ -174,13 +174,13 @@
                 }
             });
 
-            $('#ojs_journalbundle_journaldesign_submit').attr('type', 'button')
+            $('#ojs_journalbundle_design_submit').attr('type', 'button')
                     .on('click', function () {
                         gm.deinitCanvas();
                         $('.holder-remove').removeAttr("src")
                                 .removeAttr("data-holder-rendered");
-                        $('#ojs_journalbundle_journaldesign_editableContent').val($("#" + gm.options.canvasId).html());
-                        $("form[name='ojs_journalbundle_journaldesign']").submit();
+                        $('#ojs_journalbundle_design_editableContent').val($("#" + gm.options.canvasId).html());
+                        $("form[name='ojs_journalbundle_design']").submit();
                     });
         });
 

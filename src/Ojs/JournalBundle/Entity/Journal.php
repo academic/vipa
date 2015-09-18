@@ -168,13 +168,13 @@ class Journal extends AbstractTranslatable
      */
     private $slug;
     /**
-     * @var JournalTheme
+     * @var Theme
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
      */
     private $theme;
     /**
-     * @var JournalDesign
+     * @var Design
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
      */
@@ -240,16 +240,7 @@ class Journal extends AbstractTranslatable
      * @Grid\Column(field="publisher.name", title="publisher")
      */
     private $publisher;
-    /**
-     * @var Collection
-     * @JMS\Expose
-     */
-    private $journalThemes;
-    /**
-     * @var JournalDesign Collection
-     * @JMS\Expose
-     */
-    private $journalDesigns;
+
     /**
      * @var Collection
      */
@@ -341,9 +332,7 @@ class Journal extends AbstractTranslatable
         $this->languages = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->subjects = new ArrayCollection();
-        $this->journalThemes = new ArrayCollection();
         $this->translations = new ArrayCollection();
-        $this->journalDesigns = new ArrayCollection();
     }
 
     /**
@@ -432,28 +421,6 @@ class Journal extends AbstractTranslatable
     public function getSections()
     {
         return $this->sections;
-    }
-
-    /**
-     * @param  JournalTheme $journalTheme
-     * @return Journal
-     */
-    public function addJournalTheme(JournalTheme $journalTheme)
-    {
-        if (!$this->journalThemes->contains($journalTheme)) {
-            $this->journalThemes->add($journalTheme);
-            $journalTheme->setJournal($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection|JournalTheme[]
-     */
-    public function getJournalThemes()
-    {
-        return $this->journalThemes;
     }
 
     /**
@@ -988,7 +955,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get theme
      *
-     * @return JournalTheme
+     * @return Theme
      */
     public function getTheme()
     {
@@ -998,10 +965,10 @@ class Journal extends AbstractTranslatable
     /**
      * Set theme
      *
-     * @param  JournalTheme $theme
+     * @param  Theme $theme
      * @return Journal
      */
-    public function setTheme(JournalTheme $theme = null)
+    public function setTheme(Theme $theme = null)
     {
         $this->theme = $theme;
 
@@ -1546,7 +1513,7 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @return JournalDesign
+     * @return Design
      */
     public function getDesign()
     {
@@ -1554,30 +1521,11 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param JournalDesign $design
+     * @param Design $design
      */
-    public function setDesign(JournalDesign $design = null)
+    public function setDesign(Design $design = null)
     {
         $this->design = $design;
-    }
-
-    /**
-     * @return JournalDesign|ArrayCollection
-     */
-    public function getJournalDesigns()
-    {
-        return $this->journalDesigns;
-    }
-
-    /**
-     * @param JournalDesign|ArrayCollection $journalDesign
-     */
-    public function addJournalDesign($journalDesign)
-    {
-        if(!$this->journalDesigns->contains($journalDesign)){
-            $this->journalDesigns->add($journalDesign);
-            $journalDesign->setJournal($this);
-        }
     }
 
     /**

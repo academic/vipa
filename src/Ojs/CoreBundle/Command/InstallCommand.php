@@ -6,7 +6,7 @@ use Composer\Script\CommandEvent;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalTheme;
+use Ojs\JournalBundle\Entity\Theme;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -270,7 +270,7 @@ class InstallCommand extends ContainerAwareCommand
     protected function insertTheme()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $theme = new JournalTheme();
+        $theme = new Theme();
         $theme->setTitle('Ojs');
         $em->persist($theme);
         $em->flush();

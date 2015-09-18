@@ -1,24 +1,26 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.journal_theme_show'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.theme_edit'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path('ojs_journal_theme_index', {'journalId': selectedJournal().id}),'title': 'journal.theme'|trans},
-    {'title': 'title.journal_theme_show'|trans}
+    {'title': 'title.theme_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "journaltheme"|trans }}</h1>
+    <h1>{{ 'title.theme_edit'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    {{ display(entity) }}
+    {{ form(edit_form) }}
+
     {{
     actions({
         'back': {'href': path('ojs_journal_theme_index', {'journalId': selectedJournal().id})},
-        'edit': {'href': path('ojs_journal_theme_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_theme_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        'delete': {'href': path('ojs_journal_theme_delete', {'id': entity.id, 'journalId': selectedJournal().id})},
     })
     }}
+
+    {{ getLogs(entity) }}
 {% endblock %}

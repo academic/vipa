@@ -165,7 +165,7 @@ class Publisher extends AbstractTranslatable
      */
     private $publisherThemes;
     /**
-     * @var JournalDesign Collection
+     * @var PublisherDesign|ArrayCollection
      * @Expose
      */
     private $publisherDesigns;

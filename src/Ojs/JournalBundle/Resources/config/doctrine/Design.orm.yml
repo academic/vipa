@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalTheme:
+Ojs\JournalBundle\Entity\Design:
   type: entity
-  table: journal_theme
-  repositoryClass: Ojs\JournalBundle\Entity\JournalThemeRepository
+  table: design
+  repositoryClass: Ojs\JournalBundle\Entity\DesignRepository
   id:
     id:
       type: integer
@@ -9,11 +9,10 @@ Ojs\JournalBundle\Entity\JournalTheme:
       generator:
         strategy: AUTO
   manyToOne:
-    journal:
+    owner:
       targetEntity: Journal
-      inversedBy: journalThemes
       joinColumn:
-        name: journal_id
+        name: owner_id
         referencedColumnName: id
   fields:
     title:
@@ -22,7 +21,12 @@ Ojs\JournalBundle\Entity\JournalTheme:
       nullable: true
       gedmo:
         - versioned
-    css:
+    content:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    editableContent:
       type: text
       nullable: true
       gedmo:
@@ -32,7 +36,7 @@ Ojs\JournalBundle\Entity\JournalTheme:
       type: boolean
       nullable: true
       gedmo:
-          - versioned
+        - versioned
     created:
       type: datetime
       gedmo:

@@ -7,10 +7,10 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
- * JournalDesign
+ * Theme
  * @GRID\Source(columns="id,journal.title,title")
  */
-class JournalDesign
+class Theme
 {
     use GenericEntityTrait;
 
@@ -22,25 +22,16 @@ class JournalDesign
 
     /**
      * @var string
-     * @GRID\Column(title="content")
      */
     private $title;
 
     /**
      * @var string
-     * @GRID\Column(title="content")
      */
-    private $content;
-
-    /**
-     * @var string
-     * @GRID\Column(title="editableContent")
-     */
-    private $editableContent;
+    private $css;
 
     /**
      * @var boolean
-     * @GRID\Column(title="basedesign")
      */
     private $public = true;
 
@@ -48,7 +39,7 @@ class JournalDesign
      *
      * @var Journal
      */
-    private $journal;
+    private $owner;
 
     /**
      * Get id
@@ -65,19 +56,19 @@ class JournalDesign
      *
      * @return Journal
      */
-    public function getJournal()
+    public function getOwner()
     {
-        return $this->journal;
+        return $this->owner;
     }
 
     /**
-     * Set journal
-     * @param  Journal      $journal
-     * @return JournalTheme
+     * Set owner
+     * @param  Journal      $owner
+     * @return Theme
      */
-    public function setJournal($journal)
+    public function setOwner($owner = null)
     {
-        $this->journal = $journal;
+        $this->owner = $owner;
 
         return $this;
     }
@@ -99,6 +90,22 @@ class JournalDesign
     }
 
     /**
+     * @return string
+     */
+    public function getCss()
+    {
+        return $this->css;
+    }
+
+    /**
+     * @param string $css
+     */
+    public function setCss($css)
+    {
+        $this->css = $css;
+    }
+
+    /**
      * @return boolean
      */
     public function isPublic()
@@ -113,38 +120,4 @@ class JournalDesign
     {
         $this->public = $public;
     }
-
-    /**
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param string $content
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEditableContent()
-    {
-        return $this->editableContent;
-    }
-
-    /**
-     * @param string $editableContent
-     */
-    public function setEditableContent($editableContent)
-    {
-        $this->editableContent = $editableContent;
-    }
-
-
 }

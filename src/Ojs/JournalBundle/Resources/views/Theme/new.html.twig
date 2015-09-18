@@ -1,17 +1,17 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.journal_theme_new'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.theme_new'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
     {'link': path('ojs_journal_theme_index', {'journalId': selectedJournal().id}),'title': 'journal.theme'|trans},
-    {'title': 'title.journal_theme_new'|trans}
+    {'title': 'title.theme_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'title.journal_theme_new'|trans }}</h1>
+    <h1>{{ 'title.theme_new'|trans }}</h1>
 
     {{ form(form) }}
 
