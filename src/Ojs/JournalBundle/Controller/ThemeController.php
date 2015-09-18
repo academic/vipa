@@ -64,7 +64,7 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $entity = new Theme();
-        $entity->setJournal($journal);
+        $entity->setOwner($journal);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -120,7 +120,7 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $entity = new Theme();
-        $entity->setJournal($journal);
+        $entity->setOwner($journal);
         $form = $this->createCreateForm($entity);
 
         return $this->render(
