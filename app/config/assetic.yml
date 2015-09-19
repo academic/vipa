@@ -30,7 +30,7 @@ assetic:
         - '%kernel.root_dir%/../web/assets/app/js/plugins/analytics/analytics.js'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js'
-        - '%kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
+        - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote.min.js'
         - '%kernel.root_dir%/../web/vendor/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js'
         - '%kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js'
         - '%kernel.root_dir%/../web/vendor/select2/dist/js/select2.full.min.js'
@@ -51,7 +51,8 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/select2/dist/css/select2.min.css'
         - '%kernel.root_dir%/../web/assets/app/css/admin.css'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css'
-        - '%kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css'
+        - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote.css'
+        - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote-bs3.css'
         - '%kernel.root_dir%/../web/assets/app/css/_history.css'
         - '@OkulbilisimFeedbackBundle/Resources/public/css/feedback.css'
     apptour_css:

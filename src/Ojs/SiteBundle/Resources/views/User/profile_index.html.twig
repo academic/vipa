@@ -28,7 +28,7 @@
                         {% if user.avatar is not null %}
                         class="img-circle"
                         {% else %}
-                        class="img-circle tri"
+                            class="img-circle" src="{{ asset('assets/app/images/buddy_sample.png') }}"
                         {% endif %}
                         alt="" src="{% if user.avatar %}{{ user.avatar|imagine_filter('user_croped') }}{% endif %}" />
                 </figure>
