@@ -6,6 +6,7 @@ use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalApplicationUploadFile;
 use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,6 +25,11 @@ class ApplicationController extends Controller
      */
     public function journalAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $journalApplicationFiles = $em->getRepository('OjsJournalBundle:JournalApplicationFile')->findBy([
+            'visible' => true,
+            'locale' => $request->getLocale()
+        ]);
         $allowanceSetting = $this
             ->getDoctrine()
             ->getRepository('OjsAdminBundle:SystemSetting')
@@ -43,11 +49,15 @@ class ApplicationController extends Controller
 
         $application = new Journal();
         $application->setCurrentLocale($request->getDefaultLocale());
+        foreach($journalApplicationFiles as $applicationFile){
+            $uploadFileEntity = new JournalApplicationUploadFile();
+            $application->addJournalApplicationUploadFile($uploadFileEntity);
+        }
         $form = $this->createForm(new JournalApplicationType(), $application);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isValid() && $form->isSubmitted()) {
                 $application->setStatus(0);
 
                 /** @var JournalContact $contact */
@@ -57,7 +67,25 @@ class ApplicationController extends Controller
                     }
                 }
 
-                $em = $this->getDoctrine()->getManager();
+                //setup journal application files
+                foreach ($application->getJournalApplicationUploadFiles() as $fileKey => $submissionFile) {
+                    if(empty($submissionFile->getFile()) && $journalApplicationFiles[$fileKey]->getRequired()){
+                        return $this->render('OjsSiteBundle:Application:journal.html.twig', [
+                                'form' => $form->createView(),
+                                'journalApplicationFiles' => $journalApplicationFiles
+                            ]
+                        );
+                    }
+                    $submissionFile
+                        ->setTitle($journalApplicationFiles[$fileKey]->getTitle())
+                        ->setDetail($journalApplicationFiles[$fileKey]->getDetail())
+                        ->setLocale($journalApplicationFiles[$fileKey]->getLocale())
+                        ->setRequired($journalApplicationFiles[$fileKey]->getRequired())
+                        ->setJournal($application)
+                    ;
+                    $em->persist($submissionFile);
+                }
+
                 $em->persist($application);
                 $em->flush();
 
@@ -70,7 +98,11 @@ class ApplicationController extends Controller
             $session->save();
         }
 
-        return $this->render('OjsSiteBundle:Application:journal.html.twig', array('form' => $form->createView()));
+        return $this->render('OjsSiteBundle:Application:journal.html.twig', [
+            'form' => $form->createView(),
+            'journalApplicationFiles' => $journalApplicationFiles
+            ]
+        );
     }
 
     public function publisherAction(Request $request)

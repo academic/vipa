@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Form\Type\JournalApplicationUploadFileType;
 use Ojs\JournalBundle\Form\Type\JournalContactType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -135,7 +136,16 @@ class JournalApplicationType extends AbstractType
             ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])
             ->add('phone', null, ['label' => 'journal.phone', 'attr' => ['class' => 'validate[required,custom[email]]']])
             ->add('email', 'email', ['label' => 'journal.email', 'attr' => ['class' => 'validate[required,custom[email]]']])
-            ->add('journalContacts', 'collection', ['type' => new JournalContactType(), 'allow_add' => true]);
+            ->add('journalContacts', 'collection', ['type' => new JournalContactType(), 'allow_add' => true])
+            ->add('journalApplicationUploadFiles', 'collection', array(
+                    'type' => new JournalApplicationUploadFileType(),
+                    'allow_add' => false,
+                    'allow_delete' => false,
+                    'options' => array(
+                    )
+                )
+            )
+        ;
     }
 
     /**

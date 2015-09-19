@@ -93,6 +93,37 @@
                     </div>
                 </div>
 
+                <div class="panel panel-info graphics-panel">
+                    <div class="panel-heading"><h4>{{ "journal.application.files"|trans }}</h4></div>
+                    <div class="panel-body">
+                        {% for index,applicationFileForm in form.journalApplicationUploadFiles %}
+                            <div class="well">
+                                <div class="alert alert-info" role="alert">
+                                            <span>
+                                                {{ journalApplicationFiles[index].title }}
+                                                {% if journalApplicationFiles[index].required %}
+                                                    <b>(Required)</b>
+                                                {% else %}
+                                                    <b>(Optional)</b>
+                                                {% endif %}
+                                            </span>
+                                    <a href="{{ asset('uploads/submissionfiles/' ~ journalApplicationFiles[index].file) }}" target="_blank">
+                                        {{ 'from.here'|trans }}
+                                    </a>
+                                    {% if journalApplicationFiles[index].detail is not null %}
+                                        <br>
+                                        <p>
+                                            <b>{{ 'description'|trans }}</b>:
+                                            {{ journalApplicationFiles[index].detail }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                {{ form_row(applicationFileForm.file) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
                 <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-success pull-right">
                     {{ "apply"|trans }}
                 </button>
