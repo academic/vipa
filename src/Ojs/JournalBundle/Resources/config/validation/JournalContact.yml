@@ -1,14 +1,10 @@
 Ojs\JournalBundle\Entity\JournalContact:
     properties:
-        title:
-            - NotBlank: ~
         fullName:
             - NotBlank: ~
         email:
             - NotBlank: ~
             - Email: ~
-        tags:
-            - NotBlank: ~
         contactType:
             - NotBlank: { groups: [admin] }
         journal:

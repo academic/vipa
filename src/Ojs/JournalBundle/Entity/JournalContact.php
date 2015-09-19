@@ -75,6 +75,11 @@ class JournalContact
     private $journal;
 
     /**
+     * @var Institution
+     */
+    private $institution;
+
+    /**
      * Get ID
      *
      * @return integer
@@ -288,6 +293,25 @@ class JournalContact
     public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
+        return $this;
+    }
+
+    /**
+     * @return Institution
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
+     *
+     * @param  Institution $institution
+     * @return $this
+     */
+    public function setInstitution(Institution $institution = null)
+    {
+        $this->institution = $institution;
         return $this;
     }
 

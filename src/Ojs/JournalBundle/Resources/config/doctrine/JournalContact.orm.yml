@@ -30,6 +30,12 @@ Ojs\JournalBundle\Entity\JournalContact:
                   name: journal_id
                   referencedColumnName: id
                 inversedBy: journalContacts
+          institution:
+                targetEntity: Ojs\JournalBundle\Entity\Institution
+                joinColumn:
+                  name: institution_id
+                  referencedColumnName: id
+                inversedBy: institutionContacts
           contactType:
                 targetEntity: Ojs\JournalBundle\Entity\ContactTypes
                 joinColumn:

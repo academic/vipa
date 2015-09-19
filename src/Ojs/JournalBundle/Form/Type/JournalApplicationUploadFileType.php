@@ -2,15 +2,16 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
-use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JournalContactType extends AbstractType
+/**
+ * Class JournalApplicationUploadFileType
+ * @package Ojs\JournalBundle\Form\Type
+ */
+class JournalApplicationUploadFileType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -18,12 +19,11 @@ class JournalContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fullName', 'text', ['label' => 'fullname'])
-            ->add('address', 'textarea')
-            ->add('phone', 'text', ['label' => 'phone'])
-            ->add('email', 'email', ['label' => 'email'])
-            ->add('contactType')
-            ->add('institution')
+            ->add('file', 'jb_file_ajax',
+                array(
+                    'endpoint' => 'submissionfiles'
+                )
+            )
         ;
     }
 
@@ -34,9 +34,10 @@ class JournalContactType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalContact',
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalApplicationUploadFile',
                 'cascade_validation' => true,
                 'attr' => [
+                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
@@ -48,6 +49,6 @@ class JournalContactType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journalcontact';
+        return 'ojs_journalbundle_journal_applicationupload_file';
     }
 }

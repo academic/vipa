@@ -135,9 +135,13 @@ class Institution extends AbstractTranslatable
      */
     private $institutionType;
 
+    /** @var ArrayCollection */
+    private $institutionContacts;
+
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->institutionContacts = new ArrayCollection();
     }
 
     /**
@@ -682,6 +686,22 @@ class Institution extends AbstractTranslatable
     public function removeChild(Institution $children)
     {
         $this->children->removeElement($children);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getInstitutionContacts()
+    {
+        return $this->institutionContacts;
+    }
+
+    /**
+     * @param ArrayCollection $institutionContacts
+     */
+    public function setInstitutionContacts($institutionContacts)
+    {
+        $this->institutionContacts = $institutionContacts;
     }
 
     public function __toString()
