@@ -18,9 +18,9 @@ use Ojs\JournalBundle\Entity\ArticleSubmissionStart;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
-use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
@@ -269,6 +269,7 @@ class ArticleSubmissionController extends Controller
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
             array(
                 'article' => $article,
+                'journal' => $journal,
                 'form' => $form->createView(),
             )
         );
@@ -399,6 +400,7 @@ class ArticleSubmissionController extends Controller
             'OjsJournalBundle:ArticleSubmission:edit.html.twig',
             array(
                 'article' => $article,
+                'journal' => $journal,
                 'form' => $form->createView(),
             )
         );
@@ -520,6 +522,7 @@ class ArticleSubmissionController extends Controller
             'OjsJournalBundle:ArticleSubmission:preview.html.twig',
             array(
                 'article' => $article,
+                'journal' => $journal,
                 'translations' => $article->getTranslations(),
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
                 'form' => $form->createView(),

@@ -9,11 +9,16 @@
 {% endblock %}
 
 {% block body -%}
+<div class="alert alert-success">
+    <h2 class="text-center">
+        <i>{{ journal.title }}</i>
+    </h2>
+</div>
     {% if draftErrors|length > 0 %}
         {% if app.request.method == 'POST' %}
-        <div class="alert alert-danger">
+<div class="alert alert-danger">
         {% else %}
-        <div class="alert alert-warning">
+    <div class="alert alert-warning">
         {% endif %}
         {{ 'submission.whats_missing'|trans }}
         <ul>
@@ -187,27 +192,28 @@
                     <div class="panel-heading">Onay</div>
                     <div class="panel panel-body">
                         {{ form_start(form) }}
-                            {{ form_row(form.note) }}
-                            {{ form_row(form.submit) }}
+                        {{ form_row(form.note) }}
+                        {{ form_row(form.submit) }}
                         {{ form_end(form) }}
                         <hr>
-                        <a href="{{ path('ojs_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}" class="btn btn-danger btn-block">Düzenlemeye devam et</a>
+                        <a href="{{ path('ojs_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}"
+                           class="btn btn-danger btn-block">Düzenlemeye devam et</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $("form[name='ojs_article_submission']").submit(function() {
-            {% if selectedJournal().getSetting('submissionConfirmText') %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            $("form[name='ojs_article_submission']").submit(function () {
+                {% if selectedJournal().getSetting('submissionConfirmText') %}
                 return confirm("{{ selectedJournal().getSetting('submissionConfirmText').value }}");
-            {% else %}
+                {% else %}
                 return confirm("{{ 'are.you.sure.for.submission'|trans }}");
-            {% endif %}
-        });
-    </script>
-{% endblock %}
+                {% endif %}
+            });
+        </script>
+    {% endblock %}
