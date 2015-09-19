@@ -1,4 +1,8 @@
 parameters:
-#    ojs_api.example.class: Ojs\ApiBundle\Example
+    ojs_api.contact_type.handler.class: Ojs\ApiBundle\Handler\ContactTypesHandler
+    ojs_api.contact_type.class: Ojs\JournalBundle\Entity\ContactTypes
 
 services:
+    ojs_api.contact_type.handler:
+        class: %ojs_api.contact_type.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.contact_type.class%', '@form.factory']

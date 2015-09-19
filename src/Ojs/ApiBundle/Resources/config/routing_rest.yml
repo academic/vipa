@@ -1,3 +1,9 @@
+api_contact_types:
+  type:         rest
+  resource:     "OjsApiBundle:ContactTypesRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"

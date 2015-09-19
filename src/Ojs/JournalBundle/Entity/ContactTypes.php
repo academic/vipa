@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ojs\ApiBundle\Model\ContactTypesInterface;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
@@ -12,7 +13,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
  * ContactTypes
  * @GRID\Source(columns="id,name,description")
  */
-class ContactTypes extends AbstractTranslatable
+class ContactTypes extends AbstractTranslatable implements ContactTypesInterface
 {
     use GenericEntityTrait;
 
