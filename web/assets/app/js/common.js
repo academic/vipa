@@ -25,17 +25,14 @@ $(document).ready(function () {
         promptPosition: 'inline', validateNonVisibleFields: true,
         updatePromptsPosition: true
     });
-    $(".wysihtml5").wysihtml5({
-        toolbar: {
-            "font-styles": false,
-            "emphasis": true,
-            "lists": false,
-            "html": false,
-            "link": true,
-            "image": false,
-            "color": false,
-            "blockquote": true
-        }
+
+    $(".wysihtml5").summernote({
+        height: 100,                 // set editor height
+
+        minHeight: null,             // set minimum height of editor
+        maxHeight: null,             // set maximum height of editor
+
+        focus: true,                 // set focus to editable area after initializing summernote
     });
 
     var tagAutocompleteInput = $('select[data-role=tagsinputautocomplete]');

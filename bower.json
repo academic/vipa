@@ -23,7 +23,7 @@
     "jquery": "*",
     "bootstrap": "3.3.5",
     "font-awesome": "*",
-    "bootstrap3-wysihtml5-bower": "*",
+    "summernote": "*",
     "select2": "4.*",
     "jquery-file-upload": "*",
     "jquery.inputmask": "*",
