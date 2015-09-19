@@ -18,15 +18,12 @@ class JournalContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
             ->add('fullName', 'text', ['label' => 'fullname'])
             ->add('address', 'textarea')
             ->add('phone', 'text', ['label' => 'phone'])
             ->add('email', 'email', ['label' => 'email'])
-            ->add('tags', 'tags')
             ->add('contactType')
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
+        ;
     }
 
     /**
