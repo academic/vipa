@@ -142,7 +142,7 @@ application.journal: 'Dergi Başvurusu'
 application.journal.apply: 'Yeni Dergi Olarak Başvur'
 application.journal.detail: Detay
 application.journal.edit: 'Dergi Başvurusunu Düzenle'
-application.journal.publisher: Yayıncı
+application.journal.publisher: 'Yayıncı Başvurusu'
 application.journal.list: 'Dergi Başvuruları'
 application.journal.new_publisher: 'Yeni Yayıncı Olarak Başvur'
 application.journal.new_publisher_help: 'Eğer yukarıda yayıncınızı bulamadıysanız, yeni yayıncı başvurusunda bulununuz.'

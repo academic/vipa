@@ -142,7 +142,7 @@ application.journal: 'Journal Application'
 application.journal.apply: 'Apply as a New Journal'
 application.journal.detail: Detail
 application.journal.edit: 'Edit Journal Application'
-application.journal.publisher: Publisher
+application.journal.publisher: Publisher Application
 application.journal.list: 'Journal Suggestions'
 application.journal.new_publisher: 'Apply as a New Publisher'
 application.journal.new_publisher_help: 'If you can''t find your publisher above, please apply as an publisher using the button below.'
