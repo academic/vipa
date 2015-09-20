@@ -5,6 +5,7 @@ Ojs\JournalBundle\Entity\Journal:
   manyToOne:
     publisher:
       targetEntity: Publisher
+      cascade: ["ALL"]
       joinColumn:
         name: publisher_id
         referencedColumnName: id
