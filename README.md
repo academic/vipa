@@ -12,8 +12,11 @@ This project adheres to the [Open Code of Conduct](https://github.com/okulbilisi
 
 Read [Install](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md)
 
-###TL;DR I'm a guru
+*TL;DR I'm a guru*
 
 ```
 composer update -vvv -o&& bower update && php app/console assets:install web --symlink && php app/console assetic:dump && mysql -u root -p -e "DROP DATABASE IF EXISTS ojs;create database ojs;" && php app/console ojs:install && php app/console ojs:install:samples
 ```
+
+## Donate
+You may [donate](https://www.paypal.me/OkulBilisim) us.
