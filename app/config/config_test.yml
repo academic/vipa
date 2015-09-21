@@ -20,24 +20,3 @@ swiftmailer:
         path: "%kernel.root_dir%/spool" #(where to store the messages)
     #delivery_address: (an email address where to send ALL emails)
     #disable_delivery: (set to true to disable delivery completely)
-
-doctrine_mongodb:
-    connections:
-        default:
-            #you can change to your setting
-            server: mongodb://127.0.0.1:27017
-            options: {}
-    default_database: ojs_test
-    document_managers:
-        default:
-            auto_mapping: true
-    auto_generate_hydrator_classes: true
-
-doctrine:
-    dbal:
-        driver: pdo_sqlite
-        path: %kernel.cache_dir%/test.db
-        charset: UTF8
-    orm:
-        auto_generate_proxy_classes: true
-        auto_mapping: true
