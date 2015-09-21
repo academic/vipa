@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/okulbilisim/ojs.png?label=ready&title=Ready)](https://waffle.io/okulbilisim/ojs)
 #Open Journal Software
 
 [![Build Status](https://img.shields.io/travis/okulbilisim/ojs/master.svg?style=flat-square)](https://travis-ci.org/okulbilisim/ojs)
