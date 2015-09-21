@@ -148,12 +148,6 @@
                                         <td>{{ article.pubdateSeason }}</td>
                                     </tr>
                                 {% endif %}
-                                {% if article.part %}
-                                    <tr>
-                                        <th>{{ "part"|trans }}</th>
-                                        <td>{{ article.part }}</td>
-                                    </tr>
-                                {% endif %}
                                 {% if article.section %}
                                     <tr>
                                         <th>{{ "section"|trans }}</th>
@@ -169,7 +163,6 @@
                                                     <a name="author{{ authorsInfo.author.id }}"
                                                        id="author{{ authorsInfo.author.id }}"></a>
                                                     <strong class="author"> {{ authorsInfo.author.fullName }}</strong> :
-                                                    {{ authorsInfo.author.summary }}
                                                 </p>
                                             {% endfor %}
                                         </td>
