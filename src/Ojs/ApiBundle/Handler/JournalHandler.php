@@ -57,8 +57,8 @@ class JournalHandler implements JournalHandlerInterface
      */
     public function post(array $parameters)
     {
-        $page = $this->createJournal();
-        return $this->processForm($page, $parameters, 'POST');
+        $entity = $this->createJournal();
+        return $this->processForm($entity, $parameters, 'POST');
     }
 
     /**
@@ -118,6 +118,7 @@ class JournalHandler implements JournalHandlerInterface
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();
+            $entity->setCurrentLocale('en');
             $this->om->persist($entity);
             $this->om->flush();
             return $page;

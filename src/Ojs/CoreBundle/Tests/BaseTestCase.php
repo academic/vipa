@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Tests;
 
 ini_set('session.save_handler', 'files');
 ini_set('session.save_path', '/tmp');
+ini_set('memory_limit', '-1');
 session_start();
 
 use Doctrine\ORM\EntityManager;
