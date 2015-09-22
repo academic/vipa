@@ -24,11 +24,6 @@ class JournalType extends AbstractType
         }
         $builder
             ->add('translations', 'a2lix_translations')
-            ->add('titleAbbr', 'text', [
-                'label' => 'titleabbr',
-                'required' => false
-                ]
-            )
             ->add('titleTransliterated', 'text', [
                 'label' => 'titleTransliterated',
                 'required' => false
