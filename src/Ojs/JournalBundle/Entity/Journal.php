@@ -139,7 +139,7 @@ class Journal extends AbstractTranslatable
      * @var boolean
      * @JMS\Expose
      */
-    private $published = 0;
+    private $published = false;
     /**
      * @var integer
      * @JMS\Expose
