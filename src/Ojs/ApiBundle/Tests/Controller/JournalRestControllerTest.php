@@ -33,9 +33,30 @@ class JournalRestControllerTest extends BaseTestCase
                     'titleAbbr' => 'PHPUnit Test Title Abbr Field - POST'
                 ]
             ],
-            ''
+            'publisher' => 1,
+            'mandatoryLang' => 1,
+            'languages' => [
+                1,2,5
+            ],
+            'periods' => [
+                1,2,3
+            ],
+            'subjects' => [
+                1,2
+            ],
+            'domain' => 'domain.com',
+            'issn' => '2147-9488',
+            'eissn' => '2147-9488',
+            'founded' => 2016,
+            'googleAnalyticsId' => 'Google Ana. ID',
+            'country' => 2,
+            'footer_text' => 'footer_text',
+            'published' => 1,
+            'printed' => 1,
+            'slug' => 'phpunit-test',
+            'tags' => ['phpunit']
         ];
-        $url = $this->router->generate('api_1_get_contacttypes');
+        $url = $this->router->generate('api_1_get_journals');
         $this->client->request(
             'POST',
             $url,
@@ -50,18 +71,45 @@ class JournalRestControllerTest extends BaseTestCase
 
     public function testPutJournalAction()
     {
-        $content = [];
-        $content['translations'] = [
-            'en' => [
-                'name' => 'PHPUnit Test Name Field - Put',
-                'description' => 'PHPUnit Test Description Field - Put'
+        $content = [
+            'translations' => [
+                'en' => [
+                    'title' => 'PHPUnit Test Title Field - PUT',
+                    'subtitle' => 'PHPUnit Test Subtitle Field - PUT',
+                    'description' => 'PHPUnit Test Description Field - PUT',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field - PUT'
+                ],
+                'tr' => [
+                    'title' => 'PHPUnit Test Title Field TR - PUT',
+                    'subtitle' => 'PHPUnit Test Subtitle Field TR - PUT',
+                    'description' => 'PHPUnit Test Description Field TR - PUT',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field TR - PUT'
+                ]
             ],
-            'tr' => [
-                'name' => 'PHPUnit Test Name Field tr - Put',
-                'description' => 'PHPUnit Test Description Field tr - Put'
+            'publisher' => 1,
+            'mandatoryLang' => 1,
+            'languages' => [
+                1,2,5
             ],
+            'periods' => [
+                1,2,3
+            ],
+            'subjects' => [
+                1,2
+            ],
+            'domain' => 'domain.com',
+            'issn' => '2147-9488',
+            'eissn' => '2147-9488',
+            'founded' => 2016,
+            'googleAnalyticsId' => 'Google Ana. ID',
+            'country' => 2,
+            'footer_text' => 'footer_text',
+            'published' => 1,
+            'printed' => 1,
+            'slug' => 'phpunit-test',
+            'tags' => ['phpunit']
         ];
-        $url = $this->router->generate('api_1_put_contacttype', ['id' => 550]);
+        $url = $this->router->generate('api_1_put_journal', ['id' => 550]);
         $this->client->request(
             'PUT',
             $url,
@@ -76,14 +124,17 @@ class JournalRestControllerTest extends BaseTestCase
 
     public function testPatchJournalAction()
     {
-        $content = [];
-        $content['translations'] = [
-            'tr' => [
-                'name' => 'PHPUnit Test Name Field tr - Patch',
-                'description' => 'PHPUnit Test Description Field tr - Patch'
-            ],
+        $content = [
+            'translations' => [
+                'tr' => [
+                    'title' => 'PHPUnit Test Title Field TR - PATCH',
+                    'subtitle' => 'PHPUnit Test Subtitle Field TR - PATCH',
+                    'description' => 'PHPUnit Test Description Field TR - PATCH',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field TR - PATCH'
+                ]
+            ]
         ];
-        $url = $this->router->generate('api_1_patch_contacttype', ['id' => 1]);
+        $url = $this->router->generate('api_1_patch_journal', ['id' => 1]);
         $this->client->request(
             'PATCH',
             $url,
@@ -98,7 +149,7 @@ class JournalRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalAction()
     {
-        $url = $this->router->generate('api_1_delete_contacttype', ['id' => 1]);
+        $url = $this->router->generate('api_1_delete_journal', ['id' => 1]);
         $this->client->request(
             'DELETE',
             $url
