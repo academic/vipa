@@ -30,9 +30,6 @@ class ContactTypesRestController extends FOSRestController
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing contact types.")
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many contact types to return.")
      *
-     * @Annotations\View(
-     *  templateVar="contacttypes"
-     * )
      *
      * @param Request               $request      the request object
      * @param ParamFetcherInterface $paramFetcher param fetcher service
@@ -60,10 +57,6 @@ class ContactTypesRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\View(
-     *  templateVar="contact-types"
-     * )
-     *
      * @param int     $id      the contact type id
      *
      * @return array
@@ -86,15 +79,11 @@ class ContactTypesRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\View(
-     *  templateVar = "form"
-     * )
-     *
      * @return FormTypeInterface
      */
     public function newContacttypeAction()
     {
-        return $this->createForm(new ContactTypesType());
+        return $this->createForm(new ContactTypesType(), null, ['csrf_protection' => false]);
     }
 
     /**
@@ -108,12 +97,6 @@ class ContactTypesRestController extends FOSRestController
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
-     * )
-     *
-     * @Annotations\View(
-     *  template = "AcmeBlogBundle:Page:newPage.html.twig",
-     *  statusCode = Codes::HTTP_BAD_REQUEST,
-     *  templateVar = "form"
      * )
      *
      * @param Request $request the request object
@@ -130,7 +113,7 @@ class ContactTypesRestController extends FOSRestController
                 'id' => $newContactType->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_contact_types', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_contacttypes', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -147,11 +130,6 @@ class ContactTypesRestController extends FOSRestController
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
-     * )
-     *
-     * @Annotations\View(
-     *  template = "AcmeBlogBundle:Page:editPage.html.twig",
-     *  templateVar = "form"
      * )
      *
      * @param Request $request the request object
@@ -180,7 +158,7 @@ class ContactTypesRestController extends FOSRestController
                 'id' => $contactType->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_contact_type', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_contacttype', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -196,11 +174,6 @@ class ContactTypesRestController extends FOSRestController
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
-     * )
-     *
-     * @Annotations\View(
-     *  template = "AcmeBlogBundle:Page:editPage.html.twig",
-     *  templateVar = "form"
      * )
      *
      * @param Request $request the request object
@@ -221,10 +194,39 @@ class ContactTypesRestController extends FOSRestController
                 'id' => $contactType->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_contact_type', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_contacttype', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
+    }
+
+    /**
+     * @param $id
+     * @throws NotFoundHttpException
+     * @return Response
+     * @ApiDoc(
+     *      resource = false,
+     *      description = "Delete Contact Type",
+     *      requirements = {
+     *          {
+     *              "name" = "id",
+     *              "dataType" = "integer",
+     *              "requirement" = "Numeric",
+     *              "description" = "Contact Type ID"
+     *          }
+     *      },
+     *      statusCodes = {
+     *          "204" = "Deleted Successfully",
+     *          "404" = "Object cannot found"
+     *      }
+     * )
+     *
+     */
+    public function deleteContacttypeAction($id)
+    {
+        $entity = $this->getOr404($id);
+        $this->container->get('ojs_api.contact_type.handler')->delete($entity);
+        return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**

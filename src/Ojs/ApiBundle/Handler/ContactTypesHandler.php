@@ -88,6 +88,20 @@ class ContactTypesHandler implements ContactTypesHandlerInterface
     }
 
     /**
+     * Delete a ContactType.
+     *
+     * @param ContactTypesInterface $entity
+     *
+     * @return ContactTypesInterface
+     */
+    public function delete(ContactTypesInterface $entity)
+    {
+        $this->om->remove($entity);
+        $this->om->flush();
+        return $this;
+    }
+
+    /**
      * Processes the form.
      *
      * @param ContactTypesInterface $contactType
@@ -100,7 +114,7 @@ class ContactTypesHandler implements ContactTypesHandlerInterface
      */
     private function processForm(ContactTypesInterface $contactType, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new ContactTypesType(), $contactType, array('method' => $method));
+        $form = $this->formFactory->create(new ContactTypesType(), $contactType, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();

@@ -61,4 +61,15 @@ interface ContactTypesHandlerInterface
      * @return ContactTypesInterface
      */
     public function patch(ContactTypesInterface $contactType, array $parameters);
+
+    /**
+     * Delete a Contact Type.
+     *
+     * @api
+     *
+     * @param ContactTypesInterface   $entity
+     *
+     * @return ContactTypesInterface
+     */
+    public function delete(ContactTypesInterface $entity);
 }
