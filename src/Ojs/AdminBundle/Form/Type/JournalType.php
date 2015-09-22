@@ -17,7 +17,11 @@ class JournalType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $journalId = $options['data']->getId()?$options['data']->getId(): null;
+        if(isset($options['data'])){
+            $journalId = $options['data']->getId()?$options['data']->getId(): null;
+        }else{
+            $journalId = null;
+        }
         $builder
             ->add('translations', 'a2lix_translations')
             ->add('titleAbbr', 'text', [
@@ -286,11 +290,7 @@ class JournalType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-                'cascade_validation' => true,
-                'attr' => [
-                ],
-                'translation_domain' => 'messages',
-                'csrf_protection'=>false
+                'cascade_validation' => true
             )
         );
     }
@@ -300,6 +300,6 @@ class JournalType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journal';
+        return 'ojs_adminbundle_journal';
     }
 }

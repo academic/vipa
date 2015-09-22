@@ -4,6 +4,12 @@ api_contact_types:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_journal:
+  type:         rest
+  resource:     "OjsApiBundle:JournalRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
@@ -32,11 +38,6 @@ api_test :
 api_roles :
   type: rest
   resource:     "OjsApiBundle:RoleRest"
-  name_prefix:  api_
-
-api_journals :
-  type: rest
-  resource:     "OjsApiBundle:JournalRest"
   name_prefix:  api_
 
 api_article :
