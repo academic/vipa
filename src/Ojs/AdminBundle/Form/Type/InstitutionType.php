@@ -65,12 +65,13 @@ class InstitutionType extends AbstractType
                     'placeholder' => 'none',
                     'empty_data'  => null,
                     'query_builder' => function (InstitutionRepository $repository) use ($selfId) {
+                        $query = $repository->createQueryBuilder('institution');
                         if ($selfId != null) {
-                            return $repository
-                                ->createQueryBuilder('institution')
+                            return $query
                                 ->andWhere('institution.id != :selfId')
                                 ->setParameter('selfId', $selfId);
                         }
+                        return $query;
                     }
                 ]
             )

@@ -16,6 +16,12 @@ api_publisher:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_institution:
+  type:         rest
+  resource:     "OjsApiBundle:InstitutionRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
