@@ -28,7 +28,6 @@
     "jquery-file-upload": "*",
     "jquery.inputmask": "*",
     "cropper": "0.7.9",
-    "bootstrap-tour": "*",
     "bootstrap-treeview": "*",
     "jQuery-Validation-Engine": "*",
     "jquery-locationpicker-plugin": "*",

@@ -15,9 +15,6 @@
     {% stylesheets '@submission_css' output="assets/prod/css/submission_css.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
     {% endstylesheets %}
-    {% stylesheets '@apptour_css' output="assets/prod/css/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
     {{ form_stylesheet(steps.step2) }}
 
 {% endblock %}
@@ -275,20 +272,11 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
+
     <script>
         window.onSetup = true;
     </script>
-    {{ parent() }}
-
-    {% javascripts '@apptour_js' output="assets/prod/js/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_setup_tour.js' output="assets/prod/js/journal_setup_tour.js" %}
-    {% if app.user.setting('tour.admin.journal-setup') == FALSE %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endif %}
-    {% endjavascripts %}
 
     <script type="text/javascript">
         $(document).ready(function () {
