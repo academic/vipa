@@ -19,7 +19,6 @@ class PublisherRestControllerTest extends BaseTestCase
         $url = $this->router->generate('api_1_get_publisher', ['id'=> 1]);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(200, $response->getStatusCode());
     }
 
@@ -56,7 +55,6 @@ class PublisherRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(201, $response->getStatusCode());
     }
 
@@ -93,7 +91,6 @@ class PublisherRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(201, $response->getStatusCode());
     }
 
@@ -116,7 +113,6 @@ class PublisherRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(204, $response->getStatusCode());
     }
 
