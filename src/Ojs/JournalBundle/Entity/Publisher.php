@@ -35,7 +35,7 @@ class Publisher extends AbstractTranslatable
      */
     protected $translations;
 
-    /*
+    /**
      * @var Publisher
      * @Expose
      * @GRID\Column(title="parent")

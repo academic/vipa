@@ -30,7 +30,10 @@ class PublisherType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $selfId = $this->selfId;
-        $publisherId = $options['data']->getId() ? $options['data']->getId() : null;
+        $publisherId = null;
+        if(isset($options['data'])){
+            $publisherId = $options['data']->getId() ? $options['data']->getId() : null;
+        }
         $builder
             ->add(
                 'name',
@@ -77,12 +80,13 @@ class PublisherType extends AbstractType
                     'placeholder' => 'none',
                     'empty_data'  => null,
                     'query_builder' => function (PublisherRepository $repository) use ($selfId) {
+                        $query = $repository->createQueryBuilder('publisher');
                         if ($selfId != null) {
-                            return $repository
-                                ->createQueryBuilder('publisher')
+                            return $query
                                 ->andWhere('publisher.id != :selfId')
                                 ->setParameter('selfId', $selfId);
                         }
+                        return $query;
                     }
                 ]
             )

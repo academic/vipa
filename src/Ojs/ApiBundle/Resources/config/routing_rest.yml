@@ -10,6 +10,12 @@ api_journal:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_publisher:
+  type:         rest
+  resource:     "OjsApiBundle:PublisherRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
@@ -53,11 +59,6 @@ api_analytics :
 api_mail_templates :
   type: rest
   resource:     "OjsApiBundle:MailTemplateRest"
-  name_prefix:  api_
-
-api_publishers :
-  type: rest
-  resource:     "OjsApiBundle:PublisherRest"
   name_prefix:  api_
 
 api_public_search :

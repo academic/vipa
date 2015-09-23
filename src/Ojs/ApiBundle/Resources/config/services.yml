@@ -3,6 +3,8 @@ parameters:
     ojs_api.contact_type.class: Ojs\JournalBundle\Entity\ContactTypes
     ojs_api.journal.handler.class: Ojs\ApiBundle\Handler\JournalHandler
     ojs_api.journal.class: Ojs\JournalBundle\Entity\Journal
+    ojs_api.publisher.handler.class: Ojs\ApiBundle\Handler\PublisherHandler
+    ojs_api.publisher.class: Ojs\JournalBundle\Entity\Publisher
 
 services:
     ojs_api.contact_type.handler:
@@ -11,3 +13,6 @@ services:
     ojs_api.journal.handler:
         class: %ojs_api.journal.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal.class%', '@form.factory']
+    ojs_api.publisher.handler:
+        class: %ojs_api.publisher.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher.class%', '@form.factory']
