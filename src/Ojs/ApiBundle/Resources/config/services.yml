@@ -7,6 +7,8 @@ parameters:
     ojs_api.publisher.class: Ojs\JournalBundle\Entity\Publisher
     ojs_api.institution.handler.class: Ojs\ApiBundle\Handler\InstitutionHandler
     ojs_api.institution.class: Ojs\JournalBundle\Entity\Institution
+    ojs_api.subject.handler.class: Ojs\ApiBundle\Handler\SubjectHandler
+    ojs_api.subject.class: Ojs\JournalBundle\Entity\Subject
 
 services:
     ojs_api.contact_type.handler:
@@ -21,3 +23,6 @@ services:
     ojs_api.institution.handler:
         class: %ojs_api.institution.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.institution.class%', '@form.factory']
+    ojs_api.subject.handler:
+        class: %ojs_api.subject.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.subject.class%', '@form.factory']

@@ -22,6 +22,12 @@ api_institution:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_subject:
+  type:         rest
+  resource:     "OjsApiBundle:SubjectRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
