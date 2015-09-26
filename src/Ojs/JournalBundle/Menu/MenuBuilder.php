@@ -139,18 +139,20 @@ class MenuBuilder extends ContainerAware
          */
         $dispatcher = $this->container->get('event_dispatcher');
         $checker = $this->container->get('security.authorization_checker');
-        $journal = $this->container->get('ojs.journal_service')->getSelectedJournal();
-        $journalId = $journal->getId();
 
         $menu = $factory->createItem('root')->setChildrenAttribute('class', 'dropdown-menu dropdown-menu-right');
 
-        $menu->addChild('dashboard', [
-            'route' => 'ojs_journal_dashboard_index',
-            'routeParameters' => ['journalId' => $journalId],
+        $menu->addChild('', [
+            'route' => 'dashboard',
+            'attributes' => array('title' => 'dashboard', 'data-toggle' => 'tooltip', 'data-placement' => 'left'),
             'extras' => ['icon' => 'dashboard']
         ]);
+        /*
 
         if ($checker->isGranted('CREATE', $journal, 'articles')) {
+
+        $journal = $this->container->get('ojs.journal_service')->getSelectedJournal();
+        $journalId = $journal->getId();
             $menu->addChild('article.submit', [
                 'route' => 'ojs_journal_submission_new',
                 'routeParameters' => ['journalId' => $journalId],
@@ -168,6 +170,7 @@ class MenuBuilder extends ContainerAware
                 'extras' => ['icon' => 'flag',]
             ]);
         }
+        */
 
         $menuEvent = new MenuEvent();
         $menuEvent->setMenuItem($menu);

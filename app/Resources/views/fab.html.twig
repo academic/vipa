@@ -10,18 +10,7 @@
             </span>
                 </button>
             </div>
-            {# knp_menu_render('OjsJournalBundle:MenuBuilder:fabMenu') #}
-
-            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                <li><a href="{{ url('dashboard') }}" data-toggle="tooltip" data-placement="left"
-                       title="{{ "dashboard"|trans }}"><i class="fa fa-cog"></i></a></li>
-                <li><a href="#" data-toggle="tooltip" data-placement="left" title="LiveChat"><i
-                                class="fa fa-comments-o"></i></a></li>
-                <li><a href="#" data-toggle="tooltip" data-placement="left" title="Reminders"><i
-                                class="fa fa-hand-o-up"></i></a></li>
-                <li><a href="#" data-toggle="tooltip" data-placement="left" title="Invites"><i class="fa fa-ticket"></i></a>
-                </li>
-            </ul>
+            {{ knp_menu_render('OjsJournalBundle:MenuBuilder:fabMenu') }}
         </div>
     </div>
 {% endif %}
