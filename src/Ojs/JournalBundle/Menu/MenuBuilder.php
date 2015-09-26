@@ -130,4 +130,49 @@ class MenuBuilder extends ContainerAware
         $dispatcher->dispatch(JournalEvents::TOP_LEFT_MENU_INITIALIZED, $menuEvent);
         return $menuEvent->getMenuItem();
     }
+
+    public function fabMenu(FactoryInterface $factory)
+    {
+        /**
+         * @var Journal $journal
+         * @var AuthorizationChecker $checker
+         */
+        $dispatcher = $this->container->get('event_dispatcher');
+        $checker = $this->container->get('security.authorization_checker');
+        $journal = $this->container->get('ojs.journal_service')->getSelectedJournal();
+        $journalId = $journal->getId();
+
+        $menu = $factory->createItem('root')->setChildrenAttribute('class', 'dropdown-menu dropdown-menu-right');
+
+        $menu->addChild('dashboard', [
+            'route' => 'ojs_journal_dashboard_index',
+            'routeParameters' => ['journalId' => $journalId],
+            'extras' => ['icon' => 'dashboard']
+        ]);
+
+        if ($checker->isGranted('CREATE', $journal, 'articles')) {
+            $menu->addChild('article.submit', [
+                'route' => 'ojs_journal_submission_new',
+                'routeParameters' => ['journalId' => $journalId],
+                'extras' => ['icon' => 'plus-circle',]
+            ]);
+        }
+
+        if ($checker->isGranted('VIEW', $journal, 'articles')) {
+            $path = $checker->isGranted('EDIT', $journal, 'articles')
+                ? 'ojs_journal_submission_all'
+                : 'ojs_journal_submission_me';
+            $menu->addChild('articles', [
+                'route' => $path,
+                'routeParameters' => ['journalId' => $journalId],
+                'extras' => ['icon' => 'flag',]
+            ]);
+        }
+
+        $menuEvent = new MenuEvent();
+        $menuEvent->setMenuItem($menu);
+
+        $dispatcher->dispatch(JournalEvents::FAB_MENU_INITIALIZED, $menuEvent);
+        return $menuEvent->getMenuItem();
+    }
 }
