@@ -14,6 +14,10 @@ $(document).ready(function () {
 
     $("form").sisyphus({timeout: 10});
 
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.fab').hover(function () {
+        $(this).toggleClass('active');
+    });
 
     $(".maskissn").each(function () {
         $(this).inputmask({
