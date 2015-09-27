@@ -9,6 +9,8 @@ parameters:
     ojs_api.institution.class: Ojs\JournalBundle\Entity\Institution
     ojs_api.subject.handler.class: Ojs\ApiBundle\Handler\SubjectHandler
     ojs_api.subject.class: Ojs\JournalBundle\Entity\Subject
+    ojs_api.lang.handler.class: Ojs\ApiBundle\Handler\LangHandler
+    ojs_api.lang.class: Ojs\JournalBundle\Entity\Lang
 
 services:
     ojs_api.contact_type.handler:
@@ -26,3 +28,6 @@ services:
     ojs_api.subject.handler:
         class: %ojs_api.subject.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.subject.class%', '@form.factory']
+    ojs_api.lang.handler:
+        class: %ojs_api.lang.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.lang.class%', '@form.factory']
