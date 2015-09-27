@@ -13,6 +13,7 @@ Ojs\JournalBundle\Entity\JournalUser:
         user:
             targetEntity: Ojs\UserBundle\Entity\User
             inversedBy: journalUsers
+            cascade: ["ALL"]
             joinColumn:
                 name: user_id
                 referencedColumnName: id
@@ -20,6 +21,7 @@ Ojs\JournalBundle\Entity\JournalUser:
     manyToMany:
         roles:
             targetEntity: Ojs\UserBundle\Entity\Role
+            cascade: ["ALL"]
             joinTable:
                 name: journal_user_role
                 joinColumns:
