@@ -15,6 +15,8 @@ parameters:
     ojs_api.index.class: Ojs\JournalBundle\Entity\Index
     ojs_api.period.handler.class: Ojs\ApiBundle\Handler\PeriodHandler
     ojs_api.period.class: Ojs\JournalBundle\Entity\Period
+    ojs_api.person_title.handler.class: Ojs\ApiBundle\Handler\PersonTitleHandler
+    ojs_api.person_title.class: Ojs\JournalBundle\Entity\PersonTitle
 
 services:
     ojs_api.contact_type.handler:
@@ -41,3 +43,6 @@ services:
     ojs_api.period.handler:
         class: %ojs_api.period.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.period.class%', '@form.factory']
+    ojs_api.person_title.handler:
+        class: %ojs_api.person_title.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.person_title.class%', '@form.factory']
