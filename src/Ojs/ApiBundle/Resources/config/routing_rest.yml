@@ -34,6 +34,12 @@ api_lang:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_index:
+  type:         rest
+  resource:     "OjsApiBundle:IndexRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
