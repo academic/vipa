@@ -426,9 +426,9 @@ institute.country: Country
 institute.id: ID
 institute.merge_as_new_institute: 'Merge As New Institute'
 institute.name: Name
-institute.register: 'Register Publisher'
+institute.register: 'Register Institute'
 institute.address: Address
-institute.about: About
+institute.about: 'About Institute'
 institute.city: City
 institute.lat-lon: Lat-Lon
 institute.phone: Phone
@@ -494,7 +494,7 @@ journal.address: 'Journal''s Postal Address'
 journal.all: 'All Journals'
 journal.any_have: 'You don''t have any journals!'
 journal.application_success_message: 'Your application was saved successfully.'
-journal.apply: 'Apply Journal'
+journal.apply: 'Journal Application'
 journal.articles: 'Journal Articles'
 journal.assistant_editor: 'Assistant Editor'
 journal.assistant_editor_email: 'Assistant Editor''s e-mail'
