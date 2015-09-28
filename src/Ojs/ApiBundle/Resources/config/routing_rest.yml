@@ -40,6 +40,12 @@ api_index:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_period:
+  type:         rest
+  resource:     "OjsApiBundle:PeriodRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
