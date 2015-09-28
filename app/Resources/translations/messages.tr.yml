@@ -423,24 +423,24 @@ installer.update.welcome.title: 'OJS Güncelleyici'
 installer.welcome.message: 'Hoşgeldiniz Mesajı'
 installer.welcome.title: 'OJS Web Yükleyiciye Hoşgeldiniz.'
 institute.country: Ülke
-institute.id: 'Yayıncı ID'
-institute.merge_as_new_institute: 'Yeni Yayıncı Olarak Birleştir'
-institute.name: Yayıncı Adı
-institute.register: 'Yayıncı Kaydet'
-institute.address: Address
-institute.about: About
-institute.city: City
+institute.id: 'Kurum ID'
+institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
+institute.name: 'Kurum Adı'
+institute.register: 'Kurum Kaydet'
+institute.address: Adres
+institute.about: 'Kurum Hakkında'
+institute.city: Şehir
 institute.lat-lon: Lat-Lon
-institute.phone: Phone
+institute.phone: Telefon
 institute.fax: Fax
-institute.email: Email
+institute.email: E-posta
 institute.url: URL
-institute.wiki_url: Wiki URL
+institute.wiki_url: 'Wiki URL'
 institute.logo: Logo
-institute.header: Header
-institute.tags: Tags
-institute.createdAt: Created At
-institute.user: User
+institute.header: Üstbilgi
+institute.tags: Etiketler
+institute.createdAt: 'Oluşturulma Saati'
+institute.user: Kullanıcı
 publisher: Yayıncı
 publisher.about: 'Yayıncı Hakkında'
 publisher.address: Adres
@@ -493,7 +493,7 @@ journal.about: 'Dergi Hakkında'
 journal.address: 'Derginin Posta Adresi'
 journal.all: 'Tüm Dergiler'
 journal.any_have: 'Hiç Derginiz Bulunmuyor!'
-journal.application_success_message: 'Başvurunuz Başarıyla Alındı.'
+journal.application_success_message: 'Başvurunuz başarıyla alındı.'
 journal.apply: 'Dergi Başvurusu'
 journal.articles: 'Dergi Makaleleri'
 journal.assistant_editor: 'Yardımcı Editor'
