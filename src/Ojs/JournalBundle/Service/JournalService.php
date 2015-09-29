@@ -118,15 +118,19 @@ class JournalService
     public function getSelectedJournal()
     {
         try {
-            $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
-            if (!$journalId) {
-                throw new \Exception;
+            if(php_sapi_name() === 'cli'){
+                $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
+                if (!$journalId) {
+                    throw new \Exception;
+                }
+                $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
+                if (!$selectedJournal) {
+                    throw new \Exception;
+                }
+                return $selectedJournal;
+            }else{
+                return false;
             }
-            $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
-            if (!$selectedJournal) {
-                throw new \Exception;
-            }
-            return $selectedJournal;
         }
         catch(\Exception $e) {
             return false;
