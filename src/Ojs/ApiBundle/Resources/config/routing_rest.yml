@@ -58,6 +58,12 @@ api_publisher_type:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_article_type:
+  type:         rest
+  resource:     "OjsApiBundle:ArticleTypeRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
