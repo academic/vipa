@@ -12,7 +12,7 @@ $(document).ready(function () {
         }
     });
 
-    $("form").sisyphus({timeout: 10, locationBased: true,});
+    $("form").sisyphus({timeout: 100, locationBased: true});
 
     $('[data-toggle="tooltip"]').tooltip();
     $('.fab').hover(function () {
