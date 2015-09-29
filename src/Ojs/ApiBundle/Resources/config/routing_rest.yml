@@ -88,6 +88,12 @@ api_announcement:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_publisher_theme:
+  type:         rest
+  resource:     "OjsApiBundle:PublisherThemeRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
