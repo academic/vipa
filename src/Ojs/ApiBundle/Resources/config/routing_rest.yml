@@ -82,6 +82,12 @@ api_page:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_announcement:
+  type:         rest
+  resource:     "OjsApiBundle:AnnouncementRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"

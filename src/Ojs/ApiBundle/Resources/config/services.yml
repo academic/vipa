@@ -27,6 +27,8 @@ parameters:
     ojs_api.post.class: Ojs\AdminBundle\Entity\AdminPost
     ojs_api.page.handler.class: Ojs\ApiBundle\Handler\PageHandler
     ojs_api.page.class: Ojs\AdminBundle\Entity\AdminPage
+    ojs_api.announcement.handler.class: Ojs\ApiBundle\Handler\AnnouncementHandler
+    ojs_api.announcement.class: Ojs\AdminBundle\Entity\AdminAnnouncement
 
 services:
     ojs_api.contact_type.handler:
@@ -71,3 +73,6 @@ services:
     ojs_api.page.handler:
         class: %ojs_api.page.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.page.class%', '@form.factory']
+    ojs_api.announcement.handler:
+        class: %ojs_api.announcement.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.announcement.class%', '@form.factory']
