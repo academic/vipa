@@ -31,6 +31,8 @@ parameters:
     ojs_api.announcement.class: Ojs\AdminBundle\Entity\AdminAnnouncement
     ojs_api.publisher_theme.handler.class: Ojs\ApiBundle\Handler\PublisherThemeHandler
     ojs_api.publisher_theme.class: Ojs\JournalBundle\Entity\PublisherTheme
+    ojs_api.publisher_manager.handler.class: Ojs\ApiBundle\Handler\PublisherManagerHandler
+    ojs_api.publisher_manager.class: Ojs\AdminBundle\Entity\PublisherManagers
 
 services:
     ojs_api.contact_type.handler:
@@ -81,3 +83,6 @@ services:
     ojs_api.publisher_theme.handler:
         class: %ojs_api.publisher_theme.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_theme.class%', '@form.factory']
+    ojs_api.publisher_manager.handler:
+        class: %ojs_api.publisher_manager.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_manager.class%', '@form.factory']

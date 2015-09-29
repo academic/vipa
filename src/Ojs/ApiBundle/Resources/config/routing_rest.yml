@@ -94,6 +94,12 @@ api_publisher_theme:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_publisher_manager:
+  type:         rest
+  resource:     "OjsApiBundle:PublisherManagerRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
