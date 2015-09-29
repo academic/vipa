@@ -48,3 +48,4 @@ parameters:
     ojs_fb: openjournalsoftware
     ojs_tw: ojs_io
     project_name: OJS
+    country_id: 216

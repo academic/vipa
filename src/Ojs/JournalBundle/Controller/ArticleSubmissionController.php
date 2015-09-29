@@ -174,6 +174,8 @@ class ArticleSubmissionController extends Controller
             );
         }
 
+        $defaultCountryId = $this->container->getParameter('country_id');
+        $defaultCountry = $journalSubmissionFiles = $em->getRepository('OkulBilisimLocationBundle:Country')->find($defaultCountryId);
         /** @var User $user */
         $user = $this->getUser();
         if (!$journal) {
@@ -188,6 +190,7 @@ class ArticleSubmissionController extends Controller
             ->setUser($user)
             ->setFirstName($user->getFirstName())
             ->setLastName($user->getLastName())
+            ->setCountry($defaultCountry)
             ->setAddress($user->getAddress());
 
         $articleAuthor->setAuthor($author);

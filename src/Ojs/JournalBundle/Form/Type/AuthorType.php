@@ -43,7 +43,10 @@ class AuthorType extends AbstractType
                 ]
             ])
             ->add('country', null ,[
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'class' => "select2-element"
+                ]
             ])
             ->add('authorDetails', 'textarea');
     }
