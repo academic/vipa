@@ -25,6 +25,8 @@ parameters:
     ojs_api.contact.class: Ojs\JournalBundle\Entity\JournalContact
     ojs_api.post.handler.class: Ojs\ApiBundle\Handler\PostHandler
     ojs_api.post.class: Ojs\AdminBundle\Entity\AdminPost
+    ojs_api.page.handler.class: Ojs\ApiBundle\Handler\PageHandler
+    ojs_api.page.class: Ojs\AdminBundle\Entity\AdminPage
 
 services:
     ojs_api.contact_type.handler:
@@ -66,3 +68,6 @@ services:
     ojs_api.post.handler:
         class: %ojs_api.post.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.post.class%', '@form.factory']
+    ojs_api.page.handler:
+        class: %ojs_api.page.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.page.class%', '@form.factory']

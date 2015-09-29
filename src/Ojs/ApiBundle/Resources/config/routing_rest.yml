@@ -76,6 +76,12 @@ api_post:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_page:
+  type:         rest
+  resource:     "OjsApiBundle:PageRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
