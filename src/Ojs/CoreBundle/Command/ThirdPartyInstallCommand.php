@@ -48,6 +48,22 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'extra' => array(
                 'bundle-class' => 'OkulBilisim\\EndorsementBundle\\EndorsementBundle',
             ),
+        ),
+        'doi' => array(
+            'name' => 'Doi',
+            'description' => 'Ojs Doi Plugin',
+            'repositories' => array(
+                array(
+                    'type' => 'vcs',
+                    'url' => 'git@bitbucket.org:ojsdoibundle.git',
+                ),
+            ),
+            'require' => array(
+                "okulbilisim/ojs-doi-bundle" => "dev-master",
+            ),
+            'extra' => array(
+                'bundle-class' => 'OkulBilisim\\OjsDoiBundle\\OjsDoiBundle',
+            ),
         )
     );
 
