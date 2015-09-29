@@ -57,7 +57,6 @@ class PublisherManagerRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(201, $response->getStatusCode());
     }
 
@@ -76,7 +75,6 @@ class PublisherManagerRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(204, $response->getStatusCode());
     }
 
@@ -88,7 +86,6 @@ class PublisherManagerRestControllerTest extends BaseTestCase
             $url
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(204, $response->getStatusCode());
     }
 }
