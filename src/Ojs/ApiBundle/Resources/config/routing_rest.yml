@@ -70,6 +70,12 @@ api_contact:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_post:
+  type:         rest
+  resource:     "OjsApiBundle:PostRest"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
