@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\CoreBundle\Entity\DisplayTrait;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\UserBundle\Entity\User;
 
@@ -12,6 +13,7 @@ use Ojs\UserBundle\Entity\User;
  */
 class PublisherManagers
 {
+    use DisplayTrait;
     /**
      * @var integer
      */
