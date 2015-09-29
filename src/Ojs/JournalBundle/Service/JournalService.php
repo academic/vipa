@@ -118,7 +118,7 @@ class JournalService
     public function getSelectedJournal()
     {
         try {
-            //if(php_sapi_name() !== 'cli'){
+            if (php_sapi_name() !== 'cli') {
                 $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
                 if (!$journalId) {
                     throw new \Exception;
@@ -128,9 +128,9 @@ class JournalService
                     throw new \Exception;
                 }
                 return $selectedJournal;
-            //}else{
-            //    return false;
-            //}
+            } else {
+                return false;
+            }
         }
         catch(\Exception $e) {
             return false;
