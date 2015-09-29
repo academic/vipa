@@ -75,6 +75,11 @@
                                         {{ form_row(submissionFileForm.file) }}
                                     </div>
                                 {% endfor %}
+                                {% if form.articleSubmissionFiles|length < 1 %}
+                                    <div class="alert alert-warning" role="alert">
+                                        {{ 'there.is.no.submission.file.report.manager'|trans }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                         <hr>
@@ -97,6 +102,12 @@
 
                             </div>
                         {% endfor %}
+
+                        {% if form.checks|length < 1 %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ 'there.is.no.check.report.manager'|trans }}
+                            </div>
+                        {% endif %}
                     {{ form_end(form) }}
                 </div>
             </div>
