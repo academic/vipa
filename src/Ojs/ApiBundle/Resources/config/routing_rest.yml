@@ -64,10 +64,11 @@ api_article_type:
   prefix:       /v1
   name_prefix:  api_1_
 
-api_contacts:
-  type: rest
+api_contact:
+  type:         rest
   resource:     "OjsApiBundle:ContactRest"
-  name_prefix:  api_
+  prefix:       /v1
+  name_prefix:  api_1_
 
 api_authors:
   type: rest
