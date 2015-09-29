@@ -11,7 +11,6 @@ class PostRestControllerTest extends BaseTestCase
         $url = $this->router->generate('api_1_get_posts');
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(200, $response->getStatusCode());
     }
 
@@ -35,7 +34,6 @@ class PostRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(201, $response->getStatusCode());
     }
 
@@ -44,7 +42,6 @@ class PostRestControllerTest extends BaseTestCase
         $url = $this->router->generate('api_1_get_post', ['id'=> 1]);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(200, $response->getStatusCode());
     }
 
@@ -68,7 +65,6 @@ class PostRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(201, $response->getStatusCode());
     }
 
@@ -92,7 +88,6 @@ class PostRestControllerTest extends BaseTestCase
             json_encode($content)
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(204, $response->getStatusCode());
     }
 
@@ -104,7 +99,6 @@ class PostRestControllerTest extends BaseTestCase
             $url
         );
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
         $this->assertEquals(204, $response->getStatusCode());
     }
 }
