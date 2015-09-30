@@ -100,6 +100,14 @@ api_publisher_manager:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_journal_issue:
+  type:         rest
+  resource:     "OjsApiBundle:JournalIssueRest"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  requirements:
+      journalId:  \d+
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
@@ -108,11 +116,6 @@ api_authors:
 api_users:
   type: rest
   resource:     "OjsApiBundle:UserRest"
-  name_prefix:  api_
-
-api_issues:
-  type: rest
-  resource:     "OjsApiBundle:IssueRest"
   name_prefix:  api_
 
 api_test :

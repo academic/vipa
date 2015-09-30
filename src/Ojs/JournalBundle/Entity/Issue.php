@@ -35,6 +35,8 @@ class Issue extends AbstractTranslatable
      *
      * @var Journal
      * @JMS\Groups({"IssueDetail"})
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $journal;
     /**
