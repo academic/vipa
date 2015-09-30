@@ -5,7 +5,8 @@ parameters:
   security.acl.object_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\ObjectIdentityRetrievalStrategy
 services:
   app.routing_loader:
-    class: Ojs\CoreBundle\Routing\AdvancedLoader
+    class: Ojs\CoreBundle\Routing\ThirdPartyRouteLoader
+    arguments: [@kernel, @file_locator]
     tags:
       - { name: routing.loader }
   security.authorization_checker:
