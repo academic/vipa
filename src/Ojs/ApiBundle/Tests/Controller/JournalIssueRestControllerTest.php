@@ -166,7 +166,7 @@ class JournalIssueRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalIssueAction()
     {
-        $url = $this->router->generate('api_1_delete_issue', ['id' => 1]);
+        $url = $this->router->generate('api_1_delete_issue', ['id' => 1,'journalId' => 1]);
         $this->client->request(
             'DELETE',
             $url
