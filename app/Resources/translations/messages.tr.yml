@@ -546,7 +546,7 @@ journal.settings.page: 'Sayfa Ayarları'
 journal.settings.submission: 'Gönderi Ayarları'
 journal.settings.submission.abstractTemplate: 'Gönderi Özet Şablonu'
 journal.settings.submission.copyrightnotice: 'Telif Hakkı Bildirimi'
-journal.settings.submission.copyrightnotice.desc: '"Telif Hakkı Bildirimi gönderi formunda ve yayımlanan her üstbilgide görünecektir. \n Telif Hakkı Anlaşmasını seçmek dergi yöneticisine kalmışsa da, \nbiz <a href=\"http://creativecommons.org/\">Creative Commons</a> kullanılmasını tavsiye ediyoruz. <br>\n Yukarıda yer alan buttonlara tıklayarak tanımlı şablonlardan birini kullanabilirsiniz."
+journal.settings.submission.copyrightnotice.desc: 'Telif Hakkı Bildirimi gönderi formunda ve yayımlanan her üstbilgide görünecektir. \n Telif Hakkı Anlaşmasını seçmek dergi yöneticisine kalmışsa da, \nbiz <a href=\"http://creativecommons.org/\">Creative Commons</a> kullanılmasını tavsiye ediyoruz. <br>\n Yukarıda yer alan buttonlara tıklayarak tanımlı şablonlardan birini kullanabilirsiniz.'
 journal.settings.submission.language: 'Gönderim Dili'
 journal.settings.submission.language.text: 'Makale gönderimi için zorunlu dilleri seçin.'
 journal.setup: 'Dergi Ayarları'
