@@ -118,7 +118,8 @@ class JournalService
     public function getSelectedJournal()
     {
         try {
-            if (php_sapi_name() !== 'cli') {
+            $requestFormat = $this->requestStack->getCurrentRequest()->attributes->get('_format');
+            if (php_sapi_name() !== 'cli' || $requestFormat == 'json') {
                 $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
                 if (!$journalId) {
                     throw new \Exception;

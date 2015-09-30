@@ -8,6 +8,9 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Ojs\CoreBundle\Helper\FileHelper;
 
 class JournalIssueHandler
 {
@@ -16,14 +19,16 @@ class JournalIssueHandler
     private $repository;
     private $formFactory;
     private $journalService;
+    private $kernel;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, JournalService $journalService)
+    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, JournalService $journalService, KernelInterface $kernel)
     {
         $this->om = $om;
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
         $this->formFactory = $formFactory;
         $this->journalService = $journalService;
+        $this->kernel = $kernel;
     }
 
     /**
@@ -119,16 +124,52 @@ class JournalIssueHandler
     {
         $form = $this->formFactory->create(new IssueType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
+        $formData = $form->getData();
+        $fullFile = $formData->getFullFile();
+
+        if(isset($fullFile)){
+            $entity->setFullFile($this->storeFile($fullFile));
+        }
+        $cover = $formData->getCover();
+        if(isset($cover)){
+            $entity->setCover($this->storeFile($cover, true));
+        }
+        $header = $formData->getHeader();
+        if(isset($header)){
+            $entity->setHeader($this->storeFile($header, true));
+        }
         if ($form->isValid()) {
-            $page = $form->getData();
             $entity->setCurrentLocale('en');
             $entity->setJournal($this->journalService->getSelectedJournal());
-            var_dump($this->journalService->getSelectedJournal()->getTitle());
             $this->om->persist($entity);
             $this->om->flush();
-            return $page;
+            return $formData;
         }
         throw new InvalidFormException('Invalid submitted data', $form);
+    }
+
+    private function storeFile($file, $isImage = false)
+    {
+        $rootDir = $this->kernel->getRootDir();
+        $issueFileDir = $rootDir . '/../web/uploads/issuefiles/';
+        $journalUploadDir = $rootDir . '/../web/uploads/journal/';
+        if($isImage) {
+            $fileHelper = new FileHelper();
+            $generatePath = $fileHelper->generatePath($file['filename'], false);
+            if(!is_dir($journalUploadDir.$generatePath) || !is_dir($journalUploadDir.'croped/'.$generatePath)){
+                mkdir($journalUploadDir.$generatePath, 0775, true);
+                mkdir($journalUploadDir.'croped/'.$generatePath, 0775, true);
+            }
+            $filePath = $generatePath . $file['filename'];
+            file_put_contents($journalUploadDir.$filePath, base64_decode($file['encoded_content']));
+            file_put_contents($journalUploadDir.'croped/'.$filePath, base64_decode($file['encoded_content']));
+            return $filePath;
+        }else{
+            $fs = new Filesystem();
+            $fs->mkdir($issueFileDir);
+            $fs->dumpFile($issueFileDir . $file['filename'], base64_decode($file['encoded_content']));
+            return $file['filename'];
+        }
     }
 
     private function createIssue()

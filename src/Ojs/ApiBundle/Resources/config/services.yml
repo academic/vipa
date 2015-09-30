@@ -90,4 +90,4 @@ services:
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_manager.class%', '@form.factory']
     ojs_api.journal_issue.handler:
         class: %ojs_api.journal_issue.handler.class%
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue.class%', '@form.factory', '@ojs.journal_service']
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue.class%', '@form.factory', '@ojs.journal_service', '@kernel']

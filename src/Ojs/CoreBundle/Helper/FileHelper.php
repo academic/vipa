@@ -4,7 +4,6 @@ namespace Ojs\CoreBundle\Helper;
 
 class FileHelper
 {
-
     /**
      * Generates a $n level folder tree for given filename by exploding the filename
      * @param  string  $fileName

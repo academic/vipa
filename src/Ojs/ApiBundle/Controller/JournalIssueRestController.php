@@ -105,14 +105,16 @@ class JournalIssueRestController extends FOSRestController
     public function postIssueAction(Request $request)
     {
         try {
+            $journalService = $this->container->get('ojs.journal_service');
             $newEntity = $this->container->get('ojs_api.journal_issue.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
+                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_journal_issues', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_issues', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -140,6 +142,7 @@ class JournalIssueRestController extends FOSRestController
     public function putIssueAction(Request $request, $id)
     {
         try {
+            $journalService = $this->container->get('ojs.journal_service');
             if (!($entity = $this->container->get('ojs_api.journal_issue.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
                 $entity = $this->container->get('ojs_api.journal_issue.handler')->post(
@@ -154,9 +157,10 @@ class JournalIssueRestController extends FOSRestController
             }
             $routeOptions = array(
                 'id' => $entity->getId(),
+                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_journal_issue', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_issue', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -183,15 +187,17 @@ class JournalIssueRestController extends FOSRestController
     public function patchIssueAction(Request $request, $id)
     {
         try {
+            $journalService = $this->container->get('ojs.journal_service');
             $entity = $this->container->get('ojs_api.journal_issue.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $entity->getId(),
+                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_journal_issue', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_issue', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
