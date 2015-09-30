@@ -35,6 +35,8 @@ parameters:
     ojs_api.publisher_manager.class: Ojs\AdminBundle\Entity\PublisherManagers
     ojs_api.journal_issue.handler.class: Ojs\ApiBundle\Handler\JournalIssueHandler
     ojs_api.journal_issue.class: Ojs\JournalBundle\Entity\Issue
+    ojs_api.journal_theme.handler.class: Ojs\ApiBundle\Handler\JournalThemeHandler
+    ojs_api.journal_theme.class: Ojs\JournalBundle\Entity\Theme
 
 services:
     ojs_api.contact_type.handler:
@@ -91,3 +93,6 @@ services:
     ojs_api.journal_issue.handler:
         class: %ojs_api.journal_issue.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue.class%', '@form.factory', '@ojs.journal_service', '@kernel']
+    ojs_api.journal_theme.handler:
+        class: %ojs_api.journal_theme.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_theme.class%', '@form.factory', '@ojs.journal_service']

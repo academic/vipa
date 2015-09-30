@@ -108,6 +108,14 @@ api_journal_issue:
   requirements:
       journalId:  \d+
 
+api_journal_theme:
+  type:         rest
+  resource:     "OjsApiBundle:JournalThemeRest"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  requirements:
+      journalId:  \d+
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"

@@ -52,6 +52,7 @@ Ojs\JournalBundle\Entity\Theme:
           on: create
     updatedBy:
       type: string
+      nullable: true
       gedmo:
         blameable:
           on: update
