@@ -520,7 +520,7 @@ journal.founded: 'Founded'
 journal.file: 'Required Files'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
-journal.id: ID
+journal.id: 'Journal ID'
 journal.publisher: Publisher
 journal.issn: 'Journal ISSN'
 journal.join: 'Join Journal'
@@ -530,7 +530,7 @@ journal.list: 'List Journals'
 journal.manager: 'Journal Manager'
 journal.merge_as_new_journal: 'Merge As New Journal'
 journal.mission: Mission
-journal.my: 'My Journal'
+journal.my: 'My Journals'
 journal.new: 'New Journal'
 journal.path: Path
 journal.period: Period
