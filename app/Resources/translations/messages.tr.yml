@@ -528,7 +528,7 @@ journal.langs: Diller
 journal.languages: 'Derginin Dilleri'
 journal.list: 'Dergileri Listele'
 journal.manager: 'Dergi Yöneticisi'
-journal.merge_as_new_journal: 'Yeni Dergi Olarak Birleştir'
+journal.approve_journal: 'Dergiyi Onayla'
 journal.mission: Misyon
 journal.my: 'Dergilerim'
 journal.new: 'Yeni Dergi'
