@@ -1036,7 +1036,7 @@ title.file_show: 'Dosya Göster'
 title.files: Dosyalar
 title.home: 'Ana Sayfa'
 title.publisher: Yayıncı
-title.publisher_application: 'Yayıncı Uygulaması'
+title.publisher_application: 'Yayıncı Başvurusu'
 title.publisher_detail: 'Yayıncı Detayı'
 title.publisher_edit: 'Yayıncı Düzenle'
 title.publisher_new: 'Yeni Yayıncı'
@@ -1059,7 +1059,7 @@ title.issue_view: 'Sayıları Göster'
 title.issuefile.new: 'Yeni Sayı Dosyası'
 title.issues: Sayılar
 title.journal: Dergi
-title.journal_application: 'Dergi Uygulaması'
+title.journal_application: 'Dergi Başvurusu'
 title.journal_apply: 'Dergiye Uygula'
 title.journal_articles: 'Dergi Makaleleri'
 title.journal_authors: 'Dergi Yazarları'
