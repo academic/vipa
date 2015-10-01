@@ -602,8 +602,8 @@ section.list: 'Journal Section List'
 section.new: 'New Journal Section'
 section.show: Show
 section.title: Title
-journalindex.create: 'Journal Index Create'
-journalindex.edit: 'Journal Index Edit'
+journalindex.create: 'Create Journal Index'
+journalindex.edit: 'Edit Journal Index'
 journalindex.journal: Journal
 journalindex.journalindex: 'Journal Index'
 journalindex.link: 'Link for Journal on Index'
@@ -615,10 +615,10 @@ theme.edit: 'Edit Journal Theme'
 theme.list: 'Journal Theme List'
 theme.new: 'New Journal Theme'
 keywords: Keywords
-landingPage.text: ''
+landingPage.text: 'Search Result Text'
 lang: Language
 lang.code: 'Language Code'
-lang.edit: 'Language Edit'
+lang.edit: 'Edit Language'
 lang.isTranslated: 'Is translated?'
 lang.list: 'Language List'
 lang.name: 'Language Name'
@@ -641,12 +641,12 @@ login_as: 'Login as'
 logo: Logo
 mail: Mail
 mail.templates: 'Mail Templates'
-mailtemplate.default.list: 'Default Templates'
+mailtemplate.default.list: 'Default Templates List '
 mailtemplate.default_template: 'Default Templates'
 mailtemplate.edit: 'Edit Mail Template'
 mailtemplate.journal: Journal
 mailtemplate.language: Language
-mailtemplate.languages: Language
+mailtemplate.languages: Languages
 mailtemplate.list: 'Mail Templates'
 mailtemplate.new: 'Create Mail Template'
 mailtemplate.show: Show
