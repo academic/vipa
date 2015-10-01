@@ -84,6 +84,7 @@ class IssueType extends AbstractType
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Issue',
                 'cascade_validation' => true,
+                'novalidate' => 'novalidate',
                 'attr' => [
                     'class' => 'form-validate',
                 ],
