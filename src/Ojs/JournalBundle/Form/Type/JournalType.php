@@ -273,11 +273,7 @@ class JournalType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-                'cascade_validation' => true,
-                'attr' => [
-                ],
-                'translation_domain' => 'messages',
-                'csrf_protection'=>false
+                'cascade_validation' => true
             )
         );
     }
