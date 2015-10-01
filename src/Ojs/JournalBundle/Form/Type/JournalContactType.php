@@ -19,8 +19,14 @@ class JournalContactType extends AbstractType
     {
         $builder
             ->add('fullName', 'text', ['label' => 'fullname'])
-            ->add('address', 'textarea')
-            ->add('phone', 'text', ['label' => 'phone'])
+            ->add('address', 'textarea', [
+                'required' => false
+            ])
+            ->add('phone', 'text', [
+                'label' => 'phone',
+                'required' => false
+                ]
+            )
             ->add('email', 'email', ['label' => 'email'])
             ->add('contactType')
             ->add('institution')
