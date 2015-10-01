@@ -37,19 +37,19 @@ class JournalApplicationType extends AbstractType
             ->add(
                 'founded',
                 'collot_datetime',
-                [
+                array(
                     'label' => 'journal.founded',
-                    'attr' => ['class' => 'validate[required]'],
-                    'date_format' => 'dd-MM-yyyy',
+                    'date_format' => 'yyyy',
+                    'widget' => 'single_text',
                     'pickerOptions' => [
-                        'format' => 'dd-mm-yyyy',
-                        'startView' => 'month',
-                        'minView' => 'month',
+                        'format' => 'yyyy',
+                        'startView' => 'decade',
+                        'minView' => 'decade',
                         'todayBtn' => 'true',
                         'todayHighlight' => 'true',
                         'autoclose' => 'true',
                     ],
-                ]
+                )
             )
             ->add(
                 'mandatoryLang',
@@ -69,6 +69,7 @@ class JournalApplicationType extends AbstractType
                     'label' => 'Periods',
                     'class' => 'Ojs\JournalBundle\Entity\Period',
                     'property' => 'period',
+                    'required' => true,
                     'multiple' => true,
                     'expanded' => false,
                     'attr' => [
@@ -77,7 +78,11 @@ class JournalApplicationType extends AbstractType
                 )
             )
             ->add('tags', 'tags', ['attr' => ['class' => 'validate[required]', 'label' => 'journal.tags']])
-            ->add('url', 'url', ['label' => 'journal.url', 'attr' => ['class' => 'validate[required]']])
+            ->add('url', 'url', [
+                'label' => 'journal.url',
+                 'required' => false
+                ]
+            )
             ->add(
                 'publisher',
                 'entity',
@@ -136,7 +141,7 @@ class JournalApplicationType extends AbstractType
             ->add('address', null, ['label' => 'journal.address', 'attr' => ['class' => 'validate[required]']])
             ->add('phone', null, ['label' => 'journal.phone', 'attr' => ['class' => 'validate[required,custom[email]]']])
             ->add('email', 'email', ['label' => 'journal.email', 'attr' => ['class' => 'validate[required,custom[email]]']])
-            ->add('journalContacts', 'collection', ['type' => new JournalContactType(), 'allow_add' => true])
+            ->add('journalContacts', 'collection', ['type' => new JournalContactType(), 'allow_add' => true, 'allow_delete' => true])
             ->add('journalApplicationUploadFiles', 'collection', array(
                     'type' => new JournalApplicationUploadFileType(),
                     'allow_add' => false,
