@@ -20,7 +20,6 @@ class JournalApplicationType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations')
-            ->add('titleAbbr', null, ['label' => 'journal.titleAbbr', 'attr' => ['class' => 'validate[required]']])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
             ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])
             ->add(
