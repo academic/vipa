@@ -49,8 +49,8 @@ class Period extends AbstractTranslatable
 
     public function __toString()
     {
-        if (!is_string($this->getPeriod())) {
-            return $this->translations->first()->getName();
+        if (!is_string($this->getPeriod()) || empty($this->getPeriod())) {
+            return $this->translations->first()->getPeriod();
         } else {
             return $this->getPeriod();
         }
