@@ -169,7 +169,11 @@ class Section extends AbstractTranslatable
 
     public function __toString()
     {
-        return $this->getTitle();
+        if (!is_string($this->getTitle()) || empty($this->getTitle())) {
+            return $this->translations->first()->getTitle();
+        } else {
+            return $this->getTitle();
+        }
     }
 
     /**
