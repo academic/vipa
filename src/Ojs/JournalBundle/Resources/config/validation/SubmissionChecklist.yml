@@ -2,7 +2,5 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
     properties:
         label:
             - NotBlank: ~
-        detail:
-            - NotBlank: ~
         locale:
             - NotBlank: ~

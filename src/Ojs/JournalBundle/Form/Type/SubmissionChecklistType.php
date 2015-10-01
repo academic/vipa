@@ -20,7 +20,10 @@ class SubmissionChecklistType extends AbstractType
     {
         $builder
             ->add('label', 'text', ['label' => 'submission_checklist.label'])
-            ->add('detail', 'textarea', ['label' => 'submission_checklist.detail'])
+            ->add('detail', 'textarea', [
+                'required' => false,
+                'label' => 'submission_checklist.detail'
+            ])
             ->add(
                 'locale',
                 'choice',
