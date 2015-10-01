@@ -528,7 +528,7 @@ journal.langs: Languages
 journal.languages: Languages
 journal.list: 'List Journals'
 journal.manager: 'Journal Manager'
-journal.merge_as_new_journal: 'Merge As New Journal'
+journal.approve_journal: 'Approve Journal'
 journal.mission: Mission
 journal.my: 'My Journals'
 journal.new: 'New Journal'
