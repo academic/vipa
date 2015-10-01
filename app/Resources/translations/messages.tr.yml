@@ -615,7 +615,7 @@ theme.edit: 'Dergi Temasını Düzenle'
 theme.list: 'Dergi Tema Listesi'
 theme.new: 'Yeni Dergi Teması'
 keywords: 'Anahtar Kelimeler'
-landingPage.text: 'Arama Sonuş Sayfası Metni'
+landingPage.text: 'Arama Sonuç Sayfası Metni'
 lang: Dil
 lang.code: 'Dil Kodu'
 lang.edit: 'Dil Düzenle'
@@ -641,8 +641,8 @@ login_as: 'Olarak Gir'
 logo: Logo
 mail: e-Posta
 mail.templates: 'e-Posta Şablonları'
-mailtemplate.default.list: 'Öntanımlı e-Posta Şablon Listesi'
-mailtemplate.default_template: 'Öntanımlı e-Posta Şablonu'
+mailtemplate.default.list: 'Öntanımlı e-Posta Şablonları Listesi'
+mailtemplate.default_template: 'Öntanımlı e-Posta Şablonları'
 mailtemplate.edit: 'e-Posta Şablonunu Düzenle'
 mailtemplate.journal: Dergi
 mailtemplate.language: Dil
@@ -658,9 +658,9 @@ mandatory: Zorunlu
 manual: Kılavuz
 mastersthesis: 'Yüksek Lisans Tezi'
 messages: Mesajlar
-message.application_not_available: 'Üzgünüz lakin şimdilik başvuru yapmanız mümkün değil.'
-message.registration_not_available: 'Üzgünüz lakin şimdilik kayıt olmanız mümkün değil.'
-message.submission_not_available: 'Üzgünüz lakin şimdilik makale göndermeniz mümkün değil.'
+message.application_not_available: 'Üzgünüz ama şimdilik başvuru yapmanız mümkün değil.'
+message.registration_not_available: 'Üzgünüz ama şimdilik kayıt olmanız mümkün değil.'
+message.submission_not_available: 'Üzgünüz ama şimdilik makale göndermeniz mümkün değil.'
 mimetype: 'MIME Tipi'
 misc: Çeşitli
 mission: Misyon
