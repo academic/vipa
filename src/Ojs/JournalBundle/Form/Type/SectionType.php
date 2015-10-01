@@ -21,6 +21,7 @@ class SectionType extends AbstractType
                 'allowIndex',
                 'checkbox',
                 array(
+                    'required' => false,
                     'label' => 'section.hide_title'
                 )
             )
@@ -28,6 +29,7 @@ class SectionType extends AbstractType
                 'hideTitle',
                 'checkbox',
                 array(
+                    'required' => false,
                     'label' => 'section.allow_index'
                 )
             );
