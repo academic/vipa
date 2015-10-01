@@ -34,7 +34,7 @@ class ArticleFile
      * @var integer
      * @GRID\Column(title="articlefile.version")
      */
-    private $version;
+    private $version = 0;
     /**
      * @var Article
      */

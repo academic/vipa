@@ -88,11 +88,12 @@ class ArticleFileController extends Controller
      * @param  Article                   $article
      * @return RedirectResponse|Response
      */
-    public function createAction(Request $request, Article $article)
+    public function createAction(Request $request, $articleId)
     {
         $journalService = $this->get('ojs.journal_service');
         $journal = $journalService->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
+        $article = $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
@@ -156,14 +157,15 @@ class ArticleFileController extends Controller
     /**
      * Displays a form to create a new ArticleFile entity.
      *
-     * @param  Article  $article
+     * @param $articleId
      * @return Response
      */
-    public function newAction(Article $article)
+    public function newAction($articleId)
     {
+        $em = $this->getDoctrine()->getManager();
         $journalService = $this->get('ojs.journal_service');
         $journal = $journalService->getSelectedJournal();
-
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
