@@ -59,6 +59,7 @@ class JournalType extends AbstractType
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'property' => 'name',
                     'multiple' => true,
+                    'required' => false,
                     'expanded' => false,
                     'attr' => [
                         'class' => 'select2-element validate[required]',
