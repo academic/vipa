@@ -28,7 +28,10 @@ class SubmissionChecklistType extends AbstractType
                     'choices' => $options['languages'],
                 ]
             )
-            ->add('visible', 'checkbox', ['label' => 'submission_checklist.visible']);
+            ->add('visible', 'checkbox', [
+                'required' => false,
+                'label' => 'submission_checklist.visible'
+            ]);
     }
 
     /**
