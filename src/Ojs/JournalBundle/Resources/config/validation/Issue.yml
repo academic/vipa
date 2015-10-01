@@ -2,16 +2,12 @@ Ojs\JournalBundle\Entity\IssueTranslation:
   properties:
     title:
       - NotBlank: ~
-    description:
-      - NotBlank: ~
 
 Ojs\JournalBundle\Entity\Issue:
     properties:
         translations:
             - Valid: ~
         volume:
-            - NotBlank: ~
-        datePublished:
             - NotBlank: ~
         tags:
             - NotBlank: ~
