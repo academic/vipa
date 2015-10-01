@@ -910,7 +910,7 @@ submission_checklist.create: 'Yeni Madde'
 submission_checklist.detail: Detay
 submission_checklist.label: Etiket
 submission_checklist.show: Göster
-submission_checklist.visible: 'Kontrol Listesi Görünsün mü?'
+submission_checklist.visible: 'Görünür mü?'
 submission_checklist.required: 'Gönderim için gerekli mi?'
 submit: Gönder
 submitRoles: 'Makale Gönderebilen Roller'
