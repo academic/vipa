@@ -48,6 +48,10 @@ class ApplicationController extends Controller
         }
 
         $application = new Journal();
+
+        $defaultCountryId = $this->container->getParameter('country_id');
+        $defaultCountry = $em->getRepository('OkulBilisimLocationBundle:Country')->find($defaultCountryId);
+        $application->setCountry($defaultCountry);
         $application->setCurrentLocale($request->getDefaultLocale());
         foreach($journalApplicationFiles as $applicationFile){
             $uploadFileEntity = new JournalApplicationUploadFile();

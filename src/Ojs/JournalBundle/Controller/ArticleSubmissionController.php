@@ -175,7 +175,7 @@ class ArticleSubmissionController extends Controller
         }
 
         $defaultCountryId = $this->container->getParameter('country_id');
-        $defaultCountry = $journalSubmissionFiles = $em->getRepository('OkulBilisimLocationBundle:Country')->find($defaultCountryId);
+        $defaultCountry = $em->getRepository('OkulBilisimLocationBundle:Country')->find($defaultCountryId);
         /** @var User $user */
         $user = $this->getUser();
         if (!$journal) {
