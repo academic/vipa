@@ -85,6 +85,7 @@ class ArticleType extends AbstractType
                 'pubdate',
                 'collot_datetime',
                 array(
+                    'required' => false,
                     'label' => 'pubdate',
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [
