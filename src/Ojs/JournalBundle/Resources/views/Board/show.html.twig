@@ -22,7 +22,7 @@
             <span class="help-block">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 {{ 'board.can_not_add_user'|trans|raw }}
-                {{ 'board.manage_users'|trans({"%path%": path('ojs_journal_role_index', {'journalId': selectedJournal().id})})|raw }}
+                {{ 'board.manage_users'|trans({"%path%": path('ojs_journal_user_index', {'journalId': selectedJournal().id})})|raw }}
             </span>
 
             <div class="form-group">
