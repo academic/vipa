@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\CoreBundle\Entity\DisplayTrait;
 
 /**
  * SubmissionChecklist
@@ -10,6 +11,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class SubmissionChecklist
 {
+    use DisplayTrait;
     /**
      * @var integer
      * @GRID\Column(title="ID")
