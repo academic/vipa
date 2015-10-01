@@ -29,6 +29,7 @@ Ojs\JournalBundle\Entity\Board:
             gedmo:
                 - versioned
         description:
+            nullable: true
             type: text
             gedmo:
                 - versioned
