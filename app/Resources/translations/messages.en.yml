@@ -1368,6 +1368,6 @@ validation:
 yes: Yes
 no: No
 default: Default
-optional: Optinal
+optional: Optional
 there.is.no.submission.file.report.manager: 'There is no submission file report manager'
 there.is.no.check.report.manager: 'There is no check report manager'
