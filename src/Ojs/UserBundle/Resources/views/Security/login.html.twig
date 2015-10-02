@@ -5,12 +5,11 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 hidden-xs">
-                <p class="lead">{{'register_advantages_text'|trans}}</p>
-                <ul class="list-unstyled">
-                    <li><span class="fa fa-check text-success"></span> advantage #1</li>
-                </ul>
-                <p><a href="{{ path('fos_user_registration_register') }}" class="btn btn-success btn-bg"><i
-                                class="fa fa-user"></i> {{ "register"|trans }}</a></p>
+                <p class="lead text-center">{{'register_advantages_text'|trans}}</p>
+                <p class="text-center">
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success btn-bg">
+                        <i class="fa fa-user"></i> {{ "register"|trans }}</a>
+                </p>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="panel panel-info">

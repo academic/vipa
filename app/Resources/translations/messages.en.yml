@@ -784,6 +784,7 @@ read.article: 'Read Article'
 read.lastissue: 'Last Issue'
 regenerate.apikey: 'Regenerate APIKEY'
 register: Register
+register_advantages_text: 'Registering to OJS would let you submit articles to journals with no hassle.'
 register.yourself.as.author: 'Register Yourself As Author'
 register_journal: 'Register Journal'
 registration.activation: 'Check your e-mail to activate your account.'
