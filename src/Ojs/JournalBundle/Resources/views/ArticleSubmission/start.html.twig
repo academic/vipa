@@ -79,6 +79,7 @@
                                     <div class="alert alert-warning" role="alert">
                                         {{ 'submission.no_file'|trans }}
                                     </div>
+                                    {% do form.articleSubmissionFiles.setRendered %}
                                 {% endif %}
                             </div>
                         </div>
@@ -107,6 +108,7 @@
                             <div class="alert alert-warning" role="alert">
                                 {{ 'submission.no_checklist'|trans }}
                             </div>
+                            {% do form.checks.setRendered %}
                         {% endif %}
                     {{ form_end(form) }}
                 </div>
