@@ -1354,6 +1354,6 @@ yes: Evet
 no: Hayır
 default: Varsayılan
 optional: İsteğe Bağlı
-there.is.no.submission.file.report.manager: 'Hiç gönderim dosyası bulunmuyor, lütfen yöneticinize bildirin'
-there.is.no.check.report.manager: 'Hiç kontrol listesi bulunmuyor, lütfen yöneticinize bildirin'
+submission.no_file: 'Hiç gönderim dosyası bulunmuyor, lütfen yöneticinize bildirin'
+submission.no_checklist: 'Hiç kontrol listesi bulunmuyor, lütfen yöneticinize bildirin'
 

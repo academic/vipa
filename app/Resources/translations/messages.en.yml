@@ -1369,5 +1369,5 @@ yes: Yes
 no: No
 default: Default
 optional: Optional
-there.is.no.submission.file.report.manager: 'There is no submission file report manager'
-there.is.no.check.report.manager: 'There is no check report manager'
+submission.no_file: 'There is no required submission file, please notify the journal manager.'
+submission.no_checklist: 'There is no required checklist, please notify the journal manager'
