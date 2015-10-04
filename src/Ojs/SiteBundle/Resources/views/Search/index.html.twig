@@ -27,7 +27,7 @@
                             class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
             <div class="margin-top">
                 <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1">
-                    <form action="/search" method="get">
+                    <form action="{{ path('ojs_search_index') }}" method="get">
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
