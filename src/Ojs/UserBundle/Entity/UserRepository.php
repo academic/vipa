@@ -17,7 +17,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
      * @param integer $limit
      * @return User[]
      */
-    public function searchJournalUser($query, $journal, $limit)
+    public function searchJournalUser($query, Journal $journal, $limit)
     {
         $query = $this->createQueryBuilder('u')
             ->select('PARTIAL u.{id,username,email,firstName,lastName}')

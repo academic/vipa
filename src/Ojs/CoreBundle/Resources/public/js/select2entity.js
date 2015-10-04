@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $.fn.usersType = function(action) {
+    $.fn.select2entity = function(action) {
         if(action){
             this.select2(action);
             return this;
@@ -18,21 +18,15 @@ $(document).ready(function () {
                 },
                 cache: true
             },
-            templateResult: function (user) {
-                if (user.loading) {
-                    return user.text;
-                }
-                return user.username + ' ( ' + user.first_name + ' ' + user.last_name + ' ~ ' + user.email + ' )';
+            templateResult: function (data) {
+                return data.text;
             },
             templateSelection: function (user) {
-                if(!user.username) {
-                    return user.text;
-                }
-                return user.username + ' ( ' + user.first_name + ' ' + user.last_name + ' ~ ' + user.email + ' )';
+                return user.text;
             }
         });
         return this;
     };
 
-    $('.usersType').usersType();
+    $('.select2entity').select2entity();
 });

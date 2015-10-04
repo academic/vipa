@@ -8,8 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  *
- * Class UsersFieldType
- * @package Ojs\UserBundle\Form\Type
+ * Class JournalUsersFieldType
+ * @package Ojs\JournalBundle\Form\Type
  */
 class JournalUsersFieldType extends AbstractType
 {
@@ -36,7 +36,8 @@ class JournalUsersFieldType extends AbstractType
             array(
                 'remote_route' => 'search_journal_users',
                 'remote_params' => array('journalId' => $this->journalService->getSelectedJournal()->getId()),
-                'compound' => false,
+                'multiple' => true,
+                'class' => 'OjsUserBundle:User'
             )
         );
     }
@@ -48,6 +49,6 @@ class JournalUsersFieldType extends AbstractType
 
     public function getParent()
     {
-        return 'users_type';
+        return 'select2entity';
     }
 }

@@ -40,7 +40,7 @@ twig:
   strict_variables: "%kernel.debug%"
   form:
     resources:
-      - 'OjsUserBundle:Form:fields.html.twig'
+      - 'OjsCoreBundle:Form:fields.html.twig'
       - '::uploadfields.html.twig'
       - 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig'
   globals:
@@ -159,7 +159,13 @@ jms_translation:
             excluded_names: ["*TestCase.php", "*Test.php"]
             excluded_dirs: [cache, data, logs, vendor]
             extractors: [alias_of_the_extractor]
-
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@OjsUserBundle/Resources/config/serializer/FOSUB"
 #hwi_oauth:
 #  firewall_name: main
 #  resource_owners:

@@ -83,6 +83,11 @@ services:
     arguments: [ @router, @translator ]
     tags:
       - { name: form.type, alias: tags }
+  form.type.select2entity:
+    class: Ojs\CoreBundle\Form\Type\Select2Entity
+    arguments: [ @doctrine.orm.entity_manager, @router, 2, 10 ]
+    tags:
+      - { name: form.type, alias: select2entity }
 
   ojs_search_manager:
     class: Ojs\CoreBundle\Service\SearchManager

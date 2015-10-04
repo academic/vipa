@@ -15,13 +15,11 @@ class JournalUserType extends AbstractType implements FormTypeInterface
         $builder
             ->add(
                 'user',
-                'entity',
+                'select2entity',
                 [
-                    'class' => 'Ojs\UserBundle\Entity\User',
                     'label' => 'user',
-                    'multiple' => false,
-                    'expanded' => false,
-                    'attr' => array("class" => "select2-element"),
+                    'class' => 'Ojs\UserBundle\Entity\User',
+                    'remote_route' => 'api_get_users'
                 ]
             )
             ->add(

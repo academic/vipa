@@ -7,7 +7,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SearchRestController extends FOSRestController
@@ -16,9 +15,9 @@ class SearchRestController extends FOSRestController
     /**
      * @Rest\QueryParam(name="q", nullable=false, description="Query text")
      * @Rest\QueryParam(name="page_limit", nullable=true, requirements="\d+", description="Query limit", default="10")
+     * @Rest\View(serializerGroups={"search"})
      *
      * @param  ParamFetcher $paramFetcher
-     * @param  integer $journalId
      * @return Response
      *
      * @Rest\Get("/search/journal/{journalId}/users")
@@ -33,9 +32,14 @@ class SearchRestController extends FOSRestController
      *   }
      * )
      */
-    public function searchJournalUsersAction(ParamFetcher $paramFetcher, $journalId)
+    public function searchJournalUsersAction(ParamFetcher $paramFetcher)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$journal) {
+            return $this->createNotFoundException();
+        }
 
         $defaultLimit = 20;
         $limit = ($paramFetcher->get('page_limit') && $defaultLimit >= $paramFetcher->get('page_limit')) ?
@@ -44,57 +48,11 @@ class SearchRestController extends FOSRestController
 
         $journalUsers = $em->getRepository('OjsUserBundle:User')->searchJournalUser(
             $paramFetcher->get('q'),
-            $journalId,
+            $journal,
             $limit
         );
 
         return $journalUsers;
     }
 
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="search users in username-email-tags and subjects (accepts regex inputs)",
-     *  parameters={
-     * {
-     *          "name"="q",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="search term"
-     *      }
-     *  }
-     * )
-     * @Rest\Get("/search/user")
-     *
-     * @param  Request $request
-     * @return array
-     */
-    public function getUsersAction(Request $request)
-    {
-        $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.user');
-
-        $s1 = new Query\Regexp();
-        $s1->setValue('username', $q);
-
-        $s2 = new Query\Regexp();
-        $s2->setValue('subjects', $q);
-
-        $s3 = new Query\Regexp();
-        $s3->setValue('tags', $q);
-
-        $query = new Query\Bool();
-        $query->addShould($s1);
-        $query->addShould($s2);
-        $query->addShould($s3);
-
-        $results = $search->search($query);
-        $data = [];
-        foreach ($results as $result) {
-            $data[] = array_merge(array('id' => $result->getId()), $result->getData());
-        }
-
-        return $data;
-    }
 }

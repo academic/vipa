@@ -9,8 +9,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Gedmo\Translatable\Translatable;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\Author;
@@ -22,18 +21,17 @@ use OkulBilisim\LocationBundle\Entity\Province;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
  * @GRID\Source(columns="id,username,email,status")
  */
-class User extends BaseUser implements Translatable, UserInterface, \Serializable, AdvancedUserInterface, OAuthAwareUserProviderInterface
+class User extends BaseUser implements Translatable, OAuthAwareUserProviderInterface
 {
     use GenericEntityTrait;
 
@@ -41,26 +39,16 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
-     * @var integer
-     * @Expose
-     * @GRID\Column(title="user.id")
-     */
-    protected $id;
-
-
-    /**
      * @var string
-     * @var Expose
      * @Assert\NotBlank(message="First name can't be blank")
-     * @Expose
+     * @JMS\Expose
      */
     protected $firstName;
 
     /**
      * @var string
-     * @var Expose
      * @Assert\NotBlank(message="Last name can't be blank")
-     * @Expose
+     * @JMS\Expose
      */
     protected $lastName;
 
@@ -107,19 +95,19 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
     /**
      * Json encoded settings string
      * @var String
-     * @Expose
+     * @JMS\Expose
      */
     private $settings;
 
     /**
      * @var Country
-     * @Expose
+     * @JMS\Expose
      */
     private $country;
 
     /**
      * @var Province
-     * @Expose
+     * @JMS\Expose
      */
     private $city;
 
@@ -566,6 +554,13 @@ class User extends BaseUser implements Translatable, UserInterface, \Serializabl
         return $this;
     }
 
+    /**
+     * @JMS\VirtualProperty
+     * @JMS\Type("string")
+     * @JMS\SerializedName("text")
+     * @JMS\Groups("search")
+     * @return string
+     */
     public function __toString()
     {
         return $this->getUsername().'('.$this->getFullName().', '.$this->getEmail().')';

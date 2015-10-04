@@ -31,7 +31,6 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
-            new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
