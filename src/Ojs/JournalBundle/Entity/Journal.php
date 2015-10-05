@@ -16,7 +16,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Journal
  * @JMS\ExclusionPolicy("all")
- * @GRID\Source(columns="id,title,issn,eissn,country.name,publisher.name")
+ * @GRID\Source(columns="id,title,issn,eissn,status,publisher.name")
  */
 class Journal extends AbstractTranslatable
 {
@@ -132,7 +132,6 @@ class Journal extends AbstractTranslatable
      * @var Country
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
-     * @Grid\Column(field="country.name", title="country")
      */
     private $country;
     /**
@@ -143,6 +142,7 @@ class Journal extends AbstractTranslatable
     /**
      * @var integer
      * @JMS\Expose
+     * @Grid\Column(field="status", title="status",type="text")
      */
     private $status = 0;
     /**

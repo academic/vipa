@@ -11,6 +11,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,6 +43,7 @@ class AdminJournalController extends Controller
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
                     $row->setField('title', $entity->getTitle());
+                    $row->setField('status', Journal::$statuses[$entity->getStatus()]);
                 }
                 return $row;
             }
