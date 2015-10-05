@@ -212,7 +212,7 @@
                 {% if selectedJournal().getSetting('submissionConfirmText') %}
                 return confirm("{{ selectedJournal().getSetting('submissionConfirmText').value }}");
                 {% else %}
-                return confirm("{{ 'are.you.sure.for.submission'|trans }}");
+                return confirm("{{ 'sure'|trans }}");
                 {% endif %}
             });
         </script>
