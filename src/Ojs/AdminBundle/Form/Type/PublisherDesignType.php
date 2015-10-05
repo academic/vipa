@@ -36,11 +36,10 @@ class PublisherDesignType extends AbstractType
                 ]
             )
             ->add('editableContent', 'hidden')
-            ->add(
-                'public',
-                'checkbox',
+            ->add('public', 'checkbox',
                 [
-                    'label' => 'ojs.is_public'
+                    'label' => 'ojs.is_public',
+                    'required' => false
                 ]
             );
     }

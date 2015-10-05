@@ -27,6 +27,7 @@ class ThemeType extends AbstractType
                 'public',
                 'checkbox',
                 [
+                    'required' => false,
                     'label' => 'ojs.is_public'
                 ]
             )

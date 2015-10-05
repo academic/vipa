@@ -56,11 +56,13 @@ class JournalSubmissionFileType extends AbstractType
                 ]
             )
             ->add('visible', 'checkbox', [
-                'label' => 'submission_checklist.visible'
+                'label' => 'submission_checklist.visible',
+                'required' => false
                 ]
             )
             ->add('required', 'checkbox', [
-                'label' => 'submission_checklist.required'
+                'label' => 'submission_checklist.required',
+                'required' => false
                 ]
             )
         ;

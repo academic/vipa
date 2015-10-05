@@ -70,7 +70,12 @@ class UserType extends AbstractType
                     ],
                 ]
             )
-            ->add('enabled', 'checkbox', ['label' => 'user.isActive'])
+            ->add('enabled', 'checkbox',
+                [
+                    'label' => 'user.isActive',
+                    'required' => false
+                ]
+            )
             ->add(
                 'subjects',
                 'entity',

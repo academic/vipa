@@ -39,11 +39,13 @@ class JournalApplicationFileType extends AbstractType
                 ]
             )
             ->add('visible', 'checkbox', [
-                    'label' => 'submission_checklist.visible'
+                    'label' => 'submission_checklist.visible',
+                    'required' => false
                 ]
             )
             ->add('required', 'checkbox', [
-                    'label' => 'application_checklist.required'
+                    'label' => 'application_checklist.required',
+                    'required' => false
                 ]
             );
     }

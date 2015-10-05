@@ -18,7 +18,11 @@ class LangType extends AbstractType
         $builder
             ->add('code', 'text', ['attr' => ['placeholder' => 'Do not use special characters'], 'label' => 'lang.code'])
             ->add('name', 'text', ['label' => 'lang.name'])
-            ->add('rtl', 'checkbox', ['label' => 'lang.rtl', 'required' => false]);
+            ->add('rtl', 'checkbox', [
+                'label' => 'lang.rtl',
+                'required' => false
+                ]
+            );
     }
 
     /**

@@ -26,6 +26,7 @@ class DesignType extends AbstractType
                 'public',
                 'checkbox',
                 [
+                    'required' => false,
                     'label' => 'ojs.is_public'
                 ]
             );

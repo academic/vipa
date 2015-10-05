@@ -165,6 +165,7 @@ class PublisherType extends AbstractType
                 'verified',
                 'checkbox',
                 [
+                    'required' => false,
                     'label' => 'verified',
                     'attr' => [
                         'class' => "checkbox",
