@@ -17,12 +17,6 @@ $(document).ready(function () {
                     };
                 },
                 cache: true
-            },
-            templateResult: function (data) {
-                return data.text;
-            },
-            templateSelection: function (user) {
-                return user.text;
             }
         });
         return this;
