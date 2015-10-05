@@ -482,6 +482,7 @@ class ArticleSubmissionController extends Controller
                 $session->remove('submissionFiles');
             }
             $article->setStatus(0);
+            $article->setSubmissionDate(new \DateTime());
             $em->persist($article);
 
 
