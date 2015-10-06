@@ -307,7 +307,8 @@ class InstallCommand extends ContainerAwareCommand
                 'pages',
                 'posts',
                 'submissionSettings',
-                'mailSettings'
+                'mailSettings',
+                'reviewForms',
             ],
             
             'OjsUserBundle:User' => null,
@@ -446,6 +447,9 @@ class InstallCommand extends ContainerAwareCommand
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('posts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('reviewForms')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )->permit(MaskBuilder::MASK_OWNER)->save();
 

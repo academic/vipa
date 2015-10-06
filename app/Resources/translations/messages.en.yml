@@ -1214,6 +1214,10 @@ title.workflow_step_new: 'New Workflow Step'
 title.workflow_step_show: 'Show Workflow Step'
 title.workflow_steps: 'Workflow Steps'
 title.working_step_preview: 'Preview Working Step'
+title.workflow_review_forms: Review Forms
+title.workflow_review_form_edit: Edit Review Form
+title.workflow_review_form_new: New Review Form
+title.workflow_review_form_show: Show Review Form
 title.search_advanced: "Gelişmiş Arama"
 titleTransliterated: 'Transliterated Title'
 titleabbr: 'Abbreviated Title'
