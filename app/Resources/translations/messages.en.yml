@@ -935,6 +935,7 @@ suppfiles.supp: 'Supplementary File'
 suppfiles.trans: Transcripts
 supplement: 'Is Supplement?'
 support: Support
+submitted.articles: 'Submitted Articles'
 sure: 'Are you sure?'
 sure.ban: 'You will ban this user. Are you sure?'
 sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
