@@ -19,3 +19,9 @@ services:
     arguments: [@ojs.journal_service]
     tags:
         - { name: form.type, alias: journal_users_type }
+
+  ojs.serializationlistener:
+    class: Ojs\CoreBundle\Listeners\SerializationListener
+    arguments: []
+    tags:
+        - { name: jms_serializer.event_subscriber }
