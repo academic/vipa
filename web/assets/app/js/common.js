@@ -152,10 +152,10 @@ $(document).ready(function () {
         var container = $(this).find('.submission-subform-container'),
             template = $(this).find('.submission-subform-template').val();
         $(this).find('.submission-subform-add-panel').on('click', function () {
-            var newSrc = template.replace(/__name__/g, container.find('.submission-subform').length)
+            var newSrc = $(template.replace(/__name__/g, container.find('.submission-subform').length))
                 , uploader;
-            container.append(newSrc);
-            uploader = container.find('.submission-subform').find('.jb_fileupload');
+            newSrc.appendTo(container);
+            uploader = newSrc.find('.jb_fileupload');
             if (uploader.length) {
                 uploader.jbFileUpload();
             }
