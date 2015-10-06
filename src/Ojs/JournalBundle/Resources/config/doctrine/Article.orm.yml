@@ -38,7 +38,6 @@ Ojs\JournalBundle\Entity\Article:
       fetch: EXTRA_LAZY
     submitterUser:
       targetEntity: Ojs\UserBundle\Entity\User
-      cascade: ["persist"]
       joinColumn:
         name: submitter_id
         referencedColumnName: id
