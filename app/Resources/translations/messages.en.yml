@@ -1035,12 +1035,16 @@ title.file_new: 'New File'
 title.file_show: 'Show File'
 title.files: Files
 title.home: Home
+title.institutions: Institutions
+title.journal_application: 'Journal Application'
 title.publisher: Publisher
 title.publisher_application: 'Publisher Application'
+title.publisher_design: 'Publisher Design'
 title.publisher_detail: 'Publisher Detail'
 title.publisher_edit: 'Edit Publisher'
 title.publisher_new: 'New Publisher'
 title.publisher_show: 'Show Publisher'
+title.publisher_theme: 'Publisher Theme'
 title.publisher_type_edit: 'Edit Publisher Type'
 title.publisher_type_new: 'New Publisher Type'
 title.publisher_type_show: 'Show Publisher Type'
