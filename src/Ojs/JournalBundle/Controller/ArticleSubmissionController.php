@@ -652,7 +652,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      * @param $id
-     * @return RedirectResponse
+     * @return RedirectResponses
      * @throws NotFoundHttpException
      */
     public function cancelAction($id)
@@ -671,6 +671,6 @@ class ArticleSubmissionController extends Controller
         $em->flush();
         $this->addFlash('success', $this->get('translator')->trans('deleted'));
 
-        return $this->redirectToRoute('ojs_journal_submission_me', ['journalId' => $journal->getId()]);
+        return $this->redirectToRoute('ojs_user_index');
     }
 }
