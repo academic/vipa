@@ -149,6 +149,7 @@
                     <th>{{ 'title.article'|trans }}</th>
                     <th>{{ 'status'|trans }}</th>
                     <th>{{ 'submissionDate'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
                 </tr>
 
                 {% for article in articles %}
@@ -156,7 +157,14 @@
                         <td>{{ article.journal.title }}</td>
                         <td>{{ article.title }}</td>
                         <td>{{ article.statusText|trans }}</td>
-                        <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
+                        <td>
+                            <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, articleId: article.id}) }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Düzenle" >
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, articleId: article.id}) }}" class="btn btn-danger btn-xs delete" data-toggle="tooltip" title="Düzenle" >
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
