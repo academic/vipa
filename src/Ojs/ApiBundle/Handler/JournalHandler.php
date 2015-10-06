@@ -7,6 +7,11 @@ use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
+use Doctrine\Common\Annotations\Reader;
+use Liip\ImagineBundle\Templating\ImagineExtension;
+use Ojs\CoreBundle\Annotation\Display\File;
+use Ojs\CoreBundle\Annotation\Display\Image;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class JournalHandler implements JournalHandlerInterface
 {
@@ -14,13 +19,19 @@ class JournalHandler implements JournalHandlerInterface
     private $entityClass;
     private $repository;
     private $formFactory;
+    private $reader;
+    private $imagine;
+    private $requestStack;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory)
+    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, Reader $reader, ImagineExtension $imagine, RequestStack $requestStack)
     {
         $this->om = $om;
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
         $this->formFactory = $formFactory;
+        $this->reader = $reader;
+        $this->imagine = $imagine;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -32,7 +43,9 @@ class JournalHandler implements JournalHandlerInterface
      */
     public function get($id)
     {
-        return $this->repository->find($id);
+        /** @var Journal $entity */
+        $entity = $this->repository->find($id);
+        return $this->normalizeEntity($entity);
     }
 
     /**
@@ -45,7 +58,11 @@ class JournalHandler implements JournalHandlerInterface
      */
     public function all($limit = 5, $offset = 0)
     {
-        return $this->repository->findBy(array(), null, $limit, $offset);
+        $entities =  $this->repository->findBy(array(), null, $limit, $offset);
+        foreach($entities as $entityKey => $entity){
+            $entities[$entityKey] = $this->normalizeEntity($entity);
+        }
+        return $entities;
     }
 
     /**
@@ -124,6 +141,34 @@ class JournalHandler implements JournalHandlerInterface
             return $page;
         }
         throw new InvalidFormException('Invalid submitted data', $form);
+    }
+
+    /**
+     * @param Journal $entity
+     * @return Journal
+     */
+    private function normalizeEntity(Journal $entity)
+    {
+        $reflectionClass = new \ReflectionClass($entity);
+        foreach($reflectionClass->getProperties() as $property){
+            foreach($this->reader->getPropertyAnnotations($property) as $annotation){
+                $getSetter = 'set'.ucfirst($property->name);
+                $getGetter = 'get'.ucfirst($property->name);
+                if(method_exists($entity, $getGetter) && !empty($entity->$getGetter())){
+                    if ($annotation instanceof File){
+                        $fileFullPath = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost().'/uploads/'.$annotation->getPath().'/'.$entity->$getGetter();
+                        $entity->$getSetter($fileFullPath);
+                    } elseif ($annotation instanceof Image){
+                        $filteredImage = $this->imagine->filter(
+                            $entity->$getGetter(),
+                            $annotation->getFilter()
+                        );
+                        $entity->$getSetter($filteredImage);
+                    }
+                }
+            }
+        }
+        return $entity;
     }
 
     private function createJournal()

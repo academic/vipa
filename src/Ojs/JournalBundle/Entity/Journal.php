@@ -12,6 +12,7 @@ use Ojs\UserBundle\Entity\User;
 use OkulBilisim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * Journal
@@ -149,12 +150,14 @@ class Journal extends AbstractTranslatable
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
+     * @Display\Image(filter="journal_cover")
      */
     private $image;
     /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
+     * @Display\Image(filter="journal_header")
      */
     private $header;
     /**
@@ -255,6 +258,7 @@ class Journal extends AbstractTranslatable
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
+     * @Display\Image(filter="index_logo")
      */
     private $logo;
     /**
