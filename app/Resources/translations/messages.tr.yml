@@ -1036,12 +1036,16 @@ title.file_new: 'Yeni Dosya'
 title.file_show: 'Dosya Göster'
 title.files: Dosyalar
 title.home: 'Ana Sayfa'
+title.institutions: Kurumlar
+title.journal_application: 'Dergi Başvurusu'
 title.publisher: Yayıncı
 title.publisher_application: 'Yayıncı Başvurusu'
+title.publisher_design: 'Tasarım'
 title.publisher_detail: 'Yayıncı Detayı'
 title.publisher_edit: 'Yayıncı Düzenle'
 title.publisher_new: 'Yeni Yayıncı'
 title.publisher_show: 'Yayıncı Göster'
+title.publisher_theme: 'Tema'
 title.publisher_type_edit: 'Yayıncı Türünü Düzenle'
 title.publisher_type_new: 'Yeni Yayıncı Türü'
 title.publisher_type_show: 'Yayıncı Türünü Göster'
