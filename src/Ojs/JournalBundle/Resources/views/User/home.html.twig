@@ -22,9 +22,19 @@
                 {{ 'admin.dashboard.switcher.title'|trans }}
             </h4>
         </div>
-
         <div class="panel-body">
+            {% if my_journal_count<0 %}
+
             {{ form(switcher) }}
+            {% else %}
+                <div class="alert alert-warning">
+                    {{ "no_journal_you_have"|trans }}
+                    <hr/>
+                    <a class="btn btn-default btn-block" href="{{ path('ojs_site_explore_index') }}"><i
+                                class="fa fa-compass fa-fw"></i>{{ "explore"|trans }}</a>
+
+                </div>
+            {% endif %}
         </div>
     </div>
 

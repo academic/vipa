@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Ojs\JournalBundle\Form\Type\JournalType;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -10,6 +9,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\JournalBundle\Event\WorkflowEvent;
 use Ojs\JournalBundle\Event\WorkflowEvents;
+use Ojs\JournalBundle\Form\Type\JournalType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -221,12 +221,18 @@ class ManagerController extends Controller
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['submitterUser' => $this->getUser()]);
 
+        $my_journals = $this
+            ->getDoctrine()
+            ->getRepository('OjsJournalBundle:JournalUser')
+            ->findBy(['user' => $this->getUser()]);
+
         $response = $response = $this->render(
             'OjsJournalBundle:User:home.html.twig',
             [
                 'switcher' => $switcher,
                 'articles' => $articles,
-                'data' => $this->createStats()
+                'data' => $this->createStats(),
+                'my_journal_count' => count($my_journals)
             ]
         );
 
