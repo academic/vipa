@@ -93,6 +93,10 @@ services:
     class: Ojs\CoreBundle\Service\SearchManager
     arguments: [@translator, @router]
 
+  ojs_api_handler_helper:
+    class: Ojs\CoreBundle\Service\ApiHandlerHelper
+    arguments: ['@kernel', '@annotation_reader', '@liip_imagine.twig.extension', '@request_stack']
+
   kernel.listener.command_dispatch:
     class: Ojs\CoreBundle\EventListener\ConsoleExceptionListener
     arguments:
