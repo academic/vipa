@@ -94,7 +94,7 @@ services:
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher_manager.class%', '@form.factory']
     ojs_api.journal_issue.handler:
         class: %ojs_api.journal_issue.handler.class%
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue.class%', '@form.factory', '@ojs.journal_service', '@kernel']
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_issue.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@annotation_reader', '@liip_imagine.twig.extension', '@request_stack']
     ojs_api.journal_theme.handler:
         class: %ojs_api.journal_theme.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_theme.class%', '@form.factory', '@ojs.journal_service']

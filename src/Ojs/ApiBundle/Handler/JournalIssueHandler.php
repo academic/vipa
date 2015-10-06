@@ -11,6 +11,11 @@ use Ojs\ApiBundle\Exception\InvalidFormException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Ojs\CoreBundle\Helper\FileHelper;
+use Doctrine\Common\Annotations\Reader;
+use Liip\ImagineBundle\Templating\ImagineExtension;
+use Ojs\CoreBundle\Annotation\Display\File;
+use Ojs\CoreBundle\Annotation\Display\Image;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class JournalIssueHandler
 {
@@ -20,8 +25,11 @@ class JournalIssueHandler
     private $formFactory;
     private $journalService;
     private $kernel;
+    private $reader;
+    private $imagine;
+    private $requestStack;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, JournalService $journalService, KernelInterface $kernel)
+    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, JournalService $journalService, KernelInterface $kernel, Reader $reader, ImagineExtension $imagine, RequestStack $requestStack)
     {
         $this->om = $om;
         $this->entityClass = $entityClass;
@@ -29,6 +37,9 @@ class JournalIssueHandler
         $this->formFactory = $formFactory;
         $this->journalService = $journalService;
         $this->kernel = $kernel;
+        $this->reader = $reader;
+        $this->imagine = $imagine;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -40,7 +51,9 @@ class JournalIssueHandler
      */
     public function get($id)
     {
-        return $this->repository->find($id);
+        /** @var Issue $entity */
+        $entity = $this->repository->find($id);
+        return $this->normalizeEntity($entity);
     }
 
     /**
@@ -53,7 +66,11 @@ class JournalIssueHandler
      */
     public function all($limit = 5, $offset = 0)
     {
-        return $this->repository->findBy(array(), null, $limit, $offset);
+        $entities =  $this->repository->findBy(array(), null, $limit, $offset);
+        foreach($entities as $entityKey => $entity){
+            $entities[$entityKey] = $this->normalizeEntity($entity);
+        }
+        return $entities;
     }
 
     /**
@@ -170,6 +187,34 @@ class JournalIssueHandler
             $fs->dumpFile($issueFileDir . $file['filename'], base64_decode($file['encoded_content']));
             return $file['filename'];
         }
+    }
+
+    /**
+     * @param Issue $entity
+     * @return Issue
+     */
+    private function normalizeEntity(Issue $entity)
+    {
+        $reflectionClass = new \ReflectionClass($entity);
+        foreach($reflectionClass->getProperties() as $property){
+            foreach($this->reader->getPropertyAnnotations($property) as $annotation){
+                $getSetter = 'set'.ucfirst($property->name);
+                $getGetter = 'get'.ucfirst($property->name);
+                if(!empty($entity->$getGetter())){
+                    if ($annotation instanceof File){
+                        $fileFullPath = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost().'/uploads/'.$annotation->getPath().'/'.$entity->$getGetter();
+                        $entity->$getSetter($fileFullPath);
+                    } elseif ($annotation instanceof Image){
+                        $filteredImage = $this->imagine->filter(
+                            $entity->$getGetter(),
+                            $annotation->getFilter()
+                        );
+                        $entity->$getSetter($filteredImage);
+                    }
+                }
+            }
+        }
+        return $entity;
     }
 
     private function createIssue()
