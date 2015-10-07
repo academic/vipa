@@ -198,6 +198,6 @@ class AdminJournalApplicationController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirectToRoute('ojs_admin_application_journal_edit', ['id' => $entity->getId()]);
+        return $this->redirectToRoute('ojs_admin_journal_index');
     }
 }
