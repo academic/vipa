@@ -220,11 +220,15 @@ class ManagerController extends Controller
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['submitterUser' => $this->getUser()]);
-
-        $my_journals = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:JournalUser')
-            ->findBy(['user' => $this->getUser()]);
+        if($this->getUser()->isAdmin()){
+            //user see all journal if is admin 1 (because fewer than 0) is a dummy count
+            $userJournalCount = 1;
+        }else{
+            $userJournalCount = count($this
+                ->getDoctrine()
+                ->getRepository('OjsJournalBundle:JournalUser')
+                ->findBy(['user' => $this->getUser()]));
+        }
 
         $response = $response = $this->render(
             'OjsJournalBundle:User:home.html.twig',
@@ -232,7 +236,7 @@ class ManagerController extends Controller
                 'switcher' => $switcher,
                 'articles' => $articles,
                 'data' => $this->createStats(),
-                'my_journal_count' => count($my_journals)
+                'my_journal_count' => $userJournalCount
             ]
         );
 
