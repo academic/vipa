@@ -74,6 +74,10 @@ assetic:
     hovercard_js:
       inputs:
         - '%kernel.root_dir%/../web/assets/app/js/plugins/hovercard/hovercard.min.js'
+    formbuilder_js:
+      inputs:
+        - '%kernel.root_dir%/../web/vendor/formbuilder/vendor/js/vendor.js'
+        - '%kernel.root_dir%/../web/vendor/formbuilder/dist/formbuilder.js'
 braincrafted_bootstrap:
   less_filter: none
   auto_configure:
