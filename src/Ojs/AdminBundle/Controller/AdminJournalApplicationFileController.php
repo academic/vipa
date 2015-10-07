@@ -4,7 +4,6 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\AdminBundle\Form\Type\IndexType;
 use Ojs\AdminBundle\Form\Type\JournalApplicationFileType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalApplicationFile;
@@ -234,7 +233,9 @@ class AdminJournalApplicationFileController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_admin_application_file_edit', array('id' => $entity->getId())));
+            return $this->redirect(
+                $this->generateUrl('ojs_admin_application_file_edit', array('id' => $entity->getId()))
+            );
         }
 
         return $this->render(

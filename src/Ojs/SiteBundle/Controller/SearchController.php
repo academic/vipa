@@ -134,6 +134,14 @@ class SearchController extends Controller
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
 
+        $match = new Query\Match();
+        $match->setField('articles.journal.id', 2);
+        $boolQuery->addMust($match);
+
+        $match = new Query\Match();
+        $match->setField('user.journalUsers.journal.id', 2);
+        $boolQuery->addMust($match);
+
 
         if ($resultData->count() > 0) {
             /**
@@ -173,6 +181,8 @@ class SearchController extends Controller
              * history data stores on session
              */
             $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
+
+
             $data = [
                 'results' => $results,
                 'query' => $query,

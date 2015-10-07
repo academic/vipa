@@ -58,7 +58,7 @@ class PublisherType extends AbstractType
                 ]
             )
             ->add(
-                'publisher_type',
+                'publisherType',
                 'entity',
                 [
                     'label' => 'publishertype',

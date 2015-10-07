@@ -191,7 +191,7 @@ class JournalRepository extends EntityRepository
                 $qb
                     ->join('j.publisher', 'i_' . $key)
                     ->join(
-                        'i_' . $key . '.publisher_type',
+                        'i_' . $key . '.publisherType',
                         'it_'.$key,
                         'WITH',
                         'it_' . $key . '.slug=:publisher_type_slug_' . $key

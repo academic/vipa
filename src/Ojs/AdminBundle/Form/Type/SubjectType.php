@@ -11,7 +11,10 @@ class SubjectType extends AbstractType
 {
     private $selfId;
 
-    function __construct($selfId = null)
+    /**
+     * @param integer|null $selfId
+     */
+    public function __construct($selfId = null)
     {
         $this->selfId = $selfId;
     }

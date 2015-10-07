@@ -13,7 +13,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 {
     /**
      * @param $query
-     * @param integer|Journal $journal
+     * @param Journal $journal
      * @param integer $limit
      * @return User[]
      */

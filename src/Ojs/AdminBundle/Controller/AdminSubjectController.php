@@ -75,7 +75,7 @@ class AdminSubjectController extends Controller
     }
 
     /**
-     * @param ArrayCollection $subjects
+     * @param ArrayCollection|Subject[] $subjects
      * @param int|null $parentId
      * @return string
      */

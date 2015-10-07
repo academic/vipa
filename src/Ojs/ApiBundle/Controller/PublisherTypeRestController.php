@@ -163,7 +163,7 @@ class PublisherTypeRestController extends FOSRestController
     }
 
     /**
-     * Update existing publisher_type from the submitted data or create a new publisher_type at a specific location.
+     * Update existing publisherType from the submitted data or create a new publisherType at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -174,11 +174,11 @@ class PublisherTypeRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the publisher_type id
+     * @param int     $id      the publisherType id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when publisher_type not exist
+     * @throws NotFoundHttpException when publisherType not exist
      */
     public function patchPublishertypeAction(Request $request, $id)
     {

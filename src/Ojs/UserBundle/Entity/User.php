@@ -18,7 +18,6 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Subject;
 use OkulBilisim\LocationBundle\Entity\Country;
 use OkulBilisim\LocationBundle\Entity\Province;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -498,7 +497,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLocale()
     {

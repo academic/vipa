@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
@@ -41,6 +40,7 @@ class Subject extends AbstractTranslatable
      * @GRID\Column(title="parent")
      */
     private $parent;
+    /** @var ArrayCollection|Subject[] */
     private $children;
     /**
      * @var string
@@ -55,7 +55,7 @@ class Subject extends AbstractTranslatable
      */
     private $description;
     /**
-     * @var Collection
+     * @var ArrayCollection
      */
     private $users;
     /**
@@ -64,7 +64,7 @@ class Subject extends AbstractTranslatable
      */
     private $totalJournalCount;
     /**
-     * @var Collection
+     * @var ArrayCollection
      */
     private $journals;
     /**
@@ -77,6 +77,7 @@ class Subject extends AbstractTranslatable
         $this->users = new ArrayCollection();
         $this->journals = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**
@@ -88,16 +89,30 @@ class Subject extends AbstractTranslatable
         return $this->parent;
     }
 
+    /**
+     * @param Subject|null $parent
+     * @return Subject
+     */
     public function setParent(Subject $parent = null)
     {
         $this->parent = $parent;
+        if(!$parent) {
+            $parent->addChild($this);
+        }
+        return $this;
     }
 
+    /**
+     * @return ArrayCollection|Subject[]
+     */
     public function getChildren()
     {
         return $this->children;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRoot()
     {
         return $this->root;
@@ -161,144 +176,12 @@ class Subject extends AbstractTranslatable
     /**
      * Set description
      *
-     * @param  string  $description
+     * @param  string $description
      * @return Subject
      */
     public function setDescription($description)
     {
         $this->translate()->setDescription($description);
-
-        return $this;
-    }
-
-    /**
-     * Add users
-     *
-     * @param  User  $users
-     * @return $this
-     */
-    public function addUser(User $users)
-    {
-        $this->users[] = $users;
-
-        return $this;
-    }
-
-    /**
-     * Remove users
-     *
-     * @param User $users
-     */
-    public function removeUser(User $users)
-    {
-        $this->users->removeElement($users);
-    }
-
-    /**
-     * Get users
-     *
-     * @return Collection
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
-
-    /**
-     * Get subjects
-     * @return Collection|Journal[]
-     */
-    public function getJournals()
-    {
-        return $this->journals;
-    }
-
-    /**
-     * Add subject
-     *
-     * @param  Journal $journal
-     * @return Subject
-     */
-    public function addJournal(Journal $journal)
-    {
-        if(!$this->journals->contains($journal)){
-            $this->journals->add($journal);
-        }
-        $journal->addSubject($this);
-
-        return $this;
-    }
-
-    /**
-     * Remove journal
-     *
-     * @param Journal $journal
-     */
-    public function removeJournal(Journal $journal)
-    {
-        if($this->journals->contains($journal)){
-            $this->journals->removeElement($journal);
-        }
-        $journal->removeSubject($this);
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasJournals()
-    {
-        $totalJournals = $this->journals->count();
-
-        return $totalJournals > 0;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param  mixed $slug
-     * @return $this
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-        if(!is_string($this->getSubject())){
-            return $this->translations->first()->getSubject();
-        }else{
-            return $this->getSubject();
-        }
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->translate()->getSubject();
-    }
-
-    /**
-     * Set subject
-     *
-     * @param  string $subject
-     * @return Subject
-     */
-    public function setSubject($subject)
-    {
-        $this->translate()->setSubject($subject);
 
         return $this;
     }
@@ -343,6 +226,138 @@ class Subject extends AbstractTranslatable
         $this->currentTranslation = $translation;
 
         return $translation;
+    }
+
+    /**
+     * Add users
+     *
+     * @param  User $users
+     * @return $this
+     */
+    public function addUser(User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param User $users
+     */
+    public function removeUser(User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return ArrayCollection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Get subjects
+     * @return ArrayCollection|Journal[]
+     */
+    public function getJournals()
+    {
+        return $this->journals;
+    }
+
+    /**
+     * Add subject
+     *
+     * @param  Journal $journal
+     * @return Subject
+     */
+    public function addJournal(Journal $journal)
+    {
+        if (!$this->journals->contains($journal)) {
+            $this->journals->add($journal);
+        }
+        $journal->addSubject($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove journal
+     *
+     * @param Journal $journal
+     */
+    public function removeJournal(Journal $journal)
+    {
+        if ($this->journals->contains($journal)) {
+            $this->journals->removeElement($journal);
+        }
+        $journal->removeSubject($this);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasJournals()
+    {
+        $totalJournals = $this->journals->count();
+
+        return $totalJournals > 0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param  mixed $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        if (!is_string($this->getSubject())) {
+            return $this->translations->first()->getSubject();
+        } else {
+            return $this->getSubject();
+        }
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->translate()->getSubject();
+    }
+
+    /**
+     * Set subject
+     *
+     * @param  string $subject
+     * @return Subject
+     */
+    public function setSubject($subject)
+    {
+        $this->translate()->setSubject($subject);
+
+        return $this;
     }
 
     /**
@@ -454,18 +469,25 @@ class Subject extends AbstractTranslatable
      */
     public function addChild(Subject $child)
     {
-        $this->children[] = $child;
-
-        return $this;
+        if (!$this->children->contains($child)) {
+            $this->children->add($child);
+            $child->setParent($this);
+        }
     }
 
     /**
      * Remove child
      *
      * @param Subject $child
+     *
+     * @return Subject
      */
     public function removeChild(Subject $child)
     {
-        $this->children->removeElement($child);
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            $child->setParent($this);
+        }
+        return $this;
     }
 }

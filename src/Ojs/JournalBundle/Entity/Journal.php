@@ -790,7 +790,7 @@ class Journal extends AbstractTranslatable
      * @param  Publisher $publisher
      * @return Journal
      */
-    public function setPublisher($publisher)
+    public function setPublisher(Publisher $publisher)
     {
         $this->publisher = $publisher;
 

@@ -6,12 +6,10 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,15 +34,15 @@ class AdminJournalController extends Controller
 
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
-            function (Row $row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('title', $entity->getTitle());
                     $row->setField('status', Journal::$statuses[$entity->getStatus()]);
                 }
+
                 return $row;
             }
         );
@@ -91,22 +89,21 @@ class AdminJournalController extends Controller
         $tableAlias = $source->getTableAlias();
 
         $source->manipulateQuery(
-            function (QueryBuilder $query) use ($tableAlias)
-            {
-                $query->andWhere($tableAlias . '.setupFinished = 0');
+            function (QueryBuilder $query) use ($tableAlias) {
+                $query->andWhere($tableAlias.'.setupFinished = 0');
             }
         );
         $source->manipulateRow(
-            function (Row $row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('title', $entity->getTitle());
                     $row->setField('subtitle', $entity->getSubtitle());
                     $row->setField('description', $entity->getDescription());
                 }
+
                 return $row;
             }
         );
@@ -162,9 +159,31 @@ class AdminJournalController extends Controller
     }
 
     /**
+     * Creates a form to edit a Publisher entity.
+     *
+     * @param Journal $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Journal $entity)
+    {
+        $form = $this->createForm(
+            new JournalType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
+        $form->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Journal entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -197,29 +216,7 @@ class AdminJournalController extends Controller
     }
 
     /**
-     * Creates a form to edit a Publisher entity.
-     *
-     * @param Journal $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(Journal $entity)
-    {
-        $form = $this->createForm(
-            new JournalType($entity->getId()),
-            $entity,
-            array(
-                'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
-            )
-        );
-        $form->add('submit', 'submit', ['label' => 'Update']);
-
-        return $form;
-    }
-
-    /**
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -299,8 +296,9 @@ class AdminJournalController extends Controller
     public function showAction(Request $request, Journal $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity))
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You not authorized for view this journal!");
+        }
 
         $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
@@ -314,7 +312,7 @@ class AdminJournalController extends Controller
     }
 
     /**
-     * @param  Request          $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse
      */

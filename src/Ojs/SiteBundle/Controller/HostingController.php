@@ -92,14 +92,14 @@ class HostingController extends Controller
     }
 
     /**
-     * @param Issue $last_issue
-     * @param $isJournalHosting
-     * @return mixed
+     * @param Issue $lastIssue
+     * @param boolean $isJournalHosting
+     * @return Issue mixed
      */
-    private function setupArticleURIs($last_issue, $isJournalHosting)
+    private function setupArticleURIs(Issue $lastIssue, $isJournalHosting)
     {
         /** @var Article $article */
-        foreach($last_issue->getArticles() as $article){
+        foreach($lastIssue->getArticles() as $article){
             if($isJournalHosting){
                 $article->setPublicURI($this->generateUrl('journal_hosting_issue_article',[
                     'issue_id' => $article->getIssue()->getId(),
@@ -115,18 +115,17 @@ class HostingController extends Controller
                 );
             }
         }
-        return $last_issue;
+        return $lastIssue;
     }
 
     /**
-     * @param $years
-     * @param $isJournalHosting
-     * @return mixed
+     * @param Issue[][] $years
+     * @param boolean $isJournalHosting
+     * @return Issue[][]
      */
     private function setupIssueURIsByYear($years, $isJournalHosting)
     {
         foreach ($years as $year) {
-            /** @var Issue $issue */
             foreach ($year as $issue) {
                 if ($isJournalHosting) {
                     $issue->setPublicURI(

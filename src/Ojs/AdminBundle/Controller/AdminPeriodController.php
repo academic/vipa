@@ -5,7 +5,6 @@ namespace Ojs\AdminBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\PeriodType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -37,14 +36,14 @@ class AdminPeriodController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Period');
         $source->manipulateRow(
-            function (Row $row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('period', $entity->getPeriods());
                 }
+
                 return $row;
             }
         );
@@ -69,7 +68,7 @@ class AdminPeriodController extends Controller
     /**
      * Creates a new Period entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -164,7 +163,7 @@ class AdminPeriodController extends Controller
             'OjsAdminBundle:AdminPeriod:show.html.twig',
             array(
                 'entity' => $entity,
-                'token'  => $token,
+                'token' => $token,
             )
         );
     }

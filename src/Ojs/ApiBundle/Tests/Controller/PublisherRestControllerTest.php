@@ -33,7 +33,7 @@ class PublisherRestControllerTest extends BaseTestCase
             ],
             'slug' => 'phpunit-test',
             'tags' => ['phpunit'],
-            'publisher_type' => 3,
+            'publisherType' => 3,
             'address' => 'PHPUnit Test Adress Field - POST',
             'phone' => '12345678910',
             'fax' => '987654321',

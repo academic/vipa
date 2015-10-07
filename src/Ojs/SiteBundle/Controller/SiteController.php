@@ -209,7 +209,7 @@ class SiteController extends Controller
 
     /**
      * @param Issue $last_issue
-     * @return mixed
+     * @return Issue|null
      */
     private function setupArticleURIs($last_issue)
     {

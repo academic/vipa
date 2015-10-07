@@ -222,7 +222,7 @@ fos_elastica:
               properties:
                 name: { type: string }
                 slug: { type: string }
-                publisher_type:
+                publisherType:
                   type: object
                   properties:
                     name: { index: not_analyzed }

@@ -5,9 +5,11 @@ namespace Ojs\ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Ojs\CmsBundle\Entity\Announcement;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -31,12 +33,11 @@ class AnnouncementRestController extends FOSRestController
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Announcements to return.")
      *
      *
-     * @param Request               $request      the request object
      * @param ParamFetcherInterface $paramFetcher param fetcher service
      *
      * @return array
      */
-    public function getAnnouncementsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getAnnouncementsAction(ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null == $offset ? 0 : $offset;
@@ -59,7 +60,7 @@ class AnnouncementRestController extends FOSRestController
      *
      * @param int     $id      the Announcement id
      *
-     * @return array
+     * @return Announcement
      *
      * @throws NotFoundHttpException when Announcement not exist
      */
@@ -79,7 +80,7 @@ class AnnouncementRestController extends FOSRestController
      *   }
      * )
      *
-     * @return FormTypeInterface
+     * @return \Symfony\Component\Form\Form
      */
     public function newAnnouncementAction()
     {
@@ -200,7 +201,7 @@ class AnnouncementRestController extends FOSRestController
     /**
      * @param $id
      * @throws NotFoundHttpException
-     * @return Response
+     * @return View
      * @ApiDoc(
      *      resource = false,
      *      description = "Delete Announcement",

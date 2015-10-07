@@ -20,7 +20,7 @@ class PublisherApplicationType extends AbstractType
         $builder
             ->add('name', null, ['label' => 'publisher.name'])
             ->add(
-                'publisher_type',
+                'publisherType',
                 'entity',
                 array(
                     'class' => 'Ojs\JournalBundle\Entity\PublisherTypes',

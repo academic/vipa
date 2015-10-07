@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\ORMException;
-use Doctrine\ORM\Query;
 use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
@@ -20,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
-use Symfony\Component\Yaml;
 
 /**
  * User administration controller

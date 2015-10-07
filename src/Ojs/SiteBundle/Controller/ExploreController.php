@@ -35,7 +35,7 @@ class ExploreController extends Controller
 
             foreach ($typeFilters as $type) {
                 $match = new Query\Match();
-                $match->setField('publisher.publisher_type.name', $type);
+                $match->setField('publisher.publisherType.name', $type);
                 $boolQuery->addMust($match);
             }
 
@@ -55,7 +55,7 @@ class ExploreController extends Controller
         $journalQuery = new Query($boolQuery);
 
         $typeAgg = new Aggregation\Terms('types');
-        $typeAgg->setField('publisher.publisher_type.name');
+        $typeAgg->setField('publisher.publisherType.name');
         $typeAgg->setOrder('_term', 'asc');
         $typeAgg->setSize(0);
         $journalQuery->addAggregation($typeAgg);

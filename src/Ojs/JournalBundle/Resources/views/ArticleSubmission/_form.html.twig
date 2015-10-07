@@ -15,7 +15,7 @@
     <div class="panel panel-info submission-subform-panel">
         <div class="panel-heading">Article Authors</div>
         <div class="submission-subform-container panel-body">
-                        <textarea class="submission-subform-template">{% filter escape %}
+                        <textarea class="submission-subform-template">{%- filter escape -%}
                                 {{ include('@OjsJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': form.articleAuthors.vars.prototype }) }}
                         {% endfilter %}</textarea>
 
@@ -31,7 +31,7 @@
     <div class="panel panel-info submission-subform-panel">
         <div class="panel-heading">Citiations</div>
         <div class="submission-subform-container panel-body">
-                        <textarea class="submission-subform-template">{% filter escape %}
+                        <textarea class="submission-subform-template">{%- filter escape -%}
                                 {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
                         {% endfilter %}</textarea>
 
@@ -47,7 +47,7 @@
     <div class="panel panel-info submission-subform-panel">
         <div class="panel-heading">Article Files</div>
         <div class="submission-subform-container panel-body">
-                        <textarea class="submission-subform-template">{% filter escape %}
+                        <textarea class="submission-subform-template">{%- filter escape -%}
                             {{ include('@OjsJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': form.articleFiles.vars.prototype }) }}
                         {% endfilter %}</textarea>
 

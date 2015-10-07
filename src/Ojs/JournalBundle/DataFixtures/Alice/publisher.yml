@@ -14,6 +14,6 @@
     about: null
     phone: '01234567810'
     address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    publisher_type: @i_type0
+    publisherType: @i_type0
     verified: 1
     status: 1

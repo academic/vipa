@@ -5,7 +5,7 @@ Ojs\JournalBundle\Entity\PublisherTypes:
     oneToMany:
         publishers:
             targetEntity: Ojs\JournalBundle\Entity\Publisher
-            mappedBy: publisher_type
+            mappedBy: publisherType
             fetch: EXTRA_LAZY
             cascade: ["all"]
     id:

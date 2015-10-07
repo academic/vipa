@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
@@ -129,11 +128,11 @@ class Publisher extends AbstractTranslatable
      */
     private $domain;
     /**
-     * @var Collection
+     * @var Journal[]|ArrayCollection
      */
     private $journals;
     /**
-     * @var Collection
+     * @var Author[]|ArrayCollection
      */
     private $authors;
     /**
@@ -141,13 +140,9 @@ class Publisher extends AbstractTranslatable
      */
     private $slug;
     /**
-     * @var int
+     * @var PublisherTypes
      */
-    private $publisher_type;
-    /**
-     * @var
-     */
-    private $publisher_type_id;
+    private $publisherType;
 
     /**
      * @var PublisherTheme
@@ -160,12 +155,12 @@ class Publisher extends AbstractTranslatable
      */
     private $design;
     /**
-     * @var Collection
+     * @var PublisherTheme[]|ArrayCollection
      * @Expose
      */
     private $publisherThemes;
     /**
-     * @var PublisherDesign|ArrayCollection
+     * @var PublisherDesign[]|ArrayCollection
      * @Expose
      */
     private $publisherDesigns;
@@ -231,23 +226,32 @@ class Publisher extends AbstractTranslatable
 
     /**
      *
-     * @return $this
+     * @return Publisher
      */
     public function getParent()
     {
         return $this->parent;
     }
 
+    /**
+     * @param Publisher|null $parent
+     */
     public function setParent(Publisher $parent = null)
     {
         $this->parent = $parent;
     }
 
+    /**
+     * @return ArrayCollection|Publisher[]
+     */
     public function getChildren()
     {
         return $this->children;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRoot()
     {
         return $this->root;
@@ -257,7 +261,7 @@ class Publisher extends AbstractTranslatable
      * Set root
      *
      * @param  integer $root
-     * @return $this
+     * @return Publisher
      */
     public function setRoot($root)
     {
@@ -276,7 +280,7 @@ class Publisher extends AbstractTranslatable
 
     /**
      * @param  string $header
-     * @return $this
+     * @return Publisher
      */
     public function setHeader($header)
     {
@@ -295,7 +299,7 @@ class Publisher extends AbstractTranslatable
 
     /**
      * @param  string $domain
-     * @return $this
+     * @return Publisher
      */
     public function setDomain($domain)
     {
@@ -307,11 +311,14 @@ class Publisher extends AbstractTranslatable
     /**
      * Add journal
      * @param  Journal $journal
-     * @return $this
+     * @return Publisher
      */
     public function addJournal(Journal $journal)
     {
-        $this->journals[] = $journal;
+        if(!$this->journals->contains($journal)) {
+            $this->journals->add($journal);
+            $journal->setPublisher($this);
+        }
 
         return $this;
     }
@@ -319,15 +326,20 @@ class Publisher extends AbstractTranslatable
     /**
      * Remove journal
      * @param Journal $journal
+     * @return Publisher
      */
     public function removeJournal(Journal $journal)
     {
-        $this->journals->removeElement($journal);
+        if($this->journals->contains($journal)) {
+            $this->journals->removeElement($journal);
+            $journal->setPublisher(null);
+        }
+        return $this;
     }
 
     /**
      * Get journals
-     * @return Collection
+     * @return ArrayCollection|Journal[]
      */
     public function getJournals()
     {
@@ -358,7 +370,7 @@ class Publisher extends AbstractTranslatable
      * Set city
      *
      * @param  Province $city
-     * @return $this
+     * @return Publisher
      */
     public function setCity(Province $city = null)
     {
@@ -381,7 +393,7 @@ class Publisher extends AbstractTranslatable
      * Set name
      *
      * @param  string $name
-     * @return $this
+     * @return Publisher
      */
     public function setName($name)
     {
@@ -404,7 +416,7 @@ class Publisher extends AbstractTranslatable
      * Set address
      *
      * @param  string $address
-     * @return $this
+     * @return Publisher
      */
     public function setAddress($address)
     {
@@ -427,7 +439,7 @@ class Publisher extends AbstractTranslatable
      * Set about
      *
      * @param  string $about
-     * @return $this
+     * @return Publisher
      */
     public function setAbout($about)
     {
@@ -480,7 +492,7 @@ class Publisher extends AbstractTranslatable
      * Set country
      *
      * @param  Country $country
-     * @return $this
+     * @return Publisher
      */
     public function setCountry(Country $country = null)
     {
@@ -503,7 +515,7 @@ class Publisher extends AbstractTranslatable
      * Set addressLat
      *
      * @param  string $addressLat
-     * @return $this
+     * @return Publisher
      */
     public function setAddressLat($addressLat)
     {
@@ -526,7 +538,7 @@ class Publisher extends AbstractTranslatable
      * Set addressLong
      *
      * @param  string $addressLong
-     * @return $this
+     * @return Publisher
      */
     public function setAddressLong($addressLong)
     {
@@ -549,7 +561,7 @@ class Publisher extends AbstractTranslatable
      * Set phone
      *
      * @param  string $phone
-     * @return $this
+     * @return Publisher
      */
     public function setPhone($phone)
     {
@@ -572,7 +584,7 @@ class Publisher extends AbstractTranslatable
      * Set fax
      *
      * @param  string $fax
-     * @return $this
+     * @return Publisher
      */
     public function setFax($fax)
     {
@@ -595,7 +607,7 @@ class Publisher extends AbstractTranslatable
      * Set email
      *
      * @param  string $email
-     * @return $this
+     * @return Publisher
      */
     public function setEmail($email)
     {
@@ -618,7 +630,7 @@ class Publisher extends AbstractTranslatable
      * Set url
      *
      * @param  string $url
-     * @return $this
+     * @return Publisher
      */
     public function setUrl($url)
     {
@@ -641,7 +653,7 @@ class Publisher extends AbstractTranslatable
      * Set wiki
      *
      * @param  string $wiki
-     * @return $this
+     * @return Publisher
      */
     public function setWiki($wiki)
     {
@@ -664,7 +676,7 @@ class Publisher extends AbstractTranslatable
      * Set logo
      *
      * @param  string $logo
-     * @return $this
+     * @return Publisher
      */
     public function setLogo($logo)
     {
@@ -683,7 +695,7 @@ class Publisher extends AbstractTranslatable
 
     /**
      * @param  mixed $slug
-     * @return $this
+     * @return Publisher
      */
     public function setSlug($slug)
     {
@@ -693,40 +705,20 @@ class Publisher extends AbstractTranslatable
     }
 
     /**
-     * @return integer
+     * @return PublisherTypes
      */
     public function getPublisherType()
     {
-        return $this->publisher_type;
+        return $this->publisherType;
     }
 
     /**
-     * @param  PublisherTypes $publisher_type
-     * @return $this
+     * @param  PublisherTypes $publisherType
+     * @return Publisher
      */
-    public function setPublisherType(PublisherTypes $publisher_type)
+    public function setPublisherType(PublisherTypes $publisherType)
     {
-        $this->publisher_type = $publisher_type;
-        $this->setPublisherTypeId($publisher_type->getId());
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPublisherTypeId()
-    {
-        return $this->publisher_type_id;
-    }
-
-    /**
-     * @param  integer $publisher_type_id
-     * @return $this
-     */
-    public function setPublisherTypeId($publisher_type_id)
-    {
-        $this->publisher_type_id = $publisher_type_id;
+        $this->$publisherType = $publisherType;
 
         return $this;
     }
@@ -735,16 +727,6 @@ class Publisher extends AbstractTranslatable
      * @return boolean
      */
     public function isVerified()
-    {
-        return $this->verified;
-    }
-
-    /**
-     * Get verified
-     *
-     * @return boolean
-     */
-    public function getVerified()
     {
         return $this->verified;
     }
@@ -771,7 +753,7 @@ class Publisher extends AbstractTranslatable
      * Set lft
      *
      * @param  integer $lft
-     * @return $this
+     * @return Publisher
      */
     public function setLft($lft)
     {
@@ -794,7 +776,7 @@ class Publisher extends AbstractTranslatable
      * Set rgt
      *
      * @param  integer $rgt
-     * @return $this
+     * @return Publisher
      */
     public function setRgt($rgt)
     {
@@ -817,7 +799,7 @@ class Publisher extends AbstractTranslatable
      * Set lvl
      *
      * @param  integer $lvl
-     * @return $this
+     * @return Publisher
      */
     public function setLvl($lvl)
     {
@@ -829,12 +811,14 @@ class Publisher extends AbstractTranslatable
     /**
      * Add authors
      *
-     * @param  Author $authors
-     * @return $this
+     * @param  Author $author
+     * @return Publisher
      */
-    public function addAuthor(Author $authors)
+    public function addAuthor(Author $author)
     {
-        $this->authors[] = $authors;
+        if(!$this->authors->contains($author)) {
+            $this->authors->add($author);
+        }
 
         return $this;
     }
@@ -842,17 +826,21 @@ class Publisher extends AbstractTranslatable
     /**
      * Remove authors
      *
-     * @param Author $authors
+     * @param Author $author
+     * @return Publisher
      */
-    public function removeAuthor(Author $authors)
+    public function removeAuthor(Author $author)
     {
-        $this->authors->removeElement($authors);
+        if($this->authors->contains($author)) {
+            $this->authors->removeElement($author);
+        }
+        return $this;
     }
 
     /**
      * Get authors
      *
-     * @return Collection
+     * @return ArrayCollection|Author[]
      */
     public function getAuthors()
     {
@@ -862,24 +850,31 @@ class Publisher extends AbstractTranslatable
     /**
      * Add children
      *
-     * @param  Publisher $children
-     * @return $this
+     * @param  Publisher $child
+     * @return Publisher
      */
-    public function addChild(Publisher $children)
+    public function addChild(Publisher $child)
     {
-        $this->children[] = $children;
-
+        if(!$this->children->contains($child)) {
+            $this->children->add($child);
+            $child->setParent($this);
+        }
         return $this;
     }
 
     /**
      * Remove children
      *
-     * @param Publisher $children
+     * @param Publisher $child
+     * @return Publisher
      */
-    public function removeChild(Publisher $children)
+    public function removeChild(Publisher $child)
     {
-        $this->children->removeElement($children);
+        if($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            $child->setParent(null);
+        }
+        return $this;
     }
 
     /**
@@ -888,21 +883,28 @@ class Publisher extends AbstractTranslatable
      */
     public function addPublisherThemes(PublisherTheme $publisherTheme)
     {
-        $this->publisherThemes[] = $publisherTheme;
+        if(!$this->publisherThemes->contains($publisherTheme)) {
+            $this->publisherThemes->add($publisherTheme);
+        }
 
         return $this;
     }
 
     /**
      * @param PublisherTheme $publisherTheme
+     * @return Publisher
      */
     public function removePublisherThemes(PublisherTheme $publisherTheme)
     {
-        $this->publisherThemes->removeElement($publisherTheme);
+        if($this->publisherThemes->contains($publisherTheme)) {
+            $this->publisherThemes->removeElement($publisherTheme);
+        }
+
+        return $this;
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection|PublisherTheme[]
      */
     public function getPublisherThemes()
     {
@@ -949,7 +951,7 @@ class Publisher extends AbstractTranslatable
     }
 
     /**
-     * @return PublisherDesign|ArrayCollection
+     * @return PublisherDesign[]|ArrayCollection
      */
     public function getPublisherDesigns()
     {
@@ -957,7 +959,7 @@ class Publisher extends AbstractTranslatable
     }
 
     /**
-     * @param PublisherDesign|ArrayCollection $publisherDesigns
+     * @param PublisherDesign[]|ArrayCollection $publisherDesigns
      */
     public function setPublisherDesigns($publisherDesigns)
     {
@@ -1001,11 +1003,13 @@ class Publisher extends AbstractTranslatable
      * Add publisherManager
      *
      * @param  User $publisherManager
-     * @return $this
+     * @return Publisher
      */
     public function addPublisherManager(User $publisherManager)
     {
-        $this->publisherManagers[] = $publisherManager;
+        if(!$this->publisherManagers->contains($publisherManager)) {
+            $this->publisherManagers->add($publisherManager);
+        }
         return $this;
     }
 
@@ -1013,16 +1017,20 @@ class Publisher extends AbstractTranslatable
      * Remove publisherManager
      *
      * @param User $publisherManager
+     * @return Publisher
      */
     public function removePublisherManager(User $publisherManager)
     {
-        $this->publisherManagers->removeElement($publisherManager);
+        if($this->publisherManagers->contains($publisherManager)) {
+            $this->publisherManagers->removeElement($publisherManager);
+        }
+        return $this;
     }
 
     /**
      * Get publisherManagers
      *
-     * @return Collection
+     * @return ArrayCollection|User[]
      */
     public function getPublisherManagers()
     {

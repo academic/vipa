@@ -4,12 +4,11 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\AdminBundle\Form\Type\PersonTitleType;
 use Ojs\CoreBundle\Controller\OjsController;
+use Ojs\JournalBundle\Entity\PersonTitle;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Ojs\JournalBundle\Entity\PersonTitle;
-use Ojs\AdminBundle\Form\Type\PersonTitleType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -44,6 +43,7 @@ class AdminPersonTitleController extends OjsController
 
         return $grid->getGridResponse('OjsAdminBundle:AdminPersonTitle:index.html.twig', ['grid' => $grid]);
     }
+
     /**
      * Creates a new PersonTitle entity.
      *
@@ -73,10 +73,13 @@ class AdminPersonTitleController extends OjsController
             );
         }
 
-        return $this->render('OjsAdminBundle:AdminPersonTitle:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminPersonTitle:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -88,10 +91,14 @@ class AdminPersonTitleController extends OjsController
      */
     private function createCreateForm(PersonTitle $entity)
     {
-        $form = $this->createForm(new PersonTitleType(), $entity, array(
-            'action' => $this->generateUrl('ojs_admin_person_title_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new PersonTitleType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_person_title_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -109,17 +116,22 @@ class AdminPersonTitleController extends OjsController
         }
 
         $entity = new PersonTitle();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsAdminBundle:AdminPersonTitle:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminPersonTitle:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Finds and displays a PersonTitle entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -138,15 +150,20 @@ class AdminPersonTitleController extends OjsController
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_person_title'.$entity->getId());
 
-        return $this->render('OjsAdminBundle:AdminPersonTitle:show.html.twig', array(
-            'entity' => $entity,
-            'token'  => $token
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminPersonTitle:show.html.twig',
+            array(
+                'entity' => $entity,
+                'token' => $token
+            )
+        );
     }
 
     /**
      * Displays a form to edit an existing PersonTitle entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
@@ -167,34 +184,45 @@ class AdminPersonTitleController extends OjsController
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_person_title'.$entity->getId());
 
-        return $this->render('OjsAdminBundle:AdminPersonTitle:edit.html.twig', array(
-            'entity'    => $entity,
-            'token'     => $token,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminPersonTitle:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'token' => $token,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-    * Creates a form to edit a PersonTitle entity.
-    *
-    * @param PersonTitle $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a PersonTitle entity.
+     *
+     * @param PersonTitle $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(PersonTitle $entity)
     {
-        $form = $this->createForm(new PersonTitleType(), $entity, array(
-            'action' => $this->generateUrl('ojs_admin_person_title_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new PersonTitleType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_person_title_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing PersonTitle entity.
      *
+     * @param Request $request
+     * @param integer $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -223,15 +251,22 @@ class AdminPersonTitleController extends OjsController
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_person_title'.$entity->getId());
 
-        return $this->render('OjsAdminBundle:AdminPersonTitle:edit.html.twig', array(
-            'entity'    => $entity,
-            'token'     => $token,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminPersonTitle:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'token' => $token,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
+
     /**
      * Deletes a PersonTitle entity.
      *
+     * @param Request $request
+     * @param integer $id
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {

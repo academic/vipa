@@ -34,7 +34,7 @@ Ojs\JournalBundle\Entity\Publisher:
             targetEntity: Ojs\AdminBundle\Entity\PublisherManagers
             mappedBy: publisher
     manyToOne:
-        publisher_type:
+        publisherType:
             targetEntity: Ojs\JournalBundle\Entity\PublisherTypes
             joinColumn:
                 name: publisher_type_id
@@ -89,9 +89,6 @@ Ojs\JournalBundle\Entity\Publisher:
            type: integer
            gedmo:
              - treeLevel
-        publisher_type_id:
-            type: integer
-            nullable: true
         name:
             type: string
             length: 255
