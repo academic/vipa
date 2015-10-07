@@ -41,7 +41,7 @@ class AdminPeriodController extends Controller
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('period', $entity->getPeriods());
+                    $row->setField('period', $entity->getPeriod());
                 }
 
                 return $row;
