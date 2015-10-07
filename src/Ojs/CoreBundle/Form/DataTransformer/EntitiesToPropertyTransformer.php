@@ -5,6 +5,7 @@ namespace Ojs\CoreBundle\Form\DataTransformer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  *
@@ -39,12 +40,14 @@ class EntitiesToPropertyTransformer implements DataTransformerInterface
         // return an array of initial values as html encoded json
         $data = array();
 
+        $accessor = PropertyAccess::createPropertyAccessor();
+
         foreach ($entities as $entity) {
             $text = is_null($this->textProperty)
                 ? (string)$entity
-                : $entity->{'get'.$this->textProperty}();
+                : $accessor->getValue($entity, $this->textProperty);
 
-            $data[$entity->getId()] = $text;
+            $data[$accessor->getValue($entity, 'id')] = $text;
         }
 
         return $data;

@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Form\DataTransformer;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Data transformer for single mode (i.e., multiple = false)
@@ -36,12 +37,13 @@ class EntityToPropertyTransformer implements DataTransformerInterface
         if (null === $entity) {
             return $data;
         }
-        // return the initial values as html encoded json
+        $accessor = PropertyAccess::createPropertyAccessor();
+
         $text = is_null($this->textProperty)
             ? (string)$entity
-            : $entity->{'get'.$this->textProperty}();
+            : $accessor->getValue($entity, $this->textProperty);
 
-        $data[$entity->getId()] = $text;
+        $data[$accessor->getValue($entity, 'id')] = $text;
 
         return $data;
     }
