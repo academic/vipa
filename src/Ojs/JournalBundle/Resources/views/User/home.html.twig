@@ -23,9 +23,8 @@
             </h4>
         </div>
         <div class="panel-body">
-            {% if my_journal_count<0 %}
-
-            {{ form(switcher) }}
+            {% if my_journal_count>0 %}
+                {{ form(switcher) }}
             {% else %}
                 <div class="alert alert-warning">
                     {{ "no_journal_you_have"|trans }}
