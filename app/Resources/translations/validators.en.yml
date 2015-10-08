@@ -1,10 +1,10 @@
-error.whitelist: 'Not allowed this file type'
-user.register.email.error.allready_registered: "Email allready registered!"
-user.register.username.error.allready_registered: "Username allready registered!"
-user.register.username.error.not_blank: "Username cannot blank!"
-user.register.email.error.not_blank: "Email cannot blank!"
-user.register.email.error.not_valid: "Email address is not valid!"
-user.register.journal_role.error.allready_registered: "Journal role already added!"
+error.whitelist: 'this file type isn't allowed'
+user.register.email.error.allready_registered: "E-mail already registered!"
+user.register.username.error.allready_registered: "Username already registered!"
+user.register.username.error.not_blank: "Username can't be blank!"
+user.register.email.error.not_blank: "E-mail can't be blank!"
+user.register.email.error.not_valid: "E-mail address is not valid!"
+user.register.journal_role.error.allready_registered: "Journal role already exists!"
 user.register.user.error.not_blank: "User must be selected!"
 user.register.journal.error.not_blank: "Journal must be selected!"
-user.register.password.error.not_blank: "Password cannot blank!"
+user.register.password.error.not_blank: "Password can't be blank!"
