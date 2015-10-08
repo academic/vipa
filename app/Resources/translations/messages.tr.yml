@@ -445,6 +445,7 @@ publisher: Yayıncı
 publisher.about: 'Yayıncı Hakkında'
 publisher.address: Adres
 publisher.country: Ülke
+publisher.design: 'Yayıncı Tasarımı'
 publisher.detail: 'Yayıncı Detayı'
 publisher.edit: 'Yayıncı Düzenle'
 publisher.email: E-posta
@@ -459,6 +460,7 @@ publisher.phone: 'Telefon Numarası'
 publisher.plural: Yayıncılar
 publisher.slug: 'Geçersiz Ad'
 publisher.tags: Etiketler
+publisher.tags: 'Yayıncı Düzeni'
 publisher.type: Tür
 publisher.url: URL
 publisher.wiki_url: 'Wiki URL'
@@ -958,6 +960,7 @@ theme.list: 'Tema Listesi'
 theme.new: 'Yeni Tema'
 theme.plural: Temalar
 title: Başlık
+title.about= Hakkında
 title.admin_dashboard: 'Yönetici Paneli'
 title.announcement: Duyuru
 title.announcements: Duyurular
@@ -1039,6 +1042,7 @@ title.files: Dosyalar
 title.home: 'Ana Sayfa'
 title.institutions: Kurumlar
 title.journal_application: 'Dergi Başvurusu'
+title.journal_application_file: 'Dergi Başvurusu Dosyaları'
 title.publisher: Yayıncı
 title.publisher_application: 'Yayıncı Başvurusu'
 title.publisher_design: 'Tasarım'

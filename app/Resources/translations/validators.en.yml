@@ -1,3 +1,4 @@
+error.whitelist: 'Not allowed this file type'
 user.register.email.error.allready_registered: "Email allready registered!"
 user.register.username.error.allready_registered: "Username allready registered!"
 user.register.username.error.not_blank: "Username cannot blank!"

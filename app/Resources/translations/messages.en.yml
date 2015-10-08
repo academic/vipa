@@ -445,6 +445,7 @@ publisher: Publisher
 publisher.about: 'About Publisher'
 publisher.address: Address
 publisher.country: Country
+publisher.design: 'Publisher Design'
 publisher.detail: 'Publisher Detail'
 publisher.edit: 'Edit Publisher'
 publisher.email: Email
@@ -460,6 +461,7 @@ publisher.plural: Publishers
 publisher.slug: 'Slug Name'
 publisher.tags: Tags
 publisher.type: Type
+publisher.tags: 'Publisher Layout'
 publisher.url: URL
 publisher.wiki_url: 'Wiki URL'
 publishers: Publishers
@@ -958,6 +960,7 @@ theme.list: 'Theme List'
 theme.new: 'New Theme'
 theme.plural: Themes
 title: Title
+title.about= About
 title.admin_dashboard: 'Admin Dashboard'
 title.announcement: Announcement
 title.announcements: Announcements
@@ -1038,6 +1041,7 @@ title.files: Files
 title.home: Home
 title.institutions: Institutions
 title.journal_application: 'Journal Application'
+title.journal_application_file: 'Journal Application Files'
 title.publisher: Publisher
 title.publisher_application: 'Publisher Application'
 title.publisher_design: 'Publisher Design'

@@ -1,0 +1,7 @@
+user.register.firstname: Adınız
+user.register.lastname: Soyadınız
+user.register.username: Kullanıcı Adınız
+user.register.email: Eposta
+user.register.password.first: Şifre
+user.register.password.second: Şifre (Tekrardan)
+user.register.submit: Kayıt
