@@ -17,7 +17,7 @@
     "tests"
   ],
   "resolutions": {
-    "jquery": "*"
+    "jquery": "*",
     "font-awesome": "*"
   },
   "dependencies": {
