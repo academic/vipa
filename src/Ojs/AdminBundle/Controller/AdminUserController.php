@@ -52,7 +52,6 @@ class AdminUserController extends Controller
         );
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->switchUserAction('ojs_public_index', ['username']);
         $rowAction[] = $gridAction->showAction('ojs_admin_user_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_user_edit', 'id');
         $rowAction[] = $passwordAction;
