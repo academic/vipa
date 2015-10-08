@@ -801,6 +801,7 @@ reports.user: 'User Reports'
 res: Res
 restart: Restart
 review: Review
+reviews: Reviews
 review.form: 'Review Form'
 review.form.detail: 'Review Form Detail'
 review.form.item.detail: 'Review Form Item Detail'

@@ -800,7 +800,8 @@ reports.title: Raporlar
 reports.user: 'Kullanıcı Raporları'
 res: Res
 restart: Yeniden Başlat
-review: İncele
+review: Değerlendirme
+reviews: Değerlendirmeler
 review.form: 'Hakem Formu'
 review.form.detail: 'Hakem Formu Detayı'
 review.form.item.detail: 'Hakem Formu Madde Detayı'
