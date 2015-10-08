@@ -143,10 +143,14 @@ class JournalUserController extends Controller
             $journalUser->setJournal($journal);
 
             $em->persist($journalUser);
-
             $em->flush();
+
             $this->successFlashBag('successful.create');
-            return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
+
+            return $this->redirectToRoute(
+                'ojs_journal_user_edit',
+                ['journalId' => $journal->getId(), 'id' => $journalUser->getId()]
+            );
         }
 
         return $this->render(
