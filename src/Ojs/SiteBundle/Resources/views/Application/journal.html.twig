@@ -93,8 +93,9 @@
                     </div>
                 </div>
 
+                {% if form.journalApplicationUploadFiles is not empty %}
                 <div class="panel panel-info graphics-panel">
-                    <div class="panel-heading"><h4>{{ "journal.application.files"|trans }}</h4></div>
+                    <div class="panel-heading"><h4>{{ "title.journal_application_file"|trans }}</h4></div>
                     <div class="panel-body">
                         {% for index,applicationFileForm in form.journalApplicationUploadFiles %}
                             <div class="well">
@@ -123,6 +124,9 @@
                         {% endfor %}
                     </div>
                 </div>
+                {% else %}
+                    {% do form.journalApplicationUploadFiles.setRendered %}
+                {% endif %}
 
                 <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-success pull-right">
                     {{ "apply"|trans }}
