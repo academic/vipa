@@ -705,21 +705,21 @@ ojs.change_password: 'Password Change'
 ojs.changed_password: 'Your password has been changed'
 ojs.click_to_Review: 'Click link below for login to ojs if you are accept invitation'
 ojs.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
-ojs.have_message: 'You have a message from Ojs'
+ojs.have_message: 'You have a message from OJS'
 ojs.install.confirm: 'Confirm Installation'
 ojs.install.title: 'Ojs Installation'
 ojs.install.title.confirm: 'Installlation will start. Ok?'
-ojs.invited: 'You have invited to OJS'
-ojs.invited_to_review: 'Review invitation from'
+ojs.invited: 'You have been invited to OJS'
+ojs.invited_to_review: 'Review Invitation Form'
 ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
 ojs.one_more_step: 'One More Step'
 ojs.password_reset: 'Password Reset'
-ojs.password_reset_link: 'Click link below for reset to ojs account password'
+ojs.password_reset_link: 'Click link below for reset to OJS account password'
 ojs.password_reset_now: 'Reset Now'
 ojs.password_reset_process: 'Password Reset Process'
-ojs.password_reset_request: 'You are request password reset'
+ojs.password_reset_request: 'You are requested to reset password'
 ojs.password_reseted: 'Your password has been reset'
-ojs.preview_article: 'Preview Article Before Submit'
+ojs.preview_article: 'Preview Article Before Submission'
 ojs.required_field: 'This field is required!'
 ojs.selected: (selected)
 ojs.setup: 'OJS Setup'
@@ -728,7 +728,7 @@ ojs.title: OJS
 ojs.tos_accept: 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 ojs.uniq_name: 'This will be your unique short name in application'
 ojs.updater: 'OJS Updater'
-ojs.view_in_browser: 'view this in your browser'
+ojs.view_in_browser: 'View this in your browser'
 ojs.welcome_msg: 'You have joined to OJS'
 onlineSubmission: 'Online Submission'
 optional: Optional
@@ -742,11 +742,11 @@ page.plural: Pages
 page.singular: Page
 pagerfanta.nex: Next
 pagerfanta.previous: Previous
-pages.all: 'All pages'
-pages.detail: 'Page detail'
-pages.edit: 'Edit page'
-pages.management: 'Page management'
-pages.new: 'New page'
+pages.all: 'All Pages'
+pages.detail: 'Page Detail'
+pages.edit: 'Edit Page'
+pages.management: 'Page Management'
+pages.new: 'New Page'
 parent: Parent
 parse: Parse
 part: Part
@@ -757,7 +757,7 @@ phone: Phone
 photos: Photos
 presentations: Presentations
 preview: Preview
-primaly_language: 'Primaly Language'
+primaly_language: 'Primary Language'
 printed: 'Print'
 privacy: Privacy
 proceedings: Proceedings
