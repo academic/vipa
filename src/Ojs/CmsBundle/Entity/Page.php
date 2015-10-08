@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Page
- * @GRID\Source(columns="id, title, body")
+ * @GRID\Source(columns="id, title")
  */
 abstract class Page extends AbstractTranslatable
 {
@@ -31,7 +31,6 @@ abstract class Page extends AbstractTranslatable
     private $title;
     /**
      * @var string
-     * @GRID\Column(title="body")
      */
     private $body;
     /**
