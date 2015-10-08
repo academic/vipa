@@ -960,7 +960,7 @@ theme.list: 'Tema Listesi'
 theme.new: 'Yeni Tema'
 theme.plural: Temalar
 title: Başlık
-title.about= Hakkında
+title.about: Hakkında
 title.admin_dashboard: 'Yönetici Paneli'
 title.announcement: Duyuru
 title.announcements: Duyurular

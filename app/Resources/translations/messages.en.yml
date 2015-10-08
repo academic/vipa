@@ -960,7 +960,7 @@ theme.list: 'Theme List'
 theme.new: 'New Theme'
 theme.plural: Themes
 title: Title
-title.about= About
+title.about: About
 title.admin_dashboard: 'Admin Dashboard'
 title.announcement: Announcement
 title.announcements: Announcements
