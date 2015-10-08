@@ -37,6 +37,15 @@ $(document).ready(function () {
         maxHeight: null,             // set maximum height of editor
 
         focus: false,                 // set focus to editable area after initializing summernote
+        toolbar: [
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'hr']],
+            ['view', ['codeview']]
+        ]
     });
 
     var tagAutocompleteInput = $('select[data-role=tagsinputautocomplete]');
