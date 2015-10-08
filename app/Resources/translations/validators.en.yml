@@ -1,4 +1,4 @@
-error.whitelist: 'this file type isn't allowed'
+error.whitelist: 'this file type is not allowed'
 user.register.email.error.allready_registered: "E-mail already registered!"
 user.register.username.error.allready_registered: "Username already registered!"
 user.register.username.error.not_blank: "Username can't be blank!"
