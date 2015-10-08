@@ -17,13 +17,12 @@
     "tests"
   ],
   "resolutions": {
-    "jquery": "*",
-    "font-awesome": "*"
+    "jquery": "*"
   },
   "dependencies": {
     "jquery": "*",
     "bootstrap": "3.3.5",
-    "font-awesome": "*",
+    "font-awesome": "4.4.0",
     "summernote": "*",
     "select2": "4.*",
     "jquery-file-upload": "*",
