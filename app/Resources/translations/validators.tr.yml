@@ -1,9 +1,9 @@
 error.whitelist: 'İzin verilen dosya türlerinden değil'
-user.register.email.error.allready_registered: "Eposta zaten var!"
+user.register.email.error.allready_registered: "E-posta zaten var!"
 user.register.username.error.allready_registered: "Kullanıcı adı zaten var!"
-user.register.username.error.not_blank: "Kullanıcı boş bırakılamaz!"
-user.register.email.error.not_blank: "Eposta boş bırakılamaz!"
-user.register.email.error.not_valid: "Eposta doğru formatta değil!"
+user.register.username.error.not_blank: "Kullanıcı adı boş bırakılamaz!"
+user.register.email.error.not_blank: "E-posta boş bırakılamaz!"
+user.register.email.error.not_valid: "E-posta doğru formatta değil!"
 user.register.journal_role.error.allready_registered: "Dergi rolü zaten var!"
 user.register.user.error.not_blank: "Kullanıcı seçilmeli!"
 user.register.journal.error.not_blank: "Dergi seçilmeli!"
