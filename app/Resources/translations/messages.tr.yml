@@ -1218,6 +1218,7 @@ title.workflow_step_new: 'Yeni İş Akışı Adımı'
 title.workflow_step_show: 'İş Akışı Adımını Göster'
 title.workflow_steps: 'İş Akışı Adımları'
 title.working_step_preview: 'Çalışma Adımını Önizleme'
+title.workflow_review_form: Değerlendirme Formu
 title.workflow_review_forms: Değerlendirme Formları
 title.workflow_review_form_edit: Değerlendirme Formunu Düzenle
 title.workflow_review_form_new: Yeni Değerlendirme Formu
