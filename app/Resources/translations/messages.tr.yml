@@ -799,7 +799,7 @@ reports.journal: 'Dergi Raporları'
 reports.title: Raporlar
 reports.user: 'Kullanıcı Raporları'
 res: Res
-restart: Yeniden Başlat
+restart: 'Yeniden Başlat'
 review: Değerlendirme
 reviews: Değerlendirmeler
 review.form: 'Hakem Formu'
@@ -818,18 +818,18 @@ reviewResultCodes.1: 'Yeniden Yazılmalı'
 reviewResultCodes.2: 'Büyük Revizyon'
 reviewResultCodes.3: 'Küçük Revizyon'
 reviewResultCodes.4: 'Kabul Et'
-role.edit: 'Görev Düzenle'
-role.forusers: 'Kullanıcılar İçin'
+role.edit: 'Rolü Düzenle'
+role.forusers: 'Kullanıcılar İçin Rol'
 role.id: ID
-role.issystemrole: 'Sistem Görevi mi?'
-role.list: 'Görev Listesi'
+role.issystemrole: 'Sistem Rolü mü?'
+role.list: 'Rol Listesi'
 role.name: İsim
-role.new: 'Yeni Görev'
-role.plural: Görevler
-role.role: Görev
-role.singular: Görev
-role.users: 'Görevli Kullanıcılar'
-roles: Görevler
+role.new: 'Yeni Rol'
+role.plural: Roller
+role.role: Rol
+role.singular: Rol
+role.users: 'Rolü Olan Kullanıcılar'
+roles: Roller
 s: Göster
 save: Kaydet
 save.finish: 'Kaydet & Bitir'
@@ -837,22 +837,22 @@ save.next: 'Kaydet & Devam Et'
 scope: Kapsam
 search: Ara
 search.builder: 'Gelişmiş Sorgu Aracı'
-search.main: 'Dergi, yazar ve makale arayın'
+search.main: 'Dergi, Makale ve Yazar Ara'
 search.noresult: 'Üzgünüz, aradığınız kelime için hiç bir sonuç bulamadık.'
 search.result.headline: '`%term%` kelimesi için toplam %total% sonuç bulundu.'
 search.results: 'Arama Sonuçları'
 search.on.everywhere: 'Bu sitede ara'
 search.on.journal: 'Dergide ara'
-search.advanced: "Gelişmiş Arama"
-search.query: "Sorgu"
-search.useQueryBuilder: "Sorgu Aracını Kullan"
-search.submit: "Ara"
-search.or: "VEYA"
-search.and: "VE"
-search.not: "DEĞİL"
-search.field: "Giriş elemanı"
-search.removeFieldItem: "Giriş Elemanını Kaldır"
-search.addFieldItem: "Giriş Elemanı Ekle"
+search.advanced: 'Gelişmiş Arama'
+search.query: Sorgu
+search.useQueryBuilder: 'Sorgu Aracını Kullan'
+search.submit: Ara
+search.or: VEYA
+search.and: VE
+search.not: DEĞİL
+search.field: 'Giriş Elemanı'
+search.removeFieldItem: 'Giriş Elemanını Kaldır'
+search.addFieldItem: 'Giriş Elemanı Ekle'
 search.value: "Değer"
 search_query: 'Anahtar Kelime Gir'
 searchon.crossref: 'CrossRef`de ara'
@@ -872,7 +872,7 @@ sendmail: 'E-posta Gönder'
 services: Hizmetler
 setting: Ayar
 settings: Ayarlar
-setup.step: 'Adım Sayısı'
+setup.step: 'Adım Numarası'
 show: Göster
 sign.in: 'Giriş Yap'
 size: Boyut
@@ -884,13 +884,13 @@ stats.most_downloaded_article_files: 'En Çok İndirilen Makale Dosyaları'
 stats.most_downloaded_issue_files: 'En Çok İndirilen Sayı Dosyaları'
 stats.most_viewed_articles: 'En Çok Görüntülenen Makaleler'
 stats.most_viewed_journals: 'En Çok Görüntülenen Dergiler'
-stats.views: 'Görüntülemeler'
-stats.downloads: 'İndirilmeler'
+stats.views: Görüntülemeler
+stats.downloads: İndirilmeler
 stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
 status: Durum
 status.inreview: İncelemede
-status.not_submitted: 'Gönderilmedi'
+status.not_submitted: Gönderilmedi
 status.published: Yayımlandı
 status.rejected: Reddedildi
 status.spam: Spam
@@ -956,7 +956,7 @@ template.name: 'Şablon Adı'
 templates: Şablonlar
 theme: Tema
 theme.edit: 'Temayı Düzenle'
-theme.id: 'Tema Nosu'
+theme.id: 'Tema ID'
 theme.list: 'Tema Listesi'
 theme.new: 'Yeni Tema'
 theme.plural: Temalar
@@ -968,7 +968,6 @@ title.announcements: Duyurular
 title.announcement_edit: 'Duyuruyu Düzenle'
 title.announcement_new: 'Yeni Duyuru'
 title.announcement_show: 'Duyuru Ayrıntıları'
-title.announcements: Duyurular
 title.api: 'API Home'
 title.archives: Arşivler
 title.article: Makale
