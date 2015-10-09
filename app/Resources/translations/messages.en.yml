@@ -806,7 +806,7 @@ review.form: 'Review Form'
 review.form.detail: 'Review Form Detail'
 review.form.item.detail: 'Review Form Item Detail'
 review.form.item.new: 'Review Form New Item'
-review.form.item.update: 'Review Form Item Upate'
+review.form.item.update: 'Review Form Item Update'
 review.form.new: 'New Review Form'
 review.form.preview: 'Review Form Preview'
 review.form.update: 'Update Review Form'
@@ -843,17 +843,17 @@ search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
 search.on.everywhere: 'Search On This Site'
 search.on.journal: 'Search On Journal'
-search.advanced: "Advanced Search"
-search.query: "Query"
-search.useQueryBuilder: "Use Query Builder"
-search.submit: "Search"
-search.or: "OR"
-search.and: "AND"
-search.not: "NOT"
-search.field: "Field"
-search.removeFieldItem: "Remove Field Item"
-search.addFieldItem: "Add Field Item"
-search.value: "Value"
+search.advanced: 'Advanced Search'
+search.query: Query
+search.useQueryBuilder: 'Use Query Builder'
+search.submit: Search
+search.or: OR
+search.and: AND
+search.not: NOT
+search.field: Field
+search.removeFieldItem: 'Remove Field Item'
+search.addFieldItem: 'Add Field Item'
+search.value: Value
 search_query: 'Type Keyword(s) Here'
 searchon.crossref: 'Search on CrossRef'
 searchon.doaj: 'Search on DOAJ'
@@ -907,7 +907,7 @@ subject.plural: Subjects
 subjects: Subjects
 submission.attention: 'After submission your manuscript you can''t change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.'
 submission.starting: Start
-submission.success: 'Submission Sending Complete.'
+submission.success: 'Submission Sending Completed.'
 submissionDate: 'Submission Date'
 submission_checklist: 'Submission Checklist'
 submission_checklist.create: 'New item'
@@ -926,7 +926,7 @@ successful.remove: 'Successfully removed.'
 successful.update: 'Successfully updated.'
 successfully.subscribed: 'Successfully subscribed'
 suggest: Suggest
-suggestedMaxDays: 'Suggested maximum days count'
+suggestedMaxDays: 'Suggested Maximum Days Count'
 summary: Summary
 suppfiles.data: 'Data Analysis'
 suppfiles.resins: 'Research Instruments'
