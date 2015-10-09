@@ -41,6 +41,7 @@ Ojs\JournalBundle\Entity\Article:
       joinColumn:
         name: submitter_id
         referencedColumnName: id
+      cascade: ["ALL"]
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
