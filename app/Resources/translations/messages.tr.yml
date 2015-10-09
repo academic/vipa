@@ -1008,23 +1008,23 @@ title.boards: Kurullar
 title.browse: Gözat
 title.categories: Kategoriler
 title.citation: Atıf
-title.citation_edit: 'Atıfı Düzenle'
-title.citation_new: 'Yeni Atıf'
-title.citation_setting_edit: 'Atıf Ayarını Düzenle'
-title.citation_setting_new: 'Yeni Atıf Ayarı'
-title.citation_setting_show: 'Atıf Ayarını Göster'
-title.citation_settings: 'Atıf Ayarları'
-title.citation_show: 'Atıf Göster'
-title.citations: Atıflar
+title.citation_edit: 'Referansı Düzenle'
+title.citation_new: 'Yeni Referans'
+title.citation_setting_edit: 'Referans Ayarını Düzenle'
+title.citation_setting_new: 'Yeni Referans Ayarı'
+title.citation_setting_show: 'Referans Ayarını Göster'
+title.citation_settings: 'Referans Ayarları'
+title.citation_show: 'Referans Göster'
+title.citations: Referanslar
 title.connected_account: 'Bağlı Hesap'
 title.connected_account_add: 'Bağlı Hesap Ekle'
-title.contact_edit: 'Kişi Düzenle'
-title.contact_new: 'Yeni Kişi'
-title.contact_show: 'Kişi Göster'
-title.contact_type_edit: 'Kişi Tipini Düzenle'
-title.contact_type_new: 'Yeni Kişi Tipi'
-title.contact_type_show: 'Kişi Tipini Göster'
-title.contact_types: 'Kişi Tipleri'
+title.contact_edit: 'İletişim Düzenle'
+title.contact_new: 'Yeni İletişim Kişisi'
+title.contact_show: 'İletişim Kişisi Göster'
+title.contact_type_edit: 'İletişim Tipini Düzenle'
+title.contact_type_new: 'Yeni İletişim Tipi'
+title.contact_type_show: 'İletişim Tipini Göster'
+title.contact_types: 'İletişim Tipleri'
 title.contacts: İletişim
 title.create_custom_field: 'Özel Alan Oluştur'
 title.custom_field: 'Özel Alan'
@@ -1034,7 +1034,7 @@ title.design_show: 'Tasarımı Göster'
 title.designs: Tasarımlar
 title.editor_dashboard: 'Editör Paneli'
 title.editor_myjournals: 'Dergilerim'
-title.explore: Keşfet
+title.explore: Dergiler
 title.file_edit: 'Dosya Düzenle'
 title.file_new: 'Yeni Dosya'
 title.file_show: 'Dosya Göster'
@@ -1063,16 +1063,16 @@ title.issue_articles: 'Sayının Makaleleri'
 title.issue_detail: 'Sayı Detayı'
 title.issue_edit: 'Sayıyı Düzenle'
 title.issue_files: 'Sayı Dosyaları'
-title.issue_new: 'Yeni sayı'
-title.issue_show: 'Sayıyı göster'
-title.issue_view: 'Sayıları Göster'
+title.issue_new: 'Yeni Sayı'
+title.issue_show: 'Sayıyı Göster'
+title.issue_view: 'Sayıları Görüntüle'
 title.issuefile.new: 'Yeni Sayı Dosyası'
 title.issues: Sayılar
 title.journal: Dergi
-title.journal_application: 'Dergi Başvurusu'
+title.journal_application: 'Dergi Başvuruları'
 title.journal_apply: 'Dergiye Uygula'
-title.journal_articles: 'Dergi Makaleleri'
-title.journal_authors: 'Dergi Yazarları'
+title.journal_articles: Makaleler
+title.journal_authors: Yazarlar
 title.journal_contact: İletişim
 title.journal_contact_edit: 'İletişim Bilgilerini Düzenle'
 title.journal_contact_new: 'Yeni İletişim Bilgisi'
