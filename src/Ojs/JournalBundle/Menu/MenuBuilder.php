@@ -142,9 +142,9 @@ class MenuBuilder extends ContainerAware
 
         $menu = $factory->createItem('root')->setChildrenAttribute('class', 'dropdown-menu dropdown-menu-right');
 
-        $menu->addChild(' ', [
+        $menu->addChild('dashboard', [
             'route' => 'dashboard',
-            'attributes' => array('title' => 'dashboard', 'data-toggle' => 'tooltip', 'data-placement' => 'left'),
+            'attributes' => array('data-toggle' => 'tooltip', 'data-placement' => 'left'),
             'extras' => ['icon' => 'dashboard']
         ]);
 
@@ -156,30 +156,30 @@ class MenuBuilder extends ContainerAware
 
             if ($checker->isGranted('CREATE', $journal, 'articles')) {
 
-                $menu->addChild('  ', [
+                $menu->addChild('article.submit', [
                     'route' => 'ojs_journal_submission_new',
                     'routeParameters' => ['journalId' => $journalId],
-                    'attributes' => array('title' => 'article.submit', 'data-toggle' => 'tooltip', 'data-placement' => 'left'),
+                    'attributes' => array('data-toggle' => 'tooltip', 'data-placement' => 'left'),
                     'extras' => ['icon' => 'file-text']
                 ]);
             }
 
             if ($checker->isGranted('EDIT', $journal, 'userRole')) {
 
-                $menu->addChild('   ', [
+                $menu->addChild('title.users', [
                     'route' => 'ojs_journal_user_index',
                     'routeParameters' => ['journalId' => $journalId],
-                    'attributes' => array('title' => 'title.users', 'data-toggle' => 'tooltip', 'data-placement' => 'left'),
+                    'attributes' => array('data-toggle' => 'tooltip', 'data-placement' => 'left'),
                     'extras' => ['icon' => 'key']
                 ]);
             }
 
             if ($checker->isGranted('EDIT', $journal, 'issues')) {
 
-                $menu->addChild('    ', [
+                $menu->addChild('title.issues', [
                     'route' => 'ojs_journal_issue_index',
                     'routeParameters' => ['journalId' => $journalId],
-                    'attributes' => array('title' => 'title.issues', 'data-toggle' => 'tooltip', 'data-placement' => 'left'),
+                    'attributes' => array('data-toggle' => 'tooltip', 'data-placement' => 'left'),
                     'extras' => ['icon' => 'plug']
                 ]);
             }
@@ -188,10 +188,10 @@ class MenuBuilder extends ContainerAware
                 $path = $checker->isGranted('EDIT', $journal, 'articles')
                     ? 'ojs_journal_submission_all'
                     : 'ojs_journal_submission_me';
-                $menu->addChild('     ', [
+                $menu->addChild('articles', [
                     'route' => $path,
                     'routeParameters' => ['journalId' => $journalId],
-                    'attributes' => array('title' => 'articles', 'data-toggle' => 'tooltip', 'data-placement' => 'left'),
+                    'attributes' => array('data-toggle' => 'tooltip', 'data-placement' => 'left'),
                     'extras' => ['icon' => 'file-o']
                 ]);
             }
