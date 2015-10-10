@@ -85,7 +85,9 @@ class AppKernel extends Kernel
                     $otherClasses = $accessor->getValue($bundleConfig, '[extra][other-bundle-classes]');
                     if(is_array($otherClasses)) {
                         foreach($otherClasses as $otherClass){
-                            $bundles[] = new $otherClass();
+                            $otherClassInstance = new $otherClass();
+                            if(!in_array($otherClassInstance, $bundles))
+                                $bundles[] = $otherClassInstance;
                         }
                     }
                 }
