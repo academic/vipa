@@ -1,7 +1,9 @@
 <?php
 
 namespace Ojs\CmsBundle\Entity;
+
 use Ojs\CoreBundle\Entity\DisplayTrait;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * Announcement
@@ -28,7 +30,6 @@ abstract class Announcement
      * @var string
      */
     private $image;
-
 
     /**
      * Get id
