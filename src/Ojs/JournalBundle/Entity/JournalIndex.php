@@ -26,7 +26,7 @@ class JournalIndex
     private $link;
     /**
      * @var Journal
-     * @GRID\Column(title="Journal")
+     * @Grid\Column(title="journal")
      */
     private $journal;
     /**

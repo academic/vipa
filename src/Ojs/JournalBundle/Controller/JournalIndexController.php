@@ -40,10 +40,14 @@ class JournalIndexController extends Controller
 
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /* @var JournalIndex $entity */
+                /* @var JournalUser $entity */
                 $entity = $row->getEntity();
-                $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
-
+                if(!is_null($entity)){
+                    $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
+                    if(!is_null($entity)){
+                        $row->setField('journal', $entity->getJournal()->getTitle());
+                    }
+                }
                 return $row;
             }
         );
