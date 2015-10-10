@@ -2,6 +2,7 @@
 
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class AppKernel extends Kernel
 {
@@ -64,6 +65,9 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
         }
+        $accessor = PropertyAccess::createPropertyAccessor();
+
+
         $thirdPartyDir = __DIR__.'/../thirdparty';
         $fs = new \Symfony\Component\Filesystem\Filesystem();
         if ($fs->exists($thirdPartyDir)) {
@@ -74,9 +78,14 @@ class AppKernel extends Kernel
                 /** @var \Symfony\Component\Finder\SplFileInfo $file */
                 $bundleConfig = json_decode(file_get_contents($file->getRealpath()), true);
                 if ($bundleConfig) {
-                    if (isset($bundleConfig['extra']) && isset($bundleConfig['extra']['bundle-class'])) {
-                        if (class_exists($bundleConfig['extra']['bundle-class'])) {
-                            $bundles[] = new $bundleConfig['extra']['bundle-class']();
+                    $class = $accessor->getValue($bundleConfig, '[extra][bundle-class]');
+                    if ($class && class_exists($class)) {
+                        $bundles[] = new $class();
+                    }
+                    $otherClasses = $accessor->getValue($bundleConfig, '[extra][other-bundle-classes]');
+                    if(is_array($otherClasses)) {
+                        foreach($otherClasses as $otherClass){
+                            $bundles[] = new $otherClass();
                         }
                     }
                 }

@@ -64,6 +64,9 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'extra' => array(
                 'bundle-class' => 'OkulBilisim\\OjsDoiBundle\\OjsDoiBundle',
             ),
+            "other-bundle-classes" => array(
+                "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
+            )
         )
     );
 
