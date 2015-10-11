@@ -1,0 +1,16 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+
+{% block body -%}
+    <h1>File creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('ojs_admin_file_index') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

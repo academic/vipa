@@ -96,3 +96,7 @@ ojs_admin_period:
 ojs_admin_person_title:
     resource: "@OjsAdminBundle/Resources/config/routing/person_title.yml"
     prefix:   person-title
+
+ojs_admin_file:
+    resource: "@OjsAdminBundle/Resources/config/routing/file.yml"
+    prefix:   file

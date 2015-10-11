@@ -1,0 +1,45 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+
+{% block body -%}
+    <h1>File</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ entity.path }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ entity.size }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>{{ entity.tags }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('ojs_admin_file_index') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('ojs_admin_file_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

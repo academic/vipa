@@ -1,0 +1,48 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+
+{% block body -%}
+    <h1>File list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Path</th>
+                <th>Size</th>
+                <th>Tags</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('ojs_admin_file_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.path }}</td>
+                <td>{{ entity.size }}</td>
+                <td>{{ entity.tags }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('ojs_admin_file_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('ojs_admin_file_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('ojs_admin_file_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
