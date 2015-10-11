@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use APY\DataGridBundle\Grid\Row;
 
 /**
  * PersonTitle controller.
@@ -23,14 +24,27 @@ class AdminPersonTitleController extends OjsController
     /**
      * Lists all PersonTitle entities.
      *
+     * @param Request $request
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new PersonTitle())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
         $source = new Entity('OjsJournalBundle:PersonTitle');
+        $source->manipulateRow(
+            function (Row $row) use ($request) {
+                /* @var PersonTitle $entity */
+                $entity = $row->getEntity();
+                if (!is_null($entity)) {
+                    $entity->setDefaultLocale($request->getDefaultLocale());
+                    $row->setField('title', $entity->getTitle());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
