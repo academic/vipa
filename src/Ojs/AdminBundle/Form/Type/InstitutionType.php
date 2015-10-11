@@ -57,6 +57,7 @@ class InstitutionType extends AbstractType
                 'parent',
                 'entity',
                 [
+                    'required' => false,
                     'label' => 'parent',
                     'class' => 'Ojs\JournalBundle\Entity\Institution',
                     'attr' => [
