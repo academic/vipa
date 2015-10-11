@@ -257,7 +257,7 @@ class AdminPersonTitleController extends OjsController
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('ojs_admin_person_title_edit', array('id' => $id)));
         }
 
