@@ -12,6 +12,5 @@ Ojs\JournalBundle\Entity\ArticleTypesTranslation:
             type: string
             length: 255
         description:
-            type: string
-            length: 255
+            type: text
             nullable: TRUE
