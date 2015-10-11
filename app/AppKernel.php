@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new Norzechowicz\AceEditorBundle\NorzechowiczAceEditorBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Jb\Bundle\FileUploaderBundle\JbFileUploaderBundle(),
+            new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Ojs\CoreBundle\OjsCoreBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),

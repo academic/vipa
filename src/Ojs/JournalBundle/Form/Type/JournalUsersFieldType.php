@@ -49,6 +49,6 @@ class JournalUsersFieldType extends AbstractType
 
     public function getParent()
     {
-        return 'select2entity';
+        return 'tetranz_select2entity';
     }
 }

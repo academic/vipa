@@ -38,7 +38,7 @@ assetic:
         - '@OkulBilisimLocationBundle/Resources/public/js/location.js'
         - '@OjsSiteBundle/Resources/public/js/block.js'
         - '@A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js'
-        - '@OjsCoreBundle/Resources/public/js/select2entity.js'
+        - '@TetranzSelect2EntityBundle/Resources/public/js/select2entity.js'
         - '@OjsAdminBundle/Resources/public/js/dashboard.js'
     admin_main_css:
       inputs:

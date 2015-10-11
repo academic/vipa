@@ -15,7 +15,7 @@ class JournalUserType extends AbstractType implements FormTypeInterface
         $builder
             ->add(
                 'user',
-                'select2entity',
+                'tetranz_select2entity',
                 [
                     'label' => 'user',
                     'class' => 'Ojs\UserBundle\Entity\User',
