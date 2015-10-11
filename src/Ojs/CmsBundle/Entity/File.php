@@ -3,32 +3,26 @@
 namespace Ojs\CmsBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Doctrine\Common\Collections\ArrayCollection;
-use Ojs\CoreBundle\Entity\GenericEntityTrait;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
-use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Entity\TagsTrait;
 
-abstract class File extends AbstractTranslatable
+abstract class File
 {
-    use GenericEntityTrait;
+    use TagsTrait;
 
     /**
-     * Constructor
+     * @var int
      */
-    public function __construct()
-    {
-        $this->translations = new ArrayCollection();
-    }
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
 
     /**
      * @var string
      */
     private $description;
-
-    /**
-     * @Prezent\Translations(targetEntity="Ojs\CmsBundle\Entity\FileTranslation")
-     */
-    protected $translations;
 
     /**
      * @var string
@@ -53,7 +47,7 @@ abstract class File extends AbstractTranslatable
      */
     public function getName()
     {
-        return $this->translations->getName();
+        return $this->name;
     }
 
     /**
@@ -61,7 +55,7 @@ abstract class File extends AbstractTranslatable
      */
     public function setName($name)
     {
-        $this->translations->setName($name);
+        $this->name = $name;
     }
 
     /**
@@ -110,42 +104,5 @@ abstract class File extends AbstractTranslatable
     public function setSize($size)
     {
         $this->size = $size;
-    }
-
-    /**
-     * Translation helper method
-     * @param null $locale
-     * @return mixed|null|\Ojs\CmsBundle\Entity\FileTranslation
-     */
-    public function translate($locale = null)
-    {
-        if (null === $locale) {
-            $locale = $this->currentLocale;
-        }
-
-        if (!$locale) {
-            throw new \RuntimeException('No locale has been set and currentLocale is empty');
-        }
-
-        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
-            return $this->currentTranslation;
-        }
-
-        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
-
-        if (!$translation = $this->translations->get($locale)) {
-            $translation = new FileTranslation();
-
-            if (!is_null($defaultTranslation)) {
-                $translation->setName($defaultTranslation->setName());
-            }
-
-            $translation->setLocale($locale);
-            $this->addTranslation($translation);
-        }
-
-        $this->currentTranslation = $translation;
-
-        return $translation;
     }
 }

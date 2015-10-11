@@ -16,6 +16,8 @@ Ojs\CmsBundle\Entity\File:
             generator:
                 strategy: AUTO
     fields:
+        name:
+            type: text
         description:
             type: text
         path:
