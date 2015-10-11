@@ -1,0 +1,29 @@
+Ojs\CmsBundle\Entity\File:
+    type: entity
+    table: file
+    repositoryClass: Ojs\CmsBundle\Entity\FileRepository
+    inheritanceType: SINGLE_TABLE
+    discriminatorColumn:
+        name: discriminator
+        type: string
+    discriminatorMap:
+        admin: Ojs\AdminBundle\Entity\AdminFile
+        journal: Ojs\JournalBundle\Entity\JournalFile
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        description:
+            type: text
+        path:
+            type: text
+        size:
+            type: integer
+        tags:
+            type: string
+            length: 255
+
+    lifecycleCallbacks: {  }
