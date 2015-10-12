@@ -123,7 +123,7 @@ class JournalPageController extends OjsController
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
-
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -254,6 +254,7 @@ class JournalPageController extends OjsController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em->flush();
             $this->successFlashBag('successful.update');
             return $this->redirectToRoute('ojs_journal_page_edit',

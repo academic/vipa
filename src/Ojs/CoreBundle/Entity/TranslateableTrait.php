@@ -81,7 +81,7 @@ trait TranslateableTrait
     /**
      * Returns translation of given locale
      * @param null $locale
-     * @return mixed
+     * @return $this
      */
     public function getTranslationByLocale($locale = null)
     {
