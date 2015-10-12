@@ -35,7 +35,8 @@ $(document).ready(function () {
         updatePromptsPosition: true
     });
 
-    $(".wysihtml5").summernote({
+    var wysihtml5 = $(".wysihtml5");
+    wysihtml5.summernote({
         height: 100,                 // set editor height
 
         minHeight: null,             // set minimum height of editor
@@ -52,6 +53,11 @@ $(document).ready(function () {
             ['view', ['codeview']]
         ]
     });
+
+    if (wysihtml5.summernote('isEmpty')) {
+        wysihtml5.val('');
+    }
+
 
     var tagAutocompleteInput = $('select[data-role=tagsinputautocomplete]');
     tagAutocompleteInput.select2({
