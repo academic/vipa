@@ -1007,7 +1007,7 @@ title.board_show: 'Kurulu Göster'
 title.boards: Kurullar
 title.browse: Gözat
 title.categories: Kategoriler
-title.citation: Atıf
+title.citation: Referans
 title.citation_edit: 'Referansı Düzenle'
 title.citation_new: 'Yeni Referans'
 title.citation_setting_edit: 'Referans Ayarını Düzenle'
@@ -1042,7 +1042,7 @@ title.files: Dosyalar
 title.home: 'Ana Sayfa'
 title.institutions: Kurumlar
 title.journal_application: 'Dergi Başvuruları'
-title.journal_application_file: 'Dergi Başvurusu Dosyaları'
+title.journal_application_file: 'Dergi Başvuru Dosyaları'
 title.publisher: Yayıncı
 title.publisher_application: 'Yayıncı Başvuruları'
 title.publisher_design: 'Tasarım'
@@ -1084,9 +1084,9 @@ title.design_show: 'Dergi Tasarımını Göster'
 title.designs: 'Dergi Tasarımları'
 title.journal_detail: 'Dergi Detayı'
 title.journal_edit: 'Dergi Düzenle'
-title.index_edit: 'Dergi İndeksini Düzenle'
-title.index_new: 'Yeni Dergi İndeksi'
-title.index_show: 'Dergi İndeksini Göster'
+title.index_edit: 'İndeksi Düzenle'
+title.index_new: 'Yeni İndeks'
+title.index_show: 'İndeksi Göster'
 title.indexes: 'Dergi İndeksleri'
 title.journal_new: 'Yeni Dergi'
 title.journal_page_list: 'Sayfa Listesi'
@@ -1094,13 +1094,13 @@ title.journal_role_edit: 'Dergi Rollerini Düzenle'
 title.journal_role_myjournals: 'Dergilerim'
 title.journal_role_new: 'Yeni Dergi Rolü'
 title.journal_role_send_mail: 'E-Posta Gönder'
-title.journal_role_show: 'Dergi Rollerini Göster'
+title.journal_role_show: 'Rolleri Göster'
 title.journal_role_show_journals: 'Dergileri Göster'
 title.journal_role_show_users: 'Kullanıcıları Göster'
 title.journal_roles: 'Dergi Rolleri'
-title.section_edit: 'Dergi Bölümünü Düzenle'
-title.section_new: 'Yeni Dergi Bölümü'
-title.section_show: 'Dergi Bölümü Göster'
+title.section_edit: 'Bölüm Düzenle'
+title.section_new: 'Yeni Bölüm'
+title.section_show: 'Bölümü Göster'
 title.sections: 'Dergi Bölümleri'
 title.journal_settings_mail: 'E-Posta Ayarları'
 title.journal_settings_submission: 'Gönderi Ayarları'
@@ -1113,11 +1113,12 @@ title.themes: 'Dergi Temaları'
 title.journal_users: 'Dergi Kullanıcıları'
 title.journal_user_add: 'Dergiye Kullanıcı Ekle'
 title.journal_user_create: 'Dergi İçin Kullanıcı Oluştur'
+title.journal_user_edit: 'Kullanıcı Düzenle'
 title.journal_user_leave: 'Dergiden Ayrıl'
 title.journals: Dergiler
-title.journal_index_edit: 'Dergilerin İndeksini Düzenle'
-title.journal_index_new: 'Yeni Dergilerin İndeksleri'
-title.journal_index_show: 'Dergilerin İndeksini Göster'
+title.journal_index_edit: 'İndeksi Düzenle'
+title.journal_index_new: 'Yeni İndeksler'
+title.journal_index_show: 'İndeks Göster'
 title.journal_indexes: İndeksler
 title.language_edit: 'Dili Düzenle'
 title.language_new: 'Yeni Dil'
@@ -1145,11 +1146,11 @@ title.password_create: 'Şifre Oluştur'
 title.password_forgot: 'Şifreyi Unuttum'
 title.password_reset: 'Şifreyi Sıfırla'
 title.people_directory: 'Kişi Dizini'
-title.person_title: 'Titr'
-title.person_title_edit: 'Titri Düzenle'
-title.person_title_new: 'Yeni Titr'
-title.person_title_show: 'Titri Göster'
-title.person_titles: 'Titrler'
+title.person_title: Ünvan
+title.person_title_edit: 'Ünvanı Düzenle'
+title.person_title_new: 'Yeni Ünvan'
+title.person_title_show: 'Ünvanı Göster'
+title.person_titles: Ünvanlar
 title.post: Gönderi
 title.post_detail: 'Gönderi Detayı'
 title.post_edit: 'Gönderiyi Düzenle'
@@ -1166,19 +1167,19 @@ title.proxy_edit: 'Vekil Düzenle'
 title.proxy_new: 'Yeni Vekil'
 title.proxy_parents: 'Vekil Üst Öğeler'
 title.proxy_show: 'Vekil Göster'
-title.register: Kayıt Ol
+title.register: 'Kayıt Ol'
 title.review_form_edit: 'Hakem Formunu Düzenle'
-title.review_form_item_edit: 'Hakem Form Elemanı Düzenle'
-title.review_form_item_new: 'Yeni Hakem Formu Elemanı'
-title.review_form_item_show: 'Hakem Formu Elemanını Göster'
-title.review_form_items: 'Hakem Formu Elemanları'
+title.review_form_item_edit: 'Form Elemanı Düzenle'
+title.review_form_item_new: 'Yeni Eleman'
+title.review_form_item_show: 'Form Elemanını Göster'
+title.review_form_items: 'Form Elemanları'
 title.review_form_new: 'Yeni Hakem Formu'
 title.review_form_preview: 'Hakem Formu Önizleme'
 title.review_form_show: 'Hakem Formunu Göster'
 title.review_forms: 'Hakem Formları'
-title.review: 'Değerlendirme'
-title.reviews: 'Değerlendirmeler'
-title.reviews_answers: 'Yanıtlar'
+title.review: Değerlendirme
+title.reviews: Değerlendirmeler
+title.reviews_answers: Yanıtlar
 title.reviews_answers_show: 'Yanıtları Göster'
 title.role_edit: 'Rolü Düzenle'
 title.role_new: 'Yeni Rol'
@@ -1192,10 +1193,10 @@ title.subject_new: 'Yeni Konu'
 title.subject_show: 'Konuyu Göster'
 title.subjects: Konular
 title.submission_author_confirm: 'Yazarlık Onayı'
-title.submission_checklist_edit: 'Gönderi Kontrol Listesini Düzenle'
-title.submission_checklist_new: 'Yeni Gönderi Kontrol Listesi'
-title.submission_checklist_show: 'Göderi Kontrol Listesini Göster'
-title.submission_checklists: 'Gönderi Kontrol Listeleri'
+title.submission_checklist_edit: 'Kontrol Listesini Düzenle'
+title.submission_checklist_new: 'Yeni Kontrol Listesi'
+title.submission_checklist_show: 'Kontrol Listesini Göster'
+title.submission_checklists: 'Kontrol Listeleri'
 title.submission_file_new: 'Yeni Gönderi Dosyası'
 title.submission_files: 'Gönderi Dosyaları'
 title.submission_edit: 'Gönderiyi Düzenle'
@@ -1222,11 +1223,11 @@ title.workflow_step_new: 'Yeni İş Akışı Adımı'
 title.workflow_step_show: 'İş Akışı Adımını Göster'
 title.workflow_steps: 'İş Akışı Adımları'
 title.working_step_preview: 'Çalışma Adımını Önizleme'
-title.workflow_review_form: Değerlendirme Formu
-title.workflow_review_forms: Değerlendirme Formları
-title.workflow_review_form_edit: Değerlendirme Formunu Düzenle
-title.workflow_review_form_new: Yeni Değerlendirme Formu
-title.workflow_review_form_show: Değerlendirme Formunu Göster
+title.workflow_review_form: 'Değerlendirme Formu'
+title.workflow_review_forms: 'Değerlendirme Formları'
+title.workflow_review_form_edit: 'Değerlendirme Formunu Düzenle'
+title.workflow_review_form_new: 'Yeni Değerlendirme Formu'
+title.workflow_review_form_show: 'Değerlendirme Formunu Göster'
 title.search_advanced: "Gelişmiş Arama"
 titleTransliterated: 'Başka Dilde Yazılmış Başlık'
 titleabbr: 'Kısaltılmış Başlık'
@@ -1250,7 +1251,7 @@ unconfirmed.user: 'Doğrulanmamış Kullanıcı'
 unpublished: Yayımlanmamış
 update: Güncelle
 update.article.file: 'Makale Dosyasını Güncelle'
-update.end.time: 'Güncelleme Bitiş Tarihi'
+update.end.time: 'Bitiş Tarihini Güncelle'
 update.ttl: 'TTL''yi Güncelle'
 updated: Güncellendi
 uploading: Güncelleniyor...
@@ -1281,14 +1282,14 @@ user.email: E-posta
 user.forgot_password: 'Şifreyi Unuttum'
 user.hide_account: 'Hesabımı Gizle'
 user.id: 'Kullanıcı ID'
-user.isActive: 'Kullanıcı aktivasyon sürecini tamamladı mı'
+user.isActive: 'Kullanıcı aktivasyon sürecini tamamladı mı?'
 user.join_journal: 'Yazar Olarak Kaydol'
 user.join_journal_confirm: 'Bu derginin yazarı değilsiniz. Yazar olarak kaydolduğunuzu onaylayın.'
-user.journal_roles: 'Kullanıcı Dergi Rolleri'
+user.journal_roles: 'Kullanıcı Rolleri'
 user.journalrole: 'Dergi Rolleri'
 user.journalrole.alljournals: 'Tüm Dergiler'
-user.journalrole.creation: 'Dergi Rol Oluşturma'
-user.journalrole.edit: 'Dergi Rolü Düzenle'
+user.journalrole.creation: 'Rol Oluşturma'
+user.journalrole.edit: 'Rol Düzenle'
 user.journalrole.email: E-Posta
 user.journalrole.id: ID
 user.journalrole.journal: Dergi
@@ -1301,7 +1302,7 @@ user.journalrole.mail.send: Gönder
 user.journalrole.mail.subject: Konu
 user.journalrole.mail.template: Şablon
 user.journalrole.mail.to: 'Kime'
-user.journalrole.myjournals: 'Dergilerim'
+user.journalrole.myjournals: Dergilerim
 user.journalrole.role: Rol
 user.journalrole.send_email: 'Kullanıcıya E-Posta Gönder'
 user.journalrole.singular: 'Dergi Rolü'
@@ -1334,7 +1335,7 @@ user.title: Başlık
 user.update_profile: 'Profili Güncelle'
 user.username: 'Kullanıcı Adı'
 user.username_available: 'Bu Kullanıcı Adı Mevcut'
-user.username_check: 'Kullanıcı Adı Kullanılabilirliğini araştırıyor...'
+user.username_check: 'Kullanıcı adı geçerliliği araştırılıyor...'
 user.username_not_available: 'Bu kullanıcı adı <strong>not</strong> var. Lütfen farklı bir kullanıcı adı girin.'
 user.username_taken: 'Bu kullanıcı adı zaten var.'
 user_page: 'Kullanıcı Sayfası'
@@ -1348,30 +1349,45 @@ visualize: Görselleştir
 volume: Cilt
 waiting: Bekliyor
 wiki: Wiki
-workflow: İş Akışı
+workflow: 'İş Akışı'
 workflow.steps: 'İş Akışı Adımları'
 workflows: 'İş Akışları'
 year: Yıl
 you: Sen
 404: Bulunamadı
-suggested.competingFile.can.view: Önerilen çıkar çatışması dosyası görülebilir.
+title.publisher_theme_edit: 'Yayıncı Temasını Düzenle'
+title.publisher_theme_new: 'Yeni Yayıncı Teması'
+title.publisher_theme_show: 'Yayıncı Temasını Göster'
+title.publisher_theme: 'Yayıncı Teması'
+publishertheme: 'Yayıncı Teması'
+publishertheme.edit: 'Tema Düzenle'
+publishertheme.list: 'Tema Listesi'
+publishertheme.new: 'Yeni Tema'
+publishertheme.plural: 'Yayıncı Temaları'
+title.publisher_design_edit: 'Tasarım Düzenle'
+title.publisher_design_new: 'Yeni Tasarım'
+title.publisher_design_show: 'Tasarımı Göster'
+title.publisher_design: 'Yayıncı Tasarımı'
+publisherdesign: 'Yayıncı Tasarımı'
+publisherdesign.edit: 'Tasarım Düzenle'
+publisherdesign.list: 'Tasarım Listesi'
+publisherdesign.new: 'Yeni Tasatım'
+publisherdesign.plural: 'Yayıncı Tasarımları'
+suggested.competingFile.can.view: 'Önerilen dosya görüntülenebilir.'
 from.here: Buradan
-
-submission.whats_missing: 'Ne eksik?'
-
-journal.design.cannot_delete_active: 'Derginin kullandığı tasarımı silemezsiniz. Silmek istiyorsanız önce derginin tasarımını değiştirin.'
-
-validation:
-  submission:
-    title: Başlık alanı zorunlu dil için boş bırakılamaz
-    subjects: Konular alanı zorunlu dil için boş bırakılamaz
-    subtitle: Alt başlık alanı zorunlu dil için boş bırakılamaz
-    keywords: Anahtar kelimeler alanı zorunlu dil için boş bırakılamaz
-    abstract: Özet alanı zorunlu dil için boş bırakılamaz
+submission.whats_missing: 'Eksik Nedir?'
+journal.design.cannot_delete_active: 'Aktif temayı silmeye izniniz yok. Bunu silmeden önce diğerini seçin.'
+validation: Doğrulama
+  submission: Gönderi
+    title: 'Varsayılan dil için başlık alanı zorunludur.'
+    subjects: 'Varsayılan dil için konu alanı zorunludur.'
+    subtitle: 'Varsayılan dil için altbaşlık alanı zorunludur.'
+    keywords: 'Varsayılan dil için anahtar kelimeler alanı zorunludur.'
+    abstract: 'Varsayılan dil için öz alanı zorunludur.'
 yes: Evet
 no: Hayır
-default: Varsayılan
-optional: İsteğe Bağlı
-submission.no_file: 'Hiç gönderim dosyası bulunmuyor, lütfen yöneticinize bildirin'
-submission.no_checklist: 'Hiç kontrol listesi bulunmuyor, lütfen yöneticinize bildirin'
+default: Varsayılan 
+optional: Opsiyonel
+submission.no_file: 'Gönderi dosyası yok, lütfen dergi yöneticisine haber verin.'
+submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
 
