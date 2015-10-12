@@ -132,10 +132,6 @@ class Publisher extends AbstractTranslatable
      */
     private $journals;
     /**
-     * @var Author[]|ArrayCollection
-     */
-    private $authors;
-    /**
      * @var string
      */
     private $slug;
@@ -188,7 +184,6 @@ class Publisher extends AbstractTranslatable
     public function __construct()
     {
         $this->journals = new ArrayCollection();
-        $this->authors = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->publisherThemes = new ArrayCollection();
         $this->publisherDesigns = new ArrayCollection();
@@ -806,45 +801,6 @@ class Publisher extends AbstractTranslatable
         $this->lvl = $lvl;
 
         return $this;
-    }
-
-    /**
-     * Add authors
-     *
-     * @param  Author $author
-     * @return Publisher
-     */
-    public function addAuthor(Author $author)
-    {
-        if(!$this->authors->contains($author)) {
-            $this->authors->add($author);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove authors
-     *
-     * @param Author $author
-     * @return Publisher
-     */
-    public function removeAuthor(Author $author)
-    {
-        if($this->authors->contains($author)) {
-            $this->authors->removeElement($author);
-        }
-        return $this;
-    }
-
-    /**
-     * Get authors
-     *
-     * @return ArrayCollection|Author[]
-     */
-    public function getAuthors()
-    {
-        return $this->authors;
     }
 
     /**

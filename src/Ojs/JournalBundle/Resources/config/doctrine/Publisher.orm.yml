@@ -14,11 +14,6 @@ Ojs\JournalBundle\Entity\Publisher:
             mappedBy: publisher
             cascade: ["persist", "merge"]
             fetch: LAZY
-        authors:
-            targetEntity: Author
-            mappedBy: publisher
-            cascade: ["persist", "merge"]
-            fetch: EXTRA_LAZY
         children:
             targetEntity: Publisher
             mappedBy: parent
