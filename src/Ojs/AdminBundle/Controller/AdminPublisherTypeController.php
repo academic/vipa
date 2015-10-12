@@ -78,6 +78,7 @@ class AdminPublisherTypeController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getName());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -229,6 +230,7 @@ class AdminPublisherTypeController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getName());
             $em->flush();
             $this->successFlashBag('successful.update');
 
