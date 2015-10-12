@@ -75,7 +75,7 @@ class ArticleType extends AbstractType
             )
             ->add(
                 'anonymous',
-                'radio',
+                'checkbox',
                 array(
                     'label' => 'anonymous',
                     'required' => false,
