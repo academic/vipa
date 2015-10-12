@@ -37,16 +37,6 @@ class ArticleType extends AbstractType
             ])
             ->add('titleTransliterated')
             ->add(
-                'issue',
-                'entity',
-                array(
-                    'label' => 'issue',
-                    'class' => 'Ojs\JournalBundle\Entity\Issue',
-                    'required' => false,
-                    'attr' => array('class' => ' form-control select2-element'),
-                )
-            )
-            ->add(
                 'status',
                 'choice',
                 array(
