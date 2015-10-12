@@ -73,6 +73,7 @@ class PublisherType extends AbstractType
                 'entity',
                 [
                     'label' => 'parent',
+                    'required' => false,
                     'class' => 'Ojs\JournalBundle\Entity\Publisher',
                     'attr' => [
                         'class' => "select2-element",
