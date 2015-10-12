@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Ojs\CoreBundle\Annotation\Display as Display;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * JournalSubmissionFile
@@ -13,6 +13,12 @@ class JournalSubmissionFile extends SubmissionFile
 {
     /** @var  Journal */
     private $journal;
+
+    /**
+     * @var string
+     * @Display\File(path="submissionfiles")
+     */
+    private $file;
 
     /**
      * Get journal
