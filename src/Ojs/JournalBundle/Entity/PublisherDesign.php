@@ -23,7 +23,7 @@ class PublisherDesign
 
     /**
      * @var string
-     * @GRID\Column(title="content")
+     * @GRID\Column(title="title")
      */
     private $title;
 
