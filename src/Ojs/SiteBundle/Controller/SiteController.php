@@ -14,6 +14,7 @@ use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\SiteBundle\Entity\BlockRepository;
+use Ojs\SiteBundle\Form\Type\QuickSwitchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
@@ -31,6 +32,7 @@ class SiteController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $data['journals'] = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList();
+        $switcher = $this->createForm(new QuickSwitchType(), null, array())->createView();
 
         /** @var SubjectRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Subject');
@@ -42,11 +44,11 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="'.$this->generateUrl(
+                return '<a href="' . $this->generateUrl(
                     'ojs_site_explore_index',
                     ['filter' => ['subject' => $node['id']]]
-                ).'">@todo_this_will_fixed'. //$node['subject'] .
-                ' ('.$node['totalJournalCount'].')</a>';
+                ) . '">@todo_this_will_fixed' . //$node['subject'] .
+                ' (' . $node['totalJournalCount'] . ')</a>';
             },
         ];
 
@@ -58,7 +60,7 @@ class SiteController extends Controller
             'article' => 0,
             'subject' => 0,
             'publisher' => 0,
-            'user' => 0,
+            'user' => 0
         ];
 
         $journalApplications = $this
@@ -83,6 +85,7 @@ class SiteController extends Controller
         $data['announcements'] = $em->getRepository('OjsAdminBundle:AdminAnnouncement')->findAll();
         $data['announcement_count'] = count($data['announcements']);
         $data['posts'] = $em->getRepository('OjsAdminBundle:AdminPost')->findAll();
+        $data['switcher'] = $switcher;
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);

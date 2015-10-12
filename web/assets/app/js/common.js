@@ -19,9 +19,9 @@ $(document).ready(function () {
         $(this).toggleClass('active');
     });
 
-    $('#fab .dropdown-menu>li').each(function() {
-        $(this).attr('data-original-title', $.trim($(this).find('a').text()) );
-        $(this ).find('a').html( $(this).find('a i')[0].outerHTML );
+    $('#fab .dropdown-menu>li').each(function () {
+        $(this).attr('data-original-title', $.trim($(this).find('a').text()));
+        $(this).find('a').html($(this).find('a i')[0].outerHTML);
     });
 
     $(".maskissn").each(function () {
