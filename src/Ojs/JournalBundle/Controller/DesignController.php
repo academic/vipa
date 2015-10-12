@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use APY\DataGridBundle\Grid\Row;
 
 /**
  * Design controller.
@@ -27,15 +28,27 @@ class DesignController extends Controller
     /**
      * Lists all Design entities.
      *
+     * @param Request $request
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
         $source = new Entity('OjsJournalBundle:Design');
-
+        $source->manipulateRow(
+            function (Row $row) use ($request) {
+                /* @var Design $entity */
+                $entity = $row->getEntity();
+                if(!is_null($entity)){
+                    $entity->getOwner()->setDefaultLocale($request->getDefaultLocale());
+                    $row->setField('owner', $entity->getOwner()->getTitle());
+                }
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 

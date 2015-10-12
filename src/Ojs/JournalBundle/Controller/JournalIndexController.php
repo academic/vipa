@@ -44,9 +44,7 @@ class JournalIndexController extends Controller
                 $entity = $row->getEntity();
                 if(!is_null($entity)){
                     $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
-                    if(!is_null($entity)){
-                        $row->setField('journal', $entity->getJournal()->getTitle());
-                    }
+                    $row->setField('journal', $entity->getJournal()->getTitle());
                 }
                 return $row;
             }

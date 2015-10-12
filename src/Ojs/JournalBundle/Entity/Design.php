@@ -5,10 +5,11 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * Design
- * @GRID\Source(columns="id,owner.title,title")
+ * @GRID\Source(columns="id,owner,title,public")
  */
 class Design
 {
@@ -22,31 +23,31 @@ class Design
 
     /**
      * @var string
-     * @GRID\Column(title="content")
+     * @GRID\Column(title="title")
      */
     private $title;
 
     /**
      * @var string
-     * @GRID\Column(title="content")
+     * @Display\Exclude
      */
     private $content;
 
     /**
      * @var string
-     * @GRID\Column(title="editableContent")
+     * @Display\Exclude
      */
     private $editableContent;
 
     /**
      * @var boolean
-     * @GRID\Column(title="basedesign")
      */
     private $public = true;
 
     /**
      *
      * @var Journal
+     * @GRID\Column(title="journal")
      */
     private $owner;
 
