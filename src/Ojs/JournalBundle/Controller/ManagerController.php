@@ -7,8 +7,6 @@ use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
-use Ojs\JournalBundle\Event\WorkflowEvent;
-use Ojs\JournalBundle\Event\WorkflowEvents;
 use Ojs\JournalBundle\Form\Type\JournalType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +30,7 @@ class ManagerController extends Controller
         }
 
         $form = $this->createJournalEditForm($journal);
+
         return $this->render(
             'OjsJournalBundle:Manager:journal_settings.html.twig',
             array(
@@ -139,7 +138,7 @@ class ManagerController extends Controller
             ),
             'abstractTemplates' => $yamlParser->parse(
                 file_get_contents(
-                    $root .
+                    $root.
                     '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
                 )
             ),
@@ -204,30 +203,29 @@ class ManagerController extends Controller
         $emailSignature = $journal->getSetting('emailSignature') ?
             $journal->getSetting('emailSignature')->getValue() : null;
 
-        return $this->render('OjsJournalBundle:Manager:journal_settings_mail.html.twig',
-            ['journal' => $journal, 'emailSignature' => $emailSignature]);
+        return $this->render(
+            'OjsJournalBundle:Manager:journal_settings_mail.html.twig',
+            ['journal' => $journal, 'emailSignature' => $emailSignature]
+        );
     }
 
     /**
-     * @param  Request $request
      * @return Response
      */
-    public function userIndexAction(Request $request)
+    public function userIndexAction()
     {
-        $dispatcher = $this->get('event_dispatcher');
-        $switcher = $this->createForm(new QuickSwitchType(), null, ['user' => $this->getUser()])->createView();
+        $switcher = $userJournals = null;
         $articles = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['submitterUser' => $this->getUser()]);
-        if($this->getUser()->isAdmin()){
-            //user see all journal if is admin 1 (because fewer than 0) is a dummy count
-            $userJournalCount = 1;
-        }else{
-            $userJournalCount = count($this
+        if ($this->getUser()->isAdmin()) {
+            $switcher = $this->createForm(new QuickSwitchType(), null)->createView();
+        } else {
+            $userJournals = $this
                 ->getDoctrine()
-                ->getRepository('OjsJournalBundle:JournalUser')
-                ->findBy(['user' => $this->getUser()]));
+                ->getRepository('OjsJournalBundle:Journal')
+                ->findAllByUser($this->getUser());
         }
 
         $response = $response = $this->render(
@@ -236,16 +234,9 @@ class ManagerController extends Controller
                 'switcher' => $switcher,
                 'articles' => $articles,
                 'data' => $this->createStats(),
-                'my_journal_count' => $userJournalCount
+                'userJournals' => $userJournals
             ]
         );
-
-        $event = new WorkflowEvent($request);
-        $dispatcher->dispatch(WorkflowEvents::LIST_ARTICLES, $event);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
 
         return $response;
     }
@@ -260,7 +251,7 @@ class ManagerController extends Controller
 
         $lastMonth = ['x'];
         for ($i = 0; $i < 30; $i++) {
-            $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
+            $lastMonth[] = date($generator->getDateFormat(), strtotime('-'.$i.' days'));
         }
 
         $slicedLastMonth = array_slice($lastMonth, 1);

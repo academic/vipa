@@ -23,8 +23,15 @@
             </h4>
         </div>
         <div class="panel-body">
-            {% if my_journal_count>0 %}
+            {% if switcher %}
                 {{ form(switcher) }}
+            {% elseif userJournals|length > 0 %}
+                <ul>
+                    {% for userJournal in userJournals %}
+                        <a href="{{ path('ojs_journal_dashboard_index', {'journalId' : userJournal.id }) }}"
+                           class="btn btn-primary">{{ userJournal.title }}</a>
+                    {% endfor %}
+                </ul>
             {% else %}
                 <div class="alert alert-warning">
                     {{ "no_journal_you_have"|trans }}

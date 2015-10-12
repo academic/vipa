@@ -40,7 +40,8 @@ class AdminController extends Controller
     public function dashboardAction()
     {
         if ($this->isGranted('VIEW', new Journal())) {
-            $switcher = $this->createForm(new QuickSwitchType(), null, ['user' => $this->getUser()])->createView();
+            $switcher = $this->createForm(new QuickSwitchType(), null)->createView();
+
             return $this->render('OjsAdminBundle:Admin:dashboard.html.twig', ['switcher' => $switcher]);
         } else {
             return $this->redirect($this->generateUrl('ojs_user_index'));

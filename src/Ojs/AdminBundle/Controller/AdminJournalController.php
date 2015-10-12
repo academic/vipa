@@ -7,10 +7,12 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Elastica\Query;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -278,5 +280,39 @@ class AdminJournalController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_admin_journal_index');
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function autoCompleteAction(Request $request)
+    {
+        $q = filter_var($request->get('q'), FILTER_SANITIZE_STRING);
+        $search = $this->get('fos_elastica.index.search.journal');
+
+        $searchQuery = new Query('_all');
+
+        $boolQuery = new Query\Bool();
+
+        $fieldQuery = new Query\MultiMatch();
+
+        $fieldQuery->setFields(['title', 'subtitle', 'description']);
+        $fieldQuery->setQuery($q);
+        $boolQuery->addMust($fieldQuery);
+
+        $searchQuery->setQuery($boolQuery);
+        $searchQuery->setSize(10);
+
+        $results = $search->search($searchQuery);
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => $result->getData()['title'],
+            ];
+        }
+
+        return new JsonResponse($data);
     }
 }
