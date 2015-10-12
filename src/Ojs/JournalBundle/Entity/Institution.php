@@ -15,7 +15,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Institution
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,address,email,verified")
+ * @GRID\Source(columns="id,name,address,email")
  * @GRID\Source(columns="id,name,status", groups={"application"})
  */
 class Institution extends AbstractTranslatable
