@@ -19,6 +19,8 @@ Ojs\CmsBundle\Entity\Page:
         tags:
             type: string
             length: 255
+        visible:
+            type: boolean
         slug:
             type: string
             length: 255

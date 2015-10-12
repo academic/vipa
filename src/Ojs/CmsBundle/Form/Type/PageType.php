@@ -22,10 +22,14 @@ class PageType extends AbstractType
                         'required' => false,
                         'attr' => array('class' => ' form-control wysihtml5'),
                         'field_type' => 'textarea'
+                        )
                     )
                 )
             )
-        )->add('tags', 'tags');
+            ->add('visible', 'checkbox', [
+                'required' => false
+            ])
+            ->add('tags', 'tags');
     }
 
     /**

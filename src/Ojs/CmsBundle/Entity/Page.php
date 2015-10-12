@@ -37,6 +37,10 @@ abstract class Page extends AbstractTranslatable
      * @var string
      */
     private $slug;
+    /**
+     * @var boolean
+     */
+    private $visible;
 
     /**
      * Constructor
@@ -147,5 +151,26 @@ abstract class Page extends AbstractTranslatable
     public function setSlug($slug)
     {
         $this->slug = $slug;
+    }
+
+    /**
+     * Is visible
+     *
+     * @return boolean
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+    /**
+     * Set visible
+     *
+     * @param  boolean $visible
+     * @return $this
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+        return $this;
     }
 }
