@@ -2,10 +2,6 @@ ojs_admin_journal_index:
     path:  /
     defaults: { _controller: OjsAdminBundle:AdminJournal:index }
 
-ojs_admin_journal_not_finished:
-    path:  /notfinished
-    defaults: { _controller: OjsAdminBundle:AdminJournal:notFinished }
-
 ojs_admin_journal_show:
     path:  /{id}/show
     defaults: { _controller: OjsAdminBundle:AdminJournal:show }

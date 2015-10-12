@@ -26,14 +26,6 @@
     <div class="panel">
         <h1>{{ "journal.list"|trans }}</h1>
         {% include '::flashbag.html.twig' %}
-
-        <a class="btn btn-info" href="{{ path('ojs_admin_journal_index') }}">
-            <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{ "journal.all"|trans }}</a>
-        <a class="btn btn-default" id="link-admin-my-journals" href="{{ path('ojs_journal_user_my') }}">
-            <i class="fa fa-user"></i> {{ "journal.my"|trans }}</a>
-        <a class="btn btn-default" href="{{ path('ojs_admin_journal_not_finished') }}">
-            {{ "not.finished"|trans }}
-        </a>
         <a href="{{ path('ojs_admin_journal_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>

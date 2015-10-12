@@ -75,64 +75,6 @@ class AdminJournalController extends Controller
     }
 
     /**
-     * Returns setupFinished == false journals
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function notFinishedAction(Request $request)
-    {
-        if (!$this->isGranted('VIEW', new Journal())) {
-            throw new AccessDeniedException("You not authorized for list journals!");
-        }
-        $source = new Entity('OjsJournalBundle:Journal');
-        $tableAlias = $source->getTableAlias();
-
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($tableAlias) {
-                $query->andWhere($tableAlias.'.setupFinished = 0');
-            }
-        );
-        $source->manipulateRow(
-            function (Row $row) use ($request) {
-                /* @var Journal $entity */
-                $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
-                if (!is_null($entity)) {
-                    $row->setField('title', $entity->getTitle());
-                    $row->setField('subtitle', $entity->getSubtitle());
-                    $row->setField('description', $entity->getDescription());
-                }
-
-                return $row;
-            }
-        );
-        $grid = $this->get('grid')->setSource($source);
-        $gridAction = $this->get('grid_action');
-
-        $actionColumn = new ActionsColumn("actions", 'actions');
-
-        $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
-        $rowAction[] = $gridAction->cmsAction();
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
-        $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
-            ->setRouteParameters('id')
-            ->setRouteParametersMapping(array('id' => 'journalId'))
-            ->setAttributes(
-                array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage")
-            );
-
-        $actionColumn->setRowActions($rowAction);
-
-        $grid->addColumn($actionColumn);
-        $data = [];
-        $data['grid'] = $grid;
-
-        return $grid->getGridResponse('OjsAdminBundle:AdminJournal:index.html.twig', $data);
-    }
-
-    /**
      * Displays a form to edit an existing Journal entity.
      *
      * @param $id
