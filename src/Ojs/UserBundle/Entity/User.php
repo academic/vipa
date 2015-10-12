@@ -29,7 +29,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  * @JMS\ExclusionPolicy("all")
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
- * @GRID\Source(columns="id,username,email,status")
+ * @GRID\Source(columns="id,username,email,enabled")
  */
 class User extends BaseUser implements Translatable, OAuthAwareUserProviderInterface
 {

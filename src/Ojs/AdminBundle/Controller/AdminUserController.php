@@ -377,7 +377,7 @@ class AdminUserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('ojs_admin_user_unblock'));
+        return $this->redirect($this->generateUrl('ojs_admin_user_index'));
     }
 
     public function changePasswordAction(Request $request, $id)

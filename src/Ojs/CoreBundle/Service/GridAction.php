@@ -54,17 +54,17 @@ class GridAction
         );
         $rowAction->setRouteParameters('id');
         $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage($this->translator->trans('Are you sure?'));
+        $rowAction->setConfirmMessage($this->translator->trans('sure.ban'));
         if ($role) {
             $rowAction->setRole($role);
         }
         $translator = $this->translator;
         $rowAction->manipulateRender(
             function (RowAction $action, Row $row) use ($translator) {
-                if (!$row->getField('status')) {
+                if (!$row->getField('enabled')) {
                     $action->setRoute('ojs_admin_user_unblock');
                     $action->setTitle('<i class="fa fa-check"></i>');
-                    $action->setConfirmMessage($translator->trans('sure.ban'));
+                    $action->setConfirmMessage($translator->trans('Are you sure?'));
                 }
 
                 return $action;
