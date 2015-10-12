@@ -939,6 +939,8 @@ suppfiles.trans: Belgeler
 supplement: 'Ek Dosya mı?'
 support: Destek
 submitted.articles: 'Gönderilen Makaleler'
+submitted.articles.all: 'Tüm Gönderilen Makaleler'
+submitted.articles.me: 'Gönderidiğim Makaleler'
 sure: 'Emin misiniz?'
 sure.ban: 'Bu kullanıcıyı yasaklayacaksınız. Emin misiniz?'
 sure_data_lost: 'Bu sayfadan ayrılmak istediğinize emin misiniz?\n\nDeğişiklikleriniz kaybolabilir.'

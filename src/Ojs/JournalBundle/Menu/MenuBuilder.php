@@ -114,11 +114,15 @@ class MenuBuilder extends ContainerAware
         }
 
         if ($checker->isGranted('VIEW', $journal, 'articles')) {
-            $path = $checker->isGranted('EDIT', $journal, 'articles')
-                ? 'ojs_journal_submission_all'
-                : 'ojs_journal_submission_me';
-            $menu->addChild('submitted.articles', [
-                'route' => $path,
+            if($checker->isGranted('EDIT', $journal, 'articles')){
+                $menu->addChild('submitted.articles.all', [
+                    'route' => 'ojs_journal_submission_all',
+                    'routeParameters' => ['journalId' => $journalId],
+                    'extras' => ['icon' => 'flag',]
+                ]);
+            }
+            $menu->addChild('submitted.articles.me', [
+                'route' => 'ojs_journal_submission_me',
                 'routeParameters' => ['journalId' => $journalId],
                 'extras' => ['icon' => 'flag',]
             ]);
