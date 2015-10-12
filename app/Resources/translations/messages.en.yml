@@ -1126,10 +1126,10 @@ title.language_show: 'Show Language'
 title.languages: Languages
 title.last_articles: 'Last Articles'
 title.login: Login
-title.mail_log_edit: 'Edit Mail Log'
-title.mail_log_new: 'New Mail Log'
-title.mail_log_show: 'Show Mail Log'
-title.mail_logs: 'Mail Logs'
+title.mail_log_edit: 'Edit e-Mail Log'
+title.mail_log_new: 'New e-Mail Log'
+title.mail_log_show: 'Show e-Mail Log'
+title.mail_logs: 'e-Mail Logs'
 title.mail_templates: 'Mail Templates'
 title.manager_dashboard: 'Manager Dashboard'
 title.notification_edit: 'Edit Notification'
@@ -1177,9 +1177,9 @@ title.review_form_new: 'New Review Form'
 title.review_form_preview: 'Preview Review Form'
 title.review_form_show: 'Show Review Form'
 title.review_forms: 'Review Forms'
-title.review: 'Review'
-title.reviews: 'Reviews'
-title.reviews_answers: 'Answers'
+title.review: Review
+title.reviews: Reviews
+title.reviews_answers: Answers
 title.reviews_answers_show: 'Show Answers'
 title.role_edit: 'Edit Role'
 title.role_new: 'New Role'
@@ -1223,12 +1223,12 @@ title.workflow_step_new: 'New Workflow Step'
 title.workflow_step_show: 'Show Workflow Step'
 title.workflow_steps: 'Workflow Steps'
 title.working_step_preview: 'Preview Working Step'
-title.workflow_review_form: Review Form
-title.workflow_review_forms: Review Forms
-title.workflow_review_form_edit: Edit Review Form
-title.workflow_review_form_new: New Review Form
-title.workflow_review_form_show: Show Review Form
-title.search_advanced: "Gelişmiş Arama"
+title.workflow_review_form: 'Review Form'
+title.workflow_review_forms: 'Review Forms'
+title.workflow_review_form_edit: 'Edit Review Form'
+title.workflow_review_form_new: 'New Review Form'
+title.workflow_review_form_show: 'Show Review Form'
+title.search_advanced: "Advanced Search"
 titleTransliterated: 'Transliterated Title'
 titleabbr: 'Abbreviated Title'
 titletransliterated: 'Transliterated Title'
