@@ -89,7 +89,7 @@ class ApplicationController extends Controller
                     ;
                     $em->persist($submissionFile);
                 }
-
+                $application->setSlug($application->getTranslationByLocale($request->getDefaultLocale())->getTitle());
                 $em->persist($application);
                 $em->flush();
 
