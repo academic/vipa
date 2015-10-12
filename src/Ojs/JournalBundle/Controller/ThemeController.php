@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Theme controller.
@@ -33,7 +34,17 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
         $source = new Entity('OjsJournalBundle:Theme');
-
+        //if user is not admin show only journal themes
+        if(!$this->getUser()->isAdmin()){
+            $alias = $source->getTableAlias();
+            $source->manipulateQuery(
+                function (QueryBuilder $query) use ($alias, $journal) {
+                    $query
+                        ->andWhere($alias.'.owner = :owner')
+                        ->setParameter('owner', $journal);
+                }
+            );
+        }
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
