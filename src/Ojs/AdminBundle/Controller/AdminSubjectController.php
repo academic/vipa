@@ -124,6 +124,7 @@ class AdminSubjectController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getSubject());
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
@@ -271,6 +272,7 @@ class AdminSubjectController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getSubject());
             $em->flush();
             $this->successFlashBag('successful.update');
 
