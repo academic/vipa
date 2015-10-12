@@ -69,7 +69,6 @@ class JournalApplicationType extends AbstractType
                 array(
                     'label' => 'Periods',
                     'class' => 'Ojs\JournalBundle\Entity\Period',
-                    'property' => 'period',
                     'required' => true,
                     'multiple' => true,
                     'expanded' => false,
