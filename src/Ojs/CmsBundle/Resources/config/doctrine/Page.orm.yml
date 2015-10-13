@@ -21,6 +21,7 @@ Ojs\CmsBundle\Entity\Page:
             length: 255
         visible:
             type: boolean
+            nullable: true
         slug:
             type: string
             length: 255
