@@ -85,9 +85,15 @@
             {% for publisher in publishers %}
                 <div class="col-md-4 col-sm-4">
                     <div class="card ng">
-                        <div class="caption">
-                            <strong class="card-link">{{ publisher.name }}</strong>
-                        </div>
+                        <a href="{{ path('ojs_site_explore_index', {publisher_filters: publisher.name}) }}">
+                            <img src="#" class="img-responsive avatar tri" alt="{{ publisher.name }}">
+                            <div class="caption">
+                                <strong class="card-link">{{ publisher.name }}</strong>
+                                {% if publisher.url is defined %}
+                                    <a href="{{ publisher.url }}">{{ publisher.url }}</a>
+                                {% endif %}
+                            </div>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
