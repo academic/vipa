@@ -34,6 +34,9 @@
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} /
                     @{{ user.username }}</h1>
+                <a href="{{ user.url }}" target="_blank">{{ user.url }}</a><br>
+                {{ user.city.country ~ ' / ' ~ user.city }}
+                <p>{{ user.about }}</p>
                 <small><i class="fa fa-clock-o"></i>
                     <time> {{ user.updated.date|date }}</time>
                 </small>

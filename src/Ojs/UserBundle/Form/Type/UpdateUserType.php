@@ -5,6 +5,8 @@ namespace Ojs\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
+use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 
 class UpdateUserType extends AbstractType
 {
@@ -37,6 +39,8 @@ class UpdateUserType extends AbstractType
                     ],
                 ]
             )
+            ->add('about')
+            ->add('url')
             ->add(
                 'subjects',
                 'entity',
@@ -66,7 +70,10 @@ class UpdateUserType extends AbstractType
                     'label' => 'user.hide_account',
                     'required' => false,
                 ]
-            );
+            )
+            ->addEventSubscriber(new AddProvinceFieldSubscriber())
+            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
+        ;
     }
 
     /**
