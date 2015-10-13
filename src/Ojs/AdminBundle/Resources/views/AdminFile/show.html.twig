@@ -20,7 +20,11 @@
             </tr>
             <tr>
                 <th>{{ 'file.path'|trans }}</th>
-                <td>{{ entity.path }}</td>
+                <td>
+                    <a href="http://ojs.dev/uploads/files/{{ entity.path }}">
+                        http://ojs.dev/uploads/files/{{ entity.path }}
+                    </a>
+                </td>
             </tr>
             <tr>
                 <th>{{ 'size'|trans }}</th>
