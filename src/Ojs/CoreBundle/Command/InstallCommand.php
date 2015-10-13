@@ -628,6 +628,7 @@ class InstallCommand extends ContainerAwareCommand
 
             if (!$entity) {
                 $entity = new AdminPage();
+                $entity->setVisible(true);
                 $entity->setCurrentLocale($this->getContainer()->getParameter('locale'));
                 $entity->setSlug($page[0]);
                 $entity->setTitle($page[1]);
