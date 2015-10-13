@@ -49,9 +49,6 @@ ojs_journal_settings:
 ojs_journal_users:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/user.yml"
 
-ojs_journal_author:
-    resource: "@OjsJournalBundle/Resources/config/routing/panel/author.yml"
-
 ojs_journal_article_submission:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article_submission.yml"
 
