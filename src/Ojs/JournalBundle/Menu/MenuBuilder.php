@@ -51,6 +51,7 @@ class MenuBuilder extends ContainerAware
             ['announcements', 'title.announcements', 'ojs_journal_announcement_index', 'bullhorn'],
             ['pages', 'title.pages', 'ojs_journal_page_index', 'file'],
             ['posts', 'title.posts', 'ojs_journal_post_index', 'file-o'],
+            ['files', 'title.files', 'ojs_journal_filemanager_index', 'file-image-o'],
             ['publisherManager', 'publisher.design', 'ojs_publisher_manager_design_index', 'wrench'],
             ['publisherManager', 'publisher.theme', 'ojs_publisher_manager_theme_index', 'css3'],
             ['publisherManager', 'publisher.edit', 'ojs_publisher_manager_edit', 'university'],
