@@ -5,27 +5,36 @@ namespace Ojs\CmsBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\CoreBundle\Entity\TagsTrait;
 
+/**
+ * Class File
+ * @package Ojs\CmsBundle\Entity
+ * @GRID\Source(columns="id, name, description, path")
+ */
 abstract class File
 {
     use TagsTrait;
 
     /**
      * @var int
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
+     * @GRID\Column(title="description")
      */
     private $description;
 
     /**
      * @var string
+     * @GRID\Column(title="path")
      */
     private $path;
 

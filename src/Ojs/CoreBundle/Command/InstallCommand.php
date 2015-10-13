@@ -334,6 +334,7 @@ class InstallCommand extends ContainerAwareCommand
             'OjsAdminBundle:AdminPage' => null,
             'OjsAdminBundle:AdminPost' => null,
             'OjsAdminBundle:PublisherManagers' => null,
+            'OjsAdminBundle:AdminFile' => null,
         ];
         foreach ($classes as $className => $fields) {
             $realClassName = $em->getRepository($className)->getClassName();

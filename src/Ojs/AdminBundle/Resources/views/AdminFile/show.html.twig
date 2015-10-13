@@ -2,44 +2,38 @@
 {% set hideleft = true %}
 
 {% block body -%}
-    <h1>File</h1>
+    <h1>{{ 'file'|trans }}</h1>
 
-    <table class="record_properties">
+    <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{ 'description'|trans }}</th>
                 <td>{{ entity.description }}</td>
             </tr>
             <tr>
-                <th>Path</th>
+                <th>{{ 'file.path'|trans }}</th>
                 <td>{{ entity.path }}</td>
             </tr>
             <tr>
-                <th>Size</th>
+                <th>{{ 'size'|trans }}</th>
                 <td>{{ entity.size }}</td>
             </tr>
             <tr>
-                <th>Tags</th>
+                <th>{{ 'tags'|trans }}</th>
                 <td>{{ entity.tags }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('ojs_admin_file_index') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('ojs_admin_file_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    {{
+        actions({
+            'back': {'href': path('ojs_admin_file_index')},
+            'edit': {'href': path('ojs_admin_file_edit', {'id': entity.id})},
+            'delete': {'href': path('ojs_admin_file_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+        })
+    }}
 {% endblock %}

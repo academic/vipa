@@ -2,39 +2,61 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminFile;
 use Ojs\CmsBundle\Form\Type\FileType;
-use Symfony\Component\HttpFoundation\Response;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
- * AdminFile controller.
+ * AdminFilecontroller.
+ *
  */
 class AdminFileController extends Controller
 {
+
     /**
-     * Lists all AdminFile entities.
+     * Lists all AdminFileentities.
      *
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        if (!$this->isGranted('VIEW', new AdminFile())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        
+        $source = new Entity('OjsAdminBundle:AdminFile');
+        $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
-        $entities = $em->getRepository('OjsAdminBundle:AdminFile')->findAll();
+        $actionColumn = new ActionsColumn("actions", 'actions');
 
-        return $this->render('OjsAdminBundle:AdminFile:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $rowAction[] = $gridAction->showAction('ojs_admin_file_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_file_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_file_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+
+        return $grid->getGridResponse('OjsAdminBundle:AdminFile:index.html.twig', $data);
     }
+
     /**
-     * Creates a new AdminFile entity.
-     * @param Request $request
-     * @return Response
+     * Creates a new AdminFileentity.
+     *
+     * @param  Request                                                                                       $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
+        if (!$this->isGranted('VIEW', new AdminFile())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new AdminFile();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -43,18 +65,22 @@ class AdminFileController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $this->successFlashBag('successful.create');
 
-            return $this->redirect($this->generateUrl('ojs_admin_file_show', array('id' => $entity->getId())));
+            return $this->redirectToRoute('ojs_admin_file_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsAdminBundle:AdminFile:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminFile:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
-     * Creates a form to create a AdminFile entity.
+     * Creates a form to create a AdminFileentity.
      *
      * @param AdminFile $entity The entity
      *
@@ -62,10 +88,14 @@ class AdminFileController extends Controller
      */
     private function createCreateForm(AdminFile $entity)
     {
-        $form = $this->createForm(new FileType(), $entity, array(
-            'action' => $this->generateUrl('ojs_admin_file_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new FileType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_file_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -73,160 +103,149 @@ class AdminFileController extends Controller
     }
 
     /**
-     * Displays a form to create a new AdminFile entity.
-     * @return Response
+     * Displays a form to create a new AdminFileentity.
+     *
      */
     public function newAction()
     {
         $entity = new AdminFile();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsAdminBundle:AdminFile:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminFile:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
-     * Finds and displays a AdminFile entity.
-     * @param int $id
-     * @return Response
+     * Finds and displays a AdminFileentity.
+     * @param  AdminFile $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($id)
+    public function showAction(AdminFile $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsAdminBundle:AdminFile')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find AdminFile entity.');
+        $this->throw404IfNotFound($entity);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $token = $this
+            ->get('security.csrf.token_manager')
+            ->refreshToken('ojs_admin_file'.$entity->getId());
 
-        return $this->render('OjsAdminBundle:AdminFile:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminFile:show.html.twig',
+            ['entity' => $entity, 'token' => $token]
+        );
     }
 
     /**
-     * Displays a form to edit an existing AdminFile entity.
-     * @param int $id
-     * @return Response
+     * Displays a form to edit an existing AdminFileentity.
+     * @param  AdminFile $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($id)
+    public function editAction(AdminFile $entity)
     {
-        $em = $this->getDoctrine()->getManager();
+        $this->throw404IfNotFound($entity);
 
-        $entity = $em->getRepository('OjsAdminBundle:AdminFile')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find AdminFile entity.');
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('OjsAdminBundle:AdminFile:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'OjsAdminBundle:AdminFile:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-    * Creates a form to edit a AdminFile entity.
-    *
-    * @param AdminFile $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a AdminFileentity.
+     *
+     * @param AdminFile $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(AdminFile $entity)
     {
-        $form = $this->createForm(new FileType(), $entity, array(
-            'action' => $this->generateUrl('ojs_admin_file_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new FileType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ojs_admin_file_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', ['label' => 'Update']);
 
         return $form;
     }
+
     /**
-     * Edits an existing AdminFile entity.
-     *
-     * @param int $id
-     * @param Request $request
-     * @return Response
+     * Edits an existing AdminFileentity.
+     * @param  Request $request
+     * @param  AdminFile $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, AdminFile $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsAdminBundle:AdminFile')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find AdminFile entity.');
+        $this->throw404IfNotFound($entity);
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_admin_file_edit', array('id' => $id)));
+            return $this->redirectToRoute('ojs_admin_file_edit', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsAdminBundle:AdminFile:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-    /**
-     * Deletes a AdminFile entity.
-     *
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsAdminBundle:AdminFile')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find AdminFile entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('ojs_admin_file_index'));
+        return $this->render(
+            'OjsAdminBundle:AdminFile:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-     * Creates a form to delete a AdminFile entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param  Request $request
+     * @param  AdminFile $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    private function createDeleteForm($id)
+    public function deleteAction(Request $request, AdminFile $entity)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ojs_admin_file_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        $this->throw404IfNotFound($entity);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('ojs_admin_file'.$entity->getId());
+
+        if ($token != $request->get('_token')) {
+            throw new TokenNotFoundException("Token Not Found!");
+        }
+
+        $em->remove($entity);
+        $em->flush();
+        $this->successFlashBag('successful.remove');
+
+        return $this->redirectToRoute('ojs_admin_file_index');
     }
 }
