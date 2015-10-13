@@ -91,20 +91,6 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
     }
 
-    public function publishersIndexAction()
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        /** @var PublisherRepository $repo */
-        $repo = $em->getRepository('OjsJournalBundle:Publisher');
-
-        $data['entities'] = $repo->getAllWithDefaultTranslation();
-        $this->throw404IfNotFound($data['entities']);
-        $data['page'] = 'publisher';
-
-        return $this->render('OjsSiteBundle::Publisher/publishers_index.html.twig', $data);
-    }
-
     public function publisherPageAction($slug)
     {
         $data['page'] = 'organizations';

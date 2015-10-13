@@ -49,10 +49,6 @@ ojs_public_index:
     host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:index }
 
-ojs_publishers_index:
-    path:  /publishers
-    defaults: { _controller: OjsSiteBundle:Site:publishersIndex }
-
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"

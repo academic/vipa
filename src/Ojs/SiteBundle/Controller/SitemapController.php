@@ -364,7 +364,6 @@ class SitemapController extends Controller
         $maps = [
             'ojs_public_index',
             'ojs_browse_index',
-            'ojs_publishers_index',
             'ojs_journals_index',
             'tos',
             'privacy',
