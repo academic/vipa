@@ -100,6 +100,12 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     private $settings;
 
     /**
+     * @var String
+     * @JMS\Expose
+     */
+    private $about;
+
+    /**
      * @var Country
      * @JMS\Expose
      */
@@ -550,6 +556,25 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getAbout()
+    {
+        return $this->about;
+    }
+
+    /**
+     * @param String $about
+     * @return $this
+     */
+    public function setAbout($about)
+    {
+        $this->about = $about;
 
         return $this;
     }

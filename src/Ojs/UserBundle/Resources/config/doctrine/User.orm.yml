@@ -83,6 +83,11 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
+    about:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
     avatar:
       type: string
       nullable: true
