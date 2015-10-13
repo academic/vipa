@@ -96,4 +96,46 @@ class ExploreController extends Controller
 
         return $this->render('OjsSiteBundle:Explore:index.html.twig', $data);
     }
+
+    public function publisherAction(Request $request, $page = 1)
+    {
+        $getTypes = $request->query->get('type_filters');
+        $typeFilters = !empty($getTypes) ? explode(',', $getTypes) : [];
+
+        $publisherSearcher = $this->get('fos_elastica.index.search.publisher');
+        $boolQuery = new Query\Bool();
+
+        if (!empty($typeFilters)) {
+            foreach ($typeFilters as $type) {
+                $match = new Query\Match();
+                $match->setField('publisherType', $type);
+                $boolQuery->addMust($match);
+            }
+        }
+
+        $publisherQuery = new Query($boolQuery);
+
+        $typeAgg = new Aggregation\Terms('types');
+        $typeAgg->setField('publisherType');
+        $typeAgg->setOrder('_term', 'asc');
+        $typeAgg->setSize(0);
+        $publisherQuery->addAggregation($typeAgg);
+
+        $adapter = new ElasticaAdapter($publisherSearcher, $publisherQuery);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage(21);
+        $pagerfanta->setCurrentPage($page);
+        $publishers = $pagerfanta->getCurrentPageResults();
+        $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
+
+        $data = [
+            'types' => $types,
+            'page' => 'explore',
+            'publishers' => $publishers,
+            'pagerfanta' => $pagerfanta,
+            'type_filters' => $typeFilters,
+        ];
+
+        return $this->render('OjsSiteBundle:Explore:publisher.html.twig', $data);
+    }
 }

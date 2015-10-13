@@ -1,0 +1,112 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.explore'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = true %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('ojs_site_explore_publisher'), 'title': 'ojs.title'|trans},
+    {'title': 'explore'|trans}
+    ] %}
+
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+            margin: 5px;
+            padding-bottom: 35px;
+            overflow: hidden;
+        }
+
+        .card > a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .card img {
+            display: block;
+            width: 100%;
+            height: 300px;
+            margin: -5px -5px 5px 0;
+        }
+
+        .card .card-link {
+            display: block;
+            height: 30px;
+            font-size: 16px;
+            color: #337ab7;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-3 col-sm-3">
+            <div class="panel-group">
+                {% if types is not null %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'title.publisher_types'|trans }}</div>
+                        <ul class="list-group">
+                            {% for type in types %}
+                                <li class="list-group-item">
+                                    {% if type_filters is empty %}
+                                        {% set parameter = type.key %}
+                                        <a href="{{ path('ojs_site_explore_publisher', {type_filters: type.key}) }}">{{ type.key|trans }}</a>
+                                    {% else %}
+                                        {% if type.key in type_filters %}
+                                            {% set parameter = type_filters|pop(type.key) %}
+                                            {{ type.key|trans }}
+                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                            </a>
+                                        {% else %}
+                                            {% set parameter = type_filters|merge([type.key]) %}
+                                            <a href="{{ path('ojs_site_explore_publisher', {type_filters: parameter|join(',')}) }}">{{ type.key|trans }}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <span class="badge">{{ type.doc_count }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-9 col-sm-9">
+            {% for publisher in publishers %}
+                <div class="col-md-4 col-sm-4">
+                    <div class="card ng">
+                        <div class="caption">
+                            <strong class="card-link">{{ publisher.name }}</strong>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <ul class="pagination">
+                {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+            </ul>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock %}

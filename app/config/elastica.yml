@@ -155,6 +155,7 @@ fos_elastica:
               type: string
             verified:
               type: boolean
+            publisherType: ~
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Publisher
