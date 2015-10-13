@@ -475,6 +475,9 @@ jb_file_uploader:
     submissionfiles:
       assets:
         directory: uploads/submissionfiles
+    files:
+      assets:
+        directory: uploads/files
   endpoints:
     issue:
       upload_resolver: issue
