@@ -16,7 +16,9 @@ class ArticleAuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author', new AuthorType());
+            ->add('author', new AuthorType())
+            ->add('authorOrder')
+        ;
     }
 
     /**

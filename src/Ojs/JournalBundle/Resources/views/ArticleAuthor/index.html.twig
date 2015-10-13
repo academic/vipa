@@ -1,10 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'title.article_files'|trans }} {{ parent() }}{% endblock %}
+{% block title %}{{ 'title.article_authors'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-        {'title': 'title.article_files'|trans}
+        {'title': 'title.article_authors'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,13 +14,13 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="{{ path('ojs_journal_article_show', {'id': article.id, 'journalId': selectedJournal().id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "Article Files"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "title.citations"|trans }}</a></li>
-        <li role="presentation"><a href="{{ path('ojs_journal_article_author_index', {'articleId': article.id, 'journalId': article.journal.id}) }}">{{ "Article Authors"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="{{ path('ojs_journal_article_author_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "Article Authors"|trans }}</a></li>
     </ul>
 
-    <h2>{{ 'title.article_files'|trans }}</h2>
-    <a href="{{ url('ojs_journal_article_file_new', {'articleId': article.id, 'journalId': selectedJournal().id}) }}" class="btn btn-success">
+    <h2>{{ 'title.article_authors'|trans }}</h2>
+    <a href="{{ url('ojs_journal_article_author_new', {'articleId': article.id, 'journalId': selectedJournal().id}) }}" class="btn btn-success">
         {{ "c"|trans }}
     </a>
 
