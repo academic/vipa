@@ -17,7 +17,7 @@ class FileType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('path', 'jb_file_ajax', array('endpoint' => 'files'))
+            ->add('path', 'jb_file_ajax', array('endpoint' => 'files', 'remove_link' => false))
             ->add('size')
             ->add('tags')
         ;
