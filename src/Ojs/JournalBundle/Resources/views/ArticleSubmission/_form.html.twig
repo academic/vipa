@@ -3,7 +3,7 @@
     {{ form_start(form) }}
 
     <div class="panel panel-info">
-        <div class="panel-heading">Article Meta Data</div>
+        <div class="panel-heading">{{ "article.metadata"|trans }}</div>
         <div class="panel-body">
             {{ form_row(form.articleType) }}
             {{ form_row(form.translations) }}
@@ -13,7 +13,7 @@
 
     <hr />
     <div class="panel panel-info submission-subform-panel">
-        <div class="panel-heading">Article Authors</div>
+        <div class="panel-heading">{{ "article.authors"|trans }}</div>
         <div class="submission-subform-container panel-body">
                         <textarea class="submission-subform-template">{%- filter escape -%}
                                 {{ include('@OjsJournal/ArticleSubmission/_articleauthor_subform.html.twig', { 'form': form.articleAuthors.vars.prototype }) }}
@@ -24,12 +24,13 @@
             {% endfor %}
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i class="fa fa-plus"></i> Add Article Author</button>
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i
+                        class="fa fa-plus"></i> {{ "author.add"|trans }}</button>
         </div>
     </div>
     <hr />
     <div class="panel panel-info submission-subform-panel">
-        <div class="panel-heading">Citiations</div>
+        <div class="panel-heading">{{ "article.citations"|trans }}</div>
         <div class="submission-subform-container panel-body">
                         <textarea class="submission-subform-template">{%- filter escape -%}
                                 {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
@@ -40,12 +41,13 @@
             {% endfor %}
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i class="fa fa-plus"></i> Add Citiation</button>
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i
+                        class="fa fa-plus"></i> {{ "citation.add"|trans }}</button>
         </div>
     </div>
     <hr>
     <div class="panel panel-info submission-subform-panel">
-        <div class="panel-heading">Article Files</div>
+        <div class="panel-heading">{{ "article.files"|trans }}</div>
         <div class="submission-subform-container panel-body">
                         <textarea class="submission-subform-template">{%- filter escape -%}
                             {{ include('@OjsJournal/ArticleSubmission/_articlefile_subform.html.twig', { 'form': form.articleFiles.vars.prototype }) }}
@@ -56,7 +58,8 @@
             {% endfor %}
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i class="fa fa-plus"></i> Add Article File</button>
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i
+                        class="fa fa-plus"></i> {{ "select.article.file"|trans }}</button>
         </div>
     </div>
     <hr>
