@@ -209,8 +209,14 @@
                                         {% endif %}
                                     </ul>
                                     <ul class="list-inline">
-                                        <li><i class="fa fa-eye"></i> 12.310</li>
-                                        <li><i class="fa fa-download"></i> 1.120</li>
+                                        <li>
+                                            <i class="fa fa-eye"></i>
+                                            {% if viewMap[journal.id] is defined %}
+                                                {{ viewMap[journal.id] }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
