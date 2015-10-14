@@ -663,6 +663,7 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 
 .profile-container .page-header .img-circle {
     width: 180px;
+    height: 180px;
 }
 
 .well-xs {
