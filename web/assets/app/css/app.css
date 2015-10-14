@@ -748,3 +748,7 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     margin-left: 45px;
     padding: 15px;
 }
+
+label.required:before {
+    content: "* ";
+}
