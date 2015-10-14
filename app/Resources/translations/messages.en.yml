@@ -5,7 +5,7 @@ Accept: Accept
 Action: Action
 Admin: Admin
 Arabic: Arabic
-Articles: Articles
+Articles: Submissions
 Association: Association
 Author: Author
 Authors: Authors
@@ -155,54 +155,54 @@ application.status.waiting: 'Waiting for Import'
 apply: Apply
 apply.for.new.journal: 'Apply For New Journal'
 archive: Archive
-article: Article
-article.add: 'Add Article'
-article.all: 'All Articles'
-article.any_article_viewed: 'Any article viewed yet'
-article.any_downloaded: 'Any article downloaded yet'
-article.authors: 'Article Authors'
-article.citations: 'Article Citations'
-article.detail: 'Article Detail'
-article.files: 'Article Files'
+article: Submissions
+article.add: 'New Submission'
+article.all: 'All Submissions'
+article.any_article_viewed: 'No submissions viewed yet'
+article.any_downloaded: 'No submissions downloaded yet'
+article.authors: 'Submission Authors'
+article.citations: 'Submission Citations'
+article.detail: 'Submission Detail'
+article.files: 'Submission Files'
 article.fulltext: 'Full Text'
 article.header_image: 'Header Image'
-article.language.other: 'Other Languages of Article'
-article.language.primary: 'Primary Language of Article'
+article.language.other: 'Other Languages of Submission'
+article.language.primary: 'Primary Language of Submission'
 article.licensing: Prerequisite
-article.manager: 'Article Manager'
-article.metadata: 'Article Metadata'
+article.manager: 'Submission Manager'
+article.metadata: 'Submission Metadata'
 article.mysubmits: 'My Submissions'
-article.new: 'New Article'
-article.plural: Articles
-article.preview: 'Article Preview'
-article.singular: Article
-article.submit: 'Submit Article'
-article.subtitle: 'Article Subtitle'
-article.title: 'Article Title'
-article.titleTransliterated: 'Article Title Transliterated'
-article.type: 'Article Type'
-article.type.list: 'Article Type List'
-article.type.new: 'New Article Type'
-article.types: 'Article Types'
-article_author_edit: 'Edit Article Authors'
-article_author_list: 'List Article Authors'
-article_id: 'Article ID'
-articleauthor: 'Article Author'
-articleauthor_create: 'Create Article Author'
-articleauthor_new: 'New Article Author'
-articlefile: 'Article File'
+article.new: 'New Submission'
+article.plural: Submissions
+article.preview: 'Submission Preview'
+article.singular: Submission
+article.submit: 'Submit a Manuscript'
+article.subtitle: 'Submission Subtitle'
+article.title: 'Submission Title'
+article.titleTransliterated: 'Submission Title Transliterated'
+article.type: 'Submission Type'
+article.type.list: 'Submission Type List'
+article.type.new: 'New Submission Type'
+article.types: 'Submission Types'
+article_author_edit: 'Edit Submission Authors'
+article_author_list: 'List Submission Authors'
+article_id: 'Submission ID'
+articleauthor: 'Submission Author'
+articleauthor_create: 'Create Author'
+articleauthor_new: 'New Author'
+articlefile: 'Submission File'
 articlefile.actions: Actions
 articlefile.id: ID
 articlefile.langcode: 'File Language'
-articlefile.new: 'New Article File'
+articlefile.new: 'New Submission File'
 articlefile.title: 'File Title'
-articlefile.type: 'Article File Type'
+articlefile.type: 'Submission File Type'
 articlefile.version: 'File Version'
 articles: Articles
-articles.needAction: 'Articles That Need Action'
-articles.waiting: 'Waiting Articles'
-articles_in_journal: 'Articles in Journal'
-articles_in_review: 'Articles in Review'
+articles.needAction: 'Submissions That Need Action'
+articles.waiting: 'Submissions Waiting'
+articles_in_journal: 'Submissions in Journal'
+articles_in_review: 'Submissions in Review'
 author: Author
 author.add: 'Add Author'
 author.creation: 'Author Creation'
@@ -384,7 +384,7 @@ form.item.update: 'Form Item Update'
 form.items: 'Form Items'
 full_file: 'Full File'
 fullname: 'Full Name'
-globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of an article to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
+globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of a manuscript to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
 haveNoJournals: 'You have no journals'
 help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
 helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
@@ -474,8 +474,8 @@ publishermanagers.list: 'Publisher Manager List'
 introduction: Introduction
 anonymous: 'Is Anonymous'
 issue: Issue
-issue.add.articles: 'Add article to this issue'
-issue.all_articles: 'Here you can find all articles for selected issue'
+issue.add.articles: 'Add Submission to the issue'
+issue.all_articles: 'Here you can find all accepted submissions for the selected issue'
 issue.edit: 'Edit Issue'
 issue.list: 'Issue List'
 issue.manager: 'Issue Manager'
@@ -492,18 +492,18 @@ issuefile.title: Title
 items_per_page: 'Items Per Page'
 journal: Journal
 journal.about: 'About Journal'
-journal.address: 'Journal''s Postal Address'
+journal.address: 'Postal Address of the Journal'
 journal.all: 'All Journals'
 journal.any_have: 'You don''t have any journals!'
 journal.application_success_message: 'Your application was saved successfully.'
-journal.apply: 'Journal Application'
-journal.articles: 'Journal Articles'
+journal.apply: 'New Journal Applications'
+journal.articles: 'Browse the Journal'
 journal.assistant_editor: 'Assistant Editor'
 journal.assistant_editor_email: 'Assistant Editor''s e-mail'
 journal.assistant_editor_name: 'Assistant Editor''s Name'
 journal.assistant_editor_phone: 'Assistant Editor''s Phone'
 journal.assistant_editor_surname: 'Assistant Editor''s Surname'
-journal.boards: 'Journal Boards'
+journal.boards: 'Editorial Boards'
 journal.country: Country
 journal.cover_image: 'Cover Image'
 journal.createdAt: 'Created at'
@@ -528,7 +528,7 @@ journal.issn: 'Journal ISSN'
 journal.join: 'Join Journal'
 journal.langs: Languages
 journal.languages: Languages
-journal.list: 'List Journals'
+journal.list: 'Journal List'
 journal.manager: 'Journal Manager'
 journal.approve_journal: 'Approve Journal'
 journal.mission: Mission
@@ -550,7 +550,7 @@ journal.settings.submission.abstractTemplate: 'Submission Abstract Template'
 journal.settings.submission.copyrightnotice: 'Copyright Notice'
 journal.settings.submission.copyrightnotice.desc: "\"The Copyright Notice\" will appear in submission form and each published item's metadata. \nWhile it is up to the journal manager to determine the copyright agreement with authors, \nwe recommend to use of the <a href=\"http://creativecommons.org/\">CREATIVE COMMONS</a> license.<br>\nYou can use one of the default templates by clicking the buttons above.\n"
 journal.settings.submission.language: 'Submission Language'
-journal.settings.submission.language.text: 'Select mandatory languages for article submitting'
+journal.settings.submission.language.text: 'Select mandatory languages for the submission'
 journal.setup: 'Journal Setup'
 journal.singular: Journal
 journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
@@ -566,7 +566,7 @@ journal.theme: 'Journals Theme'
 journal.title: Title
 journal.titleAbbr: 'Abbreviated Title'
 journal.titleTransliterated: 'Transliterated Title'
-journal.update: 'Journal Update'
+journal.update: 'Update the Journal'
 journal.url: URL
 journal.user: User
 journal.users: 'Journal Users'
@@ -650,7 +650,7 @@ mailtemplate.journal: Journal
 mailtemplate.language: Language
 mailtemplate.languages: Languages
 mailtemplate.list: 'Mail Templates'
-mailtemplate.new: 'Create Mail Template'
+mailtemplate.new: 'New Mail Template'
 mailtemplate.show: Show
 mailtemplate.subject: Subject
 mailtemplate.template: Template
@@ -660,9 +660,9 @@ mandatory: Mandatory
 manual: Manual
 mastersthesis: 'Master Thesis'
 messages: Messages
-message.application_not_available: 'Sorry, but applications are not available at the moment.'
-message.registration_not_available: 'Sorry, but user registrations are not available at the moment.'
-message.submission_not_available: 'Sorry, but article submissions are not available at the moment.'
+message.application_not_available: 'There is no new application'
+message.registration_not_available: 'There is no new registration.'
+message.submission_not_available: 'There is no new submission.'
 mimetype: 'Mime Type'
 misc: Miscellaneous
 mission: Mission
@@ -676,14 +676,14 @@ none: None
 not.finished: 'Not Finished'
 notFound: 'The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.'
 notes_to_editor: 'Notes to Editor'
-notification.creation: 'Notification Creation'
+notification.creation: 'Create Notification'
 notification.edit: 'Edit Notification'
 notification.entity.id: 'Entity ID'
 notification.entity.name: 'Entity Name'
 notification.id: ID
 notification.isread: 'Is Read?'
 notification.level: Level
-notification.list: 'List Notifications'
+notification.list: 'Notification List'
 notification.recipient.id: 'Recipient ID'
 notification.sender.id: 'Sender ID'
 notification.singular: Notification
@@ -695,15 +695,15 @@ number: Number
 off: Off
 on: On
 ojs: OJS
-ojs.403: 'You don''t have permission to view this page.'
-ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking the activation link'
+ojs.403: 'You don''t have a permission to view this page.'
+ojs.accept_privacy: 'To protect your privacy, please confirm your email address by clicking on the activation link'
 ojs.activate_now: 'Activate Now'
 ojs.add_link: 'Add Link'
 ojs.any_content: 'No Content'
 ojs.back_and_edit: 'Back & Continue Editing'
 ojs.change_password: 'Password Change'
 ojs.changed_password: 'Your password has been changed'
-ojs.click_to_Review: 'Click link below for login to ojs if you are accept invitation'
+ojs.click_to_Review: 'Click on the link below for login to website if you accept invitation'
 ojs.found_results: '<strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>'
 ojs.have_message: 'You have a message from OJS'
 ojs.install.confirm: 'Confirm Installation'
@@ -714,7 +714,7 @@ ojs.invited_to_review: 'Review Invitation Form'
 ojs.mail_validation: 'If the clicking the button below does not work try copying and pasting this URL to your browser window.'
 ojs.one_more_step: 'One More Step'
 ojs.password_reset: 'Password Reset'
-ojs.password_reset_link: 'Click link below for reset to OJS account password'
+ojs.password_reset_link: 'Click the link below for reset to OJS account password'
 ojs.password_reset_now: 'Reset Now'
 ojs.password_reset_process: 'Password Reset Process'
 ojs.password_reset_request: 'You are requested to reset password'
@@ -786,9 +786,9 @@ read.article: 'Read Article'
 read.lastissue: 'Last Issue'
 regenerate.apikey: 'Regenerate APIKEY'
 register: Register
-register_advantages_text: 'Registering to OJS would let you submit articles to journals with no hassle.'
+register_advantages_text: 'Registering to OJS would let you submit your manuscripts to journals with no hassle.'
 register.yourself.as.author: 'Register Yourself As Author'
-register_journal: 'Register Journal'
+register_journal: 'Register yourself to a Journal'
 registration.activation: 'Check your e-mail to activate your account.'
 rejected: Rejected
 remove: Remove
@@ -841,8 +841,8 @@ search.main: 'Search Journal, Article and Author'
 search.noresult: 'We could not find any results matching.'
 search.result.headline: 'Total %total% item for %term% query.'
 search.results: 'Search Results'
-search.on.everywhere: 'Search On This Site'
-search.on.journal: 'Search On Journal'
+search.on.everywhere: 'Search On the webSite'
+search.on.journal: 'Search On the Journal'
 search.advanced: 'Advanced Search'
 search.query: Query
 search.useQueryBuilder: 'Use Query Builder'
@@ -864,10 +864,10 @@ section: Section
 select.article.file: 'Select File'
 select.image.file: 'Select Image File...'
 select_all: 'Select All'
-select_article_file: 'Select Article File'
-select_supplementary_article_file: 'Select Supplementary Article File'
+select_article_file: 'Select Submission File'
+select_supplementary_article_file: 'Select Supplementary Submission File'
 select_visible: 'Select Visible'
-send_article: 'Send Article'
+send_article: 'Send a submission'
 sendmail: 'Send E-mail'
 services: Services
 setting: Setting
@@ -880,9 +880,9 @@ source: Source
 special: Special
 special.issue: 'Special Issue'
 stats: Statistics
-stats.most_downloaded_article_files: 'Most Downloaded Article Files'
+stats.most_downloaded_article_files: 'Most Downloaded Submission Files'
 stats.most_downloaded_issue_files: 'Most Downloaded Issue Files'
-stats.most_viewed_articles: 'Most Viewed Articles'
+stats.most_viewed_articles: 'Most Viewed Submissions'
 stats.most_viewed_journals: 'Most Viewed Journals'
 stats.views: Views
 stats.downloads: Downloads
@@ -938,9 +938,9 @@ suppfiles.supp: 'Supplementary File'
 suppfiles.trans: Transcripts
 supplement: 'Is Supplement?'
 support: Support
-submitted.articles: 'Submitted Articles'
-submitted.articles.all: 'All Submitted Articles'
-submitted.articles.me: 'My Submitted Articles'
+submitted.articles: 'Submissions'
+submitted.articles.all: 'All Submissions'
+submitted.articles.me: 'My Submissions'
 sure: 'Are you sure?'
 sure.ban: 'You will ban this user. Are you sure?'
 sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
@@ -972,30 +972,30 @@ title.announcement_new: 'New Announcement'
 title.announcement_show: 'Announcement Details'
 title.api: 'API Home'
 title.archives: Archives
-title.article: Article
-title.article_authors: 'Article''s Authors'
-title.article_authors_edit: 'Edit Article''s Authors'
+title.article: Submission
+title.article_authors: 'Authors of the Submission'
+title.article_authors_edit: 'Edit the Authors'
 title.article_authors_new: 'Add a New Author'
-title.article_authors_show: 'Show Article''s Authors'
-title.article_edit: 'Edit Article'
-title.article_files: 'Article Files'
-title.article_files_edit: 'Edit Article File'
-title.article_files_new: 'New Article File'
-title.article_files_show: 'Show Article File'
-title.article_new: 'New Article'
-title.article_show: 'Show Article'
-title.article_type_edit: 'Edit Article Type'
-title.article_type_new: 'New Article Type'
-title.article_type_show: 'Show Article Type'
-title.article_types: 'Article Types'
+title.article_authors_show: 'Show Authors of the Submission'
+title.article_edit: 'Edit Submission'
+title.article_files: 'Submission Files'
+title.article_files_edit: 'Edit Submission File'
+title.article_files_new: 'New Submission File'
+title.article_files_show: 'Show Submission File'
+title.article_new: 'New Submission'
+title.article_show: 'Show Submission'
+title.article_type_edit: 'Edit Submission Type'
+title.article_type_new: 'New Submission Type'
+title.article_type_show: 'Show Submission Type'
+title.article_types: 'Submission Types'
 title.articles: Articles
-title.articles_assign: 'Assign Articles'
-title.articles_assigned: 'Assigned Articles'
-title.articles_published: 'Published Articles'
-title.articles_rejected: 'Rejected Articles'
-title.articles_uncomplete: 'Uncomplete Articles'
-title.articles_unpublished: 'Unpublished Articles'
-title.articles_waiting: 'Waiting Articles'
+title.articles_assign: 'Assign Submission'
+title.articles_assigned: 'Assigned Submissions'
+title.articles_published: 'Published Submissions'
+title.articles_rejected: 'Rejected Submissions'
+title.articles_uncomplete: 'Uncomplete Submissions'
+title.articles_unpublished: 'Unpublished Submissions'
+title.articles_waiting: 'Waiting Submissions'
 title.author_edit: 'Edit Author'
 title.author_new: 'New Author'
 title.author_preview: 'Author Preview'
@@ -1072,8 +1072,8 @@ title.issuefile.new: 'New Issue File'
 title.issues: Issues
 title.journal: Journal
 title.journal_application: 'Journal Application'
-title.journal_apply: 'Apply to Journal'
-title.journal_articles: 'Journal Articles'
+title.journal_apply: 'Apply to a Journal'
+title.journal_articles: 'Journal Submissions'
 title.journal_authors: 'Journal Authors'
 title.journal_contact: 'Journal Contact'
 title.journal_contact_edit: 'Edit Journal Contact'
@@ -1126,7 +1126,7 @@ title.language_edit: 'Edit Language'
 title.language_new: 'New Language'
 title.language_show: 'Show Language'
 title.languages: Languages
-title.last_articles: 'Last Articles'
+title.last_articles: 'Last Submissions'
 title.login: Login
 title.mail_log_edit: 'Edit e-Mail Log'
 title.mail_log_new: 'New e-Mail Log'
@@ -1238,7 +1238,7 @@ toggle_navigation: 'Toggle Navigation'
 tools: Tools
 topics: Topics
 tos: Tos
-total.article: 'Total Article'
+total.article: 'Total Submission'
 total.issue: 'Total Issue'
 total.user: 'Total User'
 trans: Transliterated
@@ -1252,7 +1252,7 @@ ulakbim: ULAKBİM
 unconfirmed.user: 'Unconfirmed user'
 unpublished: Unpublished
 update: Update
-update.article.file: 'Update Article File'
+update.article.file: 'Update a Submission File'
 update.end.time: 'Update End Time'
 update.ttl: 'Update TTL'
 updated: Updated
