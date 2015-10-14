@@ -24,7 +24,8 @@ Ojs\CmsBundle\Entity\File:
         path:
             type: text
         size:
-            type: integer
+           type: string
+           length: 255
         tags:
             type: string
             length: 255

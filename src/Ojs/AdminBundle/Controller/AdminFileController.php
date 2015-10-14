@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminFile;
 use Ojs\CmsBundle\Form\Type\FileType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -62,6 +63,10 @@ class AdminFileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $rootDir = $this->getParameter('kernel.root_dir');
+            $path = $rootDir . '/../web/uploads/files/' . $entity->getPath();
+            $entity->setSize(StringHelper::formatBytes(filesize($path)));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
