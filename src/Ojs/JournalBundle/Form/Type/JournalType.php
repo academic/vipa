@@ -34,6 +34,7 @@ class JournalType extends AbstractType
                 'publisher',
                 null,
                 [
+                    'required' => true,
                     'label' => 'publisher',
                     'attr' => [
                         'class' => 'select2-element validate[required]',
@@ -85,7 +86,6 @@ class JournalType extends AbstractType
                 [
                     'label' => 'subjects',
                     'class' => 'Ojs\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
                     'multiple' => true,
                     'attr' => [
                         'class' => 'select2-element',
