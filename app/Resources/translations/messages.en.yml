@@ -660,9 +660,9 @@ mandatory: Mandatory
 manual: Manual
 mastersthesis: 'Master Thesis'
 messages: Messages
-message.application_not_available: 'There is no new application'
-message.registration_not_available: 'There is no new registration.'
-message.submission_not_available: 'There is no new submission.'
+message.application_not_available: 'Sorry, you can not make a new application'
+message.registration_not_available: 'Sorry, you can not make a new registration.'
+message.submission_not_available: 'Sorry, you can create a new submission.'
 mimetype: 'Mime Type'
 misc: Miscellaneous
 mission: Mission
