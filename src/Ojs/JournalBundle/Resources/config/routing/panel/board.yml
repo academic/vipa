@@ -35,5 +35,5 @@ ojs_journal_board_member_add:
     methods:  [POST, PUT]
 
 ojs_journal_board_member_remove:
-    path:  /{journalId}/board/{boardId}/member/{userId}/remove
+    path:  /{journalId}/board/{boardId}/member/{id}/remove
     defaults: { _controller: OjsJournalBundle:Board:removeMember }

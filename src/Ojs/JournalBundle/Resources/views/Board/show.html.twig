@@ -17,22 +17,7 @@
     <br>
     <br>
     {% if is_granted('EDIT', selectedJournal(), 'boards') %}
-        <form action="{{ path('ojs_journal_board_member_add', {'boardId': entity.id, 'journalId': selectedJournal().id}) }}" method="POST"
-              name="addMemberForm" class="form-inline">
-            <span class="help-block">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                {{ 'board.can_not_add_user'|trans|raw }}
-                {{ 'board.manage_users'|trans({"%path%": path('ojs_journal_user_index', {'journalId': selectedJournal().id})})|raw }}
-            </span>
-
-            <div class="form-group">
-                <!-- <label for="userInput">{{ "user"|trans }}</label> -->
-                <input type="text" class="form-control select2-element-user"
-                       style="min-width: 250px"
-                       name="userid" id="userInput" placeholder="{{ "user"|trans }}">
-            </div>
-            <button type="submit" class="btn btn-default">{{ "add"|trans }}</button>
-        </form>
+        {{ form(addMemberForm) }}
     {% endif %}
     <hr>
     <div class="panel panel-primary">
@@ -40,21 +25,7 @@
             <h4>{{ 'board.members'|trans }}</h4>
         </div>
         <div class="panel-body">
-            <table class="table table-hover">
-                {% for member in members %}
-                    <tr>
-                        <td>
-                            {{ member.user.fullName }} ({{ member.user.username }})
-                            {% if is_granted('EDIT', selectedJournal(), 'boards') %}
-                                    <a class="btn btn-danger btn-sm pull-right" onclick="return confirm('{% trans %}sure{% endtrans %}');"
-                                       href="{{ path('ojs_journal_board_member_remove',{'boardId': entity.id, 'userId': member.user.id, 'journalId': selectedJournal().id}) }}" title="{{ "remove"|trans }}">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
+            {{ grid(membersGrid) }}
         </div>
     </div>
     <div class="btn-group">
@@ -75,45 +46,4 @@
             </a>
         {% endif %}
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(document).ready(function () {
-            $(".select2-element-user").select2({
-                multiple: false,
-                createSearchChoice: function (term, data) {
-                    if ($(data).filter(function () {
-                                return this.text.localeCompare(term) === 0;
-                            }).length === 0) {
-                        return {id: term, text: term};
-                    }
-                },
-                ajax: {
-                    url: Routing.generate('search_journal_users', {journalId: {{  selectedJournal().id }}}),
-                    dataType: 'json',
-                    type: "GET",
-                    delay: 1000,
-                    data: function (params) {
-                        return {q: params, apikey: userApikey};
-                    },
-                    results: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.username + " (" + item.email + ")",
-                                    slug: item.username,
-                                    id: item.id
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                },
-                minimumInputLength: 3
-
-            });
-        });
-    </script>
 {% endblock %}

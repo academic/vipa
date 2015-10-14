@@ -6,9 +6,11 @@ use Gedmo\Translatable\Translatable;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * BoardMember
+ * @GRID\Source(columns="id, user.username, board.name, seq")
  */
 class BoardMember implements Translatable
 {
@@ -36,11 +38,13 @@ class BoardMember implements Translatable
 
     /**
      * @var Board
+     * @Grid\Column(field="board.name", title="board")
      */
     private $board;
 
     /**
      * @var User
+     * @Grid\Column(field="user.username", title="user")
      */
     private $user;
 
