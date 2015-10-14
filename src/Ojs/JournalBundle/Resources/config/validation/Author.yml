@@ -1,7 +1,5 @@
 Ojs\JournalBundle\Entity\AuthorTranslation:
   properties:
-    title:
-      - NotBlank: ~
 
 Ojs\JournalBundle\Entity\Author:
     properties:
