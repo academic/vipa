@@ -25,17 +25,23 @@
             <header class="page-header text-center">
                 <figure>
                     <img
-                        {% if user.avatar is not null %}
-                        class="img-circle"
-                        {% else %}
-                            class="img-circle" src="{{ asset('assets/app/images/buddy_sample.png') }}"
-                        {% endif %}
-                        alt="" src="{% if user.avatar %}{{ user.avatar|imagine_filter('user_croped') }}{% endif %}" />
+                            {% if user.avatar is not null %}
+                                class="img-circle"
+                            {% else %}
+                                class="img-circle" src="{{ asset('assets/app/images/buddy_sample.png') }}"
+                            {% endif %}
+                            alt=""
+                            src="{% if user.avatar %}{{ user.avatar|imagine_filter('user_croped') }}{% endif %}"/>
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} /
                     @{{ user.username }}</h1>
                 <a href="{{ user.url }}" target="_blank">{{ user.url }}</a><br>
-                {{ user.city.country ~ ' / ' ~ user.city }}
+                {% if user.city.country is defined %}
+                    {{ user.city.country }}
+                {% endif %}
+                {% if user.city %}
+                    {{ user.city }}
+                {% endif %}
                 <p>{{ user.about }}</p>
                 <small><i class="fa fa-clock-o"></i>
                     <time> {{ user.updated.date|date }}</time>
@@ -61,38 +67,38 @@
             </div>
 
             {% if education is defined %}
-            <div class="panel panel-default">
-                <div class="panel-heading">Education</div>
-                <div class="panel-body">
-                    <table class="table table-hover table-responsive ">
-                        <thead>
-                        <tr>
-                            <th>Degree</th>
-                            <th>Graduation Year</th>
-                            <th>CGPA</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Masters in Computer Science and Engineering</td>
-                            <td>2014</td>
-                            <td> 3.50</td>
-                        </tr>
-                        <tr>
-                            <td>BSc. in Computer Science and Engineering</td>
-                            <td>2011</td>
-                            <td> 3.25</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Education</div>
+                    <div class="panel-body">
+                        <table class="table table-hover table-responsive ">
+                            <thead>
+                            <tr>
+                                <th>Degree</th>
+                                <th>Graduation Year</th>
+                                <th>CGPA</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Masters in Computer Science and Engineering</td>
+                                <td>2014</td>
+                                <td> 3.50</td>
+                            </tr>
+                            <tr>
+                                <td>BSc. in Computer Science and Engineering</td>
+                                <td>2011</td>
+                                <td> 3.25</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-heading">
+                        Research Interests
+                    </div>
+                    <div class="panel-body">
+                        keadsd, asdasd,
+                    </div>
                 </div>
-                <div class="panel-heading">
-                    Research Interests
-                </div>
-                <div class="panel-body">
-                    keadsd, asdasd,
-                </div>
-            </div>
             {% endif %}
 
         </div>

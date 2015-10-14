@@ -661,6 +661,10 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
     margin: 0 10px 5px 0
 }
 
+.profile-container .page-header .img-center {
+    width: 180px;
+}
+
 .well-xs {
     padding: 0px;
     margin: 0 2px;
