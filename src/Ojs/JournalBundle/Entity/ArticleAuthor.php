@@ -14,7 +14,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 /**
  * Authors of article and orders
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,author.firstName,author.lastName,article")
+ * @GRID\Source(columns="id,author.firstName,author.lastName,article,authorOrder")
  */
 class ArticleAuthor implements Translatable
 {

@@ -42,6 +42,6 @@ class ArticleAuthorType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_articlefile';
+        return 'ojs_journalbundle_articleauthor';
     }
 }
