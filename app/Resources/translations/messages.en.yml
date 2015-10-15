@@ -812,6 +812,7 @@ review.form.preview: 'Review Form Preview'
 review.form.update: 'Update Review Form'
 review.forms: 'Review Forms'
 review.result: 'Review Result'
+review.form.unavailable: 'No review form available.'
 reviewForms.manage: 'Manage Review Forms'
 reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'
