@@ -136,10 +136,10 @@ fos_user:
       type: ojs_user_register
   registration:
     confirmation:
-        enabled: true
-  from_email:
-    address: %system_email%
-    sender_name: %project_name%
+      enabled: true
+      from_email:
+        address: %system_email%
+        sender_name: %project_name%
   service:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
