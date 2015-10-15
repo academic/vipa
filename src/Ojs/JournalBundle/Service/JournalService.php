@@ -117,20 +117,19 @@ class JournalService
      */
     public function getSelectedJournal()
     {
-        try {
-            $journalId = $this->requestStack->getCurrentRequest()->attributes->get('journalId');
-            if (!$journalId) {
-                throw new \Exception;
-            }
-            $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
-            if (!$selectedJournal) {
-                throw new \Exception;
-            }
-            return $selectedJournal;
-        }
-        catch(\Exception $e) {
+        $request = $this->requestStack->getCurrentRequest();
+        if(!$request) {
             return false;
         }
+        $journalId = $request->attributes->get('journalId');
+        if (!$journalId) {
+            return false;
+        }
+        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
+        if (!$selectedJournal) {
+            return false;
+        }
+        return $selectedJournal;
     }
 
     /**
