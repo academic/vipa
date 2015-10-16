@@ -461,6 +461,7 @@ publisher.plural: Yayıncılar
 publisher.slug: 'Geçersiz Ad'
 publisher.tags: Etiketler
 publisher.tags: 'Yayıncı Düzeni'
+publisher.theme: 'Yayıncı Teması'
 publisher.type: Tür
 publisher.url: URL
 publisher.wiki_url: 'Wiki URL'

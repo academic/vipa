@@ -460,6 +460,7 @@ publisher.phone: 'Phone Number'
 publisher.plural: Publishers
 publisher.slug: 'Slug Name'
 publisher.tags: Tags
+publisher.theme: 'Publisher Theme'
 publisher.type: Type
 publisher.tags: 'Publisher Layout'
 publisher.url: URL
