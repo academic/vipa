@@ -3,7 +3,9 @@
 namespace Ojs\CmsBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\CoreBundle\Entity\DisplayTrait;
 use Ojs\CoreBundle\Entity\TagsTrait;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * Class File
@@ -12,6 +14,7 @@ use Ojs\CoreBundle\Entity\TagsTrait;
  */
 abstract class File
 {
+    use DisplayTrait;
     use TagsTrait;
 
     /**

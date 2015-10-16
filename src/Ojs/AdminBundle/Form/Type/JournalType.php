@@ -70,7 +70,6 @@ class JournalType extends AbstractType
                 array(
                     'label' => 'Periods',
                     'class' => 'Ojs\JournalBundle\Entity\Period',
-                    'property' => 'period',
                     'multiple' => true,
                     'expanded' => false,
                     'attr' => [
@@ -84,7 +83,6 @@ class JournalType extends AbstractType
                 [
                     'label' => 'subjects',
                     'class' => 'Ojs\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
                     'multiple' => true,
                     'attr' => [
                         'class' => 'select2-element',

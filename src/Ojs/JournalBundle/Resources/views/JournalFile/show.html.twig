@@ -13,40 +13,7 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     <h1>{{ 'file'|trans }}</h1>
-
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>{{ 'id'|trans }}</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'name'|trans }}</th>
-            <td>{{ entity.name }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'description'|trans }}</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'file.path'|trans }}</th>
-            <td>
-                <a href="http://ojs.dev/uploads/files/{{ entity.path }}">
-                    http://ojs.dev/uploads/files/{{ entity.path }}
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <th>{{ 'size'|trans }}</th>
-            <td>{{ entity.size }}</td>
-        </tr>
-        <tr>
-            <th>{{ 'tags'|trans }}</th>
-            <td>{{ entity.tags }}</td>
-        </tr>
-        </tbody>
-    </table>
-
+    {{ display(entity) }}
     {{
         actions({
             'back': {'href': path('ojs_journal_filemanager_index', {'journalId': selectedJournal().id})},
