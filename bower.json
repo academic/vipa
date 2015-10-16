@@ -40,6 +40,7 @@
     "moment": "*",
     "livestamp": "*",
     "sisyphus": "*",
-    "formbuilder": "~0.2.1"
+    "formbuilder": "~0.2.1",
+    "sweetalert": "v1.1.0"
   }
 }

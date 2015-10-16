@@ -33,6 +33,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js'
         - '%kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js'
         - '%kernel.root_dir%/../web/vendor/select2/dist/js/select2.full.min.js'
+        - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.min.js'
         - '@OkulbilisimFeedbackBundle/Resources/public/js/feedback.js'
         - '@OkulbilisimFeedbackBundle/Resources/public/js/admin.js'
         - '@OkulBilisimLocationBundle/Resources/public/js/location.js'
@@ -52,6 +53,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote-bs3.css'
         - '%kernel.root_dir%/../web/assets/app/css/_history.css'
         - '@OkulbilisimFeedbackBundle/Resources/public/css/feedback.css'
+        - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.css'
     advanced_search_js:
       inputs: ['@OjsCoreBundle/Resources/public/js/search.js']
     submission_js:
