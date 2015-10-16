@@ -29,11 +29,6 @@ class ArticleTranslation extends AbstractTranslation
     /**
      * @var string
      */
-    protected $subtitle;
-
-    /**
-     * @var string
-     */
     protected $keywords;
 
     /**
@@ -71,22 +66,6 @@ class ArticleTranslation extends AbstractTranslation
     public function setSubjects($subjects)
     {
         $this->subjects = $subjects;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubtitle()
-    {
-        return $this->subtitle;
-    }
-
-    /**
-     * @param string $subtitle
-     */
-    public function setSubtitle($subtitle)
-    {
-        $this->subtitle = $subtitle;
     }
 
     /**

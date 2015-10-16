@@ -18,12 +18,6 @@ Ojs\JournalBundle\Entity\ArticleTranslation:
       nullable: true
       gedmo:
         - versioned
-    subtitle:
-      length: 255
-      type: string
-      nullable: true
-      gedmo:
-        - versioned
     keywords:
       type: string
       nullable: true

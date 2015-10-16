@@ -81,12 +81,6 @@ class Article extends AbstractTranslatable
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
-    private $subtitle;
-    /**
-     * @var string
-     * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
-     */
     private $keywords;
     /**
      * Some articles carries no authorship
@@ -370,7 +364,6 @@ class Article extends AbstractTranslatable
                 $translation->setAbstract($defaultTranslation->getAbstract());
                 $translation->setKeywords($defaultTranslation->getKeywords());
                 $translation->setSubjects($defaultTranslation->getSubjects());
-                $translation->setSubtitle($defaultTranslation->getSubtitle());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
@@ -776,29 +769,6 @@ class Article extends AbstractTranslatable
     public function setTitleTransliterated($titleTransliterated)
     {
         $this->titleTransliterated = $titleTransliterated;
-
-        return $this;
-    }
-
-    /**
-     * Get subtitle
-     *
-     * @return string
-     */
-    public function getSubtitle()
-    {
-        return $this->translate()->getSubtitle();
-    }
-
-    /**
-     * Set subtitle
-     *
-     * @param  string $subtitle
-     * @return $this
-     */
-    public function setSubtitle($subtitle)
-    {
-        $this->translate()->setSubtitle($subtitle);
 
         return $this;
     }

@@ -57,9 +57,6 @@
                             <h2 class="title">{{ article.title }} <small>(<i class="fa fa-eye"></i> {{ article.viewCount }})</small>
                                 <br> {% if article.titleTransliterated %}<span
                                         class="muted">{{ article.titleTransliterated }}</span><br>{% endif %}
-                                {% if article.subtitle %}
-                                    <small>{{ article.subtitle }}</small>
-                                {% endif %}
                                 {% if article.articleAuthors %}
                                     {% for authorsInfo in article.articleAuthors %}
                                         <small>

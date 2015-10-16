@@ -22,7 +22,6 @@ class ArticleType extends AbstractType
                     'title' => [
                         'field_type' => 'text'
                     ],
-                    'subtitle' => [],
                     'subjects' => [],
                     'keywords' => [
                         'label' => 'keywords',

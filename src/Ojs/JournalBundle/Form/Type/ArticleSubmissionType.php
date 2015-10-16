@@ -33,7 +33,6 @@ class ArticleSubmissionType extends AbstractType
                     'title' => [
                         'field_type' => 'text'
                     ],
-                    'subtitle' => [],
                     'subjects' => [
                         'label' => 'subjects',
                         'field_type' => 'tags'
