@@ -144,9 +144,7 @@
         $(function () {
             $("#issueManagerPreviewArticle").click(function () {
                 if ($("#unissuedArticles").val().length > 0) {
-                    var path = '{{ path('ojs_journal_article_show', {journalId: selectedJournal().id, id: 1}) }}';
-                    path = path.substring(0, path.length - 1);
-                    console.log(path);
+                    var path = '{{ path('ojs_journal_article_show', {journalId: selectedJournal().id, id: 1}) }}'.slice(0,-1);
                     window.open(path + $("#unissuedArticles").val());
                 }
             });
