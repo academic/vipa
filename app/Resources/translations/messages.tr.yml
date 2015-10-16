@@ -909,6 +909,7 @@ subjects: Konular
 submission.attention: 'Taslağınızı gönderdikten sonra verileri değiştiremezsiniz.  <br>Eğer emin değilseniz, bu pencereyi kapatmış olsanız bile gönderime daha sonra devam edebilirsiniz.'
 submission.starting: Başlarken
 submission.success: 'Makale Gönderimi Tamamlandı'
+submission.continue_edit: 'Makale Gönderimi düzenlemesine devam et'
 submissionDate: 'Gönderi Tarihi'
 submission_checklist: 'Gönderi Kontrol Listesi'
 submission_checklist.create: 'Yeni Madde'

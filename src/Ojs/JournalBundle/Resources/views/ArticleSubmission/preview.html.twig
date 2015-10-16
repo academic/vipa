@@ -55,7 +55,7 @@
             <div id="step1-container" class="step">
 
                 <div class="panel panel-info">
-                    <div class="panel-heading">Article Meta Data</div>
+                    <div class="panel-heading">{{ "article.metadata"|trans }}</div>
                     {% for lang, translation in  translations %}
                         <div class="panel panel-body table-responsive">
                             <table class="table table-striped">
@@ -83,14 +83,14 @@
                     {% endfor %}
                 </div>
                 <div class="panel panel-info">
-                    <div class="panel-heading">Article Authors</div>
+                    <div class="panel-heading">{{ "article.authors"|trans }}</div>
                     <div class="panel panel-body table-responsive">
                         <table class="table table-condensed">
                             {% for key,articleAuthor in article.articleAuthors %}
                                 <tr>
                                     <td colspan="2">
                                         <br>
-                                        <span class="label label-info">{{ articleAuthor.authorOrder }}</span></td>
+                                        <span class="label label-info">{{ articleAuthor.authorOrder+1 }}</span></td>
                                 </tr>
                                 <tr>
                                     <td>{{ "author.initials"|trans }}</td>
@@ -135,21 +135,23 @@
                     </div>
                 </div>
                 <hr>
+                {% if article.citations is defined and article.citations|length>0 %}
                 <div class="panel panel-info">
-                    <div class="panel-heading">Citiations</div>
+                    <div class="panel-heading">{{ "article.citations"|trans }}</div>
                     <div class="panel panel-body">
                         <table class="table">
                             {% for key,citation  in article.citations %}
                                 <tr>
-                                    <td><span class="badge">{{ citation.orderNum }}</span> {{ citation.raw }}</td>
+                                    <td><span class="badge">{{ citation.orderNum+1 }}</span> {{ citation.raw }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
                 </div>
                 <hr>
+                {% endif %}
                 <div class="panel panel-info">
-                    <div class="panel-heading">Article Files</div>
+                    <div class="panel-heading">{{ "article.files"|trans }}</div>
                     <div class="panel panel-body table-responsive">
                         <table class="table">
                             {% for key,articleFile  in article.articleFiles %}
@@ -185,7 +187,7 @@
                 </div>
                 <hr>
                 <div class="panel panel-info">
-                    <div class="panel-heading">Onay</div>
+                    <div class="panel-heading">{{ "sure"|trans }}</div>
                     <div class="panel panel-body">
                         {{ form_start(form) }}
                         {{ form_row(form.note) }}
@@ -193,7 +195,7 @@
                         {{ form_end(form) }}
                         <hr>
                         <a href="{{ path('ojs_journal_submission_edit', {'journalId': selectedJournal().id,'id': article.id}) }}"
-                           class="btn btn-danger btn-block">Düzenlemeye devam et</a>
+                           class="btn btn-danger btn-block">{{ "submission.continue_edit"|trans }}</a>
                     </div>
                 </div>
             </div>
