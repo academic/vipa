@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojs\UserBundle\Event;
 
 final class UserEvents

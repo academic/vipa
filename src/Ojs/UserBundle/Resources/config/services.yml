@@ -10,3 +10,8 @@ services:
     class: Ojs\UserBundle\Form\Type\RegisterFormType
     tags:
       - { name: form.type, alias: ojs_user_register}
+  user.event_listener:
+    class: Ojs\UserBundle\EventListener\UserEventListener
+    arguments: [@router, @mailer, %system_email%, "OJS SYSTEM"]
+    tags:
+      - { name: kernel.event_subscriber }
