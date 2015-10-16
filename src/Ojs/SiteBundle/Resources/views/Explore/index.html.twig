@@ -177,16 +177,17 @@
                             {% if journal.image is defined %}
                                 {% set src = journal.image|imagine_filter('journal_cover') %}
                                 <img src="{{ src }}"
-                                     class="img-responsive avatar" alt="{{ journal.title }}">
+                                     class="img-responsive avatar" alt="">
                             {% else %}
                                 <img src="#"
-                                     class="img-responsive avatar tri" alt="{{ journal.title }}">
+                                     class="img-responsive avatar tri" alt="">
                             {% endif %}
 
                             <div class="caption">
-
+                                {% if journal.title is defined %}
                                 <strong class="card-link">{{ journal.title }}</strong>
 
+                                {% endif %}
                                 <div>
                                     <ul class="list-inline">
                                         {% if journal.issn is defined %}
