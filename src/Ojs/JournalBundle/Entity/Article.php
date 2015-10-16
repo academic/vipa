@@ -18,7 +18,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Article
- * @GRID\Source(columns="id ,title, issue, doi, journal.title, pubdate, section.title")
+ * @GRID\Source(columns="id ,title, issue, journal.title, pubdate, status, section.title")
  * @GRID\Source(columns="id, status, title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
@@ -46,12 +46,12 @@ class Article extends AbstractTranslatable
      * @var integer
      * @Expose
      * @GRID\Column(type="text", groups={"submission"})
+     * @Grid\Column(field="status", title="status",type="text")
      */
     private $status;
     /**
      * (optional)
      * @var string
-     * @GRID\Column(title="OAI")
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */

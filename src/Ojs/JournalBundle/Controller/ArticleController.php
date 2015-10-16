@@ -34,6 +34,7 @@ class ArticleController extends Controller
         $eventDispatcher = $this->get('event_dispatcher');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
+        $translator = $this->get('translator');
 
         if (!$this->isGranted('VIEW', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -41,12 +42,18 @@ class ArticleController extends Controller
 
         $source = new Entity('OjsJournalBundle:Article');
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $translator) {
                 /** @var Article $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('title', $entity->getTitle());
+                    $doi = $entity->getDoi();
+                    if($doi !== null){
+                        $row->setField('title', $entity->getTitle(). ' / '. $doi);
+                    }else{
+                        $row->setField('title', $entity->getTitle());
+                    }
+                    $row->setField('status', $translator->trans(Article::$statuses[$entity->getStatus()]));
                     if (!is_null($entity->getIssue())) {
                         $row->setField('issue', $entity->getIssue()->getTitle());
                     }
