@@ -19,6 +19,7 @@ class IssueFileType extends AbstractType
 
         $builder
             ->add('file', 'jb_file_ajax', array(
+                'label' => 'issuefile.file',
                 'endpoint' => 'issuefiles'
             ))
             ->add('type',
@@ -28,6 +29,7 @@ class IssueFileType extends AbstractType
                 ])
             ->add('version')
             ->add('langCode','choice',[
+                'label' => 'issuefile.langcode',
                 'choices'=>$languages
             ])
             ->add('translations', 'a2lix_translations')
