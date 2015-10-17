@@ -56,7 +56,7 @@
                                 </a>
                             {% endif %}
 
-                            <h2 class="title">{{ article.title }}</h2>
+                            <h2 class="title">{{ fieldDisplay(article, 'title') }}</h2>
                             {% if article.titleTransliterated %}
                                 <h3><span class="muted">{{ article.titleTransliterated }}</span></h3>
                             {% endif %}
@@ -98,7 +98,7 @@
                                 <h4 class="page-header">{{ "abstract"|trans }}</h4>
 
                                 <div>
-                                    {{ article.abstract|raw }}
+                                    {{ fieldDisplay(article, 'abstract') }}
                                 </div>
                             </div>
                         {% endif %}
@@ -109,10 +109,7 @@
                                 <h4 class="page-header">{{ "keywords"|trans }}</h4>
 
                                 <div>
-                                    {% for keyword in keywords %}
-                                        <a
-                                        href="{{ path('ojs_search_index',{ 'q': keyword }) }}">{{ keyword }}</a>{% if not loop.last %}, {% endif %}
-                                    {% endfor %}
+                                    {{ fieldDisplay(article, 'keywords', false, true) }}
                                 </div>
                             </div>
                         {% endif %}
@@ -146,7 +143,7 @@
                                     <tr>
                                         <th>{{ "subjects"|trans }}</th>
                                         <td>
-                                            {{ article.subjects }}
+                                            {{ fieldDisplay(article, 'subjects') }}
                                         </td>
                                     </tr>
                                 {% endif %}
