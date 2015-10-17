@@ -140,7 +140,7 @@ oneup_uploader:
     generic:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
+      allowed_mimetypes: ['multipart/x-zip','application/zip','application/x-zip-compressed','application/x-compressed','text/plain','application/pdf','image/jpeg','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/png','image/svg+xml' ]
     user:
       enable_progress: true
       frontend: blueimp
@@ -224,7 +224,7 @@ oneup_uploader:
     articlefiles:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
+      allowed_mimetypes: ['multipart/x-zip','application/zip','application/x-zip-compressed','application/x-compressed','text/plain','application/x-latex','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
       storage:
         type: gaufrette
         filesystem: gaufrette.articlefiles_filesystem
@@ -232,7 +232,7 @@ oneup_uploader:
     submissionfiles:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
+      allowed_mimetypes: ['multipart/x-zip','application/zip','application/x-zip-compressed','application/x-compressed','text/plain','application/x-latex','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
       storage:
         type: gaufrette
         filesystem: gaufrette.submissionfiles_filesystem
@@ -240,7 +240,7 @@ oneup_uploader:
     files:
       enable_progress: true
       frontend: blueimp
-      allowed_mimetypes: ['application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
+      allowed_mimetypes: ['multipart/x-zip','application/zip','application/x-zip-compressed','application/x-compressed','text/plain','application/x-latex','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/msword','application/vnd.ms-excel','image/jpeg','image/png','image/svg+xml']
       storage:
         type: gaufrette
         filesystem: gaufrette.files_filesystem
