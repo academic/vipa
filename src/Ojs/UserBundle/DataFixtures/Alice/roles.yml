@@ -32,3 +32,6 @@
   role11:
     role: ROLE_USER
     name: User
+  role12:
+    role: ROLE_SECRETARY
+    name: Secretary

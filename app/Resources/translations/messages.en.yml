@@ -68,6 +68,7 @@ ROLE_SECTION_EDITOR: 'Section Editor'
 ROLE_SUBSCRIPTION_MANAGER: 'Subscription Manager'
 ROLE_REVIEWER: 'Reviewer'
 ROLE_USER: 'User'
+ROLE_SECRETARY: Secretary
 Reader: Reader
 ojs.repeat_password: 'Repeat Password'
 'workflow.research_materials': 'Research Materials'
@@ -862,6 +863,7 @@ searchon.doaj: 'Search on DOAJ'
 searchon.google: 'Search on Google'
 searchon.pubmed: 'Search on PubMed'
 searchon.wikipedia: 'Search on Wikipedia'
+secretary: Secretary
 section: Section
 select.article.file: 'Select File'
 select.image.file: 'Select Image File...'

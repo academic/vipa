@@ -39,3 +39,6 @@ parameters:
         -
             role: ROLE_USER
             desc: User
+        -
+            role: ROLE_SECRETARY
+            desc: Secretary

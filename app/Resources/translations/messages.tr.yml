@@ -68,6 +68,7 @@ ROLE_SECTION_EDITOR: 'Bölüm Editörü'
 ROLE_SUBSCRIPTION_MANAGER: 'Abonelik Yöneticisi'
 ROLE_REVIEWER: 'Hakem'
 ROLE_USER: 'Kullanıcı'
+ROLE_SECRETARY: Sekreter
 Reader: Okuyucu
 ojs.repeat_password: 'Şifreyi Tekrar Yaz.'
 workflow.research_materials: 'Araştıra Materyalleri'
@@ -862,6 +863,7 @@ searchon.doaj: 'DOAJ`da ara'
 searchon.google: 'Google`da ara'
 searchon.pubmed: 'PubMed`de ara'
 searchon.wikipedia: 'Wikipedia`da ara'
+secretary: Sekreter
 section: Bölüm
 select.article.file: 'Dosya Seç'
 select.image.file: 'Resim Dosyası Seç...'
