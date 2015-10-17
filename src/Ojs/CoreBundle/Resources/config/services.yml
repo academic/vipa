@@ -58,6 +58,16 @@ services:
     tags:
       - { name: twig.extension }
 
+  ojs.twig.field_display_extension:
+    class: Ojs\CoreBundle\Service\Twig\FieldDisplayExtension
+    arguments:
+      - @translator
+      - @annotation_reader
+      - @liip_imagine.twig.extension
+      - @router
+    tags:
+      - { name: twig.extension }
+
   ojs.twig.action_extension:
     class: Ojs\CoreBundle\Service\Twig\ActionExtension
     arguments:

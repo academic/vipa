@@ -286,7 +286,7 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setAnonymous(0);
         $article1->setFirstPage(1);
         $article1->setLastPage(5);
-        $article1->setStatus(3);
+        $article1->setStatus(1);
         $article1->addCitation($citation1);
         $article1->addArticleFile($articleFile);
 
