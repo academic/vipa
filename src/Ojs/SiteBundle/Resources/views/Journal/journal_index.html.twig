@@ -41,20 +41,12 @@
                         {{ journal.title }}
                         <small>
                             <i class="fa fa-eye"></i>
-                            {{ journalViews }}
+                            {{ journal.viewCount }}
                         </small>
-                        {% if issueDownloads is defined %}
-                            <small>
-                                <i class="fa fa-newspaper-o"></i>
-                                {{ issueDownloads }}
-                            </small>
-                        {% endif %}
-                        {% if articleDownloads is defined %}
-                            <small>
-                                <i class="fa fa-file"></i>
-                                {{ articleDownloads }}
-                            </small>
-                        {% endif %}
+                        <small>
+                            <i class="fa fa-download"></i>
+                            {{ journal.downloadCount }}
+                        </small>
                     </h1>
                     <div class="col-md-12">
                         {% include '::flashbag.html.twig' %}

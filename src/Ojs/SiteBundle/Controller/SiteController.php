@@ -130,18 +130,6 @@ class SiteController extends Controller
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity]);
         $this->throw404IfNotFound($journal);
 
-        $journalViews = $journalStatRepo->getMostViewed($journal);
-        if ($journal->getIssues()) {
-
-            $issueDownloads = $issueFileStatRepo->getTotalDownloadsOfAllFiles($journal->getIssues());
-            $data['issueDownloads'] = isset($issueDownloads[0][1]) ? $issueDownloads[0][1] : 0;
-        }
-        if ($journal->getArticles()) {
-
-            $articleDownloads = $articleFileStatRepo->getTotalDownloadsOfAllFiles($journal->getArticles());
-            $data['articleDownloads'] = isset($articleDownloads[0][1]) ? $articleDownloads[0][1] : 0;
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('journal_view');
@@ -156,7 +144,6 @@ class SiteController extends Controller
         $data['last_issue'] = $this->setupArticleURIs($issueRepo->getLastIssueByJournal($journal));
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
-        $data['journalViews'] = isset($journalViews[0][1]) ? $journalViews[0][1] : 0;
 
         $data['archive_uri'] = $this->generateUrl(
             'ojs_archive_index',

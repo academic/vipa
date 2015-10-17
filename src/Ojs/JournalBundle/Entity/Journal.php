@@ -1413,6 +1413,16 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * @return $this
+     */
+    public function increaseDownloadCount()
+    {
+        $this->downloadCount += 1;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getViewCount()
@@ -1427,6 +1437,16 @@ class Journal extends AbstractTranslatable
     public function setViewCount($viewCount)
     {
         $this->viewCount = $viewCount;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function increaseViewCount()
+    {
+        $this->viewCount += 1;
 
         return $this;
     }

@@ -65,97 +65,113 @@ class AnalyticsSubscriber implements EventSubscriberInterface
 
     public function onArticleView(ViewArticleEvent $event)
     {
+        $article = $event->getArticle();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:ArticleStatistic')
-            ->findOneBy(['date' => new \DateTime(), 'article' => $event->getArticle()]);
+            ->findOneBy(['date' => new \DateTime(), 'article' => $article]);
 
         if (!$stat) {
             $stat = new ArticleStatistic();
             $stat->setDate(new \DateTime());
-            $stat->setArticle($event->getArticle());
+            $stat->setArticle($article);
             $stat->setView(1);
         } else {
             $stat->setView($stat->getView() + 1);
         }
 
         $this->em->persist($stat);
-        $this->em->flush($stat);
+        $this->em->flush();
     }
 
     public function onIssueView(ViewIssueEvent $event)
     {
+        $issue = $event->getIssue();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:IssueStatistic')
-            ->findOneBy(['date' => new \DateTime(), 'issue' => $event->getIssue()]);
+            ->findOneBy(['date' => new \DateTime(), 'issue' => $issue]);
 
         if (!$stat) {
             $stat = new IssueStatistic();
             $stat->setDate(new \DateTime());
-            $stat->setIssue($event->getIssue());
+            $stat->setIssue($issue);
             $stat->setView(1);
         } else {
             $stat->setView($stat->getView() + 1);
         }
 
         $this->em->persist($stat);
-        $this->em->flush($stat);
+        $this->em->flush();
     }
 
     public function onJournalView(ViewJournalEvent $event)
     {
+        $journal = $event->getJournal();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:JournalStatistic')
-            ->findOneBy(['date' => new \DateTime(), 'journal' => $event->getJournal()]);
+            ->findOneBy(['date' => new \DateTime(), 'journal' => $journal]);
 
         if (!$stat) {
             $stat = new JournalStatistic();
             $stat->setDate(new \DateTime());
-            $stat->setJournal($event->getJournal());
+            $stat->setJournal($journal);
             $stat->setView(1);
         } else {
             $stat->setView($stat->getView() + 1);
         }
 
+        $journal->increaseViewCount();
+
+        $this->em->persist($journal);
         $this->em->persist($stat);
-        $this->em->flush($stat);
+        $this->em->flush();
     }
 
     public function onArticleFileDownload(DownloadArticleFileEvent $event)
     {
+        $articleFile = $event->getArticleFile();
+        $journal = $articleFile->getArticle()->getJournal();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:ArticleFileStatistic')
-            ->findOneBy(['date' => new \DateTime(), 'articleFile' => $event->getArticleFile()]);
+            ->findOneBy(['date' => new \DateTime(), 'articleFile' => $articleFile]);
         
         if (!$stat) {
             $stat = new ArticleFileStatistic();
             $stat->setDate(new \DateTime());
-            $stat->setArticleFile($event->getArticleFile());
+            $stat->setArticleFile($articleFile);
             $stat->setDownload(1);
 
         } else {
             $stat->setDownload($stat->getDownload() + 1);
         }
 
+        $journal->increaseDownloadCount();
+
+        $this->em->persist($journal);
         $this->em->persist($stat);
-        $this->em->flush($stat);
+        $this->em->flush();
     }
 
     public function onIssueFileDownload(DownloadIssueFileEvent $event)
     {
+        $issueFile = $event->getIssueFile();
+        $journal = $issueFile->getIssue()->getJournal();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:IssueFileStatistic')
-            ->findOneBy(['date' => new \DateTime(), 'issueFile' => $event->getIssueFile()]);
+            ->findOneBy(['date' => new \DateTime(), 'issueFile' => $issueFile]);
 
         if (!$stat) {
             $stat = new IssueFileStatistic();
             $stat->setDate(new \DateTime());
-            $stat->setIssueFile($event->getIssueFile());
+            $stat->setIssueFile($issueFile);
             $stat->setDownload(1);
         } else {
             $stat->setDownload($stat->getDownload() + 1);
         }
 
+        $journal->increaseDownloadCount();
+
+        $this->em->persist($journal);
         $this->em->persist($stat);
-        $this->em->flush($stat);
+        $this->em->flush();
     }
 }
