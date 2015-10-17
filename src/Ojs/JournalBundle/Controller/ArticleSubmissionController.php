@@ -191,6 +191,7 @@ class ArticleSubmissionController extends Controller
             ->setFirstName($user->getFirstName())
             ->setLastName($user->getLastName())
             ->setCountry($defaultCountry)
+            ->setEmail($user->getEmail())
             ->setAddress($user->getAddress());
 
         $articleAuthor->setAuthor($author);
