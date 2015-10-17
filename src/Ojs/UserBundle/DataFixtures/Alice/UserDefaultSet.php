@@ -10,7 +10,6 @@ $set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet(
     ]
 );
 
-$set->addFile(__DIR__.'/roles.yml', 'yaml');
 $set->addFile(__DIR__.'/default.yml', 'yaml');
 
 return $set;
