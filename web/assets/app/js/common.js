@@ -1,6 +1,7 @@
 $(document).ready(function () {
     moment.locale(current_language);
 
+
     /**
      * Usage of abbr ago
      *<abbr title="{{ post.created|date('Y-m-d H:i:s') }}"  class="ago">{{ post.created|date('Y-m-d H:i:s') }}</abbr>
@@ -13,6 +14,7 @@ $(document).ready(function () {
     });
 
     //$("form").sisyphus({timeout: 100, locationBased: true});
+
 
     $('[data-toggle="tooltip"]').tooltip();
     $('.fab').hover(function () {
@@ -183,5 +185,21 @@ $(document).ready(function () {
         $(this).on('click', '.submission-subform .submission-subform-remove-panel', function () {
             $(this).parent().remove();
         });
+    });
+
+    $('.confirm_action').on('click', function (e) {
+        var elm = $(this);
+        swal({
+            title: elm.data('title'),
+            text: elm.data('text'),
+            type: elm.data('type'),
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: elm.data('confirmButtonText'),
+            cancelButtonText: elm.data('cancelButtonText'),
+            closeOnConfirm: false,
+            html: true
+        }, callback);
+        e.preventDefault();
     });
 });
