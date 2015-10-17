@@ -62,6 +62,17 @@ fos_elastica:
               debug_logging: true
         articles:
           mappings:
+            translations:
+              type: "object"
+              properties:
+                title:
+                  type: string
+                subjects:
+                  type: string
+                keywords:
+                  type: string
+                abstract:
+                  type: string
             subjects: { type: string, boost: 4,analyzer: stopwords}
             status:
               type: string
@@ -145,6 +156,11 @@ fos_elastica:
               debug_logging: false
         publisher:
           mappings:
+            translations:
+              type: "object"
+              properties:
+                about:
+                  type: string
             tags:
               analyzer: "keyword"
               type: string
@@ -167,6 +183,13 @@ fos_elastica:
               debug_logging: false
         issue:
           mappings:
+            translations:
+              type: "object"
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
             title:
               type: string
             tags:
@@ -197,6 +220,17 @@ fos_elastica:
         journal:
           mappings:
             id: { type: integer }
+            translations:
+              type: "object"
+              properties:
+                title:
+                  type: string
+                subtitle:
+                  type: string
+                description:
+                  type: string
+                titleAbbr:
+                  type: string
             title:
               type: string
               fields:
@@ -243,6 +277,13 @@ fos_elastica:
               debug_logging: false
         subject:
           mappings:
+            translations:
+              type: "object"
+              properties:
+                subject:
+                  type: string
+                description:
+                  type: string
             subject:
               type: string
             tags:
@@ -326,6 +367,13 @@ fos_elastica:
           mappings:
             id:
               type: integer
+            translations:
+              type: "object"
+              properties:
+                title:
+                  type: string
+                biography:
+                  type: string
             firstName:
               type: string
             lastName:
