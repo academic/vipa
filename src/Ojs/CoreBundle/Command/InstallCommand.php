@@ -6,8 +6,8 @@ use Composer\Script\CommandEvent;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\Theme;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\Theme;
 use Ojs\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -287,6 +287,7 @@ class InstallCommand extends ContainerAwareCommand
         $classes = [
             'OjsJournalBundle:Journal' => [
                 'adminMenu',
+                'stats',
                 'boards',
                 'sections',
                 'issues',
@@ -375,6 +376,10 @@ class InstallCommand extends ContainerAwareCommand
             )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('stats')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -473,6 +478,8 @@ class InstallCommand extends ContainerAwareCommand
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('adminMenu')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('stats')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();

@@ -1,6 +1,9 @@
 ojs_journal_dashboard:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/dashboard.yml"
 
+ojs_journal_stats:
+    resource: "@OjsJournalBundle/Resources/config/routing/panel/stats.yml"
+
 ojs_journal_article:
     resource: "@OjsJournalBundle/Resources/config/routing/panel/article.yml"
 
