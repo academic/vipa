@@ -79,6 +79,9 @@ class AnalyticsSubscriber implements EventSubscriberInterface
             $stat->setView($stat->getView() + 1);
         }
 
+        $article->increaseViewCount();
+
+        $this->em->persist($article);
         $this->em->persist($stat);
         $this->em->flush();
     }
@@ -99,6 +102,9 @@ class AnalyticsSubscriber implements EventSubscriberInterface
             $stat->setView($stat->getView() + 1);
         }
 
+        $issue->increaseViewCount();
+
+        $this->em->persist($issue);
         $this->em->persist($stat);
         $this->em->flush();
     }
@@ -129,7 +135,8 @@ class AnalyticsSubscriber implements EventSubscriberInterface
     public function onArticleFileDownload(DownloadArticleFileEvent $event)
     {
         $articleFile = $event->getArticleFile();
-        $journal = $articleFile->getArticle()->getJournal();
+        $article = $event->getArticleFile()->getArticle();
+        $journal = $article->getJournal();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:ArticleFileStatistic')
             ->findOneBy(['date' => new \DateTime(), 'articleFile' => $articleFile]);
@@ -144,6 +151,7 @@ class AnalyticsSubscriber implements EventSubscriberInterface
             $stat->setDownload($stat->getDownload() + 1);
         }
 
+        $article->increaseDownloadCount();
         $journal->increaseDownloadCount();
 
         $this->em->persist($journal);
@@ -154,7 +162,8 @@ class AnalyticsSubscriber implements EventSubscriberInterface
     public function onIssueFileDownload(DownloadIssueFileEvent $event)
     {
         $issueFile = $event->getIssueFile();
-        $journal = $issueFile->getIssue()->getJournal();
+        $issue = $issueFile->getIssue();
+        $journal = $issue->getJournal();
         $stat = $this->em
             ->getRepository('OjsAnalyticsBundle:IssueFileStatistic')
             ->findOneBy(['date' => new \DateTime(), 'issueFile' => $issueFile]);
@@ -168,6 +177,7 @@ class AnalyticsSubscriber implements EventSubscriberInterface
             $stat->setDownload($stat->getDownload() + 1);
         }
 
+        $issue->increaseDownloadCount();
         $journal->increaseDownloadCount();
 
         $this->em->persist($journal);

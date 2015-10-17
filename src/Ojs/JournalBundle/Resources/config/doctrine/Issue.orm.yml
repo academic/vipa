@@ -133,6 +133,18 @@ Ojs\JournalBundle\Entity\Issue:
       column: full_file
       gedmo:
         - versioned
+    viewCount:
+      type: integer
+      nullable: true
+      column: view_count
+      options:
+        default: 0
+    downloadCount:
+      type: integer
+      nullable: true
+      column: download_count
+      options:
+        default: 0
   gedmo:
     soft_deleteable:
       field_name: deletedAt

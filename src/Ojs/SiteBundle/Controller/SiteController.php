@@ -360,10 +360,8 @@ class SiteController extends Controller
         $this->throw404IfNotFound($issue);
 
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
-        $issueFileStatsRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
 
         $blocks = $blockRepo->journalBlocks($issue->getJournal());
-        $downloads = $issueFileStatsRepo->getTotalDownloadsOfAllFiles($issue);
 
         $token = $this
             ->get('security.csrf.token_manager')
@@ -375,7 +373,6 @@ class SiteController extends Controller
                 'issue' => $issue,
                 'blocks' => $blocks,
                 'token' => $token,
-                'downloads' => isset($downloads[0][1]) ? $downloads[0][1] : 0,
             ]
         );
     }

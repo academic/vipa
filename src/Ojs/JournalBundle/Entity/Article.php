@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\CoreBundle\Entity as CommonTraits;
+use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
@@ -25,6 +26,8 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 class Article extends AbstractTranslatable
 {
     use GenericEntityTrait;
+    use AnalyticsTrait;
+
     /**
      * auto-incremented article unique id
      * @GRID\Column(title="id")
@@ -1185,22 +1188,6 @@ class Article extends AbstractTranslatable
     public function setStatistics($statistics)
     {
         $this->statistics = $statistics;
-    }
-
-    /**
-     * Returns the article's view count
-     *
-     * @return int
-     */
-    public function getViewCount()
-    {
-        $count = 0;
-
-        foreach ($this->statistics as $stat) {
-            $count += $stat->getView();
-        }
-
-        return $count;
     }
 
     /**

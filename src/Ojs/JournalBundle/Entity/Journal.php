@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
+use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use OkulBilisim\LocationBundle\Entity\Country;
@@ -22,6 +23,7 @@ use Ojs\CoreBundle\Annotation\Display;
 class Journal extends AbstractTranslatable
 {
     use GenericEntityTrait;
+    use AnalyticsTrait;
 
     /**
      * List of Journal Status
@@ -285,18 +287,6 @@ class Journal extends AbstractTranslatable
      * @JMS\Groups({"JournalDetail"})
      */
     private $journalApplicationUploadFiles;
-    /**
-     * @var int
-     * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
-     */
-    private $viewCount = 0;
-    /**
-     * @var int
-     * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
-     */
-    private $downloadCount = 0;
     /**
      * @var boolean
      * @JMS\Expose
@@ -1391,64 +1381,6 @@ class Journal extends AbstractTranslatable
     public function setNote($note)
     {
         $this->note = $note;
-    }
-
-    /**
-     * @return int
-     */
-    public function getDownloadCount()
-    {
-        return $this->downloadCount;
-    }
-
-    /**
-     * @param  int $downloadCount
-     * @return $this
-     */
-    public function setDownloadCount($downloadCount)
-    {
-        $this->downloadCount = $downloadCount;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function increaseDownloadCount()
-    {
-        $this->downloadCount += 1;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getViewCount()
-    {
-        return $this->viewCount;
-    }
-
-    /**
-     * @param  int $viewCount
-     * @return $this
-     */
-    public function setViewCount($viewCount)
-    {
-        $this->viewCount = $viewCount;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function increaseViewCount()
-    {
-        $this->viewCount += 1;
-
-        return $this;
     }
 
     /**

@@ -34,8 +34,10 @@
                 {{ "issue.number"|trans }}: {{ issue.number }} - {{ "volume"|trans }} : {{ issue.volume }}
             </h4>
             <h5>
-                <i class="fa fa-eye"></i> {{ issue.viewCount }}
-                <i class="fa fa-download"></i> {{ downloads }}
+                <i class="fa fa-eye"></i>
+                {% if issue.viewCount is null %} 0 {% else %} {{ issue.viewCount }} {% endif %}
+                <i class="fa fa-download"></i>
+                {% if issue.downloadCount is null %} 0 {% else %} {{ issue.downloadCount }} {% endif %}
             </h5>
         </div>
 

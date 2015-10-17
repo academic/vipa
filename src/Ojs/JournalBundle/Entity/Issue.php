@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\CoreBundle\Annotation\Display;
+use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
@@ -19,6 +20,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 class Issue extends AbstractTranslatable
 {
     use GenericEntityTrait;
+    use AnalyticsTrait;
 
     /**
      * @var integer
@@ -635,22 +637,6 @@ class Issue extends AbstractTranslatable
     public function setStatistics($statistics)
     {
         $this->statistics = $statistics;
-    }
-
-    /**
-     * Returns the article's view count
-     *
-     * @return int
-     */
-    public function getViewCount()
-    {
-        $count = 0;
-
-        foreach ($this->statistics as $stat) {
-            $count += $stat->getView();
-        }
-
-        return $count;
     }
 
     /**

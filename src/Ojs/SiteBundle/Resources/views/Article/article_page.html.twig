@@ -23,9 +23,11 @@
                         <a href="{{ url('ojs_issue_page', {journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}) }}">
                             {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
                         </a>
-                        {{ "page.plural"|trans }}
-                        <span title="{{ "first_page"|trans }}">{{ article.firstPage }}</span> -
-                        <span title="{{ "last_page"|trans }}">{{ article.lastPage }}</span>
+                        {% if article.firstPage is not null and article.lastPage is not null %}
+                            {{ "page.plural"|trans }}
+                            <span title="{{ "first_page"|trans }}">{{ article.firstPage }}</span> -
+                            <span title="{{ "last_page"|trans }}">{{ article.lastPage }}</span>
+                        {% endif %}
                         {% if article.languages %}
                             <abbr title="{{ "languages"|trans }}">
                                 {% for language in article.languages %}
@@ -54,22 +56,34 @@
                                 </a>
                             {% endif %}
 
-                            <h2 class="title">{{ article.title }} <small>(<i class="fa fa-eye"></i> {{ article.viewCount }})</small>
-                                <br> {% if article.titleTransliterated %}<span
-                                        class="muted">{{ article.titleTransliterated }}</span><br>{% endif %}
-                                {% if article.articleAuthors %}
-                                    {% for authorsInfo in article.articleAuthors %}
+                            <h2 class="title">{{ article.title }}</h2>
+                            {% if article.titleTransliterated %}
+                                <h3><span class="muted">{{ article.titleTransliterated }}</span></h3>
+                            {% endif %}
+                            {% if article.articleAuthors %}
+                                <h4>
+                                {% for authorsInfo in article.articleAuthors %}
                                         <small>
-                                            <span class="author">{{ authorsInfo.author.fullName }}</span><sup><a
-                                                        href="#author{{ authorsInfo.author.id }}"
-                                                        class="btn btn-link">[{{ loop.index }}]</a></sup>
+                                            <span class="author">{{ authorsInfo.author.fullName }}</span>
+                                            <sup>
+                                                <a href="#author{{ authorsInfo.author.id }}" class="btn btn-link">
+                                                    [{{ loop.index }}]
+                                                </a>
+                                            </sup>
                                         </small>
-                                        {% if not loop.last %}, {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            </h2>
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                                </h4>
+                            {% endif %}
+                            <h5>
+                                <i class="fa fa-eye"></i>
+                                {% if article.viewCount is null %} 0 {% else %} {{ article.viewCount }} {% endif %}
+                                <i class="fa fa-download"></i>
+                                {% if article.downloadCount is null %} 0 {% else %} {{ article.downloadCount }} {% endif %}
+                            </h5>
                         </div>
-                        <hr/>
+
+                        <hr />
 
                         {% if article.doi is not empty %}
                             <div id="doiInfo">
