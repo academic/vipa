@@ -219,6 +219,8 @@ class ManagerController extends Controller
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['submitterUser' => $this->getUser()]);
+        $journalUsers = array();
+        
         if ($this->getUser()->isAdmin()) {
             $switcher = $this->createForm(new QuickSwitchType(), null)->createView();
         } else {
