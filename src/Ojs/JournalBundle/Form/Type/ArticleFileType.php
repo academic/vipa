@@ -33,7 +33,9 @@ class ArticleFileType extends AbstractType
                 ]
             )
             ->add('title', 'text')
-            ->add('description', 'textarea');
+            ->add('description', 'textarea', [
+                'required' => false
+            ]);
     }
 
     /**
