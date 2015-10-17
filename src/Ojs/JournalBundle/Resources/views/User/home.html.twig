@@ -44,6 +44,48 @@
         </div>
     </div>
 
+    {% if articles %}
+
+        <div class="panel panel-success">
+            <div class="panel-heading toggle-body">
+                <i class="fa fa-bar-chart-o fa-fw"></i> {{ "title.article_my"|trans }}
+                <i class="pull-right fa fa-angle-double-up"></i>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>{{ 'title.journal'|trans }}</th>
+                        <th>{{ 'title.article'|trans }}</th>
+                        <th>{{ 'status'|trans }}</th>
+                        <th>{{ 'submissionDate'|trans }}</th>
+                        <th>{{ 'actions'|trans }}</th>
+                    </tr>
+
+                    {% for article in articles %}
+                        <tr>
+                            <td>{{ article.journal.title }}</td>
+                            <td>{{ article.title }}</td>
+                            <td>{{ article.statusText|trans }}</td>
+                            <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
+                            <td>
+                                <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}"
+                                   class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
+                                   class="btn btn-danger btn-xs delete" data-toggle="tooltip"
+                                   title="{{ 'cancel'|trans }}">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="panel panel-success">
         <div class="panel-heading toggle-body">
             <i class="fa fa-bar-chart-o fa-fw"></i> {{ "stats"|trans }}
@@ -52,16 +94,21 @@
 
         <div class="panel-body">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab" data-toggle="tab">{{ "title.articles"|trans }}</a></li>
-                <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
+                <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab"
+                                                          data-toggle="tab">{{ "title.articles"|trans }}</a></li>
+                <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab"
+                                           data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
             </ul>
             <div id="statistics" class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="article">
                     <div id="articles"></div>
                     <h3>{{ "stats.most_viewed_articles"|trans }}</h3>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#articleMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
-                        <li role="presentation"><a href="#articleAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                        <li role="presentation" class="active"><a href="#articleMonthly" aria-controls="home" role="tab"
+                                                                  data-toggle="tab">{{ "stats.this_month"|trans }}</a>
+                        </li>
+                        <li role="presentation"><a href="#articleAllTime" aria-controls="profile" role="tab"
+                                                   data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="articleMonthly">
@@ -106,8 +153,12 @@
                     <div id="articleFiles"></div>
                     <h3>{{ "stats.most_downloaded_article_files"|trans }}</h3>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#articleFileMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "stats.this_month"|trans }}</a></li>
-                        <li role="presentation"><a href="#articleFileAllTime" aria-controls="profile" role="tab" data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                        <li role="presentation" class="active"><a href="#articleFileMonthly" aria-controls="home"
+                                                                  role="tab"
+                                                                  data-toggle="tab">{{ "stats.this_month"|trans }}</a>
+                        </li>
+                        <li role="presentation"><a href="#articleFileAllTime" aria-controls="profile" role="tab"
+                                                   data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="articleFileMonthly">
@@ -149,42 +200,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="panel panel-success">
-        <div class="panel-heading toggle-body">
-            <i class="fa fa-bar-chart-o fa-fw"></i> {{ "title.article_my"|trans }}
-            <i class="pull-right fa fa-angle-double-up"></i>
-        </div>
-
-        <div class="panel-body">
-            <table class="table table-bordered table-striped">
-                <tr>
-                    <th>{{ 'title.journal'|trans }}</th>
-                    <th>{{ 'title.article'|trans }}</th>
-                    <th>{{ 'status'|trans }}</th>
-                    <th>{{ 'submissionDate'|trans }}</th>
-                    <th>{{ 'actions'|trans }}</th>
-                </tr>
-
-                {% for article in articles %}
-                    <tr>
-                        <td>{{ article.journal.title }}</td>
-                        <td>{{ article.title }}</td>
-                        <td>{{ article.statusText|trans }}</td>
-                        <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
-                        <td>
-                            <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}" class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}" >
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                            <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}" class="btn btn-danger btn-xs delete" data-toggle="tooltip" title="{{ 'cancel'|trans }}" >
-                                <i class="fa fa-trash-o"></i>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
         </div>
     </div>
 {% endblock %}
