@@ -25,20 +25,29 @@
         <div class="panel-body">
             {% if switcher %}
                 {{ form(switcher) }}
-            {% elseif userJournals|length > 0 %}
-                <ul>
-                    {% for userJournal in userJournals %}
-                        <a href="{{ path('ojs_journal_dashboard_index', {'journalId' : userJournal.id }) }}"
-                           class="btn btn-primary">{{ userJournal.title }}</a>
-                    {% endfor %}
-                </ul>
+            {% elseif journalUsers|length > 0 %}
+                {% for user in journalUsers %}
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <a href="{{ path('ojs_journal_dashboard_index', {'journalId': user.journal.id}) }}"
+                               class="btn btn-success btn-block">
+                                <i class="fa fa-arrow-right pull-right"></i>
+                                {{ user.journal.title }}
+                            </a>
+                        </div>
+                        <div class="panel-body">
+                            {% for role in user.roles %}
+                                {{ role.name|trans }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
             {% else %}
                 <div class="alert alert-warning">
                     {{ "no_journal_you_have"|trans }}
                     <hr/>
                     <a class="btn btn-default btn-block" href="{{ path('ojs_site_explore_index') }}"><i
                                 class="fa fa-compass fa-fw"></i>{{ "explore"|trans }}</a>
-
                 </div>
             {% endif %}
         </div>
@@ -48,7 +57,7 @@
 
         <div class="panel panel-success">
             <div class="panel-heading toggle-body">
-                <i class="fa fa-bar-chart-o fa-fw"></i> {{ "title.article_my"|trans }}
+                <i class="fa fa-archive fa-fw"></i> {{ "title.article_my"|trans }}
                 <i class="pull-right fa fa-angle-double-up"></i>
             </div>
 
@@ -85,123 +94,126 @@
             </div>
         </div>
     {% endif %}
+    {% if data.articlesMonthly %}
 
-    <div class="panel panel-success">
-        <div class="panel-heading toggle-body">
-            <i class="fa fa-bar-chart-o fa-fw"></i> {{ "stats"|trans }}
-            <i class="pull-right fa fa-angle-double-up"></i>
-        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading toggle-body">
+                <i class="fa fa-bar-chart-o fa-fw"></i> {{ "stats"|trans }}
+                <i class="pull-right fa fa-angle-double-up"></i>
+            </div>
 
-        <div class="panel-body">
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab"
-                                                          data-toggle="tab">{{ "title.articles"|trans }}</a></li>
-                <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab"
-                                           data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
-            </ul>
-            <div id="statistics" class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="article">
-                    <div id="articles"></div>
-                    <h3>{{ "stats.most_viewed_articles"|trans }}</h3>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#articleMonthly" aria-controls="home" role="tab"
-                                                                  data-toggle="tab">{{ "stats.this_month"|trans }}</a>
-                        </li>
-                        <li role="presentation"><a href="#articleAllTime" aria-controls="profile" role="tab"
-                                                   data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="articleMonthly">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>{{ "article.title"|trans }}</th>
-                                    <th>{{ "stats.views"|trans }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for article in data.articlesMonthly %}
+            <div class="panel-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#article" aria-controls="home" role="tab"
+                                                              data-toggle="tab">{{ "title.articles"|trans }}</a></li>
+                    <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab"
+                                               data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
+                </ul>
+                <div id="statistics" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="article">
+                        <div id="articles"></div>
+                        <h3>{{ "stats.most_viewed_articles"|trans }}</h3>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#articleMonthly" aria-controls="home"
+                                                                      role="tab"
+                                                                      data-toggle="tab">{{ "stats.this_month"|trans }}</a>
+                            </li>
+                            <li role="presentation"><a href="#articleAllTime" aria-controls="profile" role="tab"
+                                                       data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="articleMonthly">
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <td>{{ article[0] }}</td>
-                                        <td>{{ article[1] }}</td>
+                                        <th>{{ "article.title"|trans }}</th>
+                                        <th>{{ "stats.views"|trans }}</th>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="articleAllTime">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>{{ "article.title"|trans }}</th>
-                                    <th>{{ "stats.views"|trans }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for article in data.articles %}
+                                    </thead>
+                                    <tbody>
+                                    {% for article in data.articlesMonthly %}
+                                        <tr>
+                                            <td>{{ article[0] }}</td>
+                                            <td>{{ article[1] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="articleAllTime">
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <td>{{ article[0] }}</td>
-                                        <td>{{ article[1] }}</td>
+                                        <th>{{ "article.title"|trans }}</th>
+                                        <th>{{ "stats.views"|trans }}</th>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for article in data.articles %}
+                                        <tr>
+                                            <td>{{ article[0] }}</td>
+                                            <td>{{ article[1] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="articleFile">
-                    <div id="articleFiles"></div>
-                    <h3>{{ "stats.most_downloaded_article_files"|trans }}</h3>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#articleFileMonthly" aria-controls="home"
-                                                                  role="tab"
-                                                                  data-toggle="tab">{{ "stats.this_month"|trans }}</a>
-                        </li>
-                        <li role="presentation"><a href="#articleFileAllTime" aria-controls="profile" role="tab"
-                                                   data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="articleFileMonthly">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <td></td>
-                                    <td>{{ "stats.downloads"|trans }}</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for articleFile in data.articleFilesMonthly %}
+                    <div role="tabpanel" class="tab-pane fade" id="articleFile">
+                        <div id="articleFiles"></div>
+                        <h3>{{ "stats.most_downloaded_article_files"|trans }}</h3>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#articleFileMonthly" aria-controls="home"
+                                                                      role="tab"
+                                                                      data-toggle="tab">{{ "stats.this_month"|trans }}</a>
+                            </li>
+                            <li role="presentation"><a href="#articleFileAllTime" aria-controls="profile" role="tab"
+                                                       data-toggle="tab">{{ "stats.all_time"|trans }}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="articleFileMonthly">
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <td>{{ articleFile[0] }}</td>
-                                        <td>{{ articleFile[1] }}</td>
+                                        <td></td>
+                                        <td>{{ "stats.downloads"|trans }}</td>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="articleFileAllTime">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <td></td>
-                                    <td>{{ "stats.downloads"|trans }}</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for articleFile in data.articleFiles %}
+                                    </thead>
+                                    <tbody>
+                                    {% for articleFile in data.articleFilesMonthly %}
+                                        <tr>
+                                            <td>{{ articleFile[0] }}</td>
+                                            <td>{{ articleFile[1] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="articleFileAllTime">
+                                <table class="table">
+                                    <thead>
                                     <tr>
-                                        <td>{{ articleFile[0] }}</td>
-                                        <td>{{ articleFile[1] }}</td>
+                                        <td></td>
+                                        <td>{{ "stats.downloads"|trans }}</td>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for articleFile in data.articleFiles %}
+                                        <tr>
+                                            <td>{{ articleFile[0] }}</td>
+                                            <td>{{ articleFile[1] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts -%}

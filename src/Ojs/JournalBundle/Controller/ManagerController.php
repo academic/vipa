@@ -222,10 +222,10 @@ class ManagerController extends Controller
         if ($this->getUser()->isAdmin()) {
             $switcher = $this->createForm(new QuickSwitchType(), null)->createView();
         } else {
-            $userJournals = $this
+            $journalUsers = $this
                 ->getDoctrine()
-                ->getRepository('OjsJournalBundle:Journal')
-                ->findAllByUser($this->getUser());
+                ->getRepository('OjsJournalBundle:JournalUser')
+                ->findBy(['user' => $this->getUser()]);
         }
 
         $response = $response = $this->render(
@@ -234,7 +234,7 @@ class ManagerController extends Controller
                 'switcher' => $switcher,
                 'articles' => $articles,
                 'data' => $this->createStats(),
-                'userJournals' => $userJournals
+                'journalUsers' => $journalUsers
             ]
         );
 
