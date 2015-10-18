@@ -23,7 +23,7 @@ Ojs\AdminBundle\Entity\PublisherManagers:
                 strategy: AUTO
 
     uniqueConstraints:
-        journal_user_idx:
+        publisher_user_idx:
             columns: publisher_id, user_id
 
     lifecycleCallbacks: {  }
