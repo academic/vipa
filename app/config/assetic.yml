@@ -30,7 +30,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote.min.js'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js'
-        - '%kernel.root_dir%/../web/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js'
+        - '%kernel.root_dir%/../web/assets/app/js/plugins/inputmask/jquery.inputmask.bundle.js'
         - '%kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js'
         - '%kernel.root_dir%/../web/vendor/select2/dist/js/select2.full.min.js'
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.min.js'
