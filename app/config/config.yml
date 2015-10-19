@@ -52,6 +52,7 @@ twig:
     ojs_logo: %ojs_logo%
     ojs_tw: %ojs_tw%
     ojs_fb: %ojs_fb%
+    project_name: %project_name%
 
 fos_rest:
   body_listener: true
