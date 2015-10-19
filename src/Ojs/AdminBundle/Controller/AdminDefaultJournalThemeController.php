@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\Validator\Constraints\Null;
 
 /**
  * DefaultJournalThemes controller.
