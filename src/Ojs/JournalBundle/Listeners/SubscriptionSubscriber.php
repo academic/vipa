@@ -42,7 +42,7 @@ class SubscriptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            SubscriptionEvents::NEW_ANNOUNCEMENT, 'sendAnnouncement'
+            SubscriptionEvents::NEW_ANNOUNCEMENT => 'sendAnnouncement'
         );
     }
 
