@@ -1,0 +1,4 @@
+Ojs\CmsBundle\Entity\File:
+    properties:
+        name:
+            - NotBlank: ~
