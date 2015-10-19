@@ -25,3 +25,8 @@ services:
     arguments: []
     tags:
         - { name: jms_serializer.event_subscriber }
+  ojs.journal.subscription_subscriber:
+    class: Ojs\JournalBundle\Listeners\SubscriptionSubscriber
+    arguments: [@doctrine.orm.entity_manager, @mailer, %system_email%, "OJS"]
+    tags:
+      - { name: kernel.event_subscriber }

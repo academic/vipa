@@ -8,6 +8,8 @@ use Doctrine\ORM\Query;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalAnnouncement;
+use Ojs\JournalBundle\Event\NewAnnouncementEvent;
+use Ojs\JournalBundle\Event\SubscriptionEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -105,6 +107,10 @@ class JournalAnnouncementController extends OjsController
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $event = new NewAnnouncementEvent($entity);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch(SubscriptionEvents::NEW_ANNOUNCEMENT, $event);
 
             $this->successFlashBag('successful.create');
             return $this->redirectToRoute('ojs_journal_announcement_show',
