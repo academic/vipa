@@ -15,7 +15,7 @@
     <h1>{{ "publishertheme.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {#
+    {# @todo revise there
     {% set back_path = 'ojs_publisher_manager_theme_index' %}
     {% if isGrantedForPublisher() %}
         {% set delete_path = 'ojs_publisher_manager_theme_delete' %}

@@ -20,12 +20,7 @@
 
     {{
         actions({
-            'back': {'href': path('ojs_admin_post_index')},
-            'delete': {
-                'href': path('ojs_admin_post_delete', {'id': entity.id}),
-                'permission': is_granted('DELETE', entity),
-                'attributes': {'data-token': token}
-            },
+            'back': {'href': path('ojs_admin_post_index')}
         })
     }}
 

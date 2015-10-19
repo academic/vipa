@@ -17,9 +17,6 @@
     {{ form(edit_form) }}
     <hr>
     {% set back_path = 'ojs_admin_language_index' %}
-    {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'ojs_admin_language_delete' %}
-    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

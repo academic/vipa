@@ -21,11 +21,6 @@
     {{
         actions({
             'back': {'href': path('ojs_admin_announcement_index')},
-            'delete': {
-                'href': path('ojs_admin_announcement_delete', {'id': entity.id}),
-                'permission': is_granted('DELETE', entity),
-                'attributes': {'data-token': token}
-            },
         })
     }}
 

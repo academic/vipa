@@ -17,9 +17,6 @@
     {{ form(edit_form) }}
 
     {% set back_path = 'ojs_admin_application_file_index' %}
-    {% if is_granted('DELETE', entity) %}
-        {% set delete_path = 'ojs_admin_application_file_delete' %}
-    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

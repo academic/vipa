@@ -28,9 +28,6 @@
     </button>
     {{ form_end(form) }}
     {% set back_path = 'ojs_admin_institution_index' %}
-    {% if is_granted('DELETE', form.vars.data) %}
-        {% set delete_path = 'ojs_admin_institution_delete' %}
-    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

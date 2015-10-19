@@ -17,8 +17,7 @@
     {{ form(edit_form) }}
     {{
         actions({
-            'back': {'href': path('ojs_admin_contact_index')},
-            'delete': {'href': path('ojs_admin_contact_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
+            'back': {'href': path('ojs_admin_contact_index')}
         })
     }}
 

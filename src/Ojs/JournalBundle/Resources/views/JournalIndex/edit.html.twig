@@ -19,11 +19,6 @@
     <a href="{{ path('ojs_journal_index_index', {'journalId': selectedJournal().id}) }}">
         {{ 'b'|trans }}
     </a>
-    {% if is_granted('DELETE', selectedJournal(), 'index') %}
-        <a href="{{ path('ojs_journal_index_delete', {'id': entity.id, 'journalId': selectedJournal().id}) }}">
-            {{ 'd'|trans }}
-        </a>
-    {% endif %}
 
     {{ getLogs(entity) }}
 {% endblock %}

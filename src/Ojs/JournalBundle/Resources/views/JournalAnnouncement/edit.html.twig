@@ -19,12 +19,7 @@
 
     {{
         actions({
-            'back': {'href': path('ojs_journal_announcement_index', {'journalId': selectedJournal().id})},
-            'delete': {
-                'href': path('ojs_journal_announcement_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
-                'permission': is_granted('DELETE', selectedJournal(), 'announcements'),
-                'attributes': {'data-token': token}
-            },
+            'back': {'href': path('ojs_journal_announcement_index', {'journalId': selectedJournal().id})}
         })
     }}
 

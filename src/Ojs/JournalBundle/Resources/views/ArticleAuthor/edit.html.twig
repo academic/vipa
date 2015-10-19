@@ -17,8 +17,7 @@
 
     {{
     actions({
-        'back': {'href': path('ojs_journal_article_author_index', {'articleId': entity.article.id, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_article_author_delete', {'id': entity.id, 'articleId': entity.article.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
+        'back': {'href': path('ojs_journal_article_author_index', {'articleId': entity.article.id, 'journalId': selectedJournal().id})}
     })
     }}
 

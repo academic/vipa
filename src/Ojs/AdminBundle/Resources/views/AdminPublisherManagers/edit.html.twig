@@ -16,9 +16,6 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     {% set back_path = 'ojs_admin_publisher_managers_index' %}
-    {% if is_granted('DELETE', edit_form.vars.data) %}
-        {% set delete_path = 'ojs_admin_publisher_managers_delete' %}
-    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
