@@ -2,7 +2,7 @@
 
 namespace Ojs\AdminBundle\EventListener;
 
-use \Ojs\AdminBundle\Event\AdminEvents;
+use Ojs\AdminBundle\Event\AdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -45,6 +45,16 @@ class AdminEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            AdminEvents::USER_PASS_CHANGE => 'onUserPassChange',
+            AdminEvents::USER_CHANGE => 'onUserChange',
+            AdminEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
+            AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
+            AdminEvents::JOURNAL_CHANGE => 'onJournalChange',
+            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen',
+            AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange',
+            AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange',
+            AdminEvents::SUBJECT_CHANGE => 'onSubjectChange',
+            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange',
         );
     }
 
