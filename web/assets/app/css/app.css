@@ -319,12 +319,26 @@ body {
     margin: 0;
 }
 
+.carouse {
+    height: 100px;
+    overflow: hidden;
+}
 .carousel-indicators li {
     border: 1px solid #ccc;
 }
 
 .carousel-indicators {
     bottom: -35px;
+}
+
+.carousel-indicators .active {
+    background-color: #eb0000 !important;
+}
+
+@media screen and (min-width: 768px) {
+    .carousel-indicators {
+        bottom: -26px !important;
+    }
 }
 
 .carousel-control {
@@ -336,8 +350,12 @@ body {
     color: #31708f;
 }
 
+.carousel-control .glyphicon {
+    color: #eb0000 !important;
+}
+
 .carousel-control.left, .carousel-control.right {
-    background-image: none;
+    background-image: none !important;
 }
 
 .media-object {
