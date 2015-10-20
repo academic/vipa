@@ -14,6 +14,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Ojs\UserBundle\Event\UserEvents;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 
 class UserEventListener implements EventSubscriberInterface
 {
@@ -54,13 +55,12 @@ class UserEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            UserEvents::USER_REGISTER => 'onUserRegister',
             UserEvents::USER_INFO_CHANGE => 'onUserInfoChange',
-            UserEvents::USER_PASSWORD_CHANGE => 'onUserPasswordChange',
             UserEvents::USER_PASSWORD_RESET => 'onUserPasswordReset',
             UserEvents::USER_LOGIN => 'onUserLogin',
             UserEvents::USER_LOGOUT => 'onUserLogout',
-            FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted'
+            FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted',
+            FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onChangePasswordCompleted',
         );
     }
 
@@ -112,56 +112,21 @@ class UserEventListener implements EventSubscriberInterface
         $this->mailer->send($message);
     }
 
-    public function onWorkFlowStarted(FlowEvent $workflowEvent)
+    public function onChangePasswordCompleted(GetResponseUserEvent $userResponseEvent)
     {
-        $firstObjectStep = $workflowEvent->getFlow()->getObjectSteps()->first();
-        if($firstObjectStep) {
-            $this->onPost($firstObjectStep->getDialogs()->first()->getPosts()->first());
-        }
-    }
-
-    private function onPost(Post $post)
-    {
-        foreach ($post->getDialog()->getUsers() as $otherUser) {
-            if (is_null($otherUser) || is_null($post->getUser()) || $post->getUser()->getId() === $otherUser->getId()) {
-                continue;
-            }
-            $message = $this->mailer->createMessage();
-            $to = array($otherUser->getEmail() => $otherUser->getFullName());
-            $message = $message
-                ->setSubject(
-                    'Article Event : '.$post->getDialog()->getObjectStep()->getFlow()->getArticle()->getTitle()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'A Post created : <a href="'.$this->router->generate(
-                        'okul_bilisim_workflow_flow_timeline',
-                        array(
-                            'journalId' => $post->getDialog()->getObjectStep()->getFlow()->getArticle()->getJournal(
-                            )->getId(),
-                            'flow' => $post->getDialog()->getObjectStep()->getFlow()->getId(),
-                        ),
-                        true
-                    ).'">LINK</a>',
-                    'text/html'
-                );
-            $this->mailer->send($message);
-        }
-    }
-
-    public function onObjectStepStarted(ObjectStepEvent $objectStepEvent)
-    {
-        $this->onPost($objectStepEvent->getObjectStep()->getDialogs()->first()->getPosts()->first());
-    }
-
-    public function onDialogStarted(DialogEvent $dialogEvent)
-    {
-        $this->onPost($dialogEvent->getDialog()->getPosts()->first());
-    }
-
-    public function onPostCreated(PostEvent $postEvent)
-    {
-        $this->onPost($postEvent->getPost());
+        $user = $userResponseEvent->getUser();
+        $message = $this->mailer->createMessage();
+        $to = array($user->getEmail() => $user->getUsername());
+        $message = $message
+            ->setSubject(
+                'User Event : User Change Password'
+            )
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody(
+                'User Event -> User Change Password -> '. $user->getEmail(),
+                'text/html'
+            );
+        $this->mailer->send($message);
     }
 }
