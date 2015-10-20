@@ -19,12 +19,18 @@ class JournalType extends AbstractType
     {
         $journalId = $options['data']->getId()?$options['data']->getId(): null;
         $builder
-            ->add('translations', 'a2lix_translations')
-            ->add('titleAbbr', 'text', [
-                    'label' => 'titleabbr',
-                    'required' => false
+            ->add('translations', 'a2lix_translations', [
+                'fields' => [
+                    'title' => [],
+                    'subtitle' => [
+                        'required' => false,
+                    ],
+                    'description' => [],
+                    'titleAbbr' => [
+                        'required' => false
+                    ]
                 ]
-            )
+            ])
             ->add('titleTransliterated', 'text', [
                     'label' => 'titleTransliterated',
                     'required' => false
