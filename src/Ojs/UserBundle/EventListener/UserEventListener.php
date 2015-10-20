@@ -55,12 +55,12 @@ class UserEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            UserEvents::USER_INFO_CHANGE => 'onUserInfoChange',
             UserEvents::USER_PASSWORD_RESET => 'onUserPasswordReset',
             UserEvents::USER_LOGIN => 'onUserLogin',
             UserEvents::USER_LOGOUT => 'onUserLogout',
             FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted',
             FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onChangePasswordCompleted',
+            FOSUserEvents::PROFILE_EDIT_COMPLETED => 'onProfileEditCompleted',
         );
     }
 
@@ -125,6 +125,24 @@ class UserEventListener implements EventSubscriberInterface
             ->setTo($to)
             ->setBody(
                 'User Event -> User Change Password -> '. $user->getEmail(),
+                'text/html'
+            );
+        $this->mailer->send($message);
+    }
+
+    public function onProfileEditCompleted(GetResponseUserEvent $userResponseEvent)
+    {
+        $user = $userResponseEvent->getUser();
+        $message = $this->mailer->createMessage();
+        $to = array($user->getEmail() => $user->getUsername());
+        $message = $message
+            ->setSubject(
+                'User Event : User Profile Edit Completed'
+            )
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody(
+                'User Event -> User Profile Edit Completed -> '. $user->getEmail(),
                 'text/html'
             );
         $this->mailer->send($message);
