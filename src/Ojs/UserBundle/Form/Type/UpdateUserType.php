@@ -47,7 +47,6 @@ class UpdateUserType extends AbstractType
                 array(
                     'label' => 'subjects',
                     'class' => 'Ojs\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
                     'multiple' => true,
                     'expanded' => false,
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
@@ -84,6 +83,7 @@ class UpdateUserType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\UserBundle\Entity\User',
+                'cascade_validation' => true,
                 'attr' => [
                     'class' => 'validate-form',
                     'novalidate' => 'novalidate',

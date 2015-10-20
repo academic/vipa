@@ -13,6 +13,8 @@ use Ojs\UserBundle\Form\Type\UpdateUserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 
 class UserController extends Controller
 {
@@ -52,6 +54,8 @@ class UserController extends Controller
         if (!$user) {
             throw new AccessDeniedException();
         }
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $form = $this->createForm(new UpdateUserType(), $user)
             ->add('update', 'submit', ['label' => 'update']);
         $data = [];
@@ -60,8 +64,11 @@ class UserController extends Controller
         if ($form->isValid()) {
             $em = $this->get('doctrine')->getManager();
             $em->persist($user);
-
             $em->flush();
+
+            $this->successFlashBag('successful.update');
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, $event);
             return $this->redirectToRoute('ojs_user_edit_profile');
         }
 
