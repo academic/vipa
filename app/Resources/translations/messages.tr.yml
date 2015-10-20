@@ -911,8 +911,8 @@ subject.plural: Konular
 subjects: Konular
 submission.attention: 'Taslağınızı gönderdikten sonra verileri değiştiremezsiniz.  <br>Eğer emin değilseniz, bu pencereyi kapatmış olsanız bile Makaleme daha sonra devam edebilirsiniz.'
 submission.starting: Başlarken
-submission.success: 'Makale Makalemi Tamamlandı'
-submission.continue_edit: 'Makale Makalemi düzenlemesine devam et'
+submission.success: 'Makale Gonderimi Tamamlandı'
+submission.continue_edit: 'Makale Gonderimi düzenlemesine devam et'
 submissionDate: 'Makale Tarihi'
 submission_checklist: 'Makale Kontrol Listesi'
 submission_checklist.create: 'Yeni Madde'
