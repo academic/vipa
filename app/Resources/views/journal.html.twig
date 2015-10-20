@@ -43,7 +43,7 @@
             <label class="views-label-field-year-founded-value">
                 {{ "journal.founded"|trans }}:
             </label>
-            <span class="field-content">{{ journal.founded }}</span>
+            <span class="field-content">{{ journal.founded|date('Y') }}</span>
         </div>
     {% endif %}
     {% if journal.eissn is defined %}

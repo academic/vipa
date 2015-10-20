@@ -518,7 +518,7 @@ journal.editor_email: 'Editor E-mail'
 journal.editor_name: 'Editor Name'
 journal.editor_phone: 'Editor Phone'
 journal.editor_surname: 'Editor Surname'
-journal.eissn: 'Journal eISSN'
+journal.eissn: 'eISSN'
 journal.email: 'Journal''s Contact E-mail'
 journal.founded: 'Founded'
 journal.file: 'Required Files'
@@ -526,7 +526,7 @@ journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
 journal.id: 'Journal ID'
 journal.publisher: Publisher
-journal.issn: 'Journal ISSN'
+journal.issn: 'ISSN'
 journal.join: 'Join Journal'
 journal.langs: Languages
 journal.languages: Languages

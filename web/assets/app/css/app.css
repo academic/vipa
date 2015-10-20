@@ -305,6 +305,7 @@ body {
 
 .grid-item {
     margin-bottom: 10px;
+    line-height: 12px;
 }
 
 .views-field-field-journal-cover-fid {
@@ -321,8 +322,7 @@ body {
     width: 161px;
     display: inline;
     float: left;
-    height: 450px;
-    padding: 13px;
+    height: 400px;
 }
 
 
