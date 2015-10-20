@@ -303,6 +303,28 @@ body {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+.grid-item {
+    margin-bottom: 10px;
+}
+
+.views-field-field-journal-cover-fid {
+    min-height: 240px;
+    margin-top: 10px;
+}
+
+.views-field-title {
+    height: 40px;
+    padding-top: 10px;
+}
+
+.journal-item {
+    width: 161px;
+    display: inline;
+    float: left;
+    height: 450px;
+    padding: 13px;
+}
+
 
 /**/
 .carousel-indicators .active {

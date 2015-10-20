@@ -138,7 +138,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-2"></div>
                                                     <div class="col-xs-3">
-                                                        {% if announcement.image is defined %}
+                                                        {% if announcement.image is defined and announcement.image is not null %}
                                                             <img src="{{ announcement.image|imagine_filter('announcement_croped') }}">
                                                         {% else %}
                                                             <h1>
@@ -181,40 +181,25 @@
                     <div class="row">
                         {% for journal in journals %}
                             {% set journalDefault = journal.setDefaultLocale(app.request.defaultLocale) %}
-                            <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
-                                <a href="{{ generateJournalUrl(journal) }}">
-                                    <img
-                                            {% if journal.image is not null %}
-                                                src="{{ journal.image|imagine_filter('journal_cover') }}"
-                                                class="img-rounded"
-                                            {% else %}
-                                                src="#"
-                                                class="img-rounded tri"
-                                            {% endif %}
-                                            width="96" height="128"/>
-                                    <br/>
-                                    <small>{{ journal.title }}</small>
-                                    <br/>
-                                    {% if journal.issn %}
-                                        <small>{{ journal.issn }}</small>
-                                    {% endif %}
-                                </a>
-                            </div>
+                            {% include '::journal.html.twig' %}
                         {% endfor %}
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <ul>
-                    {% for post in posts %}
-                        <li>
-                            <a href="{{ path('ojs_site_post', {'slug': post.slug}) }}">{{ post.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
         </section>
+        {% if posts|length>0 %}
+            <section role="posts">
+                <div class="row">
+                    <ul>
+                        {% for post in posts %}
+                            <li>
+                                <a href="{{ path('ojs_site_post', {'slug': post.slug}) }}">{{ post.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        {% endif %}
         {% if services is defined %}
             {% include '@OjsSite/Site/services.html.twig' %}
         {% endif %}

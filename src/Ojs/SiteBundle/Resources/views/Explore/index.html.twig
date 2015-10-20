@@ -11,42 +11,6 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
-
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            margin: 5px;
-            padding-bottom: 35px;
-            overflow: hidden;
-            height: 420px;
-        }
-
-        .card > a {
-            text-decoration: none;
-            color: #000;
-        }
-
-        .card img {
-            display: block;
-            width: 100%;
-            height: 300px;
-            margin: -5px -5px 5px 0;
-        }
-
-        .card .card-link {
-            display: block;
-            height: 30px;
-            font-size: 16px;
-            color: #337ab7;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     <div class="row">
         <div class="col-md-3 col-sm-3">
@@ -170,73 +134,40 @@
 
         <div class="col-md-9 col-sm-9">
             {% for journal in journals %}
-                <div class="col-md-4 col-sm-4">
-                    <div class="card ng">
-                        <a href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
-                            {% if journal.image is defined %}
-                                {% set src = journal.image|imagine_filter('journal_cover') %}
-                                <img src="{{ src }}"
-                                     class="img-responsive avatar" alt="">
-                            {% else %}
-                                <img src="#"
-                                     class="img-responsive avatar tri" alt="">
-                            {% endif %}
-
-                            <div class="caption">
-                                {% if journal.title is defined %}
-                                <strong class="card-link">{{ journal.title }}</strong>
-
-                                {% endif %}
-                                <div>
-                                    <ul class="list-inline">
-                                        {% if journal.issn is defined %}
-                                            <li><strong>{{ "issn"|trans }}</strong>:{{ journal.issn }}</li>
-                                        {% endif %}
-                                        {% if journal.eissn is defined %}
-                                            <li><strong>{{ "eissn"|trans }}</strong>: {{ journal.eissn }}</li>
-                                        {% endif %}
-                                        {% if journal.founded is defined %}
-                                            <li>
-                                                <strong>{{ "journal.founded"|trans }}</strong>: {{ journal.founded|date('Y') }}
-                                            </li>
-                                        {% endif %}
-                                        {% if journal.periods is defined and journal.periods|length >0 %}
-                                            <li>
-                                                {% for period in journal.periods %}
-                                                    <span class="label label-info">{{ period.period }}</span>
-                                                {% endfor %}
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <i class="fa fa-eye"></i> {{ journal.viewCount }}
-                                            <i class="fa fa-download"></i> {{ journal.downloadCount }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
+                {% include '::journal.html.twig' %}
             {% endfor %}
         </div>
 
+        {% if journals|length>1 %}
         <div class="text-center">
             <ul class="pagination">
                 {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
             </ul>
         </div>
+        {% endif %}
 
     </div>
 
 {% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
+    {% javascripts "@hovercard_js" output="assets/prod/js/hovercard.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     <script>
-        $(document).ready(function () {
+        $(function () {
+            $('.hovercard').each(function () {
+                var elm, detail;
+                elm = $(this);
+                detail = $.trim(elm.parent().parent().parent().find('.hovercard-content').html());
 
+                if (detail) {
+                    elm.hovercard({
+                        detailsHTML: detail
+                    });
+                }
+            });
         });
     </script>
 {% endblock %}

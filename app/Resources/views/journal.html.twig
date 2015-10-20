@@ -1,0 +1,70 @@
+<div class="grid-item journal-item">
+    <div class="views-field-field-journal-cover-fid">
+        <span class="field-content">
+            <a href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
+                {% if journal.image is defined and journal.image is not null %}
+                    {% set src = journal.image|imagine_filter('journal_original') %}
+                    <img src="{{ src }}"
+                         alt="" title="" width="160"
+                         class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default">
+                {% else %}
+                    <img src="#"
+                         alt="" title="" width="160" height="160"
+                         class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default tri">
+                {% endif %}
+            </a></span>
+    </div>
+    {% if journal.title is defined %}
+        <div class="views-field-title">
+            <span class="field-content"><a class="hovercard"
+                                           href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">{{ journal.title }}</a></span>
+        </div>
+    {% endif %}
+
+    <div class="views-field-field-publish-periods-value">
+        <span class="field-content">
+            {% if journal.periods is defined and journal.periods|length >0 %}
+                {% for period in journal.periods %}
+                    {{ period.period }}
+                {% endfor %}
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="views-field-field-physical-description-value">
+        <span class="field-content">Online only</span>
+    </div>
+    <div class="stats">
+        <i class="fa fa-eye"></i> {{ journal.viewCount }}
+        <i class="fa fa-download"></i> {{ journal.downloadCount }}
+    </div>
+    {% if journal.founded is defined %}
+        <div class="views-field-field-year-founded-value">
+            <label class="views-label-field-year-founded-value">
+                {{ "journal.founded"|trans }}:
+            </label>
+            <span class="field-content">{{ journal.founded }}</span>
+        </div>
+    {% endif %}
+    {% if journal.eissn is defined %}
+        <div class="views-field-field-eissn-value">
+            <label class="views-label-field-eissn-value">
+                {{ "journal.eissn"|trans }}:
+            </label>
+            <span class="field-content">{{ journal.eissn }}</span>
+        </div>
+    {% endif %}
+    {% if journal.issn is defined %}
+        <div class="views-field-field-issn-value">
+            <label class="views-label-field-issn-value">
+                {{ "journal.issn"|trans }}:
+            </label>
+            <span class="field-content">{{ journal.issn }}</span>
+        </div>
+    {% endif %}
+    {% if journal.description is not null %}
+        <div class="hovercard-content hidden">
+            {{ journal.description }}
+        </div>
+    {% endif %}
+</div>
