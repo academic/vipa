@@ -2,7 +2,7 @@
 
 namespace Ojs\AdminBundle\EventListener;
 
-use Ojs\AdminBundle\Event\AdminEvents;
+use Ojs\AdminBundle\Events\AdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 

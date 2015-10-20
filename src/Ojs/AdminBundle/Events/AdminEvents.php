@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\AdminBundle\Event;
+namespace Ojs\AdminBundle\Events;
 
 final class AdminEvents
 {
