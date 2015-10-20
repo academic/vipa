@@ -267,6 +267,8 @@ fos_elastica:
               properties:
                 period: { type: string }
             image: ~
+            viewCount: ~
+            downloadCount: ~
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Journal

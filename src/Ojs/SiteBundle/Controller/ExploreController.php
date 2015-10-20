@@ -55,12 +55,6 @@ class ExploreController extends Controller
 
         $journalQuery = new Query($boolQuery);
 
-        $idAgg = new Aggregation\Terms('ids');
-        $idAgg->setField('id');
-        $idAgg->setOrder('_term', 'asc');
-        $idAgg->setSize(0);
-        $journalQuery->addAggregation($idAgg);
-
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('publisher.publisherType.name');
         $typeAgg->setOrder('_term', 'asc');
@@ -85,27 +79,9 @@ class ExploreController extends Controller
         $pagerfanta->setCurrentPage($page);
         $journals = $pagerfanta->getCurrentPageResults();
 
-        $ids = $adapter->getResultSet()->getAggregation('ids')['buckets'];
         $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
         $subjects = $adapter->getResultSet()->getAggregation('subjects')['buckets'];
         $publishers = $adapter->getResultSet()->getAggregation('publishers')['buckets'];
-
-        $journalIds = array();
-        foreach ($ids as $id) {
-            $journalIds[] = $id['key'];
-        }
-
-        $views = $this
-            ->getDoctrine()
-            ->getRepository('OjsAnalyticsBundle:JournalStatistic')
-            ->getMostViewed($journalIds);
-
-        $viewMap = array();
-        foreach ($views as $view) {
-            /** @var JournalStatistic $entity */
-            $entity = $view[0];
-            $viewMap[$entity->getJournal()->getId()] = $view[1];
-        }
 
         $data = [
             'types' => $types,
@@ -114,7 +90,6 @@ class ExploreController extends Controller
             'type_filters' => $typeFilters,
             'subject_filters' => $subjectFilters,
             'publisher_filters' => $publisherFilters,
-            'viewMap' => $viewMap,
             'journals' => $journals,
             'pagerfanta' => $pagerfanta,
             'page' => 'explore'

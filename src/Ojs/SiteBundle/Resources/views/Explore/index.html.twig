@@ -210,12 +210,8 @@
                                     </ul>
                                     <ul class="list-inline">
                                         <li>
-                                            <i class="fa fa-eye"></i>
-                                            {% if viewMap[journal.id] is defined %}
-                                                {{ viewMap[journal.id] }}
-                                            {% else %}
-                                                0
-                                            {% endif %}
+                                            <i class="fa fa-eye"></i> {{ journal.viewCount }}
+                                            <i class="fa fa-download"></i> {{ journal.downloadCount }}
                                         </li>
                                     </ul>
                                 </div>
