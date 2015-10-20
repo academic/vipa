@@ -30,3 +30,9 @@ services:
     arguments: [@doctrine.orm.entity_manager, @mailer, %system_email%, "OJS"]
     tags:
       - { name: kernel.event_subscriber }
+
+  journal.event_listener:
+    class: Ojs\JournalBundle\EventListener\JournalEventListener
+    arguments: [@router, @mailer, %system_email%, "OJS SYSTEM"]
+    tags:
+      - { name: kernel.event_subscriber }
