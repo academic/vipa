@@ -5,7 +5,7 @@ Accept: Kabul
 Action: Aksiyon
 Admin: Yönetici
 Arabic: Arapça
-Articles: Gönderiler
+Articles: Makaleler
 Association: Organizasyon
 Author: Yazar
 Authors: Yazarlar
@@ -80,7 +80,7 @@ Search: Arama
 Section: Bölüm
 Subject: Konu
 Subjects: Konular
-Submissions: Gönderiler
+Submissions: Makaleler
 roles.subs_manager: 'Abonelik Yöneticisi'
 'workflow.supp_file': 'Ek Dosya'
 Supplementary.File: 'Ek Dosya'
@@ -156,42 +156,42 @@ application.status.waiting: 'İçe Aktarılmayı Bekliyor.'
 apply: Başvur
 apply.for.new.journal: 'Yeni Dergi Olarak Başvur'
 archive: Arşiv
-article: Gönderi
-article.add: 'Gönderi Ekle'
-article.all: 'Tüm Gönderiler'
-article.any_article_viewed: 'Hiç Gönderi Görüntülenmedi.'
-article.any_downloaded: 'Hiç Gönderi İndirilmedi.'
-article.authors: 'Gönderi Yazarları'
-article.citations: 'Gönderi Kaynakçası'
-article.detail: 'Gönderi Detayı'
-article.files: 'Gönderi Dosyaları'
+article: Makale
+article.add: 'Makale Ekle'
+article.all: 'Tüm Makaleler'
+article.any_article_viewed: 'Hiç Makale Görüntülenmedi.'
+article.any_downloaded: 'Hiç Makale İndirilmedi.'
+article.authors: 'Makale Yazarları'
+article.citations: 'Makale Kaynakçası'
+article.detail: 'Makale Detayı'
+article.files: 'Makale Dosyaları'
 article.fulltext: 'Tam Metin'
-article.header_image: 'Gönderi Üst Resmi'
-article.language.other: 'Gönderi Diğer Dilleri'
-article.language.primary: 'Gönderinin Birincil Dili'
+article.header_image: 'Makale Üst Resmi'
+article.language.other: 'Makale Diğer Dilleri'
+article.language.primary: 'Makalenin Birincil Dili'
 article.licensing: Önşart
-article.manager: 'Gönderi Yöneticisi'
-article.metadata: 'Gönderi Üstverisi'
-article.mysubmits: 'Gönderilerim'
-article.new: 'Yeni Gönderi'
-article.plural: Gönderiler
-article.preview: 'Gönderi Önizleme'
-article.singular: Gönderi
-article.submit: 'Gönderi Gönder'
-article.subtitle: 'Gönderinin Alt Başlığı'
-article.title: 'Gönderi Başlığı'
+article.manager: 'Makale Yöneticisi'
+article.metadata: 'Makale Üstverisi'
+article.mysubmits: 'Makalelerim'
+article.new: 'Yeni Makale'
+article.plural: Makaleler
+article.preview: 'Makale Önizleme'
+article.singular: Makale
+article.submit: 'Makale Gönder'
+article.subtitle: 'Makalenin Alt Başlığı'
+article.title: 'Makale Başlığı'
 article.titleTransliterated: 'Başka Dilde Yazılmış Başlık'
-article.type: 'Gönderi Türü'
-article.type.list: 'Gönderi Türü Listesi'
-article.type.new: 'Yeni Gönderi Türü'
-article.types: 'Gönderi Türleri'
-article_author_edit: 'Gönderinin Yazarlarını Düzenle'
-article_author_list: 'Gönderinin Yazarlarını Listele'
-article_id: 'Gönderi No'
-articleauthor: 'Gönderi Yazarı'
+article.type: 'Makale Türü'
+article.type.list: 'Makale Türü Listesi'
+article.type.new: 'Yeni Makale Türü'
+article.types: 'Makale Türleri'
+article_author_edit: 'Makalenin Yazarlarını Düzenle'
+article_author_list: 'Makalenin Yazarlarını Listele'
+article_id: 'Makale No'
+articleauthor: 'Makale Yazarı'
 articleauthor_create: 'Yazar Oluştur'
 articleauthor_new: 'Yeni Yazar'
-articlefile: 'Gönderi Dosyası'
+articlefile: 'Makale Dosyası'
 articlefile.actions: İşlemler
 articlefile.id: 'Dosya No'
 articlefile.langcode: 'Dosya Dili'
@@ -199,11 +199,11 @@ articlefile.new: 'Yeni Dosya'
 articlefile.title: 'Dosya Başlığı'
 articlefile.type: 'Dosya Tipi'
 articlefile.version: 'Dosya Sürümü'
-articles: Gönderiler
-articles.needAction: 'İşlem Gereken Gönderiler'
-articles.waiting: 'Bekleyen Gönderiler'
-articles_in_journal: 'Dergideki Gönderiler'
-articles_in_review: 'İncelemedeki Gönderiler'
+articles: Makaleler
+articles.needAction: 'İşlem Gereken Makaleler'
+articles.waiting: 'Bekleyen Makaleler'
+articles_in_journal: 'Dergideki Makaleler'
+articles_in_review: 'İncelemedeki Makaleler'
 author: Yazar
 author.add: 'Yazar Ekle'
 author.creation: 'Yazar Oluşturma'
@@ -256,7 +256,7 @@ booklet: Broşür
 button.toggle_tree: 'Ağacı Aç'
 c: 'Yeni Oluştur'
 roles.can_edit: 'Düzenleyebilir mi?'
-roles.can_reject_submission: 'Gönderiyi reddedebilir mi?'
+roles.can_reject_submission: 'Makaleyi reddedebilir mi?'
 roles.can_review: 'Gözden geçirebilir mi?'
 roles.can_see_author: 'Yazar bilgisini görebilir mi?'
 canOnlyReply: 'Kullanıcı sonraki adıma karar veremez, sadece cevaplayabilir.'
@@ -317,7 +317,7 @@ dashboard.editor: 'Editör Paneli'
 dashboard.general_stats: 'Genel İstatistikler'
 dashboard.objects: 'Nesne Paneli'
 dashboard.operations: 'İşlem Paneli'
-dashboard.use_left: 'Yeni Gönderi için soldaki menüyü kullanın.'
+dashboard.use_left: 'Yeni Makale için soldaki menüyü kullanın.'
 date.publish: 'Yayın Tarihi'
 datePublished: 'Yayımlanma Tarihi'
 delete: Sil
@@ -385,9 +385,9 @@ form.item.update: 'Form Elemanını Güncelle'
 form.items: 'Form Elemanları'
 full_file: 'Tam Dosya'
 fullname: 'Tam İsim'
-globalFooter.text: "<p>\n ojs.io  <mark>pratik</mark> ve <mark>hızlı</mark> bir dergi yönetme ve yayımlama sistemidir. Gönderi kabulünden yayımlamaya kadar olan tüm süreç elektronik olarak yerine getirilir. \n</p>\n<p>DergiPark tamamen <strong>ücretsizdir.</strong></p>\n"
+globalFooter.text: "<p>\n ojs.io  <mark>pratik</mark> ve <mark>hızlı</mark> bir dergi yönetme ve yayımlama sistemidir. Makale kabulünden yayımlamaya kadar olan tüm süreç elektronik olarak yerine getirilir. \n</p>\n<p>DergiPark tamamen <strong>ücretsizdir.</strong></p>\n"
 haveNoJournals: 'Hiç derginiz bulunmuyor.'
-help.preSubmission.header: 'Bu gönderi bu dergi tarafından değerlendirilmek üzere işaretlenir. Editöre yorumlar son adımda eklenebilir.'
+help.preSubmission.header: 'Bu Makale bu dergi tarafından değerlendirilmek üzere işaretlenir. Editöre yorumlar son adımda eklenebilir.'
 helptext.authors.will.see: 'Yazarlar bu alanı görecek.'
 helptext.authors.wont.see: 'Yazarlar bu alanı görmeyecek.'
 hide_title: 'Başlığı Gizle'
@@ -476,8 +476,8 @@ publishermanagers.list: 'Yayıncı Yöneticileri'
 introduction: Giriş
 anonymous: 'Anonim mi?'
 issue: Sayı
-issue.add.articles: 'Bu Sayıya Gönderi Ekle'
-issue.all_articles: 'Seçilmiş sayı için tüm Gönderileri burada bulabilirsiniz.'
+issue.add.articles: 'Bu Sayıya Makale Ekle'
+issue.all_articles: 'Seçilmiş sayı için tüm Makaleleri burada bulabilirsiniz.'
 issue.edit: 'Sayıyı Düzenle'
 issue.list: 'Sayı Listesi'
 issue.manager: 'Sayı Yöneticisi'
@@ -499,7 +499,7 @@ journal.all: 'Tüm Dergiler'
 journal.any_have: 'Hiç Derginiz Bulunmuyor!'
 journal.application_success_message: 'Başvurunuz başarıyla alındı.'
 journal.apply: 'Dergi Başvurusu'
-journal.articles: 'Dergi Gönderileri'
+journal.articles: 'Dergi Makaleleri'
 journal.assistant_editor: 'Editör Yardımcısı'
 journal.assistant_editor_email: 'Editör Yardımcısı e-Postası'
 journal.assistant_editor_name: 'Editör Yardımcısı Adı'
@@ -543,16 +543,16 @@ journal.plural: Dergiler
 journal.register: 'Dergi Kaydı'
 journal.scope: Kapsam
 journal.settings.abstractTemplate.desc: 'Butona tıklayarak öntanımlı şablonlardan yükleyebilirsiniz.'
-journal.settings.last.step.confirm: 'Gönderim Son Adım Uyarı Yazısı'
+journal.settings.last.step.confirm: 'Makalem Son Adım Uyarı Yazısı'
 journal.settings.mail: 'e-Posta Ayarları'
 journal.settings.mail.signature: 'e-Posta İmzası'
 journal.settings.page: 'Sayfa Ayarları'
-journal.settings.submission: 'Gönderi Ayarları'
-journal.settings.submission.abstractTemplate: 'Gönderi Özet Şablonu'
+journal.settings.submission: 'Makale Ayarları'
+journal.settings.submission.abstractTemplate: 'Makale Özet Şablonu'
 journal.settings.submission.copyrightnotice: 'Telif Hakkı Bildirimi'
-journal.settings.submission.copyrightnotice.desc: 'Telif Hakkı Bildirimi gönderi formunda ve yayımlanan her üstbilgide görünecektir. \n Telif Hakkı Anlaşmasını seçmek dergi yöneticisine kalmışsa da, \nbiz <a href=\"http://creativecommons.org/\">Creative Commons</a> kullanılmasını tavsiye ediyoruz. <br>\n Yukarıda yer alan buttonlara tıklayarak tanımlı şablonlardan birini kullanabilirsiniz.'
-journal.settings.submission.language: 'Gönderim Dili'
-journal.settings.submission.language.text: 'Gönderiler için zorunlu dilleri seçin.'
+journal.settings.submission.copyrightnotice.desc: 'Telif Hakkı Bildirimi Makale formunda ve yayımlanan her üstbilgide görünecektir. \n Telif Hakkı Anlaşmasını seçmek dergi yöneticisine kalmışsa da, \nbiz <a href=\"http://creativecommons.org/\">Creative Commons</a> kullanılmasını tavsiye ediyoruz. <br>\n Yukarıda yer alan buttonlara tıklayarak tanımlı şablonlardan birini kullanabilirsiniz.'
+journal.settings.submission.language: 'Makalem Dili'
+journal.settings.submission.language.text: 'Makaleler için zorunlu dilleri seçin.'
 journal.setup: 'Dergi Ayarları'
 journal.singular: Dergi
 journal.slug: 'Web Erişimi İçin Kısa Yol  ( base_host/<i>journal_path</i> )'
@@ -664,7 +664,7 @@ mastersthesis: 'Yüksek Lisans Tezi'
 messages: Mesajlar
 message.application_not_available: 'Üzgünüz ama şimdilik başvuru yapmanız mümkün değil.'
 message.registration_not_available: 'Üzgünüz ama şimdilik kayıt olmanız mümkün değil.'
-message.submission_not_available: 'Üzgünüz ama şimdilik gönderi göndermeniz mümkün değil.'
+message.submission_not_available: 'Üzgünüz ama şimdilik Makale göndermeniz mümkün değil.'
 mimetype: 'MIME Tipi'
 misc: Çeşitli
 mission: Misyon
@@ -687,7 +687,7 @@ notification.isread: 'Okunur mu?'
 notification.level: 'Bildirim Seviyesi'
 notification.list: 'Bildirimleri Listele'
 notification.recipient.id: 'Alıcı ID'
-notification.sender.id: 'Gönderici ID'
+notification.sender.id: 'Makaleci ID'
 notification.singular: Bildirim
 notification.subject: 'Bildirimin Konusu'
 notification.test: 'Bildirim Testi'
@@ -732,7 +732,7 @@ ojs.uniq_name: 'Bu sizin uygulamada kısa adınız olacak.'
 ojs.updater: 'OJS Güncelleyici'
 ojs.view_in_browser: 'Bunu tarayıcınızda görüntüleyin.'
 ojs.welcome_msg: 'Sisteme katıldınız.'
-onlineSubmission: 'Online Gönderim'
+onlineSubmission: 'Online Makalem'
 optional: Seçenekli
 orcid.login: 'ORCID ile Giriş'
 order: Sıra
@@ -784,18 +784,18 @@ proxy_users: 'Vekil Kullanıcılar'
 pubdate: 'Yayımlanma Tarihi'
 publishdate: 'Yayın Tarihi'
 published: Yayımlanmış
-read.article: 'Gönderiyi Oku'
+read.article: 'Makaleyi Oku'
 read.lastissue: 'Son Sayıyı Oku'
 regenerate.apikey: 'Yeniden APIKEY Üret'
 register: 'Kayıt Ol'
-register_advantages_text: ' kaydolarak dergilere kolayca makale gönderebilirsiniz.'
+register_advantages_text: '''ye kaydolarak dergilere kolayca makale gönderebilirsiniz.'
 register.yourself.as.author: 'Yazar Olarak Kayıt Olun'
 register_journal: 'Dergi Kaydet'
 registration.activation: 'Hesabınızı aktifleştirmek için e-mailinizi kontrol edin.'
 rejected: Reddedilmiş
 remove: Sil
 reports.analytics: 'Analitik Raporlar'
-reports.article: 'Gönderi Raporları'
+reports.article: 'Makale Raporları'
 reports.author: 'Yazar Raporları'
 reports.journal: 'Dergi Raporları'
 reports.title: Raporlar
@@ -868,10 +868,10 @@ section: Bölüm
 select.article.file: 'Dosya Seç'
 select.image.file: 'Resim Dosyası Seç...'
 select_all: 'Tümünü Seç'
-select_article_file: 'Gönderi Dosyası Seç'
-select_supplementary_article_file: 'Ek Gönderi Dosyası Seç'
+select_article_file: 'Makale Dosyası Seç'
+select_supplementary_article_file: 'Ek Makale Dosyası Seç'
 select_visible: 'Görünenleri Seç'
-send_article: 'Yeni Gönderi'
+send_article: 'Yeni Makale'
 sendmail: 'E-posta Gönder'
 services: Hizmetler
 setting: Ayar
@@ -884,9 +884,9 @@ source: Kaynak
 special: Özel
 special.issue: 'Özel Sayı'
 stats: İstatistikler
-stats.most_downloaded_article_files: 'En Çok İndirilen Gönderi Dosyaları'
+stats.most_downloaded_article_files: 'En Çok İndirilen Makale Dosyaları'
 stats.most_downloaded_issue_files: 'En Çok İndirilen Sayı Dosyaları'
-stats.most_viewed_articles: 'En Çok Görüntülenen Gönderiler'
+stats.most_viewed_articles: 'En Çok Görüntülenen Makaleler'
 stats.most_viewed_journals: 'En Çok Görüntülenen Dergiler'
 stats.views: Görüntülemeler
 stats.downloads: İndirilmeler
@@ -894,7 +894,7 @@ stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
 status: Durum
 status.inreview: İncelemede
-status.not_submitted: Gönderilmedi
+status.not_submitted: Makalelmedi
 status.published: Yayımlandı
 status.rejected: Reddedildi
 status.spam: Spam
@@ -909,18 +909,18 @@ subject.list: 'Konu Listesi'
 subject.new: 'Yeni Konu'
 subject.plural: Konular
 subjects: Konular
-submission.attention: 'Taslağınızı gönderdikten sonra verileri değiştiremezsiniz.  <br>Eğer emin değilseniz, bu pencereyi kapatmış olsanız bile gönderime daha sonra devam edebilirsiniz.'
+submission.attention: 'Taslağınızı gönderdikten sonra verileri değiştiremezsiniz.  <br>Eğer emin değilseniz, bu pencereyi kapatmış olsanız bile Makaleme daha sonra devam edebilirsiniz.'
 submission.starting: Başlarken
-submission.success: 'Makale Gönderimi Tamamlandı'
-submission.continue_edit: 'Makale Gönderimi düzenlemesine devam et'
-submissionDate: 'Gönderi Tarihi'
-submission_checklist: 'Gönderi Kontrol Listesi'
+submission.success: 'Makale Makalemi Tamamlandı'
+submission.continue_edit: 'Makale Makalemi düzenlemesine devam et'
+submissionDate: 'Makale Tarihi'
+submission_checklist: 'Makale Kontrol Listesi'
 submission_checklist.create: 'Yeni Madde'
 submission_checklist.detail: Detay
 submission_checklist.label: Etiket
 submission_checklist.show: Göster
 submission_checklist.visible: 'Görünür mü?'
-submission_checklist.required: 'Gönderim için gerekli mi?'
+submission_checklist.required: 'Makalem için gerekli mi?'
 submit: Gönder
 submitRoles: 'Makale Gönderebilen Roller'
 submit_action: 'Gönderme Aksiyonu'
@@ -943,8 +943,8 @@ suppfiles.supp: 'Ek Dosya'
 suppfiles.trans: Belgeler
 supplement: 'Ek Dosya mı?'
 support: Destek
-submitted.articles: 'Gönderilenler'
-submitted.articles.all: 'Tüm Gönderilenler'
+submitted.articles: 'Makalelenler'
+submitted.articles.all: 'Tüm Makalelenler'
 submitted.articles.me: 'Gönderdiklerim'
 sure: 'Emin misiniz?'
 sure.ban: 'Bu kullanıcıyı yasaklayacaksınız. Emin misiniz?'
@@ -977,31 +977,31 @@ title.announcement_new: 'Yeni Duyuru'
 title.announcement_show: 'Duyuru Ayrıntıları'
 title.api: 'API Home'
 title.archives: Arşivler
-title.article: Gönderi
-title.article_authors: 'Gönderi Yazarları'
-title.article_authors_edit: 'Gönderi Yazarlarını Düzenle'
+title.article: Makale
+title.article_authors: 'Makale Yazarları'
+title.article_authors_edit: 'Makale Yazarlarını Düzenle'
 title.article_authors_new: 'Yeni Bir Yazar Ekle'
-title.article_authors_show: 'Gönderi Yazarlarını Göster'
-title.article_edit: 'Gönderi Düzenle'
-title.article_files: 'Gönderi Dosyaları'
-title.article_files_edit: 'Gönderi Dosyasını Düzenle'
-title.article_files_new: 'Yeni Gönderi Dosyası'
-title.article_files_show: 'Gönderi Dosyasını Göster'
-title.article_new: 'Yeni Gönderi'
-title.article_show: 'Gönderiyi Göster'
-title.article_type_edit: 'Gönderi Türü Düzenle'
-title.article_type_new: 'Yeni Gönderi Türü'
-title.article_type_show: 'Gönderi Türünü Göster'
-title.article_types: 'Gönderi Türleri'
+title.article_authors_show: 'Makale Yazarlarını Göster'
+title.article_edit: 'Makale Düzenle'
+title.article_files: 'Makale Dosyaları'
+title.article_files_edit: 'Makale Dosyasını Düzenle'
+title.article_files_new: 'Yeni Makale Dosyası'
+title.article_files_show: 'Makale Dosyasını Göster'
+title.article_new: 'Yeni Makale'
+title.article_show: 'Makaleyi Göster'
+title.article_type_edit: 'Makale Türü Düzenle'
+title.article_type_new: 'Yeni Makale Türü'
+title.article_type_show: 'Makale Türünü Göster'
+title.article_types: 'Makale Türleri'
 title.articles: Makaleler
 title.article_my: Makalelerim
-title.articles_assign: 'Gönderileri Ata'
-title.articles_assigned: 'Atanan Gönderiler'
-title.articles_published: 'Yayımlanmış Gönderiler'
-title.articles_rejected: 'Reddedilen Gönderiler'
-title.articles_uncomplete: 'Tamamlanmamış Gönderiler'
-title.articles_unpublished: 'Yayımlanmamış Gönderiler'
-title.articles_waiting: 'Bekleyen Gönderiler'
+title.articles_assign: 'Makaleleri Ata'
+title.articles_assigned: 'Atanan Makaleler'
+title.articles_published: 'Yayımlanmış Makaleler'
+title.articles_rejected: 'Reddedilen Makaleler'
+title.articles_uncomplete: 'Tamamlanmamış Makaleler'
+title.articles_unpublished: 'Yayımlanmamış Makaleler'
+title.articles_waiting: 'Bekleyen Makaleler'
 title.author_edit: 'Yazar Düzenle'
 title.author_new: 'Yeni Yazar'
 title.author_preview: 'Yazar Önizleme'
@@ -1067,7 +1067,7 @@ title.publishers: Yayıncılar
 title.publisher_managers: 'Yayıncı Yöneticileri'
 title.invitation_preview: 'Davet Önizleme'
 title.issue_arrange: 'Sayı Düzenle'
-title.issue_articles: 'Sayının Gönderileri'
+title.issue_articles: 'Sayının Makaleleri'
 title.issue_detail: 'Sayı Detayı'
 title.issue_edit: 'Sayıyı Düzenle'
 title.issue_files: 'Sayı Dosyaları'
@@ -1111,7 +1111,7 @@ title.section_new: 'Yeni Bölüm'
 title.section_show: 'Bölümü Göster'
 title.sections: 'Dergi Bölümleri'
 title.journal_settings_mail: 'E-Posta Ayarları'
-title.journal_settings_submission: 'Gönderi Ayarları'
+title.journal_settings_submission: 'Makale Ayarları'
 title.journal_setup: 'Dergi Ayarları'
 title.journal_show: 'Dergi Göster'
 title.theme_edit: 'Dergi Temasını Düzenle'
@@ -1132,7 +1132,7 @@ title.language_edit: 'Dili Düzenle'
 title.language_new: 'Yeni Dil'
 title.language_show: 'Dili Göster'
 title.languages: Diller
-title.last_articles: 'Son Gönderiler'
+title.last_articles: 'Son Makaleler'
 title.login: Giriş
 title.mail_log_edit: 'E-Posta Günlüğünü Düzenle'
 title.mail_log_new: 'Yeni E-Posta Günlüğü'
@@ -1159,12 +1159,12 @@ title.person_title_edit: 'Ünvanı Düzenle'
 title.person_title_new: 'Yeni Ünvan'
 title.person_title_show: 'Ünvanı Göster'
 title.person_titles: Ünvanlar
-title.post: Gönderi
-title.post_detail: 'Gönderi Detayı'
-title.post_edit: 'Gönderiyi Düzenle'
-title.post_new: 'Yeni Gönderi'
-title.post_show: 'Gönderiyi Göster'
-title.posts: Gönderiler
+title.post: Makale
+title.post_detail: 'Makale Detayı'
+title.post_edit: 'Makaleyi Düzenle'
+title.post_new: 'Yeni Makale'
+title.post_show: 'Makaleyi Göster'
+title.posts: Makaleler
 title.privacy: Gizlilik
 title.private_account: 'Gizli Hesap'
 title.profile: Profil
@@ -1205,12 +1205,12 @@ title.submission_checklist_edit: 'Kontrol Listesini Düzenle'
 title.submission_checklist_new: 'Yeni Kontrol Listesi'
 title.submission_checklist_show: 'Kontrol Listesini Göster'
 title.submission_checklists: 'Kontrol Listeleri'
-title.submission_file_new: 'Yeni Gönderi Dosyası'
-title.submission_files: 'Gönderi Dosyaları'
-title.submission_edit: 'Gönderiyi Düzenle'
-title.submission_new: 'Yeni Gönderi'
-title.submission_preview: 'Gönderi Önizleme'
-title.submissions: Gönderiler
+title.submission_file_new: 'Yeni Makale Dosyası'
+title.submission_files: 'Makale Dosyaları'
+title.submission_edit: 'Makaleyi Düzenle'
+title.submission_new: 'Yeni Makale'
+title.submission_preview: 'Makale Önizleme'
+title.submissions: Makaleler
 title.system_settings: 'Sistem Ayarları'
 title.theme_edit: 'Temayı Düzenle'
 title.theme_new: 'Yeni Tema'
@@ -1244,7 +1244,7 @@ toggle_navigation: 'Navigasyonu Değiştir'
 tools: Araçlar
 topics: Konular
 tos: Tos
-total.article: 'Toplam Gönderi'
+total.article: 'Toplam Makale'
 total.issue: 'Toplam Sayı'
 total.user: 'Toplam Kullanıcı'
 trans: 'Başka Dilde Yazılmış'
@@ -1258,7 +1258,7 @@ ulakbim: ULAKBİM
 unconfirmed.user: 'Doğrulanmamış Kullanıcı'
 unpublished: Yayımlanmamış
 update: Güncelle
-update.article.file: 'Gönderi Dosyasını Güncelle'
+update.article.file: 'Makale Dosyasını Güncelle'
 update.end.time: 'Bitiş Tarihini Güncelle'
 update.ttl: 'TTL''yi Güncelle'
 updated: Güncellendi
@@ -1396,6 +1396,6 @@ yes: Evet
 no: Hayır
 default: Varsayılan 
 optional: Opsiyonel
-submission.no_file: 'Gönderi dosyası yok, lütfen dergi yöneticisine haber verin.'
+submission.no_file: 'Makale dosyası yok, lütfen dergi yöneticisine haber verin.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
 
