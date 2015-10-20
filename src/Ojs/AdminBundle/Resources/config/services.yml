@@ -1,4 +1,6 @@
 services:
-#    admin.example:
-#        class: Ojs\AdminBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+  admin.event_listener:
+    class: Ojs\AdminBundle\EventListener\AdminEventListener
+    arguments: [@router, @mailer, %system_email%, "OJS SYSTEM"]
+    tags:
+      - { name: kernel.event_subscriber }
