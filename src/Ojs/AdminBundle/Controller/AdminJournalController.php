@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\QueryBuilder;
 use Elastica\Query;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -297,8 +296,9 @@ class AdminJournalController extends Controller
 
         $fieldQuery = new Query\MultiMatch();
 
-        $fieldQuery->setFields(['title', 'subtitle', 'description']);
-        $fieldQuery->setQuery($q);
+        $fieldQuery->setFields(['title']);
+        $fieldQuery->setQuery(strtoupper($q));
+        $fieldQuery->setFuzziness(0.7);
         $boolQuery->addMust($fieldQuery);
 
         $searchQuery->setQuery($boolQuery);
