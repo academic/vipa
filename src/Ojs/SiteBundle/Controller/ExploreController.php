@@ -4,7 +4,6 @@ namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Aggregation;
 use Elastica\Query;
-use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -131,7 +130,7 @@ class ExploreController extends Controller
 
         $data = [
             'types' => $types,
-            'page' => 'explore',
+            'page' => 'ojs_site_explore_publisher',
             'publishers' => $publishers,
             'pagerfanta' => $pagerfanta,
             'type_filters' => $typeFilters,

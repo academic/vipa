@@ -98,21 +98,15 @@
                 </div>
             {% endfor %}
         </div>
-
-        <div class="text-center">
-            <ul class="pagination">
-                {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-            </ul>
-        </div>
-
     </div>
 
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
+    <div class="row">
+        <div class="col-12-xs">
+            <div class="text-center">
+                <ul class="pagination">
+                    {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
