@@ -321,6 +321,9 @@ liip_imagine:
     announcement_croped:
       data_loader: stream.announcement_croped_filesystem
       quality: 90
+      filters:
+        relative_resize: {  widen: 120 }
+        crop: {start:[0,0], size: [120, 120]}
     index_original:
       data_loader: stream.index_filesystem
       quality: 90

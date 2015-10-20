@@ -7,6 +7,7 @@
         #logo {
             max-width: 100%;
         }
+
         @media (max-width: 360px) {
             #homepage-buttons a {
                 width: 220px;
@@ -78,7 +79,8 @@
                         <div class="col-md-12">
                             <p id="homepage-buttons" class="text-center">
                                 {% if not app.user %}
-                                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-labeled">
+                                    <a href="{{ path('fos_user_registration_register') }}"
+                                       class="btn btn-primary btn-labeled">
                                         <span class="btn-label pull-left">
                                             <i class="fa fa-user fa-fw"></i>
                                         </span>
@@ -112,49 +114,59 @@
                         <div class="col-md-12">
                             <div class="content">
                                 {% if announcement_count > 0 %}
-                                    <div id="announcement-carousel" class="carousel slide" data-ride="carousel">
-                                        <!-- Indicators -->
-                                        <ol class="carousel-indicators">
-                                            {% for i in 0..announcement_count - 1 %}
-                                                {% if loop.first %}
-                                                    <li data-target="#announcement-carousel" data-slide-to="0" class="active"></li>
-                                                {% else %}
-                                                    <li data-target="#announcement-carousel" data-slide-to="{{ i }}"></li>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </ol>
+                                <div id="announcement-carousel" class="carousel slide" data-ride="carousel">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        {% for i in 0..announcement_count - 1 %}
+                                            {% if loop.first %}
+                                                <li data-target="#announcement-carousel" data-slide-to="0"
+                                                    class="active"></li>
+                                            {% else %}
+                                                <li data-target="#announcement-carousel" data-slide-to="{{ i }}"></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ol>
 
-                                        <!-- Wrapper for slides -->
-                                        <div class="carousel-inner">
-                                            {% for announcement in announcements %}
-                                                {% if loop.first %}
-                                                    <div class="item active">
-                                                {% else %}
-                                                    <div class="item">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        {% for announcement in announcements %}
+                                        {% if loop.first %}
+                                        <div class="item active">
+                                            {% else %}
+                                            <div class="item">
                                                 {% endif %}
-                                                        <div class="row">
-                                                            <div class="col-xs-1 col-xs-offset-3">
-                                                                <h1>
-                                                                    <i class="fa fa-bullhorn"></i>
-                                                                </h1>
-                                                            </div>
-                                                            <div class="col-xs-5">
-                                                                <h3>{{ announcement.title }}</h3>
-                                                                <p>{{ announcement.content|raw }}</p>
-                                                            </div>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-xs-2"></div>
+                                                    <div class="col-xs-3">
+                                                        {% if announcement.image is defined %}
+                                                            <img src="{{ announcement.image|imagine_filter('announcement_croped') }}">
+                                                        {% else %}
+                                                            <h1>
+                                                                <i class="fa fa-bullhorn"></i>
+                                                            </h1>
+                                                        {% endif %}
                                                     </div>
+                                                    <div class="col-xs-7">
+                                                        <h3>{{ announcement.title }}</h3>
+
+                                                        <p>{{ announcement.content|raw }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             {% endfor %}
                                         </div>
                                         <!-- Controls -->
-                                        <a class="left carousel-control" href="#announcement-carousel" data-slide="prev">
+                                        <a class="left carousel-control" href="#announcement-carousel"
+                                           data-slide="prev">
                                             <span class="glyphicon glyphicon-chevron-left"></span>
                                         </a>
-                                        <a class="right carousel-control" href="#announcement-carousel" data-slide="next">
+                                        <a class="right carousel-control" href="#announcement-carousel"
+                                           data-slide="next">
                                             <span class="glyphicon glyphicon-chevron-right"></span>
                                         </a>
                                     </div>
-                                {% endif %}
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -172,14 +184,14 @@
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{ generateJournalUrl(journal) }}">
                                     <img
-                                        {% if journal.image is not null %}
-                                            src="{{ journal.image|imagine_filter('journal_cover') }}"
-                                            class="img-rounded"
-                                        {% else %}
-                                            src="#"
-                                            class="img-rounded tri"
-                                        {% endif %}
-                                         width="96" height="128"/>
+                                            {% if journal.image is not null %}
+                                                src="{{ journal.image|imagine_filter('journal_cover') }}"
+                                                class="img-rounded"
+                                            {% else %}
+                                                src="#"
+                                                class="img-rounded tri"
+                                            {% endif %}
+                                            width="96" height="128"/>
                                     <br/>
                                     <small>{{ journal.title }}</small>
                                     <br/>
@@ -196,9 +208,9 @@
             <div class="row">
                 <ul>
                     {% for post in posts %}
-                    <li>
-                        <a href="{{ path('ojs_site_post', {'slug': post.slug}) }}">{{ post.title }}</a>
-                    </li>
+                        <li>
+                            <a href="{{ path('ojs_site_post', {'slug': post.slug}) }}">{{ post.title }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
