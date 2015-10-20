@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Event;
 
-
 final class AdminEvents
 {
     const USER_PASS_CHANGE = 'ojs.admin.user.password.change';
