@@ -3,12 +3,6 @@
 namespace Ojs\UserBundle\EventListener;
 
 use Ojs\UserBundle\Event\UserEvent;
-use OkulBilisim\WorkflowBundle\Entity\Post;
-use OkulBilisim\WorkflowBundle\Event\FlowEvent;
-use OkulBilisim\WorkflowBundle\Event\ObjectStepEvent;
-use OkulBilisim\WorkflowBundle\Event\PostEvent;
-use OkulBilisim\WorkflowBundle\Event\DialogEvent;
-use OkulBilisim\WorkflowBundle\WorkFlowEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Ojs\UserBundle\Event\UserEvents;
@@ -64,21 +58,6 @@ class UserEventListener implements EventSubscriberInterface
         );
     }
 
-    public function onUserRegister(UserEvent $userEvent)
-    {
-
-    }
-
-    public function onUserInfoChange(UserEvent $userEvent)
-    {
-
-    }
-
-    public function onUserPasswordChange(UserEvent $userEvent)
-    {
-
-    }
-
     public function onUserPasswordReset(UserEvent $userEvent)
     {
 
@@ -94,6 +73,9 @@ class UserEventListener implements EventSubscriberInterface
 
     }
 
+    /**
+     * @param FilterUserResponseEvent $userResponseEvent
+     */
     public function onRegistrationCompleted(FilterUserResponseEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
@@ -112,6 +94,9 @@ class UserEventListener implements EventSubscriberInterface
         $this->mailer->send($message);
     }
 
+    /**
+     * @param GetResponseUserEvent $userResponseEvent
+     */
     public function onChangePasswordCompleted(GetResponseUserEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
@@ -130,6 +115,9 @@ class UserEventListener implements EventSubscriberInterface
         $this->mailer->send($message);
     }
 
+    /**
+     * @param GetResponseUserEvent $userResponseEvent
+     */
     public function onProfileEditCompleted(GetResponseUserEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
