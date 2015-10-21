@@ -1036,6 +1036,7 @@ title.contact_types: 'İletişim Tipleri'
 title.contacts: İletişim
 title.create_custom_field: 'Özel Alan Oluştur'
 title.custom_field: 'Özel Alan'
+title.default_journal_theme: 'Varsayılan Dergi Temaları'
 title.design_edit: 'Tasarımı Düzenle'
 title.design_new: 'Yeni Tasarım'
 title.design_show: 'Tasarımı Göster'
@@ -1159,12 +1160,12 @@ title.person_title_edit: 'Ünvanı Düzenle'
 title.person_title_new: 'Yeni Ünvan'
 title.person_title_show: 'Ünvanı Göster'
 title.person_titles: Ünvanlar
-title.post: Makale
-title.post_detail: 'Makale Detayı'
-title.post_edit: 'Makaleyi Düzenle'
-title.post_new: 'Yeni Makale'
-title.post_show: 'Makaleyi Göster'
-title.posts: Makaleler
+title.post: Yazı
+title.post_detail: 'Yazı Detayı'
+title.post_edit: 'Yazı Düzenle'
+title.post_new: 'Yeni Yazı'
+title.post_show: 'Yazı Göster'
+title.posts: Yazılar
 title.privacy: Gizlilik
 title.private_account: 'Gizli Hesap'
 title.profile: Profil
