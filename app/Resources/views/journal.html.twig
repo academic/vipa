@@ -21,20 +21,20 @@
         </div>
     {% endif %}
 
+    {% if journal.periods is defined and journal.periods|length >0 %}
     <div class="views-field-field-publish-periods-value">
         <span class="field-content">
-            {% if journal.periods is defined and journal.periods|length >0 %}
                 {% for period in journal.periods %}
                     {{ period.period }}
                 {% endfor %}
-            {% endif %}
         </span>
     </div>
+    {% endif %}
 
     <div class="views-field-field-physical-description-value">
         <span class="field-content">Online only</span>
     </div>
-    <div class="stats">
+    <div class="view-stats">
         <i class="fa fa-eye"></i> {{ journal.viewCount }}
         <i class="fa fa-download"></i> {{ journal.downloadCount }}
     </div>
