@@ -57,7 +57,7 @@
     {% endif %}
     {% if journal.description is not null %}
         <div class="hovercard-content hidden">
-            {{ journal.description }}
+            {{ journal.description|e('html') }}
         </div>
     {% endif %}
     {% if journal.viewCount and journal.downloadCount %}
