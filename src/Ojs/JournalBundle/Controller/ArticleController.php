@@ -45,8 +45,8 @@ class ArticleController extends Controller
             function (Row $row) use ($request, $translator) {
                 /** @var Article $entity */
                 $entity = $row->getEntity();
-                $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
+                    $entity->setDefaultLocale($request->getDefaultLocale());
                     $doi = $entity->getDoi();
                     if($doi !== null){
                         $row->setField('title', $entity->getTitle(). ' / '. $doi);
