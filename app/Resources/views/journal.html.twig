@@ -21,31 +21,6 @@
         </div>
     {% endif %}
 
-    {% if journal.periods is defined and journal.periods|length >0 %}
-    <div class="views-field-field-publish-periods-value">
-        <span class="field-content">
-                {% for period in journal.periods %}
-                    {{ period.period }}
-                {% endfor %}
-        </span>
-    </div>
-    {% endif %}
-
-    <div class="views-field-field-physical-description-value">
-        <span class="field-content">Online only</span>
-    </div>
-    <div class="view-stats">
-        <i class="fa fa-eye"></i> {{ journal.viewCount }}
-        <i class="fa fa-download"></i> {{ journal.downloadCount }}
-    </div>
-    {% if journal.founded is defined %}
-        <div class="views-field-field-year-founded-value">
-            <label class="views-label-field-year-founded-value">
-                {{ "journal.founded"|trans }}:
-            </label>
-            <span class="field-content">{{ journal.founded|date('Y') }}</span>
-        </div>
-    {% endif %}
     {% if journal.eissn is defined %}
         <div class="views-field-field-eissn-value">
             <label class="views-label-field-eissn-value">
@@ -62,9 +37,33 @@
             <span class="field-content">{{ journal.issn }}</span>
         </div>
     {% endif %}
+
+    {% if journal.periods is defined and journal.periods|length >0 %}
+    <div class="views-field-field-publish-periods-value">
+        <span class="field-content">
+                {% for period in journal.periods %}
+                    {{ period.period }}
+                {% endfor %}
+        </span>
+    </div>
+    {% endif %}
+    {% if journal.founded is defined %}
+        <div class="views-field-field-year-founded-value">
+            <label class="views-label-field-year-founded-value">
+                {{ "journal.founded"|trans }}:
+            </label>
+            <span class="field-content">{{ journal.founded|date('Y') }}</span>
+        </div>
+    {% endif %}
     {% if journal.description is not null %}
         <div class="hovercard-content hidden">
             {{ journal.description }}
+        </div>
+    {% endif %}
+    {% if journal.viewCount and journal.downloadCount %}
+        <div class="view-stats">
+            <i class="fa fa-eye"></i> {{ journal.viewCount }}
+            <i class="fa fa-download"></i> {{ journal.downloadCount }}
         </div>
     {% endif %}
 </div>
