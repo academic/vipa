@@ -304,7 +304,8 @@ body {
 }
 
 .grid-item {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    margin-right: 8px;
     line-height: 16px;
 }
 
