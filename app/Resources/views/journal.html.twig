@@ -21,7 +21,7 @@
         </div>
     {% endif %}
 
-    {% if journal.eissn is defined %}
+    {% if journal.eissn is defined and journal.eissn is not null %}
         <div class="views-field-field-eissn-value">
             <label class="views-label-field-eissn-value">
                 {{ "journal.eissn"|trans }}:
@@ -29,7 +29,7 @@
             <span class="field-content">{{ journal.eissn }}</span>
         </div>
     {% endif %}
-    {% if journal.issn is defined %}
+    {% if journal.issn is defined and journal.issn is not null %}
         <div class="views-field-field-issn-value">
             <label class="views-label-field-issn-value">
                 {{ "journal.issn"|trans }}:
