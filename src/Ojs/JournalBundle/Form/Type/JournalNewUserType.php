@@ -76,7 +76,6 @@ class JournalNewUserType extends AbstractType
                 array(
                     'label' => 'subjects',
                     'class' => 'Ojs\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
                     'multiple' => true,
                     'expanded' => false,
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),

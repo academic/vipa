@@ -10,6 +10,7 @@ use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalNewUserType;
 use Ojs\JournalBundle\Form\Type\JournalUserEditType;
 use Ojs\JournalBundle\Form\Type\JournalUserType;
@@ -21,6 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
 
 /**
  * JournalUser controller.
@@ -119,6 +122,8 @@ class JournalUserController extends Controller
      */
     public function createUserAction(Request $request)
     {
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -146,6 +151,9 @@ class JournalUserController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $entity);
+            $dispatcher->dispatch(JournalEvents::JOURNAL_USER_NEW, $event);
 
             return $this->redirectToRoute(
                 'ojs_journal_user_edit',

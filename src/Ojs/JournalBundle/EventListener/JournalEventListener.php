@@ -55,9 +55,9 @@ class JournalEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            JournalEvents::JOURNAL_CHANGE => 'onJournalChange',
+            JournalEvents::JOURNAL_CHANGE => 'onJournalChange', #+
             JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew',
-            JournalEvents::JOURNAL_USER_CHANGE => 'onJournalUserChange',
+            JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserChange',
             JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange',
             JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
@@ -101,11 +101,24 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalUserNew()
+    public function onJournalUserNew(JournalEvent $event)
     {
-
+        $user = $event->getUser();
+        $message = $this->mailer->createMessage();
+        $to = array($user->getEmail() => $user->getUsername());
+        $message = $message
+            ->setSubject(
+                'Journal Event : Journal User New'
+            )
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody(
+                'Journal Event : Journal User New -> '. $user->getUsername(),
+                'text/html'
+            );
+        $this->mailer->send($message);
     }
 
     /**
