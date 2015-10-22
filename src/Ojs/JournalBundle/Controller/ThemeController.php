@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * Theme controller.
@@ -71,6 +74,8 @@ class ThemeController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Theme();
         $entity->setOwner($journal);
         $form = $this->createCreateForm($entity);
@@ -81,6 +86,9 @@ class ThemeController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_THEME_CHANGE, $event);
 
             return $this->redirectToRoute('ojs_journal_theme_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
@@ -240,6 +248,8 @@ class ThemeController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         /** @var Theme $entity */
         $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
         $this->throw404IfNotFound($entity);
@@ -249,6 +259,9 @@ class ThemeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_THEME_CHANGE, $event);
 
             return $this->redirectToRoute('ojs_journal_theme_edit', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
@@ -277,6 +290,8 @@ class ThemeController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         /** @var Theme $entity */
         $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
         $this->throw404IfNotFound($entity);
@@ -289,6 +304,9 @@ class ThemeController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_THEME_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_journal_theme_index', ['journalId' => $journal->getId()]);
     }
