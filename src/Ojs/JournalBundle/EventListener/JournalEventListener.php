@@ -58,8 +58,8 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_CHANGE => 'onJournalChange', #+
             JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew', #+
             JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange', #+
-            JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange',
-            JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
+            JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange', #+
+            JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange', #+
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
             JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange',
@@ -167,11 +167,27 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalSubmissionFilesChange()
+    public function onJournalSubmissionFilesChange(JournalEvent $event)
     {
-
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Submission Files -> '. $event->getEventType()
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Submission Files -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
     }
 
     /**

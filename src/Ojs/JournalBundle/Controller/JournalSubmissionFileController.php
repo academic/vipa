@@ -8,11 +8,14 @@ use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Entity\SubmissionFile;
+use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalSubmissionFileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
 
 /**
  * JournalSubmissionFile controller.
@@ -66,6 +69,8 @@ class JournalSubmissionFileController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalSubmissionFile();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
@@ -76,6 +81,9 @@ class JournalSubmissionFileController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE, $event);
 
             return $this->redirect(
                 $this->generateUrl('ojs_journal_file_show', array('id' => $entity->getId(), 'journalId' => $journal->getId()))
@@ -241,12 +249,17 @@ class JournalSubmissionFileController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE, $event);
 
             return $this->redirect(
                 $this->generateUrl('ojs_journal_file_edit', array('id' => $entity->getId(), 'journalId' => $journal->getId()))
@@ -276,6 +289,8 @@ class JournalSubmissionFileController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_file'.$entity->getId());
@@ -286,6 +301,9 @@ class JournalSubmissionFileController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_journal_file_index', ['journalId' => $journal->getId()]);
     }
