@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * Section controller.
@@ -88,6 +91,8 @@ class SectionController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for create section on this journal!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Section();
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
@@ -98,6 +103,9 @@ class SectionController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_SECTION_CHANGE, $event);
 
             return $this->redirectToRoute(
                 'ojs_journal_section_show',
@@ -262,6 +270,8 @@ class SectionController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's section!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:Section')->find($id);
@@ -276,8 +286,10 @@ class SectionController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            $this->successFlashBag('Successfully updated.');
+            $this->successFlashBag('successful.update');
 
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_SECTION_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_journal_section_edit',
                 [
@@ -309,6 +321,8 @@ class SectionController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's section!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Section')->find($id);
         if (!$entity) {
@@ -323,7 +337,9 @@ class SectionController extends Controller
 
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('Successfully removed.');
+        $this->successFlashBag('successful.remove');
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_SECTION_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_journal_section_index', ['journalId' => $journal->getId()]);
     }

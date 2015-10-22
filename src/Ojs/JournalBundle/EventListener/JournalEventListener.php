@@ -69,7 +69,7 @@ class JournalEventListener implements EventSubscriberInterface
             ArticleSubmitEvents::SUBMIT_AFTER => 'onJournalArticleSubmitted', #+
             JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange', #+
             JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange', #+
-            JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange',
+            JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange', #+
             JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange',
             JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange',
             JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange',
@@ -354,17 +354,33 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalSectionChange()
+    public function onJournalSectionChange(JournalEvent $event)
     {
-
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Section Change -> '. $event->getEventType()
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Section Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalIndexChange()
+    public function onJournalIndexChange(JournalEvent $event)
     {
 
     }
