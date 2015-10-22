@@ -55,11 +55,6 @@
             <span class="field-content">{{ journal.founded|date('Y') }}</span>
         </div>
     {% endif %}
-    {% if journal.description is not null %}
-        <div class="hovercard-content hidden">
-            {{ journal.description|e('html') }}
-        </div>
-    {% endif %}
     {% if journal.viewCount and journal.downloadCount %}
         <div class="view-stats">
             <i class="fa fa-eye"></i> {{ journal.viewCount }}

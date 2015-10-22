@@ -149,25 +149,3 @@
     </div>
 
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts "@hovercard_js" output="assets/prod/js/hovercard.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script>
-        $(function () {
-            $('.hovercard').each(function () {
-                var elm, detail;
-                elm = $(this);
-                detail = $.trim(elm.parent().parent().parent().find('.hovercard-content').html());
-
-                if (detail) {
-                    elm.hovercard({
-                        detailsHTML: detail
-                    });
-                }
-            });
-        });
-    </script>
-{% endblock %}
