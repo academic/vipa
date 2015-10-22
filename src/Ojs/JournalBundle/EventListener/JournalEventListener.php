@@ -73,9 +73,9 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange', #+
             JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange', #+
             JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange', #analyze
-            JournalEvents::JOURNAL_POST_CHANGE => 'onJournalPost',
-            JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE => 'onJournalAnnouncement',
-            JournalEvents::JOURNAL_PAGE_CHANGE => 'onJournalPage',
+            JournalEvents::JOURNAL_POST_CHANGE => 'onJournalPostChange',
+            JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE => 'onJournalAnnouncementChange',
+            JournalEvents::JOURNAL_PAGE_CHANGE => 'onJournalPageChange',
         );
     }
 
