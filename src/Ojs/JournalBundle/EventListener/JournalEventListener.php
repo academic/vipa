@@ -10,6 +10,8 @@ use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Doctrine\ORM\EntityManager;
+use Ojs\JournalBundle\Event\ArticleSubmitEvent;
+use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 
 class JournalEventListener implements EventSubscriberInterface
 {
@@ -63,8 +65,8 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange', #+
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange', #+
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange', #+
-            JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange',
-            JournalEvents::JOURNAL_ARTICLE_SUBMITTED => 'onJournalArticleSubmitted',
+            JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange', #+
+            ArticleSubmitEvents::SUBMIT_AFTER => 'onJournalArticleSubmitted',
             JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange',
             JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange',
@@ -264,11 +266,43 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param ArticleSubmitEvent $event
      */
-    public function onJournalArticleSubmitted()
+    public function onJournalArticleSubmitted(ArticleSubmitEvent $event)
     {
+        /** @var User $submitterUser */
+        $submitterUser = $event->getArticle()->getSubmitterUser();
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Article Submitted'
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Article Submitted -> by '. $event->getArticle()->getSubmitterUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
 
+        $message = $this->mailer->createMessage();
+        $to = array($submitterUser->getEmail() => $submitterUser->getUsername());
+        $message = $message
+            ->setSubject(
+                'Journal Event : Journal Article Submitted Success'
+            )
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody(
+                'Journal Event : Journal Article Submitted Success-> by '. $submitterUser->getUsername(),
+                'text/html'
+            );
+        $this->mailer->send($message);
     }
 
     /**
