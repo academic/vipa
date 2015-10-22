@@ -123,7 +123,6 @@ class JournalPostController extends OjsController
         if (!$this->isGranted('CREATE', $journal, 'posts')) {
             throw new AccessDeniedException("You are not authorized for this post!");
         }
-
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalPost();
