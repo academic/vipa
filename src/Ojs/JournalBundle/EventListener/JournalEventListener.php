@@ -2,9 +2,14 @@
 
 namespace Ojs\JournalBundle\EventListener;
 
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Doctrine\ORM\EntityManager;
 
 class JournalEventListener implements EventSubscriberInterface
 {
@@ -20,9 +25,12 @@ class JournalEventListener implements EventSubscriberInterface
     /** @var RouterInterface */
     private $router;
 
+    /** @var EntityManager */
+    private $em;
     /**
      * @param RouterInterface $router
      * @param \Swift_Mailer   $mailer
+     * @param EntityManager   $em
      * @param string          $mailSender
      * @param string          $mailSenderName
      *
@@ -30,11 +38,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function __construct(
         RouterInterface $router,
         \Swift_Mailer $mailer,
+        EntityManager   $em,
         $mailSender,
         $mailSenderName
     ) {
         $this->router = $router;
         $this->mailer = $mailer;
+        $this->em = $em;
         $this->mailSender = $mailSender;
         $this->mailSenderName = $mailSenderName;
     }
@@ -67,11 +77,27 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalChange()
+    public function onJournalChange(JournalEvent $event)
     {
-
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Changed'
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Changed by -> '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
     }
 
     /**
@@ -208,5 +234,29 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalPage()
     {
 
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection | User[]
+     */
+    private function getJournalRelationalUsers()
+    {
+        $mailUsers = [];
+        $journalManagerRoleName = 'ROLE_JOURNAL_MANAGER';
+        $journalEditorRoleName = 'ROLE_EDITOR';
+        $roleRepo = $this->em->getRepository('OjsUserBundle:Role');
+        $journalUserRepo = $this->em->getRepository('OjsJournalBundle:JournalUser');
+        $journalManagerRole = $roleRepo->findOneByRole($journalManagerRoleName);
+        $journalEditorRole = $roleRepo->findOneByRole($journalEditorRoleName);
+        $journalUsers = $journalUserRepo->findAll();
+
+        foreach ($journalUsers as $journalUser) {
+            if($journalUser->getRoles()->contains($journalManagerRole)
+                || $journalUser->getRoles()->contains($journalEditorRole)){
+                $user = $journalUser->getUser();
+                $mailUsers[] = $user;
+            }
+        }
+        return $mailUsers;
     }
 }

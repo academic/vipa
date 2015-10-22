@@ -7,6 +7,7 @@ use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
+use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
 
 class ManagerController extends Controller
 {
@@ -69,6 +72,9 @@ class ManagerController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
         $editForm = $this->createJournalEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -76,6 +82,9 @@ class ManagerController extends Controller
             $entity->addLanguage($entity->getMandatoryLang());
             $em->flush();
             $this->successFlashBag('successful.update');
+
+            $event = new JournalEvent($request, $entity, $this->getUser());
+            $dispatcher->dispatch(JournalEvents::JOURNAL_CHANGE, $event);
 
             return $this->redirectToRoute('ojs_journal_settings_index', ['journalId' => $entity->getId()]);
         }
