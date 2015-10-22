@@ -143,11 +143,27 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalSubmissionChecklistChange()
+    public function onJournalSubmissionChecklistChange(JournalEvent $event)
     {
-
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Submission Checklist -> '. $event->getEventType()
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Submission Checklist -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
     }
 
     /**
