@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * Board controller.
@@ -71,6 +74,8 @@ class BoardController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Board();
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
@@ -81,6 +86,8 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_BOARD_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_journal_board_show',
                 ['id' => $entity->getId(), 'journalId' => $journal->getId()]
@@ -279,6 +286,8 @@ class BoardController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for edit this journal's boards!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
 
         $editForm = $this->createEditForm($board);
@@ -288,6 +297,8 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_BOARD_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_journal_board_edit',
                 ['id' => $board->getId(), 'journalId' => $journal->getId()]
@@ -316,6 +327,8 @@ class BoardController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for delete this journal's boards!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
@@ -327,6 +340,8 @@ class BoardController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_BOARD_CHANGE, $event);
         return $this->redirectToRoute('ojs_journal_board_index', ['journalId' => $journal->getId()]);
     }
 

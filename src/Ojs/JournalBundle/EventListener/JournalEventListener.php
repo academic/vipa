@@ -402,11 +402,27 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalBoardChange()
+    public function onJournalBoardChange(JournalEvent $event)
     {
-
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Board Change -> '. $event->getEventType()
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Board Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
     }
 
     /**
