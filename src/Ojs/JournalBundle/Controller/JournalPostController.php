@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 class JournalPostController extends OjsController
 {
@@ -121,6 +124,8 @@ class JournalPostController extends OjsController
             throw new AccessDeniedException("You are not authorized for this post!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalPost();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -134,6 +139,8 @@ class JournalPostController extends OjsController
             $em->flush();
 
             $this->successFlashBag('successful.create');
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_POST_CHANGE, $event);
             return $this->redirectToRoute('ojs_journal_post_show',
                 ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
@@ -254,6 +261,8 @@ class JournalPostController extends OjsController
             throw new AccessDeniedException("You are not authorized for this post!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -262,6 +271,8 @@ class JournalPostController extends OjsController
             $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em->flush();
             $this->successFlashBag('successful.update');
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_POST_CHANGE, $event);
             return $this->redirectToRoute('ojs_journal_post_edit',
                 ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
@@ -294,6 +305,8 @@ class JournalPostController extends OjsController
             throw new AccessDeniedException("You are not authorized for this post!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_post'.$entity->getId());
@@ -305,6 +318,9 @@ class JournalPostController extends OjsController
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_POST_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_journal_post_index', ['journalId' => $journal->getId()]);
     }

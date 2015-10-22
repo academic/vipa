@@ -19,7 +19,7 @@ final class JournalEvents
     const JOURNAL_INDEX_CHANGE = 'ojs.journal.index.change';
     const JOURNAL_BOARD_CHANGE = 'ojs.journal.board.change';
     const JOURNAL_PERIOD_CHANGE = 'ojs.journal.period.change';
-    const JOURNAL_POST = 'ojs.journal.post.happen';
-    const JOURNAL_ANNOUNCEMENT = 'ojs.journal.announcement.happen';
-    const JOURNAL_PAGE = 'ojs.journal.page.happen';
+    const JOURNAL_POST_CHANGE = 'ojs.journal.post.change';
+    const JOURNAL_ANNOUNCEMENT_CHANGE = 'ojs.journal.announcement.change';
+    const JOURNAL_PAGE_CHANGE = 'ojs.journal.page.change';
 }

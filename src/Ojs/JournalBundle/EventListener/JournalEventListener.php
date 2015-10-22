@@ -71,11 +71,11 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange', #+
             JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange', #+
             JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange', #+
-            JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange',
-            JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange',
-            JournalEvents::JOURNAL_POST => 'onJournalPost',
-            JournalEvents::JOURNAL_ANNOUNCEMENT => 'onJournalAnnouncement',
-            JournalEvents::JOURNAL_PAGE => 'onJournalPage',
+            JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange', #+
+            JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange', #analyze
+            JournalEvents::JOURNAL_POST_CHANGE => 'onJournalPost',
+            JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE => 'onJournalAnnouncement',
+            JournalEvents::JOURNAL_PAGE_CHANGE => 'onJournalPage',
         );
     }
 
@@ -426,9 +426,41 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
+     * @param JournalEvent $event
+     */
+    public function onJournalPeriodChange(JournalEvent $event)
+    {
+
+    }
+
+    /**
+     * @param JournalEvent $event
+     */
+    public function onJournalPostChange(JournalEvent $event)
+    {
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Post Change -> '. $event->getEventType()
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Post Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
+    }
+
+    /**
      *
      */
-    public function onJournalPeriodChange()
+    public function onJournalAnnouncementChange()
     {
 
     }
@@ -436,23 +468,7 @@ class JournalEventListener implements EventSubscriberInterface
     /**
      *
      */
-    public function onJournalPost()
-    {
-
-    }
-
-    /**
-     *
-     */
-    public function onJournalAnnouncement()
-    {
-
-    }
-
-    /**
-     *
-     */
-    public function onJournalPage()
+    public function onJournalPageChange()
     {
 
     }
