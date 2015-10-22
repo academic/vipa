@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * JournalContact controller.
@@ -23,7 +26,6 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
  */
 class JournalContactController extends Controller
 {
-
     /**
      * Lists all JournalContact entities.
      *
@@ -85,6 +87,8 @@ class JournalContactController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
@@ -94,7 +98,10 @@ class JournalContactController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->successFlashBag('Successfully created');
+            $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_CONTACT_CHANGE, $event);
 
             return $this->redirectToRoute('ojs_journal_journal_contact_show', array('id' => $entity->getId(), 'journalId' => $journal->getId()));
         }
@@ -256,6 +263,8 @@ class JournalContactController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         /** @var JournalContact $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
         $this->throw404IfNotFound($entity);
@@ -265,7 +274,10 @@ class JournalContactController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            $this->successFlashBag('Successfully updated');
+            $this->successFlashBag('successfully.update');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_CONTACT_CHANGE, $event);
 
             return $this->redirectToRoute('ojs_journal_journal_contact_edit', array('id' => $entity->getId(), 'journalId' => $journal->getId()));
         }
@@ -292,6 +304,8 @@ class JournalContactController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         /** @var JournalContact $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
         $this->throw404IfNotFound($entity);
@@ -305,7 +319,10 @@ class JournalContactController extends Controller
         }
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('Successfully removed');
+        $this->successFlashBag('successfully.remove');
+
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_CONTACT_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_journal_journal_contact_index', array('journalId' => $journal->getId()));
     }
