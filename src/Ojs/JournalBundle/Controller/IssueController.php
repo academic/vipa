@@ -20,6 +20,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * Issue controller.
@@ -107,6 +110,8 @@ class IssueController extends Controller
             throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Issue();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
@@ -117,6 +122,9 @@ class IssueController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
 
             return $this->redirectToRoute('ojs_journal_issue_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
         }
@@ -275,7 +283,8 @@ class IssueController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
-
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -288,6 +297,9 @@ class IssueController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
 
             return $this->redirectToRoute(
                 'ojs_journal_issue_edit',
@@ -316,7 +328,8 @@ class IssueController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
         }
-
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
@@ -332,6 +345,8 @@ class IssueController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
         return $this->redirectToRoute('ojs_journal_issue_index', ['journalId' => $journal->getId()]);
     }
 
@@ -506,7 +521,7 @@ class IssueController extends Controller
         $article->setIssue(null);
         $em->persist($article);
         $em->flush();
-        $this->successFlashBag('Successfully removed.');
+        $this->successFlashBag('successful.remove');
 
         return $this->redirect($referrer);
     }
