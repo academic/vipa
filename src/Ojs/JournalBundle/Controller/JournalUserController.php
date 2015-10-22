@@ -271,6 +271,8 @@ class JournalUserController extends Controller
 
     public function updateUserAction(Request $request, $id)
     {
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -288,6 +290,10 @@ class JournalUserController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.update');
+
+            $event = new JournalEvent($request, $journal, $entity->getUser());
+            $dispatcher->dispatch(JournalEvents::JOURNAL_USER_ROLE_CHANGE, $event);
+
             return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
         }
 

@@ -32,15 +32,22 @@ class JournalEvent extends Event
     private $user;
 
     /**
+     * @var string $eventType
+     */
+    private $eventType;
+
+    /**
      * @param Request $request
      * @param Journal $journal
      * @param User $user
+     * @param string $eventType
      */
-    public function __construct(Request $request,Journal $journal, User $user)
+    public function __construct(Request $request,Journal $journal, User $user, $eventType = '')
     {
         $this->request = $request;
         $this->journal = $journal;
         $this->user = $user;
+        $this->eventType = $eventType;
     }
 
     /**
@@ -65,6 +72,14 @@ class JournalEvent extends Event
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventType()
+    {
+        return $this->eventType;
     }
 
     /**

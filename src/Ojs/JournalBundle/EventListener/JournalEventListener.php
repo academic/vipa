@@ -56,8 +56,8 @@ class JournalEventListener implements EventSubscriberInterface
     {
         return array(
             JournalEvents::JOURNAL_CHANGE => 'onJournalChange', #+
-            JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew',
-            JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserChange',
+            JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew', #+
+            JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange', #+
             JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange',
             JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
@@ -122,11 +122,24 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param JournalEvent $event
      */
-    public function onJournalUserChange()
+    public function onJournalUserRoleChange(JournalEvent $event)
     {
-
+        $user = $event->getUser();
+        $message = $this->mailer->createMessage();
+        $to = array($user->getEmail() => $user->getUsername());
+        $message = $message
+            ->setSubject(
+                'Journal Event : Journal User Role Update'
+            )
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody(
+                'Journal Event : Journal User Role Update -> '. $user->getUsername(),
+                'text/html'
+            );
+        $this->mailer->send($message);
     }
 
     /**
