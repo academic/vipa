@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * JournalIndex controller.
@@ -79,6 +82,8 @@ class JournalIndexController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $entity = new JournalIndex();
         $entity->setJournal($journal);
@@ -91,6 +96,8 @@ class JournalIndexController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_INDEX_CHANGE, $event);
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_index_show',
@@ -249,6 +256,8 @@ class JournalIndexController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -257,6 +266,8 @@ class JournalIndexController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_INDEX_CHANGE, $event);
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_index_edit',
@@ -286,6 +297,8 @@ class JournalIndexController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_index'.$entity->getId());
@@ -296,6 +309,8 @@ class JournalIndexController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
+        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+        $dispatcher->dispatch(JournalEvents::JOURNAL_INDEX_CHANGE, $event);
         return $this->redirectToRoute('ojs_journal_index_index', ['journalId' => $journal->getId()]);
     }
 }

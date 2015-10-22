@@ -70,7 +70,7 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange', #+
             JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange', #+
             JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange', #+
-            JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange',
+            JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange', #+
             JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange',
             JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange',
             JournalEvents::JOURNAL_POST => 'onJournalPost',
@@ -382,7 +382,23 @@ class JournalEventListener implements EventSubscriberInterface
      */
     public function onJournalIndexChange(JournalEvent $event)
     {
-
+        $mailUsers = $this->getJournalRelationalUsers();
+        /** @var User $user */
+        foreach($mailUsers as $user){
+            $message = $this->mailer->createMessage();
+            $to = array($user->getEmail() => $user->getUsername());
+            $message = $message
+                ->setSubject(
+                    'Journal Event : Journal Index Change -> '. $event->getEventType()
+                )
+                ->addFrom($this->mailSender, $this->mailSenderName)
+                ->setTo($to)
+                ->setBody(
+                    'Journal Event : Journal Index Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
+                    'text/html'
+                );
+            $this->mailer->send($message);
+        }
     }
 
     /**
