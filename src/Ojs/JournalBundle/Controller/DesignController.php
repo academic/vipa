@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 use APY\DataGridBundle\Grid\Row;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * Design controller.
@@ -24,7 +27,6 @@ use APY\DataGridBundle\Grid\Row;
  */
 class DesignController extends Controller
 {
-
     /**
      * Lists all Design entities.
      *
@@ -79,6 +81,8 @@ class DesignController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for create a this journal's design!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Design();
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
@@ -91,6 +95,9 @@ class DesignController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_DESIGN_CHANGE, $event);
 
             return $this->redirectToRoute(
                 'ojs_journal_design_show',
@@ -309,6 +316,9 @@ class DesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
         $editForm = $this->createEditForm($design, $journal);
         $editForm->handleRequest($request);
 
@@ -319,6 +329,9 @@ class DesignController extends Controller
             );
             $em->flush();
             $this->successFlashBag('successful.update');
+
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_DESIGN_CHANGE, $event);
 
             return $this->redirectToRoute(
                 'ojs_journal_design_edit',
@@ -350,6 +363,8 @@ class DesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $requestedDesign = $em->getRepository('OjsJournalBundle:Design')->find($id);
 
         if ($requestedDesign === $journal->getDesign()) {
@@ -366,6 +381,8 @@ class DesignController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.remove');
+            $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
+            $dispatcher->dispatch(JournalEvents::JOURNAL_DESIGN_CHANGE, $event);
         }
 
         return $this->redirectToRoute('ojs_journal_design_index', ['journalId' => $journal->getId()]);
