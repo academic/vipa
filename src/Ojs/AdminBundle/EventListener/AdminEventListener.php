@@ -2,6 +2,8 @@
 
 namespace Ojs\AdminBundle\EventListener;
 
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Ojs\AdminBundle\Events\AdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -45,7 +47,7 @@ class AdminEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            AdminEvents::USER_PASS_CHANGE => 'onUserPassChange',
+            FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onUserPassChange',
             AdminEvents::USER_CHANGE => 'onUserChange',
             AdminEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
@@ -59,9 +61,9 @@ class AdminEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param GetResponseUserEvent $event
      */
-    public function onUserPassChange()
+    public function onUserPassChange(GetResponseUserEvent $event)
     {
 
     }

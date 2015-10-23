@@ -2,6 +2,8 @@
 
 namespace Ojs\UserBundle\EventListener;
 
+use FOS\UserBundle\Model\UserInterface;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -79,19 +81,11 @@ class UserEventListener implements EventSubscriberInterface
     public function onRegistrationCompleted(FilterUserResponseEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject(
-                'User Event : User Registration'
-            )
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody(
-                'User Event -> User Registration Completed -> '. $user->getEmail(),
-                'text/html'
-            );
-        $this->mailer->send($message);
+        $this->sendMail(
+            $user,
+            'User Event : User Registration',
+            'User Event -> User Registration Completed -> '. $user->getEmail()
+        );
     }
 
     /**
@@ -100,19 +94,11 @@ class UserEventListener implements EventSubscriberInterface
     public function onChangePasswordCompleted(GetResponseUserEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject(
-                'User Event : User Change Password'
-            )
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody(
-                'User Event -> User Change Password -> '. $user->getEmail(),
-                'text/html'
-            );
-        $this->mailer->send($message);
+        $this->sendMail(
+            $user,
+            'User Event : User Change Password',
+            'User Event -> User Change Password -> '. $user->getEmail()
+        );
     }
 
     /**
@@ -121,18 +107,27 @@ class UserEventListener implements EventSubscriberInterface
     public function onProfileEditCompleted(GetResponseUserEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
+        $this->sendMail(
+            $user,
+            'User Event : User Profile Edit Completed',
+            'User Event -> User Profile Edit Completed -> '. $user->getEmail()
+        );
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param string $subject
+     * @param string $body
+     */
+    private function sendMail(UserInterface $user, $subject, $body)
+    {
         $message = $this->mailer->createMessage();
         $to = array($user->getEmail() => $user->getUsername());
         $message = $message
-            ->setSubject(
-                'User Event : User Profile Edit Completed'
-            )
+            ->setSubject($subject)
             ->addFrom($this->mailSender, $this->mailSenderName)
             ->setTo($to)
-            ->setBody(
-                'User Event -> User Profile Edit Completed -> '. $user->getEmail(),
-                'text/html'
-            );
+            ->setBody($body, 'text/html');
         $this->mailer->send($message);
     }
 }

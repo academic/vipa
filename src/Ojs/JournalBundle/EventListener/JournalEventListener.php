@@ -386,6 +386,11 @@ class JournalEventListener implements EventSubscriberInterface
         return $mailUsers;
     }
 
+    /**
+     * @param User $user
+     * @param string $subject
+     * @param string $body
+     */
     private function sendMail(User $user, $subject, $body)
     {
         $message = $this->mailer->createMessage();

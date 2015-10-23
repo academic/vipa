@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * User administration controller
@@ -390,6 +393,8 @@ class AdminUserController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $form = $this->createForm(new ChangePasswordType());
         $form->handleRequest($request);
 
@@ -398,6 +403,8 @@ class AdminUserController extends Controller
             $manipulator = $this->get('fos_user.util.user_manipulator');
             $manipulator->changePassword($user->getUsername(), $password);
             $this->successFlashBag('successful.update');
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, $event);
         } elseif ($request->isMethod('POST')) {
             $this->successFlashBag('user.change_password_fail');
         }
