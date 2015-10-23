@@ -4,7 +4,6 @@ namespace Ojs\AdminBundle\Events;
 
 final class AdminEvents
 {
-    const USER_PASS_CHANGE = 'ojs.admin.user.password.change';
     const USER_CHANGE = 'ojs.admin.user.change';
     const JOURNAL_CONTACT_CHANGE = 'ojs.admin.journal.contact.change';
     const JOURNAL_APPLICATION_HAPPEN = 'ojs.admin.journal.application.happen';

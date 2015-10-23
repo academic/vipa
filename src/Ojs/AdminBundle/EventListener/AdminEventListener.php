@@ -48,7 +48,6 @@ class AdminEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onUserPassChange',
             AdminEvents::USER_CHANGE => 'onUserChange',
             AdminEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
@@ -58,19 +57,6 @@ class AdminEventListener implements EventSubscriberInterface
             AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange',
             AdminEvents::SUBJECT_CHANGE => 'onSubjectChange',
             AdminEvents::SETTINGS_CHANGE => 'onSettingsChange',
-        );
-    }
-
-    /**
-     * @param GetResponseUserEvent $event
-     */
-    public function onUserPassChange(GetResponseUserEvent $event)
-    {
-        $user = $event->getUser();
-        $this->sendMail(
-            $user,
-            'User Event : User Change Password',
-            'User Event -> User Change Password -> '. $user->getEmail()
         );
     }
 
