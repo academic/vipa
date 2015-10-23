@@ -89,11 +89,11 @@ class UserEventListener implements EventSubscriberInterface
     }
 
     /**
-     * @param GetResponseUserEvent $userResponseEvent
+     * @param GetResponseUserEvent $event
      */
-    public function onChangePasswordCompleted(GetResponseUserEvent $userResponseEvent)
+    public function onChangePasswordCompleted(GetResponseUserEvent $event)
     {
-        $user = $userResponseEvent->getUser();
+        $user = $event->getUser();
         $this->sendMail(
             $user,
             'User Event : User Change Password',

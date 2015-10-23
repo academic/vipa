@@ -4,6 +4,7 @@ namespace Ojs\AdminBundle\EventListener;
 
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Model\UserInterface;
 use Ojs\AdminBundle\Events\AdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -65,7 +66,12 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onUserPassChange(GetResponseUserEvent $event)
     {
-
+        $user = $event->getUser();
+        $this->sendMail(
+            $user,
+            'User Event : User Change Password',
+            'User Event -> User Change Password -> '. $user->getEmail()
+        );
     }
 
     /**
@@ -138,5 +144,22 @@ class AdminEventListener implements EventSubscriberInterface
     public function onSettingsChange()
     {
 
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param string $subject
+     * @param string $body
+     */
+    private function sendMail(UserInterface $user, $subject, $body)
+    {
+        $message = $this->mailer->createMessage();
+        $to = array($user->getEmail() => $user->getUsername());
+        $message = $message
+            ->setSubject($subject)
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody($body, 'text/html');
+        $this->mailer->send($message);
     }
 }
