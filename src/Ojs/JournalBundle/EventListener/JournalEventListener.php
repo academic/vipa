@@ -87,19 +87,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Changed'
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Changed by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Changed',
+                'Journal Event : Journal Changed by -> '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -108,20 +100,13 @@ class JournalEventListener implements EventSubscriberInterface
      */
     public function onJournalUserNew(JournalEvent $event)
     {
+        /** @var User $user */
         $user = $event->getUser();
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject(
-                'Journal Event : Journal User New'
-            )
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody(
-                'Journal Event : Journal User New -> '. $user->getUsername(),
-                'text/html'
-            );
-        $this->mailer->send($message);
+        $this->sendMail(
+            $user,
+            'Journal Event : Journal User New',
+            'Journal Event : Journal User New -> '. $user->getUsername()
+        );
     }
 
     /**
@@ -130,19 +115,11 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalUserRoleChange(JournalEvent $event)
     {
         $user = $event->getUser();
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject(
-                'Journal Event : Journal User Role Update'
-            )
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody(
-                'Journal Event : Journal User Role Update -> '. $user->getUsername(),
-                'text/html'
-            );
-        $this->mailer->send($message);
+        $this->sendMail(
+            $user,
+            'Journal Event : Journal User Role Update',
+            'Journal Event : Journal User Role Update -> '. $user->getUsername()
+        );
     }
 
     /**
@@ -153,19 +130,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Submission Checklist -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Submission Checklist -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Submission Checklist Change -> '. $event->getEventType(),
+                'Journal Event : Journal Submission Checklist Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -177,19 +146,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Submission Files -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Submission Files -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Submission Files Change -> '. $event->getEventType(),
+                'Journal Event : Journal Submission Files Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -201,19 +162,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Theme -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Theme -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Theme Change -> '. $event->getEventType(),
+                'Journal Event : Journal Theme Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -225,19 +178,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Design -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Design -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Design Change -> '. $event->getEventType(),
+                'Journal Event : Journal Design Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -249,19 +194,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Article Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Article Change -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Article Change -> '. $event->getEventType(),
+                'Journal Event : Journal Article Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -275,34 +212,18 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Article Submitted'
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Article Submitted -> by '. $event->getArticle()->getSubmitterUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
-        }
-
-        $message = $this->mailer->createMessage();
-        $to = array($submitterUser->getEmail() => $submitterUser->getUsername());
-        $message = $message
-            ->setSubject(
-                'Journal Event : Journal Article Submitted Success'
-            )
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody(
-                'Journal Event : Journal Article Submitted Success-> by '. $submitterUser->getUsername(),
-                'text/html'
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Article Submitted',
+                'Journal Event : Journal Article Submitted -> by '. $event->getArticle()->getSubmitterUser()->getUsername()
             );
-        $this->mailer->send($message);
+        }
+        //send mail to author
+        $this->sendMail(
+            $submitterUser,
+            'Journal Event : Journal Article Submitted Success',
+            'Journal Event : Journal Article Submitted Success-> by '. $submitterUser->getUsername()
+        );
     }
 
     /**
@@ -313,19 +234,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Contact Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Contact Change -> '.$event->getEventType().' -> by -> '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Contact Change -> '. $event->getEventType(),
+                'Journal Event : Journal Contact Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -337,19 +250,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Issue Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Issue Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Issue Change -> '. $event->getEventType(),
+                'Journal Event : Journal Issue Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -361,19 +266,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Section Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Section Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Section Change -> '. $event->getEventType(),
+                'Journal Event : Journal Section Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -385,19 +282,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Index Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Index Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Index Change -> '. $event->getEventType(),
+                'Journal Event : Journal Index Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -409,19 +298,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Board Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Board Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Board Change -> '. $event->getEventType(),
+                'Journal Event : Journal Board Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -441,19 +322,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Post Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Post Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Post Change -> '. $event->getEventType(),
+                'Journal Event : Journal Post Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -465,19 +338,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Announcement Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Announcement Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
-                );
-            $this->mailer->send($message);
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Announcement Change -> '. $event->getEventType(),
+                'Journal Event : Journal Announcement Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
         }
     }
 
@@ -489,19 +354,11 @@ class JournalEventListener implements EventSubscriberInterface
         $mailUsers = $this->getJournalRelationalUsers();
         /** @var User $user */
         foreach($mailUsers as $user){
-            $message = $this->mailer->createMessage();
-            $to = array($user->getEmail() => $user->getUsername());
-            $message = $message
-                ->setSubject(
-                    'Journal Event : Journal Page Change -> '. $event->getEventType()
-                )
-                ->addFrom($this->mailSender, $this->mailSenderName)
-                ->setTo($to)
-                ->setBody(
-                    'Journal Event : Journal Page Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername(),
-                    'text/html'
+            $this->sendMail(
+                $user,
+                'Journal Event : Journal Page Change -> '. $event->getEventType(),
+                'Journal Event : Journal Page Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
                 );
-            $this->mailer->send($message);
         }
     }
 
@@ -527,5 +384,17 @@ class JournalEventListener implements EventSubscriberInterface
             }
         }
         return $mailUsers;
+    }
+
+    private function sendMail(User $user, $subject, $body)
+    {
+        $message = $this->mailer->createMessage();
+        $to = array($user->getEmail() => $user->getUsername());
+        $message = $message
+            ->setSubject($subject)
+            ->addFrom($this->mailSender, $this->mailSenderName)
+            ->setTo($to)
+            ->setBody($body, 'text/html');
+        $this->mailer->send($message);
     }
 }
