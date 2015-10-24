@@ -788,7 +788,7 @@ read.article: 'Read Article'
 read.lastissue: 'Last Issue'
 regenerate.apikey: 'Regenerate APIKEY'
 register: Register
-register_advantages_text: 'to be registered would let you submit your manuscripts to journals with no hassle.'
+register_advantages_text: 'Registering would let you submit your manuscripts to journals with no hassle.'
 register.yourself.as.author: 'Register Yourself As Author'
 register_journal: 'Register yourself to a Journal'
 registration.activation: 'Check your e-mail to activate your account.'
