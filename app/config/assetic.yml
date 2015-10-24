@@ -23,6 +23,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.js'
         - '%kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js'
         - '%kernel.root_dir%/../web/vendor/sisyphus/sisyphus.min.js'
+        - '%kernel.root_dir%/../web/vendor/ace-builds/src-min-noconflict/ace.js'
         - '%kernel.root_dir%/../web/assets/app/js/common.js'
         - '%kernel.root_dir%/../web/vendor/moment/min/moment-with-locales.min.js'
         - '%kernel.root_dir%/../web/vendor/livestamp/livestamp.min.js'
@@ -81,6 +82,12 @@ assetic:
       inputs:
         - '%kernel.root_dir%/../web/vendor/formbuilder/vendor/js/vendor.js'
         - '%kernel.root_dir%/../web/vendor/formbuilder/dist/formbuilder.js'
+    bxslider_js:
+      inputs:
+        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/jquery.bxslider.min.js'
+    bxslider_css:
+      inputs:
+        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/jquery.bxslider.min.css'
 braincrafted_bootstrap:
   less_filter: none
   auto_configure:
