@@ -1,7 +1,10 @@
 <div class="grid-item journal-item">
     <div class="views-field-field-journal-cover-fid">
         <span class="field-content">
-            <a href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">
+            {% if url is not defined or url is empty %}
+                {% set url =  path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) %}
+            {% endif %}
+            <a href="{{ url }}">
                 {% if journal.image is defined and journal.image is not null %}
                     {% set src = journal.image|imagine_filter('journal_original') %}
                     <img src="{{ src }}"
@@ -12,12 +15,13 @@
                          alt="" title="" width="160" height="160"
                          class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default tri">
                 {% endif %}
-            </a></span>
+            </a>
+        </span>
     </div>
     {% if journal.title is defined %}
         <div class="views-field-title">
-            <span class="field-content"><a class="hovercard"
-                                           href="{{ path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) }}">{{ journal.title }}</a></span>
+            <span class="field-content">
+                <a href="{{ url }}">{{ journal.title }}</a></span>
         </div>
     {% endif %}
 
@@ -39,13 +43,13 @@
     {% endif %}
 
     {% if journal.periods is defined and journal.periods|length >0 %}
-    <div class="views-field-field-publish-periods-value">
+        <div class="views-field-field-publish-periods-value">
         <span class="field-content">
                 {% for period in journal.periods %}
                     {{ period.period }}
                 {% endfor %}
         </span>
-    </div>
+        </div>
     {% endif %}
     {% if journal.founded is defined %}
         <div class="views-field-field-year-founded-value">
@@ -55,7 +59,7 @@
             <span class="field-content">{{ journal.founded|date('Y') }}</span>
         </div>
     {% endif %}
-    {% if journal.viewCount and journal.downloadCount %}
+    {% if journal.viewCount is defined and journal.downloadCount is defined %}
         <div class="view-stats">
             <i class="fa fa-eye"></i> {{ journal.viewCount }}
             <i class="fa fa-download"></i> {{ journal.downloadCount }}

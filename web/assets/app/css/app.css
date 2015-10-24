@@ -798,3 +798,7 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 label.required:before {
     content: "* ";
 }
+
+.highlight {
+    background-color: yellow
+}
