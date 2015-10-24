@@ -3,6 +3,10 @@
 {% set hideleft = 1 %}
 {% block stylesheets %}
     {{ parent() }}
+    {% stylesheets "@bxslider_css" output="assets/prod/js/bxslider.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+
     <style type="text/css">
         #logo {
             max-height: 140px;
@@ -27,6 +31,12 @@
                 margin-top: 3px;
                 text-align: left;
             }
+        }
+
+        .bx-wrapper {
+            box-shadow: none;
+            border: 1px solid #efefef;
+            height: 20rem;
         }
     </style>
 {% endblock %}
@@ -109,70 +119,27 @@
                         {% endif %}
                     </p>
                 </div>
-                <div class="col-md-12 col-xs-12 text-center">
-
-                </div>
             </div>
         </section>
         <section role="presentation">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="content">
-                        {% if announcement_count > 0 %}
-                        <div id="announcement-carousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                {% for i in 0..announcement_count - 1 %}
-                                    {% if loop.first %}
-                                        <li data-target="#announcement-carousel" data-slide-to="0"
-                                            class="active"></li>
-                                    {% else %}
-                                        <li data-target="#announcement-carousel" data-slide-to="{{ i }}"></li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ol>
+                <div class="col-xs-12">
+                    <ul class="bxslider">
+                        {% for announcement in announcements %}
+                            <li>
+                                {% if announcement.image is defined and announcement.image is not null %}
+                                    <img src="{{ announcement.image|imagine_filter('announcement_croped') }}"
+                                         alt="{{ announcement.title }}">
+                                {% endif %}
+                                {% if announcement.title is defined and announcement.title is not null %}
+                                    <h3>{{ announcement.title }}</h3>
 
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner">
-                                {% for announcement in announcements %}
-                                {% if loop.first %}
-                                <div class="item active">
-                                    {% else %}
-                                    <div class="item">
-                                        {% endif %}
-                                        <div class="row">
-                                            <div class="col-xs-2"></div>
-                                            <div class="col-xs-3">
-                                                {% if announcement.image is defined and announcement.image is not null %}
-                                                    <img src="{{ announcement.image|imagine_filter('announcement_croped') }}">
-                                                {% else %}
-                                                    <h1>
-                                                        <i class="fa fa-bullhorn"></i>
-                                                    </h1>
-                                                {% endif %}
-                                            </div>
-                                            <div class="col-xs-7">
-                                                <h3>{{ announcement.title }}</h3>
+                                    {{ announcement.content|raw }}
+                                {% endif %}
 
-                                                <p>{{ announcement.content|raw }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                <!-- Controls -->
-                                <a class="left carousel-control" href="#announcement-carousel"
-                                   data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a class="right carousel-control" href="#announcement-carousel"
-                                   data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </section>
@@ -218,4 +185,25 @@
         </section>
         -->
     </div>
+{% endblock %}
+{% image output="assets/prod/js/images/controls.png"
+'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/controls.png' %}
+{% endimage %}
+{% image output="assets/prod/js/images/bx_loader.gif"
+'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/bx_loader.gif' %}
+{% endimage %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts "@bxslider_js" output="assets/prod/js/bxslider.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function () {
+            $('.bxslider').bxSlider({
+                video: false,
+                useCSS: false,
+                autoStart: false
+            });
+        });
+    </script>
 {% endblock %}
