@@ -3,10 +3,17 @@
 {% set hideleft = 1 %}
 {% block stylesheets %}
     {{ parent() }}
+
     {% stylesheets "@bxslider_css" output="assets/prod/js/bxslider.css" %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
-
+    <style type="text/css">
+        .bx-wrapper {
+            box-shadow: none;
+            border: 1px solid #efefef;
+            height: 20rem;
+        }
+    </style>
     <style type="text/css">
         #logo {
             max-height: 140px;
@@ -31,12 +38,6 @@
                 margin-top: 3px;
                 text-align: left;
             }
-        }
-
-        .bx-wrapper {
-            box-shadow: none;
-            border: 1px solid #efefef;
-            height: 20rem;
         }
     </style>
 {% endblock %}
@@ -124,22 +125,7 @@
         <section role="presentation">
             <div class="row">
                 <div class="col-xs-12">
-                    <ul class="bxslider">
-                        {% for announcement in announcements %}
-                            <li>
-                                {% if announcement.image is defined and announcement.image is not null %}
-                                    <img src="{{ announcement.image|imagine_filter('announcement_croped') }}"
-                                         alt="{{ announcement.title }}">
-                                {% endif %}
-                                {% if announcement.title is defined and announcement.title is not null %}
-                                    <h3>{{ announcement.title }}</h3>
-
-                                    {{ announcement.content|raw }}
-                                {% endif %}
-
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% include '::slider.html.twig' %}
                 </div>
             </div>
         </section>
@@ -186,12 +172,6 @@
         -->
     </div>
 {% endblock %}
-{% image output="assets/prod/js/images/controls.png"
-'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/controls.png' %}
-{% endimage %}
-{% image output="assets/prod/js/images/bx_loader.gif"
-'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/bx_loader.gif' %}
-{% endimage %}
 {% block javascripts %}
     {{ parent() }}
     {% javascripts "@bxslider_js" output="assets/prod/js/bxslider.js" %}

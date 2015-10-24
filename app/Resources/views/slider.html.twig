@@ -1,0 +1,23 @@
+<ul class="bxslider">
+    {% for announcement in announcements %}
+        <li>
+            {% if announcement.image is defined and announcement.image is not null %}
+                <img src="{{ announcement.image|imagine_filter('announcement_croped') }}"
+                     alt="{{ announcement.title }}">
+            {% endif %}
+            {% if announcement.title is defined and announcement.title is not null %}
+                <h3>{{ announcement.title }}</h3>
+
+                {{ announcement.content|raw }}
+            {% endif %}
+
+        </li>
+    {% endfor %}
+</ul>
+
+{% image output="assets/prod/js/images/controls.png"
+'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/controls.png' %}
+{% endimage %}
+{% image output="assets/prod/js/images/bx_loader.gif"
+'%kernel.root_dir%/../web/vendor/bxslider-4/dist/images/bx_loader.gif' %}
+{% endimage %}
