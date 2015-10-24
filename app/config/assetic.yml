@@ -84,6 +84,8 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/formbuilder/dist/formbuilder.js'
     bxslider_js:
       inputs:
+        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/vendor/jquery.easing.1.3.js'
+        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/vendor/jquery.fitvids.js'
         - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/jquery.bxslider.min.js'
     bxslider_css:
       inputs:
