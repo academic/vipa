@@ -53,7 +53,7 @@ class IssueFileStatisticRepository extends EntityRepository
             ->join('OjsJournalBundle:Issue', 'issue', 'WHERE', 'file.issue IN (:issues)')
             ->addSelect('SUM(stat.download)')
             ->andWhere('issue IN (:issues)')
-            ->groupBy('issue')
+            ->groupBy('issue, stat.id')
             ->setParameter('issues', $issues);
 
         return $builder->getQuery()->getResult();
@@ -74,7 +74,7 @@ class IssueFileStatisticRepository extends EntityRepository
             ->join('OjsJournalBundle:Issue', 'issue', 'WHERE', 'file.issue = issue')
             ->addSelect('SUM(stat.download)')
             ->andWhere('issue IN (:issues)')
-            ->groupBy('stat.issueFile')
+            ->groupBy('stat.issueFile, stat.id')
             ->orderBy('stat.download', 'DESC')
             ->setMaxResults($limit)
             ->setParameter('issues', $issues);

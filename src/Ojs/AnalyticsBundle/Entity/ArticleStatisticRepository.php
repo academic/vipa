@@ -61,7 +61,7 @@ class ArticleStatisticRepository extends EntityRepository
             ->addSelect('SUM(stat.view) as totalViews')
             ->andWhere('stat.article IN (:articles)')
             ->setParameter('articles', $articles)
-            ->groupBy('stat.article')
+            ->groupBy('stat.article, stat.id')
             ->orderBy('stat.view', 'DESC')
             ->setMaxResults($limit);
 

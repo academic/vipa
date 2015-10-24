@@ -55,7 +55,7 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'file.article IN (:articles)')
             ->addSelect('SUM(stat.download)')
             ->andWhere('article IN (:articles)')
-            ->groupBy('article')
+            ->groupBy('article, stat.id')
             ->setParameter('articles', $articles);
 
         return $builder->getQuery()->getResult();
@@ -76,7 +76,7 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'file.article = article')
             ->addSelect('SUM(stat.download)')
             ->andWhere('article IN (:articles)')
-            ->groupBy('stat.articleFile')
+            ->groupBy('stat.articleFile, stat.id')
             ->orderBy('stat.download', 'DESC')
             ->setMaxResults($limit)
             ->setParameter('articles', $articles);

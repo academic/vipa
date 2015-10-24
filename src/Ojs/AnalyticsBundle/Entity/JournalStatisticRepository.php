@@ -56,7 +56,7 @@ class JournalStatisticRepository extends EntityRepository
             ->addSelect('SUM(stat.view)')
             ->andWhere('stat.journal IN (:journals)')
             ->setParameter('journals', $journals)
-            ->groupBy('stat.journal')
+            ->groupBy('stat.journal, stat.id')
             ->orderBy('stat.view', 'DESC')
             ->setMaxResults($limit);
 

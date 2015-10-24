@@ -55,7 +55,7 @@ class IssueStatisticRepository extends EntityRepository
             ->addSelect('SUM(stat.view) as totalViews')
             ->andWhere('stat.issue IN (:issues)')
             ->setParameter('issues', $issues)
-            ->groupBy('stat.issue')
+            ->groupBy('stat.issue, stat.id')
             ->orderBy('stat.view', 'DESC')
             ->setMaxResults($limit);
 
