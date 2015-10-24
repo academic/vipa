@@ -8,6 +8,13 @@
         .margin-top {
             margin-top: 10px;
         }
+
+        .result-of-journal {
+            padding-top: 5px;
+            list-style-position: outside;
+            float: left;
+            width: 162px
+        }
     </style>
 {% endblock %}
 
@@ -20,70 +27,68 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-                <a href="{{ path('ojs_tags_cloud') }}" class="btn btn-success"><i
-                            class="fa fa-tags"></i> {{ 'tags.cloud'|trans }}</a>
-                <a href="{{ path('ojs_search_advanced') }}" class="btn btn-warning"><i
-                            class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
-            <div class="margin-top">
-                <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1">
-                    <form action="{{ path('ojs_search_index') }}" method="get">
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false"><span
-                                            id="search-type-text">{{ (queryType~'search')|trans }}</span> <span
-                                            class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="select-search-type"
-                                           data-type="basic">{{ ('basicsearch')|trans }}</a></li>
-                                    <li><a href="javascript:void(0)" class="select-search-type"
-                                           data-type="tag">{{ ('tagsearch')|trans }}</a></li>
-                                </ul>
-                            </div>
-                            <input type="text" name="q" class="form-control" value="{{ query }}">
+    <div class="content">
+        <div class="row margin-top">
+            <div class="col-md-8 col-sm-11 col-md-offset-2 col-sm-offset-1">
+                <form action="{{ path('ojs_search_index') }}" method="get">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" value="{{ query }}">
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="submit"><i
                                         class="fa fa-search"></i> {{ "search"|trans }}</button>
+                            <a href="{{ path('ojs_search_advanced') }}" class="btn btn-default"><i
+                                        class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
                         </span>
-                        </div>
-                        <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
-                    </form>
-                </div>
-                <div class="clearfix"></div>
+                    </div>
+                    <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
+                </form>
             </div>
-        <hgroup class="page-header">
-            <h2 class="lead">
-                {% trans with {'%total%':total_count, '%term%':query} %}
-                <strong class="text-danger">%total%</strong> : <strong
-                        class="text-danger">%term%</strong>
-                {% endtrans %}
-            </h2>
-        </hgroup>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <hgroup class="page-header">
+                    <a href="{{ path('ojs_tags_cloud') }}" class="btn btn-success btn-link pull-right"><i
+                                class="fa fa-tags"></i> {{ 'tags.cloud'|trans }}</a>
 
-        <section class="col-xs-12 col-sm-12 col-md-12">
-            <div class="col-md-3 col-sm-4">
-                {% if results is defined %}
-                    <ul class="nav nav-pills nav-stacked">
-                        {% for key,result in results %}
-                            {% if result.total_item > 0 %}
-                                <li class="{% if key == section %}in active{% endif %}">
-                                    <a href="{{ path('ojs_search_index',
-                                    app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'section': key,'page': 1}))) }}">
-                                        {{ result.type }}
-                                        <span class="badge">{{ result.total_item }}</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                {% endif %}
 
-                {% if subjects is defined %}
-                <div class="panel-group">
+                    <h2 class="lead">
+                        {{ "search.results"|trans }}:
+                        {% trans with {'%total%':total_count, '%term%':query} %}
+                        <strong class="text-danger">%term%</strong>
+                        <strong class="badge">%total%</strong>
+                        {% endtrans %}
+                    </h2>
+                </hgroup>
+            </div>
+        </div>
+        <div class="row">
+
+            <section role="search">
+                <div class="col-md-3 col-sm-4">
+                    {% if results is defined %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ "type"|trans }}</div>
+                            <ul class="list-group">
+                                {% for key,result in results %}
+                                    {% if result.total_item > 0 %}
+                                        <a class="list-group-item {% if key == section %}active{% endif %}"
+                                           href="{{ path('ojs_search_index',
+                                           app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'section': key,'page': 1}))) }}">
+                                            {{ result.type }}
+
+                                            <span class="badge">{{ result.total_item }}</span>
+                                        </a>
+
+
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
                     {% if subjects is not empty %}
-                        <div class="panel panel-primary">
-                            <div class="panel-heading"><h5>{{ 'subjects'|trans }}</h5></div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ 'subjects'|trans }}</div>
                             <ul class="list-group">
                                 {% for subject in subjects %}
                                     <li class="list-group-item">
@@ -113,42 +118,41 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% endif %}
-                        {% if journals is not empty %}
-                            <div class="panel panel-primary">
-                                <div class="panel-heading"><h5>{{ 'journals'|trans }}</h5></div>
-                                <ul class="list-group">
-                                    {% for journal in journals %}
-                                        <li class="list-group-item">
-                                            {% if journal_filters is empty %}
-                                                {% set parameter = journal.key %}
+                    {% if journals is not empty %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ 'journals'|trans }}</div>
+                            <ul class="list-group">
+                                {% for journal in journals %}
+                                    <li class="list-group-item">
+                                        {% if journal_filters is empty %}
+                                            {% set parameter = journal.key %}
+                                            <a href="{{ path('ojs_search_index',
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': journal.key }))) }}">{{ journal.key }}</a>
+                                        {% else %}
+                                            {% if journal.key in journal_filters %}
+                                                {% set parameter = journal_filters|pop(journal.key) %}
+                                                {{ journal.key }}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': journal.key }))) }}">{{ journal.key }}</a>
-                                            {% else %}
-                                                {% if journal.key in journal_filters %}
-                                                    {% set parameter = journal_filters|pop(journal.key) %}
-                                                    {{ journal.key }}
-                                                    <a href="{{ path('ojs_search_index',
-                                                    app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}">
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}">
                                             <span class="label label-danger">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </span>
-                                                    </a>
-                                                {% else %}
-                                                    {% set parameter = journal_filters|merge([journal.key]) %}
-                                                    <a href="{{ path('ojs_search_index',
-                                                    app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}">{{ journal.key }}</a>
-                                                {% endif %}
+                                                </a>
+                                            {% else %}
+                                                {% set parameter = journal_filters|merge([journal.key]) %}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}">{{ journal.key }}</a>
                                             {% endif %}
-                                            <span class="badge">{{ journal.doc_count }}</span>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
+                                        {% endif %}
+                                        <span class="badge">{{ journal.doc_count }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     {% if subjects is defined and roles is not empty %}
-                        <div class="panel panel-primary">
-                            <div class="panel-heading"><h5>{{ 'roles'|trans }}</h5></div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ 'roles'|trans }}</div>
                             <ul class="list-group">
                                 {% for role in roles %}
                                     <li class="list-group-item">
@@ -179,92 +183,65 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
 
-            <div class="tab-content col-md-9 col-sm-8">
+                <div class="search-results col-md-9 col-sm-8">
 
-                {% if results is defined %}
-                    {% if total_count < 1 %}
-                        <div role="tabpanel" class="tab-pane fade in active">
-                            <h3 class="text-danger">We did not find anything!</h3>
-                        </div>
-                    {% endif %}
-                    {% for key,result in results %}
-                        {% if section == key %}
+                    {% if results is defined %}
+                        {% if total_count < 1 %}
                             <div role="tabpanel" class="tab-pane fade in active">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                    {% for resultData in result.data %}
-                                        <tr>
-                                            <td>
-                                                <h4>
-                                                    <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a>
-                                                </h4>
-                                                {% if queryType == 'tag' %}
-                                                    <i class="fa fa-tags"></i> {{ "tags"|trans }}
-                                                    {% set tags = resultData.source.tags|split(',') %}
-                                                    {% for tag in tags %}
-                                                        <a href="/search?q={{ tag }}&type=tag"><span
-                                                                    class="badge">{{ tag }}</span></a>
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                                <h3 class="text-danger">We did not find anything!</h3>
                             </div>
                         {% endif %}
-                    {% endfor %}
+                        {% for key,result in results %}
+                            {% if section == key %}
+                                <ol>
+                                    {% for resultData in result.data %}
+                                        <li class="result-of-{{ key }}">
+                                            {% if key == 'journal' %}
+                                                {% set journal = resultData %}
+                                                {% set url = resultData.detail.route %}
+                                                {% set journal = journal|merge({'title':resultData.detail.name}) %}
+                                                {% include '::journal.html.twig' %}
+                                            {% elseif key == 'author' %}
+                                                <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a> ({{ resultData.detail.route }})
+                                            {% else %}
+                                                <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a> ({{ resultData.detail.route }})
+                                            {% endif %}
 
-                    {% if total_count < 1 %}
-                        <div class="text-center">
-                            <ul class="pagination">
-                                {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-                            </ul>
-                        </div>
+                                            {% if queryType == 'tag' %}
+                                                <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                                                {% set tags = resultData.source.tags|split(',') %}
+                                                {% for tag in tags %}
+                                                    <a href="/search?q={{ tag }}&type=tag"><span
+                                                                class="badge">{{ tag }}</span></a>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if total_count < 1 %}
+                            <div class="text-center">
+                                <ul class="pagination">
+                                    {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {{ 'search.noresult'|trans }}
                     {% endif %}
-                {% else %}
-                    {{ 'search.noresult'|trans }}
-                {% endif %}
-            </div>
-        </section>
-        {% if search_history_enabled is defined %}
-            <div class="col-sm-12">
-                <h2>{{ 'search.history' }}</h2>
-                <table class="table table-bordered">
-                    <thead>
-                    <th>{{ 'search'|trans }}</th>
-                    <th>{{ 'query'|trans }}</th>
-                    <th>{{ 'items.found'|trans }}</th>
-                    <th>{{ 'type'|trans }}</th>
-                    <th>{{ 'time'|trans }}</th>
-                    </thead>
-                    <tbody>
-                    {% for queryLog in app.session.get('_query_history') %}
-                        <tr>
-                            <td>
-                                <a href="/search?q={{ queryLog.query }}&type={{ queryLog.type }}">
-                                    #{{ queryLog.id }}
-                                </a>
-                            </td>
-                            <td>
-                                {{ queryLog.query }}
-                            </td>
-                            <td>
-                                {{ queryLog.totalHits }}
-                            </td>
-                            <td>
-                                {{ queryLog.type }}
-                            </td>
-                            <td>
-                                {{ queryLog.time }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% endif %}
+                </div>
+            </section>
+        </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $('.search-results li').highlight('{{ query }}');
+        })
+    </script>
 {% endblock %}

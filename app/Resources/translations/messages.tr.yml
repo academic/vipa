@@ -839,7 +839,7 @@ save.finish: 'Kaydet & Bitir'
 save.next: 'Kaydet & Devam Et'
 scope: Kapsam
 search: Ara
-search.builder: 'Gelişmiş Sorgu Aracı'
+search.builder: 'Gelişmiş Arama'
 search.main: 'Dergi, Makale ve Yazar Ara'
 search.noresult: 'Üzgünüz, aradığınız kelime için hiç bir sonuç bulamadık.'
 search.result.headline: '`%term%` kelimesi için toplam %total% sonuç bulundu.'

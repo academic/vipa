@@ -839,7 +839,7 @@ save.finish: 'Save & Finish'
 save.next: 'Save & Next'
 scope: Scope
 search: Search
-search.builder: 'Advanced Search Builder'
+search.builder: 'Advanced Search'
 search.main: 'Search Journal, Article and Author'
 search.noresult: 'We could not find any results matching.'
 search.result.headline: 'Total %total% item for %term% query.'
