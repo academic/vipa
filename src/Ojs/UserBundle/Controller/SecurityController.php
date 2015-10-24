@@ -176,4 +176,13 @@ class SecurityController extends BaseSecurityController
 
         return $this->render('OjsUserBundle:Security:create_password.html.twig', $data);
     }
+
+    public function redirectAction()
+    {
+        if ($this->getUser()->isAdmin()) {
+            return new RedirectResponse($this->get('router')->generate('dashboard'));
+        }
+
+        return new RedirectResponse($this->get('router')->generate('ojs_user_index'));
+    }
 }

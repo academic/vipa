@@ -48,7 +48,7 @@ security:
         check_path: /login_check
         always_use_default_target_path: false
         csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
-        default_target_path: /user
+        default_target_path: /login-redirect
       logout:
         path: /logout
         target: /
