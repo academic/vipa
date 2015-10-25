@@ -5,7 +5,6 @@ namespace Ojs\AdminBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\AdminBundle\Form\Type\ContactType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalContact;
@@ -17,6 +16,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 /**
  * JournalContact controller.

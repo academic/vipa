@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 /**
  * PublisherManagers controller.
@@ -55,6 +58,8 @@ class AdminPublisherManagersController extends Controller
         if (!$this->isGranted('CREATE', new PublisherManagers())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new PublisherManagers();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -64,6 +69,8 @@ class AdminPublisherManagersController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_publisher_managers_show',
                 [
@@ -206,12 +213,16 @@ class AdminPublisherManagersController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_publisher_managers_edit', ['id' => $entity->getId()]);
         }
 
@@ -235,6 +246,8 @@ class AdminPublisherManagersController extends Controller
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
 
@@ -247,6 +260,8 @@ class AdminPublisherManagersController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
+        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
+        $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
         return $this->redirectToRoute('ojs_admin_publisher_managers_index');
     }
 }
