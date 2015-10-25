@@ -133,16 +133,7 @@ class SearchController extends Controller
         $roles = $resultData->getAggregation('roles')['buckets'];
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
-
-        $match = new Query\Match();
-        $match->setField('articles.journal.id', 2);
-        $boolQuery->addMust($match);
-
-        $match = new Query\Match();
-        $match->setField('user.journalUsers.journal.id', 2);
-        $boolQuery->addMust($match);
-
-
+        
         if ($resultData->count() > 0) {
             /**
              * manipulate result data for easily use on template
