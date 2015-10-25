@@ -124,6 +124,14 @@ api_journal_board:
   requirements:
       journalId:  \d+
 
+api_journal_section:
+  type:         rest
+  resource:     "OjsApiBundle:JournalSectionRest"
+  prefix:       /v1/journal/{journalId}
+  name_prefix:  api_1_
+  requirements:
+      journalId:  \d+
+
 api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
