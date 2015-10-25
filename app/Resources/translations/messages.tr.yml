@@ -913,6 +913,7 @@ submission.attention: 'Taslağınızı gönderdikten sonra verileri değiştirem
 submission.starting: Başlarken
 submission.success: 'Makale Gonderimi Tamamlandı'
 submission.continue_edit: 'Makale Gonderimi düzenlemesine devam et'
+submission.files: 'Makale Gönderimi için gerekli formlar'
 submissionDate: 'Makale Tarihi'
 submission_checklist: 'Makale Kontrol Listesi'
 submission_checklist.create: 'Yeni Madde'
