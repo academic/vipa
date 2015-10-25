@@ -119,6 +119,8 @@ class ApplicationController extends Controller
 
     public function publisherAction(Request $request)
     {
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $allowanceSetting = $this
             ->getDoctrine()
             ->getRepository('OjsAdminBundle:SystemSetting')
@@ -146,6 +148,8 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
+                $event = new AdminEvent($request);
+                $dispatcher->dispatch(AdminEvents::PUBLISHER_APPLICATION_HAPPEN, $event);
                 return $this->redirect($this->get('router')->generate('ojs_apply_institute_success'));
             }
 

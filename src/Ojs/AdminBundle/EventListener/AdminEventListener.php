@@ -61,7 +61,7 @@ class AdminEventListener implements EventSubscriberInterface
             AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange', #+
             AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen', #+
             AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange', #+
-            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen',
+            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen', #+
             AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange',
             AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange',
             AdminEvents::SUBJECT_CHANGE => 'onSubjectChange',
@@ -134,11 +134,19 @@ class AdminEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param AdminEvent $event
      */
-    public function onPublisherApplicationHappen()
+    public function onPublisherApplicationHappen(AdminEvent $event)
     {
-
+        $adminUsers = $this->getAdminUsers();
+        /** @var User $user */
+        foreach($adminUsers as $user){
+            $this->sendMail(
+                $user,
+                'Admin Event : Publisher Application Happen',
+                'Admin Event : Publisher Application Happen'
+            );
+        }
     }
 
     /**
