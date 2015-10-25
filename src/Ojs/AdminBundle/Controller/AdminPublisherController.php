@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 /**
  * Publisher controller.
@@ -58,6 +61,8 @@ class AdminPublisherController extends Controller
         if (!$this->isGranted('CREATE', new Publisher())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Publisher();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -68,6 +73,8 @@ class AdminPublisherController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $dispatcher->dispatch(AdminEvents::PUBLISHER_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_publisher_show', ['id' => $entity->getId()]);
         }
 
@@ -213,6 +220,8 @@ class AdminPublisherController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -221,6 +230,8 @@ class AdminPublisherController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $dispatcher->dispatch(AdminEvents::PUBLISHER_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_publisher_edit', ['id' => $id]);
         }
 
@@ -247,6 +258,8 @@ class AdminPublisherController extends Controller
         }
         $this->throw404IfNotFound($entity);
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_publisher' . $id);
         if ($token != $request->get('_token')) {
@@ -257,6 +270,8 @@ class AdminPublisherController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
+        $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+        $dispatcher->dispatch(AdminEvents::PUBLISHER_CHANGE, $event);
         return $this->redirect($this->generateUrl('ojs_admin_publisher_index'));
     }
 }
