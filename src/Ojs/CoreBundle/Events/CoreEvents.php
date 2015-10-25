@@ -2,7 +2,6 @@
 
 namespace Ojs\CoreBundle\Event;
 
-
 final class CoreEvents
 {
     const OJS_INSTALL_BASE = 'ojs.core.install.base';

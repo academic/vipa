@@ -108,3 +108,9 @@ services:
       logger: "@logger"
     tags:
       - { name: kernel.event_listener, event: console.exception }
+
+  core.event_listener:
+    class: Ojs\CoreBundle\EventListener\CoreEventListener
+    arguments: [@router, @mailer, @doctrine.orm.entity_manager, %system_email%, "OJS SYSTEM"]
+    tags:
+      - { name: kernel.event_subscriber }
