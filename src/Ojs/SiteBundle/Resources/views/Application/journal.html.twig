@@ -72,13 +72,15 @@
                             {{ form_row(field) }}
                         {% endfor %}
 
-                        {% do form.journalContacts.setRendered %}
-
                         <div id="contacts" data-index="{{ form.journalContacts|length }}" data-prototype="{% filter escape %}
                             {{- include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype }) -}}
-                        {% endfilter %}">{% for journalContact in form.journalContacts %}
+                        {% endfilter %}">
+                            {% for journalContact in form.journalContacts %}
                                 {{ include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': journalContact }) }}
-                            {% endfor %}</div>
+                            {% endfor %}
+                        </div>
+
+                        {% do form.journalContacts.setRendered %}
                         <button type="button" id="add_contact" class="btn btn-success btn-labeled pull-right">
                             <span class="btn-label">
                                 <i class="fa fa-plus"></i>
