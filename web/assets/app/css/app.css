@@ -726,3 +726,22 @@ ul.grid-row-actions > li > a.btn { margin-right: 5px; }
 label.required:before {
     content: "* ";
 }
+
+.person-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    height: 160px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.person-box .avatar img {
+    width: 100px;
+    height: 100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #eb959e;
+    margin: 5px;
+}

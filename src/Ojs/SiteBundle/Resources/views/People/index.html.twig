@@ -9,31 +9,6 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            height: 160px;
-            margin: 5px;
-            padding: 5px;
-        }
-
-        .card .avatar img {
-            width: 100px;
-            height: 100px;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            border-radius: 50%;
-            border: 1px solid #eb959e;
-            margin: 5px;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     <div class="row">
         <div class="col-sm-3">
@@ -158,46 +133,7 @@
 
         <div class="col-sm-9">
             {% for person in people %}
-                <div class="col-sm-3">
-                    <div class="card ng">
-                        <div class="avatar">
-                            <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
-
-                                <img
-                                        {% if person.avatar is defined and person.avatar is not null %}
-                                            class="img-circle"
-
-                                            alt="" src="{{ person.avatar|imagine_filter('user_croped') }}"
-                                        {% else %}
-                                            class="img-circle"  src="{{ asset('assets/app/images/buddy_sample.png') }}"
-                                        {% endif %}
-                                        style="width: 100px; height: 100px;"/>
-                            </a>
-                        </div>
-                        <div class="content">
-                            <a class="hovercard" href="{{ path('ojs_user_profile', {slug: person.username}) }}">
-                                {% if person.title is defined %}
-                                    {{ person.title }}
-                                {% endif %}
-                                {% if person.firstName is defined and person.lastName is defined %}
-                                    {{ person.firstName|default('') }} {{ person.lastName|default('') }}
-                                {% else %}
-                                    {{ person.username }}
-                                {% endif %}
-                            </a>
-                            {% if person.journalUsers is not null %}
-                                <div class="hovercard-content hidden">
-                                    {% for journalUser in person.journalUsers %}
-                                        <h5>{{ journalUser.journal.title }}</h5>
-                                        {% for role in journalUser.roles %}
-                                            <span class="badge">{{ role|trans }}</span>
-                                        {% endfor %}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+                {% include '::user.html.twig' %}
             {% endfor %}
         </div>
     </div>
