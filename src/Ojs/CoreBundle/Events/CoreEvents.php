@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CoreBundle\Event;
+namespace Ojs\CoreBundle\Events;
 
 final class CoreEvents
 {

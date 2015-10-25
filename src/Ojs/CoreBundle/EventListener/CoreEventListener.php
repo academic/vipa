@@ -4,7 +4,7 @@ namespace Ojs\CoreBundle\EventListener;
 
 use FOS\UserBundle\Model\UserInterface;
 use Ojs\CoreBundle\Events\CoreEvent;
-use Ojs\CoreBundle\Event\CoreEvents;
+use Ojs\CoreBundle\Events\CoreEvents;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
