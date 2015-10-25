@@ -5,6 +5,7 @@ namespace Ojs\AdminBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\AdminBundle\Form\Type\ContactType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalContact;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
 
 /**
  * JournalContact controller.
@@ -79,7 +82,8 @@ class AdminContactController extends Controller
         if (!$this->isGranted('CREATE', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -87,8 +91,10 @@ class AdminContactController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->successFlashBag('Successfully created');
+            $this->successFlashBag('successful.create');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $dispatcher->dispatch(AdminEvents::ADMIN_CONTACT_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_contact_show',
                 ['id' => $entity->getId()]
@@ -265,14 +271,17 @@ class AdminContactController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
-            $this->successFlashBag('Successfully updated');
+            $this->successFlashBag('successful.update');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $dispatcher->dispatch(AdminEvents::ADMIN_CONTACT_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_contact_edit',
                 ['id' => $entity->getId()]
@@ -309,6 +318,8 @@ class AdminContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_contact'.$entity->getId());
 
@@ -318,8 +329,10 @@ class AdminContactController extends Controller
         
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('Successfully removed');
+        $this->successFlashBag('successful.remove');
 
+        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
+        $dispatcher->dispatch(AdminEvents::ADMIN_CONTACT_CHANGE, $event);
         return $this->redirectToRoute('ojs_admin_contact_index');
     }
 }

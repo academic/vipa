@@ -97,8 +97,8 @@ class AdminUserController extends Controller
 
             $this->successFlashBag('successful.create');
 
-            $event = new AdminEvent($request, null, null, $entity, 'create');
-            $dispatcher->dispatch(AdminEvents::USER_CHANGE, $event);
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_user_show',
                 [
@@ -295,7 +295,7 @@ class AdminUserController extends Controller
 
             $this->successFlashBag('successful.update');
             $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
-            $dispatcher->dispatch(AdminEvents::USER_CHANGE, $event);
+            $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_user_edit', ['id' => $id]);
         }
 
@@ -338,7 +338,7 @@ class AdminUserController extends Controller
         $em->flush();
 
         $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
-        $dispatcher->dispatch(AdminEvents::USER_CHANGE, $event);
+        $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_admin_user_index');

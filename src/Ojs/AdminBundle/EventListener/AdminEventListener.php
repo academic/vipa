@@ -57,10 +57,10 @@ class AdminEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            AdminEvents::USER_CHANGE => 'onUserChange',
-            AdminEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
+            AdminEvents::ADMIN_USER_CHANGE => 'onUserChange', #+
+            AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange', #+
             AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
-            AdminEvents::JOURNAL_CHANGE => 'onJournalChange',
+            AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange',
             AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen',
             AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange',
             AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange',
@@ -86,11 +86,19 @@ class AdminEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param AdminEvent $event
      */
-    public function onJournalContactChange()
+    public function onJournalContactChange(AdminEvent $event)
     {
-
+        $adminUsers = $this->getAdminUsers();
+        /** @var User $user */
+        foreach($adminUsers as $user){
+            $this->sendMail(
+                $user,
+                'Admin Event : Admin Contact Change -> '. $event->getEventType(),
+                'Admin Event : Admin Contact Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
+        }
     }
 
     /**
@@ -151,6 +159,7 @@ class AdminEventListener implements EventSubscriberInterface
 
     /**
      * @return \Doctrine\Common\Collections\Collection | User[]
+     * @link http://stackoverflow.com/a/16692911
      */
     private function getAdminUsers()
     {
@@ -158,7 +167,8 @@ class AdminEventListener implements EventSubscriberInterface
         $qb->select('u')
             ->from('OjsUserBundle:User', 'u')
             ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%')
+        ;
 
         return $qb->getQuery()->getResult();
     }
