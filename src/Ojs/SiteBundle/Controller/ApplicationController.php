@@ -12,6 +12,9 @@ use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 /**
  * Application controller.
@@ -25,6 +28,8 @@ class ApplicationController extends Controller
      */
     public function journalAction(Request $request)
     {
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $journalApplicationFiles = $em->getRepository('OjsJournalBundle:JournalApplicationFile')->findBy([
             'visible' => true,
@@ -93,6 +98,9 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
+
+                $event = new AdminEvent($request);
+                $dispatcher->dispatch(AdminEvents::JOURNAL_APPLICATION_HAPPEN, $event);
                 return $this->redirect($this->get('router')->generate('ojs_apply_journal_success'));
             }
 
