@@ -78,7 +78,7 @@
                             <td>{{ article.statusText|trans }}</td>
                             <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
                             <td>
-                                {% if article.statusText is  'status.not_submitted' %}
+                                {% if article.statusText ==  'status.not_submitted' %}
                                 <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}"
                                    class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
                                     <i class="fa fa-pencil"></i>
