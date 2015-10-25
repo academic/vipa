@@ -2,8 +2,6 @@
 
 namespace Ojs\AdminBundle\EventListener;
 
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
@@ -65,7 +63,7 @@ class AdminEventListener implements EventSubscriberInterface
             AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange', #+
             AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange', #+
             AdminEvents::ADMIN_SUBJECT_CHANGE => 'onAdminSubjectChange', #+
-            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange',
+            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange', #+
         );
     }
 
@@ -198,11 +196,19 @@ class AdminEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param AdminEvent $event
      */
-    public function onSettingsChange()
+    public function onSettingsChange(AdminEvent $event)
     {
-
+        $adminUsers = $this->getAdminUsers();
+        /** @var User $user */
+        foreach($adminUsers as $user){
+            $this->sendMail(
+                $user,
+                'Admin Event : Admin System Settings Change -> '. $event->getEventType(),
+                'Admin Event : Admin System Settings Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
+        }
     }
 
     /**

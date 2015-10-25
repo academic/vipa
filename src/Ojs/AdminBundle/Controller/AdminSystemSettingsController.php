@@ -7,6 +7,9 @@ use Ojs\AdminBundle\Form\Type\SystemSettingsType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 class AdminSystemSettingsController extends OjsController
 {
@@ -47,6 +50,8 @@ class AdminSystemSettingsController extends OjsController
             throw new AccessDeniedException("You cannot change system settings.");
         }
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $repo = $this->getDoctrine()->getRepository('OjsAdminBundle:SystemSetting');
         $form = $this->createForm(new SystemSettingsType());
@@ -61,6 +66,8 @@ class AdminSystemSettingsController extends OjsController
                 $em->persist($result);
             }
 
+            $event = new AdminEvent($request, null, null, $this->getUser());
+            $dispatcher->dispatch(AdminEvents::SETTINGS_CHANGE, $event);
             $em->flush();
         }
 
