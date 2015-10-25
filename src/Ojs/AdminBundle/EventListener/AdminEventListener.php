@@ -5,9 +5,12 @@ namespace Ojs\AdminBundle\EventListener;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Doctrine\ORM\EntityManager;
 
 class AdminEventListener implements EventSubscriberInterface
 {
@@ -23,9 +26,13 @@ class AdminEventListener implements EventSubscriberInterface
     /** @var RouterInterface */
     private $router;
 
+    /** @var EntityManager */
+    private $em;
+
     /**
      * @param RouterInterface $router
      * @param \Swift_Mailer   $mailer
+     * @param EntityManager   $em
      * @param string          $mailSender
      * @param string          $mailSenderName
      *
@@ -33,11 +40,13 @@ class AdminEventListener implements EventSubscriberInterface
     public function __construct(
         RouterInterface $router,
         \Swift_Mailer $mailer,
+        EntityManager   $em,
         $mailSender,
         $mailSenderName
     ) {
         $this->router = $router;
         $this->mailer = $mailer;
+        $this->em = $em;
         $this->mailSender = $mailSender;
         $this->mailSenderName = $mailSenderName;
     }
@@ -61,11 +70,19 @@ class AdminEventListener implements EventSubscriberInterface
     }
 
     /**
-     *
+     * @param AdminEvent $event
      */
-    public function onUserChange()
+    public function onUserChange(AdminEvent $event)
     {
-
+        $adminUsers = $this->getAdminUsers();
+        /** @var User $user */
+        foreach($adminUsers as $user){
+            $this->sendMail(
+                $user,
+                'Admin Event : Admin User Change -> '. $event->getEventType(),
+                'Admin Event : Admin User Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+            );
+        }
     }
 
     /**
@@ -130,6 +147,20 @@ class AdminEventListener implements EventSubscriberInterface
     public function onSettingsChange()
     {
 
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection | User[]
+     */
+    private function getAdminUsers()
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('u')
+            ->from('OjsUserBundle:User', 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
+
+        return $qb->getQuery()->getResult();
     }
 
     /**

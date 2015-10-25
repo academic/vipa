@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\ORMException;
+use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\AdminBundle\Form\Type\ChangePasswordType;
 use Ojs\AdminBundle\Form\Type\UpdateUserType;
 use Ojs\AdminBundle\Form\Type\UserType;
@@ -22,6 +23,7 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
 
 /**
  * User administration controller
@@ -78,6 +80,8 @@ class AdminUserController extends Controller
         if (!$this->isGranted('CREATE', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new User();
         $form = $this->createCreateForm($entity)
             ->add('create', 'submit', array('label' => 'c'));
@@ -92,6 +96,9 @@ class AdminUserController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
+            $event = new AdminEvent($request, null, null, $entity, 'create');
+            $dispatcher->dispatch(AdminEvents::USER_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_user_show',
                 [
@@ -266,6 +273,8 @@ class AdminUserController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $oldPassword = $entity->getPassword();
         $editForm = $this->createEditForm($entity)
             ->add('save','submit');
@@ -285,7 +294,8 @@ class AdminUserController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.update');
-
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $dispatcher->dispatch(AdminEvents::USER_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_user_edit', ['id' => $id]);
         }
 
@@ -313,10 +323,10 @@ class AdminUserController extends Controller
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('notFound'));
-        }
+        $this->throw404IfNotFound($entity);
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_user'.$id);
         if ($token != $request->get('_token')) {
@@ -327,6 +337,8 @@ class AdminUserController extends Controller
         $em->remove($entity);
         $em->flush();
 
+        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
+        $dispatcher->dispatch(AdminEvents::USER_CHANGE, $event);
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_admin_user_index');
