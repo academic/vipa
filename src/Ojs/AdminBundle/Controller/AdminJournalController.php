@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 /**
  * Journal controller.
@@ -139,6 +142,8 @@ class AdminJournalController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -146,6 +151,8 @@ class AdminJournalController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_journal_edit', ['id' => $id]);
         }
 
@@ -169,6 +176,8 @@ class AdminJournalController extends Controller
         if (!$this->isGranted('CREATE', $entity)) {
             throw new AccessDeniedException("You not authorized for create a journal!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -177,6 +186,8 @@ class AdminJournalController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
             return $this->redirect($this->generateUrl('ojs_admin_journal_show', array('id' => $entity->getId())));
         }
 
@@ -269,6 +280,8 @@ class AdminJournalController extends Controller
         }
         $this->throw404IfNotFound($entity);
 
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_journal'.$id);
         if ($token->getValue() !== $request->get('_token')) {
@@ -277,6 +290,9 @@ class AdminJournalController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
+        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
+        $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_admin_journal_index');
     }
