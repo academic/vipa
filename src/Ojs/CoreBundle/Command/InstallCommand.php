@@ -144,6 +144,12 @@ class InstallCommand extends ContainerAwareCommand
             $location = $this->getContainer()->get('kernel')->getRootDir(
                 ).'/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
             $locationSql = file_get_contents($location);
+
+            $driver = $this->getContainer()->getParameter('database_driver');
+            if ($driver == 'pdo_mysql') {
+
+                $locationSql = 'SET foreign_key_checks = 0;' . $locationSql . 'SET foreign_key_checks = 1;';
+            }
             $command3 = 'doctrine:query:sql "'.$locationSql.'"';
             $application->run(new StringInput($command3));
             $output->writeln('Locations inserted.');
