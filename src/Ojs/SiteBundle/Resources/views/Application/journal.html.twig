@@ -74,13 +74,17 @@
 
                         {% do form.journalContacts.setRendered %}
 
-                        <ul id="contacts" data-prototype="{{ form_widget(form.journalContacts.vars.prototype)|e }}"></ul>
-                        <a href="#" id="add_contact" class="btn btn-success btn-labeled pull-right">
+                        <div id="contacts" data-index="{{ form.journalContacts|length }}" data-prototype="{% filter escape %}
+                            {{- include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype }) -}}
+                        {% endfilter %}">{% for journalContact in form.journalContacts %}
+                                {{ include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': journalContact }) }}
+                            {% endfor %}</div>
+                        <button type="button" id="add_contact" class="btn btn-success btn-labeled pull-right">
                             <span class="btn-label">
                                 <i class="fa fa-plus"></i>
                             </span>
                             {{ "application.journal.add_contact"|trans }}
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -143,24 +147,31 @@
         var collectionHolder;
         var addContactLink = $('#add_contact');
 
-        jQuery(document).ready(function() {
+        $(document).ready(function() {
             collectionHolder = $('#contacts');
             collectionHolder.data('index', collectionHolder.find(':input').length);
 
-            addContactLink.on('click', function(e) {
-                e.preventDefault();
+            addContactLink.on('click', function() {
                 addContactForm(collectionHolder, addContactLink);
             });
+
+
+
         });
 
-        function addContactForm($collectionHolder, $addLink) {
-            var prototype = $collectionHolder.data('prototype');
-            var index = $collectionHolder.data('index');
+        function addContactForm(collectionHolder, addLink) {
+            var prototype = collectionHolder.data('prototype');
+            var index = collectionHolder.data('index');
             var newForm = prototype.replace(/__name__/g, index);
 
-            $collectionHolder.data('index', index + 1);
+            collectionHolder.data('index', index + 1);
 
-            $addLink.before($('<div class="well"></div>').append(newForm));
+            addLink.before(newForm);
+
+            console.info($(addLink).parent().find('.journalContact:last'));
+            $(addLink).parent().find('.journalContact:last .remove_contact').on('click', function() {
+                $(this).parent().remove();
+            });
         }
     </script>
 
