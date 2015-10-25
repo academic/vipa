@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\AdminBundle\Events\AdminEvent;
+use Ojs\AdminBundle\Events\AdminEvents;
 
 /**
  * Subject controller.
@@ -118,6 +121,8 @@ class AdminSubjectController extends Controller
         if (!$this->isGranted('CREATE', new Subject())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $entity = new Subject();
         $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
@@ -129,6 +134,8 @@ class AdminSubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_subject_show', ['id' => $entity->getId()]);
         }
 
@@ -268,6 +275,8 @@ class AdminSubjectController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -276,6 +285,8 @@ class AdminSubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_subject_edit', ['id' => $entity->getId()]);
         }
 
@@ -299,6 +310,8 @@ class AdminSubjectController extends Controller
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
@@ -311,6 +324,8 @@ class AdminSubjectController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
+        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
+        $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
         return $this->redirectToRoute('ojs_admin_subject_index');
     }
 }

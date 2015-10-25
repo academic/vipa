@@ -11,6 +11,6 @@ final class AdminEvents
     const PUBLISHER_APPLICATION_HAPPEN = 'ojs.admin.publisher.application.happen';
     const PUBLISHER_MANAGER_CHANGE = 'ojs.admin.publisher.manager.change';
     const PUBLISHER_CHANGE = 'ojs.admin.publisher.change';
-    const SUBJECT_CHANGE = 'ojs.admin.subject.change';
+    const ADMIN_SUBJECT_CHANGE = 'ojs.admin.subject.change';
     const SETTINGS_CHANGE = 'ojs.admin.settings.change';
 }
