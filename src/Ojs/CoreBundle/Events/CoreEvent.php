@@ -12,16 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 class CoreEvent extends Event
 {
     /**
-     * @var Request $request
-     */
-    private $request;
-
-    /**
-     * @var Response $response
-     */
-    private $response;
-
-    /**
      * @var Journal $journal
      */
     private $journal;
@@ -37,15 +27,13 @@ class CoreEvent extends Event
     private $eventType;
 
     /**
-     * @param Request $request
      * @param Journal|null $journal
      * @param Publisher|null $publisher
      * @param User|null $user
      * @param string $eventType
      */
-    public function __construct(Request $request,Journal $journal = null, Publisher $publisher = null, User $user = null, $eventType = '')
+    public function __construct(Journal $journal = null, Publisher $publisher = null, User $user = null, $eventType = '')
     {
-        $this->request = $request;
         $this->journal = $journal;
         $this->user = $user;
         $this->eventType = $eventType;

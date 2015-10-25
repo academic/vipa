@@ -20,6 +20,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\CoreBundle\Events\CoreEvents;
+use Ojs\CoreBundle\Events\CoreEvent;
 
 class InstallCommand extends ContainerAwareCommand
 {
@@ -109,6 +112,8 @@ class InstallCommand extends ContainerAwareCommand
         $sb = '<fg=black;bg=green>';
         $se = '</fg=black;bg=green>';
         $translator = $this->getContainer()->get('translator');
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->getContainer()->get('event_dispatcher');
 
         /** @var HelperSet $helperSet */
         $helperSet = $this->getHelperSet();
@@ -208,6 +213,8 @@ class InstallCommand extends ContainerAwareCommand
             ." <info>php app/console ojs:install:samples</info> "
             ."to add some sample data.\n"
         );
+        $event = new CoreEvent();
+        $dispatcher->dispatch(CoreEvents::OJS_INSTALL_BASE, $event);
     }
 
     protected function printWelcome()

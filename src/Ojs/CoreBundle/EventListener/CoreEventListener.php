@@ -68,7 +68,15 @@ class CoreEventListener implements EventSubscriberInterface
      */
     public function onInstallBase(CoreEvent $event)
     {
-
+        $adminUsers = $this->getAdminUsers();
+        /** @var User $user */
+        foreach($adminUsers as $user){
+            $this->sendMail(
+                $user,
+                'Core Event : Core Install Base',
+                'Core Event : Core Install Base'
+            );
+        }
     }
 
     /**
