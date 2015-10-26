@@ -133,6 +133,7 @@ api: 'Uygulama Geliştirme Arayüzü'
 api_motto: 'OJS geliştiriciler için tamamen api üzerinden çalıştırabilir bir sistem vermektedir.'
 application.basic: Temel
 application.contact: İletişim
+application_checklist.required: 'Gerekli?'
 application.graphics: Görseller
 application.institute: 'Yayıncı Başvurusu'
 application.institute.detail: Yayıncı Detayı
@@ -499,6 +500,8 @@ journal.address: 'Derginin Posta Adresi'
 journal.all: 'Tüm Dergiler'
 journal.any_have: 'Hiç Derginiz Bulunmuyor!'
 journal.application_success_message: 'Başvurunuz başarıyla alındı.'
+journal_application_file.new: 'Yeni Dergi Başvurusu Dosyası'
+journal_application_file.list: 'Dergi Başvurusu Dosyaları'
 journal.apply: 'Dergi Başvurusu'
 journal.articles: 'Dergi Makaleleri'
 journal.assistant_editor: 'Editör Yardımcısı'
@@ -923,6 +926,7 @@ submission_checklist.label: Etiket
 submission_checklist.show: Göster
 submission_checklist.visible: 'Görünür mü?'
 submission_checklist.required: 'Makalem için gerekli mi?'
+submission_checklist.title: 'Kontrol Listesi Başlığı'
 submit: Gönder
 submitRoles: 'Makale Gönderebilen Roller'
 submit_action: 'Gönderme Aksiyonu'
@@ -1054,6 +1058,7 @@ title.home: 'Ana Sayfa'
 title.institutions: Kurumlar
 title.journal_application: 'Dergi Başvuruları'
 title.journal_application_file: 'Dergi Başvuru Dosyaları'
+title.journal_application_file_show: 'Dergi Başvuru Dosyasını Göster'
 title.publisher: Yayıncı
 title.publisher_application: 'Yayıncı Başvuruları'
 title.publisher_design: 'Tasarım'

@@ -133,6 +133,7 @@ api: 'Application Development Interface'
 api_motto: 'OJS provides a complete restful api for developers.'
 application.basic: Basic
 application.contact: Contact
+application_checklist.required: 'Required?'
 application.graphics: Graphics
 application.institute: 'Institute Application'
 application.institute.detail: Detail
@@ -498,6 +499,8 @@ journal.about: 'About Journal'
 journal.address: 'Postal Address of the Journal'
 journal.all: 'All Journals'
 journal.any_have: 'You don''t have any journals!'
+journal_application_file.new: 'New Journal Application File'
+journal_application_file.list: 'Journal Application Files'
 journal.application_success_message: 'Your application was saved successfully.'
 journal.apply: 'New Journal Applications'
 journal.articles: 'Browse the Journal'
@@ -923,6 +926,7 @@ submission_checklist.label: Label
 submission_checklist.show: Show
 submission_checklist.visible: 'Is visible?'
 submission_checklist.required: 'Is this required for submission?'
+submission_checklist.title: 'Checklist Title'
 submit: Submit
 submitRoles: 'Roles That Can Submit Articles'
 submit_action: 'Submit Action'
@@ -1054,6 +1058,7 @@ title.home: Home
 title.institutions: Institutions
 title.journal_application: 'Journal Application'
 title.journal_application_file: 'Journal Application Files'
+title.journal_application_file_show: 'Show Journal Application File'
 title.publisher: Publisher
 title.publisher_application: 'Publisher Application'
 title.publisher_design: 'Publisher Design'
