@@ -3,4 +3,4 @@ Ojs\CmsBundle\Entity\Announcement:
         title:
             - NotBlank: ~
         content:
-            - NotBlank: ~
+            - Url: ~

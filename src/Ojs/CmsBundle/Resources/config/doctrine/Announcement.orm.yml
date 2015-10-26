@@ -25,4 +25,5 @@ Ojs\CmsBundle\Entity\Announcement:
             nullable: true
         content:
             type: text
+            nullable: true
     lifecycleCallbacks: {  }

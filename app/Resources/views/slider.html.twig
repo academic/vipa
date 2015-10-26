@@ -2,13 +2,9 @@
     {% for announcement in announcements %}
         <li>
             {% if announcement.image is defined and announcement.image is not null %}
-                <img src="{{ announcement.image|imagine_filter('announcement_croped') }}"
-                     alt="{{ announcement.title }}">
-            {% endif %}
-            {% if announcement.title is defined and announcement.title is not null %}
-                <h3>{{ announcement.title }}</h3>
-
-                {{ announcement.content|raw }}
+                <a href="{{ announcement.content }}"><img
+                            src="{{ announcement.image|imagine_filter('announcement_original') }}"
+                            alt="{{ announcement.title }}"></a>
             {% endif %}
 
         </li>
