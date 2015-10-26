@@ -61,8 +61,8 @@
     {% endif %}
     {% if journal.viewCount is defined and journal.downloadCount is defined %}
         <div class="view-stats">
-            <i class="fa fa-eye"></i> {{ journal.viewCount }}
-            <i class="fa fa-download"></i> {{ journal.downloadCount }}
+            <i class="fa fa-eye"></i> {{ journal.viewCount|number_format }}
+            <i class="fa fa-download"></i> {{ journal.downloadCount|number_format }}
         </div>
     {% endif %}
 </div>

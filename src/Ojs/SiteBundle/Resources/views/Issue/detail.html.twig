@@ -35,9 +35,9 @@
             </h4>
             <h5>
                 <i class="fa fa-eye"></i>
-                {% if issue.viewCount is null %} 0 {% else %} {{ issue.viewCount }} {% endif %}
+                {% if issue.viewCount is null %} 0 {% else %} {{ issue.viewCount|number_format }} {% endif %}
                 <i class="fa fa-download"></i>
-                {% if issue.downloadCount is null %} 0 {% else %} {{ issue.downloadCount }} {% endif %}
+                {% if issue.downloadCount is null %} 0 {% else %} {{ issue.downloadCount|number_format }} {% endif %}
             </h5>
         </div>
 
@@ -75,7 +75,7 @@
                                             <i class="fa fa-eye"></i>
                                             {% if article.viewCount %}
                                                 <span class="text-muted">
-                                                        {{ article.viewCount }}
+                                                        {{ article.viewCount|number_format }}
                                                 </span>
                                             {% endif %}
                                         </li>

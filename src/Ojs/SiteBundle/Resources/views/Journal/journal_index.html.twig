@@ -41,11 +41,11 @@
                         {{ journal.title }}
                         <small>
                             <i class="fa fa-eye"></i>
-                            {{ journal.viewCount }}
+                            {{ journal.viewCount|number_format }}
                         </small>
                         <small>
                             <i class="fa fa-download"></i>
-                            {{ journal.downloadCount }}
+                            {{ journal.downloadCount|number_format }}
                         </small>
                     </h1>
                     <div class="col-md-12">
