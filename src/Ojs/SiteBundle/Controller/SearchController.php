@@ -82,7 +82,7 @@ class SearchController extends Controller
         }
 
         //set aggregations if requested
-        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters) || empty($localeFilters)) {
+        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters) || !empty($localeFilters)) {
 
             foreach ($roleFilters as $role) {
                 $match = new Query\Match();
