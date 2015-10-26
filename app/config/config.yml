@@ -56,7 +56,7 @@ twig:
   number_format:
     decimals: 2
     decimal_point: ','
-    thousands_seperator: '.'
+    thousands_separator: '.'
 
 fos_rest:
   body_listener: true
