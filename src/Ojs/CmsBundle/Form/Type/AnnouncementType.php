@@ -16,19 +16,8 @@ class AnnouncementType extends AbstractType
     {
         $builder
             ->add('title', 'text')
-            ->add('content', 'ace_editor', array(
-                    'wrapper_attr' => array(),
-                    'width' => 700,
-                    'height' => 200,
-                    'font_size' => 12,
-                    'mode' => 'ace/mode/html',
-                    'theme' => 'ace/theme/chrome',
-                    'tab_size' => null,
-                    'read_only' => null,
-                    'use_soft_tabs' => null,
-                    'use_wrap_mode' => null,
-                    'show_print_margin' => null,
-                    'highlight_active_line' => null
+            ->add('content', 'text', array(
+                    'attr' => array('class' => ' form-control wysihtml5')
                 )
             )
             ->add('image', 'jb_crop_image_ajax', array(

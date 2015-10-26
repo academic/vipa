@@ -22,20 +22,9 @@ class PostType extends AbstractType
                     'fields' => array(
                         'title' => [],
                         'content' => array(
-                            'field_type' => 'ace_editor',
-                            'label' => 'content',
-                            'wrapper_attr' => array(),
-                            'width' => 700,
-                            'height' => 200,
-                            'font_size' => 12,
-                            'mode' => 'ace/mode/html',
-                            'theme' => 'ace/theme/chrome',
-                            'tab_size' => null,
-                            'read_only' => null,
-                            'use_soft_tabs' => null,
-                            'use_wrap_mode' => null,
-                            'show_print_margin' => null,
-                            'highlight_active_line' => null
+                            'required' => false,
+                            'attr' => array('class' => ' form-control wysihtml5'),
+                            'field_type' => 'textarea'
                         )
                     )
                 )
