@@ -22,7 +22,8 @@ class SubmissionChecklistType extends AbstractType
             ->add('label', 'text', ['label' => 'submission_checklist.label'])
             ->add('detail', 'textarea', [
                 'required' => false,
-                'label' => 'submission_checklist.detail'
+                'label' => 'submission_checklist.detail',
+                'attr' => array('class' => ' form-control wysihtml5'),
             ])
             ->add(
                 'locale',
