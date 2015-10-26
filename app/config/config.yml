@@ -53,6 +53,10 @@ twig:
     ojs_tw: %ojs_tw%
     ojs_fb: %ojs_fb%
     project_name: %project_name%
+  number_format:
+    decimals: 2
+    decimal_point: ','
+    thousands_seperator: '.'
 
 fos_rest:
   body_listener: true
