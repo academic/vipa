@@ -57,9 +57,6 @@ class CoreEventListener implements EventSubscriberInterface
         return array(
             CoreEvents::OJS_INSTALL_BASE => 'onInstallBase',
             CoreEvents::OJS_INSTALL_3PARTY => 'onInstall3Party',
-            CoreEvents::OJS_UPLOAD_FILE => 'onUploadFile',
-            CoreEvents::OJS_CROP_FILE => 'onCropFile',
-            CoreEvents::OJS_ELASTICA_REQUEST => 'onElasticaRequest'
         );
     }
 
@@ -93,30 +90,6 @@ class CoreEventListener implements EventSubscriberInterface
                 'Core Event : Core Install 3 Party'
             );
         }
-    }
-
-    /**
-     * @param CoreEvent $event
-     */
-    public function onUploadFile(CoreEvent $event)
-    {
-
-    }
-
-    /**
-     * @param CoreEvent $event
-     */
-    public function onCropFile(CoreEvent $event)
-    {
-
-    }
-
-    /**
-     * @param CoreEvent $event
-     */
-    public function onElasticaRequest(CoreEvent $event)
-    {
-
     }
 
     /**
