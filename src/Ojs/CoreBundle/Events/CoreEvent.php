@@ -6,8 +6,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CoreEvent extends Event
 {
@@ -40,14 +38,6 @@ class CoreEvent extends Event
     }
 
     /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
      * @return Journal
      */
     public function getJournal()
@@ -69,21 +59,5 @@ class CoreEvent extends Event
     public function getEventType()
     {
         return $this->eventType;
-    }
-
-    /**
-     * @return Response
-     */
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    /**
-     * @param Response $response
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
     }
 }

@@ -11,6 +11,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ojs\CoreBundle\Events\CoreEvents;
+use Ojs\CoreBundle\Events\CoreEvent;
 
 class ThirdPartyInstallCommand extends ContainerAwareCommand
 {
@@ -85,16 +88,19 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @return null
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->getContainer()->get('event_dispatcher');
         $this->packageName = $input->getArgument('packageName');
         if(!array_key_exists($this->packageName, $this->packageData)){
             $output->writeln(
                 '<error>Package not exists!</error>'
             );
 
-            return;
+            return null;
         }
         /** @var KernelInterface $kernel */
         $kernel = $this->getContainer()->get('kernel');
@@ -109,6 +115,9 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         $this->composerUpdate($output, $kernel);
         $this->schemaUpdate($output, $kernel);
         $this->asseticDump($output, $kernel);
+
+        $event = new CoreEvent();
+        $dispatcher->dispatch(CoreEvents::OJS_INSTALL_3PARTY, $event);
     }
 
     private function composerUpdate(OutputInterface $output, KernelInterface $kernel)

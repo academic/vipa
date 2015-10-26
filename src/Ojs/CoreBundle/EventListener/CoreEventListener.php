@@ -84,7 +84,15 @@ class CoreEventListener implements EventSubscriberInterface
      */
     public function onInstall3Party(CoreEvent $event)
     {
-
+        $adminUsers = $this->getAdminUsers();
+        /** @var User $user */
+        foreach($adminUsers as $user){
+            $this->sendMail(
+                $user,
+                'Core Event : Core Install 3 Party',
+                'Core Event : Core Install 3 Party'
+            );
+        }
     }
 
     /**
