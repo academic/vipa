@@ -16,7 +16,8 @@ class AnnouncementType extends AbstractType
     {
         $builder
             ->add('title', 'text')
-            ->add('content', 'text', array(
+            ->add('content', 'textarea', array(
+                    'required' => false,
                     'attr' => array('class' => ' form-control wysihtml5')
                 )
             )
