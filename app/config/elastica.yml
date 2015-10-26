@@ -65,6 +65,8 @@ fos_elastica:
             translations:
               type: "object"
               properties:
+                locale:
+                  type: string
                 title:
                   type: string
                 subjects:
@@ -223,6 +225,8 @@ fos_elastica:
             translations:
               type: "object"
               properties:
+                locale:
+                  type: string
                 title:
                   type: string
                 subtitle:

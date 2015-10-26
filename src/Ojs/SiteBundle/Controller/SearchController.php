@@ -26,9 +26,11 @@ class SearchController extends Controller
         $getRoles = $request->query->get('role_filters');
         $getSubjects = $request->query->get('subject_filters');
         $getJournals = $request->query->get('journal_filters');
+        $getLocales = $request->query->get('locale_filters');
         $roleFilters = !empty($getRoles) ? explode(',', $getRoles) : [];
         $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
         $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
+        $localeFilters = !empty($getLocales) ? explode(',', $getLocales) : [];
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
@@ -80,7 +82,7 @@ class SearchController extends Controller
         }
 
         //set aggregations if requested
-        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters)) {
+        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters) || empty($localeFilters)) {
 
             foreach ($roleFilters as $role) {
                 $match = new Query\Match();
@@ -97,6 +99,12 @@ class SearchController extends Controller
             foreach ($journalFilters as $journal) {
                 $match = new Query\Match();
                 $match->setField('user.userJournalRoles.journal.title', $journal);
+                $boolQuery->addMust($match);
+            }
+
+            foreach ($localeFilters as $locale) {
+                $match = new Query\Match();
+                $match->setField('translations.locale', $locale);
                 $boolQuery->addMust($match);
             }
         }
@@ -125,6 +133,12 @@ class SearchController extends Controller
         $journalAgg->setOrder('_term', 'asc');
         $journalAgg->setSize(0);
         $searchQuery->addAggregation($journalAgg);
+
+        $localeAgg = new Aggregation\Terms('locales');
+        $localeAgg->setField('translations.locale');
+        $localeAgg->setOrder('_term', 'asc');
+        $localeAgg->setSize(0);
+        $searchQuery->addAggregation($localeAgg);
         /**
          * @var ResultSet $resultData
          */
@@ -133,7 +147,8 @@ class SearchController extends Controller
         $roles = $resultData->getAggregation('roles')['buckets'];
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
-        
+        $locales = $resultData->getAggregation('locales')['buckets'];
+
         if ($resultData->count() > 0) {
             /**
              * manipulate result data for easily use on template
@@ -182,10 +197,12 @@ class SearchController extends Controller
                 'total_count' => $searchManager->getTotalHit(),
                 'roles' => $roles,
                 'subjects' => $subjects,
+                'locales' => $locales,
                 'journals' => $journals,
                 'role_filters' => $roleFilters,
                 'subject_filters' => $subjectFilters,
                 'journal_filters' => $journalFilters,
+                'locale_filters' => $localeFilters,
                 'pagerfanta' => $pagerfanta
             ];
 

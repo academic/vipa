@@ -150,6 +150,38 @@
                             </ul>
                         </div>
                     {% endif %}
+                    {% if locales is not empty %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ 'lang.plural'|trans }}</div>
+                            <ul class="list-group">
+                                {% for locale in locales %}
+                                    <li class="list-group-item">
+                                        {% if locale_filters is empty %}
+                                            {% set parameter = locale.key %}
+                                            <a href="{{ path('ojs_search_index',
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': locale.key }))) }}">{{ locale.key }}</a>
+                                        {% else %}
+                                            {% if locale.key in locale_filters %}
+                                                {% set parameter = locale_filters|pop(locale.key) %}
+                                                {{ locale.key|trans }}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">
+                                            <span class="label label-danger">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </span>
+                                                </a>
+                                            {% else %}
+                                                {% set parameter = locale_filters|merge([locale.key]) %}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">{{ locale.key }}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                        <span class="badge">{{ locale.doc_count }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     {% if subjects is defined and roles is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'roles'|trans }}</div>
