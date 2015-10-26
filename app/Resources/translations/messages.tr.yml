@@ -334,6 +334,7 @@ details: Ayrıntılar
 discovery: Keşif
 documents: Belgeler
 doi: DOI
+doi.config.title: DOI
 done: Tamamlandı
 drop: 'İptal Et'
 drop.proxy.user: 'Vekil Kullanıcıyı İptal Et'

@@ -334,6 +334,7 @@ details: Details
 discovery: Discovery
 documents: Documents
 doi: DOI
+doi.config.title: DOI
 done: Done
 drop: Drop
 drop.proxy.user: 'Drop Proxy User'
