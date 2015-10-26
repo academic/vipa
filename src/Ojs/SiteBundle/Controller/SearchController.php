@@ -28,11 +28,13 @@ class SearchController extends Controller
         $getJournals = $request->query->get('journal_filters');
         $getLocales = $request->query->get('locale_filters');
         $getPublishers = $request->query->get('publisher_filters');
+        $getIndexes = $request->query->get('index_filters');
         $roleFilters = !empty($getRoles) ? explode(',', $getRoles) : [];
         $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
         $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
         $localeFilters = !empty($getLocales) ? explode(',', $getLocales) : [];
         $publisherFilters = !empty($getPublishers) ? explode(',', $getPublishers) : [];
+        $indexFilters = !empty($getIndexes) ? explode(',', $getIndexes) : [];
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
@@ -119,6 +121,12 @@ class SearchController extends Controller
                 $match->setField('publisher.name', $publisher);
                 $boolQuery->addMust($match);
             }
+
+            foreach ($indexFilters as $index) {
+                $match = new Query\Match();
+                $match->setField('journalIndexs.index.name', $index);
+                $boolQuery->addMust($match);
+            }
         }
         
         //set our boolean query
@@ -158,6 +166,13 @@ class SearchController extends Controller
         $publisherAgg->setOrder('_term', 'asc');
         $publisherAgg->setSize(0);
         $searchQuery->addAggregation($publisherAgg);
+
+        $indexAgg = new Aggregation\Terms('indexes');
+        $indexAgg->setField('journalIndexs.index.name.raw');
+        $indexAgg->setOrder('_term', 'asc');
+        $indexAgg->setSize(0);
+        $searchQuery->addAggregation($indexAgg);
+
         /**
          * @var ResultSet $resultData
          */
@@ -168,6 +183,7 @@ class SearchController extends Controller
         $journals = $resultData->getAggregation('journals')['buckets'];
         $locales = $resultData->getAggregation('locales')['buckets'];
         $publishers = $resultData->getAggregation('publishers')['buckets'];
+        $indexes = $resultData->getAggregation('indexes')['buckets'];
 
         if ($resultData->count() > 0) {
             /**
@@ -220,11 +236,13 @@ class SearchController extends Controller
                 'locales' => $locales,
                 'journals' => $journals,
                 'publishers' => $publishers,
+                'indexes' => $indexes,
                 'role_filters' => $roleFilters,
                 'subject_filters' => $subjectFilters,
                 'journal_filters' => $journalFilters,
                 'locale_filters' => $localeFilters,
                 'publisher_filters' => $publisherFilters,
+                'index_filters' => $indexFilters,
                 'pagerfanta' => $pagerfanta
             ];
 

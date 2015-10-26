@@ -182,6 +182,38 @@
                             </ul>
                         </div>
                     {% endif %}
+                    {% if indexes is defined and indexes is not empty %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ 'title.indexes'|trans }}</div>
+                            <ul class="list-group">
+                                {% for index in indexes %}
+                                    <li class="list-group-item">
+                                        {% if index_filters is empty %}
+                                            {% set parameter = index.key %}
+                                            <a href="{{ path('ojs_search_index',
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': index.key }))) }}">{{ index.key }}</a>
+                                        {% else %}
+                                            {% if index.key in index_filters %}
+                                                {% set parameter = index_filters|pop(index.key) %}
+                                                {{ index.key }}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': parameter|join(',') }))) }}">
+                                            <span class="label label-danger">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </span>
+                                                </a>
+                                            {% else %}
+                                                {% set parameter = index_filters|merge([index.key]) %}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': parameter|join(',') }))) }}">{{ index.key }}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                        <span class="badge">{{ index.doc_count }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                     {% if locales is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'lang.plural'|trans }}</div>

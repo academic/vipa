@@ -278,6 +278,18 @@ fos_elastica:
             image: ~
             viewCount: ~
             downloadCount: ~
+            journalIndexs:
+              type: object
+              properties:
+                index:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      fields:
+                        raw:
+                          type: string
+                          index: not_analyzed
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Journal
