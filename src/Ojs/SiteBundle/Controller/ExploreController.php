@@ -47,7 +47,7 @@ class ExploreController extends Controller
 
             foreach ($publisherFilters as $publisher) {
                 $match = new Query\Match();
-                $match->setField('publisher.name', $publisher);
+                $match->setField('publisher.name.raw', $publisher);
                 $boolQuery->addMust($match);
             }
         }
@@ -67,7 +67,7 @@ class ExploreController extends Controller
         $journalQuery->addAggregation($subjectAgg);
 
         $publisherAgg = new Aggregation\Terms('publishers');
-        $publisherAgg->setField('publisher.name');
+        $publisherAgg->setField('publisher.name.raw');
         $publisherAgg->setOrder('_term', 'asc');
         $publisherAgg->setSize(0);
         $journalQuery->addAggregation($publisherAgg);
