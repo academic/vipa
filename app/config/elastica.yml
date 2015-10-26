@@ -260,7 +260,12 @@ fos_elastica:
             publisher:
               type: object
               properties:
-                name: { type: string }
+                name:
+                  type: string
+                  fields:
+                    raw:
+                      type: string
+                      index: not_analyzed
                 slug: { type: string }
                 publisherType:
                   type: object

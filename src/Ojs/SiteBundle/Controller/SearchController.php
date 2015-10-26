@@ -27,10 +27,12 @@ class SearchController extends Controller
         $getSubjects = $request->query->get('subject_filters');
         $getJournals = $request->query->get('journal_filters');
         $getLocales = $request->query->get('locale_filters');
+        $getPublishers = $request->query->get('publisher_filters');
         $roleFilters = !empty($getRoles) ? explode(',', $getRoles) : [];
         $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
         $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
         $localeFilters = !empty($getLocales) ? explode(',', $getLocales) : [];
+        $publisherFilters = !empty($getPublishers) ? explode(',', $getPublishers) : [];
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
@@ -82,8 +84,12 @@ class SearchController extends Controller
         }
 
         //set aggregations if requested
-        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters) || !empty($localeFilters)) {
-
+        if (!empty($roleFilters) 
+            || !empty($subjectFilters) 
+            || !empty($journalFilters) 
+            || !empty($localeFilters) 
+            || !empty($publisherFilters)
+        ) {
             foreach ($roleFilters as $role) {
                 $match = new Query\Match();
                 $match->setField('user.userJournalRoles.role.name', $role);
@@ -107,7 +113,14 @@ class SearchController extends Controller
                 $match->setField('translations.locale', $locale);
                 $boolQuery->addMust($match);
             }
+
+            foreach ($publisherFilters as $publisher) {
+                $match = new Query\Match();
+                $match->setField('publisher.name', $publisher);
+                $boolQuery->addMust($match);
+            }
         }
+        
         //set our boolean query
         $searchQuery->setQuery($boolQuery);
         //get all result
@@ -139,6 +152,12 @@ class SearchController extends Controller
         $localeAgg->setOrder('_term', 'asc');
         $localeAgg->setSize(0);
         $searchQuery->addAggregation($localeAgg);
+
+        $publisherAgg = new Aggregation\Terms('publishers');
+        $publisherAgg->setField('publisher.name.raw');
+        $publisherAgg->setOrder('_term', 'asc');
+        $publisherAgg->setSize(0);
+        $searchQuery->addAggregation($publisherAgg);
         /**
          * @var ResultSet $resultData
          */
@@ -148,6 +167,7 @@ class SearchController extends Controller
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
         $locales = $resultData->getAggregation('locales')['buckets'];
+        $publishers = $resultData->getAggregation('publishers')['buckets'];
 
         if ($resultData->count() > 0) {
             /**
@@ -199,10 +219,12 @@ class SearchController extends Controller
                 'subjects' => $subjects,
                 'locales' => $locales,
                 'journals' => $journals,
+                'publishers' => $publishers,
                 'role_filters' => $roleFilters,
                 'subject_filters' => $subjectFilters,
                 'journal_filters' => $journalFilters,
                 'locale_filters' => $localeFilters,
+                'publisher_filters' => $publisherFilters,
                 'pagerfanta' => $pagerfanta
             ];
 
