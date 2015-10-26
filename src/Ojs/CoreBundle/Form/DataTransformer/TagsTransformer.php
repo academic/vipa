@@ -25,9 +25,9 @@ class TagsTransformer implements DataTransformerInterface
 
     public function reverseTransform($values = null)
     {
-        if(empty($values)){
+        if(empty($values) || !is_array($values)){
             return null;
         }
-        return implode ($this->delimiter, $values);
+        return implode($this->delimiter, $values);
     }
 }

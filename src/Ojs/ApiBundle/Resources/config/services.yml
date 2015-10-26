@@ -41,6 +41,8 @@ parameters:
     ojs_api.journal_board.class: Ojs\JournalBundle\Entity\Board
     ojs_api.journal_section.handler.class: Ojs\ApiBundle\Handler\JournalSectionHandler
     ojs_api.journal_section.class: Ojs\JournalBundle\Entity\Section
+    ojs_api.journal_article.handler.class: Ojs\ApiBundle\Handler\JournalArticleHandler
+    ojs_api.journal_article.class: Ojs\JournalBundle\Entity\Article
 
 services:
     ojs_api.contact_type.handler:
@@ -101,8 +103,11 @@ services:
         class: %ojs_api.journal_theme.handler.class%
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_theme.class%', '@form.factory', '@ojs.journal_service']
     ojs_api.journal_board.handler:
-            class: %ojs_api.journal_board.handler.class%
-            arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_board.class%', '@form.factory', '@ojs.journal_service']
+        class: %ojs_api.journal_board.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_board.class%', '@form.factory', '@ojs.journal_service']
     ojs_api.journal_section.handler:
-            class: %ojs_api.journal_section.handler.class%
-            arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_section.class%', '@form.factory', '@ojs.journal_service']
+        class: %ojs_api.journal_section.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_section.class%', '@form.factory', '@ojs.journal_service']
+    ojs_api.journal_article.handler:
+        class: %ojs_api.journal_article.handler.class%
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
