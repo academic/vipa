@@ -20,6 +20,7 @@ email_confirm:
     defaults: { _controller: OjsUserBundle:Security:confirmEmail }
 
 logout:
+    host: %base_host%
     path: /logout
 
 login_check:

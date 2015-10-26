@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li class="{% if page == 'ojs_public_index' %}active{% endif %} navbar-btn">
-                    <a href="/page/about" data-placement="bottom"
+                    <a href="{{ url('ojs_public_index') }}page/about" data-placement="bottom"
                        title="{{ "title.about"|trans }}"><i
                                 class="fa fa-info fa-fw"></i></a>
                 </li>
@@ -68,7 +68,7 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ path('ojs_user_profile', {slug: app.user.username}) }}"
+                                <li><a href="{{ url('ojs_user_profile', {slug: app.user.username}) }}"
                                        title="{{ "you"|trans }}"><b>{{ app.user.username }}</b></a></li>
 
                                 <li>

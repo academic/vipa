@@ -10,10 +10,12 @@ redirect:
 
 ojs_user_profile:
     path: /@{slug}
+    host: %base_host%
     defaults: { _controller: OjsSiteBundle:User:profile }
 
 ojs_user_edit_profile:
     path: /user/update
+    host: %base_host%
     defaults: { _controller: "OjsSiteBundle:User:editProfile"}
 
 ojs_user_custom_field:
@@ -136,6 +138,7 @@ ojs_site_download:
 
 ojs_site_page:
     path: /page/{slug}
+    host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:pageDetail }
 
 ojs_site_post:
