@@ -86,7 +86,7 @@
                         </div>
                     {% endif %}
 
-                    {% if subjects is not empty %}
+                    {% if subjects is defined and subjects is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'subjects'|trans }}</div>
                             <ul class="list-group">
@@ -118,7 +118,7 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if journals is not empty %}
+                    {% if journals is defined and journals is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'journals'|trans }}</div>
                             <ul class="list-group">
