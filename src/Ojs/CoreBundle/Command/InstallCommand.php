@@ -3,6 +3,7 @@
 namespace Ojs\CoreBundle\Command;
 
 use Composer\Script\CommandEvent;
+use Exception;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\CoreBundle\Acl\JournalRoleSecurityIdentity;
 use Ojs\JournalBundle\Entity\Journal;
@@ -146,18 +147,38 @@ class InstallCommand extends ContainerAwareCommand
         $application->run(new StringInput($command2));
 
         if (!$input->getOption('no-location')) {
-            $location = $this->getContainer()->get('kernel')->getRootDir(
-                ).'/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
-            $locationSql = file_get_contents($location);
+            try {
+                $location = $this
+                        ->getContainer()->get('kernel')
+                        ->getRootDir() . '/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
+                $locationSql = file_get_contents($location);
 
-            $driver = $this->getContainer()->getParameter('database_driver');
-            if ($driver == 'pdo_mysql') {
+                $driver = $this->getContainer()->getParameter('database_driver');
 
-                $locationSql = 'SET foreign_key_checks = 0;' . $locationSql . 'SET foreign_key_checks = 1;';
+                if ($driver == 'pdo_mysql') {
+                    $locationSql = 'SET foreign_key_checks = 0;' . $locationSql . 'SET foreign_key_checks = 1;';
+                }
+
+                $parameters = [
+                    'host' => $this->getContainer()->getParameter('database_host'),
+                    'user' => $this->getContainer()->getParameter('database_user'),
+                    'password' => $this->getContainer()->getParameter('database_password'),
+                    'dbname' => $this->getContainer()->getParameter('database_name'),
+                    'driver' => $this->getContainer()->getParameter('database_driver'),
+                    'charset' => 'utf8',
+                ];
+
+
+                $connection = $this
+                    ->getContainer()
+                    ->get('doctrine.dbal.connection_factory')
+                    ->createConnection($parameters);
+
+                $connection->executeQuery($locationSql);
+                $output->writeln('Locations inserted.');
+            } catch (Exception $e) {
+                $output->writeln('Location insertion failed.');
             }
-            $command3 = 'doctrine:query:sql "'.$locationSql.'"';
-            $application->run(new StringInput($command3));
-            $output->writeln('Locations inserted.');
         }
 
         if (!$input->getOption('no-role')) {
