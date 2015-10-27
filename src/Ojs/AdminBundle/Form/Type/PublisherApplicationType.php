@@ -55,9 +55,15 @@ class PublisherApplicationType extends AbstractType
                     'maxSize' => "[960, 200]"
                 )
             ))
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
-        ;
+            ->add('country', 'entity', array(
+                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'required'      => false,
+                'label'         => 'Country',
+                'empty_value'   => 'Select Country',
+                'attr'          => array(
+                    'class' => 'select2-element',
+                ),
+            ));
     }
 
     /**

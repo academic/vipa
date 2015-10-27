@@ -175,8 +175,15 @@ class PublisherType extends AbstractType
             )
             ->add('addressLat', 'text', ['label' => 'addressLat', 'attr' => ['data-id' => 'addressLat']])
             ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']])
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
+            ->add('country', 'entity', array(
+                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'required'      => false,
+                'label'         => 'Country',
+                'empty_value'   => 'Select Country',
+                'attr'          => array(
+                    'class' => 'select2-element',
+                ),
+            ));
     }
 
     /**

@@ -99,9 +99,15 @@ class UserType extends AbstractType
                     'aspect-ratio' => 200 / 200,
                     'maxSize' => "[200, 200]"
                 )
-            ))
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
+            ))->add('country', 'entity', array(
+                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'required'      => false,
+                'label'         => 'Country',
+                'empty_value'   => 'Select Country',
+                'attr'          => array(
+                    'class' => 'select2-element',
+                ),
+            ));
     }
 
     /**

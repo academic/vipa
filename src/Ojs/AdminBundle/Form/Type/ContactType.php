@@ -24,8 +24,15 @@ class ContactType extends AbstractType
             ->add('tags', 'tags')
             ->add('contactType')
             ->add('journal', 'entity', ['class' => 'Ojs\JournalBundle\Entity\Journal'])
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'));
+            ->add('country', 'entity', array(
+                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'required'      => false,
+                'label'         => 'Country',
+                'empty_value'   => 'Select Country',
+                'attr'          => array(
+                    'class' => 'select2-element',
+                ),
+            ));
     }
 
     /**

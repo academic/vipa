@@ -70,8 +70,15 @@ class UpdateUserType extends AbstractType
                     'required' => false,
                 ]
             )
-            ->addEventSubscriber(new AddProvinceFieldSubscriber())
-            ->addEventSubscriber(new AddCountryFieldSubscriber('/location/cities/'))
+            ->add('country', 'entity', array(
+                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'required'      => false,
+                'label'         => 'Country',
+                'empty_value'   => 'Select Country',
+                'attr'          => array(
+                    'class' => 'select2-element',
+                ),
+            ))
         ;
     }
 

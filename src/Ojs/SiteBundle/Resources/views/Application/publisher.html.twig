@@ -50,7 +50,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.phone, form.fax, form.email, form.address, form.country, form.city,
+                        {% for field in [form.phone, form.fax, form.email, form.address, form.country,
                         form.addressLat, form.addressLong, form.url, form.wiki,] %}
                             {{ form_row(field) }}
                         {% endfor %}
