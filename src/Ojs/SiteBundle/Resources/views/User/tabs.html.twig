@@ -12,5 +12,6 @@
         <li role="presentation" {% if activo == 4 %}class="active"{% endif %}>
             <a href="{{ url('fos_user_change_password') }}">{{ "user.change_password"|trans }}</a>
         </li>
+        {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_EDIT_TABS', 'activeTab': activo})|raw }}
     </ul>
 </section>

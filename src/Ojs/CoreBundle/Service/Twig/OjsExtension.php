@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Service\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
+use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\JournalBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
+use Ojs\CoreBundle\Events\TwigEvents;
 
 class OjsExtension extends \Twig_Extension
 {
@@ -32,16 +35,19 @@ class OjsExtension extends \Twig_Extension
     private $cmsShowRoutes;
     /** @var RequestStack */
     private $requestStack;
+    /** @var TraceableEventDispatcher */
+    private $eventDispatcher;
 
     /**
-     * @param EntityManager         $em
-     * @param RouterInterface       $router
-     * @param TranslatorInterface   $translator
-     * @param JournalService        $journalService
-     * @param TokenStorageInterface $tokenStorage
-     * @param Session               $session
-     * @param RequestStack          $requestStack
-     * @param null                  $cmsShowRoutes
+     * @param EntityManager             $em
+     * @param RouterInterface           $router
+     * @param TranslatorInterface       $translator
+     * @param JournalService            $journalService
+     * @param TokenStorageInterface     $tokenStorage
+     * @param Session                   $session
+     * @param RequestStack              $requestStack
+     * @param null                      $cmsShowRoutes
+     * @param TraceableEventDispatcher  $eventDispatcher
      */
     public function __construct(
         EntityManager $em = null,
@@ -51,7 +57,8 @@ class OjsExtension extends \Twig_Extension
         TokenStorageInterface $tokenStorage = null,
         Session $session = null,
         RequestStack $requestStack,
-        $cmsShowRoutes = null
+        $cmsShowRoutes = null,
+        TraceableEventDispatcher $eventDispatcher
     ) {
         $this->em = $em;
         $this->router = $router;
@@ -61,6 +68,7 @@ class OjsExtension extends \Twig_Extension
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
         $this->requestStack = $requestStack;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function getFilters()
@@ -105,6 +113,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
+            new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch'))
         );
     }
 
@@ -452,6 +461,14 @@ class OjsExtension extends \Twig_Extension
     public function getAdminPages()
     {
         return $this->em->getRepository('OjsAdminBundle:AdminPage')->findAll();
+    }
+
+    public function twigEventDispatch($options)
+    {
+        $twigEvent = new TwigEvent($options);
+        $eventName = constant('Ojs\CoreBundle\Events\TwigEvents::'.$options['event_name']);
+        $dispatchEvent = $this->eventDispatcher->dispatch($eventName, $twigEvent);
+        return $dispatchEvent->getTemplate();
     }
 
     public function getName()
