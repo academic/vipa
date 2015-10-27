@@ -159,6 +159,7 @@ apply.for.new.journal: 'Yeni Dergi Olarak Başvur'
 archive: Arşiv
 article: Makale
 article.add: 'Makale Ekle'
+article.edit: 'Makale Düzenle'
 article.all: 'Tüm Makaleler'
 article.any_article_viewed: 'Hiç Makale Görüntülenmedi.'
 article.any_downloaded: 'Hiç Makale İndirilmedi.'

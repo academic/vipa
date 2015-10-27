@@ -159,6 +159,7 @@ apply.for.new.journal: 'Apply For New Journal'
 archive: Archive
 article: Submissions
 article.add: 'New Submission'
+article.edit: 'Submission Edit'
 article.all: 'All Submissions'
 article.any_article_viewed: 'No submissions viewed yet'
 article.any_downloaded: 'No submissions downloaded yet'
