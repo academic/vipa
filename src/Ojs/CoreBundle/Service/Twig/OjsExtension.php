@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\CoreBundle\Events\TwigEvents;
 
 class OjsExtension extends \Twig_Extension
@@ -35,7 +35,7 @@ class OjsExtension extends \Twig_Extension
     private $cmsShowRoutes;
     /** @var RequestStack */
     private $requestStack;
-    /** @var TraceableEventDispatcher */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /**
@@ -47,7 +47,7 @@ class OjsExtension extends \Twig_Extension
      * @param Session                   $session
      * @param RequestStack              $requestStack
      * @param null                      $cmsShowRoutes
-     * @param TraceableEventDispatcher  $eventDispatcher
+     * @param EventDispatcherInterface  $eventDispatcher
      */
     public function __construct(
         EntityManager $em = null,
@@ -58,7 +58,7 @@ class OjsExtension extends \Twig_Extension
         Session $session = null,
         RequestStack $requestStack,
         $cmsShowRoutes = null,
-        TraceableEventDispatcher $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->em = $em;
         $this->router = $router;
