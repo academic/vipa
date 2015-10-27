@@ -125,10 +125,12 @@ class JournalService
         if (!$journalId) {
             return false;
         }
+        /** @var Journal $selectedJournal */
         $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
         if (!$selectedJournal) {
             return false;
         }
+        $this->em->getConfiguration()->setDefaultQueryHint('multiJournal', $selectedJournal->getId());
         return $selectedJournal;
     }
 
