@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\UserBundle\Entity\User;
 use OkulBilisim\LocationBundle\Entity\Country;
 use OkulBilisim\LocationBundle\Entity\Province;
-use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -66,9 +66,9 @@ class Publisher extends AbstractTranslatable
      */
     private $about;
     /**
-     * @var Province
+     * @var string
      * @Expose
-     * @GRID\Column(field="city.name",title="city")
+     * @GRID\Column(field="city",title="city")
      */
     private $city;
     /**

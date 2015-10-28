@@ -38,7 +38,7 @@ class UserControllerTest extends BaseTestCase
         $form['ojs_userbundle_user[subjects]'] = [1, 2, 3];
         $form['ojs_userbundle_user[country]']->select(1);
         $form['ojs_userbundle_user[city]']->disableValidation();
-        $form['ojs_userbundle_user[city]']->select(100);
+        $form['ojs_userbundle_user[city]'] = 'Ankara';
         $form['ojs_userbundle_user[avatar]'] = 'image.jpg';
         $form['ojs_userbundle_user[header]'] = 'image.jpg';
         $result = $this->client->submit($form);

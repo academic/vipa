@@ -17,12 +17,11 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\Subject;
 use OkulBilisim\LocationBundle\Entity\Country;
-use OkulBilisim\LocationBundle\Entity\Province;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * User
@@ -80,6 +79,8 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     protected $fax;
     /** @var  string */
     protected $address;
+    /** @var  city */
+    protected $city;
     /** @var  string */
     protected $billing_address;
     /** @var  ArrayCollection|Author[] */
@@ -110,12 +111,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      * @JMS\Expose
      */
     private $country;
-
-    /**
-     * @var Province
-     * @JMS\Expose
-     */
-    private $city;
 
     /**
      * @var string
@@ -398,6 +393,25 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     }
 
     /**
+     * @return city
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param  string $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
      * @return ArrayCollection|Author[]
      */
     public function getAuthorDetails()
@@ -647,12 +661,10 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
             'full_name' => $this->getFullName(),
             'header' => $this->getHeader(),
             'title' => $this->getTitle(),
+            'city' => $this->getCity()
         ];
         if ($this->getCountry() instanceof Country) {
             $data['country'] = $this->getCountry()->getName();
-        }
-        if ($this->getCity() instanceof Province) {
-            $data['city'] = $this->getCity()->getName();
         }
 
         return json_encode($data);
@@ -730,25 +742,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     public function setCountry(Country $country)
     {
         $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return Province
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param  Province $city
-     * @return User
-     */
-    public function setCity(Province $city)
-    {
-        $this->city = $city;
 
         return $this;
     }

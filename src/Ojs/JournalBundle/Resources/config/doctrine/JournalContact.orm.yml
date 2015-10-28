@@ -19,11 +19,6 @@ Ojs\JournalBundle\Entity\JournalContact:
                 joinColumn:
                   name: country_id
                   referencedColumnName: id
-          city:
-                targetEntity: OkulBilisim\LocationBundle\Entity\Province
-                joinColumn:
-                  name: city_id
-                  referencedColumnName: id
           journal:
                 targetEntity: Ojs\JournalBundle\Entity\Journal
                 joinColumn:
@@ -73,6 +68,9 @@ Ojs\JournalBundle\Entity\JournalContact:
             gedmo:
                 - versioned
                 - translatable
+        city:
+            type: text
+            nullable: true
         created:
             type: datetime
             gedmo:

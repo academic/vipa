@@ -8,7 +8,6 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use OkulBilisim\LocationBundle\Entity\Country;
-use OkulBilisim\LocationBundle\Entity\Province;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -65,9 +64,9 @@ class Institution extends AbstractTranslatable
      */
     private $about;
     /**
-     * @var Province
+     * @var string
      * @Expose
-     * @GRID\Column(field="city.name",title="city")
+     * @GRID\Column(field="city",title="city")
      */
     private $city;
     /**
@@ -232,7 +231,7 @@ class Institution extends AbstractTranslatable
     /**
      * Get city
      *
-     * @return Province
+     * @return string
      */
     public function getCity()
     {
@@ -242,10 +241,10 @@ class Institution extends AbstractTranslatable
     /**
      * Set city
      *
-     * @param  Province $city
+     * @param  string $city
      * @return $this
      */
-    public function setCity(Province $city = null)
+    public function setCity($city = null)
     {
         $this->city = $city;
 

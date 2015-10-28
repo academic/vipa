@@ -199,10 +199,10 @@ class JournalContact
     }
 
     /**
-     * @param  Province $city
+     * @param  string $city
      * @return $this
      */
-    public function setCity(Province $city)
+    public function setCity($city)
     {
         $this->city = $city;
         return $this;

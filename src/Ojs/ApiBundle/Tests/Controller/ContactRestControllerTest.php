@@ -26,7 +26,7 @@ class ContactRestControllerTest extends BaseTestCase
             'contactType' => 4,
             'journal' => 1,
             'country' => 216,
-            'city' => 1419
+            'city' => 'Ankara'
         ];
         $url = $this->router->generate('api_1_get_contacts');
         $this->client->request(
@@ -61,7 +61,7 @@ class ContactRestControllerTest extends BaseTestCase
             'contactType' => 4,
             'journal' => 1,
             'country' => 216,
-            'city' => 1419
+            'city' => 'Ankara'
         ];
         $url = $this->router->generate('api_1_put_contact', ['id' => 550]);
         $this->client->request(

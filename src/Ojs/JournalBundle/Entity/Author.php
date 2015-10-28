@@ -6,9 +6,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
-use OkulBilisim\LocationBundle\Entity\Country;
-use OkulBilisim\LocationBundle\Entity\Province;
 use Ojs\UserBundle\Entity\User;
+use OkulBilisim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -24,7 +23,7 @@ class Author extends AbstractTranslatable
     /** @var  Country */
     protected $country;
 
-    /** @var  Province */
+    /** @var  string */
     protected $city;
 
     /** @var  string */
@@ -621,7 +620,7 @@ class Author extends AbstractTranslatable
     }
 
     /**
-     * @return Province
+     * @return string
      */
     public function getCity()
     {
@@ -629,10 +628,10 @@ class Author extends AbstractTranslatable
     }
 
     /**
-     * @param  Province $city
+     * @param   $city
      * @return $this
      */
-    public function setCity(Province $city)
+    public function setCity($city)
     {
         $this->city = $city;
 

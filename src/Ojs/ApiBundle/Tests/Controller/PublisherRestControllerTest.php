@@ -42,7 +42,7 @@ class PublisherRestControllerTest extends BaseTestCase
             'domain' => 'behram.org',
             'verified' => 1,
             'country' => 216,
-            'city' => 1419
+            'city' => 'Ankara'
 
         ];
         $url = $this->router->generate('api_1_get_publishers');
@@ -78,7 +78,7 @@ class PublisherRestControllerTest extends BaseTestCase
             'domain' => 'behram.org',
             'verified' => 1,
             'country' => 216,
-            'city' => 1419
+            'city' => 'Ankara'
 
         ];
         $url = $this->router->generate('api_1_put_publisher', ['id' => 550]);

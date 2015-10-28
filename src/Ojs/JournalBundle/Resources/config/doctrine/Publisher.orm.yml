@@ -40,11 +40,6 @@ Ojs\JournalBundle\Entity\Publisher:
             joinColumn:
                   name: country_id
                   referencedColumnName: id
-        city:
-            targetEntity: OkulBilisim\LocationBundle\Entity\Province
-            joinColumn:
-                  name: city_id
-                  referencedColumnName: id
         parent:
               targetEntity: Publisher
               inversedBy: children
@@ -104,6 +99,10 @@ Ojs\JournalBundle\Entity\Publisher:
             nullable: TRUE
             gedmo:
                 - versioned
+        city:
+            type: text
+            nullable: true
+
         addressLat:
             type: string
             length: 255

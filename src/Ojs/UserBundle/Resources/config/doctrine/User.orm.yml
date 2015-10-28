@@ -98,6 +98,9 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
+    city:
+      type: string
+      nullable: true
     created:
      type: datetime
      gedmo:
@@ -136,11 +139,6 @@ Ojs\UserBundle\Entity\User:
       targetEntity: OkulBilisim\LocationBundle\Entity\Country
       joinColumn:
         name: country_id
-        referencedColumnName: id
-    city:
-      targetEntity: OkulBilisim\LocationBundle\Entity\Province
-      joinColumn:
-        name: city_id
         referencedColumnName: id
   manyToMany:
     subjects:
