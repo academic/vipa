@@ -62,8 +62,8 @@
             </div>
         </div>
         <div class="row">
-
             <section role="search">
+
                 <div class="col-md-3 col-sm-4">
                     {% if results is defined %}
                         <div class="panel panel-default">
@@ -85,34 +85,33 @@
                             </ul>
                         </div>
                     {% endif %}
-
-                    {% if subjects is defined and subjects is not empty %}
+                    {% if locales is not empty %}
                         <div class="panel panel-default">
-                            <div class="panel-heading">{{ 'subjects'|trans }}</div>
+                            <div class="panel-heading">{{ 'lang.plural'|trans }}</div>
                             <ul class="list-group">
-                                {% for subject in subjects %}
+                                {% for locale in locales %}
                                     <li class="list-group-item">
-                                        {% if subject_filters is empty %}
-                                            {% set parameter = subject.key %}
+                                        {% if locale_filters is empty %}
+                                            {% set parameter = locale.key %}
                                             <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': subject.key }))) }}">{{ subject.key }}</a>
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': locale.key }))) }}">{{ locale.key }}</a>
                                         {% else %}
-                                            {% if subject.key in subject_filters %}
-                                                {% set parameter = subject_filters|pop(subject.key) %}
-                                                {{ subject.key }}
+                                            {% if locale.key in locale_filters %}
+                                                {% set parameter = locale_filters|pop(locale.key) %}
+                                                {{ locale.key|trans }}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}">
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">
                                             <span class="label label-danger">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </span>
                                                 </a>
                                             {% else %}
-                                                {% set parameter = subject_filters|merge([subject.key]) %}
+                                                {% set parameter = locale_filters|merge([locale.key]) %}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}">{{ subject.key }}</a>
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">{{ locale.key }}</a>
                                             {% endif %}
                                         {% endif %}
-                                        <span class="badge">{{ subject.doc_count }}</span>
+                                        <span class="badge">{{ locale.doc_count }}</span>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -214,38 +213,6 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if locales is not empty %}
-                        <div class="panel panel-default">
-                            <div class="panel-heading">{{ 'lang.plural'|trans }}</div>
-                            <ul class="list-group">
-                                {% for locale in locales %}
-                                    <li class="list-group-item">
-                                        {% if locale_filters is empty %}
-                                            {% set parameter = locale.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': locale.key }))) }}">{{ locale.key }}</a>
-                                        {% else %}
-                                            {% if locale.key in locale_filters %}
-                                                {% set parameter = locale_filters|pop(locale.key) %}
-                                                {{ locale.key|trans }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
-                                                </a>
-                                            {% else %}
-                                                {% set parameter = locale_filters|merge([locale.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">{{ locale.key }}</a>
-                                            {% endif %}
-                                        {% endif %}
-                                        <span class="badge">{{ locale.doc_count }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
                     {% if subjects is defined and roles is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'roles'|trans }}</div>
@@ -278,10 +245,41 @@
                             </ul>
                         </div>
                     {% endif %}
+                    {% if subjects is defined and subjects is not empty %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ 'subjects'|trans }}</div>
+                            <ul class="list-group">
+                                {% for subject in subjects %}
+                                    <li class="list-group-item">
+                                        {% if subject_filters is empty %}
+                                            {% set parameter = subject.key %}
+                                            <a href="{{ path('ojs_search_index',
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': subject.key }))) }}">{{ subject.key }}</a>
+                                        {% else %}
+                                            {% if subject.key in subject_filters %}
+                                                {% set parameter = subject_filters|pop(subject.key) %}
+                                                {{ subject.key }}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}">
+                                            <span class="label label-danger">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </span>
+                                                </a>
+                                            {% else %}
+                                                {% set parameter = subject_filters|merge([subject.key]) %}
+                                                <a href="{{ path('ojs_search_index',
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}">{{ subject.key }}</a>
+                                            {% endif %}
+                                        {% endif %}
+                                        <span class="badge">{{ subject.doc_count }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div class="search-results col-md-9 col-sm-8">
-
                     {% if results is defined %}
                         {% if total_count < 1 %}
                             <div role="tabpanel" class="tab-pane fade in active">
