@@ -74,7 +74,7 @@ class ExploreController extends Controller
 
         $adapter = new ElasticaAdapter($journalSearcher, $journalQuery);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(21);
+        $pagerfanta->setMaxPerPage(20);
         $pagerfanta->setCurrentPage($page);
         $journals = $pagerfanta->getCurrentPageResults();
 
@@ -123,7 +123,7 @@ class ExploreController extends Controller
 
         $adapter = new ElasticaAdapter($publisherSearcher, $publisherQuery);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(21);
+        $pagerfanta->setMaxPerPage(20);
         $pagerfanta->setCurrentPage($page);
         $publishers = $pagerfanta->getCurrentPageResults();
         $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
