@@ -55,7 +55,8 @@
                     <form action="{{ path('ojs_search_index') }}" method="get">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control" value=""
-                                   placeholder="{{ "search.on.everywhere"|trans }}" id="q"/>
+                                   placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
+                                   id="q"/>
                             {# form_widget(switcher.journal) #}
                             <span class="input-group-btn">
                                         <button class="btn btn-primary" type="submit" title="{{ "search"|trans }}"><i

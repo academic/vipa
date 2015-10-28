@@ -849,7 +849,7 @@ search.main: 'Dergi, Makale ve Yazar Ara'
 search.noresult: 'Üzgünüz, aradığınız kelime için hiç bir sonuç bulamadık.'
 search.result.headline: '`%term%` kelimesi için toplam %total% sonuç bulundu.'
 search.results: 'Arama Sonuçları'
-search.on.everywhere: 'Bu sitede ara'
+search.on.everywhere: '%project_name% üzerinde ara'
 search.on.journal: 'Dergide ara'
 search.advanced: 'Gelişmiş Arama'
 search.query: Sorgu
