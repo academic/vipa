@@ -445,6 +445,7 @@ institute.header: Üstbilgi
 institute.tags: Etiketler
 institute.createdAt: 'Oluşturulma Saati'
 institute.user: Kullanıcı
+journal: Dergi
 publisher: Yayıncı
 publisher.about: 'Yayıncı Hakkında'
 publisher.address: Adres
@@ -563,6 +564,7 @@ journal.singular: Dergi
 journal.slug: 'Web Erişimi İçin Kısa Yol  ( base_host/<i>journal_path</i> )'
 journal.subjects: Konular
 journal.subtitle: 'Alt Başlık'
+journal.switch: 'Kullanmak için bir dergi izni yazın'
 journal.tags: 'Etiketler'
 journal.tech_contact: 'Teknik İletişim'
 journal.tech_contact_email: 'Teknik İletişim e-Postası'

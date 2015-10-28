@@ -18,10 +18,11 @@ class QuickSwitchType extends AbstractType
             [
                 'remote_route' => 'ojs_admin_journal_autocomplete',
                 'class' => 'Ojs\JournalBundle\Entity\Journal',
+                'label' => 'journal.switch',
                 'label_attr' => array('class' => 'sr-only'),
                 'attr' => [
                     'class' => 'select2-element',
-                    'placeholder' => 'Type a journal name to switch to its dashboard',
+                    'placeholder' => 'journal.switch',
                 ]
             ]
 

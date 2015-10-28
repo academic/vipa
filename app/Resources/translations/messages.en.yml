@@ -445,6 +445,7 @@ institute.header: Header
 institute.tags: Tags
 institute.createdAt: 'Created At'
 institute.user: User
+journal: Journal
 publisher: Publisher
 publisher.about: 'About Publisher'
 publisher.address: Address
@@ -563,6 +564,7 @@ journal.singular: Journal
 journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
 journal.subjects: Subjects
 journal.subtitle: Subtitle
+journal.switch: 'Type a journal name to switch to its dashboard'
 journal.tags: Tags
 journal.tech_contact: 'Tech Contact'
 journal.tech_contact_email: 'Tech contact e-mail'
