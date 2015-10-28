@@ -3,9 +3,12 @@
 namespace Ojs\CoreBundle\Controller;
 
 use Doctrine\ORM\NoResultException;
+use Ojs\CoreBundle\Events\CoreEvents;
+use Ojs\CoreBundle\Events\PermissionEvent;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Ojs Base Controller controller.
@@ -18,7 +21,7 @@ class OjsController extends Controller
      * Checks if the attributes are granted against the current authentication token and optionally supplied object.
      *
      * @param mixed $attributes The attributes
-     * @param mixed $object     The object
+     * @param mixed $object The object
      * @param $field
      *
      * @throws \LogicException
@@ -29,14 +32,23 @@ class OjsController extends Controller
         if (!$this->container->has('security.authorization_checker')) {
             throw new \LogicException('The SecurityBundle is not registered in your application.');
         }
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $event = new PermissionEvent($this, $attributes, $object, $field);
+        $dispatcher->dispatch(CoreEvents::OJS_PERMISSION_CHECK, $event);
+        if (!is_null($event->getResult())) {
+            return $event->getResult();
+        }
+
 
         return $this->container->get('security.authorization_checker')->isGranted($attributes, $object, $field);
     }
 
     /**
      *
-     * @param  mixed             $entity
-     * @param  string            $message custom not found message
+     * @param  mixed $entity
+     * @param  string $message custom not found message
      * @return boolean
      * @throws NoResultException
      */
@@ -81,14 +93,15 @@ class OjsController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
-        if($user->isAdmin()){
+        if ($user->isAdmin()) {
             return true;
         }
         foreach ($publisher->getPublisherManagers() as $manager) {
-            if($manager->getUser()->getId() == $user->getId()){
+            if ($manager->getUser()->getId() == $user->getId()) {
                 return true;
             }
         }
+
         return false;
     }
 }
