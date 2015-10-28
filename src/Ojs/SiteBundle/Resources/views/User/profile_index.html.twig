@@ -66,6 +66,8 @@
                 </p>
             </div>
 
+            {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW', 'user': user})|raw }}
+
             {% if education is defined %}
                 <div class="panel panel-default">
                     <div class="panel-heading">Education</div>
@@ -165,6 +167,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW_SCRIPT', 'user': user})|raw }}
     <script type="text/javascript">
         analytics.increase('user', {{ user.id }})
     </script>
