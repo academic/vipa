@@ -114,3 +114,7 @@ services:
     arguments: [@router, @mailer, @doctrine.orm.entity_manager, %system_email%, "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
+
+  core.acl_fixer:
+    class: Ojs\CoreBundle\Service\AclFixer
+    arguments: [@doctrine, @problematic.acl_manager]
