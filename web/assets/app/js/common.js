@@ -34,29 +34,35 @@ $(document).ready(function () {
         updatePromptsPosition: true
     });
 
-    var wysihtml5 = $(".wysihtml5");
-    wysihtml5.summernote({
-        height: 100,                 // set editor height
+    $('.wysihtml5').each(function () {
+        var wysihtml5 = $(this);
+        wysihtml5.summernote({
+            height: 100,                 // set editor height
 
-        minHeight: null,             // set minimum height of editor
-        maxHeight: null,             // set maximum height of editor
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
 
-        focus: false,                 // set focus to editable area after initializing summernote
-        toolbar: [
-            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'hr']],
-            ['view', ['codeview']]
-        ]
+            focus: false,                 // set focus to editable area after initializing summernote
+            toolbar: [
+                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['codeview']]
+            ]
+        });
+
+        $('form').on('submit', function () {
+            if (wysihtml5.summernote('isEmpty')) {
+                wysihtml5.val('');
+            } else if (wysihtml5.val() == '<p><br></p>') {
+                wysihtml5.val('');
+            }
+        });
+
     });
-
-    if (wysihtml5.summernote('isEmpty')) {
-        wysihtml5.val('');
-    }
-
 
     var tagAutocompleteInput = $('select[data-role=tagsinputautocomplete]');
     tagAutocompleteInput.select2({
