@@ -22,7 +22,6 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js'
         - '%kernel.root_dir%/../web/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.js'
         - '%kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js'
-        - '%kernel.root_dir%/../web/vendor/sisyphus/sisyphus.min.js'
         - '%kernel.root_dir%/../web/vendor/ace-builds/src-min-noconflict/ace.js'
         - '%kernel.root_dir%/../web/assets/app/js/common.js'
         - '%kernel.root_dir%/../web/vendor/moment/min/moment-with-locales.min.js'

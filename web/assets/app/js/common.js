@@ -13,9 +13,6 @@ $(document).ready(function () {
         }
     });
 
-    //$("form").sisyphus({timeout: 100, locationBased: true});
-
-
     $('[data-toggle="tooltip"]').tooltip();
     $('.fab').hover(function () {
         $(this).toggleClass('active');
