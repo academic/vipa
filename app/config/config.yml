@@ -54,7 +54,7 @@ twig:
     ojs_fb: %ojs_fb%
     project_name: %project_name%
   number_format:
-    decimals: 2
+    decimals: 0
     decimal_point: ','
     thousands_separator: '.'
 
