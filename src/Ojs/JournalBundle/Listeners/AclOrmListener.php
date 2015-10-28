@@ -131,6 +131,9 @@ class AclOrmListener
             $aclManager->on($journal)->field('posts')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('reviewForms')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
+            )->permit(MaskBuilder::MASK_OWNER)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -165,6 +168,8 @@ class AclOrmListener
             $aclManager->on($journal)->field('mailSettings')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('submissionSettings')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('reviewForms')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
