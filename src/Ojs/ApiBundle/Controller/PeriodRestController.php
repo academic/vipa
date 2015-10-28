@@ -39,7 +39,7 @@ class PeriodRestController extends FOSRestController
     public function getPeriodsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.period.handler')->all($limit, $offset);
     }

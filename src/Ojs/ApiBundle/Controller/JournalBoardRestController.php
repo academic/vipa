@@ -39,7 +39,7 @@ class JournalBoardRestController extends FOSRestController
     public function getBoardsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.journal_board.handler')->all($limit, $offset);
     }

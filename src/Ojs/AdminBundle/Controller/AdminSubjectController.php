@@ -94,7 +94,7 @@ class AdminSubjectController extends Controller
          * @var ArrayCollection $children
          */
         foreach ($subjects as $subject) {
-            if ($subject->getParent() == null || $subject->getParent()->getId() == $parentId) {
+            if ($subject->getParent() === null || $subject->getParent()->getId() === $parentId) {
                 $path = $this->get('router')->generate('ojs_admin_subject_show', ['id' => $subject->getId()]);
                 $content = sprintf($link, $path, $subject->getSubject());
                 $children = $subject->getChildren();

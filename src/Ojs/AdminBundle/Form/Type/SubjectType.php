@@ -41,7 +41,7 @@ class SubjectType extends AbstractType
                     'query_builder' => function (SubjectRepository $repository) use ($selfId) {
                         $query = $repository
                             ->createQueryBuilder('subject');
-                        if ($selfId != null) {
+                        if ($selfId !== null) {
                             return $query
                                 ->andWhere('subject.id != :selfId')
                                 ->setParameter('selfId', $selfId);

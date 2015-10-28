@@ -39,7 +39,7 @@ class JournalIssueRestController extends FOSRestController
     public function getIssuesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.journal_issue.handler')->all($limit, $offset);
     }

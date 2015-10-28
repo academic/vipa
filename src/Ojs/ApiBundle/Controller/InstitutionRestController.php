@@ -39,7 +39,7 @@ class InstitutionRestController extends FOSRestController
     public function getInstitutionsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.institution.handler')->all($limit, $offset);
     }

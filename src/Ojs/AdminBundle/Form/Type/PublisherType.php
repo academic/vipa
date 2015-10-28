@@ -82,7 +82,7 @@ class PublisherType extends AbstractType
                     'empty_data'  => null,
                     'query_builder' => function (PublisherRepository $repository) use ($selfId) {
                         $query = $repository->createQueryBuilder('publisher');
-                        if ($selfId != null) {
+                        if ($selfId !== null) {
                             return $query
                                 ->andWhere('publisher.id != :selfId')
                                 ->setParameter('selfId', $selfId);

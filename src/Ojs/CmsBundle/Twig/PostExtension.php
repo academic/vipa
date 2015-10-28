@@ -31,7 +31,7 @@ class PostExtension  extends \Twig_Extension{
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('getPostObject',[$this,'post_object']),
+            new \Twig_SimpleFunction('getPostObject',[$this,'postObject']),
         ];
     }
 
@@ -89,7 +89,7 @@ class PostExtension  extends \Twig_Extension{
         $decoded = base64_decode($string);
         return $decoded;
     }
-    public function post_object(Post $post)
+    public function postObject(Post $post)
     {
         $object = $post->getObject();
         $id = $post->getObjectId();

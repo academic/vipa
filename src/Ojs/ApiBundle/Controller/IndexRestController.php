@@ -39,7 +39,7 @@ class IndexRestController extends FOSRestController
     public function getIndexesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.index.handler')->all($limit, $offset);
     }

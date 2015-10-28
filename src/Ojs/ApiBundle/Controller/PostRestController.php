@@ -39,7 +39,7 @@ class PostRestController extends FOSRestController
     public function getPostsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.post.handler')->all($limit, $offset);
     }

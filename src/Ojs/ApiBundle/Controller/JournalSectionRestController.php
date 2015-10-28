@@ -39,7 +39,7 @@ class JournalSectionRestController extends FOSRestController
     public function getSectionsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.journal_section.handler')->all($limit, $offset);
     }

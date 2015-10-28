@@ -40,7 +40,7 @@ class CitationController extends Controller
 
         $source = new Entity('OjsJournalBundle:Citation');
 
-        if ($articleId != null) {
+        if ($articleId !== null) {
             $alias = $source->getTableAlias();
             $source->manipulateQuery(
                 function (QueryBuilder $query) use ($alias, $articleId) {

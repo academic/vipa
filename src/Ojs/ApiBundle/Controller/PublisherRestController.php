@@ -39,7 +39,7 @@ class PublisherRestController extends FOSRestController
     public function getPublishersAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.publisher.handler')->all($limit, $offset);
     }

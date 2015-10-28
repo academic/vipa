@@ -422,7 +422,7 @@ class JournalUserController extends Controller
         $this->throw404IfNotFound($journalUser);
         $em = $this->getDoctrine()->getManager();
 
-        if ($roleId == null) {
+        if ($roleId === null) {
             $em->remove($journalUser);
             $em->flush();
         } elseif ($journalUser->getRoles()) {

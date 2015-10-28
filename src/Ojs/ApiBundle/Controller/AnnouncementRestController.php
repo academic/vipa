@@ -40,7 +40,7 @@ class AnnouncementRestController extends FOSRestController
     public function getAnnouncementsAction(ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
+        $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
         return $this->container->get('ojs_api.announcement.handler')->all($limit, $offset);
     }

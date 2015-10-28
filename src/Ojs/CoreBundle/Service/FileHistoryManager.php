@@ -21,7 +21,7 @@ class FileHistoryManager extends BaseFileHistoryManager
         $fileHistory->setFileName($fileName);
         $fileHistory->setOriginalName($originalName);
         $fileHistory->setType($type);
-        if ($userId == null) {
+        if ($userId === null) {
             $fileHistory->setUserId($this->getAuthUserId());
         } else {
             $fileHistory->setUserId($userId);
