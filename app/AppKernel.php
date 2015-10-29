@@ -41,6 +41,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Jb\Bundle\FileUploaderBundle\JbFileUploaderBundle(),
             new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
+            new Baskin\HistoryBundle\BaskinHistoryBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Ojs\CoreBundle\OjsCoreBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),

@@ -40,16 +40,6 @@ services:
     tags:
       - { name: twig.extension }
 
-
-  ojs.twig.history_extension:
-    class: Ojs\CoreBundle\Service\Twig\HistoryExtension
-    arguments:
-      - @doctrine.orm.entity_manager
-      - @twig
-      - "::_history.html.twig"
-    tags:
-      - { name: twig.extension }
-
   ojs.twig.display_extension:
     class: Ojs\CoreBundle\Service\Twig\DisplayExtension
     arguments:

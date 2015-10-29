@@ -120,10 +120,6 @@ admin.dashboard.applications: Applications
 admin.dashboard.journal_settings: 'Journal Settings'
 admin.dashboard.system_settings: 'System Settings'
 admin.dashboard.switcher.title: 'Switch to a Journal''s Dashboard'
-admin.log.field: 'Changed field'
-admin.log.history: Changelog
-admin.log.newValue: 'New Value'
-admin.log.oldValue: 'Old Value'
 adress: Address
 advancedsearch: 'Advanced Search'
 allow_index: 'Allow Index'
