@@ -328,6 +328,10 @@ class AclFixer
             )
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
+            $this->aclChainManager->on($journal)->field('reviewForms')
+                ->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
             $this->aclChainManager->on($journal)->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER')
             )
