@@ -92,6 +92,7 @@ class UserType extends AbstractType
             )
             ->add('tags', 'tags')
             ->add('avatar', 'jb_crop_image_ajax', array(
+                'required' => false,
                 'endpoint' => 'user',
                 'img_width' => 200,
                 'img_height' => 200,
