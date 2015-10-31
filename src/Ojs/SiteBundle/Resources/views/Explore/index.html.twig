@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_site_explore_index'), 'title': 'ojs.title'|trans},
-    {'title': 'explore'|trans}
+        {'link': path('ojs_site_explore_index'), 'title': 'ojs.title'|trans},
+        {'title': 'explore'|trans}
     ] %}
 
     {{ breadcrumb(list) }}
@@ -35,9 +35,9 @@
                                                 type_filters: parameter|join(','),
                                                 publisher_filters: app.request.get('publisher_filters'),
                                                 subject_filters: app.request.get('subject_filters')}) }}">
-                                        <span class="label label-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </span>
+                                                <span class="label label-danger">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>
                                             </a>
                                         {% else %}
                                             {% set parameter = type_filters|merge([type.key]) %}
@@ -73,9 +73,9 @@
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
                                                 type_filters: app.request.get('type_filters')}) }}">
-                                        <span class="label label-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </span>
+                                                <span class="label label-danger">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>
                                             </a>
                                         {% else %}
                                             {% set parameter = publisher_filters|merge([publisher.key]) %}
@@ -111,9 +111,9 @@
                                                 subject_filters: parameter|join(','),
                                                 type_filters: app.request.get('type_filters'),
                                                 publisher_filters: app.request.get('publisher_filters')}) }}">
-                                        <span class="label label-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </span>
+                                                <span class="label label-danger">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>
                                             </a>
                                         {% else %}
                                             {% set parameter = subject_filters|merge([subject.key]) %}
@@ -145,7 +145,5 @@
             </ul>
         </div>
         {% endif %}
-
     </div>
-
 {% endblock %}
