@@ -56,11 +56,10 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-6 col-xs-12 margin-bot">
-                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminLeftMenu', {'currentClass': 'active','template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
+                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminLeftMenu', {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
-
                         <div class="col-md-6 col-xs-12">
-                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminRightMenu', {'currentClass': 'active','template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
+                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminRightMenu', {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>
@@ -76,21 +75,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-sm-12">
-                            <a href="{{ path('ojs_admin_application_publisher_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                            <span class="btn-label pull-left col-md-2 col-xs-3">
-                                <i class="fa fa-university"></i>
-                            </span>
-                                {{ "title.publisher_application"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_application_journal_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                            <span class="btn-label pull-left col-md-2 col-xs-3">
-                                <i class="fa fa-newspaper-o"></i>
-                            </span>
-                                {{ "title.journal_application"|trans }}
-                            </a>
+                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminApplicationMenu', {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>

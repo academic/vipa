@@ -59,6 +59,10 @@ class MenuBuilder extends ContainerAware
         return $menuEvent->getMenuItem();
     }
 
+    /**
+     * @param FactoryInterface $factory
+     * @return \Knp\Menu\ItemInterface
+     */
     public function adminRightMenu(FactoryInterface $factory)
     {
         /**
@@ -84,6 +88,44 @@ class MenuBuilder extends ContainerAware
             ['period', 'ojs_admin_period_index', 'calendar-check-o'],
             ['title.person_titles', 'ojs_admin_person_title_index', 'user'],
             ['title.files', 'ojs_admin_file_index', 'file-image-o']
+        ];
+
+        foreach ($items as $item) {
+            $label = $item[0];
+            $path = $item[1];
+            $icon = $item[2];
+
+            $menu->addChild($label, [
+                'route' => $path,
+                'extras' => ['icon' => $icon]
+            ]);
+        }
+
+        $menuEvent = new MenuEvent();
+        $menuEvent->setMenuItem($menu);
+
+        $dispatcher->dispatch(AdminEvents::ADMIN_MENU_INITIALIZED, $menuEvent);
+        return $menuEvent->getMenuItem();
+    }
+
+    /**
+     * @param FactoryInterface $factory
+     * @return \Knp\Menu\ItemInterface
+     */
+    public function adminApplicationMenu(FactoryInterface $factory)
+    {
+        /**
+         * @var Journal $journal
+         * @var AuthorizationChecker $checker
+         */
+        $dispatcher = $this->container->get('event_dispatcher');
+
+        $menu = $factory->createItem('root')->setChildrenAttribute('class', 'list-unstyled');
+
+        $items = [
+            // [field, label, route, icon]
+            ['title.publisher_application', 'ojs_admin_application_publisher_index', 'university'],
+            ['title.journal_application', 'ojs_admin_application_journal_index', 'newspaper-o'],
         ];
 
         foreach ($items as $item) {
