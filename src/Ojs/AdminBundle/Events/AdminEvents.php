@@ -13,4 +13,5 @@ final class AdminEvents
     const PUBLISHER_CHANGE = 'ojs.admin.publisher.change';
     const ADMIN_SUBJECT_CHANGE = 'ojs.admin.subject.change';
     const SETTINGS_CHANGE = 'ojs.admin.settings.change';
+    const ADMIN_MENU_INITIALIZED = 'ojs.admin.menu.initialized';
 }
