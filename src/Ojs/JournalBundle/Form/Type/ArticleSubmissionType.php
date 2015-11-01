@@ -38,11 +38,12 @@ class ArticleSubmissionType extends AbstractType
                         'field_type' => 'tags'
                     ],
                     'keywords' => [
+                        'required' => true,
                         'label' => 'keywords',
                         'field_type' => 'tags'
                     ],
                     'abstract' => [
-                        'required' => false,
+                        'required' => true,
                         'attr' => array('class' => ' form-control wysihtml5'),
                         'field_type' => 'textarea'
                     ]
