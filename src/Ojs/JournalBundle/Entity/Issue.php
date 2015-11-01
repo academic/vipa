@@ -480,7 +480,11 @@ class Issue extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        if(!is_null($this->translate()->getTitle())){
+            return $this->translate()->getTitle();
+        }else{
+            return $this->translations->first()->getTitle();
+        }
     }
 
     /**
