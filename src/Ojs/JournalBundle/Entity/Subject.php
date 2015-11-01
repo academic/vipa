@@ -344,7 +344,11 @@ class Subject extends AbstractTranslatable
      */
     public function getSubject()
     {
-        return $this->translate()->getSubject();
+        if(!is_null($this->translate()->getSubject())){
+            return $this->translate()->getSubject();
+        }else{
+            return $this->translations->first()->getSubject();
+        }
     }
 
     /**
