@@ -56,113 +56,11 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-6 col-xs-12 margin-bot">
-                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminMenu', {'currentClass': 'active','template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
+                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminLeftMenu', {'currentClass': 'active','template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
 
                         <div class="col-md-6 col-xs-12">
-                            <a href="{{ path('ojs_admin_post_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-file-o"></i>
-                                </span>
-                                {{ "title.post"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_page_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-file-text-o"></i>
-                                </span>
-                                {{ "title.pages"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_announcement_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-bullhorn"></i>
-                                </span>
-                                {{ "title.announcements"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_publisher_theme_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-css3"></i>
-                                </span>
-                                {{ "title.publisher_theme"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_publisher_design_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-wrench"></i>
-                                </span>
-                                {{ "title.publisher_design"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_publisher_managers_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-users"></i>
-                                </span>
-                                {{ "title.publisher_managers"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_default_journal_theme_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-css3"></i>
-                                </span>
-                                {{ "title.default_journal_theme"|trans }}
-                            </a>
-
-                            <a href="{{ path('okulbilisim_feedback_homepage') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-envelope"></i>
-                                </span>
-                                {{ "feedback"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_system_setting_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-gears"></i>
-                                </span>
-                                {{ "title.system_settings"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_stats') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-bar-chart"></i>
-                                </span>
-                                {{ "stats"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_period_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-calendar-check-o"></i>
-                                </span>
-                                {{ "period"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_person_title_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-user"></i>
-                                </span>
-                                {{ "title.person_titles"|trans }}
-                            </a>
-
-                            <a href="{{ path('ojs_admin_file_index') }}"
-                               class="btn btn-primary btn-labeled btn-block btn-lg">
-                                <span class="btn-label pull-left col-md-3 col-xs-3">
-                                    <i class="fa fa-file-image-o"></i>
-                                </span>
-                                {{ "title.files"|trans }}
-                            </a>
+                            {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminRightMenu', {'currentClass': 'active','template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                     </div>
                 </div>
