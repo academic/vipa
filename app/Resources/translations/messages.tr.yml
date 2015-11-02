@@ -897,7 +897,7 @@ stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
 status: Durum
 status.inreview: İncelemede
-status.not_submitted: Makalelmedi
+status.not_submitted: Gönderilmedi
 status.published: Yayımlandı
 status.rejected: Reddedildi
 status.spam: Spam
