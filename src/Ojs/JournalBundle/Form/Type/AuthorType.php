@@ -16,17 +16,33 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations')
-            ->add('middleName')
+            ->add('translations', 'a2lix_translations', [
+                'required' => false
+            ])
+            ->add('middleName', null, [
+                'required' => false
+            ])
             ->add('firstName')
             ->add('lastName')
-            ->add('phone')
-            ->add('firstNameTransliterated')
-            ->add('middleNameTransliterated')
-            ->add('lastNameTransliterated')
-            ->add('initials')
+            ->add('phone', null, [
+                'required' => false
+            ])
+            ->add('firstNameTransliterated', null, [
+                'required' => false
+            ])
+            ->add('middleNameTransliterated', null, [
+                'required' => false
+            ])
+            ->add('lastNameTransliterated', null,[
+                'required' => false
+            ])
+            ->add('initials', null, [
+                'required' => false
+            ])
             ->add('email', 'email')
-            ->add('address', 'textarea')
+            ->add('address', 'textarea', [
+                'required' => false
+            ])
             ->add('institution', null, [
                 'attr' => [
                     'class' => 'institution'
@@ -43,12 +59,14 @@ class AuthorType extends AbstractType
                 ]
             ])
             ->add('country', null ,[
-                'required' => true,
+                'required' => false,
                 'attr' => [
                     'class' => "select2-element"
                 ]
             ])
-            ->add('authorDetails', 'textarea');
+            ->add('authorDetails', 'textarea', [
+                'required' => false
+            ]);
     }
 
     /**
