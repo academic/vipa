@@ -142,7 +142,7 @@
                 </div>
             </div>
         </section>
-        {% if posts|length>0 %}
+        {% if posts | length > 0 %}
             <section role="posts">
                 <h4 class="page-header text-success">
                     <i class="fa fa-file-text"></i>
@@ -162,15 +162,16 @@
                 </div>
             </section>
         {% endif %}
+        {% if subjects is not empty %}
         <section role="topics">
             <h4 class="page-header text-info"><i class="fa fa-bookmark"></i> {{ "subject.plural"|trans }}</h4>
-
             <div class="row">
                 <div class="col-md-12 col-xs-12 home-subject-tree">
                     {{ subjects|raw }}
                 </div>
             </div>
         </section>
+        {% endif %}
     </div>
 {% endblock %}
 {% block javascripts %}
