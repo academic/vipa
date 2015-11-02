@@ -201,7 +201,7 @@ articles: Articles
 articles.needAction: 'Submissions That Need Action'
 articles.waiting: 'Submissions Waiting'
 articles_in_journal: 'Submissions in Journal'
-articles_in_review: 'Submissions in Review'
+articles_in_review: 'Submissions in Progress'
 author: Author
 author.add: 'Add Author'
 author.creation: 'Author Creation'
