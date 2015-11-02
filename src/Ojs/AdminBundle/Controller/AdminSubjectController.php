@@ -72,7 +72,7 @@ class AdminSubjectController extends Controller
 
         $data = [
             'grid' => $grid,
-            'tree' => TreeHelper::createSubjectTreeView($this->get('router'), $all)
+            'tree' => TreeHelper::createSubjectTreeView(TreeHelper::SUBJECT_ADMIN, $this->get('router'), $all)
         ];
 
         return $grid->getGridResponse('OjsAdminBundle:AdminSubject:index.html.twig', $data);
