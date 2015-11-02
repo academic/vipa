@@ -8,6 +8,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\AdminBundle\Form\Type\SubjectType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Helper\TreeHelper;
 use Ojs\JournalBundle\Entity\Subject;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,43 +72,10 @@ class AdminSubjectController extends Controller
 
         $data = [
             'grid' => $grid,
-            'tree' => $this->createTreeView($all)
+            'tree' => TreeHelper::createSubjectTreeView($this->get('router'), $all)
         ];
 
         return $grid->getGridResponse('OjsAdminBundle:AdminSubject:index.html.twig', $data);
-    }
-
-    /**
-     * @param ArrayCollection|Subject[] $subjects
-     * @param int|null $parentId
-     * @return string
-     */
-    private function createTreeView($subjects, $parentId = null)
-    {
-        $tree = '<ul>%s</ul>';
-        $item = '<li>%s</li>';
-        $link = '<a href="%s">%s</a>';
-        $items = "";
-
-        /**
-         * @var Subject $subject
-         * @var ArrayCollection $children
-         */
-        foreach ($subjects as $subject) {
-            if ($subject->getParent() === null || $subject->getParent()->getId() === $parentId) {
-                $path = $this->get('router')->generate('ojs_admin_subject_show', ['id' => $subject->getId()]);
-                $content = sprintf($link, $path, $subject->getSubject());
-                $children = $subject->getChildren();
-
-                if ($children->count() > 0) {
-                    $content = $content.$this->createTreeView($children, $subject->getId());
-                }
-
-                $items = $items.sprintf($item, $content);
-            }
-        }
-
-        return sprintf($tree, $items);
     }
 
     /**
