@@ -522,7 +522,7 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection
      */
     public function getSubjects()
     {
