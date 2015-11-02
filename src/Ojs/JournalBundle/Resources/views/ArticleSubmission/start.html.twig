@@ -56,9 +56,9 @@
                                             <span>
                                                 {{ journalSubmissionFiles[index].title }}
                                                 {% if journalSubmissionFiles[index].required %}
-                                                    <b>(Required)</b>
+                                                    <b>({{ 'required'|trans }})</b>
                                                 {% else %}
-                                                    <b>(Optional)</b>
+                                                    <b>({{ 'optinal'|trans }})</b>
                                                 {% endif %}
                                             </span>
                                             <a href="{{ asset('uploads/submissionfiles/' ~ journalSubmissionFiles[index].file) }}" target="_blank">

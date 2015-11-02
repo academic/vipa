@@ -1405,4 +1405,5 @@ default: Varsayılan
 optional: Opsiyonel
 submission.no_file: 'Makale dosyası yok, lütfen dergi yöneticisine haber verin.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
-
+optinal: 'İsteğe Bağlı'
+required: 'Zorunlu'

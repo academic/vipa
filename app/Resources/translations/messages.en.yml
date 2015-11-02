@@ -1405,3 +1405,5 @@ default: Default
 optional: Optional
 submission.no_file: 'There is no required submission file, please notify the journal manager.'
 submission.no_checklist: 'There is no required checklist, please notify the journal manager'
+optinal: Optinal
+required: Required
