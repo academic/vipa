@@ -56,7 +56,7 @@ class FieldDisplayExtension extends \Twig_Extension
         $createGetterFunction = 'get'.ucfirst($field);
         $fieldTranslations = [];
         foreach($displayEntity->getTranslations() as $langCode => $translation){
-            if(!empty($translation->$createGetterFunction())){
+            if(!empty($translation->$createGetterFunction()) && $translation->$createGetterFunction() != '-'){
                 $fieldTranslations[$langCode] = $translation->$createGetterFunction();
             }
         }
