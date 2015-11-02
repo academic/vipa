@@ -256,7 +256,7 @@ fos_elastica:
               type: object
               properties:
                 id: { type: integer }
-                subject: { type: string }
+                subject: { type: string, index: not_analyzed }
             publisher:
               type: object
               properties:

@@ -143,7 +143,7 @@ class SearchController extends Controller
 
         //get subject aggregation
         $subjectAgg = new Aggregation\Terms('subjects');
-        $subjectAgg->setField('subjects');
+        $subjectAgg->setField('subjects.subject');
         $subjectAgg->setOrder('_term', 'asc');
         $subjectAgg->setSize(0);
         $searchQuery->addAggregation($subjectAgg);
