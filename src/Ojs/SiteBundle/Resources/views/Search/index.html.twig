@@ -290,7 +290,7 @@
                             {% if section == key %}
                                 <ol>
                                     {% for resultData in result.data %}
-                                        <li class="result-of-{{ key }}">
+                                        <li class="result-of-{{ key }}" {% if loop.first %}value="{{ 10 * (page - 1) + 1 }}"{% endif %}>
                                             {% if key == 'journal' %}
                                                 {% set journal = resultData %}
                                                 {% set url = resultData.detail.route %}

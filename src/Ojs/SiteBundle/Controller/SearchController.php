@@ -243,7 +243,8 @@ class SearchController extends Controller
                 'locale_filters' => $localeFilters,
                 'publisher_filters' => $publisherFilters,
                 'index_filters' => $indexFilters,
-                'pagerfanta' => $pagerfanta
+                'pagerfanta' => $pagerfanta,
+                'page' => $page
             ];
 
         } else {
