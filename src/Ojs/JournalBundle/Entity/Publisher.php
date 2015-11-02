@@ -16,7 +16,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Publisher
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,address,email,verified")
+ * @GRID\Source(columns="id,name,email,verified")
  * @GRID\Source(columns="id,name,status", groups={"application"})
  */
 class Publisher extends AbstractTranslatable
@@ -57,7 +57,6 @@ class Publisher extends AbstractTranslatable
     /**
      * @var string
      * @Expose
-     * @GRID\Column(title="address")
      */
     private $address;
     /**
