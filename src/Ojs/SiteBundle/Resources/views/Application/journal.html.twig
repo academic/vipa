@@ -17,6 +17,10 @@
             display: block;
             float: none;
         }
+
+        #publisher-form {
+            visibility: hidden;
+        }
     </style>
 {% endblock %}
 
@@ -34,6 +38,7 @@
         <h1 class="page-header">{{ "application.journal.apply"|trans }}</h1>
 
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
+        {{ form_row(form._token) }}
         <div class="panel panel-default">
             <div class="panel-heading"><h4>{{ "journal.about"|trans }}</h4></div>
             <div class="panel-body">
@@ -43,12 +48,16 @@
                     <div class="panel-heading"><h4>{{ "application.journal.publisher"|trans }}</h4></div>
                     <div class="panel-body">
                         {{ form_row(form.publisher, {'help_text': "application.journal.new_publisher_help"|trans}) }}
-                        <a href="{{ path('ojs_apply_publisher') }}" class="btn btn-success btn-labeled pull-right">
+                        <span id="new-publisher" class="btn btn-success btn-labeled pull-right">
                             <span class="btn-label">
                                 <i class="fa fa-plus"></i>
                             </span>
                             {{ "application.journal.new_publisher"|trans }}
-                        </a>
+                        </span>
+
+                        <div id="publisher-form">
+                            {{ form(publisherForm) }}
+                        </div>
                     </div>
                 </div>
 
@@ -148,6 +157,10 @@
     <script type="text/javascript">
         var collectionHolder;
         var addContactLink = $('#add_contact');
+        var newPublisherButton = $('#new-publisher');
+        var newPublisherForm = $('#publisher-form');
+        var publisherSelector = $('#ojs_journalbundle_journalapplication_publisher').parent().parent();
+        var applicationForm = $('form[name=ojs_journalbundle_journalapplication]');
 
         $(document).ready(function() {
             collectionHolder = $('#contacts');
@@ -157,8 +170,11 @@
                 addContactForm(collectionHolder, addContactLink);
             });
 
-
-
+            newPublisherButton.on('click', function() {
+                newPublisherForm.css('visibility', 'visible');
+                newPublisherButton.hide();
+                publisherSelector.hide();
+            });
         });
 
         function addContactForm(collectionHolder, addLink) {

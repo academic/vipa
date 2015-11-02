@@ -170,6 +170,11 @@ class AdminPublisherApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
+        foreach ($entity->getJournals() as $journal) {
+            $journal->setStatus(-3);
+            $em->persist($journal);
+        }
+
         $entity->setStatus(-1);
         $em->persist($entity);
         $em->flush();

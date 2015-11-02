@@ -95,6 +95,7 @@ class JournalApplicationType extends AbstractType
                     },
                     'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.publisher',
+                    'required' => false
                 )
             )
             ->add(

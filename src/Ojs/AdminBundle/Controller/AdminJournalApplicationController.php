@@ -194,6 +194,7 @@ class AdminJournalApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
+        $entity->getPublisher()->setStatus(1);
         $entity->setStatus(1);
         $em->persist($entity);
         $em->flush();

@@ -3,14 +3,5 @@ Ojs\JournalBundle\Entity\PublisherTranslation:
 
 Ojs\JournalBundle\Entity\Publisher:
     properties:
-        translations:
-            - Valid: ~
         name:
           - NotBlank: ~
-        address:
-          - NotBlank: ~
-        phone:
-          - NotBlank: ~
-        email:
-          - NotBlank: ~
-          - Email: ~
