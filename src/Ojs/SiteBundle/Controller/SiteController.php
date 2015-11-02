@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Helper\TreeHelper;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
@@ -52,7 +53,7 @@ class SiteController extends Controller
             },
         ];
 
-        $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
+        $data['subjects'] = TreeHelper::createSubjectTreeView(TreeHelper::SUBJECT_SEARCH, $this->get('router'), $repo->findAll());
         $data['page'] = 'index';
 
         $data['stats'] = [
