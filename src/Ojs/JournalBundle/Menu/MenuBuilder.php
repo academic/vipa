@@ -115,14 +115,6 @@ class MenuBuilder extends ContainerAware
             ]);
         }
 
-        if ($checker->isGranted('VIEW', $journal, 'articles')) {
-            $menu->addChild('submitted.articles.me', [
-                'route' => 'ojs_journal_submission_me',
-                'routeParameters' => ['journalId' => $journalId],
-                'extras' => ['icon' => 'flag',]
-            ]);
-        }
-
         $menuEvent = new MenuEvent();
         $menuEvent->setMenuItem($menu);
 
