@@ -172,6 +172,12 @@ jms_serializer:
             FOSUB:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "@OjsUserBundle/Resources/config/serializer/FOSUB"
+presta_sitemap:
+    timetolive: 3600
+    dumper_base_url: "http://%base_host%/"
+    route_annotation_listener: false
+    items_by_set: 50000
+
 #hwi_oauth:
 #  firewall_name: main
 #  resource_owners:
