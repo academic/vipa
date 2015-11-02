@@ -3,6 +3,8 @@ parameters:
   security.acl.dbal.provider.class: Ojs\CoreBundle\Acl\Dbal\MutableAclProvider
   security.acl.security_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\SecurityIdentityRetrievalStrategy
   security.acl.object_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\ObjectIdentityRetrievalStrategy
+  ojs_core.sitemap.listener.class: Ojs\CoreBundle\EventListener\SitemapListener
+
 services:
   app.routing_loader:
     class: Ojs\CoreBundle\Routing\ThirdPartyRouteLoader
@@ -109,3 +111,8 @@ services:
   core.acl_fixer:
     class: Ojs\CoreBundle\Service\AclFixer
     arguments: [@doctrine, @problematic.acl_manager]
+
+  ojs_core.sitemap.listener:
+          class: %ojs_core.sitemap.listener.class%
+          arguments: [@router]
+          tags: [{name: "presta.sitemap.listener"}]
