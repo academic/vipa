@@ -58,6 +58,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new OkulBilisim\OjsImportBundle\OkulBilisimOjsImportBundle(),
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
             // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
