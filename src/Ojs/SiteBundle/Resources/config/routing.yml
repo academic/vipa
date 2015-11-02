@@ -55,10 +55,6 @@ ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
 
-ojs_sitemap:
-    prefix: /sitemap
-    resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"
-
 ojs_search:
     resource: "@OjsSiteBundle/Resources/config/routing/search.yml"
 
