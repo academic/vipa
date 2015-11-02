@@ -316,7 +316,7 @@
                             {% endif %}
                         {% endfor %}
 
-                        {% if total_count < 1 %}
+                        {% if total_count > 1 %}
                             <div class="text-center">
                                 <ul class="pagination">
                                     {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
