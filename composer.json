@@ -43,7 +43,6 @@
     "pagerfanta/pagerfanta": "1.0.3",
     "white-october/pagerfanta-bundle": "1.0.*@dev",
     "apy/datagrid-bundle": "2.2.16",
-    "tackk/cartographer": "1.1.0",
     "okulbilisim/feedback-bundle": "v1.1.1",
     "okulbilisim/ojs-tools-bundle": "dev-master",
     "jms/di-extra-bundle": "~1.5",
