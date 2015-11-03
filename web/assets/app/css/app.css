@@ -770,3 +770,43 @@ label.required:before {
 .page-header {
     border-color: #777;
 }
+
+.publisher {
+    width: 200px;
+    height: 200px;
+    float: left;
+    display: table;
+    margin: 0px 10px 10px 0px;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #eb0000;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.075);
+    text-align: center;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.publisher:hover {
+    text-decoration: none;
+}
+
+.publisher .publisher-inner {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.publisher img {
+    margin-bottom: 5px;
+}
+
+.publisher .publisher-title {
+    display: block;
+}
