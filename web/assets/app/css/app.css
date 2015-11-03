@@ -761,3 +761,7 @@ label.required:before {
 .tab-content > .tab-pane {
     padding: 10px 0;
 }
+
+.grid-item:nth-child(6), .grid-item:nth-child(12), .grid-item:nth-child(18), .grid-item:nth-child(24), .grid-item:nth-child(30) {
+    margin-right: 0 !important;
+}
