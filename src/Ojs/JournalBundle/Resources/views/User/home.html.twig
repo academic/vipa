@@ -79,16 +79,23 @@
                             <td>{{ article.submissionDate|date('Y-m-d H:i:s') }}</td>
                             <td>
                                 {% if article.statusText ==  'status.not_submitted' %}
-                                <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}"
-                                   class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
+                                    <a href="{{ path('ojs_journal_submission_edit', {journalId: article.journal.id, id: article.id}) }}"
+                                       class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                {% elseif article.statusText ==  'status.inreview' %}
+
+                                {% elseif article.statusText ==  'status.published' %}
+                                    <a href="{{ path('ojs_article_page', {
+                                        publisher: article.journal.publisher.slug,
+                                        slug: article.journal.slug,
+                                        issue_id: article.issue.id,
+                                        article_id: article.id
+                                    }) }}"
+                                       target="_blank" class="btn btn-primary btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
+                                        <i class="fa fa-external-link"></i>
+                                    </a>
                                 {% endif %}
-                                <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
-                                   class="btn btn-danger btn-xs delete" data-toggle="tooltip"
-                                   title="{{ 'cancel'|trans }}">
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
                             </td>
                         </tr>
                     {% endfor %}
