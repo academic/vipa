@@ -350,6 +350,22 @@ fos_elastica:
               type: string
             type:
               type: string
+            articles:
+              type: "object"
+              properties:
+                id:  { boost: 1 ,type: integer}
+                issue:
+                  type: "object"
+                  properties:
+                    id: { boost: 1 ,type: integer}
+                journal:
+                  type: "object"
+                  properties:
+                    slug: { boost: 1 ,type: string}
+                    publisher:
+                      type: "object"
+                      properties:
+                        slug: { boost: 1 ,type: string}
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Citation

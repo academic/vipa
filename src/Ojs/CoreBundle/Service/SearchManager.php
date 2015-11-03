@@ -136,7 +136,7 @@ class SearchManager
                 break;
             case 'citation':
                 $data['name'] = $source['raw'];
-                $data['route'] = '#';
+                $data['route'] = $this->generateCitationUrl($object);
                 break;
             default:
                 $data['name'] = $objectType;
@@ -205,6 +205,56 @@ class SearchManager
                     'article_id' => $articleObject->getId(),
                     'issue_id' => $source['issue']['id'],
                     'publisher' => $source['journal']['publisher']['slug'],
+                ],
+                true
+            );
+    }
+
+    /**
+     * @param  Result $citationObject
+     * @return string
+     */
+    private function generateCitationUrl(Result $citationObject)
+    {
+        $source = $citationObject->getSource();
+        //check article count
+        if(count($source['articles'])< 1){
+            return false;
+        }
+        //check article id is exists
+        if(isset($source['articles'][0]['id'])){
+            $article = $source['articles'][0];
+        }else{
+            return false;
+        }
+        //check article issue is exists
+        if (isset($article['issue'])) {
+            $issue = $article['issue'];
+        }else{
+            exit('3');
+            return false;
+        }
+        //check article journal is exists
+        if (isset($article['journal'])) {
+            $journal = $article['journal'];
+        }else{
+            return false;
+        }
+        //check journal publisher is exists
+        if (isset($journal['publisher'])) {
+            $publisher = $journal['publisher'];
+        }else{
+            return false;
+        }
+
+        return $this->router
+            ->generate(
+                'ojs_article_page',
+                [
+                    'slug' => $journal['slug'],
+                    'article_id' => $article['id'],
+                    'issue_id' => $issue['id'],
+                    'publisher' => $publisher['slug'],
                 ],
                 true
             );
