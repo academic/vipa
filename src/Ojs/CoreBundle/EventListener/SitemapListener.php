@@ -6,14 +6,22 @@ use Symfony\Component\Routing\RouterInterface;
 use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+use Doctrine\ORM\EntityManager;
 
 class SitemapListener implements SitemapListenerInterface
 {
     private $router;
 
-    public function __construct(RouterInterface $router)
+    /** @var EntityManager */
+    private $em;
+
+    public function __construct(
+        RouterInterface $router,
+        EntityManager   $em
+    )
     {
         $this->router = $router;
+        $this->em = $em;
     }
 
     public function populateSitemap(SitemapPopulateEvent $event)

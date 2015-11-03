@@ -113,6 +113,6 @@ services:
     arguments: [@doctrine, @problematic.acl_manager]
 
   ojs_core.sitemap.listener:
-          class: %ojs_core.sitemap.listener.class%
-          arguments: [@router]
-          tags: [{name: "presta.sitemap.listener"}]
+    class: %ojs_core.sitemap.listener.class%
+    arguments: [@router, @doctrine.orm.entity_manager]
+    tags: [{name: "presta.sitemap.listener"}]
