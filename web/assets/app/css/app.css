@@ -757,3 +757,7 @@ label.required:before {
     color: #ff0000;
     font-size: 16px;
 }
+
+.tab-content > .tab-pane {
+    padding: 10px 0;
+}
