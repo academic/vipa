@@ -124,6 +124,7 @@
                 </div>
             </div>
         </section>
+        {% if announcements is defined and announcements is not empty %}
         <section role="presentation">
             <div class="row">
                 <div class="col-xs-12">
@@ -131,6 +132,7 @@
                 </div>
             </div>
         </section>
+        {% endif %}
         <section role="featured">
             <h4 class="page-header text-success"><i class="fa fa-trophy"></i> {{ 'featured'|trans }}</h4>
 
