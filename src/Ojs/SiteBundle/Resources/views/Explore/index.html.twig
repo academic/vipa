@@ -92,9 +92,13 @@
                     </div>
                 {% endif %}
                 {% if subjects %}
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
-                        <ul class="list-group">
+                        <input class="search" placeholder="Search" />
+                        <button class="sort" data-sort="subject">
+                            {{ 'sort.by.subject' }}
+                        </button>
+                        <ul class="list-group list">
                             {% for subject in subjects %}
                                 <li class="list-group-item">
                                     {% if subject_filters is empty %}
@@ -102,7 +106,7 @@
                                         <a href="{{ path('ojs_site_explore_index', {
                                             subject_filters: subject.key,
                                             type_filters: app.request.get('type_filters'),
-                                            publisher_filters: app.request.get('publisher_filters')}) }}">{{ subject.key }}</a>
+                                            publisher_filters: app.request.get('publisher_filters')}) }}" class="subject">{{ subject.key }}</a>
                                     {% else %}
                                         {% if subject.key in subject_filters %}
                                             {% set parameter = subject_filters|pop(subject.key) %}
@@ -110,7 +114,7 @@
                                             <a href="{{ path('ojs_site_explore_index', {
                                                 subject_filters: parameter|join(','),
                                                 type_filters: app.request.get('type_filters'),
-                                                publisher_filters: app.request.get('publisher_filters')}) }}">
+                                                publisher_filters: app.request.get('publisher_filters')}) }}"  class="subject">
                                                 <span class="label label-danger">
                                                     <i class="glyphicon glyphicon-remove"></i>
                                                 </span>
@@ -120,7 +124,7 @@
                                             <a href="{{ path('ojs_site_explore_index', {
                                                 subject_filters: parameter|join(','),
                                                 type_filters: app.request.get('type_filters'),
-                                                publisher_filters: app.request.get('publisher_filters')}) }}">{{ subject.key }}</a>
+                                                publisher_filters: app.request.get('publisher_filters')}) }}" class="subject">{{ subject.key }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ subject.doc_count }}</span>
@@ -146,4 +150,16 @@
         </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {% if subjects and subjects|length>5 %}
+            var options = {
+                valueNames: [ 'subject']
+            };
+            var userList = new List('subjects-filter-box', options);
+        {% endif %}
+    </script>
 {% endblock %}
