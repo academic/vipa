@@ -1166,7 +1166,7 @@ title.person_title_edit: 'Ünvanı Düzenle'
 title.person_title_new: 'Yeni Ünvan'
 title.person_title_show: 'Ünvanı Göster'
 title.person_titles: Ünvanlar
-title.post: Yazı
+title.post: "Blog Yazıları"
 title.post_detail: 'Yazı Detayı'
 title.post_edit: 'Yazı Düzenle'
 title.post_new: 'Yeni Yazı'
@@ -1405,5 +1405,4 @@ default: Varsayılan
 optional: Opsiyonel
 submission.no_file: 'Makale dosyası yok, lütfen dergi yöneticisine haber verin.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
-optinal: 'İsteğe Bağlı'
-required: 'Zorunlu'
+
