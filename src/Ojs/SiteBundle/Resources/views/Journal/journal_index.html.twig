@@ -31,65 +31,61 @@
         {% else %}
             {% block journalheader %}
                 <div id="header">
-                    {% if journal.header %}
+                    <div class="row">
+                        {% if journal.header %}
+                            <div class="col-md-12">
+                                <img src="{{ journal.header|imagine_filter('journal_header') }}"
+                                     class="width100 img-responsive margin-bot"/>
+                            </div>
+                        {% endif %}
+                        <h1 class="col-md-12">
+                            {{ journal.title }}
+                            <small>
+                                <i class="fa fa-eye"></i>
+                                {{ journal.viewCount|number_format }}
+                            </small>
+                            <small>
+                                <i class="fa fa-download"></i>
+                                {{ journal.downloadCount|number_format }}
+                            </small>
+                        </h1>
                         <div class="col-md-12">
-                            <img src="{{ journal.header|imagine_filter('journal_header') }}"
-                                 class="width100 img-responsive"/>
-                        </div>
-                    {% endif %}
-                    <h1>
-                        {{ journal.title }}
-                        <small>
-                            <i class="fa fa-eye"></i>
-                            {{ journal.viewCount|number_format }}
-                        </small>
-                        <small>
-                            <i class="fa fa-download"></i>
-                            {{ journal.downloadCount|number_format }}
-                        </small>
-                    </h1>
-                    <div class="col-md-12">
-                        {% include '::flashbag.html.twig' %}
-                        <dl class="journal-meta">
-                            {% if journal.issn %}
-                                <dt>ISSN</dt>
-                                <dd>{{ journal.issn }}</dd>
-                            {% endif %}
+                            {% include '::flashbag.html.twig' %}
+                            <dl class="journal-meta">
+                                {% if journal.issn %}
+                                    <dt>ISSN</dt>
+                                    <dd>{{ journal.issn }}</dd>
+                                {% endif %}
 
-                            {% if journal.eissn %}
-                                <dt>e-ISSN</dt>
-                                <dd>{{ journal.eissn }}</dd>
-                            {% endif %}
+                                {% if journal.eissn %}
+                                    <dt>e-ISSN</dt>
+                                    <dd>{{ journal.eissn }}</dd>
+                                {% endif %}
 
-                            {% if journal.periods|length > 0 %}
-                                <dt>{{ "period"|trans }}</dt>
-                                <dd>
-                                    {% for period in journal.periods %}
-                                        {{ period.period }}
-                                        {% if not loop.last %}
-                                            ,
-                                        {% endif %}
-                                    {% endfor %}
-                                </dd>
-                            {% endif %}
-                            <!--
+                                {% if journal.periods|length > 0 %}
+                                    <dt>{{ "period"|trans }}</dt>
+                                    <dd>
+                                        {% for period in journal.periods %}
+                                            {{ period.period }}
+                                            {% if not loop.last %}
+                                                ,
+                                            {% endif %}
+                                        {% endfor %}
+                                    </dd>
+                                {% endif %}
+                                <!--
                             {% if journal.country %}
                             <dt>{{ "country"|trans }}</dt>
                             <dd>{{ journal.country }}</dd>
                             {% endif %}
                             -->
-                        </dl>
+                            </dl>
+                        </div>
                     </div>
-                    <!--
-                    <h6> {{ journal.titleAbbr }}  </h6>
-                    <h6>{{ journal.subtitle }}
-                        <small>{{ journal.titleTransliterated }}</small>
-                    </h6>
-                    -->
                 </div>
             {% endblock %}
             <div class="row">
-                <div class="col-md-2 col-sm-3 col-xs-8 col-xs-offset-2 col-sm-offset-0 margin-bot">
+                <div class="col-md-2 col-sm-3 col-xs-8 margin-bot">
                     <img
                             {% if journal.image is not null %}
                                 src="{{ journal.image|imagine_filter('journal_cover') }}" class="img-responsive img-rounded float-left"
