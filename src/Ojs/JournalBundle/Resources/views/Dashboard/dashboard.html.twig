@@ -43,9 +43,9 @@
             var chart = c3.generate({
                 data: {
                     columns: [
-                        ['{{ "status.inreview"|trans }} (6)', 30],
-                        ['{{ "status.rejected"|trans }} (24)', 120],
-                        ['{{ "status.published"|trans }} (24)', 120],
+                        {% for statusName,count in articlePieStats %}
+                            ['{{ statusName|trans }} ({{ count }})', {{ count }}],
+                        {% endfor %}
                     ],
                     type: 'pie',
                     onclick: function (d, i) {
