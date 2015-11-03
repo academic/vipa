@@ -765,3 +765,7 @@ label.required:before {
 .grid-item:nth-child(6), .grid-item:nth-child(12), .grid-item:nth-child(18), .grid-item:nth-child(24), .grid-item:nth-child(30) {
     margin-right: 0 !important;
 }
+
+.page-header {
+    border-color: #777;
+}
