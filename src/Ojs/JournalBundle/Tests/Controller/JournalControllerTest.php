@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\CoreBundle\Tests\BaseTestCase;
 
 class JournalControllerTest extends BaseTestCase
@@ -38,7 +39,7 @@ class JournalControllerTest extends BaseTestCase
         $form['ojs_journalbundle_journal[url]'] = 'Content';
         $form['ojs_journalbundle_journal[country]'] = 1;
         $form['ojs_journalbundle_journal[published]'] = 1;
-        $form['ojs_journalbundle_journal[status]'] = 1;
+        $form['ojs_journalbundle_journal[status]'] = JournalStatuses::STATUS_PUBLISHED;
         $form['ojs_journalbundle_journal[image]'] = 'Content';
         $form['ojs_journalbundle_journal[slug]'] = 'Content';
         $form['ojs_journalbundle_journal[theme]'] = 3;

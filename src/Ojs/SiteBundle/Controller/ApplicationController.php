@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalApplicationUploadFile;
 use Ojs\JournalBundle\Entity\JournalContact;
@@ -80,7 +81,7 @@ class ApplicationController extends Controller
             }
 
             if ($form->isValid() && $form->isSubmitted()) {
-                $application->setStatus(0);
+                $application->setStatus(JournalStatuses::STATUS_PREPARING);
 
                 /** @var JournalContact $contact */
                 if($application->getJournalContacts()){

@@ -14,6 +14,7 @@ use OkulBilisim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use Ojs\CoreBundle\Annotation\Display;
+use Ojs\CoreBundle\Params\JournalStatuses;
 
 /**
  * Journal
@@ -30,11 +31,11 @@ class Journal extends AbstractTranslatable
      * @var array
      */
     public static $statuses = array(
-        -3 => 'status.rejected',
-        -2 => 'status.unpublished',
-        -1 => 'status.not_submitted',
-        0 => 'status.inreview',
-        1 => 'status.published',
+        JournalStatuses::STATUS_REJECTED => 'status.rejected',
+        JournalStatuses::STATUS_NAME_CHANGED => 'status.name_changed',
+        JournalStatuses::STATUS_HOLD=> 'status.hold',
+        JournalStatuses::STATUS_PREPARING => 'status.preparing',
+        JournalStatuses::STATUS_PUBLISHED => 'status.published',
     );
     /** @var  boolean */
     protected $setupFinished;
@@ -850,7 +851,7 @@ class Journal extends AbstractTranslatable
      * @param  Country $country
      * @return Journal
      */
-    public function setCountry(Country $country)
+    public function setCountry(Country $country = null)
     {
         $this->country = $country;
 

@@ -9,11 +9,13 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use JMS\TranslationBundle\Annotation as JMS;
+use Ojs\CoreBundle\Params\JournalStatuses;
 
 /**
  * Publisher controller.
@@ -170,8 +172,9 @@ class AdminPublisherApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
+        /** @var Journal $journal */
         foreach ($entity->getJournals() as $journal) {
-            $journal->setStatus(-3);
+            $journal->setStatus(JournalStatuses::STATUS_REJECTED);
             $em->persist($journal);
         }
 

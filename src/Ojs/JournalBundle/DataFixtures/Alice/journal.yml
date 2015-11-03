@@ -13,6 +13,6 @@
     publisher: @default
     subjects: [@subject1, @subject2]
     languages: [@lang1, @lang2]
-    status: '1'
+    status: 1
     setupFinished: true
     mandatoryLang: @lang1

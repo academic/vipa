@@ -5,6 +5,7 @@ namespace Ojs\CoreBundle\Command;
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\AdminBundle\Entity\AdminPost;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -180,7 +181,7 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->setFounded(new \DateTime('now'));
         $journal->setIssn('1234-5679');
         $journal->setEissn('1234-5679');
-        $journal->setStatus(1);
+        $journal->setStatus(JournalStatuses::STATUS_PUBLISHED);
         $journal->setPublished(1);
 
         $em->persist($journal);

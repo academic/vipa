@@ -11,6 +11,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
@@ -47,7 +48,7 @@ class AdminJournalApplicationController extends Controller
             function (QueryBuilder $query) use ($alias) {
                 $query
                     ->andWhere($alias . '.status = :status')
-                    ->setParameter('status', '0');
+                    ->setParameter('status', JournalStatuses::STATUS_PREPARING);
                 return $query;
             }
         );
@@ -195,7 +196,7 @@ class AdminJournalApplicationController extends Controller
         }
 
         $entity->getPublisher()->setStatus(1);
-        $entity->setStatus(1);
+        $entity->setStatus(JournalStatuses::STATUS_PUBLISHED);
         $em->persist($entity);
         $em->flush();
 
