@@ -8,11 +8,11 @@
                 {% if journal.image is defined and journal.image is not null %}
                     {% set src = journal.image|imagine_filter('journal_original') %}
                     <img src="{{ src }}"
-                         alt="{{ journal.title }}" title="journal.title" width="150" height="200"
+                         alt="{{ journal.title }}" title="{{ journal.title }}" width="150" height="200"
                          class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default">
                 {% else %}
                     <img src="#"
-                         alt="journal.title" title="journal.title" width="150" height="200"
+                         alt="journal.title" title="{{ journal.title }}" width="150" height="200"
                          class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default tri">
                 {% endif %}
             </a>
