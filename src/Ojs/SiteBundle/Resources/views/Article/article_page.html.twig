@@ -54,6 +54,32 @@
                                      class="img-responsive img-rounded float-left tri" alt="{{ article.title }}"/>
                             </a>
                         {% endif %}
+                        <div class="">
+                            <div class="pull-right">
+                                <a title="Save to Zotero" class="btn btn-sm"
+                                   href="javascript:var d=document,s=d.createElement('script');s.src='https://www.zotero.org/bookmarklet/loader.js';(d.body?d.body:d.documentElement).appendChild(s);void(0);">
+                                    <img src="//dergipark.ulakbim.gov.tr/assets/images/zotero.ico" width="16"/>
+                                    Zotero</a> |
+                                <a title="Save to Mendeley" class="btn btn-sm"
+                                   href="javascript:document.getElementsByTagName('body')[0].appendChild(document.createElement('script')).setAttribute('src','https://www.mendeley.com/minified/bookmarklet.js');">
+                                    <img src="//dergipark.ulakbim.gov.tr/assets/images/mendeley.ico" width="16"/>
+                                    Mendeley</a>
+                            </div>
+                            {% if article.articleFiles|length > 0 %}
+                                {% for file in article.articleFiles %}
+                                    {% if file.type == 0 %}
+                                        <a href="{{ path('ojs_site_download_article', {articleFile: file.id}) }}"
+                                           class="btn btn-sm btn-link" target="_blank"><i
+                                                    class="fa fa-file-pdf-o"></i> {{ file.title }}
+                                            <small>
+                                                (<i class="fa fa-arrow-circle-o-down"></i> {{ file.downloadCount|number_format }}
+                                                )
+                                            </small>
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
 
                         <h2 class="title">{{ fieldDisplay(article, 'title') }}</h2>
                         {% if article.titleTransliterated %}
