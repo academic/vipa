@@ -137,7 +137,7 @@ application.institute.list: 'Yayıncı Listesi'
 application.publisher.apply: 'Yayıncı Olarak Başvur'
 application.publisher.edit: 'Yayıncı Düzenle'
 application.journal: 'Dergi Başvurusu'
-application.journal.apply: ' %project_name% yeni dergi olarak başvur'
+application.journal.apply: ' %project_name% dergi olarak başvur'
 application.journal.detail: Detay
 application.journal.edit: 'Dergi Başvurusunu Düzenle'
 application.journal.publisher: 'Yayıncı Başvurusu'
