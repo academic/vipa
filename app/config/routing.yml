@@ -8,7 +8,7 @@ journal_publisher_hosting:
 
 PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
-    prefix:   /sitemap
+    prefix:   /
 
 ojs_admin:
   resource: '@OjsAdminBundle/Resources/config/routing.yml'
