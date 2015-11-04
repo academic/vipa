@@ -45,10 +45,11 @@ com_crashlytics_export_strings.xml
 # Managed by Composer
 /bin/
 
-# Assets and user uploads
+# Assets ,user uploads and sitemaps
 /web/bundles/
 /web/uploads/
 /web/assetic/
+/web/sitemap
 /web/media
 # PHPUnit
 /app/phpunit.xml
