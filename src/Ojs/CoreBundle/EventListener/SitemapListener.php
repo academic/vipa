@@ -43,10 +43,17 @@ class SitemapListener implements SitemapListenerInterface
      */
     private function generateMainLinks(SitemapPopulateEvent $event)
     {
-        //@todo this list can be extend
         $mainLinkRoutes = [
             'login',
             'fos_user_registration_register',
+            'ojs_site_people_index',
+            'ojs_tags_cloud',
+            'ojs_search_advanced',
+            'ojs_public_index',
+            'ojs_apply_journal',
+            'ojs_apply_publisher',
+            'ojs_site_explore_publisher',
+            'ojs_site_explore_index',
         ];
         foreach($mainLinkRoutes as $route){
             $event->getGenerator()->addUrl(
