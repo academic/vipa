@@ -87,7 +87,7 @@ Supplementary.File: 'Ek Dosya'
 roles.sys_manager: 'Sistem Yöneticisi'
 Tables: Tablolar
 Template: Şablon
-Title: Ünvan
+Title: Başlık
 Transcripts: Suretler
 Turkish: Türkçe
 Tweak: 'Ufak Düzeltme'
@@ -354,7 +354,7 @@ event.ip: 'Olay IP'
 event.user.id: 'Olay Kullanıcı No'
 faq: SSS
 fax: Fax
-featured: 'Öne Çıkan'
+featured: 'Öne Çıkanlar'
 featured.desc: 'Özellikli Tanım'
 fields: Alanlar
 fieldset: 'Alan Kümesi'
