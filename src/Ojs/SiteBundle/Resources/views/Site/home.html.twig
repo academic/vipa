@@ -7,38 +7,6 @@
     {% stylesheets "@bxslider_css" output="assets/prod/js/bxslider.css" %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
-    <style type="text/css">
-        .bx-wrapper {
-            box-shadow: none;
-            border: 1px solid #777;
-            overflow: hidden;
-            margin: 30px !important;
-        }
-
-        #logo {
-            max-height: 140px;
-            max-width: 140px;
-        }
-
-        #stats {
-            margin: 20px auto;
-            min-width: 300px;
-            text-align: center;
-            color: #000;
-        }
-
-        #search_section {
-            margin-top: 50px;
-        }
-
-        @media (max-width: 360px) {
-            #homepage-buttons a {
-                width: 220px;
-                margin-top: 3px;
-                text-align: left;
-            }
-        }
-    </style>
 {% endblock %}
 {% block body %}
     <div class="container">

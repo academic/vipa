@@ -12,13 +12,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="{% if page == 'index' %}active{% endif %} navbar-btn">
+                <li class="{% if page == 'index' %}active{% endif %} navbar-btn hidden-xs">
                     <a href="{{ url('ojs_public_index') }}" title="{{ "home"|trans }}" data-placement="bottom">
                         <i class="fa fa-home fa-fw"></i>
                         <span class="hidden-sm hidden-md hidden-lg">{{ "home"|trans }}</span>
                     </a>
                 </li>
-                <li class="{% if page == 'ojs_public_index' %}active{% endif %} navbar-btn">
+                <li class="{% if page == 'ojs_public_index' %}active{% endif %} navbar-btn hidden-xs">
                     <a href="{{ url('ojs_public_index') }}page/about" data-placement="bottom"
                        title="{{ "title.about"|trans }}"><i
                                 class="fa fa-info fa-fw"></i></a>
@@ -60,7 +60,10 @@
                     {% include '::language_selector.html.twig' %}
 
                     {% if app.user %}
-
+                        <li class="navbar-btn"><a href="{{ url('dashboard') }}"
+                                                  title="{{ "dashboard"|trans }}"><i class="fa fa-cog"></i>
+                                <b>{{ "dashboard"|trans }}</b></a></li>
+                        <li>
                         <li class="dropdown user user-menu  navbar-btn">
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -68,12 +71,8 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('dashboard') }}"
-                                       title="{{ "dashboard"|trans }}"><b>{{ "dashboard"|trans }}</b></a></li>
-
-                                <li>
                                 <li><a href="{{ url('ojs_user_profile', {slug: app.user.username}) }}"
-                                       title="{{ "you"|trans }}">{{ app.user.username }}</a></li>
+                                       title="{{ "you"|trans }}">@{{ app.user.username }}</a></li>
 
                                 <li>
                                     <a href="{{ url('ojs_user_index') }}">
