@@ -88,11 +88,11 @@
                 <div class="col-md-2 col-sm-3 col-xs-8 margin-bot">
                     <img
                             {% if journal.image is not null %}
-                                src="{{ journal.image|imagine_filter('journal_cover') }}" class="img-responsive img-rounded float-left"
+                                src="{{ journal.image|imagine_filter('journal_original') }}" class="img-responsive img-rounded float-left"
                             {% else %}
                                 src="#" class="img-responsive img-rounded float-left tri"
                             {% endif %}
-                            alt="{{ 'cover_image'|trans }} "/>
+                            alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
 
                     <a href="#" class="list-group-item ">
                         <span class="pull-right">
