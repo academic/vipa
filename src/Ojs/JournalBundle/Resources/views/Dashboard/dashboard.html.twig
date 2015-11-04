@@ -22,7 +22,7 @@
     {% include '::flashbag.html.twig' %}
     {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
 
-        [show here latest articles]
+        <div id="chart"></div>
         <div>
             {{ getLogs(selectedJournal()) }}
         </div>
@@ -32,4 +32,34 @@
             <h5>{{ "dashboard.use_left"|trans }}</h5>
         </div>
     {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts "@stats_js" output="assets/prod/js/stats.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(function () {
+            var chart = c3.generate({
+                data: {
+                    columns: [
+                        ['{{ "status.inreview"|trans }}', 30],
+                        ['{{ "status.rejected"|trans }}', 120],
+                        ['{{ "status.published"|trans }}', 120],
+                    ],
+                    type: 'pie',
+                    onclick: function (d, i) {
+                        console.log("onclick", d, i);
+                    },
+                    onmouseover: function (d, i) {
+                        console.log("onmouseover", d, i);
+                    },
+                    onmouseout: function (d, i) {
+                        console.log("onmouseout", d, i);
+                    }
+                }
+            });
+
+        });
+    </script>
 {% endblock %}
