@@ -63,13 +63,13 @@ ROLE_EDITOR: Editör
 ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
 ROLE_LAYOUT_EDITOR: 'Mizanpajcı'
 ROLE_PROOFREADER: 'Son Okuyucu'
-ROLE_READER: Okuyucu
+ROLE_READER: Okur
 ROLE_SECTION_EDITOR: 'Bölüm Editörü'
 ROLE_SUBSCRIPTION_MANAGER: 'Abonelik Yöneticisi'
 ROLE_REVIEWER: 'Hakem'
 ROLE_USER: 'Kullanıcı'
 ROLE_SECRETARY: Sekreter
-Reader: Okuyucu
+Reader: Okur
 ojs.repeat_password: 'Şifreyi Tekrar Yaz.'
 workflow.research_materials: 'Araştıra Materyalleri'
 workflow.research_results: 'Araştırma Sonuçları'
@@ -377,7 +377,7 @@ flush.all.log: 'Tüm Kayıtları Temizle'
 footer_text: 'Altbilgi Metni'
 for.author_editor: 'Yazarlar ve Editörler İçin'
 for.authors: 'Yazarlar İçin'
-for.readers: 'Okuyucular İçin'
+for.readers: 'Okurlar İçin'
 forgot.password: 'Şifremi Unuttum!'
 form.item.new: 'Yeni Form Elemanı'
 form.item.update: 'Form Elemanını Güncelle'
