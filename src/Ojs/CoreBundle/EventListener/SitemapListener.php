@@ -2,6 +2,7 @@
 
 namespace Ojs\CoreBundle\EventListener;
 
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Routing\RouterInterface;
@@ -12,6 +13,7 @@ use Doctrine\ORM\EntityManager;
 
 class SitemapListener implements SitemapListenerInterface
 {
+    /** @var RouterInterface */
     private $router;
 
     /** @var EntityManager */
@@ -78,8 +80,8 @@ class SitemapListener implements SitemapListenerInterface
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
                     $this->router->generate('ojs_journal_index', [
-                        'publisher' => $journal->getPublisher()->getSlug(),
-                        'slug' => $journal->getSlug()
+                        'publisher'     => $journal->getPublisher()->getSlug(),
+                        'slug'          => $journal->getSlug()
                     ], true),
                     new \DateTime(),
                     UrlConcrete::CHANGEFREQ_WEEKLY,
@@ -100,6 +102,7 @@ class SitemapListener implements SitemapListenerInterface
     private function generateIssueLinks(SitemapPopulateEvent $event,Journal $journal)
     {
         $issues = $journal->getIssues();
+        /** @var Issue $issue */
         foreach($issues as $issue){
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
@@ -128,6 +131,7 @@ class SitemapListener implements SitemapListenerInterface
     {
         $articles = $issue->getArticles();
         $journal = $issue->getJournal();
+        /** @var Article $article */
         foreach($articles as $article){
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
