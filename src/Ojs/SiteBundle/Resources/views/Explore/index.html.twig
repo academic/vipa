@@ -56,9 +56,9 @@
                 {% if publishers %}
                     <div id="publishers-filter-box" class="panel panel-default">
                         <div class="panel-heading">{{ 'title.publishers'|trans }}</div>
-                        {% if publishers|length>5 %}
-                            <input class="search" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-sm" data-sort="publishers">
+                        {% if publishers|length > 5 %}
+                            <input class="search form-control" placeholder="{{ "search"|trans }}"/>
+                            <button class="sort btn btn-primary btn-sm" data-sort="publishers">
                                 {{ "search"|trans }}
                             </button>
                         {% endif %}
@@ -102,9 +102,9 @@
                 {% if subjects %}
                     <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
-                        {% if subjects|length>5 %}
-                            <input class="search" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-sm" data-sort="subject">
+                        {% if subjects|length > 5 %}
+                            <input class="search form-control" placeholder="{{ "search"|trans }}"/>
+                            <button class="sort btn btn-primary btn-sm" data-sort="subject">
                                 {{ "search"|trans }}
                             </button>
                         {% endif %}
@@ -152,7 +152,7 @@
             {% endfor %}
         </div>
 
-        {% if journals|length>1 %}
+        {% if journals|length > 1 %}
         <div class="text-center">
             <ul class="pagination">
                 {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
@@ -165,13 +165,13 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        {% if subjects and subjects|length>5 %}
+        {% if subjects and subjects|length > 5 %}
             var options = {
                 valueNames: [ 'subject']
             };
             var userList = new List('subjects-filter-box', options);
         {% endif %}
-        {% if publishers and publishers|length>5 %}
+        {% if publishers and publishers|length > 5 %}
         var options = {
             valueNames: ['publisher-name']
         };
