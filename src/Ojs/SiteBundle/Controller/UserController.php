@@ -37,11 +37,14 @@ class UserController extends Controller
         if ($user->isPrivacy()) {
             return $this->render('OjsSiteBundle:User:private_account.html.twig', $data);
         }
-// 'status' => 1
+
         $data['articles'] = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
-            ->findBy(['submitterUser' => $user], ['pubdate' => 'DESC']);
+            ->findBy([
+                'submitterUser' => $user,
+                'status' => 1
+                ],['pubdate' => 'DESC']);
 
 
         return $this->render('OjsSiteBundle:User:profile_index.html.twig', $data);
