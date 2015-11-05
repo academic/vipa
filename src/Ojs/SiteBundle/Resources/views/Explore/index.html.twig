@@ -56,7 +56,13 @@
                 {% if publishers %}
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ 'title.publishers'|trans }}</div>
-                        <ul class="list-group">
+                        {% if publishers|length>5 %}
+                            <input class="search" placeholder="{{ "search"|trans }}"/>
+                            <button class="sort btn btn-sm" data-sort="publishers">
+                                {{ "search"|trans }}
+                            </button>
+                        {% endif %}
+                        <ul class="list-group list">
                             {% for publisher in publishers %}
                                 <li class="list-group-item">
                                     {% if publisher_filters is empty %}
@@ -162,6 +168,12 @@
                 valueNames: [ 'subject']
             };
             var userList = new List('subjects-filter-box', options);
+        {% endif %}
+        {% if publishers and publishers|length>5 %}
+        var options = {
+            valueNames: ['publishers']
+        };
+        var userList = new List('publishers-filter-box', options);
         {% endif %}
     </script>
 {% endblock %}
