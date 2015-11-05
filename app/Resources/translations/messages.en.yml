@@ -1409,3 +1409,4 @@ submission.no_file: 'There is no required submission file, please notify the jou
 submission.no_checklist: 'There is no required checklist, please notify the journal manager'
 optinal: Optinal
 required: Required
+journal.apply.form: 'Apply Form'

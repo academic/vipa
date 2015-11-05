@@ -27,7 +27,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
-        {'title': "application.journal.apply" | trans({'%project_name%' : project_name}) }
+        {'title': "journal.apply.form" | trans }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
