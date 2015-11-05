@@ -106,7 +106,7 @@
                 {% if subjects %}
                     <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
-                        {% if subjects|length < 5 %}
+                        {% if subjects|length > 5 %}
                             <div class="input-group">
                                 <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
                                 <div class="input-group-btn">
@@ -173,17 +173,17 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        {% if subjects and subjects|length < 5 %}
+        {% if publishers and publishers|length > 5 %}
+        var options = {
+            valueNames: ['publisher-name']
+        };
+        var publishersList = new List('publishers-filter-box', options);
+        {% endif %}
+        {% if subjects and subjects|length > 5 %}
             var options = {
                 valueNames: [ 'subject']
             };
             var userList = new List('subjects-filter-box', options);
-        {% endif %}
-        {% if publishers and publishers|length > 5 %}
-            var options = {
-                valueNames: ['publisher-name']
-            };
-            var publishersList = new List('publishers-filter-box', options);
         {% endif %}
     </script>
 {% endblock %}
