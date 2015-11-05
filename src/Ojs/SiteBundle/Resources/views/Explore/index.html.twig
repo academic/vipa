@@ -60,7 +60,7 @@
                             <div class="input-group">
                                 <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
                                 <div class="input-group-btn">
-                                    <button class="sort btn btn-primary no-radius" data-sort="publisher">
+                                    <button class="sort btn btn-primary no-radius" data-sort="publisher-name">
                                         <i class="fa fa-sort"></i>
                                     </button>
                                 </div>
@@ -75,14 +75,14 @@
                                             publisher_filters: publisher.key,
                                             subject_filters: app.request.get('subject_filters'),
                                             type_filters: app.request.get('type_filters') }) }}"
-                                            class="publisher">{{ publisher.key|trans }}</a>
+                                             class="publisher-name">{{ publisher.key|trans }}</a>
                                     {% else %}
                                         {% if publisher.key in publisher_filters %}
                                             {% set parameter = publisher_filters|pop(publisher.key) %}
                                             <a href="{{ path('ojs_site_explore_index', {
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
-                                                type_filters: app.request.get('type_filters')}) }}" class="publisher">
+                                                type_filters: app.request.get('type_filters')}) }}" class="publisher-name">
                                                 {{ publisher.key|trans }}
                                                 <span class="label label-danger">
                                                     <i class="glyphicon glyphicon-remove"></i>
@@ -94,7 +94,7 @@
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
                                                 type_filters: app.request.get('type_filters')}) }}"
-                                                class="publisher">{{ publisher.key|trans }}</a>
+                                                 class="publisher-name">{{ publisher.key|trans }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ publisher.doc_count }}</span>
@@ -175,7 +175,7 @@
     <script>
         {% if publishers and publishers|length > 5 %}
         var publisherOptions = {
-            valueNames: ['publisher']
+            valueNames: ['publisher-name']
         };
         var publishersList = new List('publishers-filter-box', publisherOptions);
         {% endif %}
