@@ -860,3 +860,7 @@ label.required:before {
         text-align: left;
     }
 }
+
+.no-radius{
+    border-radius: 0px;
+}

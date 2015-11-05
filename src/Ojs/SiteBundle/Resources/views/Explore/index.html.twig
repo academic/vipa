@@ -57,10 +57,14 @@
                     <div id="publishers-filter-box" class="panel panel-default">
                         <div class="panel-heading">{{ 'title.publishers'|trans }}</div>
                         {% if publishers|length > 5 %}
-                            <input class="search form-control" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-primary btn-sm" data-sort="publishers">
-                                {{ "search"|trans }}
-                            </button>
+                            <div class="input-group">
+                                <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                <div class="input-group-btn">
+                                    <button class="sort btn btn-primary no-radius" data-sort="publishers">
+                                        <i class="fa fa-sort"></i>
+                                    </button>
+                                </div>
+                            </div>
                         {% endif %}
                         <ul class="list-group list">
                             {% for publisher in publishers %}
@@ -102,11 +106,15 @@
                 {% if subjects %}
                     <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
-                        {% if subjects|length > 5 %}
-                            <input class="search form-control" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-primary btn-sm" data-sort="subject">
-                                {{ "search"|trans }}
-                            </button>
+                        {% if subjects|length < 5 %}
+                            <div class="input-group">
+                                <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                <div class="input-group-btn">
+                                    <button class="sort btn btn-primary no-radius" data-sort="subject">
+                                        <i class="fa fa-sort"></i>
+                                    </button>
+                                </div>
+                            </div>
                         {% endif %}
                         <ul class="list-group list">
                             {% for subject in subjects %}
@@ -165,17 +173,17 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        {% if subjects and subjects|length > 5 %}
+        {% if subjects and subjects|length < 5 %}
             var options = {
                 valueNames: [ 'subject']
             };
             var userList = new List('subjects-filter-box', options);
         {% endif %}
         {% if publishers and publishers|length > 5 %}
-        var options = {
-            valueNames: ['publisher-name']
-        };
-        var publishersList = new List('publishers-filter-box', options);
+            var options = {
+                valueNames: ['publisher-name']
+            };
+            var publishersList = new List('publishers-filter-box', options);
         {% endif %}
     </script>
 {% endblock %}
