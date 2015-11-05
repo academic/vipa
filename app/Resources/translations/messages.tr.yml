@@ -459,7 +459,7 @@ publisher.name: Ad
 publisher.new: 'Yeni Yayıncı'
 publisher.phone: 'Telefon Numarası'
 publisher.plural: Yayıncılar
-publisher.slug: 'Geçersiz Ad'
+publisher.slug: 'URL ismi'
 publisher.tags: Etiketler
 publisher.tags: 'Yayıncı Düzeni'
 publisher.theme: 'Yayıncı Teması'
