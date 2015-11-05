@@ -35,7 +35,7 @@
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{ "application.journal.apply" | trans({'%project_name%' : project_name}) }}</h1>
+        <h1 class="page-header">{{ "journal.apply.form"|trans }}</h1>
 
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
         {{ form_row(form._token) }}
