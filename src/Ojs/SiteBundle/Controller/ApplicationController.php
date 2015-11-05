@@ -57,6 +57,7 @@ class ApplicationController extends Controller
 
         $application = new Journal();
 
+        $application = $this->setupJournalContacts($application);
         $defaultCountryId = $this->container->getParameter('country_id');
         $defaultCountry = $em->getRepository('OkulBilisimLocationBundle:Country')->find($defaultCountryId);
         $application->setCountry($defaultCountry);
@@ -87,6 +88,7 @@ class ApplicationController extends Controller
                 if($application->getJournalContacts()){
                     foreach ($application->getJournalContacts() as $contact) {
                         $contact->setJournal($application);
+                        $em->persist($contact);
                     }
                 }
 
@@ -188,5 +190,29 @@ class ApplicationController extends Controller
     public function journalSuccessAction()
     {
         return $this->render('OjsSiteBundle:Application:journal_success.html.twig');
+    }
+
+    /**
+     * @param Journal $journal
+     * @return Journal
+     */
+    private function setupJournalContacts(Journal $journal)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $contactTypes = [];
+        //primary contact type
+        $contactTypes[] = $em->getRepository('OjsJournalBundle:ContactTypes')->find(2);
+        //author support type contact
+        $contactTypes[] = $em->getRepository('OjsJournalBundle:ContactTypes')->find(4);
+        //technical support contact type
+        $contactTypes[] = $em->getRepository('OjsJournalBundle:ContactTypes')->find(3);
+        foreach($contactTypes as $contactType){
+            if(!is_null($contactType)){
+                $journalContact = new JournalContact();
+                $journalContact->setContactType($contactType);
+                $journal->addJournalContact($journalContact);
+            }
+        }
+        return $journal;
     }
 }

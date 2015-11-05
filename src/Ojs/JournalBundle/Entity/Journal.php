@@ -329,6 +329,7 @@ class Journal extends AbstractTranslatable
         $this->subjects = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
+        $this->journalContacts = new ArrayCollection();
     }
 
     /**
