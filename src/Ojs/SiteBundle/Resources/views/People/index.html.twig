@@ -56,10 +56,12 @@
                     <div class="panel panel-default" id="journals-filter-box">
                         <div class="panel-heading">{{ 'journals'|trans }}</div>
                         {% if journals|length>5 %}
-                            <input class="search" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-sm" data-sort="journals">
-                                {{ "search"|trans }}
-                            </button>
+                            <div class="input-group-btn">
+                                <input class="search form-control" placeholder="{{ "search"|trans }}"/>
+                                <button class="sort btn btn-sm" data-sort="journals">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
                         {% endif %}
                         <ul class="list-group list">
                             {% for journal in journals %}
