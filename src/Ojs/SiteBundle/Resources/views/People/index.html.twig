@@ -93,7 +93,14 @@
                 {% if subjects %}
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ 'subjects'|trans }}</div>
-                        <ul class="list-group">
+                        <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
+                        {% if subjects|length>5 %}
+                            <input class="search" placeholder="{{ "search"|trans }}"/>
+                            <button class="sort btn btn-sm" data-sort="subject">
+                                {{ 'sort.by.subject' }}
+                            </button>
+                        {% endif %}
+                        <ul class="list-group list">
                             {% for subject in subjects %}
                                 <li class="list-group-item">
                                     {% if subject_filters is empty %}
@@ -154,6 +161,13 @@
     {% endjavascripts %}
     <script>
         $(function () {
+            {% if subjects and subjects|length>5 %}
+            var options = {
+                valueNames: ['subject']
+            };
+            var userList = new List('subjects-filter-box', options);
+            {% endif %}
+
             $('.hovercard').each(function () {
                 var elm, detail;
                 elm = $(this);
