@@ -60,7 +60,7 @@
                             <div class="input-group">
                                 <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
                                 <div class="input-group-btn">
-                                    <button class="sort btn btn-primary no-radius" data-sort="publishers">
+                                    <button class="sort btn btn-primary no-radius" data-sort="publisher">
                                         <i class="fa fa-sort"></i>
                                     </button>
                                 </div>
@@ -174,16 +174,16 @@
     {{ parent() }}
     <script>
         {% if publishers and publishers|length > 5 %}
-        var options = {
-            valueNames: ['publisher-name']
+        var publisherOptions = {
+            valueNames: ['publisher']
         };
-        var publishersList = new List('publishers-filter-box', options);
+        var publishersList = new List('publishers-filter-box', publisherOptions);
         {% endif %}
         {% if subjects and subjects|length > 5 %}
-            var options = {
+            var subjectOptions = {
                 valueNames: [ 'subject']
             };
-            var userList = new List('subjects-filter-box', options);
+            var userList = new List('subjects-filter-box', subjectOptions);
         {% endif %}
     </script>
 {% endblock %}
