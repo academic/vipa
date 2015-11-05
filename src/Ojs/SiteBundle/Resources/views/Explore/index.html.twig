@@ -70,7 +70,8 @@
                                         <a href="{{ path('ojs_site_explore_index', {
                                             publisher_filters: publisher.key,
                                             subject_filters: app.request.get('subject_filters'),
-                                            type_filters: app.request.get('type_filters') }) }}">{{ publisher.key|trans }}</a>
+                                            type_filters: app.request.get('type_filters') }) }}"
+                                           class="publisher-name">{{ publisher.key|trans }}</a>
                                     {% else %}
                                         {% if publisher.key in publisher_filters %}
                                             {% set parameter = publisher_filters|pop(publisher.key) %}
@@ -88,7 +89,8 @@
                                             <a href="{{ path('ojs_site_explore_index', {
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
-                                                type_filters: app.request.get('type_filters')}) }}">{{ publisher.key|trans }}</a>
+                                                type_filters: app.request.get('type_filters')}) }}"
+                                               class="publisher-name">{{ publisher.key|trans }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ publisher.doc_count }}</span>
@@ -171,7 +173,7 @@
         {% endif %}
         {% if publishers and publishers|length>5 %}
         var options = {
-            valueNames: ['publishers']
+            valueNames: ['publisher-name']
         };
         var publishersList = new List('publishers-filter-box', options);
         {% endif %}

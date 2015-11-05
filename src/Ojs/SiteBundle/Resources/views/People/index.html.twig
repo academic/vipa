@@ -69,7 +69,8 @@
                                         <a href="{{ path('ojs_site_people_index', {
                                             journal_filters: journal.key,
                                             role_filters: app.request.get('role_filters'),
-                                            subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
+                                            subject_filters: app.request.get('subject_filters')}) }}"
+                                           class="journal-name">{{ journal.key }}</a>
                                     {% else %}
                                         {% if journal.key in journal_filters %}
                                             {% set parameter = journal_filters|pop(journal.key) %}
@@ -176,7 +177,7 @@
 
             {% if journals and journals|length>5 %}
             var options = {
-                valueNames: ['journals']
+                valueNames: ['journal-name']
             };
             var journalsList = new List('journals-filter-box', options);
             {% endif %}
