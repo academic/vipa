@@ -53,7 +53,7 @@
                     </div>
                 {% endif %}
                 {% if journals %}
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="journals-filter-box">
                         <div class="panel-heading">{{ 'journals'|trans }}</div>
                         {% if journals|length>5 %}
                             <input class="search" placeholder="{{ "search"|trans }}"/>

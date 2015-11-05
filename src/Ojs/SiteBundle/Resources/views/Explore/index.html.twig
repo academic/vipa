@@ -54,7 +54,7 @@
                     </div>
                 {% endif %}
                 {% if publishers %}
-                    <div class="panel panel-default">
+                    <div id="publishers-filter-box" class="panel panel-default">
                         <div class="panel-heading">{{ 'title.publishers'|trans }}</div>
                         {% if publishers|length>5 %}
                             <input class="search" placeholder="{{ "search"|trans }}"/>
