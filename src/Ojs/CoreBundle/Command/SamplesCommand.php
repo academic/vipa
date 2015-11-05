@@ -130,19 +130,36 @@ class SamplesCommand extends ContainerAwareCommand
         $em->flush();
 
         $articleTypes = [
-            'Research', 'Analysis', 'Clinical Review',
-            'Practice', 'Research Methods and Reporting',
-            'Christmas Issue', 'Editorials', 'Blogs',
-            'Case Reports', 'Letters (rapid responses)',
-            'Obituaries', 'Personal Views', 'Fillers',
-            'Minerva Pictures', 'Endgames',
-            'What Your Patient is Thinking'
+            #[ en, tr ]
+            ['Case Report',             'Olgu Sunumu'],
+            ['Research papers',         'Araştırma Makalesi'],
+            ['Translation',             'Çeviri'],
+            ['Note',                    'Not'],
+            ['Letter',                  'Editöre Mektup'],
+            ['Review Articles',         'Derleme'],
+            ['Book review',             'Kitap İncelemesi'],
+            ['Correction',              'Düzeltme'],
+            ['Editorial',               'Editoryal'],
+            ['Short Communication',     'Kısa Bildiri'],
+            ['Meeting abstract',        'Toplantı Özetleri'],
+            ['Conference Paper',        'Konferans Bildirisi'],
+            ['Biography',               'Biyografi'],
+            ['Correction',              'Düzeltme'],
+            ['Bibliography',            'Bibliyografi'],
+            ['News',                    'Haber'],
+            ['Report',                  'Rapor'],
+            ['Legislation Review',      'Yasa İncelemesi'],
+            ['Decision Review',         'Karar İncelemesi'],
+            ['Art and Literature',      'Sanat ve Edebiyat'],
+            ['Other',                   'Diğer'],
         ];
 
-        foreach ($articleTypes as $typeName) {
+        foreach ($articleTypes as $typeNames) {
             $type = new ArticleTypes();
             $type->setCurrentLocale('en');
-            $type->setName($typeName);
+            $type->setName($typeNames[0]);
+            $type->setCurrentLocale('tr');
+            $type->setName($typeNames[1]);
             $em->persist($type);
         }
 
