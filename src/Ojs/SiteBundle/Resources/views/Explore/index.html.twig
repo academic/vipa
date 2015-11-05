@@ -75,15 +75,15 @@
                                             publisher_filters: publisher.key,
                                             subject_filters: app.request.get('subject_filters'),
                                             type_filters: app.request.get('type_filters') }) }}"
-                                           class="publisher-name">{{ publisher.key|trans }}</a>
+                                            class="publisher">{{ publisher.key|trans }}</a>
                                     {% else %}
                                         {% if publisher.key in publisher_filters %}
                                             {% set parameter = publisher_filters|pop(publisher.key) %}
-                                            {{ publisher.key|trans }}
                                             <a href="{{ path('ojs_site_explore_index', {
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
-                                                type_filters: app.request.get('type_filters')}) }}">
+                                                type_filters: app.request.get('type_filters')}) }}" class="publisher">
+                                                {{ publisher.key|trans }}
                                                 <span class="label label-danger">
                                                     <i class="glyphicon glyphicon-remove"></i>
                                                 </span>
@@ -94,7 +94,7 @@
                                                 publisher_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
                                                 type_filters: app.request.get('type_filters')}) }}"
-                                               class="publisher-name">{{ publisher.key|trans }}</a>
+                                                class="publisher">{{ publisher.key|trans }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ publisher.doc_count }}</span>
@@ -128,11 +128,11 @@
                                     {% else %}
                                         {% if subject.key in subject_filters %}
                                             {% set parameter = subject_filters|pop(subject.key) %}
-                                            {{ subject.key }}
                                             <a href="{{ path('ojs_site_explore_index', {
                                                 subject_filters: parameter|join(','),
                                                 type_filters: app.request.get('type_filters'),
-                                                publisher_filters: app.request.get('publisher_filters')}) }}"  class="subject">
+                                                publisher_filters: app.request.get('publisher_filters')}) }}" class="subject">
+                                                {{ subject.key }}
                                                 <span class="label label-danger">
                                                     <i class="glyphicon glyphicon-remove"></i>
                                                 </span>
