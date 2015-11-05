@@ -55,7 +55,7 @@
                 {% if journals %}
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ 'journals'|trans }}</div>
-                        {% if subjects|length>5 %}
+                        {% if journals|length>5 %}
                             <input class="search" placeholder="{{ "search"|trans }}"/>
                             <button class="sort btn btn-sm" data-sort="journals">
                                 {{ "search"|trans }}
