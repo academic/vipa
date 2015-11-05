@@ -55,7 +55,13 @@
                 {% if journals %}
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ 'journals'|trans }}</div>
-                        <ul class="list-group">
+                        {% if subjects|length>5 %}
+                            <input class="search" placeholder="{{ "search"|trans }}"/>
+                            <button class="sort btn btn-sm" data-sort="journals">
+                                {{ "search"|trans }}
+                            </button>
+                        {% endif %}
+                        <ul class="list-group list">
                             {% for journal in journals %}
                                 <li class="list-group-item">
                                     {% if journal_filters is empty %}
@@ -97,7 +103,7 @@
                         {% if subjects|length>5 %}
                             <input class="search" placeholder="{{ "search"|trans }}"/>
                             <button class="sort btn btn-sm" data-sort="subject">
-                                {{ 'sort.by.subject' }}
+                                {{ "search"|trans }}
                             </button>
                         {% endif %}
                         <ul class="list-group list">
@@ -166,6 +172,13 @@
                 valueNames: ['subject']
             };
             var userList = new List('subjects-filter-box', options);
+            {% endif %}
+
+            {% if journals and journals|length>5 %}
+            var options = {
+                valueNames: ['journals']
+            };
+            var journalsList = new List('journals-filter-box', options);
             {% endif %}
 
             $('.hovercard').each(function () {

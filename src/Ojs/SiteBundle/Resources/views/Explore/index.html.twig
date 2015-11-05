@@ -95,9 +95,9 @@
                     <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
                         {% if subjects|length>5 %}
-                            <input class="search" placeholder="Search" />
+                            <input class="search" placeholder="{{ "search"|trans }}"/>
                             <button class="sort btn btn-sm" data-sort="subject">
-                                {{ 'sort.by.subject' }}
+                                {{ "search"|trans }}
                             </button>
                         {% endif %}
                         <ul class="list-group list">
