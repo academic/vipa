@@ -142,7 +142,7 @@ application.journal.detail: Detail
 application.journal.edit: 'Edit Journal Application'
 application.journal.publisher: Publisher Application
 application.journal.list: 'Journal Suggestions'
-application.journal.new_publisher: 'Apply as a New Publisher'
+application.journal.new_publisher: 'Apply as New Publisher'
 application.journal.new_publisher_help: 'If you can''t find your publisher above, please apply as an publisher using the button below.'
 application.journal.add_contact: 'Add Contact Person'
 application.status.complete: 'Import Completed'

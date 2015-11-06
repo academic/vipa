@@ -142,7 +142,7 @@ application.journal.detail: Detay
 application.journal.edit: 'Dergi Başvurusunu Düzenle'
 application.journal.publisher: 'Yayıncı Başvurusu'
 application.journal.list: 'Dergi Başvuruları'
-application.journal.new_publisher: 'Yeni Yayıncı Olarak Başvur'
+application.journal.new_publisher: 'Yayıncı Ekle'
 application.journal.new_publisher_help: 'Eğer yukarıda yayıncınızı bulamadıysanız, yeni yayıncı başvurusunda bulununuz.'
 application.journal.add_contact: 'İletişim Kişisi Ekle'
 application.status.complete: 'İçe Aktarma Tamamlandı'

@@ -21,9 +21,12 @@ class JournalType extends AbstractType
         $builder
             ->add('translations', 'a2lix_translations', [
                 'fields' => [
-                    'title' => [],
+                    'title' => [
+                        'label' => 'journal.title'
+                    ],
                     'subtitle' => [
                         'required' => false,
+                        'label' => 'journal.subtitle'
                     ],
                     'description' => [],
                     'titleAbbr' => [
