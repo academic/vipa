@@ -309,6 +309,7 @@ copy: Kopyala
 country: Ülke
 cover: Kapak
 cover_image: 'Kapak Resmi'
+'Cover Image': 'Kapak Resmi'
 create: Oluştur
 createOne: 'Yeni Oluştur'
 created: Oluşturulmuş
@@ -538,6 +539,7 @@ journal.founded: 'Başlangıç'
 journal.file: 'Gerekli Dosyalar'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Başlık Resmi'
+'Header Image': 'Başlık Resmi'
 journal.id: 'Dergi ID'
 journal.publisher: 'Derginin Yayıncısı'
 journal.issn: ISSN

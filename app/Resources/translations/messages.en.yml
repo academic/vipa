@@ -309,6 +309,7 @@ copy: Copy
 country: Country
 cover: Cover
 cover_image: 'Cover Image'
+'Cover Image': 'Cover Image'
 create: Create
 createOne: 'Create New One'
 created: Created
@@ -538,6 +539,7 @@ journal.founded: 'Founded'
 journal.file: 'Required Files'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
+'Header Image': 'Header Image'
 journal.id: 'Journal ID'
 journal.publisher: Publisher
 journal.issn: 'ISSN'
