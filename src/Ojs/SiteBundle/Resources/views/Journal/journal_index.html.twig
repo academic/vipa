@@ -94,11 +94,8 @@
                             {% endif %}
                             alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
 
-                    <a href="#" class="list-group-item ">
-                        <span class="pull-right">
-
-                        </span>
-                        <span class="row-fluid">
+                    <div class="list-group-item ">
+                        <span class="row-fluid text-center">
                             <span class="col-md-6 nopadding">
                                 <span class="list-group-item-heading count"><i
                                             class="fa fa-eye"></i> {{ journal.viewCount|number_format(0,'.','.') }}</span>
@@ -109,7 +106,8 @@
                             </span>
                             <span class="clearfix"></span>
                         </span>
-                    </a>
+                    </div>
+                    <a href="#" data-href="#issuetree" class="js-scroll-to">{{ "journal.articles"|trans }}</a>
                 </div>
                 <div class="col-md-7 col-sm-5 margin-bot">
                     {% if journal.url %}
@@ -120,8 +118,6 @@
                     {{ journal.description|raw }}
                 </div>
                 <div class="col-md-3 col-sm-4">
-
-
                     <div class="list-group journal-stats">
                         <div class="list-group-item ">
                             <form role="search"
@@ -313,6 +309,8 @@
 
             ga('create', '{{ journal.googleAnalyticsId }}', 'auto');
             ga('send', 'pageview');
+
+
         </script>
     {% endif %}
 {% endblock %}
