@@ -53,7 +53,9 @@
                     <span class="publisher-inner">
                         {% if publisher.logo is defined and publisher.logo is not null %}
                             <span class="publisher-logo">
-                                <img alt="{{ publisher.name }}" src="{{ publisher.logo }}" height="150" width="150">
+                                <img alt="{{ publisher.name }}"
+                                     src="{{ publisher.logo|imagine_filter('publisher_croped') }}" height="150"
+                                     width="150">
                             </span>
                         {% endif %}
                         <span class="publisher-title">{{ publisher.name }}</span>

@@ -175,6 +175,8 @@ fos_elastica:
             publisherType: ~
             url:
               type: string
+            logo:
+              type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Publisher
