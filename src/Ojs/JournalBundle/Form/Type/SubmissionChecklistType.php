@@ -30,6 +30,7 @@ class SubmissionChecklistType extends AbstractType
                 'choice',
                 [
                     'choices' => $options['languages'],
+                    'label' => 'languages'
                 ]
             )
             ->add('visible', 'checkbox', [

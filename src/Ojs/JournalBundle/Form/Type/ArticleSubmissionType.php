@@ -44,6 +44,7 @@ class ArticleSubmissionType extends AbstractType
                     ],
                     'abstract' => [
                         'required' => true,
+                        'label' => 'article.abstract',
                         'attr' => array('class' => ' form-control wysihtml5'),
                         'field_type' => 'textarea'
                     ]
@@ -56,7 +57,8 @@ class ArticleSubmissionType extends AbstractType
                     'allow_delete' => true,
                     'options' => array(
                         'citationTypes' => $options['citationTypes']
-                    )
+                    ),
+                    'label' => 'article.citations'
                 )
             )
             ->add('articleFiles', 'collection', array(
@@ -65,13 +67,15 @@ class ArticleSubmissionType extends AbstractType
                     'allow_delete' => true,
                     'options' => array(
                         'locales' => $options['locales']
-                    )
+                    ),
+                    'label' => 'article.files'
                 )
             )
             ->add('articleAuthors', 'collection', array(
                     'type' => new ArticleAuthorType(),
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'label' => 'article.authors'
                 )
             )
         ;

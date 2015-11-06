@@ -20,6 +20,7 @@ class ArticleType extends AbstractType
             ->add('translations', 'a2lix_translations',[
                 'fields' => [
                     'title' => [
+                        'label' => 'article.title',
                         'field_type' => 'text'
                     ],
                     'subjects' => [],
@@ -34,7 +35,7 @@ class ArticleType extends AbstractType
                     ]
                 ]
             ])
-            ->add('titleTransliterated')
+            ->add('titleTransliterated', null, ['label' => 'article.titleTransliterated'])
             ->add(
                 'status',
                 'choice',

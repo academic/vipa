@@ -220,12 +220,16 @@ author.middlenametransliterated: 'Başka Dilde İkinci Ad'
 author.new: 'Yeni Yazar'
 author.orcid: ORCID
 author.biography: Biografi
+author.institution: Enstitü
 author.order: Sıra
 author.phone: Telefon
 author.plural: Yazarlar
 author.singular: Yazar
 author.summary: 'Yazar Hakkında'
 author.title: Ünvan
+author.email: E-Posta
+author.address: Adres
+author.institution_not_listed: Enstitüm Listede yok
 author_id: 'Yazar No'
 author_order: 'Sıra'
 authors: Yazarlar
@@ -249,6 +253,7 @@ board.manage_users: 'Kurulun kullanıcılarını <a href="%path%">yönetebilirsi
 board.manager: 'Kurul yöneticisi'
 board.members: 'Kurul üyeleri'
 board.name: 'Kurul Adı'
+board.order: 'Kurul Sıralaması'
 boards: Kurullar
 book: Kitap
 booklet: Broşür
@@ -485,9 +490,15 @@ issue.manager: 'Sayı Yöneticisi'
 issue.new: 'Yeni Sayı'
 issue.number: Numara
 issue.plural: Sayılar
+issue.cover: Sayı Kapak Resmi
+issue.header: Sayı Üst Resmi
+issue.full_file: Sayı Tam Dosyası
+issue.publishdate: Yayınlanma Tarihi
 issue.supplement: 'Ek Sayı'
 issuefile.edit: 'Sayı Dosyasını Düzenle'
 issuefile.file: Dosya
+issuefile.type: Dosya Tipi
+issuefile.version: Dosya Versiyonu
 issuefile.langcode: Dil
 issuefile.list: 'Sayı Dosyaları'
 issuefile.new: 'Yeni Sayı Dosyası'

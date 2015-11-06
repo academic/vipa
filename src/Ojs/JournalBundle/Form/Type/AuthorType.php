@@ -20,49 +20,60 @@ class AuthorType extends AbstractType
                 'required' => false
             ])
             ->add('middleName', null, [
-                'required' => false
+                'required' => false,
+                'label' => 'author.middlename'
             ])
-            ->add('firstName')
-            ->add('lastName')
+            ->add('firstName', null, ['label' => 'author.firstname'])
+            ->add('lastName', null, ['label' => 'author.lastname'])
             ->add('phone', null, [
-                'required' => false
+                'required' => false,
+                'label' => 'author.phone'
             ])
             ->add('firstNameTransliterated', null, [
-                'required' => false
+                'required' => false,
+                'label' => 'author.firstnametransliterated'
             ])
             ->add('middleNameTransliterated', null, [
-                'required' => false
+                'required' => false,
+                'label' => 'author.middlenametransliterated'
             ])
             ->add('lastNameTransliterated', null,[
-                'required' => false
+                'required' => false,
+                'label' => 'author.lastnametransliterated'
             ])
             ->add('initials', null, [
-                'required' => false
+                'required' => false,
+                'label' => 'author.initials'
             ])
-            ->add('email', 'email')
+            ->add('email', 'email', ['label' => 'author.email'])
             ->add('address', 'textarea', [
-                'required' => false
+                'required' => false,
+                'label' => 'author.address'
             ])
             ->add('institution', null, [
                 'attr' => [
                     'class' => 'institution'
-                ]
+                ],
+                'label' => 'author.institution'
             ])
             ->add('institutionNotListed', null, [
                 'attr' => [
                     'class' => 'institutionNotListed'
-                ]
+                ],
+                'label' => 'author.institution_not_listed'
             ])
             ->add('institutionName', null, [
                 'attr' => [
                     'class' => 'institutionName'
-                ]
+                ],
+                'label' => 'institute.name'
             ])
             ->add('country', null ,[
                 'required' => false,
                 'attr' => [
                     'class' => "select2-element"
-                ]
+                ],
+                'label' => 'country'
             ])
             ->add('authorDetails', 'textarea', [
                 'required' => false

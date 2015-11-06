@@ -28,6 +28,7 @@ class JournalIndexType extends AbstractType
                             ->andWhere('i.status = :status')
                             ->setParameter('status', true);
                     },
+                    'label' => 'journalindex.list'
                 ]
             )
             ->add('link', 'url', array('label' => 'journalindex.link'));

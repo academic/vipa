@@ -17,7 +17,7 @@ class ArticleAuthorType extends AbstractType
     {
         $builder
             ->add('author', new AuthorType())
-            ->add('authorOrder')
+            ->add('authorOrder', null, ['label' => 'author.order'])
         ;
     }
 

@@ -26,8 +26,8 @@ class BoardMemberType extends AbstractType
                     'remote_route' => 'api_get_users'
                 ]
             )
-            ->add('seq')
-            ->add('add', 'submit')
+            ->add('seq', null, ['label' => 'board.order'])
+            ->add('add', 'submit', ['label' => 'board.addUser'])
         ;
     }
 

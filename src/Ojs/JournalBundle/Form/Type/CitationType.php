@@ -16,13 +16,14 @@ class CitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('raw', 'textarea')
+            ->add('raw', 'textarea', ['label' => 'citation.citation'])
             ->add('type','choice',[
                 'choices' => [
                     $options['citationTypes']
-                ]
+                ],
+                'label' => 'citation.type'
             ])
-            ->add('orderNum');
+            ->add('orderNum', null, ['label' => 'citation.id']);
     }
 
     /**

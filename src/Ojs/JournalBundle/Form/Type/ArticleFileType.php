@@ -25,14 +25,16 @@ class ArticleFileType extends AbstractType
             ->add('type', 'choice',
                 [
                     'choices' => $fileTypes,
+                    'label' => 'articlefile.type'
                 ]
             )
             ->add('langCode', 'choice',
                 [
                     'choices' => $options['locales'],
+                    'label' => 'articlefile.langcode'
                 ]
             )
-            ->add('title', 'text')
+            ->add('title', 'text', ['label' => 'articlefile.title'])
             ->add('description', 'textarea', [
                 'required' => false
             ]);

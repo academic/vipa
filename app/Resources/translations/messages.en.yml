@@ -220,12 +220,16 @@ author.middlenametransliterated: 'Middle Name Transliterated'
 author.new: 'New Author'
 author.orcid: ORCID
 author.biography: Biography
+author.institution: Institution
 author.order: Order
 author.phone: Phone
 author.plural: Authors
 author.singular: Author
 author.summary: 'Author Summary'
 author.title: Title
+author.email: E-mail
+author.address: Address
+author.institution_not_listed: Institution not listed
 author_id: 'Author ID'
 author_order: 'Author Order'
 authors: Authors
@@ -249,6 +253,7 @@ board.manage_users: 'You can <a href="%path%">manage</a> journal''s users.'
 board.manager: 'Board Manager'
 board.members: Members
 board.name: 'Board Name'
+board.order:'Board Order Number'
 boards: Boards
 book: Book
 booklet: Booklet
@@ -484,10 +489,16 @@ issue.list: 'Issue List'
 issue.manager: 'Issue Manager'
 issue.new: 'New Issue'
 issue.number: Number
+issue.full_file: Issue Full File
+issue.header: Issue Header Picture
+issue.cover: Issue Cover Picture
 issue.plural: Issues
+issue.publishdate: Issue Published Date
 issue.supplement: 'Supplement'
 issuefile.edit: 'Edit Issue File'
 issuefile.file: File
+issuefile.type: Type
+issuefile.version: File Version
 issuefile.langcode: Language
 issuefile.list: 'Issue Files'
 issuefile.new: 'New Issue File'

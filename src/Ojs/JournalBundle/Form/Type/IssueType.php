@@ -34,7 +34,7 @@ class IssueType extends AbstractType
                 'datePublished',
                 'collot_datetime',
                 array(
-
+                    'label' => 'issue.publishdate',
                     'date_format' => 'dd-MM-yyyy',
                     'pickerOptions' => [
                         'format' => 'dd-mm-yyyy',
@@ -46,13 +46,14 @@ class IssueType extends AbstractType
                     ],
                 )
             )
-            ->add('tags', 'tags')
+            ->add('tags', 'tags', ['label' => 'tags'])
             ->add('published', 'checkbox', [
                 'label' => 'published',
                 'required' => false
             ])
             ->add('full_file', 'jb_file_ajax', array(
-                'endpoint' => 'issuefiles'
+                'endpoint' => 'issuefiles',
+                'label' => 'issue.full_file'
             ))
             ->add('cover', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
@@ -61,7 +62,8 @@ class IssueType extends AbstractType
                 'crop_options' => array(
                     'aspect-ratio' => 200 / 300,
                     'maxSize' => "[200, 300]"
-                )
+                ),
+                'label' => 'issue.cover'
             ))
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
@@ -70,7 +72,8 @@ class IssueType extends AbstractType
                 'crop_options' => array(
                     'aspect-ratio' => 960 / 200,
                     'maxSize' => "[960, 200]"
-                )
+                ),
+                'label' => 'issue.header'
             ))
         ;
     }

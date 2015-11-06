@@ -141,7 +141,7 @@ class JournalType extends AbstractType
                     ],
                 )
             )
-            ->add('domain')
+            ->add('domain', null, ['label' => 'journal.domain'])
             ->add(
                 'googleAnalyticsId',
                 'text',
@@ -192,7 +192,7 @@ class JournalType extends AbstractType
                     'required' => false,
                 ]
             )
-            ->add('tags', 'tags')
+            ->add('tags', 'tags', ['label' => 'tags'])
             ->add(
                 'theme',
                 'entity',
@@ -241,7 +241,7 @@ class JournalType extends AbstractType
             )
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
-                'label' => 'Header Image',
+                'label' => 'journal.header_image',
                 'img_width' => 960,
                 'img_height' => 200,
                 'crop_options' => array(
@@ -251,7 +251,7 @@ class JournalType extends AbstractType
             ))
             ->add('image', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
-                'label' => 'Cover Image',
+                'label' => 'cover_image',
                 'img_width' => 200,
                 'img_height' => 300,
                 'crop_options' => array(
@@ -260,6 +260,7 @@ class JournalType extends AbstractType
                 )
             ))
             ->add('logo', 'jb_crop_image_ajax', array(
+                'label' => 'logo',
                 'endpoint' => 'journal',
                 'img_width' => 200,
                 'img_height' => 200,

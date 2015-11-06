@@ -82,7 +82,7 @@ class JournalNewUserType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('tags', 'tags')
+            ->add('tags', 'tags', ['label' => 'tags'])
             ->add('avatar', 'jb_crop_image_ajax', array(
                 'endpoint' => 'user',
                 'required' => false,
@@ -91,11 +91,12 @@ class JournalNewUserType extends AbstractType
                 'crop_options' => array(
                     'aspect-ratio' => 200 / 200,
                     'maxSize' => "[200, 200]"
-                )
+                ),
+                'label' => 'Avatar'
             ))->add('country', 'entity', array(
                 'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
                 'required'      => false,
-                'label'         => 'Country',
+                'label' => 'country',
                 'empty_value'   => 'Select Country',
                 'attr'          => array(
                     'class' => 'select2-element',

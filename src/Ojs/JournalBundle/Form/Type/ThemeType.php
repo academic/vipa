@@ -20,7 +20,7 @@ class ThemeType extends AbstractType
                 'title',
                 'text',
                 [
-                    'label' => 'Title'
+                    'label' => 'title'
                 ]
             )
             ->add(

@@ -25,9 +25,10 @@ class IssueFileType extends AbstractType
             ->add('type',
                 'choice',
                 [
+                    'label' => 'issuefile.type',
                     'choices' => ArticleFileParams::$FILE_TYPES,
                 ])
-            ->add('version')
+            ->add('version', null, ['label' => 'issuefile.version'])
             ->add('langCode','choice',[
                 'label' => 'issuefile.langcode',
                 'choices'=>$languages
