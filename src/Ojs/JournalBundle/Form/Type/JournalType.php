@@ -51,7 +51,7 @@ class JournalType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'label' => 'journal.mandatory_lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'attr' => [
                         'class' => 'select2-element ',
@@ -62,7 +62,7 @@ class JournalType extends AbstractType
                 'languages',
                 'entity',
                 array(
-                    'label' => 'Supported Languages',
+                    'label' => 'journal.supported_languages',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'property' => 'name',
                     'multiple' => true,
@@ -77,7 +77,7 @@ class JournalType extends AbstractType
                 'periods',
                 'entity',
                 array(
-                    'label' => 'Periods',
+                    'label' => 'journal.period',
                     'class' => 'Ojs\JournalBundle\Entity\Period',
                     'multiple' => true,
                     'expanded' => false,

@@ -588,6 +588,8 @@ journal.url: URL
 journal.user: User
 journal.users: 'Journal Users'
 journal.subscribe: 'Subscribe with email'
+journal.mandatory_lang: 'Mandatory Language'
+journal.supported_languages: 'Supported Languages'
 journal.no_journal_you_have: 'No journal you have'
 journalContact.contact.id: 'Contact ID'
 journalContact.contact.type.id: 'Contact Type ID'

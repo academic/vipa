@@ -589,6 +589,8 @@ journal.user: Kullanıcı
 journal.users: 'Dergi Kullanıcıları'
 journal.subscribe: 'Email ile abone ol'
 journal.no_journal_you_have: 'Hiç derginiz bulunmuyor'
+journal.mandatory_lang: 'Dergi Zorunlu Dili'
+journal.supported_languages: 'Desteklediği Diller'
 journalContact.contact.id: 'İletişim ID'
 journalContact.contact.type.id: 'İletişim Türü ID'
 journalContact.creation: 'İletişim Kaydı Oluşturma'
