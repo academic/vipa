@@ -44,22 +44,6 @@
             <div class="panel-body">
                 {% include '::flashbag.html.twig' %}
                 {{ form_errors(form) }}
-                <div class="panel panel-info">
-                    <div class="panel-heading"><h4>{{ "application.journal.publisher"|trans }}</h4></div>
-                    <div class="panel-body">
-                        {{ form_row(form.publisher, {'help_text': "application.journal.new_publisher_help"|trans}) }}
-                        <span id="new-publisher" class="btn btn-success btn-labeled pull-right">
-                            <span class="btn-label">
-                                <i class="fa fa-plus"></i>
-                            </span>
-                            {{ "application.journal.new_publisher"|trans }}
-                        </span>
-
-                        <div id="publisher-form">
-                            {{ form(publisherForm) }}
-                        </div>
-                    </div>
-                </div>
 
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
@@ -69,6 +53,22 @@
                         form.founded, form.periods, form.tags, form.url, form.languages, form.subjects] %}
                             {{ form_row(field) }}
                         {% endfor %}
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h4>{{ "application.journal.publisher"|trans }}</h4></div>
+                    <div class="panel-body">
+                        {{ form_row(form.publisher, {'help_text': "application.journal.new_publisher_help"|trans}) }}
+                        <span id="new-publisher" class="btn btn-default btn-labeled pull-right">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            {{ "application.journal.new_publisher"|trans }}
+                        </span>
+
+                        <div id="publisher-form">
+                            {{ form(publisherForm) }}
+                        </div>
                     </div>
                 </div>
 
