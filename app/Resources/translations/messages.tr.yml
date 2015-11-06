@@ -904,6 +904,7 @@ status.rejected: Reddedildi
 status.spam: Spam
 status.unpublished: Yayımlanmadı
 status.unknown: Bilinmiyor
+status.withdrawn: 'Geri Çekildi'
 statusText: 'Durum Metni'
 step.edit: 'Adımı Düzenle'
 step.new: 'Yeni Adım'
