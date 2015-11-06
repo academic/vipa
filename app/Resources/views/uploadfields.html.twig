@@ -30,7 +30,7 @@ Same thing for all classes starting with jb_
     </span>
     {% if remove_link %}
         <a href="javascript:void(0);" class="jb_remove_link btn btn-danger" title="{{ 'remove'|trans }}">
-            {{ 'Remove'|trans({}, translation_domain) }}
+            {{ 'remove'|trans({}, translation_domain) }}
         </a>
     {% endif %}
     <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
