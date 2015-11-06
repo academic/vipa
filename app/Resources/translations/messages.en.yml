@@ -253,7 +253,7 @@ board.manage_users: 'You can <a href="%path%">manage</a> journal''s users.'
 board.manager: 'Board Manager'
 board.members: Members
 board.name: 'Board Name'
-board.order:'Board Order Number'
+board.order: 'Board Order Number'
 boards: Boards
 book: Book
 booklet: Booklet
