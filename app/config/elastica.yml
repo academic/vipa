@@ -172,7 +172,10 @@ fos_elastica:
               type: string
             verified:
               type: boolean
-            publisherType: ~
+            publisherType:
+                              type: object
+                              properties:
+                                name: { index: not_analyzed }
             url:
               type: string
             logo:
