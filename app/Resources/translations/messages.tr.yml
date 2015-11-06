@@ -582,9 +582,9 @@ journal.tech_contact_name: 'Teknik İletişim Ad'
 journal.tech_contact_phone: 'Teknik İletişim Telefon'
 journal.tech_contact_surname: 'Teknik İletişim Soyad'
 journal.theme: 'Dergi Teması'
-journal.title: Başlık
+journal.title: Derginin Tam Adı
 journal.titleAbbr: 'Kısaltılmış Başlık'
-journal.titleTransliterated: 'Başka Dilde Yazılmış Başlık'
+journal.titleTransliterated: 'Derginin Diğer Dildeki Adı'
 journal.update: 'Dergi Güncelle'
 journal.url: URL
 journal.user: Kullanıcı
