@@ -70,6 +70,22 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             "other-bundle-classes" => array(
                 "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
             )
+        ),
+        'advanced-citation' => array(
+            'name' => 'AdvancedCitationBundle',
+            'description' => 'OJS Advanced Citation Bundle',
+            'repositories' => array(
+                array(
+                    'type' => 'vcs',
+                    'url' => 'git@bitbucket.org:okulbilisim/advancedcitationbundle.git',
+                ),
+            ),
+            'require' => array(
+                "okulbilisim/advanced-citation-bundle" => "dev-master",
+            ),
+            'extra' => array(
+                'bundle-class' => 'OkulBilisim\\AdvancedCitationBundle\\AdvancedCitationBundle',
+            ),
         )
     );
 
