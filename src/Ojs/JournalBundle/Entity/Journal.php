@@ -150,6 +150,10 @@ class Journal extends AbstractTranslatable
      */
     private $status = 0;
     /**
+     * @var integer
+     */
+    private $accessModal;
+    /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
@@ -1583,5 +1587,23 @@ class Journal extends AbstractTranslatable
     public function setPublicURI($publicURI)
     {
         $this->publicURI = $publicURI;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAccessModal()
+    {
+        return $this->accessModal;
+    }
+
+    /**
+     * @param int $accessModal
+     * @return $this
+     */
+    public function setAccessModal($accessModal)
+    {
+        $this->accessModal = $accessModal;
+        return $this;
     }
 }

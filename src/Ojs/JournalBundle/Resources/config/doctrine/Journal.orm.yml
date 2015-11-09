@@ -219,6 +219,12 @@ Ojs\JournalBundle\Entity\Journal:
       gedmo:
           - versioned
       nullable: true
+    accessModal:
+      type: integer
+      gedmo:
+          - versioned
+      nullable: true
+      column: access_model
     image:
       type: string
       length: 255
