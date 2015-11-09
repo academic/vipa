@@ -1427,3 +1427,6 @@ submission.no_file: 'Makale dosyası yok, lütfen dergi yöneticisine haber veri
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
 journal.apply.form: 'Başvuru Formu'
 journal.full.title: 'Dergi Tam Adı'
+open.access: 'Açık Erişim'
+access.with.subscription: 'Abonelik ile Erişim'
+journal.access.modal: 'Erişim Modeli'

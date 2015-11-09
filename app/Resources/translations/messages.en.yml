@@ -1429,3 +1429,6 @@ optinal: Optinal
 required: Required
 journal.apply.form: 'Apply Form'
 journal.full.title: 'Journal Full Title'
+open.access: 'Open Access'
+access.with.subscription: 'Access with Subscription'
+journal.access.modal: 'Access Modal'
