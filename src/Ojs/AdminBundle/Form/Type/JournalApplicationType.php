@@ -8,6 +8,7 @@ use Ojs\JournalBundle\Form\Type\JournalContactType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class JournalApplicationType extends AbstractType
 {
@@ -19,21 +20,19 @@ class JournalApplicationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations', [
-                'fields' => [
-                    'title' => [
-                        'required' => true
-                    ],
-                    'subtitle' => [
-                        'required' => false
-                    ],
-                    'description' => [
-                        'required' => false
-                    ],
-                    'titleAbbr' => [
-                        'required' => false
-                    ]
-                ]
+            ->add('title', null, [
+                'required' => true,
+                'constraints' => new NotBlank()
+            ])
+            ->add('subtitle', null, [
+                'required' => false
+            ])
+            ->add('description', 'textarea', [
+                'required' => true,
+                'constraints' => new NotBlank()
+            ])
+            ->add('title_abbr', null, [
+                'required' => false
             ])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
             ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])

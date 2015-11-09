@@ -3,6 +3,7 @@
 namespace Ojs\CoreBundle\Entity;
 
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\TranslationInterface;
 
 trait TranslateableTrait
 {
@@ -92,5 +93,23 @@ trait TranslateableTrait
             $translations[$translation->getLocale()] = $translation;
         }
         return $translations[$locale];
+    }
+
+    /**
+     * @return TranslationInterface
+     */
+    public function getCurrentTranslation()
+    {
+        return $this->currentTranslation;
+    }
+
+    /**
+     * @param TranslationInterface $currentTranslation
+     * @return $this
+     */
+    public function setCurrentTranslation(TranslationInterface $currentTranslation)
+    {
+        $this->currentTranslation = $currentTranslation;
+        return $this;
     }
 }

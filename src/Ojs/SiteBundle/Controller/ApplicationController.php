@@ -84,6 +84,7 @@ class ApplicationController extends Controller
             if ($form->isValid() && $form->isSubmitted()) {
                 $application->setStatus(JournalStatuses::STATUS_PREPARING);
 
+                $application->getCurrentTranslation()->setLocale($application->getMandatoryLang()->getCode());
                 /** @var JournalContact $contact */
                 if($application->getJournalContacts()){
                     foreach ($application->getJournalContacts() as $contact) {
@@ -112,7 +113,7 @@ class ApplicationController extends Controller
                     $em->persist($submissionFile);
                 }
 
-                $application->setSlug($application->getTranslationByLocale($request->getDefaultLocale())->getTitle());
+                $application->setSlug($application->getTitle());
                 $em->persist($application);
                 $em->flush();
 
@@ -121,13 +122,7 @@ class ApplicationController extends Controller
                 return $this->redirect($this->get('router')->generate('ojs_apply_journal_success'));
             }
 
-            $session = $this->get('session');
-            $session->getFlashBag()->add('error', $this
-                ->get('translator')
-                ->trans('An error has occured. Please check the form and resubmit.')
-            );
-
-            $session->save();
+            $this->errorFlashBag('An error has occured. Please check the form and resubmit.');
         }
 
         return $this->render('OjsSiteBundle:Application:journal.html.twig', [
