@@ -19,14 +19,11 @@ $set->addFile(__DIR__.'/author.yml', 'yaml');
 $set->addFile(__DIR__.'/article_author.yml', 'yaml'); //Article Author
 $set->addFile(__DIR__.'/article_file.yml', 'yaml'); //Article File
 $set->addFile(__DIR__.'/citation.yml', 'yaml');
-$set->addFile(__DIR__.'/contact_type.yml', 'yaml'); //Contact Types
 $set->addFile(__DIR__.'/theme.yml', 'yaml'); //themes
 $set->addFile(__DIR__.'/period.yml', 'yaml'); //periods
 $set->addFile(__DIR__.'/submission_checklist.yml', 'yaml'); //submission checklist
 $set->addFile(__DIR__.'/index.yml', 'yaml'); // indexes
 
-
-//$set->addFile(__DIR__ . '/journal_contact.yml', 'yaml'); //Journal Contacts
 //$set->addFile(__DIR__ . '/article_attribute.yml', 'yaml'); //Article Attribute
 
 return $set;
