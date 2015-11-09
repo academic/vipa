@@ -135,15 +135,18 @@
                     </div>
                 </div>
                 <hr>
-                {% if article.citations is defined and article.citations|length>0 %}
+                {% if article.citations is defined and article.citations|length > 0 %}
                 <div class="panel panel-info">
                     <div class="panel-heading">{{ "article.citations"|trans }}</div>
                     <div class="panel panel-body">
                         <table class="table">
-                            {% for key,citation  in article.citations %}
+                            {% for key, citation  in article.citations %}
                                 <tr>
-                                    <td><span class="badge">{{ citation.orderNum+1 }}</span> {{ citation.raw }}</td>
+                                    <td>
+                                        <span class="badge">{{ citation.orderNum + 1 }}</span> {{ citation.raw }}
+                                    </td>
                                 </tr>
+                                {{ twigEventDispatch({'event_name': 'OJS_SUBMISSION_CITATION_VIEW', 'citation': citation})|raw }}
                             {% endfor %}
                         </table>
                     </div>
