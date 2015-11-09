@@ -169,7 +169,8 @@ class SamplesCommand extends ContainerAwareCommand
             'Journal Contact', 'Primary Contact',
             'Technical Contact', 'Author Support',
             'Subscription Support', 'Publisher Support',
-            'Submission Support', 'Advertising', 'Media'
+            'Submission Support', 'Advertising', 'Media',
+            'Editor', 'Co-Editor',
         ];
 
         foreach ($contactTypes as $typeName) {
