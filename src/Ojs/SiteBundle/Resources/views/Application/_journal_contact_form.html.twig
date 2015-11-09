@@ -2,8 +2,7 @@
     {% if removable == false %}
         <legend>{{ form.contactType.vars.data }}</legend>
     {% endif %}
-    {% for field in [form.contactType, form.fullName, form.address,
-    form.phone, form.email, form.institution] %}
+    {% for field in [form.contactType, form.fullName, form.phone, form.email] %}
         {% if removable == false and field.vars.name == 'contactType' %}
             {{- form_row(field, { 'disabled':'disabled' }) -}}
         {% else %}
