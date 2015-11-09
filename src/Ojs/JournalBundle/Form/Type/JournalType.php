@@ -77,6 +77,17 @@ class JournalType extends AbstractType
                 )
             )
             ->add(
+                'accessModal',
+                'choice',
+                [
+                    'label' => 'journal.access.modal',
+                    'choices' => [
+                        0 => 'open.access',
+                        1 => 'access.with.subscription',
+                    ],
+                ]
+            )
+            ->add(
                 'periods',
                 'entity',
                 array(
