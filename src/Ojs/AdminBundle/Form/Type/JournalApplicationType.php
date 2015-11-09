@@ -21,6 +21,7 @@ class JournalApplicationType extends AbstractType
     {
         $builder
             ->add('title', null, [
+                'label' => 'journal.full.title',
                 'required' => true,
                 'constraints' => new NotBlank()
             ])
