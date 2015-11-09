@@ -266,11 +266,10 @@ class JournalContact
     }
 
     /**
-     *
-     * @param  ContactTypes $contactType
+     * @param ContactTypes|null $contactType
      * @return $this
      */
-    public function setContactType(ContactTypes $contactType)
+    public function setContactType(ContactTypes $contactType = null)
     {
         $this->contactType = $contactType;
         return $this;
