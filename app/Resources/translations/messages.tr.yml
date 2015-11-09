@@ -658,6 +658,7 @@ lastname: Soyad
 linked.user: 'Bağlı Kullanıcı'
 list: Liste
 list_my_proxys: 'Vekillerimi Listele'
+location: Yer
 log_out: Çıkış
 log_out_from_user: 'Kullanıcıdan Çık'
 loggedAs: 'Olarak Bağlı'

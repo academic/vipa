@@ -658,6 +658,7 @@ lastname: Lastname
 linked.user: 'Linked User'
 list: List
 list_my_proxys: 'List my proxies'
+location: Location
 log_out: Logout
 log_out_from_user: 'Logout from user'
 loggedAs: 'Logged in as'
