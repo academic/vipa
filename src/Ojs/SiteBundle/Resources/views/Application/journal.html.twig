@@ -83,10 +83,14 @@
                         {% endfor %}
 
                         <div id="contacts" data-index="{{ form.journalContacts|length }}" data-prototype="{% filter escape %}
-                            {{- include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype }) -}}
+                            {{- include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype, 'removable': true }) -}}
                         {% endfilter %}">
                             {% for journalContact in form.journalContacts %}
-                                {{ include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': journalContact }) }}
+                                {% set removable = true %}
+                                {% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
+                                    {% set removable = false %}
+                                {% endif %}
+                                {{ include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': journalContact ,'removable': removable }) }}
                             {% endfor %}
                         </div>
 
@@ -119,9 +123,9 @@
                                             <span>
                                                 {{ journalApplicationFiles[index].title }}
                                                 {% if journalApplicationFiles[index].required %}
-                                                    <b>(Required)</b>
+                                                    <b>({{ 'required'|trans }})</b>
                                                 {% else %}
-                                                    <b>(Optional)</b>
+                                                    <b>({{ 'optinal'|trans }})</b>
                                                 {% endif %}
                                             </span>
                                     <a href="{{ asset('uploads/submissionfiles/' ~ journalApplicationFiles[index].file) }}" target="_blank">

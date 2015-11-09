@@ -1,7 +1,18 @@
 <div class="well journalContact">
-    {{- form(form) -}}
-    <button type="button" class="remove_contact btn btn-danger btn-labeled pull-right">
-        <i class="fa fa-trash"></i>
-    </button>
+    {% if removable == false %}
+        <legend>{{ form.contactType.vars.data }}</legend>
+    {% endif %}
+    {% for field in [form.contactType, form.fullName, form.address,
+    form.phone, form.email, form.institution] %}
+        {% if removable == false and field.vars.name == 'contactType' %}
+        {% else %}
+            {{- form_row(field) -}}
+        {% endif %}
+    {% endfor %}
+    {% if removable == true %}
+        <button type="button" class="remove_contact btn btn-danger btn-labeled pull-right">
+            <i class="fa fa-trash"></i>
+        </button>
+    {% endif %}
     <div class="clearfix"></div>
 </div>

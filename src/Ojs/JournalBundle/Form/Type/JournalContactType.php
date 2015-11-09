@@ -18,6 +18,7 @@ class JournalContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('contactType', null, ['label' => 'contact.type'])
             ->add('fullName', 'text', ['label' => 'fullname'])
             ->add('address', 'textarea', [
                 'required' => false,
@@ -29,7 +30,6 @@ class JournalContactType extends AbstractType
                 ]
             )
             ->add('email', 'email', ['label' => 'email'])
-            ->add('contactType', null, ['label' => 'contact.type'])
             ->add('institution', null, ['label' => 'institute.name'])
         ;
     }
