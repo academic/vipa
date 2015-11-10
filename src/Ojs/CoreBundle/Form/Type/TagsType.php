@@ -52,7 +52,7 @@ class TagsType extends AbstractType
             'remote_params' => array(),
             'compound' => false,
             'minimum_input_length' => 2,
-            'placeholder' => $this->translator->trans('Comma-seperated tag list'),
+            'placeholder' => $this->translator->trans('comma.seperated.tag.list'),
             'required' => false,
             'attr' => [
                 'class' => ' form-control input-xxl',

@@ -108,6 +108,7 @@ class JournalApplicationType extends AbstractType
                 ]
             )
             ->add('journalIndexesBag', 'tags', [
+                    'placeholder' => 'comma.seperated.index.list',
                     'label' => 'journalindex.plural',
                     'attr' => [
                         'class' => 'validate[required]',
