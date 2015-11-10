@@ -16,6 +16,7 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('orcid')
             ->add('translations', 'a2lix_translations', [
                 'required' => false
             ])
