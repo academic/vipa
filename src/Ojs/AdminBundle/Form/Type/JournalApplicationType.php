@@ -27,13 +27,11 @@ class JournalApplicationType extends AbstractType
                 'constraints' => new NotBlank()
             ])
             ->add('subtitle', null, [
+                'label' => 'journal.subtitle',
                 'required' => false
             ])
-            ->add('description', 'textarea', [
-                'required' => true,
-                'constraints' => new NotBlank()
-            ])
             ->add('title_abbr', null, [
+                'label' => 'journal.titleAbbr',
                 'required' => false
             ])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
