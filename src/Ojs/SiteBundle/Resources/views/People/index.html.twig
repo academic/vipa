@@ -185,6 +185,12 @@
     {% endjavascripts %}
     <script>
         $(function () {
+            {% if roles and roles|length>5 %}
+            var roleOptions = {
+                valueNames: ['role-name']
+            };
+            var rolesList = new List('roles-filter-box', roleOptions);
+            {% endif %}
             {% if subjects and subjects|length>5 %}
             var options = {
                     valueNames: ['subject']
