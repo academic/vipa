@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <ul class="list-group">
+                        <ul class="list-group list">
                             {% for role in roles %}
                                 <li class="list-group-item">
                                     {% if role_filters is empty %}
@@ -184,7 +184,6 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
-        $(function () {
             {% if roles and roles|length>5 %}
             var roleOptions = {
                 valueNames: ['role-name']
@@ -203,17 +202,18 @@
                 };
                 var journalsList = new List('journals-filter-box', journalOptions);
             {% endif %}
-            $('.hovercard').each(function () {
-                var elm, detail;
-                elm = $(this);
-                detail = $.trim(elm.parent().find('.hovercard-content').html());
+            $(function () {
+                $('.hovercard').each(function () {
+                    var elm, detail;
+                    elm = $(this);
+                    detail = $.trim(elm.parent().find('.hovercard-content').html());
 
-                if (detail) {
-                    elm.hovercard({
-                        detailsHTML: detail
-                    });
-                }
+                    if (detail) {
+                        elm.hovercard({
+                            detailsHTML: detail
+                        });
+                    }
+                });
             });
-        });
     </script>
 {% endblock %}
