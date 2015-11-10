@@ -1,33 +1,25 @@
 \Ojs\JournalBundle\Entity\Lang:
     lang1:
-        code: tr
-        name: Türkçe
-        rtl: false
-    lang2:
-        code: en
-        name: English
-        rtl: false
-    lang3:
         code: fr
         name: Français
         rtl: false
-    lang4:
+    lang2:
         code: it
         name: Italiano
         rtl: false
-    lang5:
+    lang3:
         code: de
         name: Deutsch
         rtl: false
-    lang6:
+    lang4:
         code: ar
         name: العربية
         rtl: true
-    lang7:
+    lang5:
         code: ru
         name: Pусский
         rtl: false
-    lang8:
+    lang6:
         code: es
         name: español
         rtl: false

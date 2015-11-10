@@ -117,13 +117,13 @@ class SamplesCommand extends ContainerAwareCommand
         $language1->setCurrentLocale('en');
         $language1->setName('English');
         $language1->setCode('en');
-        $language1->setRtl(0);
+        $language1->setRtl(false);
 
         $language2 = new Lang();
         $language2->setCurrentLocale('tr');
         $language2->setName('Türkçe');
         $language2->setCode('tr');
-        $language2->setRtl(0);
+        $language2->setRtl(false);
 
         $em->persist($language1);
         $em->persist($language2);

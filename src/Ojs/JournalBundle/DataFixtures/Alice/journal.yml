@@ -12,7 +12,7 @@
     slug: help
     publisher: @default
     subjects: [@subject1, @subject2]
-    languages: [@lang1, @lang2]
+    languages: [1, 2]
     status: 1
     setupFinished: true
     mandatoryLang: @lang1
