@@ -15,8 +15,18 @@
             <div class="panel-group">
 
                 {% if roles %}
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="roles-filter-box">
                         <div class="panel-heading">{{ 'roles'|trans }}</div>
+                        {% if roles|length > 5 %}
+                            <div class="input-group">
+                                <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                <div class="input-group-btn">
+                                    <button class="sort btn btn-primary no-radius" data-sort="role-name">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endif %}
                         <ul class="list-group">
                             {% for role in roles %}
                                 <li class="list-group-item">
@@ -25,7 +35,7 @@
                                         <a href="{{ path('ojs_site_people_index', {
                                             role_filters: role.key,
                                             subject_filters: app.request.get('subject_filters'),
-                                            journal_filters: app.request.get('journal_filters') }) }}">{{ role.key|trans }}</a>
+                                            journal_filters: app.request.get('journal_filters') }) }}" class="role-name">{{ role.key|trans }}</a>
                                     {% else %}
                                         {% if role.key in role_filters %}
                                             {% set parameter = role_filters|pop(role.key) %}
@@ -43,7 +53,7 @@
                                             <a href="{{ path('ojs_site_people_index', {
                                                 role_filters: parameter|join(','),
                                                 subject_filters: app.request.get('subject_filters'),
-                                                journal_filters: app.request.get('journal_filters')}) }}">{{ role.key|trans }}</a>
+                                                journal_filters: app.request.get('journal_filters')}) }}" class="role-name">{{ role.key|trans }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ role.doc_count }}</span>
@@ -53,14 +63,17 @@
                     </div>
                 {% endif %}
                 {% if subjects %}
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'subjects'|trans }}</div>
-                        <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
-                        {% if subjects|length>5 %}
-                            <input class="search" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-sm" data-sort="subject">
-                                {{ "search"|trans }}
-                            </button>
+                        {% if subjects|length > 5 %}
+                            <div class="input-group">
+                                <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                <div class="input-group-btn">
+                                    <button class="sort btn btn-primary no-radius" data-sort="subject">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </button>
+                                </div>
+                            </div>
                         {% endif %}
                         <ul class="list-group list">
                             {% for subject in subjects %}
@@ -70,7 +83,7 @@
                                         <a href="{{ path('ojs_site_people_index', {
                                             subject_filters: subject.key,
                                             role_filters: app.request.get('role_filters'),
-                                            journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                            journal_filters: app.request.get('journal_filters')}) }}" class="subject">{{ subject.key }}</a>
                                     {% else %}
                                         {% if subject.key in subject_filters %}
                                             {% set parameter = subject_filters|pop(subject.key) %}
@@ -88,7 +101,7 @@
                                             <a href="{{ path('ojs_site_people_index', {
                                                 subject_filters: parameter|join(','),
                                                 role_filters: app.request.get('role_filters'),
-                                                journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                                journal_filters: app.request.get('journal_filters')}) }}" class="subject">{{ subject.key }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ subject.doc_count }}</span>
@@ -100,12 +113,14 @@
                 {% if journals %}
                     <div class="panel panel-default" id="journals-filter-box">
                         <div class="panel-heading">{{ 'journals'|trans }}</div>
-                        {% if journals|length>5 %}
-                            <div class="input-group-btn">
-                                <input class="search form-control" placeholder="{{ "search"|trans }}"/>
-                                <button class="sort btn btn-sm" data-sort="journals">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
+                        {% if journals|length > 5 %}
+                            <div class="input-group">
+                                <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                <div class="input-group-btn">
+                                    <button class="sort btn btn-primary no-radius" data-sort="journal-title">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </button>
+                                </div>
                             </div>
                         {% endif %}
                         <ul class="list-group list">
@@ -117,7 +132,7 @@
                                             journal_filters: journal.key,
                                             role_filters: app.request.get('role_filters'),
                                             subject_filters: app.request.get('subject_filters')}) }}"
-                                           class="journal-name">{{ journal.key }}</a>
+                                           class="journal-title">{{ journal.key }}</a>
                                     {% else %}
                                         {% if journal.key in journal_filters %}
                                             {% set parameter = journal_filters|pop(journal.key) %}
@@ -135,7 +150,7 @@
                                             <a href="{{ path('ojs_site_people_index', {
                                                 journal_filters: parameter|join(','),
                                                 role_filters: app.request.get('role_filters'),
-                                                subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
+                                                subject_filters: app.request.get('subject_filters')}) }}" class="journal-title">{{ journal.key }}</a>
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ journal.doc_count }}</span>
@@ -172,18 +187,16 @@
         $(function () {
             {% if subjects and subjects|length>5 %}
             var options = {
-                valueNames: ['subject']
-            };
-            var userList = new List('subjects-filter-box', options);
+                    valueNames: ['subject']
+                };
+                var userList = new List('subjects-filter-box', options);
             {% endif %}
-
             {% if journals and journals|length>5 %}
-            var options = {
-                valueNames: ['journal-name']
-            };
-            var journalsList = new List('journals-filter-box', options);
+                var journalOptions = {
+                    valueNames: ['journal-title']
+                };
+                var journalsList = new List('journals-filter-box', journalOptions);
             {% endif %}
-
             $('.hovercard').each(function () {
                 var elm, detail;
                 elm = $(this);
