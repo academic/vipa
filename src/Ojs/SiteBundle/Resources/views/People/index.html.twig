@@ -52,6 +52,51 @@
                         </ul>
                     </div>
                 {% endif %}
+                {% if subjects %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'subjects'|trans }}</div>
+                        <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
+                        {% if subjects|length>5 %}
+                            <input class="search" placeholder="{{ "search"|trans }}"/>
+                            <button class="sort btn btn-sm" data-sort="subject">
+                                {{ "search"|trans }}
+                            </button>
+                        {% endif %}
+                        <ul class="list-group list">
+                            {% for subject in subjects %}
+                                <li class="list-group-item">
+                                    {% if subject_filters is empty %}
+                                        {% set parameter = subject.key %}
+                                        <a href="{{ path('ojs_site_people_index', {
+                                            subject_filters: subject.key,
+                                            role_filters: app.request.get('role_filters'),
+                                            journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                    {% else %}
+                                        {% if subject.key in subject_filters %}
+                                            {% set parameter = subject_filters|pop(subject.key) %}
+                                            {{ subject.key }}
+                                            <a href="{{ path('ojs_site_people_index', {
+                                                subject_filters: parameter|join(','),
+                                                role_filters: app.request.get('role_filters'),
+                                                journal_filters: app.request.get('journal_filters')}) }}">
+                                        <span class="btn btn-xs btn-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
+                                            </a>
+                                        {% else %}
+                                            {% set parameter = subject_filters|merge([subject.key]) %}
+                                            <a href="{{ path('ojs_site_people_index', {
+                                                subject_filters: parameter|join(','),
+                                                role_filters: app.request.get('role_filters'),
+                                                journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <span class="badge">{{ subject.doc_count }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
                 {% if journals %}
                     <div class="panel panel-default" id="journals-filter-box">
                         <div class="panel-heading">{{ 'journals'|trans }}</div>
@@ -94,51 +139,6 @@
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ journal.doc_count }}</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if subjects %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">{{ 'subjects'|trans }}</div>
-                        <div class="panel-heading">{{ 'title.subjects'|trans }}</div>
-                        {% if subjects|length>5 %}
-                            <input class="search" placeholder="{{ "search"|trans }}"/>
-                            <button class="sort btn btn-sm" data-sort="subject">
-                                {{ "search"|trans }}
-                            </button>
-                        {% endif %}
-                        <ul class="list-group list">
-                            {% for subject in subjects %}
-                                <li class="list-group-item">
-                                    {% if subject_filters is empty %}
-                                        {% set parameter = subject.key %}
-                                        <a href="{{ path('ojs_site_people_index', {
-                                            subject_filters: subject.key,
-                                            role_filters: app.request.get('role_filters'),
-                                            journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
-                                    {% else %}
-                                        {% if subject.key in subject_filters %}
-                                            {% set parameter = subject_filters|pop(subject.key) %}
-                                            {{ subject.key }}
-                                            <a href="{{ path('ojs_site_people_index', {
-                                                subject_filters: parameter|join(','),
-                                                role_filters: app.request.get('role_filters'),
-                                                journal_filters: app.request.get('journal_filters')}) }}">
-                                        <span class="btn btn-xs btn-danger">
-                                            <i class="glyphicon glyphicon-remove"></i>
-                                        </span>
-                                            </a>
-                                        {% else %}
-                                            {% set parameter = subject_filters|merge([subject.key]) %}
-                                            <a href="{{ path('ojs_site_people_index', {
-                                                subject_filters: parameter|join(','),
-                                                role_filters: app.request.get('role_filters'),
-                                                journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
-                                        {% endif %}
-                                    {% endif %}
-                                    <span class="badge">{{ subject.doc_count }}</span>
                                 </li>
                             {% endfor %}
                         </ul>
