@@ -8,6 +8,8 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Citation;
+use Ojs\JournalBundle\Event\CitationEditEvent;
+use Ojs\JournalBundle\Event\CitationEvents;
 use Ojs\JournalBundle\Form\Type\CitationType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -210,13 +212,24 @@ class CitationController extends Controller
 
     /**
      * Displays a form to edit an existing Citation entity.
-     * @param   Integer $articleId
-     *
+     * @param  Integer $id
+     * @param  Integer $articleId
+     * @return Response
      */
     public function editAction($id, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
+
+        $event = new CitationEditEvent($journal->getId(), $articleId, $id);
+        $editEvent = $this
+            ->get('event_dispatcher')
+            ->dispatch(CitationEvents::CITATION_EDIT, $event);
+        $response = $editEvent->getResponse();
+
+        if ($response !== null) {
+            return $response;
+        }
 
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
