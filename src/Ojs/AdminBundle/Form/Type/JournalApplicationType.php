@@ -90,7 +90,7 @@ class JournalApplicationType extends AbstractType
                 'periods',
                 'entity',
                 array(
-                    'label' => 'Periods',
+                    'label' => 'journal.period',
                     'class' => 'Ojs\JournalBundle\Entity\Period',
                     'required' => true,
                     'multiple' => true,
@@ -100,7 +100,20 @@ class JournalApplicationType extends AbstractType
                     ]
                 )
             )
-            ->add('tags', 'tags', ['attr' => ['class' => 'validate[required]', 'label' => 'journal.tags']])
+            ->add('tags', 'tags', [
+                'attr' => [
+                    'class' => 'validate[required]',
+                    'label' => 'journal.tags'
+                    ]
+                ]
+            )
+            ->add('journalIndexesBag', 'tags', [
+                    'label' => 'journalindex.plural',
+                    'attr' => [
+                        'class' => 'validate[required]',
+                    ]
+                ]
+            )
             ->add('url', 'url', [
                 'label' => 'journal.url',
                  'required' => false

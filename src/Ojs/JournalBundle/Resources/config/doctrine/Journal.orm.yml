@@ -232,6 +232,13 @@ Ojs\JournalBundle\Entity\Journal:
       nullable: true
       gedmo:
         - versioned
+    journalIndexesBag:
+      type: string
+      length: 255
+      column: journal_indexes_bag
+      nullable: true
+      gedmo:
+        - versioned
     header:
       type: string
       length: 255

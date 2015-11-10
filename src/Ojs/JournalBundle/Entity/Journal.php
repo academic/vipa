@@ -169,6 +169,10 @@ class Journal extends AbstractTranslatable
     private $header;
     /**
      * @var string
+     */
+    private $journalIndexesBag;
+    /**
+     * @var string
      * @JMS\Expose
      */
     private $googleAnalyticsId;
@@ -1604,6 +1608,24 @@ class Journal extends AbstractTranslatable
     public function setAccessModal($accessModal)
     {
         $this->accessModal = $accessModal;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJournalIndexesBag()
+    {
+        return $this->journalIndexesBag;
+    }
+
+    /**
+     * @param string $journalIndexesBag
+     * @return $this
+     */
+    public function setJournalIndexesBag($journalIndexesBag)
+    {
+        $this->journalIndexesBag = $journalIndexesBag;
         return $this;
     }
 }
