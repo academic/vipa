@@ -38,7 +38,14 @@
                 {% endfilter %}
             </textarea>
 
-            <textarea class="form-control" name="raw_citations"></textarea>
+            <div id="paste-citations">
+                <label for="raw-citations">{{ 'title.citations'|trans }}</label>
+                <textarea class="form-control" name="raw_citations" id="raw-citations"></textarea>
+            </div>
+            <button id="paste-citations-button" class="btn btn-success" type="button">
+                <i class="fa fa-clipboard"></i>
+                {{ 'citation.paste_extract'|trans }}
+            </button>
 
             {% for citiationForm in form.citations %}
                 {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}
