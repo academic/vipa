@@ -126,12 +126,6 @@ a2lix_translation_form:
     manager_registry: doctrine
     templating: "::translation_form.html.twig"
 
-norzechowicz_ace_editor:
-    base_path: "vendor/ace-builds"
-    autoinclude: true
-    debug: false # sources not minified with uglify.js
-    noconflict: true # uses ace.require instead of require
-
 fos_user:
   db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
   firewall_name: main
