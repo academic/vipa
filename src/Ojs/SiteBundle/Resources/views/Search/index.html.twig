@@ -316,6 +316,13 @@
                             {% endif %}
                         {% endfor %}
 
+                    {% else %}
+                        {{ 'search.noresult'|trans }}
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+
                         {% if total_count > 1 %}
                             <div class="text-center">
                                 <ul class="pagination">
@@ -323,9 +330,7 @@
                                 </ul>
                             </div>
                         {% endif %}
-                    {% else %}
-                        {{ 'search.noresult'|trans }}
-                    {% endif %}
+                    </div>
                 </div>
             </section>
         </div>
