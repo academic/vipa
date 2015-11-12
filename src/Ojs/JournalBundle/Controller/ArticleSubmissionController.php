@@ -23,6 +23,8 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
+use Ojs\JournalBundle\Event\JournalEvents;
+use Ojs\JournalBundle\Event\SubmissionFormEvent;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
 use Ojs\JournalBundle\Form\Type\ArticleStartType;
 use Ojs\JournalBundle\Form\Type\ArticleSubmissionType;
@@ -314,8 +316,11 @@ class ArticleSubmissionController extends Controller
      */
     private function createCreateForm(Article $article, Journal $journal, $locales, $defaultLocale)
     {
+        $event = $this->get('event_dispatcher')->dispatch(JournalEvents::JOURNAL_SUBMISSION_FORM, new SubmissionFormEvent());
+        $type = $event->getType();
+
         $form = $this->createForm(
-            new ArticleSubmissionType(),
+            empty($type) ? new ArticleSubmissionType() : $type,
             $article,
             array(
                 'action' => $this->generateUrl(
@@ -414,8 +419,11 @@ class ArticleSubmissionController extends Controller
 
     private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
     {
+        $event = $this->get('event_dispatcher')->dispatch(JournalEvents::JOURNAL_SUBMISSION_FORM, new SubmissionFormEvent());
+        $type = $event->getType();
+
         $form = $this->createForm(
-            new ArticleSubmissionType(),
+            empty($type) ? new ArticleSubmissionType() : $type,
             $article,
             array(
                 'action' => $this->generateUrl(

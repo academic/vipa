@@ -1,6 +1,6 @@
 <div class="submission-subform">
-    {{ form_row(form.raw) }}
-    {{ form_row(form.type) }}
-    {{ form_row(form.orderNum) }}
+    {% for element in form %}
+    {{ form_row(element) }}
+    {% endfor %}
     <button type="button" class="btn btn-warning btn-sm submission-subform-remove-panel remove-citation"><i class="fa fa-trash"></i></button>
 </div>
