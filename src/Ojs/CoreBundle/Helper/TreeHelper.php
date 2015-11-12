@@ -36,7 +36,7 @@ class TreeHelper
                 if ($type == TreeHelper::SUBJECT_ADMIN) {
                     $path = $router->generate('ojs_admin_subject_show', ['id' => $subject->getId()]);
                 } else {
-                    $path = $router->generate('ojs_search_index', ['subject_filters' => $subject->getSubject()]);
+                    $path = $router->generate('ojs_site_explore_index', ['subject_filters' => $subject->getSubject()]);
                 }
 
                 $content = sprintf($link, $path, $subject->getSubject());

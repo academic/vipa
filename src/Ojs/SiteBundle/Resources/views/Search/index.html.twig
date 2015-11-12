@@ -283,7 +283,7 @@
                     {% if results is defined %}
                         {% if total_count < 1 %}
                             <div role="tabpanel" class="tab-pane fade in active">
-                                <h3 class="text-danger">We did not find anything!</h3>
+                                <h3 class="text-danger">{{ 'search.noresult'|trans }}</h3>
                             </div>
                         {% endif %}
                         {% for key,result in results %}
