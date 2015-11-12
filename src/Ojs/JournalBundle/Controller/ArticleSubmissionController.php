@@ -220,6 +220,16 @@ class ArticleSubmissionController extends Controller
         $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
+            // This line converts the textarea to an array of each line seperated
+            if ($request->get('raw_citations') !== null) {
+                $rawCitations = array_filter(explode("\n", trim($request->get('raw_citations'))), 'trim');
+                foreach ($rawCitations as $raw) {
+                    $citation = new Citation();
+                    $citation->setRaw($raw);
+                    $article->addCitation($citation);
+                }
+            }
+
             $k = 0;
             foreach ($article->getArticleAuthors() as $f_articleAuthor) {
                 $f_articleAuthor->setAuthorOrder($k);

@@ -32,17 +32,23 @@
     <div class="panel panel-info submission-subform-panel">
         <div class="panel-heading">{{ "article.citations"|trans }}</div>
         <div class="submission-subform-container panel-body">
-                        <textarea class="submission-subform-template">{%- filter escape -%}
-                                {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
-                        {% endfilter %}</textarea>
+            <textarea class="submission-subform-template">
+                {%- filter escape -%}
+                    {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}
+                {% endfilter %}
+            </textarea>
+
+            <textarea class="form-control" name="raw_citations"></textarea>
 
             {% for citiationForm in form.citations %}
                 {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': citiationForm }) }}
             {% endfor %}
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i
-                        class="fa fa-plus"></i> {{ "citation.add"|trans }}</button>
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel">
+                <i class="fa fa-plus"></i>
+                {{ "citation.add"|trans }}
+            </button>
         </div>
     </div>
     <hr>
