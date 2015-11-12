@@ -30,7 +30,7 @@ class JournalContactType extends AbstractType
                 ]
             )
             ->add('email', 'email', ['label' => 'email'])
-            ->add('institution', null, ['label' => 'institute.name'])
+            ->add('institution', null, ['label' => 'institution'])
         ;
     }
 

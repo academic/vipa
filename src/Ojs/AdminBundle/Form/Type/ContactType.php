@@ -2,8 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,6 +22,7 @@ class ContactType extends AbstractType
             ->add('tags', 'tags')
             ->add('contactType')
             ->add('journal', 'entity', ['class' => 'Ojs\JournalBundle\Entity\Journal'])
+            ->add('institution', null, ['label' => 'institution'])
             ->add('country', 'entity', array(
                 'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
                 'required'      => false,
