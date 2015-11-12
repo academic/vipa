@@ -16,23 +16,27 @@
     </div>
     <div class="panel panel-info panel-steps">
         <div class="panel-heading">
-            <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
+            <ul class="nav nav-pills nav-justified submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1" class="active">
-                    <a href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
-                        <span class="badge">1</span>
+                    <a class="btn btn-block"
+                       href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
+                        1.
                         {{ "submission.starting"|trans }}
+                        <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 <li id="submission-progress-step2">
-                    <a href="javascript:void(0)">
-                        <span class="badge">2</span>
+                    <a class="btn btn-block" href="javascript:void(0)">
+                        2.
                         {{ "article.singular"|trans }}
+                        <i class="fa fa-edit"></i>
                     </a>
                 </li>
-                <li id="submission-progress-step6 last-step">
-                    <a href="javascript:void(0)">
-                        <span class="badge">3</span>
+                <li id="submission-progress-step6" class="last-step">
+                    <a class="btn btn-block" href="javascript:void(0)">
+                        3.
                         {{ "preview"|trans }} & {{ "submit"|trans }}
+                        <i class="fa fa-check-square-o"></i>
                     </a>
                 </li>
             </ul>
