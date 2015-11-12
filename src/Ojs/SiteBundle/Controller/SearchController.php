@@ -215,7 +215,7 @@ class SearchController extends Controller
             }
             $adapter = new ArrayAdapter($results[$section]['data']);
             $pagerfanta = new Pagerfanta($adapter);
-            $pagerfanta->setMaxPerPage(10);
+            $pagerfanta->setMaxPerPage(20);
             $pagerfanta->setCurrentPage($page);
             $results[$section]['data'] = $pagerfanta->getCurrentPageResults();
             /**
