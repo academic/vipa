@@ -55,6 +55,7 @@
 
             </header>
 
+            {% if user.subjects is defined and user.subjects is not null %}
 
             <div class="bs-callout bs-callout-danger">
                 <h6 class="text-muted">{{ "subjects"|trans }}</h6>
@@ -65,6 +66,7 @@
                     {% endfor %}
                 </p>
             </div>
+            {% endif %}
 
             {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW', 'user': user})|raw }}
 
