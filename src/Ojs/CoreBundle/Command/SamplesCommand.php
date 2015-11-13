@@ -144,7 +144,6 @@ class SamplesCommand extends ContainerAwareCommand
             ['Meeting abstract',        'Toplantı Özetleri'     ],
             ['Conference Paper',        'Konferans Bildirisi'   ],
             ['Biography',               'Biyografi'             ],
-            ['Correction',              'Düzeltme'              ],
             ['Bibliography',            'Bibliyografi'          ],
             ['News',                    'Haber'                 ],
             ['Report',                  'Rapor'                 ],
