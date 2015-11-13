@@ -65,15 +65,20 @@ class SearchManager
          */
         foreach ($resultSet as $object) {
             $objectType = $object->getType();
+            $objectDetail = $this->getObjectDetail($object);
             if (!isset($results[$objectType])) {
-                $results[$objectType]['data'] = [];
-                $results[$objectType]['total_item'] = 1;
-                $results[$objectType]['type'] = $this->translator->trans($object->getType());
+                if($objectDetail['route']){
+                    $results[$objectType]['data'] = [];
+                    $results[$objectType]['total_item'] = 1;
+                    $results[$objectType]['type'] = $this->translator->trans($object->getType());
+                }
             } else {
-                $results[$objectType]['total_item']++;
+                if($objectDetail['route']) {
+                    $results[$objectType]['total_item']++;
+                }
             }
             if ($section == $objectType) {
-                $result['detail'] = $this->getObjectDetail($object);
+                $result['detail'] = $objectDetail;
                 $result['source'] = $object->getSource();
                 if ($result['detail']['route']) {
                     $results[$objectType]['data'][] = $result;
@@ -228,10 +233,9 @@ class SearchManager
             return false;
         }
         //check article issue is exists
-        if (isset($article['issue'])) {
+        if (isset($article['issue']['id'])) {
             $issue = $article['issue'];
         }else{
-            exit('3');
             return false;
         }
         //check article journal is exists
@@ -267,36 +271,45 @@ class SearchManager
     private function generateAuthorUrl(Result $authorObject)
     {
         $source = $authorObject->getSource();
-        if (!empty($source['user'])) {
-            return $this->router
-                ->generate(
-                    'ojs_user_profile',
-                    [
-                        'slug' => $source['user']['username']
-                    ],
-                    true
-                );
-        } else {
-            if (!isset($source['articleAuthors'][0]['article'])) {
-                return false;
-            }
-            $article = $source['articleAuthors'][0]['article'];
-            if (!isset($article['issue']['id'])) {
-                return false;
-            }
-
-            return $this->router
-                ->generate(
-                    'ojs_article_page',
-                    [
-                        'slug' => $article['journal']['slug'],
-                        'article_id' => $article['id'],
-                        'issue_id' => $article['issue']['id'],
-                        'publisher' => $article['journal']['publisher']['slug'],
-                    ],
-                    true
-                );
+        //check article count
+        if(count($source['articleAuthors'])< 1){
+            return false;
         }
+        //check article id is exists
+        if(isset($source['articleAuthors'][0]['article']['id'])){
+            $article = $source['articleAuthors'][0]['article'];
+        }else{
+            return false;
+        }
+        //check article issue is exists
+        if (isset($article['issue']['id'])) {
+            $issue = $article['issue'];
+        }else{
+            return false;
+        }
+        //check article journal is exists
+        if (isset($article['journal'])) {
+            $journal = $article['journal'];
+        }else{
+            return false;
+        }
+        //check journal publisher is exists
+        if (isset($journal['publisher'])) {
+            $publisher = $journal['publisher'];
+        }else{
+            return false;
+        }
+        return $this->router
+            ->generate(
+                'ojs_article_page',
+                [
+                    'slug' => $journal['slug'],
+                    'article_id' => $article['id'],
+                    'issue_id' => $issue['id'],
+                    'publisher' => $publisher['slug'],
+                ],
+                true
+            );
     }
 
     /**

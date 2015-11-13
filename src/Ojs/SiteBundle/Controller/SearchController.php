@@ -255,7 +255,6 @@ class SearchController extends Controller
                 'journals' => []
             ];
         }
-
         return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
     }
 
