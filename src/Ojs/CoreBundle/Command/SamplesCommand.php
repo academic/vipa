@@ -355,7 +355,7 @@ class SamplesCommand extends ContainerAwareCommand
         $em->flush();
 
         $periods = [
-            'Monthly', 'Bimonthly', 'Quarterly', 'Biannually',
+            'Monthly', 'Bimonthly', 'Quarterly', 'Triquarterly', 'Biannually',
             'Annually', 'Spring', 'Summer', 'Fall', 'Winter'
         ];
 
