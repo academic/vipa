@@ -23,6 +23,7 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
+use Ojs\JournalBundle\Event\CitationRawEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Event\SubmissionFormEvent;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
@@ -233,25 +234,12 @@ class ArticleSubmissionController extends Controller
                 $citationCounter++;
             }
 
-            // This line converts the textarea to an array of each line seperated
-            if ($request->get('raw_citations') !== null) {
-                $rawCitations = array_filter(explode("\n", trim($request->get('raw_citations'))), 'trim');
-                foreach ($rawCitations as $raw) {
-                    $citation = new Citation();
-                    $citation->setRaw($raw);
-                    $citation->setOrderNum($citationCounter);
-                    $article->addCitation($citation);
-                    $citationCounter++;
-                }
-            }
-
-            if ($request->get('raw_citations') !== null) {
-                $rawCitations = array_filter(explode("\n", trim($request->get('raw_citations'))), 'trim');
-                foreach ($rawCitations as $raw) {
-                    $citation = new Citation();
-                    $citation->setRaw($raw);
-                    $article->addCitation($citation);
-                }
+            $rawCitations = $request->get('raw_citations');
+            if ($rawCitations !== null) {
+                $event = new CitationRawEvent($article, $rawCitations);
+                $this
+                    ->get('event_dispatcher')
+                    ->dispatch(JournalEvents::JOURNAL_SUBMISSION_RAW_CITATION, $event);
             }
 
             foreach ($article->getArticleFiles() as $f_articleFile) {
