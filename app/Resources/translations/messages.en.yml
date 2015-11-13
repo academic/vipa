@@ -283,6 +283,8 @@ citation.setting.edit: 'Edit Setting'
 citation.setting.list: 'Setting List'
 citation.setting.new: 'New Reference Setting'
 citation.type: 'Reference Type'
+citation.raw: 'Raw References'
+citation.raw.help: 'You can paste your references here for parsing or you can enter them one by one below.'
 citations: References
 city: City
 cms: CMS
