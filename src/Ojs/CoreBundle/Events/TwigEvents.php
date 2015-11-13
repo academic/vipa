@@ -8,5 +8,6 @@ class TwigEvents
     const OJS_USER_PROFILE_PUBLIC_VIEW = 'ojs.user.profile.public.view';
     const OJS_USER_PROFILE_PUBLIC_VIEW_SCRIPT = 'ojs.user.profile.public.view.script';
     const OJS_USER_ARTICLE_ACTIONS = 'ojs.core.user.article.actions';
-    const OJS_SUBMISSION_CITATION_VIEW = 'ojs.submision.citation.view';
+    const OJS_SUBMISSION_CITATION_VIEW = 'ojs.submission.citation.view';
+    const OJS_SUBMISSION_CITATION_FORM_EXTRA = 'ojs.submission.citation.form_extra';
 }
