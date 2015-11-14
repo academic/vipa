@@ -37,9 +37,10 @@ class MenuBuilder extends ContainerAware
 
     /**
      * @param FactoryInterface $factory
+     * @param array $options
      * @return \Knp\Menu\ItemInterface
      */
-    public function adminRightMenu(FactoryInterface $factory)
+    public function adminRightMenu(FactoryInterface $factory, array $options = array())
     {
         $items = [
             // [field, label, route, icon]
@@ -50,7 +51,7 @@ class MenuBuilder extends ContainerAware
             ['title.publisher_design',          'ojs_admin_publisher_design_index',         'wrench'],
             ['title.publisher_managers',        'ojs_admin_publisher_managers_index',       'users'],
             ['title.default_journal_theme',     'ojs_admin_default_journal_theme_index',    'css3'],
-            ['feedback',                        'okulbilisim_feedback_homepage',            'envelope'],
+            ['feedback',                        'okulbilisim_feedback_homepage',            'envelope',         $options['unreadFeedbacks']],
             ['title.system_settings',           'ojs_admin_system_setting_index',           'gears'],
             ['stats',                           'ojs_admin_stats',                          'bar-chart'],
             ['period',                          'ojs_admin_period_index',                   'calendar-check-o'],
@@ -94,10 +95,17 @@ class MenuBuilder extends ContainerAware
             $label = $item[0];
             $path = $item[1];
             $icon = $item[2];
+            $unreadFeedbackCount = 0;
+            if(isset($item[3])){
+                $unreadFeedbackCount = $item[3];
+            }
 
             $menu->addChild($label, [
                 'route' => $path,
-                'extras' => ['icon' => $icon]
+                'extras' => [
+                    'icon' => $icon,
+                    'unreadFeedbackCount' => $unreadFeedbackCount
+                ],
             ]);
         }
 
