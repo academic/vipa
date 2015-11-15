@@ -196,7 +196,7 @@ class ApplicationController extends Controller
      */
     private function setupJournalContacts(Journal $journal)
     {
-        $contactTypeNames = ['Editor', 'Co-Editor', 'Technical Contact'];
+        $contactTypeNames = ['Editor', 'Technical Contact', 'Co-Editor'];
         $em = $this->getDoctrine()->getManager();
         $contactTypes = [];
         foreach($contactTypeNames as $contactTypeName){
