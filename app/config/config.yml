@@ -172,19 +172,31 @@ presta_sitemap:
     route_annotation_listener: false
     items_by_set: 50000
 
-#hwi_oauth:
-#  firewall_name: main
-#  resource_owners:
-#    orcid:
-#      type:                oauth2
-#      client_id:           %orcid.client_id%
-#      client_secret:       %orcid.client_secret%
-#      access_token_url:    https://pub.orcid.org/oauth/token
-#      authorization_url:   https://orcid.org/oauth/authorize
-#      infos_url:           http://pub.orcid.org/v1.2
-#      scope:               "read"
-#      user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
-#      paths:
-#        identifier: id
-#        nickname:   username
-#        realname:   fullname
+hwi_oauth:
+  connect:
+    account_connector: hwi_oauth.user.provider.fosub_bridge
+  firewall_name: main
+  fosub:
+    username_iterations: 30
+    properties:
+      orcid: orcidId
+      linkedin: linkedinId
+  resource_owners:
+    orcid:
+      type:                oauth2
+      client_id:           %orcid.client_id%
+      client_secret:       %orcid.client_secret%
+      access_token_url:    https://pub.orcid.org/oauth/token
+      authorization_url:   https://orcid.org/oauth/authorize
+      infos_url:           http://pub.orcid.org/v1.2
+      scope:               "read"
+      user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+      paths:
+        identifier: id
+        nickname:   username
+        realname:   fullname
+    linkedin:
+      type:           linkedin
+      client_id:      77jhe9qv6jbkmn
+      client_secret:  f9pLinQe3Y1gLBsx
+      scope:          r_emailaddress

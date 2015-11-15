@@ -15,3 +15,6 @@ services:
     arguments: [@router, @mailer, %system_email%, "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
+  ojs.user.oauth:
+    class: Ojs\UserBundle\Provider\FOSUBUserProvider
+    arguments: [@doctrine.orm.entity_manager, @fos_user.user_manager, {}]

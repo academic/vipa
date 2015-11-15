@@ -125,7 +125,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      */
     private $oauthAccounts;
 
-    /** @var  boolean */
+    /** @var boolean */
     private $privacy;
 
     /** @var Collection */
@@ -134,6 +134,11 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /** @var Collection */
     private $journalRoles;
 
+    /** @var string */
+    private $orcidId;
+
+    /** @var string */
+    private $linkedinId;
 
     public function __construct()
     {
@@ -833,6 +838,38 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
         $this->journalUsers[] = $journalUser;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrcidId()
+    {
+        return $this->orcidId;
+    }
+
+    /**
+     * @param string $orcidId
+     */
+    public function setOrcidId($orcidId)
+    {
+        $this->orcidId = $orcidId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinkedinId()
+    {
+        return $this->linkedinId;
+    }
+
+    /**
+     * @param string $linkedinId
+     */
+    public function setLinkedinId($linkedinId)
+    {
+        $this->linkedinId = $linkedinId;
     }
 
     public function isAdmin()

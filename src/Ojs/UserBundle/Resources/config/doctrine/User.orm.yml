@@ -101,6 +101,20 @@ Ojs\UserBundle\Entity\User:
     city:
       type: string
       nullable: true
+    linkedinId:
+      type: string
+      length: 255
+      unique: false
+      nullable: true
+      gedmo:
+        - versioned
+    orcidId:
+      type: string
+      length: 255
+      unique: false
+      nullable: true
+      gedmo:
+        - versioned
     created:
      type: datetime
      gedmo:

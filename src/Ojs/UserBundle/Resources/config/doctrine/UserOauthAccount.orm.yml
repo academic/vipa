@@ -35,6 +35,7 @@ Ojs\UserBundle\Entity\UserOauthAccount:
         name: user_id
         referencedColumnName: id
       inversedBy: oauthAccounts
+      cascade: ['persist']
   gedmo:
     loggable: true
   lifecycleCallbacks: {  }

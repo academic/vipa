@@ -59,7 +59,7 @@ class AppKernel extends Kernel
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new OkulBilisim\OjsImportBundle\OkulBilisimOjsImportBundle(),
             new Presta\SitemapBundle\PrestaSitemapBundle(),
-            // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -68,8 +68,8 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
         }
-        $accessor = PropertyAccess::createPropertyAccessor();
 
+        $accessor = PropertyAccess::createPropertyAccessor();
 
         $thirdPartyDir = __DIR__.'/../thirdparty';
         $fs = new \Symfony\Component\Filesystem\Filesystem();

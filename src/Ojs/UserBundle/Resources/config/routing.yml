@@ -1,6 +1,6 @@
-#ojs_user_oauth:
-#    resource: "@OjsUserBundle/Resources/config/routing/oauth.yml"
-#    prefix:   /oauth
+ojs_user_oauth:
+    resource: "@OjsUserBundle/Resources/config/routing/oauth.yml"
+    prefix:   /oauth
 
 confirm_email_warning:
     path:  /unconfirmed
