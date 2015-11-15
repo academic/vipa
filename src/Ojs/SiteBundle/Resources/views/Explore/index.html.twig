@@ -53,6 +53,44 @@
                         </ul>
                     </div>
                 {% endif %}
+                {% if locales %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'title.languages'|trans }}</div>
+                        <ul class="list-group filter-box">
+                            {% for locale in locales %}
+                                <li class="list-group-item">
+                                    {% if locale_filters is empty %}
+                                        {% set parameter = locale.key %}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            locale_filters: locale.key,
+                                            publisher_filters: app.request.get('publisher_filters'),
+                                            subject_filters: app.request.get('subject_filters')}) }}">{{ locale.key|trans }}</a>
+                                    {% else %}
+                                        {% if locale.key in locale_filters %}
+                                            {% set parameter = locale_filters|pop(locale.key) %}
+                                            {{ locale.key|trans }}
+                                            <a href="{{ path('ojs_site_explore_index', {
+                                                locale_filters: parameter|join(','),
+                                                publisher_filters: app.request.get('publisher_filters'),
+                                                subject_filters: app.request.get('subject_filters')}) }}">
+                                                <span class="label label-danger">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>
+                                            </a>
+                                        {% else %}
+                                            {% set parameter = locale_filters|merge([locale.key]) %}
+                                            <a href="{{ path('ojs_site_explore_index', {
+                                                locale_filters: parameter|join(','),
+                                                publisher_filters: app.request.get('publisher_filters'),
+                                                subject_filters: app.request.get('subject_filters')}) }}">{{ locale.key|trans }}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <span class="badge">{{ locale.doc_count }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
                 {% if subjects %}
                     <div class="panel panel-default" id="subjects-filter-box">
                         <div class="panel-heading">{{ 'title.subjects'|trans }}</div>

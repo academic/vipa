@@ -295,6 +295,7 @@ fos_elastica:
                         raw:
                           type: string
                           index: not_analyzed
+            mandatoryLang: {index: not_analyzed}
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Journal

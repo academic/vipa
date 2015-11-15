@@ -14,9 +14,11 @@ class ExploreController extends Controller
     public function indexAction(Request $request, $page = 1)
     {
         $getTypes = $request->query->get('type_filters');
+        $getLocales = $request->query->get('locale_filters');
         $getSubjects = $request->query->get('subject_filters');
         $getPublishers = $request->query->get('publisher_filters');
         $typeFilters = !empty($getTypes) ? explode(',', $getTypes) : [];
+        $localeFilters = !empty($getLocales) ? explode(',', $getLocales) : [];
         $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
         $publisherFilters = !empty($getPublishers) ? explode(',', $getPublishers) : [];
 
@@ -50,6 +52,12 @@ class ExploreController extends Controller
                 $match->setField('publisher.name.raw', $publisher);
                 $boolQuery->addMust($match);
             }
+
+            foreach ($localeFilters as $locale) {
+                $match = new Query\Match();
+                $match->setField('mandatoryLang', $locale);
+                $boolQuery->addMust($match);
+            }
         }
 
         $journalQuery = new Query($boolQuery);
@@ -59,6 +67,12 @@ class ExploreController extends Controller
         $typeAgg->setOrder('_term', 'asc');
         $typeAgg->setSize(0);
         $journalQuery->addAggregation($typeAgg);
+
+        $localeAgg = new Aggregation\Terms('locales');
+        $localeAgg->setField('mandatoryLang');
+        $localeAgg->setOrder('_term', 'asc');
+        $localeAgg->setSize(0);
+        $journalQuery->addAggregation($localeAgg);
 
         $subjectAgg = new Aggregation\Terms('subjects');
         $subjectAgg->setField('subjects.subject');
@@ -79,14 +93,17 @@ class ExploreController extends Controller
         $journals = $pagerfanta->getCurrentPageResults();
 
         $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
+        $locales = $adapter->getResultSet()->getAggregation('locales')['buckets'];
         $subjects = $adapter->getResultSet()->getAggregation('subjects')['buckets'];
         $publishers = $adapter->getResultSet()->getAggregation('publishers')['buckets'];
 
         $data = [
             'types' => $types,
+            'locales' => $locales,
             'subjects' => $subjects,
             'publishers' => $publishers,
             'type_filters' => $typeFilters,
+            'locale_filters' => $localeFilters,
             'subject_filters' => $subjectFilters,
             'publisher_filters' => $publisherFilters,
             'journals' => $journals,
