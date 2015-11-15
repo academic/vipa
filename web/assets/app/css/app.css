@@ -864,3 +864,8 @@ label.required:before {
 .no-radius{
     border-radius: 0px;
 }
+
+.filter-box{
+    max-height: 250px;
+    overflow: auto;
+}

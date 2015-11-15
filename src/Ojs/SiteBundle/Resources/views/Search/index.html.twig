@@ -68,7 +68,7 @@
                     {% if results is defined %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ "type"|trans }}</div>
-                            <ul class="list-group">
+                            <ul class="list-group filter-box">
                                 {% for key,result in results %}
                                     {% if result.total_item > 0 %}
                                         <a class="list-group-item {% if key == section %}active{% endif %}"
@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <ul class="list-group list">
+                            <ul class="list-group list filter-box">
                                 {% for journal in journals %}
                                     <li class="list-group-item">
                                         {% if journal_filters is empty %}
@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <ul class="list-group list">
+                            <ul class="list-group list filter-box">
                                 {% for publisher in publishers %}
                                     <li class="list-group-item">
                                         {% if publisher_filters is empty %}
@@ -214,7 +214,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <ul class="list-group">
+                            <ul class="list-group filter-box">
                                 {% for index in indexes %}
                                     <li class="list-group-item">
                                         {% if index_filters is empty %}
@@ -246,7 +246,7 @@
                     {% if roles is defined and roles is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'roles'|trans }}</div>
-                            <ul class="list-group">
+                            <ul class="list-group filter-box">
                                 {% for role in roles %}
                                     <li class="list-group-item">
                                         {% if role_filters is empty %}
@@ -288,7 +288,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <ul class="list-group list">
+                            <ul class="list-group list filter-box">
                                 {% for subject in subjects %}
                                     <li class="list-group-item">
                                         {% if subject_filters is empty %}
