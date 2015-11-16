@@ -134,7 +134,7 @@ class JournalUser
      */
     public function removeRole(Role $role)
     {
-        if (!$this->roles->contains($role)) {
+        if ($this->roles->contains($role)) {
             $this->roles->removeElement($role);
         }
 

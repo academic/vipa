@@ -318,6 +318,10 @@ class JournalUserController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
 
+        foreach($entity->getRoles() as $role) {
+            $entity->removeRole($role);
+        }
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
