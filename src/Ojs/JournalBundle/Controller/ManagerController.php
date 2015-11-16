@@ -112,7 +112,7 @@ class ManagerController extends Controller
             $this->get("ojs.journal_service")->getSelectedJournal() :
             $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
-        if (!$this->isGranted('EDIT', $journal)) {
+        if (!$this->isGranted('EDIT', $journal, 'submissionSettings')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
