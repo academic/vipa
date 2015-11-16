@@ -86,15 +86,17 @@
                                 {% elseif article.statusText ==  'status.inreview' %}
                                     {{ twigEventDispatch({'event_name': 'OJS_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
                                 {% elseif article.statusText ==  'status.published' %}
-                                    <a href="{{ path('ojs_article_page', {
-                                        publisher: article.journal.publisher.slug,
-                                        slug: article.journal.slug,
-                                        issue_id: article.issue.id,
-                                        article_id: article.id
-                                    }) }}"
-                                       target="_blank" class="btn btn-primary btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
-                                        <i class="fa fa-external-link"></i>
-                                    </a>
+                                    {% if article.issue is not null %}
+                                        <a href="{{ path('ojs_article_page', {
+                                            publisher: article.journal.publisher.slug,
+                                            slug: article.journal.slug,
+                                            issue_id: article.issue.id,
+                                            article_id: article.id
+                                        }) }}"
+                                           target="_blank" class="btn btn-primary btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </td>
                         </tr>
