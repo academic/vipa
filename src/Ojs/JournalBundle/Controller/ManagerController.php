@@ -166,10 +166,6 @@ class ManagerController extends Controller
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
-        if (!$this->isGranted('EDIT', $journal)) {
-            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
-        }
-
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetting $setting */
         $setting = $em->
