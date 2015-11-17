@@ -19,9 +19,5 @@ Ojs\JournalBundle\Entity\Article:
             - Valid: ~
         status:
             - NotBlank: ~
-        firstPage:
-            - NotBlank: ~
-        lastPage:
-            - NotBlank: ~
         submissionDate:
             - NotBlank: ~
