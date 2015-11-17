@@ -102,11 +102,12 @@ class GridAction
 
     /**
      * @param string $route
-     * @param $key
-     * @param  null      $role
+     * @param string $key
+     * @param null $role
+     * @param array $options
      * @return RowAction
      */
-    public function showAction($route, $key = 'id', $role = null)
+    public function showAction($route, $key = 'id', $role = null, array $options = array())
     {
         $icon = isset($options['icon']) ? $options['icon']: 'info-circle';
         $title = isset($options['title']) ? $options['title']: 'show';

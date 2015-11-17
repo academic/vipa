@@ -46,7 +46,10 @@ class BoardController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()], null, [
+            'icon' => 'users',
+            'title' => 'add.user'
+        ]);
         if ($this->isGranted('EDIT', $journal, 'boards')) {
             $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', ['id', 'journalId' => $journal->getId()]);
             $rowAction[] = $gridAction->deleteAction(
