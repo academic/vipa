@@ -253,8 +253,9 @@ class SiteController extends Controller
         $this->throw404IfNotFound($journal);
 
         /** @var Issue[] $issues */
-        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(
-            array('journal' => $journal)
+        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy([
+                'journal' => $journal
+            ]
         );
         $this->throw404IfNotFound($issues);
         $groupedIssues = [];
