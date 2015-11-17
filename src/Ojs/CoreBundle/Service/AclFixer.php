@@ -193,7 +193,7 @@ class AclFixer
             $this->aclChainManager->on($journal)->field('articles')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
-                ->permit($viewEditDelete)->save();
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $this->aclChainManager->on($journal)->field('steps')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER')
             )
@@ -274,7 +274,7 @@ class AclFixer
             $this->aclChainManager->on($journal)->field('articles')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR')
             )
-                ->permit($viewEditDelete)->save();
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $this->aclChainManager->on($journal)->field('announcements')->to(
                 new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR')
             )
