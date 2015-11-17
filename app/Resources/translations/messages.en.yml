@@ -243,19 +243,19 @@ basicsearch: 'Basic Search'
 block: Block
 blog: Blog
 board: Board
-board.addUser: 'Add User to Board'
+board.addUser: 'Add User to the Position'
 board.can_not_add_user: 'You can add member from your journals''s users only.'
-board.create: 'Create Board'
-board.delete: 'Delete Board'
-board.detail: 'Board Detail'
-board.edit: 'Edit Board'
-board.hasNoMember: 'Board has no members'
+board.create: 'Create Position Title'
+board.delete: 'Delete Position Title'
+board.detail: 'Position Detail'
+board.edit: 'Edit Position Title'
+board.hasNoMember: 'Position has no members'
 board.manage_users: 'You can <a href="%path%">manage</a> journal''s users.'
 board.manager: 'Board Manager'
 board.members: Members
-board.name: 'Board Name'
-board.order: 'Board Order Number'
-boards: Boards
+board.name: 'Position Title'
+board.order: 'Position Order Number'
+boards: Editorial Board
 book: Book
 booklet: Booklet
 button.toggle_tree: 'Toggle Tree'
