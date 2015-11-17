@@ -203,6 +203,7 @@ articles.needAction: 'İşlem Gereken Makaleler'
 articles.waiting: 'Bekleyen Makaleler'
 articles_in_journal: 'Dergideki Makaleler'
 articles_in_review: 'Süreçteki Makaleler'
+articles_in_history: 'Geçmişteki Makaleler'
 author: Yazar
 author.add: 'Yazar Ekle'
 author.creation: 'Yazar Oluşturma'
