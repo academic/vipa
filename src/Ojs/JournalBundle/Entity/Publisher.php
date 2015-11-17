@@ -712,7 +712,7 @@ class Publisher extends AbstractTranslatable
      */
     public function setPublisherType(PublisherTypes $publisherType)
     {
-        $this->$publisherType = $publisherType;
+        $this->publisherType = $publisherType;
 
         return $this;
     }
