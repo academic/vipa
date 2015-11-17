@@ -108,12 +108,14 @@ class GridAction
      */
     public function showAction($route, $key = 'id', $role = null)
     {
-        $rowAction = new RowAction('<i class="fa fa-info-circle"></i>', $route);
+        $icon = isset($options['icon']) ? $options['icon']: 'info-circle';
+        $title = isset($options['title']) ? $options['title']: 'show';
+        $rowAction = new RowAction('<i class="fa fa-'.$icon.'"></i>', $route);
         $rowAction->setAttributes(
             [
                 'class' => 'btn btn-success btn-xs  ',
                 'data-toggle' => 'tooltip',
-                'title' => $this->translator->trans("show"),
+                'title' => $this->translator->trans($title),
             ]
         );
         $rowAction->setRouteParameters($key);
