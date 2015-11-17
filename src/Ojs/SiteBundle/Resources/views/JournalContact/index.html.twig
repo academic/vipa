@@ -48,12 +48,11 @@
                         <div class="panel-heading">{{ contact.contactType.name }}</div>
                         <div class="panel-body">
                             <strong>{{ "name"|trans }}
-                                :</strong> {{ contact.contact.title }} {{ contact.contact.fullName }}
+                                :</strong> {{ contact.title }} {{ contact.fullName }}
                             <br/>
-                            <strong>{{ "email"|trans }}:</strong> {{ contact.contact.email }} <br/>
-                            <strong>{{ "phone"|trans }}:</strong> {{ contact.contact.phone }} <br/>
-                            <strong>{{ "fax"|trans }}:</strong> {{ contact.contact.fax }} <br/>
-                            <strong>{{ "address"|trans }}:</strong> {{ contact.contact.address }} <br/>
+                            <strong>{{ "email"|trans }}:</strong> {{ contact.email }} <br/>
+                            <strong>{{ "phone"|trans }}:</strong> {{ contact.phone }} <br/>
+                            <strong>{{ "address"|trans }}:</strong> {{ contact.address }} <br/>
                         </div>
                     {% endfor %}
 
