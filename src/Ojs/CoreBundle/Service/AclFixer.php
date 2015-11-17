@@ -217,11 +217,6 @@ class AclFixer
                 ->permit(MaskBuilder::MASK_OWNER)->save();
 
             $this->aclChainManager->on($journal)
-                ->field('mailSettings')
-                ->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
-                ->permit(MaskBuilder::MASK_OWNER)->save();
-
-            $this->aclChainManager->on($journal)
                 ->field('files')
                 ->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
