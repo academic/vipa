@@ -75,7 +75,7 @@ class Issue extends AbstractTranslatable
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail"})
      */
-    private $special = true;
+    private $special = false;
     /**
      * @var string
      * @JMS\Expose
@@ -125,6 +125,8 @@ class Issue extends AbstractTranslatable
     private $publicURI;
     /** @var  boolean */
     private $published = false;
+    /** @var  boolean */
+    private $public = false;
     /**
      * @var boolean
      * @JMS\Expose
@@ -525,6 +527,25 @@ class Issue extends AbstractTranslatable
     public function setPublished($published)
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * @param  boolean $public
+     * @return $this
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
 
         return $this;
     }

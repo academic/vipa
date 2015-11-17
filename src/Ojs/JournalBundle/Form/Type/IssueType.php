@@ -51,9 +51,14 @@ class IssueType extends AbstractType
                 'label' => 'published',
                 'required' => false
             ])
+            ->add('public', 'checkbox', [
+                'label' => 'ojs.is_public',
+                'required' => false
+            ])
             ->add('full_file', 'jb_file_ajax', array(
                 'endpoint' => 'issuefiles',
-                'label' => 'issue.full_file'
+                'label' => 'issue.full_file',
+                'required' => false
             ))
             ->add('cover', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
