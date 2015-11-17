@@ -43,7 +43,15 @@ class SearchController extends Controller
         $section = filter_var($request->get('section'), FILTER_SANITIZE_STRING);
 
         $searcher = $this->get('fos_elastica.index.search');
+
         $searchQuery = new Query('_all');
+        $searchQuery->setSort([
+            'name.raw' => ['order' => 'asc'],
+            'title.raw' => ['order' => 'asc'],
+            'firstName.raw' => ['order' => 'asc'],
+            'subject.raw' => ['order' => 'asc'],
+        ]);
+
         $boolQuery = new Query\Bool();
         $match = new Query\Match();
         $match->setField('status', 3);
