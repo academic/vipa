@@ -197,7 +197,7 @@ class ManagerController extends Controller
             $this->get("ojs.journal_service")->getSelectedJournal() :
             $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
-        if (!$this->isGranted('EDIT', $journal)) {
+        if (!$this->isGranted('EDIT', $journal, 'mailSettings')) {
             throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
         }
 
