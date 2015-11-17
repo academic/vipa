@@ -246,17 +246,17 @@ blog: Blog
 board: Kurul
 board.addUser: 'Kullanıcı Ekle'
 board.can_not_add_user: 'Sadece derginizin kullanıcılarından üye ekleyebilirsiniz..'
-board.create: 'Kurul Oluştur'
-board.delete: 'Kurul Sil'
-board.detail: 'Kurul Detayı'
-board.edit: 'Kurul Düzenle'
-board.hasNoMember: 'Kurulun Hiç Üyesi Yok'
-board.manage_users: 'Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>'
+board.create: 'Pozisyon Oluştur'
+board.delete: 'Pozisyon Sil'
+board.detail: 'Pozisyon Detayı'
+board.edit: 'Pozisyonu Düzenle'
+board.hasNoMember: 'Pozisyonun Hiç Üyesi Yok'
+board.manage_users: 'Pozisyonun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>'
 board.manager: 'Kurul yöneticisi'
-board.members: 'Kurul üyeleri'
-board.name: 'Kurul Adı'
-board.order: 'Kurul Sıralaması'
-boards: Kurullar
+board.members: 'Pozisyon üyeleri'
+board.name: 'Pozisyon Başlığı'
+board.order: 'Pozisyonda Sıralaması'
+boards: Editor Kurulu
 book: Kitap
 booklet: Broşür
 button.toggle_tree: 'Ağacı Aç'
