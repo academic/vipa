@@ -237,6 +237,11 @@ class Article extends AbstractTranslatable
     private $publicURI;
 
     /**
+     * @var integer
+     */
+    private $numerator;
+
+    /**
      * List of Article Status
      * @var array
      */
@@ -1208,5 +1213,21 @@ class Article extends AbstractTranslatable
     public function setPublicURI($publicURI)
     {
         $this->publicURI = $publicURI;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumerator()
+    {
+        return $this->numerator;
+    }
+
+    /**
+     * @param int $numerator
+     */
+    public function setNumerator($numerator)
+    {
+        $this->numerator = $numerator;
     }
 }
