@@ -185,7 +185,7 @@ $(document).ready(function () {
         var container = $(this).find('.submission-subform-container'),
             template = $(this).find('.submission-subform-template').val();
         $(this).find('.submission-subform-add-panel').on('click', function () {
-            var newSrc = $(template.replace(/__name__/g, container.find('.submission-subform').length))
+            var newSrc = $(template.replace(/__name__/g, getRandomIntInclusive(100, 1000)))
                 , uploader;
             newSrc.appendTo(container);
             uploader = newSrc.find('.jb_fileupload');
@@ -214,3 +214,8 @@ $(document).ready(function () {
         e.preventDefault();
     });
 });
+// Returns a random integer between min (included) and max (included)
+// Using Math.round() will give you a non-uniform distribution!
+function getRandomIntInclusive(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
