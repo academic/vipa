@@ -204,7 +204,6 @@ class ArticleSubmissionController extends Controller
             ->setSubmitterUser($user)
             ->setStatus(-1)
             ->setJournal($journal)
-            ->addCitation(new Citation())
             ->addArticleFile(new ArticleFile())
             ->addArticleAuthor($articleAuthor);
 
@@ -232,14 +231,6 @@ class ArticleSubmissionController extends Controller
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($citationCounter);
                 $citationCounter++;
-            }
-
-            $rawCitations = $request->get('raw_citations');
-            if ($rawCitations !== null) {
-                $event = new CitationRawEvent($article, $rawCitations);
-                $this
-                    ->get('event_dispatcher')
-                    ->dispatch(JournalEvents::JOURNAL_SUBMISSION_RAW_CITATION, $event);
             }
 
             foreach ($article->getArticleFiles() as $f_articleFile) {

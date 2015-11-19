@@ -139,16 +139,16 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">{{ "article.citations"|trans }}</div>
                     <div class="panel panel-body">
-                        <table class="table">
                             {% for key, citation  in article.citations %}
+                                <table class="table top30">
                                 <tr>
                                     <td colspan="2">
                                         <span class="badge">{{ citation.orderNum + 1 }}</span> {{ citation.raw }}
                                     </td>
                                 </tr>
                                 {{ twigEventDispatch({'event_name': 'OJS_SUBMISSION_CITATION_VIEW', 'citation': citation})|raw }}
+                                </table>
                             {% endfor %}
-                        </table>
                     </div>
                 </div>
                 <hr>
