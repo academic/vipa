@@ -19,8 +19,8 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Article
- * @GRID\Source(columns="id ,title, issue, journal.title, pubdate, status, section.title")
- * @GRID\Source(columns="id, status, title, journal.title", groups={"submission"})
+ * @GRID\Source(columns="id, numerator, title, issue, journal.title, pubdate, status, section.title")
+ * @GRID\Source(columns="id, numerator, status, title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
 class Article extends AbstractTranslatable
@@ -238,6 +238,7 @@ class Article extends AbstractTranslatable
 
     /**
      * @var integer
+     * @GRID\Column(title="numerator")
      */
     private $numerator;
 

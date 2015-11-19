@@ -78,6 +78,14 @@ class ArticleController extends Controller
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
+        $grid->getColumn('numerator')->manipulateRenderCell(
+            function($value, $row, $router) use ($journal) {
+                if ($journal->getTitleAbbr() !== null) {
+                    return $journal->getTitleAbbr() . '.' . $value;
+                }
+            }
+        );
+
         $listEvent = new ListEvent();
         $listEvent->setGrid($grid);
         $eventDispatcher->dispatch(JournalEvents::ARTICLE_LIST_INITIALIZED, $listEvent);
