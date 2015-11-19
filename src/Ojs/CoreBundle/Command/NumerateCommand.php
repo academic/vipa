@@ -57,7 +57,7 @@ class NumerateCommand extends ContainerAwareCommand
 
             /** @var Journal $journal */
             foreach ($journals as $journal) {
-                $articles = $entityManager->getRepository('OjsJournalBundle:Article')->findAll();
+                $articles = $entityManager->getRepository('OjsJournalBundle:Article')->findBy(['journal' => $journal]);
                 $totalProgress->setMessage('Numerating articles of "' . $journal->getTitle() . '"');
 
                 foreach ($articles as $article) {
