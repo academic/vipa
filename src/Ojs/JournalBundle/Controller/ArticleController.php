@@ -82,6 +82,8 @@ class ArticleController extends Controller
             function($value, $row, $router) use ($journal) {
                 if ($journal->getTitleAbbr() !== null) {
                     return $journal->getTitleAbbr() . '.' . $value;
+                } else {
+                    return $journal->getSlug() . '.' . $value;
                 }
             }
         );
