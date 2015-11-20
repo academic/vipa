@@ -121,6 +121,8 @@ services:
     class: Ojs\CoreBundle\Listeners\SoftDeleteListener
     tags:
       - { name: doctrine.event_listener, event: preSoftDelete }
+      - { name: doctrine.event_listener, event: preRemove }
+
   app.exception_listener:
     class: Ojs\CoreBundle\Listeners\ExceptionListener
     arguments: [@router, @session, @translator]

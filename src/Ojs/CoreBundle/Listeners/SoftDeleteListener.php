@@ -16,9 +16,13 @@ class SoftDeleteListener
 
     public function preSoftDelete(LifecycleEventArgs $args)
     {
+        $this->checkRelations($args);
+    }
+
+    protected function checkRelations(LifecycleEventArgs $args)
+    {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-
 
         $mappings = $entityManager->getClassMetadata(get_class($entity))->getAssociationMappings();
         foreach ($mappings as $mapping) {
@@ -40,5 +44,10 @@ class SoftDeleteListener
                 throw $exception;
             }
         }
+    }
+
+    public function preRemove(LifecycleEventArgs $args)
+    {
+        $this->checkRelations($args);
     }
 }
