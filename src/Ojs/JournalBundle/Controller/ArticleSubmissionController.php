@@ -204,6 +204,7 @@ class ArticleSubmissionController extends Controller
             ->setSubmitterUser($user)
             ->setStatus(-1)
             ->setJournal($journal)
+            ->addCitation(new Citation())
             ->addArticleFile(new ArticleFile())
             ->addArticleAuthor($articleAuthor);
 
