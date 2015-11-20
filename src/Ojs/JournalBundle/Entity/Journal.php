@@ -313,6 +313,8 @@ class Journal extends AbstractTranslatable
     private $journalContacts;
     /**
      * @var Lang
+     * @JMS\Expose
+     * @JMS\Groups({"JournalDetail"})
      */
     private $mandatoryLang;
     /**
