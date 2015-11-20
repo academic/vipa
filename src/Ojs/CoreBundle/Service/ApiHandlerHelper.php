@@ -57,15 +57,24 @@ class ApiHandlerHelper
                 $getSetter = 'set'.ucfirst($property->name);
                 $getGetter = 'get'.ucfirst($property->name);
                 if(method_exists($entity, $getGetter) && !empty($entity->$getGetter())){
+                    if(method_exists($entity->$getGetter(), 'first')){
+                        foreach($entity->$getGetter() as $object){
+                            $this->normalizeEntity($object);
+                        }
+                    }
                     if ($annotation instanceof File){
-                        $fileFullPath = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost().'/uploads/'.$annotation->getPath().'/'.$entity->$getGetter();
-                        $entity->$getSetter($fileFullPath);
+                        if(!preg_match('/http/', $entity->$getGetter())){
+                            $fileFullPath = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost().'/uploads/'.$annotation->getPath().'/'.$entity->$getGetter();
+                            $entity->$getSetter($fileFullPath);
+                        }
                     } elseif ($annotation instanceof Image){
-                        $filteredImage = $this->imagine->filter(
-                            $entity->$getGetter(),
-                            $annotation->getFilter()
-                        );
-                        $entity->$getSetter($filteredImage);
+                        if(!preg_match('/http/', $entity->$getGetter())) {
+                            $filteredImage = $this->imagine->filter(
+                                $entity->$getGetter(),
+                                $annotation->getFilter()
+                            );
+                            $entity->$getSetter($filteredImage);
+                        }
                     }
                 }
             }
