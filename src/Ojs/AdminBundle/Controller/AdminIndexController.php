@@ -247,14 +247,8 @@ class AdminIndexController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
         $em->remove($entity);
-        try {
-            $em->flush();
-        }
-        catch(\Exception $e )
-        {
-            $this->errorFlashBag('firstly.remove.components');
-            return $this->redirectToRoute('ojs_admin_index_index');
-        }
+        $em->flush();
+
         $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('ojs_admin_index_index');
     }
