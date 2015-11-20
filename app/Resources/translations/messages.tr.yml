@@ -891,7 +891,7 @@ searchon.pubmed: 'PubMed`de ara'
 searchon.wikipedia: 'Wikipedia`da ara'
 secretary: Sekreter
 section: Bölüm
-select.article.file: 'Dosya Seç'
+select.article.file: 'Yeni Dosya Ekle'
 select.image.file: 'Resim Dosyası Seç...'
 select_all: 'Tümünü Seç'
 select_article_file: 'Makale Dosyası Seç'
