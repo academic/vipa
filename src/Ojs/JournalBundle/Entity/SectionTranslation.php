@@ -19,7 +19,7 @@ class SectionTranslation extends AbstractTranslation
     /**
      * @var string
      */
-    private $title;
+    private $title = '-';
 
     /**
      * @return string
@@ -34,6 +34,8 @@ class SectionTranslation extends AbstractTranslation
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        if ($title !== null) {
+            $this->title = $title;
+        }
     }
 }
