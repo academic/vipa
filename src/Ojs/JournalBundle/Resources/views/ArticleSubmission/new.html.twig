@@ -48,6 +48,13 @@
     {{ parent() }}
     <script>
         $(function() {
+            function reviseCitationOrders(){
+                $.each($('#citation-forms-container').find('.citation-item-order'), function (index, value) {
+                    $(this).html(index+1);
+                });
+            }
+            reviseCitationOrders();
+            setInterval(function(){ reviseCitationOrders(); }, 1000);
             function reviseInstitutionInputs(){
                 $.each($('.institutionNotListed'), function (index, value) {
                     var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');

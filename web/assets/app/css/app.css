@@ -869,3 +869,9 @@ label.required:before {
     max-height: 250px;
     overflow: auto;
 }
+
+.citation-box{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 5px;
+}
