@@ -150,6 +150,9 @@ Ojs\JournalBundle\Entity\Issue:
       column: download_count
       options:
         default: 0
+    numerator:
+      type: integer
+      nullable: true
   gedmo:
     soft_deleteable:
       field_name: deletedAt

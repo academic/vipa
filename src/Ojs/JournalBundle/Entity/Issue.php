@@ -146,6 +146,11 @@ class Issue extends AbstractTranslatable
      */
     private $issueFiles;
 
+    /**
+     * @var integer
+     */
+    private $numerator;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -678,5 +683,21 @@ class Issue extends AbstractTranslatable
     public function setPublicURI($publicURI)
     {
         $this->publicURI = $publicURI;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumerator()
+    {
+        return $this->numerator;
+    }
+
+    /**
+     * @param int $numerator
+     */
+    public function setNumerator($numerator)
+    {
+        $this->numerator = $numerator;
     }
 }

@@ -70,6 +70,32 @@ class NumerateCommand extends ContainerAwareCommand
             $totalProgress->finish();
             $output->writeln(''); // Necessary, unfortunately.
             $output->writeln('<info>Done.</info>');
+        } else if ($entity === 'issue') { // TODO: Don't repeat yourself.
+            $output->writeln('<comment>This might take a while.</comment>');
+            $journals = $entityManager->getRepository('OjsJournalBundle:Journal')->findAll();
+            $totalProgress = new ProgressBar($output, count($journals));
+            $totalProgress->setFormat('%current%/%max% [%bar%] %message%');
+
+            if ($totalProgress->getMaxSteps() > 0) {
+                $totalProgress->setMessage('Numerating...');
+                $totalProgress->start();
+            }
+
+            /** @var Journal $journal */
+            foreach ($journals as $journal) {
+                $issues = $entityManager->getRepository('OjsJournalBundle:Issue')->findBy(['journal' => $journal]);
+                $totalProgress->setMessage('Numerating issues of "' . $journal->getTitle() . '"');
+
+                foreach ($issues as $issue) {
+                    NumeratorHelper::numerateIssue($issue, $entityManager);
+                }
+
+                $totalProgress->advance();
+            }
+
+            $totalProgress->finish();
+            $output->writeln(''); // Necessary, unfortunately.
+            $output->writeln('<info>Done.</info>');
         } else {
             $output->writeln('<error>This entity is not yet supported.</error>');
         }
