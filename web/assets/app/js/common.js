@@ -94,10 +94,13 @@ $(document).ready(function () {
             return user.text;
         }
     });
-    $('.select2-element').select2();
+    $('.select2-element').select2({
+        language: current_language
+    });
 
     $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
         $("select[data-role=tagsinputautocomplete]").select2({
+            language: current_language,
             ajax: {
                 data: function (params) {
                     return {
