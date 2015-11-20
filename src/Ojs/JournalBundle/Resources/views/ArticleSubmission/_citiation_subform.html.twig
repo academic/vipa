@@ -1,6 +1,6 @@
 <div class="submission-subform">
     {% for element in form %}
-    {{ form_row(element) }}
+        {{ form_row(element, {'style': 'horizontal'}) }}
     {% endfor %}
     <button type="button" class="btn btn-warning btn-sm submission-subform-remove-panel remove-citation"><i class="fa fa-trash"></i></button>
 </div>
