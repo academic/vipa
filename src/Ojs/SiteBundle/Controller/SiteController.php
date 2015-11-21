@@ -219,6 +219,33 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/journal_articles.html.twig', $data);
     }
 
+    public function journalBoardAction($slug)
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var BlockRepository $blockRepo */
+        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($journal);
+        $board = $journal->getBoards();
+
+        $board_members = [];
+        foreach ($board as $board_item) {
+            $board_members[$board_item->getId()] = $board_item->getBoardMembers();
+        }
+
+        $data = [
+            'journal' => $journal,
+            'board' => $board,
+            'board_members' => $board_members,
+            'page' => 'journal',
+            'blocks' => $blockRepo->journalBlocks($journal),
+        ];
+
+        return $this->render('OjsSiteBundle::Journal/journal_board.html.twig', $data);
+    }
+
     /**
      * Also means last issue's articles
      *

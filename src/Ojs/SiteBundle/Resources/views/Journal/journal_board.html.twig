@@ -1,0 +1,74 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.journal_board'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .float-left {
+            float: left;
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
+    {'link':generateJournalUrl(journal), 'title': journal.title},
+    {'title': "board"|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <br>
+        <!-- The carousel -->
+        <div class="page-header">
+            <img src="
+                {% if journal.issues|length and journal.issues[journal.issues|length-1].cover is not null %}
+                    {{ journal.issues[journal.issues|length-1].cover|imagine_filter('issue_cover') }}
+                {% endif %}"
+                 class="img-responsive float-left tri"/>
+
+            <div>
+                <h1>{{ journal.title }}</h1>
+                <h6>{{ journal.subtitle }}</h6>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-9 col-sm-8">
+                {% for board_item in board %}
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            <h2> {{ board_item.name }} {{ board_item.id }}
+                                <small>{{ board_item.description }}</small>
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            {% for board_member in board_members[board_item.id] %}
+                                {% set person = board_member.user %}
+                                {% include '::user.html.twig' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('journal', {{ journal.id }})
+    </script>
+{% endblock %}
