@@ -32,6 +32,8 @@ parameters:
                 - journalId
     orcid.client_id:
     orcid.client_secret:
+    linkedin.client_id:
+    linkedin.client_secret:
     https: false
     feedback_categories:
         -

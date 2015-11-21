@@ -197,6 +197,6 @@ hwi_oauth:
         realname:   fullname
     linkedin:
       type:           linkedin
-      client_id:      77jhe9qv6jbkmn
-      client_secret:  f9pLinQe3Y1gLBsx
+      client_id:      %linkedin.client_id%
+      client_secret:  %linkedin.client_secret%
       scope:          r_emailaddress
