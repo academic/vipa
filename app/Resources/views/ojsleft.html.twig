@@ -7,7 +7,7 @@
                         {{ selectedJournal().title }}
                         <a class="btn btn-block text-center" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
                             {% if selectedJournal().image %}
-                                <img src="{{ selectedJournal().image|imagine_filter('journal_original') }}"
+                                <img src="{{ selectedJournal().image|imagine_filter('journal_croped') }}"
                                      class="avatar" title="{{ selectedJournal().title }}" width="150"/>
                             {% else %}
                                 <img src="#" class="tri"/>
