@@ -35,6 +35,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.min.js'
         - '%kernel.root_dir%/../web/assets/app/js/plugins/highlight/highlight.js'
         - '%kernel.root_dir%/../web/vendor/list.js/dist/list.min.js'
+        - '%kernel.root_dir%/../web/vendor/downloadjs/download.min.js'
         - '@OkulbilisimFeedbackBundle/Resources/public/js/feedback.js'
         - '@OkulbilisimFeedbackBundle/Resources/public/js/html2canvas.min.js'
         - '@OkulbilisimFeedbackBundle/Resources/public/js/admin.js'

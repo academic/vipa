@@ -13,6 +13,13 @@ $(document).ready(function () {
         }
     });
 
+    $('.download-link').on('click', function (e) {
+        var elm = $(this);
+        download(elm.data('raw'), elm.data('filename'), elm.data('mime'));
+        e.preventDefault();
+
+    });
+
     $('[data-toggle="tooltip"]').tooltip();
     $('.fab').hover(function () {
         $(this).toggleClass('active');
