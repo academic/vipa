@@ -61,7 +61,8 @@
     "okulbilisim/location-bundle": "dev-master",
     "tetranz/select2entity-bundle": "2.*",
     "baskin/history-bundle": "dev-master",
-    "presta/sitemap-bundle": "dev-master"
+    "presta/sitemap-bundle": "dev-master",
+    "openjournalsoftware/bibtex": "dev-master"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
