@@ -7,16 +7,16 @@ use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
+use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalType;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Yaml\Parser;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
 
 class ManagerController extends Controller
 {
@@ -223,7 +223,7 @@ class ManagerController extends Controller
         $articles = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:Article')
-            ->findBy(['submitterUser' => $this->getUser()]);
+            ->findBy(['submitterUser' => $this->getUser()], ['submissionDate' => 'DESC']);
         $journalUsers = array();
         
         if ($this->getUser()->isAdmin()) {
