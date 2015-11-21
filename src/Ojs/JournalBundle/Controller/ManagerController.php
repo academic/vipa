@@ -145,12 +145,6 @@ class ManagerController extends Controller
                     $journal->getSetting('submissionAbstractTemplate')->getValue() :
                     null,
             ),
-            'abstractTemplates' => $yamlParser->parse(
-                file_get_contents(
-                    $root.
-                    '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
-                )
-            ),
             'journal' => $journal,
         );
 
