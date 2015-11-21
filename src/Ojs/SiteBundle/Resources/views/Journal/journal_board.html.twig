@@ -41,23 +41,27 @@
         </div>
         <div class="row">
             <div class="col-md-9 col-sm-8">
+                {% if board is defined and board is not null and board|length>0 %}
                 {% for board_item in board %}
-                    <div class="panel panel-default">
+                <div class="panel panel-default">
 
-                        <div class="panel-heading">
-                            <h2> {{ board_item.name }} {{ board_item.id }}
-                                <small>{{ board_item.description }}</small>
-                            </h2>
-                        </div>
-                        <div class="panel-body">
-                            {% for board_member in board_members[board_item.id] %}
-                                {% set person = board_member.user %}
-                                {% include '::user.html.twig' %}
-                            {% endfor %}
-                        </div>
+                    <div class="panel-heading">
+                        <h2> {{ board_item.name }} {{ board_item.id }}
+                            <small>{{ board_item.description }}</small>
+                        </h2>
                     </div>
+                    <div class="panel-body">
+                        {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
+                        {% for board_member in board_members[board_item.id] %}
+                            {% set person = board_member.user %}
+                            {% include '::user.html.twig' %}
+                        {% endfor %}
+                        {% endifche %}
+                    </div>
+                        </div>
 
                 {% endfor %}
+                {% endif %}
             </div>
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
                 {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
