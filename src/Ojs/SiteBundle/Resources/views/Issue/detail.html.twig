@@ -48,41 +48,43 @@
 
                 <ul class="list-group">
                     {% for section in issue.journal.sections %}
-                        <li class="list-group-item list-group-item-primary">
-                            <i class="fa fa-globe"></i> {{ section.title }}
-                            <ul class="list-group">
-                                {% for article in section.articles %}
-                                    {% if article.issue == issue %}
-                                        <li class="list-group-item list-group-item-default">
-                                            <a href="
+                        {% if section.articles|length>0 %}
+                            <li class="list-group-item list-group-item-primary">
+                                <i class="fa fa-globe"></i> {{ section.title }}
+                                <ul class="list-group">
+                                    {% for article in section.articles %}
+                                        {% if article.issue == issue %}
+                                            <li class="list-group-item list-group-item-default">
+                                                <a href="
                                             {% if isPublisherHosting is defined %}
                                                 {{ url('publisher_hosting_journal_issue_article',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id}) }}
                                             {% elseif isJournalHosting is defined %}
                                             {% else %}
                                                 {{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,publisher: issue.journal.publisher.slug}) }}
                                             {% endif %}">
-                                                <i class="fa fa-file-text"></i> {{ article.title }}
-                                            </a>
-                                            <br/>
+                                                    <i class="fa fa-file-text"></i> {{ article.title }}
+                                                </a>
+                                                <br/>
 
-                                            <i class="fa fa-users"></i>
-                                            {% if article.created.date %}
-                                                <span class="text-muted">
+                                                <i class="fa fa-users"></i>
+                                                {% if article.created.date %}
+                                                    <span class="text-muted">
                                                         ({{ article.created.date|date('d.m.Y') }})
                                                 </span>
-                                            {% endif %}
+                                                {% endif %}
 
-                                            <i class="fa fa-eye"></i>
-                                            {% if article.viewCount %}
-                                                <span class="text-muted">
+                                                <i class="fa fa-eye"></i>
+                                                {% if article.viewCount %}
+                                                    <span class="text-muted">
                                                         {{ article.viewCount|number_format }}
                                                 </span>
-                                            {% endif %}
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </li>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -115,7 +117,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             analytics.view('issue', {{ issue.id }}, '{{ token }}');
         });
     </script>
