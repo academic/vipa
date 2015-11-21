@@ -23,51 +23,51 @@
 
 {% block body %}
 
-    <div class="container">
-        <br>
-        <!-- The carousel -->
-        <div class="page-header">
-            <img src="
+<div class="container">
+    <br>
+    <!-- The carousel -->
+    <div class="page-header">
+        <img src="
                 {% if journal.issues|length and journal.issues[journal.issues|length-1].cover is not null %}
                     {{ journal.issues[journal.issues|length-1].cover|imagine_filter('issue_cover') }}
                 {% endif %}"
-                 class="img-responsive float-left tri"/>
+             class="img-responsive float-left tri"/>
 
-            <div>
-                <h1>{{ journal.title }}</h1>
-                <h6>{{ journal.subtitle }}</h6>
-            </div>
-            <div class="clearfix"></div>
+        <div>
+            <h1>{{ journal.title }}</h1>
+            <h6>{{ journal.subtitle }}</h6>
         </div>
-        <div class="row">
-            <div class="col-md-9 col-sm-8">
-                {% if board is defined and board is not null and board|length>0 %}
-                {% for board_item in board %}
-                <div class="panel panel-default">
+        <div class="clearfix"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-9 col-sm-8">
+            {% if board is defined and board is not null and board|length>0 %}
+            {% for board_item in board %}
+            <div class="panel panel-default">
 
-                    <div class="panel-heading">
-                        <h2> {{ board_item.name }} {{ board_item.id }}
-                            <small>{{ board_item.description }}</small>
-                        </h2>
-                    </div>
-                    <div class="panel-body">
-                        {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
-                        {% for board_member in board_members[board_item.id] %}
-                            {% set person = board_member.user %}
-                            {% include '::user.html.twig' %}
-                        {% endfor %}
-                        {% endifche %}
-                    </div>
-                        </div>
+                <div class="panel-heading">
+                    <h2> {{ board_item.name }} {{ board_item.id }}
+                        <small>{{ board_item.description }}</small>
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
+                    {% for board_member in board_members[board_item.id] %}
+                        {% set person = board_member.user %}
+                        {% include '::user.html.twig' %}
+                    {% endfor %}
+                    {% endifche %}
+                </div>
+            </div>
 
-                {% endfor %}
-                {% endif %}
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
-            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+            {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
         </div>
     </div>
+</div>
 
 {% endblock %}
 {% block javascripts %}
