@@ -29,8 +29,10 @@ class SoftDeleteListener
             $type = $mapping['type'];
             if ($type === ClassMetadataInfo::ONE_TO_MANY || $type === ClassMetadataInfo::MANY_TO_MANY) {
                 $targetEntityMeta = $entityManager->getClassMetadata($mapping['targetEntity']);
-                if (in_array($targetEntityMeta->reflClass->getParentClass()->name, $this->excludedParents)) {
-                    continue;
+                if($targetEntityMeta->reflClass->getParentClass()){
+                    if (in_array($targetEntityMeta->reflClass->getParentClass()->name, $this->excludedParents)) {
+                        continue;
+                    }
                 }
 
                 $accessor = PropertyAccess::createPropertyAccessor();
