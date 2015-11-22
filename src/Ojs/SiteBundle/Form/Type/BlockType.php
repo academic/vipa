@@ -15,7 +15,20 @@ class BlockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('translations', 'a2lix_translations',[
+                'label' => ' ',
+                'fields' => [
+                    'title' => [
+                        'required' => true
+                    ],
+                    'content' => [
+                        'required' => false,
+                        'attr' => [
+                            'class' => 'form-control wysihtml5'
+                        ]
+                    ]
+                ]
+            ])
             ->add(
                 'type',
                 'choice',
@@ -25,14 +38,6 @@ class BlockType extends AbstractType
                         'html' => 'HTML Content',
                         'link' => 'Link List',
                     ],
-                ]
-            )
-            ->add(
-                'content',
-                'textarea',
-                [
-                    'label' => 'Content',
-                    'required' => false,
                 ]
             )
             ->add('objectId', 'hidden', ['data' => $options['object_id']])

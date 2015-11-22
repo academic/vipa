@@ -1,10 +1,15 @@
+Ojs\SiteBundle\Entity\BlockTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    content:
+      - NotBlank: ~
+
 Ojs\SiteBundle\Entity\Block:
     properties:
-        title:
-            - NotBlank: ~
+        translations:
+            - Valid: ~
         type:
-            - NotBlank: ~
-        content:
             - NotBlank: ~
         color:
             - NotBlank: ~
