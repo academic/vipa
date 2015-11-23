@@ -14,7 +14,7 @@
     {{ grid(db_templates) }}
 
     <h1>{{ 'mailtemplate.default.list'|trans }}</h1>
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:MailTemplate')) %}
+    {% if is_granted('CREATE', selectedJournal(), 'mailTemplate') %}
         <a href="{{ path('ojs_journal_mail_template_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
