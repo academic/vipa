@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\PublisherTypes:
     type: entity
     table: publisher_types
     repositoryClass: Ojs\JournalBundle\Entity\PublisherTypesRepository
+    cache:
+        usage : NONSTRICT_READ_WRITE
     oneToMany:
         publishers:
             targetEntity: Ojs\JournalBundle\Entity\Publisher

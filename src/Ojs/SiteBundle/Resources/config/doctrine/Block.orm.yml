@@ -2,6 +2,8 @@ Ojs\SiteBundle\Entity\Block:
   type: entity
   table: blocks
   repositoryClass: Ojs\SiteBundle\Entity\BlockRepository
+  cache:
+      usage : NONSTRICT_READ_WRITE
   oneToMany:
     links:
       targetEntity: Ojs\SiteBundle\Entity\BlockLink
@@ -9,6 +11,8 @@ Ojs\SiteBundle\Entity\Block:
       cascade: ["all"]
       fetch: EXTRA_LAZY
       orderBy: { link_order: 'asc' }
+      cache:
+          usage : NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

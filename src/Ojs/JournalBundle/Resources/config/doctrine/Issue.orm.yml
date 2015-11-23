@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\Issue:
   type: entity
   table: issue
   repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
+  cache:
+    usage : NONSTRICT_READ_WRITE
   manyToMany:
     sections:
       targetEntity: Section

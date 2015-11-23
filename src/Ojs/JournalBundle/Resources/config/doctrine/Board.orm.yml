@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\Board:
     type: entity
     table: board
     repositoryClass: Ojs\JournalBundle\Entity\BoardRepository
+    cache:
+        usage : NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

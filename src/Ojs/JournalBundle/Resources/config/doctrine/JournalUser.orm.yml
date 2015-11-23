@@ -2,7 +2,8 @@ Ojs\JournalBundle\Entity\JournalUser:
     type: entity
     table: journal_user
     repositoryClass: Ojs\JournalBundle\Entity\JournalUserRepository
-
+    cache:
+        usage : NONSTRICT_READ_WRITE
     manyToOne:
         journal:
             targetEntity: Ojs\JournalBundle\Entity\Journal
@@ -10,6 +11,8 @@ Ojs\JournalBundle\Entity\JournalUser:
             joinColumn:
                 name: journal_id
                 referencedColumnName: id
+            cache:
+                usage : NONSTRICT_READ_WRITE
         user:
             targetEntity: Ojs\UserBundle\Entity\User
             inversedBy: journalUsers
@@ -17,6 +20,8 @@ Ojs\JournalBundle\Entity\JournalUser:
             joinColumn:
                 name: user_id
                 referencedColumnName: id
+            cache:
+                usage : NONSTRICT_READ_WRITE
 
     manyToMany:
         roles:
@@ -30,6 +35,8 @@ Ojs\JournalBundle\Entity\JournalUser:
                 inverseJoinColumns:
                     role_id:
                         referencedColumnName: id
+            cache:
+                usage : NONSTRICT_READ_WRITE
 
     id:
         id:

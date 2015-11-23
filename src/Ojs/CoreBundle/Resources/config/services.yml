@@ -4,7 +4,7 @@ parameters:
   security.acl.security_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\SecurityIdentityRetrievalStrategy
   security.acl.object_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\ObjectIdentityRetrievalStrategy
   ojs_core.sitemap.listener.class: Ojs\CoreBundle\EventListener\SitemapListener
-
+  prezent_doctrine_translatable.listener.class: Ojs\CoreBundle\EventListener\TranslatableCacheListener
 services:
   app.routing_loader:
     class: Ojs\CoreBundle\Routing\ThirdPartyRouteLoader

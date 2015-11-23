@@ -1,6 +1,8 @@
 Ojs\JournalBundle\Entity\PublisherTranslation:
     type: entity
     table: publisher_translations
+    cache:
+        usage : NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

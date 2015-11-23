@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\ContactTypes:
   type: entity
   table: contact_types
   repositoryClass: Ojs\JournalBundle\Entity\ContactTypesRepository
+  cache:
+      usage : NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

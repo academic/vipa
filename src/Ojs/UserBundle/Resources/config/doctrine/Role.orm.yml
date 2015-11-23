@@ -2,6 +2,8 @@ Ojs\UserBundle\Entity\Role:
   type: entity
   table: role
   repositoryClass: Ojs\UserBundle\Entity\RoleRepository
+  cache:
+      usage : NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

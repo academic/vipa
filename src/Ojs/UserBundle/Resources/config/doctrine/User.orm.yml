@@ -2,6 +2,8 @@ Ojs\UserBundle\Entity\User:
   type:  entity
   table: users
   repositoryClass: Ojs\UserBundle\Entity\UserRepository
+  cache:
+    usage : NONSTRICT_READ_WRITE
   id:
     id:
       type: integer
@@ -134,6 +136,8 @@ Ojs\UserBundle\Entity\User:
       targetEntity: Ojs\JournalBundle\Entity\JournalUser
       mappedBy: user
       fetch: EXTRA_LAZY
+      cache:
+        usage : NONSTRICT_READ_WRITE
   manyToOne:
     country:
       targetEntity: OkulBilisim\LocationBundle\Entity\Country
@@ -159,6 +163,8 @@ Ojs\UserBundle\Entity\User:
             referencedColumnName: id
             onDelete: CASCADE
       orderBy: null
+      cache:
+          usage : NONSTRICT_READ_WRITE
     restrictedJournals:
       targetEntity: Ojs\JournalBundle\Entity\Journal
       mappedBy: bannedUsers

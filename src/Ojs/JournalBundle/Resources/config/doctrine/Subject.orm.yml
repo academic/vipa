@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\Subject:
     type: entity
     table: subject
     repositoryClass: Ojs\JournalBundle\Entity\SubjectRepository
+    cache:
+        usage : NONSTRICT_READ_WRITE
     id:
         id:
             type: integer
@@ -107,3 +109,5 @@ Ojs\JournalBundle\Entity\Subject:
             mappedBy: parent
             orderBy:
                 lft: ASC
+            cache:
+                usage : NONSTRICT_READ_WRITE

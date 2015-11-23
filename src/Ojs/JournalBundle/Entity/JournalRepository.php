@@ -419,6 +419,6 @@ class JournalRepository extends EntityRepository
             ->setParameter('status', 1)
             ->setMaxResults(12)->getQuery();
 
-        return $query->useResultCache(true)->getResult(Query::HYDRATE_OBJECT);
+        return $query->useQueryCache(true)->useResultCache(true, 1000)->getResult(Query::HYDRATE_OBJECT);
     }
 }

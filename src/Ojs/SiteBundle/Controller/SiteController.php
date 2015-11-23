@@ -32,7 +32,6 @@ class SiteController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $data['journals'] = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList();
-        $switcher = $this->createForm(new QuickSwitchType(), null, array())->createView();
 
         /** @var SubjectRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Subject');
@@ -71,7 +70,6 @@ class SiteController extends Controller
         $data['announcements'] = $em->getRepository('OjsAdminBundle:AdminAnnouncement')->findAll();
         $data['announcement_count'] = count($data['announcements']);
         $data['posts'] = $em->getRepository('OjsAdminBundle:AdminPost')->findAll();
-        $data['switcher'] = $switcher;
 
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);

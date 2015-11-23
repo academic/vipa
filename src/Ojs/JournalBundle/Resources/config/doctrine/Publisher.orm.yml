@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\Publisher:
     type: entity
     table: publisher
     repositoryClass: Ojs\JournalBundle\Entity\PublisherRepository
+    cache:
+        usage : NONSTRICT_READ_WRITE
     id:
         id:
             type: integer
@@ -19,6 +21,8 @@ Ojs\JournalBundle\Entity\Publisher:
             mappedBy: parent
             orderBy:
                   lft: ASC
+            cache:
+                  usage : NONSTRICT_READ_WRITE
         publisherThemes:
             targetEntity: Ojs\JournalBundle\Entity\PublisherTheme
             mappedBy: publisher
@@ -35,6 +39,8 @@ Ojs\JournalBundle\Entity\Publisher:
                 name: publisher_type_id
                 referencedColumnName: id
             inversedBy: publishers
+            cache:
+                usage : NONSTRICT_READ_WRITE
         country:
             targetEntity: OkulBilisim\LocationBundle\Entity\Country
             joinColumn:
