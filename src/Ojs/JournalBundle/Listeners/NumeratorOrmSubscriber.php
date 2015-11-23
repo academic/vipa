@@ -7,6 +7,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\NoResultException;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Numerator;
 use Ojs\JournalBundle\Helper\NumeratorHelper;
 
@@ -24,6 +25,8 @@ class NumeratorOrmSubscriber implements EventSubscriber
 
         if ($entity instanceof Article) {
             NumeratorHelper::numerateArticle($entity, $entityManager);
+        } else if ($entity instanceof Issue) {
+            NumeratorHelper::numerateIssue($entity, $entityManager);
         }
     }
 }

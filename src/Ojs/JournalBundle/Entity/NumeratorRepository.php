@@ -29,4 +29,22 @@ class NumeratorRepository extends EntityRepository
             ->getQuery()
             ->getSingleResult(Query::HYDRATE_OBJECT);
     }
+    
+    /**
+     * @param Journal $journal
+     * @return Numerator
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getIssueNumerator(Journal $journal)
+    {
+        return $this
+            ->createQueryBuilder('numerator')
+            ->andWhere('numerator.journal = :journal')
+            ->andWhere('numerator.type = :type')
+            ->setParameter('journal', $journal)
+            ->setParameter('type', 'issue')
+            ->getQuery()
+            ->getSingleResult(Query::HYDRATE_OBJECT);
+    }
 }
