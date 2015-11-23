@@ -64,9 +64,9 @@ class ExceptionListener
     private function getRefererParams(Request $request)
     {
         $referer = $request->headers->get('referer');
-        $baseUrl = $request->getBaseUrl();
+        $matchBasePath = $this->router->match('');
+        $baseUrl = $this->router->generate($matchBasePath['_route'], [], true);
         $lastPath = substr($referer, strpos($referer, $baseUrl) + strlen($baseUrl));
-
-        return $this->router->match($lastPath);
+        return $this->router->match('/'.$lastPath);
     }
 }
