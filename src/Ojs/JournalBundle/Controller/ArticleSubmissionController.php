@@ -669,7 +669,6 @@ class ArticleSubmissionController extends Controller
      */
     public function cancelAction($id)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
@@ -677,11 +676,10 @@ class ArticleSubmissionController extends Controller
             'id' => $id,
             'status' => -1
         ));
-
         $this->throw404IfNotFound($article);
         $em->remove($article);
         $em->flush();
-        $this->addFlash('success', $this->get('translator')->trans('deleted'));
+        $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_user_index');
     }

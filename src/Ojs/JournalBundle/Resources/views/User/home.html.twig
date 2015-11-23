@@ -83,6 +83,10 @@
                                        class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
+                                       class="btn btn-danger btn-xs" data-toggle="tooltip" title="{{ 'cancel'|trans }}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 {% elseif article.statusText ==  'status.inreview' %}
                                     {{ twigEventDispatch({'event_name': 'OJS_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
                                 {% elseif article.statusText ==  'status.published' %}
