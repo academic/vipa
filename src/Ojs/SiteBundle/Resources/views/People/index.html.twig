@@ -15,19 +15,9 @@
             <div class="panel-group">
 
                 {% if roles %}
-                    <div class="panel panel-default" id="roles-filter-box">
+                    <div class="panel panel-default">
                         <div class="panel-heading">{{ 'roles'|trans }}</div>
-                        {% if roles|length > 5 %}
-                            <div class="input-group">
-                                <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
-                                <div class="input-group-btn">
-                                    <button class="sort btn btn-primary no-radius" data-sort="role-name">
-                                        <i class="fa fa-sort-alpha-asc"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        {% endif %}
-                        <ul class="list-group list filter-box">
+                        <ul class="list-group list">
                             {% for role in roles %}
                                 <li class="list-group-item">
                                     {% if role_filters is empty %}
@@ -184,12 +174,6 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
-        {% if roles and roles|length>5 %}
-            var roleOptions = {
-                valueNames: ['role-name']
-            };
-            var rolesList = new List('roles-filter-box', roleOptions);
-            {% endif %}
             {% if subjects and subjects|length>5 %}
             var options = {
                     valueNames: ['subject']
