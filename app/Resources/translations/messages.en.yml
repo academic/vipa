@@ -242,7 +242,7 @@ basetheme: 'Base Theme'
 basicsearch: 'Basic Search'
 block: Block
 blog: Blog
-board: Board
+board: Editorial Board
 board.addUser: 'Add User to the Position'
 board.can_not_add_user: 'You can add member from your journals''s users only.'
 board.create: 'Create Position Title'
