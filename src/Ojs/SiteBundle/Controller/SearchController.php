@@ -45,17 +45,8 @@ class SearchController extends Controller
         $searcher = $this->get('fos_elastica.index.search');
 
         $searchQuery = new Query('_all');
-        $searchQuery->setSort([
-            'name.raw' => ['order' => 'asc'],
-            'title.raw' => ['order' => 'asc'],
-            'firstName.raw' => ['order' => 'asc'],
-            'subject.raw' => ['order' => 'asc'],
-        ]);
 
         $boolQuery = new Query\Bool();
-        $match = new Query\Match();
-        $match->setField('status', 3);
-        $boolQuery->addShould($match);
 
         $match = new Query\Match();
         $match->setField('published', true);
@@ -158,7 +149,7 @@ class SearchController extends Controller
 
         //get journal aggregation
         $journalAgg = new Aggregation\Terms('journals');
-        $journalAgg->setField('journal.raw');
+        $journalAgg->setField('journal.title.raw');
         $journalAgg->setOrder('_term', 'asc');
         $journalAgg->setSize(0);
         $searchQuery->addAggregation($journalAgg);
