@@ -243,7 +243,7 @@ basetheme: 'Ana Tema'
 basicsearch: 'Basit Arama'
 block: Blok
 blog: Blog
-board: Kurul
+board: Editör Kurulu
 board.addUser: 'Kullanıcı Ekle'
 board.can_not_add_user: 'Sadece derginizin kullanıcılarından üye ekleyebilirsiniz..'
 board.create: 'Pozisyon Oluştur'
