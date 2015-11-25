@@ -31,4 +31,4 @@ ojs_journal_mail_template_delete:
 
 ojs_journal_mail_template_copy:
     path:     /{journalId}/mail-template/{id}/copy
-    defaults: { _controller: OjsJournalBundle:MailTemplate:copy"}
+    defaults: { _controller: OjsJournalBundle:MailTemplate:copy }
