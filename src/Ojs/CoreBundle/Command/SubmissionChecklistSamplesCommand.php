@@ -2,17 +2,12 @@
 
 namespace Ojs\CoreBundle\Command;
 
-use Doctrine\Common\Collections\Collection;
-use FOS\UserBundle\Model\User;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
-use OkulBilisim\WorkflowBundle\Entity\Step;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityManager;
 
 class SubmissionChecklistSamplesCommand extends ContainerAwareCommand

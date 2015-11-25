@@ -2,21 +2,13 @@
 
 namespace Ojs\CoreBundle\Command;
 
-use Doctrine\Common\Collections\Collection;
-use FOS\UserBundle\Model\User;
 use Ojs\JournalBundle\Entity\Institution;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalUser;
-use Ojs\JournalBundle\Entity\SubmissionChecklist;
-use OkulBilisim\WorkflowBundle\Entity\Step;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Translation\Loader\CsvFileLoader;
 
 class InstitutionSamplesCommand extends ContainerAwareCommand
 {
@@ -62,8 +54,8 @@ class InstitutionSamplesCommand extends ContainerAwareCommand
             $institution->setName($institutionName);
             $institution->setCountry($findCountry);
             $this->em->persist($institution);
-            $this->em->flush();
         }
+        $this->em->flush();
     }
 
     private function getInstitutionsFromFile(InputInterface $input, OutputInterface $output)
