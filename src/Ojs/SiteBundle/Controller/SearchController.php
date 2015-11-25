@@ -9,6 +9,7 @@ use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
@@ -327,5 +328,15 @@ class SearchController extends Controller
         }
 
         return $this->render('OjsSiteBundle:Search:tags_cloud.html.twig', $data);
+    }
+
+    /**
+     * @param Request $request
+     * @param $slug
+     * @return Response
+     */
+    public function inJournalAction(Request $request, $slug)
+    {
+        return new Response('this page under construction!');
     }
 }
