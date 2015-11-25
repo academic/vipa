@@ -84,7 +84,7 @@
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                     <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
-                                       class="btn btn-danger btn-xs" data-toggle="tooltip" title="{{ 'cancel'|trans }}">
+                                       class="btn btn-danger btn-xs" data-toggle="tooltip" title="{{ 'delete'|trans }}">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 {% elseif article.statusText ==  'status.inreview' %}
