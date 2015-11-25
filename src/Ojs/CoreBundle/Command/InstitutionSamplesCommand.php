@@ -62,8 +62,7 @@ class InstitutionSamplesCommand extends ContainerAwareCommand
     {
         $filePath = $input->getArgument('filePath');
         if(!file_exists($filePath)){
-            $output->writeln('file can not found!');
-            exit();
+            throw new \InvalidArgumentException('file can not found!');
         }
         $file = fopen($filePath,"r");
         $getCsv = fgetcsv($file, 0, ',');
