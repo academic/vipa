@@ -229,3 +229,43 @@ $(document).ready(function () {
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+//Get caret position
+function getCaret(el) {
+    if (el.prop("selectionStart")) {
+        return el.prop("selectionStart");
+    } else if (document.selection) {
+        el.focus();
+
+        var r = document.selection.createRange();
+        if (r == null) {
+            return 0;
+        }
+
+        var re = el.createTextRange(),
+            rc = re.duplicate();
+        re.moveToBookmark(r.getBookmark());
+        rc.setEndPoint('EndToStart', re);
+
+        return rc.text.length;
+    }
+    return 0;
+}
+
+//Append text at caret position
+function appendAtCaret($target, caret, $value) {
+    var value = $target.val();
+    if (caret != value.length) {
+        var startPos = $target.prop("selectionStart");
+        var scrollTop = $target.scrollTop;
+        $target.val(value.substring(0, caret) + ' ' + $value + ' ' + value.substring(caret, value.length));
+        $target.prop("selectionStart", startPos + $value.length);
+        $target.prop("selectionEnd", startPos + $value.length);
+        $target.scrollTop = scrollTop;
+    } else if (caret == 0)
+    {
+        $target.val($value + ' ' + value);
+    } else {
+        $target.val(value + ' ' + $value);
+    }
+}
