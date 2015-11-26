@@ -241,10 +241,12 @@ class ArticleFile
      * @param  Article     $article
      * @return ArticleFile
      */
-    public function setArticle(Article $article)
+    public function setArticle(Article $article = null)
     {
         $this->article = $article;
-        $article->addArticleFile($this);
+        if(!is_null($article)){
+            $article->addArticleFile($this);
+        }
 
         return $this;
     }

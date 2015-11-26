@@ -679,10 +679,16 @@ class ArticleSubmissionController extends Controller
         //remove article 's article files relational items
         foreach($article->getArticleFiles() as $file){
             $article->removeArticleFile($file);
+            $file->setArticle(null);
+            $em->persist($file);
+            $em->remove($file);
         }
         //remove article 's article authors relational items
-        foreach($article->getArticleAuthors() as $author){
-            $article->removeArticleAuthor($author);
+        foreach($article->getArticleAuthors() as $articleAuthor){
+            $article->removeArticleAuthor($articleAuthor);
+            $articleAuthor->setArticle(null);
+            $em->persist($articleAuthor);
+            $em->remove($articleAuthor);
         }
         //remove article 's article submission files relational items
         foreach($article->getArticleSubmissionFiles() as $submissionFile){
@@ -691,6 +697,9 @@ class ArticleSubmissionController extends Controller
         //remove article 's article citations relational items
         foreach($article->getCitations() as $citation){
             $article->removeCitation($citation);
+            $citation->removeArticle($article);
+            $em->persist($citation);
+            $em->remove($citation);
         }
         //remove article 's article attributes relational items
         foreach($article->getAttributes() as $attribute){
