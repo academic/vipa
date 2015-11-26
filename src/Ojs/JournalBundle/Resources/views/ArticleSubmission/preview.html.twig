@@ -163,7 +163,7 @@
                                         <td>
                                             <a class="label label-info" target="_blank"
                                                href="{{ asset('uploads/articlefiles/' ~ articleFile.file) }}">
-                                                {{ fileTypes[articleFile.type] }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
+                                                {{ fileTypes[articleFile.type]|trans }}  {% if articleFile.langCode is defined %}({{ articleFile.langCode }}) {% endif %}
                                                 <i class="fa fa-download"></i>
                                             </a>
 

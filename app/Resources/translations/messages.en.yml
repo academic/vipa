@@ -30,7 +30,7 @@ Files: Files
 Filters: Filters
 Foundation: Foundation
 French: French
-'workflow.full_text': 'Full Text'
+workflow.full_text: 'Full Text'
 German: German
 Go: Go
 Government: Government
@@ -154,6 +154,7 @@ apply: Apply
 apply.for.new.journal: 'Apply For New Journal'
 archive: Archive
 article: Submissions
+article.abstract: 'Abstract'
 article.add: 'New Submission'
 article.edit: 'Submission Edit'
 article.all: 'All Submissions'
