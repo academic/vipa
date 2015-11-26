@@ -187,14 +187,12 @@
                         <div class="list-group">
                             {% for journalIndex in journal.journalIndexs %}
                                 <div class="list-group-item">
-                                    <a href="{{ journalIndex.link }}" target="_blank">
-                                        <h5>
+                                    <a href="{{ journalIndex.link }}" target="_blank"
+                                       title="{{ journalIndex.index.name }}">
                                             {% if journalIndex.index.logo %}
                                                 <img src="{{ journalIndex.index.logo|imagine_filter('index_logo') }}"
-                                                     alt="{{ journalIndex.index.name }}"/>
+                                                     alt="{{ journalIndex.index.name }}" width="32" height="32"/>
                                             {% endif %}
-                                            {{ journalIndex.index.name }}
-                                        </h5>
                                     </a>
                                 </div>
                             {% endfor %}
