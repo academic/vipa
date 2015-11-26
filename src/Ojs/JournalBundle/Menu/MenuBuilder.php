@@ -45,7 +45,7 @@ class MenuBuilder extends ContainerAware
             ['sections', 'title.sections', 'ojs_journal_section_index', 'folder'],
             ['articles', 'title.articles', 'ojs_journal_article_index', 'file-text'],
             ['contacts', 'title.contacts', 'ojs_journal_journal_contact_index', 'users'],
-            ['mailTemplates', 'title.title.mail_templates', 'ojs_journal_mail_template_index', 'envelope'],
+            ['mailTemplate', 'title.mail_templates', 'ojs_journal_mail_template_index', 'envelope'],
             ['design', 'title.designs', 'ojs_journal_design_index', 'bars'],
             ['theme', 'title.themes', 'ojs_journal_theme_index', 'paint-brush'],
             ['boards', 'title.boards', 'ojs_journal_board_index', 'object-group'],
