@@ -678,26 +678,23 @@ class ArticleSubmissionController extends Controller
         $this->throw404IfNotFound($article);
         //remove article 's article files relational items
         foreach($article->getArticleFiles() as $file){
-            $em->remove($file);
-            $file->setArticle(null);
+            $article->removeArticleFile($file);
         }
         //remove article 's article authors relational items
         foreach($article->getArticleAuthors() as $author){
-            $em->remove($author);
-            $author->setArticle(null);
+            $article->removeArticleAuthor($author);
         }
         //remove article 's article submission files relational items
         foreach($article->getArticleSubmissionFiles() as $submissionFile){
-            $em->remove($submissionFile);
-            $submissionFile->setArticle(null);
+            $article->removeArticleSubmissionFile($submissionFile);
         }
         //remove article 's article citations relational items
         foreach($article->getCitations() as $citation){
-            $em->remove($citation);
+            $article->removeCitation($citation);
         }
         //remove article 's article attributes relational items
         foreach($article->getAttributes() as $attribute){
-            $em->remove($attribute);
+            $article->removeAttribute($attribute);
         }
         $em->remove($article);
         $em->flush();
