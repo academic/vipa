@@ -17,8 +17,9 @@
                     <div class="panel-footer">
                         <small>{{ 'loggedAs'|trans }} : <span style="color:#003399">{{ app.user.username }}</span>
                         </small>
+                        <br/>
                         {% for journalRole in userJournalRoles() %}
-                            <span class="label label-default">{{ journalRole.name|trans }}</span>
+                            <span class="label label-info">{{ journalRole.name|trans }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
