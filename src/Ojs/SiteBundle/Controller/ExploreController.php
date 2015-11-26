@@ -131,7 +131,7 @@ class ExploreController extends Controller
         $publisherQuery->setSort(['name.raw' => ['order' => 'asc']]);
 
         $typeAgg = new Aggregation\Terms('types');
-        $typeAgg->setField('publisherType');
+        $typeAgg->setField('publisher.publisherType.name');
         $typeAgg->setOrder('_term', 'asc');
         $typeAgg->setSize(0);
         $publisherQuery->addAggregation($typeAgg);
