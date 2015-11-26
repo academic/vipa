@@ -15,44 +15,6 @@
     <div class="row">
         <div class="col-md-3 col-sm-3">
             <div class="panel-group">
-                {% if types %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">{{ 'title.publisher_types'|trans }}</div>
-                        <ul class="list-group filter-box">
-                            {% for type in types %}
-                                <li class="list-group-item">
-                                    {% if type_filters is empty %}
-                                        {% set parameter = type.key %}
-                                        <a href="{{ path('ojs_site_explore_index', {
-                                            type_filters: type.key,
-                                            publisher_filters: app.request.get('publisher_filters'),
-                                            subject_filters: app.request.get('subject_filters')}) }}">{{ type.key|trans }}</a>
-                                    {% else %}
-                                        {% if type.key in type_filters %}
-                                            {% set parameter = type_filters|pop(type.key) %}
-                                            {{ type.key|trans }}
-                                            <a href="{{ path('ojs_site_explore_index', {
-                                                type_filters: parameter|join(','),
-                                                publisher_filters: app.request.get('publisher_filters'),
-                                                subject_filters: app.request.get('subject_filters')}) }}">
-                                                <span class="label label-danger">
-                                                    <i class="glyphicon glyphicon-remove"></i>
-                                                </span>
-                                            </a>
-                                        {% else %}
-                                            {% set parameter = type_filters|merge([type.key]) %}
-                                            <a href="{{ path('ojs_site_explore_index', {
-                                                type_filters: parameter|join(','),
-                                                publisher_filters: app.request.get('publisher_filters'),
-                                                subject_filters: app.request.get('subject_filters')}) }}">{{ type.key|trans }}</a>
-                                        {% endif %}
-                                    {% endif %}
-                                    <span class="badge">{{ type.doc_count }}</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
                 {% if locales %}
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ 'title.languages'|trans }}</div>
@@ -134,6 +96,44 @@
                                         {% endif %}
                                     {% endif %}
                                     <span class="badge">{{ subject.doc_count }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if types %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ 'title.publisher_types'|trans }}</div>
+                        <ul class="list-group filter-box">
+                            {% for type in types %}
+                                <li class="list-group-item">
+                                    {% if type_filters is empty %}
+                                        {% set parameter = type.key %}
+                                        <a href="{{ path('ojs_site_explore_index', {
+                                            type_filters: type.key,
+                                            publisher_filters: app.request.get('publisher_filters'),
+                                            subject_filters: app.request.get('subject_filters')}) }}">{{ type.key|trans }}</a>
+                                    {% else %}
+                                        {% if type.key in type_filters %}
+                                            {% set parameter = type_filters|pop(type.key) %}
+                                            {{ type.key|trans }}
+                                            <a href="{{ path('ojs_site_explore_index', {
+                                                type_filters: parameter|join(','),
+                                                publisher_filters: app.request.get('publisher_filters'),
+                                                subject_filters: app.request.get('subject_filters')}) }}">
+                                                <span class="label label-danger">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </span>
+                                            </a>
+                                        {% else %}
+                                            {% set parameter = type_filters|merge([type.key]) %}
+                                            <a href="{{ path('ojs_site_explore_index', {
+                                                type_filters: parameter|join(','),
+                                                publisher_filters: app.request.get('publisher_filters'),
+                                                subject_filters: app.request.get('subject_filters')}) }}">{{ type.key|trans }}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <span class="badge">{{ type.doc_count }}</span>
                                 </li>
                             {% endfor %}
                         </ul>

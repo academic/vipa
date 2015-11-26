@@ -33,11 +33,11 @@ class ExploreController extends Controller
         $match->setField('published', true);
         $boolQuery->addMust($match);
 
-        if (!empty($typeFilters) || !empty($subjectFilters) || !empty($publisherFilters)) {
+        if (!empty($typeFilters) || !empty($localeFilters) || !empty($subjectFilters) || !empty($publisherFilters)) {
 
             foreach ($typeFilters as $type) {
                 $match = new Query\Match();
-                $match->setField('publisher.publisherType.name', $type);
+                $match->setField('journal.publisher.publisherType.name', $type);
                 $boolQuery->addMust($match);
             }
 
@@ -49,7 +49,7 @@ class ExploreController extends Controller
 
             foreach ($publisherFilters as $publisher) {
                 $match = new Query\Match();
-                $match->setField('publisher.name.raw', $publisher);
+                $match->setField('journal.publisher.name.raw', $publisher);
                 $boolQuery->addMust($match);
             }
 
@@ -61,29 +61,25 @@ class ExploreController extends Controller
         }
 
         $journalQuery = new Query($boolQuery);
-        $journalQuery->setSort(['title.raw' => ['order' => 'desc']]);
+        //$journalQuery->setSort(['title.raw' => ['order' => 'desc']]);
 
         $typeAgg = new Aggregation\Terms('types');
-        $typeAgg->setField('publisher.publisherType.name');
-        $typeAgg->setOrder('_term', 'asc');
+        $typeAgg->setField('journal.publisher.publisherType.name');
         $typeAgg->setSize(0);
         $journalQuery->addAggregation($typeAgg);
 
         $localeAgg = new Aggregation\Terms('locales');
         $localeAgg->setField('mandatoryLang');
-        $localeAgg->setOrder('_term', 'asc');
         $localeAgg->setSize(0);
         $journalQuery->addAggregation($localeAgg);
 
         $subjectAgg = new Aggregation\Terms('subjects');
         $subjectAgg->setField('subjects.subject');
-        $subjectAgg->setOrder('_term', 'asc');
         $subjectAgg->setSize(0);
         $journalQuery->addAggregation($subjectAgg);
 
         $publisherAgg = new Aggregation\Terms('publishers');
-        $publisherAgg->setField('publisher.name.raw');
-        $publisherAgg->setOrder('_term', 'asc');
+        $publisherAgg->setField('journal.publisher.name.raw');
         $publisherAgg->setSize(0);
         $journalQuery->addAggregation($publisherAgg);
 
