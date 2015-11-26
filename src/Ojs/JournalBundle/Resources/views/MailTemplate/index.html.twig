@@ -9,17 +9,13 @@
 {% endblock %}
 
 {% block body -%}
-    {% include '::flashbag.html.twig' %}
     <h1>{{ 'title.mail_templates'|trans }}</h1>
-    {{ grid(db_templates) }}
-
-    <h1>{{ 'mailtemplate.default.list'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', selectedJournal(), 'mailTemplate') %}
         <a href="{{ path('ojs_journal_mail_template_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}
-
     <hr>
-    {{ grid(default_templates) }}
+    {{ grid(grid) }}
 {% endblock %}

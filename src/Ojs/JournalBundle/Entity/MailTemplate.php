@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
- * @GRID\Source(columns="id,journal,type,languages.code, subject")
+ * @GRID\Source(columns="id,type,subject")
  */
 class MailTemplate implements Translatable
 {
