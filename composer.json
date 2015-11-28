@@ -62,7 +62,8 @@
     "tetranz/select2entity-bundle": "2.*",
     "baskin/history-bundle": "dev-master",
     "presta/sitemap-bundle": "dev-master",
-    "openjournalsoftware/bibtex": "dev-master"
+    "openjournalsoftware/bibtex": "dev-master",
+    "exercise/htmlpurifier-bundle": "*"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
