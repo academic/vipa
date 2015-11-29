@@ -58,22 +58,22 @@ class JournalEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            JournalEvents::JOURNAL_CHANGE => 'onJournalChange', #+
-            JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew', #+
-            JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange', #+
-            JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange', #+
-            JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange', #+
-            JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange', #+
-            JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange', #+
-            JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange', #+
-            ArticleSubmitEvents::SUBMIT_AFTER => 'onJournalArticleSubmitted', #+
-            JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange', #+
-            JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange', #+
-            JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange', #+
-            JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange', #+
-            JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange', #+
+            JournalEvents::JOURNAL_CHANGE => 'onJournalChange',
+            JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew',
+            JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange',
+            JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange',
+            JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
+            JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
+            JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
+            JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange',
+            ArticleSubmitEvents::SUBMIT_AFTER => 'onJournalArticleSubmitted',
+            JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
+            JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange',
+            JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange',
+            JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange',
+            JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange',
             JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange', #analyze
-            JournalEvents::JOURNAL_POST_CHANGE => 'onJournalPostChange', #+
+            JournalEvents::JOURNAL_POST_CHANGE => 'onJournalPostChange',
             JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE => 'onJournalAnnouncementChange',
             JournalEvents::JOURNAL_PAGE_CHANGE => 'onJournalPageChange',
         );
