@@ -87,6 +87,12 @@ services:
     tags:
       - { name: form.type, alias: tags }
 
+  form.type.extended_entity:
+      class: Ojs\CoreBundle\Form\Type\ExtendedEntityType
+      arguments: [@property_accessor]
+      tags:
+          - { name: form.type, alias: extended_entity }
+
   ojs_search_manager:
     class: Ojs\CoreBundle\Service\SearchManager
     arguments: [@translator, @router]
