@@ -20,6 +20,7 @@ class NumerateCommand extends ContainerAwareCommand
     {
         $this
             ->setName('ojs:numerator:numerate')
+            ->setDescription('Numerates supported entities')
             ->addArgument('entity', InputArgument::REQUIRED, 'Entity which will be numerated.');
     }
 
