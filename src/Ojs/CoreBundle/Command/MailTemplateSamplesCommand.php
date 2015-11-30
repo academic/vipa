@@ -20,8 +20,8 @@ class MailTemplateSamplesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ojs:mail:template:install:sample')
-            ->setDescription('Ojs journal sample mail template install')
+            ->setName('ojs:install:samples:mail-template')
+            ->setDescription('Creates sample mail templates')
         ;
     }
 
@@ -37,14 +37,16 @@ class MailTemplateSamplesCommand extends ContainerAwareCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Creating sample mail templates...');
         $allJournals = $this->getAllJournals();
+
         foreach($allJournals as $journal){
             $this->clearMailTemplates($journal, $output);
-            $output->writeln('Creating for -> '. $journal->getTitle());
+            $output->writeln('Creating mail templates for '. $journal->getTitle());
             $this->createJournalMailTemplates($journal, $output);
             $output->writeln('');
             $output->writeln('');
@@ -76,7 +78,7 @@ class MailTemplateSamplesCommand extends ContainerAwareCommand
                 ->setType($template['type'])
                 ;
             $this->em->persist($newTemplate);
-            $output->writeln('Mail Template persisted -> '. $template['subject']);
+            $output->writeln('Persisted the mail template '. $template['subject']);
         }
         $this->em->flush();
     }
@@ -90,6 +92,7 @@ class MailTemplateSamplesCommand extends ContainerAwareCommand
         $mailTemplates = $this->em->getRepository('OjsJournalBundle:MailTemplate')->findBy([
             'journal' => $journal
         ]);
+
         if(count($mailTemplates)>0){
             foreach($mailTemplates as $mailTemplate){
                 $mailTemplate->setUpdatedBy('cli');
@@ -98,7 +101,8 @@ class MailTemplateSamplesCommand extends ContainerAwareCommand
             }
             $this->em->flush();
         }
-        $output->writeln('All mail templates cleared');
+
+        $output->writeln('Cleared all mail templates.');
         return true;
     }
 }

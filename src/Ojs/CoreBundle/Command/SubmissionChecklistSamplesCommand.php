@@ -18,9 +18,8 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ojs:submission:checklist:install:sample')
-            ->setDescription('Ojs journal sample submission checklist install')
-        ;
+            ->setName('ojs:install:samples:submission-checklist')
+            ->setDescription('Creates sample submission checklists');
     }
 
     /**
@@ -35,14 +34,16 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Creating sample submission checklists...');
         $allJournals = $this->getAllJournals();
+
         foreach($allJournals as $journal){
             $this->clearSubmissionChecklists($journal);
-            $output->writeln('Creating for -> '. $journal->getTitle());
+            $output->writeln('Creating a checklist for '. $journal->getTitle());
             $this->createItem1($journal, $output);
             $this->createItem2($journal, $output);
             $this->createItem3($journal, $output);
@@ -72,8 +73,8 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
                             <li>Yazarların adı</li>
                             <li>Açıklayıcı ve bilgilendirici makale başlığı</li>
                             <li>Yazarların email adresi, telefon numarası</li>
-                        </ul>')
-            ;
+                        </ul>');
+
         $this->em->persist($submissionChecklistTr);
 
         $submissionChecklistEn = new SubmissionChecklist();
@@ -85,11 +86,12 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
                             <li>The name(s) of the author(s)</li>
                             <li>A concise and informative title</li>
                             <li>The e-mail address, telephone number of the corresponding author</li>
-                        </ul>')
-        ;
+                        </ul>');
+
         $this->em->persist($submissionChecklistEn);
         $this->em->flush();
-        $output->writeln('Item 1 Persisted..');
+
+        $output->writeln('Persisted the first item.');
     }
 
     /**
@@ -106,8 +108,8 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
             ->setVisible(true)
             ->setDetail('<ul>
                             <li>Makalenin son halini tüm makalenin yazarlarının okumuş ve onaylamış olmalısı gereklidir.</li>
-                        </ul>')
-        ;
+                        </ul>');
+
         $this->em->persist($submissionChecklistTr);
 
         $submissionChecklistEn = new SubmissionChecklist();
@@ -117,11 +119,12 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
             ->setVisible(true)
             ->setDetail('<ul>
                             <li>All authors must have read and approved the most recent version of the manuscript.</li>
-                        </ul>')
-        ;
+                        </ul>');
+
         $this->em->persist($submissionChecklistEn);
         $this->em->flush();
-        $output->writeln('Item 2 Persisted..');
+
+        $output->writeln('Persisted the second item.');
     }
 
     /**
@@ -138,8 +141,8 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
             ->setVisible(true)
             ->setDetail('<ul>
                             <li>Makalenin son hali yazım kurallarına uygun olarak gözden geçirilmiş olmalıdır.</li>
-                        </ul>')
-        ;
+                        </ul>');
+
         $this->em->persist($submissionChecklistTr);
 
         $submissionChecklistEn = new SubmissionChecklist();
@@ -149,11 +152,11 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
             ->setVisible(true)
             ->setDetail('<ul>
                             <li>The most recent version of the manuscript must be spell checked.</li>
-                        </ul>')
-        ;
+                        </ul>');
         $this->em->persist($submissionChecklistEn);
         $this->em->flush();
-        $output->writeln('Item 3 Persisted..');
+
+        $output->writeln('Persisted the third item.');
     }
 
     /**
@@ -165,12 +168,14 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
         $submissionChecklists = $this->em->getRepository('OjsJournalBundle:SubmissionChecklist')->findBy([
             'journal' => $journal
         ]);
+
         if(count($submissionChecklists)>0){
             foreach($submissionChecklists as $submissionChecklist){
                 $this->em->remove($submissionChecklist);
             }
             $this->em->flush();
         }
+
         return true;
     }
 }
