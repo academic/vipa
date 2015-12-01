@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalUser
- * @GRID\Source(columns="id, user.username, journal")
+ * @GRID\Source(columns="id, user.email")
  */
 class JournalUser
 {
@@ -21,12 +21,11 @@ class JournalUser
     private $id;
     /**
      * @var Journal
-     * @Grid\Column(title="journal")
      */
     private $journal;
     /**
      * @var User
-     * @Grid\Column(field="user.username", title="user")
+     * @Grid\Column(field="user.email", title="user")
      */
     private $user;
     /**
