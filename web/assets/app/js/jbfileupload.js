@@ -128,6 +128,7 @@
                 if ($(this).data('use-crop')) {
                     $cropFilename.val(data.result.filename);
                     loadCropingTool(data.result);
+                    alert(translateMessage('Please crop uploaded image'));
                     return;
                 }
 
