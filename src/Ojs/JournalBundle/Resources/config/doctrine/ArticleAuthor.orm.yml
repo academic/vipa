@@ -12,6 +12,7 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
         authorOrder:
             type: integer
             column: author_order
+            nullable: true
             gedmo:
                 - versioned
         createdBy:

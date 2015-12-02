@@ -16,7 +16,13 @@ class MailTemplateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('template', 'textarea', ['label' => 'mailtemplate.template', 'attr' => ['style' => 'height:200px']])
+            ->add('template', 'textarea', [
+                'label' => 'mailtemplate.template',
+                'attr' => [
+                    'style' => 'height:200px'
+                    ]
+                ]
+            )
             ->add('type', 'text', ['label' => 'mailtemplate.type'])
             ->add('subject', 'text', ['label' => 'mailtemplate.subject'])
             ->add(

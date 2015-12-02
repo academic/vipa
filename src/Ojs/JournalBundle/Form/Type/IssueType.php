@@ -18,7 +18,7 @@ class IssueType extends AbstractType
         $builder
             ->add('translations', 'a2lix_translations')
             ->add('volume', 'text', array('label' => 'volume'))
-            ->add('number', 'text', array('label' => 'number'))
+            ->add('number', 'text', array('label' => 'number', 'required' => false))
             ->add('special', 'checkbox', [
                     'label' => 'special.issue',
                     'required' => false,
@@ -51,9 +51,14 @@ class IssueType extends AbstractType
                 'label' => 'published',
                 'required' => false
             ])
+            ->add('public', 'checkbox', [
+                'label' => 'ojs.is_public',
+                'required' => false
+            ])
             ->add('full_file', 'jb_file_ajax', array(
                 'endpoint' => 'issuefiles',
-                'label' => 'issue.full_file'
+                'label' => 'issue.full_file',
+                'required' => false
             ))
             ->add('cover', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
@@ -63,7 +68,7 @@ class IssueType extends AbstractType
                     'aspect-ratio' => 200 / 300,
                     'maxSize' => "[200, 300]"
                 ),
-                'label' => 'issue.cover'
+                'label' => 'issue.cover', 'required' => false
             ))
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
@@ -73,7 +78,7 @@ class IssueType extends AbstractType
                     'aspect-ratio' => 960 / 200,
                     'maxSize' => "[960, 200]"
                 ),
-                'label' => 'issue.header'
+                'label' => 'issue.header', 'required' => false
             ))
         ;
     }

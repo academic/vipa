@@ -79,6 +79,11 @@ ojs_journal_index_articles:
     host: "{publisher}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 
+ojs_journal_index_board:
+    path: /{slug}/board
+    host: "{publisher}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalBoard }
+
 ojs_site_journal_page:
     path: /{journal_slug}/page/{slug}
     host: "{publisher}.%base_host%"

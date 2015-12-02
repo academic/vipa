@@ -30,7 +30,7 @@ Files: Files
 Filters: Filters
 Foundation: Foundation
 French: French
-'workflow.full_text': 'Full Text'
+workflow.full_text: 'Full Text'
 German: German
 Go: Go
 Government: Government
@@ -154,6 +154,7 @@ apply: Apply
 apply.for.new.journal: 'Apply For New Journal'
 archive: Archive
 article: Submissions
+article.abstract: 'Abstract'
 article.add: 'New Submission'
 article.edit: 'Submission Edit'
 article.all: 'All Submissions'
@@ -202,6 +203,7 @@ articles.needAction: 'Submissions That Need Action'
 articles.waiting: 'Submissions Waiting'
 articles_in_journal: 'Submissions in Journal'
 articles_in_review: 'Submissions in Progress'
+articles_in_history: 'Submissions in Past'
 author: Author
 author.add: 'Add Author'
 author.creation: 'Author Creation'
@@ -241,20 +243,20 @@ basetheme: 'Base Theme'
 basicsearch: 'Basic Search'
 block: Block
 blog: Blog
-board: Board
-board.addUser: 'Add User to Board'
+board: Editorial Board
+board.addUser: 'Add User to the Position'
 board.can_not_add_user: 'You can add member from your journals''s users only.'
-board.create: 'Create Board'
-board.delete: 'Delete Board'
-board.detail: 'Board Detail'
-board.edit: 'Edit Board'
-board.hasNoMember: 'Board has no members'
+board.create: 'Create Position Title'
+board.delete: 'Delete Position Title'
+board.detail: 'Position Detail'
+board.edit: 'Edit Position Title'
+board.hasNoMember: 'Position has no members'
 board.manage_users: 'You can <a href="%path%">manage</a> journal''s users.'
 board.manager: 'Board Manager'
 board.members: Members
-board.name: 'Board Name'
-board.order: 'Board Order Number'
-boards: Boards
+board.name: 'Position Title'
+board.order: 'Position Order Number'
+boards: Editorial Board
 book: Book
 booklet: Booklet
 button.toggle_tree: 'Toggle Tree'
@@ -1168,6 +1170,7 @@ title.mail_log_new: 'New e-Mail Log'
 title.mail_log_show: 'Show e-Mail Log'
 title.mail_logs: 'e-Mail Logs'
 title.mail_templates: 'Mail Templates'
+title.mail_templates_new: 'New Mail Template'
 title.manager_dashboard: 'Manager Dashboard'
 title.notification_edit: 'Edit Notification'
 title.notification_new: 'New Notification'
@@ -1238,6 +1241,10 @@ title.submission_file_new: 'New Submission File'
 submission_file_show: 'Show Submission File'
 title.submission_file_edit: 'New Submission File'
 title.submission_files: 'Submission Files'
+title.submission_file_edit: 'New Submission File'
+title.submission_file_edit: 'Edit Submission File'
+title.submission_file_show: 'Show Submission File'
++submission_file.show: 'Show Submission File'
 title.submission_edit: 'Edit Submission'
 title.submission_new: 'New Submission'
 title.submission_preview: 'Submission Preview'
@@ -1441,3 +1448,12 @@ comma.seperated.index.list: 'Comma-Seperated index list'
 institution: 'Institution'
 period.list: 'Period List'
 your.application.saved.successfully: 'Your application saved successfully.'
+title.institution_edit: 'Edit Institution'
+period.new: 'New Period'
+title.default_journal_theme_edit: 'Edit Default Journal Theme'
+add.user: 'Add User'
+firstly.remove.components: 'Please firstly delete item components: %field%'
+numerator: 'Numerator'
+author.title: 'Title'
+author.biography: 'Biograpy'
+notes: 'Notes'

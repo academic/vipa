@@ -20,7 +20,7 @@
             'edit': {'href': path('ojs_journal_filemanager_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
             'delete': {
                 'href': path('ojs_journal_filemanager_delete', {'id': entity.id, 'journalId': selectedJournal().id}),
-                'permission': is_granted('DELETE', entity),
+                'permission': is_granted('DELETE', selectedJournal(), 'files'),
                 'attributes': {'data-token': token}
             },
         })

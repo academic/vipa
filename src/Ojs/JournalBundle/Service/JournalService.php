@@ -211,26 +211,4 @@ class JournalService
                 Router::ABSOLUTE_URL
             );
     }
-
-    /**
-     *
-     * @param  integer $journalId
-     * @param  integer $page
-     * @param  integer $limit
-     * @return mixed   user list
-     */
-    public function getUsers($journalId, $page, $limit)
-    {
-        $users = $this->em->getRepository('OjsJournalBundle:JournalRole')
-            ->createQueryBuilder('j')
-            ->where('j.journalId = :id')
-            ->setParameter('id', $journalId)
-            //->orderBy('id', 'ASC')
-            ->setMaxResults($limit)
-            ->setFirstResult($page)
-            ->getQuery()
-            ->getResult();
-
-        return $users;
-    }
 }

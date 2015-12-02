@@ -35,7 +35,7 @@ class AdminContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
 
-        $source = new Entity('OjsJournalBundle:JournalContact');
+        $source = new Entity('OjsJournalBundle:JournalContact', 'admin');
         $source->manipulateRow(
             function (Row $row) use ($request)
             {
@@ -44,8 +44,8 @@ class AdminContactController extends Controller
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
                 if (!is_null($entity)){
-                    $row->setField('title', $entity->getTitle());
-                    $row->setField('contactTypeName', $entity->getContactType()->getName());
+                    $row->setField('journal', $entity->getJournal()->getTitle());
+                    $row->setField('contactType', $entity->getContactType()->getName());
                 }
 
                 return $row;

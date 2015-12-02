@@ -22,13 +22,8 @@ Ojs\SiteBundle\Entity\Block:
     objectId:
       type: integer
       column: object_id
-    title:
-      type: string
     type:
       type: string
-    content:
-      type: text
-      nullable: true
     color:
       type: string
       nullable: true

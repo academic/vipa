@@ -44,7 +44,7 @@
                 {% endfor %}
             {% else %}
                 <div class="alert alert-warning">
-                    {{ "no_journal_you_have"|trans }}
+                    {{ "journal.no_journal_you_have"|trans }}
                     <hr/>
                     <a class="btn btn-default btn-block" href="{{ path('ojs_site_explore_index') }}"><i
                                 class="fa fa-compass fa-fw"></i>{{ "explore"|trans }}</a>
@@ -83,18 +83,24 @@
                                        class="btn btn-warning btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    <a href="{{ path('ojs_journal_submission_cancel', {journalId: article.journal.id, id: article.id}) }}"
+                                       class="btn btn-danger btn-xs" data-toggle="tooltip" title="{{ 'delete'|trans }}" data-method="delete" data-confirm="{{ 'sure'|trans }}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 {% elseif article.statusText ==  'status.inreview' %}
                                     {{ twigEventDispatch({'event_name': 'OJS_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
                                 {% elseif article.statusText ==  'status.published' %}
-                                    <a href="{{ path('ojs_article_page', {
-                                        publisher: article.journal.publisher.slug,
-                                        slug: article.journal.slug,
-                                        issue_id: article.issue.id,
-                                        article_id: article.id
-                                    }) }}"
-                                       target="_blank" class="btn btn-primary btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
-                                        <i class="fa fa-external-link"></i>
-                                    </a>
+                                    {% if article.issue is not null %}
+                                        <a href="{{ path('ojs_article_page', {
+                                            publisher: article.journal.publisher.slug,
+                                            slug: article.journal.slug,
+                                            issue_id: article.issue.id,
+                                            article_id: article.id
+                                        }) }}"
+                                           target="_blank" class="btn btn-primary btn-xs" data-toggle="tooltip" title="{{ 'edit'|trans }}">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </td>
                         </tr>
@@ -227,8 +233,7 @@
 
 {% block javascripts -%}
     {{ parent() }}
-    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>
-    <script src="{{ asset('vendor/c3/c3.min.js') }}"></script>
+    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>remove
     <script type="text/javascript">
         var data = {{ data.stats|raw }};
         analytics.createChart('#articles', data['articleViews']);

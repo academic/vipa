@@ -248,8 +248,8 @@ class AdminIndexController extends Controller
         }
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('successful.remove');
 
+        $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('ojs_admin_index_index');
     }
 }

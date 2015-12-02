@@ -13,6 +13,13 @@ $(document).ready(function () {
         }
     });
 
+    $('.download-link').on('click', function (e) {
+        var elm = $(this);
+        download(elm.data('raw'), elm.data('filename'), elm.data('mime'));
+        e.preventDefault();
+
+    });
+
     $('[data-toggle="tooltip"]').tooltip();
     $('.fab').hover(function () {
         $(this).toggleClass('active');
@@ -94,10 +101,13 @@ $(document).ready(function () {
             return user.text;
         }
     });
-    $('.select2-element').select2();
+    $('.select2-element').select2({
+        language: current_language
+    });
 
     $('a[data-toggle="tab"]').on('hidden.bs.tab', function (e) {
         $("select[data-role=tagsinputautocomplete]").select2({
+            language: current_language,
             ajax: {
                 data: function (params) {
                     return {
@@ -185,7 +195,7 @@ $(document).ready(function () {
         var container = $(this).find('.submission-subform-container'),
             template = $(this).find('.submission-subform-template').val();
         $(this).find('.submission-subform-add-panel').on('click', function () {
-            var newSrc = $(template.replace(/__name__/g, container.find('.submission-subform').length))
+            var newSrc = $(template.replace(/__name__/g, getRandomIntInclusive(100, 1000)))
                 , uploader;
             newSrc.appendTo(container);
             uploader = newSrc.find('.jb_fileupload');
@@ -214,3 +224,48 @@ $(document).ready(function () {
         e.preventDefault();
     });
 });
+// Returns a random integer between min (included) and max (included)
+// Using Math.round() will give you a non-uniform distribution!
+function getRandomIntInclusive(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//Get caret position
+function getCaret(el) {
+    if (el.prop("selectionStart")) {
+        return el.prop("selectionStart");
+    } else if (document.selection) {
+        el.focus();
+
+        var r = document.selection.createRange();
+        if (r == null) {
+            return 0;
+        }
+
+        var re = el.createTextRange(),
+            rc = re.duplicate();
+        re.moveToBookmark(r.getBookmark());
+        rc.setEndPoint('EndToStart', re);
+
+        return rc.text.length;
+    }
+    return 0;
+}
+
+//Append text at caret position
+function appendAtCaret($target, caret, $value) {
+    var value = $target.val();
+    if (caret != value.length) {
+        var startPos = $target.prop("selectionStart");
+        var scrollTop = $target.scrollTop;
+        $target.val(value.substring(0, caret) + ' ' + $value + ' ' + value.substring(caret, value.length));
+        $target.prop("selectionStart", startPos + $value.length);
+        $target.prop("selectionEnd", startPos + $value.length);
+        $target.scrollTop = scrollTop;
+    } else if (caret == 0)
+    {
+        $target.val($value + ' ' + value);
+    } else {
+        $target.val(value + ' ' + $value);
+    }
+}

@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Board controller.
@@ -45,7 +46,10 @@ class BoardController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()], null, [
+            'icon' => 'users',
+            'title' => 'add.user'
+        ]);
         if ($this->isGranted('EDIT', $journal, 'boards')) {
             $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', ['id', 'journalId' => $journal->getId()]);
             $rowAction[] = $gridAction->deleteAction(
@@ -174,8 +178,16 @@ class BoardController extends Controller
             ->refreshToken('ojs_journal_board'.$board->getId());
 
         $source = new Entity('OjsJournalBundle:BoardMember');
-
+        $alias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function (QueryBuilder $query) use ($alias, $board) {
+                $query
+                    ->andWhere($alias.'.board = :board')
+                    ->setParameter('board', $board);
+            }
+        );
         $membersGrid = $this->get('grid')->setSource($source);
+
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');

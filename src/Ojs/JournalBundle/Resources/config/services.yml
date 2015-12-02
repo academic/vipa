@@ -8,6 +8,7 @@ services:
       - @security.token_storage
       - @request_stack
       - "%defaultPublisherSlug%"
+
   journal.orm_event_listener:
     class: Ojs\JournalBundle\Listeners\AclOrmListener
     arguments: [@service_container]
@@ -36,3 +37,8 @@ services:
     arguments: [@router, @mailer, @doctrine.orm.entity_manager, %system_email%, "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
+
+  journal.numerator_orm_subscriber:
+    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
+    tags:
+        - { name: doctrine.event_listener, event: postPersist }

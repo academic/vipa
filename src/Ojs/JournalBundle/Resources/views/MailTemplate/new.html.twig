@@ -3,60 +3,40 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}), 'title': 'dashboard'|trans},
-    {'link': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}),'title': 'mail.template'|trans},
-    {'title': 'title.mail_template_new'|trans}
+    {'link': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id}),'title': 'title.mail_templates'|trans},
+    {'title': 'title.mail_templates_new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <script type="text/javascript" src="{{ asset('vendor/ace-builds/src/ace.js') }}"></script>
-    <h1>{{ 'title.mail_template_new'|trans }}</h1>
+    <h1>{{ 'title.mail_templates_new'|trans }}</h1>
 
 
     {{ form_start(form) }}
     {{ form_row(form.template) }}
     <div class="form-group">
         <div class="well well-sm">
-            <pre data-toggle="tooltip" title="{{ "journal.title"|trans }}">&lbrace;&lbrace;
-                journal.title &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.subtitle"|trans }}">&lbrace;&lbrace;
-                journal.subtitle &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.titleAbbr"|trans }}">&lbrace;&lbrace;
-                journal.titleAbbr &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.issn"|trans }}">&lbrace;&lbrace;
-                journal.issn &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.eissn"|trans }}">&lbrace;&lbrace;
-                journal.eissn &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.period"|trans }}">&lbrace;&lbrace;
-                journal.period &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.tags"|trans }}">&lbrace;&lbrace;
-                journal.tags &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "journal.publisher"|trans }}">&lbrace;&lbrace;
-                journal.publisher.name &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "address"|trans }}">&lbrace;&lbrace;
-                journal.publisher.address &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "phone"|trans }}">&lbrace;&lbrace;
-                journal.publisher.phone &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "fax"|trans }}">&lbrace;&lbrace;
-                journal.publisher.fax &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "email"|trans }}">&lbrace;&lbrace;
-                journal.publisher.email &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "city"|trans }}">&lbrace;&lbrace;
-                journal.publisher.city.name &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "country"|trans }}">&lbrace;&lbrace;
-                journal.publisher.country.name &rbrace;&rbrace;</pre>
-            <div class="clearfix"></div>
-            <pre data-toggle="tooltip" title="{{ "title"|trans }}">&lbrace;&lbrace; user.title &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "firstname"|trans }}">&lbrace;&lbrace;
-                user.firstName &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "lastname"|trans }}">&lbrace;&lbrace;
-                user.lastName &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "username"|trans }}">&lbrace;&lbrace;
-                user.username &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "city"|trans }}">&lbrace;&lbrace; user.city.name &rbrace;&rbrace;</pre>
-            <pre data-toggle="tooltip" title="{{ "country"|trans }}">&lbrace;&lbrace;
-                user.country.name&rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.title"|trans }}">&lbrace;&lbrace; journal.title &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.subtitle"|trans }}">&lbrace;&lbrace; journal.subtitle &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.titleAbbr"|trans }}">&lbrace;&lbrace; journal.titleAbbr &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.issn"|trans }}">&lbrace;&lbrace; journal.issn &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.eissn"|trans }}">&lbrace;&lbrace; journal.eissn &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.period"|trans }}">&lbrace;&lbrace; journal.period &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.tags"|trans }}">&lbrace;&lbrace; journal.tags &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "journal.publisher"|trans }}">&lbrace;&lbrace; journal.publisher.name &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "address"|trans }}">&lbrace;&lbrace; journal.publisher.address &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "phone"|trans }}">&lbrace;&lbrace; journal.publisher.phone &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "fax"|trans }}">&lbrace;&lbrace; journal.publisher.fax &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "email"|trans }}">&lbrace;&lbrace; journal.publisher.email &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "city"|trans }}">&lbrace;&lbrace; journal.publisher.city.name &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "country"|trans }}">&lbrace;&lbrace; journal.publisher.country.name &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "title"|trans }}">&lbrace;&lbrace; user.title &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "firstname"|trans }}">&lbrace;&lbrace; user.firstName &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "lastname"|trans }}">&lbrace;&lbrace; user.lastName &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "username"|trans }}">&lbrace;&lbrace; user.username &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "city"|trans }}">&lbrace;&lbrace; user.city.name &rbrace;&rbrace;</pre><br>
+            <pre data-toggle="tooltip" title="{{ "country"|trans }}">&lbrace;&lbrace; user.country.name&rbrace;&rbrace;</pre><br>
 
             <div class="clearfix"></div>
             <div class="close"><i class="fa fa-close" id="close-well"></i></div>
@@ -86,7 +66,12 @@
                 $(".well").hide();
             });
             $("pre").on('click', function () {
-
+                var templateInput = $('#ojs_journalbundle_mailtemplate_template');
+                var appendText = $(this).html();
+                //get caret position
+                var caret = getCaret(templateInput);
+                //append some text
+                appendAtCaret(templateInput, caret, appendText);
             });
         })
     </script>

@@ -1,16 +1,4 @@
-Ojs\JournalBundle\Entity\InstitutionTranslation:
-  properties:
-
 Ojs\JournalBundle\Entity\Institution:
     properties:
-        translations:
-            - Valid: ~
         name:
           - NotBlank: ~
-        address:
-          - NotBlank: ~
-        phone:
-          - NotBlank: ~
-        email:
-          - NotBlank: ~
-          - Email: ~

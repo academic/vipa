@@ -234,14 +234,6 @@ class ArticleSubmissionController extends Controller
                 $citationCounter++;
             }
 
-            $rawCitations = $request->get('raw_citations');
-            if ($rawCitations !== null) {
-                $event = new CitationRawEvent($article, $rawCitations);
-                $this
-                    ->get('event_dispatcher')
-                    ->dispatch(JournalEvents::JOURNAL_SUBMISSION_RAW_CITATION, $event);
-            }
-
             foreach ($article->getArticleFiles() as $f_articleFile) {
                 $f_articleFile->setArticle($article);
                 $f_articleFile->setVersion(0);
@@ -672,12 +664,10 @@ class ArticleSubmissionController extends Controller
 
     /**
      * @param $id
-     * @return RedirectResponses
-     * @throws NotFoundHttpException
+     * @return RedirectResponse
      */
     public function cancelAction($id)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
@@ -685,11 +675,39 @@ class ArticleSubmissionController extends Controller
             'id' => $id,
             'status' => -1
         ));
-
         $this->throw404IfNotFound($article);
+        //remove article 's article files relational items
+        foreach($article->getArticleFiles() as $file){
+            $article->removeArticleFile($file);
+            $file->setArticle(null);
+            $em->persist($file);
+            $em->remove($file);
+        }
+        //remove article 's article authors relational items
+        foreach($article->getArticleAuthors() as $articleAuthor){
+            $article->removeArticleAuthor($articleAuthor);
+            $articleAuthor->setArticle(null);
+            $em->persist($articleAuthor);
+            $em->remove($articleAuthor);
+        }
+        //remove article 's article submission files relational items
+        foreach($article->getArticleSubmissionFiles() as $submissionFile){
+            $article->removeArticleSubmissionFile($submissionFile);
+        }
+        //remove article 's article citations relational items
+        foreach($article->getCitations() as $citation){
+            $article->removeCitation($citation);
+            $citation->removeArticle($article);
+            $em->persist($citation);
+            $em->remove($citation);
+        }
+        //remove article 's article attributes relational items
+        foreach($article->getAttributes() as $attribute){
+            $article->removeAttribute($attribute);
+        }
         $em->remove($article);
         $em->flush();
-        $this->addFlash('success', $this->get('translator')->trans('deleted'));
+        $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_user_index');
     }

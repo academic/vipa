@@ -68,7 +68,7 @@
                     {% if results is defined %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ "type"|trans }}</div>
-                            <ul class="list-group">
+                            <ul class="list-group filter-box">
                                 {% for key,result in results %}
                                     {% if result.total_item > 0 %}
                                         <a class="list-group-item {% if key == section %}active{% endif %}"
@@ -118,15 +118,25 @@
                         </div>
                     {% endif %}#}
                     {% if journals is defined and journals is not empty %}
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" id="journals-filter-box">
                             <div class="panel-heading">{{ 'journals'|trans }}</div>
-                            <ul class="list-group">
+                            {% if journals|length > 5 %}
+                                <div class="input-group">
+                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                    <div class="input-group-btn">
+                                        <button class="sort btn btn-primary no-radius" data-sort="journal-title">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <ul class="list-group list filter-box">
                                 {% for journal in journals %}
                                     <li class="list-group-item">
                                         {% if journal_filters is empty %}
                                             {% set parameter = journal.key %}
                                             <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': journal.key }))) }}">{{ journal.key }}</a>
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': journal.key }))) }}" class="journal-title">{{ journal.key }}</a>
                                         {% else %}
                                             {% if journal.key in journal_filters %}
                                                 {% set parameter = journal_filters|pop(journal.key) %}
@@ -140,7 +150,7 @@
                                             {% else %}
                                                 {% set parameter = journal_filters|merge([journal.key]) %}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}">{{ journal.key }}</a>
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}" class="journal-title">{{ journal.key }}</a>
                                             {% endif %}
                                         {% endif %}
                                         <span class="badge">{{ journal.doc_count }}</span>
@@ -150,15 +160,25 @@
                         </div>
                     {% endif %}
                     {% if publishers is defined and publishers is not empty %}
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" id="publishers-filter-box">
                             <div class="panel-heading">{{ 'publishers'|trans }}</div>
-                            <ul class="list-group">
+                            {% if publishers|length > 5 %}
+                                <div class="input-group">
+                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                    <div class="input-group-btn">
+                                        <button class="sort btn btn-primary no-radius" data-sort="publisher-name">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <ul class="list-group list filter-box">
                                 {% for publisher in publishers %}
                                     <li class="list-group-item">
                                         {% if publisher_filters is empty %}
                                             {% set parameter = publisher.key %}
                                             <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': publisher.key }))) }}">{{ publisher.key }}</a>
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': publisher.key }))) }}" class="publisher-name">{{ publisher.key }}</a>
                                         {% else %}
                                             {% if publisher.key in publisher_filters %}
                                                 {% set parameter = publisher_filters|pop(publisher.key) %}
@@ -172,7 +192,7 @@
                                             {% else %}
                                                 {% set parameter = publisher_filters|merge([publisher.key]) %}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': parameter|join(',') }))) }}">{{ publisher.key }}</a>
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': parameter|join(',') }))) }}" class="publisher-name">{{ publisher.key }}</a>
                                             {% endif %}
                                         {% endif %}
                                         <span class="badge">{{ publisher.doc_count }}</span>
@@ -182,15 +202,25 @@
                         </div>
                     {% endif %}
                     {% if indexes is defined and indexes is not empty %}
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" id="indexes-filter-box">
                             <div class="panel-heading">{{ 'title.indexes'|trans }}</div>
-                            <ul class="list-group">
+                            {% if indexes|length > 5 %}
+                                <div class="input-group">
+                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                    <div class="input-group-btn">
+                                        <button class="sort btn btn-primary no-radius" data-sort="index-name">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <ul class="list-group filter-box">
                                 {% for index in indexes %}
                                     <li class="list-group-item">
                                         {% if index_filters is empty %}
                                             {% set parameter = index.key %}
                                             <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': index.key }))) }}">{{ index.key }}</a>
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': index.key }))) }}" class="index-name">{{ index.key }}</a>
                                         {% else %}
                                             {% if index.key in index_filters %}
                                                 {% set parameter = index_filters|pop(index.key) %}
@@ -204,7 +234,7 @@
                                             {% else %}
                                                 {% set parameter = index_filters|merge([index.key]) %}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': parameter|join(',') }))) }}">{{ index.key }}</a>
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': parameter|join(',') }))) }}" class="index-name">{{ index.key }}</a>
                                             {% endif %}
                                         {% endif %}
                                         <span class="badge">{{ index.doc_count }}</span>
@@ -213,10 +243,10 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if subjects is defined and roles is not empty %}
+                    {% if roles is defined and roles is not empty %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ 'roles'|trans }}</div>
-                            <ul class="list-group">
+                            <ul class="list-group filter-box">
                                 {% for role in roles %}
                                     <li class="list-group-item">
                                         {% if role_filters is empty %}
@@ -246,15 +276,25 @@
                         </div>
                     {% endif %}
                     {% if subjects is defined and subjects is not empty %}
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" id="subjects-filter-box">
                             <div class="panel-heading">{{ 'subjects'|trans }}</div>
-                            <ul class="list-group">
+                            {% if subjects|length > 5 %}
+                                <div class="input-group">
+                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                    <div class="input-group-btn">
+                                        <button class="sort btn btn-primary no-radius" data-sort="subject">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <ul class="list-group list filter-box">
                                 {% for subject in subjects %}
                                     <li class="list-group-item">
                                         {% if subject_filters is empty %}
                                             {% set parameter = subject.key %}
                                             <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': subject.key }))) }}">{{ subject.key }}</a>
+                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': subject.key }))) }}" class="subject">{{ subject.key }}</a>
                                         {% else %}
                                             {% if subject.key in subject_filters %}
                                                 {% set parameter = subject_filters|pop(subject.key) %}
@@ -268,7 +308,7 @@
                                             {% else %}
                                                 {% set parameter = subject_filters|merge([subject.key]) %}
                                                 <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}">{{ subject.key }}</a>
+                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}" class="subject">{{ subject.key }}</a>
                                             {% endif %}
                                         {% endif %}
                                         <span class="badge">{{ subject.doc_count }}</span>
@@ -290,7 +330,7 @@
                             {% if section == key %}
                                 <ol>
                                     {% for resultData in result.data %}
-                                        <li class="result-of-{{ key }}" {% if loop.first %}value="{{ 10 * (page - 1) + 1 }}"{% endif %}>
+                                        <li class="result-of-{{ key }}" {% if loop.first %}value="{{ 20 * (page - 1) + 1 }}"{% endif %}>
                                             {% if key == 'journal' %}
                                                 {% set journal = resultData %}
                                                 {% set url = resultData.detail.route %}
@@ -339,6 +379,30 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+        {% if journals and journals|length>5 %}
+            var journalOptions = {
+                valueNames: ['journal-title']
+            };
+            var journalsList = new List('journals-filter-box', journalOptions);
+        {% endif %}
+        {% if publishers and publishers|length>5 %}
+            var publisherOptions = {
+                valueNames: ['publisher-name']
+            };
+            var publishersList = new List('publishers-filter-box', publisherOptions);
+        {% endif %}
+        {% if indexes and indexes|length>5 %}
+            var indexOptions = {
+                valueNames: ['index-name']
+            };
+            var indexesList = new List('indexes-filter-box', indexOptions);
+        {% endif %}
+        {% if subjects and subjects|length>5 %}
+            var subjectOptions = {
+                valueNames: ['subject']
+            };
+            var subjectList = new List('subjects-filter-box', subjectOptions);
+        {% endif %}
         $(function () {
             $('.search-results li').highlight('{{ query }}');
         })

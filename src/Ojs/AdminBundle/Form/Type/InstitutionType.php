@@ -41,77 +41,7 @@ class InstitutionType extends AbstractType
                     ],
                 ]
             )
-            ->add('translations', 'a2lix_translations')
-            ->add(
-                'institutionType',
-                'entity',
-                [
-                    'label' => 'institution.type',
-                    'class' => 'Ojs\JournalBundle\Entity\PublisherTypes',
-                    'attr' => [
-                        'class' => "validate[required]",
-                    ],
-                ]
-            )
-            ->add(
-                'parent',
-                'entity',
-                [
-                    'required' => false,
-                    'label' => 'parent',
-                    'class' => 'Ojs\JournalBundle\Entity\Institution',
-                    'attr' => [
-                        'class' => "select2-element",
-                    ],
-                    'placeholder' => 'none',
-                    'empty_data'  => null,
-                    'query_builder' => function (InstitutionRepository $repository) use ($selfId) {
-                        $query = $repository->createQueryBuilder('institution');
-                        if ($selfId !== null) {
-                            return $query
-                                ->andWhere('institution.id != :selfId')
-                                ->setParameter('selfId', $selfId);
-                        }
-                        return $query;
-                    }
-                ]
-            )
-            ->add('address', 'textarea', ['label' => 'address'])
-            ->add('phone', 'text', ['label' => 'phone'])
-            ->add('fax', 'text', ['label' => 'fax'])
-            ->add('email', 'email', ['label' => 'email'])
-            ->add('wiki')
-            ->add('tags', 'tags')
-            ->add('logo', 'jb_crop_image_ajax', array(
-                'endpoint' => 'institution',
-                'img_width' => 200,
-                'img_height' => 200,
-                'crop_options' => array(
-                    'aspect-ratio' => 200 / 200,
-                    'maxSize' => "[200, 200]"
-                )
-            ))
-            ->add('domain')
-            ->add('header', 'jb_crop_image_ajax', array(
-                'endpoint' => 'institution',
-                'img_width' => 960,
-                'img_height' => 200,
-                'crop_options' => array(
-                    'aspect-ratio' => 960 / 200,
-                    'maxSize' => "[960, 200]"
-                )
-            ))
-            ->add('addressLat', 'text', ['label' => 'addressLat', 'attr' => ['data-id' => 'addressLat']])
-            ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']])
-            ->add('country', 'entity', array(
-                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
-                'required'      => false,
-                'label'         => 'Country',
-                'empty_value'   => 'Select Country',
-                'attr'          => array(
-                    'class' => 'select2-element',
-                ),
-            ));
+        ;
     }
 
     /**

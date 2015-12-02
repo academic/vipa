@@ -30,7 +30,7 @@ Files: Dosyalar
 Filters: Arama
 Foundation: Vakıf
 French: Fransızca
-'workflow.full_text': 'Tam Metin'
+workflow.full_text: 'Tam Metin'
 German: Almanca
 Go: Git
 Government: Devlet
@@ -102,6 +102,7 @@ Yes: Evet
 ojs.password_reset_requested: 'Şifre Sıfırlama Talebiniz Var.'
 about: Hakkında
 abstract: Öz
+article.abstract: Öz
 abstract.transliterated: 'Başka Alfabe İle Yazılmış Öz'
 accept: Kabul Et
 accepted: Kabul Edilmiş
@@ -202,6 +203,7 @@ articles.needAction: 'İşlem Gereken Makaleler'
 articles.waiting: 'Bekleyen Makaleler'
 articles_in_journal: 'Dergideki Makaleler'
 articles_in_review: 'Süreçteki Makaleler'
+articles_in_history: 'Geçmişteki Makaleler'
 author: Yazar
 author.add: 'Yazar Ekle'
 author.creation: 'Yazar Oluşturma'
@@ -241,20 +243,20 @@ basetheme: 'Ana Tema'
 basicsearch: 'Basit Arama'
 block: Blok
 blog: Blog
-board: Kurul
+board: Editör Kurulu
 board.addUser: 'Kullanıcı Ekle'
 board.can_not_add_user: 'Sadece derginizin kullanıcılarından üye ekleyebilirsiniz..'
-board.create: 'Kurul Oluştur'
-board.delete: 'Kurul Sil'
-board.detail: 'Kurul Detayı'
-board.edit: 'Kurul Düzenle'
-board.hasNoMember: 'Kurulun Hiç Üyesi Yok'
-board.manage_users: 'Kurulun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>'
+board.create: 'Pozisyon Oluştur'
+board.delete: 'Pozisyon Sil'
+board.detail: 'Pozisyon Detayı'
+board.edit: 'Pozisyonu Düzenle'
+board.hasNoMember: 'Pozisyonun Hiç Üyesi Yok'
+board.manage_users: 'Pozisyonun kullanıcılarını <a href="%path%">yönetebilirsiniz.</a>'
 board.manager: 'Kurul yöneticisi'
-board.members: 'Kurul üyeleri'
-board.name: 'Kurul Adı'
-board.order: 'Kurul Sıralaması'
-boards: Kurullar
+board.members: 'Pozisyon üyeleri'
+board.name: 'Pozisyon Başlığı'
+board.order: 'Pozisyonda Sıralaması'
+boards: Editor Kurulu
 book: Kitap
 booklet: Broşür
 button.toggle_tree: 'Ağacı Aç'
@@ -565,7 +567,7 @@ journal.settings.last.step.confirm: 'Makalem Son Adım Uyarı Yazısı'
 journal.settings.mail: 'e-Posta Ayarları'
 journal.settings.mail.signature: 'e-Posta İmzası'
 journal.settings.page: 'Sayfa Ayarları'
-journal.settings.submission: 'Makale Ayarları'
+journal.settings.submission: 'Gönderi Ayarları'
 journal.settings.submission.abstractTemplate: 'Makale Özet Şablonu'
 journal.settings.submission.copyrightnotice: 'Telif Hakkı Bildirimi'
 journal.settings.submission.copyrightnotice.desc: 'Telif Hakkı Bildirimi Makale formunda ve yayımlanan her üstbilgide görünecektir. \n Telif Hakkı Anlaşmasını seçmek dergi yöneticisine kalmışsa da, \nbiz <a href=\"http://creativecommons.org/\">Creative Commons</a> kullanılmasını tavsiye ediyoruz. <br>\n Yukarıda yer alan buttonlara tıklayarak tanımlı şablonlardan birini kullanabilirsiniz.'
@@ -889,7 +891,7 @@ searchon.pubmed: 'PubMed`de ara'
 searchon.wikipedia: 'Wikipedia`da ara'
 secretary: Sekreter
 section: Bölüm
-select.article.file: 'Dosya Seç'
+select.article.file: 'Yeni Dosya Ekle'
 select.image.file: 'Resim Dosyası Seç...'
 select_all: 'Tümünü Seç'
 select_article_file: 'Makale Dosyası Seç'
@@ -1036,10 +1038,10 @@ title.author_show: 'Yazarı Göster'
 title.authors: Yazarlar
 title.block_create: 'Blok Oluştur'
 title.block_link_create: 'Blok Linki Oluştur'
-title.board_edit: 'Kurulu Düzenle'
-title.board_new: 'Yeni Kurul'
-title.board_show: 'Kurulu Göster'
-title.boards: Kurullar
+title.board_edit: 'Editör Kurulu Düzenle'
+title.board_new: 'Yeni Editör Kurul'
+title.board_show: 'Editör Kurulu Göster'
+title.boards: 'Editör Kurulları'
 title.browse: Gözat
 title.categories: Kategoriler
 title.citation: Referans
@@ -1140,7 +1142,7 @@ title.section_new: 'Yeni Bölüm'
 title.section_show: 'Bölümü Göster'
 title.sections: 'Dergi Bölümleri'
 title.journal_settings_mail: 'E-Posta Ayarları'
-title.journal_settings_submission: 'Makale Ayarları'
+title.journal_settings_submission: 'Gönderi Ayarları'
 title.journal_setup: 'Dergi Ayarları'
 title.journal_show: 'Dergi Göster'
 title.theme_edit: 'Dergi Temasını Düzenle'
@@ -1168,6 +1170,7 @@ title.mail_log_new: 'Yeni E-Posta Günlüğü'
 title.mail_log_show: 'E-Posta Günlüğünü Göster'
 title.mail_logs: 'E-Posta Günlükleri'
 title.mail_templates: 'E-Posta Taslakları'
+title.mail_templates_new: 'Yeni E-Posta Taslağı'
 title.manager_dashboard: 'Yönetici Paneli'
 title.notification_edit: 'Bildirimi Düzenle'
 title.notification_new: 'Yeni Bildirim'
@@ -1234,12 +1237,14 @@ title.submission_checklist_edit: 'Kontrol Listesini Düzenle'
 title.submission_checklist_new: 'Yeni Kontrol Listesi'
 title.submission_checklist_show: 'Kontrol Listesini Göster'
 title.submission_checklists: 'Kontrol Listeleri'
-title.submission_file_new: 'Yeni Makale Dosyası'
-submission_file_show: 'Makale Dosyası'
-title.submission_file_edit: 'Makale Dosyası Düzenle'
-title.submission_files: 'Makale Dosyaları'
-title.submission_edit: 'Makaleyi Düzenle'
-title.submission_new: 'Yeni Makale'
+title.submission_file_new: 'Yeni Gönderi Dosyası'
+submission_file_show: 'Gönderi Dosyası'
+title.submission_file_edit: 'Gönderi Dosyası Düzenle'
+title.submission_file_show: 'Gönderi Dosyası Göster'
+submission_file.show: 'Gönderi Dosyası Göster'
+title.submission_files: 'Gönderi Dosyaları'
+title.submission_edit: 'Gönderiyi Düzenle'
+title.submission_new: 'Yeni Gönderi'
 title.submission_preview: 'Makale Önizleme'
 title.submissions: Makaleler
 title.system_settings: 'Sistem Ayarları'
@@ -1439,3 +1444,12 @@ comma.seperated.index.list: 'Virgülle ayrılmış dizin listesi'
 institution: 'Kurum'
 period.list: 'Period Listesi'
 your.application.saved.successfully: 'Başvurunuz başarılı bir şekilde kaydedildi.'
+title.institution_edit: 'Kurum düzenle'
+period.new: 'Yeni Periot'
+title.default_journal_theme_edit: 'Varsayılan Dergi Teması Düzenle'
+add.user: 'Kullanıcı Ekle'
+firstly.remove.components: 'Lütfen önce bağlantılı ögeleri siliniz : %field%'
+numerator: 'Sayaç'
+author.title: 'Ünvan'
+author.biography: 'Biyografi'
+notes: 'Notlar'

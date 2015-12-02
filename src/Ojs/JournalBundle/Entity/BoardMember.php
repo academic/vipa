@@ -10,7 +10,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * BoardMember
- * @GRID\Source(columns="id, user.username, board.name, seq")
+ * @GRID\Source(columns="id, user.username, seq")
  */
 class BoardMember implements Translatable
 {

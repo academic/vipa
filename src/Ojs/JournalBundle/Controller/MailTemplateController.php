@@ -3,13 +3,8 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Column\NumberColumn;
-use APY\DataGridBundle\Grid\Column\TextColumn;
-use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Source\Vector;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\Type\MailTemplateType;
@@ -40,21 +35,9 @@ class MailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:MailTemplate');
-        $source->manipulateRow(
-            function (Row $row) {
-                if ($row->getField("title") && strlen($row->getField('title')) > 20) {
-                    $row->setField('title', substr($row->getField('title'), 0, 20)."...");
-                }
 
-                return $row;
-            }
-        );
-
-        $grid = $this->get('grid.manager');
+        $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
-
-        $db_templates = $grid->createGrid('db_templates');
-        $db_templates->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
@@ -63,50 +46,9 @@ class MailTemplateController extends Controller
         $rowAction[] = $gridAction->editAction('ojs_journal_mail_template_edit', ['id', 'journalId' => $journal->getId()]);
         $rowAction[] = $gridAction->deleteAction('ojs_journal_mail_template_delete', ['id', 'journalId' => $journal->getId()]);
         $actionColumn->setRowActions($rowAction);
-        $db_templates->addColumn($actionColumn);
+        $grid->addColumn($actionColumn);
 
-        $data = [];
-        $data['db_templates'] = $db_templates;
-
-        $yamlParser = new Parser();
-        $defaultTemplates = $yamlParser->parse(
-            file_get_contents(
-                $this->container->getParameter('kernel.root_dir').
-                '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
-            )
-        );
-        $source = new Vector(
-            $defaultTemplates, [
-                new NumberColumn(['id' => 'id', 'field' => 'id', 'title' => 'ID', 'source' => true]),
-                new TextColumn(
-                    ['id' => 'subject', 'field' => 'subject', 'title' => 'mailtemplate.subject', 'source' => true]
-                ),
-                new TextColumn(
-                    ['id' => 'lang', 'field' => 'lang', 'title' => 'mailtemplate.language', 'source' => true]
-                ),
-                new TextColumn(['id' => 'type', 'field' => 'type', 'title' => 'mailtemplate.title', 'source' => true]),
-                new TextColumn(
-                    [
-                        'id' => 'template',
-                        'field' => 'template',
-                        'title' => 'mailtemplate.template',
-                        'source' => true,
-                        'visible' => false,
-                    ]
-                ),
-            ]
-        );
-        $defaultTemplates = $grid->createGrid('default_templates');
-        $defaultTemplates->setSource($source);
-        $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction = [];
-        $rowAction[] = $gridAction->copyAction('ojs_journal_mail_template_copy', ['id', 'journalId' => $journal->getId()]);
-        $actionColumn->setRowActions($rowAction);
-        $defaultTemplates->addColumn($actionColumn);
-
-        $data['default_templates'] = $defaultTemplates;
-
-        return $grid->getGridManagerResponse('OjsJournalBundle:MailTemplate:index.html.twig', $data);
+        return $grid->getGridResponse('OjsJournalBundle:MailTemplate:index.html.twig', ['grid' => $grid]);
     }
 
     /**
@@ -351,66 +293,5 @@ class MailTemplateController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_journal_mail_template_index', ['journalId' => $journal->getId()]);
-    }
-
-    /**
-     * @param  Request                   $request
-     * @param $id
-     * @return RedirectResponse|Response
-     */
-    public function copyAction(Request $request, $id)
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-        $entity = new MailTemplate();
-
-        $yamlParser = new Parser();
-        $defaultTemplates = $yamlParser->parse(
-            file_get_contents(
-                $this->container->getParameter('kernel.root_dir').
-                '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
-            )
-        );
-        $template = [];
-        foreach ($defaultTemplates as $temp) {
-            if ($temp['id'] == $id) {
-                $template = $temp;
-                break;
-            }
-        }
-
-        $entity
-            ->setLang($template['lang'])
-            ->setSubject($template['subject'])
-            ->setTemplate(str_replace('<br>', "\n", $template['template']))
-            ->setType($template['type'])
-            ->setJournal($journal);
-
-        $form = $this->createCreateForm($entity, $journal->getId());
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect(
-                $this->generateUrl(
-                    'ojs_journal_mail_template_show',
-                    array('id' => $entity->getId(), 'journalId' => $journal->getId())
-                )
-            );
-        }
-
-        return $this->render(
-            'OjsJournalBundle:MailTemplate:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
     }
 }

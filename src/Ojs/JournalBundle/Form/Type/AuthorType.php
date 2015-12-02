@@ -18,7 +18,16 @@ class AuthorType extends AbstractType
         $builder
             ->add('orcid')
             ->add('translations', 'a2lix_translations', [
-                'required' => false
+                'label' => ' ',
+                'required' => false,
+                'fields' => [
+                    'title' => [
+                        'label' => 'author.title'
+                    ],
+                    'biography' => [
+                        'label' => 'author.biography'
+                    ]
+                ]
             ])
             ->add('middleName', null, [
                 'required' => false,

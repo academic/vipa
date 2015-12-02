@@ -4,16 +4,22 @@ namespace Ojs\SiteBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Block
  */
-class Block
+class Block extends AbstractTranslatable
 {
+    use GenericEntityTrait;
+
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -54,11 +60,47 @@ class Block
     private $block_order;
 
     /**
+     * @Prezent\Translations(targetEntity="Ojs\SiteBundle\Entity\BlockTranslation")
+     */
+    protected $translations;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->links = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\SiteBundle\Entity\BlockTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new BlockTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setTitle($defaultTranslation->getTitle());
+                $translation->setContent($defaultTranslation->getContent());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+        return $translation;
     }
 
     /**
@@ -124,7 +166,7 @@ class Block
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->translate()->getTitle();
     }
 
     /**
@@ -135,7 +177,7 @@ class Block
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->translate()->setTitle($title);
 
         return $this;
     }
@@ -170,7 +212,7 @@ class Block
      */
     public function getContent()
     {
-        return $this->content;
+        return $this->translate()->getContent();
     }
 
     /**
@@ -181,7 +223,7 @@ class Block
      */
     public function setContent($content)
     {
-        $this->content = $content;
+        $this->translate()->setContent($content);
 
         return $this;
     }
@@ -263,5 +305,14 @@ class Block
         $this->block_order = $blockOrder;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        if (!is_string($this->getTitle())) {
+            return $this->translations->first()->getTitle();
+        } else {
+            return $this->getTitle();
+        }
     }
 }

@@ -13,15 +13,29 @@ Ojs\JournalBundle\Entity\Article:
             - Valid: ~
         articleFiles:
             - Valid: ~
+            - Count:
+                groups: [submission]
+                min: 1
+                max: 1000
+                minMessage: "You must specify at least one article file"
+                maxMessage: "You cannot specify more than {{ limit }} article file"
         articleAuthors:
             - Valid: ~
+            - Count:
+                groups: [submission]
+                min: 1
+                max: 1000
+                minMessage: "You must specify at least one author"
+                maxMessage: "You cannot specify more than {{ limit }} author"
         citations:
             - Valid: ~
+            - Count:
+                groups: [submission]
+                min: 1
+                max: 1000
+                minMessage: "You must specify at least one citation"
+                maxMessage: "You cannot specify more than {{ limit }} citation"
         status:
-            - NotBlank: ~
-        firstPage:
-            - NotBlank: ~
-        lastPage:
             - NotBlank: ~
         submissionDate:
             - NotBlank: ~

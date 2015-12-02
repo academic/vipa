@@ -42,10 +42,24 @@ class AdminController extends Controller
         if ($this->isGranted('VIEW', new Journal())) {
             $switcher = $this->createForm(new QuickSwitchType(), null)->createView();
 
-            return $this->render('OjsAdminBundle:Admin:dashboard.html.twig', ['switcher' => $switcher]);
+            return $this->render('OjsAdminBundle:Admin:dashboard.html.twig', [
+                'switcher' => $switcher,
+                'unreadFeedbacks' => $this->getUnreadFeedbackCount()
+                ]
+            );
         } else {
             return $this->redirect($this->generateUrl('ojs_user_index'));
         }
+    }
+
+    private function getUnreadFeedbackCount()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $unreadFeedbacks = $em->getRepository('OkulbilisimFeedbackBundle:Feedback')->findBy([
+            'status' => 0,
+            'deleted' => false
+        ]);
+        return count($unreadFeedbacks);
     }
 
     /**

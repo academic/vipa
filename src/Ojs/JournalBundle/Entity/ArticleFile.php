@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Ojs\CoreBundle\Annotation\Display;
 
 /**
  * ArticleFile
@@ -28,6 +29,7 @@ class ArticleFile
     private $type;
     /**
      * @var string
+     * @Display\File(path="articlefiles")
      */
     private $file;
     /**
@@ -239,10 +241,12 @@ class ArticleFile
      * @param  Article     $article
      * @return ArticleFile
      */
-    public function setArticle(Article $article)
+    public function setArticle(Article $article = null)
     {
         $this->article = $article;
-        $article->addArticleFile($this);
+        if(!is_null($article)){
+            $article->addArticleFile($this);
+        }
 
         return $this;
     }

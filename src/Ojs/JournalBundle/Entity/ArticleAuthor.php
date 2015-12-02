@@ -96,10 +96,12 @@ class ArticleAuthor implements Translatable
      * @param  Article $article
      * @return $this
      */
-    public function setArticle(Article $article)
+    public function setArticle(Article $article = null)
     {
         $this->article = $article;
-        $article->addArticleAuthor($this);
+        if(!is_null($article)){
+            $article->addArticleAuthor($this);
+        }
         return $this;
     }
 

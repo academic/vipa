@@ -6,7 +6,7 @@
             {% endif %}
             <a href="{{ url }}">
                 {% if journal.image is defined and journal.image is not null %}
-                    {% set src = journal.image|imagine_filter('journal_original') %}
+                    {% set src = journal.image|imagine_filter('journal_croped') %}
                     <img src="{{ src }}"
                          alt="{{ journal.title }}" title="{{ journal.title }}" width="150" height="200"
                          class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default">

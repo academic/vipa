@@ -44,7 +44,9 @@ class JournalArticleHandler
      */
     public function get($id)
     {
-        return $this->repository->find($id);
+        /** @var Article $entity */
+        $entity = $this->repository->find($id);
+        return $this->apiHelper->normalizeEntity($entity);
     }
 
     /**

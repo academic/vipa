@@ -31,7 +31,7 @@
     <hr />
     <div class="panel panel-info submission-subform-panel">
         <div class="panel-heading">{{ "article.citations"|trans }}</div>
-        <div class="submission-subform-container panel-body">
+        <div class="submission-subform-container panel-body" id="citation-forms-container">
             <textarea class="submission-subform-template">
                 {%- filter escape -%}
                     {{ include('@OjsJournal/ArticleSubmission/_citiation_subform.html.twig', { 'form': form.citations.vars.prototype }) }}

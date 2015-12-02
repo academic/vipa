@@ -42,6 +42,7 @@
     "formbuilder": "~0.2.1",
     "sweetalert": "v1.1.0",
     "bxslider-4":"4.2.5",
-    "list.js": "*"
+    "list.js": "*",
+    "downloadjs": "*"
   }
 }

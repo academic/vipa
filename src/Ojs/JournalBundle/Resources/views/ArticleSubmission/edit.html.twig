@@ -11,7 +11,7 @@
 {% block body -%}
     <div class="panel panel-info panel-steps">
         <div class="panel-heading">
-            <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
+            <ul class="nav nav-pills nav-justified submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1">
                     <a href="{{ path('ojs_journal_submission_start', {journalId: selectedJournal().id}) }}">
                         <span class="badge">1</span>
@@ -42,26 +42,37 @@
     {{ parent() }}
     <script>
         $(function() {
-            $.each($('.publisherNotListed'), function (index, value) {
-                var $publisherSelect = $(this).parent().parent().parent().parent().find('.publisher');
-                var $publisherName = $(this).parent().parent().parent().parent().find('.publisherName');
+            function reviseCitationOrders(){
+                $.each($('#citation-forms-container').find('.citation-item-order'), function (index, value) {
+                    $(this).html(index+1);
+                });
+            }
+            reviseCitationOrders();
+            setInterval(function(){ reviseCitationOrders(); }, 1000);
+            function reviseInstitutionInputs(){
+                $.each($('.institutionNotListed'), function (index, value) {
+                    var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                    var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
+                    if(this.checked){
+                        $institutionName.parent().removeClass('hidden');
+                        $institutionSelect.parent().addClass('hidden');
+                    }else{
+                        $institutionName.parent().addClass('hidden');
+                        $institutionSelect.parent().removeClass('hidden');
+                    }
+                });
+            }
+            reviseInstitutionInputs();
+            setInterval(function(){ reviseInstitutionInputs(); }, 1000);
+            $(document).on('change', '.institutionNotListed', function () {
+                var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
                 if(this.checked){
-                    $publisherName.parent().removeClass('hidden');
-                    $publisherSelect.parent().addClass('hidden');
+                    $institutionName.parent().removeClass('hidden');
+                    $institutionSelect.parent().addClass('hidden');
                 }else{
-                    $publisherName.parent().addClass('hidden');
-                    $publisherSelect.parent().removeClass('hidden');
-                }
-            });
-            $(document).on('change', '.publisherNotListed', function () {
-                var $publisherSelect = $(this).parent().parent().parent().parent().find('.publisher');
-                var $publisherName = $(this).parent().parent().parent().parent().find('.publisherName');
-                if(this.checked){
-                    $publisherName.parent().removeClass('hidden');
-                    $publisherSelect.parent().addClass('hidden');
-                }else{
-                    $publisherName.parent().addClass('hidden');
-                    $publisherSelect.parent().removeClass('hidden');
+                    $institutionName.parent().addClass('hidden');
+                    $institutionSelect.parent().removeClass('hidden');
                 }
             });
             $(document).on('click','.toggle-author-detail', function () {
@@ -74,4 +85,5 @@
             });
         });
     </script>
+    {{ twigEventDispatch({'event_name': 'OJS_NEW_ARTICLE_SUBMISSIN_SCRIPT'})|raw }}
 {% endblock %}

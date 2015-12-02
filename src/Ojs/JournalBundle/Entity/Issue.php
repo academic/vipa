@@ -75,7 +75,7 @@ class Issue extends AbstractTranslatable
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail"})
      */
-    private $special = true;
+    private $special = false;
     /**
      * @var string
      * @JMS\Expose
@@ -125,6 +125,8 @@ class Issue extends AbstractTranslatable
     private $publicURI;
     /** @var  boolean */
     private $published = false;
+    /** @var  boolean */
+    private $public = false;
     /**
      * @var boolean
      * @JMS\Expose
@@ -143,6 +145,11 @@ class Issue extends AbstractTranslatable
      * @JMS\Expose
      */
     private $issueFiles;
+
+    /**
+     * @var integer
+     */
+    private $numerator;
 
     public function __construct()
     {
@@ -532,6 +539,25 @@ class Issue extends AbstractTranslatable
     /**
      * @return boolean
      */
+    public function isPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * @param  boolean $public
+     * @return $this
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
     public function isSupplement()
     {
         return $this->supplement;
@@ -657,5 +683,21 @@ class Issue extends AbstractTranslatable
     public function setPublicURI($publicURI)
     {
         $this->publicURI = $publicURI;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumerator()
+    {
+        return $this->numerator;
+    }
+
+    /**
+     * @param int $numerator
+     */
+    public function setNumerator($numerator)
+    {
+        $this->numerator = $numerator;
     }
 }
