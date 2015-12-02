@@ -2,6 +2,7 @@
 
 namespace Ojs\CoreBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\DataTransformer\PurifiedTextareaTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +19,7 @@ class PurifiedTextareaType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer($this->purifierTransformer);
+        $builder->addViewTransformer(new PurifiedTextareaTransformer(), true);
     }
 
     public function getParent()
