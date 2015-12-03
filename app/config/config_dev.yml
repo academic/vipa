@@ -7,18 +7,24 @@ framework:
     profiler: { only_exceptions: false }
 
 web_profiler:
-    toolbar: true
+    toolbar: false
     intercept_redirects: false
+
+doctrine:
+    orm:
+        metadata_cache_driver: memcache
+        query_cache_driver: memcache
+        result_cache_driver: memcache
 
 monolog:
     handlers:
-        main:
-            type:   stream
-            path:   "%kernel.logs_dir%/%kernel.environment%.log"
-            level:  debug
-        console:
-            type:   console
-            bubble: false
+        #main:
+        #    type:   stream
+        #    path:   "%kernel.logs_dir%/%kernel.environment%.log"
+        #    level:  debug
+        #console:
+        #    type:   console
+        #    bubble: false
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
         #firephp:

@@ -150,11 +150,6 @@ api_users:
   resource:     "OjsApiBundle:UserRest"
   name_prefix:  api_
 
-api_test :
-  type: rest
-  resource:     "OjsApiBundle:TestRest"
-  name_prefix:  api_
-
 api_roles :
   type: rest
   resource:     "OjsApiBundle:RoleRest"

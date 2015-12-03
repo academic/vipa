@@ -12,31 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PublicUserRestController extends FOSRestController
 {
-
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="check user name availability. Return true if username is available.",
-     *  parameters={
-     *  {
-     *          "name"="username",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="user name to check"
-     *      }
-     * }
-     * )
-     * @Get("/public/user/checkusername/")
-     *
-     * @param  Request $request
-     * @return bool
-     */
-    public function getUsernameCheckAction(Request $request)
-    {
-        return $this->get("user.helper")->checkUsernameAvailability($request->get('username'));
-    }
-
     /**
      * @param $id
      * @return Response
