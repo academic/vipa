@@ -160,11 +160,6 @@ api_roles :
   resource:     "OjsApiBundle:RoleRest"
   name_prefix:  api_
 
-api_article :
-  type: rest
-  resource:     "OjsApiBundle:ArticleRest"
-  name_prefix:  api_
-
 api_analytics :
   type: rest
   resource:     "OjsApiBundle:AnalyticsRest"
