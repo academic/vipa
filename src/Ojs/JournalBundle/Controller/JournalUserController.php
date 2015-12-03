@@ -26,7 +26,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Elastica\Query as ElasticQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\RestBundle\Request\ParamFetcher;
 
 /**
  * JournalUser controller.
@@ -466,6 +466,44 @@ class JournalUserController extends Controller
                 'id' => $result->getId(),
                 'text' => $result->getData()['username']." - ".$result->getData()['email'],
             ];
+        }
+
+        return JsonResponse::create($data);
+    }
+
+    /**
+     * Search users based journal
+     *
+     * @param Request $request
+     * @return \Ojs\UserBundle\Entity\User[]|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function getUserBasedJournalAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$journal) {
+            return $this->createNotFoundException();
+        }
+
+        $defaultLimit = 20;
+        $limit = ($request->get('page_limit') && $defaultLimit >= $request->get('page_limit')) ?
+            $request->get('page_limit') :
+            $defaultLimit;
+
+        $journalUsers = $em->getRepository('OjsUserBundle:User')->searchJournalUser(
+            $request->get('q'),
+            $journal,
+            $limit
+        );
+        $data = [];
+        if(count($journalUsers) > 0){
+            foreach($journalUsers as $journalUser){
+                $data[] = [
+                    'id' => $journalUser->getId(),
+                    'text' => (string)$journalUser,
+                ];
+            }
         }
 
         return JsonResponse::create($data);

@@ -52,3 +52,7 @@ ojs_journal_user_leave_role:
 ojs_journal_user_search:
     path: /user/search
     defaults: { _controller: "OjsJournalBundle:JournalUser:getUserByUsername" }
+
+ojs_journal_user_search_based_journal:
+    path: /journal/{journalId}/user/search
+    defaults: { _controller: "OjsJournalBundle:JournalUser:getUserBasedJournal" }

@@ -34,7 +34,7 @@ class JournalUsersFieldType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'remote_route' => 'search_journal_users',
+                'remote_route' => 'ojs_journal_user_search_based_journal',
                 'remote_params' => array('journalId' => $this->journalService->getSelectedJournal()->getId()),
                 'multiple' => true,
                 'class' => 'OjsUserBundle:User'
