@@ -89,7 +89,6 @@ services:
 
   form.type.purified_textarea:
       class: Ojs\CoreBundle\Form\Type\PurifiedTextareaType
-      arguments: [ @router, @translator ]
       tags:
         - { name: form.type, alias: purified_textarea }
 
