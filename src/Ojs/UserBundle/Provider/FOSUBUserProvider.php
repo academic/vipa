@@ -79,7 +79,7 @@ class FOSUBUserProvider extends BaseProvider
         }
 
         if (!$connection || $connection->getUser() === null) {
-            $message = sprintf("User '%s' not found.", $username);
+            $message = sprintf("User not found. Please register first and then connect the account from your profile.", $username);
             throw new AccountNotLinkedException($message);
         }
 

@@ -29,13 +29,24 @@
                     {% endfor %}
 
                     <br/>
-                    {% for owner in hwi_oauth_resource_owners() %}
-                        <a class="btn btn-success"
-                           href="{{ path('hwi_oauth_service_redirect', {'service': owner}) }}">{{ "user.connected_accounts.add"|trans }} {{ owner|capitalize }}</a>
-                        <br/>
-                    {% endfor %}
 
-
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ 'user.connected_accounts.add'|trans }}</h3>
+                        </div>
+                        <div class="panel-body">
+                        {% for owner in hwi_oauth_resource_owners() %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
+                                <button type="button" class="btn btn-labeled btn-success">
+                                <span class="btn-label">
+                                    <i class="fa fa-{{ owner }} fa-key"></i>
+                                </span>
+                                    {{ owner|trans }}
+                                </button>
+                            </a>
+                        {% endfor %}
+                        </div>
+                    </div>
 
                     <table class="table table-responsive table-bordered">
                         <thead>
@@ -48,7 +59,7 @@
                         <tbody>
                         {% for entity in user.oauthAccounts %}
                             <tr>
-                                <td>{{ entity.provider }}</td>
+                                <td>{{ entity.provider|trans }}</td>
                                 <td>{{ entity.providerId }}</td>
                                 <td>
                                     <a class="btn-xs btn btn-danger"

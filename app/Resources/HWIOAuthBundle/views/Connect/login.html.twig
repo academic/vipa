@@ -13,11 +13,13 @@
         </div>
         <div class="panel-body">
             {% for owner in hwi_oauth_resource_owners() %}
-                <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-primary btn-labeled btn-block btn-lg">
-                    <span class="btn-label pull-left col-md-3 col-xs-3">
-                        <i class="fa fa-{{ owner }} fa-key"></i>
-                    </span>
-                    {{ owner | trans({}, 'HWIOAuthBundle') }}
+                <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
+                    <button type="button" class="btn btn-labeled btn-success">
+                        <span class="btn-label">
+                            <i class="fa fa-{{ owner }} fa-key"></i>
+                        </span>
+                        {{ owner|trans }}
+                    </button>
                 </a>
             {% endfor %}
         </div>

@@ -8,7 +8,7 @@
             <form action="{{ path('hwi_oauth_connect_registration', {'key': key}) }}" {{ form_enctype(form) }} method="POST" class="hwi_oauth_registration_register">
                 {{ form_widget(form) }}
                 <div>
-                    <button type="submit" class="btn btn-primary">{{ 'connect.registration.submit'|trans({}, 'HWIOAuthBundle') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ 'connect.registration.submit' | trans({}, 'HWIOAuthBundle') }}</button>
                     <a href="{{ path('hwi_oauth_connect') }}" class="btn">{{ 'connect.registration.cancel' | trans({}, 'HWIOAuthBundle') }}</a>
                 </div>
             </form>

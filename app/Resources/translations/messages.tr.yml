@@ -1453,3 +1453,9 @@ numerator: 'Sayaç'
 author.title: 'Ünvan'
 author.biography: 'Biyografi'
 notes: 'Notlar'
+
+# OAuth
+linkedin: 'Linkedin'
+orcid: 'ORCID'
+oauth.login_with: 'Sosyal Hesap ile Giriş'
+oauth.connect_before: 'Bu özelliği kullanmanız için hesabınızı önceden bağlamış olmanız gerekir.'
