@@ -60,7 +60,8 @@ class AppKernel extends Kernel
             new OkulBilisim\OjsImportBundle\OkulBilisimOjsImportBundle(),
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
-            new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle()
+            new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
+            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

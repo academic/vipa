@@ -93,6 +93,11 @@ services:
       tags:
           - { name: form.type, alias: extended_entity }
 
+  form.type.purified_textarea:
+      class: Ojs\CoreBundle\Form\Type\PurifiedTextareaType
+      tags:
+        - { name: form.type, alias: purified_textarea }
+
   ojs_search_manager:
     class: Ojs\CoreBundle\Service\SearchManager
     arguments: [@translator, @router]

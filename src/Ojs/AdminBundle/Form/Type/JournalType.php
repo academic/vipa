@@ -159,7 +159,7 @@ class JournalType extends AbstractType
             )
             ->add(
                 'footer_text',
-                'textarea',
+                'purified_textarea',
                 [
                     'label' => 'footer_text',
                     'required' => false,

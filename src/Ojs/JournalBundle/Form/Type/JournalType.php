@@ -30,7 +30,7 @@ class JournalType extends AbstractType
                     ],
                     'description' => [
                         'attr' => array('class' => ' form-control wysihtml5'),
-                        'field_type' => 'textarea'
+                        'field_type' => 'purified_textarea'
                     ],
                     'titleAbbr' => [
                         'required' => false
@@ -185,7 +185,7 @@ class JournalType extends AbstractType
             )
             ->add(
                 'footer_text',
-                'textarea',
+                'purified_textarea',
                 [
                     'label' => 'footer_text',
                     'required' => false,
