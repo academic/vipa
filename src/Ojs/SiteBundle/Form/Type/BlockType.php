@@ -25,7 +25,8 @@ class BlockType extends AbstractType
                         'required' => false,
                         'attr' => [
                             'class' => 'form-control wysihtml5'
-                        ]
+                        ],
+                        'field_type' => 'purified_textarea'
                     ]
                 ]
             ])

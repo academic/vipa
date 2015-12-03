@@ -46,7 +46,7 @@ class ArticleSubmissionType extends AbstractType
                         'required' => true,
                         'label' => 'article.abstract',
                         'attr' => array('class' => ' form-control wysihtml5'),
-                        'field_type' => 'textarea'
+                        'field_type' => 'purified_textarea'
                     ]
                 ]
             ])

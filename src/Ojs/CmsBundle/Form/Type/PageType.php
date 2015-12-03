@@ -21,7 +21,7 @@ class PageType extends AbstractType
                     'body' => array(
                         'required' => false,
                         'attr' => array('class' => ' form-control wysihtml5'),
-                        'field_type' => 'textarea'
+                        'field_type' => 'purified_textarea'
                         )
                     )
                 )
