@@ -144,13 +144,3 @@ api_analytics :
   type: rest
   resource:     "OjsApiBundle:AnalyticsRest"
   name_prefix:  api_
-
-api_public_search :
-  type: rest
-  resource:     "OjsApiBundle:PublicSearchRest"
-  name_prefix:  api_
-
-api_search:
-    type: rest
-    resource: "OjsApiBundle:SearchRest"
-    name_preffix: api_

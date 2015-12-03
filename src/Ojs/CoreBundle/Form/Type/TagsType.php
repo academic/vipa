@@ -48,7 +48,7 @@ class TagsType extends AbstractType
     {
         $resolver->setDefaults(array(
             'label' => 'tags',
-            'remote_route' => 'api_get_tags',
+            'remote_route' => 'ojs_core_tag_search',
             'remote_params' => array(),
             'compound' => false,
             'minimum_input_length' => 2,

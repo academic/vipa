@@ -22,6 +22,8 @@ ojs_oai:
   prefix: /api/public/oai
 ojs_journal:
   resource: '@OjsJournalBundle/Resources/config/routing.yml'
+ojs_core:
+  resource: '@OjsCoreBundle/Resources/config/routing.yml'
 ojs_journal_panel:
   resource: '@OjsJournalBundle/Resources/config/routing_panel.yml'
   prefix: /journal
