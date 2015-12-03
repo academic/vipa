@@ -203,8 +203,6 @@ class PublisherType extends AbstractType
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Publisher',
                 'cascade_validation' => true,
-                'publishersEndPoint' => '/',
-                'publisherEndPoint' => '/',
                 'publisher' => null,
                 'attr' => [
                     'novalidate' => 'novalidate',

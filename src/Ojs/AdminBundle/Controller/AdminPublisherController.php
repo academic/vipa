@@ -101,9 +101,7 @@ class AdminPublisherController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_publisher_create'),
-                'method' => 'POST',
-                'publishersEndPoint' => $this->generateUrl('api_get_publishers'),
-                'publisherEndPoint' => $this->generateUrl('api_get_publisher')
+                'method' => 'POST'
             )
         );
 
@@ -197,8 +195,6 @@ class AdminPublisherController extends Controller
             array(
                 'action' => $this->generateUrl('ojs_admin_publisher_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'publishersEndPoint' => $this->generateUrl('api_get_publishers'),
-                'publisherEndPoint' => $this->generateUrl('api_get_publisher')
             )
         );
 

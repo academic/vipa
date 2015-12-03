@@ -24,6 +24,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\JournalBundle\Event\JournalEvent;
+use Elastica\Query as ElasticQuery;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * JournalUser controller.
@@ -228,9 +231,7 @@ class JournalUserController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_user_add', ['journalId' => $journalId]),
-                'method' => 'POST',
-                'usersEndpoint' => $this->generateUrl('api_get_users'),
-                'userEndpoint' => $this->generateUrl('get_user_by_id'),
+                'method' => 'POST'
             )
         );
 
@@ -440,5 +441,33 @@ class JournalUserController extends Controller
         }
 
         return $this->redirect($this->generateUrl('ojs_journal_user_my'));
+    }
+
+    /**
+     * Search users by username
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function getUserByUsernameAction(Request $request)
+    {
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.user');
+
+        $prefix = new ElasticQuery\Prefix();
+        $prefix->setPrefix('username', strtolower($q));
+        $qe = new ElasticQuery();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => $result->getData()['username']." - ".$result->getData()['email'],
+            ];
+        }
+
+        return JsonResponse::create($data);
     }
 }

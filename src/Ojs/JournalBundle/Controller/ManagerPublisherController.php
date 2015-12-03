@@ -56,9 +56,7 @@ class ManagerPublisherController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_publisher_manager_update', array('publisherId' => $entity->getId())),
-                'method' => 'PUT',
-                'publishersEndPoint' => $this->generateUrl('api_get_publishers'),
-                'publisherEndPoint' => $this->generateUrl('api_get_publisher')
+                'method' => 'PUT'
             )
         );
 

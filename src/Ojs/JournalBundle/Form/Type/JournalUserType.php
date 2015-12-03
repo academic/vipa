@@ -19,7 +19,7 @@ class JournalUserType extends AbstractType implements FormTypeInterface
                 [
                     'label' => 'user',
                     'class' => 'Ojs\UserBundle\Entity\User',
-                    'remote_route' => 'api_get_users'
+                    'remote_route' => 'ojs_journal_user_search'
                 ]
             )
             ->add(
@@ -52,8 +52,6 @@ class JournalUserType extends AbstractType implements FormTypeInterface
     {
         $resolver->setDefaults(
             array(
-                'usersEndpoint' => '/',
-                'userEndpoint' => '/',
                 'validation_groups' => array('create'),
             )
         );

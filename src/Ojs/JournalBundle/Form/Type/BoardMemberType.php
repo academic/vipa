@@ -23,7 +23,7 @@ class BoardMemberType extends AbstractType
                     'required' => true,
                     'label' => 'user',
                     'class' => 'Ojs\UserBundle\Entity\User',
-                    'remote_route' => 'api_get_users'
+                    'remote_route' => 'ojs_journal_user_search'
                 ]
             )
             ->add('seq', null, ['label' => 'board.order'])
