@@ -56,8 +56,6 @@ class PublicSearchRestController extends FOSRestController
      */
     public function getPublishersAction(Request $request)
     {
-        #$limit = $request->get('limit');
-        #$verified = $request->get('verified');
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.publisher');
 
@@ -390,32 +388,11 @@ class PublicSearchRestController extends FOSRestController
 
         $results = $search->search($prefix);
         $data = [];
-/** @var User $user */
-        # $user = $this->getUser();
-
-        #$articleRepo = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Article');
         foreach ($results as $result) {
-            /*   if($user->isAdmin())
-            {*/
             $data[] = [
                 'id' => $result->getId(),
                 'text' => $result->getData()['title'],
             ];
-            /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
-                 /** @var Article $article
-                 $article = $articleRepo->find($result->getId());
-                 $roles = $article->getJournal()->getUserRoles();
-                 foreach ($roles as $role) {
-                     /** @var UserJournalRole $role
-                     if($role->getRole()->getRole()=='ROLE_JOURNAL_MANAGER' || $role->getRole()->getRole()=='ROLE_EDITOR'){
-                         $data[] = [
-                             'id'=>$result->getId(),
-                             'text'=>$result->getData()['title'],
-                         ];
-                         break;
-                     }
-                 }
-             }*/
         }
 
         return $data;
