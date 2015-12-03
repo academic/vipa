@@ -122,15 +122,4 @@ class RegistrationController extends  BaseController
             )
         );
     }
-    public function confirmedAction()
-    {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $this->render('OjsUserBundle:Registration:confirmed.html.twig', array(
-            'user' => $user,
-        ));
-    }
 }
