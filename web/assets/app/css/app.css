@@ -875,3 +875,18 @@ label.required:before {
     padding-bottom: 0px;
     margin-bottom: 5px;
 }
+
+.link-unstyled {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.link-unstyled:link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
