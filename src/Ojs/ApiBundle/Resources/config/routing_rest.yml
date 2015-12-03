@@ -145,11 +145,6 @@ api_analytics :
   resource:     "OjsApiBundle:AnalyticsRest"
   name_prefix:  api_
 
-api_mail_templates :
-  type: rest
-  resource:     "OjsApiBundle:MailTemplateRest"
-  name_prefix:  api_
-
 api_public_search :
   type: rest
   resource:     "OjsApiBundle:PublicSearchRest"
