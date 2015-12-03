@@ -42,10 +42,6 @@ ojs_user_connected_account_delete:
     path: /user/connected_accounts/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteConnectedAccount"}
 
-ojs_user_add_orcid_account:
-    path: /user/connected_accounts/add/orcid
-    defaults: { _controller: "OjsSiteBundle:User:addOrcidAccount" }
-
 ojs_public_index:
     path:  /
     host: %base_host%

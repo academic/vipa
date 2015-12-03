@@ -56,10 +56,9 @@ security:
       anonymous: true
       oauth:
         resource_owners:
-          orcid: "/oauth/login/check-orcid"
-          linkedin: "/oauth/login/check-linkedin"
-        login_path:   /oauth/login
-        failure_path: /oauth/login
+          orcid: /oauth/login/check-orcid
+          linkedin: /oauth/login/check-linkedin
+        login_path:   /login
         use_forward:  false
         oauth_user_provider:
           service: ojs.user.oauth

@@ -10,7 +10,6 @@ use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Form\Type\CustomFieldType;
 use Ojs\UserBundle\Form\Type\UpdateUserType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\FOSUserEvents;
@@ -165,49 +164,11 @@ class UserController extends Controller
         return $this->render('OjsSiteBundle:User:add_connected_account.html.twig');
     }
 
-    public function addOrcidAccountAction(Request $request)
-    {
-        $user = $this->getUser();
-        if (!$user) {
-            throw new AccessDeniedException();
-        }
-        $orcid = $this->get('ojs.orcid_service');
-        $code = $request->get('code');
-        $orcid->setRedirectUri(
-            'http://'
-            . $this->container->getParameter('base_host')
-            . $this->get('router')->generate('ojs_user_add_orcid_account')
-        );
-        if (!$code) {
-            return new RedirectResponse($orcid->loginUrl());
-        }
-        $post = $orcid->authorize($code);
-        $em = $this->getDoctrine()->getManager();
-        if ($post) {
-            $oauth = new UserOauthAccount();
-            $oauth->setProvider('orcid')
-                ->setProviderAccessToken($post->access_token)
-                ->setProviderRefreshToken($post->refresh_token)
-                ->setProviderUserId($post->orcid)
-                ->setUser($user);
-            $em->persist($oauth);
-            $user->addOauthAccount($oauth);
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
-        }
-        throw new \ErrorException("An error", serialize($post));
-    }
-
-    public function deleteConnectedAccountAction($id)
+    public function deleteConnectedAccountAction(UserOauthAccount $userOauthAccount)
     {
         $em = $this->getDoctrine()->getManager();
-        $account = $em->find('OjsUserBundle:UserOauthAccount', $id);
-        if (!$account) {
-            throw new NotFoundException();
-        }
-        $em->remove($account);
+
+        $em->remove($userOauthAccount);
         $em->flush();
 
         return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));

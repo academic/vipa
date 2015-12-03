@@ -9,9 +9,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\TokenGenerator;
-use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Event\UserEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,17 +49,6 @@ class RegistrationController extends  BaseController
         $user->setEnabled(true);
         //Add default data for oauth login
         $session = $this->get('session');
-        $oauth_login = $session->get('oauth_login', false);
-        if ($oauth_login) {
-            $name = explode(' ', $oauth_login['full_name']);
-            $firstName = $name[0];
-            unset($name[0]);
-            $lastName = implode(' ', $name);
-            $user
-                ->setFirstName($firstName)
-                ->setLastName($lastName)
-                ->setUsername(StringHelper::slugify($oauth_login['full_name']));
-        }
 
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
@@ -90,22 +77,9 @@ class RegistrationController extends  BaseController
             }
 
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-            if ($oauth_login) {
-                $em = $this->getDoctrine()->getManager();
-                $oauth = new UserOauthAccount();
-                $oauth->setProvider($oauth_login['provider'])
-                    ->setProviderAccessToken($oauth_login['access_token'])
-                    ->setProviderRefreshToken($oauth_login['refresh_token'])
-                    ->setProviderUserId($oauth_login['user_id'])
-                    ->setUser($user);
-                $em->persist($oauth);
-                $user->addOauthAccount($oauth);
-                $em->persist($user);
-            }
 
             $session->getFlashBag()->add('success', 'registration.activation');
 
-            $session->remove('oauth_login');
             $session->save();
 
             $event = new UserEvent($user);

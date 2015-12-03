@@ -8,6 +8,7 @@ use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseProvider;
 use Ojs\UserBundle\Entity\UserOauthAccount;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class FOSUBUserProvider extends BaseProvider
@@ -15,54 +16,76 @@ class FOSUBUserProvider extends BaseProvider
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    private $em;
 
     /**
      * FOSUBUserProvider constructor.
-     * @param EntityManager $entityManager
+     * @param RegistryInterface $registry
      * @param UserManagerInterface $userManager
      * @param array $properties
      */
-    public function __construct(EntityManager $entityManager, UserManagerInterface $userManager, array $properties)
+    public function __construct(RegistryInterface $registry, UserManagerInterface $userManager, array $properties)
     {
         parent::__construct($userManager, $properties);
-        $this->entityManager = $entityManager;
+        $this->em = $registry->getManager();
     }
 
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
         $service = $response->getResourceOwner()->getName();
 
-        $connection = $this->entityManager
+        /** @var UserOauthAccount $connection */
+        $connection = $this->em
             ->getRepository('OjsUserBundle:UserOauthAccount')
-            ->findOneBy(['user' => $user, 'provider' => $service]);
+            ->findOneBy(['providerId' => $response->getUsername(), 'provider' => $service]);
 
-        if ($connection === null) {
+        if($connection && $connection->getUser()->getUsername() !== $user->getUsername()) {
+            $this->em->remove($connection);
+            $connection = null;
+        }
+
+        if (!$connection) {
             $connection = new UserOauthAccount();
             $connection->setUser($user);
             $connection->setProvider($service);
+            $connection->setProviderId($response->getUsername());
         }
 
-        $connection->setProviderUserId($response->getUsername());
-        $connection->setProviderAccessToken($response->getAccessToken());
-        $connection->setProviderRefreshToken($response->getRefreshToken());
-        $this->entityManager->persist($connection);
-        $this->entityManager->flush();
+        $connection->setToken($response->getAccessToken());
+
+        $this->em->persist($connection);
+        $this->em->flush();
     }
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         $username = $response->getUsername();
+        $email = $response->getEmail();
         $service = $response->getResourceOwner()->getName();
 
-        $connection = $this->entityManager
+        /** @var UserOauthAccount $connection */
+        $connection = $this->em
             ->getRepository('OjsUserBundle:UserOauthAccount')
-            ->findOneBy(['provider_user_id' => $username, 'provider' => $service]);
+            ->findOneBy(['providerId' => $username, 'provider' => $service]);
 
-        if ($connection === null || $connection->getUser() === null) {
+        if(!$connection && !empty($email)) {
+            $userByEmail = $this->userManager->findUserByEmail($email);
+            if($userByEmail) {
+                $connection = new UserOauthAccount();
+                $connection->setUser($userByEmail);
+                $connection->setProvider($service);
+                $connection->setProviderId($response->getUsername());
+            }
+        }
+
+        if (!$connection || $connection->getUser() === null) {
             $message = sprintf("User '%s' not found.", $username);
             throw new AccountNotLinkedException($message);
         }
+
+        $connection->setToken($response->getAccessToken());
+        $this->em->persist($connection);
+        $this->em->flush();
 
         return $connection->getUser();
     }

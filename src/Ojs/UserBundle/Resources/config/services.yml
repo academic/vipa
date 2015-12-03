@@ -1,3 +1,6 @@
+parameters:
+    hwi_oauth.resource_owner.oauth2.class: "Ojs\UserBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner"
+
 services:
   ojs_user.soft_delete:
     class: Ojs\UserBundle\Listeners\SoftDeleteListener
@@ -17,4 +20,4 @@ services:
       - { name: kernel.event_subscriber }
   ojs.user.oauth:
     class: Ojs\UserBundle\Provider\FOSUBUserProvider
-    arguments: [@doctrine.orm.entity_manager, @fos_user.user_manager, {}]
+    arguments: [@doctrine, @fos_user.user_manager, {}]

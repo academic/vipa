@@ -9,6 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Service\GridAction;
+use Ojs\CoreBundle\Service\OrcidService;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -23,7 +24,6 @@ use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Event\ArticleSubmitEvent;
 use Ojs\JournalBundle\Event\ArticleSubmitEvents;
-use Ojs\JournalBundle\Event\CitationRawEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Event\SubmissionFormEvent;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
@@ -36,7 +36,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Article Submission controller.
@@ -653,8 +652,8 @@ class ArticleSubmissionController extends Controller
         $getAuthor = null;
         if ($request->get('orcidAuthorId')) {
             $orcidAuthorId = $request->get('orcidAuthorId');
-            $orcidService = $this->get('ojs.orcid_service');
-            $getAuthor = $orcidService->getBio($orcidAuthorId, '');
+            $orcidService = new OrcidService();
+            $getAuthor = $orcidService->getBio($orcidAuthorId);
         }
         $response = new JsonResponse();
         $response->setData($getAuthor);

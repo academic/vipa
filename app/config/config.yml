@@ -171,16 +171,10 @@ presta_sitemap:
     dumper_base_url: "http://%base_host%/"
     route_annotation_listener: false
     items_by_set: 50000
-
 hwi_oauth:
   connect:
-    account_connector: hwi_oauth.user.provider.fosub_bridge
+    account_connector: ojs.user.oauth
   firewall_name: main
-  fosub:
-    username_iterations: 30
-    properties:
-      orcid: orcidId
-      linkedin: linkedinId
   resource_owners:
     orcid:
       type:                oauth2
@@ -189,12 +183,14 @@ hwi_oauth:
       access_token_url:    https://pub.orcid.org/oauth/token
       authorization_url:   https://orcid.org/oauth/authorize
       infos_url:           http://pub.orcid.org/v1.2
-      scope:               "read"
+      scope:               "/authenticate"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
-        identifier: id
-        nickname:   username
-        realname:   fullname
+        identifier: "orcid-profile.orcid-identifier.path"
+        nickname: "orcid-profile.orcid-identifier.path"
+        lastname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
+        firstname:   "orcid-profile.orcid-bio.personal-details.given-names.value"
+        realname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
     linkedin:
       type:           linkedin
       client_id:      %linkedin.client_id%

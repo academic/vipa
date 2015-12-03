@@ -44,6 +44,10 @@
                             <button type="submit" class="btn btn-sm btn-primary pull-right">
                                 <i class="fa fa-sign-in"></i> {{ "login"|trans }}
                             </button>
+                            {% for owner in hwi_oauth_resource_owners() %}
+                                <a class="btn btn-sm btn-primary pull-left"
+                                   href="{{ path('hwi_oauth_service_redirect', {'service': owner}) }}">{{ "user.login_with"|trans }} {{ owner|capitalize }}</a>
+                            {% endfor %}
                         </form>
                     </div>
                 </div>

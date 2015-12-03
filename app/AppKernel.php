@@ -41,6 +41,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Jb\Bundle\FileUploaderBundle\JbFileUploaderBundle(),
             new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Baskin\HistoryBundle\BaskinHistoryBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Ojs\CoreBundle\OjsCoreBundle(),
@@ -58,8 +60,6 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new OkulBilisim\OjsImportBundle\OkulBilisimOjsImportBundle(),
-            new Presta\SitemapBundle\PrestaSitemapBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle()
         );
 
