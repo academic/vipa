@@ -145,11 +145,6 @@ api_authors:
   resource:     "OjsApiBundle:AuthorRest"
   name_prefix:  api_
 
-api_roles :
-  type: rest
-  resource:     "OjsApiBundle:RoleRest"
-  name_prefix:  api_
-
 api_analytics :
   type: rest
   resource:     "OjsApiBundle:AnalyticsRest"
