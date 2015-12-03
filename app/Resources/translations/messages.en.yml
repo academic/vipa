@@ -1457,3 +1457,9 @@ numerator: 'Numerator'
 author.title: 'Title'
 author.biography: 'Biograpy'
 notes: 'Notes'
+
+# OAuth
+linkedin: 'Linkedin'
+orcid: 'ORCID'
+oauth.login_with: 'Login with...'
+oauth.connect_before: 'You need to connect your account before using this.'

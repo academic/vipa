@@ -14,11 +14,6 @@ class UserOauthAccount
     private $id;
 
     /**
-     * @var integer
-     */
-    private $user_id;
-
-    /**
      * @var string
      */
     private $provider;
@@ -26,17 +21,12 @@ class UserOauthAccount
     /**
      * @var string
      */
-    private $provider_user_id;
+    private $providerId;
 
     /**
      * @var string
      */
-    private $provider_access_token;
-
-    /**
-     * @var string
-     */
-    private $provider_refresh_token;
+    private $token;
 
     /**
      * @var User
@@ -51,29 +41,6 @@ class UserOauthAccount
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get user_id
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set user_id
-     *
-     * @param  integer $userId
-     * @return UserOauthAccount
-     */
-    public function setUserId($userId)
-    {
-        $this->user_id = $userId;
-
-        return $this;
     }
 
     /**
@@ -100,70 +67,47 @@ class UserOauthAccount
     }
 
     /**
-     * Get provider_user_id
+     * Get providerId
      *
      * @return string
      */
-    public function getProviderUserId()
+    public function getProviderId()
     {
-        return $this->provider_user_id;
+        return $this->providerId;
     }
 
     /**
-     * Set provider_user_id
+     * Set providerId
      *
-     * @param  string $providerUserId
+     * @param  string $providerId
      * @return UserOauthAccount
      */
-    public function setProviderUserId($providerUserId)
+    public function setProviderId($providerId)
     {
-        $this->provider_user_id = $providerUserId;
+        $this->providerId = $providerId;
 
         return $this;
     }
 
     /**
-     * Get provider_access_token
+     * Get token
      *
      * @return string
      */
-    public function getProviderAccessToken()
+    public function getToken()
     {
-        return $this->provider_access_token;
+        return $this->token;
     }
 
     /**
-     * Set provider_access_token
+     * Set token
      *
-     * @param  string $providerAccessToken
+     * @param  string $token
      * @return UserOauthAccount
      */
-    public function setProviderAccessToken($providerAccessToken)
+    public function setToken($token)
     {
-        $this->provider_access_token = $providerAccessToken;
-
-        return $this;
-    }
-
-    /**
-     * Get provider_refresh_token
-     *
-     * @return string
-     */
-    public function getProviderRefreshToken()
-    {
-        return $this->provider_refresh_token;
-    }
-
-    /**
-     * Set provider_refresh_token
-     *
-     * @param  string $providerRefreshToken
-     * @return UserOauthAccount
-     */
-    public function setProviderRefreshToken($providerRefreshToken)
-    {
-        $this->provider_refresh_token = $providerRefreshToken;
+        $this->token = $token;
 
         return $this;
     }

@@ -41,10 +41,23 @@
                                        id="password" placeholder="{{ "password"|trans }}">
                             </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                            <button type="submit" class="btn btn-sm btn-primary pull-right">
+                            <button type="submit" class="btn btn-sm btn-primary">
                                 <i class="fa fa-sign-in"></i> {{ "login"|trans }}
                             </button>
                         </form>
+                        <hr>
+                        <h5>{{ 'oauth.login_with'|trans }}</h5>
+                        {% for owner in hwi_oauth_resource_owners() %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
+                                <button type="button" class="btn btn-labeled btn-success">
+                                    <span class="btn-label">
+                                        <i class="fa fa-{{ owner }} fa-key"></i>
+                                    </span>
+                                    {{ owner|trans }}
+                                </button>
+                            </a>
+                        {% endfor %}
+                        <span class="help-block">{{ 'oauth.connect_before'|trans }}</span>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,27 @@
+{% extends "::ojsbase.html.twig" %}
+{% block title %}{{ 'title.login'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = true %}
+
+{% block body %}
+    {% if error is defined and error %}
+        <span>{{ error }}</span>
+    {% endif %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ 'title.login'|trans }}</h3>
+        </div>
+        <div class="panel-body">
+            {% for owner in hwi_oauth_resource_owners() %}
+                <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
+                    <button type="button" class="btn btn-labeled btn-success">
+                        <span class="btn-label">
+                            <i class="fa fa-{{ owner }} fa-key"></i>
+                        </span>
+                        {{ owner|trans }}
+                    </button>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}

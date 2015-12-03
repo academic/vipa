@@ -1,0 +1,6 @@
+{% extends "::ojsbase.html.twig" %}
+{% block title %}{{ 'title.login'|trans }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h3>{{ 'header.success' | trans({'%name%': userInformation.realName}, 'HWIOAuthBundle') }}</h3>
+{% endblock body %}

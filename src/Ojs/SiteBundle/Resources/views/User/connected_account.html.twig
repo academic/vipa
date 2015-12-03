@@ -29,10 +29,25 @@
                     {% endfor %}
 
                     <br/>
-                    <a class="btn btn-success"
-                       href="{{ url('ojs_user_connected_account_add') }}">{{ "user.connected_accounts.add"|trans }}</a>
-                    <br/>
-                    <br/>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ 'user.connected_accounts.add'|trans }}</h3>
+                        </div>
+                        <div class="panel-body">
+                        {% for owner in hwi_oauth_resource_owners() %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}" class="link-unstyled">
+                                <button type="button" class="btn btn-labeled btn-success">
+                                <span class="btn-label">
+                                    <i class="fa fa-{{ owner }} fa-key"></i>
+                                </span>
+                                    {{ owner|trans }}
+                                </button>
+                            </a>
+                        {% endfor %}
+                        </div>
+                    </div>
+
                     <table class="table table-responsive table-bordered">
                         <thead>
                         <tr>
@@ -44,8 +59,8 @@
                         <tbody>
                         {% for entity in user.oauthAccounts %}
                             <tr>
-                                <td>{{ entity.provider }}</td>
-                                <td>{{ entity.providerUserId }}</td>
+                                <td>{{ entity.provider|trans }}</td>
+                                <td>{{ entity.providerId }}</td>
                                 <td>
                                     <a class="btn-xs btn btn-danger"
                                        onclick="return confirm('{% trans %}sure{% endtrans %}');"

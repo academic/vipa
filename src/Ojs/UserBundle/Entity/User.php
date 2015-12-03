@@ -79,7 +79,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     protected $fax;
     /** @var  string */
     protected $address;
-    /** @var  city */
+    /** @var  string */
     protected $city;
     /** @var  string */
     protected $billing_address;
@@ -125,7 +125,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      */
     private $oauthAccounts;
 
-    /** @var  boolean */
+    /** @var boolean */
     private $privacy;
 
     /** @var Collection */
@@ -133,7 +133,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
 
     /** @var Collection */
     private $journalRoles;
-
 
     public function __construct()
     {
@@ -393,7 +392,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     }
 
     /**
-     * @return city
+     * @return string
      */
     public function getCity()
     {

@@ -171,20 +171,28 @@ presta_sitemap:
     dumper_base_url: "http://%base_host%/"
     route_annotation_listener: false
     items_by_set: 50000
-
-#hwi_oauth:
-#  firewall_name: main
-#  resource_owners:
-#    orcid:
-#      type:                oauth2
-#      client_id:           %orcid.client_id%
-#      client_secret:       %orcid.client_secret%
-#      access_token_url:    https://pub.orcid.org/oauth/token
-#      authorization_url:   https://orcid.org/oauth/authorize
-#      infos_url:           http://pub.orcid.org/v1.2
-#      scope:               "read"
-#      user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
-#      paths:
-#        identifier: id
-#        nickname:   username
-#        realname:   fullname
+hwi_oauth:
+  connect:
+    account_connector: ojs.user.oauth
+  firewall_name: main
+  resource_owners:
+    orcid:
+      type:                oauth2
+      client_id:           %orcid.client_id%
+      client_secret:       %orcid.client_secret%
+      access_token_url:    https://pub.orcid.org/oauth/token
+      authorization_url:   https://orcid.org/oauth/authorize
+      infos_url:           http://pub.orcid.org/v1.2
+      scope:               "/authenticate"
+      user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+      paths:
+        identifier: "orcid-profile.orcid-identifier.path"
+        nickname: "orcid-profile.orcid-identifier.path"
+        lastname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
+        firstname:   "orcid-profile.orcid-bio.personal-details.given-names.value"
+        realname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
+    linkedin:
+      type:           linkedin
+      client_id:      %linkedin.client_id%
+      client_secret:  %linkedin.client_secret%
+      scope:          r_emailaddress

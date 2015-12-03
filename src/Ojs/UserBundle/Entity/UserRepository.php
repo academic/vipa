@@ -102,33 +102,6 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     }
 
     /**
-     * @param $id string
-     * @param string $provider string
-     * @return User
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getByOauthId($id, $provider)
-    {
-        $qb = $this->createQueryBuilder('u');
-        $qb->join('OjsUserBundle:UserOauthAccount', 'oa', 'WITH', 'oa.user_id=u.id')
-            ->where(
-                $qb->expr()->andX(
-                    $qb->expr()->eq('oa.provider', ':provider'),
-                    $qb->expr()->eq('oa.provider_user_id', ':user_id')
-                )
-            )
-            ->setParameters(
-                [
-                    'provider' => $provider,
-                    'user_id' => $id,
-                ]
-            );
-        $result = $qb->getQuery()->getOneOrNullResult();
-
-        return $result;
-    }
-
-    /**
      * Return user count by condition
      * @param $field
      * @param $value

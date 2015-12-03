@@ -1,3 +1,6 @@
+parameters:
+    hwi_oauth.resource_owner.oauth2.class: "Ojs\UserBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner"
+
 services:
   ojs_user.soft_delete:
     class: Ojs\UserBundle\Listeners\SoftDeleteListener
@@ -15,3 +18,6 @@ services:
     arguments: [@router, @mailer, %system_email%, "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
+  ojs.user.oauth:
+    class: Ojs\UserBundle\Provider\FOSUBUserProvider
+    arguments: [@doctrine, @fos_user.user_manager, {}]

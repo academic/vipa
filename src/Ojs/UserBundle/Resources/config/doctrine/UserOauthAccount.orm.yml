@@ -4,28 +4,17 @@ Ojs\UserBundle\Entity\UserOauthAccount:
   repositoryClass: Ojs\UserBundle\Entity\UserOauthAccountRepository
   id:
     id:
-      type: integer
-      length: null
-      unique: false
-      nullable: false
-      precision: 0
-      id: true
       generator:
-        strategy: IDENTITY
-  fields:
-    user_id:
+        strategy: AUTO
+      id: true
       type: integer
-      length: 11
-      nullable: false
+  fields:
     provider:
       type: string
       length: 255
-      nullable: false
-    provider_user_id:
+    providerId:
       type: string
-    provider_access_token:
-      type: string
-    provider_refresh_token:
+    token:
       type: string
       nullable: true
   manyToOne:
@@ -35,6 +24,7 @@ Ojs\UserBundle\Entity\UserOauthAccount:
         name: user_id
         referencedColumnName: id
       inversedBy: oauthAccounts
+      cascade: ['persist']
   gedmo:
     loggable: true
   lifecycleCallbacks: {  }
