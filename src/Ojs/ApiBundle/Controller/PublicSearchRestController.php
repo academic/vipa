@@ -380,51 +380,6 @@ class PublicSearchRestController extends FOSRestController
     }
 
     /**
-     * @param  Request $request
-     * @ApiDoc(
-     *                          resource=true,
-     *                          description="search provinces",
-     *                          parameters={
-     *                          {
-     *                          "name"="q",
-     *                          "dataType"="string",
-     *                          "required"="true",
-     *                          "description"="search term"
-     *                          },
-     *                          {
-     *                          "name"="page",
-     *                          "dataType"="integer",
-     *                          "required"="false",
-     *                          "description"="limit"
-     *                          }
-     *                          }
-     *                          )
-     * @Get("/public/search/province")
-     * @return array
-     */
-    public function getProvincesAction(Request $request)
-    {
-        $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.province');
-
-        $prefix = new Query\Prefix();
-        $prefix->setPrefix('name', strtolower($q));
-        $qe = new Query();
-        $qe->setQuery($prefix);
-
-        $results = $search->search($prefix);
-        $data = [];
-        foreach ($results as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => $result->getData()['name'],
-            ];
-        }
-
-        return $data;
-    }
-
-    /**
      * @param $id
      * @return Response
      * @throws \Doctrine\ORM\ORMException
