@@ -356,54 +356,6 @@ class PublicSearchRestController extends FOSRestController
     }
 
     /**
-     * @param $id
-     * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
-     * @ApiDoc(
-     *                                                    resource=true,
-     *                                                    description="get citation by id"
-     *                                                    )
-     * @Get("/public/citation/get/{id}", defaults={"id" = null})
-     */
-    public function getCitationAction($id)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        /** @var Citation $citation */
-        $citation = $em->find('OjsJournalBundle:Citation', $id);
-        if ($citation) {
-            return JsonResponse::create(['id' => $id, 'text' => $citation->getRaw()]);
-        }
-        throw new NotFoundHttpException();
-    }
-
-    /**
-     * @param $id
-     * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
-     * @ApiDoc(
-     *                                                    resource=true,
-     *                                                    description="get province by id"
-     *                                                    )
-     * @Get("/public/province/get/{id}")
-     */
-    public function getProvinceAction($id)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        /** @var Province $province */
-        $province = $em->find('OkulBilisimLocationBundle:Province', $id);
-        if ($province) {
-            return JsonResponse::create(['id' => $id, 'name' => $province->getName()]);
-        }
-        throw new NotFoundHttpException();
-    }
-
-    /**
      * @param  Request $request
      * @ApiDoc(
      *                          resource=true,
@@ -487,27 +439,10 @@ class PublicSearchRestController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         /** @var Journal $journal */
         $article = $em->find('OjsJournalBundle:Article', $id);
-        //$user = $this->getUser();
-        //$data = [];
-        //if($user->isAdmin())
-        //{
         $data = [
             'id' => $article->getId(),
             'text' => $article->getTitle(),
         ];
-        /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
-             $roles = $article->getJournal()->getUserRoles();
-             foreach ($roles as $role) {
-                 /** @var UserJournalRole $role *
-                 if($role->getRole()->getRole()=='ROLE_JOURNAL_MANAGER' || $role->getRole()->getRole()=='ROLE_EDITOR'){
-                     $data = [
-                         'id'=>$article->getId(),
-                         'text'=>$article->getTitle(),
-                     ];
-                     break;
-                 }
-             }
-         }*/
         if ($data) {
             return JsonResponse::create($data);
         }
