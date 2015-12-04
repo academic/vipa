@@ -13,7 +13,7 @@ login:
 
 orcid_login:
     path: /orcid_login
-    defaults: { _controller: OjsUserBundle:Orcid:login }
+    #defaults: { _controller: OjsUserBundle:Orcid:login }
 
 email_confirm:
     path: /confirm/email/{code}
