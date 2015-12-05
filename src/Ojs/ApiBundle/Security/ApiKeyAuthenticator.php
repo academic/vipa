@@ -2,6 +2,7 @@
 
 namespace Ojs\ApiBundle\Security;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\SimplePreAuthenticatorInterface;
@@ -14,7 +15,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerI
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
-
     protected $userProvider;
 
     public function __construct(ApiKeyUserProvider $userProvider)
@@ -26,9 +26,6 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     {
         // look for an apikey query parameter
         $apiKey = $request->get('apikey');
-
-        // or if you want to use an "apikey" header, then do something like this:
-        // $apiKey = $request->headers->get('apikey');
 
         if (!$apiKey) {
             throw new BadCredentialsException('No API key found');
@@ -42,15 +39,13 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         $apiKey = $token->getCredentials();
-        $username = $this->userProvider->getUsernameForApiKey($apiKey);
+        $user = $this->userProvider->loadUserByApiKey($apiKey);
 
-        if (!$username) {
+        if (!$user) {
             throw new AuthenticationException(
                 sprintf('API Key "%s" does not exist.', $apiKey)
             );
         }
-
-        $user = $this->userProvider->loadUserByUsername($username);
 
         return new PreAuthenticatedToken(
             $user, $apiKey, $providerKey, $user->getRoles()
@@ -64,6 +59,6 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new Response("Authentication Failed.", 403);
+        return JsonResponse::create(['error' => 'Authentication Failed.'], 403);
     }
 }

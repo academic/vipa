@@ -17,9 +17,29 @@ class ApiKeyUserProvider implements UserProviderInterface
         $this->em = $em;
     }
 
-    public function getUsernameForApiKey($apiKey)
+    public function loadUserByUsername($username)
     {
+        /** @var UserRepository $userRepo */
+        $userRepo = $this->em->getRepository('OjsUserBundle:User');
+        $user = $userRepo->findOneBy(
+            [
+                'username' => $username,
+            ]
+        );
 
+        if (!($user instanceof \Ojs\UserBundle\Entity\User)) {
+            return false;
+        }
+
+        return $user;
+    }
+
+    /**
+     * @param $apiKey
+     * @return bool|null|object
+     */
+    public function loadUserByApiKey($apiKey)
+    {
         /** @var UserRepository $userRepo */
         $userRepo = $this->em->getRepository('OjsUserBundle:User');
         $user = $userRepo->findOneBy(
@@ -28,20 +48,11 @@ class ApiKeyUserProvider implements UserProviderInterface
             ]
         );
 
-        if (!($user instanceof \Ojs\UserBundle\Entity\User)) {
+        if (!($user instanceof UserInterface)) {
             return false;
         }
 
-        return $user->getUsername();
-    }
-
-    public function loadUserByUsername($username)
-    {
-        return new User(
-            $username,
-            null,
-            ['ROLE_USER']
-        );
+        return $user;
     }
 
     public function refreshUser(UserInterface $user)
