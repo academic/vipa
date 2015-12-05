@@ -9,6 +9,7 @@ use Ojs\AdminBundle\Form\Type\ArticleTypesType;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -38,6 +39,9 @@ class ArticleTypeRestController extends FOSRestController
      */
     public function getArticletypesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        if (!$this->isGranted('VIEW', new ArticleTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -66,6 +70,9 @@ class ArticleTypeRestController extends FOSRestController
     public function getArticletypeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         return $entity;
     }
 
@@ -83,6 +90,9 @@ class ArticleTypeRestController extends FOSRestController
      */
     public function newArticletypeAction()
     {
+        if (!$this->isGranted('CREATE', new ArticleTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new ArticleTypesType(), null, ['csrf_protection' => false]);
     }
 
@@ -104,6 +114,9 @@ class ArticleTypeRestController extends FOSRestController
      */
     public function postArticletypeAction(Request $request)
     {
+        if (!$this->isGranted('CREATE', new ArticleTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $newEntity = $this->container->get('ojs_api.article_type.handler')->post(
                 $request->request->all()
@@ -139,6 +152,9 @@ class ArticleTypeRestController extends FOSRestController
      */
     public function putArticletypeAction(Request $request, $id)
     {
+        if (!$this->isGranted('CREATE', new ArticleTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             if (!($entity = $this->container->get('ojs_api.article_type.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
@@ -187,6 +203,9 @@ class ArticleTypeRestController extends FOSRestController
                 $this->getOr404($id),
                 $request->request->all()
             );
+            if (!$this->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedHttpException;
+            }
             $routeOptions = array(
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
@@ -222,6 +241,9 @@ class ArticleTypeRestController extends FOSRestController
     public function deleteArticletypeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         $this->container->get('ojs_api.article_type.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
