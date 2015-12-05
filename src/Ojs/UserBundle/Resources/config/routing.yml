@@ -11,10 +11,6 @@ login:
     host: "%base_host%"
     defaults: { _controller: OjsUserBundle:Security:login }
 
-orcid_login:
-    path: /orcid_login
-    #defaults: { _controller: OjsUserBundle:Orcid:login }
-
 email_confirm:
     path: /confirm/email/{code}
     defaults: { _controller: OjsUserBundle:Security:confirmEmail }
