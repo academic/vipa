@@ -53,7 +53,6 @@ assetic:
         - '%kernel.root_dir%/../web/assets/app/css/admin.css'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css'
         - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote.css'
-        - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote-bs3.css'
         - '%kernel.root_dir%/../web/assets/app/css/_history.css'
         - '@OkulbilisimFeedbackBundle/Resources/public/css/feedback.css'
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.css'
