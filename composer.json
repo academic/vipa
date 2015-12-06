@@ -43,7 +43,7 @@
     "pagerfanta/pagerfanta": "1.0.3",
     "white-october/pagerfanta-bundle": "1.0.*@dev",
     "apy/datagrid-bundle": "2.2.16",
-    "okulbilisim/feedback-bundle": "v1.1.1",
+    "okulbilisim/feedback-bundle": "dev-master",
     "okulbilisim/ojs-tools-bundle": "dev-master",
     "jms/di-extra-bundle": "~1.5",
     "stephanecollot/datetimepicker-bundle": "~1.0",
