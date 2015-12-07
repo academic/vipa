@@ -8,6 +8,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\AdminBundle\Form\Type\PublisherTypesType;
 use Ojs\JournalBundle\Entity\PublisherTypes;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -38,6 +39,9 @@ class PublisherTypeRestController extends FOSRestController
      */
     public function getPublishertypesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        if (!$this->isGranted('VIEW', new PublisherTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -66,6 +70,9 @@ class PublisherTypeRestController extends FOSRestController
     public function getPublishertypeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         return $entity;
     }
 
@@ -83,6 +90,9 @@ class PublisherTypeRestController extends FOSRestController
      */
     public function newPublishertypeAction()
     {
+        if (!$this->isGranted('CREATE', new PublisherTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new PublisherTypesType(), null, ['csrf_protection' => false]);
     }
 
@@ -104,6 +114,9 @@ class PublisherTypeRestController extends FOSRestController
      */
     public function postPublishertypeAction(Request $request)
     {
+        if (!$this->isGranted('CREATE', new PublisherTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $newEntity = $this->container->get('ojs_api.publisher_type.handler')->post(
                 $request->request->all()
@@ -139,6 +152,9 @@ class PublisherTypeRestController extends FOSRestController
      */
     public function putPublishertypeAction(Request $request, $id)
     {
+        if (!$this->isGranted('CREATE', new PublisherTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             if (!($entity = $this->container->get('ojs_api.publisher_type.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
@@ -187,6 +203,9 @@ class PublisherTypeRestController extends FOSRestController
                 $this->getOr404($id),
                 $request->request->all()
             );
+            if (!$this->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedHttpException;
+            }
             $routeOptions = array(
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
@@ -222,6 +241,9 @@ class PublisherTypeRestController extends FOSRestController
     public function deletePublishertypeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         $this->container->get('ojs_api.publisher_type.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
