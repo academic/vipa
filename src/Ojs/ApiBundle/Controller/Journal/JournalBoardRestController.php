@@ -8,14 +8,16 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Form\Type\BoardType;
 use Ojs\JournalBundle\Entity\Board;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
+use Ojs\ApiBundle\Controller\ApiController;
 
-class JournalBoardRestController extends FOSRestController
+class JournalBoardRestController extends ApiController
 {
     /**
      * List all Boards.
@@ -38,6 +40,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function getBoardsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -65,6 +71,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function getBoardAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         $entity = $this->getOr404($id);
         return $entity;
     }
@@ -83,6 +93,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function newBoardAction()
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new BoardType(), null, ['csrf_protection' => false]);
     }
 
@@ -104,6 +118,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function postBoardAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             $newEntity = $this->container->get('ojs_api.journal_board.handler')->post(
@@ -141,6 +159,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function putBoardAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             if (!($entity = $this->container->get('ojs_api.journal_board.handler')->get($id))) {
@@ -186,6 +208,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function patchBoardAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             $entity = $this->container->get('ojs_api.journal_board.handler')->patch(
@@ -227,6 +253,10 @@ class JournalBoardRestController extends FOSRestController
      */
     public function deleteBoardAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('DELETE', $journal, 'boards')) {
+            throw new AccessDeniedHttpException;
+        }
         $entity = $this->getOr404($id);
         $this->container->get('ojs_api.journal_board.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
