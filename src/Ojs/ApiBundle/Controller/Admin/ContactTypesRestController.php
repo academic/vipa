@@ -1,24 +1,24 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
-use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\FOSRestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\AdminBundle\Form\Type\PersonTitleType;
-use Ojs\JournalBundle\Entity\PersonTitle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
+use FOS\RestBundle\View\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\ApiBundle\Exception\InvalidFormException;
+use Ojs\AdminBundle\Form\Type\ContactTypesType;
+use Ojs\ApiBundle\Model\ContactTypesInterface;
 
-class PersonTitleRestController extends FOSRestController
+class ContactTypesRestController extends FOSRestController
 {
     /**
-     * List all PersonTitles.
+     * List all contact types.
      *
      * @ApiDoc(
      *   resource = true,
@@ -27,8 +27,8 @@ class PersonTitleRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing PersonTitles.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many PersonTitles to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing contact types.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many contact types to return.")
      *
      *
      * @param Request               $request      the request object
@@ -36,41 +36,41 @@ class PersonTitleRestController extends FOSRestController
      *
      * @return array
      */
-    public function getPersontitlesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getContacttypesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.person_title.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.contact_type.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single PersonTitle.
+     * Get single Contact Type.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a PersonTitle for a given id",
-     *   output = "Ojs\PersonTitleBundle\Entity\PersonTitle",
+     *   description = "Gets a Contact Type for a given id",
+     *   output = "Ojs\JournalBundle\Entity\ContactType",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the PersonTitle is not found"
+     *     404 = "Returned when the contact type is not found"
      *   }
      * )
      *
-     * @param int     $id      the PersonTitle id
+     * @param int     $id      the contact type id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when PersonTitle not exist
+     * @throws NotFoundHttpException when contact type not exist
      */
-    public function getPersontitleAction($id)
+    public function getContacttypeAction($id)
     {
-        $entity = $this->getOr404($id);
-        return $entity;
+        $contactType = $this->getOr404($id);
+        return $contactType;
     }
 
     /**
-     * Presents the form to use to create a new PersonTitle.
+     * Presents the form to use to create a new contact type.
      *
      * @ApiDoc(
      *   resource = true,
@@ -81,17 +81,18 @@ class PersonTitleRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newPersontitleAction()
+    public function newContacttypeAction()
     {
-        return $this->createForm(new PersonTitleType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new ContactTypesType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a PersonTitle from the submitted data.
+     * Create a Contact Type from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new PersonTitle from the submitted data.",
+     *   description = "Creates a new Contact Type from the submitted data.",
+     *   input = "Ojs\JournalBundle\Form\Type\ContactTypesType",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -102,71 +103,73 @@ class PersonTitleRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postPersontitleAction(Request $request)
+    public function postContacttypeAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.person_title.handler')->post(
+            $newContactType = $this->container->get('ojs_api.contact_type.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
-                'id' => $newEntity->getId(),
+                'id' => $newContactType->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_contacttypes', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing PersonTitle from the submitted data or create a new PersonTitle at a specific location.
+     * Update existing contact type from the submitted data or create a new contact type at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
+     *   input = "Ojs\JournalBundle\Form\Type\ContactTypesType",
      *   statusCodes = {
-     *     201 = "Returned when the PersonTitle is created",
+     *     201 = "Returned when the ContactType is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the PersonTitle id
+     * @param int     $id      the contact type id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when PersonTitle not exist
+     * @throws NotFoundHttpException when contact type not exist
      */
-    public function putPersontitleAction(Request $request, $id)
+    public function putContacttypeAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.person_title.handler')->get($id))) {
+            if (!($contactType = $this->container->get('ojs_api.contact_type.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.person_title.handler')->post(
+                $contactType = $this->container->get('ojs_api.contact_type.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.person_title.handler')->put(
-                    $entity,
+                $contactType = $this->container->get('ojs_api.contact_type.handler')->put(
+                    $contactType,
                     $request->request->all()
                 );
             }
             $routeOptions = array(
-                'id' => $entity->getId(),
+                'id' => $contactType->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_contacttype', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing person_title from the submitted data or create a new person_title at a specific location.
+     * Update existing contact type from the submitted data or create a new contact type at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
+     *   input = "Ojs\JournalBundle\Form\Type\ContactTypesType",
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -174,24 +177,24 @@ class PersonTitleRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the person_title id
+     * @param int     $id      the contact type id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when person_title not exist
+     * @throws NotFoundHttpException when contact type not exist
      */
-    public function patchPersontitleAction(Request $request, $id)
+    public function patchContacttypeAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.person_title.handler')->patch(
+            $contactType = $this->container->get('ojs_api.contact_type.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
             $routeOptions = array(
-                'id' => $entity->getId(),
+                'id' => $contactType->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_contacttype', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -203,13 +206,13 @@ class PersonTitleRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete PersonTitle",
+     *      description = "Delete Contact Type",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "PersonTitle ID"
+     *              "description" = "Contact Type ID"
      *          }
      *      },
      *      statusCodes = {
@@ -219,27 +222,27 @@ class PersonTitleRestController extends FOSRestController
      * )
      *
      */
-    public function deletePersontitleAction($id)
+    public function deleteContacttypeAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.person_title.handler')->delete($entity);
+        $this->container->get('ojs_api.contact_type.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a PersonTitle or throw an 404 Exception.
+     * Fetch a Contact Type or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return PersonTitle
+     * @return ContactTypesInterface
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.person_title.handler')->get($id))) {
+        if (!($contactType = $this->container->get('ojs_api.contact_type.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
-        return $entity;
+        return $contactType;
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\CmsBundle\Form\Type\PostType;
-use Ojs\AdminBundle\Entity\AdminPost;
+use Ojs\AdminBundle\Form\Type\PublisherType;
+use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -15,10 +15,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class PostRestController extends FOSRestController
+class PublisherRestController extends FOSRestController
 {
     /**
-     * List all Posts.
+     * List all Publishers.
      *
      * @ApiDoc(
      *   resource = true,
@@ -27,8 +27,8 @@ class PostRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Posts.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Posts to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Publishers.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Publishers to return.")
      *
      *
      * @param Request               $request      the request object
@@ -36,41 +36,41 @@ class PostRestController extends FOSRestController
      *
      * @return array
      */
-    public function getPostsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getPublishersAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.post.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.publisher.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Post.
+     * Get single Publisher.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Post for a given id",
-     *   output = "Ojs\PostBundle\Entity\Post",
+     *   description = "Gets a Publisher for a given id",
+     *   output = "Ojs\PublisherBundle\Entity\Publisher",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Post is not found"
+     *     404 = "Returned when the Publisher is not found"
      *   }
      * )
      *
-     * @param int     $id      the Post id
+     * @param int     $id      the Publisher id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when Post not exist
+     * @throws NotFoundHttpException when Publisher not exist
      */
-    public function getPostAction($id)
+    public function getPublisherAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new Post.
+     * Presents the form to use to create a new Publisher.
      *
      * @ApiDoc(
      *   resource = true,
@@ -81,17 +81,17 @@ class PostRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newPostAction()
+    public function newPublisherAction()
     {
-        return $this->createForm(new PostType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new PublisherType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Post from the submitted data.
+     * Create a Publisher from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Post from the submitted data.",
+     *   description = "Creates a new Publisher from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -102,52 +102,52 @@ class PostRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postPostAction(Request $request)
+    public function postPublisherAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.post.handler')->post(
+            $newEntity = $this->container->get('ojs_api.publisher.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_posts', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_publishers', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing Post from the submitted data or create a new Post at a specific location.
+     * Update existing Publisher from the submitted data or create a new Publisher at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Post is created",
+     *     201 = "Returned when the Publisher is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Post id
+     * @param int     $id      the Publisher id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Post not exist
+     * @throws NotFoundHttpException when Publisher not exist
      */
-    public function putPostAction(Request $request, $id)
+    public function putPublisherAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.post.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.publisher.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.post.handler')->post(
+                $entity = $this->container->get('ojs_api.publisher.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.post.handler')->put(
+                $entity = $this->container->get('ojs_api.publisher.handler')->put(
                     $entity,
                     $request->request->all()
                 );
@@ -156,14 +156,14 @@ class PostRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_post', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_publisher', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing post from the submitted data or create a new post at a specific location.
+     * Update existing publisher from the submitted data or create a new publisher at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -174,16 +174,16 @@ class PostRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the post id
+     * @param int     $id      the publisher id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when post not exist
+     * @throws NotFoundHttpException when publisher not exist
      */
-    public function patchPostAction(Request $request, $id)
+    public function patchPublisherAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.post.handler')->patch(
+            $entity = $this->container->get('ojs_api.publisher.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
@@ -191,7 +191,7 @@ class PostRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_post', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_publisher', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -203,13 +203,13 @@ class PostRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Post",
+     *      description = "Delete Publisher",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Post ID"
+     *              "description" = "Publisher ID"
      *          }
      *      },
      *      statusCodes = {
@@ -219,25 +219,25 @@ class PostRestController extends FOSRestController
      * )
      *
      */
-    public function deletePostAction($id)
+    public function deletePublisherAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.post.handler')->delete($entity);
+        $this->container->get('ojs_api.publisher.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a Post or throw an 404 Exception.
+     * Fetch a Publisher or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return AdminPost
+     * @return Publisher
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.post.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.publisher.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

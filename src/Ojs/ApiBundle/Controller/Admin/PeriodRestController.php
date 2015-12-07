@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\CmsBundle\Form\Type\PageType;
-use Ojs\AdminBundle\Entity\AdminPage;
+use Ojs\AdminBundle\Form\Type\PeriodType;
+use Ojs\JournalBundle\Entity\Period;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -15,10 +15,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class PageRestController extends FOSRestController
+class PeriodRestController extends FOSRestController
 {
     /**
-     * List all Pages.
+     * List all Periods.
      *
      * @ApiDoc(
      *   resource = true,
@@ -27,8 +27,8 @@ class PageRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Pages.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Pages to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Periods.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Periods to return.")
      *
      *
      * @param Request               $request      the request object
@@ -36,41 +36,41 @@ class PageRestController extends FOSRestController
      *
      * @return array
      */
-    public function getPagesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getPeriodsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.page.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.period.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Page.
+     * Get single Period.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Page for a given id",
-     *   output = "Ojs\PageBundle\Entity\Page",
+     *   description = "Gets a Period for a given id",
+     *   output = "Ojs\PeriodBundle\Entity\Period",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Page is not found"
+     *     404 = "Returned when the Period is not found"
      *   }
      * )
      *
-     * @param int     $id      the Page id
+     * @param int     $id      the Period id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when Page not exist
+     * @throws NotFoundHttpException when Period not exist
      */
-    public function getPageAction($id)
+    public function getPeriodAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new Page.
+     * Presents the form to use to create a new Period.
      *
      * @ApiDoc(
      *   resource = true,
@@ -81,17 +81,17 @@ class PageRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newPageAction()
+    public function newPeriodAction()
     {
-        return $this->createForm(new PageType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new PeriodType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Page from the submitted data.
+     * Create a Period from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Page from the submitted data.",
+     *   description = "Creates a new Period from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -102,52 +102,52 @@ class PageRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postPageAction(Request $request)
+    public function postPeriodAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.page.handler')->post(
+            $newEntity = $this->container->get('ojs_api.period.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_pages', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_periods', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing Page from the submitted data or create a new Page at a specific location.
+     * Update existing Period from the submitted data or create a new Period at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Page is created",
+     *     201 = "Returned when the Period is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Page id
+     * @param int     $id      the Period id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Page not exist
+     * @throws NotFoundHttpException when Period not exist
      */
-    public function putPageAction(Request $request, $id)
+    public function putPeriodAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.page.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.period.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.page.handler')->post(
+                $entity = $this->container->get('ojs_api.period.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.page.handler')->put(
+                $entity = $this->container->get('ojs_api.period.handler')->put(
                     $entity,
                     $request->request->all()
                 );
@@ -156,14 +156,14 @@ class PageRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_page', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_period', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing page from the submitted data or create a new page at a specific location.
+     * Update existing period from the submitted data or create a new period at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -174,16 +174,16 @@ class PageRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the page id
+     * @param int     $id      the period id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when page not exist
+     * @throws NotFoundHttpException when period not exist
      */
-    public function patchPageAction(Request $request, $id)
+    public function patchPeriodAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.page.handler')->patch(
+            $entity = $this->container->get('ojs_api.period.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
@@ -191,7 +191,7 @@ class PageRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_page', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_period', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -203,13 +203,13 @@ class PageRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Page",
+     *      description = "Delete Period",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Page ID"
+     *              "description" = "Period ID"
      *          }
      *      },
      *      statusCodes = {
@@ -219,25 +219,25 @@ class PageRestController extends FOSRestController
      * )
      *
      */
-    public function deletePageAction($id)
+    public function deletePeriodAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.page.handler')->delete($entity);
+        $this->container->get('ojs_api.period.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a Page or throw an 404 Exception.
+     * Fetch a Period or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return AdminPage
+     * @return Period
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.page.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.period.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

@@ -1,12 +1,14 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
-use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\JournalBundle\Form\Type\ArticleType;
-use Ojs\JournalBundle\Entity\Article;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use FOS\RestBundle\Controller\Annotations\View;
+use Ojs\AdminBundle\Form\Type\ContactType;
+use Ojs\JournalBundle\Entity\JournalContact;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -15,10 +17,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class JournalArticleRestController extends FOSRestController
+class ContactRestController extends FOSRestController
 {
     /**
-     * List all Articles.
+     * List all Contacts.
      *
      * @ApiDoc(
      *   resource = true,
@@ -27,8 +29,8 @@ class JournalArticleRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Articles.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Articles to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Contacts.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Contacts to return.")
      *
      *
      * @param Request               $request      the request object
@@ -36,41 +38,41 @@ class JournalArticleRestController extends FOSRestController
      *
      * @return array
      */
-    public function getArticlesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getContactsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.journal_article.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.contact.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Article.
+     * Get single Contact.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Article for a given id",
-     *   output = "Ojs\ArticleBundle\Entity\Article",
+     *   description = "Gets a Contact for a given id",
+     *   output = "Ojs\ContactBundle\Entity\Contact",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Article is not found"
+     *     404 = "Returned when the Contact is not found"
      *   }
      * )
      *
-     * @param int     $id      the Article id
+     * @param int     $id      the Contact id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when Article not exist
+     * @throws NotFoundHttpException when Contact not exist
      */
-    public function getArticleAction($id)
+    public function getContactAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new Article.
+     * Presents the form to use to create a new Contact.
      *
      * @ApiDoc(
      *   resource = true,
@@ -81,17 +83,17 @@ class JournalArticleRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newArticleAction()
+    public function newContactAction()
     {
-        return $this->createForm(new ArticleType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new ContactType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Article from the submitted data.
+     * Create a Contact from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Article from the submitted data.",
+     *   description = "Creates a new Contact from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -102,72 +104,68 @@ class JournalArticleRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postArticleAction(Request $request)
+    public function postContactAction(Request $request)
     {
         try {
-            $journalService = $this->container->get('ojs.journal_service');
-            $newEntity = $this->container->get('ojs_api.journal_article.handler')->post(
+            $newEntity = $this->container->get('ojs_api.contact.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
-                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_themes', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_contacts', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing Article from the submitted data or create a new Article at a specific location.
+     * Update existing Contact from the submitted data or create a new Contact at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Article is created",
+     *     201 = "Returned when the Contact is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Article id
+     * @param int     $id      the Contact id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Article not exist
+     * @throws NotFoundHttpException when Contact not exist
      */
-    public function putArticleAction(Request $request, $id)
+    public function putContactAction(Request $request, $id)
     {
         try {
-            $journalService = $this->container->get('ojs.journal_service');
-            if (!($entity = $this->container->get('ojs_api.journal_article.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.contact.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.journal_article.handler')->post(
+                $entity = $this->container->get('ojs_api.contact.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.journal_article.handler')->put(
+                $entity = $this->container->get('ojs_api.contact.handler')->put(
                     $entity,
                     $request->request->all()
                 );
             }
             $routeOptions = array(
                 'id' => $entity->getId(),
-                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_theme', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_contact', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing journal_article from the submitted data or create a new journal_article at a specific location.
+     * Update existing contact from the submitted data or create a new contact at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -178,26 +176,24 @@ class JournalArticleRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the journal_article id
+     * @param int     $id      the contact id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when journal_article not exist
+     * @throws NotFoundHttpException when contact not exist
      */
-    public function patchArticleAction(Request $request, $id)
+    public function patchContactAction(Request $request, $id)
     {
         try {
-            $journalService = $this->container->get('ojs.journal_service');
-            $entity = $this->container->get('ojs_api.journal_article.handler')->patch(
+            $entity = $this->container->get('ojs_api.contact.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $entity->getId(),
-                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_theme', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_contact', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -209,13 +205,13 @@ class JournalArticleRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Article",
+     *      description = "Delete Contact",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Article ID"
+     *              "description" = "Contact ID"
      *          }
      *      },
      *      statusCodes = {
@@ -225,25 +221,25 @@ class JournalArticleRestController extends FOSRestController
      * )
      *
      */
-    public function deleteArticleAction($id)
+    public function deleteContactAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.journal_article.handler')->delete($entity);
+        $this->container->get('ojs_api.contact.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a Article or throw an 404 Exception.
+     * Fetch a Contact or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return Article
+     * @return JournalContact
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.journal_article.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.contact.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

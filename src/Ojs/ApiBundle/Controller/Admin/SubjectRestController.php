@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\AdminBundle\Form\Type\PublisherTypesType;
-use Ojs\JournalBundle\Entity\PublisherTypes;
+use Ojs\AdminBundle\Form\Type\SubjectType;
+use Ojs\JournalBundle\Entity\Subject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -15,10 +15,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class PublisherTypeRestController extends FOSRestController
+class SubjectRestController extends FOSRestController
 {
     /**
-     * List all PublisherTypes.
+     * List all Subjects.
      *
      * @ApiDoc(
      *   resource = true,
@@ -27,8 +27,8 @@ class PublisherTypeRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing PublisherTypes.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many PublisherTypes to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Subjects.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Subjects to return.")
      *
      *
      * @param Request               $request      the request object
@@ -36,41 +36,41 @@ class PublisherTypeRestController extends FOSRestController
      *
      * @return array
      */
-    public function getPublishertypesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getSubjectsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.publisher_type.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.subject.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single PublisherType.
+     * Get single Subject.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a PublisherType for a given id",
-     *   output = "Ojs\PublisherTypeBundle\Entity\PublisherType",
+     *   description = "Gets a Subject for a given id",
+     *   output = "Ojs\SubjectBundle\Entity\Subject",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the PublisherType is not found"
+     *     404 = "Returned when the Subject is not found"
      *   }
      * )
      *
-     * @param int     $id      the PublisherType id
+     * @param int     $id      the Subject id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when PublisherType not exist
+     * @throws NotFoundHttpException when Subject not exist
      */
-    public function getPublishertypeAction($id)
+    public function getSubjectAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new PublisherType.
+     * Presents the form to use to create a new Subject.
      *
      * @ApiDoc(
      *   resource = true,
@@ -81,17 +81,17 @@ class PublisherTypeRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newPublishertypeAction()
+    public function newSubjectAction()
     {
-        return $this->createForm(new PublisherTypesType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new SubjectType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a PublisherType from the submitted data.
+     * Create a Subject from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new PublisherType from the submitted data.",
+     *   description = "Creates a new Subject from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -102,52 +102,52 @@ class PublisherTypeRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postPublishertypeAction(Request $request)
+    public function postSubjectAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.publisher_type.handler')->post(
+            $newEntity = $this->container->get('ojs_api.subject.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_subjects', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing PublisherType from the submitted data or create a new PublisherType at a specific location.
+     * Update existing Subject from the submitted data or create a new Subject at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the PublisherType is created",
+     *     201 = "Returned when the Subject is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the PublisherType id
+     * @param int     $id      the Subject id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when PublisherType not exist
+     * @throws NotFoundHttpException when Subject not exist
      */
-    public function putPublishertypeAction(Request $request, $id)
+    public function putSubjectAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.publisher_type.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.subject.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.publisher_type.handler')->post(
+                $entity = $this->container->get('ojs_api.subject.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.publisher_type.handler')->put(
+                $entity = $this->container->get('ojs_api.subject.handler')->put(
                     $entity,
                     $request->request->all()
                 );
@@ -156,14 +156,14 @@ class PublisherTypeRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_subject', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing publisherType from the submitted data or create a new publisherType at a specific location.
+     * Update existing subject from the submitted data or create a new subject at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -174,16 +174,16 @@ class PublisherTypeRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the publisherType id
+     * @param int     $id      the subject id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when publisherType not exist
+     * @throws NotFoundHttpException when subject not exist
      */
-    public function patchPublishertypeAction(Request $request, $id)
+    public function patchSubjectAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.publisher_type.handler')->patch(
+            $entity = $this->container->get('ojs_api.subject.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
@@ -191,7 +191,7 @@ class PublisherTypeRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_subject', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -203,13 +203,13 @@ class PublisherTypeRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete PublisherType",
+     *      description = "Delete Subject",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "PublisherType ID"
+     *              "description" = "Subject ID"
      *          }
      *      },
      *      statusCodes = {
@@ -219,25 +219,25 @@ class PublisherTypeRestController extends FOSRestController
      * )
      *
      */
-    public function deletePublishertypeAction($id)
+    public function deleteSubjectAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.publisher_type.handler')->delete($entity);
+        $this->container->get('ojs_api.subject.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a PublisherType or throw an 404 Exception.
+     * Fetch a Subject or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return PublisherTypes
+     * @return Subject
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.publisher_type.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.subject.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

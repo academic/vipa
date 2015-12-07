@@ -1,15 +1,13 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Journal;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\CmsBundle\Entity\Announcement;
-use Ojs\CmsBundle\Form\Type\AnnouncementType;
-use Ojs\AdminBundle\Entity\AdminAnnouncement;
+use Ojs\JournalBundle\Form\Type\IssueType;
+use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -17,10 +15,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class AnnouncementRestController extends FOSRestController
+class JournalIssueRestController extends FOSRestController
 {
     /**
-     * List all Announcements.
+     * List all Issues.
      *
      * @ApiDoc(
      *   resource = true,
@@ -29,49 +27,50 @@ class AnnouncementRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Announcements.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Announcements to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Issues.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Issues to return.")
      *
      *
+     * @param Request               $request      the request object
      * @param ParamFetcherInterface $paramFetcher param fetcher service
      *
      * @return array
      */
-    public function getAnnouncementsAction(ParamFetcherInterface $paramFetcher)
+    public function getIssuesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.announcement.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.journal_issue.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Announcement.
+     * Get single Issue.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Announcement for a given id",
-     *   output = "Ojs\AnnouncementBundle\Entity\Announcement",
+     *   description = "Gets a Issue for a given id",
+     *   output = "Ojs\IssueBundle\Entity\Issue",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Announcement is not found"
+     *     404 = "Returned when the Issue is not found"
      *   }
      * )
      *
-     * @param int     $id      the Announcement id
+     * @param int     $id      the Issue id
      *
-     * @return Announcement
+     * @return array
      *
-     * @throws NotFoundHttpException when Announcement not exist
+     * @throws NotFoundHttpException when Issue not exist
      */
-    public function getAnnouncementAction($id)
+    public function getIssueAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new Announcement.
+     * Presents the form to use to create a new Issue.
      *
      * @ApiDoc(
      *   resource = true,
@@ -80,19 +79,19 @@ class AnnouncementRestController extends FOSRestController
      *   }
      * )
      *
-     * @return \Symfony\Component\Form\Form
+     * @return FormTypeInterface
      */
-    public function newAnnouncementAction()
+    public function newIssueAction()
     {
-        return $this->createForm(new AnnouncementType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new IssueType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Announcement from the submitted data.
+     * Create a Issue from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Announcement from the submitted data.",
+     *   description = "Creates a new Issue from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -103,68 +102,72 @@ class AnnouncementRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postAnnouncementAction(Request $request)
+    public function postIssueAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.announcement.handler')->post(
+            $journalService = $this->container->get('ojs.journal_service');
+            $newEntity = $this->container->get('ojs_api.journal_issue.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
+                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_announcements', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_issues', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing Announcement from the submitted data or create a new Announcement at a specific location.
+     * Update existing Issue from the submitted data or create a new Issue at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Announcement is created",
+     *     201 = "Returned when the Issue is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Announcement id
+     * @param int     $id      the Issue id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Announcement not exist
+     * @throws NotFoundHttpException when Issue not exist
      */
-    public function putAnnouncementAction(Request $request, $id)
+    public function putIssueAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.announcement.handler')->get($id))) {
+            $journalService = $this->container->get('ojs.journal_service');
+            if (!($entity = $this->container->get('ojs_api.journal_issue.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.announcement.handler')->post(
+                $entity = $this->container->get('ojs_api.journal_issue.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.announcement.handler')->put(
+                $entity = $this->container->get('ojs_api.journal_issue.handler')->put(
                     $entity,
                     $request->request->all()
                 );
             }
             $routeOptions = array(
                 'id' => $entity->getId(),
+                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_announcement', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_issue', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing announcement from the submitted data or create a new announcement at a specific location.
+     * Update existing journal_issue from the submitted data or create a new journal_issue at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -175,24 +178,26 @@ class AnnouncementRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the announcement id
+     * @param int     $id      the journal_issue id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when announcement not exist
+     * @throws NotFoundHttpException when journal_issue not exist
      */
-    public function patchAnnouncementAction(Request $request, $id)
+    public function patchIssueAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.announcement.handler')->patch(
+            $journalService = $this->container->get('ojs.journal_service');
+            $entity = $this->container->get('ojs_api.journal_issue.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $entity->getId(),
+                'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_announcement', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_issue', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -201,16 +206,16 @@ class AnnouncementRestController extends FOSRestController
     /**
      * @param $id
      * @throws NotFoundHttpException
-     * @return View
+     * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Announcement",
+     *      description = "Delete Issue",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Announcement ID"
+     *              "description" = "Issue ID"
      *          }
      *      },
      *      statusCodes = {
@@ -220,25 +225,25 @@ class AnnouncementRestController extends FOSRestController
      * )
      *
      */
-    public function deleteAnnouncementAction($id)
+    public function deleteIssueAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.announcement.handler')->delete($entity);
+        $this->container->get('ojs_api.journal_issue.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a Announcement or throw an 404 Exception.
+     * Fetch a Issue or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return AdminAnnouncement
+     * @return Issue
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.announcement.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.journal_issue.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

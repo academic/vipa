@@ -1,13 +1,15 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\AdminBundle\Form\Type\PeriodType;
-use Ojs\JournalBundle\Entity\Period;
+use Ojs\AdminBundle\Form\Type\JournalType;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -15,10 +17,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class PeriodRestController extends FOSRestController
+class JournalRestController extends FOSRestController
 {
     /**
-     * List all Periods.
+     * List all Journals.
      *
      * @ApiDoc(
      *   resource = true,
@@ -27,8 +29,8 @@ class PeriodRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Periods.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Periods to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Journals.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Journals to return.")
      *
      *
      * @param Request               $request      the request object
@@ -36,41 +38,41 @@ class PeriodRestController extends FOSRestController
      *
      * @return array
      */
-    public function getPeriodsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getJournalsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.period.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.journal.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Period.
+     * Get single Journal.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Period for a given id",
-     *   output = "Ojs\PeriodBundle\Entity\Period",
+     *   description = "Gets a Journal for a given id",
+     *   output = "Ojs\JournalBundle\Entity\Journal",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Period is not found"
+     *     404 = "Returned when the Journal is not found"
      *   }
      * )
      *
-     * @param int     $id      the Period id
+     * @param int     $id      the Journal id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when Period not exist
+     * @throws NotFoundHttpException when Journal not exist
      */
-    public function getPeriodAction($id)
+    public function getJournalAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new Period.
+     * Presents the form to use to create a new Journal.
      *
      * @ApiDoc(
      *   resource = true,
@@ -81,17 +83,17 @@ class PeriodRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newPeriodAction()
+    public function newJournalAction()
     {
-        return $this->createForm(new PeriodType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new JournalType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Period from the submitted data.
+     * Create a Journal from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Period from the submitted data.",
+     *   description = "Creates a new Journal from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -102,52 +104,52 @@ class PeriodRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postPeriodAction(Request $request)
+    public function postJournalAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.period.handler')->post(
+            $newEntity = $this->container->get('ojs_api.journal.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_periods', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_journals', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing Period from the submitted data or create a new Period at a specific location.
+     * Update existing Journal from the submitted data or create a new Journal at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Period is created",
+     *     201 = "Returned when the Journal is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Period id
+     * @param int     $id      the Journal id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Period not exist
+     * @throws NotFoundHttpException when Journal not exist
      */
-    public function putPeriodAction(Request $request, $id)
+    public function putJournalAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.period.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.journal.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.period.handler')->post(
+                $entity = $this->container->get('ojs_api.journal.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.period.handler')->put(
+                $entity = $this->container->get('ojs_api.journal.handler')->put(
                     $entity,
                     $request->request->all()
                 );
@@ -156,14 +158,14 @@ class PeriodRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_period', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_journal', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing period from the submitted data or create a new period at a specific location.
+     * Update existing journal from the submitted data or create a new journal at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -174,16 +176,16 @@ class PeriodRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the period id
+     * @param int     $id      the journal id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when period not exist
+     * @throws NotFoundHttpException when journal not exist
      */
-    public function patchPeriodAction(Request $request, $id)
+    public function patchJournalAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.period.handler')->patch(
+            $entity = $this->container->get('ojs_api.journal.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
@@ -191,7 +193,7 @@ class PeriodRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_period', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_journal', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -203,13 +205,13 @@ class PeriodRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Period",
+     *      description = "Delete Journal",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Period ID"
+     *              "description" = "Journal ID"
      *          }
      *      },
      *      statusCodes = {
@@ -219,27 +221,64 @@ class PeriodRestController extends FOSRestController
      * )
      *
      */
-    public function deletePeriodAction($id)
+    public function deleteJournalAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.period.handler')->delete($entity);
+        $this->container->get('ojs_api.journal.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a Period or throw an 404 Exception.
+     * Fetch a Journal or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return Period
+     * @return Journal
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.period.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.journal.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;
+    }
+
+    /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get Specific Journal Of Users Action",
+     *  parameters={
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="offset page"
+     *      },
+     *      {
+     *          "name"="limit",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/journal/{id}/users")
+     *
+     * @param  Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function getJournalUsersAction(Request $request, $id)
+    {
+        $limit = $request->get('limit');
+        $page = (int) $request->get('page'); // page is not a mandotary parameter
+        if (empty($limit)) {
+            throw new HttpException(400, 'Missing parameter : limit');
+        }
+
+        return $this->get('ojs.journal_service')->getUsers($id, $page, $limit);
     }
 }

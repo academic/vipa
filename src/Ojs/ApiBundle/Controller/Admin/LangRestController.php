@@ -1,14 +1,12 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
-use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use FOS\RestBundle\Controller\Annotations\View;
-use Ojs\AdminBundle\Form\Type\ContactType;
-use Ojs\JournalBundle\Entity\JournalContact;
+use Ojs\AdminBundle\Form\Type\LangType;
+use Ojs\JournalBundle\Entity\Lang;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -17,10 +15,10 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class ContactRestController extends FOSRestController
+class LangRestController extends FOSRestController
 {
     /**
-     * List all Contacts.
+     * List all Langs.
      *
      * @ApiDoc(
      *   resource = true,
@@ -29,8 +27,8 @@ class ContactRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Contacts.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Contacts to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Langs.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Langs to return.")
      *
      *
      * @param Request               $request      the request object
@@ -38,41 +36,41 @@ class ContactRestController extends FOSRestController
      *
      * @return array
      */
-    public function getContactsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getLangsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.contact.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.lang.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Contact.
+     * Get single Lang.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Contact for a given id",
-     *   output = "Ojs\ContactBundle\Entity\Contact",
+     *   description = "Gets a Lang for a given id",
+     *   output = "Ojs\LangBundle\Entity\Lang",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Contact is not found"
+     *     404 = "Returned when the Lang is not found"
      *   }
      * )
      *
-     * @param int     $id      the Contact id
+     * @param int     $id      the Lang id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when Contact not exist
+     * @throws NotFoundHttpException when Lang not exist
      */
-    public function getContactAction($id)
+    public function getLangAction($id)
     {
         $entity = $this->getOr404($id);
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new Contact.
+     * Presents the form to use to create a new Lang.
      *
      * @ApiDoc(
      *   resource = true,
@@ -83,17 +81,17 @@ class ContactRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newContactAction()
+    public function newLangAction()
     {
-        return $this->createForm(new ContactType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new LangType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Contact from the submitted data.
+     * Create a Lang from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Contact from the submitted data.",
+     *   description = "Creates a new Lang from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -104,52 +102,52 @@ class ContactRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postContactAction(Request $request)
+    public function postLangAction(Request $request)
     {
         try {
-            $newEntity = $this->container->get('ojs_api.contact.handler')->post(
+            $newEntity = $this->container->get('ojs_api.lang.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_contacts', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_langs', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing Contact from the submitted data or create a new Contact at a specific location.
+     * Update existing Lang from the submitted data or create a new Lang at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Contact is created",
+     *     201 = "Returned when the Lang is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Contact id
+     * @param int     $id      the Lang id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Contact not exist
+     * @throws NotFoundHttpException when Lang not exist
      */
-    public function putContactAction(Request $request, $id)
+    public function putLangAction(Request $request, $id)
     {
         try {
-            if (!($entity = $this->container->get('ojs_api.contact.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.lang.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.contact.handler')->post(
+                $entity = $this->container->get('ojs_api.lang.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.contact.handler')->put(
+                $entity = $this->container->get('ojs_api.lang.handler')->put(
                     $entity,
                     $request->request->all()
                 );
@@ -158,14 +156,14 @@ class ContactRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_contact', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_lang', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing contact from the submitted data or create a new contact at a specific location.
+     * Update existing lang from the submitted data or create a new lang at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -176,16 +174,16 @@ class ContactRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the contact id
+     * @param int     $id      the lang id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when contact not exist
+     * @throws NotFoundHttpException when lang not exist
      */
-    public function patchContactAction(Request $request, $id)
+    public function patchLangAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.contact.handler')->patch(
+            $entity = $this->container->get('ojs_api.lang.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
@@ -193,7 +191,7 @@ class ContactRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_contact', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_lang', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -205,13 +203,13 @@ class ContactRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Contact",
+     *      description = "Delete Lang",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Contact ID"
+     *              "description" = "Lang ID"
      *          }
      *      },
      *      statusCodes = {
@@ -221,25 +219,25 @@ class ContactRestController extends FOSRestController
      * )
      *
      */
-    public function deleteContactAction($id)
+    public function deleteLangAction($id)
     {
         $entity = $this->getOr404($id);
-        $this->container->get('ojs_api.contact.handler')->delete($entity);
+        $this->container->get('ojs_api.lang.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a Contact or throw an 404 Exception.
+     * Fetch a Lang or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return JournalContact
+     * @return Lang
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.contact.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.lang.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

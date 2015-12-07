@@ -1,25 +1,24 @@
 <?php
 
-namespace Ojs\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller\Admin;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\AdminBundle\Form\Type\ArticleTypesType;
-use Ojs\JournalBundle\Entity\ArticleTypes;
+use Ojs\AdminBundle\Form\Type\IndexType;
+use Ojs\JournalBundle\Entity\Index;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
-class ArticleTypeRestController extends FOSRestController
+class IndexRestController extends FOSRestController
 {
     /**
-     * List all ArticleTypes.
+     * List all Indexs.
      *
      * @ApiDoc(
      *   resource = true,
@@ -28,8 +27,8 @@ class ArticleTypeRestController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing ArticleTypes.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many ArticleTypes to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Indexs.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Indexs to return.")
      *
      *
      * @param Request               $request      the request object
@@ -37,47 +36,41 @@ class ArticleTypeRestController extends FOSRestController
      *
      * @return array
      */
-    public function getArticletypesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getIndexesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        if (!$this->isGranted('VIEW', new ArticleTypes())) {
-            throw new AccessDeniedHttpException;
-        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('ojs_api.article_type.handler')->all($limit, $offset);
+        return $this->container->get('ojs_api.index.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single ArticleType.
+     * Get single Index.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a ArticleType for a given id",
-     *   output = "Ojs\ArticleTypeBundle\Entity\ArticleType",
+     *   description = "Gets a Index for a given id",
+     *   output = "Ojs\IndexBundle\Entity\Index",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the ArticleType is not found"
+     *     404 = "Returned when the Index is not found"
      *   }
      * )
      *
-     * @param int     $id      the ArticleType id
+     * @param int     $id      the Index id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when ArticleType not exist
+     * @throws NotFoundHttpException when Index not exist
      */
-    public function getArticletypeAction($id)
+    public function getIndexsAction($id)
     {
         $entity = $this->getOr404($id);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedHttpException;
-        }
         return $entity;
     }
 
     /**
-     * Presents the form to use to create a new ArticleType.
+     * Presents the form to use to create a new Index.
      *
      * @ApiDoc(
      *   resource = true,
@@ -88,20 +81,17 @@ class ArticleTypeRestController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newArticletypeAction()
+    public function newIndexesAction()
     {
-        if (!$this->isGranted('CREATE', new ArticleTypes())) {
-            throw new AccessDeniedHttpException;
-        }
-        return $this->createForm(new ArticleTypesType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new IndexType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a ArticleType from the submitted data.
+     * Create a Index from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new ArticleType from the submitted data.",
+     *   description = "Creates a new Index from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -112,58 +102,52 @@ class ArticleTypeRestController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postArticletypeAction(Request $request)
+    public function postIndexesAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new ArticleTypes())) {
-            throw new AccessDeniedHttpException;
-        }
         try {
-            $newEntity = $this->container->get('ojs_api.article_type.handler')->post(
+            $newEntity = $this->container->get('ojs_api.index.handler')->post(
                 $request->request->all()
             );
             $routeOptions = array(
                 'id' => $newEntity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_indexs', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing ArticleType from the submitted data or create a new ArticleType at a specific location.
+     * Update existing Index from the submitted data or create a new Index at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the ArticleType is created",
+     *     201 = "Returned when the Index is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the ArticleType id
+     * @param int     $id      the Index id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when ArticleType not exist
+     * @throws NotFoundHttpException when Index not exist
      */
-    public function putArticletypeAction(Request $request, $id)
+    public function putIndexesAction(Request $request, $id)
     {
-        if (!$this->isGranted('CREATE', new ArticleTypes())) {
-            throw new AccessDeniedHttpException;
-        }
         try {
-            if (!($entity = $this->container->get('ojs_api.article_type.handler')->get($id))) {
+            if (!($entity = $this->container->get('ojs_api.index.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $entity = $this->container->get('ojs_api.article_type.handler')->post(
+                $entity = $this->container->get('ojs_api.index.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $entity = $this->container->get('ojs_api.article_type.handler')->put(
+                $entity = $this->container->get('ojs_api.index.handler')->put(
                     $entity,
                     $request->request->all()
                 );
@@ -172,14 +156,14 @@ class ArticleTypeRestController extends FOSRestController
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_indexs', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing article_type from the submitted data or create a new article_type at a specific location.
+     * Update existing index from the submitted data or create a new index at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
@@ -190,27 +174,24 @@ class ArticleTypeRestController extends FOSRestController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the article_type id
+     * @param int     $id      the index id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when article_type not exist
+     * @throws NotFoundHttpException when index not exist
      */
-    public function patchArticletypeAction(Request $request, $id)
+    public function patchIndexesAction(Request $request, $id)
     {
         try {
-            $entity = $this->container->get('ojs_api.article_type.handler')->patch(
+            $entity = $this->container->get('ojs_api.index.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
-            if (!$this->isGranted('EDIT', $entity)) {
-                throw new AccessDeniedHttpException;
-            }
             $routeOptions = array(
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_persontitle', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_indexs', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -222,13 +203,13 @@ class ArticleTypeRestController extends FOSRestController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete ArticleType",
+     *      description = "Delete Index",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "ArticleType ID"
+     *              "description" = "Index ID"
      *          }
      *      },
      *      statusCodes = {
@@ -238,28 +219,25 @@ class ArticleTypeRestController extends FOSRestController
      * )
      *
      */
-    public function deleteArticletypeAction($id)
+    public function deleteIndexesAction($id)
     {
         $entity = $this->getOr404($id);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedHttpException;
-        }
-        $this->container->get('ojs_api.article_type.handler')->delete($entity);
+        $this->container->get('ojs_api.index.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
 
     /**
-     * Fetch a ArticleType or throw an 404 Exception.
+     * Fetch a Index or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return ArticleTypes
+     * @return Index
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($entity = $this->container->get('ojs_api.article_type.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.index.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;
