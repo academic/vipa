@@ -3,19 +3,20 @@
 namespace Ojs\ApiBundle\Controller\Journal;
 
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Form\Type\IssueType;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
+use Ojs\ApiBundle\Controller\ApiController;
 
-class JournalIssueRestController extends FOSRestController
+class JournalIssueRestController extends ApiController
 {
     /**
      * List all Issues.
@@ -38,6 +39,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function getIssuesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -65,6 +70,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function getIssueAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         $entity = $this->getOr404($id);
         return $entity;
     }
@@ -83,6 +92,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function newIssueAction()
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new IssueType(), null, ['csrf_protection' => false]);
     }
 
@@ -104,6 +117,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function postIssueAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             $newEntity = $this->container->get('ojs_api.journal_issue.handler')->post(
@@ -141,6 +158,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function putIssueAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             if (!($entity = $this->container->get('ojs_api.journal_issue.handler')->get($id))) {
@@ -186,6 +207,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function patchIssueAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             $entity = $this->container->get('ojs_api.journal_issue.handler')->patch(
@@ -227,6 +252,10 @@ class JournalIssueRestController extends FOSRestController
      */
     public function deleteIssueAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('DELETE', $journal, 'issues')) {
+            throw new AccessDeniedHttpException;
+        }
         $entity = $this->getOr404($id);
         $this->container->get('ojs_api.journal_issue.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
