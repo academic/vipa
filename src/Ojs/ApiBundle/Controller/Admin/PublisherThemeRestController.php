@@ -8,6 +8,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\AdminBundle\Form\Type\PublisherThemeType;
 use Ojs\JournalBundle\Entity\PublisherTheme;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -38,6 +39,9 @@ class PublisherThemeRestController extends FOSRestController
      */
     public function getPublisherthemesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        if (!$this->isGranted('VIEW', new PublisherTheme())) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -66,6 +70,9 @@ class PublisherThemeRestController extends FOSRestController
     public function getPublisherthemeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         return $entity;
     }
 
@@ -83,6 +90,9 @@ class PublisherThemeRestController extends FOSRestController
      */
     public function newPublisherthemeAction()
     {
+        if (!$this->isGranted('CREATE', new PublisherTheme())) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new PublisherThemeType(), null, ['csrf_protection' => false]);
     }
 
@@ -104,6 +114,9 @@ class PublisherThemeRestController extends FOSRestController
      */
     public function postPublisherthemeAction(Request $request)
     {
+        if (!$this->isGranted('CREATE', new PublisherTheme())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $newEntity = $this->container->get('ojs_api.publisher_theme.handler')->post(
                 $request->request->all()
@@ -139,6 +152,9 @@ class PublisherThemeRestController extends FOSRestController
      */
     public function putPublisherthemeAction(Request $request, $id)
     {
+        if (!$this->isGranted('CREATE', new PublisherTheme())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             if (!($entity = $this->container->get('ojs_api.publisher_theme.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
@@ -187,6 +203,9 @@ class PublisherThemeRestController extends FOSRestController
                 $this->getOr404($id),
                 $request->request->all()
             );
+            if (!$this->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedHttpException;
+            }
             $routeOptions = array(
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
@@ -222,6 +241,9 @@ class PublisherThemeRestController extends FOSRestController
     public function deletePublisherthemeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         $this->container->get('ojs_api.publisher_theme.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
