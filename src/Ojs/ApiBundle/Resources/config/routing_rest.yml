@@ -90,13 +90,13 @@ api_announcement:
 
 api_publisher_theme:
   type:         rest
-  resource:     "OjsApiBundle:PublisherThemeRest"
+  resource:     "@OjsApiBundle/Controller/Admin/PublisherThemeRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
 
 api_publisher_manager:
   type:         rest
-  resource:     "OjsApiBundle:PublisherManagerRest"
+  resource:     "@OjsApiBundle/Controller/Admin/PublisherManagerRestController.php"
   prefix:       /v1
   name_prefix:  api_1_
 
