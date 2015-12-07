@@ -3,19 +3,20 @@
 namespace Ojs\ApiBundle\Controller\Journal;
 
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Form\Type\ThemeType;
 use Ojs\JournalBundle\Entity\Theme;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
+use Ojs\ApiBundle\Controller\ApiController;
 
-class JournalThemeRestController extends FOSRestController
+class JournalThemeRestController extends ApiController
 {
     /**
      * List all Themes.
@@ -38,6 +39,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function getThemesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -65,6 +70,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function getThemeAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         $entity = $this->getOr404($id);
         return $entity;
     }
@@ -83,6 +92,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function newThemeAction()
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new ThemeType(), null, ['csrf_protection' => false]);
     }
 
@@ -104,6 +117,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function postThemeAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             $newEntity = $this->container->get('ojs_api.journal_theme.handler')->post(
@@ -141,6 +158,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function putThemeAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             if (!($entity = $this->container->get('ojs_api.journal_theme.handler')->get($id))) {
@@ -186,6 +207,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function patchThemeAction(Request $request, $id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $journalService = $this->container->get('ojs.journal_service');
             $entity = $this->container->get('ojs_api.journal_theme.handler')->patch(
@@ -227,6 +252,10 @@ class JournalThemeRestController extends FOSRestController
      */
     public function deleteThemeAction($id)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('DELETE', $journal, 'theme')) {
+            throw new AccessDeniedHttpException;
+        }
         $entity = $this->getOr404($id);
         $this->container->get('ojs_api.journal_theme.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
