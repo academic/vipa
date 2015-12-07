@@ -2,7 +2,9 @@
 
 namespace Ojs\ApiBundle\Controller\Admin;
 
+use Ojs\JournalBundle\Entity\ContactTypes;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
@@ -38,6 +40,9 @@ class ContactTypesRestController extends FOSRestController
      */
     public function getContacttypesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        if (!$this->isGranted('VIEW', new ContactTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -65,8 +70,11 @@ class ContactTypesRestController extends FOSRestController
      */
     public function getContacttypeAction($id)
     {
-        $contactType = $this->getOr404($id);
-        return $contactType;
+        $entity = $this->getOr404($id);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
+        return $entity;
     }
 
     /**
@@ -83,6 +91,9 @@ class ContactTypesRestController extends FOSRestController
      */
     public function newContacttypeAction()
     {
+        if (!$this->isGranted('CREATE', new ContactTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new ContactTypesType(), null, ['csrf_protection' => false]);
     }
 
@@ -105,6 +116,9 @@ class ContactTypesRestController extends FOSRestController
      */
     public function postContacttypeAction(Request $request)
     {
+        if (!$this->isGranted('CREATE', new ContactTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $newContactType = $this->container->get('ojs_api.contact_type.handler')->post(
                 $request->request->all()
@@ -141,6 +155,9 @@ class ContactTypesRestController extends FOSRestController
      */
     public function putContacttypeAction(Request $request, $id)
     {
+        if (!$this->isGranted('CREATE', new ContactTypes())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             if (!($contactType = $this->container->get('ojs_api.contact_type.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
@@ -186,12 +203,15 @@ class ContactTypesRestController extends FOSRestController
     public function patchContacttypeAction(Request $request, $id)
     {
         try {
-            $contactType = $this->container->get('ojs_api.contact_type.handler')->patch(
+            $entity = $this->container->get('ojs_api.contact_type.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
+            if (!$this->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedHttpException;
+            }
             $routeOptions = array(
-                'id' => $contactType->getId(),
+                'id' => $entity->getId(),
                 '_format' => $request->get('_format')
             );
             return $this->routeRedirectView('api_1_get_contacttype', $routeOptions, Codes::HTTP_NO_CONTENT);
@@ -225,6 +245,9 @@ class ContactTypesRestController extends FOSRestController
     public function deleteContacttypeAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         $this->container->get('ojs_api.contact_type.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
