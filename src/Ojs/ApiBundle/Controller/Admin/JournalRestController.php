@@ -9,6 +9,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -40,6 +41,9 @@ class JournalRestController extends FOSRestController
      */
     public function getJournalsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
+        if (!$this->isGranted('VIEW', new Journal())) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -68,6 +72,9 @@ class JournalRestController extends FOSRestController
     public function getJournalAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         return $entity;
     }
 
@@ -85,6 +92,9 @@ class JournalRestController extends FOSRestController
      */
     public function newJournalAction()
     {
+        if (!$this->isGranted('CREATE', new Journal())) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new JournalType(), null, ['csrf_protection' => false]);
     }
 
@@ -106,6 +116,9 @@ class JournalRestController extends FOSRestController
      */
     public function postJournalAction(Request $request)
     {
+        if (!$this->isGranted('CREATE', new Journal())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $newEntity = $this->container->get('ojs_api.journal.handler')->post(
                 $request->request->all()
@@ -141,6 +154,9 @@ class JournalRestController extends FOSRestController
      */
     public function putJournalAction(Request $request, $id)
     {
+        if (!$this->isGranted('CREATE', new Journal())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             if (!($entity = $this->container->get('ojs_api.journal.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
@@ -189,6 +205,9 @@ class JournalRestController extends FOSRestController
                 $this->getOr404($id),
                 $request->request->all()
             );
+            if (!$this->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedHttpException;
+            }
             $routeOptions = array(
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
@@ -224,6 +243,9 @@ class JournalRestController extends FOSRestController
     public function deleteJournalAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         $this->container->get('ojs_api.journal.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
@@ -246,7 +268,7 @@ class JournalRestController extends FOSRestController
     }
 
     /**
-     *
+     * @todo if action not using we can remove this
      * @ApiDoc(
      *  resource=true,
      *  description="Get Specific Journal Of Users Action",
