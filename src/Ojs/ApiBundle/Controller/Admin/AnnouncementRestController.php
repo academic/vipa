@@ -10,6 +10,7 @@ use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -39,6 +40,9 @@ class AnnouncementRestController extends FOSRestController
      */
     public function getAnnouncementsAction(ParamFetcherInterface $paramFetcher)
     {
+        if (!$this->isGranted('VIEW', new AdminAnnouncement())) {
+            throw new AccessDeniedHttpException;
+        }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
@@ -67,6 +71,9 @@ class AnnouncementRestController extends FOSRestController
     public function getAnnouncementAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         return $entity;
     }
 
@@ -84,6 +91,9 @@ class AnnouncementRestController extends FOSRestController
      */
     public function newAnnouncementAction()
     {
+        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
+            throw new AccessDeniedHttpException;
+        }
         return $this->createForm(new AnnouncementType(), null, ['csrf_protection' => false]);
     }
 
@@ -105,6 +115,9 @@ class AnnouncementRestController extends FOSRestController
      */
     public function postAnnouncementAction(Request $request)
     {
+        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             $newEntity = $this->container->get('ojs_api.announcement.handler')->post(
                 $request->request->all()
@@ -140,6 +153,9 @@ class AnnouncementRestController extends FOSRestController
      */
     public function putAnnouncementAction(Request $request, $id)
     {
+        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
+            throw new AccessDeniedHttpException;
+        }
         try {
             if (!($entity = $this->container->get('ojs_api.announcement.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
@@ -188,6 +204,9 @@ class AnnouncementRestController extends FOSRestController
                 $this->getOr404($id),
                 $request->request->all()
             );
+            if (!$this->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedHttpException;
+            }
             $routeOptions = array(
                 'id' => $entity->getId(),
                 '_format' => $request->get('_format')
@@ -223,6 +242,9 @@ class AnnouncementRestController extends FOSRestController
     public function deleteAnnouncementAction($id)
     {
         $entity = $this->getOr404($id);
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedHttpException;
+        }
         $this->container->get('ojs_api.announcement.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
     }
