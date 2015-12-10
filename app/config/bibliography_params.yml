@@ -1,7 +1,21 @@
 parameters:
     citation_types :
          # ref : http://en.wikipedia.org/wiki/BibTeX
-            book: 
+            article:
+                name: article
+                must :
+                    - author
+                    - title
+                    - journal
+                    - year
+                    - volume
+                should :
+                    - number
+                    - pages
+                    - month
+                    - note
+                    - key
+            book:
                 name : book
                 must :
                     - author 
@@ -18,12 +32,18 @@ parameters:
                     - month
                     - note
                     - key
-            journal: 
-                name : journal
+            booklet:
+                name: booklet
                 must :
                     - title
                 should :
-                    - abstract
+                    - author
+                    - howpublished
+                    - address
+                    - month
+                    - year
+                    - note
+                    - key
             conference: 
                 name: conference
                 must :
@@ -43,21 +63,79 @@ parameters:
                     - publisher
                     - note
                     - key
-            article:
-                name: article
+            inbook:
+                name: inbook
                 must :
                     - author
                     - title
-                    - journal 
+                    - chapter
+                    - pages
+                    - publisher
                     - year
                 should :
-                    - volume 
-                    - number 
-                    - pages 
-                    - month 
-                    - note 
+                    - volume
+                    - number
+                    - series
+                    - type
+                    - address
+                    - edition
+                    - month
+                    - note
                     - key
-            masterthesis: 
+            incollection:
+                name: incollection
+                must :
+                    - author
+                    - title
+                    - booktitle
+                    - publisher
+                    - year
+                should :
+                    - editor
+                    - volume
+                    - number
+                    - series
+                    - type
+                    - chapter
+                    - pages
+                    - address
+                    - edition
+                    - month
+                    - note
+                    - key
+            inproceedings:
+                name: inproceedings
+                must :
+                    - author
+                    - title
+                    - booktitle
+                    - year
+                should :
+                    - editor
+                    - volume
+                    - number
+                    - series
+                    - pages
+                    - address
+                    - month
+                    - organization
+                    - publisher
+                    - note
+                    - key
+            manual:
+                name: manual
+                must :
+                    - title
+                should :
+                    - author
+                    - organization
+                    - address
+                    - edition
+                    - month
+                    - year
+                    - note
+                    - key
+            masterthesis:
                 name: mastersthesis
                 must :
                     - author
@@ -68,6 +146,17 @@ parameters:
                     - type
                     - address
                     - month
+                    - note
+                    - key
+            misc:
+                name: misc
+                must :
+                    - title
+                should :
+                    - author
+                    - howpublished
+                    - month
+                    - year
                     - note
                     - key
             phdthesis:
@@ -104,7 +193,7 @@ parameters:
                 must :
                     - author
                     - title
-                    - publisher
+                    - institution
                     - year
                 should :
                     - type
@@ -123,102 +212,7 @@ parameters:
                     - month
                     - year
                     - key
-            inproceedings: 
-                name: inproceedings
-                must :
-                    - author
-                    - title
-                    - booktitle
-                    - year
-                should :
-                    - editor
-                    - volume
-                    - number
-                    - series
-                    - pages
-                    - address
-                    - month
-                    - organization
-                    - publisher
-                    - note
-                    - key
-            incollection:
-                name: incollection
-                must :
-                    - author
-                    - title
-                    - booktitle
-                    - publisher
-                    - year
-                should :
-                    - editor
-                    - volume
-                    - number
-                    - series
-                    - type
-                    - chapter
-                    - pages
-                    - address
-                    - edition
-                    - month
-                    - note
-                    - key
-            inbook:
-                name: inbook
-                must :
-                    -  author
-                    - title
-                    - chapter
-                    - pages
-                    - publisher
-                    - year
-                should :
-                    - volume
-                    - number
-                    - series
-                    - type
-                    - address
-                    - edition
-                    - month
-                    - note
-                    - key
-            booklet: 
-                name: booklet
-                must :
-                    - title
-                should :
-                    - author
-                    - howpublished
-                    - address
-                    - month
-                    - year
-                    - note
-                    - key
-            manual:
-                name: manual
-                must :
-                    - title
-                should :
-                    - author
-                    - organization
-                    - address
-                    - edition
-                    - month
-                    - year
-                    - note
-                    - key
-            misc:
-                name: misc
-                must :
-                    - title
-                should :
-                    - author
-                    - howpublished
-                    - month
-                    - year
-                    - note
-                    - key
-    
+
     citation_setting_keys :
         address: Publisher's address (usually just the city, but can be the full address for lesser-known publishers)
         annote: An annotation for annotated bibliography styles (not typical)
@@ -238,7 +232,6 @@ parameters:
         number: The "(issue) number" of a journal, magazine, or tech-report, if applicable. (Most publications have a "volume", but no "number" field.)
         organization: The conference sponsor
         pages: Page numbers, separated either by commas or double-hyphens.
-        publisher: The publisher's name
         school: The school where the thesis was written
         series: The series of books the book was published in (e.g. "The Hardy Boys" or "Lecture Notes in Computer Science")
         title: The title of the work
