@@ -379,25 +379,25 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        {% if journals and journals|length>5 %}
+        {% if journals is defined  and journals|length>5 %}
             var journalOptions = {
                 valueNames: ['journal-title']
             };
             var journalsList = new List('journals-filter-box', journalOptions);
         {% endif %}
-        {% if publishers and publishers|length>5 %}
+        {% if publishers is defined and publishers|length>5 %}
             var publisherOptions = {
                 valueNames: ['publisher-name']
             };
             var publishersList = new List('publishers-filter-box', publisherOptions);
         {% endif %}
-        {% if indexes and indexes|length>5 %}
+        {% if indexes is defined  and indexes|length>5 %}
             var indexOptions = {
                 valueNames: ['index-name']
             };
             var indexesList = new List('indexes-filter-box', indexOptions);
         {% endif %}
-        {% if subjects and subjects|length>5 %}
+        {% if subjects is defined  and subjects|length>5 %}
             var subjectOptions = {
                 valueNames: ['subject']
             };
