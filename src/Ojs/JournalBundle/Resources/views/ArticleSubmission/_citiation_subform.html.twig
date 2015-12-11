@@ -1,9 +1,18 @@
 <div class="submission-subform">
-    <div class="row">
-        <div class="col-lg-2 text-center">
-            <span class="badge citation-item-order"></span>
-        </div>
+    <div class="col-lg-2 text-center">
+        <span class="badge citation-item-order"></span>
     </div>
+    {% if
+    form.vars.value is not empty
+    and form.vars.value is not null
+    and form.vars.value.citation is not empty
+    and form.vars.value.citation.raw is not empty %}
+        <div class="col-lg-10">
+            <div class="alert alert-success citation-box">{{ form.vars.value.citation.raw }}</div>
+        </div>
+    {%  else %}
+        <div class="col-lg-push-10 top30"></div>
+    {% endif %}
     {% for element in form %}
         {{ form_row(element, {'style': 'horizontal'}) }}
     {% endfor %}
