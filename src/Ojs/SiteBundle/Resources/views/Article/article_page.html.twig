@@ -147,9 +147,9 @@
                             <h4 class="page-header">{{ "citations"|trans }}</h4>
 
                             <div>
-                                <ul>
+                                <ul class="fa-ul">
                                     {% for citation in article.citations %}
-                                        <li>{{ citation.raw }}</li>
+                                        <li class="fa-li fa fa-quote-left">{{ citation.raw }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
