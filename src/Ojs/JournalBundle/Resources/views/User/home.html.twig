@@ -233,7 +233,7 @@
 
 {% block javascripts -%}
     {{ parent() }}
-    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>remove
+    <script src="{{ asset('vendor/d3/d3.min.js') }}"></script>
     <script type="text/javascript">
         var data = {{ data.stats|raw }};
         analytics.createChart('#articles', data['articleViews']);
