@@ -1,51 +1,62 @@
+---
 services:
-  twig.extension.intl:
-    class: Twig_Extensions_Extension_Intl
+  analytics.listener:
+    arguments:
+      - "@doctrine.orm.entity_manager"
+    class: Ojs\AnalyticsBundle\Listener\AnalyticsSubscriber
     tags:
-      - { name: twig.extension }
-
-  twig.extension.text:
-    class: Twig_Extensions_Extension_Text
-    tags:
-      - { name: twig.extension }
-
-  ojs.ojs_mailer:
-    class: Ojs\UserBundle\Service\MailerService
-    arguments: [@mailer, @templating, "%system_email%"]
-
-  gedmo.listener.softdeleteable:
-    class: Gedmo\SoftDeleteable\SoftDeleteableListener
-    tags:
-      - { name: doctrine.event_subscriber, connection: default }
-    calls:
-      - [ setAnnotationReader, [ @annotation_reader ] ]
-
+      -
+        name: kernel.event_subscriber
   api_key_user_provider:
+    arguments:
+      - "@doctrine.orm.default_entity_manager"
     class: Ojs\ApiBundle\Security\ApiKeyUserProvider
-    arguments: ["@doctrine.orm.default_entity_manager"]
-
   apikey_authenticator:
-    class:   Ojs\ApiBundle\Security\ApiKeyAuthenticator
-    arguments: ["@api_key_user_provider"]
-
-  ojs.twig.common_extension:
-    class: Ojs\SiteBundle\Twig\CommonExtension
-    arguments: [@doctrine.orm.entity_manager, @liip_imagine.filter.manager]
-    tags:
-      - {name: twig.extension }
-
-  ojs.user_provider.username_email:
-    class: Ojs\UserBundle\Service\EmailUserProvider
-    arguments: [@doctrine.orm.entity_manager]
-
+    arguments:
+      - "@api_key_user_provider"
+    class: Ojs\ApiBundle\Security\ApiKeyAuthenticator
   form.type.journal_user:
     class: Ojs\JournalBundle\Form\Type\JournalUserType
     tags:
-      - { name: form.type, alias: ojs_journalbundle_journaluser }
-
-  analytics.listener:
-    class: Ojs\AnalyticsBundle\Listener\AnalyticsSubscriber
-    arguments:
-      - @doctrine.orm.entity_manager
+      -
+        alias: ojs_journalbundle_journaluser
+        name: form.type
+  gedmo.listener.softdeleteable:
+    calls:
+      -
+        - setAnnotationReader
+        -
+          - "@annotation_reader"
+    class: Gedmo\SoftDeleteable\SoftDeleteableListener
     tags:
-      - { name: kernel.event_subscriber }
+      -
+        connection: default
+        name: doctrine.event_subscriber
+  ojs.ojs_mailer:
+    arguments:
+      - "@mailer"
+      - "@templating"
+      - "%system_email%"
+    class: Ojs\UserBundle\Service\MailerService
+  ojs.twig.common_extension:
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@liip_imagine.filter.manager"
+    class: Ojs\SiteBundle\Twig\CommonExtension
+    tags:
+      -
+        name: twig.extension
+  ojs.user_provider.username_email:
+    arguments:
+      - "@doctrine.orm.entity_manager"
+    class: Ojs\UserBundle\Service\EmailUserProvider
+  twig.extension.intl:
+    class: Twig_Extensions_Extension_Intl
+    tags:
+      -
+        name: twig.extension
+  twig.extension.text:
+    class: Twig_Extensions_Extension_Text
+    tags:
+      -
+        name: twig.extension
