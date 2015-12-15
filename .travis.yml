@@ -40,7 +40,7 @@ before_script:
   - memcached -p 11212 -d
   - memcached -p 11213 -d
   - mysql -e 'create database ojs;'
-  - composer self-update
+  - /home/travis/.phpenv/versions/5.6/bin/composer self-update
   - composer install --dev --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - php app/console ojs:install:travis
