@@ -12,7 +12,7 @@
 {% for block in blocks %}
     <div class="panel panel-{{ block.color|default("default") }}">
         <div class="panel-heading">
-            <span class="panel-title">{{ block.title|trans }}</span>
+            <div class="btn-toolbar">
             {% if app.security.token is not null and is_granted('EDIT', journal, 'block') %}
                 <input type="number" min="1" max="10000" class="col-xs-2 pull-right no-pad block_order_updater"
                        data-block-id="{{ block.id }}" value="{{ block.blockOrder|default(0) }}">
@@ -25,6 +25,9 @@
                    title="Delete Block" class="pull-right"><i class="fa fa-trash "></i>
                 </a>
             {% endif %}
+            </div>
+            <span class="panel-title">{{ block.title|trans }}</span>
+
         </div>
         {% if block.type=='html' %}
             {{ block.content|raw }}
