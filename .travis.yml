@@ -5,7 +5,6 @@ sudo: false
 addons:
     apt_packages:
         - parallel
-        - language-pack-fr-base
         - php5-memcached
         - php5-memcache
 
@@ -40,7 +39,6 @@ before_script:
 # Install php packages
   - memcached -p 11212 -d
   - memcached -p 11213 -d
-  - phpenv config-add config.ini
   - mysql -e 'create database ojs;'
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
