@@ -1,17 +1,35 @@
 language: php
 
-php:
-  - 5.5
-  - 5.6
-  - 7.0
+sudo: false
+
+addons:
+    apt_packages:
+        - parallel
+        - language-pack-fr-base
+        - php5-memcached
+        - php5-memcache
+
+cache:
+    directories:
+        - .phpunit
+        - php-5.3.9
 
 matrix:
-    allow_failures:
-        - php: 7.0
+    include:
+        - php: hhvm
+        - php: 5.3
+        - php: 5.4
+        - php: 5.5
+        - php: 5.6
+          env: deps=high
+        - php: 7
+          env: deps=low
+    fast_finish: true
 
 env:
-    - SYMFONY_VERSION="2.*"
-    - MEMCACHED__HOST=localhost
+    global:
+        - deps=no
+        - SYMFONY_DEPRECATIONS_HELPER=weak
 
 services:
   - mysql
@@ -23,7 +41,6 @@ before_script:
   - memcached -p 11212 -d
   - memcached -p 11213 -d
   - sudo apt-get update > /dev/null
-  - sudo apt-get install php5-memcached php5-memcache
   - phpenv config-add config.ini
   - mysql -e 'create database ojs;'
   - composer self-update
