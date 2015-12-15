@@ -14,7 +14,7 @@ parameters:
     mailer_port: 587
 
     locale:            en
-    locale_support: [tr,en,fr]
+    locale_support: [tr,en]
     secret:            884310f89c4aa13453c463ccae442f2e0f853503
 
     base_host: localhost
@@ -30,10 +30,10 @@ parameters:
             parameters:
                 - id
                 - journalId
-    orcid.client_id:
-    orcid.client_secret:
-    linkedin.client_id:
-    linkedin.client_secret:
+    orcid.client_id: 1
+    orcid.client_secret: 1
+    linkedin.client_id: 1
+    linkedin.client_secret: 1
     https: false
     feedback_categories:
         -
