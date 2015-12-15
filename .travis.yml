@@ -2,22 +2,28 @@ language: php
 
 php:
   - 5.5
+  - 5.6
+  - 7.0
 
+matrix:
+    allow_failures:
+        - php: 7.0
+
+env:
+    - SYMFONY_VERSION="2.*"
+    - MEMCACHED__HOST=localhost
 
 services:
   - mysql
-  - mongodb
   - elasticsearch
   - memcached
-
-env: MEMCACHED__HOST=localhost
 
 before_script:
 # Install php packages
   - memcached -p 11212 -d
   - memcached -p 11213 -d
   - sudo apt-get update > /dev/null
-  - sudo apt-get install php5-memcached
+  - sudo apt-get install php5-memcached php5-memcache
   - phpenv config-add config.ini
   - mysql -e 'create database ojs;'
   - /home/travis/.phpenv/versions/5.5/bin/composer self-update
@@ -30,7 +36,7 @@ before_script:
   - app/console --env=dev cache:warmup
   - php app/console assets:install web --symlink
   - app/console assetic:dump
-  - php app/console h4cc_alice_fixtures:load:sets
+  - php app/console ojs:setup:samples
  # - mysql ojs < src/Okulbilisim/LocationBundle/Resources/data/location.sql
 
 script: phpunit -c app
