@@ -34,7 +34,7 @@
     "friendsofsymfony/rest-bundle": "1.7.1",
     "jms/serializer-bundle": "@dev",
     "nelmio/api-doc-bundle": "2.9.0",
-    "stof/doctrine-extensions-bundle": "1.1.0",
+    "stof/doctrine-extensions-bundle": "~1.2",
     "caseyamcl/Phpoaipmh": "v2.4",
     "knplabs/knp-paginator-bundle": "2.4.2",
     "friendsofsymfony/elastica-bundle": "dev-master",
