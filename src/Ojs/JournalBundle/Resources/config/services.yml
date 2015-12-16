@@ -38,7 +38,7 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
-  journal.numerator_orm_subscriber:
-    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
-    tags:
-        - { name: doctrine.event_listener, event: postPersist }
+#  journal.numerator_orm_subscriber:
+#    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
+#    tags:
+#        - { name: doctrine.event_listener, event: postPersist }
