@@ -18,6 +18,7 @@
         <li role="presentation"><a href="{{ path('ojs_journal_issue_file_index', {issueId: entity.id,journalId: entity.journal.id}) }}">{{ "title.issue_files"|trans }}</a></li>
     </ul>
     <h1>{{ "issue"|trans }}</h1>
+    {{ twigEventDispatch({'event_name': 'OJS_ISSUE_REGISTRATION', 'journal_id': selectedJournal().id})|raw }}
     {{ display(entity) }}
     {{
     actions({

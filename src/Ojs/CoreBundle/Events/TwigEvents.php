@@ -11,4 +11,5 @@ class TwigEvents
     const OJS_SUBMISSION_CITATION_VIEW = 'ojs.submission.citation.view';
     const OJS_SUBMISSION_CITATION_FORM_EXTRA = 'ojs.submission.citation.form_extra';
     const OJS_NEW_ARTICLE_SUBMISSIN_SCRIPT = 'ojs.new.article.submission.script';
+    const OJS_ISSUE_SHOW_VIEW = "ojs.journal.issue.show.view";
 }
