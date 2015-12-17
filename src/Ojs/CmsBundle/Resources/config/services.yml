@@ -3,4 +3,4 @@ services:
     class: Ojs\CmsBundle\Twig\PostExtension
     tags:
       - {name: twig.extension}
-    arguments: [ @service_container,@doctrine.orm.default_entity_manager ]
+    arguments: [ "@service_container","@doctrine.orm.default_entity_manager" ]

@@ -8,5 +8,3 @@ Ojs\JournalBundle\Entity\MailTemplate:
             - NotBlank: ~
         lang:
             - NotBlank: ~
-        type:
-            - NotBlank: ~

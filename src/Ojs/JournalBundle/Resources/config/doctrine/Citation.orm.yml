@@ -22,7 +22,6 @@ Ojs\JournalBundle\Entity\Citation:
       type: string
       nullable: true
       length: 20
-      nullable: true
       gedmo:
         - versioned
     orderNum:

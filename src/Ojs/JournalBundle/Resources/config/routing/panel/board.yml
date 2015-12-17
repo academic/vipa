@@ -31,9 +31,9 @@ ojs_journal_board_delete:
 
 ojs_journal_board_member_add:
     path:  /{journalId}/board/{boardId}/member/add
-    defaults: { _controller: OjsJournalBundle:Board:addMember }
+    defaults: { _controller: "OjsJournalBundle:Board:addMember" }
     methods:  [POST, PUT]
 
 ojs_journal_board_member_remove:
     path:  /{journalId}/board/{boardId}/member/{id}/remove
-    defaults: { _controller: OjsJournalBundle:Board:removeMember }
+    defaults: { _controller: "OjsJournalBundle:Board:removeMember" }

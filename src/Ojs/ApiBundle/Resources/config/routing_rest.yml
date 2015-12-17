@@ -66,6 +66,12 @@ api_article_type:
 
 api_contact:
   type:         rest
+  resource:     "@OjsApiBundle/Controller/Admin/ContactRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+
+api_contact_type:
+  type:         rest
   resource:     "@OjsApiBundle/Controller/Admin/ContactTypesRestController.php"
   prefix:       /v1
   name_prefix:  api_1_

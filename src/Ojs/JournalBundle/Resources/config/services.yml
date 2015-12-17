@@ -2,22 +2,22 @@ services:
   ojs.journal_service:
     class: Ojs\JournalBundle\Service\JournalService
     arguments:
-      - @doctrine.orm.entity_manager
-      - @session
-      - @router
-      - @security.token_storage
-      - @request_stack
+      - "@doctrine.orm.entity_manager"
+      - "@session"
+      - "@router"
+      - "@security.token_storage"
+      - "@request_stack"
       - "%defaultPublisherSlug%"
 
   journal.orm_event_listener:
     class: Ojs\JournalBundle\Listeners\AclOrmListener
-    arguments: [@service_container]
+    arguments: ["@service_container"]
     tags:
         - { name: doctrine.event_listener, event: postPersist }
 
   form.type.journal_users_type:
     class: Ojs\JournalBundle\Form\Type\JournalUsersFieldType
-    arguments: [@ojs.journal_service]
+    arguments: ["@ojs.journal_service"]
     tags:
         - { name: form.type, alias: journal_users_type }
 
@@ -28,13 +28,13 @@ services:
         - { name: jms_serializer.event_subscriber }
   ojs.journal.subscription_subscriber:
     class: Ojs\JournalBundle\Listeners\SubscriptionSubscriber
-    arguments: [@doctrine.orm.entity_manager, @mailer, %system_email%, "OJS"]
+    arguments: ["@doctrine.orm.entity_manager", "@mailer", "%system_email%", "OJS"]
     tags:
       - { name: kernel.event_subscriber }
 
   journal.event_listener:
     class: Ojs\JournalBundle\EventListener\JournalEventListener
-    arguments: [@router, @mailer, @doctrine.orm.entity_manager, %system_email%, "OJS SYSTEM"]
+    arguments: ["@router", "@mailer", "@doctrine.orm.entity_manager", "%system_email%", "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
 

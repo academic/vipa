@@ -8,19 +8,19 @@ parameters:
 services:
   app.routing_loader:
     class: Ojs\CoreBundle\Routing\ThirdPartyRouteLoader
-    arguments: [@kernel, @file_locator]
+    arguments: ["@kernel", "@file_locator"]
     tags:
       - { name: routing.loader }
   security.authorization_checker:
     class: Ojs\CoreBundle\Acl\AuthorizationChecker
     arguments:
-      - @security.token_storage
-      - @security.authentication.manager
-      - @security.access.decision_manager
-      - %security.access.always_authenticate_before_granting%
+      - "@security.token_storage"
+      - "@security.authentication.manager"
+      - "@security.access.decision_manager"
+      - "%security.access.always_authenticate_before_granting%"
   security.acl.security_identity_retrieval_strategy:
-    class: %security.acl.security_identity_retrieval_strategy.class%
-    arguments: [@security.role_hierarchy, @security.authentication.trust_resolver, @ojs.journal_service]
+    class: "%security.acl.security_identity_retrieval_strategy.class%"
+    arguments: ["@security.role_hierarchy", "@security.authentication.trust_resolver", "@ojs.journal_service"]
   ojs_locale.locale_listener:
     class: Ojs\CoreBundle\Service\LocaleListener
     arguments: ["%kernel.default_locale%"]
@@ -30,46 +30,46 @@ services:
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:
-      - @doctrine.orm.entity_manager
-      - @router
-      - @translator
-      - @ojs.journal_service
-      - @security.token_storage
-      - @session
-      - @request_stack
+      - "@doctrine.orm.entity_manager"
+      - "@router"
+      - "@translator"
+      - "@ojs.journal_service"
+      - "@security.token_storage"
+      - "@session"
+      - "@request_stack"
       - "%cms_show_routes%"
-      - @event_dispatcher
+      - "@event_dispatcher"
     tags:
       - { name: twig.extension }
 
   ojs.twig.display_extension:
     class: Ojs\CoreBundle\Service\Twig\DisplayExtension
     arguments:
-      - @translator
-      - @annotation_reader
-      - @liip_imagine.twig.extension
+      - "@translator"
+      - "@annotation_reader"
+      - "@liip_imagine.twig.extension"
     tags:
       - { name: twig.extension }
 
   ojs.twig.field_display_extension:
     class: Ojs\CoreBundle\Service\Twig\FieldDisplayExtension
     arguments:
-      - @translator
-      - @annotation_reader
-      - @liip_imagine.twig.extension
-      - @router
+      - "@translator"
+      - "@annotation_reader"
+      - "@liip_imagine.twig.extension"
+      - "@router"
     tags:
       - { name: twig.extension }
 
   ojs.twig.action_extension:
     class: Ojs\CoreBundle\Service\Twig\ActionExtension
     arguments:
-      - @translator
+      - "@translator"
     tags:
       - { name: twig.extension }
   ojs.article_service:
     class: Ojs\CoreBundle\Service\ArticleService
-    arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
+    arguments: [ "@doctrine.orm.entity_manager","@ojs.journal_service", "@session" ]
 
   ojs.alice.provider:
     class: Ojs\CoreBundle\Service\AliceDataProvider
@@ -79,17 +79,17 @@ services:
 
   grid_action:
     class: Ojs\CoreBundle\Service\GridAction
-    arguments: [@security.csrf.token_manager, @translator, @ojs.cms.twig.post_extension]
+    arguments: ["@security.csrf.token_manager", "@translator", "@ojs.cms.twig.post_extension"]
 
   form.type.tags:
     class: Ojs\CoreBundle\Form\Type\TagsType
-    arguments: [ @router, @translator ]
+    arguments: [ "@router", "@translator" ]
     tags:
       - { name: form.type, alias: tags }
 
   form.type.extended_entity:
       class: Ojs\CoreBundle\Form\Type\ExtendedEntityType
-      arguments: [@property_accessor]
+      arguments: ["@property_accessor"]
       tags:
           - { name: form.type, alias: extended_entity }
 
@@ -100,7 +100,7 @@ services:
 
   ojs_search_manager:
     class: Ojs\CoreBundle\Service\SearchManager
-    arguments: [@translator, @router]
+    arguments: ["@translator", "@router"]
 
   ojs_api_handler_helper:
     class: Ojs\CoreBundle\Service\ApiHandlerHelper
@@ -115,17 +115,17 @@ services:
 
   core.event_listener:
     class: Ojs\CoreBundle\EventListener\CoreEventListener
-    arguments: [@router, @mailer, @doctrine.orm.entity_manager, %system_email%, "OJS SYSTEM"]
+    arguments: ["@router", "@mailer", "@doctrine.orm.entity_manager", "%system_email%", "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
 
   core.acl_fixer:
     class: Ojs\CoreBundle\Service\AclFixer
-    arguments: [@doctrine, @problematic.acl_manager]
+    arguments: ["@doctrine", "@problematic.acl_manager"]
 
   ojs_core.sitemap.listener:
-    class: %ojs_core.sitemap.listener.class%
-    arguments: [@router, @doctrine.orm.entity_manager]
+    class: "%ojs_core.sitemap.listener.class%"
+    arguments: ["@router", "@doctrine.orm.entity_manager"]
     tags: [{name: "presta.sitemap.listener"}]
 
   ojs.soft_delete_listener:
@@ -136,6 +136,6 @@ services:
 
   app.exception_listener:
     class: Ojs\CoreBundle\Listeners\ExceptionListener
-    arguments: [@router, @session, @translator]
+    arguments: ["@router", "@session", "@translator"]
     tags:
         - { name: kernel.event_listener, event: kernel.exception }

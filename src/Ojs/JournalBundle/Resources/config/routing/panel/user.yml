@@ -1,32 +1,32 @@
 ojs_journal_user_index:
     path:     /{journalId}/user
-    defaults: { _controller: OjsJournalBundle:JournalUser:index }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:index" }
 
 ojs_journal_user_new:
     path:     /{journalId}/user/new
-    defaults: { _controller: OjsJournalBundle:JournalUser:newUser }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:newUser" }
 
 ojs_journal_user_create:
     path:     /{journalId}/user/create
-    defaults: { _controller: OjsJournalBundle:JournalUser:createUser }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:createUser" }
 
 ojs_journal_user_add:
     path:     /{journalId}/user/add
-    defaults: { _controller: OjsJournalBundle:JournalUser:addUser }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:addUser" }
     methods:  [GET, POST]
 
 ojs_journal_user_edit:
     path:     /{journalId}/user/{id}/edit
-    defaults: { _controller: OjsJournalBundle:JournalUser:editUser }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:editUser" }
 
 ojs_journal_user_update:
     path:     /{journalId}/user/{id}/update
-    defaults: { _controller: OjsJournalBundle:JournalUser:updateUser }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:updateUser" }
     methods:  [PUT]
 
 ojs_journal_user_delete:
     path:     /{journalId}/user/{id}/delete
-    defaults: { _controller: OjsJournalBundle:JournalUser:deleteUser }
+    defaults: { _controller: "OjsJournalBundle:JournalUser:deleteUser" }
     methods:  [DELETE]
 
 ojs_journal_user_register_list:

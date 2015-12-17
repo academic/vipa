@@ -8,7 +8,7 @@ class ContactRestControllerTest extends BaseTestCase
 {
     public function testGetContactsAction()
     {
-        $url = $this->router->generate('api_1_get_contacts');
+        $url = $this->router->generate('api_1_get_contact');
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());

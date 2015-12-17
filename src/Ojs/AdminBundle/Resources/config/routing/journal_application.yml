@@ -1,24 +1,24 @@
 ojs_admin_application_journal_index:
   path:     /journal
-  defaults: { _controller: OjsAdminBundle:AdminJournalApplication:index }
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:index" }
 
 ojs_admin_application_journal_show:
   path:     /journal/{id}
-  defaults: { _controller: OjsAdminBundle:AdminJournalApplication:detail}
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:detail" }
 
 ojs_admin_application_journal_edit:
   path:     /journal/edit/{id}
-  defaults: { _controller: OjsAdminBundle:AdminJournalApplication:edit}
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:edit" }
 
 ojs_admin_application_journal_update:
   path:     /journal/update/{id}
-  defaults: { _controller: OjsAdminBundle:AdminJournalApplication:update}
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:update" }
 
 ojs_admin_application_journal_delete:
   path:     /journal/delete/{id}
-  defaults: { _controller: OjsAdminBundle:AdminJournalApplication:delete}
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:delete" }
   methods:  [DELETE]
 
 ojs_admin_application_journal_save:
   path:     /journal/{id}/save
-  defaults: { _controller: OjsAdminBundle:AdminJournalApplication:save }
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:save" }

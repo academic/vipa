@@ -51,7 +51,7 @@
     "a2lix/translation-form-bundle": "^2.0",
     "prezent/doctrine-translatable-bundle": "dev-master",
     "friendsofsymfony/jsrouting-bundle": "^1.5",
-    "jbouzekri/file-uploader-bundle": "~2.0",
+    "jbouzekri/file-uploader-bundle": "dev-master",
     "norzechowicz/aceeditor-bundle": "0.1.*",
     "friendsofsymfony/user-bundle": "dev-master",
     "hwi/oauth-bundle": "0.4.*@dev",

@@ -1,10 +1,10 @@
 ojs_publisher_manager_edit:
     path:  /edit
-    defaults: { _controller: OjsJournalBundle:ManagerPublisher:edit }
+    defaults: { _controller: "OjsJournalBundle:ManagerPublisher:edit" }
 
 ojs_publisher_manager_update:
     path:  /update
-    defaults: { _controller: OjsJournalBundle:ManagerPublisher:update }
+    defaults: { _controller: "OjsJournalBundle:ManagerPublisher:update" }
     methods:  [PUT]
 
 publisher_theme:

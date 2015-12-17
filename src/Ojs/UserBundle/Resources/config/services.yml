@@ -1,5 +1,5 @@
 parameters:
-    hwi_oauth.resource_owner.oauth2.class: "Ojs\UserBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner"
+    hwi_oauth.resource_owner.oauth2.class: 'Ojs\UserBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner'
 
 services:
   ojs_user.soft_delete:
@@ -8,16 +8,16 @@ services:
       - { name: doctrine.event_listener, event: preSoftDelete }
   ojs_user.manager:
     class: Ojs\UserBundle\Manager\UserManager
-    arguments: [@security.encoder_factory,@fos_user.util.username_canonicalizer,@fos_user.util.email_canonicalizer,@fos_user.entity_manager,'Ojs\UserBundle\Entity\User']
+    arguments: ["@security.encoder_factory","@fos_user.util.username_canonicalizer","@fos_user.util.email_canonicalizer","@fos_user.entity_manager",'Ojs\UserBundle\Entity\User']
   ojs_form.register:
     class: Ojs\UserBundle\Form\Type\RegisterFormType
     tags:
       - { name: form.type, alias: ojs_user_register}
   user.event_listener:
     class: Ojs\UserBundle\EventListener\UserEventListener
-    arguments: [@router, @mailer, %system_email%, "OJS SYSTEM"]
+    arguments: ["@router", "@mailer", "%system_email%", "OJS SYSTEM"]
     tags:
       - { name: kernel.event_subscriber }
   ojs.user.oauth:
     class: Ojs\UserBundle\Provider\FOSUBUserProvider
-    arguments: [@doctrine, @fos_user.user_manager, {}]
+    arguments: ["@doctrine", "@fos_user.user_manager", {}]

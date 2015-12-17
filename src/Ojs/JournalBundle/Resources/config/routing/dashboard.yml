@@ -1,8 +1,8 @@
 ojs_user_index:
     path:  /user
-    host: %base_host%
-    defaults: { _controller: OjsJournalBundle:Manager:userIndex }
+    host: "%base_host%"
+    defaults: { _controller: "OjsJournalBundle:Manager:userIndex" }
 
 ojs_user_myjournals:
     path:  /editor/myjournals
-    defaults: { _controller: OjsJournalBundle:Manager:myJournals}
+    defaults: { _controller: "OjsJournalBundle:Manager:myJournals" }

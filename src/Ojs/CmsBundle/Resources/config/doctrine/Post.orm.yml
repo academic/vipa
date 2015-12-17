@@ -24,7 +24,7 @@ Ojs\CmsBundle\Entity\Post:
       type: string
       gedmo:
         slug:
-          seperator: -
+          seperator: "-"
           fields:
             - id
     createdAt:
