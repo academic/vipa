@@ -41,6 +41,9 @@
                         </span>
                     </div>
                     <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
+                    {% if journalId is defined and journalId is not null %}
+                        <input type="hidden" name="journalId" value="{{ journalId }}">
+                    {% endif %}
                 </form>
             </div>
         </div>

@@ -331,4 +331,43 @@ class SearchManager
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    private function getSearchInJournalQueryParams()
+    {
+        return [
+            ['user.journalUsers.journal.id' ,               'user._all'],
+            ['articles.journal.id' ,                        'articles._all'],
+            ['issue.journal.id' ,                           'issue._all'],
+            ['citation.articles.journal.id' ,               'citation._all'],
+            ['author.articleAuthors.article.journal.id' ,   'author._all'],
+        ];
+    }
+
+    public function getSearchInJournalQuery($journalId, $query)
+    {
+        $queryArray['should'] = [];
+
+        foreach($this->getSearchInJournalQueryParams() as $param){
+            $journalField = $param[0];
+            $searchField = $param[1];
+            $queryArray['should'][] = [
+                'bool' =>
+                    [
+                        'must' =>
+                            [
+                                [
+                                    'match' => [ $journalField => $journalId ]
+                                ],
+                                [
+                                    'match' => [ $searchField => [ 'query' => $query ]]
+                                ],
+                            ],
+                    ],
+            ];
+        }
+        return $queryArray;
+    }
 }

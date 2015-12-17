@@ -122,11 +122,15 @@
                     <div class="list-group journal-stats">
                         <div class="list-group-item ">
                             <form role="search"
-                                  action="{{ url('ojs_journal_index_search',{publisher: journal.publisher.slug, slug: journal.slug}) }}"
+                                  action="{{ url('ojs_search_index') }}"
                                   method="get" id="search_on_journal">
                                 <div class="input-group">
                                     <input type="text" class="form-control"
                                            placeholder="{{ "search.on.journal"|trans }}" name="q">
+
+                                    <input type="hidden" name="journalId" value="{{ journal.id }}">
+
+                                    <input type="hidden" name="type" value="injournal">
 
                                     <div class="input-group-btn">
                                         <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>

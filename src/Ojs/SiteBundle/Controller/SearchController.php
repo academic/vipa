@@ -24,6 +24,8 @@ class SearchController extends Controller
     {
         $searchManager = $this->get('ojs_search_manager');
 
+        $journalId = null;
+
         $getRoles = $request->query->get('role_filters');
         $getSubjects = $request->query->get('subject_filters');
         $getJournals = $request->query->get('journal_filters');
@@ -50,8 +52,8 @@ class SearchController extends Controller
         $boolQuery = new Query\Bool();
 
         $match = new Query\Match();
-        $match->setField('published', true);
-        $boolQuery->addShould($match);
+        $match->setField('published', false);
+        $boolQuery->addMustNot($match);
 
         //set query according to query type
         if ($queryType == 'basic') {
@@ -83,6 +85,10 @@ class SearchController extends Controller
             $matchQuery = new Query\Match();
             $matchQuery->setField('tags', $query);
             $boolQuery->addMust($matchQuery);
+        } elseif ($queryType == 'injournal') {
+
+            $journalId = $request->get('journalId');
+            $boolQuery->setParams($searchManager->getSearchInJournalQuery($journalId, $query));
         }
 
         //set aggregations if requested
@@ -224,8 +230,8 @@ class SearchController extends Controller
              */
             $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
 
-
             $data = [
+                'journalId' => $journalId,
                 'results' => $results,
                 'query' => $query,
                 'queryType' => $queryType,
@@ -249,6 +255,7 @@ class SearchController extends Controller
 
         } else {
             $data = [
+                'journalId' => $journalId,
                 'query' => $query,
                 'queryType' => $queryType,
                 'total_count' => $searchManager->getTotalHit(),
