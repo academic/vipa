@@ -455,9 +455,7 @@ class JournalUserController extends Controller
         $search = $this->container->get('fos_elastica.index.search.user');
 
         $prefix = new ElasticQuery\Prefix();
-        $prefix->setPrefix('username', strtolower($q));
-        $qe = new ElasticQuery();
-        $qe->setQuery($prefix);
+        $prefix->setPrefix('_all', strtolower($q));
 
         $results = $search->search($prefix);
         $data = [];
