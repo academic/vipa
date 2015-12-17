@@ -49,7 +49,11 @@ class JournalNewUserType extends AbstractType
                     ],
                 ]
             )
-            ->add('title', 'text', ['label' => 'user.title'])
+            ->add('title', 'text', [
+                'label' => 'author.title',
+                'required' => false
+                ]
+            )
             ->add(
                 'firstName',
                 'text',
