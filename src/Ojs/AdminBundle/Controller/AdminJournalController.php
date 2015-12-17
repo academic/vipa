@@ -160,7 +160,7 @@ class AdminJournalController extends Controller
             'OjsAdminBundle:AdminJournal:edit.html.twig',
             array(
                 'entity' => $entity,
-                'form' => $editForm->createView(),
+                'edit_form' => $editForm->createView(),
             )
         );
     }
