@@ -23,7 +23,24 @@ class JournalType extends AbstractType
             $journalId = null;
         }
         $builder
-            ->add('translations', 'a2lix_translations')
+            ->add('translations', 'a2lix_translations', [
+                'fields' => [
+                    'title' => [
+                        'label' => 'journal.title'
+                    ],
+                    'subtitle' => [
+                        'required' => false,
+                        'label' => 'journal.subtitle'
+                    ],
+                    'description' => [
+                        'attr' => array('class' => ' form-control wysihtml5'),
+                        'field_type' => 'purified_textarea'
+                    ],
+                    'titleAbbr' => [
+                        'required' => false
+                    ]
+                ]
+            ])
             ->add('titleTransliterated', 'text', [
                 'label' => 'titleTransliterated',
                 'required' => false
