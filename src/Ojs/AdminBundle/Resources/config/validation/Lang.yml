@@ -7,6 +7,6 @@ Ojs\JournalBundle\Entity\Lang:
           - Length:
               max: 10
           - Regex:
-              pattern: '/[\$\(\)\*\+\.\?\[\\\^\{\|!@%&_:;''`<>,~#="\\/]/'
+              pattern: "/[\$\(\)\*\+\.\?\[\\\^\{\|!@%&_:;'`<>,~#=\"\\/]/"
               message: "userInput.invalidCharacters"
               match:   false
