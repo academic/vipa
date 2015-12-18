@@ -30,8 +30,7 @@ class InstallCommand extends ContainerAwareCommand
         $webDir = $options['symfony-web-dir'];
 
         if (!is_dir($webDir)) {
-            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd(
-                ).', can not install assets.'.PHP_EOL;
+            echo 'The symfony-web-dir (' . $webDir . ') specified in composer.json was not found in ' . getcwd() . ', can not install assets.' . PHP_EOL;
 
             return;
         }
@@ -60,12 +59,12 @@ class InstallCommand extends ContainerAwareCommand
     protected static function executeCommand(CommandEvent $event, $appDir, $cmd, $timeout = 300)
     {
         $php = escapeshellarg(self::getPhp());
-        $console = escapeshellarg($appDir.'/console');
+        $console = escapeshellarg($appDir . '/console');
         if ($event->getIO()->isDecorated()) {
             $console .= ' --ansi';
         }
 
-        $process = new Process($php.' '.$console.' '.$cmd, null, null, null, $timeout);
+        $process = new Process($php . ' ' . $console . ' ' . $cmd, null, null, null, $timeout);
         $process->run(
             function ($type, $buffer) {
                 echo $buffer;
@@ -101,7 +100,8 @@ class InstallCommand extends ContainerAwareCommand
             ->addOption('no-theme', null, InputOption::VALUE_NONE, 'Without themes')
             ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Without ACL Data')
             ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix ACL structure')
-            ->addOption('no-page', null, InputOption::VALUE_NONE, 'Without default pages');
+            ->addOption('no-page', null, InputOption::VALUE_NONE, 'Without default pages')
+            ->addOption('travis', null, InputOption::VALUE_NONE, 'Without default pages');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -122,20 +122,27 @@ class InstallCommand extends ContainerAwareCommand
         //$translator->setLocale('tr_TR');
         $output->writeln($this->printWelcome());
         $output->writeln(
-            '<info>'.
-            $translator->trans('ojs.install.title').
+            '<info>' .
+            $translator->trans('ojs.install.title') .
             '</info>'
         );
 
-        if (!$dialog->askConfirmation(
-            $output,
-            '<question>'.
-            $translator->trans('ojs.install.confirm').
-            ' (y/n) : </question>',
-            true
-        )
-        ) {
-            return;
+        if (!$input->getOption('travis')) {
+            if (!$dialog->askConfirmation(
+                $output,
+                '<question>' .
+                $translator->trans('ojs.install.confirm') .
+                ' (y/n) : </question>',
+                true
+            )
+            ) {
+                return;
+            }
+        }
+
+        if ($input->getOption('travis')) {
+            $application->run(new StringInput('doctrine:schema:drop --force'));
+            $application->run(new StringInput('doctrine:schema:create --force'));
         }
 
         $command2 = 'doctrine:schema:update --force';
@@ -146,13 +153,13 @@ class InstallCommand extends ContainerAwareCommand
             try {
                 $location = $this
                         ->getContainer()->get('kernel')
-                        ->getRootDir().'/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
+                        ->getRootDir() . '/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
                 $locationSql = file_get_contents($location);
 
                 $driver = $this->getContainer()->getParameter('database_driver');
 
                 if ($driver == 'pdo_mysql') {
-                    $locationSql = 'SET foreign_key_checks = 0;'.$locationSql.'SET foreign_key_checks = 1;';
+                    $locationSql = 'SET foreign_key_checks = 0;' . $locationSql . 'SET foreign_key_checks = 1;';
                 }
 
                 $parameters = [
@@ -178,57 +185,63 @@ class InstallCommand extends ContainerAwareCommand
         }
 
         if (!$input->getOption('no-role')) {
-            $output->writeln($sb.'Inserting roles to db'.$se);
+            $output->writeln($sb . 'Inserting roles to db' . $se);
             $this->insertRoles($output);
 
-            if (!$input->getOption('no-admin')) {
-                $admin_username = $dialog->ask(
-                    $output,
-                    '<info>Set system admin username (admin) : </info>',
-                    'admin'
-                );
-                $admin_email = $dialog->ask(
-                    $output,
-                    '<info>Set system admin email'.
-                    ' (root@localhost.com) : </info>',
-                    'root@localhost.com'
-                );
-                $admin_password = $dialog->ask(
-                    $output,
-                    '<info>Set system admin password (admin) </info>',
-                    'admin'
-                );
+            if (!$input->getOption('travis')) {
 
-                $output->writeln($sb.'Inserting system admin user to db'.$se);
-                $this->insertAdmin($admin_username, $admin_email, $admin_password);
+                if (!$input->getOption('no-admin')) {
+                    $admin_username = $dialog->ask(
+                        $output,
+                        '<info>Set system admin username (admin) : </info>',
+                        'admin'
+                    );
+                    $admin_email = $dialog->ask(
+                        $output,
+                        '<info>Set system admin email' .
+                        ' (root@localhost.com) : </info>',
+                        'root@localhost.com'
+                    );
+                    $admin_password = $dialog->ask(
+                        $output,
+                        '<info>Set system admin password (admin) </info>',
+                        'admin'
+                    );
+
+                    $output->writeln($sb . 'Inserting system admin user to db' . $se);
+                    $this->insertAdmin($admin_username, $admin_email, $admin_password);
+                }
+            } else {
+                $output->writeln($sb . 'Inserting system admin user to db' . $se);
+                $this->insertAdmin('admin', 'admin@localhost', 'admin');
             }
         }
 
         if (!$input->getOption('no-theme')) {
-            $output->writeln($sb.'Inserting default theme record'.$se);
+            $output->writeln($sb . 'Inserting default theme record' . $se);
             $this->insertTheme();
         }
 
         if (!$input->getOption('no-acl')) {
-            $output->writeln($sb.'Inserting default ACL records'.$se);
+            $output->writeln($sb . 'Inserting default ACL records' . $se);
             $this->insertAcls();
         }
 
         if ($input->getOption('fix-acl')) {
-            $output->writeln($sb.'Fixing ACL Records'.$se);
+            $output->writeln($sb . 'Fixing ACL Records' . $se);
             $this->fixAcls($output);
         }
 
         if (!$input->getOption('no-page')) {
-            $output->writeln($sb.'Creating default pages'.$se);
+            $output->writeln($sb . 'Creating default pages' . $se);
             $this->createDefaultPages();
         }
 
         $output->writeln("\nDONE\n");
         $output->writeln(
             "You can run"
-            ." <info>php app/console ojs:install:samples</info> "
-            ."to add some sample data.\n"
+            . " <info>php app/console ojs:install:samples</info> "
+            . "to add some sample data.\n"
         );
         $event = new CoreEvent();
         $dispatcher->dispatch(CoreEvents::OJS_INSTALL_BASE, $event);
@@ -253,12 +266,12 @@ class InstallCommand extends ContainerAwareCommand
             $check = $role_repo->findOneBy(array('role' => $role['role']));
             if (!empty($check)) {
                 $output->writeln(
-                    '<error> This role record already exists on db </error> : <info>'.
-                    $role['role'].'</info>'
+                    '<error> This role record already exists on db </error> : <info>' .
+                    $role['role'] . '</info>'
                 );
                 continue;
             }
-            $output->writeln('<info>Added : '.$role['role'].'</info>');
+            $output->writeln('<info>Added : ' . $role['role'] . '</info>');
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
 
@@ -291,7 +304,7 @@ class InstallCommand extends ContainerAwareCommand
             $application->setAutoExit(false);
             $application->run(
                 new StringInput(
-                    'fos:user:create --super-admin '.$username.' '.$email.' '.$password
+                    'fos:user:create --super-admin ' . $username . ' ' . $email . ' ' . $password
                 )
             );
         }
@@ -317,7 +330,7 @@ class InstallCommand extends ContainerAwareCommand
         $se = '</fg=black;bg=green>';
         $this->getContainer()->get('core.acl_fixer')->fixAcl();
         $output->writeln(
-            $sb.'ACL FIXED! '.$se
+            $sb . 'ACL FIXED! ' . $se
         );
     }
 
