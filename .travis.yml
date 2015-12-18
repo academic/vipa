@@ -23,12 +23,15 @@ matrix:
     fast_finish: true
 
 env:
+  - DB=mysql
+  - DB=postgres
     global:
         - deps=no
         - SYMFONY_DEPRECATIONS_HELPER=weak
 
 services:
   - mysql
+  - postgresql
   - elasticsearch
   - memcached
 
@@ -36,6 +39,11 @@ before_script:
 # Install php packages
   - memcached -p 11212 -d
   - memcached -p 11213 -d
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs_tmp;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs_tmp;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS ojs_tmp;create database IF NOT EXISTS ojs;'; fi"
   - /home/travis/.phpenv/versions/5.6/bin/composer self-update
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
