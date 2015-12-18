@@ -36,7 +36,6 @@ services:
   - memcached
 
 before_script:
-# Install php packages
   - memcached -p 11212 -d
   - memcached -p 11213 -d
   - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs;' -U postgres; fi"
