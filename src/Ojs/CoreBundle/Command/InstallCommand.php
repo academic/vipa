@@ -141,7 +141,9 @@ class InstallCommand extends ContainerAwareCommand
         }
 
         if ($input->getOption('travis')) {
-            $application->run(new StringInput('doctrine:schema:create --force'));
+            $command1 = 'doctrine:schema:create';
+            $output->writeln('<info>Creating db schema!</info>');
+            $application->run(new StringInput($command1));
         }
 
         $command2 = 'doctrine:schema:update --force';
