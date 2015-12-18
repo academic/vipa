@@ -20,6 +20,7 @@ addons:
     - parallel
     - php5-memcached
     - php5-memcache
+    - php5-apcu
 
 services:
   - mysql
