@@ -39,7 +39,7 @@ before_script:
   - /home/travis/.phpenv/versions/5.6/bin/composer self-update
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - php app/console ojs:install:travis
+  - php app/console --travis
   - npm install -g bower
   - bower install -f
   - chmod -R 777 app/cache app/logs
