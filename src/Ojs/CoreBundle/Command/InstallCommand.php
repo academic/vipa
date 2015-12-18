@@ -141,7 +141,6 @@ class InstallCommand extends ContainerAwareCommand
         }
 
         if ($input->getOption('travis')) {
-            $application->run(new StringInput('doctrine:schema:drop --force'));
             $application->run(new StringInput('doctrine:schema:create --force'));
         }
 
