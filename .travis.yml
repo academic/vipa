@@ -1,70 +1,62 @@
 language: php
-
-sudo: false
-
-addons:
-    apt_packages:
-        - parallel
-        - php5-memcached
-        - php5-memcache
-
-cache:
-    directories:
-        - .phpunit
-
-matrix:
-    include:
-        - php: hhvm
-        - php: 5.5
-        - php: 5.6
-          env: deps=high
-        - php: 7
-          env: deps=low
-    fast_finish: true
-
 env:
   - DB=mysql
   - DB=postgres
-    global:
-        - deps=no
-        - SYMFONY_DEPRECATIONS_HELPER=weak
-
+matrix:
+  fast_finish: true
+  include:
+    -
+      php: hhvm
+    -
+      php: 5.5
+    -
+      env: deps=high
+      php: 5.6
+    -
+      env: deps=low
+      php: 7
+addons:
+  apt_packages:
+    - parallel
+    - php5-memcached
+    - php5-memcache
 services:
   - mysql
   - postgresql
   - elasticsearch
   - memcached
-
+sudo: false
 before_script:
-  - memcached -p 11212 -d
-  - memcached -p 11213 -d
-  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs;' -U postgres; fi"
-  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs_tmp;' -U postgres; fi"
-  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs;' -U postgres; fi"
-  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs_tmp;' -U postgres; fi"
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS ojs_tmp;create database IF NOT EXISTS ojs;'; fi"
-  - phpenv config-rm xdebug.ini
-  - /home/travis/.phpenv/versions/5.6/bin/composer self-update
-  - composer install --no-interaction --prefer-dist
-  - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - php app/console ojs:install --travis
-  - npm install -g bower
-  - bower install -f
-  - chmod -R 777 app/cache app/logs
-  - php app/console --env=dev cache:warmup
-  - php app/console assets:install web --symlink
-  - php app/console assetic:dump
-  - php app/console ojs:install:samples
-  - php app/console ojs:install:samples:submission-checklist
-  - php app/console ojs:install:samples:mail-template
-
-script: phpunit -c app
-
+  - "memcached -p 11212 -d"
+  - "memcached -p 11213 -d"
+  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs;' -U postgres; fi\""
+  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs_tmp;' -U postgres; fi\""
+  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs;' -U postgres; fi\""
+  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs_tmp;' -U postgres; fi\""
+  - "sh -c \"if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS ojs_tmp;create database IF NOT EXISTS ojs;'; fi\""
+  - "phpenv config-rm xdebug.ini"
+  - "/home/travis/.phpenv/versions/5.6/bin/composer self-update"
+  - "composer install --no-interaction --prefer-dist"
+  - "cp app/config/parameters.yml.dist app/config/parameters.yml"
+  - "php app/console ojs:install --travis"
+  - "npm install -g bower"
+  - "bower install -f"
+  - "chmod -R 777 app/cache app/logs"
+  - "php app/console --env=dev cache:warmup"
+  - "php app/console assets:install web --symlink"
+  - "php app/console assetic:dump"
+  - "php app/console ojs:install:samples"
+  - "php app/console ojs:install:samples:submission-checklist"
+  - "php app/console ojs:install:samples:mail-template"
+cache:
+  directories:
+    - .phpunit
 notifications:
-  slack: okulbilisim:zJjSGCYwjyInYhk1cNFIuyuV
+  slack: "okulbilisim:zJjSGCYwjyInYhk1cNFIuyuV"
   webhooks:
+    on_failure: always
+    on_start: false
+    on_success: change
     urls:
-      - https://webhooks.gitter.im/e/fe449b96442997092a93
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: false     # default: false
+      - "https://webhooks.gitter.im/e/fe449b96442997092a93"
+script: "phpunit -c app"
