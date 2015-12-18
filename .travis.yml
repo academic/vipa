@@ -1,45 +1,60 @@
 language: php
 env:
-  - DB=mysql
-  - DB=postgres
+  - SYMFONY_VERSION="2.7.*" DB="mysql"
+  - SYMFONY_VERSION="2.8.*" DB="mysql"
+  - SYMFONY_VERSION="2.7.*" DB="postgres"
+  - SYMFONY_VERSION="2.8.*" DB="postgres"
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+
 matrix:
   fast_finish: true
-  include:
-    -
-      php: hhvm
-    -
-      php: 5.5
-    -
-      env: deps=high
-      php: 5.6
-    -
-      env: deps=low
-      php: 7
+  allow_failures:
+    - php: 7.0
+
 addons:
   apt_packages:
     - parallel
     - php5-memcached
     - php5-memcache
+
 services:
   - mysql
   - postgresql
   - elasticsearch
   - memcached
 sudo: false
+
+before_install:
+  - composer selfupdate
+
+install:
+  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi;'
+  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ] && [ $(php -r "echo PHP_MINOR_VERSION;") -le 4 ]; then echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
+  - sh -c 'if [ $(php -r "echo PHP_MINOR_VERSION;") -ge 5 ]; then printf "\n" | pecl install apcu-beta; fi;'
+  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
+  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
+  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi;'
+  - sh -c 'printf "\n" | pecl install imagick'
+  - gem install sass
+  - npm install bower -g
+  - phpenv config-rm xdebug.ini
+  - npm install uglify-js
+  - npm install uglifycss
+  - chmod -R 777 app/cache/ app/logs/
+
 before_script:
-  - "memcached -p 11212 -d"
-  - "memcached -p 11213 -d"
   - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs;' -U postgres; fi\""
   - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs_tmp;' -U postgres; fi\""
   - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs;' -U postgres; fi\""
   - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs_tmp;' -U postgres; fi\""
   - "sh -c \"if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS ojs_tmp;create database IF NOT EXISTS ojs;'; fi\""
-  - "phpenv config-rm xdebug.ini"
-  - "/home/travis/.phpenv/versions/5.6/bin/composer self-update"
   - "composer install --no-interaction --prefer-dist"
   - "cp app/config/parameters.yml.dist app/config/parameters.yml"
   - "php app/console ojs:install --travis"
-  - "npm install -g bower"
   - "bower install -f"
   - "chmod -R 777 app/cache app/logs"
   - "php app/console --env=dev cache:warmup"
