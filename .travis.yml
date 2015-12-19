@@ -2,11 +2,11 @@ language: php
 env:
   - SYMFONY_VERSION="2.7.*" DB="mysql"
   - SYMFONY_VERSION="2.8.*" DB="mysql"
+  - SYMFONY_VERSION="3.*" DB="mysql"
   - SYMFONY_VERSION="2.7.*" DB="postgres"
   - SYMFONY_VERSION="2.8.*" DB="postgres"
-php:
-  - 5.4
-  - 5.5
+  - SYMFONY_VERSION="3.*" DB="postgres"
+php:mo
   - 5.6
   - 7.0
 
