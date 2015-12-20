@@ -231,7 +231,7 @@ author.summary: 'Yazar Hakkında'
 author.title: Ünvan
 author.email: E-Posta
 author.address: Adres
-author.institution_not_listed: Enstitüm Listede yok
+author.institution_not_listed: Enstitüm listede yok
 author_id: 'Yazar No'
 author_order: 'Sıra'
 authors: Yazarlar
@@ -575,7 +575,7 @@ journal.settings.submission.language: 'Makalem Dili'
 journal.settings.submission.language.text: 'Makaleler için zorunlu dilleri seçin.'
 journal.setup: 'Dergi Ayarları'
 journal.singular: Dergi
-journal.slug: 'Web Erişimi İçin Kısa Yol  ( base_host/<i>journal_path</i> )'
+journal.slug: 'Web Erişimi İçin Kısa Yol (base_host/<i>journal_path</i>)'
 journal.subjects: Konular
 journal.subtitle: 'Alt Başlık'
 journal.switch: 'Kullanmak için bir dergi izni yazın'
@@ -719,7 +719,7 @@ notification.subject: 'Bildirimin Konusu'
 notification.test: 'Bildirim Testi'
 notification.verb: Fiil
 number: Sayı
-'of %count%': 'of %count%'
+'of %count%': '- %count%'
 off: Kapalı
 on: Açık
 ojs: OJS
@@ -732,7 +732,7 @@ ojs.back_and_edit: 'Geri & Düzenlemeye Devam Et'
 ojs.change_password: 'Şifre Değiştir'
 ojs.changed_password: 'Şifreniz Değiştirildi'
 ojs.click_to_Review: 'Eğer daveti kabul ediyorsanız sistemeye girmek için aşağıdaki linke tıklayınız.'
-ojs.found_results: '<strong class="text-danger">%total%</strong> için sonuçlar bulundu. <strong class="text-danger">%term%</strong>'
+ojs.found_results: '<strong class="text-danger">%term%</strong> için <strong class="text-danger">%total%</strong> sonuç bulundu.'
 ojs.have_message: 'Sistemden mesajınız var.'
 ojs.install.confirm: 'Kurulumu Onayla'
 ojs.install.title: 'OJS Kurulumu'
