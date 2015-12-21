@@ -82,9 +82,9 @@ class SearchController extends Controller
             }
         } elseif ($queryType == 'tag') {
 
-            $matchQuery = new Query\Match();
-            $matchQuery->setField('tags', $query);
-            $boolQuery->addMust($matchQuery);
+            $regexpQuery = new Query\Regexp();
+            $regexpQuery->setParams(['tags' => ".*".$query.".*"]);
+            $boolQuery->addMust($regexpQuery);
         } elseif ($queryType == 'injournal') {
 
             $journalId = $request->get('journalId');
