@@ -16,6 +16,7 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
@@ -247,12 +248,12 @@ class Article extends AbstractTranslatable
      * @var array
      */
     public static $statuses = array(
-        -4 => 'status.withdrawn',
-        -3 => 'status.rejected',
-        -2 => 'status.unpublished',
-        -1 => 'status.not_submitted',
-        0 => 'status.inreview',
-        1 => 'status.published',
+        ArticleStatuses::STATUS_WITHDRAWN => 'status.withdrawn',
+        ArticleStatuses::STATUS_REJECTED => 'status.rejected',
+        ArticleStatuses::STATUS_UNPUBLISHED => 'status.unpublished',
+        ArticleStatuses::STATUS_NOT_SUBMITTED => 'status.not_submitted',
+        ArticleStatuses::STATUS_INREVIEW => 'status.inreview',
+        ArticleStatuses::STATUS_PUBLISHED => 'status.published',
     );
 
     /**
