@@ -36,6 +36,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article Submission controller.
@@ -73,7 +74,13 @@ class ArticleSubmissionController extends Controller
         $source1->manipulateQuery(
             function (QueryBuilder $qb) use ($source1TableAlias, $user, $currentJournal, $all) {
                 $qb->andWhere($source1TableAlias.'.status IN (:notDraftStatuses)')
-                    ->setParameter('notDraftStatuses', array(-3, -2, 0 ,1));
+                    ->setParameter('notDraftStatuses', [
+                        ArticleStatuses::STATUS_REJECTED,
+                        ArticleStatuses::STATUS_UNPUBLISHED,
+                        ArticleStatuses::STATUS_INREVIEW,
+                        ArticleStatuses::STATUS_PUBLISHED
+                        ]
+                    );
                 if(!$all){
                     $qb->andWhere($source1TableAlias.'.submitterUser = :user')
                         ->setParameter('user', $user);
@@ -85,7 +92,7 @@ class ArticleSubmissionController extends Controller
         $source2->manipulateQuery(
             function (QueryBuilder $qb) use ($source2TableAlias, $user, $currentJournal, $all) {
                 $qb->andWhere($source2TableAlias.'.status = :status')
-                    ->setParameter('status', -1);
+                    ->setParameter('status', ArticleStatuses::STATUS_NOT_SUBMITTED);
                 if(!$all){
                     $qb->andWhere($source2TableAlias.'.submitterUser = :user')
                         ->setParameter('user', $user);
@@ -201,7 +208,7 @@ class ArticleSubmissionController extends Controller
         $articleAuthor->setAuthor($author);
         $article
             ->setSubmitterUser($user)
-            ->setStatus(-1)
+            ->setStatus(ArticleStatuses::STATUS_NOT_SUBMITTED)
             ->setJournal($journal)
             ->addCitation(new Citation())
             ->addArticleFile(new ArticleFile())
@@ -364,7 +371,7 @@ class ArticleSubmissionController extends Controller
             array(
                 'id' => $id,
                 'submitterUser' => $user,
-                'status' => -1
+                'status' => ArticleStatuses::STATUS_NOT_SUBMITTED
             )
         );
         $this->throw404IfNotFound($article);
@@ -470,7 +477,7 @@ class ArticleSubmissionController extends Controller
             array(
                 'id' => $articleId,
                 'submitterUser' => $user,
-                'status' => -1
+                'status' => ArticleStatuses::STATUS_PUBLISHED
             )
         );
         $this->throw404IfNotFound($article);
@@ -492,7 +499,7 @@ class ArticleSubmissionController extends Controller
             if($session->has('submissionFiles')) {
                 $session->remove('submissionFiles');
             }
-            $article->setStatus(0);
+            $article->setStatus(ArticleStatuses::STATUS_INREVIEW);
             $article->setSubmissionDate(new \DateTime());
             $em->persist($article);
 
@@ -672,7 +679,7 @@ class ArticleSubmissionController extends Controller
         $article = $em->getRepository('OjsJournalBundle:Article')->findOneBy(array(
             'submitterUser' => $this->getUser(),
             'id' => $id,
-            'status' => -1
+            'status' => ArticleStatuses::STATUS_NOT_SUBMITTED
         ));
         $this->throw404IfNotFound($article);
         //remove article 's article files relational items
