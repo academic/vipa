@@ -316,13 +316,13 @@ class SearchController extends Controller
     public function tagCloudAction()
     {
         $search = $this->container->get('fos_elastica.index.search');
-        $searchQuery = new Query('_all');
+        $searchQuery = new Query();
+        $searchQuery->setSize(0);
 
         //get tags aggregation
         $tagsAgg = new Aggregation\Terms('tags');
         $tagsAgg->setField('tags');
-        $tagsAgg->setOrder('_term', 'asc');
-        $tagsAgg->setSize(0);
+        $tagsAgg->setSize(500);
         $searchQuery->addAggregation($tagsAgg);
         /**
          * @var ResultSet $results
@@ -331,7 +331,12 @@ class SearchController extends Controller
 
         $data['tags'] = [];
         foreach ($results->getAggregations()['tags']['buckets'] as $result) {
-            $data['tags'][] = $result['key'];
+            $keys = array_filter(explode(',', $result['key']));
+            if(is_array($keys)){
+                foreach($keys as $key){
+                    $data['tags'][] = trim($key);
+                }
+            }
         }
 
         return $this->render('OjsSiteBundle:Search:tags_cloud.html.twig', $data);
