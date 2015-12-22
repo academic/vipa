@@ -10,12 +10,6 @@ Ojs\JournalBundle\Entity\Article:
       type: integer
   lifecycleCallbacks: {}
   manyToOne:
-    section:
-      targetEntity: Section
-      joinColumn:
-        name: section_id
-        referencedColumnName: id
-      inversedBy: articles
     journal:
       targetEntity: Journal
       joinColumn:
@@ -23,6 +17,12 @@ Ojs\JournalBundle\Entity\Article:
         referencedColumnName: id
       inversedBy: articles
       fetch: EXTRA_LAZY
+    section:
+      targetEntity: Section
+      joinColumn:
+        name: section_id
+        referencedColumnName: id
+      inversedBy: articles
     issue:
       targetEntity: Issue
       joinColumn:
@@ -46,48 +46,49 @@ Ojs\JournalBundle\Entity\Article:
     attributes:
       targetEntity: ArticleAttribute
       mappedBy: article
-      cascade: ["ALL"]
+      cascade: ["persist", "remove"]
       indexBy: attribute
     articleAuthors:
       targetEntity: ArticleAuthor
       mappedBy: article
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
     articleFiles:
       targetEntity: ArticleFile
       mappedBy: article
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
     articleSubmissionFiles:
       targetEntity: Ojs\JournalBundle\Entity\ArticleSubmissionFile
       mappedBy: article
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
     statistics:
       targetEntity: Ojs\AnalyticsBundle\Entity\ArticleStatistic
       mappedBy: article
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
   manyToMany:
     languages:
       targetEntity: Lang
       joinTable:
+        name: article_language
         inverseJoinColumns:
           language_id:
             referencedColumnName: id
         joinColumns:
           article_id:
             referencedColumnName: id
-        name: article_language
       fetch: EXTRA_LAZY
+      cascade: ["persist", "remove"]
     citations:
       targetEntity: Citation
       inversedBy: articles
       joinTable:
+        name: article_citation
         inverseJoinColumns:
           citation_id:
             referencedColumnName: id
         joinColumns:
           article_id:
             referencedColumnName: id
-        name: article_citation
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
   fields:
     titleTransliterated:
       column: title_transliterated
