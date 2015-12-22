@@ -7,14 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\AnalyticsBundle\Entity\JournalStatistic;
+use Ojs\CoreBundle\Annotation\Display;
 use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\UserBundle\Entity\User;
 use OkulBilisim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\CoreBundle\Annotation\Display;
-use Ojs\CoreBundle\Params\JournalStatuses;
 
 /**
  * Journal
@@ -25,18 +25,17 @@ class Journal extends AbstractTranslatable
 {
     use GenericEntityTrait;
     use AnalyticsTrait;
-
     /**
      * List of Journal Status
      * @var array
      */
-    public static $statuses = array(
-        JournalStatuses::STATUS_REJECTED => 'status.rejected',
+    public static $statuses = [
+        JournalStatuses::STATUS_REJECTED     => 'status.rejected',
         JournalStatuses::STATUS_NAME_CHANGED => 'status.name_changed',
-        JournalStatuses::STATUS_HOLD=> 'status.hold',
-        JournalStatuses::STATUS_PREPARING => 'status.preparing',
-        JournalStatuses::STATUS_PUBLISHED => 'status.published',
-    );
+        JournalStatuses::STATUS_HOLD         => 'status.hold',
+        JournalStatuses::STATUS_PREPARING    => 'status.preparing',
+        JournalStatuses::STATUS_PUBLISHED    => 'status.published',
+    ];
     /** @var  boolean */
     protected $setupFinished;
     /** @var  string */
@@ -254,7 +253,6 @@ class Journal extends AbstractTranslatable
      * @Grid\Column(field="publisher.name", title="publisher")
      */
     private $publisher;
-
     /**
      * @var Collection
      */
@@ -472,7 +470,6 @@ class Journal extends AbstractTranslatable
         if ($this->periods !== null && $this->periods->contains($period)) {
             $this->periods->removeElement($period);
         }
-
     }
 
     /**
@@ -1122,7 +1119,7 @@ class Journal extends AbstractTranslatable
      */
     public function removeSubject(Subject $subject)
     {
-        if($this->subjects->contains($subject)){
+        if ($this->subjects->contains($subject)) {
             $this->subjects->removeElement($subject);
             $subject->removeJournal($this);
         }
@@ -1186,9 +1183,9 @@ class Journal extends AbstractTranslatable
      */
     public function getTitle()
     {
-        if(!is_null($this->translate()->getTitle())){
+        if (!is_null($this->translate()->getTitle())) {
             return $this->translate()->getTitle();
-        }else{
+        } else {
             return $this->translations->first()->getTitle();
         }
     }
@@ -1614,6 +1611,7 @@ class Journal extends AbstractTranslatable
     public function setAccessModal($accessModal)
     {
         $this->accessModal = $accessModal;
+
         return $this;
     }
 
@@ -1632,6 +1630,7 @@ class Journal extends AbstractTranslatable
     public function setJournalIndexesBag($journalIndexesBag)
     {
         $this->journalIndexesBag = $journalIndexesBag;
+
         return $this;
     }
 }

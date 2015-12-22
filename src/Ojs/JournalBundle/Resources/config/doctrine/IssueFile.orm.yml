@@ -18,8 +18,8 @@ Ojs\JournalBundle\Entity\IssueFile:
             cascade: ["persist"]
     oneToMany:
         statistics:
-            targetEntity: Ojs\AnalyticsBundle\Entity\ArticleFileStatistic
-            mappedBy: articleFile
+            targetEntity: Ojs\AnalyticsBundle\Entity\IssueFileStatistic
+            mappedBy: issueFile
             cascade: ["persist"]
     fields:
         type:

@@ -85,6 +85,9 @@ Ojs\JournalBundle\Entity\Journal:
       targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
       mappedBy: journal
       cascade: ["persist"]
+    journalApplicationUploadFiles:
+      targetEntity: Ojs\JournalBundle\Entity\JournalApplicationUploadFile
+      mappedBy: journal
   manyToMany:
     languages:
       targetEntity: Ojs\JournalBundle\Entity\Lang

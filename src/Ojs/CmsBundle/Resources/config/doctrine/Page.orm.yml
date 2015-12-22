@@ -15,6 +15,10 @@ Ojs\CmsBundle\Entity\Page:
             id: true
             generator:
                 strategy: AUTO
+    oneToMany:
+      translations:
+        targetEntity: Ojs\CmsBundle\Entity\PageTranslation
+        mappedBy: translatable
     fields:
         tags:
             type: string
