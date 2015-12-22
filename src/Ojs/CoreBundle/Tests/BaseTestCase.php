@@ -8,6 +8,7 @@ ini_set('memory_limit', '-1');
 session_start();
 
 use Doctrine\ORM\EntityManager;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -16,6 +17,7 @@ use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -134,5 +136,35 @@ abstract class BaseTestCase extends WebTestCase
         }
 
         return $response->isSuccessful();
+    }
+
+    public function getRouteParams($parameters = array())
+    {
+        return array_merge($parameters, $this->getApiKeyParams());
+    }
+
+    /**
+     * @return array
+     */
+    public function getApiKeyParams()
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('u')
+            ->from('OjsUserBundle:User', 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%')
+            ->andWhere('u.apiKey IS NOT NULL')
+            ->getQuery()
+            ->getResult()
+        ;
+        $getAdminUsers = $qb->getQuery()->getResult();
+        if(count($getAdminUsers) < 1){
+            throw new NotFoundHttpException('Create an admin user with that apikey field not null');
+        }
+        /** @var User $getAdminUser */
+        $getAdminUser = $getAdminUsers[0];
+        return [
+            'apikey' => $getAdminUser->getApiKey()
+        ];
     }
 }
