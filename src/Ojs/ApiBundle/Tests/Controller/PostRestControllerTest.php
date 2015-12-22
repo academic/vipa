@@ -8,7 +8,8 @@ class PostRestControllerTest extends BaseTestCase
 {
     public function testGetPostsAction()
     {
-        $url = $this->router->generate('api_1_get_posts');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_posts', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -24,7 +25,8 @@ class PostRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_get_posts');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_posts', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -55,7 +57,8 @@ class PostRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_put_post', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_post', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -78,7 +81,8 @@ class PostRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_post', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_post', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -93,7 +97,8 @@ class PostRestControllerTest extends BaseTestCase
 
     public function testDeletePostAction()
     {
-        $url = $this->router->generate('api_1_delete_post', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_post', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

@@ -8,7 +8,8 @@ class ContactRestControllerTest extends BaseTestCase
 {
     public function testGetContactsAction()
     {
-        $url = $this->router->generate('api_1_get_contact');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_contact', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -28,7 +29,8 @@ class ContactRestControllerTest extends BaseTestCase
             'country' => 216,
             'city' => 'Ankara'
         ];
-        $url = $this->router->generate('api_1_get_contacts');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_contacts', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -43,7 +45,8 @@ class ContactRestControllerTest extends BaseTestCase
 
     public function testGetContactAction()
     {
-        $url = $this->router->generate('api_1_get_contact', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_contact', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -63,7 +66,8 @@ class ContactRestControllerTest extends BaseTestCase
             'country' => 216,
             'city' => 'Ankara'
         ];
-        $url = $this->router->generate('api_1_put_contact', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_contact', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -82,7 +86,8 @@ class ContactRestControllerTest extends BaseTestCase
             'address' => 'PHPUnit Test Address Field en - PUT',
             'email' => 'PHPUnit Test Email Field en - PUT',
         ];
-        $url = $this->router->generate('api_1_patch_contact', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_contact', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -97,7 +102,8 @@ class ContactRestControllerTest extends BaseTestCase
 
     public function testDeleteContactAction()
     {
-        $url = $this->router->generate('api_1_delete_contact', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_contact', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

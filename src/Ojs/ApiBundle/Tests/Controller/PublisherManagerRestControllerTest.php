@@ -8,7 +8,8 @@ class PublisherManagerRestControllerTest extends BaseTestCase
 {
     public function testGetPublisherManagersAction()
     {
-        $url = $this->router->generate('api_1_get_publishermanagers');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publishermanagers', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -20,7 +21,8 @@ class PublisherManagerRestControllerTest extends BaseTestCase
             'publisher' => 1,
             'user' => 1
         ];
-        $url = $this->router->generate('api_1_get_publishermanagers');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publishermanagers', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -35,7 +37,8 @@ class PublisherManagerRestControllerTest extends BaseTestCase
 
     public function testGetPublisherManagerAction()
     {
-        $url = $this->router->generate('api_1_get_publishermanager', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_publishermanager', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -47,7 +50,8 @@ class PublisherManagerRestControllerTest extends BaseTestCase
             'publisher' => 1,
             'user' => 5
         ];
-        $url = $this->router->generate('api_1_put_publishermanager', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_publishermanager', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -65,7 +69,8 @@ class PublisherManagerRestControllerTest extends BaseTestCase
         $content = [
             'user' => 2
         ];
-        $url = $this->router->generate('api_1_patch_publishermanager', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_publishermanager', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -80,7 +85,8 @@ class PublisherManagerRestControllerTest extends BaseTestCase
 
     public function testDeletePublisherManagerAction()
     {
-        $url = $this->router->generate('api_1_delete_publishermanager', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_publishermanager', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

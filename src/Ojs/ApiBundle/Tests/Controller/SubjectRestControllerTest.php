@@ -8,7 +8,8 @@ class SubjectRestControllerTest extends BaseTestCase
 {
     public function testGetSubjectsAction()
     {
-        $url = $this->router->generate('api_1_get_subjects');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_subjects', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -25,7 +26,8 @@ class SubjectRestControllerTest extends BaseTestCase
             ],
             'tags' => ['phpunit'],
         ];
-        $url = $this->router->generate('api_1_get_subjects');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_subjects', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -40,7 +42,8 @@ class SubjectRestControllerTest extends BaseTestCase
 
     public function testGetSubjectAction()
     {
-        $url = $this->router->generate('api_1_get_subject', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_subject', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -57,7 +60,8 @@ class SubjectRestControllerTest extends BaseTestCase
             ],
             'tags' => ['phpunit'],
         ];
-        $url = $this->router->generate('api_1_put_subject', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_subject', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -80,7 +84,8 @@ class SubjectRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_subject', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_subject', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -95,7 +100,8 @@ class SubjectRestControllerTest extends BaseTestCase
 
     public function testDeleteSubjectAction()
     {
-        $url = $this->router->generate('api_1_delete_subject', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_subject', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

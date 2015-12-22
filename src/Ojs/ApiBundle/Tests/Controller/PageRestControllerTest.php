@@ -8,7 +8,8 @@ class PageRestControllerTest extends BaseTestCase
 {
     public function testGetPagesAction()
     {
-        $url = $this->router->generate('api_1_get_pages');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_pages', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -25,7 +26,8 @@ class PageRestControllerTest extends BaseTestCase
             ],
             'tags' => ['phpunit', 'post']
         ];
-        $url = $this->router->generate('api_1_get_pages');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_pages', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -40,7 +42,8 @@ class PageRestControllerTest extends BaseTestCase
 
     public function testGetPageAction()
     {
-        $url = $this->router->generate('api_1_get_page', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_page', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -57,7 +60,8 @@ class PageRestControllerTest extends BaseTestCase
             ],
             'tags' => ['phpunit', 'put']
         ];
-        $url = $this->router->generate('api_1_put_page', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_page', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -80,7 +84,8 @@ class PageRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_page', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_page', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -95,7 +100,8 @@ class PageRestControllerTest extends BaseTestCase
 
     public function testDeletePageAction()
     {
-        $url = $this->router->generate('api_1_delete_page', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_page', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

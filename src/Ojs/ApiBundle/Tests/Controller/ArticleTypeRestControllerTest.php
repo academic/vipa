@@ -8,7 +8,8 @@ class ArticleTypeRestControllerTest extends BaseTestCase
 {
     public function testGetArticleTypesAction()
     {
-        $url = $this->router->generate('api_1_get_articletypes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_articletypes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -24,7 +25,8 @@ class ArticleTypeRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_get_articletypes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_articletypes', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -39,7 +41,8 @@ class ArticleTypeRestControllerTest extends BaseTestCase
 
     public function testGetArticleTypeAction()
     {
-        $url = $this->router->generate('api_1_get_articletype', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_articletype', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -55,7 +58,8 @@ class ArticleTypeRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_put_articletype', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_articletype', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -77,7 +81,8 @@ class ArticleTypeRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_articletype', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_articletype', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -92,7 +97,8 @@ class ArticleTypeRestControllerTest extends BaseTestCase
 
     public function testDeleteArticleTypeAction()
     {
-        $url = $this->router->generate('api_1_delete_articletype', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_articletype', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

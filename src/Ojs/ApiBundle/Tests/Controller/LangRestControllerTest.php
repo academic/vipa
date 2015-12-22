@@ -8,7 +8,8 @@ class LangRestControllerTest extends BaseTestCase
 {
     public function testGetLangsAction()
     {
-        $url = $this->router->generate('api_1_get_langs');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_langs', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -21,7 +22,8 @@ class LangRestControllerTest extends BaseTestCase
             'name' => 'PHPUnit Name Field - POST',
             'rtl' => false,
         ];
-        $url = $this->router->generate('api_1_get_langs');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_langs', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -36,7 +38,8 @@ class LangRestControllerTest extends BaseTestCase
 
     public function testGetLangAction()
     {
-        $url = $this->router->generate('api_1_get_lang', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_lang', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -49,7 +52,8 @@ class LangRestControllerTest extends BaseTestCase
             'name' => 'PHPUnit Name Field - PUT',
             'rtl' => true,
         ];
-        $url = $this->router->generate('api_1_put_lang', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_lang', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -68,7 +72,8 @@ class LangRestControllerTest extends BaseTestCase
             'code' => 'PHPUnit',
             'name' => 'PHPUnit Name Field - PATCH',
         ];
-        $url = $this->router->generate('api_1_patch_lang', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_lang', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -83,7 +88,8 @@ class LangRestControllerTest extends BaseTestCase
 
     public function testDeleteLangAction()
     {
-        $url = $this->router->generate('api_1_delete_lang', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_lang', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

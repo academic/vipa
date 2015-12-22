@@ -8,7 +8,8 @@ class PublisherThemeRestControllerTest extends BaseTestCase
 {
     public function testGetPublisherThemesAction()
     {
-        $url = $this->router->generate('api_1_get_publisherthemes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publisherthemes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -22,7 +23,8 @@ class PublisherThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => '*{color: red;}'
         ];
-        $url = $this->router->generate('api_1_get_publisherthemes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publisherthemes', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -37,7 +39,8 @@ class PublisherThemeRestControllerTest extends BaseTestCase
 
     public function testGetPublisherThemeAction()
     {
-        $url = $this->router->generate('api_1_get_publishertheme', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_publishertheme', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -51,7 +54,8 @@ class PublisherThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => '*{color: red;}'
         ];
-        $url = $this->router->generate('api_1_put_publishertheme', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_publishertheme', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -69,7 +73,8 @@ class PublisherThemeRestControllerTest extends BaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PATCH',
         ];
-        $url = $this->router->generate('api_1_patch_publishertheme', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_publishertheme', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -84,7 +89,8 @@ class PublisherThemeRestControllerTest extends BaseTestCase
 
     public function testDeletePublisherThemeAction()
     {
-        $url = $this->router->generate('api_1_delete_publishertheme', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_publishertheme', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

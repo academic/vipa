@@ -8,7 +8,8 @@ class JournalRestControllerTest extends BaseTestCase
 {
     public function testGetJournalsAction()
     {
-        $url = $this->router->generate('api_1_get_journals');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_journals', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -16,7 +17,8 @@ class JournalRestControllerTest extends BaseTestCase
 
     public function testGetJournalAction()
     {
-        $url = $this->router->generate('api_1_get_journal', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_journal', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -56,7 +58,8 @@ class JournalRestControllerTest extends BaseTestCase
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
         ];
-        $url = $this->router->generate('api_1_get_journals');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_journals', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -109,7 +112,8 @@ class JournalRestControllerTest extends BaseTestCase
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
         ];
-        $url = $this->router->generate('api_1_put_journal', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id' => 550]);
+        $url = $this->router->generate('api_1_put_journal', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -134,7 +138,8 @@ class JournalRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_journal', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1]);
+        $url = $this->router->generate('api_1_patch_journal', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -149,7 +154,8 @@ class JournalRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalAction()
     {
-        $url = $this->router->generate('api_1_delete_journal', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1]);
+        $url = $this->router->generate('api_1_delete_journal', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

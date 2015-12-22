@@ -8,7 +8,8 @@ class PublisherRestControllerTest extends BaseTestCase
 {
     public function testGetPublishersAction()
     {
-        $url = $this->router->generate('api_1_get_publishers');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publishers', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -45,7 +46,8 @@ class PublisherRestControllerTest extends BaseTestCase
             'city' => 'Ankara'
 
         ];
-        $url = $this->router->generate('api_1_get_publishers');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publishers', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -81,7 +83,8 @@ class PublisherRestControllerTest extends BaseTestCase
             'city' => 'Ankara'
 
         ];
-        $url = $this->router->generate('api_1_put_publisher', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id' => 550]);
+        $url = $this->router->generate('api_1_put_publisher', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -103,7 +106,8 @@ class PublisherRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_publisher', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1]);
+        $url = $this->router->generate('api_1_patch_publisher', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -118,7 +122,8 @@ class PublisherRestControllerTest extends BaseTestCase
 
     public function testDeletePublisherAction()
     {
-        $url = $this->router->generate('api_1_delete_publisher', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1]);
+        $url = $this->router->generate('api_1_delete_publisher', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

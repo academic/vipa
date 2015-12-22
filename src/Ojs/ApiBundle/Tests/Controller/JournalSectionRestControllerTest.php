@@ -14,7 +14,8 @@ class JournalSectionRestControllerTest extends BaseTestCase
 
     public function testGetJournalSectionsAction()
     {
-        $url = $this->router->generate('api_1_get_sections', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_get_sections', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -31,7 +32,8 @@ class JournalSectionRestControllerTest extends BaseTestCase
             'allowIndex' => true,
             'hideTitle' => false
         ];
-        $url = $this->router->generate('api_1_post_section', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_post_section', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -46,7 +48,8 @@ class JournalSectionRestControllerTest extends BaseTestCase
 
     public function testGetJournalSectionAction()
     {
-        $url = $this->router->generate('api_1_get_section', ['journalId' => 1, 'id'=> 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
+        $url = $this->router->generate('api_1_get_section', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -63,7 +66,8 @@ class JournalSectionRestControllerTest extends BaseTestCase
             'allowIndex' => true,
             'hideTitle' => false
         ];
-        $url = $this->router->generate('api_1_put_section', ['journalId' => 1,'id' => 550]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 550]);
+        $url = $this->router->generate('api_1_put_section', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -85,7 +89,8 @@ class JournalSectionRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_section', ['journalId' => 1,'id' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
+        $url = $this->router->generate('api_1_patch_section', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -100,7 +105,8 @@ class JournalSectionRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalSectionAction()
     {
-        $url = $this->router->generate('api_1_delete_section', ['id' => 1,'journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
+        $url = $this->router->generate('api_1_delete_section', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

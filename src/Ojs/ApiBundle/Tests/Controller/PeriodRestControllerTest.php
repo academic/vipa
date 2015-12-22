@@ -8,7 +8,8 @@ class PeriodRestControllerTest extends BaseTestCase
 {
     public function testGetPeriodsAction()
     {
-        $url = $this->router->generate('api_1_get_periods');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_periods', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -23,7 +24,8 @@ class PeriodRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_get_periods');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_periods', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -38,7 +40,8 @@ class PeriodRestControllerTest extends BaseTestCase
 
     public function testGetPeriodAction()
     {
-        $url = $this->router->generate('api_1_get_period', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_period', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -53,7 +56,8 @@ class PeriodRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_put_period', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_period', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -75,7 +79,8 @@ class PeriodRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_period', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_period', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -90,7 +95,8 @@ class PeriodRestControllerTest extends BaseTestCase
 
     public function testDeletePeriodAction()
     {
-        $url = $this->router->generate('api_1_delete_period', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_period', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

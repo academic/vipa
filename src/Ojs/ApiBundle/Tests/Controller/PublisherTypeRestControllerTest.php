@@ -8,7 +8,8 @@ class PublisherTypeRestControllerTest extends BaseTestCase
 {
     public function testGetPublisherTypesAction()
     {
-        $url = $this->router->generate('api_1_get_publishertypes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publishertypes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -24,7 +25,8 @@ class PublisherTypeRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_get_publishertypes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_publishertypes', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -39,7 +41,8 @@ class PublisherTypeRestControllerTest extends BaseTestCase
 
     public function testGetPublisherTypeAction()
     {
-        $url = $this->router->generate('api_1_get_publishertype', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_publishertype', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -55,7 +58,8 @@ class PublisherTypeRestControllerTest extends BaseTestCase
                 ]
             ],
         ];
-        $url = $this->router->generate('api_1_put_publishertype', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_publishertype', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -77,7 +81,8 @@ class PublisherTypeRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $url = $this->router->generate('api_1_patch_publishertype', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_publishertype', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -92,7 +97,8 @@ class PublisherTypeRestControllerTest extends BaseTestCase
 
     public function testDeletePublisherTypeAction()
     {
-        $url = $this->router->generate('api_1_delete_publishertype', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_publishertype', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

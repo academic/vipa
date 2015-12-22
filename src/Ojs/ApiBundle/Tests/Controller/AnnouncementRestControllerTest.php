@@ -8,7 +8,8 @@ class AnnouncementRestControllerTest extends BaseTestCase
 {
     public function testGetAnnouncementsAction()
     {
-        $url = $this->router->generate('api_1_get_announcements');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_announcements', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -36,7 +37,8 @@ class AnnouncementRestControllerTest extends BaseTestCase
 
     public function testGetAnnouncementAction()
     {
-        $url = $this->router->generate('api_1_get_announcement', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_announcement', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -49,7 +51,8 @@ class AnnouncementRestControllerTest extends BaseTestCase
             'image' => 'PHPUnit Test Image Field en - PUT',
             'content' => 'PHPUnit Test Content Field en - PUT',
         ];
-        $url = $this->router->generate('api_1_put_announcement', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id' => 550]);
+        $url = $this->router->generate('api_1_put_announcement', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -67,7 +70,8 @@ class AnnouncementRestControllerTest extends BaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PATCH',
         ];
-        $url = $this->router->generate('api_1_patch_announcement', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1]);
+        $url = $this->router->generate('api_1_patch_announcement', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -82,7 +86,8 @@ class AnnouncementRestControllerTest extends BaseTestCase
 
     public function testDeleteAnnouncementAction()
     {
-        $url = $this->router->generate('api_1_delete_announcement', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1]);
+        $url = $this->router->generate('api_1_delete_announcement', $routeParameters);
         $this->client->request(
             'DELETE',
             $url
