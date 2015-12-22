@@ -28,10 +28,8 @@ class ContactType extends AbstractType
                     'remote_route' => 'ojs_admin_journal_autocomplete',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'label' => 'journal',
-                    'label_attr' => array('class' => 'sr-only'),
                     'attr' => [
                         'class' => 'select2-element',
-                        'placeholder' => 'journal.switch',
                     ]
                 ]
             )
