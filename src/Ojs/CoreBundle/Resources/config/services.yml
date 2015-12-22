@@ -136,6 +136,6 @@ services:
 
   app.exception_listener:
     class: Ojs\CoreBundle\Listeners\ExceptionListener
-    arguments: ["@router", "@session", "@translator"]
+    arguments: ["@router", "@session", "@translator", "@request_stack"]
     tags:
         - { name: kernel.event_listener, event: kernel.exception }

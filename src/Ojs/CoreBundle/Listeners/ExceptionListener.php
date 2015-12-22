@@ -3,12 +3,14 @@
 namespace Ojs\CoreBundle\Listeners;
 
 use Ojs\CoreBundle\Exception\ChildNotEmptyException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ExceptionListener
 {
@@ -21,24 +23,43 @@ class ExceptionListener
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var  RequestStack */
+    private $requestStack;
+
     /**
      * ExceptionListener constructor.
      * @param RouterInterface $router
      * @param Session $session
      * @param TranslatorInterface $translator
      */
-    public function __construct(RouterInterface $router, Session $session, TranslatorInterface $translator)
+    public function __construct(
+        RouterInterface $router,
+        Session $session,
+        TranslatorInterface $translator,
+        RequestStack $requestStack)
     {
         $this->router = $router;
         $this->session = $session;
         $this->translator = $translator;
+        $this->requestStack = $requestStack;
     }
 
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
+        $request = $this->requestStack->getMasterRequest();
         $exception = $event->getException();
         if (!$exception instanceof ChildNotEmptyException) {
+            return;
+        }
+        $errorText = $this->translator->trans(
+            'firstly.remove.components',
+            array('%field%' => $exception->getMapping()['fieldName'])
+        );
+        if($request->get('_format') == 'json'){
+            $response = new JsonResponse(['error' => $errorText]);
+
+            $event->setResponse($response);
             return;
         }
         $routeArr = $this->getRefererParams($event->getRequest());
@@ -48,10 +69,7 @@ class ExceptionListener
 
         $this->session->getFlashBag()->add(
             'danger',
-            $this->translator->trans(
-                'firstly.remove.components',
-                array('%field%' => $exception->getMapping()['fieldName'])
-            )
+            $errorText
         );
 
         $url = $this->router->generate($route, $routeArr);
