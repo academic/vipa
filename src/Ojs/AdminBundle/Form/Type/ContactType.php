@@ -21,7 +21,20 @@ class ContactType extends AbstractType
             ->add('email', 'email', ['label' => 'email'])
             ->add('tags', 'tags')
             ->add('contactType')
-            ->add('journal', 'entity', ['class' => 'Ojs\JournalBundle\Entity\Journal'])
+            ->add(
+                'journal',
+                'tetranz_select2entity',
+                [
+                    'remote_route' => 'ojs_admin_journal_autocomplete',
+                    'class' => 'Ojs\JournalBundle\Entity\Journal',
+                    'label' => 'journal',
+                    'label_attr' => array('class' => 'sr-only'),
+                    'attr' => [
+                        'class' => 'select2-element',
+                        'placeholder' => 'journal.switch',
+                    ]
+                ]
+            )
             ->add('institution', null, ['label' => 'institution'])
             ->add('country', 'entity', array(
                 'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
