@@ -1168,10 +1168,14 @@ class Journal extends AbstractTranslatable
      */
     public function __toString()
     {
-        if (is_null($this->getTitle())) {
-            return $this->translations->first()->getTitle();
-        } else {
+        if (is_string($this->getTitle())) {
             return $this->getTitle();
+        } else {
+            if(is_string($this->translations->first()->getTitle())){
+                return $this->translations->first()->getTitle();
+            }else{
+                return '';
+            }
         }
     }
 
