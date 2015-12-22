@@ -8,7 +8,8 @@ class IndexRestControllerTest extends BaseTestCase
 {
     public function testGetIndexesAction()
     {
-        $url = $this->router->generate('api_1_get_indexes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_indexes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -21,7 +22,8 @@ class IndexRestControllerTest extends BaseTestCase
             'logo' => 'http://logo.com/POST',
             'status' => true,
         ];
-        $url = $this->router->generate('api_1_get_indexes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_indexes', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -36,7 +38,8 @@ class IndexRestControllerTest extends BaseTestCase
 
     public function testGetIndexsAction()
     {
-        $url = $this->router->generate('api_1_get_indexes', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_indexes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -49,7 +52,8 @@ class IndexRestControllerTest extends BaseTestCase
             'logo' => 'http://logo.com/PUT',
             'status' => true,
         ];
-        $url = $this->router->generate('api_1_put_indexes', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_indexes', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -67,7 +71,8 @@ class IndexRestControllerTest extends BaseTestCase
         $content = [
             'name' => 'PHPUnitTest Name Field - PATCH',
         ];
-        $url = $this->router->generate('api_1_patch_indexes', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_indexes', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -82,7 +87,8 @@ class IndexRestControllerTest extends BaseTestCase
 
     public function testDeleteIndexesAction()
     {
-        $url = $this->router->generate('api_1_delete_indexes', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_indexes', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

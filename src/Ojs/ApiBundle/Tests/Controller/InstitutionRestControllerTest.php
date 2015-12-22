@@ -8,7 +8,8 @@ class InstitutionRestControllerTest extends BaseTestCase
 {
     public function testGetInstitutionsAction()
     {
-        $url = $this->router->generate('api_1_get_institutions');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_institutions', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -17,23 +18,10 @@ class InstitutionRestControllerTest extends BaseTestCase
     public function testNewInstitutionAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field - POST',
-            'translations' => [
-                'en' => [
-                    'about' => 'PHPUnit Test About Field en - POST',
-                ]
-            ],
-            'tags' => ['phpunit'],
-            'institutionType' => 3,
-            'address' => 'PHPUnit Test Adress Field - POST',
-            'phone' => '12345678910',
-            'fax' => '987654321',
-            'email' => 'behram.celen@okulbilisim.com',
-            'wiki' => 'http://www.wiki.com',
-            'domain' => 'behram.org'
-
+            'name' => 'PHPUnit Test Name Field - POST'
         ];
-        $url = $this->router->generate('api_1_get_institutions');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_institutions', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -48,7 +36,8 @@ class InstitutionRestControllerTest extends BaseTestCase
 
     public function testGetInstitutionAction()
     {
-        $url = $this->router->generate('api_1_get_institution', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_institution', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -57,23 +46,10 @@ class InstitutionRestControllerTest extends BaseTestCase
     public function testPutInstitutionAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field - PUT',
-            'translations' => [
-                'en' => [
-                    'about' => 'PHPUnit Test About Field en - PUT',
-                ]
-            ],
-            'tags' => ['phpunit'],
-            'institutionType' => 3,
-            'address' => 'PHPUnit Test Adress Field - PUT',
-            'phone' => '12345678910',
-            'fax' => '987654321',
-            'email' => 'behram.celen@okulbilisim.com',
-            'wiki' => 'http://www.wiki.com',
-            'domain' => 'behram.org'
-
+            'name' => 'PHPUnit Test Name Field - PUT'
         ];
-        $url = $this->router->generate('api_1_put_institution', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_institution', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -89,13 +65,10 @@ class InstitutionRestControllerTest extends BaseTestCase
     public function testPatchInstitutionAction()
     {
         $content = [
-            'translations' => [
-                'tr' => [
-                    'about' => 'PHPUnit Test About Field TR - PATCH',
-                ]
-            ]
+            'name' => 'PHPUnit Test Name Field - PATCH',
         ];
-        $url = $this->router->generate('api_1_patch_institution', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_institution', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -110,7 +83,8 @@ class InstitutionRestControllerTest extends BaseTestCase
 
     public function testDeleteInstitutionAction()
     {
-        $url = $this->router->generate('api_1_delete_institution', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_institution', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

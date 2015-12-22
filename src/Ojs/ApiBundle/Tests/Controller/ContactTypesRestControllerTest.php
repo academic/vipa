@@ -8,7 +8,8 @@ class ContactTypesRestControllerTest extends BaseTestCase
 {
     public function testGetContacttypesAction()
     {
-        $url = $this->router->generate('api_1_get_contacttypes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_contacttypes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -16,7 +17,8 @@ class ContactTypesRestControllerTest extends BaseTestCase
 
     public function testGetContacttypeAction()
     {
-        $url = $this->router->generate('api_1_get_contacttype', ['id'=> 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_get_contacttype', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -31,7 +33,8 @@ class ContactTypesRestControllerTest extends BaseTestCase
                 'description' => 'PHPUnit Test Description Field - POST'
             ]
         ];
-        $url = $this->router->generate('api_1_get_contacttypes');
+        $routeParameters = $this->getRouteParams();
+        $url = $this->router->generate('api_1_get_contacttypes', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -57,7 +60,8 @@ class ContactTypesRestControllerTest extends BaseTestCase
                 'description' => 'PHPUnit Test Description Field tr - Put'
             ],
         ];
-        $url = $this->router->generate('api_1_put_contacttype', ['id' => 550]);
+        $routeParameters = $this->getRouteParams(['id'=> 550]);
+        $url = $this->router->generate('api_1_put_contacttype', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -79,7 +83,8 @@ class ContactTypesRestControllerTest extends BaseTestCase
                 'description' => 'PHPUnit Test Description Field tr - Patch'
             ],
         ];
-        $url = $this->router->generate('api_1_patch_contacttype', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_patch_contacttype', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -94,7 +99,8 @@ class ContactTypesRestControllerTest extends BaseTestCase
 
     public function testDeleteContacttypeAction()
     {
-        $url = $this->router->generate('api_1_delete_contacttype', ['id' => 1]);
+        $routeParameters = $this->getRouteParams(['id'=> 1]);
+        $url = $this->router->generate('api_1_delete_contacttype', $routeParameters);
         $this->client->request(
             'DELETE',
             $url
