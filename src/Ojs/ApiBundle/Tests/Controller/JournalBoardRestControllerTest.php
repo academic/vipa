@@ -14,7 +14,8 @@ class JournalBoardRestControllerTest extends BaseTestCase
 
     public function testGetJournalBoardsAction()
     {
-        $url = $this->router->generate('api_1_get_boards', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_get_boards', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -26,7 +27,8 @@ class JournalBoardRestControllerTest extends BaseTestCase
             'name' => 'PHPUnit Test Name Field en - POST',
             'description' => 'PHPUnit Test Description Field en - POST',
         ];
-        $url = $this->router->generate('api_1_post_board', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_post_board', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -41,7 +43,8 @@ class JournalBoardRestControllerTest extends BaseTestCase
 
     public function testGetJournalBoardAction()
     {
-        $url = $this->router->generate('api_1_get_board', ['journalId' => 1, 'id'=> 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
+        $url = $this->router->generate('api_1_get_board', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -53,7 +56,8 @@ class JournalBoardRestControllerTest extends BaseTestCase
             'name' => 'PHPUnit Test Name Field en - PUT',
             'description' => 'PHPUnit Test Description Field en - PUT',
         ];
-        $url = $this->router->generate('api_1_put_board', ['journalId' => 1,'id' => 550]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 550]);
+        $url = $this->router->generate('api_1_put_board', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -71,7 +75,8 @@ class JournalBoardRestControllerTest extends BaseTestCase
         $content = [
             'name' => 'PHPUnit Test Name Field en - PATCH',
         ];
-        $url = $this->router->generate('api_1_patch_board', ['journalId' => 1,'id' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
+        $url = $this->router->generate('api_1_patch_board', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -86,7 +91,8 @@ class JournalBoardRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalBoardAction()
     {
-        $url = $this->router->generate('api_1_delete_board', ['id' => 1,'journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1,'journalId' => 1]);
+        $url = $this->router->generate('api_1_delete_board', $routeParameters);
         $this->client->request(
             'DELETE',
             $url

@@ -26,7 +26,8 @@ class JournalArticleRestControllerTest extends BaseTestCase
 
     public function testGetJournalArticlesAction()
     {
-        $url = $this->router->generate('api_1_get_articles', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_get_articles', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -62,7 +63,8 @@ class JournalArticleRestControllerTest extends BaseTestCase
                 'encoded_content' => $this->sampleArticleHeaderEncoded,
             ],
         ];
-        $url = $this->router->generate('api_1_post_article', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_post_article', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -77,7 +79,8 @@ class JournalArticleRestControllerTest extends BaseTestCase
 
     public function testGetJournalArticleAction()
     {
-        $url = $this->router->generate('api_1_get_article', ['journalId' => 1, 'id'=> 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
+        $url = $this->router->generate('api_1_get_article', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -113,7 +116,8 @@ class JournalArticleRestControllerTest extends BaseTestCase
                 'encoded_content' => $this->sampleArticleHeaderEncoded,
             ],
         ];
-        $url = $this->router->generate('api_1_put_article', ['journalId' => 1,'id' => 550]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 550]);
+        $url = $this->router->generate('api_1_put_article', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -139,7 +143,8 @@ class JournalArticleRestControllerTest extends BaseTestCase
                 'encoded_content' => $this->sampleArticleHeaderEncoded,
             ],
         ];
-        $url = $this->router->generate('api_1_patch_article', ['journalId' => 1,'id' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
+        $url = $this->router->generate('api_1_patch_article', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -154,7 +159,8 @@ class JournalArticleRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalArticleAction()
     {
-        $url = $this->router->generate('api_1_delete_article', ['id' => 1,'journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['id' => 1,'journalId' => 1]);
+        $url = $this->router->generate('api_1_delete_article', $routeParameters);
         $this->client->request(
             'DELETE',
             $url
