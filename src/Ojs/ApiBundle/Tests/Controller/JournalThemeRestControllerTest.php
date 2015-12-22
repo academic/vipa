@@ -14,7 +14,8 @@ class JournalThemeRestControllerTest extends BaseTestCase
 
     public function testGetJournalThemesAction()
     {
-        $url = $this->router->generate('api_1_get_themes', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_get_themes', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -27,7 +28,8 @@ class JournalThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => 'body{color: red;.post{}}'
         ];
-        $url = $this->router->generate('api_1_post_theme', ['journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1]);
+        $url = $this->router->generate('api_1_post_theme', $routeParameters);
         $this->client->request(
             'POST',
             $url,
@@ -42,7 +44,8 @@ class JournalThemeRestControllerTest extends BaseTestCase
 
     public function testGetJournalThemeAction()
     {
-        $url = $this->router->generate('api_1_get_theme', ['journalId' => 1, 'id'=> 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
+        $url = $this->router->generate('api_1_get_theme', $routeParameters);
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
@@ -55,7 +58,8 @@ class JournalThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => 'body{color: red;.post{}}'
         ];
-        $url = $this->router->generate('api_1_put_theme', ['journalId' => 1,'id' => 550]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 550]);
+        $url = $this->router->generate('api_1_put_theme', $routeParameters);
         $this->client->request(
             'PUT',
             $url,
@@ -73,7 +77,8 @@ class JournalThemeRestControllerTest extends BaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PATCH'
         ];
-        $url = $this->router->generate('api_1_patch_theme', ['journalId' => 1,'id' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
+        $url = $this->router->generate('api_1_patch_theme', $routeParameters);
         $this->client->request(
             'PATCH',
             $url,
@@ -88,7 +93,8 @@ class JournalThemeRestControllerTest extends BaseTestCase
 
     public function testDeleteJournalThemeAction()
     {
-        $url = $this->router->generate('api_1_delete_theme', ['id' => 1,'journalId' => 1]);
+        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
+        $url = $this->router->generate('api_1_delete_theme', $routeParameters);
         $this->client->request(
             'DELETE',
             $url
