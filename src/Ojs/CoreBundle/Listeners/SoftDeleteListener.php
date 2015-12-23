@@ -5,34 +5,44 @@ namespace Ojs\CoreBundle\Listeners;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Ojs\CoreBundle\Exception\ChildNotEmptyException;
-use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class SoftDeleteListener
 {
-    private $excludedParents = [
+    // Entities which don't need manual removal
+    private $ignoredEntities = [
         'Prezent\Doctrine\Translatable\Entity\AbstractTranslation',
         'Ojs\AnalyticsBundle\Entity\Statistic',
     ];
 
+    // Entities whose relations aren't checked
+    private $excludedEntities = [
+        'Ojs\JournalBundle\Entity\Article',
+        'Ojs\JournalBundle\Entity\Issue',
+    ];
+
     public function preSoftDelete(LifecycleEventArgs $args)
     {
-        if (!$args->getEntity() instanceof Article) {
-            $this->checkRelations($args);
-        }
+        $this->checkRelations($args);
     }
 
     protected function checkRelations(LifecycleEventArgs $args)
     {
+
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
+
+        if (in_array($entityManager->getClassMetadata(get_class($entity))->name, $this->excludedEntities)) {
+            return;
+        }
+
         $mappings = $entityManager->getClassMetadata(get_class($entity))->getAssociationMappings();
 
         foreach ($mappings as $mapping) {
             if ($mapping['type'] === ClassMetadataInfo::ONE_TO_MANY || $mapping['type'] === ClassMetadataInfo::MANY_TO_MANY) {
                 $targetEntityMeta = $entityManager->getClassMetadata($mapping['targetEntity']);
                 if ($targetEntityMeta->reflClass->getParentClass()) {
-                    if (in_array($targetEntityMeta->reflClass->getParentClass()->name, $this->excludedParents)) {
+                    if (in_array($targetEntityMeta->reflClass->getParentClass()->name, $this->ignoredEntities)) {
                         continue;
                     }
                 }
@@ -54,8 +64,6 @@ class SoftDeleteListener
 
     public function preRemove(LifecycleEventArgs $args)
     {
-        if (!$args->getEntity() instanceof Article) {
-            $this->checkRelations($args);
-        }
+        $this->checkRelations($args);
     }
 }

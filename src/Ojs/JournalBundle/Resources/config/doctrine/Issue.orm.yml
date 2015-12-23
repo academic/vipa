@@ -2,19 +2,14 @@ Ojs\JournalBundle\Entity\Issue:
   type: entity
   table: issue
   repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
-  manyToMany:
-    sections:
-      targetEntity: Section
-      joinTable:
-        inverseJoinColumns:
-          section_id:
-            referencedColumnName: id
-        joinColumns:
-          issue_id:
-            referencedColumnName: id
-        name: issue_section
-        cascade: ["persist", "merge"]
-        fetch: LAZY
+  manyToOne:
+    journal:
+      targetEntity: Journal
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+      inversedBy: issues
+      cascade: ["persist", "merge"]
   oneToMany:
     articles:
       targetEntity: Article
@@ -25,18 +20,24 @@ Ojs\JournalBundle\Entity\Issue:
       targetEntity: IssueFile
       mappedBy: issue
       fetch: EXTRA_LAZY
+      cascade: ["persist", "remove"]
     statistics:
       targetEntity: Ojs\AnalyticsBundle\Entity\IssueStatistic
       mappedBy: issue
-      cascade: ["persist"]
-  manyToOne:
-    journal:
-      targetEntity: Journal
-      joinColumn:
-        name: journal_id
-        referencedColumnName: id
-      inversedBy: issues
-      cascade: ["persist","merge"]
+      cascade: ["persist", "remove"]
+  manyToMany:
+    sections:
+      targetEntity: Section
+      joinTable:
+        name: issue_section
+        inverseJoinColumns:
+          section_id:
+            referencedColumnName: id
+        joinColumns:
+          issue_id:
+            referencedColumnName: id
+        cascade: ["persist", "merge", "remove"]
+        fetch: LAZY
   id:
     id:
       type: integer

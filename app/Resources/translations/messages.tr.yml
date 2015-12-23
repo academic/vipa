@@ -1459,3 +1459,6 @@ linkedin: 'Linkedin'
 orcid: 'ORCID'
 oauth.login_with: 'Sosyal Hesap ile Giriş'
 oauth.connect_before: 'Bu özelliği kullanmanız için hesabınızı önceden bağlamış olmanız gerekir.'
+
+# Deletion messages
+deletion.issue: 'Sayı başarıyla silindi lakin makaleleri başka sayılara dahil edebilmeniz için korundu.'

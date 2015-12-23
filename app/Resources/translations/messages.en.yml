@@ -1463,3 +1463,6 @@ linkedin: 'Linkedin'
 orcid: 'ORCID'
 oauth.login_with: 'Login with...'
 oauth.connect_before: 'You need to connect your account before using this.'
+
+# Deletion messages
+deletion.issue: 'The issue has been removed successfully but its articles preserved so you can add them to another issue.'

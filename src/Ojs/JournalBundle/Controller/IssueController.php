@@ -328,6 +328,7 @@ class IssueController extends Controller
         if (!$this->isGranted('DELETE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
         }
+
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
@@ -337,13 +338,24 @@ class IssueController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_issue' . $id);
+
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
 
+        // We are detaching articles from both the issue and its section in order
+        // to make them available for putting inside another issue's section.
+        foreach ($entity->getArticles() as $article) {
+            $article->setIssue(null);
+            $article->setSection(null);
+            $em->persist($article);
+        }
+
+        $em->flush(); // Detach articles first
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('successful.remove');
+
+        $this->successFlashBag('deletion.issue');
 
         $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
         $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
