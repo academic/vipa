@@ -7,9 +7,9 @@ imports:
     
 doctrine:
     orm:
-        metadata_cache_driver: memcache
-        query_cache_driver: memcache
-        result_cache_driver: memcache
+        metadata_cache_driver: memcached
+        query_cache_driver: memcached
+        result_cache_driver: memcached
 
 monolog:
     handlers:

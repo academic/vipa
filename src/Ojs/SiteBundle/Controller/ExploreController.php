@@ -23,7 +23,7 @@ class ExploreController extends Controller
         $publisherFilters = !empty($getPublishers) ? explode(',', $getPublishers) : [];
 
         $journalSearcher = $this->get('fos_elastica.index.search.journal');
-        $boolQuery = new Query\Bool();
+        $boolQuery = new Query\BoolQuery();
 
         $match = new Query\Match();
         $match->setField('status', 1);
@@ -117,7 +117,7 @@ class ExploreController extends Controller
         $typeFilters = !empty($getTypes) ? explode(',', $getTypes) : [];
 
         $publisherSearcher = $this->get('fos_elastica.index.search.publisher');
-        $boolQuery = new Query\Bool();
+        $boolQuery = new Query\BoolQuery();
 
         if (!empty($typeFilters)) {
             foreach ($typeFilters as $type) {

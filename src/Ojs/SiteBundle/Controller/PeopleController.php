@@ -29,7 +29,7 @@ class PeopleController extends Controller
         $userQuery = new Query('*');
 
         if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters)) {
-            $boolQuery = new Query\Bool();
+            $boolQuery = new Query\BoolQuery();
 
             foreach ($roleFilters as $role) {
                 $match = new Query\Match();

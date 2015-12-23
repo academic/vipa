@@ -19,7 +19,6 @@ addons:
   apt_packages:
     - parallel
     - php5-memcached
-    - php5-memcache
     - php5-apcu
 
 services:
