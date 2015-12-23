@@ -40,7 +40,7 @@ class ArticleStartType extends AbstractType
                         new EqualTo(
                             array(
                                 'value' => array_values($options['checkListsChoices']),
-                                'message' => 'All fields must be selected'
+                                'message' => 'all.fields.must.be.selected'
                             )
                         )
                     )

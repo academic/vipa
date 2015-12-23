@@ -8,3 +8,4 @@ user.register.journal_role.error.allready_registered: "Dergi rolü zaten var!"
 user.register.user.error.not_blank: "Kullanıcı seçilmeli!"
 user.register.journal.error.not_blank: "Dergi seçilmeli!"
 user.register.password.error.not_blank: "Şifre boş bırakılamaz!"
+all.fields.must.be.selected: 'Tüm Alanlar Seçilmeli'
