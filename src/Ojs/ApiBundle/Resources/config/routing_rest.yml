@@ -148,5 +148,7 @@ api_journal_article:
 
 api_analytics :
   type: rest
-  resource:     "OjsApiBundle:AnalyticsRest"
-  name_prefix:  api_
+  resource:     "@OjsApiBundle/Controller/AnalyticsRestController.php"
+  name_prefix:  api_1_
+  requirements:
+        id:  \d+
