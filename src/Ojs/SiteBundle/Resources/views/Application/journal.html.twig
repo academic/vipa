@@ -180,6 +180,9 @@
                 newPublisherButton.hide();
                 publisherSelector.hide();
             });
+            $('.journalContact .remove_contact').on('click', function() {
+                $(this).parent().remove();
+            });
         });
 
         function addContactForm(collectionHolder, addLink) {
