@@ -529,7 +529,7 @@ journal.cover_image: 'Kapak Resmi'
 journal.createdAt: ' Oluşturulma Saati'
 journal.design: 'Dergi Tasarımı'
 journal.detail: 'Dergi Detayı'
-journal.domain: 'Alan Adı'
+journal.domain: 'Alan Adı (domain)'
 journal.edit: 'Dergi Düzenle'
 journal.editor: Editör
 journal.editor_email: 'Editör e-Postası'
