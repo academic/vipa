@@ -19,10 +19,6 @@ Ojs\CmsBundle\Entity\Post:
       type: integer
       generator:
         strategy: AUTO
-  oneToMany:
-    translations:
-      targetEntity: Ojs\CmsBundle\Entity\PostTranslation
-      mappedBy: translatable
   fields:
     slug:
       type: string
