@@ -151,7 +151,7 @@ class JournalApplicationType extends AbstractType
                 array(
                     'class' => 'OjsJournalBundle:Subject',
                     'multiple' => true,
-                    'required' => false,
+                    'required' => true,
                     'label' => 'journal.subjects',
                     'attr' => ['class' => 'select2-element'],
                 )
