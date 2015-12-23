@@ -1461,3 +1461,4 @@ oauth.connect_before: 'Bu özelliği kullanmanız için hesabınızı önceden b
 
 # Deletion messages
 deletion.issue: 'Sayı başarıyla silindi lakin makaleleri başka sayılara dahil edebilmeniz için korundu.'
+deletion.section: 'Bölüm başarıyla silindi lakin makaleleri bölümlere sayılara dahil edebilmeniz için korundu.'
