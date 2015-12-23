@@ -3,13 +3,13 @@ Ojs\JournalBundle\Entity\Journal:
   table: journal
   repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   manyToOne:
     publisher:
       targetEntity: Publisher
       cascade: ["ALL"]
       cache:
-          usage : NONSTRICT_READ_WRITE
+          usage: NONSTRICT_READ_WRITE
           region: journal
       joinColumn:
         name: publisher_id
@@ -44,21 +44,21 @@ Ojs\JournalBundle\Entity\Journal:
       indexBy: setting
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     articles:
       targetEntity: Article
       mappedBy: journal
       cascade: ["persist", "merge"]
       fetch: LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     issues:
       targetEntity: Issue
       mappedBy: journal
       cascade: ["persist", "merge"]
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     boards:
       targetEntity: Board
       mappedBy: journal
@@ -70,28 +70,28 @@ Ojs\JournalBundle\Entity\Journal:
       cascade: ["persist", "merge"]
       fetch: LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     journalIndexs:
       targetEntity: Ojs\JournalBundle\Entity\JournalIndex
       mappedBy: journal
       cascade: ["all"]
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     submissionChecklist:
       targetEntity: Ojs\JournalBundle\Entity\SubmissionChecklist
       mappedBy: journal
       cascade: ["all"]
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     journalSubmissionFiles:
       targetEntity: Ojs\JournalBundle\Entity\JournalSubmissionFile
       mappedBy: journal
       cascade: ["all"]
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     journalUsers:
       targetEntity: Ojs\JournalBundle\Entity\JournalUser
       mappedBy: journal
@@ -101,7 +101,7 @@ Ojs\JournalBundle\Entity\Journal:
       mappedBy: journal
       cascade: ["persist"]
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     statistics:
       targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
       mappedBy: journal
@@ -122,7 +122,7 @@ Ojs\JournalBundle\Entity\Journal:
         name: journal_language
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     periods:
       targetEntity: Ojs\JournalBundle\Entity\Period
       joinTable:
@@ -134,7 +134,7 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
         name: journal_period
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     subjects:
       targetEntity: Subject
       cascade: ["persist"]
@@ -153,7 +153,7 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
             onDelete: CASCADE
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     bannedUsers:
       targetEntity: Ojs\UserBundle\Entity\User
       cascase: ["all"]
@@ -171,7 +171,7 @@ Ojs\JournalBundle\Entity\Journal:
             referencedColumnName: id
             onDelete: CASCADE
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

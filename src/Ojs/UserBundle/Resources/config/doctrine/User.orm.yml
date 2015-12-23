@@ -3,7 +3,7 @@ Ojs\UserBundle\Entity\User:
   table: users
   repositoryClass: Ojs\UserBundle\Entity\UserRepository
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer
@@ -137,7 +137,7 @@ Ojs\UserBundle\Entity\User:
       mappedBy: user
       fetch: EXTRA_LAZY
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
   manyToOne:
     country:
       targetEntity: OkulBilisim\LocationBundle\Entity\Country
@@ -164,7 +164,7 @@ Ojs\UserBundle\Entity\User:
             onDelete: CASCADE
       orderBy: null
       cache:
-          usage : NONSTRICT_READ_WRITE
+          usage: NONSTRICT_READ_WRITE
     restrictedJournals:
       targetEntity: Ojs\JournalBundle\Entity\Journal
       mappedBy: bannedUsers

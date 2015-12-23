@@ -4,7 +4,7 @@ Ojs\CmsBundle\Entity\Page:
     repositoryClass: Ojs\CmsBundle\Entity\PageRepository
     inheritanceType: SINGLE_TABLE
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     discriminatorColumn:
         name: discriminator
         type: string

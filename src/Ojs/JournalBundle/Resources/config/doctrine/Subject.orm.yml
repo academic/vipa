@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Subject:
     table: subject
     repositoryClass: Ojs\JournalBundle\Entity\SubjectRepository
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer
@@ -110,4 +110,4 @@ Ojs\JournalBundle\Entity\Subject:
             orderBy:
                 lft: ASC
             cache:
-                usage : NONSTRICT_READ_WRITE
+                usage: NONSTRICT_READ_WRITE

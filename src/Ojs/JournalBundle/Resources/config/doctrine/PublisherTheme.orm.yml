@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\PublisherTheme:
     table: publisher_theme
     repositoryClass: Ojs\JournalBundle\Entity\PublisherThemeRepository
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

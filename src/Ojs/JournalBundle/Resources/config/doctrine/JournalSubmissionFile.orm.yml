@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\JournalSubmissionFile:
   repositoryClass: Ojs\JournalBundle\Entity\JournalSubmissionFileRepository
   lifecycleCallbacks: {  }
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   manyToOne:
     journal:
       targetEntity: Ojs\JournalBundle\Entity\Journal

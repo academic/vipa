@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\JournalSetting:
   table: journal_setting
   repositoryClass: Ojs\JournalBundle\Entity\JournalSettingRepository
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   id:
     journal:
       associationKey: true

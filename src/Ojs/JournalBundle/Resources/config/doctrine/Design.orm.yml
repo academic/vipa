@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Design:
   table: design
   repositoryClass: Ojs\JournalBundle\Entity\DesignRepository
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

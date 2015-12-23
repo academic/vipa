@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Publisher:
     table: publisher
     repositoryClass: Ojs\JournalBundle\Entity\PublisherRepository
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer
@@ -22,7 +22,7 @@ Ojs\JournalBundle\Entity\Publisher:
             orderBy:
                   lft: ASC
             cache:
-                  usage : NONSTRICT_READ_WRITE
+                  usage: NONSTRICT_READ_WRITE
         publisherThemes:
             targetEntity: Ojs\JournalBundle\Entity\PublisherTheme
             mappedBy: publisher
@@ -40,7 +40,7 @@ Ojs\JournalBundle\Entity\Publisher:
                 referencedColumnName: id
             inversedBy: publishers
             cache:
-                usage : NONSTRICT_READ_WRITE
+                usage: NONSTRICT_READ_WRITE
         country:
             targetEntity: OkulBilisim\LocationBundle\Entity\Country
             joinColumn:

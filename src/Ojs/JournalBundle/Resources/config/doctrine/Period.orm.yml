@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Period:
     table: period
     repositoryClass: Ojs\JournalBundle\Entity\PeriodRepository
     cache:
-      usage : NONSTRICT_READ_WRITE
+      usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Board:
     table: board
     repositoryClass: Ojs\JournalBundle\Entity\BoardRepository
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

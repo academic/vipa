@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Theme:
   table: theme
   repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

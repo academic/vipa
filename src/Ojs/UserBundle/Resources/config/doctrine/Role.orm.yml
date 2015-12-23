@@ -3,7 +3,7 @@ Ojs\UserBundle\Entity\Role:
   table: role
   repositoryClass: Ojs\UserBundle\Entity\RoleRepository
   cache:
-      usage : NONSTRICT_READ_WRITE
+      usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

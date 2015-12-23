@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Lang:
     table: lang
     repositoryClass: Ojs\JournalBundle\Entity\LangRepository
     cache:
-      usage : NONSTRICT_READ_WRITE
+      usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

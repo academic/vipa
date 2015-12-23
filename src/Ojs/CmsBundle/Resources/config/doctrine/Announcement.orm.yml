@@ -4,7 +4,7 @@ Ojs\CmsBundle\Entity\Announcement:
     repositoryClass: Ojs\CmsBundle\Entity\AnnouncementRepository
     inheritanceType: SINGLE_TABLE
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     discriminatorColumn:
         name: discriminator
         type: string

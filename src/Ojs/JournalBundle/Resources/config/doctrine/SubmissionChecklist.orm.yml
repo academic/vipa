@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
   repositoryClass: Ojs\JournalBundle\Entity\SubmissionChecklistRepository
   table: submission_checklist
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

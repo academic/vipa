@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Index:
   repositoryClass: Ojs\JournalBundle\Entity\IndexRepository
   table: indexes
   cache:
-      usage : NONSTRICT_READ_WRITE
+      usage: NONSTRICT_READ_WRITE
   fields:
     name:
       type: string

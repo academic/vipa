@@ -3,7 +3,7 @@ Ojs\SiteBundle\Entity\Block:
   table: blocks
   repositoryClass: Ojs\SiteBundle\Entity\BlockRepository
   cache:
-      usage : NONSTRICT_READ_WRITE
+      usage: NONSTRICT_READ_WRITE
   oneToMany:
     links:
       targetEntity: Ojs\SiteBundle\Entity\BlockLink
@@ -12,7 +12,7 @@ Ojs\SiteBundle\Entity\Block:
       fetch: EXTRA_LAZY
       orderBy: { link_order: 'asc' }
       cache:
-          usage : NONSTRICT_READ_WRITE
+          usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

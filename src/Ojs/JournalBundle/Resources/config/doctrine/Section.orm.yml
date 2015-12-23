@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Section:
     repositoryClass: Ojs\JournalBundle\Entity\SectionRepository
     table: section
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     manyToOne:
        journal:
           targetEntity: Journal

@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Article:
   table: article
   type: entity
   cache:
-    usage : NONSTRICT_READ_WRITE
+    usage: NONSTRICT_READ_WRITE
   id:
     id:
       generator:
@@ -33,7 +33,7 @@ Ojs\JournalBundle\Entity\Article:
       inversedBy: articles
       fetch: EAGER
       cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     articleType:
       targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
       joinColumn:

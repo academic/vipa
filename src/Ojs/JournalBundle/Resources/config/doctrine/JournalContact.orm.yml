@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\JournalContact:
     table: journal_contact
     repositoryClass: Ojs\JournalBundle\Entity\JournalContactRepository
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

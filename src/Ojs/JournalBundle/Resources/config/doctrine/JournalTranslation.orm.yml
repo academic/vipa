@@ -2,7 +2,7 @@ Ojs\JournalBundle\Entity\JournalTranslation:
     type: entity
     table: journal_translations
     cache:
-        usage : NONSTRICT_READ_WRITE
+        usage: NONSTRICT_READ_WRITE
     id:
         id:
             type: integer
