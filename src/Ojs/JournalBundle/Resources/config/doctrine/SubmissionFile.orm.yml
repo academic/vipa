@@ -9,6 +9,8 @@ Ojs\JournalBundle\Entity\SubmissionFile:
     discriminatorMap:
         article: Ojs\JournalBundle\Entity\ArticleSubmissionFile
         journal: Ojs\JournalBundle\Entity\JournalSubmissionFile
+    cache:
+        usage : NONSTRICT_READ_WRITE
     id:
       id:
         type: integer

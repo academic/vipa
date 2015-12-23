@@ -153,18 +153,12 @@ class JournalPostController extends OjsController
     /**
      * Finds and displays a JournalPost entity.
      *
-     * @param  int $id
+     * @param  JournalPost $journalPost
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($id)
+    public function showAction(JournalPost $journalPost)
     {
-        /** @var JournalPost $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $entity = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:JournalPost')
-            ->find($id);
-        $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('VIEW', $journal, 'posts')) {
             throw new AccessDeniedException("You are not authorized for this post!");
@@ -172,11 +166,11 @@ class JournalPostController extends OjsController
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_journal_post'.$entity->getId());
+            ->refreshToken('ojs_journal_post'.$journalPost->getId());
 
         return $this->render(
             'OjsJournalBundle:JournalPost:show.html.twig',
-            ['entity' => $entity, 'token' => $token]
+            ['entity' => $journalPost, 'token' => $token]
         );
     }
 

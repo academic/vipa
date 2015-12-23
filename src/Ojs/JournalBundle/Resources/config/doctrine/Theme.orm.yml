@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\Theme:
   type: entity
   table: theme
   repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
+  cache:
+    usage : NONSTRICT_READ_WRITE
   id:
     id:
       type: integer

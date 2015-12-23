@@ -1,6 +1,8 @@
 Ojs\CmsBundle\Entity\PageTranslation:
     type: entity
     table: page_translations
+    cache:
+        usage : NONSTRICT_READ_WRITE
     id:
         id:
             type: integer

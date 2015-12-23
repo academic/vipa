@@ -26,7 +26,7 @@ class SubjectRepository extends NestedTreeRepository
             ->join('j.publisher', 'i', 'WITH', 'i.slug=:publisher')
             ->setParameter('publisher', $publisher);
 
-        return $qb->getQuery()->getResult();
+        return $qb->setCacheable(true)->getQuery()->getResult();
     }
 
     /**
@@ -41,7 +41,7 @@ class SubjectRepository extends NestedTreeRepository
         )
             ->setParameter('data', $data);
 
-        return $qb->getQuery()->getResult();
+        return $qb->setCacheable(true)->getQuery()->getResult();
     }
 
     /**
@@ -50,7 +50,7 @@ class SubjectRepository extends NestedTreeRepository
     public function getAllSubjects()
     {
         $result = $this->createQueryBuilder('subject')
-            ->select('subject.subject')->getQuery()
+            ->select('subject.subject')->setCacheable(true)->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
 
         return $result;

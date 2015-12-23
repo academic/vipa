@@ -7,6 +7,9 @@ imports:
     
 doctrine:
     orm:
+        second_level_cache:
+          enabled:            true
+          region_cache_driver: memcached
         metadata_cache_driver: memcached
         query_cache_driver: memcached
         result_cache_driver: memcached

@@ -23,6 +23,7 @@ class JournalUserRepository extends EntityRepository
                 ->andWhere('journal_user.journal = :journal')
                 ->setParameter('journal', $journal);
         }
+        $query->setCacheable(true);
 
         return $query;
     }

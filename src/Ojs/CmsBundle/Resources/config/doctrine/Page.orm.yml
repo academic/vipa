@@ -3,6 +3,8 @@ Ojs\CmsBundle\Entity\Page:
     table: page
     repositoryClass: Ojs\CmsBundle\Entity\PageRepository
     inheritanceType: SINGLE_TABLE
+    cache:
+        usage : NONSTRICT_READ_WRITE
     discriminatorColumn:
         name: discriminator
         type: string

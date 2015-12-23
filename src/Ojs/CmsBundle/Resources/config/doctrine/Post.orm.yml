@@ -3,6 +3,8 @@ Ojs\CmsBundle\Entity\Post:
   repositoryClass: Ojs\CmsBundle\Entity\PostRepository
   table: posts
   inheritanceType: SINGLE_TABLE
+  cache:
+      usage : NONSTRICT_READ_WRITE
   discriminatorColumn:
       name: discriminator
       type: string

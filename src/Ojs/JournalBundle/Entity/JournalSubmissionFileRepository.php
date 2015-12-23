@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Entity\FindTrait;
 
 /**
  * JournalSubmissionFileRepository

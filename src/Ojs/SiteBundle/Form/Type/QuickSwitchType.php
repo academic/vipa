@@ -27,7 +27,8 @@ class QuickSwitchType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     $query = $er->createQueryBuilder('i');
                     return $query
-                        ->andWhere('i.status = 1');
+                        ->andWhere('i.status = 1')
+                        ->setCacheable(true);
                 },
             ]
 

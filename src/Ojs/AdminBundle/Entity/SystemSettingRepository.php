@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Entity\FindTrait;
 
 /**
  * SystemSettingRepository
@@ -12,4 +13,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class SystemSettingRepository extends EntityRepository
 {
+    use FindTrait;
 }

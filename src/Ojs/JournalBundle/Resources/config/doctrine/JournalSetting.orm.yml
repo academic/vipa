@@ -2,6 +2,8 @@ Ojs\JournalBundle\Entity\JournalSetting:
   type: entity
   table: journal_setting
   repositoryClass: Ojs\JournalBundle\Entity\JournalSettingRepository
+  cache:
+    usage : NONSTRICT_READ_WRITE
   id:
     journal:
       associationKey: true

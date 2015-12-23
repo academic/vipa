@@ -2,6 +2,8 @@ Ojs\AdminBundle\Entity\SystemSetting:
   type: entity
   table: system_settings
   repositoryClass: Ojs\AdminBundle\Entity\SystemSettingRepository
+  cache:
+    usage : NONSTRICT_READ_WRITE
   id:
     id:
       type: integer
