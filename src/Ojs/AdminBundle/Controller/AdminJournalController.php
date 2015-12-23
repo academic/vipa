@@ -308,7 +308,7 @@ class AdminJournalController extends Controller
 
         $searchQuery = new Query('_all');
 
-        $boolQuery = new Query\Bool();
+        $boolQuery = new Query\BoolQuery();
 
         $fieldQuery = new Query\MultiMatch();
 

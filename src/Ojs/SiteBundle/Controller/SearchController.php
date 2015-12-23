@@ -49,7 +49,7 @@ class SearchController extends Controller
 
         $searchQuery = new Query('_all');
 
-        $boolQuery = new Query\Bool();
+        $boolQuery = new Query\BoolQuery();
 
         $match = new Query\Match();
         $match->setField('published', false);
