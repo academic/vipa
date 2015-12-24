@@ -19,6 +19,7 @@ class SoftDeleteListener
     private $excludedEntities = [
         'Ojs\JournalBundle\Entity\Article',
         'Ojs\JournalBundle\Entity\Issue',
+        'Ojs\JournalBundle\Entity\Section',
     ];
 
     public function preSoftDelete(LifecycleEventArgs $args)

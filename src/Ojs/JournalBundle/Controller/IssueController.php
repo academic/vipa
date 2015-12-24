@@ -351,7 +351,9 @@ class IssueController extends Controller
             $em->persist($article);
         }
 
-        $em->flush(); // Detach articles first
+        $entity->getSections()->clear(); // Remove all section relations
+
+        $em->flush(); // Detach articles and sections first
         $em->remove($entity);
         $em->flush();
 

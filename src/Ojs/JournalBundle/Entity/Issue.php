@@ -439,7 +439,7 @@ class Issue extends AbstractTranslatable
      */
     public function removeSection(Section $section)
     {
-        $this->articles->removeElement($section);
+        $this->sections->removeElement($section);
     }
 
     /**

@@ -7,6 +7,8 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Form\Type\SectionType;
@@ -318,26 +320,51 @@ class SectionController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         if (!$this->isGranted('DELETE', $journal, 'sections')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's section!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Section')->find($id);
+
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_section'.$id);
+
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
 
+        // We are detaching articles from both the issue and its section in order
+        // to make them available for putting inside another issue's section.
+        /** @var Article $article */
+        foreach ($entity->getArticles() as $article) {
+            $article->setSection(null);
+            $article->setIssue(null);
+            $em->persist($article);
+        }
+
+        /** @var Issue $article */
+        $issues = $em->getRepository('OjsJournalBundle:Issue')->findAll();
+        foreach ($issues as $issue) {
+            if ($issue->getSections()->contains($entity)) {
+                $issue->removeSection($entity);
+                $em->persist($issue);
+            }
+        }
+
+        $em->flush(); // Detach articles and issues first
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('successful.remove');
+
+        $this->successFlashBag('deletion.section');
+
+        /** @var $dispatcher EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
         $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
         $dispatcher->dispatch(JournalEvents::JOURNAL_SECTION_CHANGE, $event);
 
