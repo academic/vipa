@@ -1,16 +1,16 @@
 <?php
 
-namespace Ojs\CmsBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
-class PageTranslation extends AbstractTranslation
+class JournalPageTranslation extends AbstractTranslation
 {
     use DisplayTrait;
     /**
-     * @Prezent\Translatable(targetEntity="Ojs\CmsBundle\Entity\Page")
+     * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\JournalPage")
      */
     protected $translatable;
 

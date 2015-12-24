@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminPage;
-use Ojs\CmsBundle\Form\Type\PageType;
+use Ojs\AdminBundle\Form\Type\AdminPageType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -89,7 +89,7 @@ class AdminPageController extends Controller
     private function createCreateForm(AdminPage $entity)
     {
         $form = $this->createForm(
-            new PageType(),
+            new AdminPageType(),
             $entity,
             ['action' => $this->generateUrl('ojs_admin_page_create'), 'method' => 'POST']
         );
@@ -195,7 +195,7 @@ class AdminPageController extends Controller
     private function createEditForm(AdminPage $entity)
     {
         $form = $this->createForm(
-            new PageType(),
+            new AdminPageType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_admin_page_update', ['id' => $entity->getId()]),

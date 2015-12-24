@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\CmsBundle\Form\Type;
+namespace Ojs\JournalBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PageType extends AbstractType
+class JournalPageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -39,7 +39,7 @@ class PageType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\CmsBundle\Entity\Page',
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalPage',
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
@@ -53,6 +53,6 @@ class PageType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_cms_page';
+        return 'ojs_journalbundle_journalpage';
     }
 }

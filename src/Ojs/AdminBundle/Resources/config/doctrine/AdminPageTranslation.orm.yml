@@ -1,6 +1,6 @@
-Ojs\CmsBundle\Entity\PageTranslation:
+Ojs\AdminBundle\Entity\AdminPageTranslation:
     type: entity
-    table: page_translations
+    table: admin_page_translations
     cache:
         usage: NONSTRICT_READ_WRITE
     id:

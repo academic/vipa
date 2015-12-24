@@ -1,0 +1,13 @@
+Ojs\JournalBundle\Entity\JournalPageTranslation:
+  properties:
+    title:
+      - NotBlank: ~
+    body:
+      - NotBlank: ~
+
+Ojs\JournalBundle\Entity\JournalPage:
+    properties:
+        translations:
+            - Valid: ~
+        tags:
+            - NotBlank: ~

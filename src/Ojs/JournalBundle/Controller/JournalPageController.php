@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\CmsBundle\Form\Type\PageType;
+use Ojs\JournalBundle\Form\Type\JournalPageType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalPage;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,7 +92,7 @@ class JournalPageController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
-            new PageType(),
+            new JournalPageType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_journal_page_create', ['journalId' => $journal->getId()]),
@@ -219,7 +219,7 @@ class JournalPageController extends OjsController
     private function createEditForm(JournalPage $entity)
     {
         $form = $this->createForm(
-            new PageType(),
+            new JournalPageType(),
             $entity,
             [
                 'action' => $this->generateUrl(
