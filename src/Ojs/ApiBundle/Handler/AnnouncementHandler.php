@@ -3,7 +3,7 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\CmsBundle\Form\Type\AnnouncementType;
+use Ojs\AdminBundle\Form\Type\AdminAnnouncementType;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
@@ -114,7 +114,7 @@ class AnnouncementHandler
      */
     private function processForm(AdminAnnouncement $entity, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new AnnouncementType(), $entity, array('method' => $method, 'csrf_protection' => false));
+        $form = $this->formFactory->create(new AdminAnnouncementType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();

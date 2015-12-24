@@ -3,7 +3,7 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\CmsBundle\Form\Type\PostType;
+use Ojs\AdminBundle\Form\Type\AdminPostType;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
@@ -114,7 +114,7 @@ class PostHandler
      */
     private function processForm(AdminPost $entity, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new PostType(), $entity, array('method' => $method, 'csrf_protection' => false));
+        $form = $this->formFactory->create(new AdminPostType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();

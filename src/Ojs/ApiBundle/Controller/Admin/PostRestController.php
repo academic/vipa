@@ -5,7 +5,7 @@ namespace Ojs\ApiBundle\Controller\Admin;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\CmsBundle\Form\Type\PostType;
+use Ojs\AdminBundle\Form\Type\AdminPostType;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -93,7 +93,7 @@ class PostRestController extends FOSRestController
         if (!$this->isGranted('CREATE', new AdminPost())) {
             throw new AccessDeniedHttpException;
         }
-        return $this->createForm(new PostType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new AdminPostType(), null, ['csrf_protection' => false]);
     }
 
     /**

@@ -5,9 +5,8 @@ namespace Ojs\ApiBundle\Controller\Admin;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\CmsBundle\Entity\Announcement;
-use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
+use Ojs\AdminBundle\Form\Type\AdminAnnouncementType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -64,7 +63,7 @@ class AnnouncementRestController extends FOSRestController
      *
      * @param int     $id      the Announcement id
      *
-     * @return Announcement
+     * @return AdminAnnouncement
      *
      * @throws NotFoundHttpException when Announcement not exist
      */
@@ -94,7 +93,7 @@ class AnnouncementRestController extends FOSRestController
         if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
             throw new AccessDeniedHttpException;
         }
-        return $this->createForm(new AnnouncementType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new AdminAnnouncementType(), null, ['csrf_protection' => false]);
     }
 
     /**
