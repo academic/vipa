@@ -11,6 +11,7 @@ use Ojs\CmsBundle\Form\Type\FileType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\JournalFile;
+use Ojs\JournalBundle\Form\Type\JournalFileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -74,7 +75,7 @@ class JournalFileController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
-            new FileType(),
+            new JournalFileType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_journal_filemanager_create', ['journalId' => $journal->getId()]),
@@ -199,7 +200,7 @@ class JournalFileController extends OjsController
     private function createEditForm(JournalFile $entity)
     {
         $form = $this->createForm(
-            new FileType(),
+            new JournalFileType(),
             $entity,
             [
                 'action' => $this->generateUrl(

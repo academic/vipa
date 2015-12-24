@@ -1,0 +1,4 @@
+Ojs\JournalBundle\Entity\JournalFile:
+    properties:
+        name:
+            - NotBlank: ~

@@ -5,6 +5,7 @@ namespace Ojs\AdminBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminFile;
+use Ojs\AdminBundle\Form\Type\AdminFileType;
 use Ojs\CmsBundle\Form\Type\FileType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\StringHelper;
@@ -94,7 +95,7 @@ class AdminFileController extends Controller
     private function createCreateForm(AdminFile $entity)
     {
         $form = $this->createForm(
-            new FileType(),
+            new AdminFileType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_file_create'),
@@ -181,7 +182,7 @@ class AdminFileController extends Controller
     private function createEditForm(AdminFile $entity)
     {
         $form = $this->createForm(
-            new FileType(),
+            new AdminFileType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_file_update', array('id' => $entity->getId())),

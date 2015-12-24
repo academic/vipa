@@ -1,4 +1,4 @@
-Ojs\CmsBundle\Entity\File:
+Ojs\AdminBundle\Entity\AdminFile:
     properties:
         name:
             - NotBlank: ~

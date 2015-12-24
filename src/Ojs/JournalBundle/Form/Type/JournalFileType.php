@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\CmsBundle\Form\Type;
+namespace Ojs\JournalBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FileType extends AbstractType
+class JournalFileType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,7 +28,7 @@ class FileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\CmsBundle\Entity\File',
+            'data_class' => 'Ojs\JournalBundle\Entity\JournalFile',
             'attr' => [
                 'novalidate' => 'novalidate',
             ],
@@ -40,6 +40,6 @@ class FileType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_cmsbundle_file';
+        return 'ojs_journalbundle_journalfile';
     }
 }
