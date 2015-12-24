@@ -42,10 +42,6 @@ class SoftDeleteListener
         $mappings = $entityManager->getClassMetadata(get_class($entity))->getAssociationMappings();
 
         foreach ($mappings as $mapping) {
-            echo '<pre>';
-            var_dump($mapping['type']);
-            var_dump(get_class($entity));
-            echo '</pre>';
             if ($mapping['type'] === ClassMetadataInfo::ONE_TO_MANY || $mapping['type'] === ClassMetadataInfo::MANY_TO_MANY) {
                 $targetEntityMeta = $entityManager->getClassMetadata($mapping['targetEntity']);
                 if ($targetEntityMeta->reflClass->getParentClass()) {
