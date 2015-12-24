@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\CmsBundle\Form\Type;
+namespace Ojs\JournalBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PostType extends AbstractType
+class JournalPostType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -38,7 +38,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\CmsBundle\Entity\Post',
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalPost',
                 'cascade_validation' => true,
                 'object' => null,
                 'objectId' => null,
@@ -52,6 +52,6 @@ class PostType extends AbstractType
      */
     public function getName()
     {
-        return 'okulbilisim_cmsbundle_post';
+        return 'ojs_journalbundle_journalpost';
     }
 }

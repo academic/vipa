@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CmsBundle\Entity;
+namespace Ojs\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ojs\CoreBundle\Entity\DisplayTrait;
@@ -8,18 +8,24 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
 
 /**
- * PostTranslation
+ * AdminPostTranslation
  */
-class PostTranslation  extends AbstractTranslation
+class AdminPostTranslation  extends AbstractTranslation
 {
     use DisplayTrait;
     /**
-     * @Prezent\Translatable(targetEntity="Ojs\CmsBundle\Entity\Post")
+     * @Prezent\Translatable(targetEntity="Ojs\AdminBundle\Entity\AdminPost")
      */
     protected $translatable;
 
+    /**
+     * @var string
+     */
     private $title;
 
+    /**
+     * @var string
+     */
     private $content;
 
     /**

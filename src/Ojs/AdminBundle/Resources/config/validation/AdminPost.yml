@@ -1,13 +1,11 @@
-Ojs\CmsBundle\Entity\PageTranslation:
+Ojs\AdminBundle\Entity\AdminPostTranslation:
   properties:
     title:
       - NotBlank: ~
-    body:
+    content:
       - NotBlank: ~
 
-Ojs\CmsBundle\Entity\Page:
+Ojs\AdminBundle\Entity\AdminPost:
     properties:
         translations:
             - Valid: ~
-        tags:
-            - NotBlank: ~

@@ -1,6 +1,6 @@
-Ojs\CmsBundle\Entity\PostTranslation:
+Ojs\JournalBundle\Entity\JournalPostTranslation:
     type: entity
-    table: post_translations
+    table: journal_post_translations
     cache:
         usage: NONSTRICT_READ_WRITE
     id:

@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Ojs\CmsBundle\Form\Type\PostType;
+use Ojs\JournalBundle\Form\Type\JournalPostType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalPost;
 use Symfony\Component\HttpFoundation\Request;
@@ -98,7 +98,7 @@ class JournalPostController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
-            new PostType(),
+            new JournalPostType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_journal_post_create', ['journalId' => $journal->getId()]),
@@ -218,7 +218,7 @@ class JournalPostController extends OjsController
     private function createEditForm(JournalPost $entity)
     {
         $form = $this->createForm(
-            new PostType(),
+            new JournalPostType(),
             $entity,
             [
                 'action' => $this->generateUrl(

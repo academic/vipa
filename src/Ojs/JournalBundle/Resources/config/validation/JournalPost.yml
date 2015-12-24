@@ -1,11 +1,11 @@
-Ojs\CmsBundle\Entity\PostTranslation:
+Ojs\JournalBundle\Entity\JournalPostTranslation:
   properties:
     title:
       - NotBlank: ~
     content:
       - NotBlank: ~
 
-Ojs\CmsBundle\Entity\Post:
+Ojs\JournalBundle\Entity\JournalPost:
     properties:
         translations:
             - Valid: ~
