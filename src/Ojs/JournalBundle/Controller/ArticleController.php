@@ -323,6 +323,9 @@ class ArticleController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
 
+        $article->getCitations()->clear();
+        $article->getLanguages()->clear();
+
         $em->remove($article);
         $em->flush();
         $this->successFlashBag('successful.remove');
