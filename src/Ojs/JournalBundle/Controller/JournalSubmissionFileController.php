@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalSubmissionFile;
-use Ojs\JournalBundle\Entity\SubmissionFile;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalSubmissionFileType;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +22,6 @@ use Ojs\JournalBundle\Event\JournalEvent;
  */
 class JournalSubmissionFileController extends Controller
 {
-
     /**
      * Lists all SubmissionFile entities.
      *
@@ -37,7 +35,7 @@ class JournalSubmissionFileController extends Controller
         if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
         }
-        $source = new Entity('OjsJournalBundle:SubmissionFile');
+        $source = new Entity('OjsJournalBundle:JournalSubmissionFile');
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -155,10 +153,10 @@ class JournalSubmissionFileController extends Controller
     /**
      * Finds and displays a SubmissionFile entity.
      *
-     * @param  SubmissionFile                        $entity
+     * @param  JournalSubmissionFile                        $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(SubmissionFile $entity)
+    public function showAction(JournalSubmissionFile $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
@@ -279,10 +277,10 @@ class JournalSubmissionFileController extends Controller
      * Deletes a SubmissionFile entity.
      *
      * @param  Request                                            $request
-     * @param  SubmissionFile                                $entity
+     * @param  JournalSubmissionFile                                $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, SubmissionFile $entity)
+    public function deleteAction(Request $request, JournalSubmissionFile $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
