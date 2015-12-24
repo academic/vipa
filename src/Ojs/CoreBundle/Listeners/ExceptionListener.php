@@ -2,7 +2,7 @@
 
 namespace Ojs\CoreBundle\Listeners;
 
-use Ojs\CoreBundle\Exception\ChildNotEmptyException;
+use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,12 +49,12 @@ class ExceptionListener
     {
         $request = $this->requestStack->getMasterRequest();
         $exception = $event->getException();
-        if (!$exception instanceof ChildNotEmptyException) {
+        if (!$exception instanceof HasRelationException) {
             return;
         }
         $errorText = $this->translator->trans(
-            'firstly.remove.components',
-            array('%field%' => $exception->getMapping()['fieldName'])
+            'deletion.remove_components_first',
+            array('%field%' => $exception->getEntityName() . "\\" . $exception->getMapping()['fieldName'])
         );
         if($request->get('_format') == 'json'){
             $response = new JsonResponse(['error' => $errorText]);

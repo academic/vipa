@@ -3,11 +3,32 @@
 namespace Ojs\CoreBundle\Exception;
 
 
-class ChildNotEmptyException extends \Exception
+class HasRelationException extends \Exception
 {
+    private $entityName;
+
     private $entity;
 
     private $mapping;
+
+    /**
+     * @return mixed
+     */
+    public function getEntityName()
+    {
+        return $this->entityName;
+    }
+
+    /**
+     * @param mixed $entityName
+     * @return HasRelationException
+     */
+    public function setEntityName($entityName)
+    {
+        $this->entityName = $entityName;
+
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -19,7 +40,7 @@ class ChildNotEmptyException extends \Exception
 
     /**
      * @param mixed $entity
-     * @return ChildNotEmptyException
+     * @return HasRelationException
      */
     public function setEntity($entity)
     {
@@ -38,7 +59,7 @@ class ChildNotEmptyException extends \Exception
 
     /**
      * @param mixed $mapping
-     * @return ChildNotEmptyException
+     * @return HasRelationException
      */
     public function setMapping($mapping)
     {

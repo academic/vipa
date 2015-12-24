@@ -4,7 +4,7 @@ namespace Ojs\CoreBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Ojs\CoreBundle\Exception\ChildNotEmptyException;
+use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class SoftDeleteListener
@@ -29,9 +29,9 @@ class SoftDeleteListener
 
     protected function checkRelations(LifecycleEventArgs $args)
     {
-
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
+        $entityName = (new \ReflectionClass($entity))->getShortName();
 
         if (in_array($entityManager->getClassMetadata(get_class($entity))->name, $this->excludedEntities)) {
             return;
@@ -55,7 +55,9 @@ class SoftDeleteListener
                     continue;
                 }
 
-                $exception = new ChildNotEmptyException();
+
+                $exception = new HasRelationException();
+                $exception->setEntityName($entityName);
                 $exception->setEntity($entity);
                 $exception->setMapping($mapping);
                 throw $exception;
