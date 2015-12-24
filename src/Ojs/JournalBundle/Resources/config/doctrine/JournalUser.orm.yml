@@ -32,9 +32,11 @@ Ojs\JournalBundle\Entity\JournalUser:
                 joinColumns:
                     journal_user_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
                 inverseJoinColumns:
                     role_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
             cache:
                 usage: NONSTRICT_READ_WRITE
 

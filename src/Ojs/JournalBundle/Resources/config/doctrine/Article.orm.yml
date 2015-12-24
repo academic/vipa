@@ -76,9 +76,11 @@ Ojs\JournalBundle\Entity\Article:
         inverseJoinColumns:
           language_id:
             referencedColumnName: id
+            onDelete: cascade
         joinColumns:
           article_id:
             referencedColumnName: id
+            onDelete: cascade
       fetch: EXTRA_LAZY
       cascade: ["persist", "remove"]
     citations:
@@ -89,10 +91,12 @@ Ojs\JournalBundle\Entity\Article:
         inverseJoinColumns:
           citation_id:
             referencedColumnName: id
+            onDelete: cascade
         joinColumns:
           article_id:
             referencedColumnName: id
-      cascade: ["persist", "remove"]
+            onDelete: cascade
+      cascade: ["persist"]
   fields:
     titleTransliterated:
       column: title_transliterated

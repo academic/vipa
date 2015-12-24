@@ -7,7 +7,7 @@ Ojs\JournalBundle\Entity\Journal:
   manyToOne:
     publisher:
       targetEntity: Publisher
-      cascade: ["ALL"]
+      cascade: ["persist"]
       cache:
           usage: NONSTRICT_READ_WRITE
           region: journal
@@ -48,26 +48,26 @@ Ojs\JournalBundle\Entity\Journal:
     articles:
       targetEntity: Article
       mappedBy: journal
-      cascade: ["persist", "merge"]
+      cascade: ["persist", "merge", "remove"]
       fetch: LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     issues:
       targetEntity: Issue
       mappedBy: journal
-      cascade: ["persist", "merge"]
+      cascade: ["persist", "merge", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     boards:
       targetEntity: Board
       mappedBy: journal
-      cascade: ["persist", "merge"]
+      cascade: ["persist", "merge", "remove"]
       fetch: EXTRA_LAZY
     sections:
       targetEntity: Section
       mappedBy: journal
-      cascade: ["persist", "merge"]
+      cascade: ["persist", "merge", "remove"]
       fetch: LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
@@ -96,19 +96,21 @@ Ojs\JournalBundle\Entity\Journal:
       targetEntity: Ojs\JournalBundle\Entity\JournalUser
       mappedBy: journal
       fetch: EXTRA_LAZY
+      cascade: ["remove"]
     journalContacts:
       targetEntity: Ojs\JournalBundle\Entity\JournalContact
       mappedBy: journal
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
       cache:
         usage: NONSTRICT_READ_WRITE
     statistics:
       targetEntity: Ojs\AnalyticsBundle\Entity\JournalStatistic
       mappedBy: journal
-      cascade: ["persist"]
+      cascade: ["persist", "remove"]
     journalApplicationUploadFiles:
       targetEntity: Ojs\JournalBundle\Entity\JournalApplicationUploadFile
       mappedBy: journal
+      cascade: ["remove"]
   manyToMany:
     languages:
       targetEntity: Ojs\JournalBundle\Entity\Lang
@@ -116,9 +118,11 @@ Ojs\JournalBundle\Entity\Journal:
         inverseJoinColumns:
           language_id:
             referencedColumnName: id
+            onDelete: CASCADE
         joinColumns:
           journal_id:
             referencedColumnName: id
+            onDelete: CASCADE
         name: journal_language
       fetch: EXTRA_LAZY
       cache:
@@ -129,9 +133,11 @@ Ojs\JournalBundle\Entity\Journal:
         inverseJoinColumns:
           period_id:
             referencedColumnName: id
+            onDelete: CASCADE
         joinColumns:
           journal_id:
             referencedColumnName: id
+            onDelete: CASCADE
         name: journal_period
       cache:
         usage: NONSTRICT_READ_WRITE
