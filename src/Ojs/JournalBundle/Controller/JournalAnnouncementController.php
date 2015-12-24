@@ -10,6 +10,7 @@ use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalAnnouncement;
 use Ojs\JournalBundle\Event\NewAnnouncementEvent;
 use Ojs\JournalBundle\Event\SubscriptionEvents;
+use Ojs\JournalBundle\Form\Type\JournalAnnouncementType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
@@ -75,7 +76,7 @@ class JournalAnnouncementController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
-            new AnnouncementType(),
+            new JournalAnnouncementType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_journal_announcement_create', ['journalId' => $journal->getId()]),
@@ -204,12 +205,15 @@ class JournalAnnouncementController extends OjsController
     private function createEditForm(JournalAnnouncement $entity)
     {
         $form = $this->createForm(
-            new AnnouncementType(),
+            new JournalAnnouncementType(),
             $entity,
             [
                 'action' => $this->generateUrl(
                     'ojs_journal_announcement_update',
-                    ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]
+                    [
+                        'id' => $entity->getId(),
+                        'journalId' => $entity->getJournal()->getId()
+                    ]
                 ),
                 'method' => 'PUT',
             ]

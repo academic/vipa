@@ -1,4 +1,4 @@
-Ojs\CmsBundle\Entity\Announcement:
+Ojs\JournalBundle\Entity\JournalAnnouncement:
     properties:
         title:
             - NotBlank: ~

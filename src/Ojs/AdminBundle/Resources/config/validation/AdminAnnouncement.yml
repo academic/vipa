@@ -1,0 +1,6 @@
+Ojs\AdminBundle\Entity\AdminAnnouncement:
+    properties:
+        title:
+            - NotBlank: ~
+        content:
+            - Url: ~

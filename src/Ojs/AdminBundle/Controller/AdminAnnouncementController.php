@@ -5,6 +5,7 @@ namespace Ojs\AdminBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
+use Ojs\AdminBundle\Form\Type\AdminAnnouncementType;
 use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +65,7 @@ class AdminAnnouncementController extends OjsController
     private function createCreateForm(AdminAnnouncement $entity)
     {
         $form = $this->createForm(
-            new AnnouncementType(),
+            new AdminAnnouncementType(),
             $entity,
             ['action' => $this->generateUrl('ojs_admin_announcement_create'), 'method' => 'POST']
         );
@@ -167,7 +168,7 @@ class AdminAnnouncementController extends OjsController
     private function createEditForm(AdminAnnouncement $entity)
     {
         $form = $this->createForm(
-            new AnnouncementType(),
+            new AdminAnnouncementType(),
             $entity,
             [
                 'action' => $this->generateUrl('ojs_admin_announcement_update', ['id' => $entity->getId()]),
