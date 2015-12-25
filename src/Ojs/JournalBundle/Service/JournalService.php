@@ -113,9 +113,10 @@ class JournalService
     }
 
     /**
-     * @return Journal|boolean
+     * @param bool|true $useCache
+     * @return bool|Journal
      */
-    public function getSelectedJournal()
+    public function getSelectedJournal($useCache = true)
     {
         $request = $this->requestStack->getCurrentRequest();
         if(!$request) {
@@ -126,7 +127,7 @@ class JournalService
             return false;
         }
         /** @var Journal $selectedJournal */
-        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId);
+        $selectedJournal = $this->em->getRepository('OjsJournalBundle:Journal')->getById($journalId, $useCache);
         if (!$selectedJournal) {
             return false;
         }

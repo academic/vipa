@@ -17,12 +17,19 @@ class JournalRepository extends EntityRepository
     private $offset = 12;
     private $publisher = null;
 
-    public function getById($id) {
+    /**
+     * @param $id
+     * @param bool|true $useCache
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getById($id, $useCache = true) {
         $query = $this->createQueryBuilder('j')
             ->andWhere('j.id = :id')
             ->setParameter('id', $id)
             ->getQuery();
-        $query->useResultCache(true);
+        $query->useResultCache($useCache);
         return $query->getSingleResult();
     }
     /**

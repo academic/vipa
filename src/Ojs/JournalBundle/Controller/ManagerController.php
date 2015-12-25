@@ -26,7 +26,7 @@ class ManagerController extends Controller
      */
     public function journalSettingsAction(Request $request)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
         $this->throw404IfNotFound($journal);
         if (!$this->isGranted('EDIT', $journal)) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -66,7 +66,7 @@ class ManagerController extends Controller
     {
         /** @var Journal $entity */
         $em = $this->getDoctrine()->getManager();
-        $entity = $this->get('ojs.journal_service')->getSelectedJournal();
+        $entity = $this->get('ojs.journal_service')->getSelectedJournal(false);
         $this->throw404IfNotFound($entity);
 
         if (!$this->isGranted('EDIT', $entity)) {
