@@ -1469,3 +1469,5 @@ oauth.connect_before: 'You need to connect your account before using this.'
 # Deletion messages
 deletion.issue: 'The issue has been removed successfully but its articles preserved so you can add them to another issue.'
 deletion.section: 'The section has been removed successfully but its articles preserved so you can add them to another section.'
+
+review_form.missing_label: 'Label field of one of the elements is missing.'
