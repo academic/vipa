@@ -17,11 +17,6 @@ class JournalType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if(isset($options['data'])){
-            $journalId = $options['data']->getId()?$options['data']->getId(): null;
-        }else{
-            $journalId = null;
-        }
         $builder
             ->add('translations', 'a2lix_translations', [
                 'fields' => [
