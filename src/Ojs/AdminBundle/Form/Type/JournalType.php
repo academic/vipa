@@ -196,16 +196,6 @@ class JournalType extends AbstractType
                     ],
                 ]
             )
-            ->add('published', 'checkbox', [
-                'label' => 'published',
-                'required' => false
-                ]
-            )
-            ->add('printed', 'checkbox', [
-                'label' => 'printed',
-                'required' => false
-                ]
-            )
             ->add(
                 'status',
                 'choice',
@@ -220,52 +210,6 @@ class JournalType extends AbstractType
                 ]
             )
             ->add('tags', 'tags')
-            ->add(
-                'theme',
-                'entity',
-                array(
-                    'label' => 'theme',
-                    'class' => 'Ojs\JournalBundle\Entity\Theme',
-                    'property' => 'title',
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => false,
-                    'query_builder' => function (EntityRepository $er) use ($journalId, $options) {
-                        $query = $er->createQueryBuilder('t');
-                        if(is_null($journalId)){
-                            $query->where('t.public IS NULL OR t.public = TRUE');
-                        }else{
-                            $query->where('t.public IS NULL OR t.public = TRUE OR t.owner = :journal')
-                            ->setParameter('journal', $options['data']);
-                        }
-                        return $query;
-                    },
-                    'error_bubbling'=>true,
-                )
-            )
-            ->add(
-                'design',
-                'entity',
-                array(
-                    'label' => 'design',
-                    'class' => 'Ojs\JournalBundle\Entity\Design',
-                    'property' => 'title',
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => false,
-                    'query_builder' => function (EntityRepository $er) use ($journalId, $options){
-                        $query = $er->createQueryBuilder('t');
-                        if(is_null($journalId)){
-                            $query->where('t.public IS NULL OR t.public = TRUE');
-                        }else{
-                            $query->where('t.public IS NULL OR t.public = TRUE OR t.owner = :journal')
-                                ->setParameter('journal', $options['data']);
-                        }
-                        return $query;
-                    },
-                    'error_bubbling'=>true,
-                )
-            )
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
                 'label' => 'Header Image',
