@@ -9,7 +9,7 @@ Ojs\JournalBundle\Entity\PublisherTypes:
             targetEntity: Ojs\JournalBundle\Entity\Publisher
             mappedBy: publisherType
             fetch: EXTRA_LAZY
-            cascade: ["all"]
+            cascade: ["persist"]
     id:
         id:
             type: integer

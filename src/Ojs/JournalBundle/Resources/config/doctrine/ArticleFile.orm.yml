@@ -17,7 +17,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
         article:
             targetEntity: Article
             inversedBy: articleFiles
-            cascade: ["ALL"]
+            cascade: ["persist"]
             joinColumn:
                 name: article_id
                 referencedColumnName: id

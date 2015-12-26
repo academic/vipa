@@ -40,7 +40,7 @@ Ojs\JournalBundle\Entity\Journal:
     settings:
       targetEntity: JournalSetting
       mappedBy: journal
-      cascade: ["ALL"]
+      cascade: ["persist", "remove"]
       indexBy: setting
       fetch: EXTRA_LAZY
       cache:
@@ -64,6 +64,8 @@ Ojs\JournalBundle\Entity\Journal:
       mappedBy: journal
       cascade: ["persist", "merge", "remove"]
       fetch: EXTRA_LAZY
+      cache:
+        usage: NONSTRICT_READ_WRITE
     sections:
       targetEntity: Section
       mappedBy: journal
@@ -74,21 +76,21 @@ Ojs\JournalBundle\Entity\Journal:
     journalIndexs:
       targetEntity: Ojs\JournalBundle\Entity\JournalIndex
       mappedBy: journal
-      cascade: ["all"]
+      cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     submissionChecklist:
       targetEntity: Ojs\JournalBundle\Entity\SubmissionChecklist
       mappedBy: journal
-      cascade: ["all"]
+      cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
     journalSubmissionFiles:
       targetEntity: Ojs\JournalBundle\Entity\JournalSubmissionFile
       mappedBy: journal
-      cascade: ["all"]
+      cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       cache:
         usage: NONSTRICT_READ_WRITE
@@ -114,6 +116,7 @@ Ojs\JournalBundle\Entity\Journal:
   manyToMany:
     languages:
       targetEntity: Ojs\JournalBundle\Entity\Lang
+      cascade: ["persist"]
       joinTable:
         inverseJoinColumns:
           language_id:
@@ -129,6 +132,7 @@ Ojs\JournalBundle\Entity\Journal:
         usage: NONSTRICT_READ_WRITE
     periods:
       targetEntity: Ojs\JournalBundle\Entity\Period
+      cascade: ["persist"]
       joinTable:
         inverseJoinColumns:
           period_id:
@@ -142,38 +146,34 @@ Ojs\JournalBundle\Entity\Journal:
       cache:
         usage: NONSTRICT_READ_WRITE
     subjects:
-      targetEntity: Subject
+      targetEntity: Ojs\JournalBundle\Entity\Subject
       cascade: ["persist"]
       mappedBy: null
       inversedBy: journals
       joinTable:
         name: journal_subject
         joinColumns:
-          -
-            name: journal_id
+          journal_id:
             referencedColumnName: id
             onDelete: CASCADE
         inverseJoinColumns:
-          -
-            name: subject_id
+          subject_id:
             referencedColumnName: id
             onDelete: CASCADE
       cache:
         usage: NONSTRICT_READ_WRITE
     bannedUsers:
       targetEntity: Ojs\UserBundle\Entity\User
-      cascase: ["all"]
+      cascade: ["persist"]
       inversedBy: restrictedJournals
       joinTable:
         name: journal_banned_users
         joinColumns:
-          -
-            name: journal_id
+          journal_id:
             referencedColumnName: id
             onDelete: CASCADE
         inverseJoinColumns:
-          -
-            name: user_id
+          user_id:
             referencedColumnName: id
             onDelete: CASCADE
       cache:

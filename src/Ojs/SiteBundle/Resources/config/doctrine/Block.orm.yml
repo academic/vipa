@@ -8,7 +8,7 @@ Ojs\SiteBundle\Entity\Block:
     links:
       targetEntity: Ojs\SiteBundle\Entity\BlockLink
       mappedBy: block
-      cascade: ["all"]
+      cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY
       orderBy: { link_order: 'asc' }
       cache:
