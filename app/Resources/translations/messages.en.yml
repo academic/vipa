@@ -1459,6 +1459,7 @@ numerator: 'Numerator'
 author.title: 'Title'
 author.biography: 'Biograpy'
 notes: 'Notes'
+journal.application_accept: 'Accept Journal Application'
 
 # OAuth
 linkedin: 'Linkedin'

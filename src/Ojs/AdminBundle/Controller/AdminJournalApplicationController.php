@@ -56,18 +56,10 @@ class AdminJournalApplicationController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
-        $saveAction = new RowAction('<i class="fa fa-save"></i>', 'ojs_admin_application_journal_save');
-        $saveAction->setRouteParameters(['id']);
-        $saveAction->setAttributes([
-            'class' => 'btn btn-primary btn-xs',
-            'title' => $this->get('translator')->trans('journal.merge_as_new_journal')
-        ]);
 
         $rowAction = array();
-        $rowAction[] = $saveAction;
         $rowAction[] = $gridAction->editAction('ojs_admin_application_journal_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_journal_show', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_application_journal_delete', 'id');
         $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
 
@@ -115,6 +107,9 @@ class AdminJournalApplicationController extends Controller
         $data['publisher'] = $publisher->getName() . "[" . $publisher->getSlug() . "]";
         $data['country'] = $country->getName();
         $data['subjects'] = implode(',', $subjects);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $data['token'] = $csrf->getToken('ojs_admin_application' . $id);
 
         return $this->render('OjsAdminBundle:AdminApplication:journal_detail.html.twig', $data);
     }

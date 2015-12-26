@@ -1452,6 +1452,7 @@ numerator: 'Sayaç'
 author.title: 'Ünvan'
 author.biography: 'Biyografi'
 notes: 'Notlar'
+journal.application_accept: 'Dergi Başvurusunu Kabul Et'
 
 # OAuth
 linkedin: 'Linkedin'

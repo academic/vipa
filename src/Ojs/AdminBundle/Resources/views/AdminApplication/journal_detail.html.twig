@@ -114,7 +114,15 @@
                 </table>
             </div>
             <a class="btn btn-primary"
-               href="{{ url('ojs_admin_application_journal_save',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
+               href="{{ url('ojs_admin_application_journal_save',{id: entity.id}) }}">{{ "journal.application_accept"|trans }}</a>
+            {{
+            actions({
+                'delete': {
+                    'href': path('ojs_admin_application_journal_delete', {'id': entity.id}),
+                    'attributes': {'data-token': token}
+                }
+            })
+            }}
         </div>
     </div>
 {% endblock %}
