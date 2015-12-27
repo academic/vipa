@@ -4,6 +4,9 @@ Ojs\JournalBundle\Entity\JournalTranslation:
       - NotBlank: ~
 
 Ojs\JournalBundle\Entity\Journal:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: issn
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: eissn
     properties:
         translations:
             - Valid: ~
