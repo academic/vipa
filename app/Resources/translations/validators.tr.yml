@@ -9,3 +9,5 @@ user.register.user.error.not_blank: "Kullanıcı seçilmeli!"
 user.register.journal.error.not_blank: "Dergi seçilmeli!"
 user.register.password.error.not_blank: "Şifre boş bırakılamaz!"
 all.fields.must.be.selected: 'Tüm Alanlar Seçilmeli'
+issn.in.use: 'issn zaten bir dergi tarafından kullanılıyor'
+eissn.in.use: 'eissn zaten bir dergi tarafından kullanılıyor'

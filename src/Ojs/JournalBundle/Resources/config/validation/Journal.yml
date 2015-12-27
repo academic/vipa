@@ -5,8 +5,12 @@ Ojs\JournalBundle\Entity\JournalTranslation:
 
 Ojs\JournalBundle\Entity\Journal:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: issn
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: eissn
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: ['issn']
+            message: 'issn.in.use'
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: ['eissn']
+            message: 'eissn.in.use'
     properties:
         translations:
             - Valid: ~

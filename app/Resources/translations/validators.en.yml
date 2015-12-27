@@ -9,3 +9,5 @@ user.register.user.error.not_blank: "User must be selected!"
 user.register.journal.error.not_blank: "Journal must be selected!"
 user.register.password.error.not_blank: "Password can't be blank!"
 all.fields.must.be.selected: 'All fields must be selected'
+issn.in.use: 'There is an journal uses this issn already'
+eissn.in.use: 'There is an journal uses this eissn already'
