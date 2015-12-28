@@ -122,11 +122,7 @@ class AdminJournalApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(
-            new JournalApplicationType(), $entity,
-            ['action' => $this->generateUrl('ojs_admin_application_journal_update', array('id' => $entity->getId()))]
-        )
-            ->add('update', 'submit');
+        $form = $this->createEditForm($entity);
 
         return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', [
             'form' => $form->createView(),
@@ -140,12 +136,7 @@ class AdminJournalApplicationController extends Controller
         $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
 
-        $form = $this->createForm(
-            new JournalApplicationType(),
-            $entity
-        )
-        ->add('update', 'submit');
-
+        $form = $this->createEditForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -156,6 +147,35 @@ class AdminJournalApplicationController extends Controller
         }
 
         return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
+    }
+
+    /**
+     * @param Journal $entity
+     * @return $this|\Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
+     */
+    private function createEditForm(Journal $entity)
+    {
+        $form = $this->createForm(
+            new JournalApplicationType(), $entity,
+            ['action' => $this->generateUrl('ojs_admin_application_journal_update', array('id' => $entity->getId()))]
+        );
+        $form
+            ->remove('journalContacts')
+            ->remove('journalApplicationUploadFiles')
+            ->remove('publisher')
+            ->add(
+                'publisher',
+                'entity',
+                array(
+                    'class' => 'OjsJournalBundle:Publisher',
+                    'attr' => ['class' => 'select2-element validate[required]'],
+                    'label' => 'journal.publisher',
+                    'required' => false
+                )
+            )
+            ->add('submit', 'submit', ['label' => 'Update']);
+
+        return $form;
     }
 
     public function deleteAction(Request $request, $id)
