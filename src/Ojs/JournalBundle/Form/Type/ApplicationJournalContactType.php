@@ -17,7 +17,7 @@ class ApplicationJournalContactType extends AbstractType
     {
         $builder
             ->add('contactType', null, ['label' => 'contact.type'])
-            ->add('fullName', 'text', ['label' => 'fullname'])
+            ->add('fullName', 'text', ['label' => 'namesurname'])
             ->add('phone', 'text', [
                 'label' => 'phone',
                 'required' => false

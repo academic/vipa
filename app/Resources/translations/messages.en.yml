@@ -696,6 +696,7 @@ misc: Miscellaneous
 mission: Mission
 more: More
 name: Name
+namesurname: 'Name Surname'
 new.block: 'New Block'
 new.link: 'New Link'
 nextSteps: 'Next Steps'
