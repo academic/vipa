@@ -9,7 +9,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\AdminBundle\Form\Type\JournalApplicationType;
+use Ojs\AdminBundle\Form\Type\AdminJournalApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
@@ -156,24 +156,15 @@ class AdminJournalApplicationController extends Controller
     private function createEditForm(Journal $entity)
     {
         $form = $this->createForm(
-            new JournalApplicationType(), $entity,
-            ['action' => $this->generateUrl('ojs_admin_application_journal_update', array('id' => $entity->getId()))]
+            new AdminJournalApplicationType(), $entity,
+            ['action' => $this->generateUrl('ojs_admin_application_journal_update', [
+                'id' => $entity->getId()
+            ])]
         );
-        $form
-            ->remove('journalContacts')
-            ->remove('journalApplicationUploadFiles')
-            ->remove('publisher')
-            ->add(
-                'publisher',
-                'entity',
-                array(
-                    'class' => 'OjsJournalBundle:Publisher',
-                    'attr' => ['class' => 'select2-element validate[required]'],
-                    'label' => 'journal.publisher',
-                    'required' => false
-                )
-            )
-            ->add('submit', 'submit', ['label' => 'Update']);
+        $form->add('submit', 'submit', [
+            'label' => 'Update'
+            ]
+        );
 
         return $form;
     }
