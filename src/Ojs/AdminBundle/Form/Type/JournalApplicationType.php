@@ -141,7 +141,7 @@ class JournalApplicationType extends AbstractType
                 array(
                     'class' => 'OjsJournalBundle:Lang',
                     'multiple' => true,
-                    'label' => 'journal.languages',
+                    'label' => 'journal.supported_languages',
                     'attr' => ['class' => 'select2-element validate[required]'],
                 )
             )

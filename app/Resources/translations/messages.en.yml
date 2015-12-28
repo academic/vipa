@@ -576,7 +576,7 @@ journal.settings.submission.language.text: 'Select mandatory languages for the s
 journal.setup: 'Journal Setup'
 journal.singular: Journal
 journal.slug: 'Short path for web access  ( base_host/<i>journal_path</i> )'
-journal.subjects: Subjects
+journal.subjects: 'Journal Subjects'
 journal.subtitle: Subtitle
 journal.switch: 'Type a journal name to switch to its dashboard'
 journal.tags: Tags
