@@ -78,9 +78,11 @@
                         <h4>{{ "application.contact"|trans }}</h4>
                     </div>
                     <div class="panel-body">
-                        {% for field in [form.address, form.phone, form.email] %}
-                            {{ form_row(field) }}
-                        {% endfor %}
+                        <div class="well">
+                            {% for field in [form.address, form.phone, form.email] %}
+                                {{ form_row(field) }}
+                            {% endfor %}
+                        </div>
 
                         <div id="contacts" data-index="{{ form.journalContacts|length }}" data-prototype="{% filter escape %}
                             {{- include('@OjsSite/Application/_journal_contact_form.html.twig', { 'form': form.journalContacts.vars.prototype, 'removable': true }) -}}
