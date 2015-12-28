@@ -99,7 +99,9 @@ class ApplicationController extends Controller
                 //setup journal application files
                 foreach ($application->getJournalApplicationUploadFiles() as $fileKey => $submissionFile) {
                     if(empty($submissionFile->getFile()) && $journalApplicationFiles[$fileKey]->getRequired()){
+                        $this->errorFlashBag('please.install.required.files');
                         return $this->render('OjsSiteBundle:Application:journal.html.twig', [
+                                'publisherForm' => $publisherForm->createView(),
                                 'form' => $form->createView(),
                                 'journalApplicationFiles' => $journalApplicationFiles
                             ]

@@ -1453,6 +1453,7 @@ author.title: 'Ünvan'
 author.biography: 'Biyografi'
 notes: 'Notlar'
 journal.application_accept: 'Dergi Başvurusunu Kabul Et'
+please.install.required.files: 'Lütfen gerekli dosyaları aşağıdan yükleyin.'
 
 # OAuth
 linkedin: 'Linkedin'

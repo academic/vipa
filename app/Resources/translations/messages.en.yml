@@ -1460,6 +1460,7 @@ author.title: 'Title'
 author.biography: 'Biograpy'
 notes: 'Notes'
 journal.application_accept: 'Accept Journal Application'
+please.install.required.files: 'Please install required files from bottom.'
 
 # OAuth
 linkedin: 'Linkedin'
