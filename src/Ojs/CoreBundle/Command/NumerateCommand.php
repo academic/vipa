@@ -71,7 +71,7 @@ class NumerateCommand extends ContainerAwareCommand
             $totalProgress->finish();
             $output->writeln(''); // Necessary, unfortunately.
             $output->writeln('<info>Done.</info>');
-        } else if ($entity === 'issue') { // TODO: Don't repeat yourself.
+        } else if ($entity === 'issue') {
             $output->writeln('<comment>This might take a while.</comment>');
             $journals = $entityManager->getRepository('OjsJournalBundle:Journal')->findAll();
             $totalProgress = new ProgressBar($output, count($journals));
