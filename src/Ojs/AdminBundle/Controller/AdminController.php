@@ -20,13 +20,7 @@ class AdminController extends Controller
         if ($this->getUser()) {
             if ($this->getUser()->isAdmin()) {
                 return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
-            } /* TODO: Redirect to journal dashboard
-            elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
-                return $this->redirect($this->generateUrl('ojs_journal_dashboard_index'));
-            }
-            */
-
-            else {
+            } else {
                 return $this->redirect($this->generateUrl('ojs_user_index'));
             }
         } else {
