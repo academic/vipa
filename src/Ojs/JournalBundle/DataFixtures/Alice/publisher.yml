@@ -1,12 +1,6 @@
-#include:
-#  - '../../../../../app/config/parameters.yml'
-
-\Ojs\JournalBundle\Entity\Publisher:
+Ojs\JournalBundle\Entity\Publisher:
   default:
     email: <email()>
-# Parameters are only available in Alice version 2.0.0
-# See: https://github.com/h4cc/AliceFixturesBundle/pull/50
-#   slug: <{defaultPublisherSlug}>
     currentLocale: en
     slug: www
     name: Ojs
