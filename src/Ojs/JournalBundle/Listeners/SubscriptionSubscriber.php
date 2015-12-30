@@ -3,10 +3,9 @@
 namespace Ojs\JournalBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\JournalBundle\Event\NewAnnouncementEvent;
 use Ojs\JournalBundle\Event\SubscriptionEvents;
-use Swift_Mailer;
-use Swift_Mime_Message;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SubscriptionSubscriber implements EventSubscriberInterface
@@ -14,28 +13,17 @@ class SubscriptionSubscriber implements EventSubscriberInterface
     /** @var EntityManager */
     private $em;
 
-    /** @var Swift_Mailer */
-    private $mailer;
-
-    /** @var string */
-    private $sender;
-
-    /** @var string */
-    private $name;
+    /** @var OjsMailer */
+    private $ojsMailer;
 
     /**
-     * AnnouncementListener constructor.
      * @param EntityManager $em
-     * @param Swift_Mailer $mailer
-     * @param string $sender
-     * @param string $name
+     * @param OjsMailer $ojsMailer
      */
-    public function __construct($em, $mailer, $sender, $name)
+    public function __construct(EntityManager $em, OjsMailer $ojsMailer)
     {
         $this->em = $em;
-        $this->mailer = $mailer;
-        $this->sender = $sender;
-        $this->name = $name;
+        $this->ojsMailer = $ojsMailer;
     }
 
 
@@ -48,24 +36,19 @@ class SubscriptionSubscriber implements EventSubscriberInterface
 
     public function sendAnnouncement(NewAnnouncementEvent $event)
     {
-        /** @var Swift_Mime_Message $message */
-        $message = $this->mailer->createMessage();
         $announcement = $event->getAnnouncement();
 
-        $recipients = array();
         $mailList = $this->em
             ->getRepository('OjsJournalBundle:SubscribeMailList')
             ->findBy(['journal' => $event->getAnnouncement()->getJournal()]);
 
         foreach ($mailList as $mail) {
-            $recipients[] = $mail->getMail();
+            $this->ojsMailer->send(
+                $announcement->getTitle(),
+                $announcement->getContent(),
+                $mail->getMail(),
+                $mail->getMail()
+            );
         }
-
-        $message->setTo($recipients);
-        $message->setFrom($this->sender, $this->name);
-        $message->setSubject($announcement->getTitle());
-        $message->setBody($announcement->getContent());
-
-        $this->mailer->send($message);
     }
 }

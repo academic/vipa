@@ -2,54 +2,41 @@
 
 namespace Ojs\JournalBundle\EventListener;
 
-use Ojs\JournalBundle\Entity\Journal;
+use Doctrine\ORM\EntityManager;
+use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Event\ArticleSubmitEvent;
+use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Doctrine\ORM\EntityManager;
-use Ojs\JournalBundle\Event\ArticleSubmitEvent;
-use Ojs\JournalBundle\Event\ArticleSubmitEvents;
 
 class JournalEventListener implements EventSubscriberInterface
 {
-    /** @var \Swift_Mailer */
-    private $mailer;
-
-    /** @var string */
-    private $mailSender;
-
-    /** @var string */
-    private $mailSenderName;
-
     /** @var RouterInterface */
     private $router;
 
     /** @var EntityManager */
     private $em;
 
+    /** @var OjsMailer */
+    private $ojsMailer;
+
     /**
      * @param RouterInterface $router
-     * @param \Swift_Mailer   $mailer
-     * @param EntityManager   $em
-     * @param string          $mailSender
-     * @param string          $mailSenderName
-     *
+     * @param EntityManager $em
+     * @param OjsMailer $ojsMailer
      */
     public function __construct(
         RouterInterface $router,
-        \Swift_Mailer $mailer,
-        EntityManager   $em,
-        $mailSender,
-        $mailSenderName
+        EntityManager $em,
+        OjsMailer $ojsMailer
     ) {
         $this->router = $router;
-        $this->mailer = $mailer;
         $this->em = $em;
-        $this->mailSender = $mailSender;
-        $this->mailSenderName = $mailSenderName;
+        $this->ojsMailer = $ojsMailer;
     }
 
     /**
@@ -85,14 +72,40 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
                 'Journal Event : Journal Changed',
-                'Journal Event : Journal Changed by -> '. $event->getUser()->getUsername()
+                'Journal Event : Journal Changed by -> '.$event->getUser()->getUsername()
             );
         }
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection | User[]
+     */
+    private function getJournalRelationalUsers()
+    {
+        $mailUsers = [];
+        $journalManagerRoleName = 'ROLE_JOURNAL_MANAGER';
+        $journalEditorRoleName = 'ROLE_EDITOR';
+        $roleRepo = $this->em->getRepository('OjsUserBundle:Role');
+        $journalUserRepo = $this->em->getRepository('OjsJournalBundle:JournalUser');
+        $journalManagerRole = $roleRepo->findOneBy(array('role' => $journalManagerRoleName));
+        $journalEditorRole = $roleRepo->findOneBy(array('role' => $journalEditorRoleName));
+        $journalUsers = $journalUserRepo->findAll();
+
+        foreach ($journalUsers as $journalUser) {
+            if ($journalUser->getRoles()->contains($journalManagerRole)
+                || $journalUser->getRoles()->contains($journalEditorRole)
+            ) {
+                $user = $journalUser->getUser();
+                $mailUsers[] = $user;
+            }
+        }
+
+        return $mailUsers;
     }
 
     /**
@@ -100,12 +113,11 @@ class JournalEventListener implements EventSubscriberInterface
      */
     public function onJournalUserNew(JournalEvent $event)
     {
-        /** @var User $user */
         $user = $event->getUser();
-        $this->sendMail(
+        $this->ojsMailer->sendToUser(
             $user,
             'Journal Event : Journal User New',
-            'Journal Event : Journal User New -> '. $user->getUsername()
+            'Journal Event : Journal User New -> '.$user->getUsername()
         );
     }
 
@@ -115,10 +127,10 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalUserRoleChange(JournalEvent $event)
     {
         $user = $event->getUser();
-        $this->sendMail(
+        $this->ojsMailer->sendToUser(
             $user,
             'Journal Event : Journal User Role Update',
-            'Journal Event : Journal User Role Update -> '. $user->getUsername()
+            'Journal Event : Journal User Role Update -> '.$user->getUsername()
         );
     }
 
@@ -128,12 +140,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalSubmissionChecklistChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Submission Checklist Change -> '. $event->getEventType(),
-                'Journal Event : Journal Submission Checklist Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Submission Checklist Change -> '.$event->getEventType(),
+                'Journal Event : Journal Submission Checklist Change -> '.$event->getEventType(
+                ).' -> by '.$event->getUser()->getUsername()
             );
         }
     }
@@ -144,12 +157,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalSubmissionFilesChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Submission Files Change -> '. $event->getEventType(),
-                'Journal Event : Journal Submission Files Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Submission Files Change -> '.$event->getEventType(),
+                'Journal Event : Journal Submission Files Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -160,12 +174,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalThemeChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Theme Change -> '. $event->getEventType(),
-                'Journal Event : Journal Theme Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Theme Change -> '.$event->getEventType(),
+                'Journal Event : Journal Theme Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -176,12 +191,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalDesignChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Design Change -> '. $event->getEventType(),
-                'Journal Event : Journal Design Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Design Change -> '.$event->getEventType(),
+                'Journal Event : Journal Design Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -192,12 +208,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalArticleChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Article Change -> '. $event->getEventType(),
-                'Journal Event : Journal Article Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Article Change -> '.$event->getEventType(),
+                'Journal Event : Journal Article Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -207,22 +224,21 @@ class JournalEventListener implements EventSubscriberInterface
      */
     public function onJournalArticleSubmitted(ArticleSubmitEvent $event)
     {
-        /** @var User $submitterUser */
         $submitterUser = $event->getArticle()->getSubmitterUser();
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
                 'Journal Event : Journal Article Submitted',
-                'Journal Event : Journal Article Submitted -> by '. $event->getArticle()->getSubmitterUser()->getUsername()
+                'Journal Event : Journal Article Submitted -> by '.$event->getArticle()->getSubmitterUser(
+                )->getUsername()
             );
         }
         //send mail to author
-        $this->sendMail(
+        $this->ojsMailer->sendToUser(
             $submitterUser,
             'Journal Event : Journal Article Submitted Success',
-            'Journal Event : Journal Article Submitted Success-> by '. $submitterUser->getUsername()
+            'Journal Event : Journal Article Submitted Success-> by '.$submitterUser->getUsername()
         );
     }
 
@@ -232,12 +248,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalContactChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Contact Change -> '. $event->getEventType(),
-                'Journal Event : Journal Contact Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Contact Change -> '.$event->getEventType(),
+                'Journal Event : Journal Contact Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -248,12 +265,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalIssueChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Issue Change -> '. $event->getEventType(),
-                'Journal Event : Journal Issue Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Issue Change -> '.$event->getEventType(),
+                'Journal Event : Journal Issue Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -264,12 +282,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalSectionChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Section Change -> '. $event->getEventType(),
-                'Journal Event : Journal Section Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Section Change -> '.$event->getEventType(),
+                'Journal Event : Journal Section Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -280,12 +299,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalIndexChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Index Change -> '. $event->getEventType(),
-                'Journal Event : Journal Index Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Index Change -> '.$event->getEventType(),
+                'Journal Event : Journal Index Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -296,12 +316,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalBoardChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Board Change -> '. $event->getEventType(),
-                'Journal Event : Journal Board Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Board Change -> '.$event->getEventType(),
+                'Journal Event : Journal Board Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -320,12 +341,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalPostChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Post Change -> '. $event->getEventType(),
-                'Journal Event : Journal Post Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Post Change -> '.$event->getEventType(),
+                'Journal Event : Journal Post Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -336,12 +358,13 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalAnnouncementChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Announcement Change -> '. $event->getEventType(),
-                'Journal Event : Journal Announcement Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Journal Event : Journal Announcement Change -> '.$event->getEventType(),
+                'Journal Event : Journal Announcement Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
             );
         }
     }
@@ -352,54 +375,14 @@ class JournalEventListener implements EventSubscriberInterface
     public function onJournalPageChange(JournalEvent $event)
     {
         $mailUsers = $this->getJournalRelationalUsers();
-        /** @var User $user */
-        foreach($mailUsers as $user){
-            $this->sendMail(
+
+        foreach ($mailUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Journal Event : Journal Page Change -> '. $event->getEventType(),
-                'Journal Event : Journal Page Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-                );
+                'Journal Event : Journal Page Change -> '.$event->getEventType(),
+                'Journal Event : Journal Page Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
         }
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection | User[]
-     */
-    private function getJournalRelationalUsers()
-    {
-        $mailUsers = [];
-        $journalManagerRoleName = 'ROLE_JOURNAL_MANAGER';
-        $journalEditorRoleName = 'ROLE_EDITOR';
-        $roleRepo = $this->em->getRepository('OjsUserBundle:Role');
-        $journalUserRepo = $this->em->getRepository('OjsJournalBundle:JournalUser');
-        $journalManagerRole = $roleRepo->findOneByRole($journalManagerRoleName);
-        $journalEditorRole = $roleRepo->findOneByRole($journalEditorRoleName);
-        $journalUsers = $journalUserRepo->findAll();
-
-        foreach ($journalUsers as $journalUser) {
-            if($journalUser->getRoles()->contains($journalManagerRole)
-                || $journalUser->getRoles()->contains($journalEditorRole)){
-                $user = $journalUser->getUser();
-                $mailUsers[] = $user;
-            }
-        }
-        return $mailUsers;
-    }
-
-    /**
-     * @param User $user
-     * @param string $subject
-     * @param string $body
-     */
-    private function sendMail(User $user, $subject, $body)
-    {
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject($subject)
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody($body, 'text/html');
-        $this->mailer->send($message);
     }
 }

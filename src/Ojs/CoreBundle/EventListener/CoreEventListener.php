@@ -2,51 +2,39 @@
 
 namespace Ojs\CoreBundle\EventListener;
 
-use FOS\UserBundle\Model\UserInterface;
+use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Events\CoreEvent;
 use Ojs\CoreBundle\Events\CoreEvents;
+use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Doctrine\ORM\EntityManager;
 
 class CoreEventListener implements EventSubscriberInterface
 {
-    /** @var \Swift_Mailer */
-    private $mailer;
-
-    /** @var string */
-    private $mailSender;
-
-    /** @var string */
-    private $mailSenderName;
-
     /** @var RouterInterface */
     private $router;
 
     /** @var EntityManager */
     private $em;
 
+    /** @var OjsMailer */
+    private $ojsMailer;
+
     /**
      * @param RouterInterface $router
-     * @param \Swift_Mailer   $mailer
-     * @param EntityManager   $em
-     * @param string          $mailSender
-     * @param string          $mailSenderName
+     * @param EntityManager $em
+     * @param OjsMailer $ojsMailer
      *
      */
     public function __construct(
         RouterInterface $router,
-        \Swift_Mailer $mailer,
-        EntityManager   $em,
-        $mailSender,
-        $mailSenderName
+        EntityManager $em,
+        OjsMailer $ojsMailer
     ) {
         $this->router = $router;
-        $this->mailer = $mailer;
         $this->em = $em;
-        $this->mailSender = $mailSender;
-        $this->mailSenderName = $mailSenderName;
+        $this->ojsMailer = $ojsMailer;
     }
 
     /**
@@ -66,28 +54,12 @@ class CoreEventListener implements EventSubscriberInterface
     public function onInstallBase(CoreEvent $event)
     {
         $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
                 'Core Event : Core Install Base',
                 'Core Event : Core Install Base'
-            );
-        }
-    }
-
-    /**
-     * @param CoreEvent $event
-     */
-    public function onInstall3Party(CoreEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Core Event : Core Install 3 Party',
-                'Core Event : Core Install 3 Party'
             );
         }
     }
@@ -102,26 +74,24 @@ class CoreEventListener implements EventSubscriberInterface
         $qb->select('u')
             ->from('OjsUserBundle:User', 'u')
             ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%')
-        ;
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * @param UserInterface $user
-     * @param string $subject
-     * @param string $body
+     * @param CoreEvent $event
      */
-    private function sendMail(UserInterface $user, $subject, $body)
+    public function onInstall3Party(CoreEvent $event)
     {
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject($subject)
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody($body, 'text/html');
-        $this->mailer->send($message);
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Core Event : Core Install 3 Party',
+                'Core Event : Core Install 3 Party'
+            );
+        }
     }
 }

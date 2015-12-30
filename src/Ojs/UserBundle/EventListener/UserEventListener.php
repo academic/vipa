@@ -2,47 +2,33 @@
 
 namespace Ojs\UserBundle\EventListener;
 
-use FOS\UserBundle\Model\UserInterface;
-use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Event\UserEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Ojs\UserBundle\Event\UserEvents;
-use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
+use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\UserBundle\Event\UserEvent;
+use Ojs\UserBundle\Event\UserEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class UserEventListener implements EventSubscriberInterface
 {
-    /** @var \Swift_Mailer */
-    private $mailer;
-
-    /** @var string */
-    private $mailSender;
-
-    /** @var string */
-    private $mailSenderName;
-
     /** @var RouterInterface */
     private $router;
 
+    /** @var OjsMailer */
+    private $ojsMailer;
+
     /**
      * @param RouterInterface $router
-     * @param \Swift_Mailer   $mailer
-     * @param string          $mailSender
-     * @param string          $mailSenderName
-     *
+     * @param OjsMailer $ojsMailer
      */
     public function __construct(
         RouterInterface $router,
-        \Swift_Mailer $mailer,
-        $mailSender,
-        $mailSenderName
+        OjsMailer $ojsMailer
     ) {
         $this->router = $router;
-        $this->mailer = $mailer;
-        $this->mailSender = $mailSender;
-        $this->mailSenderName = $mailSenderName;
+        $this->ojsMailer = $ojsMailer;
     }
 
     /**
@@ -81,10 +67,10 @@ class UserEventListener implements EventSubscriberInterface
     public function onRegistrationCompleted(FilterUserResponseEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
-        $this->sendMail(
+        $this->ojsMailer->sendToUser(
             $user,
             'User Event : User Registration',
-            'User Event -> User Registration Completed -> '. $user->getEmail()
+            'User Event -> User Registration Completed -> '.$user->getEmail()
         );
     }
 
@@ -94,10 +80,10 @@ class UserEventListener implements EventSubscriberInterface
     public function onChangePasswordCompleted(GetResponseUserEvent $event)
     {
         $user = $event->getUser();
-        $this->sendMail(
+        $this->ojsMailer->sendToUser(
             $user,
             'User Event : User Change Password',
-            'User Event -> User Change Password -> '. $user->getEmail()
+            'User Event -> User Change Password -> '.$user->getEmail()
         );
     }
 
@@ -107,27 +93,10 @@ class UserEventListener implements EventSubscriberInterface
     public function onProfileEditCompleted(GetResponseUserEvent $userResponseEvent)
     {
         $user = $userResponseEvent->getUser();
-        $this->sendMail(
+        $this->ojsMailer->sendToUser(
             $user,
             'User Event : User Profile Edit Completed',
-            'User Event -> User Profile Edit Completed -> '. $user->getEmail()
+            'User Event -> User Profile Edit Completed -> '.$user->getEmail()
         );
-    }
-
-    /**
-     * @param UserInterface $user
-     * @param string $subject
-     * @param string $body
-     */
-    private function sendMail(UserInterface $user, $subject, $body)
-    {
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject($subject)
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody($body, 'text/html');
-        $this->mailer->send($message);
     }
 }

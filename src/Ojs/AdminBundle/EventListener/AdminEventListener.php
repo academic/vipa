@@ -2,51 +2,39 @@
 
 namespace Ojs\AdminBundle\EventListener;
 
-use FOS\UserBundle\Model\UserInterface;
+use Doctrine\ORM\EntityManager;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
+use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Doctrine\ORM\EntityManager;
 
 class AdminEventListener implements EventSubscriberInterface
 {
-    /** @var \Swift_Mailer */
-    private $mailer;
-
-    /** @var string */
-    private $mailSender;
-
-    /** @var string */
-    private $mailSenderName;
-
     /** @var RouterInterface */
     private $router;
 
     /** @var EntityManager */
     private $em;
 
+    /** @var OjsMailer */
+    private $ojsMailer;
+
     /**
      * @param RouterInterface $router
-     * @param \Swift_Mailer   $mailer
-     * @param EntityManager   $em
-     * @param string          $mailSender
-     * @param string          $mailSenderName
+     * @param EntityManager $em
+     * @param OjsMailer $ojsMailer
      *
      */
     public function __construct(
         RouterInterface $router,
-        \Swift_Mailer $mailer,
-        EntityManager   $em,
-        $mailSender,
-        $mailSenderName
+        EntityManager $em,
+        OjsMailer $ojsMailer
     ) {
         $this->router = $router;
-        $this->mailer = $mailer;
         $this->em = $em;
-        $this->mailSender = $mailSender;
-        $this->mailSenderName = $mailSenderName;
+        $this->ojsMailer = $ojsMailer;
     }
 
     /**
@@ -73,140 +61,12 @@ class AdminEventListener implements EventSubscriberInterface
     public function onUserChange(AdminEvent $event)
     {
         $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Admin User Change -> '. $event->getEventType(),
-                'Admin Event : Admin User Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-            );
-        }
-    }
 
-    /**
-     * @param AdminEvent $event
-     */
-    public function onJournalContactChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Contact Change -> '. $event->getEventType(),
-                'Admin Event : Admin Contact Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onJournalApplicationHappen(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Journal Application Happen',
-                'Admin Event : Journal Application Happen'
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onJournalChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Admin Journal Change -> '. $event->getEventType(),
-                'Admin Event : Admin Journal Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onPublisherApplicationHappen(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Publisher Application Happen',
-                'Admin Event : Publisher Application Happen'
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onPublisherManagerChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Admin Publisher Manager Change -> '. $event->getEventType(),
-                'Admin Event : Admin Publisher Manager Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onPublisherChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Admin Publisher Change -> '. $event->getEventType(),
-                'Admin Event : Admin Publisher Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onAdminSubjectChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Admin Subject Change -> '. $event->getEventType(),
-                'Admin Event : Admin Subject Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onSettingsChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-        /** @var User $user */
-        foreach($adminUsers as $user){
-            $this->sendMail(
-                $user,
-                'Admin Event : Admin System Settings Change -> '. $event->getEventType(),
-                'Admin Event : Admin System Settings Change -> '.$event->getEventType().' -> by '. $event->getUser()->getUsername()
+                'Admin Event : Admin User Change -> '.$event->getEventType(),
+                'Admin Event : Admin User Change -> '.$event->getEventType().' -> by '.$event->getUser()->getUsername()
             );
         }
     }
@@ -221,26 +81,142 @@ class AdminEventListener implements EventSubscriberInterface
         $qb->select('u')
             ->from('OjsUserBundle:User', 'u')
             ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%')
-        ;
+            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * @param UserInterface $user
-     * @param string $subject
-     * @param string $body
+     * @param AdminEvent $event
      */
-    private function sendMail(UserInterface $user, $subject, $body)
+    public function onJournalContactChange(AdminEvent $event)
     {
-        $message = $this->mailer->createMessage();
-        $to = array($user->getEmail() => $user->getUsername());
-        $message = $message
-            ->setSubject($subject)
-            ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
-            ->setBody($body, 'text/html');
-        $this->mailer->send($message);
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Admin Contact Change -> '.$event->getEventType(),
+                'Admin Event : Admin Contact Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onJournalApplicationHappen(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Journal Application Happen',
+                'Admin Event : Journal Application Happen'
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onJournalChange(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Admin Journal Change -> '.$event->getEventType(),
+                'Admin Event : Admin Journal Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onPublisherApplicationHappen(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Publisher Application Happen',
+                'Admin Event : Publisher Application Happen'
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onPublisherManagerChange(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Admin Publisher Manager Change -> '.$event->getEventType(),
+                'Admin Event : Admin Publisher Manager Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onPublisherChange(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Admin Publisher Change -> '.$event->getEventType(),
+                'Admin Event : Admin Publisher Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onAdminSubjectChange(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Admin Subject Change -> '.$event->getEventType(),
+                'Admin Event : Admin Subject Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
+        }
+    }
+
+    /**
+     * @param AdminEvent $event
+     */
+    public function onSettingsChange(AdminEvent $event)
+    {
+        $adminUsers = $this->getAdminUsers();
+
+        foreach ($adminUsers as $user) {
+            $this->ojsMailer->sendToUser(
+                $user,
+                'Admin Event : Admin System Settings Change -> '.$event->getEventType(),
+                'Admin Event : Admin System Settings Change -> '.$event->getEventType().' -> by '.$event->getUser(
+                )->getUsername()
+            );
+        }
     }
 }

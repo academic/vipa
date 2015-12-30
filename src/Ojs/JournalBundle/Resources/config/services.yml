@@ -28,13 +28,13 @@ services:
         - { name: jms_serializer.event_subscriber }
   ojs.journal.subscription_subscriber:
     class: Ojs\JournalBundle\Listeners\SubscriptionSubscriber
-    arguments: ["@doctrine.orm.entity_manager", "@mailer", "%system_email%", "OJS"]
+    arguments: ["@doctrine.orm.entity_manager", "@ojs_mailer"]
     tags:
       - { name: kernel.event_subscriber }
 
   journal.event_listener:
     class: Ojs\JournalBundle\EventListener\JournalEventListener
-    arguments: ["@router", "@mailer", "@doctrine.orm.entity_manager", "%system_email%", "OJS SYSTEM"]
+    arguments: ["@router", "@doctrine.orm.entity_manager", "@ojs_mailer"]
     tags:
       - { name: kernel.event_subscriber }
 

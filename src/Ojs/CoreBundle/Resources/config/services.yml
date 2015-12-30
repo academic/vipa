@@ -21,6 +21,15 @@ services:
   security.acl.security_identity_retrieval_strategy:
     class: "%security.acl.security_identity_retrieval_strategy.class%"
     arguments: ["@security.role_hierarchy", "@security.authentication.trust_resolver", "@ojs.journal_service"]
+
+  ojs_mailer:
+    class: Ojs\CoreBundle\Service\OjsMailer
+    arguments:
+      - "@mailer"
+      - "@doctrine"
+      - "%system_email%"
+      - "OJS SYSTEM"
+
   ojs_locale.locale_listener:
     class: Ojs\CoreBundle\Service\LocaleListener
     arguments: ["%kernel.default_locale%"]
@@ -115,7 +124,7 @@ services:
 
   core.event_listener:
     class: Ojs\CoreBundle\EventListener\CoreEventListener
-    arguments: ["@router", "@mailer", "@doctrine.orm.entity_manager", "%system_email%", "OJS SYSTEM"]
+    arguments: ["@router", "@doctrine.orm.entity_manager", "@ojs_mailer"]
     tags:
       - { name: kernel.event_subscriber }
 
