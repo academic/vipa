@@ -12,6 +12,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\AdminJournalApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Publisher;
@@ -201,7 +202,7 @@ class AdminJournalApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $entity->getPublisher()->setStatus(1);
+        $entity->getPublisher()->setStatus(PublisherStatuses::STATUS_COMPLETE);
         $entity->setStatus(JournalStatuses::STATUS_PUBLISHED);
         $em->persist($entity);
         $em->flush();

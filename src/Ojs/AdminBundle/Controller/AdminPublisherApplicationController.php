@@ -9,6 +9,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,7 +156,7 @@ class AdminPublisherApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $entity->setStatus(1);
+        $entity->setStatus(PublisherStatuses::STATUS_COMPLETE);
         $em->persist($entity);
         $em->flush();
 
@@ -178,7 +179,7 @@ class AdminPublisherApplicationController extends Controller
             $em->persist($journal);
         }
 
-        $entity->setStatus(-1);
+        $entity->setStatus(PublisherStatuses::STATUS_REJECTED);
         $em->persist($entity);
         $em->flush();
 

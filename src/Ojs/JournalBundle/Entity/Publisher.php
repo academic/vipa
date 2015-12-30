@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\UserBundle\Entity\User;
 use OkulBilisim\LocationBundle\Entity\Country;
 use OkulBilisim\LocationBundle\Entity\Province;
@@ -175,9 +176,9 @@ class Publisher extends AbstractTranslatable
      * @var array
      */
     public static $statuses = array(
-        -1 => 'application.status.rejected',
-        0 => 'application.status.onhold',
-        1 => 'application.status.complete',
+        PublisherStatuses::STATUS_REJECTED => 'application.status.rejected',
+        PublisherStatuses::STATUS_ONHOLD => 'application.status.onhold',
+        PublisherStatuses::STATUS_COMPLETE => 'application.status.complete',
     );
 
     public function __construct()

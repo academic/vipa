@@ -5,7 +5,9 @@ namespace Ojs\CoreBundle\Command;
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\AdminBundle\Entity\AdminPost;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -93,7 +95,7 @@ class SamplesCommand extends ContainerAwareCommand
         $publisher->setAddress('First Avenue, Exampletown');
         $publisher->setPhone('+908501234567');
         $publisher->setVerified(1);
-        $publisher->setStatus(1);
+        $publisher->setStatus(PublisherStatuses::STATUS_COMPLETE);
         $publisher->setPublisherType($publisherType);
 
         $em->persist($publisher);
@@ -304,7 +306,7 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setAnonymous(0);
         $article1->setFirstPage(1);
         $article1->setLastPage(5);
-        $article1->setStatus(1);
+        $article1->setStatus(ArticleStatuses::STATUS_PUBLISHED);
         $article1->addCitation($citation1);
         $article1->addArticleFile($articleFile);
 
