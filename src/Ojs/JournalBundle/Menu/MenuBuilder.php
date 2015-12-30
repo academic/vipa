@@ -6,7 +6,7 @@ use Knp\Menu\FactoryInterface;
 use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\MenuEvent;
-use Ojs\JournalBundle\JournalEvents;
+use Ojs\JournalBundle\Event\MenuEvents;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class MenuBuilder extends ContainerAware
@@ -84,7 +84,7 @@ class MenuBuilder extends ContainerAware
         $menuEvent = new MenuEvent();
         $menuEvent->setMenuItem($menu);
 
-        $dispatcher->dispatch(JournalEvents::LEFT_MENU_INITIALIZED, $menuEvent);
+        $dispatcher->dispatch(MenuEvents::LEFT_MENU_INITIALIZED, $menuEvent);
         return $menuEvent->getMenuItem();
     }
 
@@ -118,7 +118,7 @@ class MenuBuilder extends ContainerAware
         $menuEvent = new MenuEvent();
         $menuEvent->setMenuItem($menu);
 
-        $dispatcher->dispatch(JournalEvents::TOP_LEFT_MENU_INITIALIZED, $menuEvent);
+        $dispatcher->dispatch(MenuEvents::TOP_LEFT_MENU_INITIALIZED, $menuEvent);
         return $menuEvent->getMenuItem();
     }
 
@@ -189,12 +189,7 @@ class MenuBuilder extends ContainerAware
         $menuEvent = new MenuEvent();
         $menuEvent->setMenuItem($menu);
 
-        try {
-            $dispatcher->dispatch(JournalEvents::FAB_MENU_INITIALIZED, $menuEvent);
-        } catch (\Exception $e) {
-
-        }
-
+        $dispatcher->dispatch(MenuEvents::FAB_MENU_INITIALIZED, $menuEvent);
 
         return $menuEvent->getMenuItem();
     }

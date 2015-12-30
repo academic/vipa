@@ -1,22 +1,15 @@
 <?php
 
-namespace Ojs\JournalBundle\Event;
+namespace Ojs\JournalBundle\Event\Article;
 
 use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
-class ArticleSubmitEvent extends Event
+class ArticleEvent extends Event
 {
     /** @var Article */
     private $article;
-
-    /**
-     * @var Request $request
-     */
-    private $request;
 
     /**
      * @var Response $response
@@ -25,12 +18,10 @@ class ArticleSubmitEvent extends Event
 
     /**
      * @param Article $article
-     * @param Request $request
      */
-    public function __construct(Article $article, Request $request)
+    public function __construct(Article $article)
     {
         $this->article = $article;
-        $this->request = $request;
     }
 
     /**
@@ -39,14 +30,6 @@ class ArticleSubmitEvent extends Event
     public function getArticle()
     {
         return $this->article;
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
     }
 
     /**

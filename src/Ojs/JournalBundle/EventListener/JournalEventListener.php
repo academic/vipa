@@ -5,8 +5,8 @@ namespace Ojs\JournalBundle\EventListener;
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\JournalBundle\Entity\JournalUser;
-use Ojs\JournalBundle\Event\ArticleSubmitEvent;
-use Ojs\JournalBundle\Event\ArticleSubmitEvents;
+use Ojs\JournalBundle\Event\Article\ArticleEvent;
+use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\UserBundle\Entity\User;
@@ -26,8 +26,8 @@ class JournalEventListener implements EventSubscriberInterface
 
     /**
      * @param RouterInterface $router
-     * @param EntityManager $em
-     * @param OjsMailer $ojsMailer
+     * @param EntityManager   $em
+     * @param OjsMailer       $ojsMailer
      */
     public function __construct(
         RouterInterface $router,
@@ -53,7 +53,7 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
             JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange',
-            ArticleSubmitEvents::SUBMIT_AFTER => 'onJournalArticleSubmitted',
+            ArticleEvents::POST_SUBMIT => 'onJournalArticleSubmitted',
             JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange',
             JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange',
@@ -220,9 +220,9 @@ class JournalEventListener implements EventSubscriberInterface
     }
 
     /**
-     * @param ArticleSubmitEvent $event
+     * @param ArticleEvent $event
      */
-    public function onJournalArticleSubmitted(ArticleSubmitEvent $event)
+    public function onJournalArticleSubmitted(ArticleEvent $event)
     {
         $submitterUser = $event->getArticle()->getSubmitterUser();
         $mailUsers = $this->getJournalRelationalUsers();
@@ -332,7 +332,6 @@ class JournalEventListener implements EventSubscriberInterface
      */
     public function onJournalPeriodChange(JournalEvent $event)
     {
-
     }
 
     /**

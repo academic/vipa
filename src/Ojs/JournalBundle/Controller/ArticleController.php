@@ -8,18 +8,17 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Event\Article\ArticleEvent;
+use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\ArticleType;
-use Ojs\JournalBundle\JournalEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalEvents as JournalMailEvents;
 
 /**
  * Article controller
@@ -51,9 +50,9 @@ class ArticleController extends Controller
                 if (!is_null($entity)) {
                     $entity->setDefaultLocale($request->getDefaultLocale());
                     $doi = $entity->getDoi();
-                    if($doi !== null){
-                        $row->setField('title', $entity->getTitle(). ' / '. $doi);
-                    }else{
+                    if ($doi !== null) {
+                        $row->setField('title', $entity->getTitle().' / '.$doi);
+                    } else {
                         $row->setField('title', $entity->getTitle());
                     }
                     $row->setField('status', $translator->trans(Article::$statuses[$entity->getStatus()]));
@@ -79,18 +78,18 @@ class ArticleController extends Controller
         $grid->addColumn($actionColumn);
 
         $grid->getColumn('numerator')->manipulateRenderCell(
-            function($value, $row, $router) use ($journal) {
+            function ($value, $row, $router) use ($journal) {
                 if ($journal->getTitleAbbr() !== null) {
-                    return $journal->getTitleAbbr() . '.' . $value;
+                    return $journal->getTitleAbbr().'.'.$value;
                 } else {
-                    return $journal->getSlug() . '.' . $value;
+                    return $journal->getSlug().'.'.$value;
                 }
             }
         );
 
         $listEvent = new ListEvent();
         $listEvent->setGrid($grid);
-        $eventDispatcher->dispatch(JournalEvents::ARTICLE_LIST_INITIALIZED, $listEvent);
+        $eventDispatcher->dispatch(ArticleEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse(
@@ -157,7 +156,6 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $entity = new Article();
         $entity = $entity->setJournal($journal);
@@ -168,17 +166,25 @@ class ArticleController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setCurrentLocale($request->getDefaultLocale());
-            $em->persist($entity);
+
+            $event = new ArticleEvent($entity);
+            $dispatcher->dispatch(ArticleEvents::PRE_CREATE, $event);
+
+            $em->persist($event->getArticle());
             $em->flush();
 
             $this->successFlashBag('successful.create');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalMailEvents::JOURNAL_ARTICLE_CHANGE, $event);
+            $event = new ArticleEvent($event->getArticle());
+            $dispatcher->dispatch(ArticleEvents::POST_CREATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
 
             return $this->redirectToRoute(
                 'ojs_journal_article_show',
-                ['id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId()]
+                ['id' => $event->getArticle()->getId(), 'journalId' => $journal->getId()]
             );
         }
 
@@ -270,7 +276,6 @@ class ArticleController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $editForm = $this->createEditForm($article, $journal)
             ->add('update', 'submit', array('label' => 'u'));
@@ -278,15 +283,23 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $event = new ArticleEvent($article);
+            $dispatcher->dispatch(ArticleEvents::PRE_UPDATE, $event);
+            $em->persist($event->getArticle());
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalMailEvents::JOURNAL_ARTICLE_CHANGE, $event);
+            $event = new ArticleEvent($event->getArticle());
+            $dispatcher->dispatch(ArticleEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_article_edit',
-                    array('id' => $article->getId(), 'journalId' => $journal->getId())
+                    array('id' => $event->getArticle()->getId(), 'journalId' => $journal->getId())
                 )
             );
         }
@@ -322,16 +335,22 @@ class ArticleController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $event = new ArticleEvent($article);
+        $dispatcher->dispatch(ArticleEvents::PRE_DELETE, $event);
 
-        $article->getCitations()->clear();
-        $article->getLanguages()->clear();
+        $event->getArticle()->getCitations()->clear();
+        $event->getArticle()->getLanguages()->clear();
 
-        $em->remove($article);
+        $em->remove($event->getArticle());
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalMailEvents::JOURNAL_ARTICLE_CHANGE, $event);
+        $event = new ArticleEvent($event->getArticle());
+        $dispatcher->dispatch(ArticleEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
 
         return $this->redirect($this->generateUrl('ojs_journal_article_index', ['journalId' => $journal->getId()]));
     }

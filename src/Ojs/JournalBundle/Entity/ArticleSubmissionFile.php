@@ -102,7 +102,7 @@ class ArticleSubmissionFile
      * Set title
      *
      * @param  string $title
-     * @return SubmissionFile
+     * @return ArticleSubmissionFile
      */
     public function setTitle($title)
     {
