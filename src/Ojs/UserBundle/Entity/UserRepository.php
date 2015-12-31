@@ -118,4 +118,33 @@ class UserRepository extends EntityRepository implements UserProviderInterface
         ;
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+
+    /**
+     * @param array   $roles
+     * @param Journal $journal
+     * @return User[]
+     */
+    public function findUsersByJournalRole(array $roles, Journal $journal = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->join('u.journalUsers', 'ju')
+            ->join('ju.roles', 'r')
+            ->andWhere('r.role IN (:roles)')
+            ->andWhere('ju.journal = :journal')
+        ;
+
+        if ($journal) {
+            $queryBuilder
+                ->setParameter('journal', $journal)
+                ->setParameter('roles', $roles)
+            ;
+        }
+        $query = $queryBuilder
+            ->distinct()
+            ->getQuery()
+        ;
+
+        return $query->execute();
+    }
 }
