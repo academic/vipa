@@ -135,17 +135,6 @@ fos_elastica:
                 id:
                   type: integer
                   index: not_analyzed
-                datePublished:
-                  type: date
-                published:
-                  type: boolean
-                created:
-                  type: date
-                createdBy:
-                  type: string
-                tags:
-                  analyzer: "keyword"
-                  type: string
             section:
               type: "object"
               properties:
@@ -181,9 +170,9 @@ fos_elastica:
             verified:
               type: boolean
             publisherType:
-                              type: object
-                              properties:
-                                name: { index: not_analyzed }
+              type: object
+              properties:
+                name: { index: not_analyzed }
             url:
               type: string
             logo:
@@ -191,42 +180,6 @@ fos_elastica:
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Publisher
-            provider: ~
-            listener: ~
-            finder: ~
-            provider:
-              debug_logging: false
-        issue:
-          mappings:
-            translations:
-              type: "object"
-              properties:
-                title:
-                  type: string
-                description:
-                  type: string
-            title:
-              type: string
-            tags:
-              analyzer: "keyword"
-              type: string
-            journal:
-              type: "object"
-              properties:
-                slug:
-                  type: string
-                id:
-                  type: integer
-                titleAbbr:
-                  type: string
-                publisher:
-                  type: object
-                  properties:
-                    slug:
-                      type: string
-          persistence:
-            driver: orm
-            model: Ojs\JournalBundle\Entity\Issue
             provider: ~
             listener: ~
             finder: ~
@@ -350,18 +303,6 @@ fos_elastica:
             finder: ~
             provider:
               debug_logging: false
-        province:
-          mappings:
-            name:
-              type: string
-          persistence:
-            driver: orm
-            model: OkulBilisim\LocationBundle\Entity\Province
-            provider: ~
-            listener: ~
-            finder: ~
-            provider:
-              debug_logging: false
         citation:
           mappings:
             raw:
@@ -372,10 +313,6 @@ fos_elastica:
               type: "object"
               properties:
                 id:  { boost: 1 ,type: integer}
-                issue:
-                  type: "object"
-                  properties:
-                    id: { boost: 1 ,type: integer}
                 journal:
                   type: "object"
                   properties:
@@ -387,21 +324,6 @@ fos_elastica:
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Citation
-            provider: ~
-            listener: ~
-            finder: ~
-        page:
-          mappings:
-            id:
-              type: integer
-            title:
-              type: string
-            tags:
-              analyzer: "keyword"
-              type: string
-          persistence:
-            driver: orm
-            model: Ojs\AdminBundle\Entity\AdminPage
             provider: ~
             listener: ~
             finder: ~
