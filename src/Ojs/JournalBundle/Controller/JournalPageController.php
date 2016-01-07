@@ -6,17 +6,17 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
-use Ojs\JournalBundle\Form\Type\JournalPageType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalPage;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalPage\JournalPageEvent;
+use Ojs\JournalBundle\Event\JournalPage\JournalPageEvents;
+use Ojs\JournalBundle\Event\ListEvent;
+use Ojs\JournalBundle\Form\Type\JournalPageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalEvents;
 
 class JournalPageController extends OjsController
 {
@@ -27,6 +27,7 @@ class JournalPageController extends OjsController
     public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('VIEW', $journal, 'pages')) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -35,11 +36,10 @@ class JournalPageController extends OjsController
         $source = new Entity('OjsJournalBundle:JournalPage');
 
         $source->manipulateRow(
-            function (Row $row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /* @var JournalPage $entity */
                 $entity = $row->getEntity();
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $entity->setDefaultLocale($request->getDefaultLocale());
                     $row->setField('title', $entity->getTitle());
                     $row->setField('body', $entity->getBody());
@@ -58,6 +58,11 @@ class JournalPageController extends OjsController
         $rowAction[] = $gridAction->deleteAction('ojs_journal_page_delete', ['id', 'journalId' => $journal->getId()]);
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
+
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(JournalPageEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse('OjsJournalBundle:JournalPage:index.html.twig', ['grid' => $grid]);
     }
@@ -113,13 +118,12 @@ class JournalPageController extends OjsController
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('CREATE', $journal, 'pages')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalPage();
         $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
@@ -129,14 +133,26 @@ class JournalPageController extends OjsController
             $entity->setJournal($journal);
             $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+
+            $event = new JournalPageEvent($entity);
+            $eventDispatcher->dispatch(JournalPageEvents::PRE_CREATE, $event);
+
+            $em->persist($event->getJournalPage());
             $em->flush();
 
             $this->successFlashBag('successful.create');
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_PAGE_CHANGE, $event);
-            return $this->redirectToRoute('ojs_journal_page_show',
-                ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+
+            $event = new JournalPageEvent($event->getJournalPage());
+            $eventDispatcher->dispatch(JournalPageEvents::POST_CREATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            return $this->redirectToRoute(
+                'ojs_journal_page_show',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -155,6 +171,7 @@ class JournalPageController extends OjsController
     {
         /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
@@ -184,6 +201,7 @@ class JournalPageController extends OjsController
     {
         /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
@@ -245,6 +263,8 @@ class JournalPageController extends OjsController
     {
         /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
@@ -255,20 +275,31 @@ class JournalPageController extends OjsController
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
+
+            $event = new JournalPageEvent($entity);
+            $eventDispatcher->dispatch(JournalPageEvents::PRE_UPDATE, $event);
+            $em->persist($event->getJournalPage());
             $em->flush();
+
             $this->successFlashBag('successful.update');
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_PAGE_CHANGE, $event);
-            return $this->redirectToRoute('ojs_journal_page_edit',
-                ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+
+            $event = new JournalPageEvent($event->getJournalPage());
+            $eventDispatcher->dispatch(JournalPageEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            return $this->redirectToRoute(
+                'ojs_journal_page_edit',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -289,6 +320,8 @@ class JournalPageController extends OjsController
     {
         /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
@@ -299,8 +332,6 @@ class JournalPageController extends OjsController
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_page'.$entity->getId());
@@ -308,13 +339,21 @@ class JournalPageController extends OjsController
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token not found!");
         }
+        $event = new JournalPageEvent($entity);
+        $eventDispatcher->dispatch(JournalPageEvents::PRE_DELETE, $event);
 
         $em->remove($entity);
         $em->flush();
+
         $this->successFlashBag('successful.remove');
 
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalEvents::JOURNAL_PAGE_CHANGE, $event);
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(JournalPageEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
         return $this->redirectToRoute('ojs_journal_page_index', ['journalId' => $journal->getId()]);
     }
 }
