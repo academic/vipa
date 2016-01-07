@@ -10,6 +10,7 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\Article\ArticleEvent;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\ArticleType;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -345,7 +346,7 @@ class ArticleController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        $event = new ArticleEvent($event->getArticle());
+        $event = new JournalEvent($journal);
         $dispatcher->dispatch(ArticleEvents::POST_DELETE, $event);
 
         if ($event->getResponse()) {
