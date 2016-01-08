@@ -17,7 +17,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
  * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
  * @JMS\ExclusionPolicy("all")
  */
-class Issue extends AbstractTranslatable
+class Issue extends AbstractTranslatable implements JournalItemInterface
 {
     use GenericEntityTrait;
     use AnalyticsTrait;
@@ -175,7 +175,7 @@ class Issue extends AbstractTranslatable
      * @param  Journal $journal
      * @return Issue
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 

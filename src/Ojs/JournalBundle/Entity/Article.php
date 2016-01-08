@@ -24,7 +24,7 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
  * @GRID\Source(columns="id, numerator, status, title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
-class Article extends AbstractTranslatable
+class Article extends AbstractTranslatable implements JournalItemInterface
 {
     use GenericEntityTrait;
     use AnalyticsTrait;

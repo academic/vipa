@@ -7,13 +7,12 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
-use Ojs\JournalBundle\Entity\JournalPageTranslation;
 
 /**
  * JournalPage
  * @GRID\Source(columns="id, title")
  */
-class JournalPage extends AbstractTranslatable
+class JournalPage extends AbstractTranslatable implements JournalItemInterface
 {
     /** @var Journal */
     private $journal;
@@ -78,7 +77,7 @@ class JournalPage extends AbstractTranslatable
      * Set title
      *
      * @param  string $title
-     * @return Page
+     * @return JournalPage
      */
     public function setTitle($title)
     {
@@ -132,7 +131,7 @@ class JournalPage extends AbstractTranslatable
      * Set body
      *
      * @param  string $body
-     * @return Page
+     * @return JournalPage
      */
     public function setBody($body)
     {
@@ -189,7 +188,7 @@ class JournalPage extends AbstractTranslatable
     /**
      * @param Journal $journal
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
     }

@@ -12,7 +12,7 @@ use Ojs\CoreBundle\Entity\TagsTrait;
  * JournalFile
  * @GRID\Source(columns="id, name, description, path")
  */
-class JournalFile
+class JournalFile implements JournalItemInterface
 {
     use DisplayTrait;
     use TagsTrait;
@@ -133,7 +133,7 @@ class JournalFile
     /**
      * @param Journal $journal
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
     }

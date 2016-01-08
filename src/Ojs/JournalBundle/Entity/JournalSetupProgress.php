@@ -9,7 +9,7 @@ use Ojs\UserBundle\Entity\User;
 /**
  * Journal Setup Progress
  */
-class JournalSetupProgress implements Translatable
+class JournalSetupProgress implements Translatable, JournalItemInterface
 {
     use GenericEntityTrait;
 

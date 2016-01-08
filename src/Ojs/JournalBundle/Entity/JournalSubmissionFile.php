@@ -10,7 +10,7 @@ use Ojs\CoreBundle\Annotation\Display as Display;
  * JournalSubmissionFile
  * @GRID\Source(columns="id,title,locale,visible")
  */
-class JournalSubmissionFile
+class JournalSubmissionFile implements JournalItemInterface
 {
     use DisplayTrait;
 
@@ -101,7 +101,7 @@ class JournalSubmissionFile
      * Set title
      *
      * @param  string $title
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setTitle($title)
     {
@@ -124,7 +124,7 @@ class JournalSubmissionFile
      * Set detail
      *
      * @param  string $detail
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setDetail($detail)
     {
@@ -147,7 +147,7 @@ class JournalSubmissionFile
      * Set visible
      *
      * @param  boolean $visible
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setVisible($visible)
     {
@@ -170,7 +170,7 @@ class JournalSubmissionFile
      * Set required
      *
      * @param  boolean $required
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setRequired($required)
     {
@@ -193,7 +193,7 @@ class JournalSubmissionFile
      * Set deletedAt
      *
      * @param  \DateTime $deletedAt
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setDeletedAt($deletedAt)
     {
@@ -216,7 +216,7 @@ class JournalSubmissionFile
      * Set journal
      *
      * @param  Journal $journal
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setJournal(Journal $journal = null)
     {
@@ -239,7 +239,7 @@ class JournalSubmissionFile
      * Set locale
      *
      * @param  string $locale
-     * @return SubmissionFile
+     * @return JournalSubmissionFile
      */
     public function setLocale($locale)
     {
