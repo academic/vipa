@@ -26,7 +26,6 @@ services:
     class: Ojs\CoreBundle\Service\OjsMailer
     arguments:
       - "@mailer"
-      - "@doctrine"
       - "%system_email%"
       - "OJS SYSTEM"
 
