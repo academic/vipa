@@ -28,7 +28,7 @@ class JournalStatistic extends Statistic
     /**
      * @param Journal $journal
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
     }
