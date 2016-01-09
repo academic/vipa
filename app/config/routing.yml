@@ -52,7 +52,7 @@ ojs_location:
   prefix:   /
 
 feedback:
-  resource: '@OkulbilisimFeedbackBundle/Resources/config/routing.yml'
+  resource: '@OkulBilisimFeedbackBundle/Resources/config/routing.yml'
   prefix:   /
 
 oneup_uploader:

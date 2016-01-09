@@ -47,11 +47,10 @@ class OjsMailer
     public function send($subject, $body, $toMail, $toName)
     {
         $message = $this->mailer->createMessage();
-        $to = array($toMail => $toName);
         $message = $message
             ->setSubject($subject)
             ->addFrom($this->mailSender, $this->mailSenderName)
-            ->setTo($to)
+            ->setTo($toMail, $toName)
             ->setBody($body, 'text/html');
         $this->mailer->send($message);
     }

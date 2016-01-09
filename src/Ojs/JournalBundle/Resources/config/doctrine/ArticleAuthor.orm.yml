@@ -25,6 +25,9 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
            gedmo:
              blameable:
                on: update
+        deletedAt:
+            type: date
+            nullable: true
     manyToOne:
         author:
             targetEntity: Author
@@ -43,3 +46,6 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false

@@ -49,7 +49,7 @@ class AdminController extends Controller
     private function getUnreadFeedbackCount()
     {
         $em = $this->getDoctrine()->getManager();
-        $unreadFeedbacks = $em->getRepository('OkulbilisimFeedbackBundle:Feedback')->findBy([
+        $unreadFeedbacks = $em->getRepository('OkulBilisimFeedbackBundle:Feedback')->findBy([
             'status' => 0,
             'deleted' => false
         ]);

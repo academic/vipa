@@ -493,7 +493,7 @@ class ArticleSubmissionController extends Controller
             array(
                 'id' => $articleId,
                 'submitterUser' => $user,
-                'status' => ArticleStatuses::STATUS_PUBLISHED,
+                'status' => ArticleStatuses::STATUS_NOT_SUBMITTED,
             )
         );
         $this->throw404IfNotFound($article);

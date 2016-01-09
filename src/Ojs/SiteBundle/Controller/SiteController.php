@@ -103,10 +103,6 @@ class SiteController extends Controller
         /** @var IssueRepository $issueRepo */
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
 
-        $issueFileStatRepo = $em->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
-        $articleFileStatRepo = $em->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
-        $journalStatRepo = $em->getRepository('OjsAnalyticsBundle:JournalStatistic');
-
         $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $publisher]);
         $this->throw404IfNotFound($publisherEntity);
 

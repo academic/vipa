@@ -44,7 +44,7 @@ class AppKernel extends Kernel
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Baskin\HistoryBundle\BaskinHistoryBundle(),
-            new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
+            new OkulBilisim\FeedbackBundle\OkulBilisimFeedbackBundle(),
             new Ojs\CoreBundle\OjsCoreBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),

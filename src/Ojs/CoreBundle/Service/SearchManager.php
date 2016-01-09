@@ -340,7 +340,6 @@ class SearchManager
         return [
             ['user.journalUsers.journal.id' ,               'user._all'],
             ['articles.journal.id' ,                        'articles._all'],
-            ['issue.journal.id' ,                           'issue._all'],
             ['citation.articles.journal.id' ,               'citation._all'],
             ['author.articleAuthors.article.journal.id' ,   'author._all'],
         ];
