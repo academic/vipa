@@ -20,5 +20,4 @@ final class JournalEvents
     const JOURNAL_BOARD_CHANGE = 'ojs.journal.board.change';
     const JOURNAL_PERIOD_CHANGE = 'ojs.journal.period.change';
     const JOURNAL_POST_CHANGE = 'ojs.journal.post.change';
-    const JOURNAL_ANNOUNCEMENT_CHANGE = 'ojs.journal.announcement.change';
 }

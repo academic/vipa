@@ -5,18 +5,16 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Ojs\CmsBundle\Form\Type\AnnouncementType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalAnnouncement;
-use Ojs\JournalBundle\Event\NewAnnouncementEvent;
-use Ojs\JournalBundle\Event\SubscriptionEvents;
+use Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\JournalAnnouncementType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalEvents;
 
 class JournalAnnouncementController extends OjsController
 {
@@ -26,6 +24,7 @@ class JournalAnnouncementController extends OjsController
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('VIEW', $journal, 'announcements')) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -37,11 +36,25 @@ class JournalAnnouncementController extends OjsController
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_announcement_show', ['id', 'journalId' => $journal->getId()]);
-        $rowAction[] = $gridAction->editAction('ojs_journal_announcement_edit', ['id', 'journalId' => $journal->getId()]);
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_announcement_delete', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->showAction(
+            'ojs_journal_announcement_show',
+            ['id', 'journalId' => $journal->getId()]
+        );
+        $rowAction[] = $gridAction->editAction(
+            'ojs_journal_announcement_edit',
+            ['id', 'journalId' => $journal->getId()]
+        );
+        $rowAction[] = $gridAction->deleteAction(
+            'ojs_journal_announcement_delete',
+            ['id', 'journalId' => $journal->getId()]
+        );
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
+
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(JournalAnnouncementEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse('OjsJournalBundle:JournalAnnouncement:index.html.twig', ['grid' => $grid]);
     }
@@ -97,13 +110,12 @@ class JournalAnnouncementController extends OjsController
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('CREATE', $journal, 'announcements')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalAnnouncement();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -111,18 +123,26 @@ class JournalAnnouncementController extends OjsController
         if ($form->isValid()) {
             $entity->setJournal($journal);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalAnnouncementEvents::PRE_CREATE, $event);
+
+            $em->persist($event->getItem());
             $em->flush();
 
-            $event = new NewAnnouncementEvent($entity);
-            $dispatcher->dispatch(SubscriptionEvents::NEW_ANNOUNCEMENT, $event);
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalAnnouncementEvents::POST_CREATE, $event);
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE, $event);
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
 
             $this->successFlashBag('successful.create');
-            return $this->redirectToRoute('ojs_journal_announcement_show',
-                ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+
+            return $this->redirectToRoute(
+                'ojs_journal_announcement_show',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -139,8 +159,8 @@ class JournalAnnouncementController extends OjsController
      */
     public function showAction($id)
     {
-        /** @var JournalAnnouncement $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        /** @var JournalAnnouncement $entity */
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
@@ -232,8 +252,10 @@ class JournalAnnouncementController extends OjsController
      */
     public function updateAction(Request $request, $id)
     {
-        /** @var JournalAnnouncement $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        /** @var JournalAnnouncement $entity */
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
@@ -244,19 +266,30 @@ class JournalAnnouncementController extends OjsController
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalAnnouncementEvents::PRE_UPDATE, $event);
+            $em->persist($event->getItem());
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalAnnouncementEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.update');
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE, $event);
-            return $this->redirectToRoute('ojs_journal_announcement_edit',
-                ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+
+            return $this->redirectToRoute(
+                'ojs_journal_announcement_edit',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -275,8 +308,9 @@ class JournalAnnouncementController extends OjsController
      */
     public function deleteAction(Request $request, $id)
     {
-        /** @var JournalAnnouncement $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+        /** @var JournalAnnouncement $entity */
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalAnnouncement')
@@ -287,8 +321,6 @@ class JournalAnnouncementController extends OjsController
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_announcement'.$entity->getId());
@@ -297,11 +329,21 @@ class JournalAnnouncementController extends OjsController
             throw new TokenNotFoundException("Token not found!");
         }
 
+        $event = new JournalItemEvent($entity);
+        $eventDispatcher->dispatch(JournalAnnouncementEvents::PRE_DELETE, $event);
+
         $em->remove($entity);
         $em->flush();
+
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(JournalAnnouncementEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
         $this->successFlashBag('successful.remove');
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalEvents::JOURNAL_ANNOUNCEMENT_CHANGE, $event);
+
         return $this->redirectToRoute('ojs_journal_announcement_index', ['journalId' => $journal->getId()]);
     }
 }
