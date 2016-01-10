@@ -11,7 +11,7 @@ fos_elastica:
           analyzer:
             stopwords:
               type: standard
-              stopwords: [ "and", "of", "the", "ve", "veya", "or", "ile", "da" ]
+              stopwords: [ "and", "of", "the", "ve", "veya", "or", "ile", "da", "de", "mı", "mi" ]
       finder: ~
       client: default
       types:
