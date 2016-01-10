@@ -17,8 +17,4 @@ final class JournalUserEvents
     const PRE_DELETE = 'ojs.journal_user.pre_delete';
 
     const POST_DELETE = 'ojs.journal_user.post_delete';
-
-    const PRE_SUBMIT = 'ojs.journal_user.pre_submit';
-
-    const POST_SUBMIT = 'ojs.journal_user.post_submit';
 }
