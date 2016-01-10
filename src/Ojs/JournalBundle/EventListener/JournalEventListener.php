@@ -46,8 +46,6 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_CHANGE => 'onJournalChange',
             JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew',
             JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange',
-            JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
-            JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
         );
     }
 
@@ -117,56 +115,5 @@ class JournalEventListener implements EventSubscriberInterface
             'Journal Event : Journal User Role Update',
             'Journal Event : Journal User Role Update -> '.$user->getUsername()
         );
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalThemeChange(JournalEvent $event)
-    {
-        $mailUsers = $this->getJournalRelationalUsers();
-
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Theme Change -> '.$event->getEventType(),
-                'Journal Event : Journal Theme Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalDesignChange(JournalEvent $event)
-    {
-        $mailUsers = $this->getJournalRelationalUsers();
-
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Design Change -> '.$event->getEventType(),
-                'Journal Event : Journal Design Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalContactChange(JournalEvent $event)
-    {
-        $mailUsers = $this->getJournalRelationalUsers();
-
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Contact Change -> '.$event->getEventType(),
-                'Journal Event : Journal Contact Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
-            );
-        }
     }
 }
