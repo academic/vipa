@@ -38,6 +38,13 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  ojs.journal_item.mail_listener:
+    class: Ojs\JournalBundle\Listeners\AbstractJournalItemMailer
+    abstract: true
+    arguments: ["@ojs_mailer", "@doctrine", "@security.token_storage"]
+    tags:
+      - { name: kernel.event_subscriber }
+
 #  journal.numerator_orm_subscriber:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
 #    tags:
