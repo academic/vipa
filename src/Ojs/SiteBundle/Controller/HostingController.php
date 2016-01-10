@@ -98,7 +98,6 @@ class HostingController extends Controller
      */
     private function setupArticleURIs(Issue $lastIssue, $isJournalHosting)
     {
-        /** @var Article $article */
         foreach($lastIssue->getArticles() as $article){
             if($isJournalHosting){
                 $article->setPublicURI($this->generateUrl('journal_hosting_issue_article',[

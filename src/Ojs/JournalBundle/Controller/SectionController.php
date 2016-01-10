@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
@@ -370,7 +369,6 @@ class SectionController extends Controller
 
         // We are detaching articles from both the issue and its section in order
         // to make them available for putting inside another issue's section.
-        /** @var Article $article */
         foreach ($entity->getArticles() as $article) {
             $article->setSection(null);
             $article->setIssue(null);

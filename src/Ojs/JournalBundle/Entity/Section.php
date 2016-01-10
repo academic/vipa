@@ -91,7 +91,7 @@ class Section extends AbstractTranslatable implements JournalItemInterface
     /**
      * Get articles
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|Article[]
      */
     public function getArticles()
     {

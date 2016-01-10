@@ -14,7 +14,6 @@ use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\SiteBundle\Entity\BlockRepository;
-use Ojs\SiteBundle\Form\Type\QuickSwitchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
@@ -167,11 +166,10 @@ class SiteController extends Controller
      * @param Issue $last_issue
      * @return Issue|null
      */
-    private function setupArticleURIs($last_issue)
+    private function setupArticleURIs(Issue $last_issue)
     {
 
         if ($last_issue) {
-            /** @var Article $article */
             foreach ($last_issue->getArticles() as $article) {
                 $article->setPublicURI(
                     $this->generateUrl(
@@ -195,7 +193,6 @@ class SiteController extends Controller
 
     public function journalArticlesAction($slug)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsSiteBundle:Block');
