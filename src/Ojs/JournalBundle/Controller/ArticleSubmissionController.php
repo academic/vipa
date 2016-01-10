@@ -22,9 +22,9 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
-use Ojs\JournalBundle\Event\Article\ArticleEvent;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\JournalEvents;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\SubmissionFormEvent;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
 use Ojs\JournalBundle\Form\Type\ArticleStartType;
@@ -329,6 +329,7 @@ class ArticleSubmissionController extends Controller
      * @param  Article       $article
      * @param  Journal       $journal
      * @param $locales
+     * @param $defaultLocale
      * @return FormInterface
      */
     private function createCreateForm(Article $article, Journal $journal, $locales, $defaultLocale)
@@ -550,7 +551,7 @@ class ArticleSubmissionController extends Controller
                 ['journalId' => $article->getJournal()->getId()]
             );
 
-            $event = new ArticleEvent($article);
+            $event = new JournalItemEvent($article);
             $dispatcher->dispatch(ArticleEvents::POST_SUBMIT, $event);
 
             if (null !== $event->getResponse()) {
