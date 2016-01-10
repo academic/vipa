@@ -11,8 +11,11 @@ use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleRepository;
 use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Section;
+use Ojs\JournalBundle\Event\Issue\IssueEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\IssueType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * Issue controller.
@@ -39,6 +39,7 @@ class IssueController extends Controller
     public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -46,15 +47,15 @@ class IssueController extends Controller
 
         $source = new Entity('OjsJournalBundle:Issue');
         $source->manipulateRow(
-            function (Row $row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /** @var Issue $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $row->setField('title', $entity->getTitle());
                     $row->setField('description', $entity->getDescription());
                 }
+
                 return $row;
             }
         );
@@ -81,14 +82,21 @@ class IssueController extends Controller
         }
 
         if ($this->isGranted('DELETE', $journal, 'issues')) {
-            $rowAction[] = $gridAction->deleteAction('ojs_journal_issue_delete', ['id', 'journalId' => $journal->getId()]);
+            $rowAction[] = $gridAction->deleteAction(
+                'ojs_journal_issue_delete',
+                ['id', 'journalId' => $journal->getId()]
+            );
         }
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        $data = [];
-        $data['grid'] = $grid;
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(IssueEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
+
+        $data = ['grid' => $grid];
 
         return $grid->getGridResponse('OjsJournalBundle:Issue:index.html.twig', $data);
     }
@@ -101,17 +109,14 @@ class IssueController extends Controller
      */
     public function createAction(Request $request)
     {
-        /* @var Journal $journal */
-
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('CREATE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $entity = new Issue();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
@@ -119,14 +124,26 @@ class IssueController extends Controller
         if ($form->isValid()) {
             $entity->setJournal($journal);
             $entity->setCurrentLocale($request->getDefaultLocale());
-            $em->persist($entity);
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(IssueEvents::PRE_CREATE, $event);
+
+            $em->persist($event->getItem());
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(IssueEvents::POST_CREATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.create');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
-
-            return $this->redirectToRoute('ojs_journal_issue_show', ['id' => $entity->getId(), 'journalId' => $journal->getId()]);
+            return $this->redirectToRoute(
+                'ojs_journal_issue_show',
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
+            );
         }
 
         return $this->render(
@@ -213,7 +230,7 @@ class IssueController extends Controller
             'OjsJournalBundle:Issue:show.html.twig',
             array(
                 'entity' => $entity,
-                'token'  => $token,
+                'token' => $token,
             )
         );
     }
@@ -245,7 +262,8 @@ class IssueController extends Controller
             [
                 'entity' => $entity,
                 'edit_form' => $editForm->createView()
-            ]);
+            ]
+        );
     }
 
     /**
@@ -260,8 +278,10 @@ class IssueController extends Controller
             new IssueType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_issue_update',
-                    ['id' => $entity->getId(), 'journalId' => $journalId]),
+                'action' => $this->generateUrl(
+                    'ojs_journal_issue_update',
+                    ['id' => $entity->getId(), 'journalId' => $journalId]
+                ),
                 'method' => 'PUT',
             )
         );
@@ -279,12 +299,11 @@ class IssueController extends Controller
     public function updateAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('EDIT', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -294,12 +313,19 @@ class IssueController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
 
-            $em->persist($entity);
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(IssueEvents::PRE_UPDATE, $event);
+            $em->persist($event->getItem());
             $em->flush();
-            $this->successFlashBag('successful.update');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(IssueEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            $this->successFlashBag('successful.update');
 
             return $this->redirectToRoute(
                 'ojs_journal_issue_edit',
@@ -324,24 +350,26 @@ class IssueController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('DELETE', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_issue' . $id);
+        $token = $csrf->getToken('ojs_journal_issue'.$id);
 
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+
+        $event = new JournalItemEvent($entity);
+        $eventDispatcher->dispatch(IssueEvents::PRE_DELETE, $event);
 
         // We are detaching articles from both the issue and its section in order
         // to make them available for putting inside another issue's section.
@@ -357,10 +385,15 @@ class IssueController extends Controller
         $em->remove($entity);
         $em->flush();
 
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(IssueEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
         $this->successFlashBag('deletion.issue');
 
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalEvents::JOURNAL_ISSUE_CHANGE, $event);
         return $this->redirectToRoute('ojs_journal_issue_index', ['journalId' => $journal->getId()]);
     }
 

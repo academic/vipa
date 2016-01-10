@@ -57,6 +57,10 @@ services:
     class: Ojs\JournalBundle\Listeners\JournalPostMailer
     parent: ojs.mail_listener.journal_item
 
+  ojs.mail_listener.issue:
+    class: Ojs\JournalBundle\Listeners\IssueMailer
+    parent: ojs.mail_listener.journal_item
+
 #  journal.numerator_orm_subscriber:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
 #    tags:
