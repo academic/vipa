@@ -17,8 +17,4 @@ final class JournalSubmissionFileEvents
     const PRE_DELETE = 'ojs.journal_submission_file.pre_delete';
 
     const POST_DELETE = 'ojs.journal_submission_file.post_delete';
-
-    const PRE_SUBMIT = 'ojs.journal_submission_file.pre_submit';
-
-    const POST_SUBMIT = 'ojs.journal_submission_file.post_submit';
 }
