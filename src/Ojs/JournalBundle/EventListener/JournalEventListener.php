@@ -47,7 +47,6 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew',
             JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange',
             JournalEvents::JOURNAL_SUBMISSION_CHECKLIST_CHANGE => 'onJournalSubmissionChecklistChange',
-            JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
         );
@@ -134,23 +133,6 @@ class JournalEventListener implements EventSubscriberInterface
                 'Journal Event : Journal Submission Checklist Change -> '.$event->getEventType(),
                 'Journal Event : Journal Submission Checklist Change -> '.$event->getEventType(
                 ).' -> by '.$event->getUser()->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalSubmissionFilesChange(JournalEvent $event)
-    {
-        $mailUsers = $this->getJournalRelationalUsers();
-
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Submission Files Change -> '.$event->getEventType(),
-                'Journal Event : Journal Submission Files Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
             );
         }
     }
