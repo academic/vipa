@@ -9,7 +9,7 @@ use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\JournalBundle\Entity\JournalPage;
 use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalPage\JournalPageEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\JournalPage\JournalPageEvents;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\JournalPageType;
@@ -134,21 +134,20 @@ class JournalPageController extends OjsController
             $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em = $this->getDoctrine()->getManager();
 
-            $event = new JournalPageEvent($entity);
+            $event = new JournalItemEvent($entity);
             $eventDispatcher->dispatch(JournalPageEvents::PRE_CREATE, $event);
 
-            $em->persist($event->getJournalPage());
+            $em->persist($event->getItem());
             $em->flush();
 
-            $this->successFlashBag('successful.create');
-
-            $event = new JournalPageEvent($event->getJournalPage());
+            $event = new JournalItemEvent($event->getItem());
             $eventDispatcher->dispatch(JournalPageEvents::POST_CREATE, $event);
 
             if ($event->getResponse()) {
                 return $event->getResponse();
             }
 
+            $this->successFlashBag('successful.create');
             return $this->redirectToRoute(
                 'ojs_journal_page_show',
                 ['id' => $entity->getId(), 'journalId' => $journal->getId()]
@@ -169,7 +168,6 @@ class JournalPageController extends OjsController
      */
     public function showAction($id)
     {
-        /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         $entity = $this
@@ -199,7 +197,6 @@ class JournalPageController extends OjsController
      */
     public function editAction($id)
     {
-        /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         $entity = $this
@@ -261,10 +258,10 @@ class JournalPageController extends OjsController
      */
     public function updateAction(Request $request, $id)
     {
-        /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
 
+        /** @var JournalPage $entity */
         $entity = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:JournalPage')
@@ -282,20 +279,19 @@ class JournalPageController extends OjsController
         if ($editForm->isValid()) {
             $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
 
-            $event = new JournalPageEvent($entity);
+            $event = new JournalItemEvent($entity);
             $eventDispatcher->dispatch(JournalPageEvents::PRE_UPDATE, $event);
-            $em->persist($event->getJournalPage());
+            $em->persist($event->getItem());
             $em->flush();
 
-            $this->successFlashBag('successful.update');
-
-            $event = new JournalPageEvent($event->getJournalPage());
+            $event = new JournalItemEvent($event->getItem());
             $eventDispatcher->dispatch(JournalPageEvents::POST_UPDATE, $event);
 
             if ($event->getResponse()) {
                 return $event->getResponse();
             }
 
+            $this->successFlashBag('successful.update');
             return $this->redirectToRoute(
                 'ojs_journal_page_edit',
                 ['id' => $entity->getId(), 'journalId' => $journal->getId()]
@@ -318,7 +314,6 @@ class JournalPageController extends OjsController
      */
     public function deleteAction(Request $request, $id)
     {
-        /** @var JournalPage $entity */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
 
@@ -339,13 +334,12 @@ class JournalPageController extends OjsController
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token not found!");
         }
-        $event = new JournalPageEvent($entity);
+
+        $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(JournalPageEvents::PRE_DELETE, $event);
 
         $em->remove($entity);
         $em->flush();
-
-        $this->successFlashBag('successful.remove');
 
         $event = new JournalEvent($journal);
         $eventDispatcher->dispatch(JournalPageEvents::POST_DELETE, $event);
@@ -354,6 +348,7 @@ class JournalPageController extends OjsController
             return $event->getResponse();
         }
 
+        $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('ojs_journal_page_index', ['journalId' => $journal->getId()]);
     }
 }
