@@ -49,6 +49,10 @@ services:
     class: Ojs\JournalBundle\Listeners\ArticleMailer
     parent: ojs.mail_listener.journal_item
 
+  ojs.mail_listener.journal_announcement:
+      class: Ojs\JournalBundle\Listeners\JournalAnnouncementMailer
+      parent: ojs.mail_listener.journal_item
+
 #  journal.numerator_orm_subscriber:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
 #    tags:
