@@ -14,7 +14,6 @@ final class JournalEvents
     const JOURNAL_THEME_CHANGE = 'ojs.journal.theme.change';
     const JOURNAL_DESIGN_CHANGE = 'ojs.journal.design.change';
     const JOURNAL_CONTACT_CHANGE = 'ojs.journal.contact.change';
-    const JOURNAL_SECTION_CHANGE = 'ojs.journal.section.change';
     const JOURNAL_INDEX_CHANGE = 'ojs.journal.index.change';
     const JOURNAL_BOARD_CHANGE = 'ojs.journal.board.change';
     const JOURNAL_PERIOD_CHANGE = 'ojs.journal.period.change';
