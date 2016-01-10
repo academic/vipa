@@ -50,7 +50,6 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
-            JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange',
             JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange', #analyze
         );
