@@ -62,8 +62,12 @@ services:
     parent: ojs.mail_listener.journal_item
 
   ojs.mail_listener.section:
-      class: Ojs\JournalBundle\Listeners\SectionMailer
-      parent: ojs.mail_listener.journal_item
+    class: Ojs\JournalBundle\Listeners\SectionMailer
+    parent: ojs.mail_listener.journal_item
+
+  ojs.mail_listener.board:
+    class: Ojs\JournalBundle\Listeners\BoardMailer
+    parent: ojs.mail_listener.journal_item
 
 #  journal.numerator_orm_subscriber:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber

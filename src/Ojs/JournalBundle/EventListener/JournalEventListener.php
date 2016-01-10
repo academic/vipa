@@ -52,7 +52,6 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
             JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange',
-            JournalEvents::JOURNAL_BOARD_CHANGE => 'onJournalBoardChange',
             JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange', #analyze
         );
     }
@@ -222,23 +221,6 @@ class JournalEventListener implements EventSubscriberInterface
                 $user,
                 'Journal Event : Journal Index Change -> '.$event->getEventType(),
                 'Journal Event : Journal Index Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalBoardChange(JournalEvent $event)
-    {
-        $mailUsers = $this->getJournalRelationalUsers();
-
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Board Change -> '.$event->getEventType(),
-                'Journal Event : Journal Board Change -> '.$event->getEventType().' -> by '.$event->getUser(
                 )->getUsername()
             );
         }
