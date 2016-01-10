@@ -5,8 +5,6 @@ namespace Ojs\JournalBundle\EventListener;
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\JournalBundle\Entity\JournalUser;
-use Ojs\JournalBundle\Event\Article\ArticleEvent;
-use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\UserBundle\Entity\User;
@@ -52,8 +50,6 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE => 'onJournalSubmissionFilesChange',
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
-            JournalEvents::JOURNAL_ARTICLE_CHANGE => 'onJournalArticleChange',
-            ArticleEvents::POST_SUBMIT => 'onJournalArticleSubmitted',
             JournalEvents::JOURNAL_CONTACT_CHANGE => 'onJournalContactChange',
             JournalEvents::JOURNAL_ISSUE_CHANGE => 'onJournalIssueChange',
             JournalEvents::JOURNAL_SECTION_CHANGE => 'onJournalSectionChange',
@@ -199,46 +195,6 @@ class JournalEventListener implements EventSubscriberInterface
                 )->getUsername()
             );
         }
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalArticleChange(JournalEvent $event)
-    {
-        $mailUsers = $this->getJournalRelationalUsers();
-
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Article Change -> '.$event->getEventType(),
-                'Journal Event : Journal Article Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
-            );
-        }
-    }
-
-    /**
-     * @param ArticleEvent $event
-     */
-    public function onJournalArticleSubmitted(ArticleEvent $event)
-    {
-        $submitterUser = $event->getArticle()->getSubmitterUser();
-        $mailUsers = $this->getJournalRelationalUsers();
-        foreach ($mailUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Journal Event : Journal Article Submitted',
-                'Journal Event : Journal Article Submitted -> by '.$event->getArticle()->getSubmitterUser(
-                )->getUsername()
-            );
-        }
-        //send mail to author
-        $this->ojsMailer->sendToUser(
-            $submitterUser,
-            'Journal Event : Journal Article Submitted Success',
-            'Journal Event : Journal Article Submitted Success-> by '.$submitterUser->getUsername()
-        );
     }
 
     /**

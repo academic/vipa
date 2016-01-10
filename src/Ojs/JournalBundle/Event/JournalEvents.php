@@ -13,8 +13,6 @@ final class JournalEvents
     const JOURNAL_SUBMISSION_RAW_CITATION = 'ojs.journal.submission.raw_citation';
     const JOURNAL_THEME_CHANGE = 'ojs.journal.theme.change';
     const JOURNAL_DESIGN_CHANGE = 'ojs.journal.design.change';
-    const JOURNAL_ARTICLE_CHANGE = 'ojs.journal.article.change';
-    const JOURNAL_ARTICLE_SUBMITTED = 'ojs.journal.article.submit.happen';
     const JOURNAL_CONTACT_CHANGE = 'ojs.journal.contact.change';
     const JOURNAL_ISSUE_CHANGE = 'ojs.journal.issue.change';
     const JOURNAL_SECTION_CHANGE = 'ojs.journal.section.change';
