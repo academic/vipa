@@ -51,7 +51,6 @@ class JournalEventListener implements EventSubscriberInterface
             JournalEvents::JOURNAL_THEME_CHANGE => 'onJournalThemeChange',
             JournalEvents::JOURNAL_DESIGN_CHANGE => 'onJournalDesignChange',
             JournalEvents::JOURNAL_INDEX_CHANGE => 'onJournalIndexChange',
-            JournalEvents::JOURNAL_PERIOD_CHANGE => 'onJournalPeriodChange', #analyze
         );
     }
 
@@ -223,12 +222,5 @@ class JournalEventListener implements EventSubscriberInterface
                 )->getUsername()
             );
         }
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalPeriodChange(JournalEvent $event)
-    {
     }
 }
