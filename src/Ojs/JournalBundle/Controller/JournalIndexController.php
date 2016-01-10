@@ -6,19 +6,18 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalIndex;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalIndex\JournalIndexEvents;
+use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\JournalIndexType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalEvents;
 
 /**
  * JournalIndex controller.
@@ -26,7 +25,6 @@ use Ojs\JournalBundle\Event\JournalEvents;
  */
 class JournalIndexController extends Controller
 {
-
     /**
      * Lists all JournalIndex entities.
      *
@@ -36,6 +34,7 @@ class JournalIndexController extends Controller
     public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
         if (!$this->isGranted('VIEW', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
@@ -43,12 +42,13 @@ class JournalIndexController extends Controller
 
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /* @var JournalUser $entity */
+                /* @var JournalIndex $entity */
                 $entity = $row->getEntity();
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
                     $row->setField('journal', $entity->getJournal()->getTitle());
                 }
+
                 return $row;
             }
         );
@@ -64,10 +64,13 @@ class JournalIndexController extends Controller
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
-        $data = [];
-        $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig', $data);
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(JournalIndexEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
+
+        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig', ['grid' => $grid]);
     }
 
     /**
@@ -79,11 +82,10 @@ class JournalIndexController extends Controller
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
         if (!$this->isGranted('CREATE', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $entity = new JournalIndex();
         $entity->setJournal($journal);
@@ -92,12 +94,23 @@ class JournalIndexController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $entity->setJournal($journal);
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalIndexEvents::PRE_CREATE, $event);
+
             $em->persist($entity);
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalIndexEvents::POST_CREATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.create');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_INDEX_CHANGE, $event);
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_index_show',
@@ -105,6 +118,7 @@ class JournalIndexController extends Controller
                 )
             );
         }
+
         $this->successFlashBag('successful.create');
 
         return $this->render(
@@ -251,23 +265,32 @@ class JournalIndexController extends Controller
      */
     public function updateAction(Request $request, JournalIndex $entity)
     {
-        $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalIndexEvents::PRE_UPDATE, $event);
+            $em->persist($event->getItem());
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalIndexEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.update');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_INDEX_CHANGE, $event);
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_index_edit',
@@ -292,25 +315,33 @@ class JournalIndexController extends Controller
      */
     public function deleteAction(Request $request, JournalIndex $entity)
     {
-        $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+        $this->throw404IfNotFound($entity);
         if (!$this->isGranted('DELETE', $journal, 'index')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_index'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $event = new JournalItemEvent($entity);
+        $eventDispatcher->dispatch(JournalIndexEvents::PRE_DELETE, $event);
+
         $em->remove($entity);
         $em->flush();
+
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(JournalIndexEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
         $this->successFlashBag('successful.remove');
 
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalEvents::JOURNAL_INDEX_CHANGE, $event);
         return $this->redirectToRoute('ojs_journal_index_index', ['journalId' => $journal->getId()]);
     }
 }
