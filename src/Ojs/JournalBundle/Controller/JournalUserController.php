@@ -79,7 +79,7 @@ class JournalUserController extends Controller
         $eventDispatcher->dispatch(JournalUserEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalUser:index.html.twig', $grid);
+        return $grid->getGridResponse('OjsJournalBundle:JournalUser:index.html.twig');
     }
 
     public function newUserAction()

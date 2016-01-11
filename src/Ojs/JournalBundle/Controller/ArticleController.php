@@ -93,10 +93,7 @@ class ArticleController extends Controller
         $eventDispatcher->dispatch(ArticleEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse(
-            'OjsJournalBundle:Article:index.html.twig',
-            ['journal' => $journal]
-        );
+        return $grid->getGridResponse('OjsJournalBundle:Article:index.html.twig');
     }
 
     /**

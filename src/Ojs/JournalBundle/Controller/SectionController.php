@@ -87,7 +87,7 @@ class SectionController extends Controller
         $eventDispatcher->dispatch(SectionEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:Section:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:Section:index.html.twig');
     }
 
     /**

@@ -57,7 +57,7 @@ class JournalSubmissionFileController extends Controller
         $eventDispatcher->dispatch(JournalSubmissionFileEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:SubmissionFile:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:SubmissionFile:index.html.twig');
     }
 
     /**

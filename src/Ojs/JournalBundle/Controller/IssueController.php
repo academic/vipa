@@ -96,9 +96,7 @@ class IssueController extends Controller
         $eventDispatcher->dispatch(IssueEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        $data = ['grid' => $grid];
-
-        return $grid->getGridResponse('OjsJournalBundle:Issue:index.html.twig', $data);
+        return $grid->getGridResponse('OjsJournalBundle:Issue:index.html.twig');
     }
 
     /**

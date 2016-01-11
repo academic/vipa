@@ -70,7 +70,7 @@ class JournalIndexController extends Controller
         $eventDispatcher->dispatch(JournalIndexEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig');
     }
 
     /**

@@ -70,7 +70,7 @@ class BoardController extends Controller
         $eventDispatcher->dispatch(BoardEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:Board:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:Board:index.html.twig');
     }
 
     /**

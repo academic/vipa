@@ -82,7 +82,7 @@ class JournalContactController extends Controller
         $eventDispatcher->dispatch(JournalContactEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalContact:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:JournalContact:index.html.twig');
     }
 
     /**

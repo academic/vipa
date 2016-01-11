@@ -56,7 +56,7 @@ class SubmissionChecklistController extends Controller
         $eventDispatcher->dispatch(JournalSubmissionChecklistEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:SubmissionChecklist:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:SubmissionChecklist:index.html.twig');
     }
 
     /**

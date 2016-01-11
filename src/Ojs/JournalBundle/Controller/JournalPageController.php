@@ -64,7 +64,7 @@ class JournalPageController extends OjsController
         $eventDispatcher->dispatch(JournalPageEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse('OjsJournalBundle:JournalPage:index.html.twig', ['grid' => $grid]);
+        return $grid->getGridResponse('OjsJournalBundle:JournalPage:index.html.twig');
     }
 
     /**
