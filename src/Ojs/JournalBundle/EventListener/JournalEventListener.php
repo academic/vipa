@@ -43,9 +43,7 @@ class JournalEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            JournalEvents::JOURNAL_CHANGE => 'onJournalChange',
-            JournalEvents::JOURNAL_USER_NEW => 'onJournalUserNew',
-            JournalEvents::JOURNAL_USER_ROLE_CHANGE => 'onJournalUserRoleChange',
+            JournalEvents::JOURNAL_CHANGE => 'onJournalChange'
         );
     }
 
@@ -89,31 +87,5 @@ class JournalEventListener implements EventSubscriberInterface
         }
 
         return $mailUsers;
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalUserNew(JournalEvent $event)
-    {
-        $user = $event->getUser();
-        $this->ojsMailer->sendToUser(
-            $user,
-            'Journal Event : Journal User New',
-            'Journal Event : Journal User New -> '.$user->getUsername()
-        );
-    }
-
-    /**
-     * @param JournalEvent $event
-     */
-    public function onJournalUserRoleChange(JournalEvent $event)
-    {
-        $user = $event->getUser();
-        $this->ojsMailer->sendToUser(
-            $user,
-            'Journal Event : Journal User Role Update',
-            'Journal Event : Journal User Role Update -> '.$user->getUsername()
-        );
     }
 }

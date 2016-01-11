@@ -6,27 +6,26 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query;
+use Elastica\Query as ElasticQuery;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
-use Ojs\JournalBundle\Event\JournalEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Event\JournalUser\JournalUserEvents;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\JournalNewUserType;
 use Ojs\JournalBundle\Form\Type\JournalUserEditType;
 use Ojs\JournalBundle\Form\Type\JournalUserType;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Elastica\Query as ElasticQuery;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use FOS\RestBundle\Request\ParamFetcher;
 
 /**
  * JournalUser controller.
@@ -37,28 +36,29 @@ class JournalUserController extends Controller
     /**
      * Finds and displays a Users of a Journal with roles
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
         if (!$this->isGranted('VIEW', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
 
         $source = new Entity('OjsJournalBundle:JournalUser');
         $source->manipulateRow(
-            function (Row $row) use ($request)
-            {
+            function (Row $row) use ($request) {
                 /* @var JournalUser $entity */
                 $entity = $row->getEntity();
-                if(!is_null($entity)){
+                if (!is_null($entity)) {
                     $entity->getJournal()->setDefaultLocale($request->getDefaultLocale());
-                    if(!is_null($entity)){
+                    if (!is_null($entity)) {
                         $row->setField('journal', $entity->getJournal()->getTitle());
                     }
                 }
+
                 return $row;
             }
         );
@@ -73,6 +73,11 @@ class JournalUserController extends Controller
         $actionColumn = new ActionsColumn("actions", "actions");
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
+
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(JournalUserEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
 
         return $grid->getGridResponse('OjsJournalBundle:JournalUser:index.html.twig', $grid);
     }
@@ -98,9 +103,9 @@ class JournalUserController extends Controller
 
     /**
      * Creates a form to create a User entity.
-     * @param   integer $journalId
-     * @param   User $entity
-     * @return  Form    The form
+     * @param  integer $journalId
+     * @param  User    $entity
+     * @return Form    The form
      */
     private function createCreateForm(User $entity, $journalId)
     {
@@ -120,14 +125,14 @@ class JournalUserController extends Controller
     /**
      * Creates a new User entity.
      *
-     * @param  Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createUserAction(Request $request)
     {
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
         if (!$this->isGranted('CREATE', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
@@ -150,13 +155,20 @@ class JournalUserController extends Controller
             $journalUser->setUser($entity);
             $journalUser->setJournal($journal);
 
-            $em->persist($journalUser);
+            $event = new JournalItemEvent($journalUser);
+            $eventDispatcher->dispatch(JournalUserEvents::PRE_CREATE, $event);
+
+            $em->persist($event->getItem());
             $em->flush();
 
-            $this->successFlashBag('successful.create');
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalUserEvents::POST_CREATE, $event);
 
-            $event = new JournalEvent($request, $journal, $entity);
-            $dispatcher->dispatch(JournalEvents::JOURNAL_USER_NEW, $event);
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            $this->successFlashBag('successful.create');
 
             return $this->redirectToRoute(
                 'ojs_journal_user_edit',
@@ -175,21 +187,26 @@ class JournalUserController extends Controller
 
     public function addUserAction(Request $request)
     {
-        /** @var Journal $journal */
-        $entity = new JournalUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $form = $this->createAddForm($entity, $journal->getId());
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('CREATE', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $entity = new JournalUser();
+        $form = $this->createAddForm($entity, $journal->getId());
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            /** @var JournalUser $existingJournalUser */
-
             $em = $this->getDoctrine()->getManager();
             $entity->setJournal($journal);
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalUserEvents::PRE_ADD_JOURNAL, $event);
+            /** @var JournalUser $entity */
+            $entity = $event->getItem();
+
+            /** @var JournalUser $existingJournalUser */
             $existingJournalUser = $em
                 ->getRepository('OjsJournalBundle:JournalUser')
                 ->findOneBy(['user' => $entity->getUser()]);
@@ -211,7 +228,15 @@ class JournalUserController extends Controller
 
             $em->flush();
 
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalUserEvents::POST_ADD_JOURNAL, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
         }
 
@@ -231,7 +256,7 @@ class JournalUserController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_journal_user_add', ['journalId' => $journalId]),
-                'method' => 'POST'
+                'method' => 'POST',
             )
         );
 
@@ -240,10 +265,10 @@ class JournalUserController extends Controller
 
     public function editUserAction($id)
     {
-        /** @var JournalUser $entity */
-        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $em = $this->getDoctrine()->getManager();
         // Although 'id' column is unique, looking for a matching journal as well is beneficial security-wise
+        /** @var JournalUser $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalUser')->find($id);
         $this->throw404IfNotFound($entity);
 
@@ -264,18 +289,20 @@ class JournalUserController extends Controller
 
     private function createEditForm(JournalUser $entity)
     {
-        $actionUrl = $this->generateUrl('ojs_journal_user_update',
-            ['journalId' => $entity->getJournal()->getId(), 'id' => $entity->getId()]);
+        $actionUrl = $this->generateUrl(
+            'ojs_journal_user_update',
+            ['journalId' => $entity->getJournal()->getId(), 'id' => $entity->getId()]
+        );
         $form = $this->createForm(new JournalUserEditType(), $entity, ['method' => 'PUT', 'action' => $actionUrl]);
+
         return $form;
     }
 
     public function updateUserAction(Request $request, $id)
     {
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+        $em = $this->getDoctrine()->getManager();
 
         if (!$this->isGranted('EDIT', $journal, 'userRole')) {
             throw new AccessDeniedException("You not authorized to remove this user from the journal.");
@@ -287,25 +314,38 @@ class JournalUserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalUserEvents::PRE_UPDATE, $event);
+
+            $em->persist($event->getItem());
             $em->flush();
 
-            $this->successFlashBag('successful.update');
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalUserEvents::POST_UPDATE, $event);
 
-            $event = new JournalEvent($request, $journal, $entity->getUser());
-            $dispatcher->dispatch(JournalEvents::JOURNAL_USER_ROLE_CHANGE, $event);
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
+            $this->successFlashBag('successful.update');
 
             return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
         }
 
         $this->errorFlashBag('error');
-        return $this->redirectToRoute('ojs_journal_user_edit', ['journalId' => $journal->getId(), 'id' => $entity->getId()]);
+
+        return $this->redirectToRoute(
+            'ojs_journal_user_edit',
+            ['journalId' => $journal->getId(), 'id' => $entity->getId()]
+        );
     }
 
     public function deleteUserAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+        $em = $this->getDoctrine()->getManager();
+
         $entity = $em->getRepository('OjsJournalBundle:JournalUser')->find($id);
 
         $this->throw404IfNotFound($entity);
@@ -314,24 +354,36 @@ class JournalUserController extends Controller
         }
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_user' . $id);
+        $token = $csrf->getToken('ojs_journal_user'.$id);
         if ($token->getValue() !== $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $event = new JournalItemEvent($entity);
+        $eventDispatcher->dispatch(JournalUserEvents::PRE_DELETE, $event);
 
-        foreach($entity->getRoles() as $role) {
+        /** @var JournalUser $entity */
+        $entity = $event->getItem();
+        foreach ($entity->getRoles() as $role) {
             $entity->removeRole($role);
         }
 
         $em->remove($entity);
         $em->flush();
+
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(JournalUserEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
         $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_journal_user_index', ['journalId' => $journal->getId()]);
     }
 
     /**
-     * @param  null|int $journalId
+     * @param  null|int                  $journalId
      * @return RedirectResponse|Response
      */
     public function registerAsAuthorAction($journalId = null)
@@ -345,16 +397,17 @@ class JournalUserController extends Controller
         if ($journalId) {
             /**
              * @var Journal $journal
-             * @var User    $user
-             * @var Role    $role
+             * @var User $user
+             * @var Role $role
              */
             $journal = $doctrine->getRepository('OjsJournalBundle:Journal')->find($journalId);
 
             // Check if the user is in journal already
             $journalUser = $doctrine
                 ->getRepository('OjsJournalBundle:JournalUser')
-                ->findOneBy(['user' => $user]
-            );
+                ->findOneBy(
+                    ['user' => $user]
+                );
 
             $journalUser = !$journalUser ? new JournalUser() : $journalUser;
             $journalUser->setUser($user);
@@ -375,7 +428,6 @@ class JournalUserController extends Controller
          * @var JournalUser[] $journalUsers
          * @var Journal[] $allJournals
          */
-
         $journalUsers = $doctrine
             ->getRepository('OjsJournalBundle:JournalUser')
             ->findBy(['user' => $user]);
@@ -397,8 +449,10 @@ class JournalUserController extends Controller
             }
         }
 
-        return $this->render('OjsJournalBundle:JournalUser:register.html.twig',
-            ['joined' => $joinedJournals, 'nonJoined' => $nonJoinedJournals]);
+        return $this->render(
+            'OjsJournalBundle:JournalUser:register.html.twig',
+            ['joined' => $joinedJournals, 'nonJoined' => $nonJoinedJournals]
+        );
     }
 
     public function journalsAction()
@@ -446,7 +500,7 @@ class JournalUserController extends Controller
     /**
      * Search users by username
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function getUserByUsernameAction(Request $request)
@@ -472,7 +526,7 @@ class JournalUserController extends Controller
     /**
      * Search users based journal
      *
-     * @param Request $request
+     * @param  Request                                                                                     $request
      * @return \Ojs\UserBundle\Entity\User[]|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function getUserBasedJournalAction(Request $request)
@@ -495,11 +549,11 @@ class JournalUserController extends Controller
             $limit
         );
         $data = [];
-        if(count($journalUsers) > 0){
-            foreach($journalUsers as $journalUser){
+        if (count($journalUsers) > 0) {
+            foreach ($journalUsers as $journalUser) {
                 $data[] = [
                     'id' => $journalUser->getId(),
-                    'text' => (string)$journalUser,
+                    'text' => (string) $journalUser,
                 ];
             }
         }

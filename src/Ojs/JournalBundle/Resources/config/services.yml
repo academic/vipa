@@ -89,6 +89,10 @@ services:
     class: Ojs\JournalBundle\Listeners\JournalSubmissionChecklistMailer
     parent: ojs.mail_listener.journal_item
 
+  ojs.mail_listener.journal_user:
+    class: Ojs\JournalBundle\Listeners\JournalUserMailer
+    parent: ojs.mail_listener.journal_item
+
 #  journal.numerator_orm_subscriber:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
 #    tags:
