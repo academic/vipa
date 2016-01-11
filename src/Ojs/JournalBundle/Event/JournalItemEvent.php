@@ -33,6 +33,14 @@ class JournalItemEvent extends Event implements ItemEventInterface
     }
 
     /**
+     * @param JournalItemInterface $item
+     */
+    public function setItem(JournalItemInterface $item)
+    {
+        $this->item = $item;
+    }
+
+    /**
      * @return Response
      */
     public function getResponse()
