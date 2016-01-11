@@ -61,7 +61,7 @@ class ExploreController extends Controller
         }
 
         $journalQuery = new Query($boolQuery);
-        //$journalQuery->setSort(['title.raw' => ['order' => 'desc']]);
+        $journalQuery->setSort(['title.raw' => ['order' => 'asc']]);
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('journal.publisher.publisherType.name');
