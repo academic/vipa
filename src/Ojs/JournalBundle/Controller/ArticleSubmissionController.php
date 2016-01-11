@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Events\TypeEvent;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Service\GridAction;
@@ -23,9 +24,7 @@ use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
-use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
-use Ojs\JournalBundle\Event\SubmissionFormEvent;
 use Ojs\JournalBundle\Form\Type\ArticlePreviewType;
 use Ojs\JournalBundle\Form\Type\ArticleStartType;
 use Ojs\JournalBundle\Form\Type\ArticleSubmissionType;
@@ -334,14 +333,11 @@ class ArticleSubmissionController extends Controller
      */
     private function createCreateForm(Article $article, Journal $journal, $locales, $defaultLocale)
     {
-        $event = $this->get('event_dispatcher')->dispatch(
-            JournalEvents::JOURNAL_SUBMISSION_FORM,
-            new SubmissionFormEvent()
-        );
-        $type = $event->getType();
+        $event = new TypeEvent(new ArticleSubmissionType());
+        $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
 
         $form = $this->createForm(
-            empty($type) ? new ArticleSubmissionType() : $type,
+            $event->getType(),
             $article,
             array(
                 'action' => $this->generateUrl(
@@ -440,14 +436,11 @@ class ArticleSubmissionController extends Controller
 
     private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
     {
-        $event = $this->get('event_dispatcher')->dispatch(
-            JournalEvents::JOURNAL_SUBMISSION_FORM,
-            new SubmissionFormEvent()
-        );
-        $type = $event->getType();
+        $event = new TypeEvent(new ArticleSubmissionType());
+        $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
 
         $form = $this->createForm(
-            empty($type) ? new ArticleSubmissionType() : $type,
+            $event->getType(),
             $article,
             array(
                 'action' => $this->generateUrl(
