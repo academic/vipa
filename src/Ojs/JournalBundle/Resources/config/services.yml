@@ -36,40 +36,54 @@ services:
     class: Ojs\JournalBundle\Listeners\AbstractJournalItemMailer
     abstract: true
     arguments: ["@ojs_mailer", "@doctrine", "@security.token_storage"]
-    tags:
-      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal:
     class: Ojs\JournalBundle\Listeners\JournalMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.article:
     class: Ojs\JournalBundle\Listeners\ArticleMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_announcement:
     class: Ojs\JournalBundle\Listeners\JournalAnnouncementMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_post:
     class: Ojs\JournalBundle\Listeners\JournalPostMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_page:
     class: Ojs\JournalBundle\Listeners\JournalPageMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.issue:
     class: Ojs\JournalBundle\Listeners\IssueMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.section:
     class: Ojs\JournalBundle\Listeners\SectionMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.board:
     class: Ojs\JournalBundle\Listeners\BoardMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_contact:
     class: Ojs\JournalBundle\Listeners\JournalContactMailer
@@ -78,18 +92,26 @@ services:
   ojs.mail_listener.journal_index:
     class: Ojs\JournalBundle\Listeners\JournalIndexMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_submission_file:
     class: Ojs\JournalBundle\Listeners\JournalSubmissionFileMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_submission_checklist:
     class: Ojs\JournalBundle\Listeners\JournalSubmissionChecklistMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
   ojs.mail_listener.journal_user:
     class: Ojs\JournalBundle\Listeners\JournalUserMailer
     parent: ojs.mail_listener.journal_item
+    tags:
+      - { name: kernel.event_subscriber }
 
 #  journal.numerator_orm_subscriber:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
