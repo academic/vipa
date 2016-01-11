@@ -4,23 +4,23 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Entity\BoardMember;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Form\Type\BoardType;
+use Ojs\JournalBundle\Event\Board\BoardEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\BoardMemberType;
-use Ojs\UserBundle\Entity\User;
+use Ojs\JournalBundle\Form\Type\BoardType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalEvents;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Board controller.
@@ -28,7 +28,6 @@ use Doctrine\ORM\QueryBuilder;
  */
 class BoardController extends Controller
 {
-
     /**
      * Lists all Board entities.
      *
@@ -36,6 +35,7 @@ class BoardController extends Controller
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('VIEW', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
@@ -46,10 +46,15 @@ class BoardController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction('ojs_journal_board_show', ['id', 'journalId' => $journal->getId()], null, [
-            'icon' => 'users',
-            'title' => 'add.user'
-        ]);
+        $rowAction[] = $gridAction->showAction(
+            'ojs_journal_board_show',
+            ['id', 'journalId' => $journal->getId()],
+            null,
+            [
+                'icon' => 'users',
+                'title' => 'add.user'
+            ]
+        );
         if ($this->isGranted('EDIT', $journal, 'boards')) {
             $rowAction[] = $gridAction->editAction('ojs_journal_board_edit', ['id', 'journalId' => $journal->getId()]);
             $rowAction[] = $gridAction->deleteAction(
@@ -59,39 +64,53 @@ class BoardController extends Controller
         }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
-        $data = [];
-        $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsJournalBundle:Board:index.html.twig', $data);
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(BoardEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
+
+        return $grid->getGridResponse('OjsJournalBundle:Board:index.html.twig');
     }
 
     /**
      * Creates a new Board entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $eventDispatcher = $this->get('event_dispatcher');
+
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('CREATE', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for create this journal's boards!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+
         $entity = new Board();
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
-            $em->persist($entity);
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(BoardEvents::PRE_CREATE, $event);
+
+            $em->persist($event->getItem());
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(BoardEvents::POST_CREATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.create');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_BOARD_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_journal_board_show',
                 ['id' => $entity->getId(), 'journalId' => $journal->getId()]
@@ -213,6 +232,31 @@ class BoardController extends Controller
     }
 
     /**
+     * Creates a form to add Member to Board entity.
+     *
+     * @param BoardMember $entity
+     * @param Board $board
+     * @param Journal $journal
+     * @return Form
+     */
+    private function createAddMemberForm(BoardMember $entity, Board $board, Journal $journal)
+    {
+        $form = $this->createForm(
+            new BoardMemberType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl(
+                    'ojs_journal_board_member_add',
+                    array('boardId' => $board->getId(), 'journalId' => $journal->getId())
+                ),
+                'method' => 'PUT',
+            )
+        );
+
+        return $form;
+    }
+
+    /**
      * Displays a form to edit an existing Board entity.
      *
      *
@@ -262,65 +306,51 @@ class BoardController extends Controller
     }
 
     /**
-     * Creates a form to add Member to Board entity.
-     *
-     * @param BoardMember $entity
-     * @param Journal $journal
-     * @return Form
-     */
-    private function createAddMemberForm(BoardMember $entity,Board $board, Journal $journal)
-    {
-        $form = $this->createForm(
-            new BoardMemberType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl(
-                    'ojs_journal_board_member_add',
-                    array('boardId' => $board->getId(), 'journalId' => $journal->getId())
-                ),
-                'method' => 'PUT',
-            )
-        );
-
-        return $form;
-    }
-
-    /**
      * Edits an existing Board entity.
      *
      * @param  Request                   $request
      * @param  Board                     $board
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, Board $board)
+    public function updateAction(Request $request, Board $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
         if (!$this->isGranted('EDIT', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for edit this journal's boards!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
 
-        $editForm = $this->createEditForm($board);
+        $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(BoardEvents::PRE_UPDATE, $event);
+            $em->persist($event->getItem());
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(BoardEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.update');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_BOARD_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_journal_board_edit',
-                ['id' => $board->getId(), 'journalId' => $journal->getId()]
+                ['id' => $entity->getId(), 'journalId' => $journal->getId()]
             );
         }
 
         return $this->render(
             'OjsJournalBundle:Board:edit.html.twig',
             array(
-                'entity' => $board,
+                'entity' => $entity,
                 'edit_form' => $editForm->createView(),
             )
         );
@@ -333,27 +363,38 @@ class BoardController extends Controller
      * @param  Board            $board
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, Board $board)
+    public function deleteAction(Request $request, Board $entity)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
         if (!$this->isGranted('DELETE', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for delete this journal's boards!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_board'.$board->getId());
+        $token = $csrf->getToken('ojs_journal_board'.$entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-        $em->remove($board);
+
+        $event = new JournalItemEvent($entity);
+        $eventDispatcher->dispatch(BoardEvents::PRE_DELETE, $event);
+
+        $em->remove($entity);
         $em->flush();
+
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(BoardEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
         $this->successFlashBag('successful.remove');
 
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalEvents::JOURNAL_BOARD_CHANGE, $event);
         return $this->redirectToRoute('ojs_journal_board_index', ['journalId' => $journal->getId()]);
     }
 
@@ -382,6 +423,7 @@ class BoardController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
         }
+
         return $this->redirectToRoute(
             'ojs_journal_board_show',
             ['id' => $board->getId(), 'journalId' => $journal->getId()]

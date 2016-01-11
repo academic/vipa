@@ -17,8 +17,4 @@ final class JournalContactEvents
     const PRE_DELETE = 'ojs.journal_contact.pre_delete';
 
     const POST_DELETE = 'ojs.journal_contact.post_delete';
-
-    const PRE_SUBMIT = 'ojs.journal_contact.pre_submit';
-
-    const POST_SUBMIT = 'ojs.journal_contact.post_submit';
 }

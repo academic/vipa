@@ -9,7 +9,7 @@ use Ojs\CoreBundle\Entity\DisplayTrait;
  * SubmissionChecklist
  * @GRID\Source(columns="id,label,locale,visible")
  */
-class SubmissionChecklist
+class SubmissionChecklist implements JournalItemInterface
 {
     use DisplayTrait;
     /**

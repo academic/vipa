@@ -2,7 +2,6 @@
 
 namespace Ojs\CoreBundle\EventListener;
 
-use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Routing\RouterInterface;
@@ -131,7 +130,6 @@ class SitemapListener implements SitemapListenerInterface
     {
         $articles = $issue->getArticles();
         $journal = $issue->getJournal();
-        /** @var Article $article */
         foreach($articles as $article){
             $event->getGenerator()->addUrl(
                 new UrlConcrete(

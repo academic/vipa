@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  * JournalUser
  * @GRID\Source(columns="id, user.email")
  */
-class JournalUser
+class JournalUser implements JournalItemInterface
 {
     /**
      * @var integer
@@ -69,7 +69,7 @@ class JournalUser
      * @param Journal $journal
      * @return $this
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 

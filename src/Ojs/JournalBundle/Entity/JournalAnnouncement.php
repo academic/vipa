@@ -11,7 +11,7 @@ use Ojs\CoreBundle\Entity\DisplayTrait;
  * JournalAnnouncement
  * @Source(columns="id, title, content")
  */
-class JournalAnnouncement
+class JournalAnnouncement implements JournalItemInterface
 {
     use DisplayTrait;
 
@@ -54,7 +54,7 @@ class JournalAnnouncement
      *
      * @param string $title
      *
-     * @return Announcement
+     * @return JournalAnnouncement
      */
     public function setTitle($title)
     {
@@ -78,7 +78,7 @@ class JournalAnnouncement
      *
      * @param string $content
      *
-     * @return Announcement
+     * @return JournalAnnouncement
      */
     public function setContent($content)
     {
@@ -124,7 +124,7 @@ class JournalAnnouncement
     /**
      * @param Journal $journal
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
     }

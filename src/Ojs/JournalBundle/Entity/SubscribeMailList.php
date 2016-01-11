@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 /**
  * SubscribeMailList
  */
-class SubscribeMailList implements Translatable
+class SubscribeMailList implements Translatable, JournalItemInterface
 {
     use GenericEntityTrait;
 
@@ -55,7 +55,7 @@ class SubscribeMailList implements Translatable
      * @param  Journal $journal
      * @return Issue
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 

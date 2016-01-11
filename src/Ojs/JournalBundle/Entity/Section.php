@@ -12,7 +12,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
  * Section
  * @GRID\Source(columns="id,title,allowIndex,hideTitle")
  */
-class Section extends AbstractTranslatable
+class Section extends AbstractTranslatable implements JournalItemInterface
 {
     use GenericEntityTrait;
 
@@ -91,7 +91,7 @@ class Section extends AbstractTranslatable
     /**
      * Get articles
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|Article[]
      */
     public function getArticles()
     {
@@ -160,7 +160,7 @@ class Section extends AbstractTranslatable
      * @param  Journal        $journal
      * @return Section
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 

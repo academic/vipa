@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  * @GRID\Source(columns="id, title, fullName")
  * @GRID\Source(columns="id, journal, fullName, contactType", groups={"admin"})
  */
-class JournalContact
+class JournalContact implements JournalItemInterface
 {
     use GenericEntityTrait;
 

@@ -4,17 +4,19 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalSubmissionFile;
-use Ojs\JournalBundle\Event\JournalEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Event\JournalSubmissionFile\JournalSubmissionFileEvents;
+use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\JournalSubmissionFileType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\JournalBundle\Event\JournalEvent;
 
 /**
  * JournalSubmissionFile controller.
@@ -29,6 +31,7 @@ class JournalSubmissionFileController extends Controller
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
         if (!$this->isGranted('VIEW', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
@@ -48,27 +51,28 @@ class JournalSubmissionFileController extends Controller
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
-        $data = [];
-        $data['grid'] = $grid;
-        $data['journal_id'] = $journal;
 
-        return $grid->getGridResponse('OjsJournalBundle:SubmissionFile:index.html.twig', $data);
+        $listEvent = new ListEvent();
+        $listEvent->setGrid($grid);
+        $eventDispatcher->dispatch(JournalSubmissionFileEvents::LISTED, $listEvent);
+        $grid = $listEvent->getGrid();
+
+        return $grid->getGridResponse('OjsJournalBundle:SubmissionFile:index.html.twig');
     }
 
     /**
      * Creates a new SubmissionFile entity.
      *
-     * @param  Request                                                                                       $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
         if (!$this->isGranted('CREATE', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $entity = new JournalSubmissionFile();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
@@ -76,15 +80,27 @@ class JournalSubmissionFileController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setJournal($journal);
+
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalSubmissionFileEvents::PRE_CREATE, $event);
+
             $em->persist($entity);
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalSubmissionFileEvents::POST_CREATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.create');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'create');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE, $event);
-
             return $this->redirect(
-                $this->generateUrl('ojs_journal_file_show', array('id' => $entity->getId(), 'journalId' => $journal->getId()))
+                $this->generateUrl(
+                    'ojs_journal_file_show',
+                    array('id' => $entity->getId(), 'journalId' => $journal->getId())
+                )
             );
         }
 
@@ -98,7 +114,7 @@ class JournalSubmissionFileController extends Controller
     }
 
     /**
-     * @param JournalSubmissionFile $entity
+     * @param  JournalSubmissionFile        $entity
      * @param $journalId
      * @return \Symfony\Component\Form\Form
      */
@@ -153,7 +169,7 @@ class JournalSubmissionFileController extends Controller
     /**
      * Finds and displays a SubmissionFile entity.
      *
-     * @param  JournalSubmissionFile                        $entity
+     * @param  JournalSubmissionFile                      $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(JournalSubmissionFile $entity)
@@ -172,7 +188,7 @@ class JournalSubmissionFileController extends Controller
             'OjsJournalBundle:SubmissionFile:show.html.twig',
             array(
                 'entity' => $entity,
-                'token'  => $token,
+                'token' => $token,
             )
         );
     }
@@ -180,7 +196,7 @@ class JournalSubmissionFileController extends Controller
     /**
      * Displays a form to edit an existing SubmissionFile entity.
      *
-     * @param  JournalSubmissionFile                        $entity
+     * @param  JournalSubmissionFile                      $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(JournalSubmissionFile $entity)
@@ -204,7 +220,7 @@ class JournalSubmissionFileController extends Controller
     /**
      * Creates a form to edit a SubmissionFile entity.
      *
-     * @param JournalSubmissionFile $entity
+     * @param  JournalSubmissionFile        $entity
      * @return \Symfony\Component\Form\Form
      */
     private function createEditForm(JournalSubmissionFile $entity)
@@ -222,7 +238,10 @@ class JournalSubmissionFileController extends Controller
             new JournalSubmissionFileType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_file_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
+                'action' => $this->generateUrl(
+                    'ojs_journal_file_update',
+                    array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())
+                ),
                 'languages' => $languages,
                 'method' => 'PUT',
             )
@@ -236,31 +255,43 @@ class JournalSubmissionFileController extends Controller
     /**
      * Edits an existing SubmissionFile entity.
      *
-     * @param  Request                                                                                       $request
-     * @param  JournalSubmissionFile                                                                           $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @param  Request                   $request
+     * @param  JournalSubmissionFile     $entity
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, JournalSubmissionFile $entity)
     {
-        $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $event = new JournalItemEvent($entity);
+            $eventDispatcher->dispatch(JournalSubmissionFileEvents::PRE_UPDATE, $event);
+            $em->persist($event->getItem());
             $em->flush();
+
+            $event = new JournalItemEvent($event->getItem());
+            $eventDispatcher->dispatch(JournalSubmissionFileEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.update');
 
-            $event = new JournalEvent($request, $journal, $this->getUser(), 'update');
-            $dispatcher->dispatch(JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE, $event);
-
             return $this->redirect(
-                $this->generateUrl('ojs_journal_file_edit', array('id' => $entity->getId(), 'journalId' => $journal->getId()))
+                $this->generateUrl(
+                    'ojs_journal_file_edit',
+                    array('id' => $entity->getId(), 'journalId' => $journal->getId())
+                )
             );
         }
 
@@ -276,19 +307,19 @@ class JournalSubmissionFileController extends Controller
     /**
      * Deletes a SubmissionFile entity.
      *
-     * @param  Request                                            $request
-     * @param  JournalSubmissionFile                                $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param  Request               $request
+     * @param  JournalSubmissionFile $entity
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, JournalSubmissionFile $entity)
     {
-        $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $this->throw404IfNotFound($entity);
         if (!$this->isGranted('DELETE', $journal, 'file')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_journal_file'.$entity->getId());
@@ -296,12 +327,20 @@ class JournalSubmissionFileController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
 
+        $event = new JournalItemEvent($entity);
+        $eventDispatcher->dispatch(JournalSubmissionFileEvents::PRE_DELETE, $event);
+
         $em->remove($entity);
         $em->flush();
-        $this->successFlashBag('successful.remove');
 
-        $event = new JournalEvent($request, $journal, $this->getUser(), 'delete');
-        $dispatcher->dispatch(JournalEvents::JOURNAL_SUBMISSION_FILES_CHANGE, $event);
+        $event = new JournalEvent($journal);
+        $eventDispatcher->dispatch(JournalSubmissionFileEvents::POST_DELETE, $event);
+
+        if ($event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_journal_file_index', ['journalId' => $journal->getId()]);
     }

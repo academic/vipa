@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  * JournalIndex
  * @GRID\Source(columns="id,journal,journal_index.name,link")
  */
-class JournalIndex
+class JournalIndex implements JournalItemInterface
 {
     use DisplayTrait;
     /**

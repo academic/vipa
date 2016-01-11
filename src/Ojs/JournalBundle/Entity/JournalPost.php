@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
  * JournalPost
  * @GRID\Source(columns="id, title, content")
  */
-class JournalPost extends AbstractTranslatable
+class JournalPost extends AbstractTranslatable implements JournalItemInterface
 {
     use GenericEntityTrait;
 
@@ -57,7 +57,6 @@ class JournalPost extends AbstractTranslatable
      */
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -97,7 +96,7 @@ class JournalPost extends AbstractTranslatable
     /**
      * Translation helper method
      * @param null $locale
-     * @return mixed|null|\Ojs\CmsBundle\Entity\PostTranslation
+     * @return mixed|JournalPostTranslation
      */
     public function translate($locale = null)
     {
@@ -232,7 +231,7 @@ class JournalPost extends AbstractTranslatable
     /**
      * @param Journal $journal
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
     }

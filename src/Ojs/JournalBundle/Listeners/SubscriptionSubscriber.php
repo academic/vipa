@@ -4,8 +4,9 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Service\OjsMailer;
-use Ojs\JournalBundle\Event\NewAnnouncementEvent;
-use Ojs\JournalBundle\Event\SubscriptionEvents;
+use Ojs\JournalBundle\Entity\JournalAnnouncement;
+use Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SubscriptionSubscriber implements EventSubscriberInterface
@@ -30,17 +31,18 @@ class SubscriptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            SubscriptionEvents::NEW_ANNOUNCEMENT => 'sendAnnouncement'
+            JournalAnnouncementEvents::POST_CREATE => 'sendAnnouncement'
         );
     }
 
-    public function sendAnnouncement(NewAnnouncementEvent $event)
+    public function sendAnnouncement(JournalItemEvent $itemEvent)
     {
-        $announcement = $event->getAnnouncement();
+        /** @var JournalAnnouncement $announcement */
+        $announcement = $itemEvent->getItem();
 
         $mailList = $this->em
             ->getRepository('OjsJournalBundle:SubscribeMailList')
-            ->findBy(['journal' => $event->getAnnouncement()->getJournal()]);
+            ->findBy(['journal' => $announcement->getJournal()]);
 
         foreach ($mailList as $mail) {
             $this->ojsMailer->send(

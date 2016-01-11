@@ -21,4 +21,6 @@ final class ArticleEvents
     const PRE_SUBMIT = 'ojs.article.pre_submit';
 
     const POST_SUBMIT = 'ojs.article.post_submit';
+
+    const INIT_SUBMIT_FORM = 'ojs.article.init_submit_form';
 }

@@ -17,8 +17,4 @@ final class JournalPageEvents
     const PRE_DELETE = 'ojs.journal_page.pre_delete';
 
     const POST_DELETE = 'ojs.journal_page.post_delete';
-
-    const PRE_SUBMIT = 'ojs.journal_page.pre_submit';
-
-    const POST_SUBMIT = 'ojs.journal_page.post_submit';
 }

@@ -5,10 +5,9 @@ namespace Ojs\JournalBundle\Event;
 use APY\DataGridBundle\Grid\Grid;
 use Symfony\Component\EventDispatcher\Event;
 
-
 class ListEvent extends Event
 {
-    /** @var  Grid */
+    /** @var Grid */
     private $grid;
 
     /**
@@ -21,7 +20,6 @@ class ListEvent extends Event
 
     /**
      * @param Grid $grid
-     * @return ListEvent
      */
     public function setGrid(Grid $grid)
     {

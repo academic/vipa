@@ -11,7 +11,7 @@
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-    <h2>{{ journal.title }}</h2>
+    <h2>{{ selectedJournal().title }}</h2>
     <h3>{{ 'title.articles'|trans }}</h3>
     {% if is_granted('CREATE', selectedJournal(), 'articles') %}
         <a href="{{ path('ojs_journal_article_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">

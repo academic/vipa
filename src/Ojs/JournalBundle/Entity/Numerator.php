@@ -5,7 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 /**
  * Numerator
  */
-class Numerator
+class Numerator implements JournalItemInterface
 {
     /**
      * @var integer
@@ -41,7 +41,7 @@ class Numerator
      * @param Journal $journal
      * @return Numerator
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
         return $this;

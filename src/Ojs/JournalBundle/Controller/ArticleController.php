@@ -8,8 +8,9 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Event\Article\ArticleEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
+use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Form\Type\ArticleType;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -92,10 +93,7 @@ class ArticleController extends Controller
         $eventDispatcher->dispatch(ArticleEvents::LISTED, $listEvent);
         $grid = $listEvent->getGrid();
 
-        return $grid->getGridResponse(
-            'OjsJournalBundle:Article:index.html.twig',
-            ['journal' => $journal]
-        );
+        return $grid->getGridResponse('OjsJournalBundle:Article:index.html.twig');
     }
 
     /**
@@ -167,15 +165,15 @@ class ArticleController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity->setCurrentLocale($request->getDefaultLocale());
 
-            $event = new ArticleEvent($entity);
+            $event = new JournalItemEvent($entity);
             $dispatcher->dispatch(ArticleEvents::PRE_CREATE, $event);
 
-            $em->persist($event->getArticle());
+            $em->persist($event->getItem());
             $em->flush();
 
             $this->successFlashBag('successful.create');
 
-            $event = new ArticleEvent($event->getArticle());
+            $event = new JournalItemEvent($event->getItem());
             $dispatcher->dispatch(ArticleEvents::POST_CREATE, $event);
 
             if ($event->getResponse()) {
@@ -184,7 +182,7 @@ class ArticleController extends Controller
 
             return $this->redirectToRoute(
                 'ojs_journal_article_show',
-                ['id' => $event->getArticle()->getId(), 'journalId' => $journal->getId()]
+                ['id' => $event->getItem()->getId(), 'journalId' => $journal->getId()]
             );
         }
 
@@ -283,13 +281,13 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $event = new ArticleEvent($article);
+            $event = new JournalItemEvent($article);
             $dispatcher->dispatch(ArticleEvents::PRE_UPDATE, $event);
-            $em->persist($event->getArticle());
+            $em->persist($event->getItem());
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            $event = new ArticleEvent($event->getArticle());
+            $event = new JournalItemEvent($event->getItem());
             $dispatcher->dispatch(ArticleEvents::POST_UPDATE, $event);
 
             if ($event->getResponse()) {
@@ -299,7 +297,7 @@ class ArticleController extends Controller
             return $this->redirect(
                 $this->generateUrl(
                     'ojs_journal_article_edit',
-                    array('id' => $event->getArticle()->getId(), 'journalId' => $journal->getId())
+                    array('id' => $event->getItem()->getId(), 'journalId' => $journal->getId())
                 )
             );
         }
@@ -335,17 +333,19 @@ class ArticleController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-        $event = new ArticleEvent($article);
+        $event = new JournalItemEvent($article);
         $dispatcher->dispatch(ArticleEvents::PRE_DELETE, $event);
 
-        $event->getArticle()->getCitations()->clear();
-        $event->getArticle()->getLanguages()->clear();
+        /** @var Article $article */
+        $article = $event->getItem();
+        $article->getCitations()->clear();
+        $article->getLanguages()->clear();
 
-        $em->remove($event->getArticle());
+        $em->remove($event->getItem());
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        $event = new ArticleEvent($event->getArticle());
+        $event = new JournalEvent($journal);
         $dispatcher->dispatch(ArticleEvents::POST_DELETE, $event);
 
         if ($event->getResponse()) {

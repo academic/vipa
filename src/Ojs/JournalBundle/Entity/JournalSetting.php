@@ -9,7 +9,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 /**
  * Journal key-value settings
  */
-class JournalSetting implements Translatable
+class JournalSetting implements Translatable, JournalItemInterface
 {
     use GenericEntityTrait;
 

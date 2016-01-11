@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
  * Board
  * @GRID\Source(columns="id , journal.title, name, description")
  */
-class Board implements Translatable
+class Board implements Translatable, JournalItemInterface
 {
     use GenericEntityTrait;
 

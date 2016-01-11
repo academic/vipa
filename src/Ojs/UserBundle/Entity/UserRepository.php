@@ -131,15 +131,15 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->join('u.journalUsers', 'ju')
             ->join('ju.roles', 'r')
             ->andWhere('r.role IN (:roles)')
-            ->andWhere('ju.journal = :journal')
         ;
 
         if ($journal) {
             $queryBuilder
+                ->andWhere('ju.journal = :journal')
                 ->setParameter('journal', $journal)
-                ->setParameter('roles', $roles)
             ;
         }
+        $queryBuilder = $queryBuilder->setParameter('roles', $roles);
         $query = $queryBuilder
             ->distinct()
             ->getQuery()
