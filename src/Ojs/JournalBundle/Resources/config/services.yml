@@ -32,18 +32,16 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
-  journal.event_listener:
-    class: Ojs\JournalBundle\EventListener\JournalEventListener
-    arguments: ["@router", "@doctrine.orm.entity_manager", "@ojs_mailer"]
-    tags:
-      - { name: kernel.event_subscriber }
-
   ojs.mail_listener.journal_item:
     class: Ojs\JournalBundle\Listeners\AbstractJournalItemMailer
     abstract: true
     arguments: ["@ojs_mailer", "@doctrine", "@security.token_storage"]
     tags:
       - { name: kernel.event_subscriber }
+
+  ojs.mail_listener.journal:
+    class: Ojs\JournalBundle\Listeners\JournalMailer
+    parent: ojs.mail_listener.journal_item
 
   ojs.mail_listener.article:
     class: Ojs\JournalBundle\Listeners\ArticleMailer

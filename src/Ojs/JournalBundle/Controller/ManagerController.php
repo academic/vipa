@@ -10,21 +10,18 @@ use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalType;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Yaml\Parser;
 
 class ManagerController extends Controller
 {
     /**
-     * @param Request $request
      * @return Response
      */
-    public function journalSettingsAction(Request $request)
+    public function journalSettingsAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
         $this->throw404IfNotFound($journal);
@@ -64,7 +61,8 @@ class ManagerController extends Controller
      */
     public function updateJournalAction(Request $request)
     {
-        /** @var Journal $entity */
+        $eventDispatcher = $this->get('event_dispatcher');
+
         $em = $this->getDoctrine()->getManager();
         $entity = $this->get('ojs.journal_service')->getSelectedJournal(false);
         $this->throw404IfNotFound($entity);
@@ -72,20 +70,27 @@ class ManagerController extends Controller
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
 
         $editForm = $this->createJournalEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $entity->setLanguageCodeSet($entity->getLanguages());
             $entity->addLanguage($entity->getMandatoryLang());
+
+            $event = new JournalEvent($entity);
+            $eventDispatcher->dispatch(JournalEvents::PRE_UPDATE, $event);
+
+            $em->persist($event->getJournal());
             $em->flush();
+
+            $event = new JournalEvent($event->getJournal());
+            $eventDispatcher->dispatch(JournalEvents::POST_UPDATE, $event);
+
+            if ($event->getResponse()) {
+                return $event->getResponse();
+            }
+
             $this->successFlashBag('successful.update');
-
-            $event = new JournalEvent($request, $entity, $this->getUser());
-            $dispatcher->dispatch(JournalEvents::JOURNAL_CHANGE, $event);
-
             return $this->redirectToRoute('ojs_journal_settings_index', ['journalId' => $entity->getId()]);
         }
 
@@ -134,8 +139,7 @@ class ManagerController extends Controller
                 );
             }
         }
-        $yamlParser = new Parser();
-        $root = $this->container->getParameter('kernel.root_dir');
+
         $data = array(
             'settings' => array(
                 'submissionConfirmText' => $journal->getSetting('submissionConfirmText') ?
@@ -180,19 +184,14 @@ class ManagerController extends Controller
 
     /**
      * @param  Request $req
-     * @param  null|integer $journalId
      * @return Response
      */
-    public function journalSettingsMailAction(Request $req, $journalId = null)
+    public function journalSettingsMailAction(Request $req)
     {
-        $em = $this->getDoctrine()->getManager();
-        /* @var $journal Journal */
-        $journal = !$journalId ?
-            $this->get("ojs.journal_service")->getSelectedJournal() :
-            $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         if (!$this->isGranted('EDIT', $journal, 'mailSettings')) {
-            throw new AccessDeniedException($this->get('translator')->trans("You can't view this page."));
+            throw new AccessDeniedException("You are not authorized for view this page");
         }
 
         if ($req->getMethod() == 'POST' && !empty($req->get('emailSignature'))) {
@@ -229,7 +228,7 @@ class ManagerController extends Controller
                 ->findBy(['user' => $this->getUser()]);
         }
 
-        $response = $response = $this->render(
+        $response = $this->render(
             'OjsJournalBundle:User:home.html.twig',
             [
                 'switcher' => $switcher,
