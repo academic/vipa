@@ -2,10 +2,11 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+/**
+ * @method getId
+ */
 interface JournalItemInterface
 {
-    public function getId();
-
     /**
      * @return Journal
      */
