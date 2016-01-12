@@ -135,19 +135,6 @@ class ArticleSubmissionController extends Controller
         $drafts->setSource($source2);
         /** @var GridAction $gridAction */
         $gridAction = $this->get('grid_action');
-        /**
-         * $submissionsGrid->addRowAction(
-         * $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $currentJournal->getId()])
-         * );
-         *
-         * $submissionsGrid->addRowAction(
-         * $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $currentJournal->getId()])
-         * );
-         *
-         * $submissionsGrid->addRowAction(
-         * $gridAction->deleteAction('ojs_journal_article_delete', ['id', 'journalId' => $currentJournal->getId()])
-         * );
-         * **/
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->submissionResumeAction(
