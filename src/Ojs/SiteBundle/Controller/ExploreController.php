@@ -95,17 +95,17 @@ class ExploreController extends Controller
         $publishers = $adapter->getResultSet()->getAggregation('publishers')['buckets'];
 
         $data = [
-            'types' => $types,
-            'locales' => $locales,
-            'subjects' => $subjects,
-            'publishers' => $publishers,
-            'type_filters' => $typeFilters,
-            'locale_filters' => $localeFilters,
-            'subject_filters' => $subjectFilters,
+            'types'             => $types,
+            'locales'           => $locales,
+            'journals'          => $journals,
+            'subjects'          => $subjects,
+            'publishers'        => $publishers,
+            'type_filters'      => $typeFilters,
+            'locale_filters'    => $localeFilters,
+            'subject_filters'   => $subjectFilters,
             'publisher_filters' => $publisherFilters,
-            'journals' => $journals,
-            'pagerfanta' => $pagerfanta,
-            'page' => 'explore'
+            'pagerfanta'        => $pagerfanta,
+            'page'              => 'explore',
         ];
 
         return $this->render('OjsSiteBundle:Explore:index.html.twig', $data);
@@ -144,10 +144,10 @@ class ExploreController extends Controller
         $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
 
         $data = [
-            'types' => $types,
-            'page' => 'ojs_site_explore_publisher',
-            'publishers' => $publishers,
-            'pagerfanta' => $pagerfanta,
+            'types'        => $types,
+            'page'         => 'ojs_site_explore_publisher',
+            'publishers'   => $publishers,
+            'pagerfanta'   => $pagerfanta,
             'type_filters' => $typeFilters,
         ];
 
