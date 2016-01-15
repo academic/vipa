@@ -3,8 +3,9 @@
 namespace Ojs\CoreBundle\Events;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\EventDispatcher\Event;
 
-class TypeEvent
+class TypeEvent extends Event
 {
     /** @var AbstractType */
     private $type;
