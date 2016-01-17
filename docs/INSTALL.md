@@ -7,8 +7,8 @@ Required Software
 -----------------
 Install and run these services and extensions before attempting to install OJS.
 
-* Apache (`# apt-get install apache2`)
-* MySQL (`# apt-get install mysql-server`)
+* Apache or nginx (`# apt-get install apache2` or `# apt-get install nginx`)
+* MySQL, PostgreSQL or any other RDBMS that Doctrine supports (`# apt-get install mysql-server` or `# apt-get install postgresql postgresql-contrib`)
 * MongoDB (`# apt-get install mongodb`)
 * Memcached (`# apt-get install memcached`)
 * PHP (`# apt-get install php5 php5-mysql php5-mongo php5-mcrypt php5-memcached php5-curl`)
@@ -43,6 +43,61 @@ After the wizard is done, install tne initial data if you would like: `$ php app
 
 You need to run `$ bower install` to get external JavaScript and CSS libraries. After Bower is done  run `$ php app/console assets:install web --symlink` to install assets using symlinks and run `$ php app/console assetic:dump`to dump them.
 
+Web Server Configuration Examples
+-------------------------
+### nginx
+```
+server {
+    listen 80;
+    server_name ojs.prod www.ojs.prod local.ojs.prod *.ojs.prod;
+    client_max_body_size 1024M;
+
+    root /var/www/ojs;
+
+    rewrite ^/app.php?(.*)$ /$1 permanent;
+
+    try_files $uri @rewriteapp;
+    location @rewriteapp {
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+    
+    location ~ ^/(app|config)\.php(/|$) {
+        fastcgi_pass            127.0.0.1:9000;
+        fastcgi_buffer_size     16k;
+        fastcgi_buffers         4 16k;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include                 fastcgi_params;
+        fastcgi_param           SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS               off;
+    }
+}
+
+server {
+    listen 80;
+    server_name ojs.dev www.ojs.dev local.ojs.dev *.ojs.dev;
+    client_max_body_size 1024M;
+
+    root /var/www/ojs;
+
+    rewrite ^/app_dev.php?(.*)$ /$1 permanent;
+
+    try_files $uri @rewriteapp;
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /app_dev.php/$1 last;
+    }
+
+    location ~ ^/(app|app_dev|app_local|config)\.php(/|$) {
+        fastcgi_pass            127.0.0.1:9000;
+        fastcgi_buffer_size     16k;
+        fastcgi_buffers         4 16k;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include                 fastcgi_params;
+        fastcgi_param           SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+        fastcgi_param           HTTPS               off;
+    }
+}
+```
 Troubleshooting
 ----------------
 If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Apache's own log file.
