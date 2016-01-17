@@ -9,9 +9,8 @@ Install and run these services and extensions before attempting to install OJS.
 
 * Apache or nginx (`# apt-get install apache2` or `# apt-get install nginx`)
 * MySQL, PostgreSQL or any other RDBMS that Doctrine supports (`# apt-get install mysql-server` or `# apt-get install postgresql postgresql-contrib`)
-* MongoDB (`# apt-get install mongodb`)
 * Memcached (`# apt-get install memcached`)
-* PHP (`# apt-get install php5 php5-mysql php5-mongo php5-mcrypt php5-memcached php5-curl`)
+* PHP (`# apt-get install php5 php5-mysql php5-mcrypt php5-memcached php5-curl`)
 * Elasticsearch (download it from [here](https://www.elastic.co/downloads/elasticsearch))
 
 You can also use nginx as your HTTP server and PostgreSQL as your RDBMS server.
