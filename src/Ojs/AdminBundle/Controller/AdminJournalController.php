@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Elastica\Query;
+use Ojs\AdminBundle\Form\Type\JournalEditType;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -114,7 +115,7 @@ class AdminJournalController extends Controller
     private function createEditForm(Journal $entity)
     {
         $form = $this->createForm(
-            new JournalType(),
+            new JournalEditType(),
             $entity,
             array(
                 'action' => $this->generateUrl('ojs_admin_journal_update', array('id' => $entity->getId())),
