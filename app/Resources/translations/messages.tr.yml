@@ -1456,6 +1456,7 @@ notes: 'Notlar'
 journal.application_accept: 'Dergi Başvurusunu Kabul Et'
 please.install.required.files: 'Lütfen gerekli dosyaları aşağıdan yükleyin.'
 submission_file.title: 'Gönderi Dosyalası'
+title.mail_template_show: 'Mail Şablonu Göster'
 
 # OAuth
 linkedin: 'Linkedin'

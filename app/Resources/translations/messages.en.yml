@@ -1463,6 +1463,7 @@ notes: 'Notes'
 journal.application_accept: 'Accept Journal Application'
 please.install.required.files: 'Please install required files from bottom.'
 submission_file.title: 'Submission File'
+title.mail_template_show: 'Mail Template Show'
 
 # OAuth
 linkedin: 'Linkedin'
