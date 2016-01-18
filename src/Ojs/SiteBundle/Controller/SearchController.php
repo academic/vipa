@@ -183,7 +183,6 @@ class SearchController extends Controller
          */
         $resultData = $searcher->search($searchQuery);
 
-        //echo (json_encode($resultData->getQuery()->toArray()));exit();
         $roles = $resultData->getAggregation('roles')['buckets'];
         $subjects = $resultData->getAggregation('subjects')['buckets'];
         $journals = $resultData->getAggregation('journals')['buckets'];
