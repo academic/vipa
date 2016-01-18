@@ -671,6 +671,7 @@ login_as: 'Login as'
 logo: Logo
 mail: Mail
 mail.templates: 'Mail Templates'
+mail.template: 'Mail Template'
 mailtemplate.default.list: 'Default Templates List '
 mailtemplate.default_template: 'Default Templates'
 mailtemplate.edit: 'Edit Mail Template'
