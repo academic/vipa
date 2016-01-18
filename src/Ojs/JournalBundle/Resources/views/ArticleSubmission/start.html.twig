@@ -65,9 +65,11 @@
                                                     <b>({{ 'optinal'|trans }})</b>
                                                 {% endif %}
                                             </span>
-                                            <a href="{{ asset('uploads/submissionfiles/' ~ journalSubmissionFiles[index].file) }}" target="_blank">
-                                                {{ 'from.here'|trans }}
-                                            </a>
+                                            {% if journalSubmissionFiles[index].file is not empty %}
+                                                <a href="{{ asset('uploads/submissionfiles/' ~ journalSubmissionFiles[index].file) }}" target="_blank">
+                                                    {{ 'from.here'|trans }}
+                                                </a>
+                                            {% endif %}
                                             {% if journalSubmissionFiles[index].detail is not null %}
                                                 <br>
                                                 <p>
