@@ -1455,6 +1455,7 @@ author.biography: 'Biyografi'
 notes: 'Notlar'
 journal.application_accept: 'Dergi Başvurusunu Kabul Et'
 please.install.required.files: 'Lütfen gerekli dosyaları aşağıdan yükleyin.'
+submission_file.title: 'Gönderi Dosyalası'
 
 # OAuth
 linkedin: 'Linkedin'
