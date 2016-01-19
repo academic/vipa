@@ -35,7 +35,6 @@ class SiteController extends Controller
         /** @var SubjectRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Subject');
 
-
         $data['subjects'] = TreeHelper::createSubjectTreeView(TreeHelper::SUBJECT_SEARCH, $this->get('router'), $repo->findAll());
         $data['page'] = 'index';
 
@@ -166,9 +165,8 @@ class SiteController extends Controller
      * @param Issue $last_issue
      * @return Issue|null
      */
-    private function setupArticleURIs(Issue $last_issue)
+    private function setupArticleURIs(Issue $last_issue = null)
     {
-
         if ($last_issue) {
             foreach ($last_issue->getArticles() as $article) {
                 $article->setPublicURI(
@@ -184,10 +182,8 @@ class SiteController extends Controller
                     )
                 );
             }
-
             return $last_issue;
         }
-
         return null;
     }
 
