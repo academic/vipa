@@ -107,7 +107,7 @@ accept: Accept
 accepted: Accepted
 actions: Actions
 add: Add
-add.as.proxy: 'Add As Proxy'
+add.as.proxy: 'Add as Proxy'
 add.language: 'Add Language'
 added: Added
 address: Address
@@ -126,14 +126,14 @@ allow_index: 'Allow Index'
 allow_index.list: 'Allow Index List'
 announcements: Announcements
 api: 'Application Development Interface'
-api_motto: 'OJS provides a complete restful api for developers.'
+api_motto: 'OJS provides a complete RESTful API for developers.'
 application.basic: Basic
 application.contact: Contact
 application_checklist.required: 'Required?'
 application.graphics: Graphics
-application.institute: 'Institute Application'
+application.institute: 'Publisher Application'
 application.institute.detail: Detail
-application.institute.list: 'Institute Suggestions'
+application.institute.list: 'Publisher Suggestions'
 application.publisher.apply: 'Apply as a Publisher'
 application.publisher.edit: 'Edit Publisher Application'
 application.journal: 'Journal Application'
@@ -143,7 +143,7 @@ application.journal.edit: 'Edit Journal Application'
 application.journal.publisher: Publisher Application
 application.journal.list: 'Journal Suggestions'
 application.journal.new_publisher: 'Apply as New Publisher'
-application.journal.new_publisher_help: 'If you can''t find your publisher above, please apply as an publisher using the button below.'
+application.journal.new_publisher_help: 'If you can''t find your publisher above, please apply as a publisher using the button below.'
 application.journal.add_contact: 'Add Contact Person'
 application.status.complete: 'Import Completed'
 application.status.deleted: Deleted
@@ -151,7 +151,7 @@ application.status.onhold: 'On Hold'
 application.status.rejected: Rejected
 application.status.waiting: 'Waiting for Import'
 apply: Apply
-apply.for.new.journal: 'Apply For New Journal'
+apply.for.new.journal: 'Apply as a New Journal'
 archive: Archive
 article: Submissions
 article.abstract: 'Abstract'
@@ -210,11 +210,11 @@ author.creation: 'Author Creation'
 author.details: 'Author Details'
 author.edit: 'Edit Author'
 author.firstname: 'First Name'
-author.firstnametransliterated: 'Firstname Transliterated'
+author.firstnametransliterated: 'First Name Transliterated'
 author.initials: Initials
 author.publisher: 'Author''s Publisher'
 author.lastname: 'Last Name'
-author.lastnametransliterated: 'Lastname Transliterated'
+author.lastnametransliterated: 'Last Name Transliterated'
 author.list: 'List Author'
 author.manager: 'Author Manager'
 author.middlename: 'Middle Name'
@@ -395,7 +395,7 @@ form.item.update: 'Form Item Update'
 form.items: 'Form Items'
 full_file: 'Full File'
 fullname: 'Full Name'
-globalFooter.text: "<p>\nojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of a manuscript to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
+globalFooter.text: "<p>\nOJS  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.\nThe whole process starting from the submission of a manuscript to its publication is carried out in electronic environment.\n</p>\n<p>JournalPark is <strong>free</strong> to use. </p>\n"
 haveNoJournals: 'You have no journals'
 help.preSubmission.header: ' Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.'
 helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
@@ -428,18 +428,18 @@ installer.menu.update: Updater
 installer.menu.update_confirm: Complete
 installer.setup: Setup
 installer.update: Upgrade
-installer.update.congrat: 'Update is successfull'
+installer.update.congrat: 'Update successful'
 installer.update.welcome.message: 'Database differences will be apply to production database.'
 installer.update.welcome.title: 'OJS Updater'
 installer.welcome.message: 'Welcome Message'
 installer.welcome.title: 'Welcome to OJS Web Installer'
 institute.country: Country
 institute.id: ID
-institute.merge_as_new_institute: 'Merge As New Institute'
+institute.merge_as_new_institute: 'Merge as a new Publisher'
 institute.name: Name
-institute.register: 'Register Institute'
+institute.register: 'Register Publisher'
 institute.address: Address
-institute.about: 'About Institute'
+institute.about: 'About Publisher'
 institute.city: City
 institute.lat-lon: Lat-Lon
 institute.phone: Phone
@@ -562,7 +562,7 @@ journal.phone: 'Journal''s contact phone'
 journal.plural: Journals
 journal.register: 'Journal Register'
 journal.scope: Scope
-journal.settings.abstractTemplate.desc: 'You can load  predefined templates by clicking buttons listed above.'
+journal.settings.abstractTemplate.desc: 'You can load predefined templates by clicking buttons listed above.'
 journal.settings.last.step.confirm: 'Submission last step confirm text'
 journal.settings.mail: 'Mail Settings'
 journal.settings.mail.signature: 'Email Signature'
