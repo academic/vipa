@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * AdminPost
- * @GRID\Source(columns="id, title, content")
+ * @GRID\Source(columns="id, title")
  */
 class AdminPost extends AbstractTranslatable
 {
@@ -33,7 +33,6 @@ class AdminPost extends AbstractTranslatable
     private $title;
     /**
      * @var string
-     * @GRID\Column(title="Content")
      */
     private $content;
     /**
