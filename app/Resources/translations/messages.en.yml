@@ -938,7 +938,7 @@ subject.list: 'Subject List'
 subject.new: 'New Subject'
 subject.plural: Subjects
 subjects: Subjects
-submission.attention: 'After submission your manuscript you can''t change your data. <br>If you are not sure, you can resume editing your submission at anytime, even if you close this window.'
+submission.attention: 'After submitting your manuscript you can''t change your data. <br>If you are not sure, you can resume editing your submission at anytime, even if you close this window.'
 submission.starting: Start
 submission.success: 'Submission Sending Completed.'
 submission.continue_edit: 'Continue to submission editing'
@@ -1384,10 +1384,10 @@ user.subjects: Subjects
 user.title: Title
 user.update_profile: 'Update Profile'
 user.username: Username
-user.username_available: 'This username  is available'
-user.username_check: 'Looking for username availability...'
-user.username_not_available: 'This username  is <strong>not</strong> available. Please enter a different username.'
-user.username_taken: 'This username  is already taken'
+user.username_available: 'This username is available'
+user.username_check: 'Checking username availability...'
+user.username_not_available: 'This username is <strong>not</strong> available. Please enter a different username.'
+user.username_taken: 'This username is already taken'
 user_page: 'User Page'
 username: Username
 username.or.email: 'Username or E-mail'
