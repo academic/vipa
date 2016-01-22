@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * JournalPost
- * @GRID\Source(columns="id, title, content")
+ * @GRID\Source(columns="id, title")
  */
 class JournalPost extends AbstractTranslatable implements JournalItemInterface
 {
@@ -36,7 +36,6 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
     private $title;
     /**
      * @var string
-     * @GRID\Column(title="Content")
      */
     private $content;
     /**
