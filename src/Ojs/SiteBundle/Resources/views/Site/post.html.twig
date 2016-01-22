@@ -16,7 +16,9 @@
         <div class="board">
             <div class="board-inner">
                 <h1>{{ post.title }}</h1>
-                <p>{{ post.content }}</p>
+                {% autoescape %}
+                    <p>{{ post.content|raw }}</p>
+                {% endautoescape %}
             </div>
         </div>
     </div>
