@@ -78,7 +78,7 @@ class AclFixer
             'OjsJournalBundle:ArticleTypes' => null,
             'OjsJournalBundle:Period' => null,
             'OjsJournalBundle:PersonTitle' => null,
-            'OjsJournalBundle:Theme' => null,
+            'OjsJournalBundle:JournalTheme' => null,
             'OjsAdminBundle:AdminJournalTheme' => null,
             'OjsAdminBundle:SystemSetting' => null,
             'OjsAdminBundle:AdminAnnouncement' => null,
