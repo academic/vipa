@@ -90,7 +90,7 @@ class SiteController extends Controller
     }
 
 
-    public function journalIndexAction($publisher, $slug)
+    public function journalIndexAction(Request $request, $publisher, $slug)
     {
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
@@ -107,6 +107,24 @@ class SiteController extends Controller
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity]);
         $this->throw404IfNotFound($journal);
+
+        //if theme preview is active set given theme
+        if(
+            $request->query->has('themePreview') &&
+            $request->query->has('id') &&
+            is_int((int)$request->query->get('id')) &&
+            $request->query->has('type')
+        ){
+            $previewThemeId = $request->query->get('id');
+            $themeType = $request->query->get('type');
+            if($themeType == 'journal'){
+                $previewTheme = $em->getRepository('OjsJournalBundle:JournalTheme')->find($previewThemeId);
+            }elseif($themeType == 'global'){
+                $previewTheme = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($previewThemeId);
+            }
+            $this->throw404IfNotFound($previewTheme);
+            $journal->setTheme($previewTheme);
+        }
 
         $token = $this
             ->get('security.csrf.token_manager')

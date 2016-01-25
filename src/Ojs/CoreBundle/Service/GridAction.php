@@ -231,6 +231,31 @@ class GridAction
     }
 
     /**
+     * @param $route
+     * @param $key
+     * @param $role
+     * @return RowAction
+     */
+    public function themePreviewAction($route, $key = 'id', $role = '')
+    {
+        $rowAction = new RowAction('<i class="fa fa-magic"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-info btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("preview"),
+            ]
+        );
+        $rowAction->setTarget('_blank');
+        $rowAction->setRouteParameters($key);
+        if ($role) {
+            $rowAction->setRole($role);
+        }
+
+        return $rowAction;
+    }
+
+    /**
      * @param string $route
      * @param $key
      * @return RowAction

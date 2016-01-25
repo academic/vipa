@@ -335,6 +335,13 @@ class JournalThemeController extends Controller
             'icon' => 'css3',
             'title' => 'clone.and.use'
         ]);
+        $rowAction1[] = $gridAction1->themePreviewAction('ojs_journal_index', [
+            'id',
+            'publisher' => $journal->getPublisher()->getSlug(),
+            'slug' => $journal->getSlug(),
+            'type' => 'global',
+            'themePreview'
+        ]);
         $actionColumn1->setRowActions($rowAction1);
         $grid1->addColumn($actionColumn1);
 
@@ -349,11 +356,18 @@ class JournalThemeController extends Controller
         $rowAction2[] = $gridAction2->cloneThemeAction('ojs_journal_global_theme_clone', [
             'id',
             'journalId' => $journal->getId(),
-            'type' => 'global',
+            'type' => 'journal',
             'use'
         ], null, [
             'icon' => 'css3',
             'title' => 'clone.and.use'
+        ]);
+        $rowAction2[] = $gridAction2->themePreviewAction('ojs_journal_index', [
+            'id',
+            'publisher' => $journal->getPublisher()->getSlug(),
+            'slug' => $journal->getSlug(),
+            'type' => 'journal',
+            'themePreview'
         ]);
         $actionColumn2->setRowActions($rowAction2);
         $grid2->addColumn($actionColumn2);
