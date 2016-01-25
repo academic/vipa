@@ -83,10 +83,12 @@ class JournalTheme
 
     /**
      * @param string $title
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -99,10 +101,13 @@ class JournalTheme
 
     /**
      * @param string $css
+     * @return $this
      */
     public function setCss($css)
     {
         $this->css = $css;
+
+        return $this;
     }
 
     /**
@@ -115,9 +120,12 @@ class JournalTheme
 
     /**
      * @param boolean $public
+     * @return $this
      */
     public function setPublic($public)
     {
         $this->public = $public;
+
+        return $this;
     }
 }
