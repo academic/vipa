@@ -6,7 +6,8 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Theme;
+use Ojs\JournalBundle\Entity\JournalTheme;
+use Ojs\JournalBundle\Form\Type\JournalThemeType;
 use Ojs\JournalBundle\Form\Type\ThemeType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,7 +21,7 @@ use Doctrine\ORM\QueryBuilder;
  * Theme controller.
  *
  */
-class ThemeController extends Controller
+class JournalThemeController extends Controller
 {
 
     /**
@@ -33,15 +34,7 @@ class ThemeController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $source = new Entity('OjsJournalBundle:Theme');
-        $alias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias, $journal) {
-                $query
-                    ->andWhere($alias.'.owner = :owner')
-                    ->setParameter('owner', $journal);
-            }
-        );
+        $source = new Entity('OjsJournalBundle:JournalTheme');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
@@ -72,8 +65,8 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
 
-        $entity = new Theme();
-        $entity->setOwner($journal);
+        $entity = new JournalTheme();
+        $entity->setJournal($journal);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -97,17 +90,17 @@ class ThemeController extends Controller
     /**
      * Creates a form to create a Theme entity.
      *
-     * @param Theme $entity The entity
+     * @param JournalTheme $entity The entity
      *
      * @return Form The form
      */
-    private function createCreateForm(Theme $entity)
+    private function createCreateForm(JournalTheme $entity)
     {
         $form = $this->createForm(
-            new ThemeType(),
+            new JournalThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_theme_create', ['journalId' => $entity->getOwner()->getId()]),
+                'action' => $this->generateUrl('ojs_journal_theme_create', ['journalId' => $entity->getJournal()->getId()]),
                 'method' => 'POST',
             )
         );
@@ -127,8 +120,8 @@ class ThemeController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $entity = new Theme();
-        $entity->setOwner($journal);
+        $entity = new JournalTheme();
+        $entity->setJournal($journal);
         $form = $this->createCreateForm($entity);
 
         return $this->render(
@@ -155,8 +148,8 @@ class ThemeController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        /** @var Theme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        /** @var JournalTheme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -187,8 +180,8 @@ class ThemeController extends Controller
         if (!$this->isGranted('EDIT', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        /** @var Theme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        /** @var JournalTheme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -204,17 +197,17 @@ class ThemeController extends Controller
     /**
      * Creates a form to edit a Theme entity.
      *
-     * @param Theme $entity The entity
+     * @param JournalTheme $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Theme $entity)
+    private function createEditForm(JournalTheme $entity)
     {
         $form = $this->createForm(
-            new ThemeType(),
+            new JournalThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_journal_theme_update', array('id' => $entity->getId(), 'journalId' => $entity->getOwner()->getId())),
+                'action' => $this->generateUrl('ojs_journal_theme_update', array('id' => $entity->getId(), 'journalId' => $entity->getJournal()->getId())),
                 'method' => 'PUT',
             )
         );
@@ -241,8 +234,8 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
 
-        /** @var Theme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        /** @var JournalTheme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
@@ -278,8 +271,8 @@ class ThemeController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page");
         }
 
-        /** @var Theme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        /** @var JournalTheme $entity */
+        $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
