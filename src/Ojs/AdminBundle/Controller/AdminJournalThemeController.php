@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminJournalTheme;
 use Ojs\AdminBundle\Form\Type\AdminJournalThemeType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Theme;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +54,7 @@ class AdminJournalThemeController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new Theme())) {
+        if (!$this->isGranted('CREATE', new AdminJournalTheme())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new AdminJournalTheme();
@@ -155,7 +154,7 @@ class AdminJournalThemeController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var Theme $entity */
+        /** @var AdminJournalTheme $entity */
         $entity = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
@@ -204,7 +203,7 @@ class AdminJournalThemeController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var Theme $entity */
+        /** @var AdminJournalTheme $entity */
         $entity = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
@@ -230,11 +229,11 @@ class AdminJournalThemeController extends Controller
 
     /**
      * @param  Request                                            $request
-     * @param  Theme $entity
+     * @param  AdminJournalTheme $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws TokenNotFoundException
      */
-    public function deleteAction(Request $request, Theme $entity)
+    public function deleteAction(Request $request, AdminJournalTheme $entity)
     {
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
