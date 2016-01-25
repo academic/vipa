@@ -5,7 +5,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_admin_dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_default_journal_theme_index'),'title': 'title.default_journal_theme'|trans},
+    {'link': path('ojs_admin_journal_theme_index'),'title': 'title.default_journal_theme'|trans},
     {'title': 'title.default_journal_theme_edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -15,10 +15,10 @@
 
     <script type="text/javascript" src="{{ asset('vendor/ace-builds/src/ace.js') }}"></script>
 
-    <h1>{{ "publishertheme.edit"|trans }}</h1>
+    <h1>{{ "journaltheme.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'ojs_admin_default_journal_theme_index' %}
+    {% set back_path = 'ojs_admin_journal_theme_index' %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
