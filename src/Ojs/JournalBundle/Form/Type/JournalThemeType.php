@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ThemeType extends AbstractType
+class JournalThemeType extends AbstractType
 {
 
     /**
@@ -58,7 +58,7 @@ class ThemeType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Theme',
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalTheme',
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',

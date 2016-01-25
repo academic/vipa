@@ -215,21 +215,11 @@ class JournalType extends AbstractType
                 'entity',
                 array(
                     'label' => 'theme',
-                    'class' => 'Ojs\JournalBundle\Entity\Theme',
+                    'class' => 'Ojs\JournalBundle\Entity\JournalTheme',
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'query_builder' => function (EntityRepository $er) use ($journalId, $options) {
-                        $query = $er->createQueryBuilder('t');
-                        if(is_null($journalId)){
-                            $query->where('t.public IS NULL OR t.public = TRUE');
-                        }else{
-                            $query->where('t.public IS NULL OR t.public = TRUE OR t.owner = :journal')
-                                ->setParameter('journal', $options['data']);
-                        }
-                        return $query;
-                    },
                     'error_bubbling'=>true,
                 )
             )
