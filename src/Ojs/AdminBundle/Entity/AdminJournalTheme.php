@@ -8,7 +8,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * AdminJournalTheme
- * @GRID\Source(columns="id,title")
+ * @GRID\Source(columns="id,title,public")
  */
 class AdminJournalTheme
 {
