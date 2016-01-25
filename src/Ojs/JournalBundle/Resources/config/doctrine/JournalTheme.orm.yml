@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\JournalTheme:
   type: entity
-  table: theme
+  table: journal_theme
   repositoryClass: Ojs\JournalBundle\Entity\JournalThemeRepository
   cache:
     usage: NONSTRICT_READ_WRITE

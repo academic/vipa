@@ -30,5 +30,9 @@ ojs_journal_theme_delete:
     methods: [DELETE]
 
 ojs_journal_theme_globals:
-    path:     /{journalId}/theme/glabal-themes
+    path:     /{journalId}/theme/global-themes
     defaults: { _controller: "OjsJournalBundle:JournalTheme:globalThemes" }
+
+ojs_journal_global_theme_clone:
+    path:     /{journalId}/theme/{id}/clone
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:cloneGlobalTheme" }

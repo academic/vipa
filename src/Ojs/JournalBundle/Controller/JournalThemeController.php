@@ -285,29 +285,67 @@ class JournalThemeController extends Controller
     }
 
     /**
+     * @link {https://github.com/APY/APYDataGridBundle/blob/master/Resources/doc/grid_configuration/multi_grid_manager.md}
      * @return Response
      */
     public function globalThemesAction()
     {
+        //disable journal filter for get all journal themes
+        $GLOBALS['Ojs\JournalBundle\Entity\JournalTheme#journalFilter'] = false;
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'theme')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        //disable journal filter for get all journal themes
-        $GLOBALS['Ojs\JournalBundle\Entity\JournalTheme#journalFilter'] = false;
-        $source = new Entity('OjsJournalBundle:JournalTheme');
-        $grid = $this->get('grid')->setSource($source);
-        $gridAction = $this->get('grid_action');
+        $grid1 = $this->get('grid');
+        $grid2 = $this->get('grid');
 
-        $actionColumn = new ActionsColumn("actions", 'actions');
+        $source1 = new Entity('OjsAdminBundle:AdminJournalTheme');
+        $tableAlias1 = $source1->getTableAlias();
+        $source1->manipulateQuery(
+            function ($query) use ($tableAlias1) {
+                $query->andWhere($tableAlias1 . '.public = true');
+            }
+        );
 
-        $rowAction[] = $gridAction->cloneThemeAction('ojs_journal_theme_show', ['id', 'journalId' => $journal->getId()]);
+        $source2 = new Entity('OjsJournalBundle:JournalTheme');
+        $tableAlias2 = $source2->getTableAlias();
+        $source2->manipulateQuery(
+            function ($query) use ($tableAlias2, $journal) {
+                $query
+                    ->andWhere($tableAlias2 . '.public = true')
+                    ->andWhere($tableAlias2 . '.journal != :journal')
+                    ->setParameter('journal' , $journal);
+            }
+        );
 
-        $actionColumn->setRowActions($rowAction);
-        $grid->addColumn($actionColumn);
-        $data = [];
-        $data['globalThemesGrid'] = $grid;
+        $grid1->setSource($source1);
+        $gridAction1 = $this->get('grid_action');
+        $actionColumn1 = new ActionsColumn("actions", 'actions');
+        $rowAction1[] = $gridAction1->cloneThemeAction('ojs_journal_global_theme_clone', ['id', 'journalId' => $journal->getId()]);
+        $actionColumn1->setRowActions($rowAction1);
+        $grid1->addColumn($actionColumn1);
 
-        return $grid->getGridResponse('OjsJournalBundle:Theme:index.html.twig', $data);
+        $grid2->setSource($source2);
+        $gridAction2 = $this->get('grid_action');
+        $actionColumn2 = new ActionsColumn("actions", 'actions');
+        $rowAction2[] = $gridAction2->cloneThemeAction('ojs_journal_global_theme_clone', ['id', 'journalId' => $journal->getId()]);
+        $actionColumn2->setRowActions($rowAction2);
+        $grid2->addColumn($actionColumn2);
+
+        if ($grid1->isReadyForRedirect() || $grid2->isReadyForRedirect() )
+        {
+            if ($grid1->isReadyForExport()) {
+                return $grid1->getExportResponse();
+            }
+            if ($grid2->isReadyForExport()) {
+                return $grid2->getExportResponse();
+            }
+            // Url is the same for the grids
+            return new RedirectResponse($grid1->getRouteUrl());
+        } else {
+            return $this->render('OjsJournalBundle:Theme:global_themes.html.twig', array(
+                'globalThemesGrid' => $grid1,
+                'globalJournalThemesGrid' => $grid2));
+        }
     }
 }
