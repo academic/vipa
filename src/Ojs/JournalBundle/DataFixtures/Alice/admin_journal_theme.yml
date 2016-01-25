@@ -1,4 +1,4 @@
-\Ojs\JournalBundle\Entity\Theme:
+\Ojs\AdminBundle\Entity\AdminJournalTheme:
   theme1_notpublic:
       title: Ojs Theme
       public: false
