@@ -321,18 +321,26 @@ class JournalThemeController extends Controller
         $grid1->setSource($source1);
         $gridAction1 = $this->get('grid_action');
         $actionColumn1 = new ActionsColumn("actions", 'actions');
-        $rowAction1[] = $gridAction1->cloneThemeAction('ojs_journal_global_theme_clone', ['id', 'journalId' => $journal->getId()]);
+        $rowAction1[] = $gridAction1->cloneThemeAction('ojs_journal_global_theme_clone', [
+            'id',
+            'journalId' => $journal->getId(),
+            'type' => 'global'
+        ]);
         $actionColumn1->setRowActions($rowAction1);
         $grid1->addColumn($actionColumn1);
 
         $grid2->setSource($source2);
         $gridAction2 = $this->get('grid_action');
         $actionColumn2 = new ActionsColumn("actions", 'actions');
-        $rowAction2[] = $gridAction2->cloneThemeAction('ojs_journal_global_theme_clone', ['id', 'journalId' => $journal->getId()]);
+        $rowAction2[] = $gridAction2->cloneThemeAction('ojs_journal_global_theme_clone', [
+            'id',
+            'journalId' => $journal->getId(),
+            'type' => 'journal'
+        ]);
         $actionColumn2->setRowActions($rowAction2);
         $grid2->addColumn($actionColumn2);
 
-        if ($grid1->isReadyForRedirect() || $grid2->isReadyForRedirect() )
+        if ($grid1->isReadyForRedirect() || $grid2->isReadyForRedirect())
         {
             if ($grid1->isReadyForExport()) {
                 return $grid1->getExportResponse();
@@ -347,5 +355,42 @@ class JournalThemeController extends Controller
                 'globalThemesGrid' => $grid1,
                 'globalJournalThemesGrid' => $grid2));
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function cloneGlobalThemeAction(Request $request, $id)
+    {
+        $themeType = $request->get('type');
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'theme')) {
+            throw new AccessDeniedException("You are not authorized for view this page");
+        }
+        $em = $this->getDoctrine()->getManager();
+        $theme = null;
+        if($themeType == 'journal'){
+            //disable journal filter for get all journal themes
+            $GLOBALS['Ojs\JournalBundle\Entity\JournalTheme#journalFilter'] = false;
+            $theme = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
+        }elseif($themeType == 'global'){
+            $theme = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($id);
+        }
+        $this->throw404IfNotFound($theme);
+        $clonedTheme = new JournalTheme();
+        $clonedTheme
+            ->setJournal($journal)
+            ->setTitle($theme->getTitle().' [cloned]')
+            ->setCss($theme->getCss())
+            ->setPublic(false)
+            ;
+        $em->persist($clonedTheme);
+        $em->flush();
+        $this->successFlashBag('successfully.cloned.global.theme');
+        return $this->redirectToRoute('ojs_journal_theme_index', [
+            'journalId' => $journal->getId()
+        ]);
     }
 }
