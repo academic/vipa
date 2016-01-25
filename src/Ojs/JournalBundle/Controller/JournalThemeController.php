@@ -326,6 +326,15 @@ class JournalThemeController extends Controller
             'journalId' => $journal->getId(),
             'type' => 'global'
         ]);
+        $rowAction1[] = $gridAction1->cloneThemeAction('ojs_journal_global_theme_clone', [
+            'id',
+            'journalId' => $journal->getId(),
+            'type' => 'global',
+            'use'
+        ], null, [
+            'icon' => 'css3',
+            'title' => 'clone.and.use'
+        ]);
         $actionColumn1->setRowActions($rowAction1);
         $grid1->addColumn($actionColumn1);
 
@@ -336,6 +345,15 @@ class JournalThemeController extends Controller
             'id',
             'journalId' => $journal->getId(),
             'type' => 'journal'
+        ]);
+        $rowAction2[] = $gridAction2->cloneThemeAction('ojs_journal_global_theme_clone', [
+            'id',
+            'journalId' => $journal->getId(),
+            'type' => 'global',
+            'use'
+        ], null, [
+            'icon' => 'css3',
+            'title' => 'clone.and.use'
         ]);
         $actionColumn2->setRowActions($rowAction2);
         $grid2->addColumn($actionColumn2);
@@ -364,6 +382,7 @@ class JournalThemeController extends Controller
      */
     public function cloneGlobalThemeAction(Request $request, $id)
     {
+        $useTheme = $request->query->has('use') ? true: false;
         $themeType = $request->get('type');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('VIEW', $journal, 'theme')) {
@@ -388,7 +407,14 @@ class JournalThemeController extends Controller
             ;
         $em->persist($clonedTheme);
         $em->flush();
-        $this->successFlashBag('successfully.cloned.global.theme');
+        if($useTheme){
+            $journal->setTheme($clonedTheme);
+            $em->persist($journal);
+            $em->flush();
+            $this->successFlashBag('successfully.cloned.global.theme.and.used');
+        }else{
+            $this->successFlashBag('successfully.cloned.global.theme');
+        }
         return $this->redirectToRoute('ojs_journal_theme_index', [
             'journalId' => $journal->getId()
         ]);

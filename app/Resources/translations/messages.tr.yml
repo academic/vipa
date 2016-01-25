@@ -1462,7 +1462,9 @@ title.mail_template_edit: 'E-Posta Şablonu Düzenle'
 global.themes: 'Global Temalar'
 global.journal.themes: 'Global Dergi Temaları'
 clone: 'Klonla'
+clone.and.use: 'Klonla ve Kullan'
 successfully.cloned.global.theme: 'Dergi teması başarılı şekilde temalarınıza eklendi. Dergi Ayarları kısmından temayı etkinleştirebilirsiniz.'
+successfully.cloned.global.theme.and.used: 'Dergi teması başarılı şekilde temalarınıza eklendi ve dergi teması olarak seçildi.'
 
 # OAuth
 linkedin: 'Linkedin'

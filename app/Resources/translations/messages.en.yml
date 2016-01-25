@@ -1469,7 +1469,9 @@ title.mail_template_show: 'Edit Mail Template'
 global.themes: 'Global Themes'
 global.journal.themes: 'Global Journal Themes'
 clone: 'Clone'
+clone.and.use: 'Clone and Use'
 successfully.cloned.global.theme: 'Global theme successfully cloned to your themes. You can enable from Journal Settings page'
+successfully.cloned.global.theme.and.used: 'Global theme successfully cloned to your themes. And setted as current journal theme'
 
 # OAuth
 linkedin: 'Linkedin'
