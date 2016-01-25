@@ -16,6 +16,9 @@
         <a href="{{ path('ojs_journal_theme_new', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
+        <a href="{{ path('ojs_journal_theme_globals', {'journalId': selectedJournal().id}) }}" class="btn btn-success">
+            {{ "global.themes"|trans }}
+        </a>
     {% endif %}
 
     <hr>

@@ -28,3 +28,7 @@ ojs_journal_theme_delete:
     path:     /{journalId}/theme/{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalTheme:delete" }
     methods: [DELETE]
+
+ojs_journal_theme_globals:
+    path:     /{journalId}/theme/glabal-themes
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:globalThemes" }

@@ -8,14 +8,12 @@ use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Form\Type\JournalThemeType;
-use Ojs\JournalBundle\Form\Type\ThemeType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Theme controller.
@@ -284,5 +282,32 @@ class JournalThemeController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('ojs_journal_theme_index', ['journalId' => $journal->getId()]);
+    }
+
+    /**
+     * @return Response
+     */
+    public function globalThemesAction()
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'theme')) {
+            throw new AccessDeniedException("You are not authorized for view this page");
+        }
+        //disable journal filter for get all journal themes
+        $GLOBALS['Ojs\JournalBundle\Entity\JournalTheme#journalFilter'] = false;
+        $source = new Entity('OjsJournalBundle:JournalTheme');
+        $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+
+        $rowAction[] = $gridAction->cloneThemeAction('ojs_journal_theme_show', ['id', 'journalId' => $journal->getId()]);
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['globalThemesGrid'] = $grid;
+
+        return $grid->getGridResponse('OjsJournalBundle:Theme:index.html.twig', $data);
     }
 }
