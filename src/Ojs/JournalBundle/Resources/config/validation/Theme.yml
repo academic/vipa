@@ -1,4 +1,4 @@
-Ojs\JournalBundle\Entity\Theme:
+Ojs\JournalBundle\Entity\JournalTheme:
     properties:
         title:
             - NotBlank: ~
