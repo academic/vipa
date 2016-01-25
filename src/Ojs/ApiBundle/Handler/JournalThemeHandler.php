@@ -4,7 +4,7 @@ namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\JournalBundle\Form\Type\ThemeType;
-use Ojs\JournalBundle\Entity\Theme;
+use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;

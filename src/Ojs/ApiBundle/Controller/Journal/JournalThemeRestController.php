@@ -5,7 +5,7 @@ namespace Ojs\ApiBundle\Controller\Journal;
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Form\Type\ThemeType;
-use Ojs\JournalBundle\Entity\Theme;
+use Ojs\JournalBundle\Entity\JournalTheme;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
