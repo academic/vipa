@@ -151,7 +151,11 @@ class PublisherTypes extends AbstractTranslatable
      */
     public function getName()
     {
-        return $this->translate()->getName();
+        if (!is_null($this->translate()->getName())) {
+            return $this->translate()->getName();
+        } else {
+            return $this->translations->first()->getName();
+        }
     }
 
     /**
