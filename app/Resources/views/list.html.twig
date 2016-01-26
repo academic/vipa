@@ -303,9 +303,9 @@
             {% set sourceValue = sourceValue is defined ? sourceValue : row.field(column.id) %}
             <a href="?{{ grid.hash }}[{{ column.id }}][from]={{ sourceValue | url_encode() }}" class="searchOnClick">{{ value|trans }}</a>
         {% elseif column.safe is sameas(false) %}
-            {{ value|trans|raw }}
+            {{ value|raw }}
         {% else %}
-            {{ value|trans|escape(column.safe)|raw }}
+            {{ value|escape(column.safe)|raw }}
         {% endif %}
     {% endspaceless -%}
 {% endblock grid_column_cell %}
