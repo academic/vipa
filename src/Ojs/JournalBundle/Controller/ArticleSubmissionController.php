@@ -604,6 +604,7 @@ class ArticleSubmissionController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             foreach ($entity->getArticleSubmissionFiles() as $fileKey => $submissionFile) {
                 if (empty($submissionFile->getFile()) && $journalSubmissionFiles[$fileKey]->getRequired()) {
+                    $this->errorFlashBag('all.required.files.must.be.uploaded');
                     return $this->render(
                         'OjsJournalBundle:ArticleSubmission:start.html.twig',
                         array(

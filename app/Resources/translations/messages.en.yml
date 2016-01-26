@@ -1472,6 +1472,9 @@ clone: 'Clone'
 clone.and.use: 'Clone and Use'
 successfully.cloned.global.theme: 'Global theme successfully cloned to your themes. You can enable from Journal Settings page'
 successfully.cloned.global.theme.and.used: 'Global theme successfully cloned to your themes. And setted as current journal theme'
+all.required.files.must.be.uploaded: 'All required files must be uploaded'
+required: 'required'
+optinal: 'optinal'
 
 # OAuth
 linkedin: 'Linkedin'

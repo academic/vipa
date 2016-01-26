@@ -1465,6 +1465,9 @@ clone: 'Klonla'
 clone.and.use: 'Klonla ve Kullan'
 successfully.cloned.global.theme: 'Dergi teması başarılı şekilde temalarınıza eklendi. Dergi Ayarları kısmından temayı etkinleştirebilirsiniz.'
 successfully.cloned.global.theme.and.used: 'Dergi teması başarılı şekilde temalarınıza eklendi ve dergi teması olarak seçildi.'
+all.required.files.must.be.uploaded: 'Tüm zorunlu dosyalar yüklenmeli'
+required: 'zorunlu'
+optinal: 'isteğe bağlı'
 
 # OAuth
 linkedin: 'Linkedin'
