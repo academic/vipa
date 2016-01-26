@@ -4,7 +4,7 @@ Ojs\UserBundle\Entity\User:
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
   properties:
     username:
-      - NotBlank: { groups: [ojs_register] }
+      - NotBlank: { groups: [ojs_register,editProfile] }
     password:
       - NotBlank: { groups: [ojs_register] }
       - Length: { min: 6, groups: [ojs_register] }
@@ -12,6 +12,6 @@ Ojs\UserBundle\Entity\User:
       - NotBlank: { groups: [ojs_register] }
       - Email: { groups: [ojs_register] }
     firstName:
-      - NotBlank: { groups: [ojs_register] }
+      - NotBlank: { groups: [ojs_register, editProfile] }
     lastName:
       - NotBlank: { groups: [ojs_register] }
