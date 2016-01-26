@@ -19,7 +19,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Journal
  * @JMS\ExclusionPolicy("all")
- * @GRID\Source(columns="id,title,issn,eissn,status,publisher.name")
+ * @GRID\Source(columns="id,title,issn,eissn,status,publisher.name, translations.id,translations.title")
  */
 class Journal extends AbstractTranslatable
 {
@@ -50,6 +50,8 @@ class Journal extends AbstractTranslatable
     protected $id;
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
+     * @Grid\Column(field="translations.id")
+     * @Grid\Column(field="translations.title")
      */
     protected $translations;
     /**
