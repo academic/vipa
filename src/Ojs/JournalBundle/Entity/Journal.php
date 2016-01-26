@@ -56,7 +56,7 @@ class Journal extends AbstractTranslatable
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
-     * @Grid\Column(title="Title")
+     * @Grid\Column(title="Title", filterable=false)
      */
     private $title;
     /**
@@ -145,7 +145,7 @@ class Journal extends AbstractTranslatable
     /**
      * @var integer
      * @JMS\Expose
-     * @Grid\Column(field="status", title="status",type="text")
+     * @Grid\Column(field="status", title="status",type="text", filterable=false)
      */
     private $status = 0;
     /**
