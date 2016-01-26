@@ -96,7 +96,7 @@
                                 <fieldset>
                                     <legend>
                                         <label>
-                                            {{ form_widget(formCheck) }}
+                                            {{ form_widget(formCheck, {'required': true}) }}
                                             {{ checkLists[index].label|raw }}
                                         </label>
                                     </legend>

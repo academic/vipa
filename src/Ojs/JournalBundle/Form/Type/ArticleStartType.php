@@ -60,7 +60,6 @@ class ArticleStartType extends AbstractType
                 'checkListsChoices' => [],
                 'submissionFilesChoices' => [],
                 'attr' => [
-                    'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
