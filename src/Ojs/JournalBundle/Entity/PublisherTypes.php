@@ -27,12 +27,12 @@ class PublisherTypes extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="name")
+     * @GRID\Column(title="name", filterable=false)
      */
     private $name;
     /**
      * @var string
-     * @GRID\Column(title="description")
+     * @GRID\Column(title="description", filterable=false)
      */
     private $description;
     /**
