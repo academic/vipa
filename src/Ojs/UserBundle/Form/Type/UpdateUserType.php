@@ -18,14 +18,17 @@ class UpdateUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', ['label' => 'user'])
+            ->add('username', 'text', [
+                'label' => 'user',
+                'required' => true
+            ])
             ->add(
                 'firstName',
                 'text',
                 [
+                    'required' => true,
                     'attr' => [
                         'label' => 'firstname',
-                        'class' => 'validate[required,minSize[2]]',
                     ],
                 ]
             )
@@ -33,9 +36,9 @@ class UpdateUserType extends AbstractType
                 'lastName',
                 'text',
                 [
+                    'required' => true,
                     'attr' => [
                         'label' => 'lastname',
-                        'class' => 'validate[required,minSize[2]]',
                     ],
                 ]
             )
@@ -57,6 +60,7 @@ class UpdateUserType extends AbstractType
                 'endpoint' => 'user',
                 'img_width' => 200,
                 'img_height' => 200,
+                'required' => false,
                 'crop_options' => array(
                     'aspect-ratio' => 200 / 200,
                     'maxSize' => "[200, 200]"
@@ -93,8 +97,8 @@ class UpdateUserType extends AbstractType
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'validate-form',
-                    'novalidate' => 'novalidate',
                 ],
+                'validation_groups' => 'editProfile'
             )
         );
     }

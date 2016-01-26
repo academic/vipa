@@ -52,11 +52,13 @@ class UserController extends Controller
 
     public function editProfileAction(Request $request)
     {
+        $em = $this->get('doctrine')->getManager();
         /** @var User $user */
-        $user = $this->getUser();
-        if (!$user) {
+        $getUser = $this->getUser();
+        if (!$getUser) {
             throw new AccessDeniedException();
         }
+        $user = $em->getRepository('OjsUserBundle:User')->find($getUser->getId());
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $form = $this->createForm(new UpdateUserType(), $user)
@@ -65,7 +67,6 @@ class UserController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->get('doctrine')->getManager();
             $em->persist($user);
             $em->flush();
 
