@@ -5,7 +5,7 @@ namespace Ojs\ApiBundle\Controller\Admin;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\Annotations\View;
 use Ojs\AdminBundle\Form\Type\ContactType;
@@ -42,7 +42,7 @@ class ContactRestController extends FOSRestController
     public function getContactsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         if (!$this->isGranted('VIEW', new JournalContact())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
@@ -73,7 +73,7 @@ class ContactRestController extends FOSRestController
     {
         $entity = $this->getOr404($id);
         if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         return $entity;
     }
@@ -93,7 +93,7 @@ class ContactRestController extends FOSRestController
     public function newContactAction()
     {
         if (!$this->isGranted('CREATE', new JournalContact())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         return $this->createForm(new ContactType(), null, ['csrf_protection' => false]);
     }
@@ -117,7 +117,7 @@ class ContactRestController extends FOSRestController
     public function postContactAction(Request $request)
     {
         if (!$this->isGranted('CREATE', new JournalContact())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         try {
             $newEntity = $this->container->get('ojs_api.contact.handler')->post(
@@ -155,7 +155,7 @@ class ContactRestController extends FOSRestController
     public function putContactAction(Request $request, $id)
     {
         if (!$this->isGranted('CREATE', new JournalContact())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         try {
             if (!($entity = $this->container->get('ojs_api.contact.handler')->get($id))) {
@@ -206,7 +206,7 @@ class ContactRestController extends FOSRestController
                 $request->request->all()
             );
             if (!$this->isGranted('EDIT', $entity)) {
-                throw new AccessDeniedHttpException;
+                throw new AccessDeniedException;
             }
             $routeOptions = array(
                 'id' => $entity->getId(),
@@ -244,7 +244,7 @@ class ContactRestController extends FOSRestController
     {
         $entity = $this->getOr404($id);
         if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         $this->container->get('ojs_api.contact.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);

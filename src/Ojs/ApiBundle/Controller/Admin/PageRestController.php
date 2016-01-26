@@ -8,7 +8,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\CmsBundle\Form\Type\PageType;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\Annotations;
@@ -40,7 +40,7 @@ class PageRestController extends FOSRestController
     public function getPagesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         if (!$this->isGranted('VIEW', new AdminPage())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         $offset = $paramFetcher->get('offset');
         $offset = null === $offset ? 0 : $offset;
@@ -71,7 +71,7 @@ class PageRestController extends FOSRestController
     {
         $entity = $this->getOr404($id);
         if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         return $entity;
     }
@@ -91,7 +91,7 @@ class PageRestController extends FOSRestController
     public function newPageAction()
     {
         if (!$this->isGranted('CREATE', new AdminPage())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         return $this->createForm(new PageType(), null, ['csrf_protection' => false]);
     }
@@ -115,7 +115,7 @@ class PageRestController extends FOSRestController
     public function postPageAction(Request $request)
     {
         if (!$this->isGranted('CREATE', new AdminPage())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         try {
             $newEntity = $this->container->get('ojs_api.page.handler')->post(
@@ -153,7 +153,7 @@ class PageRestController extends FOSRestController
     public function putPageAction(Request $request, $id)
     {
         if (!$this->isGranted('CREATE', new AdminPage())) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         try {
             if (!($entity = $this->container->get('ojs_api.page.handler')->get($id))) {
@@ -204,7 +204,7 @@ class PageRestController extends FOSRestController
                 $request->request->all()
             );
             if (!$this->isGranted('EDIT', $entity)) {
-                throw new AccessDeniedHttpException;
+                throw new AccessDeniedException;
             }
             $routeOptions = array(
                 'id' => $entity->getId(),
@@ -242,7 +242,7 @@ class PageRestController extends FOSRestController
     {
         $entity = $this->getOr404($id);
         if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedHttpException;
+            throw new AccessDeniedException;
         }
         $this->container->get('ojs_api.page.handler')->delete($entity);
         return $this->view(null, Codes::HTTP_NO_CONTENT, []);
