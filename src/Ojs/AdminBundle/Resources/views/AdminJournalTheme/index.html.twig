@@ -11,11 +11,11 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "publishertheme.list"|trans }}</h1>
+    <h1>{{ "journaltheme.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {% if is_granted('CREATE', getEntity('OjsJournalBundle:PublisherTheme')) %}
-        <a href="{{ path('ojs_admin_default_journal_theme_new') }}" class="btn btn-success">
+    {% if is_granted('CREATE', getEntity('OjsAdminBundle:AdminJournalTheme')) %}
+        <a href="{{ path('ojs_admin_journal_theme_new') }}" class="btn btn-success">
             {{ "c"|trans }}
         </a>
     {% endif %}

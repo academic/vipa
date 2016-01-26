@@ -50,7 +50,7 @@ class MenuBuilder extends ContainerAware
             ['title.publisher_theme',           'ojs_admin_publisher_theme_index',          'css3'],
             ['title.publisher_design',          'ojs_admin_publisher_design_index',         'wrench'],
             ['title.publisher_managers',        'ojs_admin_publisher_managers_index',       'users'],
-            ['title.default_journal_theme',     'ojs_admin_default_journal_theme_index',    'css3'],
+            ['title.default_journal_theme',     'ojs_admin_journal_theme_index',            'css3'],
             ['feedback',                        'okulbilisim_feedback_homepage',            'envelope',         $options['unreadFeedbacks']],
             ['title.system_settings',           'ojs_admin_system_setting_index',           'gears'],
             ['stats',                           'ojs_admin_stats',                          'bar-chart'],

@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\Theme:
+Ojs\JournalBundle\Entity\JournalTheme:
   type: entity
-  table: theme
-  repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
+  table: journal_theme
+  repositoryClass: Ojs\JournalBundle\Entity\JournalThemeRepository
   cache:
     usage: NONSTRICT_READ_WRITE
   id:
@@ -11,10 +11,11 @@ Ojs\JournalBundle\Entity\Theme:
       generator:
         strategy: AUTO
   manyToOne:
-    owner:
+    journal:
       targetEntity: Journal
       joinColumn:
-        name: owner_id
+        name: journal_id
+        nullable: false
         referencedColumnName: id
   fields:
     title:

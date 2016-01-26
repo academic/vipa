@@ -36,7 +36,7 @@ parameters:
     ojs_api.journal_issue.handler.class: Ojs\ApiBundle\Handler\JournalIssueHandler
     ojs_api.journal_issue.class: Ojs\JournalBundle\Entity\Issue
     ojs_api.journal_theme.handler.class: Ojs\ApiBundle\Handler\JournalThemeHandler
-    ojs_api.journal_theme.class: Ojs\JournalBundle\Entity\Theme
+    ojs_api.journal_theme.class: Ojs\JournalBundle\Entity\JournalTheme
     ojs_api.journal_board.handler.class: Ojs\ApiBundle\Handler\JournalBoardHandler
     ojs_api.journal_board.class: Ojs\JournalBundle\Entity\Board
     ojs_api.journal_section.handler.class: Ojs\ApiBundle\Handler\JournalSectionHandler

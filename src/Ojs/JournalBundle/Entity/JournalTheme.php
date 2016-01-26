@@ -7,10 +7,10 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
- * Theme
- * @GRID\Source(columns="id,journal.title,title")
+ * JournalTheme
+ * @GRID\Source(columns="id,title,public")
  */
-class Theme
+class JournalTheme
 {
     use GenericEntityTrait;
 
@@ -39,7 +39,7 @@ class Theme
      *
      * @var Journal
      */
-    private $owner;
+    private $journal;
 
     /**
      * Get id
@@ -56,19 +56,19 @@ class Theme
      *
      * @return Journal
      */
-    public function getOwner()
+    public function getJournal()
     {
-        return $this->owner;
+        return $this->journal;
     }
 
     /**
-     * Set owner
-     * @param  Journal      $owner
-     * @return Theme
+     * Set journal
+     * @param  Journal      $journal
+     * @return $this
      */
-    public function setOwner($owner = null)
+    public function setJournal($journal)
     {
-        $this->owner = $owner;
+        $this->journal = $journal;
 
         return $this;
     }
@@ -83,10 +83,12 @@ class Theme
 
     /**
      * @param string $title
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -99,10 +101,13 @@ class Theme
 
     /**
      * @param string $css
+     * @return $this
      */
     public function setCss($css)
     {
         $this->css = $css;
+
+        return $this;
     }
 
     /**
@@ -115,9 +120,12 @@ class Theme
 
     /**
      * @param boolean $public
+     * @return $this
      */
     public function setPublic($public)
     {
         $this->public = $public;
+
+        return $this;
     }
 }

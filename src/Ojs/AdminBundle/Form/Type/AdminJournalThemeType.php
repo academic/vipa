@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ThemeType extends AbstractType
+class AdminJournalThemeType extends AbstractType
 {
 
     /**
@@ -58,7 +58,7 @@ class ThemeType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Theme',
+                'data_class' => 'Ojs\AdminBundle\Entity\AdminJournalTheme',
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
@@ -72,6 +72,6 @@ class ThemeType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_theme';
+        return 'ojs_adminbundle_admin_journal_theme';
     }
 }

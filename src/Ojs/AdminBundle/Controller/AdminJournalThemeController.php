@@ -4,21 +4,20 @@ namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\JournalBundle\Form\Type\ThemeType;
+use Ojs\AdminBundle\Entity\AdminJournalTheme;
+use Ojs\AdminBundle\Form\Type\AdminJournalThemeType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Theme;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Doctrine\ORM\QueryBuilder;
 
 /**
- * DefaultJournalThemes controller.
+ * AdminJournalTheme controller.
  *
  */
-class AdminDefaultJournalThemeController extends Controller
+class AdminJournalThemeController extends Controller
 {
     /**
      * Lists all Themes entities.
@@ -26,32 +25,25 @@ class AdminDefaultJournalThemeController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new Theme())) {
+        if (!$this->isGranted('VIEW', new AdminJournalTheme())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $source = new Entity('OjsJournalBundle:Theme');
-        $alias = $source->getTableAlias();
-        $source->manipulateQuery(
-            function (QueryBuilder $query) use ($alias) {
-                return $query
-                    ->andWhere($alias.'.owner is NULL');
-            }
-        );
+        $source = new Entity('OjsAdminBundle:AdminJournalTheme');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        $rowAction[] = $gridAction->showAction('ojs_admin_default_journal_theme_show', 'id');
-        $rowAction[] = $gridAction->editAction('ojs_admin_default_journal_theme_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_default_journal_theme_delete', 'id');
+        $rowAction[] = $gridAction->showAction('ojs_admin_journal_theme_show', 'id');
+        $rowAction[] = $gridAction->editAction('ojs_admin_journal_theme_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_theme_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
-        return $grid->getGridResponse('OjsAdminBundle:AdminDefaultJournalTheme:index.html.twig', $data);
+        return $grid->getGridResponse('OjsAdminBundle:AdminJournalTheme:index.html.twig', $data);
     }
 
     /**
@@ -62,10 +54,10 @@ class AdminDefaultJournalThemeController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new Theme())) {
+        if (!$this->isGranted('CREATE', new AdminJournalTheme())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $entity = new Theme();
+        $entity = new AdminJournalTheme();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -74,11 +66,11 @@ class AdminDefaultJournalThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('ojs_admin_default_journal_theme_show', ['id' => $entity->getId()]);
+            return $this->redirectToRoute('ojs_admin_journal_theme_show', ['id' => $entity->getId()]);
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminDefaultJournalTheme:new.html.twig',
+            'OjsAdminBundle:AdminJournalTheme:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -93,13 +85,13 @@ class AdminDefaultJournalThemeController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Theme $entity)
+    private function createCreateForm(AdminJournalTheme $entity)
     {
         $form = $this->createForm(
-            new ThemeType(),
+            new AdminJournalThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_admin_default_journal_theme_create'),
+                'action' => $this->generateUrl('ojs_admin_journal_theme_create'),
                 'method' => 'POST',
             )
         );
@@ -114,14 +106,14 @@ class AdminDefaultJournalThemeController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new Theme())) {
+        if (!$this->isGranted('CREATE', new AdminJournalTheme())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $entity = new Theme();
+        $entity = new AdminJournalTheme();
         $form = $this->createCreateForm($entity);
 
         return $this->render(
-            'OjsAdminBundle:AdminDefaultJournalTheme:new.html.twig',
+            'OjsAdminBundle:AdminJournalTheme:new.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView(),
@@ -138,17 +130,17 @@ class AdminDefaultJournalThemeController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        $entity = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('VIEW', $entity))
             throw new AccessDeniedException("You are not authorized for this page!");
 
         $token = $this
             ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_admin_default_journal_theme' . $entity->getId());
+            ->refreshToken('ojs_admin_journal_theme' . $entity->getId());
 
         return $this->render(
-            'OjsAdminBundle:AdminDefaultJournalTheme:show.html.twig',
+            'OjsAdminBundle:AdminJournalTheme:show.html.twig',
             ['entity' => $entity, 'token' => $token]
         );
     }
@@ -162,8 +154,8 @@ class AdminDefaultJournalThemeController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var Theme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        /** @var AdminJournalTheme $entity */
+        $entity = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -171,7 +163,7 @@ class AdminDefaultJournalThemeController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            'OjsAdminBundle:AdminDefaultJournalTheme:edit.html.twig',
+            'OjsAdminBundle:AdminJournalTheme:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -182,17 +174,17 @@ class AdminDefaultJournalThemeController extends Controller
     /**
      * Creates a form to edit a PublisherTypes entity.
      *
-     * @param Theme $entity The entity
+     * @param AdminJournalTheme $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Theme $entity)
+    private function createEditForm(AdminJournalTheme $entity)
     {
         $form = $this->createForm(
-            new ThemeType(),
+            new AdminJournalThemeType(),
             $entity,
             array(
-                'action' => $this->generateUrl('ojs_admin_default_journal_theme_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('ojs_admin_journal_theme_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             )
         );
@@ -211,8 +203,8 @@ class AdminDefaultJournalThemeController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var Theme $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Theme')->find($id);
+        /** @var AdminJournalTheme $entity */
+        $entity = $em->getRepository('OjsAdminBundle:AdminJournalTheme')->find($id);
         $this->throw404IfNotFound($entity);
         if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -223,11 +215,11 @@ class AdminDefaultJournalThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('ojs_admin_default_journal_theme_edit', ['id' => $id]);
+            return $this->redirectToRoute('ojs_admin_journal_theme_edit', ['id' => $id]);
         }
 
         return $this->render(
-            'OjsAdminBundle:AdminDefaultJournalTheme:edit.html.twig',
+            'OjsAdminBundle:AdminJournalTheme:edit.html.twig',
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
@@ -237,11 +229,11 @@ class AdminDefaultJournalThemeController extends Controller
 
     /**
      * @param  Request                                            $request
-     * @param  Theme $entity
+     * @param  AdminJournalTheme $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws TokenNotFoundException
      */
-    public function deleteAction(Request $request, Theme $entity)
+    public function deleteAction(Request $request, AdminJournalTheme $entity)
     {
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -250,7 +242,7 @@ class AdminDefaultJournalThemeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_default_journal_theme' . $entity->getId());
+        $token = $csrf->getToken('ojs_admin_journal_theme' . $entity->getId());
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -258,6 +250,6 @@ class AdminDefaultJournalThemeController extends Controller
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_admin_default_journal_theme_index');
+        return $this->redirectToRoute('ojs_admin_journal_theme_index');
     }
 }

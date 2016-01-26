@@ -38,9 +38,9 @@ ojs_admin_publisher_manager:
     prefix:   publisher-manager
 
 
-ojs_admin_default_journal_theme:
-    resource: "@OjsAdminBundle/Resources/config/routing/default_journal_theme.yml"
-    prefix:   default-journal-theme
+ojs_admin_journal_theme:
+    resource: "@OjsAdminBundle/Resources/config/routing/admin_journal_theme.yml"
+    prefix:   journal-theme
 
 ojs_admin_subject:
     resource: "@OjsAdminBundle/Resources/config/routing/subject.yml"

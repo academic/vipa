@@ -959,7 +959,7 @@ class Journal extends AbstractTranslatable
     /**
      * Get theme
      *
-     * @return Theme
+     * @return JournalTheme
      */
     public function getTheme()
     {
@@ -969,10 +969,10 @@ class Journal extends AbstractTranslatable
     /**
      * Set theme
      *
-     * @param  Theme $theme
+     * @param  JournalTheme $theme
      * @return Journal
      */
-    public function setTheme(Theme $theme = null)
+    public function setTheme(JournalTheme $theme = null)
     {
         $this->theme = $theme;
 

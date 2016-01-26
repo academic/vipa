@@ -16,7 +16,7 @@ Ojs\JournalBundle\Entity\Journal:
         referencedColumnName: id
       inversedBy: journals
     theme:
-      targetEntity: Ojs\JournalBundle\Entity\Theme
+      targetEntity: Ojs\JournalBundle\Entity\JournalTheme
       joinColumn:
         name: theme_id
         referencedColumnName: id

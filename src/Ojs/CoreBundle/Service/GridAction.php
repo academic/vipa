@@ -129,6 +129,33 @@ class GridAction
 
     /**
      * @param string $route
+     * @param string $key
+     * @param null $role
+     * @param array $options
+     * @return RowAction
+     */
+    public function cloneThemeAction($route, $key = 'id', $role = null, array $options = array())
+    {
+        $icon = isset($options['icon']) ? $options['icon']: 'clone';
+        $title = isset($options['title']) ? $options['title']: 'clone';
+        $rowAction = new RowAction('<i class="fa fa-'.$icon.'"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-success btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans($title),
+            ]
+        );
+        $rowAction->setRouteParameters($key);
+        if ($role) {
+            $rowAction->setRole($role);
+        }
+
+        return $rowAction;
+    }
+
+    /**
+     * @param string $route
      * @param $key
      * @param  null      $role
      * @return RowAction
@@ -195,6 +222,31 @@ class GridAction
                 'title' => $this->translator->trans("copy"),
             ]
         );
+        $rowAction->setRouteParameters($key);
+        if ($role) {
+            $rowAction->setRole($role);
+        }
+
+        return $rowAction;
+    }
+
+    /**
+     * @param $route
+     * @param $key
+     * @param $role
+     * @return RowAction
+     */
+    public function themePreviewAction($route, $key = 'id', $role = '')
+    {
+        $rowAction = new RowAction('<i class="fa fa-magic"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-info btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("preview"),
+            ]
+        );
+        $rowAction->setTarget('_blank');
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);

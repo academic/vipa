@@ -2,12 +2,9 @@
 
 namespace Ojs\CoreBundle\Command;
 
-use Composer\Script\CommandEvent;
-use Exception;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\CoreBundle\Events\CoreEvent;
 use Ojs\CoreBundle\Events\CoreEvents;
-use Ojs\JournalBundle\Entity\Theme;
 use Ojs\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -97,7 +94,6 @@ class InstallCommand extends ContainerAwareCommand
             ->addOption('no-role', null, InputOption::VALUE_NONE, 'Without role data')
             ->addOption('no-admin', null, InputOption::VALUE_NONE, 'Without admin records')
             ->addOption('no-location', null, InputOption::VALUE_NONE, 'Without location data')
-            ->addOption('no-theme', null, InputOption::VALUE_NONE, 'Without themes')
             ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Without ACL Data')
             ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix ACL structure')
             ->addOption('no-page', null, InputOption::VALUE_NONE, 'Without default pages')
@@ -218,11 +214,6 @@ class InstallCommand extends ContainerAwareCommand
             }
         }
 
-        if (!$input->getOption('no-theme')) {
-            $output->writeln($sb . 'Inserting default theme record' . $se);
-            $this->insertTheme();
-        }
-
         if (!$input->getOption('no-acl')) {
             $output->writeln($sb . 'Inserting default ACL records' . $se);
             $this->insertAcls();
@@ -309,15 +300,6 @@ class InstallCommand extends ContainerAwareCommand
                 )
             );
         }
-    }
-
-    protected function insertTheme()
-    {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $theme = new Theme();
-        $theme->setTitle('Ojs');
-        $em->persist($theme);
-        $em->flush();
     }
 
     protected function insertAcls()
