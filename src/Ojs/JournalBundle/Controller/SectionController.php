@@ -51,10 +51,7 @@ class SectionController extends Controller
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('title', $entity->getTitle());
-                    if ($row->getField('title') && strlen($row->getField('title')) > 20) {
-                        $row->setField('title', substr($row->getField('title'), 0, 20)."...");
-                    }
+                    $row->setField('translations.title', $entity->getTitleTranslations());
                 }
 
                 return $row;

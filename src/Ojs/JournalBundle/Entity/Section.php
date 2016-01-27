@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Section
- * @GRID\Source(columns="id,title,allowIndex,hideTitle")
+ * @GRID\Source(columns="id,translations.title,allowIndex,hideTitle", groupBy="id")
  */
 class Section extends AbstractTranslatable implements JournalItemInterface
 {
@@ -27,7 +27,7 @@ class Section extends AbstractTranslatable implements JournalItemInterface
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="section.title")
+     * @GRID\Column(title="section.title", field="translations.title",safe=false)
      */
     private $title;
     /**
@@ -184,6 +184,21 @@ class Section extends AbstractTranslatable implements JournalItemInterface
     public function getTitle()
     {
         return $this->translate()->getTitle();
+    }
+
+    /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var SectionTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
