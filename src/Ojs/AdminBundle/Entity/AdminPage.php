@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * AdminPage
- * @GRID\Source(columns="id, translations.title")
+ * @GRID\Source(columns="id, translations.title", groupBy="id")
  */
 class AdminPage extends AbstractTranslatable
 {

@@ -10,7 +10,7 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 
 /**
  * PersonTitle
- * @GRID\Source(columns="id, title")
+ * @GRID\Source(columns="id, translations.title", groupBy="id")
  */
 class PersonTitle extends AbstractTranslatable
 {
@@ -29,7 +29,7 @@ class PersonTitle extends AbstractTranslatable
 
     /**
      * @var string
-     * @Grid\Column(title="Title")
+     * @Grid\Column(title="Title", field="translations.title", safe=false)
      */
     private $title;
 
@@ -103,6 +103,21 @@ class PersonTitle extends AbstractTranslatable
     public function getTitle()
     {
         return $this->translate()->getTitle();
+    }
+
+    /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var PersonTitleTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**

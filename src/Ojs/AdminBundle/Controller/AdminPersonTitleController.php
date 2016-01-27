@@ -40,7 +40,7 @@ class AdminPersonTitleController extends OjsController
                 $entity = $row->getEntity();
                 if (!is_null($entity)) {
                     $entity->setDefaultLocale($request->getDefaultLocale());
-                    $row->setField('title', $entity->getTitle());
+                    $row->setField('translations.title', $entity->getTitleTranslations());
                 }
                 return $row;
             }
