@@ -52,13 +52,13 @@ class ArticleController extends Controller
                     $entity->setDefaultLocale($request->getDefaultLocale());
                     $doi = $entity->getDoi();
                     if ($doi !== null) {
-                        $row->setField('title', $entity->getTitle().' / '.$doi);
+                        $row->setField('translations.title', $entity->getTitleTranslations().' / '.$doi);
                     } else {
-                        $row->setField('title', $entity->getTitle());
+                        $row->setField('translations.title', $entity->getTitleTranslations());
                     }
                     $row->setField('status', $translator->trans(Article::$statuses[$entity->getStatus()]));
                     if (!is_null($entity->getIssue())) {
-                        $row->setField('issue', $entity->getIssue()->getTitle());
+                        $row->setField('issue.translations.title', $entity->getIssue()->getTitleTranslations());
                     }
                 }
 

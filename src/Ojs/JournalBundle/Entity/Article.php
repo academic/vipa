@@ -20,8 +20,8 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
- * @GRID\Source(columns="id, numerator, title, issue, journal.title, pubdate, status, section.title")
- * @GRID\Source(columns="id, numerator, status, title, journal.title", groups={"submission"})
+ * @GRID\Source(columns="id, numerator, translations.title, issue.translations.title, journal.title, pubdate, status, section.title", groupBy="id")
+ * @GRID\Source(columns="id, numerator, status, translations.title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
 class Article extends AbstractTranslatable implements JournalItemInterface
@@ -68,7 +68,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * Original article title
      * @var string
-     * @GRID\Column(title="title")
+     * @GRID\Column(title="title", field="translations.title", safe=false)
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -162,7 +162,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $languages;
     /**
      * @var Issue
-     * @GRID\Column(title="issue Title")
+     * @GRID\Column(title="issue Title", field="issue.translations.title", safe=false)
      */
     private $issue;
     /**
@@ -1132,6 +1132,21 @@ class Article extends AbstractTranslatable implements JournalItemInterface
         }else{
             return $this->translations->first()->getTitle();
         }
+    }
+
+    /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var ArticleTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
