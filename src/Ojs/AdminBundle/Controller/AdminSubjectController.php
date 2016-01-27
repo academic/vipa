@@ -46,8 +46,8 @@ class AdminSubjectController extends Controller
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
                 if (!is_null($entity)) {
-                    $row->setField('subject', $entity->getSubject());
-                    $row->setField('description', $entity->getDescription());
+                    $row->setField('translations.subject', $entity->getSubjectTranslations());
+                    $row->setField('translations.description', $entity->getDescriptionTranslations());
                 }
 
                 return $row;

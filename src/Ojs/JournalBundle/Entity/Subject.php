@@ -14,7 +14,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Subject
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,subject,description")
+ * @GRID\Source(columns="id,translations.subject,translations.description", groupBy="id")
  */
 class Subject extends AbstractTranslatable
 {
@@ -45,13 +45,13 @@ class Subject extends AbstractTranslatable
     /**
      * @var string
      * @Expose
-     * @GRID\Column(title="subject")
+     * @GRID\Column(title="subject", field="translations.subject", safe=false)
      */
     private $subject;
     /**
      * @var string
      * @Expose
-     * @GRID\Column(title="description")
+     * @GRID\Column(title="description", field="translations.description", safe=false)
      */
     private $description;
     /**
@@ -171,6 +171,23 @@ class Subject extends AbstractTranslatable
     public function getDescription()
     {
         return $this->translate()->getDescription();
+    }
+
+    /**
+     * Get description translations
+     *
+     * @return string
+     */
+    public function getDescriptionTranslations()
+    {
+        $titles = [];
+        /** @var SubjectTranslation $translation */
+        foreach($this->translations as $translation){
+            if(!empty($translation->getDescription())){
+                $titles[] = $translation->getDescription(). ' ['.$translation->getLocale().']';
+            }
+        }
+        return implode('<br>', $titles);
     }
 
     /**
@@ -349,6 +366,21 @@ class Subject extends AbstractTranslatable
         }else{
             return $this->translations->first()->getSubject();
         }
+    }
+
+    /**
+     * Get subject translations
+     *
+     * @return string
+     */
+    public function getSubjectTranslations()
+    {
+        $titles = [];
+        /** @var SubjectTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getSubject(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
