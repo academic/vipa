@@ -13,7 +13,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * ArticleTypes
- * @GRID\Source(columns="id,name,description")
+ * @GRID\Source(columns="id,translations.name,translations.description")
  * @ExclusionPolicy("all")
  */
 class ArticleTypes extends AbstractTranslatable
@@ -33,13 +33,13 @@ class ArticleTypes extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="name")
+     * @GRID\Column(title="name", field="translations.name", safe=false)
      * @Expose
      */
     private $name;
     /**
      * @var string
-     * @GRID\Column(title="description")
+     * @GRID\Column(title="description", field="translations.description", safe=false)
      * @Expose
      */
     private $description;
@@ -72,7 +72,22 @@ class ArticleTypes extends AbstractTranslatable
         return $this->translate()->getDescription();
     }
 
-    // Proxy getters and setters
+    /**
+     * Get description translations
+     *
+     * @return string
+     */
+    public function getDescriptionTranslations()
+    {
+        $titles = [];
+        /** @var ArticleTypesTranslation $translation */
+        foreach($this->translations as $translation){
+            if(!empty($translation->getDescription())){
+                $titles[] = $translation->getDescription(). ' ['.$translation->getLocale().']';
+            }
+        }
+        return implode('<br>', $titles);
+    }
 
     /**
      * Set description
@@ -134,6 +149,21 @@ class ArticleTypes extends AbstractTranslatable
     public function getName()
     {
         return $this->translate()->getName();
+    }
+
+    /**
+     * Get name translations
+     *
+     * @return string
+     */
+    public function getNameTranslations()
+    {
+        $titles = [];
+        /** @var ArticleTypesTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getName(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
