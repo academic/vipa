@@ -4,13 +4,14 @@ namespace Ojs\AdminBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\ThemeInterface;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * AdminJournalTheme
  * @GRID\Source(columns="id,title,public")
  */
-class AdminJournalTheme
+class AdminJournalTheme implements ThemeInterface
 {
     use GenericEntityTrait;
 

@@ -10,6 +10,7 @@ use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\CoreBundle\Annotation\Display;
 use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Entity\ThemeInterface;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\UserBundle\Entity\User;
 use OkulBilisim\LocationBundle\Entity\Country;
@@ -970,10 +971,10 @@ class Journal extends AbstractTranslatable
     /**
      * Set theme
      *
-     * @param  JournalTheme $theme
+     * @param  ThemeInterface $theme
      * @return Journal
      */
-    public function setTheme(JournalTheme $theme = null)
+    public function setTheme(ThemeInterface $theme = null)
     {
         $this->theme = $theme;
 
