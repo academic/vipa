@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * JournalPost
- * @GRID\Source(columns="id, title")
+ * @GRID\Source(columns="id, translations.title")
  */
 class JournalPost extends AbstractTranslatable implements JournalItemInterface
 {
@@ -31,7 +31,7 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="Title")
+     * @GRID\Column(title="Title", field="translations.title", safe=false)
      */
     private $title;
     /**
@@ -80,10 +80,25 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
     }
 
     /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var JournalPostTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
+    }
+
+    /**
      * Set title
      *
      * @param string $title
-     * @return Post
+     * @return $this
      */
     public function setTitle($title)
     {

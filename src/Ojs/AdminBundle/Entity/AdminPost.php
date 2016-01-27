@@ -108,7 +108,7 @@ class AdminPost extends AbstractTranslatable
     /**
      * Translation helper method
      * @param null $locale
-     * @return mixed|null|\Ojs\CmsBundle\Entity\PostTranslation
+     * @return mixed|null|\Ojs\JournalBundle\Entity\JournalPostTranslation
      */
     public function translate($locale = null)
     {
