@@ -41,8 +41,7 @@ class AdminPostController extends Controller
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
                 if (!is_null($entity)) {
-                    $row->setField('title', $entity->getTitle());
-                    $row->setField('content', $entity->getContent());
+                    $row->setField('translations.title', $entity->getTitleTranslations());
                 }
 
                 return $row;

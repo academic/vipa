@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * AdminPost
- * @GRID\Source(columns="id, title")
+ * @GRID\Source(columns="id, translations.title")
  */
 class AdminPost extends AbstractTranslatable
 {
@@ -28,7 +28,7 @@ class AdminPost extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="Title")
+     * @GRID\Column(title="Title", field="translations.title", safe=false)
      */
     private $title;
     /**
@@ -81,13 +81,28 @@ class AdminPost extends AbstractTranslatable
      * Set title
      *
      * @param string $title
-     * @return Post
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->translate()->setTitle($title);
 
         return $this;
+    }
+
+    /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var AdminPostTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
