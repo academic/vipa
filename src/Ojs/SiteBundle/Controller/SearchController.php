@@ -195,6 +195,7 @@ class SearchController extends Controller
              * manipulate result data for easily use on template
              */
             $results = $searchManager->buildResultsObject($resultData, $section);
+            $results = $searchManager->reOrderResultObjects($results);
             /**
              * if search section is not defined or empty redirect to first result section
              */

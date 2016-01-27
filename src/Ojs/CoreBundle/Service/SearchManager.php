@@ -99,6 +99,40 @@ class SearchManager
     }
 
     /**
+     * @param array $result
+     * @return array
+     */
+    public function reOrderResultObjects(array $result)
+    {
+        return $this->sortArrayByArray($result, $this->resultsOrderArray());
+    }
+
+    /**
+     * @return array
+     */
+    private function resultsOrderArray()
+    {
+        return ['journal', 'articles','author','user', 'issue', 'subject','publisher','page','citation'];
+    }
+
+    /**
+     * @param array $array
+     * @param array $orderArray
+     * @return array
+     */
+    private function sortArrayByArray(array $array, array $orderArray)
+    {
+        $ordered = array();
+        foreach($orderArray as $key) {
+            if(array_key_exists($key,$array)) {
+                $ordered[$key] = $array[$key];
+                unset($array[$key]);
+            }
+        }
+        return $ordered + $array;
+    }
+
+    /**
      * @param Result $object
      * @return mixed
      */
