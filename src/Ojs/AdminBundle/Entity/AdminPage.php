@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * AdminPage
- * @GRID\Source(columns="id, title")
+ * @GRID\Source(columns="id, translations.title")
  */
 class AdminPage extends AbstractTranslatable
 {
@@ -26,7 +26,7 @@ class AdminPage extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="title")
+     * @GRID\Column(title="title", field="translations.title", safe=false)
      */
     private $title;
     /**
@@ -68,6 +68,21 @@ class AdminPage extends AbstractTranslatable
     public function getTitle()
     {
         return $this->translate()->getTitle();
+    }
+
+    /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var AdminPageTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
@@ -128,7 +143,7 @@ class AdminPage extends AbstractTranslatable
      * Set body
      *
      * @param  string $body
-     * @return Page
+     * @return $this
      */
     public function setBody($body)
     {
