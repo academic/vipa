@@ -14,7 +14,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Issue
- * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
+ * @GRID\Source(columns="id,volume,number,translations.title,year,datePublished")
  * @JMS\ExclusionPolicy("all")
  */
 class Issue extends AbstractTranslatable implements JournalItemInterface
@@ -57,7 +57,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     private $number;
     /**
      * @var string
-     * @GRID\Column(title="title")
+     * @GRID\Column(title="title", field="translations.title", safe=false)
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
@@ -492,6 +492,21 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
         }else{
             return $this->translations->first()->getTitle();
         }
+    }
+
+    /**
+     * Get title translations
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var IssueTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
