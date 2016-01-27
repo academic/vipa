@@ -44,7 +44,7 @@ class AdminJournalController extends Controller
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('title', $entity->getTitle());
+                    $row->setField('translations.title', $entity->getTitleTranslations());
                     $row->setField('status', Journal::$statuses[$entity->getStatus()]);
                 }
 

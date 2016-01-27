@@ -19,7 +19,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Journal
  * @JMS\ExclusionPolicy("all")
- * @GRID\Source(columns="id,title,issn,eissn,status,publisher.name, translations.id,translations.title", groupBy="id")
+ * @GRID\Source(columns="id,translations.title,issn,eissn,status,publisher.name", groupBy="id")
  */
 class Journal extends AbstractTranslatable
 {
@@ -51,14 +51,13 @@ class Journal extends AbstractTranslatable
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalTranslation")
      * @Grid\Column(field="translations.id")
-     * @Grid\Column(field="translations.title")
      */
     protected $translations;
     /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
-     * @Grid\Column(title="Title", filterable=false)
+     * @Grid\Column(title="Title", field="translations.title", safe=false)
      */
     private $title;
     /**
@@ -147,7 +146,7 @@ class Journal extends AbstractTranslatable
     /**
      * @var integer
      * @JMS\Expose
-     * @Grid\Column(field="status", title="status",type="text", filterable=false)
+     * @Grid\Column(field="status", title="status",type="text")
      */
     private $status = 0;
     /**
@@ -1190,6 +1189,21 @@ class Journal extends AbstractTranslatable
         } else {
             return $this->translations->first()->getTitle();
         }
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitleTranslations()
+    {
+        $titles = [];
+        /** @var JournalTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getTitle(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
