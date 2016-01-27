@@ -40,8 +40,8 @@ class AdminContactTypeController extends Controller
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('name', $entity->getName());
-                    $row->setField('description', $entity->getDescription());
+                    $row->setField('translations.name', $entity->getNameTranslations());
+                    $row->setField('translations.description', $entity->getDescriptionTranslations());
                 }
 
                 return $row;
