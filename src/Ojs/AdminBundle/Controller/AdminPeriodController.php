@@ -37,11 +37,11 @@ class AdminPeriodController extends Controller
         $source = new Entity('OjsJournalBundle:Period');
         $source->manipulateRow(
             function (Row $row) use ($request) {
-                /* @var Journal $entity */
+                /* @var Period $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('period', $entity->getPeriod());
+                    $row->setField('translations.period', $entity->getPeriodTranslations());
                 }
 
                 return $row;

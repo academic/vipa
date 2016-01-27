@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Period
- * @GRID\Source(columns="id,period")
+ * @GRID\Source(columns="id,translations.period")
  */
 class Period extends AbstractTranslatable
 {
@@ -28,7 +28,7 @@ class Period extends AbstractTranslatable
     protected $translations;
     /**
      * @var string
-     * @GRID\Column(title="period")
+     * @GRID\Column(title="period", field="translations.period", safe=false)
      */
     private $period;
 
@@ -62,6 +62,21 @@ class Period extends AbstractTranslatable
     public function getPeriod()
     {
         return $this->translate()->getPeriod();
+    }
+
+    /**
+     * Get period translations
+     *
+     * @return string
+     */
+    public function getPeriodTranslations()
+    {
+        $titles = [];
+        /** @var PeriodTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getPeriod(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
