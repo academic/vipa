@@ -39,7 +39,7 @@ class AdminJournalApplicationController extends Controller
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
-                    $row->setField('title', $entity->getTitle());
+                    $row->setField('translations.title', $entity->getTitleTranslations());
                 }
                 return $row;
             }
