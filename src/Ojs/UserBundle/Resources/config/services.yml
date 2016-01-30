@@ -8,7 +8,7 @@ services:
       - { name: doctrine.event_listener, event: preSoftDelete }
   ojs_user.manager:
     class: Ojs\UserBundle\Manager\UserManager
-    arguments: ["@security.encoder_factory","@fos_user.util.username_canonicalizer","@fos_user.util.email_canonicalizer","@fos_user.entity_manager",'Ojs\UserBundle\Entity\User']
+    arguments: ["@security.encoder_factory","@fos_user.util.username_canonicalizer","@fos_user.util.email_canonicalizer","@fos_user.object_manager",'Ojs\UserBundle\Entity\User']
   ojs_form.register:
     class: Ojs\UserBundle\Form\Type\RegisterFormType
     tags:

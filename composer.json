@@ -53,7 +53,7 @@
     "friendsofsymfony/jsrouting-bundle": "^1.5",
     "jbouzekri/file-uploader-bundle": "dev-master",
     "norzechowicz/aceeditor-bundle": "0.1.*",
-    "friendsofsymfony/user-bundle": "dev-master",
+    "friendsofsymfony/user-bundle": "~2.0@dev",
     "hwi/oauth-bundle": "0.4.*@dev",
     "knplabs/knp-menu-bundle": "~2",
     "wikimedia/composer-merge-plugin": "^1.2",
