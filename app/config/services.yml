@@ -54,3 +54,5 @@ services:
     tags:
       -
         name: twig.extension
+  fos_user.doctrine_registry:
+     alias: doctrine
