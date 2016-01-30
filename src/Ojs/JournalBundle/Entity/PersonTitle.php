@@ -10,7 +10,7 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 
 /**
  * PersonTitle
- * @GRID\Source(columns="id, translations.title", groupBy="id")
+ * @GRID\Source(columns="id, translations.title")
  */
 class PersonTitle extends AbstractTranslatable
 {
