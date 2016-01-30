@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Section
- * @GRID\Source(columns="id,translations.title,allowIndex,hideTitle", groupBy="id")
+ * @GRID\Source(columns="id,translations.title,allowIndex,hideTitle")
  */
 class Section extends AbstractTranslatable implements JournalItemInterface
 {

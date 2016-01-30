@@ -20,7 +20,7 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
- * @GRID\Source(columns="id, numerator, translations.title, issue.translations.title, journal.title, pubdate, status, section.title", groupBy="id")
+ * @GRID\Source(columns="id, numerator, translations.title, issue.translations.title, journal.title, pubdate, status, section.title")
  * @GRID\Source(columns="id, numerator, status, translations.title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */

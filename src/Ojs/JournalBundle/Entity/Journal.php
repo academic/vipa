@@ -20,7 +20,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Journal
  * @JMS\ExclusionPolicy("all")
- * @GRID\Source(columns="id,translations.title,issn,eissn,status,publisher.name", groupBy="id")
+ * @GRID\Source(columns="id,translations.title,issn,eissn,status,publisher.name")
  */
 class Journal extends AbstractTranslatable
 {
