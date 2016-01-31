@@ -16,7 +16,7 @@ Read [the installation document](https://github.com/okulbilisim/ojs/tree/master/
 **Quick install command (WARNING: this will drop the database named 'ojs' if it exists on your server)**
 
 ```
-composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && mysql -u root -p -e "DROP DATABASE IF EXISTS ojs; CREATE DATABASE ojs;" && php app/console ojs:install && php app/console ojs:install:samples
+composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && php app/console doctrine:schema:drop --force && php app/console doctrine:schema:create && php app/console ojs:install && php app/console ojs:install:samples
 ```
 
 ## Donate
