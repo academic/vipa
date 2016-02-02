@@ -370,13 +370,13 @@
         <select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]" class="grid-filter-select-query-from form-control" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
             <option value="">&nbsp;</option>
             {% for key, value in column.values %}
-                <option value="{{ key }}"{% if key in from %} selected="selected"{% endif %}>{{ value }}</option>
+                <option value="{{ key }}"{% if key in from %} selected="selected"{% endif %}>{{ value|trans }}</option>
             {% endfor %}
         </select>
         <select name="{{ grid.hash }}[{{ column.id }}][to]" class="grid-filter-select-query-to" id="{{ grid.hash }}__{{ column.id }}__query__to" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
             <option value="">&nbsp;</option>
             {% for key, value in column.values %}
-                <option value="{{ key }}"{% if not to is null and to == key %} selected="selected"{% endif %}>{{ value }}</option>
+                <option value="{{ key }}"{% if not to is null and to == key %} selected="selected"{% endif %}>{{ value|trans }}</option>
             {% endfor %}
         </select>
         {% if multiple %}<input type="submit" value="{{ 'Go'|trans }}" />{% endif %}

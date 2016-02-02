@@ -48,6 +48,7 @@ class ArticleController extends Controller
             function (Row $row) use ($request, $translator) {
                 /** @var Article $entity */
                 $entity = $row->getEntity();
+
                 if (!is_null($entity)) {
                     $entity->setDefaultLocale($request->getDefaultLocale());
                     $doi = $entity->getDoi();
@@ -56,7 +57,6 @@ class ArticleController extends Controller
                     } else {
                         $row->setField('translations.title', $entity->getTitleTranslations());
                     }
-                    $row->setField('status', $translator->trans(Article::$statuses[$entity->getStatus()]));
                     if (!is_null($entity->getIssue())) {
                         $row->setField('issue.translations.title', $entity->getIssue()->getTitleTranslations());
                     }
