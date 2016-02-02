@@ -1448,6 +1448,8 @@ your.application.saved.successfully: 'Başvurunuz başarılı bir şekilde kayde
 title.institution_edit: 'Kurum düzenle'
 period.new: 'Yeni Periot'
 title.default_journal_theme_edit: 'Varsayılan Dergi Teması Düzenle'
+title.default_journal_theme_new: 'Yeni Varsayılan Dergi Teması'
+title.default_journal_theme_show: 'Varsayılan Dergi Teması Göster'
 add.user: 'Kullanıcı Ekle'
 deletion.remove_components_first: 'Lütfen önce bağlantılı ögeleri siliniz : %field%'
 numerator: 'Sayaç'
