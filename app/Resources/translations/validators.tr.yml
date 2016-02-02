@@ -17,3 +17,7 @@ abstract.field.for.default.lang.can.not.be.blank: 'Varsayılan dil için öz ala
 must.specify.least.one.article.file: 'En az 1 makale dosyası eklemelisiniz.'
 must.specify.least.one.article.author: 'En az 1 yazar eklemelisiniz.'
 must.specify.least.one.article.citation: 'En az 1 referans eklemelisiniz.'
+type.field.article.files.not.be.blank: 'Makale dosyası için tür alanı boş olmamalıdır.'
+language.field.article.files.not.be.blank: 'Makale dosyası için dil alanı boş olmamalıdır.'
+title.field.article.files.not.be.blank: 'Makale dosyası için başlık alanı boş olmamalıdır.'
+file.field.article.files.not.be.blank: 'Makale dosyası için file alanı boş olmamalıdır.'
