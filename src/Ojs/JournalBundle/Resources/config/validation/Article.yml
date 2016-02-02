@@ -1,11 +1,11 @@
 Ojs\JournalBundle\Entity\ArticleTranslation:
   properties:
     title:
-      - NotBlank: { groups: [submission], message: 'Title field for the default language can not be blank.' }
+      - NotBlank: { groups: [submission], message: 'title.field.for.default.lang.can.not.be.blank' }
     keywords:
-      - NotBlank: { groups: [submission], message: 'Keywords field for the default language can not be blank.' }
+      - NotBlank: { groups: [submission], message: 'keywords.field.for.default.lang.can.not.be.blank' }
     abstract:
-      - NotBlank: { groups: [submission], message: 'Abstract field for the default language can not be blank.' }
+      - NotBlank: { groups: [submission], message: 'abstract.field.for.default.lang.can.not.be.blank' }
 
 Ojs\JournalBundle\Entity\Article:
     properties:
@@ -17,7 +17,7 @@ Ojs\JournalBundle\Entity\Article:
                 groups: [submission]
                 min: 1
                 max: 1000
-                minMessage: "You must specify at least one article file"
+                minMessage: "must.specify.least.one.article.file"
                 maxMessage: "You cannot specify more than {{ limit }} article file"
         articleAuthors:
             - Valid: ~
@@ -25,7 +25,7 @@ Ojs\JournalBundle\Entity\Article:
                 groups: [submission]
                 min: 1
                 max: 1000
-                minMessage: "You must specify at least one author"
+                minMessage: "must.specify.least.one.article.author"
                 maxMessage: "You cannot specify more than {{ limit }} author"
         citations:
             - Valid: ~
@@ -33,7 +33,7 @@ Ojs\JournalBundle\Entity\Article:
                 groups: [submission]
                 min: 1
                 max: 1000
-                minMessage: "You must specify at least one citation"
+                minMessage: "must.specify.least.one.article.citation"
                 maxMessage: "You cannot specify more than {{ limit }} citation"
         status:
             - NotBlank: ~
