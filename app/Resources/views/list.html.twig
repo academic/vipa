@@ -403,6 +403,6 @@
         {% elseif value=="false" %}
             "✗"
         {% else %}
-        {{ value|raw }}
+        {{ value|raw|trans }}
     {% endif %}
 {% endblock %}
