@@ -7,6 +7,7 @@ use Ojs\CoreBundle\Annotation\Delete\DeleteParams;
 use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DeleteService
 {
@@ -19,6 +20,11 @@ class DeleteService
      * @var Reader
      */
     private $reader;
+
+    /**
+     * @var  TranslatorInterface
+     */
+    private $translator;
 
     /**
      * @var
@@ -39,11 +45,13 @@ class DeleteService
      * DeleteService constructor.
      * @param RegistryInterface $registry
      * @param Reader $reader
+     * @param TranslatorInterface $translator
      */
-    public function __construct(RegistryInterface $registry, Reader $reader )
+    public function __construct(RegistryInterface $registry, Reader $reader,TranslatorInterface $translator)
     {
         $this->em = $registry->getManager();
         $this->reader = $reader;
+        $this->translator = $translator;
     }
 
     /**
@@ -88,8 +96,10 @@ class DeleteService
             if(count($findRelations) > 0){
                 $hasRelationException = new HasRelationException();
                 $hasRelationException
-                    ->setErrorMessage(implode(',',$findRelations))
-                    ;
+                    ->setErrorMessage($this->translator->trans('deletion.remove_components_first', [
+                            '%field%' => implode(',',$findRelations)
+                        ]
+                    ));
                 throw $hasRelationException;
             }
         }
