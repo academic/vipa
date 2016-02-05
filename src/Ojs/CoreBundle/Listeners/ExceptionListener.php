@@ -2,7 +2,6 @@
 
 namespace Ojs\CoreBundle\Listeners;
 
-use Ojs\CoreBundle\Exception\EntityHasRelationException;
 use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
