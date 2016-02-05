@@ -140,12 +140,6 @@ services:
     arguments: ["@router", "@doctrine.orm.entity_manager"]
     tags: [{name: "presta.sitemap.listener"}]
 
-  #ojs.soft_delete_listener:
-  #  class: Ojs\CoreBundle\Listeners\SoftDeleteListener
-  #  tags:
-  #    - { name: doctrine.event_listener, event: preSoftDelete }
-  #    - { name: doctrine.event_listener, event: preRemove }
-
   app.exception_listener:
     class: Ojs\CoreBundle\Listeners\ExceptionListener
     arguments: ["@router", "@session", "@translator", "@request_stack"]

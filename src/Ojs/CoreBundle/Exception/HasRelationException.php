@@ -2,7 +2,6 @@
 
 namespace Ojs\CoreBundle\Exception;
 
-
 class HasRelationException extends \Exception
 {
     private $entityName;
@@ -10,6 +9,8 @@ class HasRelationException extends \Exception
     private $entity;
 
     private $mapping;
+
+    private $errorMessage;
 
     /**
      * @return mixed
@@ -64,6 +65,25 @@ class HasRelationException extends \Exception
     public function setMapping($mapping)
     {
         $this->mapping = $mapping;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
+    }
+
+    /**
+     * @param $errorMessage
+     * @return $this
+     */
+    public function setErrorMessage($errorMessage)
+    {
+        $this->errorMessage = $errorMessage;
 
         return $this;
     }

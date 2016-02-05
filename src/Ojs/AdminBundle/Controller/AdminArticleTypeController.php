@@ -253,21 +253,22 @@ class AdminArticleTypeController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $deleteService = $this->get('ojs_core.delete.service');
         $entity = $em->getRepository('OjsJournalBundle:ArticleTypes')->find($id);
         if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
-
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_article_type'.$id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $deleteService->check($entity);
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl('ojs_admin_article_type_index'));
+        return $this->redirectToRoute('ojs_admin_article_type_index');
     }
 }

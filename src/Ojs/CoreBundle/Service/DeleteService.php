@@ -2,16 +2,16 @@
 
 namespace Ojs\CoreBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Annotation\Delete\DeleteParams;
+use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Annotations\Reader;
 
 class DeleteService
 {
     /**
-     * @var  EntityManager
+     * @var EntityManager
      */
     protected $em;
 
@@ -74,6 +74,7 @@ class DeleteService
 
     /**
      * @return bool
+     * @throws HasRelationException
      */
     private function checkUse()
     {
@@ -85,9 +86,12 @@ class DeleteService
                 $usage['field'] => $this->entity
             ]);
             if(count($findRelations) > 0){
-                echo implode(',',$findRelations);
+                $hasRelationException = new HasRelationException();
+                $hasRelationException
+                    ->setErrorMessage(implode(',',$findRelations))
+                    ;
+                throw $hasRelationException;
             }
         }
-        exit();
     }
 }
