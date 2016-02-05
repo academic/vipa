@@ -10,11 +10,13 @@ use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use Ojs\CoreBundle\Annotation\Delete\DeleteParams;
 
 /**
  * ArticleTypes
- * @GRID\Source(columns="id,translations.name,translations.description")
+ * @GRID\Source(columns="id,translations.name,translations.description", groupBy="id")
  * @ExclusionPolicy("all")
+ * @DeleteParams(checkUse={"OjsJournalBundle:Article"={"field"="articleType"}})
  */
 class ArticleTypes extends AbstractTranslatable
 {

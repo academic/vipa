@@ -11,7 +11,12 @@ class DeleteParams
     /**
      * @var boolean
      */
-    private $hardDelete;
+    private $hardDelete = false;
+
+    /**
+     * @var array
+     */
+    private $checkUse = array();
 
     public function __construct($options)
     {
@@ -30,5 +35,13 @@ class DeleteParams
     public function getHardDelete()
     {
         return $this->hardDelete;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCheckUse()
+    {
+        return $this->checkUse;
     }
 }
