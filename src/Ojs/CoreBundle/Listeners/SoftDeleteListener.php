@@ -26,7 +26,7 @@ class SoftDeleteListener
 
     public function preSoftDelete(LifecycleEventArgs $args)
     {
-        $this->checkRelations($args);
+        //$this->checkRelations($args);
     }
 
     protected function checkRelations(LifecycleEventArgs $args)
@@ -69,6 +69,7 @@ class SoftDeleteListener
 
     public function preRemove(LifecycleEventArgs $args)
     {
-        $this->checkRelations($args);
+        return$args;
+        //$this->checkRelations($args);
     }
 }

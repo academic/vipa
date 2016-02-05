@@ -131,16 +131,20 @@ services:
     class: Ojs\CoreBundle\Service\AclFixer
     arguments: ["@doctrine", "@problematic.acl_manager"]
 
+  ojs_core.delete.service:
+    class: Ojs\CoreBundle\Service\DeleteService
+    arguments: ["@doctrine", "@annotation_reader"]
+
   ojs_core.sitemap.listener:
     class: "%ojs_core.sitemap.listener.class%"
     arguments: ["@router", "@doctrine.orm.entity_manager"]
     tags: [{name: "presta.sitemap.listener"}]
 
-  ojs.soft_delete_listener:
-    class: Ojs\CoreBundle\Listeners\SoftDeleteListener
-    tags:
-      - { name: doctrine.event_listener, event: preSoftDelete }
-      - { name: doctrine.event_listener, event: preRemove }
+  #ojs.soft_delete_listener:
+  #  class: Ojs\CoreBundle\Listeners\SoftDeleteListener
+  #  tags:
+  #    - { name: doctrine.event_listener, event: preSoftDelete }
+  #    - { name: doctrine.event_listener, event: preRemove }
 
   app.exception_listener:
     class: Ojs\CoreBundle\Listeners\ExceptionListener
