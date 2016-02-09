@@ -64,6 +64,7 @@ class AdminController extends Controller
         if ($this->isGranted('VIEW', new Journal())) {
             return $this->render('OjsAdminBundle:Admin:stats.html.twig', $this->createStats());
         }
+        throw new AccessDeniedException("You not authorized for this page!");
     }
 
     private function createStats()
