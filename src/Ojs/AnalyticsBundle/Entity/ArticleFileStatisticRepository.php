@@ -61,6 +61,12 @@ class ArticleFileStatisticRepository extends EntityRepository
         return $builder->getQuery()->getResult();
     }
 
+    /**
+     * @param $articles
+     * @param null $dates
+     * @param null $limit
+     * @return array
+     */
     public function getMostDownloadedFiles($articles, $dates = null, $limit = null)
     {
         $builder = $this->createQueryBuilder('stat');

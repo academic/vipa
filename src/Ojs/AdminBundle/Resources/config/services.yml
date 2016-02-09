@@ -4,3 +4,7 @@ services:
     arguments: ["@router", "@doctrine.orm.entity_manager", "@ojs_mailer"]
     tags:
       - { name: kernel.event_subscriber }
+
+  ojs.graph.data.generator:
+    class: Ojs\AnalyticsBundle\Utils\GraphDataGenerator
+    arguments: ["@doctrine.orm.entity_manager"]

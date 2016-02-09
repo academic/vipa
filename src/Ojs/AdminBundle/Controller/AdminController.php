@@ -68,7 +68,7 @@ class AdminController extends Controller
 
     private function createStats()
     {
-        $generator = new GraphDataGenerator($this->getDoctrine()->getManager());
+        $generator = $this->get('ojs.graph.data.generator');
         $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
 
         $lastMonth = ['x'];
