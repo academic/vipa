@@ -14,7 +14,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Subject
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,translations.subject,translations.description", groupBy="id")
+ * @GRID\Source(columns="id,translations.subject,translations.description")
  */
 class Subject extends AbstractTranslatable
 {
