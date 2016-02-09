@@ -32,16 +32,21 @@ class CacheAdminStaticsCommand extends ContainerAwareCommand
         $generator = $container->get('ojs.graph.data.generator');
         $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
 
+        $output->writeln('get all journals finished');
         $lastMonth = ['x'];
         for($i = 0; $i < 30; $i++) {
             $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
         }
-
+        $output->writeln('set all times');
         $slicedLastMonth = array_slice($lastMonth, 1);
+
+        $output->writeln('slice times');
 
         $articles = $em
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['journal' => $journals]);
+        $output->writeln('get articles');
+
 
         $issues = $em
             ->getRepository('OjsJournalBundle:Issue')
