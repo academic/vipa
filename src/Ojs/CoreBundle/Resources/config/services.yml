@@ -145,3 +145,8 @@ services:
     arguments: ["@router", "@session", "@translator", "@request_stack"]
     tags:
         - { name: kernel.event_listener, event: kernel.exception }
+
+  #Look {http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/caching.html}
+  file_cache:
+      class: Doctrine\Common\Cache\FilesystemCache
+      arguments: ['%kernel.cache_dir%']

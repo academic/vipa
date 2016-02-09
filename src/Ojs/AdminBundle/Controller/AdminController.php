@@ -61,54 +61,13 @@ class AdminController extends Controller
      */
     public function statsAction()
     {
-        if ($this->isGranted('VIEW', new Journal())) {
-            return $this->render('OjsAdminBundle:Admin:stats.html.twig', $this->createStats());
+        if (!$this->isGranted('VIEW', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
         }
-        throw new AccessDeniedException("You not authorized for this page!");
-    }
-
-    private function createStats()
-    {
-        $generator = $this->get('ojs.graph.data.generator');
-        $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
-
-        $lastMonth = ['x'];
-        for($i = 0; $i < 30; $i++) {
-            $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
+        $cache = $this->get('file_cache');
+        if(!$cache->contains('admin_statics')){
+            return new Response('page.not.available.for.now');
         }
-
-        $slicedLastMonth = array_slice($lastMonth, 1);
-
-        $articles = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:Article')
-            ->findBy(['journal' => $journals]);
-
-        $issues = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:Issue')
-            ->findBy(['journal' => $journals]);
-
-        $json = [
-            'dates' => $lastMonth,
-            'journalViews' => $generator->generateJournalBarChartData($journals, $slicedLastMonth),
-            'articleViews' => $generator->generateArticleBarChartData($articles, $slicedLastMonth),
-            'issueFileDownloads' => $generator->generateIssueFilePieChartData($issues, $slicedLastMonth),
-            'articleFileDownloads' => $generator->generateArticleFilePieChartData($articles, $slicedLastMonth),
-        ];
-
-        $data = [
-            'stats' => json_encode($json),
-            'journals' => $generator->generateJournalViewsData($journals),
-            'articles' => $generator->generateArticleViewsData($articles),
-            'issueFiles' => $generator->generateIssueFileDownloadsData($issues),
-            'articleFiles' => $generator->generateArticleFileDownloadsData($issues),
-            'journalsMonthly' => $generator->generateJournalViewsData($journals, $slicedLastMonth),
-            'articlesMonthly' => $generator->generateArticleViewsData($articles, $slicedLastMonth),
-            'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($issues, $slicedLastMonth),
-            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($articles, $slicedLastMonth),
-        ];
-
-        return $data;
+        return $this->render('OjsAdminBundle:Admin:stats.html.twig', $cache->fetch('admin_statics'));
     }
 }
