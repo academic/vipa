@@ -788,6 +788,7 @@ label.required:before {
 
 .page-header {
     border-color: #777;
+    margin: 40px 0 20px -15px;
 }
 
 .publisher {
