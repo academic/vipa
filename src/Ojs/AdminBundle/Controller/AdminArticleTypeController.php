@@ -31,16 +31,22 @@ class AdminArticleTypeController extends Controller
         if (!$this->isGranted('VIEW', new ArticleTypes())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:ArticleTypes');
         $source->manipulateRow(
-            function (Row $row) use ($request)
+            function (Row $row) use ($request, $cache)
             {
                 /* @var ArticleTypes $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if(!is_null($entity)){
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
                         $row->setField('translations.name', $entity->getNameTranslations());
                         $row->setField('translations.description', $entity->getDescriptionTranslations());
+                    }
                 }
                 return $row;
             }
