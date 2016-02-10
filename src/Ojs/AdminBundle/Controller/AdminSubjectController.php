@@ -37,17 +37,21 @@ class AdminSubjectController extends Controller
         if (!$this->isGranted('VIEW', new Subject())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $cache = $this->get('array_cache');
         $source = new Entity("OjsJournalBundle:Subject");
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $cache) {
                 /* @var Subject $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-
                 if (!is_null($entity)) {
-                    $row->setField('translations.subject', $entity->getSubjectTranslations());
-                    $row->setField('translations.description', $entity->getDescriptionTranslations());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('translations.subject', $entity->getSubjectTranslations());
+                        $row->setField('translations.description', $entity->getDescriptionTranslations());
+                    }
                 }
 
                 return $row;
