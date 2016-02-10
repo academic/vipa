@@ -44,15 +44,20 @@ class IssueController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
-
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Issue');
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $cache) {
                 /** @var Issue $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('translations.title', $entity->getTitleTranslations());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('translations.title', $entity->getTitleTranslations());
+                    }
                 }
 
                 return $row;
