@@ -14,7 +14,7 @@ use Ojs\CoreBundle\Annotation\Delete\DeleteParams;
 
 /**
  * ArticleTypes
- * @GRID\Source(columns="id,translations.name,translations.description", groupBy="id")
+ * @GRID\Source(columns="id,translations.name,translations.description")
  * @ExclusionPolicy("all")
  * @DeleteParams(checkUse={"OjsJournalBundle:Article"={"field"="articleType"}})
  */
