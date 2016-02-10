@@ -7,10 +7,12 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Annotation\Delete\DeleteParams;
 
 /**
  * PersonTitle
  * @GRID\Source(columns="id, translations.title")
+ * @DeleteParams(checkUse={"OjsJournalBundle:JournalContact"={"field"="title"}})
  */
 class PersonTitle extends AbstractTranslatable
 {

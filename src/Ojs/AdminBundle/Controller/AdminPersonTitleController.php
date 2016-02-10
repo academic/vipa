@@ -292,6 +292,7 @@ class AdminPersonTitleController extends OjsController
         if (!$this->isGranted('DELETE', new PersonTitle())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $deleteService = $this->get('ojs_core.delete.service');
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:PersonTitle')->find($id);
@@ -307,6 +308,7 @@ class AdminPersonTitleController extends OjsController
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token not found!");
         }
+        $deleteService->check($entity);
 
         $em->remove($entity);
         $em->flush();
