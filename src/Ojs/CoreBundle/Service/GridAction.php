@@ -304,7 +304,7 @@ class GridAction
          */
             function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route) {
                 $route = str_replace('_delete', '', $route);
-                $token = $csrfTokenManager->refreshToken($route.$row->getPrimaryFieldValue());
+                $token = $csrfTokenManager->getToken($route.$row->getPrimaryFieldValue());
                 $action->setAttributes(
                     [
                         'class' => 'btn btn-danger btn-xs delete',
