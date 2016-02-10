@@ -32,15 +32,20 @@ class AdminPersonTitleController extends OjsController
         if (!$this->isGranted('VIEW', new PersonTitle())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:PersonTitle');
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $cache) {
                 /* @var PersonTitle $entity */
                 $entity = $row->getEntity();
                 if (!is_null($entity)) {
-                    $entity->setDefaultLocale($request->getDefaultLocale());
-                    $row->setField('translations.title', $entity->getTitleTranslations());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $entity->setDefaultLocale($request->getDefaultLocale());
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('translations.title', $entity->getTitleTranslations());
+                    }
                 }
                 return $row;
             }
