@@ -150,3 +150,6 @@ services:
   file_cache:
       class: Doctrine\Common\Cache\FilesystemCache
       arguments: ['%kernel.cache_dir%']
+
+  array_cache:
+      class: Doctrine\Common\Cache\ArrayCache
