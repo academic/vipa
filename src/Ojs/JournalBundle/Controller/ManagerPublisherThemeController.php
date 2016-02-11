@@ -315,10 +315,11 @@ class ManagerPublisherThemeController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $this->get('ojs_core.delete.service')->check($entity);
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        return $this->redirectToRoute('ojs_publisher_manager_theme_index');
+        return $this->redirectToRoute('ojs_publisher_manager_theme_index', ['publisherId' => $publisherId]);
     }
 }
