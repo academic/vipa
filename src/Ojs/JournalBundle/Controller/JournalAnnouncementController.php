@@ -328,6 +328,7 @@ class JournalAnnouncementController extends OjsController
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token not found!");
         }
+        $this->get('ojs_core.delete.service')->check($entity);
 
         $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(JournalAnnouncementEvents::PRE_DELETE, $event);
