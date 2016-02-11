@@ -145,10 +145,15 @@ class DeleteService
                 $usage['field'] => $this->entity
             ]);
             if(count($findRelations) > 0){
+                $relationStrings = [];
+                foreach($findRelations as $relation){
+                    $relationRefl = new \ReflectionClass($relation);
+                    $relationStrings[] = (string)$relation.'('.$relationRefl->getShortName().')';
+                }
                 $hasRelationException = new HasRelationException();
                 $hasRelationException
                     ->setErrorMessage($this->translator->trans('deletion.remove_components_first', [
-                            '%field%' => implode(',',$findRelations)
+                            '%field%' => implode(',',$relationStrings)
                         ]
                     ));
                 throw $hasRelationException;

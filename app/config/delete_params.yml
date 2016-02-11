@@ -17,3 +17,10 @@ Ojs\JournalBundle\Entity\Index:
   checkUse:
     'OjsJournalBundle:JournalIndex':
       field: index
+
+Ojs\JournalBundle\Entity\PublisherTypes:
+  checkUse:
+    'OjsJournalBundle:Publisher':
+      field: publisherType
+    'OjsJournalBundle:Institution':
+      field: institutionType
