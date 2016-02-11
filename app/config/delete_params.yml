@@ -7,3 +7,8 @@ Ojs\JournalBundle\Entity\PersonTitle:
   checkUse:
     'OjsJournalBundle:JournalContact':
       field: title
+
+Ojs\JournalBundle\Entity\PublisherTheme:
+  checkUse:
+    'OjsJournalBundle:Publisher':
+      field: theme
