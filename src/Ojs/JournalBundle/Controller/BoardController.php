@@ -379,6 +379,7 @@ class BoardController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $this->get('ojs_core.delete.service')->check($entity);
 
         $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(BoardEvents::PRE_DELETE, $event);

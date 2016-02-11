@@ -34,3 +34,8 @@ Ojs\JournalBundle\Entity\ContactTypes:
   checkUse:
     'OjsJournalBundle:JournalContact':
       field: contactType
+
+Ojs\JournalBundle\Entity\Board:
+  checkUse:
+    'Ojs\JournalBundle\Entity\BoardMember':
+      field: board
