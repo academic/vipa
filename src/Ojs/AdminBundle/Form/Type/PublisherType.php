@@ -95,7 +95,7 @@ class PublisherType extends AbstractType
                 'theme',
                 'entity',
                 array(
-                    'label' => 'theme',
+                    'label' => 'publisher.theme',
                     'class' => 'Ojs\JournalBundle\Entity\PublisherTheme',
                     'property' => 'title',
                     'multiple' => false,
