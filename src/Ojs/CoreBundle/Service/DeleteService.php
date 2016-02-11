@@ -99,7 +99,7 @@ class DeleteService
     private function setupReflClass()
     {
         $this->entityReflClass = new \ReflectionClass($this->entity);
-        $this->entityName = $this->entityReflClass->getName();
+        $this->entityName = $this->em->getClassMetadata(get_class($this->entity))->getName();
     }
 
     /**
