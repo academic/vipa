@@ -18,11 +18,6 @@ class MailTemplate implements Translatable, JournalItemInterface
     use GenericEntityTrait;
 
     /**
-     * @var ArrayCollection|Lang[]
-     * @GRID\Column(title="mailtemplate.languages",field="languages.code",type="array")
-     */
-    protected $languages;
-    /**
      * @var integer
      * @GRID\Column(title="ID")
      */
@@ -53,7 +48,6 @@ class MailTemplate implements Translatable, JournalItemInterface
 
     public function __construct()
     {
-        $this->languages = new ArrayCollection();
     }
 
     /**
