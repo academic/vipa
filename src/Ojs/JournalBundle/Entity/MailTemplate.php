@@ -173,38 +173,6 @@ class MailTemplate implements Translatable, JournalItemInterface
         return $this;
     }
 
-    /**
-     * Add languages
-     *
-     * @param  Lang         $languages
-     * @return MailTemplate
-     */
-    public function addLanguage(Lang $languages)
-    {
-        $this->languages[] = $languages;
-
-        return $this;
-    }
-
-    /**
-     * Remove languages
-     *
-     * @param Lang $languages
-     */
-    public function removeLanguage(Lang $languages)
-    {
-        $this->languages->removeElement($languages);
-    }
-
-    /**
-     * Get languages
-     *
-     * @return Collection
-     */
-    public function getLanguages()
-    {
-        return $this->languages;
-    }
 
     /**
      * Set created
