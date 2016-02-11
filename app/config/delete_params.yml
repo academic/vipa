@@ -13,6 +13,11 @@ Ojs\JournalBundle\Entity\PublisherTheme:
     'OjsJournalBundle:Publisher':
       field: theme
 
+Ojs\JournalBundle\Entity\PublisherDesign:
+  checkUse:
+    'OjsJournalBundle:Publisher':
+      field: design
+
 Ojs\JournalBundle\Entity\Index:
   checkUse:
     'OjsJournalBundle:JournalIndex':
