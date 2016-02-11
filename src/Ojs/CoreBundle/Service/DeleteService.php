@@ -138,7 +138,6 @@ class DeleteService
     private function checkUse()
     {
         if(!count($this->checkUse)){
-            var_dump($this->checkUse);exit();
             return true;
         }
         foreach($this->checkUse as $entityName => $usage){
