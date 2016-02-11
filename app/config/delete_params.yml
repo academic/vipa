@@ -24,3 +24,8 @@ Ojs\JournalBundle\Entity\PublisherTypes:
       field: publisherType
     'OjsJournalBundle:Institution':
       field: institutionType
+
+Ojs\JournalBundle\Entity\JournalTheme:
+  checkUse:
+    'OjsJournalBundle:Journal':
+      field: theme
