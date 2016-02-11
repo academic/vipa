@@ -12,3 +12,8 @@ Ojs\JournalBundle\Entity\PublisherTheme:
   checkUse:
     'OjsJournalBundle:Publisher':
       field: theme
+
+Ojs\JournalBundle\Entity\Index:
+  checkUse:
+    'OjsJournalBundle:JournalIndex':
+      field: index
