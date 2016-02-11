@@ -8,6 +8,7 @@ use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Yaml\Parser;
 
 class DeleteService
 {
@@ -22,6 +23,16 @@ class DeleteService
     private $reader;
 
     /**
+     * @var \ReflectionClass
+     */
+    private $entityReflClass;
+
+    /**
+     * @var string
+     */
+    private $entityName;
+
+    /**
      * @var  TranslatorInterface
      */
     private $translator;
@@ -32,6 +43,20 @@ class DeleteService
     private $entity;
 
     /**
+     * @var string
+     */
+    private $rootDir;
+
+    /**
+     * @var Parser
+     */
+    private $yaml;
+
+    /**
+     * @var array
+     */
+    private $deleteParams = [];
+    /**
      * @var bool
      */
     private $hardDelete = false;
@@ -39,7 +64,7 @@ class DeleteService
     /**
      * @var array
      */
-    private $checkUse = array();
+    private $checkUse = [];
 
     /**
      * DeleteService constructor.
@@ -47,11 +72,13 @@ class DeleteService
      * @param Reader $reader
      * @param TranslatorInterface $translator
      */
-    public function __construct(RegistryInterface $registry, Reader $reader,TranslatorInterface $translator)
+    public function __construct(RegistryInterface $registry, Reader $reader,TranslatorInterface $translator, $rootDir)
     {
         $this->em = $registry->getManager();
         $this->reader = $reader;
         $this->translator = $translator;
+        $this->yaml = new Parser();
+        $this->rootDir = $rootDir;
     }
 
     /**
@@ -60,8 +87,19 @@ class DeleteService
     public function check($entity)
     {
         $this->entity = $entity;
+        $this->setupReflClass();
+        $this->setupYamlOptions();
         $this->setupAnnotationOptions();
         $this->checkUse();
+    }
+
+    /**
+     * return void
+     */
+    private function setupReflClass()
+    {
+        $this->entityReflClass = new \ReflectionClass($this->entity);
+        $this->entityName = $this->entityReflClass->getName();
     }
 
     /**
@@ -69,9 +107,8 @@ class DeleteService
      */
     private function setupAnnotationOptions()
     {
-        $reflClass = new \ReflectionClass($this->entity);
         /** @var DeleteParams $deleteAnnotation */
-        $deleteAnnotation = $this->reader->getClassAnnotation($reflClass, 'Ojs\\CoreBundle\\Annotation\\Delete\\DeleteParams');
+        $deleteAnnotation = $this->reader->getClassAnnotation($this->entityReflClass, 'Ojs\\CoreBundle\\Annotation\\Delete\\DeleteParams');
         if($deleteAnnotation == null){
             return false;
         }
@@ -82,11 +119,26 @@ class DeleteService
 
     /**
      * @return bool
+     */
+    private function setupYamlOptions()
+    {
+        $getDeleteParams = $this->yaml->parse(file_get_contents($this->rootDir.'/config/delete_params.yml'));
+        if(!key_exists($this->entityName, $getDeleteParams)){
+            return;
+        }
+        $this->deleteParams = $getDeleteParams[$this->entityName];
+        $this->hardDelete = isset($this->deleteParams['hardDelete'])? true: false;
+        $this->checkUse = isset($this->deleteParams['checkUse'])? $this->deleteParams['checkUse']: $this->checkUse;
+    }
+
+    /**
+     * @return bool
      * @throws HasRelationException
      */
     private function checkUse()
     {
         if(!count($this->checkUse)){
+            var_dump($this->checkUse);exit();
             return true;
         }
         foreach($this->checkUse as $entityName => $usage){

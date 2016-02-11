@@ -1,0 +1,9 @@
+Ojs\JournalBundle\Entity\ArticleTypes:
+  checkUse:
+    'OjsJournalBundle:Article':
+      field: articleType
+
+Ojs\JournalBundle\Entity\PersonTitle:
+  checkUse:
+    'OjsJournalBundle:JournalContact':
+      field: title
