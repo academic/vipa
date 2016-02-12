@@ -127,7 +127,7 @@ class DeleteService
             return;
         }
         $this->deleteParams = $getDeleteParams[$this->entityName];
-        $this->hardDelete = isset($this->deleteParams['hardDelete'])? true: false;
+        $this->hardDelete = isset($this->deleteParams['hardDelete'])? true: $this->hardDelete;
         $this->checkUse = isset($this->deleteParams['checkUse'])? $this->deleteParams['checkUse']: $this->checkUse;
     }
 
@@ -140,15 +140,13 @@ class DeleteService
         if(!count($this->checkUse)){
             return true;
         }
-        foreach($this->checkUse as $entityName => $usage){
-            $findRelations = $this->em->getRepository($entityName)->findBy([
-                $usage['field'] => $this->entity
-            ]);
+        foreach($this->checkUse as $usage){
+            $findRelations = $this->findRelations($usage);
             if(count($findRelations) > 0){
                 $relationStrings = [];
                 foreach($findRelations as $relation){
                     $relationRefl = new \ReflectionClass($relation);
-                    $relationStrings[] = (string)$relation.'('.$relationRefl->getShortName().')';
+                    $relationStrings[] = (string)$relation.'['.$relationRefl->getShortName().'-'.$usage['field'].']';
                 }
                 $hasRelationException = new HasRelationException();
                 $hasRelationException
@@ -159,5 +157,27 @@ class DeleteService
                 throw $hasRelationException;
             }
         }
+    }
+
+    /**
+     * @param array $usage
+     * @return array
+     */
+    private function findRelations($usage)
+    {
+        if(isset($usage['type']) && $usage['type'] == 'm2m'){
+            $repo = $this->em->getRepository($usage['entityName']);
+            $qb = $repo->createQueryBuilder('a');
+            $qb
+                ->andWhere(':entity MEMBER OF a.'.$usage['field'])
+                ->setParameter('entity', $this->entity)
+            ;
+            $findRelations = $qb->getQuery()->getResult();
+        }else{
+            $findRelations = $this->em->getRepository($usage['entityName'])->findBy([
+                $usage['field'] => $this->entity
+            ]);
+        }
+        return $findRelations;
     }
 }
