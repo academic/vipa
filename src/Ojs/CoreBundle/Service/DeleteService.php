@@ -146,7 +146,7 @@ class DeleteService
                 $relationStrings = [];
                 foreach($findRelations as $relation){
                     $relationRefl = new \ReflectionClass($relation);
-                    $relationStrings[] = (string)$relation.'['.$relationRefl->getShortName().'-'.$usage['field'].']';
+                    $relationStrings[] = (string)$relation.'['.$relationRefl->getShortName().'-'.$usage['field'].'#'.$relation->getId().']';
                 }
                 $hasRelationException = new HasRelationException();
                 $hasRelationException

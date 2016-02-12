@@ -50,3 +50,9 @@ Ojs\JournalBundle\Entity\Subject:
     - { entityName: 'OjsJournalBundle:Journal', field: subjects, type: m2m}
     - { entityName: 'OjsUserBundle:User', field: subjects, type: m2m}
     - { entityName: 'OjsJournalBundle:Subject', field: parent}
+
+Ojs\JournalBundle\Entity\Institution:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Author', field: institution}
+    - { entityName: 'OjsJournalBundle:JournalContact', field: institution}
+    - { entityName: 'OjsJournalBundle:Institution', field: parent}
