@@ -3,7 +3,6 @@
 namespace Ojs\CoreBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\CoreBundle\Annotation\Delete\DeleteParams;
 use Ojs\CoreBundle\Exception\HasRelationException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\Common\Annotations\Reader;
@@ -56,6 +55,12 @@ class DeleteService
      * @var array
      */
     private $deleteParams = [];
+
+    /**
+     * @var array
+     */
+    private $allOptions = [];
+
     /**
      * @var bool
      */
@@ -72,18 +77,24 @@ class DeleteService
     private $preDelete = [];
 
     /**
+     * @var array
+     */
+    private $bundles = [];
+
+    /**
      * DeleteService constructor.
      * @param RegistryInterface $registry
      * @param Reader $reader
      * @param TranslatorInterface $translator
      */
-    public function __construct(RegistryInterface $registry, Reader $reader,TranslatorInterface $translator, $rootDir)
+    public function __construct(RegistryInterface $registry, Reader $reader,TranslatorInterface $translator, $rootDir, $bundles)
     {
         $this->em = $registry->getManager();
         $this->reader = $reader;
         $this->translator = $translator;
         $this->yaml = new Parser();
         $this->rootDir = $rootDir;
+        $this->bundles = $bundles;
     }
 
     /**
@@ -93,6 +104,7 @@ class DeleteService
     {
         $this->entity = $entity;
         $this->setupReflClass();
+        $this->loadAllOptions();
         $this->setupYamlOptions();
         $this->checkUse();
         $this->preDelete();
@@ -110,13 +122,30 @@ class DeleteService
     /**
      * @return bool
      */
+    private function loadAllOptions()
+    {
+        $getBaseDeleteParams = $this->yaml->parse(file_get_contents($this->rootDir.'/config/delete_params.yml'));
+        $this->allOptions = $getBaseDeleteParams;
+        foreach($this->bundles as $bundle => $class){
+            $reflection = new \ReflectionClass($class);
+            if (file_exists($deleteParamsFile = dirname($reflection->getFilename()).'/Resources/config/delete_params.yml')) {
+                $parseYamlContent = $this->yaml->parse(file_get_contents($deleteParamsFile));
+                if(is_array($parseYamlContent)){
+                    $this->allOptions = array_merge($this->allOptions, $parseYamlContent);
+                }
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
     private function setupYamlOptions()
     {
-        $getDeleteParams = $this->yaml->parse(file_get_contents($this->rootDir.'/config/delete_params.yml'));
-        if(!key_exists($this->entityName, $getDeleteParams)){
+        if(!key_exists($this->entityName, $this->allOptions)){
             return;
         }
-        $this->deleteParams = $getDeleteParams[$this->entityName];
+        $this->deleteParams = $this->allOptions[$this->entityName];
         $this->hardDelete = isset($this->deleteParams['hardDelete'])? true: $this->hardDelete;
         $this->checkUse = isset($this->deleteParams['checkUse'])? $this->deleteParams['checkUse']: $this->checkUse;
         $this->preDelete = isset($this->deleteParams['preDelete'])? $this->deleteParams['preDelete']: $this->preDelete;
