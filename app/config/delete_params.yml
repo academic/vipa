@@ -40,3 +40,7 @@ Ojs\JournalBundle\Entity\Lang:
     - { entityName: 'OjsJournalBundle:Journal', field: mandatoryLang}
     - { entityName: 'OjsJournalBundle:Journal', field: languages, type: m2m}
     - { entityName: 'OjsJournalBundle:Article', field: languages, type: m2m}
+
+Ojs\JournalBundle\Entity\Period:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: periods, type: m2m}
