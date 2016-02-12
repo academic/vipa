@@ -56,3 +56,8 @@ Ojs\JournalBundle\Entity\Institution:
     - { entityName: 'OjsJournalBundle:Author', field: institution}
     - { entityName: 'OjsJournalBundle:JournalContact', field: institution}
     - { entityName: 'OjsJournalBundle:Institution', field: parent}
+
+Ojs\JournalBundle\Entity\Section:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Article', field: section}
+    - { entityName: 'OjsJournalBundle:Issue', field: sections, type: m2m}

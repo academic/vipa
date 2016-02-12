@@ -364,27 +364,10 @@ class SectionController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $this->get('ojs_core.delete.service')->check($entity);
         $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(SectionEvents::PRE_DELETE, $event);
 
-        // We are detaching articles from both the issue and its section in order
-        // to make them available for putting inside another issue's section.
-        foreach ($entity->getArticles() as $article) {
-            $article->setSection(null);
-            $article->setIssue(null);
-            $em->persist($article);
-        }
-
-        /** @var Issue $article */
-        $issues = $em->getRepository('OjsJournalBundle:Issue')->findAll();
-        foreach ($issues as $issue) {
-            if ($issue->getSections()->contains($entity)) {
-                $issue->removeSection($entity);
-                $em->persist($issue);
-            }
-        }
-
-        $em->flush(); // Detach articles and issues first
         $em->remove($entity);
         $em->flush();
 
@@ -395,7 +378,7 @@ class SectionController extends Controller
             return $event->getResponse();
         }
 
-        $this->successFlashBag('deletion.section');
+        $this->successFlashBag('successful.remove');
 
         return $this->redirectToRoute('ojs_journal_section_index', ['journalId' => $journal->getId()]);
     }
