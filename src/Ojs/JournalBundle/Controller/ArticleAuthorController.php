@@ -375,7 +375,7 @@ class ArticleAuthorController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-
+        $this->get('ojs_core.delete.service')->check($articleAuthor);
         $em->remove($articleAuthor);
         $em->flush();
         $this->successFlashBag('successful.remove');
