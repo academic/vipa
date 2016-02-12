@@ -13,7 +13,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
-use Ojs\SiteBundle\Entity\BlockRepository;
+use Ojs\JournalBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
@@ -96,8 +96,8 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
-        /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        /** @var \Ojs\JournalBundle\Entity\BlockRepository $blockRepo */
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var IssueRepository $issueRepo */
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
 
@@ -209,7 +209,7 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -229,7 +229,7 @@ class SiteController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -261,7 +261,7 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -279,7 +279,7 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -312,7 +312,7 @@ class SiteController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -378,7 +378,7 @@ class SiteController extends Controller
         $issue = $issueRepo->find($id);
         $this->throw404IfNotFound($issue);
 
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
 
         $blocks = $blockRepo->journalBlocks($issue->getJournal());
 
@@ -406,7 +406,7 @@ class SiteController extends Controller
             array('journal' => $journal)
         );
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         $data['blocks'] = $blockRepo->journalBlocks($journal);
 
         $data['journal'] = $journal;

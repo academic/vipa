@@ -83,7 +83,7 @@ class ArticleController extends Controller
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
-        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+        $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
         $data['journal']->setPublicURI($journalService->generateUrl($data['journal']));
         $data['archive_uri'] = $this->generateUrl('ojs_archive_index', [
             'slug' => $data['journal']->getSlug(),
