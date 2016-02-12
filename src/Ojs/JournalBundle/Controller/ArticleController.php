@@ -352,6 +352,6 @@ class ArticleController extends Controller
             return $event->getResponse();
         }
 
-        return $this->redirect($this->generateUrl('ojs_journal_article_index', ['journalId' => $journal->getId()]));
+        return $this->redirectToRoute('ojs_journal_article_index', ['journalId' => $journal->getId()]);
     }
 }
