@@ -94,7 +94,6 @@ class DeleteService
         $this->entity = $entity;
         $this->setupReflClass();
         $this->setupYamlOptions();
-        $this->setupAnnotationOptions();
         $this->checkUse();
         $this->preDelete();
     }
@@ -106,21 +105,6 @@ class DeleteService
     {
         $this->entityReflClass = new \ReflectionClass($this->entity);
         $this->entityName = $this->em->getClassMetadata(get_class($this->entity))->getName();
-    }
-
-    /**
-     * @return bool
-     */
-    private function setupAnnotationOptions()
-    {
-        /** @var DeleteParams $deleteAnnotation */
-        $deleteAnnotation = $this->reader->getClassAnnotation($this->entityReflClass, 'Ojs\\CoreBundle\\Annotation\\Delete\\DeleteParams');
-        if($deleteAnnotation == null){
-            return false;
-        }
-        $this->hardDelete = $deleteAnnotation->getHardDelete();
-        $this->checkUse = $deleteAnnotation->getCheckUse();
-        return true;
     }
 
     /**
