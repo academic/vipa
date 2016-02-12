@@ -1,46 +1,42 @@
 Ojs\JournalBundle\Entity\ArticleTypes:
   checkUse:
-    'OjsJournalBundle:Article':
-      field: articleType
+    - { entityName: 'OjsJournalBundle:Article', field: articleType}
 
 Ojs\JournalBundle\Entity\PersonTitle:
   checkUse:
-    'OjsJournalBundle:JournalContact':
-      field: title
+    - { entityName: 'OjsJournalBundle:JournalContact', field: title}
 
 Ojs\JournalBundle\Entity\PublisherTheme:
   checkUse:
-    'OjsJournalBundle:Publisher':
-      field: theme
+    - { entityName: 'OjsJournalBundle:Publisher', field: theme}
 
 Ojs\JournalBundle\Entity\PublisherDesign:
   checkUse:
-    'OjsJournalBundle:Publisher':
-      field: design
+    - { entityName: 'OjsJournalBundle:Publisher', field: design}
 
 Ojs\JournalBundle\Entity\Index:
   checkUse:
-    'OjsJournalBundle:JournalIndex':
-      field: index
+    - { entityName: 'OjsJournalBundle:JournalIndex', field: index}
 
 Ojs\JournalBundle\Entity\PublisherTypes:
   checkUse:
-    'OjsJournalBundle:Publisher':
-      field: publisherType
-    'OjsJournalBundle:Institution':
-      field: institutionType
+    - { entityName: 'OjsJournalBundle:Publisher', field: publisherType}
+    - { entityName: 'OjsJournalBundle:Institution', field: institutionType}
 
 Ojs\JournalBundle\Entity\JournalTheme:
   checkUse:
-    'OjsJournalBundle:Journal':
-      field: theme
+    - { entityName: 'OjsJournalBundle:Journal', field: theme}
 
 Ojs\JournalBundle\Entity\ContactTypes:
   checkUse:
-    'OjsJournalBundle:JournalContact':
-      field: contactType
+    - { entityName: 'OjsJournalBundle:JournalContact', field: contactType}
 
 Ojs\JournalBundle\Entity\Board:
   checkUse:
-    'Ojs\JournalBundle\Entity\BoardMember':
-      field: board
+    - { entityName: 'OjsJournalBundle:BoardMember', field: board}
+
+Ojs\JournalBundle\Entity\Lang:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: mandatoryLang}
+    - { entityName: 'OjsJournalBundle:Journal', field: languages, type: m2m}
+    - { entityName: 'OjsJournalBundle:Article', field: languages, type: m2m}
