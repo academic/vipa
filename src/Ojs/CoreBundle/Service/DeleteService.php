@@ -67,6 +67,11 @@ class DeleteService
     private $checkUse = [];
 
     /**
+     * @var array
+     */
+    private $preDelete = [];
+
+    /**
      * DeleteService constructor.
      * @param RegistryInterface $registry
      * @param Reader $reader
@@ -90,6 +95,7 @@ class DeleteService
         $this->setupReflClass();
         $this->setupYamlOptions();
         $this->setupAnnotationOptions();
+        $this->preDelete();
         $this->checkUse();
     }
 
@@ -129,6 +135,7 @@ class DeleteService
         $this->deleteParams = $getDeleteParams[$this->entityName];
         $this->hardDelete = isset($this->deleteParams['hardDelete'])? true: $this->hardDelete;
         $this->checkUse = isset($this->deleteParams['checkUse'])? $this->deleteParams['checkUse']: $this->checkUse;
+        $this->preDelete = isset($this->deleteParams['preDelete'])? $this->deleteParams['preDelete']: $this->preDelete;
     }
 
     /**
@@ -157,6 +164,27 @@ class DeleteService
                 throw $hasRelationException;
             }
         }
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private function preDelete()
+    {
+        if(!count($this->preDelete)){
+            return true;
+        }
+        foreach($this->preDelete as $usage){
+            $findRelations = $this->findRelations($usage);
+            if(count($findRelations) > 0){
+                foreach($findRelations as $relation){
+                    $this->em->remove($relation);
+                }
+            }
+        }
+        $this->em->flush();
+        return true;
     }
 
     /**
@@ -166,6 +194,7 @@ class DeleteService
     private function findRelations($usage)
     {
         if(isset($usage['type']) && $usage['type'] == 'm2m'){
+            exit('m2m baby');
             $repo = $this->em->getRepository($usage['entityName']);
             $qb = $repo->createQueryBuilder('a');
             $qb

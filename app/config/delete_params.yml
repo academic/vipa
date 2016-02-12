@@ -61,3 +61,7 @@ Ojs\JournalBundle\Entity\Section:
   checkUse:
     - { entityName: 'OjsJournalBundle:Article', field: section}
     - { entityName: 'OjsJournalBundle:Issue', field: sections, type: m2m}
+
+Ojs\JournalBundle\Entity\ArticleFile:
+  preDelete:
+    - { entityName: 'OjsAnalyticsBundle:ArticleFileStatistic', field: 'articleFile' }
