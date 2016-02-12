@@ -16,7 +16,8 @@
         <li role="presentation" class="active"><a href="#">{{ "title.citations"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('ojs_journal_article_author_index', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}">{{ "article.files"|trans }}</a></li>
     </ul>
-    
+
+    {% include '::flashbag.html.twig' %}
     <h2>{{ 'title.citations'|trans }}</h2>
     <a href="{{ path('ojs_journal_citation_new', {'articleId': app.request.get('articleId'), 'journalId': selectedJournal().id}) }}" class="btn btn-success">
         {{ "c"|trans }}
