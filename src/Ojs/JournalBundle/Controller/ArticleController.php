@@ -341,6 +341,7 @@ class ArticleController extends Controller
         $article->getCitations()->clear();
         $article->getLanguages()->clear();
 
+        $this->get('ojs_core.delete.service')->check($event->getItem());
         $em->remove($event->getItem());
         $em->flush();
         $this->successFlashBag('successful.remove');
