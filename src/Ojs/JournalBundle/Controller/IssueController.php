@@ -384,6 +384,7 @@ class IssueController extends Controller
         $entity->getSections()->clear(); // Remove all section relations
 
         $em->flush(); // Detach articles and sections first
+        $this->get('ojs_core.delete.service')->check($entity);
         $em->remove($entity);
         $em->flush();
 
