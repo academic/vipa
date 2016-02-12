@@ -44,3 +44,9 @@ Ojs\JournalBundle\Entity\Lang:
 Ojs\JournalBundle\Entity\Period:
   checkUse:
     - { entityName: 'OjsJournalBundle:Journal', field: periods, type: m2m}
+
+Ojs\JournalBundle\Entity\Subject:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: subjects, type: m2m}
+    - { entityName: 'OjsUserBundle:User', field: subjects, type: m2m}
+    - { entityName: 'OjsJournalBundle:Subject', field: parent}
