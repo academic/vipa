@@ -65,3 +65,7 @@ Ojs\JournalBundle\Entity\Section:
 Ojs\JournalBundle\Entity\ArticleFile:
   preDelete:
     - { entityName: 'OjsAnalyticsBundle:ArticleFileStatistic', field: 'articleFile' }
+
+Ojs\JournalBundle\Entity\IssueFile:
+  preDelete:
+    - { entityName: 'OjsAnalyticsBundle:IssueFileStatistic', field: 'issueFile' }
