@@ -95,8 +95,8 @@ class DeleteService
         $this->setupReflClass();
         $this->setupYamlOptions();
         $this->setupAnnotationOptions();
-        $this->preDelete();
         $this->checkUse();
+        $this->preDelete();
     }
 
     /**
