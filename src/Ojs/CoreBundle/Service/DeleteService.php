@@ -194,7 +194,6 @@ class DeleteService
     private function findRelations($usage)
     {
         if(isset($usage['type']) && $usage['type'] == 'm2m'){
-            exit('m2m baby');
             $repo = $this->em->getRepository($usage['entityName']);
             $qb = $repo->createQueryBuilder('a');
             $qb
