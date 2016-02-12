@@ -1,66 +1,8 @@
-{% if app.security.token is not null and is_granted('CREATE', journal, 'block') %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <a href="{{ url('ojs_block_new',{object: journal.id, type:'journal'}) }}">
-                <span class="panel-title">
-                    <i class="fa fa-plus"></i> {{ "new.block"|trans }}
-                </span>
-            </a>
-        </div>
-    </div>
-{% endif %}
 {% for block in blocks %}
     <div class="panel panel-{{ block.color|default("default") }}">
         <div class="panel-heading">
-            <div class="btn-toolbar">
-            {% if app.security.token is not null and is_granted('EDIT', journal, 'block') %}
-                <input type="number" min="1" max="10000" class="col-xs-2 pull-right no-pad block_order_updater"
-                       data-block-id="{{ block.id }}" value="{{ block.blockOrder|default(0) }}">
-                <a href="{{ url('ojs_block_new',{object: journal.id, type:'journal',id:block.id}) }}" title="Edit Block"
-                   class="pull-right"><i class="fa fa-pencil "></i>
-                </a>
-            {% endif %}
-            {% if app.security.token is not null and is_granted('DELETE', journal, 'block') %}
-                <a href="{{ url('ojs_block_delete',{object: journal.id, type:'journal',block:block.id}) }}"
-                   title="Delete Block" class="pull-right"><i class="fa fa-trash "></i>
-                </a>
-            {% endif %}
-            </div>
             <span class="panel-title">{{ block.title|trans }}</span>
-
         </div>
-        {% if block.type=='html' %}
-            {{ block.content|raw }}
-        {% elseif block.type=='link' %}
-            <ul class="list-group">
-                {% for link in block.links %}
-                    <li class="list-group-item">
-                        <a href="{{ link.url }}" target="_blank">{{ link.text }}</a>
-                        {% if app.security.token is not null and is_granted('EDIT', journal, 'block') %}
-                            <input type="number" min="1" max="10000" name="blocklink[{{ link.id }}]"
-                                   data-link-id="{{ link.id }}"
-                                   value="{{ link.linkOrder|default(0) }}"
-                                   class="col-xs-2 no-pad pull-right blocklink_order_updater"/>
-                            <a href="{{ url('ojs_block_link_new',{block: block.id, id:link.id}) }}" title="Edit Link"
-                               class="pull-right"><i class="fa fa-pencil "></i></a>
-                            <a href="{{ url('ojs_block_link_delete',{object: journal.id, type:'journal',block_link:link.id}) }}"
-                               title="Delete Link" class="pull-right"><i class="fa fa-trash "></i>
-                            </a>
-                        {% endif %}
-
-                    </li>
-                {% endfor %}
-                {% if app.security.token is not null and is_granted('EDIT', journal, 'block') %}
-                    <li class="list-group-item">
-                        <a href="{{ url('ojs_block_link_new',{block: block.id}) }}">
-                            <i class="fa fa-plus"></i>
-                            <strong>
-                                {{ "Add Link"|trans }}
-                            </strong>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        {% endif %}
+        {{ block.content|raw }}
     </div>
 {% endfor %}
