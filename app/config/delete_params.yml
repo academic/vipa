@@ -77,3 +77,12 @@ Ojs\JournalBundle\Entity\Article:
 Ojs\JournalBundle\Entity\Issue:
   preDelete:
     - { entityName: 'OjsAnalyticsBundle:IssueStatistic', field: 'issue' }
+
+Ojs\JournalBundle\Entity\Publisher:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: publisher}
+    - { entityName: 'OjsJournalBundle:Publisher', field: parent}
+  preDelete:
+    - { entityName: 'OjsJournalBundle:PublisherTheme', field: publisher}
+    - { entityName: 'OjsJournalBundle:PublisherDesign', field: publisher}
+    - { entityName: 'OjsAdminBundle:PublisherManagers', field: publisher}
