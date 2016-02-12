@@ -366,7 +366,7 @@ class ArticleAuthorController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        if (is_null($article) || is_null($articleAuthor) || $articleAuthor->getArticle()->getId() !== $article->getId()) {
+        if (is_null($article) || $articleAuthor == null || $articleAuthor->getArticle()->getId() !== $article->getId()) {
             $this->throw404IfNotFound($articleAuthor);
         }
 
