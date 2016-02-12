@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Form\Type;
+namespace Ojs\JournalBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,19 +30,7 @@ class BlockType extends AbstractType
                     ]
                 ]
             ])
-            ->add(
-                'type',
-                'choice',
-                [
-                    'label' => 'Type',
-                    'choices' => [
-                        'html' => 'HTML Content',
-                        'link' => 'Link List',
-                    ],
-                ]
-            )
-            ->add('objectId', 'hidden', ['data' => $options['object_id']])
-            ->add('objectType', 'hidden', ['data' => $options['object_type']])
+            ->add('blockOrder')
             ->add(
                 'color',
                 'choice',
@@ -68,7 +56,7 @@ class BlockType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\SiteBundle\Entity\Block',
+                'data_class' => 'Ojs\JournalBundle\Entity\Block',
                 'object_id' => null,
                 'object_type' => null,
                 'cascade_validation' => true,
@@ -84,6 +72,6 @@ class BlockType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_sitebundle_block';
+        return 'ojs_journalbundle_block';
     }
 }

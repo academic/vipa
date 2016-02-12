@@ -4,33 +4,24 @@ Ojs\JournalBundle\Entity\Block:
   repositoryClass: Ojs\JournalBundle\Entity\BlockRepository
   cache:
       usage: NONSTRICT_READ_WRITE
-  oneToMany:
-    links:
-      targetEntity: Ojs\JournalBundle\Entity\BlockLink
-      mappedBy: block
-      cascade: ["persist", "remove"]
-      fetch: EXTRA_LAZY
-      orderBy: { link_order: 'asc' }
-      cache:
-          usage: NONSTRICT_READ_WRITE
   id:
     id:
       type: integer
       id: true
       generator:
         strategy: AUTO
+  manyToOne:
+      journal:
+          targetEntity: Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          cascade: ["persist","merge"]
   fields:
-    objectType:
-      type: string
-      column: object_type
-    objectId:
-      type: integer
-      column: object_id
-    type:
-      type: string
     color:
       type: string
       nullable: true
-    block_order:
+    blockOrder:
+      column: block_order
       type: integer
       nullable: true
