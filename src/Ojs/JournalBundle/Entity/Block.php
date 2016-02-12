@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -60,7 +60,7 @@ class Block extends AbstractTranslatable
     private $block_order;
 
     /**
-     * @Prezent\Translations(targetEntity="Ojs\SiteBundle\Entity\BlockTranslation")
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\BlockTranslation")
      */
     protected $translations;
 
@@ -76,7 +76,7 @@ class Block extends AbstractTranslatable
     /**
      * Translation helper method
      * @param null $locale
-     * @return mixed|null|\Ojs\SiteBundle\Entity\BlockTranslation
+     * @return mixed|null|\Ojs\JournalBundle\Entity\BlockTranslation
      */
     public function translate($locale = null)
     {

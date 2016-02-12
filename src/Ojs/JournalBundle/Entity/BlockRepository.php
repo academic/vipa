@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;

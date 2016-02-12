@@ -1,7 +1,7 @@
-Ojs\SiteBundle\Entity\BlockLink:
+Ojs\JournalBundle\Entity\BlockLink:
   type: entity
   table: block_links
-  repositoryClass: Ojs\SiteBundle\Entity\BlockLinkRepository
+  repositoryClass: Ojs\JournalBundle\Entity\BlockLinkRepository
   id:
     id:
       id: true
@@ -20,7 +20,7 @@ Ojs\SiteBundle\Entity\BlockLink:
       nullable: true
   manyToOne:
     block:
-      targetEntity: Ojs\SiteBundle\Entity\Block
+      targetEntity: Ojs\JournalBundle\Entity\Block
       joinColumn:
         name: block_id
         referencedColumnName: id

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 /**
  * BlockLink

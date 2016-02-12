@@ -1,12 +1,12 @@
-Ojs\SiteBundle\Entity\Block:
+Ojs\JournalBundle\Entity\Block:
   type: entity
   table: blocks
-  repositoryClass: Ojs\SiteBundle\Entity\BlockRepository
+  repositoryClass: Ojs\JournalBundle\Entity\BlockRepository
   cache:
       usage: NONSTRICT_READ_WRITE
   oneToMany:
     links:
-      targetEntity: Ojs\SiteBundle\Entity\BlockLink
+      targetEntity: Ojs\JournalBundle\Entity\BlockLink
       mappedBy: block
       cascade: ["persist", "remove"]
       fetch: EXTRA_LAZY

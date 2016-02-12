@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ojs\CoreBundle\Entity\DisplayTrait;
@@ -12,7 +12,7 @@ class BlockTranslation extends AbstractTranslation
     use DisplayTrait;
 
     /**
-     * @Prezent\Translatable(targetEntity="Ojs\SiteBundle\Entity\Block")
+     * @Prezent\Translatable(targetEntity="Ojs\JournalBundle\Entity\Block")
      */
     protected $translatable;
     /**
