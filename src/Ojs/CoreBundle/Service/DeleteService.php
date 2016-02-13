@@ -171,7 +171,7 @@ class DeleteService
                 $hasRelationException = new HasRelationException();
                 $hasRelationException
                     ->setErrorMessage($this->translator->trans('deletion.remove_components_first', [
-                            '%field%' => implode(',',$relationStrings)
+                            '%field%' => "\n - ".implode("\n - ",$relationStrings)
                         ]
                     ));
                 throw $hasRelationException;
