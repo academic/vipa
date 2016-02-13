@@ -86,6 +86,22 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'extra' => array(
                 'bundle-class' => 'OkulBilisim\\AdvancedCitationBundle\\AdvancedCitationBundle',
             ),
+        ),
+        'subscription' => array(
+            'name' => 'SubscriptionBundle',
+            'description' => 'Subscription bundle for OJS',
+            'repositories' => array(
+                array(
+                    'type' => 'vcs',
+                    'url' => 'git@bitbucket.org:okulbilisim/subscriptionbundle.git',
+                ),
+            ),
+            'require' => array(
+                "okulbilisim/subscription-bundle" => "dev-master",
+            ),
+            'extra' => array(
+                'bundle-class' => 'Ojs\\SubscriptionBundle\\OjsSubscriptionBundle',
+            ),
         )
     );
 
