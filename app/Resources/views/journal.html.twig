@@ -65,4 +65,9 @@
             <i class="fa fa-download"></i> {{ journal.downloadCount|number_format }}
         </div>
     {% endif %}
+    {% if journal.accessModal is defined and journal.accessModal is defined %}
+        <div class="view-stats">
+            <i class="fa fa-eye"></i> {{ journal.accessModal|number_format }}
+        </div>
+    {% endif %}
 </div>
