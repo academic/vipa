@@ -10,7 +10,7 @@ use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Publisher;
-use Ojs\SiteBundle\Entity\BlockRepository;
+use Ojs\JournalBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -68,7 +68,7 @@ class HostingController extends Controller
         /** @var IssueRepository $issueRepo */
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -165,7 +165,7 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Issue $issue */
         $issue = $issueRepo->find($id);
         $this->throw404IfNotFound($issue);
@@ -199,7 +199,7 @@ class HostingController extends Controller
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
-        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+        $data['blocks'] = $em->getRepository('OjsJournalBundle:Block')->journalBlocks($data['journal']);
         if($isJournalHosting){
             $data['journal']->setPublicURI($this->generateUrl('publisher_hosting_journal_index', [], true));
             $data['archive_uri'] = $this->generateUrl('journal_hosting_archive', [], true);
@@ -226,7 +226,7 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsSiteBundle:Block');
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var Journal $journal */
         if(is_null($slug)){
             $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(

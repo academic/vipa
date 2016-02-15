@@ -172,4 +172,9 @@ class BoardMember implements Translatable
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return (string)$this->user;
+    }
 }

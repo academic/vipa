@@ -261,7 +261,7 @@ class AdminPublisherController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-
+        $this->get('ojs_core.delete.service')->check($entity);
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

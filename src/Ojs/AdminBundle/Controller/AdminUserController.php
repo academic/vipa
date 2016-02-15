@@ -61,7 +61,6 @@ class AdminUserController extends Controller
         $rowAction[] = $gridAction->editAction('ojs_admin_user_edit', 'id');
         $rowAction[] = $passwordAction;
         $rowAction[] = $gridAction->userBanAction();
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_user_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -306,42 +305,6 @@ class AdminUserController extends Controller
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * Deletes a User entity.
-     *
-     * @param  Request          $request
-     * @param $id
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var User $entity */
-        $entity = $em->getRepository('OjsUserBundle:User')->find($id);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        $this->throw404IfNotFound($entity);
-
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_user'.$id);
-        if ($token != $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
-
-        $entity->setEnabled(false);
-        $em->remove($entity);
-        $em->flush();
-
-        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
-        $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
-        $this->successFlashBag('successful.remove');
-
-        return $this->redirectToRoute('ojs_admin_user_index');
     }
 
     /**

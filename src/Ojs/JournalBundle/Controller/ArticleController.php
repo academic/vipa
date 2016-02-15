@@ -341,6 +341,7 @@ class ArticleController extends Controller
         $article->getCitations()->clear();
         $article->getLanguages()->clear();
 
+        $this->get('ojs_core.delete.service')->check($event->getItem());
         $em->remove($event->getItem());
         $em->flush();
         $this->successFlashBag('successful.remove');
@@ -352,6 +353,6 @@ class ArticleController extends Controller
             return $event->getResponse();
         }
 
-        return $this->redirect($this->generateUrl('ojs_journal_article_index', ['journalId' => $journal->getId()]));
+        return $this->redirectToRoute('ojs_journal_article_index', ['journalId' => $journal->getId()]);
     }
 }

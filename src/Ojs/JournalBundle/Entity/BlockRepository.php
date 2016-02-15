@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;
@@ -17,11 +17,10 @@ class BlockRepository extends EntityRepository
     {
         return $this->findBy(
             [
-                'objectType' => 'journal',
-                'objectId' => $journal->getId(),
+                'journal' => $journal,
             ],
             [
-                'block_order' => 'asc',
+                'blockOrder' => 'asc',
             ]
         );
     }

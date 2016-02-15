@@ -379,6 +379,7 @@ class BoardController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $this->get('ojs_core.delete.service')->check($entity);
 
         $event = new JournalItemEvent($entity);
         $eventDispatcher->dispatch(BoardEvents::PRE_DELETE, $event);
@@ -445,6 +446,7 @@ class BoardController extends Controller
 
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->find($id);
         $this->throw404IfNotFound($boardMember);
+        $this->get('ojs_core.delete.service')->check($boardMember);
         $em->remove($boardMember);
         $em->flush();
 

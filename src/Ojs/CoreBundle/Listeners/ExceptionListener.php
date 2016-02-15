@@ -44,7 +44,6 @@ class ExceptionListener
         $this->requestStack = $requestStack;
     }
 
-
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $request = $this->requestStack->getMasterRequest();
@@ -52,10 +51,7 @@ class ExceptionListener
         if (!$exception instanceof HasRelationException) {
             return;
         }
-        $errorText = $this->translator->trans(
-            'deletion.remove_components_first',
-            array('%field%' => $exception->getEntityName() . "\\" . $exception->getMapping()['fieldName'])
-        );
+        $errorText = $exception->getErrorMessage();
         if($request->get('_format') == 'json'){
             $response = new JsonResponse(['error' => $errorText]);
 

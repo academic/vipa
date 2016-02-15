@@ -11,7 +11,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * AdminPost
- * @GRID\Source(columns="id, translations.title",groupBy="id")
+ * @GRID\Source(columns="id, translations.title")
  */
 class AdminPost extends AbstractTranslatable
 {

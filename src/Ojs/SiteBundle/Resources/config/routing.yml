@@ -47,10 +47,6 @@ ojs_public_index:
     host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Site:index" }
 
-ojs_block:
-    prefix: /block
-    resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
-
 ojs_search:
     resource: "@OjsSiteBundle/Resources/config/routing/search.yml"
 

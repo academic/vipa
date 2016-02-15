@@ -23,11 +23,6 @@ ojs_admin_user_update:
     defaults: { _controller: "OjsAdminBundle:AdminUser:update" }
     methods:  [PUT]
 
-ojs_admin_user_delete:
-    path:  /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminUser:delete" }
-    methods:  [DELETE]
-
 ojs_admin_user_block:
     path: /{id}/block
     defaults: { _controller: "OjsAdminBundle:AdminUser:block" }

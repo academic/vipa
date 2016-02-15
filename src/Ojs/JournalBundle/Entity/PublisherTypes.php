@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * PublisherTypes
- * @GRID\Source(columns="id,translations.name,translations.description",groupBy="id")
+ * @GRID\Source(columns="id,translations.name,translations.description")
  */
 class PublisherTypes extends AbstractTranslatable
 {

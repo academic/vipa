@@ -366,7 +366,7 @@ class ArticleAuthorController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
-        if (is_null($article) || is_null($articleAuthor) || $articleAuthor->getArticle()->getId() !== $article->getId()) {
+        if (is_null($article) || $articleAuthor == null || $articleAuthor->getArticle()->getId() !== $article->getId()) {
             $this->throw404IfNotFound($articleAuthor);
         }
 
@@ -375,7 +375,7 @@ class ArticleAuthorController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
-
+        $this->get('ojs_core.delete.service')->check($articleAuthor);
         $em->remove($articleAuthor);
         $em->flush();
         $this->successFlashBag('successful.remove');

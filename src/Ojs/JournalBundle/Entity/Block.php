@@ -1,9 +1,8 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
+namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
@@ -11,6 +10,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Block
+ * @GRID\Source(columns="id , translations.title, blockOrder")
  */
 class Block extends AbstractTranslatable
 {
@@ -21,25 +21,12 @@ class Block extends AbstractTranslatable
      */
     protected $id;
 
-    /**
-     * @var string
-     */
-    private $objectType;
-
-    /**
-     * @var integer
-     */
-    private $objectId;
 
     /**
      * @var string
+     * @GRID\Column(field="translations.title", title="title")
      */
     private $title;
-
-    /**
-     * @var string
-     */
-    private $type;
 
     /**
      * @var string
@@ -47,20 +34,21 @@ class Block extends AbstractTranslatable
     private $content;
 
     /**
-     * @var Collection|BlockLink[]
-     */
-    private $links;
-    /**
      * @var string
      */
     private $color;
     /**
      * @var integer
      */
-    private $block_order;
+    private $blockOrder;
 
     /**
-     * @Prezent\Translations(targetEntity="Ojs\SiteBundle\Entity\BlockTranslation")
+     * @var Journal
+     */
+    private $journal;
+
+    /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\BlockTranslation")
      */
     protected $translations;
 
@@ -69,14 +57,13 @@ class Block extends AbstractTranslatable
      */
     public function __construct()
     {
-        $this->links = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
     /**
      * Translation helper method
      * @param null $locale
-     * @return mixed|null|\Ojs\SiteBundle\Entity\BlockTranslation
+     * @return mixed|null|\Ojs\JournalBundle\Entity\BlockTranslation
      */
     public function translate($locale = null)
     {
@@ -114,52 +101,6 @@ class Block extends AbstractTranslatable
     }
 
     /**
-     * Get objectType
-     *
-     * @return string
-     */
-    public function getObjectType()
-    {
-        return $this->objectType;
-    }
-
-    /**
-     * Set objectType
-     *
-     * @param  string $objectType
-     * @return Block
-     */
-    public function setObjectType($objectType)
-    {
-        $this->objectType = $objectType;
-
-        return $this;
-    }
-
-    /**
-     * Get objectId
-     *
-     * @return integer
-     */
-    public function getObjectId()
-    {
-        return $this->objectId;
-    }
-
-    /**
-     * Set objectId
-     *
-     * @param  integer $objectId
-     * @return Block
-     */
-    public function setObjectId($objectId)
-    {
-        $this->objectId = $objectId;
-
-        return $this;
-    }
-
-    /**
      * Get title
      *
      * @return string
@@ -178,29 +119,6 @@ class Block extends AbstractTranslatable
     public function setTitle($title)
     {
         $this->translate()->setTitle($title);
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set type
-     *
-     * @param  string $type
-     * @return Block
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -226,39 +144,6 @@ class Block extends AbstractTranslatable
         $this->translate()->setContent($content);
 
         return $this;
-    }
-
-    /**
-     * Add links
-     *
-     * @param  BlockLink $links
-     * @return Block
-     */
-    public function addLink(BlockLink $links)
-    {
-        $this->links[] = $links;
-
-        return $this;
-    }
-
-    /**
-     * Remove links
-     *
-     * @param BlockLink $links
-     */
-    public function removeLink(BlockLink $links)
-    {
-        $this->links->removeElement($links);
-    }
-
-    /**
-     * Get links
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLinks()
-    {
-        return $this->links;
     }
 
     /**
@@ -291,18 +176,41 @@ class Block extends AbstractTranslatable
      */
     public function getBlockOrder()
     {
-        return $this->block_order;
+        return $this->blockOrder;
     }
 
     /**
-     * Set block_order
+     * Set blockOrder
      *
      * @param  integer $blockOrder
      * @return Block
      */
     public function setBlockOrder($blockOrder)
     {
-        $this->block_order = $blockOrder;
+        $this->blockOrder = $blockOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get journal
+     *
+     * @return Journal
+     */
+    public function getJournal()
+    {
+        return $this->journal;
+    }
+
+    /**
+     * Set journal
+     *
+     * @param  Journal $journal
+     * @return Board
+     */
+    public function setJournal(Journal $journal = null)
+    {
+        $this->journal = $journal;
 
         return $this;
     }

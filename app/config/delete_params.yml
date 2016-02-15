@@ -1,0 +1,88 @@
+Ojs\JournalBundle\Entity\ArticleTypes:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Article', field: articleType}
+
+Ojs\JournalBundle\Entity\PersonTitle:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:JournalContact', field: title}
+
+Ojs\JournalBundle\Entity\PublisherTheme:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Publisher', field: theme}
+
+Ojs\JournalBundle\Entity\PublisherDesign:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Publisher', field: design}
+
+Ojs\JournalBundle\Entity\Index:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:JournalIndex', field: index}
+
+Ojs\JournalBundle\Entity\PublisherTypes:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Publisher', field: publisherType}
+    - { entityName: 'OjsJournalBundle:Institution', field: institutionType}
+
+Ojs\JournalBundle\Entity\JournalTheme:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: theme}
+
+Ojs\JournalBundle\Entity\ContactTypes:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:JournalContact', field: contactType}
+
+Ojs\JournalBundle\Entity\Board:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:BoardMember', field: board}
+
+Ojs\JournalBundle\Entity\Lang:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: mandatoryLang}
+    - { entityName: 'OjsJournalBundle:Journal', field: languages, type: m2m}
+    - { entityName: 'OjsJournalBundle:Article', field: languages, type: m2m}
+
+Ojs\JournalBundle\Entity\Period:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: periods, type: m2m}
+
+Ojs\JournalBundle\Entity\Subject:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: subjects, type: m2m}
+    - { entityName: 'OjsUserBundle:User', field: subjects, type: m2m}
+    - { entityName: 'OjsJournalBundle:Subject', field: parent}
+
+Ojs\JournalBundle\Entity\Institution:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Author', field: institution}
+    - { entityName: 'OjsJournalBundle:JournalContact', field: institution}
+    - { entityName: 'OjsJournalBundle:Institution', field: parent}
+
+Ojs\JournalBundle\Entity\Section:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Article', field: section}
+    - { entityName: 'OjsJournalBundle:Issue', field: sections, type: m2m}
+
+Ojs\JournalBundle\Entity\ArticleFile:
+  preDelete:
+    - { entityName: 'OjsAnalyticsBundle:ArticleFileStatistic', field: 'articleFile' }
+
+Ojs\JournalBundle\Entity\IssueFile:
+  preDelete:
+    - { entityName: 'OjsAnalyticsBundle:IssueFileStatistic', field: 'issueFile' }
+
+Ojs\JournalBundle\Entity\Article:
+  preDelete:
+    - { entityName: 'OjsAnalyticsBundle:ArticleStatistic', field: 'article' }
+
+Ojs\JournalBundle\Entity\Issue:
+  preDelete:
+    - { entityName: 'OjsAnalyticsBundle:IssueStatistic', field: 'issue' }
+
+Ojs\JournalBundle\Entity\Publisher:
+  checkUse:
+    - { entityName: 'OjsJournalBundle:Journal', field: publisher}
+    - { entityName: 'OjsJournalBundle:Publisher', field: parent}
+  preDelete:
+    - { entityName: 'OjsJournalBundle:PublisherTheme', field: publisher}
+    - { entityName: 'OjsJournalBundle:PublisherDesign', field: publisher}
+    - { entityName: 'OjsAdminBundle:PublisherManagers', field: publisher}

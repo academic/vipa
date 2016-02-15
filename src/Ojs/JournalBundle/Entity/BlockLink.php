@@ -1,8 +1,6 @@
 <?php
 
-namespace Ojs\SiteBundle\Entity;
-
-use Ojs\CmsBundle\Entity\Post;
+namespace Ojs\JournalBundle\Entity;
 
 /**
  * BlockLink
@@ -34,11 +32,6 @@ class BlockLink
      */
     private $block;
 
-    /** @var Post */
-    private $post;
-
-    /** @var  integer */
-    private $post_id;
     /**
      * @var integer
      */
@@ -178,44 +171,6 @@ class BlockLink
     public function setLinkOrder($linkOrder)
     {
         $this->link_order = $linkOrder;
-
-        return $this;
-    }
-
-    /**
-     * @return \Ojs\AdminBundle\Entity\AdminPost
-     */
-    public function getPost()
-    {
-        return $this->post;
-    }
-
-    /**
-     * @param  \Ojs\AdminBundle\Entity\AdminPost $post
-     * @return $this
-     */
-    public function setPost($post)
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPostId()
-    {
-        return $this->post_id;
-    }
-
-    /**
-     * @param  int $post_id
-     * @return $this
-     */
-    public function setPostId($post_id)
-    {
-        $this->post_id = $post_id;
 
         return $this;
     }
