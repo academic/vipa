@@ -96,7 +96,7 @@ class Subject extends AbstractTranslatable
     public function setParent(Subject $parent = null)
     {
         $this->parent = $parent;
-        if(!$parent) {
+        if($parent) {
             $parent->addChild($this);
         }
         return $this;
