@@ -1,6 +1,6 @@
 var analytics = {
     view: function (entity, id, token) {
-        var path = 'api_' + entity + '_view';
+        var path = 'api_1_' + entity + '_view';
         var url = Routing.generate(path, {
             id: id,
             _format: 'json'
