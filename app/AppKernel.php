@@ -61,7 +61,7 @@ class AppKernel extends Kernel
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new OkulBilisim\OjsImportBundle\OkulBilisimOjsImportBundle(),
             new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
-            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle()
+            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
