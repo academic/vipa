@@ -102,6 +102,22 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'extra' => array(
                 'bundle-class' => 'Ojs\\SubscriptionBundle\\OjsSubscriptionBundle',
             ),
+        ),
+        'dergipark' => array(
+            'name' => 'OjsDergiparkBundle',
+            'description' => 'Dergipark bundle for OJS',
+            'repositories' => array(
+                array(
+                    'type' => 'vcs',
+                    'url' => 'git@bitbucket.org:okulbilisim/ojsdergiparkbundle.git',
+                ),
+            ),
+            'require' => array(
+                "ojs/dergipark-bundle" => "dev-master",
+            ),
+            'extra' => array(
+                'bundle-class' => 'Ojs\\DergiparkBundle\\OjsDergiparkBundle',
+            ),
         )
     );
 
