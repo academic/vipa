@@ -838,10 +838,7 @@ label.required:before {
     margin: 30px !important;
 }
 
-#logo {
-    max-height: 140px;
-    max-width: 140px;
-}
+#logo {}
 
 #stats {
     margin: 20px auto;
