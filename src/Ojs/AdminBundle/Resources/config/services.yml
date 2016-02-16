@@ -8,3 +8,10 @@ services:
   ojs.graph.data.generator:
     class: Ojs\AnalyticsBundle\Utils\GraphDataGenerator
     arguments: ["@doctrine.orm.entity_manager"]
+
+  form.type.journal_application:
+    class: Ojs\AdminBundle\Form\Type\JournalApplicationType
+    tags:
+      -
+        alias: ojs_journalbundle_journalapplication
+        name: form.type
