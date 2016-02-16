@@ -87,20 +87,20 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
                 'bundle-class' => 'OkulBilisim\\AdvancedCitationBundle\\AdvancedCitationBundle',
             ),
         ),
-        'subscription' => array(
-            'name' => 'SubscriptionBundle',
-            'description' => 'Subscription bundle for OJS',
+        'market' => array(
+            'name' => 'MarketBundle',
+            'description' => 'Market bundle for OJS',
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/subscriptionbundle.git',
+                    'url' => 'git@bitbucket.org:okulbilisim/marketbundle.git',
                 ),
             ),
             'require' => array(
-                "okulbilisim/subscription-bundle" => "dev-master",
+                "okulbilisim/market-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'Ojs\\SubscriptionBundle\\OjsSubscriptionBundle',
+                'bundle-class' => 'Ojs\\MarketBundle\\OjsMarketBundle',
             ),
         ),
         'dergipark' => array(
