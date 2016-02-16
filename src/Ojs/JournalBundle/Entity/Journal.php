@@ -311,20 +311,28 @@ class Journal extends AbstractTranslatable
     private $journalUsers;
     /** @var ArrayCollection */
     private $journalContacts;
+
     /**
      * @var Lang
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
      */
     private $mandatoryLang;
+
     /**
      * @var ArrayCollection|JournalAnnouncement[]
      */
     private $announcements;
+
     /**
      * @var ArrayCollection|JournalStatistic[]
      */
     private $statistics;
+
+    /**
+     * @var
+     */
+    private $extraFields;
 
     /**
      * Constructor
@@ -1647,6 +1655,26 @@ class Journal extends AbstractTranslatable
     public function setJournalIndexesBag($journalIndexesBag)
     {
         $this->journalIndexesBag = $journalIndexesBag;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExtraFields()
+    {
+        return $this->extraFields;
+    }
+
+    /**
+     * @param mixed $extraFields
+     *
+     * @return $this
+     */
+    public function setExtraFields($extraFields)
+    {
+        $this->extraFields = $extraFields;
 
         return $this;
     }
