@@ -5,12 +5,15 @@ namespace Ojs\SiteBundle\Controller;
 use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Events\TypeEvent;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalApplicationUploadFile;
 use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Entity\Publisher;
+use Ojs\JournalBundle\Event\Article\ArticleEvents;
+use Ojs\JournalBundle\Event\Journal\JournalEvents;
 use Ojs\JournalBundle\Form\Type\MinimalPublisherType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,7 +74,10 @@ class ApplicationController extends Controller
 
         $newPublisher = new Publisher();
 
-        $form = $this->createForm(new JournalApplicationType(), $application);
+        $event = new TypeEvent(new JournalApplicationType());
+        $dispatcher->dispatch(JournalEvents::INIT_APPLICATION_FORM, $event);
+
+        $form = $this->createForm($event->getType(), $application);
         $publisherForm = $this->createForm(new MinimalPublisherType(), $newPublisher);
 
         if ($request->isMethod('POST')) {
