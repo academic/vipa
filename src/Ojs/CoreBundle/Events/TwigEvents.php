@@ -13,4 +13,5 @@ class TwigEvents
     const OJS_NEW_ARTICLE_SUBMISSIN_SCRIPT = 'ojs.new.article.submission.script';
     const OJS_ISSUE_SHOW_VIEW = "ojs.journal.issue.show.view";
     const OJS_JOURNAL_APPLICATION_EXTRA_FIELDS = "ojs.journal.application.extra.fields";
+    const OJS_JOURNAL_APPLICATION_SCRIPT = "ojs.journal.application.script";
 }
