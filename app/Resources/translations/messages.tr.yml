@@ -1470,6 +1470,8 @@ successfully.cloned.global.theme.and.used: 'Dergi teması başarılı şekilde t
 all.required.files.must.be.uploaded: 'Tüm zorunlu dosyalar yüklenmeli'
 required: 'zorunlu'
 optinal: 'isteğe bağlı'
+yes: 'Evet'
+no: 'Hayır'
 
 # OAuth
 linkedin: 'Linkedin'

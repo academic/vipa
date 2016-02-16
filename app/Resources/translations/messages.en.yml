@@ -1477,6 +1477,8 @@ successfully.cloned.global.theme.and.used: 'Global theme successfully cloned to 
 all.required.files.must.be.uploaded: 'All required files must be uploaded'
 required: 'required'
 optinal: 'optinal'
+yes: 'Yes'
+no: 'No'
 
 # OAuth
 linkedin: 'Linkedin'
