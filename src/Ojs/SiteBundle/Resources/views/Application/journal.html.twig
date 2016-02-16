@@ -150,6 +150,8 @@
                     {% do form.journalApplicationUploadFiles.setRendered %}
                 {% endif %}
 
+                {{ twigEventDispatch({'event_name': 'OJS_JOURNAL_APPLICATION_EXTRA_FIELDS', 'form': form})|raw }}
+
                 <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-success pull-right">
                     {{ "apply"|trans }}
                 </button>
