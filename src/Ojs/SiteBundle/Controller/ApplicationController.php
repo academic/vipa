@@ -128,9 +128,9 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
-                $event = new AdminEvent($request);
+                $event = new AdminEvent($request, $application);
                 $dispatcher->dispatch(AdminEvents::JOURNAL_APPLICATION_HAPPEN, $event);
-                return $this->redirect($this->get('router')->generate('ojs_apply_journal_success'));
+                return $this->redirectToRoute('ojs_apply_journal_success');
             }
 
             $this->errorFlashBag('An error has occured. Please check the form and resubmit.');
