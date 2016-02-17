@@ -203,6 +203,6 @@ class AdminJournalApplicationType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journalapplication';
+        return 'ojs_adminbundle_journalapplication';
     }
 }
