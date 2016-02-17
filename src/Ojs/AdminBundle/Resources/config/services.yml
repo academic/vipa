@@ -18,3 +18,10 @@ services:
       -
         alias: ojs_journalbundle_journalapplication
         name: form.type
+
+  form.type.admin.journal_application:
+    class: Ojs\AdminBundle\Form\Type\AdminJournalApplicationType
+    tags:
+      -
+        alias: ojs_adminbundle_journalapplication
+        name: form.type
