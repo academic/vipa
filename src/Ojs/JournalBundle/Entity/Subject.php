@@ -48,6 +48,11 @@ class Subject extends AbstractTranslatable
      * @GRID\Column(title="subject", field="translations.subject", safe=false)
      */
     private $subject;
+
+    /**
+     * @var string
+     */
+    private $indentedSubject;
     /**
      * @var string
      * @Expose
@@ -525,5 +530,9 @@ class Subject extends AbstractTranslatable
             $child->setParent($this);
         }
         return $this;
+    }
+
+    public function getIndentedSubject() {
+        return str_repeat(" >> ", $this->lvl) . $this->getSubject();
     }
 }
