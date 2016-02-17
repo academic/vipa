@@ -35,10 +35,14 @@ class SubjectTranslation extends AbstractTranslation
 
     /**
      * @param string $subject
+     *
+     * @return $this
      */
     public function setSubject($subject)
     {
         $this->subject = $subject;
+
+        return $this;
     }
 
     /**
@@ -51,9 +55,13 @@ class SubjectTranslation extends AbstractTranslation
 
     /**
      * @param string $description
+     *
+     * @return $this
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 }
