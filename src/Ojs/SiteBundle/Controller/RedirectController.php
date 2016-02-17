@@ -28,8 +28,6 @@ class RedirectController extends Controller
             default:
                 throw $this->createNotFoundException();
         }
-
-        #return $this->redirect($this->generateUrl());
     }
 
     /**
