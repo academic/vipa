@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,12 +59,17 @@ class UpdateUserType extends AbstractType
                 'subjects',
                 'entity',
                 array(
-                    'label' => 'subjects',
-                    'class' => 'Ojs\JournalBundle\Entity\Subject',
+                    'class' => 'OjsJournalBundle:Subject',
                     'multiple' => true,
-                    'expanded' => false,
-                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                    'required' => false,
+                    'required' => true,
+                    'property' => 'indentedSubject',
+                    'label' => 'journal.subjects',
+                    'attr' => [
+                        'style' => 'height: 200px'
+                    ],
+                    'query_builder' => function(SubjectRepository $er) {
+                        return $er->getChildrenQueryBuilder(null, null, 'root', 'asc', false);
+                    }
                 )
             )
             ->add('avatar', 'jb_crop_image_ajax', array(
