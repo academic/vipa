@@ -1,3 +1,6 @@
+parameters:
+  ojs_core.journal_application_controller.class: "OjsAdminBundle:AdminJournalApplication"
+
 services:
   admin.event_listener:
     class: Ojs\AdminBundle\EventListener\AdminEventListener
