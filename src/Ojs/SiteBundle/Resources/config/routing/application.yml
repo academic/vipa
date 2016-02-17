@@ -1,6 +1,6 @@
 ojs_apply_journal:
   path: /journal
-  defaults: { _controller: "OjsSiteBundle:Application:journal" }
+  defaults: { _controller: "%ojs_site.application_controller.class%:journal" }
 ojs_apply_publisher:
   path: /publisher
   defaults: { _controller: "OjsSiteBundle:Application:publisher" }

@@ -142,7 +142,7 @@ class ApplicationController extends Controller
             'publisherForm' => $publisherForm->createView(),
             'journalApplicationFiles' => $journalApplicationFiles
         ]);
-        $dispatcher->dispatch(AdminEvents::JOURNAL_APPLICATION_HAPPEN, $event);
+        $dispatcher->dispatch(AdminEvents::JOURNAL_APPLICATION_RESPONSE, $event);
         return $this->render($event->getTemplate(), $event->getData());
     }
 
