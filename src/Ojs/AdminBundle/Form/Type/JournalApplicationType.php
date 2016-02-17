@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Form\Type\ApplicationJournalContactType;
 use Ojs\JournalBundle\Form\Type\JournalApplicationUploadFileType;
 use Ojs\JournalBundle\Form\Type\JournalContactType;
@@ -152,8 +153,14 @@ class JournalApplicationType extends AbstractType
                     'class' => 'OjsJournalBundle:Subject',
                     'multiple' => true,
                     'required' => true,
+                    'property' => 'indentedSubject',
                     'label' => 'journal.subjects',
-                    'attr' => ['class' => 'select2-element'],
+                    'attr' => [
+                        'style' => 'height: 200px',
+                    ],
+                    'query_builder' => function(SubjectRepository $er) {
+                        return $er->getChildrenQueryBuilder(null, null, 'root', 'asc', false);
+                    }
                 )
             )
             ->add('header', 'jb_crop_image_ajax', array(
