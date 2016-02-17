@@ -26,7 +26,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/workflowbundle.git',
+                    'url' => 'git@bitbucket.org:bulutyazilim/workflowbundle.git',
                 ),
             ),
             'require' => array(
@@ -42,7 +42,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/endorsment.git',
+                    'url' => 'git@bitbucket.org:bulutyazilim/endorsment.git',
                 ),
             ),
             'require' => array(
@@ -58,7 +58,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/ojsdoibundle.git',
+                    'url' => 'git@bitbucket.org:bulutyazilim/ojsdoibundle.git',
                 ),
             ),
             'require' => array(
@@ -77,7 +77,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/advancedcitationbundle.git',
+                    'url' => 'git@bitbucket.org:bulutyazilim/advancedcitationbundle.git',
                 ),
             ),
             'require' => array(
@@ -93,7 +93,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/marketbundle.git',
+                    'url' => 'git@bitbucket.org:bulutyazilim/marketbundle.git',
                 ),
             ),
             'require' => array(
@@ -109,7 +109,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:okulbilisim/ojsdergiparkbundle.git',
+                    'url' => 'git@bitbucket.org:bulutyazilim/ojsdergiparkbundle.git',
                 ),
             ),
             'require' => array(
