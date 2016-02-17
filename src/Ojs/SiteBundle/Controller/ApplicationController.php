@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Ojs\AdminBundle\Form\Type\JournalApplicationType;
 use Ojs\AdminBundle\Form\Type\PublisherApplicationType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Events\ResponseEvent;
 use Ojs\CoreBundle\Events\TypeEvent;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\ContactTypes;
@@ -136,12 +137,13 @@ class ApplicationController extends Controller
             $this->errorFlashBag('An error has occured. Please check the form and resubmit.');
         }
 
-        return $this->render('OjsSiteBundle:Application:journal.html.twig', [
-                'form' => $form->createView(),
-                'publisherForm' => $publisherForm->createView(),
-                'journalApplicationFiles' => $journalApplicationFiles
-            ]
-        );
+        $event = new ResponseEvent('OjsSiteBundle:Application:journal.html.twig', [
+            'form' => $form->createView(),
+            'publisherForm' => $publisherForm->createView(),
+            'journalApplicationFiles' => $journalApplicationFiles
+        ]);
+        $dispatcher->dispatch(AdminEvents::JOURNAL_APPLICATION_RESPONSE, $event);
+        return $this->render($event->getTemplate(), $event->getData());
     }
 
     public function publisherAction(Request $request)
@@ -180,9 +182,7 @@ class ApplicationController extends Controller
                 return $this->redirect($this->get('router')->generate('ojs_apply_institute_success'));
             }
 
-            $session = $this->get('session');
-            $session->getFlashBag()->add('error',$this->get('translator')
-                ->trans('An error has occured. Please check form and resubmit.'));
+            $this->errorFlashBag('An error has occured. Please check form and resubmit.');
         }
 
         return $this->render('OjsSiteBundle:Application:publisher.html.twig', array('form' => $form->createView()));

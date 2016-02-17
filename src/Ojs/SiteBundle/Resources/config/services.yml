@@ -1,3 +1,6 @@
+parameters:
+    ojs_site.application_controller.class: "OjsSiteBundle:Application"
+
 services:
     twig.extension.loader:
         class:        Twig_Extension_StringLoader
