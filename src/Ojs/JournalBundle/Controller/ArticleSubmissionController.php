@@ -183,7 +183,7 @@ class ArticleSubmissionController extends Controller
         /** @var User $user */
         $user = $this->getUser();
         if (!$journal) {
-            return $this->redirect($this->generateUrl('ojs_journal_user_register_list'));
+            return $this->redirectToRoute('ojs_journal_user_register_list');
         }
 
         $article = new Article();

@@ -150,8 +150,8 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      */
     private $abstract;
     /**
-     * @var string
-     * @Expose
+     * @var Collection
+     * @JMS\Expose
      */
     private $subjects;
     /**
@@ -268,6 +268,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
         $this->articleSubmissionFiles = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->statistics = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
     }
 
     /**
@@ -327,26 +328,34 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     }
 
     /**
-     * Get subjects
-     *
-     * @return string
+     * @param  Subject $subject
+     * @return $this
      */
-    public function getSubjects()
+    public function addSubject(Subject $subject)
     {
-        return $this->translate()->getSubjects();
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects->add($subject);
+        }
+
+        return $this;
     }
 
     /**
-     * Set subjects
-     *
-     * @param  string $subjects
-     * @return $this
+     * @param Subject $subject
      */
-    public function setSubjects($subjects = null)
+    public function removeSubjects(Subject $subject)
     {
-        $this->translate()->setSubjects($subjects);
+        if ($this->subjects->contains($subject)) {
+            $this->subjects->removeElement($subject);
+        }
+    }
 
-        return $this;
+    /**
+     * @return ArrayCollection
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 
     /**
@@ -373,7 +382,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
                 $translation->setTitle($defaultTranslation->getTitle());
                 $translation->setAbstract($defaultTranslation->getAbstract());
                 $translation->setKeywords($defaultTranslation->getKeywords());
-                $translation->setSubjects($defaultTranslation->getSubjects());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);

@@ -69,6 +69,19 @@ Ojs\JournalBundle\Entity\Article:
       mappedBy: article
       cascade: ["persist", "remove"]
   manyToMany:
+    subjects:
+      targetEntity: Ojs\JournalBundle\Entity\Subject
+      cascade: ["persist"]
+      joinTable:
+        name: article_subject
+        joinColumns:
+          article_id:
+            referencedColumnName: id
+            onDelete: CASCADE
+        inverseJoinColumns:
+          subject_id:
+            referencedColumnName: id
+            onDelete: CASCADE
     languages:
       targetEntity: Lang
       joinTable:

@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,10 +34,6 @@ class ArticleSubmissionType extends AbstractType
                     'title' => [
                         'field_type' => 'text'
                     ],
-                    'subjects' => [
-                        'label' => 'subjects',
-                        'field_type' => 'tags'
-                    ],
                     'keywords' => [
                         'required' => true,
                         'label' => 'keywords',
@@ -50,7 +47,23 @@ class ArticleSubmissionType extends AbstractType
                     ]
                 ]
             ])
-
+            ->add(
+                'subjects',
+                'entity',
+                array(
+                    'class' => 'OjsJournalBundle:Subject',
+                    'multiple' => true,
+                    'required' => true,
+                    'property' => 'indentedSubject',
+                    'label' => 'journal.subjects',
+                    'attr' => [
+                        'style' => 'height: 100px'
+                    ],
+                    'query_builder' => function(SubjectRepository $er) {
+                        return $er->getChildrenQueryBuilder(null, null, 'root', 'asc', false);
+                    }
+                )
+            )
             ->add('citations', 'collection', array(
                     'type' => new CitationType(),
                     'allow_add' => true,

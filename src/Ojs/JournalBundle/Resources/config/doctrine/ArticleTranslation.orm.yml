@@ -15,11 +15,6 @@ Ojs\JournalBundle\Entity\ArticleTranslation:
       nullable: true
       gedmo:
         - versioned
-    subjects:
-      type: string
-      nullable: true
-      gedmo:
-        - versioned
     keywords:
       type: string
       nullable: true

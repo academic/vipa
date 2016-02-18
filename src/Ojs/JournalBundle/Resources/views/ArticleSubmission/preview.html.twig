@@ -71,16 +71,24 @@
                                     <td>{{ translation.keywords }}</td>
                                 </tr>
                                 <tr>
-                                    <td>{{ "subjects"|trans }}</td>
-                                    <td>{{ translation.subjects }}</td>
-                                </tr>
-                                <tr>
                                     <td>{{ "abstract"|trans }}</td>
                                     <td>{{ translation.abstract|raw }}</td>
                                 </tr>
                             </table>
                         </div>
                     {% endfor %}
+                    <div class="panel panel-body table-responsive">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>{{ "subjects"|trans }}</td>
+                                <td>{{ article.subjects|join(' ,') }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ "article.type"|trans }}</td>
+                                <td>{{ article.articleType }}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="panel panel-info">
                     <div class="panel-heading">{{ "article.authors"|trans }}</div>
@@ -128,8 +136,6 @@
                                     <td>{{ "author.phone"|trans }}</td>
                                     <td>{{ articleAuthor.author.phone }}</td>
                                 </tr>
-
-
                             {% endfor %}
                         </table>
                     </div>
