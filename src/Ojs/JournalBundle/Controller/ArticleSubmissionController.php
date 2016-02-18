@@ -333,6 +333,7 @@ class ArticleSubmissionController extends Controller
                 ),
                 'method' => 'POST',
                 'locales' => $locales,
+                'journal' => $journal,
                 'default_locale' => $defaultLocale,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types')),
             )
@@ -437,6 +438,7 @@ class ArticleSubmissionController extends Controller
                 'method' => 'POST',
                 'locales' => $locales,
                 'default_locale' => $defaultLocale,
+                'journal' => $journal,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types')),
             )
         )

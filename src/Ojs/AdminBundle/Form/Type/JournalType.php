@@ -4,6 +4,7 @@ namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -103,14 +104,19 @@ class JournalType extends AbstractType
             ->add(
                 'subjects',
                 'entity',
-                [
-                    'label' => 'subjects',
-                    'class' => 'Ojs\JournalBundle\Entity\Subject',
+                array(
+                    'class' => 'OjsJournalBundle:Subject',
                     'multiple' => true,
+                    'required' => true,
+                    'property' => 'indentedSubject',
+                    'label' => 'journal.subjects',
                     'attr' => [
-                        'class' => 'select2-element',
-                    ]
-                ]
+                        'style' => 'height: 200px',
+                    ],
+                    'query_builder' => function(SubjectRepository $er) {
+                        return $er->getChildrenQueryBuilder(null, null, 'root', 'asc', false);
+                    }
+                )
             )
             ->add('path', 'hidden', [
                 'label' => 'journal.path',
