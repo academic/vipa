@@ -73,42 +73,15 @@ class AdminJournalApplicationController extends Controller
     public function detailAction($id)
     {
         /** @var EntityManager $em */
-
         $em = $this->getDoctrine()->getManager();
-        $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
 
         if (!$entity) {
             throw new NotFoundHttpException();
         }
 
         $data = [];
-        $languages = [];
-        $subjects = [];
-
-        /** @var Lang $lang */
-        foreach ($entity->getLanguages() as $key => $language) {
-            $lang = $em->find('OjsJournalBundle:Lang', $language);
-            $languages[] = $lang->getName();
-        }
-
-        /** @var Subject $subj */
-        foreach ($entity->getSubjects() as $subject) {
-            $subj = $em->find('OjsJournalBundle:Subject', $subject);
-            $subjects[] = "{$subj->getSubject()}";
-        }
-
-        /** @var Publisher $publisher */
-        $publisher = $em->find('OjsJournalBundle:Publisher', $entity->getPublisher());
-
-        /** @var Country $country */
-        $country = $em->find('OkulBilisimLocationBundle:Country', $entity->getCountry());
-
         $data['entity'] = $entity;
-        $data['languages'] = implode(',', $languages);
-        $data['publisher'] = $publisher->getName() . "[" . $publisher->getSlug() . "]";
-        $data['country'] = $country->getName();
-        $data['subjects'] = implode(',', $subjects);
-
         $csrf = $this->get('security.csrf.token_manager');
         $data['token'] = $csrf->getToken('ojs_admin_application' . $id);
 
@@ -207,6 +180,24 @@ class AdminJournalApplicationController extends Controller
         $em->persist($entity);
         $em->flush();
 
+        return $this->redirectToRoute('ojs_admin_journal_index');
+    }
+
+    public function rejectAction($id)
+    {
+        /** @var Journal $entity */
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
+
+        if (!$entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $entity->setStatus(JournalStatuses::STATUS_REJECTED);
+        $em->persist($entity);
+        $em->flush();
+
+        $this->successFlashBag('successfully.rejected.journal');
         return $this->redirectToRoute('ojs_admin_journal_index');
     }
 }

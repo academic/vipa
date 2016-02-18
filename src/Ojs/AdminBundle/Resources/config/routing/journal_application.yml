@@ -22,3 +22,7 @@ ojs_admin_application_journal_delete:
 ojs_admin_application_journal_save:
   path:     /journal/{id}/save
   defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:save" }
+
+ojs_admin_application_journal_reject:
+  path:     /journal/{id}/reject
+  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:reject" }

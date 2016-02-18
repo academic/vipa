@@ -1472,6 +1472,8 @@ required: 'zorunlu'
 optinal: 'isteğe bağlı'
 yes: 'Evet'
 no: 'Hayır'
+successfully.rejected.journal: 'Başarılı bir şekilde reddedildi'
+journal.application_reject: 'Başvuruyu reddet'
 
 # OAuth
 linkedin: 'Linkedin'

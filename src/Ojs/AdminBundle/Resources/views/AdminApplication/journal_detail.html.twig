@@ -21,7 +21,11 @@
             {% include '::flashbag.html.twig' %}
             {{ display(entity) }}
             <a class="btn btn-primary"
-               href="{{ url('ojs_admin_application_journal_save',{id: entity.id}) }}">{{ "journal.application_accept"|trans }}</a>
+               href="{{ url('ojs_admin_application_journal_save',{id: entity.id}) }}">{{ "journal.application_accept"|trans }}
+            </a>
+            <a class="btn btn-warning"
+               href="{{ url('ojs_admin_application_journal_reject',{id: entity.id}) }}">{{ "journal.application_reject"|trans }}
+            </a>
             {{
             actions({
                 'delete': {
