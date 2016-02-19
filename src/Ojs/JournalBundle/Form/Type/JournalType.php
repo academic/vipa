@@ -30,7 +30,8 @@ class JournalType extends AbstractType
                     ],
                     'description' => [
                         'attr' => array('class' => ' form-control wysihtml5'),
-                        'field_type' => 'purified_textarea'
+                        'field_type' => 'purified_textarea',
+                        'required' => false,
                     ],
                     'titleAbbr' => [
                         'required' => false
