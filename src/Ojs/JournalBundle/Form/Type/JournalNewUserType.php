@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
@@ -78,12 +79,17 @@ class JournalNewUserType extends AbstractType
                 'subjects',
                 'entity',
                 array(
-                    'label' => 'subjects',
-                    'class' => 'Ojs\JournalBundle\Entity\Subject',
+                    'class' => 'OjsJournalBundle:Subject',
                     'multiple' => true,
-                    'expanded' => false,
-                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                    'required' => false,
+                    'required' => true,
+                    'property' => 'indentedSubject',
+                    'label' => 'user.subjects',
+                    'attr' => [
+                        'style' => 'height: 200px'
+                    ],
+                    'query_builder' => function(SubjectRepository $er) {
+                        return $er->getChildrenQueryBuilder(null, null, 'root', 'asc', false);
+                    }
                 )
             )
             ->add('tags', 'tags', ['label' => 'tags'])
