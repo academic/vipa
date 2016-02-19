@@ -138,6 +138,7 @@ class ArticleController extends Controller
             [
                 'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
+                'journal' => $journal,
             ]
         );
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -257,7 +258,11 @@ class ArticleController extends Controller
         $form = $this->createForm(
             new ArticleType(),
             $entity,
-            ['action' => $action, 'method' => 'PUT']
+            [
+                'action' => $action,
+                'method' => 'PUT',
+                'journal' => $journal,
+            ]
         );
 
         return $form;

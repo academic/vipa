@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +24,6 @@ class ArticleType extends AbstractType
                         'label' => 'article.title',
                         'field_type' => 'text'
                     ],
-                    'subjects' => [],
                     'keywords' => [
                         'label' => 'keywords',
                         'field_type' => 'tags'
@@ -35,6 +35,21 @@ class ArticleType extends AbstractType
                     ]
                 ]
             ])
+            ->add(
+                'subjects',
+                'entity',
+                array(
+                    'class' => 'OjsJournalBundle:Subject',
+                    'multiple' => true,
+                    'required' => true,
+                    'property' => 'indentedSubject',
+                    'label' => 'journal.subjects',
+                    'attr' => [
+                        'style' => 'height: 100px'
+                    ],
+                    'choices' => $options['journal']->getSubjects(),
+                )
+            )
             ->add('titleTransliterated', null, ['label' => 'article.titleTransliterated'])
             ->add(
                 'status',
@@ -175,6 +190,7 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'journal' => new Journal(),
                 'data_class' => 'Ojs\JournalBundle\Entity\Article',
                 'cascade_validation' => true,
                 'attr' => [
