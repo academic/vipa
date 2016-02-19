@@ -13,6 +13,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 class JournalIndex implements JournalItemInterface
 {
     use DisplayTrait;
+
     /**
      * @var integer
      * @GRID\Column(title="ID")
@@ -24,16 +25,23 @@ class JournalIndex implements JournalItemInterface
      * @GRID\Column(title="link")
      */
     private $link;
+
     /**
      * @var Journal
      * @Grid\Column(title="journal")
      */
     private $journal;
+
     /**
      * @var Index
      * @GRID\Column(title="Journal Index", field="index.name")
      */
     private $index;
+
+    /**
+     * @var bool
+     */
+    private $verified = 0;
 
     /**
      * Get id
@@ -110,6 +118,26 @@ class JournalIndex implements JournalItemInterface
     public function setIndex(Index $index)
     {
         $this->index = $index;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isVerified()
+    {
+        return $this->verified;
+    }
+
+    /**
+     * @param boolean $verified
+     *
+     * @return $this
+     */
+    public function setVerified($verified)
+    {
+        $this->verified = $verified;
 
         return $this;
     }

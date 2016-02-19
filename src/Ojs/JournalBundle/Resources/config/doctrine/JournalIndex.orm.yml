@@ -13,6 +13,8 @@ Ojs\JournalBundle\Entity\JournalIndex:
       type: text
       gedmo:
           - versioned
+    verified:
+      type: boolean
   manyToOne:
     journal:
       targetEntity: Ojs\JournalBundle\Entity\Journal

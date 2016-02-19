@@ -68,6 +68,21 @@ class JournalEditType extends AbstractType
                     }
                 )
             )
+            ->add('journalIndexs', 'collection', array(
+                    'attr' => [
+                        'class' => 'well',
+                    ],
+                    'options' => [
+                        'label' => false,
+                        'attr' => [
+                            'class' => 'well',
+                        ],
+                    ],
+                    'type' => new JournalIndexVerifyType(),
+                    'allow_add' => false,
+                    'allow_delete' => false,
+                )
+            )
             ->add(
                 'languages',
                 'entity',
