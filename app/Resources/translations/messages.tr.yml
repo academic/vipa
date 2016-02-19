@@ -179,7 +179,7 @@ article.singular: Makale
 article.submit: 'Makale Gönder'
 article.subtitle: 'Makalenin Alt Başlığı'
 article.title: 'Makale Başlığı'
-article.titleTransliterated: 'Başka Dilde Yazılmış Başlık'
+article.titleTransliterated: 'Başka Alfabede Yazılmış Başlık'
 article.type: 'Makale Türü'
 article.type.list: 'Makale Türü Listesi'
 article.type.new: 'Yeni Makale Türü'
@@ -210,15 +210,15 @@ author.creation: 'Yazar Oluşturma'
 author.details: 'Yazar Detayları'
 author.edit: 'Yazar Düzenle'
 author.firstname: 'İlk adı'
-author.firstnametransliterated: 'Başka Dilde İlk Ad'
+author.firstnametransliterated: 'Başka Alfabede Ad'
 author.initials: 'Yazar Başharfleri'
 author.publisher: 'Yazarın Yayıncısı'
 author.lastname: Soyadı
-author.lastnametransliterated: 'Başka Dilde Soyad'
+author.lastnametransliterated: 'Başka Alfabede Soyad'
 author.list: 'Yazar Listesi'
 author.manager: 'Yazar Yöneticisi'
 author.middlename: 'İkinci ad'
-author.middlenametransliterated: 'Başka Dilde İkinci Ad'
+author.middlenametransliterated: 'Başka Alfabede İkinci Ad'
 author.new: 'Yeni Yazar'
 author.orcid: ORCID
 author.institution: Enstitü
@@ -587,7 +587,7 @@ journal.tech_contact_surname: 'Teknik İletişim Soyad'
 journal.theme: 'Dergi Teması'
 journal.title: Derginin Tam Adı
 journal.titleAbbr: 'Kısaltılmış Başlık'
-journal.titleTransliterated: 'Derginin Diğer Dildeki Adı'
+journal.titleTransliterated: 'Derginin Adı (başka alfabede)'
 journal.update: 'Dergi Güncelle'
 journal.url: URL
 journal.user: Kullanıcı
@@ -1255,7 +1255,7 @@ title.theme_show: 'Temayı Göster'
 title.themes: Temalar
 title.topics: Konular
 title.tos: 'Hizmet Şartları'
-title.transliterated: 'Başka Dilde Yazılmış Başlık'
+title.transliterated: 'Başka Alfabede Yazılmış Başlık'
 title.unconfirmed_user: 'Doğrulanmamış Kullanıcı'
 title.user_author_register: 'Yazar Olarak Kaydol'
 title.user_edit: 'Kullanıcı Düzenle'
@@ -1274,9 +1274,9 @@ title.workflow_review_form_edit: 'Değerlendirme Formunu Düzenle'
 title.workflow_review_form_new: 'Yeni Değerlendirme Formu'
 title.workflow_review_form_show: 'Değerlendirme Formunu Göster'
 title.search_advanced: "Gelişmiş Arama"
-titleTransliterated: 'Başka Dilde Yazılmış Başlık'
+titleTransliterated: 'Başka Alfabede Yazılmış Başlık'
 titleabbr: 'Kısaltılmış Başlık'
-titletransliterated: 'Başka Dilde Yazılmış Başlık'
+titletransliterated: 'Başka Alfabede Yazılmış Başlık'
 toggle_navigation: 'Navigasyonu Değiştir'
 tools: Araçlar
 topics: Konular
