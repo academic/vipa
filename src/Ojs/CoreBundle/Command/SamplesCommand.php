@@ -298,7 +298,6 @@ class SamplesCommand extends ContainerAwareCommand
         $article1->setIssue($issue);
         $article1->setTitle('Getting Started with OJS');
         $article1->setAbstract('A tutorial about using OJS');
-        $article1->setSubjects('OJS');
         $article1->setKeywords('ojs, intro, starting');
         $article1->setDoi('10.5281/zenodo.14791');
         $article1->setSubmissionDate(new \DateTime('now'));

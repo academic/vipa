@@ -9,7 +9,6 @@
     keywords: "help, ojs, open journal"
     pubdate: <dateTimeThisYear()>
     status: 1
-    subjects: "computer science, technology"
     title: Getting Started with Ojs
     submitterUser: @user_author
     section: @section1
