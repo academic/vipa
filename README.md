@@ -13,7 +13,7 @@ This project adheres to the [Open Code of Conduct](https://github.com/okulbilisi
 
 Read [the installation document](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md).
 
-**Quick install command (WARNING: this will drop the database named 'ojs' if it exists on your server)**
+**Quick install command (WARNING: this command will empty the database which you specify during installation)**
 
 ```
 composer update -vvv -o && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && php app/console doctrine:schema:drop --force && php app/console doctrine:schema:create && php app/console ojs:install && php app/console ojs:install:samples
