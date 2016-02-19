@@ -1375,7 +1375,7 @@ user.roles: 'Kullanıcı Rolleri'
 user.select_to_submit: 'Göndermek İçin Dergi Seçin'
 user.show: 'Kullanıcıyı Göster'
 user.status: Durum
-user.subjects: Konular
+user.subjects: Uzmanlık Konular
 user.title: Başlık
 user.update_profile: 'Profili Güncelle'
 user.username: 'Kullanıcı Adı'

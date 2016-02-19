@@ -63,7 +63,7 @@ class UpdateUserType extends AbstractType
                     'multiple' => true,
                     'required' => true,
                     'property' => 'indentedSubject',
-                    'label' => 'journal.subjects',
+                    'label' => 'user.subjects',
                     'attr' => [
                         'style' => 'height: 200px'
                     ],
