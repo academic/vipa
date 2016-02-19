@@ -22,15 +22,16 @@ class JournalType extends AbstractType
             ->add('translations', 'a2lix_translations', [
                 'fields' => [
                     'title' => [
-                        'label' => 'journal.title'
+                        'label' => 'journal.title',
                     ],
                     'subtitle' => [
                         'required' => false,
-                        'label' => 'journal.subtitle'
+                        'label' => 'journal.subtitle',
                     ],
                     'description' => [
                         'attr' => array('class' => ' form-control wysihtml5'),
-                        'field_type' => 'purified_textarea'
+                        'field_type' => 'purified_textarea',
+                        'required' => false,
                     ],
                     'titleAbbr' => [
                         'required' => false
