@@ -169,7 +169,7 @@
                                 <tr>
                                     <th>{{ "subjects"|trans }}</th>
                                     <td>
-                                        {{ fieldDisplay(article, 'subjects') }}
+                                        {{ article.subjects|join(' ,') }}
                                     </td>
                                 </tr>
                             {% endif %}
