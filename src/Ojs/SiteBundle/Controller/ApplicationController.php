@@ -90,7 +90,7 @@ class ApplicationController extends Controller
             }
 
             if ($form->isValid() && $form->isSubmitted()) {
-                $application->setStatus(JournalStatuses::STATUS_PREPARING);
+                $application->setStatus(JournalStatuses::STATUS_APPLICATION);
 
                 $application->getCurrentTranslation()->setLocale($application->getMandatoryLang()->getCode());
                 /** @var JournalContact $contact */

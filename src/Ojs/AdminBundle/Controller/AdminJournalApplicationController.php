@@ -49,7 +49,7 @@ class AdminJournalApplicationController extends Controller
             function (QueryBuilder $query) use ($alias) {
                 $query
                     ->andWhere($alias . '.status = :status')
-                    ->setParameter('status', JournalStatuses::STATUS_PREPARING);
+                    ->setParameter('status', JournalStatuses::STATUS_APPLICATION);
                 return $query;
             }
         );
@@ -176,7 +176,7 @@ class AdminJournalApplicationController extends Controller
         }
 
         $entity->getPublisher()->setStatus(PublisherStatuses::STATUS_COMPLETE);
-        $entity->setStatus(JournalStatuses::STATUS_PUBLISHED);
+        $entity->setStatus(JournalStatuses::STATUS_PREPARING);
         $em->persist($entity);
         $em->flush();
 
