@@ -58,9 +58,9 @@ class SearchController extends Controller
         //set query according to query type
         if ($queryType == 'basic') {
             $request->getLocale() === 'tr' ? $searchString = str_replace(['I', 'İ'], ['ı', 'i'], $query) : $searchString = $query;
-            $searchString = sprintf('*%s*', mb_strtolower($searchString, 'UTF-8'));
+            $searchString = sprintf('%s', mb_strtolower($searchString, 'UTF-8'));
 
-            $fieldQuery = new Query\Wildcard();
+            $fieldQuery = new Query\MatchPhrasePrefix();
             $fieldQuery->setParam('_all', $searchString);
             $boolQuery->addMust($fieldQuery);
         } elseif ($queryType == 'advanced') {
