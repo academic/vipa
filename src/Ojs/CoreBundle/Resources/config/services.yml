@@ -154,8 +154,8 @@ services:
   array_cache:
       class: Doctrine\Common\Cache\ArrayCache
 
-  ojs.mail.event:
-    class: Ojs\CoreBundle\EventListener\MailEventListener
+  ojs_core.mail.event_chain:
+    class: Ojs\CoreBundle\Events\Chain\MailEventChain
 
   ojs_core.core_events:
     class: Ojs\CoreBundle\Events\CoreEvents
