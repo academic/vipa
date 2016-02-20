@@ -1,5 +1,6 @@
 parameters:
   ojs_core.journal_application_controller.class: "OjsAdminBundle:AdminJournalApplication"
+  ojs_admin.journal_controller.class: "OjsAdminBundle:AdminJournal"
 
 services:
   admin.event_listener:
@@ -24,4 +25,11 @@ services:
     tags:
       -
         alias: ojs_adminbundle_journalapplication
+        name: form.type
+
+  form.type.admin.journal_edit:
+    class: Ojs\AdminBundle\Form\Type\JournalEditType
+    tags:
+      -
+        alias: ojs_adminbundle_journal_edit_type
         name: form.type
