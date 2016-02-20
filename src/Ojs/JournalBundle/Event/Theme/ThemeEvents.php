@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\Theme;
 
-final class ThemeEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class ThemeEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.theme.list';
 
@@ -17,4 +19,9 @@ final class ThemeEvents
     const PRE_DELETE = 'ojs.theme.pre_delete';
 
     const POST_DELETE = 'ojs.theme.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

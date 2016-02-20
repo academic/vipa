@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\JournalSubmissionChecklist;
 
-final class JournalSubmissionChecklistEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class JournalSubmissionChecklistEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.journal_submission_checklist.list';
 
@@ -17,4 +19,9 @@ final class JournalSubmissionChecklistEvents
     const PRE_DELETE = 'ojs.journal_submission_checklist.pre_delete';
 
     const POST_DELETE = 'ojs.journal_submission_checklist.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

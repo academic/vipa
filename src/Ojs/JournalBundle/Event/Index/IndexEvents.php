@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\Index;
 
-final class IndexEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class IndexEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.index.list';
 
@@ -17,4 +19,9 @@ final class IndexEvents
     const PRE_DELETE = 'ojs.index.pre_delete';
 
     const POST_DELETE = 'ojs.index.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

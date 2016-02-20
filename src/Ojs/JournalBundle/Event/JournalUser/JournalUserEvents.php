@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\JournalUser;
 
-final class JournalUserEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class JournalUserEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.journal_user.list';
 
@@ -21,4 +23,9 @@ final class JournalUserEvents
     const PRE_ADD_JOURNAL = 'ojs.journal_user.pre_add_journal';
 
     const POST_ADD_JOURNAL = 'ojs.journal_user.post_add_journal';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

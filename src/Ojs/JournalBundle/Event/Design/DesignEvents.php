@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\Design;
 
-final class DesignEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class DesignEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.design.list';
 
@@ -17,4 +19,9 @@ final class DesignEvents
     const PRE_DELETE = 'ojs.design.pre_delete';
 
     const POST_DELETE = 'ojs.design.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

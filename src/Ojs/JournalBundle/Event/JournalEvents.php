@@ -17,4 +17,9 @@ final class JournalEvents
     const PRE_DELETE = 'ojs.journal.pre_delete';
 
     const POST_DELETE = 'ojs.journal.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

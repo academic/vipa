@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\Section;
 
-final class SectionEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class SectionEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.section.list';
 
@@ -17,4 +19,9 @@ final class SectionEvents
     const PRE_DELETE = 'ojs.section.pre_delete';
 
     const POST_DELETE = 'ojs.section.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

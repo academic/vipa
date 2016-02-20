@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\JournalPage;
 
-final class JournalPageEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class JournalPageEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.journal_page.list';
 
@@ -17,4 +19,9 @@ final class JournalPageEvents
     const PRE_DELETE = 'ojs.journal_page.pre_delete';
 
     const POST_DELETE = 'ojs.journal_page.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

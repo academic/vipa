@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\Article;
 
-final class ArticleEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class ArticleEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.article.list';
 
@@ -23,4 +25,9 @@ final class ArticleEvents
     const POST_SUBMIT = 'ojs.article.post_submit';
 
     const INIT_SUBMIT_FORM = 'ojs.article.init_submit_form';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

@@ -2,7 +2,9 @@
 
 namespace Ojs\AdminBundle\Events;
 
-final class AdminEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class AdminEvents implements MailEventsInterface
 {
     const ADMIN_USER_CHANGE = 'ojs.admin.user.change';
     const ADMIN_CONTACT_CHANGE = 'ojs.admin.journal.contact.change';
@@ -17,4 +19,9 @@ final class AdminEvents
     const ADMIN_LEFT_MENU_INITIALIZED = 'ojs.admin.left.menu.initialized';
     const ADMIN_RIGHT_MENU_INITIALIZED = 'ojs.admin.right.menu.initialized';
     const ADMIN_APPLICATION_MENU_INITIALIZED = 'ojs.admin.application.menu.initialized';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }

@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Event\Board;
 
-final class BoardEvents
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class BoardEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.board.list';
 
@@ -17,4 +19,9 @@ final class BoardEvents
     const PRE_DELETE = 'ojs.board.pre_delete';
 
     const POST_DELETE = 'ojs.board.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [];
+    }
 }
