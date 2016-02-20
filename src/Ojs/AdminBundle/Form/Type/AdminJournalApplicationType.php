@@ -22,24 +22,18 @@ class AdminJournalApplicationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations', [
-                'fields' => [
-                    'title' => [
-                        'label' => 'journal.title',
-                    ],
-                    'subtitle' => [
-                        'required' => false,
-                        'label' => 'journal.subtitle',
-                    ],
-                    'description' => [
-                        'attr' => array('class' => ' form-control wysihtml5'),
-                        'field_type' => 'purified_textarea',
-                        'required' => false,
-                    ],
-                    'titleAbbr' => [
-                        'required' => false,
-                    ]
-                ]
+            ->add('title', null, [
+                'label' => 'journal.full.title',
+                'required' => true,
+                'constraints' => new NotBlank()
+            ])
+            ->add('subtitle', null, [
+                'label' => 'journal.subtitle',
+                'required' => false
+            ])
+            ->add('title_abbr', null, [
+                'label' => 'journal.titleAbbr',
+                'required' => false
             ])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
             ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])

@@ -113,6 +113,7 @@ class AdminJournalApplicationController extends Controller
         $form = $this->createEditForm($entity);
         $form->handleRequest($request);
 
+        $entity->getCurrentTranslation()->setLocale($entity->getMandatoryLang()->getCode());
         if ($form->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
