@@ -36,3 +36,5 @@ services:
 
   ojs_admin.admin_events:
     class: Ojs\AdminBundle\Events\AdminEvents
+    tags:
+      - { name: ojs.mail.event}
