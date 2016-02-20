@@ -117,3 +117,63 @@ services:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
 #    tags:
 #        - { name: doctrine.event_listener, event: postPersist }
+
+  ojs_journal.article_events:
+    class: Ojs\JournalBundle\Event\Article\ArticleEvents
+
+  ojs_journal.board_events:
+    class: Ojs\JournalBundle\Event\Board\BoardEvents
+
+  ojs_journal.design_events:
+    class: Ojs\JournalBundle\Event\Design\DesignEvents
+
+  ojs_journal.index_events:
+    class: Ojs\JournalBundle\Event\Index\IndexEvents
+
+  ojs_journal.issue_events:
+    class: Ojs\JournalBundle\Event\Issue\IssueEvents
+
+  ojs_journal.journal_events:
+    class: Ojs\JournalBundle\Event\Journal\JournalEvents
+
+  ojs_journal.journal_announcement_events:
+    class: Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents
+
+  ojs_journal.journal_contact_events:
+    class: Ojs\JournalBundle\Event\JournalContact\JournalContactEvents
+
+  ojs_journal.journal_index_events:
+    class: Ojs\JournalBundle\Event\JournalIndex\JournalIndexEvents
+
+  ojs_journal.journal_page_events:
+    class: Ojs\JournalBundle\Event\JournalPage\JournalPageEvents
+
+  ojs_journal.journal_post_events:
+    class: Ojs\JournalBundle\Event\JournalPost\JournalPostEvents
+
+  ojs_journal.journal_submission_checklist_events:
+    class: Ojs\JournalBundle\Event\JournalSubmissionChecklist\JournalSubmissionChecklistEvents
+
+  ojs_journal.journal_submission_file_events:
+    class: Ojs\JournalBundle\Event\JournalSubmissionFile\JournalSubmissionFileEvents
+
+  ojs_journal.journal_user_events:
+    class: Ojs\JournalBundle\Event\JournalUser\JournalUserEvents
+
+  ojs_journal.section_events:
+    class: Ojs\JournalBundle\Event\Section\SectionEvents
+
+  ojs_journal.submission_checklist_events:
+    class: Ojs\JournalBundle\Event\SubmissionChecklist\SubmissionChecklistEvents
+
+  ojs_journal.theme_events:
+    class: Ojs\JournalBundle\Event\Theme\ThemeEvents
+
+  ojs_journal.citation_events:
+    class: Ojs\JournalBundle\Event\CitationEvents
+
+  ojs_journal.menu_events:
+    class: Ojs\JournalBundle\Event\MenuEvents
+
+  ojs_journal.workflow_events:
+    class: Ojs\JournalBundle\Event\WorkflowEvents

@@ -21,3 +21,6 @@ services:
   ojs.user.oauth:
     class: Ojs\UserBundle\Provider\FOSUBUserProvider
     arguments: ["@doctrine", "@fos_user.user_manager", {}]
+
+  ojs_user.user_events:
+    class: Ojs\UserBundle\Event\UserEvents

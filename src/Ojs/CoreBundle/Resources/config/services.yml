@@ -153,3 +153,9 @@ services:
 
   array_cache:
       class: Doctrine\Common\Cache\ArrayCache
+
+  ojs_core.core_events:
+    class: Ojs\CoreBundle\Events\CoreEvents
+
+  ojs_core.twig_events:
+    class: Ojs\CoreBundle\Events\TwigEvents
