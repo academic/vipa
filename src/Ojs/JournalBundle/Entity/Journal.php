@@ -31,6 +31,7 @@ class Journal extends AbstractTranslatable
      * @var array
      */
     public static $statuses = [
+        JournalStatuses::STATUS_APPLICATION  => 'status.application',
         JournalStatuses::STATUS_REJECTED     => 'status.rejected',
         JournalStatuses::STATUS_NAME_CHANGED => 'status.name_changed',
         JournalStatuses::STATUS_HOLD         => 'status.hold',
