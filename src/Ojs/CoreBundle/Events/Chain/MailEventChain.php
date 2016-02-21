@@ -17,4 +17,9 @@ class MailEventChain
     {
         $this->mailEvents[] = $mailEvent;
     }
+
+    public function getMailEvents()
+    {
+        return $this->mailEvents;
+    }
 }
