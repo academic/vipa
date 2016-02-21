@@ -9,9 +9,9 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
- * @GRID\Source(columns="id,type,subject,lang")
+ * @GRID\Source(columns="id,type,lang,active")
  */
-class MailTemplate implements Translatable, JournalItemInterface
+class MailTemplate implements JournalItemInterface
 {
     use GenericEntityTrait;
 
