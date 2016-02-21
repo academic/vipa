@@ -38,6 +38,11 @@ class MailTemplate implements Translatable, JournalItemInterface
     private $template;
 
     /**
+     * @var bool
+     */
+    private $active;
+
+    /**
      *
      * @var Journal
      * @GRID\Column(title="journal")
@@ -173,6 +178,26 @@ class MailTemplate implements Translatable, JournalItemInterface
     public function setUpdated($updated)
     {
         $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     *
+     * @return $this
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
 
         return $this;
     }

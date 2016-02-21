@@ -32,6 +32,8 @@ Ojs\JournalBundle\Entity\MailTemplate:
             type: text
             gedmo:
                 - versioned
+        active:
+            type: boolean
         created:
             type: datetime
             nullable: true
