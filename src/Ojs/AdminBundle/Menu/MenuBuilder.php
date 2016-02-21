@@ -30,7 +30,8 @@ class MenuBuilder extends ContainerAware
             ['title.journal_indexes',           'ojs_admin_index_index',                'sitemap'],
             ['title.journal_application_file',  'ojs_admin_application_file_index',     'file-word-o'],
             ['title.contacts',                  'ojs_admin_contact_index',              'users'],
-            ['title.contact_types',             'ojs_admin_contact_type_index',         'user']
+            ['title.contact_types',             'ojs_admin_contact_type_index',         'user'],
+            ['title.mail_templates',             'ojs_admin_mail_template_index',       'envelope']
         ];
         return $this->generateMenu($factory, $items, AdminEvents::ADMIN_LEFT_MENU_INITIALIZED);
     }
