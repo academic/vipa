@@ -3,8 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
@@ -22,23 +20,23 @@ class MailTemplate implements Translatable, JournalItemInterface
      * @GRID\Column(title="ID")
      */
     private $id;
+
     /**
      * @var string
      * @GRID\Column(title="mailtemplate.type")
      */
     private $type;
+
     /**
      * @var string
      */
     private $lang;
-    /**
-     * @var string
-     */
-    private $subject;
+
     /**
      * @var string
      */
     private $template;
+
     /**
      *
      * @var Journal
@@ -79,29 +77,6 @@ class MailTemplate implements Translatable, JournalItemInterface
     public function setType($type)
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param  string       $subject
-     * @return MailTemplate
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
 
         return $this;
     }
@@ -204,6 +179,6 @@ class MailTemplate implements Translatable, JournalItemInterface
 
     public function __toString()
     {
-        return $this->getSubject();
+        return $this->getType();
     }
 }

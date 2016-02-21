@@ -28,12 +28,6 @@ Ojs\JournalBundle\Entity\MailTemplate:
             column: lang
             gedmo:
                 - versioned
-        subject:
-            type: string
-            length: 100
-            column: subject
-            gedmo:
-                - versioned
         template:
             type: text
             gedmo:
