@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\AcmeBundle\Tests;
+namespace Ojs\CoreBundle\Tests;
 
 use Symfony\Component\HttpKernel\Kernel;
 
