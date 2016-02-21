@@ -40,7 +40,7 @@ class MailTemplate implements Translatable, JournalItemInterface
     /**
      * @var bool
      */
-    private $active;
+    private $active = 0;
 
     /**
      *
@@ -146,7 +146,7 @@ class MailTemplate implements Translatable, JournalItemInterface
      * @param  Journal      $journal
      * @return MailTemplate
      */
-    public function setJournal(Journal $journal)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
