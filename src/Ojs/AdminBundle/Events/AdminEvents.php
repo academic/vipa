@@ -24,14 +24,14 @@ final class AdminEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail($this::ADMIN_USER_CHANGE, 'admin', []),
-            new EventDetail($this::ADMIN_CONTACT_CHANGE, 'admin', []),
-            new EventDetail($this::JOURNAL_APPLICATION_HAPPEN, 'admin', []),
-            new EventDetail($this::ADMIN_JOURNAL_CHANGE, 'admin', []),
-            new EventDetail($this::PUBLISHER_APPLICATION_HAPPEN, 'admin', []),
-            new EventDetail($this::PUBLISHER_CHANGE, 'admin', []),
-            new EventDetail($this::ADMIN_SUBJECT_CHANGE, 'admin', []),
-            new EventDetail($this::SETTINGS_CHANGE, 'admin', []),
+            new EventDetail(self::ADMIN_USER_CHANGE, 'admin', []),
+            new EventDetail(self::ADMIN_CONTACT_CHANGE, 'admin', []),
+            new EventDetail(self::JOURNAL_APPLICATION_HAPPEN, 'admin', []),
+            new EventDetail(self::ADMIN_JOURNAL_CHANGE, 'admin', []),
+            new EventDetail(self::PUBLISHER_APPLICATION_HAPPEN, 'admin', []),
+            new EventDetail(self::PUBLISHER_CHANGE, 'admin', []),
+            new EventDetail(self::ADMIN_SUBJECT_CHANGE, 'admin', []),
+            new EventDetail(self::SETTINGS_CHANGE, 'admin', []),
         ];
     }
 }

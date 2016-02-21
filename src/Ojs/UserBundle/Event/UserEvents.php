@@ -15,7 +15,7 @@ final class UserEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail($this::USER_PASSWORD_RESET, 'admin', []),
+            new EventDetail(self::USER_PASSWORD_RESET, 'admin', []),
             new EventDetail(FOSUserEvents::REGISTRATION_COMPLETED, 'admin', []),
             new EventDetail(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, 'admin', []),
             new EventDetail(FOSUserEvents::PROFILE_EDIT_COMPLETED, 'admin', []),

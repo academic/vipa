@@ -24,9 +24,9 @@ final class JournalEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail($this::POST_CREATE, 'admin', []),
-            new EventDetail($this::POST_UPDATE, 'admin', []),
-            new EventDetail($this::POST_DELETE, 'admin', []),
+            new EventDetail(self::POST_CREATE, 'admin', []),
+            new EventDetail(self::POST_UPDATE, 'admin', []),
+            new EventDetail(self::POST_DELETE, 'admin', []),
         ];
     }
 }
