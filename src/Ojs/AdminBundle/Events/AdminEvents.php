@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Events;
 
+use Ojs\CoreBundle\Events\EventDetail;
 use Ojs\CoreBundle\Events\MailEventsInterface;
 
 final class AdminEvents implements MailEventsInterface
@@ -22,6 +23,15 @@ final class AdminEvents implements MailEventsInterface
 
     public function getMailEventsOptions()
     {
-        return [];
+        return [
+            new EventDetail($this::ADMIN_USER_CHANGE, 'admin', []),
+            new EventDetail($this::ADMIN_CONTACT_CHANGE, 'admin', []),
+            new EventDetail($this::JOURNAL_APPLICATION_HAPPEN, 'admin', []),
+            new EventDetail($this::ADMIN_JOURNAL_CHANGE, 'admin', []),
+            new EventDetail($this::PUBLISHER_APPLICATION_HAPPEN, 'admin', []),
+            new EventDetail($this::PUBLISHER_CHANGE, 'admin', []),
+            new EventDetail($this::ADMIN_SUBJECT_CHANGE, 'admin', []),
+            new EventDetail($this::SETTINGS_CHANGE, 'admin', []),
+        ];
     }
 }

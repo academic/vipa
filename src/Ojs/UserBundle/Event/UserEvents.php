@@ -2,6 +2,8 @@
 
 namespace Ojs\UserBundle\Event;
 
+use FOS\UserBundle\FOSUserEvents;
+use Ojs\CoreBundle\Events\EventDetail;
 use Ojs\CoreBundle\Events\MailEventsInterface;
 
 final class UserEvents implements MailEventsInterface
@@ -12,7 +14,12 @@ final class UserEvents implements MailEventsInterface
 
     public function getMailEventsOptions()
     {
-        return [];
+        return [
+            new EventDetail($this::USER_PASSWORD_RESET, 'admin', []),
+            new EventDetail(FOSUserEvents::REGISTRATION_COMPLETED, 'admin', []),
+            new EventDetail(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, 'admin', []),
+            new EventDetail(FOSUserEvents::PROFILE_EDIT_COMPLETED, 'admin', []),
+        ];
     }
 }
 

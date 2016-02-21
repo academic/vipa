@@ -10,6 +10,9 @@ final class CoreEvents implements MailEventsInterface
 
     public function getMailEventsOptions()
     {
-        return [];
+        return [
+            new EventDetail($this::OJS_INSTALL_BASE, 'admin', []),
+            new EventDetail($this::OJS_INSTALL_3PARTY, 'admin', []),
+        ];
     }
 }

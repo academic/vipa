@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Event\JournalUser;
 
+use Ojs\CoreBundle\Events\EventDetail;
 use Ojs\CoreBundle\Events\MailEventsInterface;
 
 final class JournalUserEvents implements MailEventsInterface
@@ -26,6 +27,11 @@ final class JournalUserEvents implements MailEventsInterface
 
     public function getMailEventsOptions()
     {
-        return [];
+        return [
+            new EventDetail($this::POST_CREATE, 'journal', []),
+            new EventDetail($this::POST_UPDATE, 'journal', []),
+            new EventDetail($this::POST_DELETE, 'journal', []),
+            new EventDetail($this::POST_ADD_JOURNAL, 'journal', []),
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Event\Index;
 
+use Ojs\CoreBundle\Events\EventDetail;
 use Ojs\CoreBundle\Events\MailEventsInterface;
 
 final class IndexEvents implements MailEventsInterface
@@ -22,6 +23,10 @@ final class IndexEvents implements MailEventsInterface
 
     public function getMailEventsOptions()
     {
-        return [];
+        return [
+            new EventDetail($this::POST_CREATE, 'admin', []),
+            new EventDetail($this::POST_UPDATE, 'admin', []),
+            new EventDetail($this::POST_DELETE, 'admin', []),
+        ];
     }
 }
