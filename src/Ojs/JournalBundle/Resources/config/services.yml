@@ -143,8 +143,11 @@ services:
     tags:
       - { name: ojs.mail.event}
 
-  ojs_journal.journal_events:
+  ojs_journal.journal_application_events:
     class: Ojs\JournalBundle\Event\Journal\JournalEvents
+
+  ojs_journal.journal_events:
+    class: Ojs\JournalBundle\Event\JournalEvents
     tags:
       - { name: ojs.mail.event}
 
