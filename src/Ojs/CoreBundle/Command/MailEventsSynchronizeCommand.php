@@ -47,6 +47,9 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
      */
     private $langs;
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -55,6 +58,10 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->io = new SymfonyStyle($input, $output);
@@ -64,6 +71,12 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
         $this->langs = $this->container->getParameter('locale_support');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->io->title('Synchronize all mail events.');
@@ -82,6 +95,9 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param EventDetail $eventOption
+     */
     private function startMailEventSync(EventDetail $eventOption)
     {
         $this->io->section(sprintf('Started event sync for -> %s -> %s', $eventOption->getName(), $eventOption->getGroup()));
@@ -101,6 +117,12 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param EventDetail $eventOptions
+     * @param string $lang
+     * @param Journal|null $journal
+     * @return null|object|MailTemplate
+     */
     private function checkMailTemplateExists(EventDetail $eventOptions, $lang = 'en', Journal $journal = null)
     {
         return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
@@ -110,6 +132,11 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
         ]);
     }
 
+    /**
+     * @param EventDetail $eventOptions
+     * @param string $lang
+     * @param Journal|null $journal
+     */
     private function createMailTemplateSkeleton(EventDetail $eventOptions, $lang = 'en', Journal $journal = null)
     {
         $this->io->writeln(sprintf('Creating template for -> %s -> %s', $eventOptions->getName(), $journal == null ? 'admin': $journal->getTitle()));
