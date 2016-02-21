@@ -6,15 +6,6 @@ ojs_admin_mail_template_show:
     path:  /{id}/show
     defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:show" }
 
-ojs_admin_mail_template_new:
-    path:  /new
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:new" }
-
-ojs_admin_mail_template_create:
-    path:  /create
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:create" }
-    methods: [POST]
-
 ojs_admin_mail_template_edit:
     path:  /{id}/edit
     defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:edit" }
@@ -23,8 +14,3 @@ ojs_admin_mail_template_update:
     path:  /{id}/update
     defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:update" }
     methods:  [PUT]
-
-ojs_admin_mail_template_delete:
-    path:  /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminMailTemplate:delete" }
-    methods:  [DELETE]

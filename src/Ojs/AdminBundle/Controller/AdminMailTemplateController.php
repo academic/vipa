@@ -42,7 +42,6 @@ class AdminMailTemplateController extends Controller
 
         $rowAction[] = $gridAction->showAction('ojs_admin_mail_template_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_mail_template_edit', 'id');
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_mail_template_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -51,81 +50,6 @@ class AdminMailTemplateController extends Controller
         $data['grid'] = $grid;
 
         return $grid->getGridResponse('OjsAdminBundle:AdminMailTemplate:index.html.twig', $data);
-    }
-
-    /**
-     * Creates a new MailTemplate entity.
-     *
-     * @param  Request                   $request
-     * @return RedirectResponse|Response
-     */
-    public function createAction(Request $request)
-    {
-        if (!$this->isGranted('CREATE', new MailTemplate())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        $entity = new MailTemplate();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($entity);
-            $em->flush();
-            $this->successFlashBag('successful.create');
-
-            return $this->redirectToRoute('ojs_admin_mail_template_show', ['id' => $entity->getId()]);
-        }
-
-        return $this->render(
-            'OjsAdminBundle:AdminMailTemplate:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
-    }
-
-    /**
-     * Creates a form to create a MailTemplate entity.
-     *
-     * @param MailTemplate $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(MailTemplate $entity)
-    {
-        $form = $this->createForm(
-            new MailTemplateType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl('ojs_admin_mail_template_create'),
-                'method' => 'POST'
-            )
-        );
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new MailTemplate entity.
-     *
-     */
-    public function newAction()
-    {
-        if (!$this->isGranted('CREATE', new MailTemplate())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        $entity = new MailTemplate();
-        $form = $this->createCreateForm($entity);
-
-        return $this->render(
-            'OjsAdminBundle:AdminMailTemplate:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
     }
 
     /**
@@ -233,32 +157,5 @@ class AdminMailTemplateController extends Controller
                 'form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * @param  Request                                            $request
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        $this->throw404IfNotFound($entity);
-
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_mail_template' . $id);
-        if ($token != $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
-        $this->get('ojs_core.delete.service')->check($entity);
-        $em->remove($entity);
-        $em->flush();
-        $this->successFlashBag('successful.remove');
-
-        return $this->redirect($this->generateUrl('ojs_admin_mail_template_index'));
     }
 }
