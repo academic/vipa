@@ -29,6 +29,12 @@ class AdminMailTemplateController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:MailTemplate');
+        $tableAlias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias) {
+                $query->andWhere($tableAlias . '.journal IS NULL');
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
