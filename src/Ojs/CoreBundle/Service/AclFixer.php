@@ -86,6 +86,7 @@ class AclFixer
             'OjsAdminBundle:AdminPost' => null,
             'OjsAdminBundle:PublisherManagers' => null,
             'OjsAdminBundle:AdminFile' => null,
+            'OjsJournalBundle:MailTemplate' => null,
         ];
         foreach ($classes as $className => $fields) {
             $realClassName = $this->em->getRepository($className)->getClassName();
