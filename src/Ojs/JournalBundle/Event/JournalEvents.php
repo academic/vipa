@@ -2,7 +2,10 @@
 
 namespace Ojs\JournalBundle\Event;
 
-final class JournalEvents
+use Ojs\CoreBundle\Events\EventDetail;
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class JournalEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.journal.list';
 
@@ -20,6 +23,10 @@ final class JournalEvents
 
     public function getMailEventsOptions()
     {
-        return [];
+        return [
+            new EventDetail($this::POST_CREATE, 'admin', []),
+            new EventDetail($this::POST_UPDATE, 'admin', []),
+            new EventDetail($this::POST_DELETE, 'admin', []),
+        ];
     }
 }
