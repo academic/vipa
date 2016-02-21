@@ -19,21 +19,12 @@ class MailTemplateType extends AbstractType
             ->add('template', 'textarea', [
                 'label' => 'mailtemplate.template',
                 'attr' => [
-                    'style' => 'height:200px'
+                    'class' => 'form-control wysihtml5',
                     ]
                 ]
             )
-            ->add('type', 'text', ['label' => 'mailtemplate.type'])
-            ->add('subject', 'text', ['label' => 'mailtemplate.subject'])
-            ->add(
-                'lang',
-                'entity',
-                [
-                    'class' => 'Ojs\JournalBundle\Entity\Lang',
-                    'property' => 'name',
-                    'label' => 'mailtemplate.language',
-                ]
-            );
+            ->add('active')
+        ;
     }
 
     /**
