@@ -6,15 +6,6 @@ ojs_journal_mail_template_show:
     path:     /{journalId}/mail-template/{id}/show
     defaults: { _controller: "OjsJournalBundle:MailTemplate:show" }
 
-ojs_journal_mail_template_new:
-    path:     /{journalId}/mail-template/new
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:new" }
-
-ojs_journal_mail_template_create:
-    path:     /{journalId}/mail-template/create
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:create" }
-    methods: [POST]
-
 ojs_journal_mail_template_edit:
     path:     /{journalId}/mail-template/{id}/edit
     defaults: { _controller: "OjsJournalBundle:MailTemplate:edit" }
@@ -23,9 +14,3 @@ ojs_journal_mail_template_update:
     path:     /{journalId}/mail-template/{id}/update
     defaults: { _controller: "OjsJournalBundle:MailTemplate:update" }
     methods: [PUT]
-
-ojs_journal_mail_template_delete:
-    path:     /{journalId}/mail-template/{id}/delete
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:delete" }
-    methods: [DELETE]
-

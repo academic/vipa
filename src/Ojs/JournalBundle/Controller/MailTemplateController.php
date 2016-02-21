@@ -44,51 +44,10 @@ class MailTemplateController extends Controller
 
         $rowAction[] = $gridAction->showAction('ojs_journal_mail_template_show', ['id', 'journalId' => $journal->getId()]);
         $rowAction[] = $gridAction->editAction('ojs_journal_mail_template_edit', ['id', 'journalId' => $journal->getId()]);
-        $rowAction[] = $gridAction->deleteAction('ojs_journal_mail_template_delete', ['id', 'journalId' => $journal->getId()]);
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
         return $grid->getGridResponse('OjsJournalBundle:MailTemplate:index.html.twig', ['grid' => $grid]);
-    }
-
-    /**
-     * Creates a new MailTemplate entity.
-     *
-     * @param  Request                   $request
-     * @return RedirectResponse|Response
-     */
-    public function createAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-        $entity = new MailTemplate();
-        $form = $this->createCreateForm($entity, $journal->getId());
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $entity->setJournal($journal);
-            $em->persist($entity);
-            $em->flush();
-            $this->successFlashBag('successful.create');
-
-            return $this->redirectToRoute(
-                'ojs_journal_mail_template_show',
-                [
-                    'id' => $entity->getId(),
-                    'journalId' => $journal->getId(),
-                ]
-            );
-        }
-
-        return $this->render(
-            'OjsJournalBundle:MailTemplate:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
     }
 
     /**
@@ -112,29 +71,6 @@ class MailTemplateController extends Controller
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
-    }
-
-    /**
-     * Displays a form to create a new MailTemplate entity.
-     *
-     * @return Response
-     */
-    public function newAction()
-    {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-        $entity = new MailTemplate();
-        $form = $this->createCreateForm($entity, $journal->getId());
-
-        return $this->render(
-            'OjsJournalBundle:MailTemplate:new.html.twig',
-            array(
-                'entity' => $entity,
-                'form' => $form->createView(),
-            )
-        );
     }
 
     /**
@@ -263,35 +199,5 @@ class MailTemplateController extends Controller
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * @param  Request          $request
-     * @param  integer          $id
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('DELETE', $journal, 'mailTemplate')) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-        /** @var MailTemplate $entity */
-        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
-        $this->throw404IfNotFound($entity);
-
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_journal_mail_template'.$entity->getId());
-        if ($token != $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
-        $this->get('ojs_core.delete.service')->check($entity);
-        $em->remove($entity);
-        $em->flush();
-
-        $this->successFlashBag('successful.remove');
-
-        return $this->redirectToRoute('ojs_journal_mail_template_index', ['journalId' => $journal->getId()]);
     }
 }
