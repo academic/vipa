@@ -37,28 +37,10 @@ class UserEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            UserEvents::USER_PASSWORD_RESET => 'onUserPasswordReset',
-            UserEvents::USER_LOGIN => 'onUserLogin',
-            UserEvents::USER_LOGOUT => 'onUserLogout',
             FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted',
             FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onChangePasswordCompleted',
             FOSUserEvents::PROFILE_EDIT_COMPLETED => 'onProfileEditCompleted',
         );
-    }
-
-    public function onUserPasswordReset(UserEvent $userEvent)
-    {
-
-    }
-
-    public function onUserLogin(UserEvent $userEvent)
-    {
-
-    }
-
-    public function onUserLogout(UserEvent $userEvent)
-    {
-
     }
 
     /**
