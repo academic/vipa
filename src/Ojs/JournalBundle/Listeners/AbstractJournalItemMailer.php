@@ -36,12 +36,8 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 
     protected function sendMail(JournalItemEvent $itemEvent, $item, $action)
     {
-        $mailUsers = $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
-            ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR']
-        );
-
         $journalItem = $itemEvent->getItem();
-        foreach ($mailUsers as $user) {
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $this->ojsMailer->sendToUser(
                 $user,
                 'A '.$item.' '.$action.' -> '.$journalItem->getJournal()->getTitle(),

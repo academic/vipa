@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\CoreBundle\Service\OjsMailer;
-use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -60,7 +59,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onUserChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -72,26 +71,11 @@ class AdminEventListener implements EventSubscriberInterface
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection | User[]
-     * @link http://stackoverflow.com/a/16692911
-     */
-    private function getAdminUsers()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('u')
-            ->from('OjsUserBundle:User', 'u')
-            ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
      * @param AdminEvent $event
      */
     public function onJournalContactChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -108,7 +92,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalApplicationHappen(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -124,7 +108,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -141,7 +125,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherApplicationHappen(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -157,7 +141,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherManagerChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -174,7 +158,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -191,7 +175,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onAdminSubjectChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
@@ -208,7 +192,7 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onSettingsChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
+        $adminUsers = $this->ojsMailer->getAdminUsers();
 
         foreach ($adminUsers as $user) {
             $this->ojsMailer->sendToUser(
