@@ -24,14 +24,30 @@ final class AdminEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::ADMIN_USER_CHANGE, 'admin', []),
-            new EventDetail(self::ADMIN_CONTACT_CHANGE, 'admin', []),
-            new EventDetail(self::JOURNAL_APPLICATION_HAPPEN, 'admin', []),
-            new EventDetail(self::ADMIN_JOURNAL_CHANGE, 'admin', []),
-            new EventDetail(self::PUBLISHER_APPLICATION_HAPPEN, 'admin', []),
-            new EventDetail(self::PUBLISHER_CHANGE, 'admin', []),
-            new EventDetail(self::ADMIN_SUBJECT_CHANGE, 'admin', []),
-            new EventDetail(self::SETTINGS_CHANGE, 'admin', []),
+            new EventDetail(self::ADMIN_USER_CHANGE, 'admin', [
+                'user.username', 'eventType', 'user.fullName', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::ADMIN_CONTACT_CHANGE, 'admin', [
+                'contact.username', 'eventType', 'contact.fullName', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::JOURNAL_APPLICATION_HAPPEN, 'admin', [
+                'journal.title', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::ADMIN_JOURNAL_CHANGE, 'admin', [
+                'journal.title', 'eventType', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::PUBLISHER_APPLICATION_HAPPEN, 'admin', [
+                'publisher.name', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::PUBLISHER_CHANGE, 'admin', [
+                'publisher.name', 'eventType', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::ADMIN_SUBJECT_CHANGE, 'admin', [
+                'subject.subject', 'eventType', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::SETTINGS_CHANGE, 'admin', [
+                'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
         ];
     }
 }

@@ -42,15 +42,15 @@ class AdminEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            AdminEvents::ADMIN_USER_CHANGE => 'onUserChange', #+
-            AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange', #+
-            AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen', #+
-            AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange', #+
-            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen', #+
-            AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange', #+
-            AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange', #+
-            AdminEvents::ADMIN_SUBJECT_CHANGE => 'onAdminSubjectChange', #+
-            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange', #+
+            AdminEvents::ADMIN_USER_CHANGE => 'onUserChange',
+            AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange',
+            AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
+            AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange',
+            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen',
+            AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange',
+            AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange',
+            AdminEvents::ADMIN_SUBJECT_CHANGE => 'onAdminSubjectChange',
+            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange',
         );
     }
 
