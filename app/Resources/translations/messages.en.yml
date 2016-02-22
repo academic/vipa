@@ -1481,6 +1481,7 @@ yes: 'Yes'
 no: 'No'
 successfully.rejected.journal: 'Successfully rejected journal'
 journal.application_reject: 'Reject journal application'
+you.can.use.below.params.on.this.template: 'You can use below params in you template'
 
 # OAuth
 linkedin: 'Linkedin'

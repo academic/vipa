@@ -110,6 +110,7 @@ class MailTemplateController extends Controller
      */
     public function editAction($id)
     {
+        $mailEventsChain = $this->get('ojs_core.mail.event_chain');
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if (!$this->isGranted('EDIT', $journal, 'mailTemplate')) {
@@ -121,16 +122,15 @@ class MailTemplateController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        $token = $this
-            ->get('security.csrf.token_manager')
-            ->refreshToken('ojs_journal_mail_template'.$entity->getId());
-
+        $eventDetail = $mailEventsChain->getEventOptionsByName($entity->getType());
+        $eventParamsAsString = $mailEventsChain->getEventParamsAsString($eventDetail);
         return $this->render(
             'OjsJournalBundle:MailTemplate:edit.html.twig',
             array(
                 'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-                'token' => $token,
+                'form' => $editForm->createView(),
+                'eventDetail' => $eventDetail,
+                'eventParamsAsString' => $eventParamsAsString,
             )
         );
     }

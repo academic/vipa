@@ -85,6 +85,7 @@ class AdminMailTemplateController extends Controller
      */
     public function editAction($id)
     {
+        $mailEventsChain = $this->get('ojs_core.mail.event_chain');
         $em = $this->getDoctrine()->getManager();
         /** @var MailTemplate $entity */
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
@@ -94,11 +95,15 @@ class AdminMailTemplateController extends Controller
         }
         $editForm = $this->createEditForm($entity);
 
+        $eventDetail = $mailEventsChain->getEventOptionsByName($entity->getType());
+        $eventParamsAsString = $mailEventsChain->getEventParamsAsString($eventDetail);
         return $this->render(
             'OjsAdminBundle:AdminMailTemplate:edit.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $editForm->createView(),
+                'eventDetail' => $eventDetail,
+                'eventParamsAsString' => $eventParamsAsString,
             )
         );
     }
@@ -120,6 +125,7 @@ class AdminMailTemplateController extends Controller
                 'method' => 'PUT'
             )
         );
+        $form->add('submit', 'submit', ['label' => 'Update']);
 
         return $form;
     }
