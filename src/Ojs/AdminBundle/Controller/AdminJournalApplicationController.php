@@ -21,6 +21,7 @@ use OkulBilisim\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Publisher controller.
@@ -30,17 +31,26 @@ class AdminJournalApplicationController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $data = array();
+        if (!$this->isGranted('VIEW', new Journal())) {
+            throw new AccessDeniedException("You not authorized for list journals!");
+        }
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
-            function (Row $row) use ($request)
+            function (Row $row) use ($request, $cache)
             {
                 /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
-                if(!is_null($entity)){
-                    $row->setField('translations.title', $entity->getTitleTranslations());
+                if (!is_null($entity)) {
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('translations.title', $entity->getTitleTranslations());
+                    }
                 }
+
                 return $row;
             }
         );
