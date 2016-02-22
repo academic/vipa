@@ -2,6 +2,7 @@
 
 namespace Ojs\CoreBundle\Command;
 
+use Ojs\JournalBundle\Entity\PeriodTranslation;
 use Ojs\JournalBundle\Entity\PublisherTypesTranslation;
 use Ojs\JournalBundle\Entity\SubjectTranslation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -51,6 +52,7 @@ class NormalizeTranslatableObjectsCommand extends ContainerAwareCommand
 
         $this->normalizeSubjects();
         $this->normalizePublisherTypes();
+        $this->normalizePeriods();
     }
 
     private function normalizeSubjects()
@@ -99,6 +101,32 @@ class NormalizeTranslatableObjectsCommand extends ContainerAwareCommand
                 $newPublisherTypeTranslation->setLocale($this->locale);
                 $newPublisherTypeTranslation->setName('-');
                 $this->em->persist($newPublisherTypeTranslation);
+            }
+        }
+        $this->em->flush();
+        $this->io->newLine();
+    }
+
+    private function normalizePeriods()
+    {
+        $this->io->newLine();
+        $this->io->text('normalizing periods');
+        $this->getContainer()->getParameter('locale');
+
+        $this->io->progressStart();
+        $periods = $this->em->getRepository('OjsJournalBundle:Period')->findAll();
+        foreach($periods as $period){
+            $getTranslation = $this->em->getRepository('OjsJournalBundle:PeriodTranslation')->findOneBy([
+                'translatable' => $period,
+                'locale' => $this->locale
+            ]);
+            if(!$getTranslation){
+                $this->io->progressAdvance();
+                $newPeriodTranslation = new PeriodTranslation();
+                $newPeriodTranslation->setTranslatable($period);
+                $newPeriodTranslation->setLocale($this->locale);
+                $newPeriodTranslation->setPeriod('-');
+                $this->em->persist($newPeriodTranslation);
             }
         }
         $this->em->flush();
