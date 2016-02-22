@@ -15,8 +15,7 @@ class CommonController extends Controller
     {
         $request->setLocale($code);
         $this->get('session')->set('_locale', $code);
-        $referer = $request->headers->get('referer');
 
-        return $this->redirect(empty($referer) ? "/" : $referer);
+        return $this->redirect('/');
     }
 }
