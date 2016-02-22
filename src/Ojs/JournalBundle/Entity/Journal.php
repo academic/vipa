@@ -352,6 +352,7 @@ class Journal extends AbstractTranslatable
         $this->boards = new ArrayCollection();
         $this->languages = new ArrayCollection();
         $this->sections = new ArrayCollection();
+        $this->periods = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->journalApplicationUploadFiles = new ArrayCollection();
@@ -473,7 +474,7 @@ class Journal extends AbstractTranslatable
      */
     public function addPeriod(Period $period)
     {
-        if ($this->periods !== null && !$this->periods->contains($period)) {
+        if (!$this->periods->contains($period)) {
             $this->periods->add($period);
         }
 
@@ -485,7 +486,7 @@ class Journal extends AbstractTranslatable
      */
     public function removePeriod(Period $period)
     {
-        if ($this->periods !== null && $this->periods->contains($period)) {
+        if ($this->periods->contains($period)) {
             $this->periods->removeElement($period);
         }
     }
