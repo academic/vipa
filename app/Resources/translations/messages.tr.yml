@@ -1474,6 +1474,10 @@ yes: 'Evet'
 no: 'Hayır'
 successfully.rejected.journal: 'Başarılı bir şekilde reddedildi'
 journal.application_reject: 'Başvuruyu reddet'
+status.application: 'Başvuruda'
+status.name_changed: 'İsim Değişti'
+status.hold: 'Beklemede'
+status.preparing: 'Hazırlanıyor'
 
 # OAuth
 linkedin: 'Linkedin'

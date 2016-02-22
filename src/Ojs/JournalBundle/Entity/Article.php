@@ -50,7 +50,14 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @var integer
      * @Expose
      * @GRID\Column(type="text", groups={"submission"})
-     * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={"-4"="status.withdrawn","-3"="status.rejected","-2"="status.unpublished","-1"="status.not_submitted","0"="status.inreview","1"="status.published"})
+     * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={
+     *     "-4"="status.withdrawn",
+     *     "-3"="status.rejected",
+     *     "-2"="status.unpublished",
+     *     "-1"="status.not_submitted",
+     *     "0"="status.inreview",
+     *     "1"="status.published"
+     * })
      */
     private $status;
     /**

@@ -148,7 +148,14 @@ class Journal extends AbstractTranslatable
     /**
      * @var integer
      * @JMS\Expose
-     * @Grid\Column(field="status", title="status",type="text")
+     * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={
+     *     "-4"="status.application",
+     *     "-3"="status.rejected",
+     *     "-2"="status.name_changed",
+     *     "-1"="status.hold",
+     *     "0"="status.preparing",
+     *     "1"="status.published"
+     * })
      */
     private $status = 0;
     /**
