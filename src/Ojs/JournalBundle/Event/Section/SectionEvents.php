@@ -24,9 +24,15 @@ final class SectionEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::POST_CREATE, 'journal', []),
-            new EventDetail(self::POST_UPDATE, 'journal', []),
-            new EventDetail(self::POST_DELETE, 'journal', []),
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'section', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'section', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_DELETE, 'journal', [
+                'section', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
         ];
     }
 }

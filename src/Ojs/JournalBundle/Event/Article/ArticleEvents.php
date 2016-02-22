@@ -30,10 +30,18 @@ final class ArticleEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::POST_CREATE, 'journal', []),
-            new EventDetail(self::POST_UPDATE, 'journal', []),
-            new EventDetail(self::POST_DELETE, 'journal', []),
-            new EventDetail(self::POST_SUBMIT, 'journal', []),
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_DELETE, 'journal', [
+                'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_SUBMIT, 'journal', [
+                'article.title', 'submitter.username', 'receiver.username', 'receiver.fullName',
+            ]),
         ];
     }
 }

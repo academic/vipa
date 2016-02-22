@@ -24,9 +24,15 @@ final class JournalSubmissionChecklistEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::POST_CREATE, 'journal', []),
-            new EventDetail(self::POST_UPDATE, 'journal', []),
-            new EventDetail(self::POST_DELETE, 'journal', []),
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'submission.checklist', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'submission.checklist', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_DELETE, 'journal', [
+                'submission.checklist', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
         ];
     }
 }

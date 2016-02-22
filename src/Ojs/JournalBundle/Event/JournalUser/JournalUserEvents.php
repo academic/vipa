@@ -28,10 +28,18 @@ final class JournalUserEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::POST_CREATE, 'journal', []),
-            new EventDetail(self::POST_UPDATE, 'journal', []),
-            new EventDetail(self::POST_DELETE, 'journal', []),
-            new EventDetail(self::POST_ADD_JOURNAL, 'journal', []),
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'journal,user', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_DELETE, 'journal', [
+                'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_ADD_JOURNAL, 'journal', [
+                'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
         ];
     }
 }

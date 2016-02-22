@@ -24,9 +24,15 @@ final class IndexEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::POST_CREATE, 'admin', []),
-            new EventDetail(self::POST_UPDATE, 'admin', []),
-            new EventDetail(self::POST_DELETE, 'admin', []),
+            new EventDetail(self::POST_CREATE, 'admin', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'admin', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_DELETE, 'admin', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
         ];
     }
 }
