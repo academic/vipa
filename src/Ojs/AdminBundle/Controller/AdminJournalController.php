@@ -49,7 +49,6 @@ class AdminJournalController extends Controller
                     }else{
                         $cache->save('grid_row_id_'.$entity->getId(), true);
                         $row->setField('translations.title', $entity->getTitleTranslations());
-                        $row->setField('status', Journal::$statuses[$entity->getStatus()]);
                     }
                 }
 
