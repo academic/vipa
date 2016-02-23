@@ -22,6 +22,11 @@ class MailTemplateType extends AbstractType
                     ]
                 ]
             )
+            ->add('subject', 'text', [
+                    'label' => 'mailtemplate.subject',
+                    'required' => true,
+                ]
+            )
             ->add('active')
         ;
     }
