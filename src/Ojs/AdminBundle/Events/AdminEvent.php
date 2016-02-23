@@ -3,7 +3,6 @@
 namespace Ojs\AdminBundle\Events;
 
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,20 +42,15 @@ class AdminEvent extends Event
 
     /**
      * AdminEvent constructor.
-     * @param Request $request
-     * @param Journal|null $journal
-     * @param Publisher|null $publisher
-     * @param User|null $user
-     * @param string $eventType
-     * @param null $entity
+     * @param array $options
      */
-    public function __construct(Request $request,Journal $journal = null, Publisher $publisher = null, User $user = null, $eventType = '', $entity = null)
+    public function __construct($options = [])
     {
-        $this->request = $request;
-        $this->journal = $journal;
-        $this->user = $user;
-        $this->eventType = $eventType;
-        $this->entity = $entity;
+        foreach($options as $optionKey => $option){
+            if(isset($this->$optionKey)){
+                $this->$optionKey = $option;
+            }
+        }
     }
 
     /**
@@ -100,34 +94,10 @@ class AdminEvent extends Event
     }
 
     /**
-     * @param Response $response
-     *
-     * @return $this
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
-
-        return $this;
-    }
-
-    /**
      * @return mixed
      */
     public function getEntity()
     {
         return $this->entity;
-    }
-
-    /**
-     * @param mixed $entity
-     *
-     * @return $this
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
-
-        return $entity;
     }
 }
