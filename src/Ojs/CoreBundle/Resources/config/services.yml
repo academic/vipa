@@ -31,6 +31,8 @@ services:
       - "%system_email%"
       - "OJS SYSTEM"
       - "@doctrine"
+      - "@security.token_storage"
+      - "%locale%"
 
   ojs_locale.locale_listener:
     class: Ojs\CoreBundle\Service\LocaleListener

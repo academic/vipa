@@ -192,14 +192,18 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onSettingsChange(AdminEvent $event)
     {
-        $adminUsers = $this->ojsMailer->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::SETTINGS_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin System Settings Change -> '.$event->getEventType(),
-                'Admin Event : Admin System Settings Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }

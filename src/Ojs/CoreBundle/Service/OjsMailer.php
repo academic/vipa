@@ -4,8 +4,11 @@ namespace Ojs\CoreBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class OjsMailer
 {
@@ -29,18 +32,35 @@ class OjsMailer
      */
     private $em;
 
+    /** @var  TokenStorageInterface */
+    private $tokenStorage;
+
+    /** @var  string */
+    private $locale;
+
     /**
      * OjsMailer constructor.
      * @param \Swift_Mailer $mailer
-     * @param string $mailSender
-     * @param string $mailSenderName
+     * @param $mailSender
+     * @param $mailSenderName
+     * @param RegistryInterface $registry
+     * @param TokenStorageInterface $tokenStorage
+     * @param $locale
      */
-    public function __construct(\Swift_Mailer $mailer, $mailSender, $mailSenderName,RegistryInterface $registry)
+    public function __construct(
+        \Swift_Mailer $mailer,
+        $mailSender,
+        $mailSenderName,
+        RegistryInterface $registry,
+        TokenStorageInterface $tokenStorage,
+        $locale)
     {
         $this->mailer = $mailer;
         $this->mailSender = $mailSender;
         $this->mailSenderName = $mailSenderName;
         $this->em = $registry->getManager();
+        $this->tokenStorage = $tokenStorage;
+        $this->locale = $locale;
     }
 
     /**
@@ -93,5 +113,39 @@ class OjsMailer
         return $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
             ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR']
         );
+    }
+
+    public function transformTemplate($template, $transformParams = [])
+    {
+        foreach($transformParams as $transformKey => $transformParam){
+            $template = str_replace('[['.$transformKey.']]', $transformParam, $template);
+        }
+        return $template;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function currentUser()
+    {
+        return $this->tokenStorage->getToken()->getUser();
+    }
+
+    /**
+     * @param $eventName
+     * @param null $lang
+     * @param Journal|null $journal
+     * @return MailTemplate
+     */
+    public function getEventByName($eventName, $lang = null, Journal $journal = null)
+    {
+        if($lang == null){
+            $lang = $this->locale;
+        }
+        return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
+            'journal' => $journal,
+            'type'    => $eventName,
+            'lang'    => $lang,
+        ]);
     }
 }
