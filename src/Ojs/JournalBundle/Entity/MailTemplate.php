@@ -29,6 +29,12 @@ class MailTemplate implements JournalItemInterface
 
     /**
      * @var string
+     * @GRID\Column(title="mailtemplate.subject")
+     */
+    private $subject;
+
+    /**
+     * @var string
      */
     private $lang;
 
@@ -82,6 +88,29 @@ class MailTemplate implements JournalItemInterface
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param  string       $subject
+     * @return $this
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
 
         return $this;
     }
