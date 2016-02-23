@@ -257,7 +257,7 @@ class AdminSubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $event = new AdminEvent($request, null, null, $this->getUser(), 'update', $entity);
             $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_subject_edit', ['id' => $entity->getId()]);
         }

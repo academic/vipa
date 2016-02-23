@@ -175,14 +175,20 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onAdminSubjectChange(AdminEvent $event)
     {
-        $adminUsers = $this->ojsMailer->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_SUBJECT_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'subject.subject'   => $event->getEntity()->getSubject(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Subject Change -> '.$event->getEventType(),
-                'Admin Event : Admin Subject Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
