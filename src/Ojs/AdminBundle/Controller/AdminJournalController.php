@@ -157,7 +157,10 @@ class AdminJournalController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $event = new AdminEvent([
+                'eventType' => 'update',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_journal_edit', ['id' => $id]);
         }
@@ -192,7 +195,10 @@ class AdminJournalController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $event = new AdminEvent([
+                'eventType' => 'create',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
             return $this->redirect($this->generateUrl('ojs_admin_journal_show', array('id' => $entity->getId())));
         }
@@ -294,12 +300,16 @@ class AdminJournalController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
         $this->get('ojs_core.delete.service')->check($entity);
+
+        $event = new AdminEvent([
+            'eventType' => 'delete',
+            'entity'    => $entity,
+        ]);
+        $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
-
-        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
-        $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
 
         return $this->redirectToRoute('ojs_admin_journal_index');
     }

@@ -66,7 +66,7 @@ class AdminSystemSettingsController extends OjsController
                 $em->persist($result);
             }
 
-            $event = new AdminEvent($request, null, null, $this->getUser());
+            $event = new AdminEvent([]);
             $dispatcher->dispatch(AdminEvents::SETTINGS_CHANGE, $event);
             $em->flush();
         }

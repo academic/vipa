@@ -106,7 +106,10 @@ class AdminSubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $event = new AdminEvent([
+                'eventType' => 'create',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_subject_show', ['id' => $entity->getId()]);
         }
@@ -257,7 +260,10 @@ class AdminSubjectController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'update', $entity);
+            $event = new AdminEvent([
+                'eventType' => 'update',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_subject_edit', ['id' => $entity->getId()]);
         }
@@ -292,12 +298,15 @@ class AdminSubjectController extends Controller
             throw new TokenNotFoundException("Token Not Found!");
         }
         $this->get('ojs_core.delete.service')->check($entity);
+        $event = new AdminEvent([
+            'eventType' => 'delete',
+            'entity'    => $entity,
+        ]);
+        $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
-        $dispatcher->dispatch(AdminEvents::ADMIN_SUBJECT_CHANGE, $event);
         return $this->redirectToRoute('ojs_admin_subject_index');
     }
 }
