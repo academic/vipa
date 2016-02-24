@@ -164,7 +164,9 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         $this->schemaUpdate($output, $kernel);
         $this->asseticDump($output, $kernel);
 
-        $event = new CoreEvent();
+        $event = new CoreEvent([
+            'bundleName' => $this->packageName
+        ]);
         $dispatcher->dispatch(CoreEvents::OJS_INSTALL_3PARTY, $event);
     }
 
