@@ -28,7 +28,7 @@ final class AdminEvents implements MailEventsInterface
                 'user.username', 'eventType', 'user.fullName', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::ADMIN_CONTACT_CHANGE, 'admin', [
-                'contact.username', 'eventType', 'contact.fullName', 'done.by', 'receiver.username', 'receiver.fullName',
+                'contact', 'eventType', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::JOURNAL_APPLICATION_HAPPEN, 'admin', [
                 'journal.title', 'receiver.username', 'receiver.fullName',

@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -58,13 +59,23 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onUserChange(AdminEvent $event)
     {
-        $adminUsers = $this->ojsMailer->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_USER_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            /** @var User $entity */
+            $entity = $event->getEntity();
+            $transformParams = [
+                'user.username'     => $entity->getUsername(),
+                'user.fullname'     => $entity->getFullName(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin User Change -> '.$event->getEventType(),
-                'Admin Event : Admin User Change -> '.$event->getEventType().' -> by '.$event->getUser()->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -74,14 +85,20 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalContactChange(AdminEvent $event)
     {
-        $adminUsers = $this->ojsMailer->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_CONTACT_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'contact'           => (string)$event->getEntity(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Contact Change -> '.$event->getEventType(),
-                'Admin Event : Admin Contact Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
