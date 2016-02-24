@@ -36,7 +36,7 @@ final class ArticleEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'journal', [
+            new EventDetail(self::PRE_DELETE, 'journal', [
                 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_SUBMIT, 'journal', [
