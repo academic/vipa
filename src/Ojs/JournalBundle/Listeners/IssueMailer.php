@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Ojs\JournalBundle\Event\Issue\IssueEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\UserBundle\Entity\User;
 
 class IssueMailer extends AbstractJournalItemMailer
 {
@@ -24,7 +25,22 @@ class IssueMailer extends AbstractJournalItemMailer
      */
     public function onIssuePostCreate(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Issue', 'Created');
+        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::POST_CREATE);
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'issue'             => (string)$itemEvent->getItem(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 
     /**
@@ -32,7 +48,22 @@ class IssueMailer extends AbstractJournalItemMailer
      */
     public function onIssuePostUpdate(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Issue', 'Updated');
+        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::POST_UPDATE);
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'issue'             => (string)$itemEvent->getItem(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 
     /**
@@ -40,6 +71,21 @@ class IssueMailer extends AbstractJournalItemMailer
      */
     public function onIssuePreDelete(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Issue', 'Deleted');
+        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::PRE_DELETE);
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'issue'             => (string)$itemEvent->getItem(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 }
