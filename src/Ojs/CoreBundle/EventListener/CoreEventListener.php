@@ -43,29 +43,8 @@ class CoreEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            CoreEvents::OJS_INSTALL_BASE => 'onInstallBase',
             CoreEvents::OJS_INSTALL_3PARTY => 'onInstall3Party',
         );
-    }
-
-    /**
-     * @param CoreEvent $event
-     */
-    public function onInstallBase(CoreEvent $event)
-    {
-        $getMailEvent = $this->ojsMailer->getEventByName(CoreEvents::OJS_INSTALL_BASE);
-        foreach ($this->ojsMailer->getAdminUsers() as $user) {
-            $transformParams = [
-                'receiver.username' => $user->getUsername(),
-                'receiver.fullName' => $user->getFullName(),
-            ];
-            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
-            $this->ojsMailer->sendToUser(
-                $user,
-                $getMailEvent->getSubject(),
-                $template
-            );
-        }
     }
 
     /**
