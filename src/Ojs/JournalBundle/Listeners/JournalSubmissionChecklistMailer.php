@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\JournalSubmissionChecklist\JournalSubmissionChecklistEvents;
+use Ojs\UserBundle\Entity\User;
 
 class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
 {
@@ -24,7 +25,22 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionChecklistPostCreate(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Journal Submission Checklist', 'Created');
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionChecklistEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'submission.checklist'  => (string)$itemEvent->getItem(),
+                'done.by'               => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username'     => $user->getUsername(),
+                'receiver.fullName'     => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 
     /**
@@ -32,7 +48,22 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionChecklistPostUpdate(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Journal Submission Checklist', 'Updated');
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionChecklistEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'submission.checklist'  => (string)$itemEvent->getItem(),
+                'done.by'               => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username'     => $user->getUsername(),
+                'receiver.fullName'     => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 
     /**
@@ -40,6 +71,21 @@ class JournalSubmissionChecklistMailer extends AbstractJournalItemMailer
      */
     public function onJournalSubmissionChecklistPreDelete(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Journal Submission Checklist', 'Deleted');
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalSubmissionChecklistEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'submission.checklist'  => (string)$itemEvent->getItem(),
+                'done.by'               => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username'     => $user->getUsername(),
+                'receiver.fullName'     => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 }

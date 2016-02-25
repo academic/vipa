@@ -43,15 +43,14 @@ class AdminEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            AdminEvents::ADMIN_USER_CHANGE => 'onUserChange', #+
-            AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange', #+
-            AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen', #+
-            AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange', #+
-            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen', #+
-            AdminEvents::PUBLISHER_MANAGER_CHANGE => 'onPublisherManagerChange', #+
-            AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange', #+
-            AdminEvents::ADMIN_SUBJECT_CHANGE => 'onAdminSubjectChange', #+
-            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange', #+
+            AdminEvents::ADMIN_USER_CHANGE => 'onUserChange',
+            AdminEvents::ADMIN_CONTACT_CHANGE => 'onJournalContactChange',
+            AdminEvents::JOURNAL_APPLICATION_HAPPEN => 'onJournalApplicationHappen',
+            AdminEvents::ADMIN_JOURNAL_CHANGE => 'onJournalChange',
+            AdminEvents::PUBLISHER_APPLICATION_HAPPEN => 'onPublisherApplicationHappen',
+            AdminEvents::PUBLISHER_CHANGE => 'onPublisherChange',
+            AdminEvents::ADMIN_SUBJECT_CHANGE => 'onAdminSubjectChange',
+            AdminEvents::SETTINGS_CHANGE => 'onSettingsChange',
         );
     }
 
@@ -60,30 +59,25 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onUserChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_USER_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            /** @var User $entity */
+            $entity = $event->getEntity();
+            $transformParams = [
+                'user.username'     => $entity->getUsername(),
+                'user.fullName'     => $entity->getFullName(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin User Change -> '.$event->getEventType(),
-                'Admin Event : Admin User Change -> '.$event->getEventType().' -> by '.$event->getUser()->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection | User[]
-     * @link http://stackoverflow.com/a/16692911
-     */
-    private function getAdminUsers()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('u')
-            ->from('OjsUserBundle:User', 'u')
-            ->where('u.roles LIKE :roles')
-            ->setParameter('roles', '%ROLE_SUPER_ADMIN%');
-
-        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -91,14 +85,20 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalContactChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_CONTACT_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'contact'           => (string)$event->getEntity(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Contact Change -> '.$event->getEventType(),
-                'Admin Event : Admin Contact Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -108,13 +108,18 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalApplicationHappen(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::JOURNAL_APPLICATION_HAPPEN);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'journal.title'     => $event->getEntity()->getTitle(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Journal Application Happen',
-                'Admin Event : Journal Application Happen'
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -124,14 +129,20 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_JOURNAL_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'journal.title'     => $event->getEntity()->getTitle(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Journal Change -> '.$event->getEventType(),
-                'Admin Event : Admin Journal Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -141,30 +152,18 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherApplicationHappen(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::PUBLISHER_APPLICATION_HAPPEN);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'publisher.name'   => $event->getEntity()->getName(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Publisher Application Happen',
-                'Admin Event : Publisher Application Happen'
-            );
-        }
-    }
-
-    /**
-     * @param AdminEvent $event
-     */
-    public function onPublisherManagerChange(AdminEvent $event)
-    {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
-            $this->ojsMailer->sendToUser(
-                $user,
-                'Admin Event : Admin Publisher Manager Change -> '.$event->getEventType(),
-                'Admin Event : Admin Publisher Manager Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -174,14 +173,20 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onPublisherChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::PUBLISHER_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'publisher.name'   => $event->getEntity()->getName(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Publisher Change -> '.$event->getEventType(),
-                'Admin Event : Admin Publisher Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -191,14 +196,20 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onAdminSubjectChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::ADMIN_SUBJECT_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'subject.subject'   => $event->getEntity()->getSubject(),
+                'eventType'         => $event->getEventType(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin Subject Change -> '.$event->getEventType(),
-                'Admin Event : Admin Subject Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }
@@ -208,14 +219,18 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onSettingsChange(AdminEvent $event)
     {
-        $adminUsers = $this->getAdminUsers();
-
-        foreach ($adminUsers as $user) {
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::SETTINGS_CHANGE);
+        foreach ($this->ojsMailer->getAdminUsers() as $user) {
+            $transformParams = [
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
             $this->ojsMailer->sendToUser(
                 $user,
-                'Admin Event : Admin System Settings Change -> '.$event->getEventType(),
-                'Admin Event : Admin System Settings Change -> '.$event->getEventType().' -> by '.$event->getUser(
-                )->getUsername()
+                $getMailEvent->getSubject(),
+                $template
             );
         }
     }

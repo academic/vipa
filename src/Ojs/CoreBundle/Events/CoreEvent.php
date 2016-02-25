@@ -25,16 +25,21 @@ class CoreEvent extends Event
     private $eventType;
 
     /**
-     * @param Journal|null $journal
-     * @param Publisher|null $publisher
-     * @param User|null $user
-     * @param string $eventType
+     * @var string
      */
-    public function __construct(Journal $journal = null, Publisher $publisher = null, User $user = null, $eventType = '')
+    private $bundleName;
+
+    /**
+     * CoreEvent constructor.
+     * @param array $options
+     */
+    public function __construct($options = [])
     {
-        $this->journal = $journal;
-        $this->user = $user;
-        $this->eventType = $eventType;
+        foreach($options as $optionKey => $option){
+            if(isset($this->$optionKey)){
+                $this->$optionKey = $option;
+            }
+        }
     }
 
     /**
@@ -59,5 +64,13 @@ class CoreEvent extends Event
     public function getEventType()
     {
         return $this->eventType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBundleName()
+    {
+        return $this->bundleName;
     }
 }

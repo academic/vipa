@@ -22,22 +22,25 @@ Ojs\JournalBundle\Entity\MailTemplate:
             nullable: true
             gedmo:
                 - versioned
+        subject:
+            type: string
+            length: 255
+            column: subject
+            nullable: true
+            gedmo:
+                - versioned
         lang:
             type: string
             length: 100
             column: lang
             gedmo:
                 - versioned
-        subject:
-            type: string
-            length: 100
-            column: subject
-            gedmo:
-                - versioned
         template:
             type: text
             gedmo:
                 - versioned
+        active:
+            type: boolean
         created:
             type: datetime
             nullable: true

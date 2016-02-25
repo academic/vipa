@@ -96,7 +96,10 @@ class AdminUserController extends Controller
 
             $this->successFlashBag('successful.create');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $event = new AdminEvent([
+                'eventType' => 'create',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_user_show',
@@ -293,8 +296,13 @@ class AdminUserController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.update');
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+
+            $event = new AdminEvent([
+                'eventType' => 'update',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
+
             return $this->redirectToRoute('ojs_admin_user_edit', ['id' => $id]);
         }
 
@@ -316,6 +324,7 @@ class AdminUserController extends Controller
         /** @var User $user */
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
+        $dispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -329,7 +338,13 @@ class AdminUserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('ojs_admin_user_index'));
+        $event = new AdminEvent([
+            'eventType' => 'block',
+            'entity'    => $user,
+        ]);
+        $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
+
+        return $this->redirectToRoute('ojs_admin_user_index');
     }
 
     /**
@@ -342,6 +357,7 @@ class AdminUserController extends Controller
         /** @var User $user */
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
+        $dispatcher = $this->get('event_dispatcher');
 
         if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -355,7 +371,13 @@ class AdminUserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('ojs_admin_user_index'));
+        $event = new AdminEvent([
+            'eventType' => 'unblock',
+            'entity'    => $user,
+        ]);
+        $dispatcher->dispatch(AdminEvents::ADMIN_USER_CHANGE, $event);
+
+        return $this->redirectToRoute('ojs_admin_user_index');
     }
 
     public function changePasswordAction(Request $request, $id)

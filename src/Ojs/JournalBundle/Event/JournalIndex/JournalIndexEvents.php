@@ -2,7 +2,10 @@
 
 namespace Ojs\JournalBundle\Event\JournalIndex;
 
-final class JournalIndexEvents
+use Ojs\CoreBundle\Events\EventDetail;
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class JournalIndexEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.journal_index.list';
 
@@ -17,4 +20,19 @@ final class JournalIndexEvents
     const PRE_DELETE = 'ojs.journal_index.pre_delete';
 
     const POST_DELETE = 'ojs.journal_index.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::PRE_DELETE, 'journal', [
+                'index', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+        ];
+    }
 }

@@ -3,17 +3,15 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
- * @GRID\Source(columns="id,type,subject,lang")
+ * @GRID\Source(columns="id,type,lang,active")
  */
-class MailTemplate implements Translatable, JournalItemInterface
+class MailTemplate implements JournalItemInterface
 {
     use GenericEntityTrait;
 
@@ -22,23 +20,34 @@ class MailTemplate implements Translatable, JournalItemInterface
      * @GRID\Column(title="ID")
      */
     private $id;
+
     /**
      * @var string
      * @GRID\Column(title="mailtemplate.type")
      */
     private $type;
+
+    /**
+     * @var string
+     * @GRID\Column(title="mailtemplate.subject")
+     */
+    private $subject;
+
     /**
      * @var string
      */
     private $lang;
-    /**
-     * @var string
-     */
-    private $subject;
+
     /**
      * @var string
      */
     private $template;
+
+    /**
+     * @var bool
+     */
+    private $active = 0;
+
     /**
      *
      * @var Journal
@@ -97,7 +106,7 @@ class MailTemplate implements Translatable, JournalItemInterface
      * Set subject
      *
      * @param  string       $subject
-     * @return MailTemplate
+     * @return $this
      */
     public function setSubject($subject)
     {
@@ -166,7 +175,7 @@ class MailTemplate implements Translatable, JournalItemInterface
      * @param  Journal      $journal
      * @return MailTemplate
      */
-    public function setJournal(Journal $journal)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
@@ -202,8 +211,28 @@ class MailTemplate implements Translatable, JournalItemInterface
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     *
+     * @return $this
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
     public function __toString()
     {
-        return $this->getSubject();
+        return $this->getType();
     }
 }

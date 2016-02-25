@@ -18,7 +18,6 @@
     actions({
         'back': {'href': path('ojs_journal_mail_template_index', {'journalId': selectedJournal().id})},
         'edit': {'href': path('ojs_journal_mail_template_edit', {'id': entity.id, 'journalId': selectedJournal().id})},
-        'delete': {'href': path('ojs_journal_mail_template_delete', {'id': entity.id, 'journalId': selectedJournal().id}), 'attributes': {'data-token': token}},
     })
     }}
 {% endblock %}

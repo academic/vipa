@@ -6,18 +6,27 @@ services:
     class: Ojs\UserBundle\Listeners\SoftDeleteListener
     tags:
       - { name: doctrine.event_listener, event: preSoftDelete }
+
   ojs_user.manager:
     class: Ojs\UserBundle\Manager\UserManager
     arguments: ["@security.encoder_factory","@fos_user.util.username_canonicalizer","@fos_user.util.email_canonicalizer","@fos_user.object_manager",'Ojs\UserBundle\Entity\User']
+
   ojs_form.register:
     class: Ojs\UserBundle\Form\Type\RegisterFormType
     tags:
       - { name: form.type, alias: ojs_user_register}
+
   user.event_listener:
     class: Ojs\UserBundle\EventListener\UserEventListener
     arguments: ["@router", "@ojs_mailer"]
     tags:
       - { name: kernel.event_subscriber }
+
   ojs.user.oauth:
     class: Ojs\UserBundle\Provider\FOSUBUserProvider
     arguments: ["@doctrine", "@fos_user.user_manager", {}]
+
+  ojs_user.user_events:
+    class: Ojs\UserBundle\Event\UserEvents
+    tags:
+      - { name: ojs.mail.event}

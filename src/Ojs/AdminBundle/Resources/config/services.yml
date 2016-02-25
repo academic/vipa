@@ -33,3 +33,8 @@ services:
       -
         alias: ojs_adminbundle_journal_edit_type
         name: form.type
+
+  ojs_admin.admin_events:
+    class: Ojs\AdminBundle\Events\AdminEvents
+    tags:
+      - { name: ojs.mail.event}

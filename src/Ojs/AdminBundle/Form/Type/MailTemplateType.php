@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Form\Type;
+namespace Ojs\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,19 +16,25 @@ class MailTemplateType extends AbstractType
     {
         $builder
             ->add('template', 'textarea', [
-                'label' => 'mailtemplate.template',
-                'attr' => [
-                    'class' => 'form-control wysihtml5',
+                    'label' => 'mailtemplate.template',
+                    'attr' => [
+                        'class' => 'form-control wysihtml5',
                     ]
                 ]
             )
             ->add('subject', 'text', [
-                    'label' => 'mailtemplate.subject',
-                    'required' => true,
-                ]
-            )
+                'label' => 'mailtemplate.subject',
+            ])
             ->add('active')
         ;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'ojs_journalbundle_mail_template';
     }
 
     /**
@@ -40,18 +46,12 @@ class MailTemplateType extends AbstractType
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
                 'cascade_validation' => true,
+                'institution' => null,
                 'attr' => [
-                    'class' => 'form-validate',
+                    'novalidate' => 'novalidate',
+                    'class' => 'validate-form',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_mailtemplate';
     }
 }

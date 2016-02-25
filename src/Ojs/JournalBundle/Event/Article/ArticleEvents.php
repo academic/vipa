@@ -2,7 +2,10 @@
 
 namespace Ojs\JournalBundle\Event\Article;
 
-final class ArticleEvents
+use Ojs\CoreBundle\Events\EventDetail;
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class ArticleEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.article.list';
 
@@ -23,4 +26,22 @@ final class ArticleEvents
     const POST_SUBMIT = 'ojs.article.post_submit';
 
     const INIT_SUBMIT_FORM = 'ojs.article.init_submit_form';
+
+    public function getMailEventsOptions()
+    {
+        return [
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::PRE_DELETE, 'journal', [
+                'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_SUBMIT, 'journal', [
+                'journal', 'article.title', 'submitter.username', 'receiver.username', 'receiver.fullName',
+            ]),
+        ];
+    }
 }

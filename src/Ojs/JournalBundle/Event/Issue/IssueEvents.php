@@ -2,7 +2,10 @@
 
 namespace Ojs\JournalBundle\Event\Issue;
 
-final class IssueEvents
+use Ojs\CoreBundle\Events\EventDetail;
+use Ojs\CoreBundle\Events\MailEventsInterface;
+
+final class IssueEvents implements MailEventsInterface
 {
     const LISTED = 'ojs.issue.list';
 
@@ -17,4 +20,19 @@ final class IssueEvents
     const PRE_DELETE = 'ojs.issue.pre_delete';
 
     const POST_DELETE = 'ojs.issue.post_delete';
+
+    public function getMailEventsOptions()
+    {
+        return [
+            new EventDetail(self::POST_CREATE, 'journal', [
+                'journal', 'issue', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::POST_UPDATE, 'journal', [
+                'journal', 'issue', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+            new EventDetail(self::PRE_DELETE, 'journal', [
+                'journal', 'issue', 'done.by', 'receiver.username', 'receiver.fullName',
+            ]),
+        ];
+    }
 }

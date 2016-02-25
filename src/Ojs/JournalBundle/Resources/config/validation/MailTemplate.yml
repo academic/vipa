@@ -4,7 +4,5 @@ Ojs\JournalBundle\Entity\MailTemplate:
             - NotBlank: ~
         type:
             - NotBlank: ~
-        subject:
-            - NotBlank: ~
         lang:
             - NotBlank: ~

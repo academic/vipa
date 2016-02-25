@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojs\JournalBundle\Event;
 
 

@@ -117,3 +117,88 @@ services:
 #    class: Ojs\JournalBundle\Listeners\NumeratorOrmSubscriber
 #    tags:
 #        - { name: doctrine.event_listener, event: postPersist }
+
+  ojs_journal.article_events:
+    class: Ojs\JournalBundle\Event\Article\ArticleEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.board_events:
+    class: Ojs\JournalBundle\Event\Board\BoardEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.design_events:
+    class: Ojs\JournalBundle\Event\Design\DesignEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.index_events:
+    class: Ojs\JournalBundle\Event\Index\IndexEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.issue_events:
+    class: Ojs\JournalBundle\Event\Issue\IssueEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_application_events:
+    class: Ojs\JournalBundle\Event\Journal\JournalEvents
+
+  ojs_journal.journal_events:
+    class: Ojs\JournalBundle\Event\JournalEvents
+
+  ojs_journal.journal_announcement_events:
+    class: Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_contact_events:
+    class: Ojs\JournalBundle\Event\JournalContact\JournalContactEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_index_events:
+    class: Ojs\JournalBundle\Event\JournalIndex\JournalIndexEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_page_events:
+    class: Ojs\JournalBundle\Event\JournalPage\JournalPageEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_post_events:
+    class: Ojs\JournalBundle\Event\JournalPost\JournalPostEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_submission_checklist_events:
+    class: Ojs\JournalBundle\Event\JournalSubmissionChecklist\JournalSubmissionChecklistEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_submission_file_events:
+    class: Ojs\JournalBundle\Event\JournalSubmissionFile\JournalSubmissionFileEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.journal_user_events:
+    class: Ojs\JournalBundle\Event\JournalUser\JournalUserEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.section_events:
+    class: Ojs\JournalBundle\Event\Section\SectionEvents
+    tags:
+      - { name: ojs.mail.event}
+
+  ojs_journal.citation_events:
+    class: Ojs\JournalBundle\Event\CitationEvents
+
+  ojs_journal.menu_events:
+    class: Ojs\JournalBundle\Event\MenuEvents
+
+  ojs_journal.workflow_events:
+    class: Ojs\JournalBundle\Event\WorkflowEvents

@@ -9,6 +9,7 @@ ojs_admin_stats:
 ojs_admin_user:
     resource: "@OjsAdminBundle/Resources/config/routing/user.yml"
     prefix:   user
+
 ojs_admin_journal:
     resource: "@OjsAdminBundle/Resources/config/routing/journal.yml"
     prefix:   journal
@@ -20,6 +21,10 @@ ojs_admin_publisher:
 ojs_admin_institution:
     resource: "@OjsAdminBundle/Resources/config/routing/institution.yml"
     prefix:   institution
+
+ojs_admin_mail_template:
+    resource: "@OjsAdminBundle/Resources/config/routing/mail_template.yml"
+    prefix:   mail-template
 
 ojs_admin_publisher_type:
     resource: "@OjsAdminBundle/Resources/config/routing/publisher_type.yml"

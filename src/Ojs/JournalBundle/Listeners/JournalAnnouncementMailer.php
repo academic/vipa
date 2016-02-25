@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Listeners;
 
 use Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\UserBundle\Entity\User;
 
 class JournalAnnouncementMailer extends AbstractJournalItemMailer
 {
@@ -24,7 +25,23 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
      */
     public function onJournalAnnouncementPostCreate(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Journal Announcement', 'Created');
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalAnnouncementEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'announcement'      => (string)$itemEvent->getItem(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 
     /**
@@ -32,7 +49,23 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
      */
     public function onJournalAnnouncementPostUpdate(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Journal Announcement', 'Updated');
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalAnnouncementEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'announcement'      => (string)$itemEvent->getItem(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 
     /**
@@ -40,6 +73,22 @@ class JournalAnnouncementMailer extends AbstractJournalItemMailer
      */
     public function onJournalAnnouncementPreDelete(JournalItemEvent $itemEvent)
     {
-        $this->sendMail($itemEvent, 'Journal Announcement', 'Deleted');
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalAnnouncementEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        /** @var User $user */
+        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+            $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'announcement'      => (string)$itemEvent->getItem(),
+                'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
+                'receiver.username' => $user->getUsername(),
+                'receiver.fullName' => $user->getFullName(),
+            ];
+            $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+            $this->ojsMailer->sendToUser(
+                $user,
+                $getMailEvent->getSubject(),
+                $template
+            );
+        }
     }
 }

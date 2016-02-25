@@ -69,7 +69,10 @@ class AdminPublisherManagersController extends Controller
             $em->flush();
             $this->successFlashBag('successful.create');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'create');
+            $event = new AdminEvent([
+                'eventType' => 'create',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
             return $this->redirectToRoute(
                 'ojs_admin_publisher_managers_show',
@@ -221,7 +224,10 @@ class AdminPublisherManagersController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            $event = new AdminEvent($request, null, null, $this->getUser(), 'update');
+            $event = new AdminEvent([
+                'eventType' => 'update',
+                'entity'    => $entity,
+            ]);
             $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
             return $this->redirectToRoute('ojs_admin_publisher_managers_edit', ['id' => $entity->getId()]);
         }
@@ -256,12 +262,15 @@ class AdminPublisherManagersController extends Controller
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
+        $event = new AdminEvent([
+            'eventType' => 'delete',
+            'entity'    => $entity,
+        ]);
+        $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
 
-        $event = new AdminEvent($request, null, null, $this->getUser(), 'delete');
-        $dispatcher->dispatch(AdminEvents::PUBLISHER_MANAGER_CHANGE, $event);
         return $this->redirectToRoute('ojs_admin_publisher_managers_index');
     }
 }
