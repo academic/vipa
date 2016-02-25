@@ -27,10 +27,11 @@ class JournalUserMailer extends AbstractJournalItemMailer
      */
     public function onJournalUserPostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_CREATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'journal.user'      => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -50,10 +51,11 @@ class JournalUserMailer extends AbstractJournalItemMailer
      */
     public function onJournalUserPostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_UPDATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'journal.user'      => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -73,10 +75,11 @@ class JournalUserMailer extends AbstractJournalItemMailer
      */
     public function onJournalUserPreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::PRE_DELETE);
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'journal.user'      => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -96,10 +99,11 @@ class JournalUserMailer extends AbstractJournalItemMailer
      */
     public function onJournalUserPostAddJournal(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_ADD_JOURNAL);
+        $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_ADD_JOURNAL, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'journal.user'      => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),

@@ -29,16 +29,16 @@ final class JournalUserEvents implements MailEventsInterface
     {
         return [
             new EventDetail(self::POST_CREATE, 'journal', [
-                'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_UPDATE, 'journal', [
-                'journal,user', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'journal,user', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_DELETE, 'journal', [
-                'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_ADD_JOURNAL, 'journal', [
-                'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'journal.user', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];
     }
