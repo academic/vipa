@@ -65,7 +65,7 @@ class AdminEventListener implements EventSubscriberInterface
             $entity = $event->getEntity();
             $transformParams = [
                 'user.username'     => $entity->getUsername(),
-                'user.fullname'     => $entity->getFullName(),
+                'user.fullName'     => $entity->getFullName(),
                 'eventType'         => $event->getEventType(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
