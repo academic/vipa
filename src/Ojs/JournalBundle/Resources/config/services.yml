@@ -148,8 +148,6 @@ services:
 
   ojs_journal.journal_events:
     class: Ojs\JournalBundle\Event\JournalEvents
-    tags:
-      - { name: ojs.mail.event}
 
   ojs_journal.journal_announcement_events:
     class: Ojs\JournalBundle\Event\JournalAnnouncement\JournalAnnouncementEvents
