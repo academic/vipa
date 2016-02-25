@@ -30,7 +30,7 @@ final class JournalPageEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'page', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'journal', [
+            new EventDetail(self::PRE_DELETE, 'journal', [
                 'page', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];

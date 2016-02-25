@@ -30,7 +30,7 @@ final class DesignEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'design', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'journal', [
+            new EventDetail(self::PRE_DELETE, 'journal', [
                 'design', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];

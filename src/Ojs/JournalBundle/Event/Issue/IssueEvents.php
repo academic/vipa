@@ -30,7 +30,7 @@ final class IssueEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'journal', 'issue', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'journal', [
+            new EventDetail(self::PRE_DELETE, 'journal', [
                 'journal', 'issue', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];

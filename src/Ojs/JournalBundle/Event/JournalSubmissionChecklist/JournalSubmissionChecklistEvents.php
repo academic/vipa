@@ -30,7 +30,7 @@ final class JournalSubmissionChecklistEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'submission.checklist', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'journal', [
+            new EventDetail(self::PRE_DELETE, 'journal', [
                 'submission.checklist', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];

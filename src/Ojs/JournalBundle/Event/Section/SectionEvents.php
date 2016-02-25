@@ -30,7 +30,7 @@ final class SectionEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'journal', [
                 'section', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'journal', [
+            new EventDetail(self::PRE_DELETE, 'journal', [
                 'section', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];

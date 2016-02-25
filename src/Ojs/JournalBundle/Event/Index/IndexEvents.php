@@ -30,7 +30,7 @@ final class IndexEvents implements MailEventsInterface
             new EventDetail(self::POST_UPDATE, 'admin', [
                 'index', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
-            new EventDetail(self::POST_DELETE, 'admin', [
+            new EventDetail(self::PRE_DELETE, 'admin', [
                 'index', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];
