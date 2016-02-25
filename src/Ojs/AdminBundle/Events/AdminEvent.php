@@ -47,7 +47,7 @@ class AdminEvent extends Event
     public function __construct($options = [])
     {
         foreach($options as $optionKey => $option){
-            if(isset($this->$optionKey)){
+            if(property_exists($this, $optionKey)){
                 $this->$optionKey = $option;
             }
         }
