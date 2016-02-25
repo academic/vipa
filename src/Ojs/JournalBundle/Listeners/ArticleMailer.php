@@ -27,7 +27,7 @@ class ArticleMailer extends AbstractJournalItemMailer
      */
     public function onArticlePostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_CREATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -50,7 +50,7 @@ class ArticleMailer extends AbstractJournalItemMailer
      */
     public function onArticlePostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_UPDATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -73,7 +73,7 @@ class ArticleMailer extends AbstractJournalItemMailer
      */
     public function onArticlePreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::PRE_DELETE);
+        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -100,7 +100,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         $article = $itemEvent->getItem();
         $submitterUser = $article->getSubmitterUser();
 
-        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_SUBMIT);
+        $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_SUBMIT, null, $itemEvent->getItem()->getJournal());
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
                 'article.title'         => $itemEvent->getItem()->getTitle(),

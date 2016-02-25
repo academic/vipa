@@ -25,7 +25,7 @@ class IssueMailer extends AbstractJournalItemMailer
      */
     public function onIssuePostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::POST_CREATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -48,7 +48,7 @@ class IssueMailer extends AbstractJournalItemMailer
      */
     public function onIssuePostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::POST_UPDATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -71,7 +71,7 @@ class IssueMailer extends AbstractJournalItemMailer
      */
     public function onIssuePreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::PRE_DELETE);
+        $getMailEvent = $this->ojsMailer->getEventByName(IssueEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [

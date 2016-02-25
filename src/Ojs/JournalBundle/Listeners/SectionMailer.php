@@ -25,7 +25,7 @@ class SectionMailer extends AbstractJournalItemMailer
      */
     public function onSectionPostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::POST_CREATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -48,7 +48,7 @@ class SectionMailer extends AbstractJournalItemMailer
      */
     public function onSectionPostUpdate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::POST_UPDATE);
+        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -71,7 +71,7 @@ class SectionMailer extends AbstractJournalItemMailer
      */
     public function onSectionPreDelete(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::PRE_DELETE);
+        $getMailEvent = $this->ojsMailer->getEventByName(SectionEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
