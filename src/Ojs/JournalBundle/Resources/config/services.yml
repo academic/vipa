@@ -196,11 +196,6 @@ services:
     tags:
       - { name: ojs.mail.event}
 
-  ojs_journal.submission_checklist_events:
-    class: Ojs\JournalBundle\Event\SubmissionChecklist\SubmissionChecklistEvents
-    tags:
-      - { name: ojs.mail.event}
-
   ojs_journal.theme_events:
     class: Ojs\JournalBundle\Event\Theme\ThemeEvents
     tags:
