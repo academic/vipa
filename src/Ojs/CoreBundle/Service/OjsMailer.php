@@ -70,14 +70,21 @@ class OjsMailer
      */
     public function sendToUser(UserInterface $user, $subject, $body)
     {
-        $this->send($subject, $body, $user->getEmail(), $user->getUsername());
+        if(
+            !empty($subject)
+            && !empty($body)
+            && !empty($user->getEmail())
+            && !empty($user->getUsername())
+        ){
+            $this->send($subject, $body, $user->getEmail(), $user->getUsername());
+        }
     }
 
     /**
-     * @param $subject
-     * @param $body
-     * @param $toMail
-     * @param $toName
+     * @param string $subject
+     * @param string $body
+     * @param string $toMail
+     * @param string $toName
      */
     public function send($subject, $body, $toMail, $toName)
     {
