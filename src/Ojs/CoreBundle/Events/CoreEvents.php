@@ -11,8 +11,8 @@ final class CoreEvents implements MailEventsInterface
     public function getMailEventsOptions()
     {
         return [
-            new EventDetail(self::OJS_INSTALL_BASE, 'admin', [
-                'receiver.username', 'receiver.fullName',
+            new EventDetail(self::OJS_INSTALL_3PARTY, 'admin', [
+                'bundleName', 'receiver.username', 'receiver.fullName',
             ]),
         ];
     }
