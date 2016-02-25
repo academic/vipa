@@ -29,6 +29,7 @@ class IssueMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'issue'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -52,6 +53,7 @@ class IssueMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'issue'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -75,6 +77,7 @@ class IssueMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'issue'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),

@@ -29,7 +29,8 @@ class BoardMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
-                'board'     => (string)$itemEvent->getItem(),
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'board'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
@@ -52,7 +53,8 @@ class BoardMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
-                'board'     => (string)$itemEvent->getItem(),
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'board'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
@@ -75,7 +77,8 @@ class BoardMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
-                'board'     => (string)$itemEvent->getItem(),
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
+                'board'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),

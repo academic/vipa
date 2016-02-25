@@ -25,13 +25,13 @@ final class BoardEvents implements MailEventsInterface
     {
         return [
             new EventDetail(self::POST_CREATE, 'journal', [
-                'board', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'board', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_UPDATE, 'journal', [
-                'board', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'board', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_DELETE, 'journal', [
-                'board', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'board', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];
     }

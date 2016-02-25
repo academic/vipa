@@ -31,16 +31,16 @@ final class ArticleEvents implements MailEventsInterface
     {
         return [
             new EventDetail(self::POST_CREATE, 'journal', [
-                'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_UPDATE, 'journal', [
-                'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::PRE_DELETE, 'journal', [
-                'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'article.title', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_SUBMIT, 'journal', [
-                'article.title', 'submitter.username', 'receiver.username', 'receiver.fullName',
+                'journal', 'article.title', 'submitter.username', 'receiver.username', 'receiver.fullName',
             ]),
         ];
     }

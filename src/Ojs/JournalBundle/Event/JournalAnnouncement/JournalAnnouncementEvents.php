@@ -25,13 +25,13 @@ final class JournalAnnouncementEvents implements MailEventsInterface
     {
         return [
             new EventDetail(self::POST_CREATE, 'journal', [
-                'announcement', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'announcement', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_UPDATE, 'journal', [
-                'announcement', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'announcement', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
             new EventDetail(self::POST_DELETE, 'journal', [
-                'announcement', 'done.by', 'receiver.username', 'receiver.fullName',
+                'journal', 'announcement', 'done.by', 'receiver.username', 'receiver.fullName',
             ]),
         ];
     }

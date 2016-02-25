@@ -31,6 +31,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -54,6 +55,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -77,6 +79,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'           => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'     => $itemEvent->getItem()->getTitle(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
@@ -103,6 +106,7 @@ class ArticleMailer extends AbstractJournalItemMailer
         $getMailEvent = $this->ojsMailer->getEventByName(ArticleEvents::POST_SUBMIT, null, $itemEvent->getItem()->getJournal());
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
+                'journal'               => (string)$itemEvent->getItem()->getJournal(),
                 'article.title'         => $itemEvent->getItem()->getTitle(),
                 'submitter.username'    => $submitterUser->getUsername(),
                 'receiver.username'     => $user->getUsername(),
@@ -118,6 +122,7 @@ class ArticleMailer extends AbstractJournalItemMailer
 
         //send mail to submitter user
         $transformParams = [
+            'journal'               => (string)$itemEvent->getItem()->getJournal(),
             'article.title'         => $itemEvent->getItem()->getTitle(),
             'submitter.username'    => $submitterUser->getUsername(),
             'receiver.username'     => $submitterUser->getUsername(),
