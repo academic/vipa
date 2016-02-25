@@ -196,11 +196,6 @@ services:
     tags:
       - { name: ojs.mail.event}
 
-  ojs_journal.theme_events:
-    class: Ojs\JournalBundle\Event\Theme\ThemeEvents
-    tags:
-      - { name: ojs.mail.event}
-
   ojs_journal.citation_events:
     class: Ojs\JournalBundle\Event\CitationEvents
 
