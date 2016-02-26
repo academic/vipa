@@ -1300,6 +1300,10 @@ class Journal extends AbstractTranslatable
      */
     public function addSubmissionChecklist(SubmissionChecklist $submissionChecklist)
     {
+        if (!$this->submissionChecklist) {
+            $this->submissionChecklist = new ArrayCollection();
+        }
+
         if (!$this->submissionChecklist->contains($submissionChecklist)) {
             $this->submissionChecklist->add($submissionChecklist);
             $submissionChecklist->setJournal($this);
