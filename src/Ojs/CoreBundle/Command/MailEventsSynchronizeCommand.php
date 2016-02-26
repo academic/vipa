@@ -114,6 +114,7 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
                     $this->createMailTemplateSkeleton($eventOption, $lang);
                 }
             }
+            $this->em->flush();
         }
     }
 
@@ -149,6 +150,5 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
             ->setTemplate('')
             ;
         $this->em->persist($mailTemplate);
-        $this->em->flush();
     }
 }
