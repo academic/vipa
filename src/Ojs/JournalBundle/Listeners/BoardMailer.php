@@ -26,6 +26,9 @@ class BoardMailer extends AbstractJournalItemMailer
     public function onBoardPostCreate(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(BoardEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -50,6 +53,9 @@ class BoardMailer extends AbstractJournalItemMailer
     public function onBoardPostUpdate(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(BoardEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -74,6 +80,9 @@ class BoardMailer extends AbstractJournalItemMailer
     public function onBoardPreDelete(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(BoardEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [

@@ -28,6 +28,9 @@ class JournalUserMailer extends AbstractJournalItemMailer
     public function onJournalUserPostCreate(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -52,6 +55,9 @@ class JournalUserMailer extends AbstractJournalItemMailer
     public function onJournalUserPostUpdate(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_UPDATE, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -76,6 +82,9 @@ class JournalUserMailer extends AbstractJournalItemMailer
     public function onJournalUserPreDelete(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::PRE_DELETE, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
@@ -100,6 +109,9 @@ class JournalUserMailer extends AbstractJournalItemMailer
     public function onJournalUserPostAddJournal(JournalItemEvent $itemEvent)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(JournalUserEvents::POST_ADD_JOURNAL, null, $itemEvent->getItem()->getJournal());
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [

@@ -24,6 +24,9 @@ class JournalMailer extends AbstractJournalItemMailer
     public function onJournalPostUpdate(JournalEvent $event)
     {
         $getMailEvent = $this->ojsMailer->getEventByName(JournalEvents::POST_UPDATE);
+        if(!$getMailEvent){
+            return;
+        }
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
