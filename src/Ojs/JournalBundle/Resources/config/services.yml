@@ -1,3 +1,6 @@
+parameters:
+    ojs_journal.dashboard_controller.class: "OjsJournalBundle:Dashboard"
+
 services:
   ojs.journal_service:
     class: Ojs\JournalBundle\Service\JournalService
