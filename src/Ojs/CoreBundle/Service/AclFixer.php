@@ -52,6 +52,7 @@ class AclFixer
                 'userRole',
                 'citation',
                 'steps',
+                'postTemplates',
                 'announcements',
                 'pages',
                 'posts',
