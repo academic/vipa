@@ -1479,6 +1479,12 @@ status.application: 'Başvuruda'
 status.name_changed: 'İsim Değişti'
 status.hold: 'Beklemede'
 status.preparing: 'Hazırlanıyor'
+title.blocks: 'Bloklar'
+title.block_show: 'Bloğu Göster'
+title.block: 'Blok'
+title.block_new: 'Yeni Blok'
+block.create: 'Blok Oluştur'
+title.block_edit: 'Bloğu Düzenle'
 
 # OAuth
 linkedin: 'Linkedin'

@@ -1486,6 +1486,12 @@ status.application: 'On Application'
 status.name_changed: 'Name Changed'
 status.hold: 'On Hold'
 status.preparing: 'Preparing'
+title.blocks: 'Blocks'
+title.block_show: 'Show Block'
+title.block: 'Block'
+title.block_new: 'New Block'
+block.create: 'Create Block'
+title.block_edit: 'Edit Block'
 
 # OAuth
 linkedin: 'Linkedin'
