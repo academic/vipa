@@ -38,7 +38,7 @@ services:
   ojs.mail_listener.journal_item:
     class: Ojs\JournalBundle\Listeners\AbstractJournalItemMailer
     abstract: true
-    arguments: ["@ojs_mailer", "@doctrine", "@security.token_storage"]
+    arguments: ["@ojs_mailer", "@doctrine", "@security.token_storage", "@router"]
 
   ojs.mail_listener.journal:
     class: Ojs\JournalBundle\Listeners\JournalMailer

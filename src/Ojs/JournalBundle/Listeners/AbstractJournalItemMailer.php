@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Event\JournalItemEvent;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 abstract class AbstractJournalItemMailer implements EventSubscriberInterface
 {
@@ -21,17 +22,27 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
     /** @var UserInterface */
     protected $user;
 
+    /** @var  RouterInterface */
+    protected $router;
+
     /**
-     * JournalPageMailer constructor.
+     * AbstractJournalItemMailer constructor.
      * @param OjsMailer $ojsMailer
      * @param RegistryInterface $registry
      * @param TokenStorageInterface $tokenStorage
+     * @param RouterInterface $router
      */
-    public function __construct(OjsMailer $ojsMailer, RegistryInterface $registry, TokenStorageInterface $tokenStorage)
+    public function __construct(
+        OjsMailer $ojsMailer,
+        RegistryInterface $registry,
+        TokenStorageInterface $tokenStorage,
+        RouterInterface $router
+    )
     {
         $this->ojsMailer = $ojsMailer;
         $this->em = $registry->getManager();
         $this->user = $tokenStorage->getToken()->getUser();
+        $this->router = $router;
     }
 
     protected function sendMail(JournalItemEvent $itemEvent, $item, $action)
