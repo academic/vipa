@@ -34,7 +34,7 @@ class MailTemplateController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $source = new Entity('OjsJournalBundle:MailTemplate');
+        $source = new Entity('OjsJournalBundle:MailTemplate', 'journal');
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');

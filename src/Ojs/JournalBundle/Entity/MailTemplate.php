@@ -3,13 +3,13 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Gedmo\Translatable\Translatable;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
- * @GRID\Source(columns="id,type,lang,active,useJournalDefault,journalDefault")
+ * @GRID\Source(columns="id,type,lang,active,journalDefault")
+ * @GRID\Source(columns="id,type,lang,active,useJournalDefault", groups={"journal"})
  */
 class MailTemplate implements JournalItemInterface
 {
