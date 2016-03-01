@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use APY\DataGridBundle\Grid\Row;
 
 /**
  * Board controller.
@@ -32,7 +33,7 @@ class BoardController extends Controller
      * Lists all Board entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
@@ -40,7 +41,26 @@ class BoardController extends Controller
         if (!$this->isGranted('VIEW', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Board');
+        $source->manipulateRow(
+            function (Row $row) use ($request, $cache)
+            {
+                /* @var Board $entity */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if(!is_null($entity)){
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('translations.name', $entity->getNameTranslations());
+                        $row->setField('translations.description', $entity->getDescriptionTranslations());
+                    }
+                }
+                return $row;
+            }
+        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');

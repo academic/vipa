@@ -8,12 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Board
- * @GRID\Source(columns="id , journal.title, name, description")
+ * @GRID\Source(columns="id,translations.name,translations.description")
  */
-class Board implements Translatable, JournalItemInterface
+class Board extends AbstractTranslatable implements JournalItemInterface
 {
     use GenericEntityTrait;
 
@@ -21,17 +23,17 @@ class Board implements Translatable, JournalItemInterface
      * @var integer
      * @GRID\Column(title="id")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
-     * @GRID\Column(title="name")
+     * @GRID\Column(title="name", field="translations.name", safe=false)
      */
     private $name;
 
     /**
      * @var string
-     * @GRID\Column(title="description")
+     * @GRID\Column(title="description", field="translations.description", safe=false)
      */
     private $description;
 
@@ -46,11 +48,18 @@ class Board implements Translatable, JournalItemInterface
     private $boardMembers;
 
     /**
+     * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\BoardTranslation")
+     * @Expose
+     */
+    protected $translations;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->boardMembers = new ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     /**
@@ -64,25 +73,72 @@ class Board implements Translatable, JournalItemInterface
     }
 
     /**
+     * Translation helper method
+     * @param null $locale
+     * @return mixed|null|\Ojs\JournalBundle\Entity\BoardTranslation
+     */
+    public function translate($locale = null)
+    {
+        if (null === $locale) {
+            $locale = $this->currentLocale;
+        }
+        if (!$locale) {
+            throw new \RuntimeException('No locale has been set and currentLocale is empty');
+        }
+        if ($this->currentTranslation && $this->currentTranslation->getLocale() === $locale) {
+            return $this->currentTranslation;
+        }
+        $defaultTranslation = $this->translations->get($this->getDefaultLocale());
+        if (!$translation = $this->translations->get($locale)) {
+            $translation = new BoardTranslation();
+            if (!is_null($defaultTranslation)) {
+                $translation->setName($defaultTranslation->getName());
+                $translation->setDescription($defaultTranslation->getDescription());
+            }
+            $translation->setLocale($locale);
+            $this->addTranslation($translation);
+        }
+        $this->currentTranslation = $translation;
+
+        return $translation;
+    }
+
+    /**
      * Get description
      *
      * @return string
      */
     public function getDescription()
     {
-        return $this->description;
+        return $this->translate()->getDescription();
+    }
+
+    /**
+     * Get description translations
+     *
+     * @return string
+     */
+    public function getDescriptionTranslations()
+    {
+        $titles = [];
+        /** @var BoardTranslation $translation */
+        foreach($this->translations as $translation){
+            if(!empty($translation->getDescription())){
+                $titles[] = $translation->getDescription(). ' ['.$translation->getLocale().']';
+            }
+        }
+        return implode('<br>', $titles);
     }
 
     /**
      * Set description
      *
      * @param  string $description
-     * @return Board
+     * @return $this
      */
     public function setDescription($description)
     {
-        $this->description = $description;
-
+        $this->translate()->setDescription($description);
         return $this;
     }
 
@@ -142,9 +198,16 @@ class Board implements Translatable, JournalItemInterface
         return $this->boardMembers;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        return $this->getName();
+        if (!is_string($this->getName())) {
+            return $this->translations->first()->getName();
+        } else {
+            return $this->getName();
+        }
     }
 
     /**
@@ -154,19 +217,33 @@ class Board implements Translatable, JournalItemInterface
      */
     public function getName()
     {
-        return $this->name;
+        return $this->translate()->getName();
+    }
+
+    /**
+     * Get name translations
+     *
+     * @return string
+     */
+    public function getNameTranslations()
+    {
+        $titles = [];
+        /** @var BoardTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getName(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
     }
 
     /**
      * Set name
      *
      * @param  string $name
-     * @return Board
+     * @return $this
      */
     public function setName($name)
     {
-        $this->name = $name;
-
+        $this->translate()->setName($name);
         return $this;
     }
 }

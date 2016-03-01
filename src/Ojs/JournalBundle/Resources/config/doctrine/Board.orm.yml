@@ -25,16 +25,6 @@ Ojs\JournalBundle\Entity\Board:
             cascade: ["persist", "merge"]
             fetch: EXTRA_LAZY
     fields:
-        name:
-            type: string
-            length: 255
-            gedmo:
-                - versioned
-        description:
-            nullable: true
-            type: text
-            gedmo:
-                - versioned
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true

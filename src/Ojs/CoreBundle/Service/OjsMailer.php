@@ -36,7 +36,7 @@ class OjsMailer
     private $tokenStorage;
 
     /** @var  string */
-    private $locale;
+    public $locale;
 
     /**
      * OjsMailer constructor.

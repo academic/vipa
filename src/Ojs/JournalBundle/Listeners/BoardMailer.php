@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Listeners;
 
+use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Event\Board\BoardEvents;
 use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\UserBundle\Entity\User;
@@ -25,15 +26,18 @@ class BoardMailer extends AbstractJournalItemMailer
      */
     public function onBoardPostCreate(JournalItemEvent $itemEvent)
     {
-        $getMailEvent = $this->ojsMailer->getEventByName(BoardEvents::POST_CREATE, null, $itemEvent->getItem()->getJournal());
+        /** @var Board $item */
+        $item = $itemEvent->getItem();
+        $getMailEvent = $this->ojsMailer->getEventByName(BoardEvents::POST_CREATE, null, $item->getJournal());
         if(!$getMailEvent){
             return;
         }
+        $item->setCurrentLocale($this->ojsMailer->locale);
         /** @var User $user */
         foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
             $transformParams = [
-                'journal'           => (string)$itemEvent->getItem()->getJournal(),
-                'board'             => (string)$itemEvent->getItem(),
+                'journal'           => (string)$item->getJournal(),
+                'board'             => (string)$item,
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
