@@ -49,6 +49,16 @@ class MailTemplate implements JournalItemInterface
     private $active = 0;
 
     /**
+     * @var bool
+     */
+    private $useJournalDefault = 0;
+
+    /**
+     * @var bool
+     */
+    private $journalDefault = 0;
+
+    /**
      *
      * @var Journal
      * @GRID\Column(title="journal")
@@ -227,6 +237,46 @@ class MailTemplate implements JournalItemInterface
     public function setActive($active)
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isUseJournalDefault()
+    {
+        return $this->useJournalDefault;
+    }
+
+    /**
+     * @param boolean $useJournalDefault
+     *
+     * @return $this
+     */
+    public function setUseJournalDefault($useJournalDefault)
+    {
+        $this->useJournalDefault = $useJournalDefault;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isJournalDefault()
+    {
+        return $this->journalDefault;
+    }
+
+    /**
+     * @param boolean $journalDefault
+     *
+     * @return $this
+     */
+    public function setJournalDefault($journalDefault)
+    {
+        $this->journalDefault = $journalDefault;
 
         return $this;
     }

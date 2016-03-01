@@ -41,6 +41,12 @@ Ojs\JournalBundle\Entity\MailTemplate:
                 - versioned
         active:
             type: boolean
+        useJournalDefault:
+            column: use_journal_default
+            type: boolean
+        journalDefault:
+            column: journal_default
+            type: boolean
         created:
             type: datetime
             nullable: true
