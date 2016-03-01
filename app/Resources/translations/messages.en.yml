@@ -1492,6 +1492,7 @@ title.block: 'Block'
 title.block_new: 'New Block'
 block.create: 'Create Block'
 title.block_edit: 'Edit Block'
+use.default.template: 'Use Default Template'
 
 # OAuth
 linkedin: 'Linkedin'

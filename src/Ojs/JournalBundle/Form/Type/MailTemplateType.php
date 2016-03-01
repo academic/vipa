@@ -15,19 +15,29 @@ class MailTemplateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('useJournalDefault', null, [
+                'label' => 'use.default.template'
+            ])
+            ->add('active', null, [
+                'attr' => [
+                    'class' => 'use-default-hidden'
+                ]
+            ])
             ->add('template', 'textarea', [
                 'label' => 'mailtemplate.template',
                 'attr' => [
-                    'class' => 'form-control wysihtml5',
+                    'class' => 'form-control wysihtml5 use-default-hidden',
                     ]
                 ]
             )
             ->add('subject', 'text', [
                     'label' => 'mailtemplate.subject',
                     'required' => true,
+                    'attr' => [
+                        'class' => ' use-default-hidden'
+                    ],
                 ]
             )
-            ->add('active')
         ;
     }
 

@@ -22,3 +22,22 @@
     {% include '::actionbuttons.html.twig' %}
     {{ getLogs(entity) }}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#ojs_journalbundle_mailtemplate_useJournalDefault").change(function() {
+            if(this.checked) {
+                $.each($('.use-default-hidden'), function(index, value){
+                    console.log($(value).parent());
+                    $(value).parent().addClass('hidden');
+                });
+            }else{
+                $.each($('.use-default-hidden'), function(index, value){
+                    console.log($(value).parent());
+                    $(value).parent().removeClass('hidden');
+                });
+            }
+        });
+    </script>
+{% endblock %}

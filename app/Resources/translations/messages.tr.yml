@@ -1485,6 +1485,7 @@ title.block: 'Blok'
 title.block_new: 'Yeni Blok'
 block.create: 'Blok Oluştur'
 title.block_edit: 'Bloğu Düzenle'
+use.default.template: 'Varsayılan şablonu kullan'
 
 # OAuth
 linkedin: 'Linkedin'
