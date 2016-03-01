@@ -9,7 +9,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
- * @GRID\Source(columns="id,type,lang,active")
+ * @GRID\Source(columns="id,type,lang,active,useJournalDefault,journalDefault")
  */
 class MailTemplate implements JournalItemInterface
 {

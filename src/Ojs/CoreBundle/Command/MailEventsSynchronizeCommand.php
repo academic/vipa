@@ -104,14 +104,17 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
 
         foreach($this->langs as $lang){
             if($eventOption->getGroup() == 'journal'){
+                if(!$this->checkMailTemplateExists($eventOption, $lang, null, true, false)){
+                    $this->createMailTemplateSkeleton($eventOption, $lang, null, true, false);
+                }
                 foreach($this->allJournals as $journal){
-                    if(!$this->checkMailTemplateExists($eventOption, $lang, $journal)){
-                        $this->createMailTemplateSkeleton($eventOption, $lang, $journal);
+                    if(!$this->checkMailTemplateExists($eventOption, $lang, $journal, false, true)){
+                        $this->createMailTemplateSkeleton($eventOption, $lang, $journal, false, true, false);
                     }
                 }
             }else if($eventOption->getGroup() == 'admin'){
-                if(!$this->checkMailTemplateExists($eventOption, $lang)){
-                    $this->createMailTemplateSkeleton($eventOption, $lang);
+                if(!$this->checkMailTemplateExists($eventOption, $lang, null, false, false)){
+                    $this->createMailTemplateSkeleton($eventOption, $lang, null, false, false);
                 }
             }
             $this->em->flush();
@@ -122,14 +125,18 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
      * @param EventDetail $eventOptions
      * @param string $lang
      * @param Journal|null $journal
+     * @param bool $journalDefault
+     * @param bool $useJournalDefault
      * @return null|object|MailTemplate
      */
-    private function checkMailTemplateExists(EventDetail $eventOptions, $lang = 'en', Journal $journal = null)
+    private function checkMailTemplateExists(EventDetail $eventOptions, $lang = 'en', Journal $journal = null, $journalDefault = false, $useJournalDefault = true)
     {
         return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
-            'type' => $eventOptions->getName(),
-            'journal' => $journal,
-            'lang' => $lang,
+            'type'              => $eventOptions->getName(),
+            'journal'           => $journal,
+            'lang'              => $lang,
+            'journalDefault'    => $journalDefault,
+            'useJournalDefault' => $useJournalDefault,
         ]);
     }
 
@@ -137,17 +144,22 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
      * @param EventDetail $eventOptions
      * @param string $lang
      * @param Journal|null $journal
+     * @param bool $journalDefault
+     * @param bool $useJournalDefault
+     * @param bool $active
      */
-    private function createMailTemplateSkeleton(EventDetail $eventOptions, $lang = 'en', Journal $journal = null)
+    private function createMailTemplateSkeleton(EventDetail $eventOptions, $lang = 'en', Journal $journal = null, $journalDefault = false, $useJournalDefault = true, $active = true)
     {
         $this->io->writeln(sprintf('Creating template for -> %s -> %s', $eventOptions->getName(), $journal == null ? 'admin': $journal->getTitle()));
         $mailTemplate = new MailTemplate();
         $mailTemplate
-            ->setActive(true)
+            ->setActive($active)
             ->setJournal($journal)
             ->setType($eventOptions->getName())
             ->setLang($lang)
             ->setTemplate('')
+            ->setUseJournalDefault($useJournalDefault)
+            ->setJournalDefault($journalDefault)
             ;
         $this->em->persist($mailTemplate);
     }
