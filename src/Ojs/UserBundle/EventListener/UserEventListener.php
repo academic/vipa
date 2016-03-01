@@ -7,8 +7,6 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use Ojs\CoreBundle\Service\OjsMailer;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Event\UserEvent;
-use Ojs\UserBundle\Event\UserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
