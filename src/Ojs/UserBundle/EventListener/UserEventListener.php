@@ -6,6 +6,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Event\UserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -44,15 +45,26 @@ class UserEventListener implements EventSubscriberInterface
     }
 
     /**
-     * @param FilterUserResponseEvent $userResponseEvent
+     * @param FilterUserResponseEvent $event
      */
-    public function onRegistrationCompleted(FilterUserResponseEvent $userResponseEvent)
+    public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
-        $user = $userResponseEvent->getUser();
+        $getMailEvent = $this->ojsMailer->getEventByName(FOSUserEvents::REGISTRATION_COMPLETED);
+        if(!$getMailEvent){
+            return;
+        }
+        /** @var User $user */
+        $user = $event->getUser();
+        $transformParams = [
+            'user.username'     => $user->getUsername(),
+            'user.fullName'     => $user->getFullName(),
+            'user.mail'         => $user->getEmail(),
+        ];
+        $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
         $this->ojsMailer->sendToUser(
             $user,
-            'User Event : User Registration',
-            'User Event -> User Registration Completed -> '.$user->getEmail()
+            $getMailEvent->getSubject(),
+            $template
         );
     }
 
@@ -61,24 +73,46 @@ class UserEventListener implements EventSubscriberInterface
      */
     public function onChangePasswordCompleted(GetResponseUserEvent $event)
     {
+        $getMailEvent = $this->ojsMailer->getEventByName(FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
+        if(!$getMailEvent){
+            return;
+        }
+        /** @var User $user */
         $user = $event->getUser();
+        $transformParams = [
+            'user.username'     => $user->getUsername(),
+            'user.fullName'     => $user->getFullName(),
+            'user.mail'         => $user->getEmail(),
+        ];
+        $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
         $this->ojsMailer->sendToUser(
             $user,
-            'User Event : User Change Password',
-            'User Event -> User Change Password -> '.$user->getEmail()
+            $getMailEvent->getSubject(),
+            $template
         );
     }
 
     /**
-     * @param GetResponseUserEvent $userResponseEvent
+     * @param GetResponseUserEvent $event
      */
-    public function onProfileEditCompleted(GetResponseUserEvent $userResponseEvent)
+    public function onProfileEditCompleted(GetResponseUserEvent $event)
     {
-        $user = $userResponseEvent->getUser();
+        $getMailEvent = $this->ojsMailer->getEventByName(FOSUserEvents::PROFILE_EDIT_COMPLETED);
+        if(!$getMailEvent){
+            return;
+        }
+        /** @var User $user */
+        $user = $event->getUser();
+        $transformParams = [
+            'user.username'     => $user->getUsername(),
+            'user.fullName'     => $user->getFullName(),
+            'user.mail'         => $user->getEmail(),
+        ];
+        $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
         $this->ojsMailer->sendToUser(
             $user,
-            'User Event : User Profile Edit Completed',
-            'User Event -> User Profile Edit Completed -> '.$user->getEmail()
+            $getMailEvent->getSubject(),
+            $template
         );
     }
 }
