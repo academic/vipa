@@ -149,6 +149,9 @@ class OjsMailer
         if($lang == null){
             $lang = $this->locale;
         }
+        if($journal == null){
+            $GLOBALS['Ojs\JournalBundle\Entity\MailTemplate#journalFilter'] = false;
+        }
         /** @var MailTemplate $template */
         $template =  $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
             'journal' => $journal,
@@ -157,6 +160,7 @@ class OjsMailer
         ]);
         if($template){
             if($template->isUseJournalDefault()){
+                $GLOBALS['Ojs\JournalBundle\Entity\MailTemplate#journalFilter'] = false;
                 return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
                     'journal'           => null,
                     'type'              => $eventName,
