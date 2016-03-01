@@ -149,10 +149,25 @@ class OjsMailer
         if($lang == null){
             $lang = $this->locale;
         }
-        return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
+        /** @var MailTemplate $template */
+        $template =  $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
             'journal' => $journal,
             'type'    => $eventName,
             'lang'    => $lang,
         ]);
+        if($template){
+            if($template->isUseJournalDefault()){
+                return $this->em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
+                    'journal'           => null,
+                    'type'              => $eventName,
+                    'lang'              => $lang,
+                    'journalDefault'    => true,
+                ]);
+            }
+            if(!$template->isActive()){
+                return false;
+            }
+        }
+        return $template;
     }
 }
