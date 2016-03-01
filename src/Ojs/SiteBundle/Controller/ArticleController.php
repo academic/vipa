@@ -8,6 +8,24 @@ use OpenJournalSoftware\BibtexBundle\Helper\Bibtex;
 
 class ArticleController extends Controller
 {
+    public function articleWithoutIssuePageAction($slug, $article_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
+        $this->throw404IfNotFound($article);
+        if($article->getStatus() !== 1 || !$article->getIssue()) {
+            $article = null;
+            $this->throw404IfNotFound($article);
+        }
+        $routeParams = array(
+            'publisher' => $article->getJournal()->getPublisher()->getSlug(),
+            'article_id' => $article->getId(),
+            'slug' => $article->getJournal()->getSlug(),
+            'issue_id' => $article->getIssue()->getId()
+        );
+        return $this->redirectToRoute('ojs_article_page', $routeParams);
+    }
+
     /**
      * @param $slug
      * @param $article_id

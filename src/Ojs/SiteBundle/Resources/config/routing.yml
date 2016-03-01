@@ -116,6 +116,11 @@ ojs_article_page:
     host: "{publisher}.%base_host%"
     defaults: { _controller: "OjsSiteBundle:Article:articlePage", issue_id: null}
 
+ojs_article_withoutIssue_page:
+    path:  /{slug}/article/{article_id}
+    host: "{publisher}.%base_host%"
+    defaults: { _controller: "OjsSiteBundle:Article:articleWithoutIssuePage"}
+
 ojs_journal_contacts:
     path: /{slug}/contacts
     host: "{publisher}.%base_host%"
