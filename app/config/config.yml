@@ -40,10 +40,10 @@ twig:
   strict_variables: "%kernel.debug%"
   form:
     resources:
-      - 'OjsCoreBundle:Form:fields.html.twig'
       - '::uploadfields.html.twig'
       - 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig'
       - 'TetranzSelect2EntityBundle:Form:fields.html.twig'
+      - 'OjsCoreBundle:Form:fields.html.twig'
   globals:
     languages : "%languages%"
     base_host: %base_host%
