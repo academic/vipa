@@ -2,21 +2,18 @@
 
 namespace Ojs\CoreBundle\Command;
 
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CacheAdminStaticsCommand extends ContainerAwareCommand
 {
-
     protected function configure()
     {
         $this
-            ->setName('cache:admin:statics')
-            ->setDescription('Cache Admin Statics');
+            ->setName('ojs:cache:admin:statics')
+            ->setDescription('Cache Admin Statics')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -30,7 +27,6 @@ class CacheAdminStaticsCommand extends ContainerAwareCommand
         $em = $container->get('doctrine');
         $cache = $container->get('file_cache');
         $generator = $container->get('ojs.graph.data.generator');
-        $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
 
         $output->writeln('get all journals finished');
         $lastMonth = ['x'];
@@ -39,37 +35,26 @@ class CacheAdminStaticsCommand extends ContainerAwareCommand
         }
         $output->writeln('set all times');
         $slicedLastMonth = array_slice($lastMonth, 1);
-
         $output->writeln('slice times');
-
-        $articles = $em
-            ->getRepository('OjsJournalBundle:Article')
-            ->findBy(['journal' => $journals]);
-        $output->writeln('get articles');
-
-
-        $issues = $em
-            ->getRepository('OjsJournalBundle:Issue')
-            ->findBy(['journal' => $journals]);
 
         $json = [
             'dates' => $lastMonth,
-            'journalViews' => $generator->generateJournalBarChartData($journals, $slicedLastMonth),
-            'articleViews' => $generator->generateArticleBarChartData($articles, $slicedLastMonth),
-            'issueFileDownloads' => $generator->generateIssueFilePieChartData($issues, $slicedLastMonth),
-            'articleFileDownloads' => $generator->generateArticleFilePieChartData($articles, $slicedLastMonth),
+            'journalViews' => $generator->generateJournalBarChartData($slicedLastMonth),
+            'articleViews' => $generator->generateArticleBarChartData($slicedLastMonth),
+            'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
+            'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
         ];
 
         $data = [
             'stats' => json_encode($json),
-            'journals' => $generator->generateJournalViewsData($journals),
-            'articles' => $generator->generateArticleViewsData($articles),
-            'issueFiles' => $generator->generateIssueFileDownloadsData($issues),
-            'articleFiles' => $generator->generateArticleFileDownloadsData($issues),
-            'journalsMonthly' => $generator->generateJournalViewsData($journals, $slicedLastMonth),
-            'articlesMonthly' => $generator->generateArticleViewsData($articles, $slicedLastMonth),
-            'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($issues, $slicedLastMonth),
-            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($articles, $slicedLastMonth),
+            'journals' => [],
+            'articles' => [],
+            'issueFiles' => [],
+            'articleFiles' => [],
+            'journalsMonthly' => [],
+            'articlesMonthly' => [],
+            'issueFilesMonthly' => [],
+            'articleFilesMonthly' => [],
         ];
 
         $output->writeln('Removing cache for admin_statics');

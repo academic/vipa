@@ -3,6 +3,7 @@
 namespace Ojs\AnalyticsBundle\Utils;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
@@ -41,147 +42,155 @@ class GraphDataGenerator
     /**
      * Returns an array which can be passed to C3.js for bar chart graph creation
      *
-     * @param array $journals
      * @param array $dates
      * @return array
      */
-    public function generateJournalBarChartData($journals, $dates)
+    public function generateJournalBarChartData($dates)
     {
-        $journalStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:JournalStatistic');
-        $journalStats = $journalStatRepo->findByJournals($journals, $dates);
+        $today = $dates[0];
+        $lastMonthToday = end($dates);
+        $sql = "SELECT statistic.date as date, SUM(statistic.view) AS view FROM statistic "
+                ."where statistic.journal_id IS NOT NULL "
+	                ."AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' "
+                ."GROUP BY statistic.date "
+                ."ORDER BY statistic.date ";
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('date', 'date');
+        $rsm->addScalarResult('view', 'view');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
         $journalViews = ['View'];
 
         foreach ($dates as $date) {
-            $total = 0;
-            /** @var JournalStatistic $stat */
-            $stat = $journalStats->first();
-
-            while ($stat && $stat->getDate()->format($this::DATE_FORMAT) == $date) {
-                $total += $stat->getView();
-                $journalStats->removeElement($stat);
-                $stat = $journalStats->first();
+            $persisted = false;
+            foreach($results as $result){
+                if($result['date'] == $date){
+                    $journalViews[] = (int)$result['view'];
+                    $persisted = true;
+                }
             }
-
-            $journalViews[] = $total;
+            if(!$persisted){
+                $journalViews[] = 0;
+            }
         }
-
         return $journalViews;
     }
     
     /**
      * Returns an array which can be passed to C3.js for bar chart graph creation
      *
-     * @param array $articles
      * @param array $dates
      * @return array
      */
-    public function generateArticleBarChartData($articles, $dates)
+    public function generateArticleBarChartData($dates)
     {
-        $articleStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleStatistic');
-        $articleStats = $articleStatRepo->findByArticles($articles, $dates);
+        $today = $dates[0];
+        $lastMonthToday = end($dates);
+        $sql = "SELECT statistic.date as date, SUM(statistic.view) AS view FROM statistic "
+            ."where statistic.article_id IS NOT NULL "
+            ."AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' "
+            ."GROUP BY statistic.date "
+            ."ORDER BY statistic.date ";
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('date', 'date');
+        $rsm->addScalarResult('view', 'view');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
         $articleViews = ['View'];
 
         foreach ($dates as $date) {
-            $total = 0;
-            /** @var ArticleStatistic $stat */
-            $stat = $articleStats->first();
-
-            while ($stat && $stat->getDate()->format($this::DATE_FORMAT) == $date) {
-                $total += $stat->getView();
-                $articleStats->removeElement($stat);
-                $stat = $articleStats->first();
+            $persisted = false;
+            foreach($results as $result){
+                if($result['date'] == $date){
+                    $articleViews[] = (int)$result['view'];
+                    $persisted = true;
+                }
             }
-
-            $articleViews[] = $total;
+            if(!$persisted){
+                $articleViews[] = 0;
+            }
         }
-
         return $articleViews;
     }
 
     /**
      * Returns an array which can be passed to C3.js for pie chart graph creation
      *
-     * @param array $issues
      * @param array $dates
      * @return array
      */
-    public function generateIssueFilePieChartData($issues, $dates)
+    public function generateIssueFilePieChartData($dates)
     {
-        $issueFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
+        $today = $dates[0];
+        $lastMonthToday = end($dates);
+        $sql = "SELECT statistic.date as date, SUM(statistic.download) AS download FROM statistic "
+            ."where statistic.issue_file_id IS NOT NULL "
+            ."AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' "
+            ."GROUP BY statistic.date "
+            ."ORDER BY statistic.date ";
 
-        $issueFileDownloads = [];
-        $issueFileDownloads['mainChart'] = [];
-        $issueFileDownloads['mainChartNames'] = [];
-        $issueFileDownloads['charts'] = [];
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('date', 'date');
+        $rsm->addScalarResult('download', 'download');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
 
-        /** @var Issue $issue */
-        foreach ($issues as $issue)
-        {
-            $key = $issue->getId();
-            $allFilesStat = $issueFileStatRepo->getTotalDownloadsOfAllFiles($issue, $dates);
+        $issueFileDownloads = ['Download'];
 
-            if (!empty($allFilesStat)) {
-                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
-                $issueFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
-                $issueFileDownloads['mainChartNames'][] = [$key, $issue->getTitle()];
-
-                foreach ($issue->getIssueFiles() as $issueFile) {
-                    $fileStat = $issueFileStatRepo->getTotalDownloads($issueFile, $dates);
-
-                    if (!empty($fileStat)) {
-                        $totalDownloads = $fileStat[0][1];
-                        $issueFileDownloads['charts'][$key][] = [
-                            $issueFile->getTitle(),
-                            $totalDownloads,
-                            'issueFile'.$issueFile->getId()
-                        ];
-                    }
+        foreach ($dates as $date) {
+            $persisted = false;
+            foreach($results as $result){
+                if($result['date'] == $date){
+                    $issueFileDownloads[] = (int)$result['download'];
+                    $persisted = true;
                 }
             }
+            if(!$persisted){
+                $issueFileDownloads[] = 0;
+            }
         }
-
         return $issueFileDownloads;
     }
     /**
      * Returns an array which can be passed to C3.js for pie chart graph creation
      *
-     * @param array $articles
      * @param array $dates
      * @return array
      */
-    public function generateArticleFilePieChartData($articles, $dates)
+    public function generateArticleFilePieChartData($dates)
     {
-        $articleFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+        $today = $dates[0];
+        $lastMonthToday = end($dates);
+        $sql = "SELECT statistic.date as date, SUM(statistic.download) AS download FROM statistic "
+            ."where statistic.article_file_id IS NOT NULL "
+            ."AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' "
+            ."GROUP BY statistic.date "
+            ."ORDER BY statistic.date ";
 
-        $articleFileDownloads = [];
-        $articleFileDownloads['mainChart'] = [];
-        $articleFileDownloads['mainChartNames'] = [];
-        $articleFileDownloads['charts'] = [];
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('date', 'date');
+        $rsm->addScalarResult('download', 'download');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
 
-        /** @var Article $article */
-        foreach ($articles as $article) {
-            $key = $article->getId();
-            $allFilesStat = $articleFileStatRepo->getTotalDownloadsOfAllFiles($article, $dates);
+        $articleFileDownloads = ['Download'];
 
-            if (!empty($allFilesStat)) {
-                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
-                $articleFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
-                $articleFileDownloads['mainChartNames'][] = [$key, $article->getTitle()];
-
-                foreach ($article->getArticleFiles() as $articleFile) {
-                    $fileStat = $articleFileStatRepo->getTotalDownloads($articleFile, $dates);
-
-                    if (!empty($fileStat)) {
-                        $totalDownloads = $fileStat[0][1];
-                        $articleFileDownloads['charts'][$key][] = [
-                            $articleFile->getTitle(),
-                            $totalDownloads,
-                            'articleFile'.$articleFile->getId()];
-                    }
+        foreach ($dates as $date) {
+            $persisted = false;
+            foreach($results as $result){
+                if($result['date'] == $date){
+                    $articleFileDownloads[] = (int)$result['download'];
+                    $persisted = true;
                 }
             }
+            if(!$persisted){
+                $articleFileDownloads[] = 0;
+            }
         }
-        
         return $articleFileDownloads;
     }
 

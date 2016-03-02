@@ -222,7 +222,7 @@
         var data = {{ stats|raw }};
         analytics.createChart('#journals', data['journalViews']);
         analytics.createChart('#articles', data['articleViews']);
-        analytics.createPieChart('#articleFiles', data['articleFileDownloads']);
-        analytics.createPieChart('#issueFiles', data['issueFileDownloads']);
+        analytics.createChart('#articleFiles', data['articleFileDownloads']);
+        analytics.createChart('#issueFiles', data['issueFileDownloads']);
     </script>
 {% endblock %}
