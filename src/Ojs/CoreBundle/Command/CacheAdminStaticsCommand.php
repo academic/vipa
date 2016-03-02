@@ -47,14 +47,14 @@ class CacheAdminStaticsCommand extends ContainerAwareCommand
 
         $data = [
             'stats' => json_encode($json),
-            'journals' => [],
-            'articles' => [],
-            'issueFiles' => [],
-            'articleFiles' => [],
-            'journalsMonthly' => [],
-            'articlesMonthly' => [],
-            'issueFilesMonthly' => [],
-            'articleFilesMonthly' => [],
+            'journals' => $generator->generateJournalViewsData(),
+            'articles' => $generator->generateArticleViewsData(),
+            'issueFiles' => $generator->generateIssueFileDownloadsData(),
+            'articleFiles' => $generator->generateArticleFileDownloadsData(),
+            'journalsMonthly' => $generator->generateJournalViewsData($slicedLastMonth),
+            'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
+            'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
+            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
         ];
 
         $output->writeln('Removing cache for admin_statics');

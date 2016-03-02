@@ -45,8 +45,8 @@
                         <tbody>
                         {% for journal in journalsMonthly %}
                             <tr>
-                                <td>{{ journal[0] }}</td>
-                                <td>{{ journal[1] }}</td>
+                                <td>{{ journal.title }}</td>
+                                <td>{{ journal.view }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -63,8 +63,8 @@
                         <tbody>
                         {% for journal in journals %}
                             <tr>
-                                <td>{{ journal[0] }}</td>
-                                <td>{{ journal[1] }}</td>
+                                <td>{{ journal.title }}</td>
+                                <td>{{ journal.view }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -91,8 +91,8 @@
                         <tbody>
                         {% for article in articlesMonthly %}
                             <tr>
-                                <td>{{ article[0] }}</td>
-                                <td>{{ article[1] }}</td>
+                                <td>{{ article.title }}</td>
+                                <td>{{ article.view }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -109,8 +109,8 @@
                         <tbody>
                         {% for article in articles %}
                             <tr>
-                                <td>{{ article[0] }}</td>
-                                <td>{{ article[1] }}</td>
+                                <td>{{ article.title }}</td>
+                                <td>{{ article.view }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -137,8 +137,8 @@
                         <tbody>
                         {% for articleFile in articleFilesMonthly %}
                             <tr>
-                                <td>{{ articleFile[0] }}</td>
-                                <td>{{ articleFile[1] }}</td>
+                                <td>{{ articleFile.title }}</td>
+                                <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -155,8 +155,8 @@
                         <tbody>
                         {% for articleFile in articleFiles %}
                             <tr>
-                                <td>{{ articleFile[0] }}</td>
-                                <td>{{ articleFile[1] }}</td>
+                                <td>{{ articleFile.title }}</td>
+                                <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -183,8 +183,8 @@
                         <tbody>
                         {% for issueFile in issueFilesMonthly %}
                             <tr>
-                                <td>{{ issueFile[0] }}</td>
-                                <td>{{ issueFile[1] }}</td>
+                                <td>{{ issueFile.title }}</td>
+                                <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -201,8 +201,8 @@
                         <tbody>
                         {% for issueFile in issueFiles %}
                             <tr>
-                                <td>{{ issueFile[0] }}</td>
-                                <td>{{ issueFile[1] }}</td>
+                                <td>{{ issueFile.title }}</td>
+                                <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

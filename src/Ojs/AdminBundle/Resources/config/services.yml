@@ -11,7 +11,7 @@ services:
 
   ojs.graph.data.generator:
     class: Ojs\AnalyticsBundle\Utils\GraphDataGenerator
-    arguments: ["@doctrine.orm.entity_manager"]
+    arguments: ["@doctrine.orm.entity_manager", "%locale%"]
 
   form.type.journal_application:
     class: Ojs\AdminBundle\Form\Type\JournalApplicationType

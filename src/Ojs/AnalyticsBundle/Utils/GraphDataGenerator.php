@@ -21,12 +21,19 @@ class GraphDataGenerator
     private $manager;
 
     /**
+     * @var string
+     */
+    private $locale;
+
+    /**
      * GraphDataGenerator constructor.
      * @param $manager
+     * @param $locale
      */
-    public function __construct($manager)
+    public function __construct($manager, $locale)
     {
-        $this->manager = $manager;
+        $this->manager  = $manager;
+        $this->locale   = $locale;
     }
 
     /**
@@ -197,51 +204,67 @@ class GraphDataGenerator
     /**
      * Returns an array of journal download statistics which can be displayed in a table
      *
-     * @param array $journals
      * @param array $dates
      * @return array
      */
-    public function generateJournalViewsData($journals, $dates = null)
+    public function generateJournalViewsData($dates = null)
     {
-        $journalStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:JournalStatistic');
-        $stats = $journalStatRepo->getMostViewed($journals, $dates, 10);
-        $result = [];
-
-        foreach ($stats as $stat) {
-            /** @var JournalStatistic $journalStat */
-            $journalStat = $stat[0];
-            $result[] = array(
-                $journalStat->getJournal()->getTitle(),
-                $stat[1]
-            );
+        $whereDate = '';
+        if($dates){
+            $today = $dates[0];
+            $lastMonthToday = end($dates);
+            $whereDate = "AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' ";
         }
+        $sql = "SELECT journal_translations.title, SUM(statistic.view) as sum_view FROM statistic "
+                ."join journal on statistic.journal_id = journal.id "
+                ."join journal_translations on journal.id = journal_translations.translatable_id "
+	                ."and journal_translations.locale = '".$this->locale."' "
+                ."WHERE journal_id IS NOT NULL "
+                .$whereDate
+                ."group by journal_id "
+                ."ORDER BY sum_view DESC "
+                ."LIMIT 20; ";
 
-        return $result;
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('title', 'title');
+        $rsm->addScalarResult('sum_view', 'view');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
     }
 
     /**
      * Returns an array of article download statistics which can be displayed in a table
      *
-     * @param array $articles
      * @param array $dates
      * @return array
      */
-    public function generateArticleViewsData($articles, $dates = null)
+    public function generateArticleViewsData($dates = null)
     {
-        $articleStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleStatistic');
-        $stats = $articleStatRepo->getMostViewed($articles, $dates, 10);
-        $result = [];
-
-        foreach ($stats as $stat) {
-            /** @var ArticleStatistic $articleStat */
-            $articleStat = $stat[0];
-            $result[] = array(
-                $articleStat->getArticle()->getTitle(),
-                $stat['totalViews']
-            );
+        $whereDate = '';
+        if($dates){
+            $today = $dates[0];
+            $lastMonthToday = end($dates);
+            $whereDate = "AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' ";
         }
+        $sql = "SELECT article_translations.title, SUM(statistic.view) as sum_view FROM statistic "
+            ."join article on statistic.article_id = article.id "
+            ."join article_translations on article.id = article_translations.translatable_id "
+            ."and article_translations.locale = '".$this->locale."' "
+            ."WHERE article_id IS NOT NULL "
+            .$whereDate
+            ."group by article_id "
+            ."ORDER BY sum_view DESC "
+            ."LIMIT 20; ";
 
-        return $result;
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('title', 'title');
+        $rsm->addScalarResult('sum_view', 'view');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
     }
 
     /**
@@ -251,48 +274,61 @@ class GraphDataGenerator
      * @param array $dates
      * @return array
      */
-    public function generateIssueFileDownloadsData($issues, $dates = null)
+    public function generateIssueFileDownloadsData($dates = null)
     {
-        $issueFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:IssueFileStatistic');
-        $issueFileStats = $issueFileStatRepo->getMostDownloadedFiles($issues, $dates, 10);
-        $result = [];
-
-        foreach ($issueFileStats as $stat) {
-            /** @var IssueFileStatistic $issueFileStat */
-            $issueFileStat = $stat[0];
-            $totalDownloads = $stat[1];
-            $result[] = array(
-                $issueFileStat->getIssueFile()->getTitle(),
-                $totalDownloads
-            );
+        $whereDate = '';
+        if($dates){
+            $today = $dates[0];
+            $lastMonthToday = end($dates);
+            $whereDate = "AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' ";
         }
+        $sql = "SELECT issue_file_translations.title, SUM(statistic.download) as sum_download FROM statistic "
+            ."join issue_file on statistic.issue_file_id = issue_file.id "
+            ."join issue_file_translations on issue_file.id = issue_file_translations.translatable_id "
+            ."and issue_file_translations.locale = '".$this->locale."' "
+            ."WHERE issue_file_id IS NOT NULL "
+            .$whereDate
+            ."group by issue_file_id "
+            ."ORDER BY sum_download DESC "
+            ."LIMIT 20; ";
 
-        return $result;
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('title', 'title');
+        $rsm->addScalarResult('sum_download', 'download');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
     }
 
     /**
      * Returns an array of article download statistics which can be displayed in a table
      *
-     * @param array $articles
      * @param array $dates
      * @return array
      */
-    public function generateArticleFileDownloadsData($articles, $dates = null)
+    public function generateArticleFileDownloadsData($dates = null)
     {
-        $articleFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
-        $articleFileStats = $articleFileStatRepo->getMostDownloadedFiles($articles, $dates, 10);
-        $result = [];
-
-        foreach ($articleFileStats as $stat) {
-            /** @var ArticleFileStatistic $articleFileStat */
-            $articleFileStat = $stat[0];
-            $totalDownloads = $stat[1];
-            $result[] = array(
-                $articleFileStat->getArticleFile()->getTitle(),
-                $totalDownloads
-            );
+        $whereDate = '';
+        if($dates){
+            $today = $dates[0];
+            $lastMonthToday = end($dates);
+            $whereDate = "AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' ";
         }
+        $sql = "SELECT article_file.title, SUM(statistic.download) as sum_download FROM statistic "
+                ."join article_file on statistic.article_file_id = article_file.id "
+                ."WHERE article_file_id IS NOT NULL "
+                .$whereDate
+                ."group by article_file_id "
+                ."ORDER BY sum_download DESC "
+                ."LIMIT 20 ";
 
-        return $result;
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('title', 'title');
+        $rsm->addScalarResult('sum_download', 'download');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
     }
 }
