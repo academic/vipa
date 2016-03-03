@@ -51,29 +51,6 @@ class MailTemplateController extends Controller
     }
 
     /**
-     * Creates a form to create a MailTemplate entity.
-     *
-     * @param MailTemplate $entity The entity
-     * @param $journalId
-     * @return Form The form
-     */
-    private function createCreateForm(MailTemplate $entity, $journalId)
-    {
-        $form = $this->createForm(
-            new MailTemplateType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl('ojs_journal_mail_template_create', ['journalId' => $journalId]),
-                'method' => 'POST',
-            )
-        );
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
      * Finds and displays a MailTemplate entity.
      *
      * @param  integer  $id
@@ -131,8 +108,25 @@ class MailTemplateController extends Controller
                 'form' => $editForm->createView(),
                 'eventDetail' => $eventDetail,
                 'eventParamsAsString' => $eventParamsAsString,
+                'defaultMailTemplate' => $this->getDefaultMailTemplate($entity),
             )
         );
+    }
+
+    /**
+     * @param MailTemplate $mailTemplate
+     * @return null|object|MailTemplate
+     */
+    private function getDefaultMailTemplate(MailTemplate $mailTemplate)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $GLOBALS['Ojs\JournalBundle\Entity\MailTemplate#journalFilter'] = false;
+        return $em->getRepository('OjsJournalBundle:MailTemplate')->findOneBy([
+            'type' => $mailTemplate->getType(),
+            'journal' => null,
+            'journalDefault' => true,
+            'lang' => $this->getParameter('locale'),
+        ]);
     }
 
     /**

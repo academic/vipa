@@ -16,6 +16,8 @@
     <div class="well">
         <h5>{{ 'you.can.use.below.params.on.this.template'|trans }} :</h5> <br>
         {{ eventParamsAsString|raw }}
+        <h5>{{ 'default.template'|trans }}:</h5>
+        <div class="well">{{ defaultMailTemplate.template|raw }}</div>
     </div>
     {{ form(form) }}
     {% set back_path = 'ojs_admin_mail_template_index' %}

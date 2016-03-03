@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
-use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
