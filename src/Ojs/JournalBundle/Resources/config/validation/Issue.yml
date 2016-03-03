@@ -7,8 +7,6 @@ Ojs\JournalBundle\Entity\Issue:
     properties:
         translations:
             - Valid: ~
-        volume:
-            - NotBlank: ~
         tags:
             - NotBlank: ~
         year:

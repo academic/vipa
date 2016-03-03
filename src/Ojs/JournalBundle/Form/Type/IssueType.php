@@ -17,7 +17,7 @@ class IssueType extends AbstractType
     {
         $builder
             ->add('translations', 'a2lix_translations')
-            ->add('volume', 'text', array('label' => 'volume'))
+            ->add('volume', 'text', array('label' => 'volume', 'required' => false))
             ->add('number', 'text', array('label' => 'number', 'required' => false))
             ->add('special', 'checkbox', [
                     'label' => 'special.issue',
