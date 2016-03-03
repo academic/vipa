@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ eventDetail.name|trans }}</h1>
+    <h1>{{ entity.description }}</h1>
     {% include '::flashbag.html.twig' %}
     <div class="well">
         <h5>{{ 'you.can.use.below.params.on.this.template'|trans }} :</h5> <br>

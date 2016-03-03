@@ -8,8 +8,8 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * MailTemplate
- * @GRID\Source(columns="id,type,lang,active,journalDefault")
- * @GRID\Source(columns="id,type,lang,active,useJournalDefault", groups={"journal"})
+ * @GRID\Source(columns="id,description,lang,active,journalDefault")
+ * @GRID\Source(columns="id,description,lang,active,useJournalDefault", groups={"journal"})
  */
 class MailTemplate implements JournalItemInterface
 {
