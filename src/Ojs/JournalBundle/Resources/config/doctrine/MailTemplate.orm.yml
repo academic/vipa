@@ -75,6 +75,7 @@ Ojs\JournalBundle\Entity\MailTemplate:
                on: create
         updatedBy:
            type: string
+           nullable: true
            gedmo:
              blameable:
                on: update
