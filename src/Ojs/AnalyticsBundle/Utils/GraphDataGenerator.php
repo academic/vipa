@@ -331,4 +331,115 @@ class GraphDataGenerator
 
         return $results;
     }
+
+    /**
+     * Returns an array which can be passed to C3.js for bar chart graph creation
+     *
+     * @param array $articles
+     * @param array $dates
+     * @return array
+     */
+    public function generateArticleBarChartDataDoctrine($articles, $dates)
+    {
+        $articleStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleStatistic');
+        $articleStats = $articleStatRepo->findByArticles($articles, $dates);
+        $articleViews = ['View'];
+        foreach ($dates as $date) {
+            $total = 0;
+            /** @var ArticleStatistic $stat */
+            $stat = $articleStats->first();
+            while ($stat && $stat->getDate()->format($this::DATE_FORMAT) == $date) {
+                $total += $stat->getView();
+                $articleStats->removeElement($stat);
+                $stat = $articleStats->first();
+            }
+            $articleViews[] = $total;
+        }
+        return $articleViews;
+    }
+
+    /**
+     * Returns an array which can be passed to C3.js for pie chart graph creation
+     *
+     * @param array $articles
+     * @param array $dates
+     * @return array
+     */
+    public function generateArticleFilePieChartDataDoctrine($articles, $dates)
+    {
+        $articleFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+        $articleFileDownloads = [];
+        $articleFileDownloads['mainChart'] = [];
+        $articleFileDownloads['mainChartNames'] = [];
+        $articleFileDownloads['charts'] = [];
+        /** @var Article $article */
+        foreach ($articles as $article) {
+            $key = $article->getId();
+            $allFilesStat = $articleFileStatRepo->getTotalDownloadsOfAllFiles($article, $dates);
+            if (!empty($allFilesStat)) {
+                $totalDownloadsOfAllFiles = $allFilesStat[0][1];
+                $articleFileDownloads['mainChart'][] = [$key, $totalDownloadsOfAllFiles];
+                $articleFileDownloads['mainChartNames'][] = [$key, $article->getTitle()];
+                foreach ($article->getArticleFiles() as $articleFile) {
+                    $fileStat = $articleFileStatRepo->getTotalDownloads($articleFile, $dates);
+                    if (!empty($fileStat)) {
+                        $totalDownloads = $fileStat[0][1];
+                        $articleFileDownloads['charts'][$key][] = [
+                            $articleFile->getTitle(),
+                            $totalDownloads,
+                            'articleFile'.$articleFile->getId()];
+                    }
+                }
+            }
+        }
+
+        return $articleFileDownloads;
+    }
+
+    /**
+     * Returns an array of article download statistics which can be displayed in a table
+     *
+     * @param array $articles
+     * @param array $dates
+     * @return array
+     */
+    public function generateArticleViewsDataDoctrine($articles, $dates = null)
+    {
+        $articleStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleStatistic');
+        $stats = $articleStatRepo->getMostViewed($articles, $dates, 10);
+        $result = [];
+        foreach ($stats as $stat) {
+            /** @var ArticleStatistic $articleStat */
+            $articleStat = $stat[0];
+            $result[] = array(
+                $articleStat->getArticle()->getTitle(),
+                $stat['totalViews']
+            );
+        }
+        return $result;
+    }
+
+    /**
+     * Returns an array of article download statistics which can be displayed in a table
+     *
+     * @param array $articles
+     * @param array $dates
+     * @return array
+     */
+    public function generateArticleFileDownloadsDataDoctrine($articles, $dates = null)
+    {
+        $articleFileStatRepo = $this->manager->getRepository('OjsAnalyticsBundle:ArticleFileStatistic');
+        $articleFileStats = $articleFileStatRepo->getMostDownloadedFiles($articles, $dates, 10);
+        $result = [];
+        foreach ($articleFileStats as $stat) {
+            /** @var ArticleFileStatistic $articleFileStat */
+            $articleFileStat = $stat[0];
+            $totalDownloads = $stat[1];
+            $result[] = array(
+                $articleFileStat->getArticleFile()->getTitle(),
+                $totalDownloads
+            );
+        }
+        return $result;
+    }
 }

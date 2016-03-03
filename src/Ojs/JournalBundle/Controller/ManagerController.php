@@ -247,7 +247,7 @@ class ManagerController extends Controller
      */
     private function createStats()
     {
-        $generator = new GraphDataGenerator($this->getDoctrine()->getManager());
+        $generator = $this->get('ojs.graph.data.generator');
 
         $lastMonth = ['x'];
         for ($i = 0; $i < 30; $i++) {
@@ -263,16 +263,16 @@ class ManagerController extends Controller
 
         $json = [
             'dates' => $lastMonth,
-            'articleViews' => $generator->generateArticleBarChartData($articles, $slicedLastMonth),
-            'articleFileDownloads' => $generator->generateArticleFilePieChartData($articles, $slicedLastMonth),
+            'articleViews' => $generator->generateArticleBarChartDataDoctrine($articles, $slicedLastMonth),
+            'articleFileDownloads' => $generator->generateArticleFilePieChartDataDoctrine($articles, $slicedLastMonth),
         ];
 
         $data = [
             'stats' => json_encode($json),
-            'articles' => $generator->generateArticleViewsData($articles),
-            'articleFiles' => $generator->generateArticleFileDownloadsData($articles),
-            'articlesMonthly' => $generator->generateArticleViewsData($articles, $slicedLastMonth),
-            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($articles, $slicedLastMonth),
+            'articles' => $generator->generateArticleViewsDataDoctrine($articles),
+            'articleFiles' => $generator->generateArticleFileDownloadsDataDoctrine($articles),
+            'articlesMonthly' => $generator->generateArticleViewsDataDoctrine($articles, $slicedLastMonth),
+            'articleFilesMonthly' => $generator->generateArticleFileDownloadsDataDoctrine($articles, $slicedLastMonth),
         ];
 
         return $data;
