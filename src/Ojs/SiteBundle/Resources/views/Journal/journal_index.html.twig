@@ -229,8 +229,11 @@
                                                 {% for issue in issues %}
                                                     <li>
                                                         <a href="{{ issue.publicURI }}">
-                                                            {{ "volume"|trans }}  {{ issue.volume }}
-                                                            - {{ "issue.number"|trans }} {{ issue.number }}
+                                                            {% if issue.volume is not null and issue.volume != 0 %}
+                                                                {{ "volume"|trans }}  {{ issue.volume }}
+                                                                -
+                                                            {% endif %}
+                                                             {{ "issue.number"|trans }} {{ issue.number }}
                                                             {% if issue.special %}
                                                             <span class="label label-success">
                                                             <i class="fa fa-star"
