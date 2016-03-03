@@ -66,19 +66,11 @@
                                                 </a>
                                                 <br/>
 
-                                                <i class="fa fa-users"></i>
-                                                {% if article.created.date %}
-                                                    <span class="text-muted">
-                                                        ({{ article.created.date|date('d.m.Y') }})
+                                                <span class="text-muted">
+                                                    {% if article.submitterUser is not null %}
+                                                        ({{ article.submitterUser.fullName }})
+                                                    {% en %}
                                                 </span>
-                                                {% endif %}
-
-                                                <i class="fa fa-eye"></i>
-                                                {% if article.viewCount %}
-                                                    <span class="text-muted">
-                                                        {{ article.viewCount|number_format }}
-                                                </span>
-                                                {% endif %}
                                             </li>
                                         {% endif %}
                                     {% endfor %}

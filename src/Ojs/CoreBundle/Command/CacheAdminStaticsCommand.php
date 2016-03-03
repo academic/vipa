@@ -24,11 +24,9 @@ class CacheAdminStaticsCommand extends ContainerAwareCommand
     private function createStats(OutputInterface $output)
     {
         $container = $this->getContainer();
-        $em = $container->get('doctrine');
         $cache = $container->get('file_cache');
         $generator = $container->get('ojs.graph.data.generator');
 
-        $output->writeln('get all journals finished');
         $lastMonth = ['x'];
         for($i = 0; $i < 30; $i++) {
             $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
