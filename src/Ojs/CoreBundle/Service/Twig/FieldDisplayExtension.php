@@ -60,7 +60,7 @@ class FieldDisplayExtension extends \Twig_Extension
                 $fieldTranslations[$langCode] = $translation->$createGetterFunction();
             }
         }
-        if(count($fieldTranslations)<2){
+        if(count($fieldTranslations)<2 && count($fieldTranslations) !== 0){
             return array_values($fieldTranslations)[0];
         }
         if($arrayReturn){
