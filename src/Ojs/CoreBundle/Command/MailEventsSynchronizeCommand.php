@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class MailEventsSynchronizeCommand
@@ -38,6 +39,11 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
     private $container;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var Collection|Journal[]
      */
     private $allJournals;
@@ -48,12 +54,18 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
     private $langs;
 
     /**
+     * @var bool
+     */
+    private $syncDescriptions;
+
+    /**
      *
      */
     protected function configure()
     {
         $this
             ->setName('ojs:mail:events:sync')
+            ->addOption('sync-desc', null, InputOption::VALUE_NONE, 'Sync Mail Events Descriptions Too')
             ->setDescription('Synchronize all mail events.')
         ;
     }
@@ -64,11 +76,13 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->io = new SymfonyStyle($input, $output);
-        $this->container = $this->getContainer();
-        $this->em = $this->container->get('doctrine')->getManager();
-        $this->allJournals = $this->em->getRepository('OjsJournalBundle:Journal')->findAll();
-        $this->langs = $this->container->getParameter('locale_support');
+        $this->io               = new SymfonyStyle($input, $output);
+        $this->container        = $this->getContainer();
+        $this->em               = $this->container->get('doctrine')->getManager();
+        $this->translator       = $this->container->get('translator');
+        $this->allJournals      = $this->em->getRepository('OjsJournalBundle:Journal')->findAll();
+        $this->langs            = $this->container->getParameter('locale_support');
+        $this->syncDescriptions = $input->getOption('sync-desc');
     }
 
     /**
@@ -117,6 +131,9 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
                     $this->createMailTemplateSkeleton($eventOption, $lang, null, false, false);
                 }
             }
+            if($this->syncDescriptions){
+                $this->syncEventDescription($eventOption, $lang);
+            }
             $this->em->flush();
         }
     }
@@ -160,7 +177,22 @@ class MailEventsSynchronizeCommand extends ContainerAwareCommand
             ->setTemplate('')
             ->setUseJournalDefault($useJournalDefault)
             ->setJournalDefault($journalDefault)
+            ->setUpdatedBy('cli')
             ;
         $this->em->persist($mailTemplate);
+    }
+
+    private function syncEventDescription(EventDetail $eventDetail, $lang)
+    {
+        $findTemplates = $this->em->getRepository('OjsJournalBundle:MailTemplate')->findBy([
+            'type' => $eventDetail->getName(),
+            'lang' => $lang,
+        ]);
+        foreach($findTemplates as $template){
+            $this->io->writeln(sprintf('Updating description for  -> %s', $eventDetail->getName()));
+            $template->setDescription($this->translator->trans($eventDetail->getName(), [], null, $lang));
+            $template->setUpdatedBy('cli');
+            $this->em->persist($template);
+        }
     }
 }
