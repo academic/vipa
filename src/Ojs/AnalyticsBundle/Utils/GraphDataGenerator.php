@@ -221,7 +221,7 @@ class GraphDataGenerator
 	                ."and journal_translations.locale = '".$this->locale."' "
                 ."WHERE journal_id IS NOT NULL "
                 .$whereDate
-                ."group by journal_id "
+                ."group by journal_id,journal_translations.title "
                 ."ORDER BY sum_view DESC "
                 ."LIMIT 20; ";
 
@@ -254,7 +254,7 @@ class GraphDataGenerator
             ."and article_translations.locale = '".$this->locale."' "
             ."WHERE article_id IS NOT NULL "
             .$whereDate
-            ."group by article_id "
+            ."group by article_id,article_translations.title "
             ."ORDER BY sum_view DESC "
             ."LIMIT 20; ";
 
@@ -288,7 +288,7 @@ class GraphDataGenerator
             ."and issue_file_translations.locale = '".$this->locale."' "
             ."WHERE issue_file_id IS NOT NULL "
             .$whereDate
-            ."group by issue_file_id "
+            ."group by issue_file_id,issue_file_translations.title "
             ."ORDER BY sum_download DESC "
             ."LIMIT 20; ";
 
@@ -319,7 +319,7 @@ class GraphDataGenerator
                 ."join article_file on statistic.article_file_id = article_file.id "
                 ."WHERE article_file_id IS NOT NULL "
                 .$whereDate
-                ."group by article_file_id "
+                ."group by article_file_id ,article_file.title "
                 ."ORDER BY sum_download DESC "
                 ."LIMIT 20 ";
 
