@@ -42,6 +42,8 @@ Ojs\JournalBundle\Entity\Section:
             type: integer
             column: section_order
             nullable: false
+            options:
+                default: 1
         createdBy:
            type: string
            gedmo:
