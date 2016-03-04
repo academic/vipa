@@ -407,7 +407,7 @@ class SiteController extends Controller
     {
         $sections = [];
         foreach($issue->getJournal()->getSections() as $section){
-            $sectionHaveIssueArticle = true;
+            $sectionHaveIssueArticle = false;
             foreach($section->getArticles() as $article){
                 if($article->getIssue() !== null){
                     if($article->getIssue()->getId() == $issue->getId()){
