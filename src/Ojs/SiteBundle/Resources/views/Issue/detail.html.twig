@@ -47,7 +47,7 @@
             <div class="panel panel-default">
 
                 <ul class="list-group">
-                    {% for section in issue.journal.sections %}
+                    {% for section in sections %}
                         {% if section.articles|length>0 %}
                             <li class="list-group-item list-group-item-primary">
                                 <i class="fa fa-globe"></i> {{ section.title }}

@@ -2,6 +2,7 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -371,7 +372,6 @@ class SiteController extends Controller
          * @var IssueRepository $issueRepo
          * @var Issue $issue
          */
-
         $em = $this->getDoctrine()->getManager();
 
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
@@ -386,14 +386,40 @@ class SiteController extends Controller
             ->get('security.csrf.token_manager')
             ->refreshToken('issue_view');
 
+        $sections = $this->setupIssueSections($issue);
+
         return $this->render(
             'OjsSiteBundle:Issue:detail.html.twig',
             [
-                'issue' => $issue,
-                'blocks' => $blocks,
-                'token' => $token,
+                'issue'     => $issue,
+                'blocks'    => $blocks,
+                'token'     => $token,
+                'sections'  => $sections
             ]
         );
+    }
+
+    /**
+     * @param Issue $issue
+     * @return ArrayCollection
+     */
+    private function setupIssueSections(Issue $issue)
+    {
+        $sections = new ArrayCollection();
+        foreach($issue->getJournal()->getSections() as $section){
+            $sectionHaveIssueArticle = false;
+            foreach($section->getArticles() as $article){
+                if($article->getIssue() !== null){
+                    if($article->getIssue()->getId() == $issue->getId()){
+                        $sectionHaveIssueArticle = true;
+                    }
+                }
+            }
+            if($sectionHaveIssueArticle){
+                $sections->add($section);
+            }
+        }
+        return $sections;
     }
 
     public function journalContactsAction($slug)
