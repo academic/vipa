@@ -6,7 +6,7 @@
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>{% block title %}&raquo; OJS{% endblock %}</title>
+    <title>{% block title %}&raquo; {{ project_name }}{% endblock %}</title>
     <base href="{{ app.request.getBaseURL() }}/"/>
     <meta name="generator" content="ojs.io"/>
     {% if schemaMetaTag is defined %}
