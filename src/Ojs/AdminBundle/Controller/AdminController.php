@@ -66,8 +66,44 @@ class AdminController extends Controller
         }
         $cache = $this->get('file_cache');
         if(!$cache->contains('admin_statics')){
-            return new Response('page.not.available.for.now');
+            $this->cacheAdminStats();
         }
         return $this->render('OjsAdminBundle:Admin:stats.html.twig', $cache->fetch('admin_statics'));
+    }
+
+    private function cacheAdminStats()
+    {
+        $cache = $this->container->get('file_cache');
+        $generator = $this->container->get('ojs.graph.data.generator');
+
+        $lastMonth = ['x'];
+        for($i = 0; $i < 30; $i++) {
+            $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
+        }
+        $slicedLastMonth = array_slice($lastMonth, 1);
+
+        $json = [
+            'dates' => $lastMonth,
+            'journalViews' => $generator->generateJournalBarChartData($slicedLastMonth),
+            'articleViews' => $generator->generateArticleBarChartData($slicedLastMonth),
+            'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
+            'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
+        ];
+
+        $data = [
+            'stats' => json_encode($json),
+            'journals' => $generator->generateJournalViewsData(),
+            'articles' => $generator->generateArticleViewsData(),
+            'issueFiles' => $generator->generateIssueFileDownloadsData(),
+            'articleFiles' => $generator->generateArticleFileDownloadsData(),
+            'journalsMonthly' => $generator->generateJournalViewsData($slicedLastMonth),
+            'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
+            'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
+            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
+        ];
+
+        $cache->save('admin_statics', $data, 1800);
+
+        return true;
     }
 }
