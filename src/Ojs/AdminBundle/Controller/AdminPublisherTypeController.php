@@ -31,15 +31,20 @@ class AdminPublisherTypeController extends Controller
         if (!$this->isGranted('VIEW', new PublisherTypes())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:PublisherTypes');
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $cache) {
                 /* @var PublisherTypes $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('translations.name', $entity->getNameTranslations());
-                    $row->setField('translations.description', $entity->getDescriptionTranslations());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $row->setField('translations.name', $entity->getNameTranslations());
+                        $row->setField('translations.description', $entity->getDescriptionTranslations());
+                    }
                 }
 
                 return $row;
