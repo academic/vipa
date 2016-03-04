@@ -811,7 +811,7 @@ pubdate: 'Yayımlanma Tarihi'
 publishdate: 'Yayın Tarihi'
 published: Yayımlanmış
 read.article: 'Makaleyi Oku'
-read.lastissue: 'Son Sayıyı Oku'
+read.lastissue: 'Son Sayı'
 regenerate.apikey: 'Yeniden API anahtarı üret'
 register: 'Kaydol'
 register_advantages_text: 'Kaydolarak dergilere kolayca makale gönderebilirsiniz.'
