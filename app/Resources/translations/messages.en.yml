@@ -1550,6 +1550,7 @@ ojs.section.pre_delete: 'On Section Delete'
 fos_user.registration.completed: 'On User Registration Completed'
 fos_user.change_password.edit.completed: 'On User Change Password Completed'
 fos_user.profile.edit.completed: 'On User Profile Edit Completed'
+section.order: 'Section Order'
 
 # OAuth
 linkedin: 'Linkedin'

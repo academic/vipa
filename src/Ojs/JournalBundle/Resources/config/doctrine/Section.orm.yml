@@ -38,6 +38,10 @@ Ojs\JournalBundle\Entity\Section:
             nullable: true
             options:
                 default: false
+        sectionOrder:
+            type: integer
+            column: section_order
+            nullable: false
         createdBy:
            type: string
            gedmo:

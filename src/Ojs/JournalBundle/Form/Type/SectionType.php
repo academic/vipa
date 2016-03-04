@@ -32,7 +32,11 @@ class SectionType extends AbstractType
                     'required' => false,
                     'label' => 'section.allow_index'
                 )
-            );
+            )
+            ->add('sectionOrder', null, [
+                'label' => 'section.order'
+            ])
+        ;
     }
 
     /**

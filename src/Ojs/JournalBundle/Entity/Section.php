@@ -21,33 +21,44 @@ class Section extends AbstractTranslatable implements JournalItemInterface
      * @GRID\Column(title="ID")
      */
     protected $id;
+
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\SectionTranslation")
      */
     protected $translations;
+
     /**
      * @var string
      * @GRID\Column(title="section.title", field="translations.title",safe=false)
      */
     private $title;
+
     /**
      * @var boolean
      * @GRID\Column(title="section.allow_index")
      */
     private $allowIndex = true;
+
     /**
      * @var boolean
      * @GRID\Column(title="section.hide_title")
      */
     private $hideTitle = false;
+
     /**
      * @var ArrayCollection|Article[]
      */
     private $articles;
+
     /**
      * @var Journal
      */
     private $journal;
+
+    /**
+     * @var int
+     */
+    private $sectionOrder = 1;
 
     public function __construct()
     {
@@ -242,5 +253,25 @@ class Section extends AbstractTranslatable implements JournalItemInterface
         $this->currentTranslation = $translation;
 
         return $translation;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSectionOrder()
+    {
+        return $this->sectionOrder;
+    }
+
+    /**
+     * @param int $sectionOrder
+     *
+     * @return $this
+     */
+    public function setSectionOrder($sectionOrder)
+    {
+        $this->sectionOrder = $sectionOrder;
+
+        return $this;
     }
 }

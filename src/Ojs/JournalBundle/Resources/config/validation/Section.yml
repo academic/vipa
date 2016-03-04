@@ -7,3 +7,5 @@ Ojs\JournalBundle\Entity\Section:
     properties:
         translations:
             - Valid: ~
+        sectionOrder:
+            - NotBlank: ~

@@ -1543,6 +1543,7 @@ ojs.section.pre_delete: 'Dergi Bölümü Silindiğinde'
 fos_user.registration.completed: 'Kullanıcı Kayıt İşlemi Bittiğinde'
 fos_user.change_password.edit.completed: 'Kullanıcı Şifre Değiştirme İşlemi Bittiğinde'
 fos_user.profile.edit.completed: 'Kullanıcı Profil Düzenleme Bittiğinde'
+section.order: 'Bölüm Sırası'
 
 # OAuth
 linkedin: 'Linkedin'
