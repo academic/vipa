@@ -405,9 +405,9 @@ class SiteController extends Controller
      */
     private function setupIssueSections(Issue $issue)
     {
-        $sections = new ArrayCollection();
+        $sections = [];
         foreach($issue->getJournal()->getSections() as $section){
-            $sectionHaveIssueArticle = false;
+            $sectionHaveIssueArticle = true;
             foreach($section->getArticles() as $article){
                 if($article->getIssue() !== null){
                     if($article->getIssue()->getId() == $issue->getId()){
@@ -416,9 +416,13 @@ class SiteController extends Controller
                 }
             }
             if($sectionHaveIssueArticle){
-                $sections->add($section);
+                $sections[] = $section;
             }
         }
+        //order sections by section order
+        uasort($sections, function($a, $b){
+            return ((int)$a->getSectionOrder() > (int)$b->getSectionOrder()) ? 1 : -1;
+        });
         return $sections;
     }
 

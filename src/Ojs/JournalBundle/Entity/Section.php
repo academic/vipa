@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Section
- * @GRID\Source(columns="id,translations.title,allowIndex,hideTitle")
+ * @GRID\Source(columns="id,translations.title,allowIndex,hideTitle,sectionOrder")
  */
 class Section extends AbstractTranslatable implements JournalItemInterface
 {
@@ -57,6 +57,7 @@ class Section extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var int
+     * @GRID\Column(title="section.order")
      */
     private $sectionOrder = 1;
 
