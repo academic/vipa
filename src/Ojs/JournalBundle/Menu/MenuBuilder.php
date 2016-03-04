@@ -36,7 +36,6 @@ class MenuBuilder extends ContainerAware
             // [field, label, route, icon]
             ['stats', 'dashboard.general_stats', 'ojs_journal_stats_index', 'bar-chart'],
             ['submissionSettings', 'title.journal_settings_submission', 'ojs_journal_settings_submission', 'paper-plane'],
-            ['mailSettings', 'title.journal_settings_mail', 'ojs_journal_settings_mail', 'envelope'],
             ['checklist', 'title.submission_checklists', 'ojs_journal_checklist_index', 'list'],
             ['file', 'title.submission_files', 'ojs_journal_file_index', 'file'],
             ['userRole', 'title.users', 'ojs_journal_user_index', 'key'],

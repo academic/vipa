@@ -10,7 +10,3 @@ ojs_journal_settings_update:
 ojs_journal_settings_submission:
     path:  /{journalId}/settings/submission
     defaults: { _controller: "OjsJournalBundle:Manager:journalSettingsSubmission" }
-
-ojs_journal_settings_mail:
-    path:  /{journalId}/settings/mail
-    defaults: { _controller: "OjsJournalBundle:Manager:journalSettingsMail" }

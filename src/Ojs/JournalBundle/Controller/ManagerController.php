@@ -182,31 +182,6 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request $req
-     * @return Response
-     */
-    public function journalSettingsMailAction(Request $req)
-    {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-
-        if (!$this->isGranted('EDIT', $journal, 'mailSettings')) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
-
-        if ($req->getMethod() == 'POST' && !empty($req->get('emailSignature'))) {
-            $this->updateJournalSetting($journal, 'emailSignature', $req->get('emailSignature'), false);
-        }
-
-        $emailSignature = $journal->getSetting('emailSignature') ?
-            $journal->getSetting('emailSignature')->getValue() : null;
-
-        return $this->render(
-            'OjsJournalBundle:Manager:journal_settings_mail.html.twig',
-            ['journal' => $journal, 'emailSignature' => $emailSignature]
-        );
-    }
-
-    /**
      * @return Response
      */
     public function userIndexAction()
