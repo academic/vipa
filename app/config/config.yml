@@ -53,6 +53,7 @@ twig:
     ojs_tw: %ojs_tw%
     ojs_fb: %ojs_fb%
     project_name: %project_name%
+    ojs_favicon: %ojs_favicon%
   number_format:
     decimals: 0
     decimal_point: ','
