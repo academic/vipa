@@ -4,7 +4,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
+    {'link': path('ojs_public_index'), 'title': project_name},
     {'title': 'tags.cloud'|trans}
     ] %}
     {{ breadcrumb(list) }}

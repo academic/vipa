@@ -22,7 +22,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
+    {'link': path('ojs_public_index'), 'title': project_name},
     {'link': journalUrl, 'title': journal.title},
     {'title': "archive"|trans}
     ] %}

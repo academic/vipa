@@ -17,7 +17,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': 'ojs.title'|trans},
+    {'link': path('ojs_public_index'), 'title': project_name},
     {'link':generateJournalUrl(journal), 'title': journal.title},
     {'link':url('ojs_archive_index',{slug: journal.slug,publisher: journal.publisher.slug}), 'title': "archive"|trans}
     ] %}
