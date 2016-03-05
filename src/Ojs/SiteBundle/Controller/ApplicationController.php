@@ -129,7 +129,7 @@ class ApplicationController extends Controller
                 $em->persist($application);
                 $em->flush();
 
-                $event = new AdminEvent($request, $application);
+                $event = new AdminEvent(['entity' => $application]);
                 $dispatcher->dispatch(AdminEvents::JOURNAL_APPLICATION_HAPPEN, $event);
                 return $this->redirectToRoute('ojs_apply_journal_success');
             }
