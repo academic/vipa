@@ -47,6 +47,7 @@ parameters:
             name: "Idea"
     defaultPublisherSlug: www
     ojs_logo: http://ojs.io/assets/app/images/logo.png
+    ojs_favicon: http://ojs.io/assets/app/images/logo.png
     ojs_fb: openjournalsoftware
     ojs_tw: ojs_io
     project_name: OJS
