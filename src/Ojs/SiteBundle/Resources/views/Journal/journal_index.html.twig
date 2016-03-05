@@ -38,17 +38,6 @@
                                      class="width100 img-responsive margin-bot"/>
                             </div>
                         {% endif %}
-                        <h1 class="col-md-12">
-                            {{ journal.title }}
-                            <small>
-                                <i class="fa fa-eye"></i>
-                                {{ journal.viewCount|number_format }}
-                            </small>
-                            <small>
-                                <i class="fa fa-download"></i>
-                                {{ journal.downloadCount|number_format }}
-                            </small>
-                        </h1>
                         <div class="col-md-12">
                             {% include '::flashbag.html.twig' %}
                             <dl class="journal-meta">
@@ -233,7 +222,7 @@
                                                                 {{ "volume"|trans }}  {{ issue.volume }}
                                                                 -
                                                             {% endif %}
-                                                             {{ "issue.number"|trans }} {{ issue.number }}
+                                                             {{ "issue"|trans }} {{ issue.number }}
                                                             {% if issue.special %}
                                                             <span class="label label-success">
                                                             <i class="fa fa-star"
@@ -260,7 +249,7 @@
                             {% if last_issue %}
                                 <div class="panel panel-default">
                                     <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
-                                        {{ "issue.number"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
+                                        {{ "issue"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
                                         - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
                                         <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
                                     </div>

@@ -309,30 +309,17 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     *  return all issues as array as grouped by year
-     *
      * @param Journal $journal
-     * @param int $maxYearCount
      * @return array
      */
-    public function getIssuesByYear(Journal $journal, $maxYearCount = 10)
+    public function getIssuesByYear(Journal $journal)
     {
-        $issues = $journal->getIssues();
         $years = [];
-        /* @var $issue Issue */
-        $count = 0;
-        foreach ($issues as $issue) {
-            if($issue->isPublished()){
-                if ($count++ > $maxYearCount) {
-                    break;
-                }
-                $year = $issue->getYear();
-                $years[$year][] = $issue;
-            }
+        foreach($journal->getIssues() as $issue){
+            $years[$issue->getYear()][] = $issue;
         }
-        krsort($years);
-
-        return $years;
+        ksort($years);
+        return array_reverse($years, true);
     }
 
     /**
