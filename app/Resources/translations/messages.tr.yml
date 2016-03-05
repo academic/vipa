@@ -1544,6 +1544,7 @@ fos_user.registration.completed: 'Kullanıcı Kayıt İşlemi Bittiğinde'
 fos_user.change_password.edit.completed: 'Kullanıcı Şifre Değiştirme İşlemi Bittiğinde'
 fos_user.profile.edit.completed: 'Kullanıcı Profil Düzenleme Bittiğinde'
 section.order: 'Bölüm Sırası'
+journal.issues: 'Dergi Sayıları'
 
 # OAuth
 linkedin: 'Linkedin'
