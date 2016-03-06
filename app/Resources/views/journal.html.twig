@@ -65,9 +65,9 @@
             <i class="fa fa-download"></i> {{ journal.downloadCount|number_format }}
         </div>
     {% endif %}
-    {% if journal.accessModal is defined and journal.accessModal is defined %}
+    {% if journal.accessModal is defined and journal.accessModal==0 %}
         <div class="view-stats">
-            <i class="fa fa-eye"></i> {{ journal.accessModal|number_format }}
+            <img src="{{ asset("assets/app/images/open_access.png") }}" alt="">
         </div>
     {% endif %}
 </div>
