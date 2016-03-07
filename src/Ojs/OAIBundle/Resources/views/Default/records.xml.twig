@@ -17,8 +17,7 @@
                         {% for author in record.articleAuthors %}
                             <dc:creator>{{ author.author.lastName }}, {{ author.author.firstName }}</dc:creator>
                         {% endfor %}
-                        <dc:subject>{{ record.subjects }}</dc:subject>
-                        <dc:description>{{ record.subtitle }}</dc:description>
+                        <dc:subject>{{ record.subjects.first }}</dc:subject>
                         <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
                         <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
                         <dc:type>info:eu-repo/semantics/article</dc:type>
