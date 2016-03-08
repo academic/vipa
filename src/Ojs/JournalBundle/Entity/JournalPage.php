@@ -165,10 +165,14 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @param string $slug
+     *
+     * @return $this
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
@@ -189,6 +193,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     public function setVisible($visible)
     {
         $this->visible = $visible;
+
         return $this;
     }
 
@@ -202,10 +207,14 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @param Journal $journal
+     *
+     * @return $this
      */
     public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+
+        return $this;
     }
 
     public function __toString()
