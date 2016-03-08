@@ -126,13 +126,13 @@ class DefaultController extends Controller
         $data['records'] = $records;
         $key = md5(StringHelper::generateKey());
         $session->set($key, [
-            'page'=>$currentPage+1,
+            'page'=>$currentPage + 1,
             'set' => $set
         ]);
         $data['resumptionToken'] = $key;
-        $data['isLast'] = $records->getTotalItemCount()>=$currentPage*100?true:false;
+        $data['isLast'] = $records->getTotalItemCount() >= $currentPage * 100 ? true:false;
         $data['currentPage'] = $currentPage;
-        $data['metadataPrefix'] = $request->get('metadataPrefix','oai_dc');
+        $data['metadataPrefix'] = $request->get('metadataPrefix', 'oai_dc');
 
         return $this->response('OjsOAIBundle:Default:records.xml.twig', $data);
     }
