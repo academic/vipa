@@ -45,6 +45,7 @@
                         <input type="hidden" name="journalId" value="{{ journalId }}">
                     {% endif %}
                 </form>
+                {{ twigEventDispatch({'event_name': 'OJS_SEARCH_PAGE_WARNING'})|raw }}
             </div>
         </div>
         <div class="row">
