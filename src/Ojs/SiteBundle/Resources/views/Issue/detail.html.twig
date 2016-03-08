@@ -41,11 +41,12 @@
             </h5>
         </div>
 
-
         <div class="col-md-9">
 
             <div class="panel panel-default">
-
+                <div class="text-center">
+                    <h4>{{ 'contents'|trans }}</h4>
+                </div>
                 <ul class="list-group">
                     {% for section in sections %}
                         {% if section.articles|length>0 %}
