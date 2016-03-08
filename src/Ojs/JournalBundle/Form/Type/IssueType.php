@@ -16,7 +16,14 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations')
+            ->add('translations', 'a2lix_translations', [
+                'fields' => [
+                    'title' => [],
+                    'description' => [
+                        'required' => false,
+                    ]
+                ]
+            ])
             ->add('volume', 'text', array('label' => 'volume', 'required' => false))
             ->add('number', 'text', array('label' => 'number', 'required' => false))
             ->add('special', 'checkbox', [
