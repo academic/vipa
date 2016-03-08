@@ -14,32 +14,40 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
  */
 class JournalPage extends AbstractTranslatable implements JournalItemInterface
 {
-    /** @var Journal */
+    /**
+     * @var Journal
+     */
     private $journal;
 
     use GenericEntityTrait;
+
     /**
      * @var integer
      * @GRID\Column(title="id")
      */
     protected $id;
+
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\JournalPageTranslation")
      */
     protected $translations;
+
     /**
      * @var string
      * @GRID\Column(title="title", field="translations.title", safe=false)
      */
     private $title;
+
     /**
      * @var string
      */
     private $body;
+
     /**
      * @var string
      */
     private $slug;
+
     /**
      * @var boolean
      */
@@ -184,6 +192,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     {
         return $this->visible;
     }
+
     /**
      * Set visible
      *
