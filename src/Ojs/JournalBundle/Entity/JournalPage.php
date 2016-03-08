@@ -207,5 +207,10 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
     {
         $this->journal = $journal;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
 
