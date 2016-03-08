@@ -19,7 +19,10 @@
                         {% for author in record.articleAuthors %}
                             <dc:creator>{{ author.author.lastName }}, {{ author.author.firstName }}</dc:creator>
                         {% endfor %}
-                        <dc:subject>{{ record.subjects.first }}</dc:subject>
+                        <dc:subject>{{ record.keywords }}</dc:subject>
+                        {% for translation in record.translations %}
+                            <dc:description>{{ translation.abstract|striptags }}</dc:description>
+                        {% endfor %}
                         <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
                         <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
                         <dc:type>info:eu-repo/semantics/article</dc:type>
@@ -38,9 +41,6 @@
                         {% for file in record.articleFiles %}
                             <dc:relation>{{ url('ojs_site_download_article', {articleFile: file.id}) }}</dc:relation>
                         {% endfor %}
-                        <dc:rights xml:lang="en-US">
-
-                        </dc:rights>
                     </{{ metadataPrefix }}:dc>
                 </metadata>
             </record>
