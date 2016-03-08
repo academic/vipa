@@ -248,10 +248,16 @@
                         <div class="col-md-7 col-sm-12" id="issue-container">
                             {% if last_issue %}
                                 <div class="panel panel-default">
-                                    <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
-                                        {{ "issue"|trans }} {{ last_issue.number }} {{ "volume"|trans }} {{ last_issue.volume }}
-                                        - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                                    <div class="panel-heading">
+                                        <strong>{{ last_issue.title }}</strong>
                                         <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
+                                        <br>
+                                        {% if last_issue.volume is not null and last_issue.volume != 0 %}
+                                            {{ "volume"|trans }} {{ last_issue.volume }}
+                                            -
+                                        {% endif %}
+                                        {{ "issue"|trans }} {{ last_issue.number }}
+                                        - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
                                     </div>
                                     <div class="panel-body">
                                         <ul>

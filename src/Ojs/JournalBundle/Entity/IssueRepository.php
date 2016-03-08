@@ -29,6 +29,7 @@ class IssueRepository extends EntityRepository
             ->setParameter("value", $value);
         return $qb->getQuery()->getSingleScalarResult();
     }
+
     /**
      * Just get journal's last issue id
      * @param  Journal $journal
@@ -39,8 +40,8 @@ class IssueRepository extends EntityRepository
         $query = $this->createQueryBuilder("i")
             ->andWhere('i.journal = :journal')
             ->andWhere('i.published = :published')
-            ->andWhere('i.datePublished IS NOT NULL')
-            ->orderBy('i.datePublished', 'DESC')
+            ->andWhere('i.year IS NOT NULL')
+            ->orderBy('i.year', 'DESC')
             ->setParameter('journal', $journal)
             ->setParameter('published', true)
             ->setMaxResults(1)
