@@ -48,7 +48,7 @@ class IssueRepository extends EntityRepository
             ->getQuery();
         $issues = $query->getResult();
         if(count($issues) == 0){
-            return false;
+            return null;
         }
         if(count($issues) == 1){
             return $issues[0];
@@ -59,6 +59,6 @@ class IssueRepository extends EntityRepository
             });
             return $issues[0];
         }
-        return false;
+        return null;
     }
 }
