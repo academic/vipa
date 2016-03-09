@@ -93,7 +93,7 @@ Ojs\JournalBundle\Entity\Publisher:
         slug:
             type: string
             length: 255
-            unique: true
+            unique: false
             gedmo:
                 versioned : ~
                 slug:
