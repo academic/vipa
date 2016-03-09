@@ -51,10 +51,6 @@ class SearchController extends Controller
 
         $boolQuery = new Query\BoolQuery();
 
-        $match = new Query\Match();
-        $match->setField('published', false);
-        $boolQuery->addMustNot($match);
-
         //set query according to query type
         if ($queryType == 'basic') {
             $request->getLocale() === 'tr' ? $searchString = str_replace(['I', 'İ'], ['ı', 'i'], $query) : $searchString = $query;
@@ -233,26 +229,26 @@ class SearchController extends Controller
             $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
 
             $data = [
-                'journalId' => $journalId,
-                'results' => $results,
-                'query' => $query,
-                'queryType' => $queryType,
-                'section' => $section,
-                'total_count' => $searchManager->getTotalHit(),
-                'roles' => $roles,
-                'subjects' => $subjects,
-                'locales' => $locales,
-                'journals' => $journals,
-                'publishers' => $publishers,
-                'indexes' => $indexes,
-                'role_filters' => $roleFilters,
-                'subject_filters' => $subjectFilters,
-                'journal_filters' => $journalFilters,
-                'locale_filters' => $localeFilters,
+                'journalId'         => $journalId,
+                'results'           => $results,
+                'query'             => $query,
+                'queryType'         => $queryType,
+                'section'           => $section,
+                'total_count'       => $searchManager->getTotalHit(),
+                'roles'             => $roles,
+                'subjects'          => $subjects,
+                'locales'           => $locales,
+                'journals'          => $journals,
+                'publishers'        => $publishers,
+                'indexes'           => $indexes,
+                'role_filters'      => $roleFilters,
+                'subject_filters'   => $subjectFilters,
+                'journal_filters'   => $journalFilters,
+                'locale_filters'    => $localeFilters,
                 'publisher_filters' => $publisherFilters,
-                'index_filters' => $indexFilters,
-                'pagerfanta' => $pagerfanta,
-                'page' => $page
+                'index_filters'     => $indexFilters,
+                'pagerfanta'        => $pagerfanta,
+                'page'              => $page
             ];
 
         } else {
