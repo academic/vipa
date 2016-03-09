@@ -898,3 +898,9 @@ label.required:before {
 .home-subject-tree ul>li>a{
     font-weight: bold;
 }
+
+.li-separator{
+    border-bottom: thin solid #eee;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
