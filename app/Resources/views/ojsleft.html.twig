@@ -41,8 +41,15 @@
                 </div>
             {% endif %}
             {% if selectedJournal() %}
-                <div class="panel panel-default">
-                    <div class="panel-body" style="padding: 0">
+                <style>
+                    .li-separator{
+                        border-bottom: thin solid #eee;
+                        margin-bottom: 5px;
+                        padding-bottom: 5px;
+                    }
+                </style>
+                <div class="panel panel-default" style="margin-top: 5px;">
+                    <div class="panel-body" style="padding: 0;">
                         {{ knp_menu_render('OjsJournalBundle:MenuBuilder:leftMenu', {'currentClass': 'active'}) }}
                     </div>
                 </div>

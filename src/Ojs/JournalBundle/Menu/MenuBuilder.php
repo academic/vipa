@@ -27,35 +27,44 @@ class MenuBuilder extends ContainerAware
 
         if ($checker->isGranted('EDIT', $journal)) {
             $menu->addChild('settings', [
-                'route' => 'ojs_journal_settings_index',
-                'routeParameters' => ['journalId' => $journalId]
+                'route'             => 'ojs_journal_settings_index',
+                'routeParameters'   => ['journalId' => $journalId],
             ]);
         }
 
         $items = [
-            // [field, label, route, icon]
-            ['stats', 'dashboard.general_stats', 'ojs_journal_stats_index', 'bar-chart'],
-            ['submissionSettings', 'title.journal_settings_submission', 'ojs_journal_settings_submission', 'paper-plane'],
-            ['checklist', 'title.submission_checklists', 'ojs_journal_checklist_index', 'list'],
-            ['file', 'title.submission_files', 'ojs_journal_file_index', 'file'],
-            ['userRole', 'title.users', 'ojs_journal_user_index', 'key'],
-            ['index', 'title.journal_indexes', 'ojs_journal_index_index', 'sitemap'],
-            ['issues', 'title.issues', 'ojs_journal_issue_index', 'newspaper-o'],
-            ['sections', 'title.sections', 'ojs_journal_section_index', 'folder'],
-            ['articles', 'title.articles', 'ojs_journal_article_index', 'file-text'],
-            ['contacts', 'title.contacts', 'ojs_journal_journal_contact_index', 'users'],
-            ['mailTemplate', 'title.mail_templates', 'ojs_journal_mail_template_index', 'envelope'],
-            ['design', 'title.designs', 'ojs_journal_design_index', 'bars'],
-            ['theme', 'title.themes', 'ojs_journal_theme_index', 'paint-brush'],
-            ['boards', 'title.boards', 'ojs_journal_board_index', 'object-group'],
-            ['block', 'title.blocks', 'ojs_journal_block_index', 'th-large'],
-            ['announcements', 'title.announcements', 'ojs_journal_announcement_index', 'bullhorn'],
-            ['pages', 'title.pages', 'ojs_journal_page_index', 'file'],
-            ['posts', 'title.post', 'ojs_journal_post_index', 'file-o'],
-            ['files', 'title.files', 'ojs_journal_filemanager_index', 'file-image-o'],
-            ['publisherManager', 'publisher.design', 'ojs_publisher_manager_design_index', 'wrench'],
-            ['publisherManager', 'publisher.theme', 'ojs_publisher_manager_theme_index', 'css3'],
-            ['publisherManager', 'publisher.edit', 'ojs_publisher_manager_edit', 'university'],
+            // [field, label, route, icon, haveSeperator]
+            ['sections',            'title.sections',                       'ojs_journal_section_index',            'folder',       false,  ],
+            ['mailTemplate',        'title.mail_templates',                 'ojs_journal_mail_template_index',      'envelope',     false,  ],
+            ['index',               'title.journal_indexes',                'ojs_journal_index_index',              'sitemap',      true,   ],
+
+            ['stats',               'dashboard.general_stats',              'ojs_journal_stats_index',              'bar-chart',    true,   ],
+
+            ['userRole',            'title.users',                          'ojs_journal_user_index',               'key',          true,   ],
+
+            ['submissionSettings',  'title.journal_settings_submission',    'ojs_journal_settings_submission',      'paper-plane',  false,  ],
+            ['checklist',           'title.submission_checklists',          'ojs_journal_checklist_index',          'list',         false,  ],
+            ['file',                'title.submission_files',               'ojs_journal_file_index',               'file',         true,   ],
+
+            ['boards',              'title.boards',                         'ojs_journal_board_index',              'object-group', false,  ],
+            ['contacts',            'title.contacts',                       'ojs_journal_journal_contact_index',    'users',        true,   ],
+
+            ['block',               'title.blocks',                         'ojs_journal_block_index',              'th-large',     false,  ],
+            ['posts',               'title.post',                           'ojs_journal_post_index',               'file-o',       false,  ],
+            ['pages',               'title.pages',                          'ojs_journal_page_index',               'file',         false,  ],
+            ['announcements',       'title.announcements',                  'ojs_journal_announcement_index',       'bullhorn',     true,   ],
+
+            ['theme',               'title.themes',                         'ojs_journal_theme_index',              'paint-brush',  false,  ],
+            ['design',              'title.designs',                        'ojs_journal_design_index',             'bars',         true,   ],
+
+            ['articles',            'title.articles',                       'ojs_journal_article_index',            'file-text',    false,  ],
+            ['issues',              'title.issues',                         'ojs_journal_issue_index',              'newspaper-o',  true,   ],
+
+
+            ['files',               'title.files',                          'ojs_journal_filemanager_index',        'file-image-o', true,   ],
+            ['publisherManager',    'publisher.design',                     'ojs_publisher_manager_design_index',   'wrench',       false,  ],
+            ['publisherManager',    'publisher.theme',                      'ojs_publisher_manager_theme_index',    'css3',         false,  ],
+            ['publisherManager',    'publisher.edit',                       'ojs_publisher_manager_edit',           'university',   true,   ],
         ];
 
         foreach ($items as $item) {
@@ -63,19 +72,25 @@ class MenuBuilder extends ContainerAware
             $label = $item[1];
             $path = $item[2];
             $icon = $item[3];
+            $separator = '';
+            if($item[4]){
+                $separator = 'li-separator';
+            }
 
             if (empty($field) || $checker->isGranted('VIEW', $journal, $field) && $field != 'publisherManager') {
                 $menu->addChild($label, [
                     'route' => $path,
-                    'routeParameters' => ['journalId' => $journalId],
-                    'extras' => ['icon' => $icon]
+                    'routeParameters'   => ['journalId' => $journalId],
+                    'attributes'        => ['class' => $separator],
+                    'extras'            => ['icon' => $icon]
                 ]);
             } elseif ($field == 'publisherManager') {
                 if ($ojsTwigExtension->isGrantedForPublisher()) {
                     $menu->addChild($label, [
-                        'route' => $path,
-                        'routeParameters' => ['publisherId' => $journal->getPublisher()->getId()],
-                        'extras' => ['icon' => $icon]
+                        'route'             => $path,
+                        'routeParameters'   => ['publisherId' => $journal->getPublisher()->getId()],
+                        'attributes'        => ['class' => $separator],
+                        'extras'            => ['icon' => $icon]
                     ]);
                 }
             }
