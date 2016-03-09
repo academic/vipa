@@ -67,7 +67,7 @@
                                         {{ "volume"|trans }} : {{ issue.volume }}
                                         {{ "issue"|trans }} : {{ issue.number }}
 
-                                        {% if issue.title %}-  {{ issue.title }} {% endif %}
+                                        {% if issue.title is not null and issue.title != '-' %}-  {{ issue.title }} {% endif %}
 
                                     </a>
                                 </div>
