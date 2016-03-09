@@ -66,6 +66,7 @@ fos_elastica:
             provider:
               debug_logging: true
         articles:
+          indexable_callback: 'isIndexable'
           mappings:
             translations:
               type: "object"

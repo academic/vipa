@@ -1262,4 +1262,15 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     {
         $this->numerator = $numerator;
     }
+
+    /**
+     * @return bool return if article is indexable
+     */
+    public function isIndexable()
+    {
+        if($this->getStatus() == ArticleStatuses::STATUS_PUBLISHED){
+            return true;
+        }
+        return false;
+    }
 }
