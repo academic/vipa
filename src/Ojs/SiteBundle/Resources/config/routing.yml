@@ -1,8 +1,12 @@
 site_shortlink_article:
-    path: /a/{identifier}
-    defaults: { _controller: "OjsSiteBundle:ShortLink:article"}
+    path: /a/{article}
+    defaults: { _controller: "OjsSiteBundle:ShortLink:articleId"}
+
+site_shortlink_doi:
+    path: /doi/{doi}
+    defaults: { _controller: "OjsSiteBundle:ShortLink:articleDoi"}
     requirements:
-      identifier: .+
+      doi: .+
 
 ojs_application:
     resource: "@OjsSiteBundle/Resources/config/routing/application.yml"
