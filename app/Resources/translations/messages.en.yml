@@ -1553,6 +1553,7 @@ fos_user.profile.edit.completed: 'On User Profile Edit Completed'
 section.order: 'Section Order'
 journal.issues: 'Journal Issues'
 contents: 'Contents'
+published.and.public: 'Published and Public'
 
 # OAuth
 linkedin: 'Linkedin'

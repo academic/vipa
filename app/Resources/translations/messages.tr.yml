@@ -1546,6 +1546,7 @@ fos_user.profile.edit.completed: 'Kullanıcı Profil Düzenleme Bittiğinde'
 section.order: 'Bölüm Sırası'
 journal.issues: 'Dergi Sayıları'
 contents: 'İçindekiler'
+published.and.public: 'Yayında ve Görünür'
 
 # OAuth
 linkedin: 'Linkedin'
