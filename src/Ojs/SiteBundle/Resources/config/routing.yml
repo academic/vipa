@@ -1,3 +1,9 @@
+site_shortlink_article:
+    path: /a/{identifier}
+    defaults: { _controller: "OjsSiteBundle:ShortLink:article"}
+    requirements:
+      identifier: .+
+
 ojs_application:
     resource: "@OjsSiteBundle/Resources/config/routing/application.yml"
     prefix: /apply
