@@ -46,12 +46,19 @@ class IssueRepository extends EntityRepository
             ->setParameter('published', true)
             ->setMaxResults(1)
             ->getQuery();
-        try {
-            $issue = $query->getOneOrNullResult();
-
-            return $issue;
-        } catch (NoResultException $e) {
+        $issues = $query->getResult();
+        if(count($issues) == 0){
             return false;
         }
+        if(count($issues) == 1){
+            return $issues[0];
+        }
+        if(count($issues)>1){
+            uasort($issues, function($a, $b){
+                return ((int)$a->getDatePublished() > (int)$b->getDatePublished()) ? 1 : -1;
+            });
+            return $issues[0];
+        }
+        return false;
     }
 }
