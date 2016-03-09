@@ -304,6 +304,7 @@ Ojs\JournalBundle\Entity\Journal:
     slug:
       type: string
       length: 255
+      unique: false
       gedmo:
         versioned : ~
         slug:
