@@ -386,7 +386,4 @@ Ojs\JournalBundle\Entity\Journal:
       field_name: deletedAt
       time_aware: false
     loggable: true
-  uniqueConstraints:
-    slugx:
-      columns: slug
   lifecycleCallbacks: {  }
