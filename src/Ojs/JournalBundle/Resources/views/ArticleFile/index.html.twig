@@ -14,9 +14,9 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="{{ path('ojs_journal_article_show', {'id': article.id, 'journalId': selectedJournal().id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "article.files"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "title.citations"|trans }}</a></li>
-        <li role="presentation"><a href="{{ path('ojs_journal_article_author_index', {'articleId': article.id, 'journalId': article.journal.id}) }}">{{ "Article Authors"|trans }}</a></li>
+        <li role="presentation"><a href="{{ path('ojs_journal_article_author_index', {'articleId': article.id, 'journalId': article.journal.id}) }}">{{ "article.authors"|trans }}</a></li>
     </ul>
 
     <h2>{{ 'title.article_files'|trans }}</h2>
