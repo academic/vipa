@@ -15,7 +15,7 @@ Ojs\JournalBundle\Entity\Journal:
         translations:
             - Valid: ~
         mandatoryLang:
-            - NotBlank: ~
+            - NotBlank: {groups: [adminJournalEdit]}
         languages:
             - NotBlank: ~
         issn:

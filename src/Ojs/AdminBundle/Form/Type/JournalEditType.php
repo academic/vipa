@@ -136,7 +136,8 @@ class JournalEditType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-                'cascade_validation' => true
+                'cascade_validation' => true,
+                'validation_groups' => ['adminJournalEdit'],
             )
         );
     }
