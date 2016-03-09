@@ -1554,6 +1554,7 @@ section.order: 'Section Order'
 journal.issues: 'Journal Issues'
 contents: 'Contents'
 published.and.public: 'Published and Public'
+pages: 'Pages'
 
 # OAuth
 linkedin: 'Linkedin'

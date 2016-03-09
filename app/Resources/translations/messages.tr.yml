@@ -1547,6 +1547,7 @@ section.order: 'Bölüm Sırası'
 journal.issues: 'Dergi Sayıları'
 contents: 'İçindekiler'
 published.and.public: 'Yayında ve Görünür'
+pages: 'Sayfalar'
 
 # OAuth
 linkedin: 'Linkedin'
