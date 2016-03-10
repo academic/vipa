@@ -1548,6 +1548,7 @@ journal.issues: 'Dergi Sayıları'
 contents: 'İçindekiler'
 published.and.public: 'Yayında ve Görünür'
 pages: 'Sayfalar'
+user.title: 'Başlık'
 
 # OAuth
 linkedin: 'Linkedin'

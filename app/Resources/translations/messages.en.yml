@@ -1555,6 +1555,7 @@ journal.issues: 'Journal Issues'
 contents: 'Contents'
 published.and.public: 'Published and Public'
 pages: 'Pages'
+user.title: 'Title'
 
 # OAuth
 linkedin: 'Linkedin'

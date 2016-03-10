@@ -5,3 +5,4 @@ user.register.email: Eposta
 user.register.password.first: Şifre
 user.register.password.second: Şifre (Tekrar)
 user.register.submit: Kayıt
+user.title: 'Başlık'
