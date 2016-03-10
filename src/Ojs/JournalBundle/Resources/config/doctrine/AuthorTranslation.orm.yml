@@ -8,10 +8,6 @@ Ojs\JournalBundle\Entity\AuthorTranslation:
             generator:
                 strategy: AUTO
     fields:
-        title:
-            type: string
-            nullable: true
-            length: 255
         biography:
             type: text
             nullable: TRUE

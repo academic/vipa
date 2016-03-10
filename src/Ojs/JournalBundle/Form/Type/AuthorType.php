@@ -21,13 +21,14 @@ class AuthorType extends AbstractType
                 'label' => ' ',
                 'required' => false,
                 'fields' => [
-                    'title' => [
-                        'label' => 'author.title'
-                    ],
                     'biography' => [
                         'label' => 'author.biography'
                     ]
                 ]
+            ])
+            ->add('title', null, [
+                'label'     => 'user.title',
+                'required'  => false,
             ])
             ->add('middleName', null, [
                 'required' => false,

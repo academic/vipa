@@ -162,7 +162,7 @@ class Author extends AbstractTranslatable
      */
     private $articleAuthors;
     /**
-     * @var string
+     * @var PersonTitle
      *
      * @GRID\Column(title="title")
      */
@@ -504,7 +504,6 @@ class Author extends AbstractTranslatable
         if (!$translation = $this->translations->get($locale)) {
             $translation = new AuthorTranslation();
             if (!is_null($defaultTranslation)) {
-                $translation->setTitle($defaultTranslation->getTitle());
                 $translation->setBiography($defaultTranslation->getBiography());
             }
             $translation->setLocale($locale);
@@ -551,16 +550,16 @@ class Author extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->title;
     }
 
     /**
-     * @param  mixed $title
+     * @param  PersonTitle $title
      * @return $this
      */
-    public function setTitle($title)
+    public function setTitle(PersonTitle $title = null)
     {
-        $this->translate()->setTitle($title);
+        $this->title = $title;
 
         return $this;
     }
@@ -570,8 +569,8 @@ class Author extends AbstractTranslatable
      */
     public function getFullName()
     {
-        $this->fullName = /* $this->title . ' ' . */
-            $this->title.' '.$this->firstName.' '.$this->middleName.' '.$this->lastName;
+        $this->fullName =
+            (string)$this->title.' '.$this->firstName.' '.$this->middleName.' '.$this->lastName;
 
         // not sure if title should be added to fullname
         return $this->fullName;

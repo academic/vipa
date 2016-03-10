@@ -15,25 +15,10 @@ class AuthorTranslation extends AbstractTranslation
      */
     protected $translatable;
 
-    private $title;
-
+    /**
+     * @var string
+     */
     private $biography;
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
 
     /**
      * @return mixed

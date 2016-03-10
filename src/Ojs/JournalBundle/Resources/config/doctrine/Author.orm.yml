@@ -8,6 +8,11 @@ Ojs\JournalBundle\Entity\Author:
       mappedBy: author
       cascade: ["persist"]
   manyToOne:
+    title:
+      targetEntity: Ojs\JournalBundle\Entity\PersonTitle
+      joinColumn:
+        name: title_id
+        referencedColumnName: id
     institution:
       targetEntity: Institution
       joinColumn:
