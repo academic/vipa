@@ -22,10 +22,14 @@ class ManagerController extends Controller
      */
     public function journalSettingsAction()
     {
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
         $this->throw404IfNotFound($journal);
         if (!$this->isGranted('EDIT', $journal)) {
             throw new AccessDeniedException("You not authorized for this page!");
+        }
+        if($journal->getCountry() == null){
+            $journal->setCountry($em->getRepository('OkulBilisimLocationBundle:Country')->find($this->getParameter('country_id')));
         }
 
         $form = $this->createJournalEditForm($journal);
