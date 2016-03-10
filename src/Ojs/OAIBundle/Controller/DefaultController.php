@@ -9,56 +9,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class DefaultController extends Controller
+/**
+ * Class DefaultController
+ * @package Ojs\OAIBundle\Controller
+ */
+class DefaultController extends OAIController
 {
     /**
-     * @param  Request $request
+     * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
-    {
-        $verb = $request->get('verb');
-        switch ($verb) {
-            case 'Identify':
-                return $this->identifyAction();
-            case 'ListRecords':
-                return $this->recordsAction($request);
-            case 'ListSets':
-                return $this->listSetsAction($request);
-            case 'ListMetadataFormats':
-                return $this->listMetadataFormatsAction();
-            case 'ListIdentifiers':
-                return $this->listIdentifierAction($request);
-            case 'GetRecord':
-                return $this->getRecordAction($request);
-        }
-        return $this->response('OjsOAIBundle:Default:index.xml.twig');
-    }
-
-    /**
-     * @return Response
-     */
-    public function identifyAction()
+    public function identifyAction(Request $request)
     {
         return $this->response("OjsOAIBundle:Default:identify.xml.twig");
     }
 
     /**
-     * Xml response
-     * @param string $template
-     * @param array $data
-     * @return Response
-     */
-    private function response($template, $data = [])
-    {
-        $response = new Response();
-        $response->headers->set('content-type', 'text/xml');
-
-        return $this->render($template, $data, $response);
-    }
-
-    /**
-     * @param  Request $request
+     * @param Request $request
      * @return Response
      */
     public function recordsAction(Request $request)
@@ -138,7 +105,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param Request $request
      * @return Response
      */
     public function listSetsAction(Request $request)
@@ -200,14 +167,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return Response
-     */
-    public function listMetadataFormatsAction()
-    {
-        return $this->response('OjsOAIBundle:Default:metadata_formats.xml.twig');
-    }
-
-    /**
+     * @param Request $request
      * @return Response
      */
     public function listIdentifierAction(Request $request)
