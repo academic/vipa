@@ -50,7 +50,7 @@ class UserType extends AbstractType
                 ]
             )
             ->add('about')
-            ->add('title', 'text', [
+            ->add('title', null, [
                 'required' => false,
                 'label' => 'user.title'
             ])

@@ -35,12 +35,10 @@ class UpdateUserType extends AbstractType
             )
             ->add(
                 'title',
-                'text',
+                null,
                 [
+                    'label' => 'user.title',
                     'required' => false,
-                    'attr' => [
-                        'label' => 'title',
-                    ],
                 ]
             )
             ->add(

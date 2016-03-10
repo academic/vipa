@@ -3,8 +3,6 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Ojs\JournalBundle\Entity\SubjectRepository;
-use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -50,8 +48,8 @@ class JournalNewUserType extends AbstractType
                     ],
                 ]
             )
-            ->add('title', 'text', [
-                'label' => 'author.title',
+            ->add('title', null, [
+                'label' => 'user.title',
                 'required' => false
                 ]
             )

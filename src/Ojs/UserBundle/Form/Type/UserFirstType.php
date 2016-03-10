@@ -16,7 +16,7 @@ class UserFirstType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', ['label' => 'title'])
+            ->add('title', null, ['label' => 'user.title'])
             ->add('firstName', 'text', ['label' => 'firstname'])
             ->add('lastName', 'text', ['label' => 'lastname'])
             ->add('username', 'text', ['label' => 'username'])

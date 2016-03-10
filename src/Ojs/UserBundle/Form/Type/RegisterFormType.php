@@ -17,6 +17,14 @@ class RegisterFormType extends AbstractType
     {
         $builder
             ->add(
+                'title',
+                null,
+                array(
+                    'label' => 'user.title',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'firstName',
                 'text',
                 array(
