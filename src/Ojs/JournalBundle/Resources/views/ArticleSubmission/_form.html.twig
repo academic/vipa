@@ -1,3 +1,13 @@
+<style>
+    .fileinput-button input {
+        font-size: 40px !important;
+        width: 95px;
+        height: 40px;
+        cursor: pointer;
+        top: -10px;
+        left: -10px;
+    }
+</style>
 <div id="step1-container" class="step">
     {{ form_errors(form) }}
     {{ form_start(form) }}
@@ -25,8 +35,10 @@
             {% endfor %}
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i
-                        class="fa fa-plus"></i> {{ "author.add"|trans }}</button>
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel">
+                <i class="fa fa-plus"></i>
+                {{ "author.add"|trans }}
+            </button>
         </div>
     </div>
     <hr />
@@ -65,8 +77,10 @@
             {% endfor %}
         </div>
         <div class="panel-footer">
-            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel"><i
-                        class="fa fa-plus"></i> {{ "select.article.file"|trans }}</button>
+            <button type="button" class="btn btn-success btn-sm submission-subform-add-panel">
+                <i class="fa fa-plus"></i>
+                {{ "select.article.file"|trans }}
+            </button>
         </div>
     </div>
     <hr>
