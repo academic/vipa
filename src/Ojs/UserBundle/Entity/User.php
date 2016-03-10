@@ -15,6 +15,7 @@ use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
+use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\Subject;
 use OkulBilisim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
@@ -51,7 +52,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      */
     protected $lastName;
 
-
     /**
      * @var string
      */
@@ -62,30 +62,59 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      */
     protected $apiKey;
 
-
-    /** @var  ArrayCollection */
+    /**
+     * @var  ArrayCollection|Journal[]
+     */
     protected $restrictedJournals;
 
-
-    /** @var  string */
+    /**
+     * @var  string
+     */
     protected $gender;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $initials;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $url;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $phone;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $fax;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $address;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $city;
-    /** @var  string */
+
+    /**
+     * @var  string
+     */
     protected $billing_address;
-    /** @var  ArrayCollection|Author[] */
+
+    /**
+     * @var  ArrayCollection|Author[]
+     */
     protected $authorDetails;
 
+    /**
+     * @var PersonTitle
+     */
     private $title;
 
     /**
@@ -708,7 +737,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     }
 
     /**
-     * @return mixed
+     * @return PersonTitle
      */
     public function getTitle()
     {
@@ -716,10 +745,10 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     }
 
     /**
-     * @param  mixed $title
+     * @param  PersonTitle $title
      * @return $this
      */
-    public function setTitle($title)
+    public function setTitle(PersonTitle $title = null)
     {
         $this->title = $title;
 

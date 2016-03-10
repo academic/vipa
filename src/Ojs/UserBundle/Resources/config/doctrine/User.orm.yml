@@ -17,13 +17,6 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
-    title:
-      type: string
-      length: 255
-      unique: false
-      nullable: true
-      gedmo:
-        - versioned
     firstName:
       column: first_name
       type: string
@@ -139,6 +132,11 @@ Ojs\UserBundle\Entity\User:
       cache:
         usage: NONSTRICT_READ_WRITE
   manyToOne:
+    title:
+      targetEntity: Ojs\JournalBundle\Entity\PersonTitle
+      joinColumn:
+        name: title_id
+        referencedColumnName: id
     country:
       targetEntity: OkulBilisim\LocationBundle\Entity\Country
       joinColumn:
