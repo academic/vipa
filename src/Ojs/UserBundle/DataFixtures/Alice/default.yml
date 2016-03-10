@@ -10,7 +10,7 @@
     locked: 0
     expired: 0
     credentialsExpired: 0
-    title: Dr.
+    title: 1
     tags: <text(20)>, <text(10)>
   user_journal_manager:
     username (unique): demo_journal_manager
@@ -19,7 +19,7 @@
     lastName: Demo
     email (unique): demo.manager@ojs.io
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
-    title: Prof. Dr.
+    title: 1
     tags: <text(20)>, <text(10)>
     enabled: 1
     locked: 0
@@ -32,7 +32,7 @@
     lastName: Demo
     email (unique): demo.tester@ojs.io
     apikey (unique): 'NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw=='
-    title: Prof. Dr.
+    title: 1
     tags: <text(20)>, <text(10)>
     enabled: 1
     locked: 0
@@ -45,7 +45,7 @@
     lastName: Demo
     email (unique): demo.editor@ojs.io
     apikey (unique): 'NTg3HjluYmSzZDE0MDZyMWY4ITlnOTMwEWQyRmNtMTYwMzU0NjY0Yw=='
-    title: Prof. Dr.
+    title: 1
     tags: <text(20)>, <text(10)>
     enabled: 1
     locked: 0

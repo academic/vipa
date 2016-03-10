@@ -19,6 +19,7 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Period;
+use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\PublisherTypes;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Lang;
@@ -281,9 +282,15 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($articleFileHistory);
         $em->flush();
 
+        $personTitle = new PersonTitle();
+        $personTitle->setCurrentLocale('tr');
+        $personTitle->setTitle('Dr.');
+        $em->persist($personTitle);
+        $em->flush();
+
         $author = new Author();
         $author->setCurrentLocale('en');
-        $author->setTitle('Dr.');
+        $author->setTitle($personTitle);
         $author->setFirstName('John');
         $author->setLastName('Doe');
         $author->setEmail('doe@example.com');
