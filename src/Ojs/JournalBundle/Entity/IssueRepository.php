@@ -42,6 +42,7 @@ class IssueRepository extends EntityRepository
             ->andWhere('i.published = :published')
             ->andWhere('i.year IS NOT NULL')
             ->orderBy('i.year', 'DESC')
+            ->orderBy('i.datePublished', 'DESC')
             ->setParameter('journal', $journal)
             ->setParameter('published', true)
             ->setMaxResults(1)
@@ -51,12 +52,6 @@ class IssueRepository extends EntityRepository
             return null;
         }
         if(count($issues) == 1){
-            return $issues[0];
-        }
-        if(count($issues)>1){
-            uasort($issues, function($a, $b){
-                return ((int)$a->getDatePublished() > (int)$b->getDatePublished()) ? 1 : -1;
-            });
             return $issues[0];
         }
         return null;
