@@ -5,6 +5,7 @@ Ojs\JournalBundle\Entity\ArticleTypes:
 Ojs\JournalBundle\Entity\PersonTitle:
   checkUse:
     - { entityName: 'OjsJournalBundle:JournalContact', field: title}
+    - { entityName: 'OjsUserBundle:User', field: title}
 
 Ojs\JournalBundle\Entity\PublisherTheme:
   checkUse:
