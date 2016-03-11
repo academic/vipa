@@ -149,7 +149,20 @@ class JournalController extends OAIController
      */
     public function listIdentifierAction(Request $request)
     {
-        // TODO: Implement listIdentifierAction() method.
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $slug = $request->get('slug', false);
+        $this->throw404IfNotFound($slug);
+
+        $builder = $em->createQueryBuilder();
+        $builder->select('article')->from('OjsJournalBundle:Article', 'article');
+        $builder->join('article.journal', 'journal', 'WITH');
+        $builder->where($builder->expr()->eq('journal.slug', ':slug'))->setParameter('slug', $slug);
+
+        $data = ['records' => $builder->getQuery()->getResult()];
+
+        return $this->response('OjsOAIBundle:Journal:identifiers.xml.twig', $data);
     }
 
     /**
