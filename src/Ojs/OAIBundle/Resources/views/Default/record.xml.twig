@@ -13,23 +13,20 @@
             </header>
             <metadata>
                 <{{ metadataPrefix }}:dc
-                        xmlns:dc="http://purl.org/dc/elements/1.1/"
-                        >
+                        {% if metadataPrefix == "oai_dc" %}
+                            xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                        {% endif %}
+                        xmlns:dc="http://purl.org/dc/elements/1.1/">
                     <dc:title xml:lang="en-US">{{ record.title }}</dc:title>
                     {% for author in record.articleAuthors %}
                         <dc:creator>{{ author.author.lastName }}, {{ author.author.firstName }}</dc:creator>
                     {% endfor %}
-                    <dc:subject>{{ record.subjects }}</dc:subject>
-                    <dc:description>{{ record.subtitle }}</dc:description>
+                    <dc:subject>{{ record.keywords }}</dc:subject>
+                    <dc:description>{{ record.abstract|striptags }}</dc:description>
                     <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
-
-                    <dc:contributor xml:lang="en-US"></dc:contributor>
                     <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
-
                     <dc:type>info:eu-repo/semantics/article</dc:type>
                     <dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
-                    <dc:type xml:lang="en-US"></dc:type>
-                    <dc:type xml:lang="tr-TR"></dc:type>
                     <dc:format>application/pdf</dc:format>
                     {% if record.issue %}
                         <dc:identifier>{{ url('ojs_article_page',{article_id:record.id, issue_id: record.issue.id, slug: record.journal.slug,publisher:record.journal.publisher.slug}) }}</dc:identifier>
@@ -45,8 +42,6 @@
                     {% for file in record.articleFiles %}
                         <dc:relation>{{ url('ojs_site_download_article', {articleFile: file.id}) }}</dc:relation>
                     {% endfor %}
-                    <dc:rights xml:lang="en-US">
-                    </dc:rights>
                 </{{ metadataPrefix }}:dc>
             </metadata>
         </record>

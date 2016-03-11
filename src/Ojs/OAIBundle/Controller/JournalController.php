@@ -8,6 +8,7 @@ use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\CoreBundle\Params\ArticleStatuses;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class JournalController extends OAIController
 {
@@ -169,9 +170,32 @@ class JournalController extends OAIController
      * Action for the get record verb
      * @param Request $request
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getRecordAction(Request $request)
     {
-        // TODO: Implement getRecordAction() method.
+        $identifier = $request->get('identifier');
+        $baseHost = $this->container->getParameter("base_host");
+        preg_match_all('~oai:'.$baseHost.':((\barticle\b)|(\brecord\b))/(\d+)~', $identifier, $matches);
+
+        if (!isset($matches[4]) || !isset($matches[4][0])) {
+            throw new NotFoundHttpException("Record not found.");
+        }
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $builder = $em->createQueryBuilder();
+        $builder->select("article")->from("OjsJournalBundle:Article", "article");
+        $builder->where($builder->expr()->eq("article.id", ":id"))->setParameter("id", $matches[4][0]);
+
+        $data = [];
+        $data['metadataPrefix'] = $request->get('metadataPrefix', 'oai_dc');
+        $data['record'] = $builder->getQuery()->getOneOrNullResult();
+
+        if (!$data['record']) {
+            throw new NotFoundHttpException("Record not found");
+        }
+
+        return $this->response('OjsOAIBundle:Default:record.xml.twig', $data);
     }
 }
