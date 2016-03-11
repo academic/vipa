@@ -1,0 +1,17 @@
+{% extends 'OjsOAIBundle:Default:layout.xml.twig' %}
+{% block content %}
+    <request verb="ListSets">{{ app.request.getUri}}</request>
+    <ListSets>
+        {% for record in records %}
+            <set>
+                <setSpec>{{ record.id }}</setSpec>
+                <setName>{{ record.title }}</setName>
+            </set>
+        {% endfor %}
+        {% if isLast != false %}
+            <resumptionToken expirationDate="{{ "+1 days"|date("Y-m-d\\TH:i:s\\Z") }}"
+                             completeListSize="{{ records.getTotalItemCount }}"
+                             cursor="{{ currentPage }}">{{ resumptionToken }}</resumptionToken>
+        {% endif %}
+    </ListSets>
+{% endblock %}
