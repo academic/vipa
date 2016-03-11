@@ -7,7 +7,11 @@
                 <header>
                     <identifier>oai:{{ base_host }}:article/{{ record.id }}</identifier>
                     <datestamp>{{ record.pubdate|date("Y-m-d\\TH:i:s\\Z") }}</datestamp>
-                    <setSpec>{{ record.journal.slug }}</setSpec>
+                    {% if specType is defined and specType == 'section' %}
+                        <setSpec>{{ record.section.id }}</setSpec>
+                    {% else %}
+                        <setSpec>{{ record.journal.slug }}</setSpec>
+                    {% endif %}
                 </header>
                 <metadata>
                     <{{ metadataPrefix }}:dc
