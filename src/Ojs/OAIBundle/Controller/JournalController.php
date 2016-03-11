@@ -104,7 +104,42 @@ class JournalController extends OAIController
      */
     public function listSetsAction(Request $request)
     {
-        // TODO: Implement listSetsAction() method.
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $slug = $request->get('slug', false);
+        $this->throw404IfNotFound($slug);
+
+        $builder = $em->createQueryBuilder();
+        $builder->select('section')->from('OjsJournalBundle:Section', 'section');
+        $builder->join('section.journal', 'journal', 'WITH');
+
+        $builder->where($builder->expr()->eq('journal.slug', ':slug'))->setParameter('slug', $slug);
+
+        $session = $this->get('session');
+        $resumptionToken = $request->get('resumptionToken');
+
+        if ($resumptionToken) {
+            $token = $session->get($resumptionToken);
+            $currentPage = (int) $token['page'];
+        } else {
+            $currentPage = 1;
+        }
+
+        $generatedToken = md5(StringHelper::generateKey());
+
+        $paginator = $this->get('knp_paginator');
+        /** @var AbstractPagination $records */
+        $records = $paginator->paginate($builder->getQuery(), $currentPage, 100);
+
+        $data = [
+            'records' => $records,
+            'currentPage' => $currentPage,
+            'resumptionToken' => $generatedToken,
+            'isLast' => $records->getTotalItemCount() >= $currentPage * 100,
+        ];
+
+        return $this->response('OjsOAIBundle:Journal:sets.xml.twig', $data);
     }
 
     /**
