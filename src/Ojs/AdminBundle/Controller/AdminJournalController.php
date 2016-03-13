@@ -238,7 +238,10 @@ class AdminJournalController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $defaultCountry = $em->getRepository('OkulBilisimLocationBundle:Country')->find($this->getParameter('country_id'));
         $entity = new Journal();
+        $entity->setCountry($defaultCountry);
         $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
 
