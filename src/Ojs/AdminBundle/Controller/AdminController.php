@@ -65,10 +65,10 @@ class AdminController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $cache = $this->get('file_cache');
-        if(!$cache->contains('admin_statics')){
+        if(!$cache->contains('admin_statistics')){
             $this->cacheAdminStats();
         }
-        return $this->render('OjsAdminBundle:Admin:stats.html.twig', $cache->fetch('admin_statics'));
+        return $this->render('OjsAdminBundle:Admin:stats.html.twig', $cache->fetch('admin_statistics'));
     }
 
     private function cacheAdminStats()
@@ -102,7 +102,7 @@ class AdminController extends Controller
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
         ];
 
-        $cache->save('admin_statics', $data, 1800);
+        $cache->save('admin_statistics', $data, 1800);
 
         return true;
     }

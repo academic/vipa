@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CacheAdminStaticsCommand extends ContainerAwareCommand
+class CacheAdminStatisticsCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('ojs:cache:admin:statics')
-            ->setDescription('Cache Admin Statics')
+            ->setName('ojs:cache:admin:statistics')
+            ->setDescription('Cache Admin Statistics')
         ;
     }
 
@@ -55,11 +55,11 @@ class CacheAdminStaticsCommand extends ContainerAwareCommand
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
         ];
 
-        $output->writeln('Removing cache for admin_statics');
-        $cache->delete('admin_statics');
+        $output->writeln('Removing cache for admin_statistics');
+        $cache->delete('admin_statistics');
 
-        $output->writeln('Saving cache for admin_statics');
-        $cache->save('admin_statics', $data);
+        $output->writeln('Saving cache for admin_statistics');
+        $cache->save('admin_statistics', $data);
 
         $output->writeln('all done');
         return true;
