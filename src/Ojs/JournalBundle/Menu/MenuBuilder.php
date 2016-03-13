@@ -86,7 +86,9 @@ class MenuBuilder extends ContainerAware
                 ]);
             } elseif ($field == 'publisherManager') {
                 if ($ojsTwigExtension->isGrantedForPublisher()) {
-                    throw new \LogicException('Journal must have a Publisher. Please, edit this journal from admin -> journal edit page.');
+                    if($journal->getPublisher() == null || empty($journal->getPublisher())){
+                        throw new \LogicException('Journal must have a Publisher. Please, edit this journal from admin -> journal edit page.');
+                    }
                     $menu->addChild($label, [
                         'route'             => $path,
                         'routeParameters'   => ['publisherId' => $journal->getPublisher()->getId()],
