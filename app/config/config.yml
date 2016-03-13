@@ -30,6 +30,7 @@ framework:
   session:
     handler_id:  ~
     cookie_domain: ".%base_host%"
+    name: %session_name%
   fragments:       ~
   http_method_override: true
   validation:    { enabled: true}

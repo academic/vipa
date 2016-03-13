@@ -52,3 +52,4 @@ parameters:
     ojs_tw: ojs_io
     project_name: OJS
     country_id: 216
+    session_name: '_OJS_SESSION_'
