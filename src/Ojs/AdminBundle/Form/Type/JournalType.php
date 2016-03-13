@@ -47,8 +47,9 @@ class JournalType extends AbstractType
                 'publisher',
                 null,
                 [
-                    'label' => 'publisher',
-                    'attr' => [
+                    'required'  => true,
+                    'label'     => 'publisher',
+                    'attr'      => [
                         'class' => 'select2-element validate[required]',
                     ]
                 ]
@@ -224,7 +225,7 @@ class JournalType extends AbstractType
             ))
             ->add('image', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
-                'label' => 'Cover Image',
+                'label' => 'journal.cover_image',
                 'img_width' => 200,
                 'img_height' => 300,
                 'crop_options' => array(
