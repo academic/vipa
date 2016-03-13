@@ -6,10 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
-use Ojs\AnalyticsBundle\Entity\IssueFileStatistic;
-use Ojs\AnalyticsBundle\Entity\JournalStatistic;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Issue;
 
 class GraphDataGenerator
 {
@@ -270,7 +267,6 @@ class GraphDataGenerator
     /**
      * Returns an array of issue download statistics which can be displayed in a table
      *
-     * @param array $issues
      * @param array $dates
      * @return array
      */
