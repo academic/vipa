@@ -42,6 +42,7 @@ class AdminPublisherTypeController extends Controller
                     if($cache->contains('grid_row_id_'.$entity->getId())){
                         $row->setClass('hidden');
                     }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
                         $row->setField('translations.name', $entity->getNameTranslations());
                         $row->setField('translations.description', $entity->getDescriptionTranslations());
                     }
