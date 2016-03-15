@@ -1549,6 +1549,7 @@ contents: 'İçindekiler'
 published.and.public: 'Yayında ve Görünür'
 pages: 'Sayfalar'
 user.title: 'Başlık'
+article.submitter: 'Gönderen'
 
 # OAuth
 linkedin: 'Linkedin'

@@ -86,7 +86,28 @@
                                                 {% if article.submitterUser is not null %}
                                                     <br>
                                                     <span class="text-muted">
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;({{ article.submitterUser.fullName }})
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        {{ 'article.submitter'|trans }}:
+                                                    </span>
+                                                    <span>
+                                                        {{ article.submitterUser.fullName }})
+                                                    </span>
+                                                {% endif %}
+                                                {% if article.articleAuthors|length > 0 %}
+                                                    <br>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <span class="text-muted">
+                                                        {% if article.articleAuthors|length == 1 %}
+                                                            {{ 'author.singular'|trans }}
+                                                        {% else %}
+                                                            {{ 'author.plural'|trans }}
+                                                        {% endif %}
+                                                    :
+                                                    </span>
+                                                    <span>
+                                                        {% for author in article.articleAuthors %}
+                                                            {{ author }}{% if loop.last != true %} ,{% endif %}
+                                                        {% endfor %}
                                                     </span>
                                                 {% endif %}
                                             </li>

@@ -1556,6 +1556,7 @@ contents: 'Contents'
 published.and.public: 'Published and Public'
 pages: 'Pages'
 user.title: 'Title'
+article.submitter: 'Submitter'
 
 # OAuth
 linkedin: 'Linkedin'
