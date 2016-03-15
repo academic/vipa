@@ -70,9 +70,11 @@
                 <div class="panel-heading">{{ "journal.plural"|trans }}</div>
                 <ul class="list-group">
                     {% for journal in entity.journals %}
-                        <li class="list-group-item">
-                            <a href="{{ journal.publicURI }}">{{ journal.title }}</a>
-                        </li>
+                        {% if journal.published %}
+                            <li class="list-group-item">
+                                <a href="{{ journal.publicURI }}">{{ journal.title }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
