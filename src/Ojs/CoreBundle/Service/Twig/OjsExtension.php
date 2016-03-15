@@ -316,6 +316,9 @@ class OjsExtension extends \Twig_Extension
         $selectedJournal = $this->journalService->getSelectedJournal();
         if ($selectedJournal) {
             $publisher = $selectedJournal->getPublisher();
+            if($publisher == null){
+                return false;
+            }
         } else {
             $publisherId = $this->requestStack->getCurrentRequest()->attributes->get('publisherId');
             if (!$publisherId) {
