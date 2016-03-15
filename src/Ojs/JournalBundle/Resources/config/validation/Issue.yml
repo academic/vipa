@@ -9,3 +9,7 @@ Ojs\JournalBundle\Entity\Issue:
             - Valid: ~
         year:
             - NotBlank: ~
+        number:
+            - Type: integer
+        volume:
+            - Type: integer
