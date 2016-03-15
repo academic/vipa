@@ -1550,6 +1550,7 @@ published.and.public: 'Yayında ve Görünür'
 pages: 'Sayfalar'
 user.title: 'Başlık'
 article.submitter: 'Gönderen'
+manage.journal: 'Dergiyi Yönet'
 
 # OAuth
 linkedin: 'Linkedin'

@@ -1557,6 +1557,7 @@ published.and.public: 'Published and Public'
 pages: 'Pages'
 user.title: 'Title'
 article.submitter: 'Submitter'
+manage.journal: 'Manage Journal'
 
 # OAuth
 linkedin: 'Linkedin'

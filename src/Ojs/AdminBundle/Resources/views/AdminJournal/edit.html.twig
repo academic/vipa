@@ -13,12 +13,16 @@
 
 {% block body -%}
 
-    <h1>{{ "journal.edit"|trans }}</h1>
+    <h1>{{ "journal.edit"|trans }}</h1><br>
+    <h5>{{ 'journal'|trans }}: {{ entity }}</h5><hr>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     <div class="record_actions">
         {% set back_path = 'ojs_admin_journal_index' %}
         {% include '::actionbuttons.html.twig' %}
+        <a class="btn btn-success btn-sm" href="{{ path('ojs_journal_dashboard_index', { 'journalId': entity.id }) }}">
+            {{ 'manage.journal'|trans }}
+        </a>
     </div>
 {% endblock %}
 
