@@ -244,10 +244,13 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @param Journal $journal
+     * @return $this
      */
     public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+
+        return $this;
     }
 
     /**
