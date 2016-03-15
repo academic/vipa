@@ -249,5 +249,13 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
     {
         $this->journal = $journal;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
 }
 
