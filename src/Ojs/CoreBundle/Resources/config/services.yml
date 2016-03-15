@@ -29,7 +29,7 @@ services:
     arguments:
       - "@mailer"
       - "%system_email%"
-      - "OJS SYSTEM"
+      - "%mailer_name%"
       - "@doctrine"
       - "@security.token_storage"
       - "%locale%"
