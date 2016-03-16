@@ -104,6 +104,7 @@ class ApplicationController extends Controller
                 }
 
                 //setup journal application files
+                /** @var JournalApplicationUploadFile $submissionFile */
                 foreach ($application->getJournalApplicationUploadFiles() as $fileKey => $submissionFile) {
                     if(empty($submissionFile->getFile()) && $journalApplicationFiles[$fileKey]->getRequired()){
                         $this->errorFlashBag('please.install.required.files');

@@ -156,7 +156,7 @@ class JournalApplicationType extends AbstractType
                     'property' => 'indentedSubject',
                     'label' => 'journal.subjects',
                     'attr' => [
-                        'style' => 'height: 200px',
+                        'size' => '10',
                     ],
                     'query_builder' => function(SubjectRepository $er) {
                         return $er->getChildrenQueryBuilder(null, null, 'root', 'asc', false);
