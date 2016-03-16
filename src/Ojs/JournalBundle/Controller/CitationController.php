@@ -40,6 +40,11 @@ class CitationController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
 
+        $article = $this->getDoctrine()
+            ->getRepository('OjsJournalBundle:Article')
+            ->find($articleId);
+        $this->throw404IfNotFound($article);
+
         $source = new Entity('OjsJournalBundle:Citation');
 
         if ($articleId !== null) {
