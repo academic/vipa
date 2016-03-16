@@ -147,6 +147,7 @@ class CitationController extends Controller
                     'ojs_journal_citation_create',
                     array('journalId' => $journal->getId(), 'articleId' => $articleId)
                 ),
+                'citationTypes' => array_keys($this->container->getParameter('citation_types')),
                 'method' => 'POST',
             )
         );
@@ -277,6 +278,7 @@ class CitationController extends Controller
                     'ojs_journal_citation_update',
                     array('id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $articleId)
                 ),
+                'citationTypes' => array_keys($this->container->getParameter('citation_types')),
                 'method' => 'PUT',
             )
         );
