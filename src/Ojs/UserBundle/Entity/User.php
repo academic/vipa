@@ -83,6 +83,11 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     protected $url;
 
     /**
+     * @JMS\Expose
+     * @var string
+     */
+    protected $email;
+    /**
      * @var  string
      */
     protected $phone;
@@ -157,7 +162,10 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /** @var boolean */
     private $privacy;
 
-    /** @var Collection */
+    /**
+     * @JMS\Expose
+     * @var Collection
+     */
     private $journalUsers;
 
     /** @var Collection */

@@ -28,6 +28,12 @@ api_subject:
   prefix:       /v1
   name_prefix:  api_1_
 
+api_user:
+  type:         rest
+  resource:     "@OjsApiBundle/Controller/Admin/UserRestController.php"
+  prefix:       /v1
+  name_prefix:  api_1_
+
 api_lang:
   type:         rest
   resource:     "@OjsApiBundle/Controller/Admin/LangRestController.php"
