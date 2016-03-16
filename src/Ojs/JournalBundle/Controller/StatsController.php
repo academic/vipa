@@ -2,62 +2,59 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController;
-use Symfony\Component\HttpFoundation\Request;
+use Ojs\JournalBundle\Entity\Journal;
 
 class StatsController extends OjsController
 {
     const DATE_FORMAT = "Y-m-d";
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        return $this->render('OjsJournalBundle:Stats:stats.html.twig', $this->createStats($request));
+        $journalService = $this->get('ojs.journal_service');
+        $journal = $journalService->getSelectedJournal();
+        $cache = $this->get('file_cache');
+        if(!$cache->contains('journal_'.$journal->getId().'_statistics')){
+            $this->cacheJournalStats($journal);
+        }
+        return $this->render('OjsJournalBundle:Stats:stats.html.twig', $cache->fetch('journal_'.$journal->getId().'_statistics'));
     }
 
     /**
-     *  Arranges statistics
-     * @return array
+     * @param Journal $journal
+     * @return true
      */
-    private function createStats(Request $request)
+    private function cacheJournalStats(Journal $journal)
     {
-        $generator = new GraphDataGenerator($this->getDoctrine()->getManager(), $request->getLocale());
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $cache = $this->container->get('file_cache');
+        $generator = $this->container->get('ojs.graph.data.generator');
 
         $lastMonth = ['x'];
-        for ($i = 0; $i < 30; $i++) {
-            $lastMonth[] = date($this::DATE_FORMAT, strtotime('-' . $i . ' days'));
+        for($i = 0; $i < 30; $i++) {
+            $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
         }
-
         $slicedLastMonth = array_slice($lastMonth, 1);
-
-        $articles = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:Article')
-            ->findAll();
-
-        $issues = $this
-            ->getDoctrine()
-            ->getRepository('OjsJournalBundle:Issue')
-            ->findAll();
 
         $json = [
             'dates' => $lastMonth,
-            'articleViews' => $generator->generateArticleBarChartData($slicedLastMonth),
-            'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
-            'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
+            'journalViews' => $generator->generateJournalBarChartData($slicedLastMonth, $journal),
+            'articleViews' => $generator->generateArticleBarChartData($slicedLastMonth, $journal),
+            'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth, $journal),
+            'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth, $journal),
         ];
 
         $data = [
             'stats' => json_encode($json),
-            'articles' => $generator->generateArticleViewsData($slicedLastMonth),
-            'issueFiles' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
-            'articleFiles' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
-            'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
-            'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
-            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
+            'articles' => $generator->generateArticleViewsData(null , $journal),
+            'issueFiles' => $generator->generateIssueFileDownloadsData(null, $journal),
+            'articleFiles' => $generator->generateArticleFileDownloadsData(null, $journal),
+            'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth, $journal),
+            'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth, $journal),
+            'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth, $journal),
         ];
 
-        return $data;
+        $cache->save('journal_'.$journal->getId().'_statistics', $data, 1800);
+
+        return true;
     }
 }
