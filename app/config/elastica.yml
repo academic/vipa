@@ -18,6 +18,11 @@ fos_elastica:
       types:
         user:
           mappings:
+            title:
+              type: "object"
+              properties:
+                title:
+                  type: string
             username:
               type: string
             firstName:
@@ -36,7 +41,6 @@ fos_elastica:
               analyzer: "keyword"
               type: string
             subjects: {"index": "not_analyzed"}
-            title: {"index": "not_analyzed"}
             gender: {"index": "not_analyzed"}
             created:
               type: date
@@ -350,13 +354,16 @@ fos_elastica:
             finder: ~
         author:
           mappings:
+            title:
+              type: "object"
+              properties:
+                title:
+                  type: string
             id:
               type: integer
             translations:
               type: "object"
               properties:
-                title:
-                  type: string
                 biography:
                   type: string
             firstName:
