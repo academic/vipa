@@ -115,10 +115,11 @@ class UserHandler
     private function processForm(User $entity, array $parameters, $method = "PUT")
     {
         $form = $this->formFactory->create(new UserType(), $entity, array('method' => $method, 'csrf_protection' => false));
+        $form->remove('password');
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();
-            $entity->setCurrentLocale('en');
+            $entity->setPassword($this->generateRandomString());
             $this->om->persist($entity);
             $this->om->flush();
             return $page;
@@ -129,5 +130,16 @@ class UserHandler
     private function createUser()
     {
         return new $this->entityClass();
+    }
+
+    function generateRandomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

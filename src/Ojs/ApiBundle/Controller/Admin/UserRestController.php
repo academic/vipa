@@ -93,7 +93,7 @@ class UserRestController extends FOSRestController
         if (!$this->isGranted('CREATE', new User())) {
             throw new AccessDeniedException;
         }
-        return $this->createForm(new UserType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new UserType(), null, ['csrf_protection' => false])->remove('password');
     }
 
     /**
