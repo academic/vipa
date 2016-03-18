@@ -126,7 +126,7 @@ class PersonTitle extends AbstractTranslatable
     function __toString()
     {
         if (!is_string($this->getTitle())) {
-            return $this->translations->first()->getName();
+            return $this->translations->first()->getTitle();
         } else {
             return $this->getTitle();
         }
