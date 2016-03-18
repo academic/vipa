@@ -116,3 +116,10 @@ services:
     ojs_api.journal_article.handler:
         class: "%ojs_api.journal_article.handler.class%"
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
+
+    ojs_api.twig.api_extension:
+        class: Ojs\ApiBundle\Service\Twig\ApiTwigExtension
+        arguments:
+            - "@router"
+        tags:
+            - { name: twig.extension }
