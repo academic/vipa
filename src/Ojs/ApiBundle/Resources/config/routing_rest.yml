@@ -198,7 +198,6 @@ api_analytics :
   prefix:       /v1/
   name_prefix:  api_1_
   options:
-      api_view: "analytics"
       expose: true
   requirements:
         id:  \d+

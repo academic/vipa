@@ -25,7 +25,9 @@ class PageRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"page"},
+     *   section = "page",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Pages.")
@@ -58,7 +60,9 @@ class PageRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the Page is not found"
-     *   }
+     *   },
+     *   views = {"page"},
+     *   section = "page",
      * )
      *
      * @param int     $id      the Page id
@@ -83,7 +87,9 @@ class PageRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"page"},
+     *   section = "page",
      * )
      *
      * @return FormTypeInterface
@@ -105,7 +111,9 @@ class PageRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"page"},
+     *   section = "page",
      * )
      *
      * @param Request $request the request object
@@ -140,7 +148,9 @@ class PageRestController extends FOSRestController
      *     201 = "Returned when the Page is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"page"},
+     *   section = "page",
      * )
      *
      * @param Request $request the request object
@@ -186,7 +196,9 @@ class PageRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"page"},
+     *   section = "page",
      * )
      *
      * @param Request $request the request object
@@ -234,7 +246,9 @@ class PageRestController extends FOSRestController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"page"},
+     *      section = "page",
      * )
      *
      */

@@ -25,7 +25,9 @@ class PersonTitleRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"persontitle"},
+     *   section = "persontitle",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing PersonTitles.")
@@ -58,7 +60,9 @@ class PersonTitleRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the PersonTitle is not found"
-     *   }
+     *   },
+     *   views = {"persontitle"},
+     *   section = "persontitle",
      * )
      *
      * @param int     $id      the PersonTitle id
@@ -83,7 +87,9 @@ class PersonTitleRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"persontitle"},
+     *   section = "persontitle",
      * )
      *
      * @return FormTypeInterface
@@ -105,7 +111,9 @@ class PersonTitleRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"persontitle"},
+     *   section = "persontitle",
      * )
      *
      * @param Request $request the request object
@@ -140,7 +148,9 @@ class PersonTitleRestController extends FOSRestController
      *     201 = "Returned when the PersonTitle is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"persontitle"},
+     *   section = "persontitle",
      * )
      *
      * @param Request $request the request object
@@ -186,7 +196,9 @@ class PersonTitleRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"persontitle"},
+     *   section = "persontitle",
      * )
      *
      * @param Request $request the request object
@@ -234,7 +246,9 @@ class PersonTitleRestController extends FOSRestController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"persontitle"},
+     *      section = "persontitle",
      * )
      *
      */

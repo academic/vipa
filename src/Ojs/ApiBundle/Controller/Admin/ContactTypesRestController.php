@@ -26,7 +26,10 @@ class ContactTypesRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"contacttype"},
+     *   section = "contacttype",
+     *
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing contact types.")
@@ -59,7 +62,9 @@ class ContactTypesRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the contact type is not found"
-     *   }
+     *   },
+     *   views = {"contacttype"},
+     *   section = "contacttype",
      * )
      *
      * @param int     $id      the contact type id
@@ -84,7 +89,9 @@ class ContactTypesRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"contacttype"},
+     *   section = "contacttype",
      * )
      *
      * @return FormTypeInterface
@@ -107,7 +114,9 @@ class ContactTypesRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"contacttype"},
+     *   section = "contacttype",
      * )
      *
      * @param Request $request the request object
@@ -143,7 +152,9 @@ class ContactTypesRestController extends FOSRestController
      *     201 = "Returned when the ContactType is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"contacttype"},
+     *   section = "contacttype",
      * )
      *
      * @param Request $request the request object
@@ -190,7 +201,9 @@ class ContactTypesRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"contacttype"},
+     *   section = "contacttype",
      * )
      *
      * @param Request $request the request object
@@ -238,7 +251,9 @@ class ContactTypesRestController extends FOSRestController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"contacttype"},
+     *      section = "contacttype",
      * )
      *
      */

@@ -26,7 +26,9 @@ class AnnouncementRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"announcement"},
+     *   section = "announcement",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Announcements.")
@@ -58,7 +60,9 @@ class AnnouncementRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the Announcement is not found"
-     *   }
+     *   },
+     *   views = {"announcement"},
+     *   section = "announcement",
      * )
      *
      * @param int     $id      the Announcement id
@@ -83,7 +87,9 @@ class AnnouncementRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"announcement"},
+     *   section = "announcement",
      * )
      *
      * @return \Symfony\Component\Form\Form
@@ -105,7 +111,9 @@ class AnnouncementRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"announcement"},
+     *   section = "announcement",
      * )
      *
      * @param Request $request the request object
@@ -140,7 +148,9 @@ class AnnouncementRestController extends FOSRestController
      *     201 = "Returned when the Announcement is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"announcement"},
+     *   section = "announcement",
      * )
      *
      * @param Request $request the request object
@@ -186,7 +196,9 @@ class AnnouncementRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"announcement"},
+     *   section = "announcement",
      * )
      *
      * @param Request $request the request object
@@ -234,7 +246,9 @@ class AnnouncementRestController extends FOSRestController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"announcement"},
+     *      section = "announcement",
      * )
      *
      */

@@ -25,7 +25,9 @@ class JournalThemeRestController extends ApiController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"journaltheme"},
+     *   section = "journaltheme",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Themes.")
@@ -59,7 +61,9 @@ class JournalThemeRestController extends ApiController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the Theme is not found"
-     *   }
+     *   },
+     *   views = {"journaltheme"},
+     *   section = "journaltheme",
      * )
      *
      * @param int     $id      the Theme id
@@ -85,7 +89,9 @@ class JournalThemeRestController extends ApiController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"journaltheme"},
+     *   section = "journaltheme",
      * )
      *
      * @return FormTypeInterface
@@ -108,7 +114,9 @@ class JournalThemeRestController extends ApiController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journaltheme"},
+     *   section = "journaltheme",
      * )
      *
      * @param Request $request the request object
@@ -146,7 +154,9 @@ class JournalThemeRestController extends ApiController
      *     201 = "Returned when the Theme is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journaltheme"},
+     *   section = "journaltheme",
      * )
      *
      * @param Request $request the request object
@@ -195,7 +205,9 @@ class JournalThemeRestController extends ApiController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journaltheme"},
+     *   section = "journaltheme",
      * )
      *
      * @param Request $request the request object
@@ -246,7 +258,9 @@ class JournalThemeRestController extends ApiController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"journaltheme"},
+     *      section = "journaltheme",
      * )
      *
      */

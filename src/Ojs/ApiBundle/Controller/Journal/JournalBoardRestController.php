@@ -26,7 +26,9 @@ class JournalBoardRestController extends ApiController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"journalboard"},
+     *   section = "journalboard",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Boards.")
@@ -60,7 +62,9 @@ class JournalBoardRestController extends ApiController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the Board is not found"
-     *   }
+     *   },
+     *   views = {"journalboard"},
+     *   section = "journalboard",
      * )
      *
      * @param int     $id      the Board id
@@ -86,7 +90,9 @@ class JournalBoardRestController extends ApiController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"journalboard"},
+     *   section = "journalboard",
      * )
      *
      * @return FormTypeInterface
@@ -109,7 +115,9 @@ class JournalBoardRestController extends ApiController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journalboard"},
+     *   section = "journalboard",
      * )
      *
      * @param Request $request the request object
@@ -147,7 +155,9 @@ class JournalBoardRestController extends ApiController
      *     201 = "Returned when the Board is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journalboard"},
+     *   section = "journalboard",
      * )
      *
      * @param Request $request the request object
@@ -196,7 +206,9 @@ class JournalBoardRestController extends ApiController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journalboard"},
+     *   section = "journalboard",
      * )
      *
      * @param Request $request the request object
@@ -247,7 +259,9 @@ class JournalBoardRestController extends ApiController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"journalboard"},
+     *      section = "journalboard",
      * )
      *
      */

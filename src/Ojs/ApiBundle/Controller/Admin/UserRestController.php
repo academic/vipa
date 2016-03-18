@@ -25,7 +25,9 @@ class UserRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"user"},
+     *   section = "user",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Users.")
@@ -58,7 +60,9 @@ class UserRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the User is not found"
-     *   }
+     *   },
+     *   views = {"user"},
+     *   section = "user",
      * )
      *
      * @param int     $id      the User id
@@ -83,7 +87,9 @@ class UserRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"user"},
+     *   section = "user",
      * )
      *
      * @return FormTypeInterface
@@ -105,7 +111,9 @@ class UserRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"user"},
+     *   section = "user",
      * )
      *
      * @param Request $request the request object
@@ -140,7 +148,9 @@ class UserRestController extends FOSRestController
      *     201 = "Returned when the User is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"user"},
+     *   section = "user",
      * )
      *
      * @param Request $request the request object
@@ -186,7 +196,9 @@ class UserRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"user"},
+     *   section = "user",
      * )
      *
      * @param Request $request the request object

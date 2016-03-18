@@ -27,7 +27,9 @@ class JournalRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"journal"},
+     *   section = "journal",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Journals.")
@@ -60,7 +62,9 @@ class JournalRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the Journal is not found"
-     *   }
+     *   },
+     *   views = {"journal"},
+     *   section = "journal",
      * )
      *
      * @param int     $id      the Journal id
@@ -85,7 +89,9 @@ class JournalRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"journal"},
+     *   section = "journal",
      * )
      *
      * @return FormTypeInterface
@@ -107,7 +113,9 @@ class JournalRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journal"},
+     *   section = "journal",
      * )
      *
      * @param Request $request the request object
@@ -142,7 +150,9 @@ class JournalRestController extends FOSRestController
      *     201 = "Returned when the Journal is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journal"},
+     *   section = "journal",
      * )
      *
      * @param Request $request the request object
@@ -188,7 +198,9 @@ class JournalRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"journal"},
+     *   section = "journal",
      * )
      *
      * @param Request $request the request object
@@ -236,7 +248,9 @@ class JournalRestController extends FOSRestController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"journal"},
+     *      section = "journal",
      * )
      *
      */

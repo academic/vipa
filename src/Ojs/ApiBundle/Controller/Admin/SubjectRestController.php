@@ -25,7 +25,9 @@ class SubjectRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"subject"},
+     *   section = "subject",
      * )
      *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Subjects.")
@@ -58,7 +60,9 @@ class SubjectRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the Subject is not found"
-     *   }
+     *   },
+     *   views = {"subject"},
+     *   section = "subject",
      * )
      *
      * @param int     $id      the Subject id
@@ -83,7 +87,9 @@ class SubjectRestController extends FOSRestController
      *   resource = true,
      *   statusCodes = {
      *     200 = "Returned when successful"
-     *   }
+     *   },
+     *   views = {"subject"},
+     *   section = "subject",
      * )
      *
      * @return FormTypeInterface
@@ -105,7 +111,9 @@ class SubjectRestController extends FOSRestController
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"subject"},
+     *   section = "subject",
      * )
      *
      * @param Request $request the request object
@@ -140,7 +148,9 @@ class SubjectRestController extends FOSRestController
      *     201 = "Returned when the Subject is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"subject"},
+     *   section = "subject",
      * )
      *
      * @param Request $request the request object
@@ -186,7 +196,9 @@ class SubjectRestController extends FOSRestController
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
-     *   }
+     *   },
+     *   views = {"subject"},
+     *   section = "subject",
      * )
      *
      * @param Request $request the request object
@@ -234,7 +246,9 @@ class SubjectRestController extends FOSRestController
      *      statusCodes = {
      *          "204" = "Deleted Successfully",
      *          "404" = "Object cannot found"
-     *      }
+     *      },
+     *      views = {"subject"},
+     *      section = "subject",
      * )
      *
      */
