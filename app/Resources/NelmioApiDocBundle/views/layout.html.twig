@@ -688,9 +688,27 @@
     </div>
     {% include motdTemplate %}
     <div class="container" id="resources_container">
+        {% if app.request.attributes.has('view') and app.request.attributes.get('view') != 'default' %}
+            <div class="row well">
+                <a href="{{ path('nelmio_api_doc_index') }}">< Back to Index</a>
+            </div>
+        {% else %}
+            <div class="row well text-center">
+                <h2>Browse Views</h2>
+                <hr>
+                    {% for apiView in getApiViews() %}
+                        <div class="col-sm-4">
+                            <h3>
+                                <a href="{{ path('nelmio_api_doc_index', {view: apiView}) }}">{{ apiView }}</a>
+                            </h3>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
         <ul id="resources">
-        {% block content %}{% endblock %}
-    </ul>
+            {% block content %}{% endblock %}
+        </ul>
 </div>
 <p id="colophon">
     Documentation auto-generated on {{ date }}
