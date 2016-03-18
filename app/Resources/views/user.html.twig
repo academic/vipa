@@ -15,8 +15,8 @@
         </div>
         <div class="content">
             <a class="hovercard" href="{{ path('ojs_user_profile', {slug: person.username}) }}">
-                {% if person.title is defined %}
-                    {{ person.title }}
+                {% if person.title is not empty %}
+                    {{ person.title.title }}
                 {% endif %}
                 {% if person.firstName is defined and person.lastName is defined %}
                     {{ person.firstName|default('') }} {{ person.lastName|default('') }}
