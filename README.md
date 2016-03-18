@@ -12,6 +12,7 @@ This project adheres to the [Open Code of Conduct](https://github.com/okulbilisi
 ## Installing
 
 Read [the installation document](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md).
+Read [v1 API document](https://github.com/ojs/ojs/blob/master/src/Ojs/ApiBundle/Resources/doc/index-api-doc.md).
 
 **Quick install command (WARNING: this command will empty the database which you specify during installation)**
 
