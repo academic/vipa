@@ -1,17 +1,17 @@
 #Open Journal Software
 
-[![Build Status](https://img.shields.io/travis/okulbilisim/ojs/master.svg?style=flat-square)](https://travis-ci.org/okulbilisim/ojs)
-[![Quality Status](https://img.shields.io/scrutinizer/g/okulbilisim/ojs.svg?style=flat-square)](https://scrutinizer-ci.com/g/okulbilisim/ojs/)
+[![Build Status](https://img.shields.io/travis/bulutyazilim/ojs/master.svg?style=flat-square)](https://travis-ci.org/bulutyazilim/ojs)
+[![Quality Status](https://img.shields.io/scrutinizer/g/bulutyazilim/ojs.svg?style=flat-square)](https://scrutinizer-ci.com/g/bulutyazilim/ojs/)
 
 **Open Journal Software (OJS)** is a journal management and publishing software built with **Symfony 2 Framework**.
 
-As a company we, [OkulBilişim](http://www.okulbilisim.com), analyzed journal management systems and needs of the community and decided to make a harder, better, faster and stronger content management and workflow software using [Symfony 2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing) in parnership with [TÜBİTAK-ULAKBİM](http://www.ulakbim.gov.tr).
+As a company we, [BulutYazilim](http://www.bulutyazilim.com), analyzed journal management systems and needs of the community and decided to make a harder, better, faster and stronger content management and workflow software using [Symfony 2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing) in parnership with [TÜBİTAK-ULAKBİM](http://www.ulakbim.gov.tr).
 
-This project adheres to the [Open Code of Conduct](https://github.com/okulbilisim/ojs/tree/master/code_of_conduct.md). By participating, you are expected to honor this code.
+This project adheres to the [Open Code of Conduct](https://github.com/bulutyazilim/ojs/tree/master/code_of_conduct.md). By participating, you are expected to honor this code.
 
 ## Installing
 
-Read [the installation document](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md).<br>
+Read [the installation document](https://github.com/ojs/ojs/tree/master/docs/INSTALL.md).<br>
 Read [API v1 documents](https://github.com/ojs/ojs/tree/master/src/Ojs/ApiBundle/Resources/doc).
 
 **Quick install command (WARNING: this command will empty the database which you specify during installation)**
