@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -46,11 +47,26 @@ class ExceptionListener
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        $request = $this->requestStack->getMasterRequest();
         $exception = $event->getException();
-        if (!$exception instanceof HasRelationException) {
-            return;
+        if ($exception instanceof HasRelationException) {
+            $this->onHasRelationException($event);
         }
+        if($exception instanceof MethodNotAllowedHttpException){
+            $this->onMethodNotAllowedHttpException($event);
+        }
+    }
+
+    private function onMethodNotAllowedHttpException(GetResponseForExceptionEvent $event)
+    {
+        $response = new RedirectResponse('/');
+        $event->setResponse($response);
+    }
+
+    private function onHasRelationException(GetResponseForExceptionEvent $event)
+    {
+        $request = $this->requestStack->getMasterRequest();
+        /** @var HasRelationException $exception */
+        $exception = $event->getException();
         $errorText = $exception->getErrorMessage();
         if($request->get('_format') == 'json'){
             $response = new JsonResponse(['error' => $errorText]);
