@@ -59,7 +59,7 @@ class AppKernel extends Kernel
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
-            new OkulBilisim\OjsImportBundle\OkulBilisimOjsImportBundle(),
+            new Ojs\ImportBundle\ImportBundle(),
             new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
         );
