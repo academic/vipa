@@ -3,6 +3,8 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Params\PublisherStatuses;
+use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Form\Type\ApplicationJournalContactType;
 use Ojs\JournalBundle\Form\Type\JournalApplicationUploadFileType;
@@ -126,14 +128,17 @@ class JournalApplicationType extends AbstractType
                 'entity',
                 array(
                     'class' => 'OjsJournalBundle:Publisher',
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('i')
-                                    ->andWhere('i.status = :status')
-                                    ->setParameter('status', 1);
+                    'query_builder' => function(PublisherRepository $er) {
+                        return $er->createQueryBuilder('publisher')
+                            ->andWhere('publisher.status = :status')
+                            ->andWhere('publisher.verified = :verified')
+                            ->setParameter('status', PublisherStatuses::STATUS_COMPLETE)
+                            ->setParameter('verified', true)
+                            ;
                     },
                     'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.publisher',
-                    'required' => false
+                    'required' => true
                 )
             )
             ->add(

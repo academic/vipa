@@ -3,7 +3,10 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\Publisher;
+use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,12 +24,22 @@ class JournalEditType extends AbstractType
         $builder
             ->add(
                 'publisher',
-                null,
+                'entity',
                 [
+                    'required' => true,
                     'label' => 'publisher',
                     'attr' => [
-                        'class' => 'select2-element validate[required]',
-                    ]
+                        'class' => 'select2-element',
+                    ],
+                    'class' => 'OjsJournalBundle:Publisher',
+                    'query_builder' => function(PublisherRepository $er) {
+                        return $er->createQueryBuilder('publisher')
+                            ->andWhere('publisher.status = :status')
+                            ->andWhere('publisher.verified = :verified')
+                            ->setParameter('status', PublisherStatuses::STATUS_COMPLETE)
+                            ->setParameter('verified', true)
+                            ;
+                    }
                 ]
             )
             ->add(
