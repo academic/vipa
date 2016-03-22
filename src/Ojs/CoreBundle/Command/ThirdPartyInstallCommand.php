@@ -21,35 +21,35 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
 
     private $packageData = array(
         'workflow' => array(
-            'name' => 'workflow',
-            'description' => 'Ojs workflow installation',
+            'name' => 'Workflow',
+            'description' => 'Ojs Workflow Plugin',
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:bulutyazilim/workflowbundle.git',
+                    'url' => 'https://bitbucket.org/bulutyazilim/workflowbundle.git',
                 ),
             ),
             'require' => array(
-                "okulbilisim/workflow-bundle" => "dev-master",
+                "bulutyazilim/workflow-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'OkulBilisim\\WorkflowBundle\\WorkflowBundle',
+                'bundle-class' => 'BulutYazilim\\WorkflowBundle\\WorkflowBundle',
             ),
         ),
         'endorsement' => array(
-            'name' => 'endorsement',
-            'description' => 'Ojs endorsement installation',
+            'name' => 'Endorsement',
+            'description' => 'Ojs Endorsement Plugin',
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:bulutyazilim/endorsment.git',
+                    'url' => 'https://bitbucket.org/bulutyazilim/endorsment.git',
                 ),
             ),
             'require' => array(
-                "okulbilisim/endorsement-bundle" => "dev-master",
+                "bulutyazilim/endorsement-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'OkulBilisim\\EndorsementBundle\\EndorsementBundle',
+                'bundle-class' => 'BulutYazilim\\EndorsementBundle\\EndorsementBundle',
             ),
         ),
         'doi' => array(
@@ -58,14 +58,14 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:bulutyazilim/ojsdoibundle.git',
+                    'url' => 'https://bitbucket.org/bulutyazilim/ojsdoibundle.git',
                 ),
             ),
             'require' => array(
-                "okulbilisim/ojs-doi-bundle" => "dev-master",
+                "bulutyazilim/ojs-doi-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'OkulBilisim\\OjsDoiBundle\\OjsDoiBundle',
+                'bundle-class' => 'BulutYazilim\\OjsDoiBundle\\OjsDoiBundle',
                 "other-bundle-classes" => array(
                     "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
                 )
@@ -77,14 +77,14 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:bulutyazilim/advancedcitationbundle.git',
+                    'url' => 'https://bitbucket.org/bulutyazilim/advancedcitationbundle.git',
                 ),
             ),
             'require' => array(
-                "okulbilisim/advanced-citation-bundle" => "dev-master",
+                "bulutyazilim/advanced-citation-bundle" => "dev-master",
             ),
             'extra' => array(
-                'bundle-class' => 'OkulBilisim\\AdvancedCitationBundle\\AdvancedCitationBundle',
+                'bundle-class' => 'BulutYazilim\\AdvancedCitationBundle\\AdvancedCitationBundle',
             ),
         ),
         'market' => array(
@@ -93,11 +93,11 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:bulutyazilim/marketbundle.git',
+                    'url' => 'https://bitbucket.org/bulutyazilim/marketbundle.git',
                 ),
             ),
             'require' => array(
-                "okulbilisim/market-bundle" => "dev-master",
+                "bulutyazilim/market-bundle" => "dev-master",
             ),
             'extra' => array(
                 'bundle-class' => 'Ojs\\MarketBundle\\OjsMarketBundle',
@@ -109,7 +109,7 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             'repositories' => array(
                 array(
                     'type' => 'vcs',
-                    'url' => 'git@bitbucket.org:bulutyazilim/ojsdergiparkbundle.git',
+                    'url' => 'https://bitbucket.org/bulutyazilim/ojsdergiparkbundle.git',
                 ),
             ),
             'require' => array(
