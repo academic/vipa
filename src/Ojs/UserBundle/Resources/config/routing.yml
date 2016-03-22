@@ -24,7 +24,11 @@ login_check:
 
 regenerate_apikey:
     path: /user/apikey/regenerate
-    defaults: { _controller: "OjsUserBundle:Security:regenerateAPI" }
+    defaults: { _controller: "OjsUserBundle:UserApi:regenerateAPI" }
+
+ojs_user_get_apikey:
+    path: /user/apikey
+    defaults: { _controller: "OjsUserBundle:UserApi:getApiKey" }
 
 user_create_password:
     path: /password/create

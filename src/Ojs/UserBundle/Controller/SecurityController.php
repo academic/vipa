@@ -120,42 +120,6 @@ class SecurityController extends BaseSecurityController
         ));
     }
 
-    /**
-     * @return JsonResponse
-     */
-    public function regenerateAPIAction()
-    {
-        try {
-            /** @var User $user */
-            $user = $this->getUser();
-            if (!$user) {
-                throw new AccessDeniedException("ojs.403");
-            }
-            $user->generateApiKey();
-            $user->setEnabled(true);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            return JsonResponse::create(
-                [
-                    'status' => true,
-                    'message' => 'API key regenerated.',
-                    'apikey' => $user->getApiKey(),
-                    'callback' => 'regenerateAPI',
-                ]
-            );
-        } catch (\Exception $q) {
-            return JsonResponse::create(
-                [
-                    'status' => false,
-                    'message' => $q->getMessage(),
-                    'code' => $q->getCode(),
-                ]
-            );
-        }
-    }
-
     public function createPasswordAction(Request $request)
     {
         $data = [];

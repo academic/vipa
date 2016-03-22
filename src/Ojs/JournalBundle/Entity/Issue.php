@@ -29,10 +29,12 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     protected $id;
+
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\IssueTranslation")
      */
     protected $translations;
+
     /**
      *
      * @var Journal
@@ -41,6 +43,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $journal;
+
     /**
      * @var string
      * @GRID\Column(title="volume")
@@ -48,6 +51,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $volume;
+
     /**
      * @var string
      * @GRID\Column(title="number")
@@ -55,12 +59,14 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $number;
+
     /**
      * @var string
      * @GRID\Column(title="title", field="translations.title", safe=false)
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
+
     /**
      * @var string
      *             cover image path
@@ -69,6 +75,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @Display\Image(filter="issue_cover")
      */
     private $cover;
+
     /**
      * @var boolean
      * @GRID\Column(title="special")
@@ -76,12 +83,14 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"IssueDetail"})
      */
     private $special = false;
+
     /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
+
     /**
      * @var string
      * @GRID\Column(title="year")
@@ -89,6 +98,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $year;
+
     /**
      * @var \DateTime
      * @GRID\Column(title="publishdate")
@@ -96,12 +106,14 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"IssueDetail"})
      */
     private $datePublished;
+
     /**
      * @var ArrayCollection|Article[]
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","JournalDetail"})
      */
     private $articles;
+
     /**
      * @var string
      * @JMS\Expose
@@ -109,11 +121,13 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @Display\Image(filter="issue_header")
      */
     private $header;
+
     /**
      * @var ArrayCollection|Section[]
      * @JMS\Groups({"IssueDetail"})
      */
     private $sections;
+
     /**
      * @var ArrayCollection|IssueStatistic[]
      */
@@ -123,16 +137,24 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @var string
      */
     private $publicURI;
-    /** @var  boolean */
+
+    /**
+     * @var  bool
+     */
     private $published = false;
-    /** @var  boolean */
+
+    /**
+     * @var  bool
+     */
     private $public = false;
+
     /**
      * @var boolean
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail"})
      */
     private $supplement = false;
+
     /**
      * @var string
      * @JMS\Expose
@@ -140,6 +162,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @Display\File(path="issuefiles")
      */
     private $fullFile;
+
     /**
      * @var ArrayCollection|IssueFile[]
      * @JMS\Expose
