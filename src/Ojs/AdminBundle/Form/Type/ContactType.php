@@ -35,7 +35,7 @@ class ContactType extends AbstractType
             )
             ->add('institution', null, ['label' => 'institution'])
             ->add('country', 'entity', array(
-                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'class'         => 'BulutYazilim\LocationBundle\Entity\Country',
                 'required'      => false,
                 'label'         => 'Country',
                 'empty_value'   => 'Select Country',

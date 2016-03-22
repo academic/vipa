@@ -13,7 +13,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalApplicationUploadFile;
 use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Entity\Publisher;
-use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\Journal\JournalEvents;
 use Ojs\JournalBundle\Form\Type\MinimalPublisherType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -64,7 +63,7 @@ class ApplicationController extends Controller
 
         $application = $this->setupJournalContacts($application);
         $defaultCountryId = $this->container->getParameter('country_id');
-        $defaultCountry = $em->getRepository('OkulBilisimLocationBundle:Country')->find($defaultCountryId);
+        $defaultCountry = $em->getRepository('BulutYazilimLocationBundle:Country')->find($defaultCountryId);
         $application->setCountry($defaultCountry);
         $application->setCurrentLocale($request->getDefaultLocale());
 

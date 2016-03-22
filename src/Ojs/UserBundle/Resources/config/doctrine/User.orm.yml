@@ -138,7 +138,7 @@ Ojs\UserBundle\Entity\User:
         name: title_id
         referencedColumnName: id
     country:
-      targetEntity: OkulBilisim\LocationBundle\Entity\Country
+      targetEntity: BulutYazilim\LocationBundle\Entity\Country
       joinColumn:
         name: country_id
         referencedColumnName: id

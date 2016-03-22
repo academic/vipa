@@ -166,7 +166,7 @@ class JournalType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'OkulBilisim\LocationBundle\Entity\Country',
+                    'class' => 'BulutYazilim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element ',
                     ],

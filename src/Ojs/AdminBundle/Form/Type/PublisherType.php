@@ -3,11 +3,8 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\PublisherRepository;
-use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -186,7 +183,7 @@ class PublisherType extends AbstractType
             ->add('addressLat', 'text', ['label' => 'addressLat', 'attr' => ['data-id' => 'addressLat']])
             ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']])
             ->add('country', 'entity', array(
-                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'class'         => 'BulutYazilim\LocationBundle\Entity\Country',
                 'required'      => false,
                 'label'         => 'Country',
                 'empty_value'   => 'Select Country',

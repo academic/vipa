@@ -4,8 +4,8 @@ namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
-use OkulBilisim\LocationBundle\Entity\Country;
-use OkulBilisim\LocationBundle\Entity\Province;
+use BulutYazilim\LocationBundle\Entity\Country;
+use BulutYazilim\LocationBundle\Entity\Province;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**

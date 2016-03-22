@@ -3,7 +3,6 @@
 namespace Ojs\AdminBundle\Controller;
 
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
-use Ojs\AnalyticsBundle\Utils\GraphDataGenerator;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -49,7 +48,7 @@ class AdminController extends Controller
     private function getUnreadFeedbackCount()
     {
         $em = $this->getDoctrine()->getManager();
-        $unreadFeedbacks = $em->getRepository('OkulBilisimFeedbackBundle:Feedback')->findBy([
+        $unreadFeedbacks = $em->getRepository('BulutYazilimFeedbackBundle:Feedback')->findBy([
             'status' => 0,
             'deleted' => false
         ]);

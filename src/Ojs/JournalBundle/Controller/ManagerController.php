@@ -29,7 +29,7 @@ class ManagerController extends Controller
             throw new AccessDeniedException("You not authorized for this page!");
         }
         if($journal->getCountry() == null){
-            $journal->setCountry($em->getRepository('OkulBilisimLocationBundle:Country')->find($this->getParameter('country_id')));
+            $journal->setCountry($em->getRepository('BulutYazilimLocationBundle:Country')->find($this->getParameter('country_id')));
         }
 
         $form = $this->createJournalEditForm($journal);

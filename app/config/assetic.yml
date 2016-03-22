@@ -36,10 +36,10 @@ assetic:
         - '%kernel.root_dir%/../web/assets/app/js/plugins/highlight/highlight.js'
         - '%kernel.root_dir%/../web/vendor/list.js/dist/list.min.js'
         - '%kernel.root_dir%/../web/vendor/downloadjs/download.min.js'
-        - '@OkulBilisimFeedbackBundle/Resources/public/js/feedback.js'
-        - '@OkulBilisimFeedbackBundle/Resources/public/js/html2canvas.min.js'
-        - '@OkulBilisimFeedbackBundle/Resources/public/js/admin.js'
-        - '@OkulBilisimLocationBundle/Resources/public/js/location.js'
+        - '@BulutYazilimFeedbackBundle/Resources/public/js/feedback.js'
+        - '@BulutYazilimFeedbackBundle/Resources/public/js/html2canvas.min.js'
+        - '@BulutYazilimFeedbackBundle/Resources/public/js/admin.js'
+        - '@BulutYazilimLocationBundle/Resources/public/js/location.js'
         - '@OjsSiteBundle/Resources/public/js/block.js'
         - '@A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js'
         - '@TetranzSelect2EntityBundle/Resources/public/js/select2entity.js'
@@ -54,7 +54,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css'
         - '%kernel.root_dir%/../web/vendor/summernote/dist/summernote.css'
         - '%kernel.root_dir%/../web/assets/app/css/_history.css'
-        - '@OkulBilisimFeedbackBundle/Resources/public/css/feedback.css'
+        - '@BulutYazilimFeedbackBundle/Resources/public/css/feedback.css'
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.css'
     advanced_search_js:
       inputs: ['@OjsCoreBundle/Resources/public/js/search.js']

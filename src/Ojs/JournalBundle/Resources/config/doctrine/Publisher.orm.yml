@@ -42,7 +42,7 @@ Ojs\JournalBundle\Entity\Publisher:
             cache:
                 usage: NONSTRICT_READ_WRITE
         country:
-            targetEntity: OkulBilisim\LocationBundle\Entity\Country
+            targetEntity: BulutYazilim\LocationBundle\Entity\Country
             joinColumn:
                   name: country_id
                   referencedColumnName: id

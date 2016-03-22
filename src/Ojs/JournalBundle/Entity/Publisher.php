@@ -9,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\UserBundle\Entity\User;
-use OkulBilisim\LocationBundle\Entity\Country;
-use OkulBilisim\LocationBundle\Entity\Province;
+use BulutYazilim\LocationBundle\Entity\Country;
+use BulutYazilim\LocationBundle\Entity\Province;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 

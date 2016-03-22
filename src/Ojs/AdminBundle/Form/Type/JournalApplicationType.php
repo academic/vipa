@@ -2,13 +2,11 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Form\Type\ApplicationJournalContactType;
 use Ojs\JournalBundle\Form\Type\JournalApplicationUploadFileType;
-use Ojs\JournalBundle\Form\Type\JournalContactType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,7 +41,7 @@ class JournalApplicationType extends AbstractType
                 'country',
                 'entity',
                 array(
-                    'class' => 'OkulBilisimLocationBundle:Country',
+                    'class' => 'BulutYazilimLocationBundle:Country',
                     'label' => 'journal.country',
                     'attr' => ['class' => 'select2-element validate[required]'],
                 )

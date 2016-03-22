@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\PublisherRepository;
@@ -191,7 +190,7 @@ class JournalType extends AbstractType
                 'entity',
                 [
                     'label' => 'country',
-                    'class' => 'OkulBilisim\LocationBundle\Entity\Country',
+                    'class' => 'BulutYazilim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element ',
                     ],

@@ -6,8 +6,6 @@ use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
-use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
 
 class UpdateUserType extends AbstractType
 {
@@ -89,7 +87,7 @@ class UpdateUserType extends AbstractType
                 ]
             )
             ->add('country', 'entity', array(
-                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'class'         => 'BulutYazilim\LocationBundle\Entity\Country',
                 'required'      => false,
                 'label'         => 'Country',
                 'empty_value'   => 'Select Country',

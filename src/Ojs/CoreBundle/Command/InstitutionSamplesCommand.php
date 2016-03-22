@@ -44,7 +44,7 @@ class InstitutionSamplesCommand extends ContainerAwareCommand
     {
         $output->writeln('Creating sample institutions...');
         $getInstitutions = $this->getInstitutionsFromFile($input, $output);
-        $findCountry = $this->em->getRepository('OkulBilisimLocationBundle:Country')->find(216);
+        $findCountry = $this->em->getRepository('BulutYazilimLocationBundle:Country')->find(216);
 
         foreach($getInstitutions as $institutionName){
             $institutionName = trim($institutionName);

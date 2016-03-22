@@ -13,7 +13,7 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\CoreBundle\Entity\ThemeInterface;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\UserBundle\Entity\User;
-use OkulBilisim\LocationBundle\Entity\Country;
+use BulutYazilim\LocationBundle\Entity\Country;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 

@@ -2,7 +2,6 @@
 
 namespace Ojs\AdminBundle\Controller;
 
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -14,10 +13,6 @@ use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\Lang;
-use Ojs\JournalBundle\Entity\Publisher;
-use Ojs\JournalBundle\Entity\Subject;
-use OkulBilisim\LocationBundle\Entity\Country;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;

@@ -102,7 +102,7 @@ class JournalNewUserType extends AbstractType
                 ),
                 'label' => 'Avatar'
             ))->add('country', 'entity', array(
-                'class'         => 'OkulBilisim\LocationBundle\Entity\Country',
+                'class'         => 'BulutYazilim\LocationBundle\Entity\Country',
                 'required'      => false,
                 'label' => 'country',
                 'empty_value'   => 'Select Country',

@@ -308,7 +308,7 @@ fos_elastica:
               type: string
           persistence:
             driver: orm
-            model: OkulBilisim\LocationBundle\Entity\Country
+            model: BulutYazilim\LocationBundle\Entity\Country
             provider: ~
             listener: ~
             finder: ~

@@ -48,11 +48,11 @@ ojs_user:
   type: annotation
 
 ojs_location:
-  resource: '@OkulBilisimLocationBundle/Resources/config/routing.yml'
+  resource: '@BulutYazilimLocationBundle/Resources/config/routing.yml'
   prefix:   /
 
 feedback:
-  resource: '@OkulBilisimFeedbackBundle/Resources/config/routing.yml'
+  resource: '@BulutYazilimFeedbackBundle/Resources/config/routing.yml'
   prefix:   /
 
 oneup_uploader:

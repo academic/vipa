@@ -150,7 +150,7 @@ class InstallCommand extends ContainerAwareCommand
             try {
                 $location = $this
                         ->getContainer()->get('kernel')
-                        ->getRootDir() . '/../vendor/okulbilisim/location-bundle/Resources/data/location.sql';
+                        ->getRootDir() . '/../vendor/bulutyazilim/location-bundle/Resources/data/location.sql';
                 $locationSql = file_get_contents($location);
 
                 $driver = $this->getContainer()->getParameter('database_driver');

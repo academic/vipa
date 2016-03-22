@@ -26,7 +26,7 @@ Ojs\JournalBundle\Entity\Author:
       inversedBy: authorDetails
       cascade: ["persist"]
     country:
-      targetEntity: OkulBilisim\LocationBundle\Entity\Country
+      targetEntity: BulutYazilim\LocationBundle\Entity\Country
       joinColumn:
         name: country_id
         referencedColumnName: id
