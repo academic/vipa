@@ -29,7 +29,9 @@ class JournalPageType extends AbstractType
             ->add('visible', 'checkbox', [
                 'required' => false
             ])
-            ->add('tags', 'tags');
+            ->add('tags', 'tags', [
+                'required' => true,
+            ]);
     }
 
     /**

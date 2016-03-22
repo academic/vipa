@@ -228,7 +228,11 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
 
     public function __toString()
     {
-        return $this->getTitle();
+        if(is_string($this->getTitle())){
+            return $this->getTitle();
+        }else{
+            return $this->translations->first()->getTitle();
+        }
     }
 }
 
