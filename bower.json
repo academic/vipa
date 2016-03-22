@@ -1,10 +1,10 @@
 {
   "name": "Ojs",
   "version": "0.0.1",
-  "homepage": "http://okulbilisim.com",
+  "homepage": "http://bulutyazilim.com",
   "authors": [
-    "OkulBilişim <info@okulbilisim.com>",
-    "https://github.com/okulbilisim/ojs/graphs/contributors"
+    "Bulut Yazilim <info@okulbilisim.com>",
+    "https://github.com/ojs/ojs/graphs/contributors"
   ],
   "description": "Open Journal Software",
   "license": "",
