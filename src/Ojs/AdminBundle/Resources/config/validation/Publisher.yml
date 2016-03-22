@@ -5,3 +5,5 @@ Ojs\JournalBundle\Entity\Publisher:
     properties:
         name:
           - NotBlank: ~
+        email:
+          - Email: ~
