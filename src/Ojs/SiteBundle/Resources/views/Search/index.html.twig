@@ -336,12 +336,10 @@
                                     {% for resultData in result.data %}
                                         <li class="result-of-{{ key }}" {% if loop.first %}value="{{ 20 * (page - 1) + 1 }}"{% endif %}>
                                             {% if key == 'journal' %}
-                                                {% set journal = resultData %}
+                                                {% set journal = resultData.source %}
                                                 {% set url = resultData.detail.route %}
                                                 {% set journal = journal|merge({'title':resultData.detail.name}) %}
-                                                {% include '::journal.html.twig' %}
-                                            {% elseif key == 'author' %}
-                                                <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a> ({{ resultData.detail.route }})
+                                                {% include 'journal.html.twig' %}
                                             {% else %}
                                                 <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a> ({{ resultData.detail.route }})
                                             {% endif %}
