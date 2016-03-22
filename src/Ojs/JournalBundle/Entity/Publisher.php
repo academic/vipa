@@ -17,7 +17,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Publisher
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,email,verified")
+ * @GRID\Source(columns="id,name,email,verified,status")
  * @GRID\Source(columns="id,name,status", groups={"application"})
  */
 class Publisher extends AbstractTranslatable
@@ -165,6 +165,15 @@ class Publisher extends AbstractTranslatable
      * @GRID\Column(title="verified")
      */
     private $verified = false;
+
+    /**
+     * @var int
+     * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={
+     *     "-1"="application.status.rejected",
+     *     "0"="application.status.onhold",
+     *     "1"="application.status.complete"
+     * })
+     */
     private $status = 0;
     /**
      * @var ArrayCollection|User[]
