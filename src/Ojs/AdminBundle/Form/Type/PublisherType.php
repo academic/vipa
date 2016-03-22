@@ -3,6 +3,8 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Params\PublisherStatuses;
+use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\PublisherRepository;
 use OkulBilisim\LocationBundle\Form\EventListener\AddCountryFieldSubscriber;
 use OkulBilisim\LocationBundle\Form\EventListener\AddProvinceFieldSubscriber;
@@ -66,6 +68,14 @@ class PublisherType extends AbstractType
                     'attr' => [
                         'class' => "validate[required]",
                     ],
+                ]
+            )
+            ->add(
+                'status',
+                'choice',
+                [
+                    'label' => 'status',
+                    'choices' => Publisher::$statuses,
                 ]
             )
             ->add(

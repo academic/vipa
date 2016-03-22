@@ -998,7 +998,7 @@ class Publisher extends AbstractTranslatable
      */
     public function isIndexable()
     {
-        if($this->getStatus() == self::$statuses[PublisherStatuses::STATUS_COMPLETE ] && $this->isVerified()){
+        if($this->getStatus() == self::$statuses[PublisherStatuses::STATUS_COMPLETE] && $this->isVerified()){
             return true;
         }
         return false;
