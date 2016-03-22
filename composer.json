@@ -13,68 +13,91 @@
     "email": "hi@ojs.io"
   },
   "autoload": {
-    "psr-0": {
-      "": "src/"
-    }
+    "psr-4": {
+      "Ojs\\": "src/Ojs"
+    },
+    "classmap": [
+      "app/AppKernel.php",
+      "app/AppCache.php"
+    ]
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/bulutyazilim/JMSTranslationBundle.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/bulutyazilim/ProblematicAclManagerBundle.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/bulutyazilim/FOSUserBundle.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/bulutyazilim/FOSElasticaBundle.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/bulutyazilim/Faker.git"
+    }
+  ],
   "require": {
-    "php": ">=5.3.3",
-    "symfony/symfony": "~2.7",
+    "php": ">=5.5.9",
+    "symfony/symfony": "~2.8",
     "doctrine/orm": "~2.5",
-    "doctrine/doctrine-bundle": "~1.5",
-    "twig/extensions": "1.2.*",
-    "symfony/assetic-bundle": "~2.6",
+    "doctrine/doctrine-bundle": "~1.6",
+    "twig/extensions": "~1.3",
+    "symfony/assetic-bundle": "~2.8",
     "symfony/swiftmailer-bundle": "~2.3",
-    "symfony/monolog-bundle": "~2.7",
+    "symfony/monolog-bundle": "~2.10",
     "sensio/distribution-bundle": "~2.3",
     "sensio/framework-extra-bundle": "~3.0",
     "sensio/generator-bundle": "~2.5",
     "incenteev/composer-parameter-handler": "~2.1",
-    "doctrine/doctrine-fixtures-bundle": "2.2.*",
-    "friendsofsymfony/rest-bundle": "1.7.1",
-    "jms/serializer-bundle": "@dev",
-    "nelmio/api-doc-bundle": "2.11.2",
+    "doctrine/doctrine-fixtures-bundle": "~2.3",
+    "friendsofsymfony/rest-bundle": "~1.7",
+    "jms/serializer-bundle": "~1.1",
+    "nelmio/api-doc-bundle": "~2.12",
     "stof/doctrine-extensions-bundle": "~1.2",
-    "caseyamcl/Phpoaipmh": "v2.4",
-    "knplabs/knp-paginator-bundle": "2.4.2",
-    "friendsofsymfony/elastica-bundle": "dev-master",
-    "braincrafted/bootstrap-bundle": "~2.0",
+    "caseyamcl/Phpoaipmh": "~2.4",
+    "knplabs/knp-paginator-bundle": "~2.5",
+    "friendsofsymfony/elastica-bundle": "~4.0",
+    "braincrafted/bootstrap-bundle": "~2.2",
     "ircmaxell/password-compat": "~1.0",
     "pagerfanta/pagerfanta": "1.0.3",
-    "white-october/pagerfanta-bundle": "1.0.*@dev",
-    "apy/datagrid-bundle": "2.2.16",
-    "okulbilisim/feedback-bundle": "dev-master",
-    "ojs/import-bundle": "dev-master",
-    "jms/di-extra-bundle": "~1.5",
+    "white-october/pagerfanta-bundle": "~1.0",
+    "apy/datagrid-bundle": "~2.2",
+    "bulutyazilim/feedback-bundle": "~2.0",
+    "ojs/import-bundle": "~1.0",
+    "jms/di-extra-bundle": "~1.7",
     "stephanecollot/datetimepicker-bundle": "~1.0",
-    "problematic/acl-manager-bundle": "dev-master",
-    "a2lix/translation-form-bundle": "^2.0",
-    "prezent/doctrine-translatable-bundle": "dev-master",
-    "friendsofsymfony/jsrouting-bundle": "^1.5",
-    "jbouzekri/file-uploader-bundle": "dev-master",
-    "norzechowicz/aceeditor-bundle": "0.1.*",
-    "friendsofsymfony/user-bundle": "~2.0@dev",
+    "problematic/acl-manager-bundle": "~1.0",
+    "a2lix/translation-form-bundle": "~2.1",
+    "prezent/doctrine-translatable-bundle": "~1.0",
+    "friendsofsymfony/jsrouting-bundle": "~1.6",
+    "jbouzekri/file-uploader-bundle": "~3.1",
+    "norzechowicz/aceeditor-bundle": "~0.1",
+    "friendsofsymfony/user-bundle": "~2.0",
     "hwi/oauth-bundle": "0.4.*@dev",
-    "knplabs/knp-menu-bundle": "~2",
-    "wikimedia/composer-merge-plugin": "^1.2",
-    "jms/translation-bundle": "dev-master",
-    "okulbilisim/location-bundle": "dev-master",
-    "tetranz/select2entity-bundle": "2.*",
-    "baskin/history-bundle": "dev-master",
-    "presta/sitemap-bundle": "dev-master",
-    "openjournalsoftware/bibtex": "dev-master",
-    "exercise/htmlpurifier-bundle": "*"
+    "knplabs/knp-menu-bundle": "~2.1",
+    "wikimedia/composer-merge-plugin": "~1.3",
+    "jms/translation-bundle": "~2.0",
+    "bulutyazilim/location-bundle": "~1.0",
+    "tetranz/select2entity-bundle": "~2.3",
+    "baskin/history-bundle": "~1.0",
+    "presta/sitemap-bundle": "~1.4",
+    "openjournalsoftware/bibtex": "~0.2",
+    "exercise/htmlpurifier-bundle": "~0.2"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
-    "fzaninotto/faker": "dev-master",
+    "fzaninotto/faker": "~1.6",
     "nelmio/alice": "1.7.2",
     "h4cc/alice-fixtures-bundle": "~0.5"
   },
   "scripts": {
-    "post-root-package-install": [
-      "SymfonyStandard\\Composer::hookRootPackageInstall"
-    ],
     "post-install-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
       "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
