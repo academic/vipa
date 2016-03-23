@@ -351,7 +351,7 @@ class DesignController extends Controller
 
         $requestedDesign = $em->getRepository('OjsJournalBundle:Design')->find($id);
 
-        if ($requestedDesign === $journal->getDesign()) {
+        if ($requestedDesign->getId() === $journal->getDesign()->getId()) {
             $this->errorFlashBag('journal.design.cannot_delete_active');
         } else {
             $csrf = $this->get('security.csrf.token_manager');
