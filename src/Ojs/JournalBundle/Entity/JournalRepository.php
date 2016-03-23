@@ -316,7 +316,9 @@ class JournalRepository extends EntityRepository
     {
         $years = [];
         foreach($journal->getIssues() as $issue){
-            $years[$issue->getYear()][] = $issue;
+            if($issue->isPublished()){
+                $years[$issue->getYear()][] = $issue;
+            }
         }
         ksort($years);
         return array_reverse($years, true);
