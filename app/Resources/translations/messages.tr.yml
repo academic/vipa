@@ -1551,6 +1551,7 @@ pages: 'Sayfalar'
 user.title: 'Başlık'
 article.submitter: 'Gönderen'
 manage.journal: 'Dergiyi Yönet'
+about.publisher: 'Yayıncı Hakkında'
 
 # OAuth
 linkedin: 'Linkedin'
