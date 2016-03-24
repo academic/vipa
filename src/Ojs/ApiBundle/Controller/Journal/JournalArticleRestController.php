@@ -139,7 +139,7 @@ class JournalArticleRestController extends ApiController
                 'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_themes', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_article', $routeOptions, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -191,7 +191,7 @@ class JournalArticleRestController extends ApiController
                 'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_theme', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_article', $routeOptions, $statusCode);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -234,7 +234,7 @@ class JournalArticleRestController extends ApiController
                 'journalId' => $journalService->getSelectedJournal()->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_theme', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_article', $routeOptions, Codes::HTTP_NO_CONTENT);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
