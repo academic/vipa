@@ -285,7 +285,7 @@ citation.setting.list: 'Ayar Listesi'
 citation.setting.new: 'Yeni Referans Ayarı'
 citation.type: 'Referans Tipi'
 citation.raw: 'Ham Referanslar'
-citation.raw.help: 'Referanslarınızı buraya işlenmesi için yapıştırabilirsiniz veya aşağıdaki formlar aracılığıyla tek tek girebilirsiniz.'
+citation.raw.help: 'Referanslarınızı buraya işlenmesi için 10ar 10ar girip, parçalanması için beklemelisiniz.'
 citations: Referanslar
 city: Şehir
 cms: İYS
