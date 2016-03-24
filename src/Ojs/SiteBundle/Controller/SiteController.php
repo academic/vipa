@@ -138,7 +138,10 @@ class SiteController extends Controller
         $data['design'] = $journal->getDesign();
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['years'] = $this->setupIssuesURIsByYear(array_slice($journalRepo->getIssuesByYear($journal), 0, 5, true));
-        $data['last_issue'] = $this->setupArticleURIs($issueRepo->getLastIssueByJournal($journal));
+        $data['last_issue'] = $this->setupArticleURIs($issueRepo->findOneBy([
+            'lastIssue' => true,
+            'journal' => $journal,
+        ]));
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
 
