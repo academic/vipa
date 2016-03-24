@@ -18,7 +18,9 @@ class BoardType extends AbstractType
         $builder
             ->add('translations', 'a2lix_translations',[
                 'fields' => [
-                    'name' => [],
+                    'name' => [
+                        'label' => 'board.name'
+                    ],
                     'description' => [
                         'required' => false
                     ],
