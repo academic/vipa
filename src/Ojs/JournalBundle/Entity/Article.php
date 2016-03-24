@@ -1142,11 +1142,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      */
     public function getTitle()
     {
-        if(!is_null($this->translate()->getTitle())){
-            return $this->translate()->getTitle();
-        }else{
-            return $this->translations->first()->getTitle();
-        }
+        return $this->getLogicalFieldTranslation('title');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Entity;
 
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\TranslationInterface;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 trait TranslateableTrait
 {
@@ -111,5 +112,26 @@ trait TranslateableTrait
     {
         $this->currentTranslation = $currentTranslation;
         return $this;
+    }
+
+    /**
+     * @param string $field
+     * @return mixed
+     */
+    public function getLogicalFieldTranslation($field)
+    {
+        $accessor = PropertyAccess::createPropertyAccessor();
+
+        $fieldValue = $accessor->getValue($this->translate(), $field);
+        if(!empty($fieldValue) && $fieldValue !== '-'){
+            return '['.$this->getCurrentLocale().']'.$fieldValue;
+        }
+        foreach($this->translations as $translation){
+            $fieldValue = $accessor->getValue($translation, $field);
+            if(!empty($fieldValue) && $fieldValue !== '-'){
+                return '['.$translation->getLocale().']'.$fieldValue;
+            }
+        }
+        return '';
     }
 }
