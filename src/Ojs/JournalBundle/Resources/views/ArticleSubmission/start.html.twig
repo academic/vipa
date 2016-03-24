@@ -6,6 +6,16 @@
     {% stylesheets '@submission_css' output="assets/prod/css/submission.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
     {% endstylesheets %}
+    <style>
+        .fileinput-button input {
+            font-size: 40px !important;
+            width: 95px;
+            height: 40px;
+            cursor: pointer;
+            top: -10px;
+            left: -10px;
+        }
+    </style>
 {% endblock %}
 
 {% block body -%}
