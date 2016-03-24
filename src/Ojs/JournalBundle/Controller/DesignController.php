@@ -344,14 +344,14 @@ class DesignController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal(false);
         if (!$this->isGranted('DELETE', $journal, 'design')) {
             throw new AccessDeniedException("You are not authorized for view this journal's sections!");
         }
 
         $requestedDesign = $em->getRepository('OjsJournalBundle:Design')->find($id);
 
-        if ($requestedDesign->getId() === $journal->getDesign()->getId()) {
+        if ($journal->getDesign() !== null && ($requestedDesign->getId() === $journal->getDesign()->getId())) {
             $this->errorFlashBag('journal.design.cannot_delete_active');
         } else {
             $csrf = $this->get('security.csrf.token_manager');
