@@ -19,9 +19,10 @@ class JournalContactType extends AbstractType
             ->add('contactType', null, ['label' => 'contact.type'])
             ->add('fullName', 'text', ['label' => 'fullname'])
             ->add('title')
-            ->add('address', 'textarea', [
+            ->add('address', 'purified_textarea', [
                 'required' => false,
-                'label' => 'address'
+                'label' => 'address',
+                'attr' => array('class' => ' form-control wysihtml5'),
             ])
             ->add('phone', 'text', [
                 'label' => 'phone',

@@ -52,7 +52,7 @@
                             <br/>
                             <strong>{{ "email"|trans }}:</strong> {{ contact.email }} <br/>
                             <strong>{{ "phone"|trans }}:</strong> {{ contact.phone }} <br/>
-                            <strong>{{ "address"|trans }}:</strong> {{ contact.address }} <br/>
+                            <strong>{{ "address"|trans }}:</strong> {{ contact.address|raw }} <br/>
                         </div>
                     {% endfor %}
 
