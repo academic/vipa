@@ -1552,6 +1552,7 @@ user.title: 'Başlık'
 article.submitter: 'Gönderen'
 manage.journal: 'Dergiyi Yönet'
 about.publisher: 'Yayıncı Hakkında'
+oto.generate: 'Otomatik Oluştur'
 
 # OAuth
 linkedin: 'Linkedin'

@@ -58,10 +58,14 @@ trait TranslateableTrait
 
     /**
      * @param mixed $currentLocale
+     *
+     * @return $this
      */
     public function setCurrentLocale($currentLocale)
     {
         $this->currentLocale = $currentLocale;
+
+        return $this;
     }
 
     /**

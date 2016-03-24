@@ -17,6 +17,11 @@
             {{ "c"|trans }}
         </a>
     {% endif %}
+    {% if is_granted('CREATE', selectedJournal(), 'boards') %}
+        <a href="{{ path('ojs_journal_board_oto_generate', {'journalId': selectedJournal().id}) }}" class="btn btn-info">
+            {{ "oto.generate"|trans }}
+        </a>
+    {% endif %}
 
     <hr>
     {{ grid(grid) }}

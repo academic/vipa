@@ -475,4 +475,49 @@ class BoardController extends Controller
             ['id' => $boardId, 'journalId' => $journal->getId()]
         );
     }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function otoGenerateAction(Request $request)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('EDIT', $journal, 'boards')) {
+            throw new AccessDeniedException("You not authorized for edit this journal's board!");
+        }
+        $em = $this->getDoctrine()->getManager();
+        $translator = $this->get('translator');
+
+        $getEditorUsers = $em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
+            ['ROLE_EDITOR']
+        );
+
+        $board = new Board();
+        $board->setJournal($journal);
+        foreach($this->getParameter('locale_support') as $localeCode){
+            $board
+                ->setCurrentLocale($localeCode)
+                ->setName($translator->trans('board', [], null, $localeCode))
+                ->setDescription($translator->trans('board', [], null, $localeCode))
+                ;
+        }
+        $counter = 1;
+        foreach($getEditorUsers as $user){
+            $boardMember = new BoardMember();
+            $boardMember
+                ->setBoard($board)
+                ->setUser($user)
+                ->setSeq($counter);
+            $counter = $counter+1;
+            $board->addBoardMember($boardMember);
+            $em->persist($boardMember);
+        }
+        $em->persist($board);
+        $em->flush();
+
+        $this->successFlashBag('successfully.created');
+        return $this->redirectToRoute('ojs_journal_board_index', [
+            'journalId' => $journal->getId()
+        ]);
+    }
 }

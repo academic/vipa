@@ -37,3 +37,7 @@ ojs_journal_board_member_add:
 ojs_journal_board_member_remove:
     path:  /{journalId}/board/{boardId}/member/{id}/remove
     defaults: { _controller: "OjsJournalBundle:Board:removeMember" }
+
+ojs_journal_board_oto_generate:
+    path:  /{journalId}/board/oto-generate
+    defaults: { _controller: "OjsJournalBundle:Board:otoGenerate" }

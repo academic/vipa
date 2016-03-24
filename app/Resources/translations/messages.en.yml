@@ -1559,6 +1559,7 @@ user.title: 'Title'
 article.submitter: 'Submitter'
 manage.journal: 'Manage Journal'
 about.publisher: 'About Publisher'
+oto.generate: 'Automatic Generate'
 
 # OAuth
 linkedin: 'Linkedin'
