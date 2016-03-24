@@ -81,6 +81,18 @@ class IssueController extends Controller
         );
 
         $rowAction[] = $articleAction;
+
+        $lastIssueAction = new RowAction('<i class="fa fa-cog"></i>', 'ojs_journal_issue_make_last');
+        $lastIssueAction->setRouteParameters(['journalId' => $journal->getId(), 'id']);
+        $lastIssueAction->setAttributes(
+            [
+                'class' => 'btn btn-success btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->get('translator')->trans("make.last.issue"),
+            ]
+        );
+
+        $rowAction[] = $lastIssueAction;
         if ($this->isGranted('EDIT', $journal, 'issues')) {
             $rowAction[] = $gridAction->editAction('ojs_journal_issue_edit', ['id', 'journalId' => $journal->getId()]);
         }
@@ -574,5 +586,36 @@ class IssueController extends Controller
         $this->successFlashBag('successful.remove');
 
         return $this->redirect($referrer);
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function makeLastIssueAction($id)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        if (!$this->isGranted('EDIT', $journal, 'issues')) {
+            throw new AccessDeniedException("You are not authorized for this page");
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $findSelectedIssue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
+        $this->throw404IfNotFound($findSelectedIssue);
+
+        $findLastIssues = $em->getRepository('OjsJournalBundle:Issue')->findBy([
+            'lastIssue' => true
+        ]);
+        foreach($findLastIssues as $issue){
+            $issue->setLastIssue(false);
+        }
+        $findSelectedIssue->setLastIssue(true);
+        $em->flush();
+        $this->successFlashBag('successfully.set.as.last.issue');
+
+        return $this->redirectToRoute('ojs_journal_issue_index', [
+            'journalId' => $journal->getId()
+        ]);
     }
 }

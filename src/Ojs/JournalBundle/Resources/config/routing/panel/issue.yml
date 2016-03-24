@@ -44,3 +44,7 @@ ojs_journal_issue_article_remove:
 ojs_journal_issue_view:
     path:     /{journalId}/issue/{id}/article
     defaults: { _controller: "OjsJournalBundle:Issue:view" }
+
+ojs_journal_issue_make_last:
+    path:     /{journalId}/issue/{id}/make-last
+    defaults: { _controller: "OjsJournalBundle:Issue:makeLastIssue" }

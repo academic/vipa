@@ -1560,6 +1560,9 @@ article.submitter: 'Submitter'
 manage.journal: 'Manage Journal'
 about.publisher: 'About Publisher'
 oto.generate: 'Automatic Generate'
+make.last.issue: 'Make Last Issue'
+successfully.set.as.last.issue: 'Successfully set as last issue'
+last.issue: 'Last Issue'
 
 # OAuth
 linkedin: 'Linkedin'

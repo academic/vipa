@@ -14,7 +14,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
 /**
  * Issue
- * @GRID\Source(columns="id,volume,number,translations.title,year,datePublished")
+ * @GRID\Source(columns="id,volume,number,translations.title,year,datePublished,lastIssue")
  * @JMS\ExclusionPolicy("all")
  */
 class Issue extends AbstractTranslatable implements JournalItemInterface
@@ -83,6 +83,12 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @JMS\Groups({"IssueDetail"})
      */
     private $special = false;
+
+    /**
+     * @var boolean
+     * @GRID\Column(title="last.issue")
+     */
+    private $lastIssue = false;
 
     /**
      * @var string
@@ -713,10 +719,14 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @param string $publicURI
+     *
+     * @return $this
      */
     public function setPublicURI($publicURI)
     {
         $this->publicURI = $publicURI;
+
+        return $this;
     }
 
     /**
@@ -729,9 +739,33 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @param int $numerator
+     *
+     * @return $this
      */
     public function setNumerator($numerator)
     {
         $this->numerator = $numerator;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLastIssue()
+    {
+        return $this->lastIssue;
+    }
+
+    /**
+     * @param boolean $lastIssue
+     *
+     * @return $this
+     */
+    public function setLastIssue($lastIssue)
+    {
+        $this->lastIssue = $lastIssue;
+
+        return $this;
     }
 }

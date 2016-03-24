@@ -95,6 +95,11 @@ Ojs\JournalBundle\Entity\Issue:
       nullable: true
       gedmo:
         - versioned
+    lastIssue:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
     public:
         type: boolean
         nullable: true

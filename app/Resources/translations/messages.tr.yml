@@ -1553,6 +1553,9 @@ article.submitter: 'Gönderen'
 manage.journal: 'Dergiyi Yönet'
 about.publisher: 'Yayıncı Hakkında'
 oto.generate: 'Otomatik Oluştur'
+make.last.issue: 'Son Sayı Yap'
+successfully.set.as.last.issue: 'Başarıyla son sayı olarak işeretlendi'
+last.issue: 'Son Sayı'
 
 # OAuth
 linkedin: 'Linkedin'
