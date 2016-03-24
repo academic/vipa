@@ -290,7 +290,6 @@ class SiteController extends Controller
                 'journal' => $journal
             ]
         );
-        $this->throw404IfNotFound($issues);
         $groupedIssues = [];
         foreach ($issues as $issue) {
             $groupedIssues[$issue->getYear()][] = $issue;
