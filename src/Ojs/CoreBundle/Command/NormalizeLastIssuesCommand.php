@@ -4,16 +4,12 @@ namespace Ojs\CoreBundle\Command;
 
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\PeriodTranslation;
-use Ojs\JournalBundle\Entity\PublisherTypesTranslation;
-use Ojs\JournalBundle\Entity\SubjectTranslation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class NormalizeLastIssuesCommand extends ContainerAwareCommand
 {
@@ -42,7 +38,6 @@ class NormalizeLastIssuesCommand extends ContainerAwareCommand
     {
         $this->em           = $this->getContainer()->get('doctrine')->getManager();
         $this->io           = new SymfonyStyle($input, $output);
-        $this->locale = $this->getContainer()->getParameter('locale');
     }
 
     /**

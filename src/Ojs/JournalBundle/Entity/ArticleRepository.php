@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Class ArticleRepository
@@ -15,7 +16,7 @@ class ArticleRepository extends EntityRepository
      * @param  int $status
      * @return Article[]
      */
-    public function getArticlesUnissued($status = 1)
+    public function getArticlesUnissued($status = ArticleStatuses::STATUS_PUBLISHED)
     {
         $q = $this->createQueryBuilder('a')
             ->select('a')
@@ -34,7 +35,7 @@ class ArticleRepository extends EntityRepository
      * @param  int $status default 1 (published)  see Ojs\JournalBundle\Entity\Article
      * @return Article[]
      */
-    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 1)
+    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = ArticleStatuses::STATUS_PUBLISHED)
     {
         $q = $this->createQueryBuilder('a')
             ->select('a')
