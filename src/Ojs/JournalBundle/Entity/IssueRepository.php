@@ -56,4 +56,26 @@ class IssueRepository extends EntityRepository
         }
         return null;
     }
+
+    public function getIds()
+    {
+        $query = $this
+            ->createQueryBuilder('issue')
+            ->select('issue.id')
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
+    
+    public function getIdsByJournal(Journal $journal)
+    {
+        $query = $this
+            ->createQueryBuilder('issue')
+            ->select('issue.id')
+            ->where('issue.journal = :journal')
+            ->setParameter('journal', $journal)
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
 }

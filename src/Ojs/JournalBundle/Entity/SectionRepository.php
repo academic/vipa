@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class SectionRepository extends EntityRepository
 {
+    public function getIds()
+    {
+        $query = $this
+            ->createQueryBuilder('section')
+            ->select('section.id')
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
+
+    public function getIdsByJournal(Journal $journal)
+    {
+        $query = $this
+            ->createQueryBuilder('section')
+            ->select('section.id')
+            ->where('section.journal = :journal')
+            ->setParameter('journal', $journal)
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
 }

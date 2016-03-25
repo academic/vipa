@@ -81,4 +81,14 @@ class ArticleRepository extends EntityRepository
             ->setParameter("value", $value);
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function getIds()
+    {
+        $query = $this
+            ->createQueryBuilder('article')
+            ->select('article.id')
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
 }
