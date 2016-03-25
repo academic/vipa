@@ -10,3 +10,4 @@
     special: 0
     tags: "fisrt issue, ojs"
     description: <text(50)>
+    sections: [@section1]

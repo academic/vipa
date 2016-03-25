@@ -319,6 +319,9 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($article1);
         $em->flush();
 
+        $issue->addSection($section);
+        $em->flush();
+
         $articleAuthor = new ArticleAuthor();
         $articleAuthor->setAuthor($author);
         $articleAuthor->setArticle($article1);
