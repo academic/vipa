@@ -118,5 +118,13 @@ class AdminFile
     {
         $this->size = $size;
     }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
 

@@ -109,5 +109,13 @@ class AdminAnnouncement
     {
         $this->image = $image;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
 

@@ -177,6 +177,7 @@ class AdminPage extends AbstractTranslatable
     {
         return $this->visible;
     }
+
     /**
      * Set visible
      *
@@ -188,5 +189,12 @@ class AdminPage extends AbstractTranslatable
         $this->visible = $visible;
         return $this;
     }
-}
 
+    /**
+     * @return string
+     */
+   public function __toString()
+   {
+       return $this->getTitle();
+   }
+}

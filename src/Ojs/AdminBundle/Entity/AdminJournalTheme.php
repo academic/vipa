@@ -93,4 +93,12 @@ class AdminJournalTheme implements ThemeInterface
     {
         $this->public = $public;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
