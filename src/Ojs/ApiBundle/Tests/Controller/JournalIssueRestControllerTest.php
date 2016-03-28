@@ -180,4 +180,18 @@ class JournalIssueRestControllerTest extends BaseTestCase
         $response = $this->client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
     }
+
+    public function testGetAddArticleAction()
+    {
+        $routeParameters = $this->getRouteParams([
+            'journalId' => 1,
+            'issueId'   => 1,
+            'articleId' => 1,
+            'sectionId' => 1,
+        ]);
+        $url = $this->router->generate('api_1_get_add_article', $routeParameters);
+        $this->client->request('GET', $url);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
 }
