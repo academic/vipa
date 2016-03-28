@@ -27,10 +27,10 @@ class ApiHandlerHelper
         ImagineExtension $imagine,
         RequestStack $requestStack
     ) {
-        $this->kernel = $kernel;
-        $this->reader = $reader;
-        $this->imagine = $imagine;
-        $this->requestStack = $requestStack;
+        $this->kernel           = $kernel;
+        $this->reader           = $reader;
+        $this->imagine          = $imagine;
+        $this->requestStack     = $requestStack;
     }
 
     /**
@@ -82,5 +82,13 @@ class ApiHandlerHelper
             }
         }
         return $entity;
+    }
+
+    /**
+     * @return RequestStack
+     */
+    public function getRequestStack()
+    {
+        return $this->requestStack;
     }
 }
