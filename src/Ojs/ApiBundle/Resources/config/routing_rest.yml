@@ -214,6 +214,17 @@ api_journal_article_author:
       journalId:  \d+
       articleId:  \d+
 
+api_journal_article_citation:
+  type:         rest
+  resource:     "@OjsApiBundle/Controller/Journal/JournalArticleCitationRestController.php"
+  prefix:       /v1/journal/{journalId}/article/{articleId}
+  name_prefix:  api_1_article_
+  options:
+      api_view: "articlecitation"
+  requirements:
+      journalId:  \d+
+      articleId:  \d+
+
 api_analytics :
   type: rest
   resource:     "@OjsApiBundle/Controller/AnalyticsRestController.php"
