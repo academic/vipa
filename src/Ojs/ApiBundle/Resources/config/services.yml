@@ -47,6 +47,8 @@ parameters:
     ojs_api.journal_article.class: Ojs\JournalBundle\Entity\Article
     ojs_api.journal_article_file.handler.class: Ojs\ApiBundle\Handler\JournalArticleFileHandler
     ojs_api.journal_article_file.class: Ojs\JournalBundle\Entity\ArticleFile
+    ojs_api.journal_article_author.handler.class: Ojs\ApiBundle\Handler\JournalArticleAuthorHandler
+    ojs_api.journal_article_author.class: Ojs\JournalBundle\Entity\ArticleAuthor
 
 services:
     ojs_api.contact_type.handler:
@@ -121,6 +123,9 @@ services:
     ojs_api.journal_article_file.handler:
         class: "%ojs_api.journal_article_file.handler.class%"
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article_file.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
+    ojs_api.journal_article_author.handler:
+        class: "%ojs_api.journal_article_author.handler.class%"
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal_article_author.class%', '@form.factory', '@ojs.journal_service', '@kernel', '@ojs_api_handler_helper']
 
     ojs_api.twig.api_extension:
         class: Ojs\ApiBundle\Service\Twig\ApiTwigExtension
