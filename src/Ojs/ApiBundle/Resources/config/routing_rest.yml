@@ -192,6 +192,18 @@ api_journal_article:
   requirements:
       journalId:  \d+
 
+
+api_journal_article_file:
+  type:         rest
+  resource:     "@OjsApiBundle/Controller/Journal/JournalArticleFileRestController.php"
+  prefix:       /v1/journal/{journalId}/article/{articleId}
+  name_prefix:  api_1_article_
+  options:
+      api_view: "articlefile"
+  requirements:
+      journalId:  \d+
+      articleId:  \d+
+
 api_analytics :
   type: rest
   resource:     "@OjsApiBundle/Controller/AnalyticsRestController.php"
