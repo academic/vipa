@@ -544,7 +544,6 @@ class IssueController extends Controller
                 $em->persist($issue);
             }
             $article->setSection($section);
-            $article->setSection($section);
         }
 
         $em->persist($article);

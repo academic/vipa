@@ -2,12 +2,14 @@
 
 namespace Ojs\ApiBundle\Controller;
 
+use Doctrine\ORM\NoResultException;
 use Ojs\CoreBundle\Events\CoreEvents;
 use Ojs\CoreBundle\Events\PermissionEvent;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\UserBundle\Entity\User;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Api Base Controller controller.
@@ -58,5 +60,21 @@ class ApiController extends FOSRestController
         }
 
         return false;
+    }
+
+    /**
+     *
+     * @param  mixed $entity
+     * @param  string $message custom not found message
+     * @return boolean
+     * @throws NoResultException
+     */
+    protected function throw404IfNotFound($entity, $message = 'Not Found')
+    {
+        if (!$entity) {
+            throw new NotFoundHttpException('The resource not found.');
+        }
+
+        return true;
     }
 }

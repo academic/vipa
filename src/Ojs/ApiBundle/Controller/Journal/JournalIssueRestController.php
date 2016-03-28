@@ -4,9 +4,13 @@ namespace Ojs\ApiBundle\Controller\Journal;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations\Get;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Form\Type\IssueType;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
@@ -238,6 +242,65 @@ class JournalIssueRestController extends ApiController
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
+    }
+
+    /**
+     * Add article to issue
+     * @Get("/issues/{issueId}/add/article/{articleId}/section/{sectionId}")
+     * @ApiDoc(
+     *   resource = true,
+     *   statusCodes = {
+     *     201 = "Returned when the Issue is created",
+     *     204 = "Returned when successful",
+     *     400 = "Returned when the form has errors"
+     *   },
+     *   views = {"journalissue"},
+     *   section = "journalissue",
+     * )
+     *
+     * @param Request $request the request object
+     * @param int     $issueId      the Issue id
+     * @param int     $articleId      the Article id
+     * @param int     $sectionId      the Section id
+     *
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when Issue|Journal|Article|Section not exist
+     */
+    public function getAddArticleAction(Request $request, $issueId, $articleId, $sectionId)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (!$this->isGranted('CREATE', $journal, 'issues')) {
+            throw new AccessDeniedException;
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Issue $issue */
+        $issue = $this->getOr404($issueId);
+
+        /** @var Article $article */
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        $this->throw404IfNotFound($article, 'article not found');
+
+        $section = $em->getRepository('OjsJournalBundle:Section')->find($sectionId);
+        $this->throw404IfNotFound($section, 'please spesify section');
+
+        $article->setIssue($issue);
+
+        $sections = $issue->getSections();
+        if (!$sections->contains($section)) {
+            $issue->addSection($section);
+            $em->persist($issue);
+        }
+        $article->setSection($section);
+        $em->persist($article);
+        $em->flush();
+
+        return $this->view([
+            'success' => true,
+            'message' => 'successfully arranged article to issue'
+        ]);
     }
 
     /**
