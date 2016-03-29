@@ -1566,6 +1566,7 @@ last.issue: 'Last Issue'
 issue.arrange.article: 'Arrange Articles'
 successfully.article.added.to.issue: 'Successfully article added to issue'
 successfully.arranged.articles: 'Successfully arranged articles'
+you.can.multi.select.via.keyboard.crtl.button: 'You can multiselect via keyboard `s CTRL button on OSX cmd button'
 
 # OAuth
 linkedin: 'Linkedin'

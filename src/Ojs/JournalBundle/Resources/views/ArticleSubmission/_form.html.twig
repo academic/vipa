@@ -16,7 +16,10 @@
         <div class="panel-heading">{{ "article.metadata"|trans }}</div>
         <div class="panel-body">
             {{ form_row(form.articleType) }}
-            {{ form_row(form.subjects) }}
+            {{ form_label(form.subjects) }}
+            <small>({{ 'you.can.multi.select.via.keyboard.crtl.button'|trans }})</small>
+            {{ form_widget(form.subjects) }}
+            <br>
             {{ form_row(form.translations) }}
             {{ form_row(form._token) }}
         </div>
