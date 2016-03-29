@@ -33,8 +33,7 @@ framework:
     name: %session_name%
   fragments:       ~
   http_method_override: true
-  validation:    { enabled: true}
-
+  validation:    { enable_annotations: true}
 # Twig Configuration
 twig:
   debug:            "%kernel.debug%"
