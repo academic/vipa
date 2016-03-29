@@ -75,32 +75,6 @@ class GridAction
     }
 
     /**
-     * @param $route
-     * @param $key
-     * @param  null      $role
-     * @param $mapping_key
-     * @return RowAction
-     */
-    public function switchUserAction($route, $key = 'id', $role = null, $mapping_key = 'username')
-    {
-        $rowAction = new RowAction('<i class="fa fa-sign-in"></i>', $route);
-        $rowAction->setAttributes(
-            [
-                'class' => 'btn btn-info btn-xs  ',
-                'data-toggle' => 'tooltip',
-                'title' => $this->translator->trans('login_as'),
-            ]
-        );
-        $rowAction->setRouteParameters($key);
-        $rowAction->setRouteParametersMapping([$mapping_key => '_su']);
-        if ($role) {
-            $rowAction->setRole($role);
-        }
-
-        return $rowAction;
-    }
-
-    /**
      * @param string $route
      * @param string $key
      * @param null $role
