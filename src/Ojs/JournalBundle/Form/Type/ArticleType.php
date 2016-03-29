@@ -2,10 +2,15 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleType extends AbstractType
@@ -17,7 +22,7 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        $form = $builder
             ->add('translations', 'a2lix_translations',[
                 'fields' => [
                     'title' => [
@@ -181,6 +186,25 @@ class ArticleType extends AbstractType
                 )
             ))
             ;
+        $form->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $data = $event->getData();
+            /** @var Article $article */
+            $article = $event->getForm()->getData();
+            if($data['doi'] !== $article->getDoi()) {
+
+                try {
+                    $client = new Client();
+                    $client->get('http://doi.org/api/handles/'.$data['doi']);
+                    $article->setDoiStatus(DoiStatuses::VALID);
+                }
+                catch(RequestException $e){
+                    $article->setDoiStatus(DoiStatuses::INVALID);
+                }
+                catch(\Exception $e) {
+                    $article->setDoiStatus(DoiStatuses::WAITING);
+                }
+            }
+        });
     }
 
     /**
@@ -191,7 +215,7 @@ class ArticleType extends AbstractType
         $resolver->setDefaults(
             array(
                 'journal' => new Journal(),
-                'data_class' => 'Ojs\JournalBundle\Entity\Article',
+                'data_class' => Article::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
