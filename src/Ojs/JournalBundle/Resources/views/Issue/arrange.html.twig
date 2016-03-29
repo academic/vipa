@@ -12,6 +12,7 @@
 
 {% block body %}
     <h1>{{ 'title.issue_arrange'|trans }} </h1>
+    {% include '::flashbag.html.twig' %}
     <ul>
         <li>
             <small>{{ "journal"|trans }} : <strong>{{ journal.title }}</strong></small>

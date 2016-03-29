@@ -1564,6 +1564,8 @@ make.last.issue: 'Make Last Issue'
 successfully.set.as.last.issue: 'Successfully set as last issue'
 last.issue: 'Last Issue'
 issue.arrange.article: 'Arrange Articles'
+successfully.article.added.to.issue: 'Successfully article added to issue'
+successfully.arranged.articles: 'Successfully arranged articles'
 
 # OAuth
 linkedin: 'Linkedin'

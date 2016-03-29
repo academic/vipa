@@ -482,7 +482,6 @@ class IssueController extends Controller
                 $em->persist($article);
             }
             $em->flush();
-
         }
 
         $articles = $articleRepo->getOrderedArticlesByIssue($issue, true);
@@ -495,6 +494,7 @@ class IssueController extends Controller
             'sections' => $sections,
             'articlesUnissued' => $articlesUnissued,
         ];
+        $this->successFlashBag('successfully.arranged.articles');
 
         return $this->render('OjsJournalBundle:Issue:arrange.html.twig', $data);
     }
@@ -548,6 +548,7 @@ class IssueController extends Controller
 
         $em->persist($article);
         $em->flush();
+        $this->successFlashBag('successfully.article.added.to.issue');
 
         return $this->redirect($request->headers->get('referer'));
     }
