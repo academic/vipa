@@ -1,8 +1,10 @@
 {% for block in blocks %}
     <div class="panel panel-{{ block.color|default("default") }}">
-        <div class="panel-heading">
-            <span class="panel-title">{{ block.title|trans }}</span>
-        </div>
+        {% if block.title is not empty %}
+            <div class="panel-heading">
+                <span class="panel-title">{{ block.title }}</span>
+            </div>
+        {% endif %}
         {{ block.content|raw }}
     </div>
 {% endfor %}

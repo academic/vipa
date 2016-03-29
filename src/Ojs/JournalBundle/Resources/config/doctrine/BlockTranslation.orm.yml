@@ -11,6 +11,7 @@ Ojs\JournalBundle\Entity\BlockTranslation:
       title:
           type: string
           length: 255
+          nullable: true
       content:
           type: text
-          nullable: TRUE
+          nullable: true

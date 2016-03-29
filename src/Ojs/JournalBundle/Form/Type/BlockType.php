@@ -19,7 +19,7 @@ class BlockType extends AbstractType
                 'label' => ' ',
                 'fields' => [
                     'title' => [
-                        'required' => true
+                        'required' => false
                     ],
                     'content' => [
                         'required' => false,
