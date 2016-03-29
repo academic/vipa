@@ -1275,4 +1275,23 @@ class Article extends AbstractTranslatable implements JournalItemInterface
         }
         return false;
     }
+
+    /**
+     * @return int
+     */
+    public function getDoiStatus()
+    {
+        return $this->doiStatus;
+    }
+
+    /**
+     * @param int $doiStatus
+     * @return Article
+     */
+    public function setDoiStatus($doiStatus)
+    {
+        $this->doiStatus = $doiStatus;
+
+        return $this;
+    }
 }
