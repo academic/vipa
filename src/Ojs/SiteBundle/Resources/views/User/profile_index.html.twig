@@ -33,8 +33,7 @@
                             alt=""
                             src="{% if user.avatar %}{{ user.avatar|imagine_filter('user_croped') }}{% endif %}"/>
                 </figure>
-                <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} /
-                    @{{ user.username }}</h1>
+                <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }}</h1>
                 <a href="{{ user.url }}" target="_blank">{{ user.url }}</a><br>
                 {% if user.city.country is defined %}
                     {{ user.city.country }}
