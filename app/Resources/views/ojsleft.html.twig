@@ -5,7 +5,12 @@
                 {% if selectedJournal() %}
                     <div class="panel-heading">
                         {{ selectedJournal().title }}
-                        <a class="btn btn-block text-center" href="{{ path('ojs_journal_dashboard_index', {journalId: selectedJournal().id}) }}">
+                        {% if selectedJournal().published %}
+                            {% set journalPublicLink = path('ojs_journal_index', {publisher: selectedJournal().publisher.slug, slug: selectedJournal().slug})  %}
+                        {% else %}
+                            {% set journalPublicLink = '#'  %}
+                        {% endif %}
+                        <a class="btn btn-block text-center" target="_blank" href="{{ journalPublicLink }}">
                             {% if selectedJournal().image %}
                                 <img src="{{ selectedJournal().image|imagine_filter('journal_croped') }}"
                                      class="avatar" title="{{ selectedJournal().title }}" width="150"/>
