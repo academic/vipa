@@ -10,6 +10,7 @@ use Elastica\Query;
 use Ojs\AdminBundle\Form\Type\JournalEditType;
 use Ojs\AdminBundle\Form\Type\JournalType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -161,6 +162,9 @@ class AdminJournalController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            if($entity->getStatus() == JournalStatuses::STATUS_PUBLISHED){
+                $entity->setPublished(true);
+            }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');
