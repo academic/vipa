@@ -221,14 +221,14 @@ class ArticleSubmissionController extends Controller
         $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
-            $k = 0;
+            $k = 1;
             foreach ($article->getArticleAuthors() as $f_articleAuthor) {
                 $f_articleAuthor->setAuthorOrder($k);
                 $f_articleAuthor->setArticle($article);
                 $k++;
             }
 
-            $citationCounter = 0;
+            $citationCounter = 1;
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($citationCounter);
                 $citationCounter++;
@@ -492,7 +492,7 @@ class ArticleSubmissionController extends Controller
                 'method' => 'POST',
             )
         )
-            ->add('submit', 'submit', array('label' => 'article.submit', 'attr' => ['class' => 'btn-block']));
+        ->add('submit', 'submit', array('label' => 'article.submit', 'attr' => ['class' => 'btn-block']));
         $form->handleRequest($request);
 
         $validator = $this->get('validator');

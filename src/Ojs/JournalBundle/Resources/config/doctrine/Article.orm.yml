@@ -53,6 +53,7 @@ Ojs\JournalBundle\Entity\Article:
       cascade: ["persist", "remove"]
       indexBy: attribute
     articleAuthors:
+      orderBy: { 'authorOrder': 'ASC' }
       targetEntity: ArticleAuthor
       mappedBy: article
       cascade: ["persist", "remove"]
