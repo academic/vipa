@@ -483,6 +483,10 @@ a.vimeo:hover * { color:#FFF; }
     list-style-type: none;
 }
 
+a.top-subject-link{
+    font-weight: bold;
+}
+
 
 
 .ds-btn li{ list-style:none; float:left; padding:10px; }
@@ -893,10 +897,6 @@ label.required:before {
 .link-unstyled:hover {
     color: inherit;
     text-decoration: inherit;
-}
-
-.home-subject-tree ul>li>a{
-    font-weight: bold;
 }
 
 .li-separator{

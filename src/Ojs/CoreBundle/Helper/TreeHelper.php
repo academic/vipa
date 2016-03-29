@@ -31,6 +31,9 @@ class TreeHelper
          * @var ArrayCollection $children
          */
         foreach ($subjects as $subject) {
+            if($subject->getLvl() == 0){
+                $link = '<a href="%s" class="top-subject-link">%s</a>';
+            }
             if ($subject->getParent() === null || $subject->getParent()->getId() === $parentId) {
 
                 if ($type == TreeHelper::SUBJECT_ADMIN) {
