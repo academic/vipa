@@ -21,7 +21,7 @@ use Ojs\CoreBundle\Params\ArticleStatuses;
 
 /**
  * Article
- * @GRID\Source(columns="id, numerator, translations.title, issue.translations.title, journal.title, pubdate, status, section.title")
+ * @GRID\Source(columns="id, numerator, translations.title, issue.translations.title, journal.title, pubdate, status, section.title, doiStatus")
  * @GRID\Source(columns="id, numerator, status, translations.title, journal.title", groups={"submission"})
  * @ExclusionPolicy("all")
  */
@@ -253,6 +253,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * @var int
+     * @GRID\Column(title="doiStatus")
      */
     protected $doiStatus = DoiStatuses::WAITING;
 
