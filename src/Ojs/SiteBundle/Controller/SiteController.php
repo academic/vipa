@@ -12,6 +12,7 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
 use Ojs\JournalBundle\Entity\BlockRepository;
@@ -36,7 +37,11 @@ class SiteController extends Controller
         /** @var SubjectRepository $repo */
         $repo = $em->getRepository('OjsJournalBundle:Subject');
 
-        $data['subjects'] = TreeHelper::createSubjectTreeView(TreeHelper::SUBJECT_SEARCH, $this->get('router'), $repo->findAll());
+        $allSubjects = $repo->findAll();
+        usort($allSubjects, function($a, $b) {
+            return $b->getRgt() > $a->getRgt();
+        });
+        $data['subjects'] = TreeHelper::createSubjectTreeView(TreeHelper::SUBJECT_SEARCH, $this->get('router'), $allSubjects);
         $data['page'] = 'index';
 
         $data['stats'] = [

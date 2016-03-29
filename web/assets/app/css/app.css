@@ -478,7 +478,7 @@ a.vimeo:hover * { color:#FFF; }
 }
 
 .home-subject-tree > ul > li {
-    width: 50%;
+    width: 20%;
     float: left;
     list-style-type: none;
 }
