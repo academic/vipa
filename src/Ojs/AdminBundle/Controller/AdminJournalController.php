@@ -37,9 +37,10 @@ class AdminJournalController extends Controller
             throw new AccessDeniedException("You not authorized for list journals!");
         }
         $cache = $this->get('array_cache');
+        $router = $this->get('router');
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
-            function (Row $row) use ($request, $cache) {
+            function (Row $row) use ($request, $cache, $router) {
                 /* @var Journal $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
@@ -48,7 +49,15 @@ class AdminJournalController extends Controller
                         $row->setClass('hidden');
                     }else{
                         $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $row->setField('translations.title', $entity->getTitleTranslations());
+                        $generateJournalLink = $router->generate('ojs_journal_index', [
+                            'publisher' => $entity->getPublisher()->getSlug(),
+                            'slug' => $entity->getSlug(),
+                        ]);
+                        $journalLinkTemplate = $entity->getTitleTranslations();
+                        if($entity->isPublished()){
+                            $journalLinkTemplate = '<a target="_blank" href="'.$generateJournalLink.'">'.$entity->getTitleTranslations().'</a>';
+                        }
+                        $row->setField('translations.title', $journalLinkTemplate);
                     }
                 }
 
