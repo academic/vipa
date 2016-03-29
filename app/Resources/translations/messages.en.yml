@@ -1563,6 +1563,7 @@ oto.generate: 'Automatic Generate'
 make.last.issue: 'Make Last Issue'
 successfully.set.as.last.issue: 'Successfully set as last issue'
 last.issue: 'Last Issue'
+issue.arrange.article: 'Arrange Articles'
 
 # OAuth
 linkedin: 'Linkedin'

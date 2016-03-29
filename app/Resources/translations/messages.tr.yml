@@ -1556,6 +1556,7 @@ oto.generate: 'Otomatik Oluştur'
 make.last.issue: 'Son Sayı Yap'
 successfully.set.as.last.issue: 'Başarıyla son sayı olarak işeretlendi'
 last.issue: 'Son Sayı'
+issue.arrange.article: 'Makaleleri Düzenle'
 
 # OAuth
 linkedin: 'Linkedin'
