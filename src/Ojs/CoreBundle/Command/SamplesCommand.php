@@ -53,7 +53,7 @@ class SamplesCommand extends ContainerAwareCommand
 
         $announcement = new AdminAnnouncement();
         $announcement->setTitle('We are online!');
-        $announcement->setContent('We are now online and accepting submissions!');
+        $announcement->setContent('http://weareonline.com/sample');
 
         $em->persist($announcement);
         $em->flush();

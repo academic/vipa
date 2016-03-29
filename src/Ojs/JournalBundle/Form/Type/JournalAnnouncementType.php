@@ -17,7 +17,8 @@ class JournalAnnouncementType extends AbstractType
         $builder
             ->add('title', 'text')
             ->add('content', 'url', array(
-                'required' => false
+                'required' => false,
+                'label' => 'url',
             ))
             ->add('image', 'jb_image_ajax', array(
                 'endpoint' => 'announcement'
