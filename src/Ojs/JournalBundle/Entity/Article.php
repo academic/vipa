@@ -13,6 +13,7 @@ use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
 use Ojs\CoreBundle\Entity as CommonTraits;
 use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
@@ -249,6 +250,11 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @GRID\Column(title="numerator")
      */
     private $numerator;
+
+    /**
+     * @var int
+     */
+    protected $doiStatus = DoiStatuses::WAITING;
 
     /**
      * List of Article Status

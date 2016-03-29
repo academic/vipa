@@ -156,6 +156,9 @@ Ojs\JournalBundle\Entity\Article:
       nullable: true
       gedmo:
         - versioned
+    doiStatus:
+      type: integer
+      options: {"default" : 0}
     firstPage:
       column: first_page
       type: integer
