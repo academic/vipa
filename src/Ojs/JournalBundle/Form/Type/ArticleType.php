@@ -22,6 +22,12 @@ class ArticleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Article $entity */
+        $entity = $builder->getData();
+        $disabled = false;
+        if($entity->getDoiStatus() == DoiStatuses::VALID){
+            $disabled = true;
+        }
         $form = $builder
             ->add('translations', 'a2lix_translations',[
                 'fields' => [
@@ -72,6 +78,7 @@ class ArticleType extends AbstractType
                     'label' => 'doi',
                     'required' => false,
                     'attr' => array('class' => ' form-control'),
+                    'disabled' => $disabled,
                 )
             )
             ->add(
