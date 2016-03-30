@@ -43,6 +43,9 @@ abstract class BaseTestCase extends WebTestCase
     /** @var  Crawler */
     protected $crawler;
 
+    /**
+     * @deprecated
+     */
     public function setUp()
     {
         $this->client = $this->createClient();
@@ -57,6 +60,12 @@ abstract class BaseTestCase extends WebTestCase
         $this->router = static::$kernel->getContainer()->get('router');
     }
 
+    /**
+     * @param $command
+     * @param array $opts
+     * @return int
+     * @throws \Exception
+     */
     public function command($command, $opts = [])
     {
         $opts['-e'] = 'test';
@@ -71,6 +80,7 @@ abstract class BaseTestCase extends WebTestCase
      * @param null $username
      * @param null $role
      * @throws \Exception
+     * @deprecated
      */
     protected function logIn($username = null, $role = null)
     {
@@ -95,6 +105,13 @@ abstract class BaseTestCase extends WebTestCase
         $this->client->getCookieJar()->set($cookie);
     }
 
+    /**
+     * @param $url
+     * @param string $type
+     * @param array $data
+     * @return Response
+     * @deprecated
+     */
     protected function apiRequest($url, $type = 'GET', $data = [])
     {
         $this->client->request(
@@ -110,6 +127,11 @@ abstract class BaseTestCase extends WebTestCase
         return $response;
     }
 
+    /**
+     * @param $input
+     * @return resource
+     * @deprecated
+     */
     protected function getInputStream($input)
     {
         $stream = fopen('php://memory', 'r+', false);
@@ -119,6 +141,14 @@ abstract class BaseTestCase extends WebTestCase
         return $stream;
     }
 
+    /**
+     * @param $params
+     * @param array $data
+     * @param string $type
+     * @param bool $redirectOnSuccess
+     * @return bool
+     * @deprecated
+     */
     protected function isAccessible($params, $data = [], $type = 'GET', $redirectOnSuccess = false)
     {
         $this->crawler = $this->client->request(
@@ -138,6 +168,10 @@ abstract class BaseTestCase extends WebTestCase
         return $response->isSuccessful();
     }
 
+    /**
+     * @param array $parameters
+     * @return array
+     */
     public function getRouteParams($parameters = array())
     {
         return array_merge($parameters, $this->getApiKeyParams());
