@@ -3,8 +3,10 @@
 namespace Ojs\CoreBundle\Command;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
@@ -13,6 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class CheckArticleDoiCommand extends ContainerAwareCommand
 {
@@ -22,6 +25,10 @@ class CheckArticleDoiCommand extends ContainerAwareCommand
      * @var ObjectManager
      */
     protected $em;
+    /**
+     * @var int
+     */
+    private $connectionCount;
 
     /**
      * Configures the current command.
@@ -42,11 +49,21 @@ class CheckArticleDoiCommand extends ContainerAwareCommand
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Journal or Article id'
+            )
+            ->addOption(
+                'connection',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Connection count',
+                50
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $stopwatch = new Stopwatch();
+        $stopwatch->start('doiCheck');
+        $this->connectionCount = $input->getOption('connection');
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $io = new SymfonyStyle($input, $output);
@@ -66,6 +83,10 @@ class CheckArticleDoiCommand extends ContainerAwareCommand
                 $this->articleScope($io, $input->getOption('id'));
                 break;
         }
+
+        $event = $stopwatch->stop('doiCheck');
+
+        $io->writeln(['',$event->getMemory()/(1024*1024).' MB memory used in '.($event->getDuration()/1000). ' sn']);
     }
 
     private function systemScope(SymfonyStyle $io)
@@ -184,34 +205,50 @@ class CheckArticleDoiCommand extends ContainerAwareCommand
     {
         $io->progressStart(count($articles));
 
-        $k = 0;
-        $validCount = 0;
-        $invalidCount = 0;
-        foreach ($articles as $article) {
-            $article = $this->checkArticleDoi($article);
-            if ($article->getDoiStatus() === DoiStatuses::VALID) {
-                $validCount++;
-            }
-            if ($article->getDoiStatus() === DoiStatuses::INVALID) {
-                $invalidCount++;
-            }
-            $this->em->persist($article);
-            if ($k === 20) {
-                $this->em->flush();
-                $k = 0;
-            }
-            $k++;
-            $io->progressAdvance(1);
-        }
-        $this->em->flush();
+        $requests = $this->getRequests($articles);
+        $client = new Client();
+        $em = $this->em;
+        $pool = new Pool($client, $requests, [
+            'concurrency' => $this->connectionCount,
+            'fulfilled' => function ($response, $index) use ($articles, $em, $io) {
+                $io->progressAdvance(1);
+                $articleIds[] = rand(0, 100000);
+                $article = $articles[$index];
+                $article->setDoiStatus(DoiStatuses::VALID);
+                $em->persist($article);
+                if($index%50 === 0) {
+                    $em->flush();
+                }
+            },
+            'rejected' => function ($reason, $index) use ($articles, $em, $io) {
+                $io->progressAdvance(1);
+                $article = $articles[$index];
+                $article->setDoiStatus(DoiStatuses::INVALID);
+                $em->persist($article);
+                if($index%50 === 0) {
+                    $em->flush();
+                }
+            },
+        ]);
+        $promise = $pool->promise();
 
-        if ($validCount) {
-            $io->success(sprintf('%d article doi has been validated.', $validCount));
-        }
-        if ($invalidCount) {
-            $io->caution(sprintf('%d article doi has been invalidated.', $invalidCount));
+        $promise->wait();
+        $em->flush();
+    }
+
+    /**
+     * @param Article[] $articles
+     * @return \Generator
+     */
+    private function getRequests(array $articles)
+    {
+        $base = 'http://doi.org/api/handles/';
+
+        foreach ($articles as $article) {
+            yield new Request('GET', $base.$article->getDoi());
         }
     }
+
     /**
      * @param  Article $article
      * @return Article
