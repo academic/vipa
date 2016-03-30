@@ -38,7 +38,6 @@ class ArticleController extends Controller
         $eventDispatcher = $this->get('event_dispatcher');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $this->throw404IfNotFound($journal);
-        $translator = $this->get('translator');
 
         if (!$this->isGranted('VIEW', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
