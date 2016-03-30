@@ -1564,6 +1564,7 @@ status.doi.invalid: 'Geçersiz'
 status.doi.valid: 'Geçerli'
 status.doi.waiting: 'Beklemede'
 doi.status: 'Doi Durumu'
+get.doi: 'DOI Al'
 
 # OAuth
 linkedin: 'Linkedin'

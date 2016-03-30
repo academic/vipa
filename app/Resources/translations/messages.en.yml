@@ -1571,6 +1571,7 @@ status.doi.invalid: 'Invalid'
 status.doi.valid: 'Valid'
 status.doi.waiting: 'Waiting'
 doi.status: 'Doi Status'
+get.doi: 'Get DOI'
 
 # OAuth
 linkedin: 'Linkedin'
