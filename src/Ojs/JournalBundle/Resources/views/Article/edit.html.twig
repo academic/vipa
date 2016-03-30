@@ -22,6 +22,7 @@
                 'back': {'href': path('ojs_journal_article_index', {'journalId': entity.journal.id})},
             })
         }}
+        {{ twigEventDispatch({'event_name': 'OJS_ARTICLE_EDIT_VIEW', entity: entity})|raw }}
     </div>
 
     {{ getLogs(entity) }}

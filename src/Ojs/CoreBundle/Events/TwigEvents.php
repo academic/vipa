@@ -16,4 +16,5 @@ class TwigEvents
     const OJS_JOURNAL_APPLICATION_SCRIPT = "ojs.journal.application.script";
     const OJS_SEARCH_PAGE_WARNING = "ojs.search.page.warning";
     const OJS_ARTICLE_SHOW_VIEW = 'ojs.article.show.view';
+    const OJS_ARTICLE_EDIT_VIEW = 'ojs.article.edit.view';
 }
