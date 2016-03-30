@@ -110,7 +110,7 @@ class Board extends AbstractTranslatable implements JournalItemInterface
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
@@ -203,11 +203,7 @@ class Board extends AbstractTranslatable implements JournalItemInterface
      */
     public function __toString()
     {
-        if (!is_string($this->getName())) {
-            return $this->translations->first()->getName();
-        } else {
-            return $this->getName();
-        }
+        return $this->getName();
     }
 
     /**
@@ -217,7 +213,7 @@ class Board extends AbstractTranslatable implements JournalItemInterface
      */
     public function getName()
     {
-        return $this->translate()->getName();
+        return $this->getLogicalFieldTranslation('name', false);
     }
 
     /**

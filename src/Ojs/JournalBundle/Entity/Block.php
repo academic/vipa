@@ -107,7 +107,7 @@ class Block extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -130,7 +130,7 @@ class Block extends AbstractTranslatable
      */
     public function getContent()
     {
-        return $this->translate()->getContent();
+        return $this->getLogicalFieldTranslation('content', false);
     }
 
     /**
@@ -215,12 +215,11 @@ class Block extends AbstractTranslatable
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if (!is_string($this->getTitle())) {
-            return $this->translations->first()->getTitle();
-        } else {
-            return $this->getTitle();
-        }
+        return $this->getTitle();
     }
 }

@@ -658,7 +658,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      */
     public function getKeywords()
     {
-        return $this->translate()->getKeywords();
+        return $this->getLogicalFieldTranslation('keywords', false);
     }
 
     /**
@@ -977,7 +977,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      */
     public function getAbstract()
     {
-        return $this->translate()->getAbstract();
+        return $this->getLogicalFieldTranslation('abstract', false);
     }
 
     /**
@@ -1141,6 +1141,9 @@ class Article extends AbstractTranslatable implements JournalItemInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getTitle()."[#{$this->getId()}]";

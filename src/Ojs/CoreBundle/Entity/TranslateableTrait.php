@@ -115,25 +115,35 @@ trait TranslateableTrait
     public function setCurrentTranslation(TranslationInterface $currentTranslation)
     {
         $this->currentTranslation = $currentTranslation;
+
         return $this;
     }
 
     /**
-     * @param string $field
-     * @return mixed
+     * @param $field
+     * @param bool $withLocale
+     * @return mixed|string
      */
-    public function getLogicalFieldTranslation($field)
+    public function getLogicalFieldTranslation($field, $withLocale = true)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
 
         $fieldValue = $accessor->getValue($this->translate(), $field);
         if(!empty($fieldValue) && $fieldValue !== '-'){
-            return '['.$this->getCurrentLocale().']'.$fieldValue;
+            if($withLocale){
+                return '['.$this->getCurrentLocale().']'.$fieldValue;
+            }else{
+                return $fieldValue;
+            }
         }
         foreach($this->translations as $translation){
             $fieldValue = $accessor->getValue($translation, $field);
             if(!empty($fieldValue) && $fieldValue !== '-'){
-                return '['.$translation->getLocale().']'.$fieldValue;
+                if($withLocale){
+                    return '['.$translation->getLocale().']'.$fieldValue;
+                }else{
+                    return $fieldValue;
+                }
             }
         }
         return '';

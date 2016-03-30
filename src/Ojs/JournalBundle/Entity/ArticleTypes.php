@@ -69,7 +69,7 @@ class ArticleTypes extends AbstractTranslatable
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
@@ -132,13 +132,12 @@ class ArticleTypes extends AbstractTranslatable
         return $translation;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if (!is_string($this->getName())) {
-            return $this->translations->first()->getName();
-        } else {
-            return $this->getName();
-        }
+        return $this->getName();
     }
 
     /**
@@ -148,7 +147,7 @@ class ArticleTypes extends AbstractTranslatable
      */
     public function getName()
     {
-        return $this->translate()->getName();
+        return $this->getLogicalFieldTranslation('name', false);
     }
 
     /**

@@ -78,7 +78,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -147,7 +147,7 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
      */
     public function getBody()
     {
-        return $this->translate()->getBody();
+        return $this->getLogicalFieldTranslation('body', false);
     }
 
     /**
@@ -226,13 +226,12 @@ class JournalPage extends AbstractTranslatable implements JournalItemInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if(is_string($this->getTitle())){
-            return $this->getTitle();
-        }else{
-            return $this->translations->first()->getTitle();
-        }
+        return $this->getTitle();
     }
 }
 

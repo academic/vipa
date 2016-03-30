@@ -468,7 +468,7 @@ class Author extends AbstractTranslatable
      */
     public function getBiography()
     {
-        return $this->translate()->getBiography();
+        return $this->getLogicalFieldTranslation('biograpy', false);
     }
 
     /**

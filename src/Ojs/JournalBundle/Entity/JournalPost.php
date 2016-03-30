@@ -76,7 +76,7 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -149,7 +149,7 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
      */
     public function getContent()
     {
-        return $this->translate()->getContent();
+        return $this->getLogicalFieldTranslation('content', false);
     }
 
     /**
@@ -258,7 +258,7 @@ class JournalPost extends AbstractTranslatable implements JournalItemInterface
      */
     public function __toString()
     {
-        return $this->title;
+        return $this->getTitle();
     }
 }
 

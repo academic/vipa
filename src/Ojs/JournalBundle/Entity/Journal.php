@@ -1184,15 +1184,7 @@ class Journal extends AbstractTranslatable
      */
     public function __toString()
     {
-        if (is_string($this->getTitle())) {
-            return $this->getTitle();
-        } else {
-            if(is_string($this->translations->first()->getTitle())){
-                return $this->translations->first()->getTitle();
-            }else{
-                return '';
-            }
-        }
+        return $this->getTitle();
     }
 
     /**
@@ -1202,11 +1194,7 @@ class Journal extends AbstractTranslatable
      */
     public function getTitle()
     {
-        if (!is_null($this->translate()->getTitle())) {
-            return $this->translate()->getTitle();
-        } else {
-            return $this->translations->first()->getTitle();
-        }
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -1379,7 +1367,7 @@ class Journal extends AbstractTranslatable
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
