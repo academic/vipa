@@ -62,7 +62,7 @@ class ContactTypes extends AbstractTranslatable implements ContactTypesInterface
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
@@ -102,7 +102,7 @@ class ContactTypes extends AbstractTranslatable implements ContactTypesInterface
      */
     public function getName()
     {
-        return $this->translate()->getName();
+        return $this->getLogicalFieldTranslation('name', false);
     }
 
     /**
@@ -192,12 +192,11 @@ class ContactTypes extends AbstractTranslatable implements ContactTypesInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if (!is_string($this->getName())) {
-            return $this->translations->first()->getName();
-        } else {
-            return $this->getName();
-        }
+        return $this->getName();
     }
 }

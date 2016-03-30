@@ -315,7 +315,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**

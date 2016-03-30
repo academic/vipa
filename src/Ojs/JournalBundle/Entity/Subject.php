@@ -175,7 +175,7 @@ class Subject extends AbstractTranslatable
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
@@ -350,13 +350,12 @@ class Subject extends AbstractTranslatable
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if (!is_string($this->getSubject())) {
-            return $this->translations->first()->getSubject();
-        } else {
-            return $this->getSubject();
-        }
+        return $this->getSubject();
     }
 
     /**
@@ -366,11 +365,7 @@ class Subject extends AbstractTranslatable
      */
     public function getSubject()
     {
-        if(!is_null($this->translate()->getSubject())){
-            return $this->translate()->getSubject();
-        }else{
-            return $this->translations->first()->getSubject();
-        }
+        $this->getLogicalFieldTranslation('subject', false);
     }
 
     /**

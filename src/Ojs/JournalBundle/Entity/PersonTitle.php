@@ -102,7 +102,7 @@ class PersonTitle extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -125,11 +125,7 @@ class PersonTitle extends AbstractTranslatable
      */
     function __toString()
     {
-        if (!is_string($this->getTitle())) {
-            return $this->translations->first()->getTitle();
-        } else {
-            return $this->getTitle();
-        }
+        return $this->getTitle();
     }
 }
 

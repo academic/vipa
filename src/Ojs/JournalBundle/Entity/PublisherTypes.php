@@ -67,7 +67,7 @@ class PublisherTypes extends AbstractTranslatable
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
@@ -154,11 +154,7 @@ class PublisherTypes extends AbstractTranslatable
      */
     public function __toString()
     {
-        if(!is_string($this->getName())){
-            return $this->translations->first()->getName();
-        }else{
-            return $this->getName();
-        }
+        return $this->getName();
     }
 
     /**
@@ -168,11 +164,7 @@ class PublisherTypes extends AbstractTranslatable
      */
     public function getName()
     {
-        if (!is_null($this->translate()->getName())) {
-            return $this->translate()->getName();
-        } else {
-            return $this->translations->first()->getName();
-        }
+        return $this->getLogicalFieldTranslation('name', false);
     }
 
     /**

@@ -436,7 +436,7 @@ class Publisher extends AbstractTranslatable
      */
     public function getAbout()
     {
-        return $this->translate()->getAbout();
+        return $this->getLogicalFieldTranslation('about');
     }
 
     /**

@@ -608,7 +608,7 @@ class Journal extends AbstractTranslatable
      */
     public function getTitleAbbr()
     {
-        return $this->translate()->getTitleAbbr();
+        return $this->getLogicalFieldTranslation('titleAbbr', false);
     }
 
     /**
@@ -687,7 +687,7 @@ class Journal extends AbstractTranslatable
      */
     public function getSubtitle()
     {
-        return $this->translate()->getSubtitle();
+        return $this->getLogicalFieldTranslation('subtitle', false);
     }
 
     /**

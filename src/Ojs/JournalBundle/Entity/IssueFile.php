@@ -182,7 +182,7 @@ class IssueFile extends AbstractTranslatable
      */
     public function getDescription()
     {
-        return $this->translate()->getDescription();
+        return $this->getLogicalFieldTranslation('description', false);
     }
 
     /**
@@ -236,7 +236,7 @@ class IssueFile extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**

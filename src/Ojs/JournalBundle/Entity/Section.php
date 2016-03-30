@@ -179,13 +179,12 @@ class Section extends AbstractTranslatable implements JournalItemInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if (!is_string($this->getTitle()) || empty($this->getTitle())) {
-            return $this->translations->first()->getTitle();
-        } else {
-            return $this->getTitle();
-        }
+        return $this->getTitle();
     }
 
     /**
@@ -195,7 +194,7 @@ class Section extends AbstractTranslatable implements JournalItemInterface
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**

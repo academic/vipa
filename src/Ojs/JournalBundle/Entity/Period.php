@@ -47,13 +47,12 @@ class Period extends AbstractTranslatable
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        if (!is_string($this->getPeriod()) || empty($this->getPeriod())) {
-            return $this->translations->first()->getPeriod();
-        } else {
-            return $this->getPeriod();
-        }
+        return $this->getPeriod();
     }
 
     /**
@@ -61,7 +60,7 @@ class Period extends AbstractTranslatable
      */
     public function getPeriod()
     {
-        return $this->translate()->getPeriod();
+        return $this->getLogicalFieldTranslation('period', false);
     }
 
     /**
