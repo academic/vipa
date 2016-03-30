@@ -107,7 +107,6 @@ class ManagerController extends Controller
     }
 
     /**
-     * @todo setttings enumeration should be done, otherwise setting keys will be a garbage
      * @param  Request $request
      * @param  integer $journalId
      * @return Response
