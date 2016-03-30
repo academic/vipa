@@ -1567,6 +1567,10 @@ issue.arrange.article: 'Arrange Articles'
 successfully.article.added.to.issue: 'Successfully article added to issue'
 successfully.arranged.articles: 'Successfully arranged articles'
 you.can.multi.select.via.keyboard.crtl.button: 'You can multiselect via keyboard `s CTRL button on OSX cmd button'
+status.doi.invalid: 'Invalid'
+status.doi.valid: 'Valid'
+status.doi.waiting: 'Waiting'
+doi.status: 'Doi Status'
 
 # OAuth
 linkedin: 'Linkedin'

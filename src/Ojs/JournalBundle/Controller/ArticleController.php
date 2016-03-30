@@ -46,7 +46,7 @@ class ArticleController extends Controller
 
         $source = new Entity('OjsJournalBundle:Article');
         $source->manipulateRow(
-            function (Row $row) use ($request, $translator, $cache) {
+            function (Row $row) use ($request, $cache) {
                 /** @var Article $entity */
                 $entity = $row->getEntity();
                 if (!is_null($entity)) {
