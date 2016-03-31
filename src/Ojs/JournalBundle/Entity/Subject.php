@@ -365,7 +365,7 @@ class Subject extends AbstractTranslatable
      */
     public function getSubject()
     {
-        $this->getLogicalFieldTranslation('subject', false);
+        return $this->getLogicalFieldTranslation('subject', false);
     }
 
     /**
