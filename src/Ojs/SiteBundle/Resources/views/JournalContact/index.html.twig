@@ -50,9 +50,15 @@
                             <strong>{{ "name"|trans }}
                                 :</strong> {{ contact.title }} {{ contact.fullName }}
                             <br/>
-                            <strong>{{ "email"|trans }}:</strong> {{ contact.email }} <br/>
-                            <strong>{{ "phone"|trans }}:</strong> {{ contact.phone }} <br/>
-                            <strong>{{ "address"|trans }}:</strong> {{ contact.address|raw }} <br/>
+                            {% if contact.email is not empty %}
+                                <strong>{{ "email"|trans }}:</strong> {{ contact.email }} <br/>
+                            {% endif %}
+                            {% if contact.phone is not empty %}
+                                <strong>{{ "phone"|trans }}:</strong> {{ contact.phone }} <br/>
+                            {% endif %}
+                            {% if contact.address is not empty %}
+                                <strong>{{ "address"|trans }}:</strong> {{ contact.address|raw }} <br/>
+                            {% endif %}
                         </div>
                     {% endfor %}
 
