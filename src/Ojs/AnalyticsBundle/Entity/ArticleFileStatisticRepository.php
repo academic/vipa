@@ -22,7 +22,7 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->addSelect('SUM(stat.download)')
             ->andWhere('stat.date IN (:dates)')
             ->andWhere('file = :file')
-            ->groupBy('file')
+            ->groupBy('stat.id, file')
             ->setParameters(
                 [
                     'file' => $articleFile,
@@ -55,7 +55,7 @@ class ArticleFileStatisticRepository extends EntityRepository
             ->join('OjsJournalBundle:Article', 'article', 'WHERE', 'file.article IN (:articles)')
             ->addSelect('SUM(stat.download)')
             ->andWhere('article IN (:articles)')
-            ->groupBy('article, stat.id')
+            ->groupBy('article, stat.id, file')
             ->setParameter('articles', $articles);
 
         return $builder->getQuery()->getResult();
