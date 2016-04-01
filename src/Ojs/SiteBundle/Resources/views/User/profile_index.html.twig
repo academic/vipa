@@ -2,7 +2,6 @@
 {% block title %} {{ user.title ~' '~ user.firstName ~' '~ user.lastName }} @  {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
-
 {% block breadcrumb %}
     {% set list = [
     {'link': path('ojs_public_index'), 'title': project_name},
@@ -119,7 +118,7 @@
 
                             <div class="timeline-entry-inner">
                                 <time class="timeline-time" datetime="{{ article.pubdate|date('Y-m-d H:i:s') }}">
-                                    <span>{{ article.pubdate|date('Y-m-d') }}</span> <span>Today</span>
+                                    <span>{{ article.pubdate|date('Y-m-d') }}</span>
                                 </time>
 
                                 <div class="timeline-icon bg-success">
@@ -128,8 +127,20 @@
 
                                 <div class="timeline-label">
                                     <h2>
-                                        <span>{{ article.title }}</span> @
-                                        <span>{{ article.journal.title }}</span>
+                                        <a href="{{ path('ojs_article_page', {
+                                            publisher: article.journal.publisher.slug,
+                                            slug: article.journal.slug,
+                                            issue_id: article.issue.id,
+                                            article_id: article.id
+                                        }) }}">
+                                            <span>{{ article.title(false) }}</span>
+                                        </a>@
+                                        <a href="{{ path('ojs_journal_index', {
+                                            publisher: article.journal.publisher.slug,
+                                            slug: article.journal.slug
+                                        }) }}">
+                                            <span>{{ article.journal.title }}</span>
+                                        </a>
 
                                         {% set journalUrl = generateJournalUrl(article.journal) %}
 

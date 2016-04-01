@@ -122,7 +122,7 @@ trait TranslateableTrait
     /**
      * @param $field
      * @param bool $withLocale
-     * @return mixed|string
+     * @return string
      */
     public function getLogicalFieldTranslation($field, $withLocale = true)
     {
