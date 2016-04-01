@@ -55,12 +55,12 @@
 
             {% if user.subjects is defined and user.subjects is not null %}
 
-            <div class="bs-callout bs-callout-danger">
-                <h6 class="text-muted">{{ "subjects"|trans }}</h6>
+            <div class="col-sm-6">
+                <h4>{{ "subjects"|trans }}</h4>
 
                 <p class="lead">
                     {% for subjects  in user.subjects %}
-                        {{ subjects }}
+                        &#8226; {{ subjects }}<br>
                     {% endfor %}
                 </p>
             </div>
