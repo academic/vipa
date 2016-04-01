@@ -67,42 +67,6 @@
             {% endif %}
 
             {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW', 'user': user})|raw }}
-
-            {% if education is defined %}
-                <div class="panel panel-default">
-                    <div class="panel-heading">Education</div>
-                    <div class="panel-body">
-                        <table class="table table-hover table-responsive ">
-                            <thead>
-                            <tr>
-                                <th>Degree</th>
-                                <th>Graduation Year</th>
-                                <th>CGPA</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Masters in Computer Science and Engineering</td>
-                                <td>2014</td>
-                                <td> 3.50</td>
-                            </tr>
-                            <tr>
-                                <td>BSc. in Computer Science and Engineering</td>
-                                <td>2011</td>
-                                <td> 3.25</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="panel-heading">
-                        Research Interests
-                    </div>
-                    <div class="panel-body">
-                        keadsd, asdasd,
-                    </div>
-                </div>
-            {% endif %}
-
         </div>
     </div>
     <hr/>
