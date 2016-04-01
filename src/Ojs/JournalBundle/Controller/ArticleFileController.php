@@ -108,7 +108,7 @@ class ArticleFileController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->successFlashBag('Successfully created.');
+            $this->successFlashBag('successful.create');
 
             return $this->redirect(
                 $this->generateUrl(
@@ -337,7 +337,7 @@ class ArticleFileController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            $this->successFlashBag('Successfully updated.');
+            $this->successFlashBag('successful.update');
 
             return $this->redirect(
                 $this->generateUrl(
