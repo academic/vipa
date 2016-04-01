@@ -67,6 +67,52 @@
             {% endif %}
 
             {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_PUBLIC_VIEW', 'user': user})|raw }}
+
+            <div class="col-sm-12">
+                <hr>
+                <h4 class="text-center">{{ 'journals'|trans }}</h4>
+                <div class="col-sm-12">
+                    {% for user in journalUsers %}
+
+                        {% set journal = user.journal %}
+                        <div class="grid-item journal-item">
+                            <div class="views-field-field-journal-cover-fid">
+                                <span class="field-content">
+                                    {% if url is not defined or url is empty %}
+                                        {% set url =  path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) %}
+                                    {% endif %}
+                                    <a href="{{ url }}">
+                                        {% if journal.image is defined and journal.image is not null %}
+                                            {% set src = journal.image|imagine_filter('journal_croped') %}
+                                            <img src="{{ src }}"
+                                                 alt="{{ journal.title }}" title="{{ journal.title }}" width="150" height="200"
+                                                 class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default">
+                                        {% else %}
+                                            <img src="#"
+                                                 alt="{{ journal.title }}" title="{{ journal.title }}" width="150" height="200"
+                                                 class="imagecache imagecache-journallist_default imagecache-default imagecache-journallist_default_default tri">
+                                        {% endif %}
+                                    </a>
+                                </span>
+                            </div>
+                            {% if journal.title is defined %}
+                                <div class="views-field-title text-center">
+                                    <span class="field-content">
+                                        <a href="{{ url }}">{{ journal.title }}</a>
+                                    </span>
+                                </div>
+                            {% endif %}
+                            <div class="views-field-title text-center">
+                                {% for role in user.roles %}
+                                    <span>
+                                        {{ role.name|trans }}<br>
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
     <hr/>
