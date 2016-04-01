@@ -35,7 +35,7 @@ class JournalAnnouncement implements JournalItemInterface
 
     /**
      * @var string
-     * @Display\Image(filter="announcement_croped")
+     * @Display\Image(filter="announcement_original")
      */
     private $image;
 
@@ -123,10 +123,13 @@ class JournalAnnouncement implements JournalItemInterface
 
     /**
      * @param Journal $journal
+     * @return $this
      */
     public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+
+        return $this;
     }
 }
 
