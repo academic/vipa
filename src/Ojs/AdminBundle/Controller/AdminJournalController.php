@@ -50,12 +50,12 @@ class AdminJournalController extends Controller
                         $row->setClass('hidden');
                     }else{
                         $cache->save('grid_row_id_'.$entity->getId(), true);
-                        $generateJournalLink = $router->generate('ojs_journal_index', [
-                            'publisher' => $entity->getPublisher()->getSlug(),
-                            'slug' => $entity->getSlug(),
-                        ]);
                         $journalLinkTemplate = $entity->getTitleTranslations();
-                        if($entity->isPublished()){
+                        if($entity->isPublished() && $entity->getPublisher() !== null){
+                            $generateJournalLink = $router->generate('ojs_journal_index', [
+                                'publisher' => $entity->getPublisher()->getSlug(),
+                                'slug' => $entity->getSlug(),
+                            ]);
                             $journalLinkTemplate = '<a target="_blank" href="'.$generateJournalLink.'">'.$entity->getTitleTranslations().'</a>';
                         }
                         $row->setField('translations.title', $journalLinkTemplate);
