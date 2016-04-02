@@ -25,7 +25,7 @@ class ArticleType extends AbstractType
         /** @var Article $entity */
         $entity = $builder->getData();
         $disabled = false;
-        if($entity->getDoiStatus() == DoiStatuses::VALID){
+        if($entity !== null && $entity->getDoiStatus() == DoiStatuses::VALID){
             $disabled = true;
         }
         $form = $builder
