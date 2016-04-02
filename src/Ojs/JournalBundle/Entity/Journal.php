@@ -1653,4 +1653,17 @@ class Journal extends AbstractTranslatable
 
         return $this;
     }
+
+    /**
+     * Returns true if journal is indexable
+     *
+     * @return bool
+     */
+    public function isIndexable()
+    {
+        if($this->getStatus() == JournalStatuses::STATUS_PUBLISHED || $this->getStatus() == JournalStatuses::STATUS_NAME_CHANGED){
+            return true;
+        }
+        return false;
+    }
 }
