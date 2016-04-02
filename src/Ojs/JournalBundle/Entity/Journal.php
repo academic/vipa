@@ -141,11 +141,6 @@ class Journal extends AbstractTranslatable
      */
     private $country;
     /**
-     * @var boolean
-     * @JMS\Expose
-     */
-    private $published = false;
-    /**
      * @var integer
      * @JMS\Expose
      * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={
@@ -881,27 +876,6 @@ class Journal extends AbstractTranslatable
     public function setCountry(Country $country = null)
     {
         $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isPublished()
-    {
-        return $this->published;
-    }
-
-    /**
-     * Set published
-     *
-     * @param  boolean $published
-     * @return Journal
-     */
-    public function setPublished($published = false)
-    {
-        $this->published = $published;
 
         return $this;
     }
