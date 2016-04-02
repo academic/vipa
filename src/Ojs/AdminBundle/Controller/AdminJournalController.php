@@ -51,7 +51,7 @@ class AdminJournalController extends Controller
                     }else{
                         $cache->save('grid_row_id_'.$entity->getId(), true);
                         $journalLinkTemplate = $entity->getTitleTranslations();
-                        if($entity->isPublished() && $entity->getPublisher() !== null){
+                        if($entity->isIndexable() && $entity->getPublisher() !== null){
                             $generateJournalLink = $router->generate('ojs_journal_index', [
                                 'publisher' => $entity->getPublisher()->getSlug(),
                                 'slug' => $entity->getSlug(),

@@ -53,7 +53,6 @@ class JournalRestControllerTest extends BaseTestCase
             'googleAnalyticsId' => 'Google Ana. ID',
             'country' => 2,
             'footer_text' => 'footer_text',
-            'published' => 1,
             'printed' => 1,
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
@@ -107,7 +106,6 @@ class JournalRestControllerTest extends BaseTestCase
             'googleAnalyticsId' => 'Google Ana. ID',
             'country' => 2,
             'footer_text' => 'footer_text',
-            'published' => 1,
             'printed' => 1,
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']

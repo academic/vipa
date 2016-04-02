@@ -29,6 +29,7 @@ class ExploreController extends Controller
         $match->setField('status', 1);
         $boolQuery->addMust($match);
 
+        //@todo we must revise this line because we already not indexing not published resources
         $match = new Query\Match();
         $match->setField('published', true);
         $boolQuery->addMust($match);

@@ -70,7 +70,7 @@
                 <div class="panel-heading">{{ "journal.plural"|trans }}</div>
                 <ul class="list-group">
                     {% for journal in entity.journals %}
-                        {% if journal.published %}
+                        {% if journal.isIndexable() %}
                             <li class="list-group-item">
                                 <a href="{{ journal.publicURI }}">{{ journal.title }}</a>
                             </li>
