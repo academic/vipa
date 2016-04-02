@@ -72,10 +72,11 @@ class SitemapListener implements SitemapListenerInterface
 
     private function generateJournalLinks(SitemapPopulateEvent $event)
     {
-        $journals = $this->em->getRepository('OjsJournalBundle:Journal')->findBy([
-            'published' => true
-        ]);
+        $journals = $this->em->getRepository('OjsJournalBundle:Journal')->findAll();
         foreach($journals as $journal){
+            if(!$journal->isIndexable()){
+                continue;
+            }
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
                     $this->router->generate('ojs_journal_index', [

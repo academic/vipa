@@ -202,7 +202,6 @@ class SamplesCommand extends ContainerAwareCommand
         $journal->setIssn('1234-5679');
         $journal->setEissn('1234-5679');
         $journal->setStatus(JournalStatuses::STATUS_PUBLISHED);
-        $journal->setPublished(1);
 
         $em->persist($journal);
         $em->flush();

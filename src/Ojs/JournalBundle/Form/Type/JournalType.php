@@ -183,11 +183,6 @@ class JournalType extends AbstractType
                     ],
                 ]
             )
-            ->add('published', 'checkbox', [
-                    'label' => 'published',
-                    'required' => false
-                ]
-            )
             ->add('printed', 'checkbox', [
                     'label' => 'printed',
                     'required' => false

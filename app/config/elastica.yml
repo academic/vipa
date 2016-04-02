@@ -195,7 +195,6 @@ fos_elastica:
             provider:
               debug_logging: false
         journal:
-          indexable_callback: 'isPublished'
           mappings:
             id: { type: integer }
             translations:
@@ -227,7 +226,6 @@ fos_elastica:
               analyzer: "keyword"
               type: string
             status: { "index": "not_analyzed" }
-            published: { "index": "not_analyzed",type: boolean }
             accessModal: { type: integer }
             subjects:
               type: object
