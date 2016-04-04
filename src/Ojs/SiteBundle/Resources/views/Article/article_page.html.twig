@@ -295,21 +295,27 @@
                     </a>
                 {% endif %}
             </div>
-            <div class="list-group">
-                {% for journalIndex in journal.journalIndexs %}
-                    <div class="list-group-item">
-                        <a href="{{ journalIndex.link }}" target="_blank">
-                            <h5>
-                                {% if journalIndex.index.logo %}
-                                    <img src="{{ journalIndex.index.logo|imagine_filter('index_logo') }}"
-                                         alt="{{ journalIndex.index.name }}"/>
-                                {% endif %}
-                                {{ journalIndex.index.name }}
-                            </h5>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+            {% if journal.journalIndexs|length>0 %}
+                <div class="list-group">
+                    {% for journalIndex in journal.journalIndexs %}
+                        {% if journalIndex.verified == true %}
+                            <a href="{{ journalIndex.link }}" target="_blank">
+                                <div class="list-group-item col-md-12">
+                                    {% if journalIndex.index.logo %}
+                                        <div class="col-md-4">
+                                            <img src="{{ journalIndex.index.logo|imagine_filter('index_logo') }}"
+                                                 alt="{{ journalIndex.index.name }}" width="32" height="32"/>
+                                        </div>
+                                    {% endif %}
+                                    <div class="col-md-7">
+                                        <h5>{{ journalIndex.index.name }}</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
 
         </div>
     </div>
