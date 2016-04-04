@@ -114,7 +114,7 @@ class Author extends AbstractTranslatable
      * @var string
      * @JMS\Expose
      */
-    private $biograpy;
+    private $biography;
     /**
      * @var string
      * @JMS\Expose
@@ -462,24 +462,24 @@ class Author extends AbstractTranslatable
     }
 
     /**
-     * Get biograpy
+     * Get biography
      *
      * @return string
      */
     public function getBiography()
     {
-        return $this->getLogicalFieldTranslation('biograpy', false);
+        return $this->getLogicalFieldTranslation('biography', false);
     }
 
     /**
-     * Set biograpy
+     * Set biography
      *
-     * @param  string $biograpy
+     * @param  string $biography
      * @return Author
      */
-    public function setBiography($biograpy)
+    public function setBiography($biography)
     {
-        $this->translate()->setBiography($biograpy);
+        $this->translate()->setBiography($biography);
 
         return $this;
     }
