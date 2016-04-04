@@ -29,8 +29,9 @@ class JournalIndexMailer extends AbstractJournalItemMailer
         if(!$getMailEvent){
             return;
         }
+        $mailUsers = array_merge($this->ojsMailer->getJournalRelatedUsers(), $this->ojsMailer->getAdminUsers());
         /** @var User $user */
-        foreach ($this->ojsMailer->getJournalRelatedUsers() as $user) {
+        foreach ($mailUsers as $user) {
             $transformParams = [
                 'index'             => (string)$itemEvent->getItem(),
                 'done.by'           => $this->ojsMailer->currentUser()->getUsername(),
