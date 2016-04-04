@@ -28,10 +28,10 @@
     <!-- The carousel -->
     <div class="page-header">
         <img src="
-                {% if journal.issues|length and journal.issues[journal.issues|length-1].cover is not null %}
-                    {{ journal.issues[journal.issues|length-1].cover|imagine_filter('issue_cover') }}
-                {% endif %}"
-             class="img-responsive float-left tri"/>
+                {% if journal.image is not null %}
+                    {{ journal.image|imagine_filter('journal_croped') }}
+                {% else %}"
+                class="img-responsive float-left tri"/>
 
         <div>
             <h1>{{ journal.title }}</h1>
