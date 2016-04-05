@@ -30,7 +30,7 @@
         <img src="
                 {% if journal.image is not null %}
                     {{ journal.image|imagine_filter('journal_croped') }}
-                {% else %}"
+                {% endif %}"
                 class="img-responsive float-left tri"/>
 
         <div>
