@@ -10,7 +10,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * BoardMember
- * @GRID\Source(columns="id, user.username, seq")
+ * @GRID\Source(columns="id, user.username, seq, showMail")
  */
 class BoardMember implements Translatable
 {
@@ -47,6 +47,12 @@ class BoardMember implements Translatable
      * @Grid\Column(field="user.username", title="user")
      */
     private $user;
+
+    /**
+     * @var bool
+     * @Grid\Column(title="show.mail")
+     */
+    private $showMail = true;
 
     /**
      * Get id
@@ -169,6 +175,26 @@ class BoardMember implements Translatable
     public function setUser(User $user = null)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isShowMail()
+    {
+        return $this->showMail;
+    }
+
+    /**
+     * @param boolean $showMail
+     *
+     * @return $this
+     */
+    public function setShowMail($showMail)
+    {
+        $this->showMail = $showMail;
 
         return $this;
     }

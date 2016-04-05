@@ -1572,6 +1572,7 @@ status.doi.valid: 'Valid'
 status.doi.waiting: 'Waiting'
 doi.status: 'Doi Status'
 get.doi: 'Get DOI'
+show.mail: 'Show Mail Adress'
 
 # OAuth
 linkedin: 'Linkedin'

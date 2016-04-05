@@ -1565,6 +1565,7 @@ status.doi.valid: 'Geçerli'
 status.doi.waiting: 'Beklemede'
 doi.status: 'Doi Durumu'
 get.doi: 'DOI Al'
+show.mail: 'E-posta Adresini Göster'
 
 # OAuth
 linkedin: 'Linkedin'

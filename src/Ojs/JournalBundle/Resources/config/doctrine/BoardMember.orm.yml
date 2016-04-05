@@ -27,6 +27,11 @@ Ojs\JournalBundle\Entity\BoardMember:
             type: integer
             gedmo:
                 - versioned
+        showMail:
+            type: boolean
+            nullable: true
+            options:
+                default: true
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true
