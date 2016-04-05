@@ -72,7 +72,6 @@ class AdminJournalController extends Controller
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
         $rowAction[] = $gridAction->cmsAction();
-        $rowAction[] = $gridAction->deleteAction('ojs_admin_journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
             ->setRouteParameters('id')
             ->setRouteParametersMapping(array('id' => 'journalId'))
@@ -290,43 +289,6 @@ class AdminJournalController extends Controller
             'OjsAdminBundle:AdminJournal:show.html.twig',
             ['entity' => $entity, 'token' => $token]
         );
-    }
-
-    /**
-     * @param  Request $request
-     * @param $id
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You not authorized for delete this journal!");
-        }
-        $this->throw404IfNotFound($entity);
-
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_journal'.$id);
-        if ($token->getValue() !== $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
-        $this->get('ojs_core.delete.service')->check($entity);
-
-        $event = new AdminEvent([
-            'eventType' => 'delete',
-            'entity'    => $entity,
-        ]);
-        $dispatcher->dispatch(AdminEvents::ADMIN_JOURNAL_CHANGE, $event);
-
-        $em->remove($entity);
-        $em->flush();
-        $this->successFlashBag('successful.remove');
-
-        return $this->redirectToRoute('ojs_admin_journal_index');
     }
 
     /**
