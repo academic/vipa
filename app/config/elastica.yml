@@ -36,17 +36,10 @@ fos_elastica:
               type: string
             email:
               type: string
-            avatar:
-              type: string
             tags:
               analyzer: "keyword"
               type: string
             subjects: {"index": "not_analyzed"}
-            gender: {"index": "not_analyzed"}
-            created:
-              type: date
-            updated:
-              type: date
             journalUsers:
               type: object
               properties:
@@ -116,16 +109,9 @@ fos_elastica:
                       type: string
                     middleName:
                       type: string
-                    email:
-                      type: string
                     tags:
                       analyzer: "keyword"
                       type: string
-            attributes:
-              type: "object"
-              properties:
-                value:
-                  type: string
             journal:
               type: "object"
               properties:
@@ -177,16 +163,10 @@ fos_elastica:
                   index: not_analyzed
             slug:
               type: string
-            verified:
-              type: boolean
             publisherType:
               type: object
               properties:
                 name: { index: not_analyzed }
-            url:
-              type: string
-            logo:
-              type: string
           persistence:
             driver: orm
             model: Ojs\JournalBundle\Entity\Publisher
@@ -227,7 +207,6 @@ fos_elastica:
             tags:
               analyzer: "keyword"
               type: string
-            status: { "index": "not_analyzed" }
             accessModal: { type: integer }
             subjects:
               type: object
@@ -302,18 +281,6 @@ fos_elastica:
             finder: ~
             provider:
               debug_logging: false
-        country:
-          mappings:
-            name:
-              type: string
-          persistence:
-            driver: orm
-            model: BulutYazilim\LocationBundle\Entity\Country
-            provider: ~
-            listener: ~
-            finder: ~
-            provider:
-              debug_logging: false
         citation:
           mappings:
             raw:
@@ -355,13 +322,13 @@ fos_elastica:
             finder: ~
         author:
           mappings:
+            id:
+              type: integer
             title:
               type: "object"
               properties:
                 title:
                   type: string
-            id:
-              type: integer
             translations:
               type: "object"
               properties:
@@ -372,8 +339,6 @@ fos_elastica:
             lastName:
               type: string
             middleName:
-              type: string
-            email:
               type: string
             tags:
               analyzer: "keyword"
