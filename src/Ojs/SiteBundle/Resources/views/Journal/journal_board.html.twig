@@ -27,11 +27,13 @@
     <br>
     <!-- The carousel -->
     <div class="page-header">
-        <img src="
+        <img
                 {% if journal.image is not null %}
-                    {{ journal.image|imagine_filter('journal_croped') }}
-                {% endif %}"
-                class="img-responsive float-left tri"/>
+                    src="{{ journal.image|imagine_filter('journal_croped') }}" class="img-responsive img-rounded float-left"
+                {% else %}
+                    src="#" class="img-responsive img-rounded float-left tri"
+                {% endif %}
+                alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
 
         <div>
             <h1>{{ journal.title }}</h1>
