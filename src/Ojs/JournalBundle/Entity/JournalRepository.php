@@ -2,8 +2,10 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\Common\Cache\FileCache;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\UserBundle\Entity\User;
 
 class JournalRepository extends EntityRepository
@@ -269,15 +271,39 @@ class JournalRepository extends EntityRepository
         return $query;
     }
 
-    public function getHomePageList()
+    public function getHomePageList(FileCache $cache)
     {
-        $query = $this->createQueryBuilder('j')
+        if(!$cache->contains('home_journal_offset')){
+            $cache->save('home_journal_offset', rand(0, $this->getJournalCount()), 3600);
+        }
+        $cachedOffset = $cache->fetch('home_journal_offset');
+        $list = $this->createQueryBuilder('j')
             ->select('partial j.{id,slug,issn,image,viewCount,downloadCount,founded}, partial i.{id,slug}')
             ->join('j.publisher', 'i')
             ->andWhere('j.status = :status')
-            ->setParameter('status', 1)
-            ->setMaxResults(12)->getQuery();
+            ->setParameter('status', JournalStatuses::STATUS_PUBLISHED)
+            ->setFirstResult(rand(0, $this->getJournalCount()))
+            ->setFirstResult($cachedOffset)
+            ->setMaxResults(12)
+            ->getQuery()
+            ->useQueryCache(true)
+            ->useResultCache(true, 3600)
+            ->getResult(Query::HYDRATE_OBJECT)
+        ;
+        return $list;
+    }
 
-        return $query->useQueryCache(true)->useResultCache(true, 1000)->getResult(Query::HYDRATE_OBJECT);
+    /**
+     * returns published
+     */
+    public function getJournalCount()
+    {
+        return $this->createQueryBuilder('j')
+            ->select("count(j.id)")
+            ->where("j.status = :status")
+            ->setParameter('status', JournalStatuses::STATUS_PUBLISHED)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
 }

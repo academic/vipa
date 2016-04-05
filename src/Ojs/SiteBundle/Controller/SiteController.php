@@ -32,7 +32,7 @@ class SiteController extends Controller
         $data['page'] = 'index';
 
         $em = $this->getDoctrine()->getManager();
-        $data['journals'] = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList();
+        $data['journals'] = $em->getRepository('OjsJournalBundle:Journal')->getHomePageList($this->get('file_cache'));
         shuffle($data['journals']);
 
         /** @var SubjectRepository $repo */
