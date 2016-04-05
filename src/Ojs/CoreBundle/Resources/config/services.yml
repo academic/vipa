@@ -112,7 +112,7 @@ services:
       tags:
         - { name: form.type, alias: purified_textarea }
 
-  ojs_search_manager:
+  ojs_core.search_manager:
     class: Ojs\CoreBundle\Service\SearchManager
     arguments: ["@translator", "@router"]
 

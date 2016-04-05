@@ -22,7 +22,7 @@ class SearchController extends Controller
      */
     public function indexAction(Request $request, $page = 1)
     {
-        $searchManager = $this->get('ojs_search_manager');
+        $searchManager = $this->get('ojs_core.search_manager');
 
         $journalId = null;
 
@@ -338,15 +338,5 @@ class SearchController extends Controller
         }
 
         return $this->render('OjsSiteBundle:Search:tags_cloud.html.twig', $data);
-    }
-
-    /**
-     * @param Request $request
-     * @param $slug
-     * @return Response
-     */
-    public function inJournalAction(Request $request, $slug)
-    {
-        return new Response('this page under construction!');
     }
 }
