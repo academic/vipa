@@ -36,6 +36,8 @@ fos_elastica:
               type: string
             email:
               type: string
+            avatar:
+              type: string
             tags:
               analyzer: "keyword"
               type: string
