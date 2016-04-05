@@ -1,9 +1,9 @@
 swiftmailer:
-    transport:            %mailer_transport%
-    username:             %mailer_user%
-    password:             %mailer_password%
-    host:                 %mailer_host%
-    port:                 %mailer_port%    
+    transport:            "%mailer_transport%"
+    username:             "%mailer_user%"
+    password:             "%mailer_password%"
+    host:                 "%mailer_host%"
+    port:                 "%mailer_port%"    
     #encryption: ssl #ssl or tsl
     #auth_mode:  login #(plain, login, or cram-md5)
     spool:

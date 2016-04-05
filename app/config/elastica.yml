@@ -3,10 +3,10 @@ parameters:
 fos_elastica:
   clients:
     #you can change to your setting
-    default: { host: %elasticsearch_host%, port: 9200 , logger: false}
+    default: { host: "%elasticsearch_host%", port: 9200 , logger: false}
   indexes:
     search:
-      index_name: %base_host%
+      index_name: "%base_host%"
       settings:
         analysis:
           analyzer:

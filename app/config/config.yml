@@ -15,7 +15,7 @@ parameters:
   admin_base_view: '::ojsbase.html.twig'
 
 framework:
-  translator:      { fallback: %locale% }
+  translator:      { fallback: "%locale%" }
   secret:          "%secret%"
   router:
     resource: "%kernel.root_dir%/config/routing.yml"
@@ -30,7 +30,7 @@ framework:
   session:
     handler_id:  ~
     cookie_domain: ".%base_host%"
-    name: %session_name%
+    name: "%session_name%"
   fragments:       ~
   http_method_override: true
   validation:    { enable_annotations: true}
@@ -46,14 +46,14 @@ twig:
       - 'OjsCoreBundle:Form:fields.html.twig'
   globals:
     languages : "%languages%"
-    base_host: %base_host%
-    admin_base_view: %admin_base_view%
-    https: %https%
-    ojs_logo: %ojs_logo%
-    ojs_tw: %ojs_tw%
-    ojs_fb: %ojs_fb%
-    project_name: %project_name%
-    ojs_favicon: %ojs_favicon%
+    base_host: "%base_host%"
+    admin_base_view: "%admin_base_view%"
+    https: "%https%"
+    ojs_logo: "%ojs_logo%"
+    ojs_tw: "%ojs_tw%"
+    ojs_fb: "%ojs_fb%"
+    project_name: "%project_name%"
+    ojs_favicon: "%ojs_favicon%"
   number_format:
     decimals: 0
     decimal_point: ','
@@ -138,8 +138,8 @@ fos_user:
     confirmation:
       enabled: true
       from_email:
-        address: %system_email%
-        sender_name: %project_name%
+        address: "%system_email%"
+        sender_name: "%project_name%"
   service:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
@@ -154,8 +154,8 @@ prezent_doctrine_translatable:
 jms_translation:
     configs:
         app:
-            dirs: [%kernel.root_dir%, %kernel.root_dir%/../src]
-            output_dir: %kernel.root_dir%/Resources/translations
+            dirs: ["%kernel.root_dir%", "%kernel.root_dir%/../src"]
+            output_dir: "%kernel.root_dir%/Resources/translations"
             ignored_domains: [routes]
             excluded_names: ["*TestCase.php", "*Test.php"]
             excluded_dirs: [cache, data, logs, vendor]
@@ -179,8 +179,8 @@ hwi_oauth:
   resource_owners:
     orcid:
       type:                oauth2
-      client_id:           %orcid.client_id%
-      client_secret:       %orcid.client_secret%
+      client_id:           "%orcid.client_id%"
+      client_secret:       "%orcid.client_secret%"
       access_token_url:    https://pub.orcid.org/oauth/token
       authorization_url:   https://orcid.org/oauth/authorize
       infos_url:           http://pub.orcid.org/v1.2
@@ -194,6 +194,6 @@ hwi_oauth:
         realname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
     linkedin:
       type:           linkedin
-      client_id:      %linkedin.client_id%
-      client_secret:  %linkedin.client_secret%
+      client_id:      "%linkedin.client_id%"
+      client_secret:  "%linkedin.client_secret%"
       scope:          r_emailaddress

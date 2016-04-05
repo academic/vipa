@@ -3,79 +3,79 @@ knp_gaufrette:
   adapters:
     publisher:
       local:
-        directory: %kernel.root_dir%/../web/uploads/publisher
+        directory: "%kernel.root_dir%/../web/uploads/publisher"
         create: true
     publisher_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/publisher/croped
+        directory: "%kernel.root_dir%/../web/uploads/publisher/croped"
         create: true
     institution:
       local:
-        directory: %kernel.root_dir%/../web/uploads/institution
+        directory: "%kernel.root_dir%/../web/uploads/institution"
         create: true
     institution_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/institution/croped
+        directory: "%kernel.root_dir%/../web/uploads/institution/croped"
         create: true
     announcement:
       local:
-        directory: %kernel.root_dir%/../web/uploads/announcement
+        directory: "%kernel.root_dir%/../web/uploads/announcement"
         create: true
     announcement_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/announcement/croped
+        directory: "%kernel.root_dir%/../web/uploads/announcement/croped"
         create: true
     journal:
       local:
-        directory: %kernel.root_dir%/../web/uploads/journal
+        directory: "%kernel.root_dir%/../web/uploads/journal"
         create: true
     journal_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/journal/croped
+        directory: "%kernel.root_dir%/../web/uploads/journal/croped"
         create: true
     index:
       local:
-        directory: %kernel.root_dir%/../web/uploads/index
+        directory: "%kernel.root_dir%/../web/uploads/index"
         create: true
     index_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/index/croped
+        directory: "%kernel.root_dir%/../web/uploads/index/croped"
         create: true
     user:
       local:
-        directory: %kernel.root_dir%/../web/uploads/user
+        directory: "%kernel.root_dir%/../web/uploads/user"
         create: true
     user_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/user/croped
+        directory: "%kernel.root_dir%/../web/uploads/user/croped"
         create: true
     issue:
       local:
-        directory: %kernel.root_dir%/../web/uploads/issue
+        directory: "%kernel.root_dir%/../web/uploads/issue"
         create: true
     issuefiles:
       local:
-        directory: %kernel.root_dir%/../web/uploads/issuefiles
+        directory: "%kernel.root_dir%/../web/uploads/issuefiles"
         create: true
     article:
       local:
-        directory: %kernel.root_dir%/../web/uploads/article
+        directory: "%kernel.root_dir%/../web/uploads/article"
         create: true
     article_croped:
       local:
-        directory: %kernel.root_dir%/../web/uploads/article/croped
+        directory: "%kernel.root_dir%/../web/uploads/article/croped"
         create: true
     articlefiles:
       local:
-        directory: %kernel.root_dir%/../web/uploads/articlefiles
+        directory: "%kernel.root_dir%/../web/uploads/articlefiles"
         create: true
     submissionfiles:
       local:
-        directory: %kernel.root_dir%/../web/uploads/submissionfiles
+        directory: "%kernel.root_dir%/../web/uploads/submissionfiles"
         create: true
     files:
       local:
-        directory: %kernel.root_dir%/../web/uploads/files
+        directory: "%kernel.root_dir%/../web/uploads/files"
         create: true
   filesystems:
     publisher:
