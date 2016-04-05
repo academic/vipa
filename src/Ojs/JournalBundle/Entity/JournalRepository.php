@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Ojs\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 
 class JournalRepository extends EntityRepository
 {
@@ -97,46 +96,6 @@ class JournalRepository extends EntityRepository
         return $this->filter;
     }
 
-    public function addFilter($key, $value)
-    {
-        $filter = $this->getFilter();
-        if (isset($filter[$key])) {
-            $filter[$key][] = $value;
-        } else {
-            $filter[$key] = [$value];
-        }
-        $this->filter = $filter;
-
-        return $this;
-    }
-
-    /**
-     * @param  Request $request
-     * @return $this
-     */
-    public function setFilter(Request $request)
-    {
-        $filters = [];
-        $filters['publisher_type'] = $this->parseFilter($request->get('publisher_type'));
-        $filters['subject'] = $this->parseFilter($request->get('subject'));
-        $this->filter = $filters;
-
-        return $this;
-    }
-
-    /**
-     * @param $filter
-     * @return array|null
-     */
-    public function parseFilter($filter)
-    {
-        if (empty($filter)) {
-            return null;
-        }
-
-        return explode('|', $filter);
-    }
-
     /**
      * @return mixed
      */
@@ -221,38 +180,6 @@ class JournalRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getTotalPageCount()
-    {
-        return ceil($this->getCount() / $this->getOffset());
-    }
-
-    /**
-     * Ban user
-     * @param  User    $user
-     * @param  Journal $journal
-     * @return bool
-     */
-    public function banUser(User $user, Journal $journal)
-    {
-        try {
-            $em = $this->getEntityManager();
-            if ($journal->getBannedUsers()->contains($user)) {
-                return true;
-            }
-            $journal->addBannedUser($user);
-            $user->addRestrictedJournal($journal);
-            $em->persist($journal);
-            $em->persist($user);
-            $em->flush();
-
-            return true;
-        } catch (\Exception $t) {
-            echo $t->getMessage();
-
-            return false;
-        }
-    }
-
     /**
      * Unban user
      * @param  User    $user
@@ -292,23 +219,6 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @param $publisherSlug
-     * @param Subject $subject
-     * @return array
-     */
-    public function getByPublisherAndSubject($publisherSlug, Subject $subject)
-    {
-        $qb = $this->createQueryBuilder('j');
-        $qb
-            ->join('j.publisher', 'i', 'WITH', 'i.slug = :publisherSlug')
-            ->join('j.subjects', 's', 'WITH', 's.id = :subject')
-            ->setParameter('publisherSlug', $publisherSlug)
-            ->setParameter('subject', $subject->getId());
-
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
      * @param Journal $journal
      * @return array
      */
@@ -325,25 +235,6 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     *
-     * @param  Journal $journal
-     * @return array
-     */
-    public function getVolumes(Journal $journal)
-    {
-        $issues = $journal->getIssues();
-        $volumes = [];
-        foreach ($issues as $issue) {
-            /* @var $issue Issue */
-            $volume = $issue->getVolume();
-            $volumes[$volume]['issues'][] = $issue;
-            $volumes[$volume]['volume'] = $volume;
-        }
-
-        return $volumes;
-    }
-
-    /**
      * @param  array     $data
      * @return Journal[]
      */
@@ -356,22 +247,6 @@ class JournalRepository extends EntityRepository
             ->setParameter('data', $data);
 
         return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * @param  User      $user
-     * @return Journal[]
-     */
-    public function findAllByUser(User $user)
-    {
-        $query = $this->createQueryBuilder('j')
-            ->join('j.journalUsers', 'journal_user')
-            ->andWhere('journal_user.user = :user')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult();
-
-        return $query;
     }
 
     /**
@@ -392,18 +267,6 @@ class JournalRepository extends EntityRepository
         }
 
         return $query;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllTitles()
-    {
-        $result = $this->createQueryBuilder('journal')
-            ->select('journal.title')->getQuery()
-            ->getResult(Query::HYDRATE_ARRAY);
-
-        return $result;
     }
 
     public function getHomePageList()
