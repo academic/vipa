@@ -196,6 +196,7 @@ fos_elastica:
             provider:
               debug_logging: false
         journal:
+          indexable_callback: 'isIndexable'
           mappings:
             id: { type: integer }
             translations:
