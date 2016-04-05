@@ -889,4 +889,15 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     {
         // TODO: Implement loadUserByOAuthUserResponse() method.
     }
+
+    /**
+     * @return bool
+     */
+    public function isIndexable()
+    {
+        if($this->isEnabled()){
+            return true;
+        }
+        return false;
+    }
 }

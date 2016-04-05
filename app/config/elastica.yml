@@ -17,6 +17,7 @@ fos_elastica:
       client: default
       types:
         user:
+          indexable_callback: 'isIndexable'
           mappings:
             title:
               type: "object"
