@@ -35,17 +35,23 @@ class AdminContactController extends Controller
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
 
+        $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:JournalContact', 'admin');
         $source->manipulateRow(
-            function (Row $row) use ($request)
+            function (Row $row) use ($request, $cache)
             {
                 /* @var JournalContact $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
 
                 if (!is_null($entity)){
-                    $row->setField('journal', $entity->getJournal()->getTitle());
-                    $row->setField('contactType', $entity->getContactType()->getName());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('journal.translations.title', $entity->getJournal()->getTitleTranslations());
+                        $row->setField('contactType', $entity->getContactType()->getNameTranslations());
+                    }
                 }
 
                 return $row;
