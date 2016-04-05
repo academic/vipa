@@ -14,19 +14,32 @@ use Symfony\Component\Translation\TranslatorInterface;
 class SearchManager
 {
     protected $totalHit;
-    /** @var  TranslatorInterface */
+
+    /**
+     * @var  TranslatorInterface
+     */
     private $translator;
-    /** @var Router */
+
+    /**
+     * @var Router
+     */
     private $router;
 
-    public function __construct(
-        TranslatorInterface $translator,
-        Router $router = null
-    ) {
+    /**
+     * SearchManager constructor.
+     * @param TranslatorInterface $translator
+     * @param Router|null $router
+     */
+    public function __construct(TranslatorInterface $translator, Router $router = null)
+    {
         $this->translator = $translator;
         $this->router = $router;
     }
 
+    /**
+     * @param $searchTerm
+     * @return array
+     */
     public function parseSearchQuery($searchTerm)
     {
         $searchTermsParsed = [];
@@ -379,6 +392,11 @@ class SearchManager
         ];
     }
 
+    /**
+     * @param $journalId
+     * @param $query
+     * @return mixed
+     */
     public function getSearchInJournalQuery($journalId, $query)
     {
         $queryArray['should'] = [];
