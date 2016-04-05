@@ -7,7 +7,6 @@ imports:
   - { resource: assetic.yml }
   - { resource: doctrine.yml }
   - { resource: elastica.yml }
-  - { resource: api.yml }
   - { resource: swift.yml }
   - { resource: media.yml }
 
