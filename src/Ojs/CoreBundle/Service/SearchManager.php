@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * Class $this
@@ -33,6 +34,11 @@ class SearchManager
     private $request;
 
     /**
+     * @var ParameterBag
+     */
+    private $query;
+
+    /**
      * @var int|null
      */
     private $journalId = null;
@@ -48,6 +54,11 @@ class SearchManager
     private $searchType = 'basic';
 
     /**
+     * @var string
+     */
+    private $section = null;
+
+    /**
      * SearchManager constructor.
      *
      * @param TranslatorInterface $translator
@@ -59,6 +70,7 @@ class SearchManager
         $this->translator   = $translator;
         $this->router       = $router;
         $this->request      = $requestStack->getCurrentRequest();
+        $this->query        = $this->request->query;
     }
 
     /**
@@ -452,8 +464,8 @@ class SearchManager
      */
     public function setupJournalId()
     {
-        if($this->request->query->has('journalId')){
-            $this->journalId = (int)$this->request->query->get('journalId');
+        if($this->query->has('journalId')){
+            $this->journalId = (int)$this->query->get('journalId');
         }
         return $this;
     }
@@ -537,12 +549,16 @@ class SearchManager
         ];
     }
 
+    /**
+     * @return $this
+     */
     public function setupRequestAggs()
     {
-        if($this->request->query->has('aggs')){
-            $this->requestAggsBag = $this->request->query->get('aggs');
+        if($this->query->has('aggs')){
+            $this->requestAggsBag = $this->query->get('aggs');
         }
-        $this->requestAggsBag = $this->request->query->set('aggs', []);
+        $this->requestAggsBag = $this->query->set('aggs', []);
+        return $this;
     }
 
     /**
@@ -566,14 +582,13 @@ class SearchManager
 
     public function setupSearchType()
     {
-        $query = $this->request->query;
-        if(!$query->has('type')){
+        if(!$this->query->has('type')){
             return;
         }
-        if(!in_array($query->get('type'), $this->getAllSearchTypes())){
+        if(!in_array($this->query->get('type'), $this->getAllSearchTypes())){
             return;
         }
-        $this->searchType = $query->get('type');
+        $this->searchType = $this->query->get('type');
         return $this;
     }
 
@@ -593,6 +608,9 @@ class SearchManager
         $this->searchType = $searchType;
     }
 
+    /**
+     * @return array
+     */
     public function getAllSearchTypes()
     {
         return [
@@ -601,5 +619,40 @@ class SearchManager
             'tag',
             'injournal',
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param string $section
+     * @return $this
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    public function setupSection()
+    {
+        if(!$this->query->has('section')){
+            return;
+        }
+        if(!in_array($this->query->get('section'), $this->getSectionList())){
+            return;
+        }
+        $this->section = $this->query->get('section');
+    }
+
+    public function getSectionList()
+    {
+        return $this->getSearchParamsBag();
     }
 }

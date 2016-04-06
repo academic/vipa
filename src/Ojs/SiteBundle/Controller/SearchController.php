@@ -27,9 +27,9 @@ class SearchController extends Controller
             ->setupSearchType()
             ->setupJournalId()
             ->setupRequestAggs()
+            ->setupSection()
             ;
 
-        $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
         $query = filter_var($request->get('q'), FILTER_SANITIZE_STRING);
 
