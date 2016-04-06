@@ -24,19 +24,7 @@ class SearchController extends Controller
         $searchManager = $this->get('ojs_core.search_manager');
 
         $searchManager->setupJournalId();
-
-        $getRoles = $request->query->get('role_filters');
-        $getSubjects = $request->query->get('subject_filters');
-        $getJournals = $request->query->get('journal_filters');
-        $getLocales = $request->query->get('locale_filters');
-        $getPublishers = $request->query->get('publisher_filters');
-        $getIndexes = $request->query->get('index_filters');
-        $roleFilters = !empty($getRoles) ? explode(',', $getRoles) : [];
-        $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
-        $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
-        $localeFilters = !empty($getLocales) ? explode(',', $getLocales) : [];
-        $publisherFilters = !empty($getPublishers) ? explode(',', $getPublishers) : [];
-        $indexFilters = !empty($getIndexes) ? explode(',', $getIndexes) : [];
+        $searchManager->setupRequestAggs();
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
