@@ -36,7 +36,7 @@ class SearchManager
     /**
      * @var ParameterBag
      */
-    private $query;
+    private $requestQuery;
 
     /**
      * @var int|null
@@ -59,6 +59,16 @@ class SearchManager
     private $section = null;
 
     /**
+     * @var int
+     */
+    private $page = 1;
+
+    /**
+     * @var string
+     */
+    private $query = null;
+
+    /**
      * SearchManager constructor.
      *
      * @param TranslatorInterface $translator
@@ -70,7 +80,7 @@ class SearchManager
         $this->translator   = $translator;
         $this->router       = $router;
         $this->request      = $requestStack->getCurrentRequest();
-        $this->query        = $this->request->query;
+        $this->requestQuery = $this->request->query;
     }
 
     /**
@@ -464,8 +474,8 @@ class SearchManager
      */
     public function setupJournalId()
     {
-        if($this->query->has('journalId')){
-            $this->journalId = (int)$this->query->get('journalId');
+        if($this->requestQuery->has('journalId')){
+            $this->journalId = (int)$this->requestQuery->get('journalId');
         }
         return $this;
     }
@@ -554,10 +564,10 @@ class SearchManager
      */
     public function setupRequestAggs()
     {
-        if($this->query->has('aggs')){
-            $this->requestAggsBag = $this->query->get('aggs');
+        if($this->requestQuery->has('aggs')){
+            $this->requestAggsBag = $this->requestQuery->get('aggs');
         }
-        $this->requestAggsBag = $this->query->set('aggs', []);
+        $this->requestAggsBag = $this->requestQuery->set('aggs', []);
         return $this;
     }
 
@@ -582,13 +592,13 @@ class SearchManager
 
     public function setupSearchType()
     {
-        if(!$this->query->has('type')){
-            return;
+        if(!$this->requestQuery->has('type')){
+            return $this;
         }
-        if(!in_array($this->query->get('type'), $this->getAllSearchTypes())){
-            return;
+        if(!in_array($this->requestQuery->get('type'), $this->getAllSearchTypes())){
+            return $this;
         }
-        $this->searchType = $this->query->get('type');
+        $this->searchType = $this->requestQuery->get('type');
         return $this;
     }
 
@@ -640,19 +650,70 @@ class SearchManager
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setupSection()
     {
-        if(!$this->query->has('section')){
-            return;
+        if(!$this->requestQuery->has('section')){
+            return $this;
         }
-        if(!in_array($this->query->get('section'), $this->getSectionList())){
-            return;
+        if(!in_array($this->requestQuery->get('section'), $this->getSectionList())){
+            return $this;
         }
-        $this->section = $this->query->get('section');
+        $this->section = filter_var($this->requestQuery->get('section'), FILTER_SANITIZE_STRING);
+        return $this;
     }
 
     public function getSectionList()
     {
         return $this->getSearchParamsBag();
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @param int $page
+     * @return $this
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    public function setupQuery()
+    {
+        if(!$this->requestQuery->has('q')){
+            return $this;
+        }
+        $this->query = filter_var($this->requestQuery->get('q'), FILTER_SANITIZE_STRING);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
+
+    /**
+     * @param string $query
+     * @return $this
+     */
+    public function setQuery($query)
+    {
+        $this->query = $query;
+
+        return $this;
     }
 }
