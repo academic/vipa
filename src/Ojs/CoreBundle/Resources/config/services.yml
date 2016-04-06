@@ -114,7 +114,7 @@ services:
 
   ojs_core.search_manager:
     class: Ojs\CoreBundle\Service\Search\SearchManager
-    arguments: ["@translator", "@router", "@request_stack", "@ojs_core.search.native_query_generator"]
+    arguments: ["@translator", "@router", "@request_stack", "@ojs_core.search.native_query_generator", "@fos_elastica.index.search"]
 
   ojs_core.search.native_query_generator:
     class: Ojs\CoreBundle\Service\Search\NativeQueryGenerator
