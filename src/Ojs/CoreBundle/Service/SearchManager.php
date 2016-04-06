@@ -4,7 +4,6 @@ namespace Ojs\CoreBundle\Service;
 
 use Elastica\Result;
 use Elastica\ResultSet;
-use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -37,6 +36,11 @@ class SearchManager
      * @var int|null
      */
     private $journalId = null;
+
+    /**
+     * @var array
+     */
+    private $requestAggsBag = [];
 
     /**
      * SearchManager constructor.
@@ -526,5 +530,32 @@ class SearchManager
             ],
 
         ];
+    }
+
+    public function setupRequestAggs()
+    {
+        if($this->request->query->has('aggs')){
+            $this->requestAggsBag = $this->request->query->get('aggs');
+        }
+        $this->requestAggsBag = $this->request->query->set('aggs', []);
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestAggsBag()
+    {
+        return $this->requestAggsBag;
+    }
+
+    /**
+     * @param array $requestAggsBag
+     * @return $this
+     */
+    public function setRequestAggsBag($requestAggsBag)
+    {
+        $this->requestAggsBag = $requestAggsBag;
+
+        return $this;
     }
 }
