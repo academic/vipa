@@ -39,16 +39,6 @@ class SearchManager
     private $requestQuery;
 
     /**
-     * @var int|null
-     */
-    private $journalId = null;
-
-    /**
-     * @var array
-     */
-    private $requestAggsBag = [];
-
-    /**
      * @var string
      */
     private $section = null;
@@ -57,11 +47,6 @@ class SearchManager
      * @var int
      */
     private $page = 1;
-
-    /**
-     * @var string
-     */
-    private $query = null;
 
     /**
      * @var NativeQueryGenerator
@@ -471,36 +456,6 @@ class SearchManager
         return $queryArray;
     }
 
-    /**
-     * @return $this
-     */
-    public function setupJournalId()
-    {
-        if($this->requestQuery->has('journalId')){
-            $this->journalId = (int)$this->requestQuery->get('journalId');
-        }
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * @param $journalId
-     * @return $this
-     */
-    public function setJournalId($journalId = null)
-    {
-        $this->journalId = $journalId;
-
-        return $this;
-    }
-
     public function getSearchParamsBag()
     {
         return [
@@ -567,9 +522,8 @@ class SearchManager
     public function setupRequestAggs()
     {
         if($this->requestQuery->has('aggs')){
-            $this->requestAggsBag = $this->requestQuery->get('aggs');
+            $this->nativeQueryGenerator->setRequestAggsBag($this->requestQuery->get('aggs'));
         }
-        $this->requestAggsBag = $this->requestQuery->set('aggs', []);
         return $this;
     }
 
@@ -578,7 +532,7 @@ class SearchManager
      */
     public function getRequestAggsBag()
     {
-        return $this->requestAggsBag;
+        return $this->nativeQueryGenerator->getRequestAggsBag();
     }
 
     /**
@@ -587,7 +541,7 @@ class SearchManager
      */
     public function setRequestAggsBag($requestAggsBag)
     {
-        $this->requestAggsBag = $requestAggsBag;
+        $this->nativeQueryGenerator->setRequestAggsBag($requestAggsBag);
 
         return $this;
     }
@@ -619,7 +573,7 @@ class SearchManager
         if(!$this->requestQuery->has('section')){
             return $this;
         }
-        if(!in_array($this->requestQuery->get('section'), $this->getSectionList())){
+        if(!in_array($this->requestQuery->get('section'), array_keys($this->getSectionList()))){
             return $this;
         }
         $this->section = filter_var($this->requestQuery->get('section'), FILTER_SANITIZE_STRING);
@@ -655,7 +609,8 @@ class SearchManager
         if(!$this->requestQuery->has('q')){
             return $this;
         }
-        $this->query = filter_var($this->requestQuery->get('q'), FILTER_SANITIZE_STRING);
+        $this->nativeQueryGenerator->setQuery(filter_var($this->requestQuery->get('q'), FILTER_SANITIZE_STRING));
+
         return $this;
     }
 
@@ -664,7 +619,7 @@ class SearchManager
      */
     public function getQuery()
     {
-        return $this->query;
+        return $this->nativeQueryGenerator->getQuery();
     }
 
     /**
@@ -673,7 +628,7 @@ class SearchManager
      */
     public function setQuery($query)
     {
-        $this->query = $query;
+        $this->nativeQueryGenerator->setQuery($query);
 
         return $this;
     }
