@@ -128,51 +128,6 @@ class SearchManager
     }
 
     /**
-     * @param ResultSet $resultSet
-     * @param $section
-     * @return array
-     */
-    public function buildResultsObject(ResultSet $resultSet, $section)
-    {
-        $results = [];
-        /**
-         * @var Result $object
-         */
-        foreach ($resultSet as $object) {
-            $objectType = $object->getType();
-            $objectDetail = $this->getObjectDetail($object);
-            if (!isset($results[$objectType])) {
-                if($objectDetail['route']){
-                    $results[$objectType]['data'] = [];
-                    $results[$objectType]['total_item'] = 1;
-                    $results[$objectType]['type'] = $this->translator->trans($object->getType());
-                }
-            } else {
-                if($objectDetail['route']) {
-                    $results[$objectType]['total_item']++;
-                }
-            }
-            if ($section == $objectType) {
-                $result['detail'] = $objectDetail;
-                $result['source'] = $object->getSource();
-                if ($result['detail']['route']) {
-                    $results[$objectType]['data'][] = $result;
-                }
-            }
-
-        }
-        //set only acceptable count for selected section
-        if (!empty($section) && isset($results[$section])) {
-            $results[$section]['total_item'] = count($results[$section]['data']);
-        }
-        foreach ($results as $result) {
-            $this->setTotalHit($this->getTotalHit() + $result['total_item']);
-        }
-
-        return $results;
-    }
-
-    /**
      * @param array $result
      * @return array
      */
@@ -584,6 +539,7 @@ class SearchManager
             if($resultData->getTotalHits() < 1){
                 continue;
             }
+            $this->setTotalHit($this->getTotalHit()+$resultData->getTotalHits());
             if($section !== $this->getSection()){
                 $results[$section]['total_item'] = $resultData->getTotalHits();
                 $results[$section]['type'] = $this->translator->trans($section);
