@@ -28,10 +28,9 @@ class SearchController extends Controller
             ->setupJournalId()
             ->setupRequestAggs()
             ->setupSection()
+            ->setPage($page)
+            ->setupQuery()
             ;
-
-
-        $query = filter_var($request->get('q'), FILTER_SANITIZE_STRING);
 
         $section = filter_var($request->get('section'), FILTER_SANITIZE_STRING);
 
