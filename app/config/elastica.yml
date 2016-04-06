@@ -235,7 +235,7 @@ fos_elastica:
             periods:
               type: object
               properties:
-                period: { type: string }
+                period: { type: string, index: not_analyzed}
             image: ~
             viewCount: {type: integer}
             downloadCount: {type: integer}
