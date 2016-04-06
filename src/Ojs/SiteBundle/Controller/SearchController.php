@@ -6,10 +6,7 @@ use Elastica\Aggregation;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
@@ -23,6 +20,8 @@ class SearchController extends Controller
     public function indexAction(Request $request, $page = 1)
     {
         $sm = $this->get('ojs_core.search_manager');
+
+        //setup basic data
         $sm
             ->setupRequestAggs()
             ->setupSection()
@@ -30,15 +29,24 @@ class SearchController extends Controller
             ->setupQuery()
             ;
 
+        //if section is not specified
         if($sm->getSection() === null){
+            //decide to section
             $section = $sm->decideSection();
-            if($section == null){
-                return new Response('No result found');
+            //if section is decided decided redirect to this section
+            if($section !== null){
+                return $this->redirectToRoute('ojs_search_index', array_merge($request->query->all(), ['section' => $section]));
             }
-            return $this->redirectToRoute('ojs_search_index', array_merge($request->query->all(), ['section' => $section]));
         }
-
+        //build query result
         $sm->setupQueryResultSet();
+        /**
+         * if there is result but section result is not exists
+         * redirect to main search system for decide correct section
+         */
+        if(count($sm->getResultSet()) > 0 && !isset($sm->getResultSet()[$sm->getSection()])){
+            return $this->redirectToRoute('ojs_search_index', ['q' => $sm->getQuery()]);
+        }
 
         return $this->render('OjsSiteBundle:Search:index.html.twig', ['sm' => $sm]);
     }
