@@ -60,6 +60,11 @@ class SearchManager
     private $nativeQueryGenerator;
 
     /**
+     * @var array
+     */
+    private $resultSet;
+
+    /**
      * SearchManager constructor.
      *
      * @param TranslatorInterface $translator
@@ -568,7 +573,7 @@ class SearchManager
         return null;
     }
 
-    public function getQueryResultSet()
+    public function setupQueryResultSet()
     {
         $results = [];
         foreach($this->getSectionList() as $section){
@@ -576,16 +581,46 @@ class SearchManager
             $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, $setupAggs);
             /** @var \Elastica\ResultSet $resultData */
             $resultData = $this->searchIndex->search($nativeQuery);
-            if($resultData->count() < 1){
+            if($resultData->getTotalHits() < 1){
                 continue;
             }
+            if($section !== $this->getSection()){
+                $results[$section]['total_item'] = $resultData->getTotalHits();
+                $results[$section]['type'] = $this->translator->trans($section);
+                continue;
+            }
+
             /**
              * @var Result $object
              */
             foreach($resultData as $resultObject){
-                $objectType = $object->getType();
-                $objectDetail = $this->getObjectDetail($object);
+                $objectDetail = $this->getObjectDetail($resultObject);
+                $results[$section]['total_item'] = $resultData->getTotalHits();
+                $results[$section]['type'] = $this->translator->trans($section);
+                $result['detail'] = $objectDetail;
+                $result['source'] = $resultObject->getSource();
+                $results[$section]['data'][] = $result;
             }
         }
+        $this->setResultSet($results);
+    }
+
+    /**
+     * @return array
+     */
+    public function getResultSet()
+    {
+        return $this->resultSet;
+    }
+
+    /**
+     * @param array $resultSet
+     * @return $this
+     */
+    public function setResultSet($resultSet)
+    {
+        $this->resultSet = $resultSet;
+
+        return $this;
     }
 }

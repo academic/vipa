@@ -38,86 +38,9 @@ class SearchController extends Controller
             return $this->redirectToRoute('ojs_search_index', array_merge($request->query->all(), ['section' => $section]));
         }
 
-        $resultSet = $sm->getQueryResultSet();
+        $sm->setupQueryResultSet();
 
-
-
-
-
-
-
-
-
-
-        if ($resultData->count() > 0) {
-
-            /**
-             * if search section is not defined or empty redirect to first result section
-             */
-            if (empty($section)) {
-                $section = array_keys($results)[0];
-                $redirectParams = array_merge($request->query->all(), ['section' => $section]);
-
-                return $this->redirectToRoute('ojs_search_index', $redirectParams);
-            } else {
-                /**
-                 * if section result is empty redirect to first that have result section
-                 */
-                if (!isset($results[$section])) {
-                    foreach ($results as $resultKey => $result) {
-                        if ($result['total_item'] > 0) {
-
-                            $redirectParams = array_merge($request->query->all(), ['section' => $resultKey]);
-
-                            return $this->redirectToRoute('ojs_search_index', $redirectParams);
-                        }
-                    }
-                }
-            }
-            $adapter = new ArrayAdapter($results[$section]['data']);
-            $pagerfanta = new Pagerfanta($adapter);
-            $pagerfanta->setMaxPerPage(20);
-            $pagerfanta->setCurrentPage($page);
-            $results[$section]['data'] = $pagerfanta->getCurrentPageResults();
-            /**
-             * add search query to query history
-             * history data stores on session
-             */
-            $this->addQueryToHistory($request, $query, $queryType, $resultData->count());
-
-            $data = [
-                'journalId'         => $journalId,
-                'results'           => $results,
-                'query'             => $query,
-                'queryType'         => $queryType,
-                'section'           => $section,
-                'total_count'       => $searchManager->getTotalHit(),
-                'roles'             => $roles,
-                'subjects'          => $subjects,
-                'locales'           => $locales,
-                'journals'          => $journals,
-                'publishers'        => $publishers,
-                'indexes'           => $indexes,
-                'role_filters'      => $roleFilters,
-                'subject_filters'   => $subjectFilters,
-                'journal_filters'   => $journalFilters,
-                'locale_filters'    => $localeFilters,
-                'publisher_filters' => $publisherFilters,
-                'index_filters'     => $indexFilters,
-                'pagerfanta'        => $pagerfanta,
-                'page'              => $page
-            ];
-
-        } else {
-            $data = [
-                'journalId' => $journalId,
-                'query' => $query,
-                'queryType' => $queryType,
-                'total_count' => $searchManager->getTotalHit(),
-                'journals' => []
-            ];
-        }
-        return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
+        return $this->render('OjsSiteBundle:Search:index.html.twig', ['sm' => $sm]);
     }
 
     /**
