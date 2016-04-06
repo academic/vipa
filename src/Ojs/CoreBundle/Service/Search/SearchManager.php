@@ -552,16 +552,40 @@ class SearchManager
         return $this;
     }
 
-    public function generateNativeQuery($section)
-    {
-        return $this->nativeQueryGenerator->generateNativeQuery($section);
-    }
-
+    /**
+     * @return null
+     */
     public function decideSection()
     {
         foreach($this->getSectionList() as $section){
-            $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, true);
-            $result = $this->searchIndex->search($nativeQuery);
+            $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, false);
+            /** @var \Elastica\ResultSet $resultData */
+            $resultData = $this->searchIndex->search($nativeQuery);
+            if($resultData->count()> 0){
+                return $section;
+            }
+        }
+        return null;
+    }
+
+    public function getQueryResultSet()
+    {
+        $results = [];
+        foreach($this->getSectionList() as $section){
+            $setupAggs = $section == $this->getSection()? true: false;
+            $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, $setupAggs);
+            /** @var \Elastica\ResultSet $resultData */
+            $resultData = $this->searchIndex->search($nativeQuery);
+            if($resultData->count() < 1){
+                continue;
+            }
+            /**
+             * @var Result $object
+             */
+            foreach($resultData as $resultObject){
+                $objectType = $object->getType();
+                $objectDetail = $this->getObjectDetail($object);
+            }
         }
     }
 }
