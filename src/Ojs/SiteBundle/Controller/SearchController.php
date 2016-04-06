@@ -24,15 +24,13 @@ class SearchController extends Controller
         $searchManager = $this->get('ojs_core.search_manager');
 
         $searchManager
-            ->setupSearchType()
             ->setupJournalId()
             ->setupRequestAggs()
             ->setupSection()
             ->setPage($page)
             ->setupQuery()
+            ->generateNativeQuery()
             ;
-
-        $section = filter_var($request->get('section'), FILTER_SANITIZE_STRING);
 
         $searcher = $this->get('fos_elastica.index.search');
 

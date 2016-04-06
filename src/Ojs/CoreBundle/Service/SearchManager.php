@@ -51,11 +51,6 @@ class SearchManager
     /**
      * @var string
      */
-    private $searchType = 'basic';
-
-    /**
-     * @var string
-     */
     private $section = null;
 
     /**
@@ -590,47 +585,6 @@ class SearchManager
         return $this;
     }
 
-    public function setupSearchType()
-    {
-        if(!$this->requestQuery->has('type')){
-            return $this;
-        }
-        if(!in_array($this->requestQuery->get('type'), $this->getAllSearchTypes())){
-            return $this;
-        }
-        $this->searchType = $this->requestQuery->get('type');
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSearchType()
-    {
-        return $this->searchType;
-    }
-
-    /**
-     * @param string $searchType
-     */
-    public function setSearchType($searchType)
-    {
-        $this->searchType = $searchType;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAllSearchTypes()
-    {
-        return [
-            'basic',
-            'advanced',
-            'tag',
-            'injournal',
-        ];
-    }
-
     /**
      * @return string
      */
@@ -715,5 +669,14 @@ class SearchManager
         $this->query = $query;
 
         return $this;
+    }
+
+    public function generateNativeQuery()
+    {
+        if($this->getSearchType() == 'basic'){
+
+        }elseif($this->getSearchType() == 'advanced'){
+
+        }
     }
 }
