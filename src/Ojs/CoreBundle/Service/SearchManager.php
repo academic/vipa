@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Service;
 
 use Elastica\Result;
 use Elastica\ResultSet;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -31,6 +32,11 @@ class SearchManager
      * @var Request
      */
     private $request;
+
+    /**
+     * @var int|null
+     */
+    private $journalId = null;
 
     /**
      * SearchManager constructor.
@@ -430,5 +436,35 @@ class SearchManager
             ];
         }
         return $queryArray;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setupJournalId()
+    {
+        if($this->request->query->has('journalId')){
+            $this->journalId = (int)$this->request->query->get('journalId');
+        }
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getJournalId()
+    {
+        return $this->journalId;
+    }
+
+    /**
+     * @param $journalId
+     * @return $this
+     */
+    public function setJournalId($journalId = null)
+    {
+        $this->journalId = $journalId;
+
+        return $this;
     }
 }
