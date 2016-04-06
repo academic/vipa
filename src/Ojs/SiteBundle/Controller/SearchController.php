@@ -23,8 +23,11 @@ class SearchController extends Controller
     {
         $searchManager = $this->get('ojs_core.search_manager');
 
-        $searchManager->setupJournalId();
-        $searchManager->setupRequestAggs();
+        $searchManager
+            ->setupSearchType()
+            ->setupJournalId()
+            ->setupRequestAggs()
+            ;
 
         $queryType = $request->query->has('type') ? $request->get('type') : 'basic';
 
@@ -39,14 +42,14 @@ class SearchController extends Controller
         $boolQuery = new Query\BoolQuery();
 
         //set query according to query type
-        if ($queryType == 'basic') {
+        if ($searchManager->getSearchType() == 'basic') {
             $request->getLocale() === 'tr' ? $searchString = str_replace(['I', 'İ'], ['ı', 'i'], $query) : $searchString = $query;
             $searchString = sprintf('%s', mb_strtolower($searchString, 'UTF-8'));
 
             $fieldQuery = new Query\MatchPhrasePrefix();
             $fieldQuery->setParam('_all', $searchString);
             $boolQuery->addMust($fieldQuery);
-        } elseif ($queryType == 'advanced') {
+        } elseif ($searchManager->getSearchType() == 'advanced') {
 
             $parseQuery = $searchManager->parseSearchQuery($query);
             foreach ($parseQuery as $searchTerm) {
@@ -64,12 +67,12 @@ class SearchController extends Controller
                     $boolQuery->addMustNot($advancedFieldQuery);
                 }
             }
-        } elseif ($queryType == 'tag') {
+        } elseif ($searchManager->getSearchType() == 'tag') {
 
             $regexpQuery = new Query\Regexp();
             $regexpQuery->setParams(['tags' => ".*".$query.".*"]);
             $boolQuery->addMust($regexpQuery);
-        } elseif ($queryType == 'injournal') {
+        } elseif ($searchManager->getSearchType() == 'injournal') {
 
             $boolQuery->setParams($searchManager->getSearchInJournalQuery($searchManager->getJournalId(), $query));
         }

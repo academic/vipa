@@ -43,6 +43,11 @@ class SearchManager
     private $requestAggsBag = [];
 
     /**
+     * @var string
+     */
+    private $searchType = 'basic';
+
+    /**
      * SearchManager constructor.
      *
      * @param TranslatorInterface $translator
@@ -557,5 +562,44 @@ class SearchManager
         $this->requestAggsBag = $requestAggsBag;
 
         return $this;
+    }
+
+    public function setupSearchType()
+    {
+        $query = $this->request->query;
+        if(!$query->has('type')){
+            return;
+        }
+        if(!in_array($query->get('type'), $this->getAllSearchTypes())){
+            return;
+        }
+        $this->searchType = $query->get('type');
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSearchType()
+    {
+        return $this->searchType;
+    }
+
+    /**
+     * @param string $searchType
+     */
+    public function setSearchType($searchType)
+    {
+        $this->searchType = $searchType;
+    }
+
+    public function getAllSearchTypes()
+    {
+        return [
+            'basic',
+            'advanced',
+            'tag',
+            'injournal',
+        ];
     }
 }
