@@ -27,12 +27,12 @@ class SearchController extends Controller
             ->setupSection()
             ->setPage($page)
             ->setupQuery()
-            ->generateNativeQuery()
             ;
 
+        if($sm->getSection() === null){
+            $sm->decideSection();
+        }
 
-
-        $searcher = $this->get('fos_elastica.index.search');
 
         $searchQuery = new Query('_all');
 
@@ -42,45 +42,6 @@ class SearchController extends Controller
         $searchQuery->setQuery($boolQuery);
         //get all result
         $searchQuery->setSize(1000);
-
-        //get role aggregation
-        $roleAgg = new Aggregation\Terms('roles');
-        $roleAgg->setField('userJournalRoles.role.name');
-        $roleAgg->setOrder('_term', 'asc');
-        $roleAgg->setSize(0);
-        $searchQuery->addAggregation($roleAgg);
-
-        //get subject aggregation
-        $subjectAgg = new Aggregation\Terms('subjects');
-        $subjectAgg->setField('subjects.subject');
-        $subjectAgg->setOrder('_term', 'asc');
-        $subjectAgg->setSize(0);
-        $searchQuery->addAggregation($subjectAgg);
-
-        //get journal aggregation
-        $journalAgg = new Aggregation\Terms('journals');
-        $journalAgg->setField('journal.title.raw');
-        $journalAgg->setOrder('_term', 'asc');
-        $journalAgg->setSize(0);
-        $searchQuery->addAggregation($journalAgg);
-
-        $localeAgg = new Aggregation\Terms('locales');
-        $localeAgg->setField('translations.locale');
-        $localeAgg->setOrder('_term', 'asc');
-        $localeAgg->setSize(0);
-        $searchQuery->addAggregation($localeAgg);
-
-        $publisherAgg = new Aggregation\Terms('publishers');
-        $publisherAgg->setField('publisher.name.raw');
-        $publisherAgg->setOrder('_term', 'asc');
-        $publisherAgg->setSize(0);
-        $searchQuery->addAggregation($publisherAgg);
-
-        $indexAgg = new Aggregation\Terms('indexes');
-        $indexAgg->setField('journalIndexs.index.name.raw');
-        $indexAgg->setOrder('_term', 'asc');
-        $indexAgg->setSize(0);
-        $searchQuery->addAggregation($indexAgg);
 
         /**
          * @var ResultSet $resultData

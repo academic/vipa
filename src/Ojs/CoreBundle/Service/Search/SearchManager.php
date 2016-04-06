@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use FOS\ElasticaBundle\Elastica\Index;
 
 /**
  * Class $this
@@ -27,6 +28,11 @@ class SearchManager
      * @var Router
      */
     private $router;
+
+    /**
+     * @var Index
+     */
+    private $searchIndex;
 
     /**
      * @var Request
@@ -60,14 +66,30 @@ class SearchManager
      * @param Router $router
      * @param RequestStack $requestStack
      * @param NativeQueryGenerator $nativeQueryGenerator
+     * @param Index $searchIndex
      */
-    public function __construct(TranslatorInterface $translator, Router $router, RequestStack $requestStack, NativeQueryGenerator $nativeQueryGenerator)
+    public function __construct(
+        TranslatorInterface $translator,
+        Router $router,
+        RequestStack $requestStack,
+        NativeQueryGenerator $nativeQueryGenerator,
+        Index $searchIndex
+    )
     {
         $this->translator           = $translator;
         $this->router               = $router;
         $this->request              = $requestStack->getCurrentRequest();
         $this->requestQuery         = $this->request->query;
         $this->nativeQueryGenerator = $nativeQueryGenerator;
+        $this->searchIndex          = $searchIndex;
+    }
+
+    /**
+     * @return NativeQueryGenerator
+     */
+    public function getNativeQueryGenerator()
+    {
+        return $this->nativeQueryGenerator;
     }
 
     /**
@@ -414,109 +436,6 @@ class SearchManager
     }
 
     /**
-     * @return array
-     */
-    private function getSearchInJournalQueryParams()
-    {
-        return [
-            ['user.journalUsers.journal.id' ,               'user._all'],
-            ['articles.journal.id' ,                        'articles._all'],
-            ['citation.articles.journal.id' ,               'citation._all'],
-            ['author.articleAuthors.article.journal.id' ,   'author._all'],
-        ];
-    }
-
-    /**
-     * @param $journalId
-     * @param $query
-     * @return mixed
-     */
-    public function getSearchInJournalQuery($journalId, $query)
-    {
-        $queryArray['should'] = [];
-
-        foreach($this->getSearchInJournalQueryParams() as $param){
-            $journalField = $param[0];
-            $searchField = $param[1];
-            $queryArray['should'][] = [
-                'bool' =>
-                    [
-                        'must' =>
-                            [
-                                [
-                                    'match' => [ $journalField => $journalId ]
-                                ],
-                                [
-                                    'match' => [ $searchField => [ 'query' => $query ]]
-                                ],
-                            ],
-                    ],
-            ];
-        }
-        return $queryArray;
-    }
-
-    public function getSearchParamsBag()
-    {
-        return [
-            'user' => [
-                'fields' => [
-                    'username',
-                    'firstName',
-                    'lastName',
-                    'email',
-                    'tags',
-                ],
-                'aggs' => [
-                    'title',
-                    'subjects',
-                    'journalUsers.journal.title'
-                ]
-            ],
-            'articles' => [
-                'fields' => [
-                    'title',
-                    'abstract',
-                ],
-                'aggs' => [
-                    'journal.title',
-                    'section.title',
-                ]
-            ],
-            'publisher' => [
-                'fields' => [
-                    'name',
-                ],
-                'aggs' => [
-                    'publisherType.name',
-                ]
-            ],
-            'journal' => [
-                'fields' => [
-                    'title',
-                    'description',
-                ],
-                'aggs' => [
-                    'subjects.subject',
-                    'publisher.name',
-                    'periods.period',
-                ]
-            ],
-            'author' => [
-                'fields' => [
-                    'firstName',
-                    'lastName',
-                    'middleName',
-                ],
-                'aggs' => [
-                    'title',
-                ]
-            ],
-
-        ];
-    }
-
-    /**
      * @return $this
      */
     public function setupRequestAggs()
@@ -547,7 +466,7 @@ class SearchManager
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getSection()
     {
@@ -573,7 +492,7 @@ class SearchManager
         if(!$this->requestQuery->has('section')){
             return $this;
         }
-        if(!in_array($this->requestQuery->get('section'), array_keys($this->getSectionList()))){
+        if(!in_array($this->requestQuery->get('section'), $this->getSectionList())){
             return $this;
         }
         $this->section = filter_var($this->requestQuery->get('section'), FILTER_SANITIZE_STRING);
@@ -582,7 +501,7 @@ class SearchManager
 
     public function getSectionList()
     {
-        return $this->getSearchParamsBag();
+        return array_keys($this->nativeQueryGenerator->getSearchParamsBag());
     }
 
     /**
@@ -633,8 +552,16 @@ class SearchManager
         return $this;
     }
 
-    public function generateNativeQuery()
+    public function generateNativeQuery($section)
     {
+        return $this->nativeQueryGenerator->generateNativeQuery($section);
+    }
 
+    public function decideSection()
+    {
+        foreach($this->getSectionList() as $section){
+            $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, true);
+            $result = $this->searchIndex->search($nativeQuery);
+        }
     }
 }
