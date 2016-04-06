@@ -21,10 +21,8 @@ class SearchController extends Controller
      */
     public function indexAction(Request $request, $page = 1)
     {
-        $searchManager = $this->get('ojs_core.search_manager');
-
-        $searchManager
-            ->setupJournalId()
+        $sm = $this->get('ojs_core.search_manager');
+        $sm
             ->setupRequestAggs()
             ->setupSection()
             ->setPage($page)
@@ -32,91 +30,13 @@ class SearchController extends Controller
             ->generateNativeQuery()
             ;
 
+
+
         $searcher = $this->get('fos_elastica.index.search');
 
         $searchQuery = new Query('_all');
 
         $boolQuery = new Query\BoolQuery();
-
-        //set query according to query type
-        if ($searchManager->getSearchType() == 'basic') {
-            $request->getLocale() === 'tr' ? $searchString = str_replace(['I', 'İ'], ['ı', 'i'], $query) : $searchString = $query;
-            $searchString = sprintf('%s', mb_strtolower($searchString, 'UTF-8'));
-
-            $fieldQuery = new Query\MatchPhrasePrefix();
-            $fieldQuery->setParam('_all', $searchString);
-            $boolQuery->addMust($fieldQuery);
-        } elseif ($searchManager->getSearchType() == 'advanced') {
-
-            $parseQuery = $searchManager->parseSearchQuery($query);
-            foreach ($parseQuery as $searchTerm) {
-                $condition = $searchTerm['condition'];
-                $advancedFieldQuery = new Query\MultiMatch();
-                $advancedFieldQuery->setFields(
-                    [$searchTerm['searchField']]
-                );
-                $advancedFieldQuery->setQuery($searchTerm['searchText']);
-                if ($condition == 'AND') {
-                    $boolQuery->addMust($advancedFieldQuery);
-                } elseif ($condition == 'OR') {
-                    $boolQuery->addShould($advancedFieldQuery);
-                } elseif ($condition == 'NOT') {
-                    $boolQuery->addMustNot($advancedFieldQuery);
-                }
-            }
-        } elseif ($searchManager->getSearchType() == 'tag') {
-
-            $regexpQuery = new Query\Regexp();
-            $regexpQuery->setParams(['tags' => ".*".$query.".*"]);
-            $boolQuery->addMust($regexpQuery);
-        } elseif ($searchManager->getSearchType() == 'injournal') {
-
-            $boolQuery->setParams($searchManager->getSearchInJournalQuery($searchManager->getJournalId(), $query));
-        }
-
-        //set aggregations if requested
-        if (!empty($roleFilters) 
-            || !empty($subjectFilters) 
-            || !empty($journalFilters) 
-            || !empty($localeFilters) 
-            || !empty($publisherFilters)
-        ) {
-            foreach ($roleFilters as $role) {
-                $match = new Query\Match();
-                $match->setField('user.userJournalRoles.role.name', $role);
-                $boolQuery->addMust($match);
-            }
-
-            foreach ($subjectFilters as $subject) {
-                $match = new Query\Match();
-                $match->setField('subjects', $subject);
-                $boolQuery->addMust($match);
-            }
-
-            foreach ($journalFilters as $journal) {
-                $match = new Query\Match();
-                $match->setField('user.userJournalRoles.journal.title', $journal);
-                $boolQuery->addMust($match);
-            }
-
-            foreach ($localeFilters as $locale) {
-                $match = new Query\Match();
-                $match->setField('translations.locale', $locale);
-                $boolQuery->addMust($match);
-            }
-
-            foreach ($publisherFilters as $publisher) {
-                $match = new Query\Match();
-                $match->setField('publisher.name', $publisher);
-                $boolQuery->addMust($match);
-            }
-
-            foreach ($indexFilters as $index) {
-                $match = new Query\Match();
-                $match->setField('journalIndexs.index.name', $index);
-                $boolQuery->addMust($match);
-            }
-        }
         
         //set our boolean query
         $searchQuery->setQuery($boolQuery);
