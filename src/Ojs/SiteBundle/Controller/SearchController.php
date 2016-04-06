@@ -23,7 +23,7 @@ class SearchController extends Controller
     {
         $searchManager = $this->get('ojs_core.search_manager');
 
-        $journalId = null;
+        $searchManager->setupJournalId();
 
         $getRoles = $request->query->get('role_filters');
         $getSubjects = $request->query->get('subject_filters');
@@ -83,8 +83,7 @@ class SearchController extends Controller
             $boolQuery->addMust($regexpQuery);
         } elseif ($queryType == 'injournal') {
 
-            $journalId = $request->get('journalId');
-            $boolQuery->setParams($searchManager->getSearchInJournalQuery($journalId, $query));
+            $boolQuery->setParams($searchManager->getSearchInJournalQuery($searchManager->getJournalId(), $query));
         }
 
         //set aggregations if requested
