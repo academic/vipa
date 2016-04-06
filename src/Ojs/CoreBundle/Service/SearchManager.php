@@ -5,7 +5,9 @@ namespace Ojs\CoreBundle\Service;
 use Elastica\Result;
 use Elastica\ResultSet;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class $this
@@ -26,14 +28,22 @@ class SearchManager
     private $router;
 
     /**
-     * SearchManager constructor.
-     * @param TranslatorInterface $translator
-     * @param Router|null $router
+     * @var Request
      */
-    public function __construct(TranslatorInterface $translator, Router $router = null)
+    private $request;
+
+    /**
+     * SearchManager constructor.
+     *
+     * @param TranslatorInterface $translator
+     * @param Router $router
+     * @param RequestStack $requestStack
+     */
+    public function __construct(TranslatorInterface $translator, Router $router, RequestStack $requestStack)
     {
-        $this->translator = $translator;
-        $this->router = $router;
+        $this->translator   = $translator;
+        $this->router       = $router;
+        $this->request      = $requestStack->getCurrentRequest();
     }
 
     /**
