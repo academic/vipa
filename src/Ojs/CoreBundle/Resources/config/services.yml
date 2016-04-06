@@ -114,7 +114,7 @@ services:
 
   ojs_core.search_manager:
     class: Ojs\CoreBundle\Service\SearchManager
-    arguments: ["@translator", "@router"]
+    arguments: ["@translator", "@router", "@request_stack"]
 
   ojs_api_handler_helper:
     class: Ojs\CoreBundle\Service\ApiHandlerHelper
