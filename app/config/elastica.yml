@@ -6,7 +6,7 @@ fos_elastica:
     default: { host: "%elasticsearch_host%", port: 9200 , logger: false}
   indexes:
     search:
-      index_name: "%base_host%"
+      index_name: "%elasticsearch_index_name%"
       settings:
         analysis:
           analyzer:

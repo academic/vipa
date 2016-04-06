@@ -21,6 +21,7 @@ parameters:
     base_host: localhost
 
     elasticsearch_host: 127.0.0.1
+    elasticsearch_index_name: ojs.elastic.index
     cms_show_routes:
         Ojs\JournalBundle\Entity\Journal:
             name: ojs_admin_journal_index
