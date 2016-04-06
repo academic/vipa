@@ -467,4 +467,64 @@ class SearchManager
 
         return $this;
     }
+
+    public function getSearchParamsBag()
+    {
+        return [
+            'user' => [
+                'fields' => [
+                    'username',
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'tags',
+                ],
+                'aggs' => [
+                    'title',
+                    'subjects',
+                    'journalUsers.journal.title'
+                ]
+            ],
+            'articles' => [
+                'fields' => [
+                    'title',
+                    'abstract',
+                ],
+                'aggs' => [
+                    'journal.title',
+                    'section.title',
+                ]
+            ],
+            'publisher' => [
+                'fields' => [
+                    'name',
+                ],
+                'aggs' => [
+                    'publisherType.name',
+                ]
+            ],
+            'journal' => [
+                'fields' => [
+                    'title',
+                    'description',
+                ],
+                'aggs' => [
+                    'subjects.subject',
+                    'publisher.name',
+                    'periods.period',
+                ]
+            ],
+            'author' => [
+                'fields' => [
+                    'firstName',
+                    'lastName',
+                    'middleName',
+                ],
+                'aggs' => [
+                    'title',
+                ]
+            ],
+
+        ];
+    }
 }

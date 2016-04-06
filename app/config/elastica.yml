@@ -89,6 +89,7 @@ fos_elastica:
               index: not_analyzed
             keywords: { type: string, boost: 4}
             title: { type: string, boost: 5 }
+            abstract : { type: string, boost: 3 }
             locale:
               type: string
               index: not_analyzed
@@ -119,6 +120,8 @@ fos_elastica:
               properties:
                 id:
                   index: not_analyzed
+                title:
+                  type: string
                 slug:
                   type: string
                 publisher:
