@@ -9,6 +9,7 @@ use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
@@ -30,37 +31,26 @@ class SearchController extends Controller
             ;
 
         if($sm->getSection() === null){
-            $sm->decideSection();
+            $section = $sm->decideSection();
+            if($section == null){
+                return new Response('No result found');
+            }
+            return $this->redirectToRoute('ojs_search_index', array_merge($request->query->all(), ['section' => $section]));
         }
 
+        $resultSet = $sm->getQueryResultSet();
 
-        $searchQuery = new Query('_all');
 
-        $boolQuery = new Query\BoolQuery();
-        
-        //set our boolean query
-        $searchQuery->setQuery($boolQuery);
-        //get all result
-        $searchQuery->setSize(1000);
 
-        /**
-         * @var ResultSet $resultData
-         */
-        $resultData = $searcher->search($searchQuery);
 
-        $roles = $resultData->getAggregation('roles')['buckets'];
-        $subjects = $resultData->getAggregation('subjects')['buckets'];
-        $journals = $resultData->getAggregation('journals')['buckets'];
-        $locales = $resultData->getAggregation('locales')['buckets'];
-        $publishers = $resultData->getAggregation('publishers')['buckets'];
-        $indexes = $resultData->getAggregation('indexes')['buckets'];
+
+
+
+
+
 
         if ($resultData->count() > 0) {
-            /**
-             * manipulate result data for easily use on template
-             */
-            $results = $searchManager->buildResultsObject($resultData, $section);
-            $results = $searchManager->reOrderResultObjects($results);
+
             /**
              * if search section is not defined or empty redirect to first result section
              */
