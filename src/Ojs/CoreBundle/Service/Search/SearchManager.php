@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\CoreBundle\Service;
+namespace Ojs\CoreBundle\Service\Search;
 
 use Elastica\Result;
 use Elastica\ResultSet;
@@ -64,18 +64,25 @@ class SearchManager
     private $query = null;
 
     /**
+     * @var NativeQueryGenerator
+     */
+    private $nativeQueryGenerator;
+
+    /**
      * SearchManager constructor.
      *
      * @param TranslatorInterface $translator
      * @param Router $router
      * @param RequestStack $requestStack
+     * @param NativeQueryGenerator $nativeQueryGenerator
      */
-    public function __construct(TranslatorInterface $translator, Router $router, RequestStack $requestStack)
+    public function __construct(TranslatorInterface $translator, Router $router, RequestStack $requestStack, NativeQueryGenerator $nativeQueryGenerator)
     {
-        $this->translator   = $translator;
-        $this->router       = $router;
-        $this->request      = $requestStack->getCurrentRequest();
-        $this->requestQuery = $this->request->query;
+        $this->translator           = $translator;
+        $this->router               = $router;
+        $this->request              = $requestStack->getCurrentRequest();
+        $this->requestQuery         = $this->request->query;
+        $this->nativeQueryGenerator = $nativeQueryGenerator;
     }
 
     /**
@@ -673,10 +680,6 @@ class SearchManager
 
     public function generateNativeQuery()
     {
-        if($this->getSearchType() == 'basic'){
 
-        }elseif($this->getSearchType() == 'advanced'){
-
-        }
     }
 }

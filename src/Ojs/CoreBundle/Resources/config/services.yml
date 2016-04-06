@@ -113,8 +113,12 @@ services:
         - { name: form.type, alias: purified_textarea }
 
   ojs_core.search_manager:
-    class: Ojs\CoreBundle\Service\SearchManager
-    arguments: ["@translator", "@router", "@request_stack"]
+    class: Ojs\CoreBundle\Service\Search\SearchManager
+    arguments: ["@translator", "@router", "@request_stack", "@ojs_core.search.native_query_generator"]
+
+  ojs_core.search.native_query_generator:
+    class: Ojs\CoreBundle\Service\Search\NativeQueryGenerator
+    arguments: []
 
   ojs_api_handler_helper:
     class: Ojs\CoreBundle\Service\ApiHandlerHelper
