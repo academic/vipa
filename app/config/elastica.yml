@@ -28,10 +28,6 @@ fos_elastica:
               type: string
             firstName:
               type: string
-              fields:
-                raw:
-                  type: string
-                  index: not_analyzed
             lastName:
               type: string
             email:
@@ -41,19 +37,20 @@ fos_elastica:
             tags:
               analyzer: "keyword"
               type: string
-            subjects: {"index": "not_analyzed"}
+            subjects:
+              type: object
+              properties:
+                id: { type: integer }
+                subject: { type: string, index: not_analyzed }
             journalUsers:
               type: object
               properties:
                 journal:
                   type: object
                   properties:
-                    title:
-                      type: string
-                      index: not_analyzed
+                    title: { type: string, index: not_analyzed }
                     id:
                       type: integer
-                      index: not_analyzed
                 roles:
                   index: not_analyzed
                   type: string
@@ -90,31 +87,12 @@ fos_elastica:
             keywords: { type: string, boost: 4}
             title: { type: string, boost: 5 }
             abstract : { type: string, boost: 3 }
-            locale:
-              type: string
-              index: not_analyzed
+            locale: { type: string, index: not_analyzed }
             citations:
               type: "object"
               properties:
                 raw: { boost: 2 ,type: string}
                 id:  { boost: 1 ,type: integer}
-            articleAuthors:
-              type: "object"
-              properties:
-                author:
-                  type: "object"
-                  properties:
-                    id:
-                      type: integer
-                    firstName:
-                      type: string
-                    lastName:
-                      type: string
-                    middleName:
-                      type: string
-                    tags:
-                      analyzer: "keyword"
-                      type: string
             journal:
               type: "object"
               properties:
@@ -326,8 +304,7 @@ fos_elastica:
             title:
               type: "object"
               properties:
-                title:
-                  type: string
+                title: { type: string, index: not_analyzed }
             translations:
               type: "object"
               properties:
