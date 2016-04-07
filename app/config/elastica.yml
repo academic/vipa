@@ -96,9 +96,9 @@ fos_elastica:
             journal:
               type: "object"
               properties:
-                id:
-                  index: not_analyzed
                 title: { type: string, index: not_analyzed }
+                id:
+                  type: integer
                 slug:
                   type: string
                 publisher:
