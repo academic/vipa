@@ -219,6 +219,18 @@ class NativeQueryGenerator
             $queryArray['query']['bool']['should'][] = [
                 'wildcard' => [ $section.'.'.$field => '*'.strtolower($this->query).'*' ]
             ];
+            if(!empty($this->requestAggsBag)){
+                foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                    if(!in_array($requestAggKey, $sectionParams['aggs'])){
+                        continue;
+                    }
+                    foreach($requestAgg as $aggValue){
+                        $queryArray['query']['bool']['must'][] = [
+                            'match' => [ $section.'.'.$requestAggKey => $aggValue ]
+                        ];
+                    }
+                }
+            }
             if($this->setupAggs){
                 foreach($sectionParams['aggs'] as $agg){
                     $queryArray['aggs'][$agg] = [
