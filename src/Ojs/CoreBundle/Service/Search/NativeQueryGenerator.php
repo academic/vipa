@@ -240,6 +240,23 @@ class NativeQueryGenerator
     }
 
     /**
+     * @return array
+     */
+    private function getTagQueryParams()
+    {
+        return [
+            'user.tags',
+            'publisher.tags',
+            'journal.tags',
+            'subject.tags',
+            'journal_page.tags',
+            'author.tags',
+            'articles.keywords',
+            'articles.translations.keywords',
+        ];
+    }
+
+    /**
      * @param $section
      * @return bool|array
      */
@@ -380,6 +397,13 @@ class NativeQueryGenerator
 
     private function tagQueryGenerator($section)
     {
+        $sectionParams = $this->getSearchParamsBag()[$section];
+        $from = ($this->getPage()-1)*$this->getSearchSize();
+        $size = $this->getSearchSize();
+        $queryArray['from'] = $from;
+        $queryArray['size'] = $size;
+
+        $advancedQuery = trim(preg_replace('/advanced:/', '', $this->query));
         return $this->query;
     }
 
