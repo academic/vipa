@@ -547,6 +547,9 @@ class SearchManager
     {
         foreach($this->getSectionList() as $section){
             $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, false);
+            if($nativeQuery === false){
+                continue;
+            }
             /** @var \Elastica\ResultSet $resultData */
             $resultData = $this->searchIndex->search($nativeQuery);
             if($resultData->count()> 0){
@@ -562,6 +565,9 @@ class SearchManager
         foreach($this->getSectionList() as $section){
             $setupAggs = $section == $this->getSection()? true: false;
             $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, $setupAggs);
+            if($nativeQuery === false){
+                continue;
+            }
             /** @var \Elastica\ResultSet $resultData */
             $resultData = $this->searchIndex->search($nativeQuery);
             if($resultData->getTotalHits() < 1){

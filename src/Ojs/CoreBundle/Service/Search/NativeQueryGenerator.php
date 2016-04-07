@@ -152,6 +152,20 @@ class NativeQueryGenerator
         return $this;
     }
 
+    /**
+     * @return bool|int
+     */
+    private function getJournalIdFromQuery()
+    {
+        $explodeQuery = explode(' ', $this->query);
+        foreach($explodeQuery as $value){
+            if(preg_match('/journal:/', $value)){
+                return (int)explode('journal:', $value)[1];
+            }
+        }
+        return false;
+    }
+
     public function getSearchParamsBag()
     {
         return [
@@ -183,7 +197,7 @@ class NativeQueryGenerator
                     'middleName',
                 ],
                 'aggs' => [
-                    'title',
+                    'title.title',
                 ]
             ],
             'user' => [
@@ -218,44 +232,62 @@ class NativeQueryGenerator
     private function getSearchInJournalQueryParams()
     {
         return [
-            ['user.journalUsers.journal.id' ,               'user._all'],
-            ['articles.journal.id' ,                        'articles._all'],
-            ['citation.articles.journal.id' ,               'citation._all'],
-            ['author.articleAuthors.article.journal.id' ,   'author._all'],
+            'user'      => 'user.journalUsers.journal.id',
+            'articles'  => 'articles.journal.id',
+            'citation'  => 'citation.articles.journal.id',
+            'author'    => 'author.articleAuthors.article.journal.id',
         ];
     }
 
     private function journalQueryGenerator($section)
     {
         $journalId = null;
-        $explodeQuery = explode(' ', $this->query);
-        foreach($explodeQuery as $value){
-            if(preg_match('/journal:/', $value)){
-                $journalId = (int)explode('journal:', $value)[1];
-            }
-        }
-        $journalQuery = trim(preg_replace('/journal:'.$journalId.'/', '', $this->query));
+        $sectionParams = $this->getSearchParamsBag()[$section];
+        $from = ($this->getPage()-1)*$this->getSearchSize();
+        $size = $this->getSearchSize();
+        $queryArray['from'] = $from;
+        $queryArray['size'] = $size;
 
-        $queryArray['should'] = [];
-        foreach($this->getSearchInJournalQueryParams() as $param){
-            $journalField = $param[0];
-            $searchField = $param[1];
-            $queryArray['should'][] = [
-                'bool' =>
-                    [
-                        'must' =>
-                            [
-                                [
-                                    'match' => [ $journalField => $journalId ]
-                                ],
-                                [
-                                    'match' => [ $searchField => [ 'query' => $journalQuery ]]
-                                ],
-                            ],
-                    ],
+        $journalId = $this->getJournalIdFromQuery();
+        $journalQuery = trim(preg_replace('/journal:'.$journalId.'/', '', $this->query));
+        if(isset($this->getSearchInJournalQueryParams()[$section])){
+            $journalIdField = $this->getSearchInJournalQueryParams()[$section];
+        }else{
+            return false;
+        }
+
+        foreach($sectionParams['fields'] as $field){
+            $queryArray['query']['filtered']['query']['bool']['should'][] = [
+                'wildcard' => [ $section.'.'.$field => '*'.strtolower($journalQuery).'*' ]
             ];
         }
-        return json_encode($queryArray);
+        //add journal id filter
+        $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+            'term' => [ $journalIdField => $journalId ]
+        ];
+        if(!empty($this->requestAggsBag)){
+            foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                if(!in_array($requestAggKey, $sectionParams['aggs'])){
+                    continue;
+                }
+                foreach($requestAgg as $aggValue){
+                    $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+                        'term' => [ $section.'.'.$requestAggKey => $aggValue ]
+                    ];
+                }
+            }
+        }
+        if($this->setupAggs){
+            foreach($sectionParams['aggs'] as $agg){
+                $queryArray['aggs'][$agg] = [
+                    'terms' => [
+                        'field' => $section.'.'.$agg
+                    ]
+                ];
+            }
+        }
+
+        return $queryArray;
     }
 
     private function advancedQueryGenerator($section)
