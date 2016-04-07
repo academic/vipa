@@ -84,15 +84,10 @@ class SearchController extends Controller
      */
     public function advancedAction()
     {
-        $search = $this->container->get('fos_elastica.index.search');
-        $mapping = $search->getMapping();
+        $sm = $this->get('ojs_core.search_manager');
 
         return $this->render(
-            "OjsSiteBundle:Search:advanced.html.twig",
-            [
-                'mapping' => $mapping
-            ]
-        );
+            "OjsSiteBundle:Search:advanced.html.twig", ['fields' => $sm->getNativeQueryGenerator()->getSearchParamsBag()]);
     }
 
     /**
