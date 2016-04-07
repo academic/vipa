@@ -34,10 +34,12 @@
                     <div class="input-group">
                         <input type="text" name="q" class="form-control" value="{{ sm.query }}">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><i
-                                        class="fa fa-search"></i> {{ "search"|trans }}</button>
-                            <a href="{{ path('ojs_search_advanced') }}" class="btn btn-default"><i
-                                        class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i> {{ "search"|trans }}
+                            </button>
+                            <a href="{{ path('ojs_search_advanced') }}" class="btn btn-default">
+                                <i class="fa fa-wrench"></i> {{ 'search.builder'|trans }}
+                            </a>
                         </span>
                     </div>
                 </form>
@@ -77,6 +79,44 @@
                                 {% endfor %}
                             </ul>
                         </div>
+                    {% endif %}
+                    {% if sm.aggs|length > 0 %}
+                        {% for aggKey,agg in sm.aggs %}
+                            <div class="panel panel-default" id="publishers-filter-box">
+                                <div class="panel-heading">{{ ('agg.'~aggKey)|trans }}</div>
+                                {% if agg.buckets|length > 5 %}
+                                    <div class="input-group">
+                                        <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                        <div class="input-group-btn">
+                                            <button class="sort btn btn-primary no-radius" data-sort="{{ 'agg-'~aggKey }}">
+                                                <i class="fa fa-sort-alpha-asc"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <ul class="list-group list filter-box">
+                                    {% for bucket in agg.buckets %}
+                                        <li class="list-group-item">
+                                            {% if sm.requestAggsBag[aggKey] is not defined %}
+                                                <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="journal-title">{{ bucket.key }}</a>
+                                            {% else %}
+                                                {% if bucket.key in sm.requestAggsBag[aggKey] %}
+                                                    {{ bucket.key }}
+                                                    <a href="{{ sm.getAggLink(aggKey, bucket.key, false) }}">
+                                                        <span class="label label-danger">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </span>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="journal-title">{{ bucket.key }}</a>
+                                                {% endif %}
+                                            {% endif %}
+                                            <span class="badge">{{ bucket.doc_count }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
                     {% endif %}
                 </div>
 

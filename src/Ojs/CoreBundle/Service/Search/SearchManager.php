@@ -65,6 +65,11 @@ class SearchManager
     private $resultSet;
 
     /**
+     * @var array
+     */
+    private $aggs = [];
+
+    /**
      * SearchManager constructor.
      *
      * @param TranslatorInterface $translator
@@ -557,6 +562,7 @@ class SearchManager
                 $result['source'] = $resultObject->getSource();
                 $results[$section]['data'][] = $result;
             }
+            $this->setAggs($resultData->getAggregations());
         }
         $this->setResultSet($results);
     }
@@ -578,5 +584,42 @@ class SearchManager
         $this->resultSet = $resultSet;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAggs()
+    {
+        return $this->aggs;
+    }
+
+    /**
+     * @param array $aggs
+     * @return $this
+     */
+    public function setAggs($aggs = [])
+    {
+        $this->aggs = $aggs;
+
+        return $this;
+    }
+
+    public function getAggLink($aggKey, $bucketKey, $add = true)
+    {
+        $routeParams = $this->request->attributes->get('_route_params');
+        $requestQueryParams = $this->requestQuery->all();
+        $requestAggsBag = $this->getRequestAggsBag();
+        if($add){
+            $requestAggsBag[$aggKey][] = $bucketKey;
+        }else{
+            $searchBucketKey = array_search($bucketKey, $requestAggsBag[$aggKey]);
+            if($searchBucketKey !== false){
+                unset($requestAggsBag[$aggKey][$searchBucketKey]);
+            }
+        }
+        $setupAggs['aggs'] = $requestAggsBag;
+        $allRouteParams = array_merge($routeParams, $requestQueryParams, $setupAggs);
+        return $this->router->generate('ojs_search_index', $allRouteParams);
     }
 }
