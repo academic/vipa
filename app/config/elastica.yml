@@ -120,8 +120,7 @@ fos_elastica:
               properties:
                 id:
                   index: not_analyzed
-                title:
-                  type: string
+                title: { type: string, index: not_analyzed }
                 slug:
                   type: string
                 publisher:
