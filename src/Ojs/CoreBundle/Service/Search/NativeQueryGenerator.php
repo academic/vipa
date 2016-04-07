@@ -239,6 +239,10 @@ class NativeQueryGenerator
         ];
     }
 
+    /**
+     * @param $section
+     * @return bool|array
+     */
     private function journalQueryGenerator($section)
     {
         $journalId = null;
@@ -290,9 +294,88 @@ class NativeQueryGenerator
         return $queryArray;
     }
 
+    /**
+     * @param $searchTerm
+     * @return array
+     */
+    public function parseSearchQuery($searchTerm)
+    {
+        $searchTermsParsed = [];
+        $searchTerms = array_slice(explode(')', $searchTerm), 0, -1);
+        foreach ($searchTerms as $term) {
+            $termParse = [];
+            $termText = preg_replace('/\(/', '', trim($term));
+            $condition = explode(' ', $termText)[0];
+            if (in_array($condition, ['OR', 'NOT', 'AND'])) {
+                $transformArray = ['OR' => 'should', 'AND' => 'must', 'NOT' => 'must_not'];
+                $termParse['condition'] = $transformArray[$condition];
+            } else {
+                $termParse['condition'] = 'should';
+            }
+            if (isset($termParse['condition'])) {
+                $searchText = preg_replace('/'.$termParse['condition'].' /', '', $termText);
+            } else {
+                $searchText = $termText;
+            }
+            $termParse['searchText'] = explode('[', $searchText)[0];
+            $termParse['searchField'] = explode('[', preg_replace('/]/', '', $searchText))[1];
+            $termParse['section'] = explode('.', $termParse['searchField'])[0];
+            $searchTermsParsed[] = $termParse;
+        }
+        return $searchTermsParsed;
+    }
+
+    /**
+     * Advanced query generator
+     *
+     * @todo this function is not finished yet we must do more tests
+     * @param $section
+     * @return mixed
+     */
     private function advancedQueryGenerator($section)
     {
-        return $this->query;
+        $sectionParams = $this->getSearchParamsBag()[$section];
+        $from = ($this->getPage()-1)*$this->getSearchSize();
+        $size = $this->getSearchSize();
+        $queryArray['from'] = $from;
+        $queryArray['size'] = $size;
+
+        $advancedQuery = trim(preg_replace('/advanced:/', '', $this->query));
+
+        $parsedAdvancedQueryArray = $this->parseSearchQuery($advancedQuery);
+
+        foreach($parsedAdvancedQueryArray as $parsedAdvancedQuery){
+            if($parsedAdvancedQuery['section'] !== $section){
+                continue;
+            }
+            $queryArray['query']['filtered']['query']['bool'][$parsedAdvancedQuery['condition']][] = [
+                'wildcard' => [ $parsedAdvancedQuery['searchField'] => '*'.strtolower($parsedAdvancedQuery['searchText']).'*' ]
+            ];
+            var_dump($queryArray);
+        }
+        if(!empty($this->requestAggsBag)){
+            foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                if(!in_array($requestAggKey, $sectionParams['aggs'])){
+                    continue;
+                }
+                foreach($requestAgg as $aggValue){
+                    $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+                        'term' => [ $section.'.'.$requestAggKey => $aggValue ]
+                    ];
+                }
+            }
+        }
+        if($this->setupAggs){
+            foreach($sectionParams['aggs'] as $agg){
+                $queryArray['aggs'][$agg] = [
+                    'terms' => [
+                        'field' => $section.'.'.$agg
+                    ]
+                ];
+            }
+        }
+
+        return $queryArray;
     }
 
     private function tagQueryGenerator($section)
