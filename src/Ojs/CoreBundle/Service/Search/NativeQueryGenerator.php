@@ -270,36 +270,35 @@ class NativeQueryGenerator
 
     private function basicQueryGenerator($section)
     {
-        $queryArray['query']['bool'] = [];
         $sectionParams = $this->getSearchParamsBag()[$section];
         $from = ($this->getPage()-1)*$this->getSearchSize();
         $size = $this->getSearchSize();
         $queryArray['from'] = $from;
         $queryArray['size'] = $size;
         foreach($sectionParams['fields'] as $field){
-            $queryArray['query']['bool']['should'][] = [
+            $queryArray['query']['filtered']['query']['bool']['should'][] = [
                 'wildcard' => [ $section.'.'.$field => '*'.strtolower($this->query).'*' ]
             ];
-            if(!empty($this->requestAggsBag)){
-                foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
-                    if(!in_array($requestAggKey, $sectionParams['aggs'])){
-                        continue;
-                    }
-                    foreach($requestAgg as $aggValue){
-                        $queryArray['query']['bool']['must'][] = [
-                            'match' => [ $section.'.'.$requestAggKey => $aggValue ]
-                        ];
-                    }
+        }
+        if(!empty($this->requestAggsBag)){
+            foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                if(!in_array($requestAggKey, $sectionParams['aggs'])){
+                    continue;
                 }
-            }
-            if($this->setupAggs){
-                foreach($sectionParams['aggs'] as $agg){
-                    $queryArray['aggs'][$agg] = [
-                        'terms' => [
-                            'field' => $section.'.'.$agg
-                        ]
+                foreach($requestAgg as $aggValue){
+                    $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+                        'term' => [ $section.'.'.$requestAggKey => $aggValue ]
                     ];
                 }
+            }
+        }
+        if($this->setupAggs){
+            foreach($sectionParams['aggs'] as $agg){
+                $queryArray['aggs'][$agg] = [
+                    'terms' => [
+                        'field' => $section.'.'.$agg
+                    ]
+                ];
             }
         }
         return $queryArray;
