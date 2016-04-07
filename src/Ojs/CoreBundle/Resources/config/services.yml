@@ -120,6 +120,11 @@ services:
     class: Ojs\CoreBundle\Service\Search\NativeQueryGenerator
     arguments: []
 
+  ojs_core.listener.elastica_bundle:
+      class: Ojs\CoreBundle\Service\Search\ElasticaTransformListener
+      tags:
+          - { name: kernel.event_subscriber }
+
   ojs_api_handler_helper:
     class: Ojs\CoreBundle\Service\ApiHandlerHelper
     arguments: ['@kernel', '@annotation_reader', '@liip_imagine.twig.extension', '@request_stack']
