@@ -2,10 +2,10 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            <!---
+            {#<!--
                 <img src="{{ journal.image|imagine_filter('journal_cover') }}"
                     class="img-responsive img-rounded float-left" alt=""/>
-            --->
+            -->#}
             <!--endraw-->
         {% endraw %}
     </span>
@@ -36,7 +36,7 @@
             </span>
             {% raw %}
             <!--raw-->
-                <!---
+            {#<!--
             {% if journal.eissn is defined %}
             <span class="half-column nopadding">
                 <span class="list-group-item-heading count">
@@ -44,7 +44,7 @@
                 </span>
             </span>
             {% endif %}
-            --->
+            -->#}
                 <!--endraw-->
             {% endraw %}
             <span class="clearfix"></span>
@@ -56,13 +56,13 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            <!---
+            {#<!--
             {% if journal.url %}
             <a href="{{ journal.url }}" target="_blank">
                 <small>{{ journal.url }}</small>
             </a>
             {% endif %}
-            --->
+            -->#}
             <!--endraw-->
         {% endraw %}
     </span>
@@ -95,11 +95,11 @@
                 <span class="design-hide-block hide">
                     {% raw %}
                         <!--raw-->
-                        <!---
+                        {#<!--
                             <form role="search"
                                   action="{{ url('ojs_journal_index_search',{publisher: journal.publisher.slug, slug: journal.slug}) }}"
                                   method="get" id="search_on_journal">
-                        --->
+                        -->#}
                         <!--endraw-->
                     {% endraw %}
                 </span>
@@ -109,9 +109,9 @@
                         <span class="design-hide-block hide">
                             {% raw %}
                                 <!--raw-->
-                                <!---
+                                {#<!--
                                     <input type="text" class="form-control" placeholder="{{ "search.on.journal"|trans }}" name="q">
-                                --->
+                                -->#}
                                 <!--endraw-->
                             {% endraw %}
                         </span>
@@ -126,7 +126,7 @@
             <span class="design-hide-block hide">
                 {% raw %}
                     <!--raw-->
-                    <!---
+                    {#<!--
                         <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
                                            class="list-group-item list-group-item-success">
                             <h5>
@@ -134,7 +134,7 @@
                                 {{ "article.submit"|trans }}
                             </h5>
                         </a>
-                    --->
+                    -->#}
                     <!--endraw-->
                 {% endraw %}
             </span>
@@ -147,7 +147,7 @@
             <span class="design-hide-block hide">
                 {% raw %}
                     <!--raw-->
-                    <!---
+                    {#<!--
                         <a href="#" class="list-group-item ">
                             <h5><i class="fa fa-file-o"></i>{{ "about"|trans }}</h5>
                         </a>
@@ -163,7 +163,7 @@
             <span class="design-hide-block hide">
                 {% raw %}
                     <!--raw-->
-                    <!---
+                    {#<!--
                         <a href="{{ archive_uri }}"
                            class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                         </a>
@@ -179,7 +179,7 @@
             <span class="design-hide-block hide">
                 {% raw %}
                     <!--raw-->
-                    <!---
+                    {#<!--
                         <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                            class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
                             </h5>
@@ -196,7 +196,7 @@
             <span class="design-hide-block hide">
                 {% raw %}
                     <!--raw-->
-                    <!---
+                    {#<!--
                         <a href="{{ url('ojs_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                            class="list-group-item ">
                            <h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
@@ -214,7 +214,7 @@
                 <span class="design-hide-block hide">
                     {% raw %}
                         <!--raw-->
-                        <!---
+                        {#<!--
                             <form role="search"
                                   action="{{ path('ojs_journal_subscribe',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
                                   method="post">
@@ -228,7 +228,7 @@
                         <span class="design-hide-block hide">
                             {% raw %}
                                 <!--raw-->
-                                <!---
+                                {#<!--
                                     <input type="text" class="form-control" placeholder="{{ "journal.subscribe"|trans }}" name="mail">
                                 --->
                                 <!--endraw-->
@@ -252,7 +252,7 @@
         <span class="design-hide-block hide">
             {% raw %}
                 <!--raw-->
-                <!---
+                {#<!--
                     {% for journalIndex in journal.journalIndexs %}
                         <div class="list-group-item">
                             <a href="{{ journalIndex.link }}" target="_blank">
@@ -302,7 +302,7 @@
         <span class="design-hide-block hide">
             {% raw %}
                 <!--raw-->
-                <!---
+                {#<!--
                     <ul>
                         {% for key, issues in years %}
                         <li>
@@ -386,7 +386,7 @@
         <span class="design-hide-block hide">
             {% raw %}
                 <!--raw-->
-                <!---
+                {#<!--
                     <a class="btn btn-primary "
                        href="{{ archive_uri }}">
                         <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}
@@ -406,7 +406,7 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            <!---
+            {#<!--
                 {% if last_issue %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -461,7 +461,7 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            <!---{% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}--->
+            {#<!--{% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}--->
             <!--endraw-->
         {% endraw %}
     </span>
@@ -494,7 +494,7 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            <!---
+            {#<!--
             {% if entity.header is not null %}
                 <img src="{{ entity.header|imagine_filter('publisher_header') }}"
                     class="img-responsive img-rounded float-left img-center" alt=""/>
@@ -512,7 +512,7 @@
     <span class="design-hide-block hide">
         {% raw %}
             <!--raw-->
-            <!---
+            {#<!--
                 {% if entity.logo is not null %}
                 <img src="{{ entity.logo|imagine_filter('publisher_logo') }}"
                     class="img-responsive img-rounded float-left img-center" alt=""/>
@@ -541,7 +541,7 @@
         <span class="design-hide-block hide">
             {% raw %}
                 <!--raw-->
-                <!---
+                {#<!--
                     {% if entity.tags %}
                         {% set tags = entity.tags|split(',') %}
                         {% for tag in tags %}
@@ -627,7 +627,7 @@
             <span class="design-hide-block hide">
                 {% raw %}
                     <!--raw-->
-                    <!---
+                    {#<!--
                         {% for journal in entity.journals %}
                             <li class="list-group-item">
                                 <a href="{{ journal.publicURI }}">{{ journal.title }}</a>
