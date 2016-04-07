@@ -147,6 +147,13 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
+                        {% if sm.resultSet|length > 0 %}
+                            <div class="text-center">
+                                <ul class="pagination">
+                                    {{ pagerfanta(sm.getPagerfanta,'twitter_bootstrap3') }}
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </section>

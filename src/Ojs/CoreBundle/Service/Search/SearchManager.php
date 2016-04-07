@@ -3,13 +3,14 @@
 namespace Ojs\CoreBundle\Service\Search;
 
 use Elastica\Result;
-use Elastica\ResultSet;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use FOS\ElasticaBundle\Elastica\Index;
+use Pagerfanta\Adapter\FixedAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * Class $this
@@ -17,7 +18,15 @@ use FOS\ElasticaBundle\Elastica\Index;
  */
 class SearchManager
 {
-    protected $totalHit;
+    /**
+     * @var int
+     */
+    protected $totalHit = 0;
+
+    /**
+     * @var int
+     */
+    protected $currectSectionHit = 0;
 
     /**
      * @var  TranslatorInterface
@@ -48,11 +57,6 @@ class SearchManager
      * @var string
      */
     private $section = null;
-
-    /**
-     * @var int
-     */
-    private $page = 1;
 
     /**
      * @var NativeQueryGenerator
@@ -401,6 +405,25 @@ class SearchManager
     }
 
     /**
+     * @return mixed
+     */
+    public function getCurrectSectionHit()
+    {
+        return $this->currectSectionHit;
+    }
+
+    /**
+     * @param $currectSectionHit
+     * @return $this
+     */
+    public function setCurrectSectionHit($currectSectionHit)
+    {
+        $this->currectSectionHit = $currectSectionHit;
+
+        return $this;
+    }
+
+    /**
      * @return $this
      */
     public function setupRequestAggs()
@@ -474,7 +497,7 @@ class SearchManager
      */
     public function getPage()
     {
-        return $this->page;
+        return $this->nativeQueryGenerator->getPage();
     }
 
     /**
@@ -483,7 +506,7 @@ class SearchManager
      */
     public function setPage($page)
     {
-        $this->page = $page;
+        $this->nativeQueryGenerator->setPage($page);
 
         return $this;
     }
@@ -550,6 +573,7 @@ class SearchManager
                 $results[$section]['type'] = $this->translator->trans($section);
                 continue;
             }
+            $this->setCurrectSectionHit($resultData->getTotalHits());
 
             /**
              * @var Result $object
@@ -608,6 +632,7 @@ class SearchManager
     public function getAggLink($aggKey, $bucketKey, $add = true)
     {
         $routeParams = $this->request->attributes->get('_route_params');
+        $routeParams['page'] = 1;
         $requestQueryParams = $this->requestQuery->all();
         $requestAggsBag = $this->getRequestAggsBag();
         if($add){
@@ -621,5 +646,16 @@ class SearchManager
         $setupAggs['aggs'] = $requestAggsBag;
         $allRouteParams = array_merge($routeParams, $requestQueryParams, $setupAggs);
         return $this->router->generate('ojs_search_index', $allRouteParams);
+    }
+
+    public function getPagerfanta()
+    {
+        $nbResults = $this->getCurrectSectionHit();
+        $adapter = new FixedAdapter($nbResults, []);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setCurrentPage($this->getPage());
+        $pagerfanta->setMaxPerPage($this->nativeQueryGenerator->getSearchSize());
+
+        return $pagerfanta;
     }
 }

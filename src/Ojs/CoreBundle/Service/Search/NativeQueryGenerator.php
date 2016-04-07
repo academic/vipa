@@ -8,11 +8,30 @@ namespace Ojs\CoreBundle\Service\Search;
  */
 class NativeQueryGenerator
 {
+    /**
+     * @var int
+     */
+    private $searchSize = 20;
+
+    /**
+     * @var null
+     */
     private $query = null;
 
+    /**
+     * @var array
+     */
     private $requestAggsBag = [];
 
+    /**
+     * @var array
+     */
     private $nativeQuery = [];
+
+    /**
+     * @var int
+     */
+    private $page = 1;
 
     /**
      * @var bool
@@ -91,6 +110,44 @@ class NativeQueryGenerator
     public function setRequestAggsBag($requestAggsBag)
     {
         $this->requestAggsBag = $requestAggsBag;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage()
+    {
+        return (int)$this->page;
+    }
+
+    /**
+     * @param int $page
+     * @return $this
+     */
+    public function setPage($page = 1)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSearchSize()
+    {
+        return $this->searchSize;
+    }
+
+    /**
+     * @param int $searchSize
+     * @return $this
+     */
+    public function setSearchSize($searchSize)
+    {
+        $this->searchSize = $searchSize;
 
         return $this;
     }
@@ -215,6 +272,10 @@ class NativeQueryGenerator
     {
         $queryArray['query']['bool'] = [];
         $sectionParams = $this->getSearchParamsBag()[$section];
+        $from = ($this->getPage()-1)*$this->getSearchSize();
+        $size = $this->getSearchSize();
+        $queryArray['from'] = $from;
+        $queryArray['size'] = $size;
         foreach($sectionParams['fields'] as $field){
             $queryArray['query']['bool']['should'][] = [
                 'wildcard' => [ $section.'.'.$field => '*'.strtolower($this->query).'*' ]
