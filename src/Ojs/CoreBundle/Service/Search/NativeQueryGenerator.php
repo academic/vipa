@@ -245,14 +245,28 @@ class NativeQueryGenerator
     private function getTagQueryParams()
     {
         return [
-            'user.tags',
-            'publisher.tags',
-            'journal.tags',
-            'subject.tags',
-            'journal_page.tags',
-            'author.tags',
-            'articles.keywords',
-            'articles.translations.keywords',
+            'user' => [
+                'tags',
+            ],
+            'publisher' => [
+                'tags',
+            ],
+            'journal' => [
+                'tags',
+            ],
+            'subject' => [
+                'tags',
+            ],
+            'journal_page' => [
+                'tags',
+            ],
+            'author' => [
+                'tags',
+            ],
+            'articles' => [
+                'keywords',
+                'translations.keywords',
+            ]
         ];
     }
 
@@ -395,16 +409,50 @@ class NativeQueryGenerator
         return $queryArray;
     }
 
+    /**
+     * @param $section
+     * @return bool|null
+     */
     private function tagQueryGenerator($section)
     {
+        if(!in_array($section, array_keys($this->getTagQueryParams()))){
+            return false;
+        }
         $sectionParams = $this->getSearchParamsBag()[$section];
+        $sectionTagParams = $this->getTagQueryParams()[$section];
         $from = ($this->getPage()-1)*$this->getSearchSize();
         $size = $this->getSearchSize();
         $queryArray['from'] = $from;
         $queryArray['size'] = $size;
 
-        $advancedQuery = trim(preg_replace('/advanced:/', '', $this->query));
-        return $this->query;
+        $tagQuery = trim(preg_replace('/tag:/', '', $this->query));
+        foreach($sectionTagParams as $tagField){
+            $queryArray['query']['filtered']['query']['bool']['should'][] = [
+                'term' => [ $section.'.'.$tagField => strtolower($tagQuery) ]
+            ];
+        }
+        if(!empty($this->requestAggsBag)){
+            foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                if(!in_array($requestAggKey, $sectionParams['aggs'])){
+                    continue;
+                }
+                foreach($requestAgg as $aggValue){
+                    $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+                        'term' => [ $section.'.'.$requestAggKey => $aggValue ]
+                    ];
+                }
+            }
+        }
+        if($this->setupAggs){
+            foreach($sectionParams['aggs'] as $agg){
+                $queryArray['aggs'][$agg] = [
+                    'terms' => [
+                        'field' => $section.'.'.$agg
+                    ]
+                ];
+            }
+        }
+        return $queryArray;
     }
 
     private function basicQueryGenerator($section)
@@ -439,6 +487,7 @@ class NativeQueryGenerator
                     ]
                 ];
             }
+            echo \GuzzleHttp\json_encode($queryArray);exit();
         }
         return $queryArray;
     }
