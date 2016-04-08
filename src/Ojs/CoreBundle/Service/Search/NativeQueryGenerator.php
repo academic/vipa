@@ -466,6 +466,10 @@ class NativeQueryGenerator
         return $queryArray;
     }
 
+    /**
+     * @param $section
+     * @return mixed
+     */
     private function basicQueryGenerator($section)
     {
         $sectionParams = $this->getSearchParamsBag()[$section];
@@ -480,12 +484,18 @@ class NativeQueryGenerator
                 $searchField = $field[0];
                 $boost = $field[1];
             }
-            $queryArray['query']['filtered']['query']['bool']['should'][] = [
-                'query_string' => [
-                    'query' => $section.'.'.$searchField.':'.$this->query,
-                    'boost' => $boost,
-                ]
-            ];
+            if(empty($this->query)){
+                $queryArray['query']['filtered']['query']['bool']['should'][] = [
+                    'match_all' => []
+                ];
+            }else{
+                $queryArray['query']['filtered']['query']['bool']['should'][] = [
+                    'query_string' => [
+                        'query' => $section.'.'.$searchField.':'.$this->query,
+                        'boost' => $boost,
+                    ]
+                ];
+            }
         }
         if(!empty($this->requestAggsBag)){
             foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
