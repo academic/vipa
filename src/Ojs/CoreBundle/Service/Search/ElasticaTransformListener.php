@@ -24,11 +24,11 @@ class ElasticaTransformListener implements EventSubscriberInterface
         /** @var Document $document */
         $document = $event->getDocument();
         if($document->has('tags')){
-            $explodeTags = array_map('trim', array_filter(explode(',', $document->get('tags'))));
+            $explodeTags = array_map('trim', array_values(array_filter(explode(',', $document->get('tags')))));
             $document->set('tags', $explodeTags);
         }
         if($document->has('keywords')){
-            $explodeKeywords = array_map('trim', array_filter(explode(',', $document->get('keywords'))));
+            $explodeKeywords = array_map('trim', array_values(array_filter(explode(',', $document->get('keywords')))));
             $document->set('keywords', $explodeKeywords);
         }
 
