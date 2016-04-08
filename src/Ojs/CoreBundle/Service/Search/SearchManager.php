@@ -592,7 +592,13 @@ class SearchManager
                 $result['source'] = $resultObject->getSource();
                 $results[$section]['data'][] = $result;
             }
-            $this->setAggs($resultData->getAggregations());
+            $resultAggs = $resultData->getAggregations();
+            foreach($resultAggs as $aggKey => $agg){
+                if(count($agg['buckets'])<1){
+                    unset($resultAggs[$aggKey]);
+                }
+            }
+            $this->setAggs($resultAggs);
         }
         $this->setResultSet($results);
     }
