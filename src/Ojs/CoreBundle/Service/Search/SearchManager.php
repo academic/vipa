@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Service\Search;
 
 use Elastica\Result;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,9 +40,9 @@ class SearchManager
     private $router;
 
     /**
-     * @var Index
+     * @var ContainerInterface
      */
-    private $searchIndex;
+    private $container;
 
     /**
      * @var Request
@@ -75,19 +76,18 @@ class SearchManager
 
     /**
      * SearchManager constructor.
-     *
      * @param TranslatorInterface $translator
      * @param Router $router
      * @param RequestStack $requestStack
      * @param NativeQueryGenerator $nativeQueryGenerator
-     * @param Index $searchIndex
+     * @param ContainerInterface $container
      */
     public function __construct(
         TranslatorInterface $translator,
         Router $router,
         RequestStack $requestStack,
         NativeQueryGenerator $nativeQueryGenerator,
-        Index $searchIndex
+        ContainerInterface $container
     )
     {
         $this->translator           = $translator;
@@ -95,7 +95,7 @@ class SearchManager
         $this->request              = $requestStack->getCurrentRequest();
         $this->requestQuery         = $this->request->query;
         $this->nativeQueryGenerator = $nativeQueryGenerator;
-        $this->searchIndex          = $searchIndex;
+        $this->container            = $container;
     }
 
     /**
@@ -551,7 +551,7 @@ class SearchManager
                 continue;
             }
             /** @var \Elastica\ResultSet $resultData */
-            $resultData = $this->searchIndex->search($nativeQuery);
+            $resultData = $this->container->get('fos_elastica.index.search.'.$section)->search($nativeQuery);
             if($resultData->count()> 0){
                 return $section;
             }
@@ -569,7 +569,7 @@ class SearchManager
                 continue;
             }
             /** @var \Elastica\ResultSet $resultData */
-            $resultData = $this->searchIndex->search($nativeQuery);
+            $resultData = $this->container->get('fos_elastica.index.search.'.$section)->search($nativeQuery);
             if($resultData->getTotalHits() < 1){
                 continue;
             }
