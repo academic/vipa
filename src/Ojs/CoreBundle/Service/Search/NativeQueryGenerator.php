@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Service\Search;
 
 /**
  * Class $this
+ *
  * @package Ojs\CoreBundle\Service
  */
 class NativeQueryGenerator
@@ -38,9 +39,17 @@ class NativeQueryGenerator
      */
     private $setupAggs = true;
 
+    /**
+     * native query builder base router
+     *
+     * @param $section
+     * @param bool $setupAggs if we want to only result data for caculate result count you can pass false
+     * @return array|bool|mixed|null
+     */
     public function generateNativeQuery($section, $setupAggs = true)
     {
         $this->setupAggs = $setupAggs;
+        // decide if query has special query route to own route
         if(preg_match('/journal:/', $this->getQuery())){
 
             $this->nativeQuery = $this->journalQueryGenerator($section);
@@ -54,6 +63,7 @@ class NativeQueryGenerator
 
             $this->nativeQuery = $this->basicQueryGenerator($section);
         }
+
         return $this->nativeQuery;
     }
 
@@ -153,6 +163,8 @@ class NativeQueryGenerator
     }
 
     /**
+     * finds journalId from text query
+     *
      * @return bool|int
      */
     private function getJournalIdFromQuery()
@@ -163,9 +175,15 @@ class NativeQueryGenerator
                 return (int)explode('journal:', $value)[1];
             }
         }
+
         return false;
     }
 
+    /**
+     * holds types based search fields and boost types for some
+     *
+     * @return array
+     */
     public function getSearchParamsBag()
     {
         return [
@@ -232,6 +250,8 @@ class NativeQueryGenerator
     }
 
     /**
+     * holds search in journal types and journal id fields list
+     *
      * @return array
      */
     private function getSearchInJournalQueryParams()
@@ -245,6 +265,8 @@ class NativeQueryGenerator
     }
 
     /**
+     * holds tag search types and tag fields list
+     *
      * @return array
      */
     private function getTagQueryParams()
@@ -276,6 +298,8 @@ class NativeQueryGenerator
     }
 
     /**
+     * parses advanced query. Query can be builded via Advanced Query Builder
+     *
      * @param $searchTerm
      * @return array
      */
@@ -360,11 +384,14 @@ class NativeQueryGenerator
     }
 
     /**
+     * Generates native query for tag type search queries
+     *
      * @param $section
      * @return bool|null
      */
     private function tagQueryGenerator($section)
     {
+        // if section is not have tags field return false
         if(!in_array($section, array_keys($this->getTagQueryParams()))){
             return false;
         }
@@ -375,12 +402,18 @@ class NativeQueryGenerator
         $queryArray['from'] = $from;
         $queryArray['size'] = $size;
 
+        // get tag
         $tagQuery = trim(preg_replace('/tag:/', '', $this->query));
+        /**
+         * foreach tag search field add should
+         * term query with specified field
+         */
         foreach($sectionTagParams as $tagField){
             $queryArray['query']['filtered']['query']['bool']['should'][] = [
                 'term' => [ $section.'.'.$tagField => strtolower($tagQuery) ]
             ];
         }
+        // look basicQueryGenerator() function
         if(!empty($this->requestAggsBag)){
             foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
                 if(!in_array($requestAggKey, $sectionParams['aggs'])){
@@ -393,6 +426,7 @@ class NativeQueryGenerator
                 }
             }
         }
+        // look basicQueryGenerator() function
         if($this->setupAggs){
             foreach($sectionParams['aggs'] as $agg){
                 $queryArray['aggs'][$agg] = [
@@ -402,15 +436,22 @@ class NativeQueryGenerator
                 ];
             }
         }
+
         return $queryArray;
     }
 
     /**
+     * journal based query generator
+     *
      * @param $section
      * @return bool|array
      */
     private function journalQueryGenerator($section)
     {
+        // if journal field not exists for given section return false
+        if(!isset($this->getSearchInJournalQueryParams()[$section])){
+            return false;
+        }
         $journalId = null;
         $sectionParams = $this->getSearchParamsBag()[$section];
         $from = ($this->getPage()-1)*$this->getSearchSize();
@@ -418,14 +459,14 @@ class NativeQueryGenerator
         $queryArray['from'] = $from;
         $queryArray['size'] = $size;
 
+        // get journal id from query
         $journalId = $this->getJournalIdFromQuery();
+        // get journal pure query from requested query
         $journalQuery = trim(preg_replace('/journal:'.$journalId.'/', '', $this->query));
-        if(isset($this->getSearchInJournalQueryParams()[$section])){
-            $journalIdField = $this->getSearchInJournalQueryParams()[$section];
-        }else{
-            return false;
-        }
+        // get journal id field for given section
+        $journalIdField = $this->getSearchInJournalQueryParams()[$section];
 
+        // look basicQueryGenerator() function
         foreach($sectionParams['fields'] as $field){
             $searchField = $field;
             $boost = 1;
@@ -450,6 +491,7 @@ class NativeQueryGenerator
         $queryArray['query']['filtered']['filter']['bool']['must'][] = [
             'term' => [ $journalIdField => $journalId ]
         ];
+        // look basicQueryGenerator() function
         if(!empty($this->requestAggsBag)){
             foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
                 if(!in_array($requestAggKey, $sectionParams['aggs'])){
@@ -462,6 +504,7 @@ class NativeQueryGenerator
                 }
             }
         }
+        // look basicQueryGenerator() function
         if($this->setupAggs){
             foreach($sectionParams['aggs'] as $agg){
                 $queryArray['aggs'][$agg] = [
@@ -476,28 +519,44 @@ class NativeQueryGenerator
     }
 
     /**
+     * basic query generator
+     *
      * @param $section
      * @return mixed
      */
     private function basicQueryGenerator($section)
     {
+        // get section params contains section search fields and aggs
         $sectionParams = $this->getSearchParamsBag()[$section];
+        // calculate from field from page
         $from = ($this->getPage()-1)*$this->getSearchSize();
+        // get size field
         $size = $this->getSearchSize();
+        // set from field to query array
         $queryArray['from'] = $from;
+        // set size field to query array
         $queryArray['size'] = $size;
+        // foreach section field add query to native query array
         foreach($sectionParams['fields'] as $field){
             $searchField = $field;
+            // default boost is 1
             $boost = 1;
+            // if $field is array 0 is field and 1 is boost int
             if(is_array($field)){
                 $searchField = $field[0];
-                $boost = $field[1];
+                $boost = (int)$field[1];
             }
+            // if query is empty find all section results
             if(empty($this->query)){
                 $queryArray['query']['filtered']['query']['bool']['should'][] = [
                     'match_all' => []
                 ];
             }else{
+                /**
+                 * find query via query_string type query
+                 * look for more
+                 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
+                 */
                 $queryArray['query']['filtered']['query']['bool']['should'][] = [
                     'query_string' => [
                         'query' => $section.'.'.$searchField.':'.$this->query,
@@ -506,11 +565,19 @@ class NativeQueryGenerator
                 ];
             }
         }
+        // if requested agg bag is not empty
         if(!empty($this->requestAggsBag)){
+            // for each bag aggregation
             foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                // if requested agg. is not our specified agg. continue then
                 if(!in_array($requestAggKey, $sectionParams['aggs'])){
                     continue;
                 }
+                /**
+                 * add filter for each spesified agg.
+                 * look for more
+                 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-filtered-query.html
+                 */
                 foreach($requestAgg as $aggValue){
                     $queryArray['query']['filtered']['filter']['bool']['must'][] = [
                         'term' => [ $section.'.'.$requestAggKey => $aggValue ]
@@ -518,6 +585,7 @@ class NativeQueryGenerator
                 }
             }
         }
+        // inject all aggs. to native query with specified aggs
         if($this->setupAggs){
             foreach($sectionParams['aggs'] as $agg){
                 $queryArray['aggs'][$agg] = [
@@ -527,6 +595,7 @@ class NativeQueryGenerator
                 ];
             }
         }
+
         return $queryArray;
     }
 }

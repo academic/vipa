@@ -487,6 +487,9 @@ class SearchManager
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getSectionList()
     {
         return array_keys($this->nativeQueryGenerator->getSearchParamsBag());
@@ -511,6 +514,9 @@ class SearchManager
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function setupQuery()
     {
         if(!$this->requestQuery->has('q')){
@@ -559,6 +565,9 @@ class SearchManager
         return null;
     }
 
+    /**
+     * @return $this
+     */
     public function setupQueryResultSet()
     {
         $results = [];
@@ -601,6 +610,8 @@ class SearchManager
             $this->setAggs($resultAggs);
         }
         $this->setResultSet($results);
+
+        return $this;
     }
 
     /**
@@ -641,6 +652,12 @@ class SearchManager
         return $this;
     }
 
+    /**
+     * @param $aggKey
+     * @param $bucketKey
+     * @param bool $add
+     * @return string
+     */
     public function getAggLink($aggKey, $bucketKey, $add = true)
     {
         $routeParams = $this->request->attributes->get('_route_params');
@@ -660,6 +677,9 @@ class SearchManager
         return $this->router->generate('ojs_search_index', $allRouteParams);
     }
 
+    /**
+     * @return Pagerfanta
+     */
     public function getPagerfanta()
     {
         $nbResults = $this->getCurrectSectionHit();
