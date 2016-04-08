@@ -80,44 +80,42 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% if sm.aggs|length > 0 %}
-                        {% for aggKey,agg in sm.aggs %}
-                            <div class="panel panel-default" id="publishers-filter-box">
-                                <div class="panel-heading">{{ ('agg.'~aggKey)|trans }}</div>
-                                {% if agg.buckets|length > 5 %}
-                                    <div class="input-group">
-                                        <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
-                                        <div class="input-group-btn">
-                                            <button class="sort btn btn-primary no-radius" data-sort="{{ 'agg-'~aggKey }}">
-                                                <i class="fa fa-sort-alpha-asc"></i>
-                                            </button>
-                                        </div>
+                    {% for aggKey,agg in sm.aggs %}
+                        <div class="panel panel-default" id="{{ aggKey|replace('.', '-') }}-box">
+                            <div class="panel-heading">{{ ('agg.'~aggKey)|trans }}</div>
+                            {% if agg.buckets|length > 5 %}
+                                <div class="input-group">
+                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
+                                    <div class="input-group-btn">
+                                        <button class="sort btn btn-primary no-radius" data-sort="{{ aggKey|replace('.', '-') }}">
+                                            <i class="fa fa-sort-alpha-asc"></i>
+                                        </button>
                                     </div>
-                                {% endif %}
-                                <ul class="list-group list filter-box">
-                                    {% for bucket in agg.buckets %}
-                                        <li class="list-group-item">
-                                            {% if sm.requestAggsBag[aggKey] is not defined %}
-                                                <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="journal-title">{{ bucket.key }}</a>
+                                </div>
+                            {% endif %}
+                            <ul class="list-group list filter-box">
+                                {% for bucket in agg.buckets %}
+                                    <li class="list-group-item">
+                                        {% if sm.requestAggsBag[aggKey] is not defined %}
+                                            <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key }}</a>
+                                        {% else %}
+                                            {% if bucket.key in sm.requestAggsBag[aggKey] %}
+                                                {{ bucket.key }}
+                                                <a href="{{ sm.getAggLink(aggKey, bucket.key, false) }}">
+                                                    <span class="label label-danger">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </span>
+                                                </a>
                                             {% else %}
-                                                {% if bucket.key in sm.requestAggsBag[aggKey] %}
-                                                    {{ bucket.key }}
-                                                    <a href="{{ sm.getAggLink(aggKey, bucket.key, false) }}">
-                                                        <span class="label label-danger">
-                                                            <i class="glyphicon glyphicon-remove"></i>
-                                                        </span>
-                                                    </a>
-                                                {% else %}
-                                                    <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="journal-title">{{ bucket.key }}</a>
-                                                {% endif %}
+                                                <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key }}</a>
                                             {% endif %}
-                                            <span class="badge">{{ bucket.doc_count }}</span>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                                        {% endif %}
+                                        <span class="badge">{{ bucket.doc_count }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
                 </div>
 
                 <div class="search-results col-md-9 col-sm-8">
@@ -140,7 +138,6 @@
                                 </ol>
                             {% endif %}
                         {% endfor %}
-
                     {% else %}
                         {{ 'search.noresult'|trans }}
                     {% endif %}
@@ -163,8 +160,14 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+        {% for aggKey,agg in sm.aggs %}
+            var aggOptions = {
+                valueNames: ['{{ aggKey|replace('.', '-') }}']
+            };
+            var aggsList = new List('{{ aggKey|replace('.', '-') }}-box', aggOptions);
+        {% endfor %}
         $(function () {
             $('.search-results li').highlight('{{ sm.query }}');
-        })
+        });
     </script>
 {% endblock %}
