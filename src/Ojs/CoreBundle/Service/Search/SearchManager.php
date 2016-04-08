@@ -516,7 +516,7 @@ class SearchManager
         if(!$this->requestQuery->has('q')){
             return $this;
         }
-        $this->nativeQueryGenerator->setQuery(filter_var($this->requestQuery->get('q'), FILTER_SANITIZE_STRING));
+        $this->nativeQueryGenerator->setQuery($this->requestQuery->get('q'));
 
         return $this;
     }

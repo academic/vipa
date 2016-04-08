@@ -480,7 +480,7 @@ class NativeQueryGenerator
             }
             $queryArray['query']['filtered']['query']['bool']['should'][] = [
                 'query_string' => [
-                    'query' => $section.'.'.$searchField.':"'.strtolower($this->query).'"',
+                    'query' => $section.'.'.$searchField.':'.$this->query,
                     'boost' => $boost,
                 ]
             ];
