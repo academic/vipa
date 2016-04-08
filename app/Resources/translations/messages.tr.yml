@@ -1567,6 +1567,18 @@ doi.status: 'Doi Durumu'
 get.doi: 'DOI Al'
 show.mail: 'E-posta Adresini Göster'
 
+#search system translations
+agg.journal.subjects.subject: 'Konu Filtresi'
+agg.journal.periods.period: 'Yayınlanma Sıklığı Filtresi'
+agg.journal.publisher.name: 'Yayıncı Filtresi'
+agg.articles.journal.title: 'Dergi Filtresi'
+agg.articles.section.title: 'Dergi Bölüm Filtresi'
+agg.author.title.title: 'Ünvan Filtresi'
+agg.user.title.title: 'Ünvan Filtresi'
+agg.user.subjects.subject: 'Konu Filtresi'
+agg.user.journalUsers.journal.title: 'Dergi Filtresi'
+agg.publisher.publisherType.name: 'Yayıncı Tipi Filtresi'
+
 # OAuth
 linkedin: 'Linkedin'
 orcid: 'ORCID'
