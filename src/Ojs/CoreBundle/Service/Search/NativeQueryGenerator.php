@@ -276,70 +276,6 @@ class NativeQueryGenerator
     }
 
     /**
-     * @param $section
-     * @return bool|array
-     */
-    private function journalQueryGenerator($section)
-    {
-        $journalId = null;
-        $sectionParams = $this->getSearchParamsBag()[$section];
-        $from = ($this->getPage()-1)*$this->getSearchSize();
-        $size = $this->getSearchSize();
-        $queryArray['from'] = $from;
-        $queryArray['size'] = $size;
-
-        $journalId = $this->getJournalIdFromQuery();
-        $journalQuery = trim(preg_replace('/journal:'.$journalId.'/', '', $this->query));
-        if(isset($this->getSearchInJournalQueryParams()[$section])){
-            $journalIdField = $this->getSearchInJournalQueryParams()[$section];
-        }else{
-            return false;
-        }
-
-        foreach($sectionParams['fields'] as $field){
-            $searchField = $field;
-            $boost = 1;
-            if(is_array($field)){
-                $searchField = $field[0];
-                $boost = $field[1];
-            }
-            $queryArray['query']['filtered']['query']['bool']['should'][] = [
-                'query_string' => [
-                    'query' => $section.'.'.$searchField.':"'.strtolower($journalQuery).'"',
-                    'boost' => $boost,
-                ]
-            ];
-        }
-        //add journal id filter
-        $queryArray['query']['filtered']['filter']['bool']['must'][] = [
-            'term' => [ $journalIdField => $journalId ]
-        ];
-        if(!empty($this->requestAggsBag)){
-            foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
-                if(!in_array($requestAggKey, $sectionParams['aggs'])){
-                    continue;
-                }
-                foreach($requestAgg as $aggValue){
-                    $queryArray['query']['filtered']['filter']['bool']['must'][] = [
-                        'term' => [ $section.'.'.$requestAggKey => $aggValue ]
-                    ];
-                }
-            }
-        }
-        if($this->setupAggs){
-            foreach($sectionParams['aggs'] as $agg){
-                $queryArray['aggs'][$agg] = [
-                    'terms' => [
-                        'field' => $section.'.'.$agg
-                    ]
-                ];
-            }
-        }
-
-        return $queryArray;
-    }
-
-    /**
      * @param $searchTerm
      * @return array
      */
@@ -466,6 +402,76 @@ class NativeQueryGenerator
                 ];
             }
         }
+        return $queryArray;
+    }
+
+    /**
+     * @param $section
+     * @return bool|array
+     */
+    private function journalQueryGenerator($section)
+    {
+        $journalId = null;
+        $sectionParams = $this->getSearchParamsBag()[$section];
+        $from = ($this->getPage()-1)*$this->getSearchSize();
+        $size = $this->getSearchSize();
+        $queryArray['from'] = $from;
+        $queryArray['size'] = $size;
+
+        $journalId = $this->getJournalIdFromQuery();
+        $journalQuery = trim(preg_replace('/journal:'.$journalId.'/', '', $this->query));
+        if(isset($this->getSearchInJournalQueryParams()[$section])){
+            $journalIdField = $this->getSearchInJournalQueryParams()[$section];
+        }else{
+            return false;
+        }
+
+        foreach($sectionParams['fields'] as $field){
+            $searchField = $field;
+            $boost = 1;
+            if(is_array($field)){
+                $searchField = $field[0];
+                $boost = $field[1];
+            }
+            if(empty($journalQuery)){
+                $queryArray['query']['filtered']['query']['bool']['should'][] = [
+                    'match_all' => []
+                ];
+            }else{
+                $queryArray['query']['filtered']['query']['bool']['should'][] = [
+                    'query_string' => [
+                        'query' => $section.'.'.$searchField.':'.$journalQuery,
+                        'boost' => $boost,
+                    ]
+                ];
+            }
+        }
+        //add journal id filter
+        $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+            'term' => [ $journalIdField => $journalId ]
+        ];
+        if(!empty($this->requestAggsBag)){
+            foreach($this->requestAggsBag as $requestAggKey => $requestAgg){
+                if(!in_array($requestAggKey, $sectionParams['aggs'])){
+                    continue;
+                }
+                foreach($requestAgg as $aggValue){
+                    $queryArray['query']['filtered']['filter']['bool']['must'][] = [
+                        'term' => [ $section.'.'.$requestAggKey => $aggValue ]
+                    ];
+                }
+            }
+        }
+        if($this->setupAggs){
+            foreach($sectionParams['aggs'] as $agg){
+                $queryArray['aggs'][$agg] = [
+                    'terms' => [
+                        'field' => $section.'.'.$agg
+                    ]
+                ];
+            }
+        }
+
         return $queryArray;
     }
 
