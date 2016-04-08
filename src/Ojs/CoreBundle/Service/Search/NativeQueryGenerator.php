@@ -195,6 +195,7 @@ class NativeQueryGenerator
                     'firstName',
                     'lastName',
                     'middleName',
+                    'fullName',
                 ],
                 'aggs' => [
                     'title.title',
