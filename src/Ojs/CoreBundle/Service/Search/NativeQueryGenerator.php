@@ -207,6 +207,7 @@ class NativeQueryGenerator
                     'lastName',
                     'email',
                     'tags',
+                    'fullName',
                 ],
                 'aggs' => [
                     'title.title',

@@ -30,6 +30,8 @@ fos_elastica:
               type: string
             lastName:
               type: string
+            fullName:
+              type: string
             email:
               type: string
             avatar:
