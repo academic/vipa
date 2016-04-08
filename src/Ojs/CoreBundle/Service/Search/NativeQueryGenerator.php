@@ -172,7 +172,9 @@ class NativeQueryGenerator
             'journal' => [
                 'fields' => [
                     ['title', 3],
+                    ['translations.title', 2],
                     ['description', 1],
+                    ['translations.description', 1],
                 ],
                 'aggs' => [
                     'subjects.subject',
@@ -182,8 +184,10 @@ class NativeQueryGenerator
             ],
             'articles' => [
                 'fields' => [
-                    'title',
-                    'abstract',
+                    ['title', 3],
+                    ['translations.title', 2],
+                    ['abstract', 1],
+                    ['translations.abstract', 1],
                 ],
                 'aggs' => [
                     'journal.title',
@@ -207,7 +211,6 @@ class NativeQueryGenerator
                     'firstName',
                     'lastName',
                     'email',
-                    'tags',
                     'fullName',
                 ],
                 'aggs' => [
