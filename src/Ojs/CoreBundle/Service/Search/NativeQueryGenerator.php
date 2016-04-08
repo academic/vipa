@@ -171,8 +171,8 @@ class NativeQueryGenerator
         return [
             'journal' => [
                 'fields' => [
-                    'title',
-                    'description',
+                    ['title', 3],
+                    ['description', 1],
                 ],
                 'aggs' => [
                     'subjects.subject',
@@ -292,8 +292,17 @@ class NativeQueryGenerator
         }
 
         foreach($sectionParams['fields'] as $field){
+            $searchField = $field;
+            $boost = 1;
+            if(is_array($field)){
+                $searchField = $field[0];
+                $boost = $field[1];
+            }
             $queryArray['query']['filtered']['query']['bool']['should'][] = [
-                'wildcard' => [ $section.'.'.$field => '*'.strtolower($journalQuery).'*' ]
+                'query_string' => [
+                    'query' => $section.'.'.$searchField.':"'.strtolower($journalQuery).'"',
+                    'boost' => $boost,
+                ]
             ];
         }
         //add journal id filter
@@ -463,8 +472,17 @@ class NativeQueryGenerator
         $queryArray['from'] = $from;
         $queryArray['size'] = $size;
         foreach($sectionParams['fields'] as $field){
+            $searchField = $field;
+            $boost = 1;
+            if(is_array($field)){
+                $searchField = $field[0];
+                $boost = $field[1];
+            }
             $queryArray['query']['filtered']['query']['bool']['should'][] = [
-                'wildcard' => [ $section.'.'.$field => '*'.strtolower($this->query).'*' ]
+                'query_string' => [
+                    'query' => $section.'.'.$searchField.':"'.strtolower($this->query).'"',
+                    'boost' => $boost,
+                ]
             ];
         }
         if(!empty($this->requestAggsBag)){
@@ -487,7 +505,6 @@ class NativeQueryGenerator
                     ]
                 ];
             }
-            echo \GuzzleHttp\json_encode($queryArray);exit();
         }
         return $queryArray;
     }
