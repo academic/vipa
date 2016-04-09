@@ -1,4 +1,4 @@
-#Open Journal Software
+#Open Journal Software (OJS.io)
 
 [![Build Status](https://img.shields.io/travis/bulutyazilim/ojs/master.svg?style=flat-square)](https://travis-ci.org/bulutyazilim/ojs)
 [![Quality Status](https://img.shields.io/scrutinizer/g/bulutyazilim/ojs.svg?style=flat-square)](https://scrutinizer-ci.com/g/bulutyazilim/ojs/)
