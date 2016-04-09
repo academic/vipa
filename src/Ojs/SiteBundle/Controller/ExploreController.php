@@ -25,15 +25,6 @@ class ExploreController extends Controller
         $journalSearcher = $this->get('fos_elastica.index.search.journal');
         $boolQuery = new Query\BoolQuery();
 
-        $match = new Query\Match();
-        $match->setField('status', 1);
-        $boolQuery->addMust($match);
-
-        //@todo we must revise this line because we already not indexing not published resources
-        $match = new Query\Match();
-        $match->setField('published', true);
-        $boolQuery->addMust($match);
-
         if (!empty($typeFilters) || !empty($localeFilters) || !empty($subjectFilters) || !empty($publisherFilters)) {
 
             foreach ($typeFilters as $type) {
@@ -50,7 +41,7 @@ class ExploreController extends Controller
 
             foreach ($publisherFilters as $publisher) {
                 $match = new Query\Match();
-                $match->setField('journal.publisher.name.raw', $publisher);
+                $match->setField('journal.publisher.name', $publisher);
                 $boolQuery->addMust($match);
             }
 
@@ -62,7 +53,6 @@ class ExploreController extends Controller
         }
 
         $journalQuery = new Query($boolQuery);
-        $journalQuery->setSort(['title.raw' => ['order' => 'asc']]);
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('journal.publisher.publisherType.name');
@@ -80,7 +70,7 @@ class ExploreController extends Controller
         $journalQuery->addAggregation($subjectAgg);
 
         $publisherAgg = new Aggregation\Terms('publishers');
-        $publisherAgg->setField('journal.publisher.name.raw');
+        $publisherAgg->setField('journal.publisher.name');
         $publisherAgg->setSize(0);
         $journalQuery->addAggregation($publisherAgg);
 

@@ -32,18 +32,16 @@
             <div class="col-md-8 col-sm-11 col-md-offset-2 col-sm-offset-1">
                 <form action="{{ path('ojs_search_index') }}" method="get">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" value="{{ query }}">
+                        <input type="text" name="q" class="form-control" value="{{ sm.query }}">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><i
-                                        class="fa fa-search"></i> {{ "search"|trans }}</button>
-                            <a href="{{ path('ojs_search_advanced') }}" class="btn btn-default"><i
-                                        class="fa fa-wrench"></i> {{ 'search.builder'|trans }}</a>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i> {{ "search"|trans }}
+                            </button>
+                            <a href="{{ path('ojs_search_advanced') }}" class="btn btn-default">
+                                <i class="fa fa-wrench"></i> {{ 'search.builder'|trans }}
+                            </a>
                         </span>
                     </div>
-                    <input type="hidden" name="type" value="{{ queryType }}" id="search-type">
-                    {% if journalId is defined and journalId is not null %}
-                        <input type="hidden" name="journalId" value="{{ journalId }}">
-                    {% endif %}
                 </form>
                 {{ twigEventDispatch({'event_name': 'OJS_SEARCH_PAGE_WARNING'})|raw }}
             </div>
@@ -54,12 +52,11 @@
                     <a href="{{ path('ojs_tags_cloud') }}" class="btn btn-success btn-link pull-right"><i
                                 class="fa fa-tags"></i> {{ 'tags.cloud'|trans }}</a>
 
-
                     <h2 class="lead">
                         {{ "search.results"|trans }}:
-                        {% trans with {'%total%':total_count, '%term%':query} %}
-                        <strong class="text-danger">%term%</strong>
-                        <strong class="badge">%total%</strong>
+                        {% trans with {'%total%': sm.totalHit, '%term%': sm.query} %}
+                            <strong class="text-danger">%term%</strong>
+                            <strong class="badge">%total%</strong>
                         {% endtrans %}
                     </h2>
                 </hgroup>
@@ -69,272 +66,65 @@
             <section role="search">
 
                 <div class="col-md-3 col-sm-4">
-                    {% if results is defined %}
+                    {% if sm.resultSet|length > 0 %}
                         <div class="panel panel-default">
                             <div class="panel-heading">{{ "type"|trans }}</div>
                             <ul class="list-group filter-box">
-                                {% for key,result in results %}
-                                    {% if result.total_item > 0 %}
-                                        <a class="list-group-item {% if key == section %}active{% endif %}"
-                                           href="{{ path('ojs_search_index',
-                                           app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'section': key,'page': 1}))) }}">
-                                            {{ result.type }}
-
-                                            <span class="badge">{{ result.total_item }}</span>
-                                        </a>
-
-
-                                    {% endif %}
+                                {% for key,result in sm.resultSet %}
+                                    <a class="list-group-item {% if key == sm.section %}active{% endif %}"
+                                       href="{{ path('ojs_search_index', {'q': sm.query, 'section': key}) }}">
+                                        {{ result.type }}
+                                        <span class="badge">{{ result.total_item }}</span>
+                                    </a>
                                 {% endfor %}
                             </ul>
                         </div>
                     {% endif %}
-                    {# {% if locales is defined %}
-                        <div class="panel panel-default">
-                            <div class="panel-heading">{{ 'lang.plural'|trans }}</div>
-                            <ul class="list-group">
-                                {% for locale in locales %}
-                                    <li class="list-group-item">
-                                        {% if locale_filters is empty %}
-                                            {% set parameter = locale.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': locale.key }))) }}">{{ locale.key }}</a>
-                                        {% else %}
-                                            {% if locale.key in locale_filters %}
-                                                {% set parameter = locale_filters|pop(locale.key) %}
-                                                {{ locale.key|trans }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
-                                                </a>
-                                            {% else %}
-                                                {% set parameter = locale_filters|merge([locale.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'locale_filters': parameter|join(',') }))) }}">{{ locale.key }}</a>
-                                            {% endif %}
-                                        {% endif %}
-                                        <span class="badge">{{ locale.doc_count }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}#}
-                    {% if journals is defined and journals is not empty %}
-                        <div class="panel panel-default" id="journals-filter-box">
-                            <div class="panel-heading">{{ 'journals'|trans }}</div>
-                            {% if journals|length > 5 %}
+                    {% for aggKey,agg in sm.aggs %}
+                        <div class="panel panel-default" id="{{ aggKey|replace('.', '-') }}-box">
+                            <div class="panel-heading">{{ ('agg.'~aggKey)|trans }}</div>
+                            {% if agg.buckets|length > 5 %}
                                 <div class="input-group">
                                     <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
                                     <div class="input-group-btn">
-                                        <button class="sort btn btn-primary no-radius" data-sort="journal-title">
+                                        <button class="sort btn btn-primary no-radius" data-sort="{{ aggKey|replace('.', '-') }}">
                                             <i class="fa fa-sort-alpha-asc"></i>
                                         </button>
                                     </div>
                                 </div>
                             {% endif %}
                             <ul class="list-group list filter-box">
-                                {% for journal in journals %}
+                                {% for bucket in agg.buckets %}
                                     <li class="list-group-item">
-                                        {% if journal_filters is empty %}
-                                            {% set parameter = journal.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': journal.key }))) }}" class="journal-title">{{ journal.key }}</a>
+                                        {% if sm.requestAggsBag[aggKey] is not defined %}
+                                            <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key }}</a>
                                         {% else %}
-                                            {% if journal.key in journal_filters %}
-                                                {% set parameter = journal_filters|pop(journal.key) %}
-                                                {{ journal.key }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
+                                            {% if bucket.key in sm.requestAggsBag[aggKey] %}
+                                                {{ bucket.key }}
+                                                <a href="{{ sm.getAggLink(aggKey, bucket.key, false) }}">
+                                                    <span class="label label-danger">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </span>
                                                 </a>
                                             {% else %}
-                                                {% set parameter = journal_filters|merge([journal.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'journal_filters': parameter|join(',') }))) }}" class="journal-title">{{ journal.key }}</a>
+                                                <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key }}</a>
                                             {% endif %}
                                         {% endif %}
-                                        <span class="badge">{{ journal.doc_count }}</span>
+                                        <span class="badge">{{ bucket.doc_count }}</span>
                                     </li>
                                 {% endfor %}
                             </ul>
                         </div>
-                    {% endif %}
-                    {% if publishers is defined and publishers is not empty %}
-                        <div class="panel panel-default" id="publishers-filter-box">
-                            <div class="panel-heading">{{ 'publishers'|trans }}</div>
-                            {% if publishers|length > 5 %}
-                                <div class="input-group">
-                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
-                                    <div class="input-group-btn">
-                                        <button class="sort btn btn-primary no-radius" data-sort="publisher-name">
-                                            <i class="fa fa-sort-alpha-asc"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <ul class="list-group list filter-box">
-                                {% for publisher in publishers %}
-                                    <li class="list-group-item">
-                                        {% if publisher_filters is empty %}
-                                            {% set parameter = publisher.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': publisher.key }))) }}" class="publisher-name">{{ publisher.key }}</a>
-                                        {% else %}
-                                            {% if publisher.key in publisher_filters %}
-                                                {% set parameter = publisher_filters|pop(publisher.key) %}
-                                                {{ publisher.key }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
-                                                </a>
-                                            {% else %}
-                                                {% set parameter = publisher_filters|merge([publisher.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'publisher_filters': parameter|join(',') }))) }}" class="publisher-name">{{ publisher.key }}</a>
-                                            {% endif %}
-                                        {% endif %}
-                                        <span class="badge">{{ publisher.doc_count }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                    {% if indexes is defined and indexes is not empty %}
-                        <div class="panel panel-default" id="indexes-filter-box">
-                            <div class="panel-heading">{{ 'title.indexes'|trans }}</div>
-                            {% if indexes|length > 5 %}
-                                <div class="input-group">
-                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
-                                    <div class="input-group-btn">
-                                        <button class="sort btn btn-primary no-radius" data-sort="index-name">
-                                            <i class="fa fa-sort-alpha-asc"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <ul class="list-group filter-box">
-                                {% for index in indexes %}
-                                    <li class="list-group-item">
-                                        {% if index_filters is empty %}
-                                            {% set parameter = index.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': index.key }))) }}" class="index-name">{{ index.key }}</a>
-                                        {% else %}
-                                            {% if index.key in index_filters %}
-                                                {% set parameter = index_filters|pop(index.key) %}
-                                                {{ index.key }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
-                                                </a>
-                                            {% else %}
-                                                {% set parameter = index_filters|merge([index.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'index_filters': parameter|join(',') }))) }}" class="index-name">{{ index.key }}</a>
-                                            {% endif %}
-                                        {% endif %}
-                                        <span class="badge">{{ index.doc_count }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                    {% if roles is defined and roles is not empty %}
-                        <div class="panel panel-default">
-                            <div class="panel-heading">{{ 'roles'|trans }}</div>
-                            <ul class="list-group filter-box">
-                                {% for role in roles %}
-                                    <li class="list-group-item">
-                                        {% if role_filters is empty %}
-                                            {% set parameter = role.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'role_filters': role.key }))) }}">{{ role.key|trans }}</a>
-                                        {% else %}
-                                            {% if role.key in role_filters %}
-                                                {% set parameter = role_filters|pop(role.key) %}
-                                                {{ role.key|trans }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'role_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
-                                                </a>
-                                            {% else %}
-                                                {% set parameter = role_filters|merge([role.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'role_filters': parameter|join(',') }))) }}">{{ role.key|trans }}</a>
-                                            {% endif %}
-                                        {% endif %}
-                                        <span class="badge">{{ role.doc_count }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                    {% if subjects is defined and subjects is not empty %}
-                        <div class="panel panel-default" id="subjects-filter-box">
-                            <div class="panel-heading">{{ 'subjects'|trans }}</div>
-                            {% if subjects|length > 5 %}
-                                <div class="input-group">
-                                    <input class="search form-control no-radius" placeholder="{{ "search"|trans }}"/>
-                                    <div class="input-group-btn">
-                                        <button class="sort btn btn-primary no-radius" data-sort="subject">
-                                            <i class="fa fa-sort-alpha-asc"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <ul class="list-group list filter-box">
-                                {% for subject in subjects %}
-                                    <li class="list-group-item">
-                                        {% if subject_filters is empty %}
-                                            {% set parameter = subject.key %}
-                                            <a href="{{ path('ojs_search_index',
-                                            app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': subject.key }))) }}" class="subject">{{ subject.key }}</a>
-                                        {% else %}
-                                            {% if subject.key in subject_filters %}
-                                                {% set parameter = subject_filters|pop(subject.key) %}
-                                                {{ subject.key }}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}">
-                                            <span class="label label-danger">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </span>
-                                                </a>
-                                            {% else %}
-                                                {% set parameter = subject_filters|merge([subject.key]) %}
-                                                <a href="{{ path('ojs_search_index',
-                                                app.request.attributes.get('_route_params')|merge(app.request.query.all|merge({'subject_filters': parameter|join(',') }))) }}" class="subject">{{ subject.key }}</a>
-                                            {% endif %}
-                                        {% endif %}
-                                        <span class="badge">{{ subject.doc_count }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div class="search-results col-md-9 col-sm-8">
-                    {% if results is defined %}
-                        {% if total_count < 1 %}
-                            <div role="tabpanel" class="tab-pane fade in active">
-                                <h3 class="text-danger">{{ 'search.noresult'|trans }}</h3>
-                            </div>
-                        {% endif %}
-                        {% for key,result in results %}
-                            {% if section == key %}
+                    {% if sm.resultSet|length > 0 %}
+                        {% for key,result in sm.resultSet %}
+                            {% if sm.section == key %}
                                 <ol>
                                     {% for resultData in result.data %}
-                                        <li class="result-of-{{ key }}" {% if loop.first %}value="{{ 20 * (page - 1) + 1 }}"{% endif %}>
+                                        <li class="result-of-{{ key }}" {% if loop.first %}value="{{ 20 * (sm.page - 1) + 1 }}"{% endif %}>
                                             {% if key == 'journal' %}
                                                 {% set journal = resultData.source %}
                                                 {% set url = resultData.detail.route %}
@@ -343,32 +133,21 @@
                                             {% else %}
                                                 <a href="{{ resultData.detail.route }}">{{ resultData.detail.name }}</a> ({{ resultData.detail.route }})
                                             {% endif %}
-
-                                            {% if queryType == 'tag' %}
-                                                <i class="fa fa-tags"></i> {{ "tags"|trans }}
-                                                {% set tags = resultData.source.tags|split(',') %}
-                                                {% for tag in tags %}
-                                                    <a href="/search?q={{ tag }}&type=tag"><span
-                                                                class="badge">{{ tag }}</span></a>
-                                                {% endfor %}
-                                            {% endif %}
                                         </li>
                                     {% endfor %}
                                 </ol>
                             {% endif %}
                         {% endfor %}
-
                     {% else %}
                         {{ 'search.noresult'|trans }}
                     {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-
-                        {% if total_count > 1 %}
+                        {% if sm.resultSet|length > 0 %}
                             <div class="text-center">
                                 <ul class="pagination">
-                                    {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+                                    {{ pagerfanta(sm.getPagerfanta,'twitter_bootstrap3') }}
                                 </ul>
                             </div>
                         {% endif %}
@@ -381,32 +160,14 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        {% if journals is defined  and journals|length>5 %}
-            var journalOptions = {
-                valueNames: ['journal-title']
+        {% for aggKey,agg in sm.aggs %}
+            var aggOptions = {
+                valueNames: ['{{ aggKey|replace('.', '-') }}']
             };
-            var journalsList = new List('journals-filter-box', journalOptions);
-        {% endif %}
-        {% if publishers is defined and publishers|length>5 %}
-            var publisherOptions = {
-                valueNames: ['publisher-name']
-            };
-            var publishersList = new List('publishers-filter-box', publisherOptions);
-        {% endif %}
-        {% if indexes is defined  and indexes|length>5 %}
-            var indexOptions = {
-                valueNames: ['index-name']
-            };
-            var indexesList = new List('indexes-filter-box', indexOptions);
-        {% endif %}
-        {% if subjects is defined  and subjects|length>5 %}
-            var subjectOptions = {
-                valueNames: ['subject']
-            };
-            var subjectList = new List('subjects-filter-box', subjectOptions);
-        {% endif %}
+            var aggsList = new List('{{ aggKey|replace('.', '-') }}-box', aggOptions);
+        {% endfor %}
         $(function () {
-            $('.search-results li').highlight('{{ query }}');
-        })
+            $('.search-results li').highlight('{{ sm.query }}');
+        });
     </script>
 {% endblock %}

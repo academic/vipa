@@ -1,11 +1,17 @@
 <?php
 
-namespace Ojs\CoreBundle\Service;
+namespace Ojs\CoreBundle\Service\Search;
 
 use Elastica\Result;
-use Elastica\ResultSet;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use FOS\ElasticaBundle\Elastica\Index;
+use Pagerfanta\Adapter\FixedAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * Class $this
@@ -13,7 +19,15 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class SearchManager
 {
-    protected $totalHit;
+    /**
+     * @var int
+     */
+    protected $totalHit = 0;
+
+    /**
+     * @var int
+     */
+    protected $currectSectionHit = 0;
 
     /**
      * @var  TranslatorInterface
@@ -26,14 +40,70 @@ class SearchManager
     private $router;
 
     /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var ParameterBag
+     */
+    private $requestQuery;
+
+    /**
+     * @var string
+     */
+    private $section = null;
+
+    /**
+     * @var NativeQueryGenerator
+     */
+    private $nativeQueryGenerator;
+
+    /**
+     * @var array
+     */
+    private $resultSet;
+
+    /**
+     * @var array
+     */
+    private $aggs = [];
+
+    /**
      * SearchManager constructor.
      * @param TranslatorInterface $translator
-     * @param Router|null $router
+     * @param Router $router
+     * @param RequestStack $requestStack
+     * @param NativeQueryGenerator $nativeQueryGenerator
+     * @param ContainerInterface $container
      */
-    public function __construct(TranslatorInterface $translator, Router $router = null)
+    public function __construct(
+        TranslatorInterface $translator,
+        Router $router,
+        RequestStack $requestStack,
+        NativeQueryGenerator $nativeQueryGenerator,
+        ContainerInterface $container
+    )
     {
-        $this->translator = $translator;
-        $this->router = $router;
+        $this->translator           = $translator;
+        $this->router               = $router;
+        $this->request              = $requestStack->getCurrentRequest();
+        $this->requestQuery         = $this->request->query;
+        $this->nativeQueryGenerator = $nativeQueryGenerator;
+        $this->container            = $container;
+    }
+
+    /**
+     * @return NativeQueryGenerator
+     */
+    public function getNativeQueryGenerator()
+    {
+        return $this->nativeQueryGenerator;
     }
 
     /**
@@ -64,51 +134,6 @@ class SearchManager
         }
 
         return $searchTermsParsed;
-    }
-
-    /**
-     * @param ResultSet $resultSet
-     * @param $section
-     * @return array
-     */
-    public function buildResultsObject(ResultSet $resultSet, $section)
-    {
-        $results = [];
-        /**
-         * @var Result $object
-         */
-        foreach ($resultSet as $object) {
-            $objectType = $object->getType();
-            $objectDetail = $this->getObjectDetail($object);
-            if (!isset($results[$objectType])) {
-                if($objectDetail['route']){
-                    $results[$objectType]['data'] = [];
-                    $results[$objectType]['total_item'] = 1;
-                    $results[$objectType]['type'] = $this->translator->trans($object->getType());
-                }
-            } else {
-                if($objectDetail['route']) {
-                    $results[$objectType]['total_item']++;
-                }
-            }
-            if ($section == $objectType) {
-                $result['detail'] = $objectDetail;
-                $result['source'] = $object->getSource();
-                if ($result['detail']['route']) {
-                    $results[$objectType]['data'][] = $result;
-                }
-            }
-
-        }
-        //set only acceptable count for selected section
-        if (!empty($section) && isset($results[$section])) {
-            $results[$section]['total_item'] = count($results[$section]['data']);
-        }
-        foreach ($results as $result) {
-            $this->setTotalHit($this->getTotalHit() + $result['total_item']);
-        }
-
-        return $results;
     }
 
     /**
@@ -380,45 +405,289 @@ class SearchManager
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    private function getSearchInJournalQueryParams()
+    public function getCurrectSectionHit()
     {
-        return [
-            ['user.journalUsers.journal.id' ,               'user._all'],
-            ['articles.journal.id' ,                        'articles._all'],
-            ['citation.articles.journal.id' ,               'citation._all'],
-            ['author.articleAuthors.article.journal.id' ,   'author._all'],
-        ];
+        return $this->currectSectionHit;
     }
 
     /**
-     * @param $journalId
-     * @param $query
-     * @return mixed
+     * @param $currectSectionHit
+     * @return $this
      */
-    public function getSearchInJournalQuery($journalId, $query)
+    public function setCurrectSectionHit($currectSectionHit)
     {
-        $queryArray['should'] = [];
+        $this->currectSectionHit = $currectSectionHit;
 
-        foreach($this->getSearchInJournalQueryParams() as $param){
-            $journalField = $param[0];
-            $searchField = $param[1];
-            $queryArray['should'][] = [
-                'bool' =>
-                    [
-                        'must' =>
-                            [
-                                [
-                                    'match' => [ $journalField => $journalId ]
-                                ],
-                                [
-                                    'match' => [ $searchField => [ 'query' => $query ]]
-                                ],
-                            ],
-                    ],
-            ];
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setupRequestAggs()
+    {
+        if($this->requestQuery->has('aggs')){
+            $this->nativeQueryGenerator->setRequestAggsBag($this->requestQuery->get('aggs'));
         }
-        return $queryArray;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestAggsBag()
+    {
+        return $this->nativeQueryGenerator->getRequestAggsBag();
+    }
+
+    /**
+     * @param array $requestAggsBag
+     * @return $this
+     */
+    public function setRequestAggsBag($requestAggsBag)
+    {
+        $this->nativeQueryGenerator->setRequestAggsBag($requestAggsBag);
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param string $section
+     * @return $this
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setupSection()
+    {
+        if(!$this->requestQuery->has('section')){
+            return $this;
+        }
+        if(!in_array($this->requestQuery->get('section'), $this->getSectionList())){
+            return $this;
+        }
+        $this->section = filter_var($this->requestQuery->get('section'), FILTER_SANITIZE_STRING);
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSectionList()
+    {
+        return array_keys($this->nativeQueryGenerator->getSearchParamsBag());
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage()
+    {
+        return $this->nativeQueryGenerator->getPage();
+    }
+
+    /**
+     * @param int $page
+     * @return $this
+     */
+    public function setPage($page)
+    {
+        $this->nativeQueryGenerator->setPage($page);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setupQuery()
+    {
+        if(!$this->requestQuery->has('q')){
+            return $this;
+        }
+        $this->nativeQueryGenerator->setQuery($this->requestQuery->get('q'));
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuery()
+    {
+        return $this->nativeQueryGenerator->getQuery();
+    }
+
+    /**
+     * @param string $query
+     * @return $this
+     */
+    public function setQuery($query)
+    {
+        $this->nativeQueryGenerator->setQuery($query);
+
+        return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function decideSection()
+    {
+        foreach($this->getSectionList() as $section){
+            $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, false);
+            if($nativeQuery === false){
+                continue;
+            }
+            /** @var \Elastica\ResultSet $resultData */
+            $resultData = $this->container->get('fos_elastica.index.search.'.$section)->search($nativeQuery);
+            if($resultData->count()> 0){
+                return $section;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setupQueryResultSet()
+    {
+        $results = [];
+        foreach($this->getSectionList() as $section){
+            $setupAggs = $section == $this->getSection()? true: false;
+            $nativeQuery = $this->nativeQueryGenerator->generateNativeQuery($section, $setupAggs);
+            if($nativeQuery === false){
+                continue;
+            }
+            /** @var \Elastica\ResultSet $resultData */
+            $resultData = $this->container->get('fos_elastica.index.search.'.$section)->search($nativeQuery);
+            if($resultData->getTotalHits() < 1){
+                continue;
+            }
+            $this->setTotalHit($this->getTotalHit()+$resultData->getTotalHits());
+            if($section !== $this->getSection()){
+                $results[$section]['total_item'] = $resultData->getTotalHits();
+                $results[$section]['type'] = $this->translator->trans($section);
+                continue;
+            }
+            $this->setCurrectSectionHit($resultData->getTotalHits());
+
+            /**
+             * @var Result $object
+             */
+            foreach($resultData as $resultObject){
+                $objectDetail = $this->getObjectDetail($resultObject);
+                $results[$section]['total_item'] = $resultData->getTotalHits();
+                $results[$section]['type'] = $this->translator->trans($section);
+                $result['detail'] = $objectDetail;
+                $result['source'] = $resultObject->getSource();
+                $results[$section]['data'][] = $result;
+            }
+            $resultAggs = $resultData->getAggregations();
+            foreach($resultAggs as $aggKey => $agg){
+                if(count($agg['buckets'])<1){
+                    unset($resultAggs[$aggKey]);
+                }
+            }
+            $this->setAggs($resultAggs);
+        }
+        $this->setResultSet($results);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResultSet()
+    {
+        return $this->resultSet;
+    }
+
+    /**
+     * @param array $resultSet
+     * @return $this
+     */
+    public function setResultSet($resultSet)
+    {
+        $this->resultSet = $resultSet;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAggs()
+    {
+        return $this->aggs;
+    }
+
+    /**
+     * @param array $aggs
+     * @return $this
+     */
+    public function setAggs($aggs = [])
+    {
+        $this->aggs = $aggs;
+
+        return $this;
+    }
+
+    /**
+     * @param $aggKey
+     * @param $bucketKey
+     * @param bool $add
+     * @return string
+     */
+    public function getAggLink($aggKey, $bucketKey, $add = true)
+    {
+        $routeParams = $this->request->attributes->get('_route_params');
+        $routeParams['page'] = 1;
+        $requestQueryParams = $this->requestQuery->all();
+        $requestAggsBag = $this->getRequestAggsBag();
+        if($add){
+            $requestAggsBag[$aggKey][] = $bucketKey;
+        }else{
+            $searchBucketKey = array_search($bucketKey, $requestAggsBag[$aggKey]);
+            if($searchBucketKey !== false){
+                unset($requestAggsBag[$aggKey][$searchBucketKey]);
+            }
+        }
+        $setupAggs['aggs'] = $requestAggsBag;
+        $allRouteParams = array_merge($routeParams, $requestQueryParams, $setupAggs);
+        return $this->router->generate('ojs_search_index', $allRouteParams);
+    }
+
+    /**
+     * @return Pagerfanta
+     */
+    public function getPagerfanta()
+    {
+        $nbResults = $this->getCurrectSectionHit();
+        $adapter = new FixedAdapter($nbResults, []);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setCurrentPage($this->getPage());
+        $pagerfanta->setMaxPerPage($this->nativeQueryGenerator->getSearchSize());
+
+        return $pagerfanta;
     }
 }

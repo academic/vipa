@@ -113,8 +113,17 @@ services:
         - { name: form.type, alias: purified_textarea }
 
   ojs_core.search_manager:
-    class: Ojs\CoreBundle\Service\SearchManager
-    arguments: ["@translator", "@router"]
+    class: Ojs\CoreBundle\Service\Search\SearchManager
+    arguments: ["@translator", "@router", "@request_stack", "@ojs_core.search.native_query_generator", "@service_container"]
+
+  ojs_core.search.native_query_generator:
+    class: Ojs\CoreBundle\Service\Search\NativeQueryGenerator
+    arguments: []
+
+  ojs_core.listener.elastica_bundle:
+      class: Ojs\CoreBundle\Service\Search\ElasticaTransformListener
+      tags:
+          - { name: kernel.event_subscriber }
 
   ojs_api_handler_helper:
     class: Ojs\CoreBundle\Service\ApiHandlerHelper

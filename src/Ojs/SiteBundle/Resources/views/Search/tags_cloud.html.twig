@@ -20,7 +20,7 @@
 
         <section>
             {% for tag in tags %}
-                <a href="/search?q={{ tag }}&type=tag" class="btn btn-default">#{{ tag }}</a>
+                <a href="/search?q=tag:{{ tag }}" class="btn btn-default">#{{ tag }}</a>
             {% endfor %}
         </section>
     </div>

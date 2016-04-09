@@ -1574,6 +1574,16 @@ doi.status: 'Doi Status'
 get.doi: 'Get DOI'
 show.mail: 'Show Mail Adress'
 
+#search system translations
+agg.periods.period: 'Period Filter'
+agg.publisher.name: 'Publisher Filter'
+agg.journal.title: 'Journal Filter'
+agg.section.title: 'Section Filter'
+agg.title.title: 'Title filter'
+agg.subjects.subject: 'Subject Filter'
+agg.journalUsers.journal.title: 'Journal Filter'
+agg.publisherType.name: 'Publisher Type Filter'
+
 # OAuth
 linkedin: 'Linkedin'
 orcid: 'ORCID'
