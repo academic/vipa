@@ -9,6 +9,10 @@ As a company we, [BulutYazilim](http://www.bulutyazilim.com), analyzed journal m
 
 This project adheres to the [Open Code of Conduct](https://github.com/bulutyazilim/ojs/tree/master/code_of_conduct.md). By participating, you are expected to honor this code.
 
+## Download 
+
+[Latest](https://github.com/ojs/ojs/releases/latest)
+
 ## Installing
 
 Read [the installation document](https://github.com/ojs/ojs/tree/master/docs/INSTALL.md).<br>
