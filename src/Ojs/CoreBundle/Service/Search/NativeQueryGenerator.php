@@ -198,6 +198,8 @@ class NativeQueryGenerator
                     'subjects.subject',
                     'publisher.name',
                     'periods.period',
+                    'mandatoryLang',
+                    'publisher.publisherType.name',
                 ]
             ],
             'articles' => [
