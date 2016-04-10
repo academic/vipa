@@ -1579,6 +1579,8 @@ agg.journalUsers.journal.title: 'Dergi Filtresi'
 agg.publisherType.name: 'Yayıncı Tipi Filtresi'
 agg.mandatoryLang: 'Birincil Dil Fitresi'
 agg.publisher.publisherType.name: 'Yayıncı Türü Filtresi'
+agg.journalUsers.roles: 'Rol Filtresi'
+agg.articleType: 'Makale Türü Filtresi'
 
 # OAuth
 linkedin: 'Linkedin'

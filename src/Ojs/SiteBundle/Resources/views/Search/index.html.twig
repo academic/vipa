@@ -97,7 +97,7 @@
                                 {% for bucket in agg.buckets %}
                                     <li class="list-group-item">
                                         {% if sm.requestAggsBag[aggKey] is not defined %}
-                                            <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key }}</a>
+                                            <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key|trans }}</a>
                                         {% else %}
                                             {% if bucket.key in sm.requestAggsBag[aggKey] %}
                                                 {{ bucket.key }}
@@ -107,7 +107,7 @@
                                                     </span>
                                                 </a>
                                             {% else %}
-                                                <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key }}</a>
+                                                <a href="{{ sm.getAggLink(aggKey, bucket.key) }}" class="{{ aggKey|replace('.', '-') }}">{{ bucket.key|trans }}</a>
                                             {% endif %}
                                         {% endif %}
                                         <span class="badge">{{ bucket.doc_count }}</span>

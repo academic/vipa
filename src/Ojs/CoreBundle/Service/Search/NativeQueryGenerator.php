@@ -238,7 +238,8 @@ class NativeQueryGenerator
                 'aggs' => [
                     'title.title',
                     'subjects.subject',
-                    'journalUsers.journal.title'
+                    'journalUsers.journal.title',
+                    'journalUsers.roles'
                 ]
             ],
             'publisher' => [
