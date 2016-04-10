@@ -95,6 +95,7 @@ fos_elastica:
               properties:
                 raw: { boost: 2 ,type: string}
                 id:  { boost: 1 ,type: integer}
+            articleType: { type: string }
             journal:
               type: "object"
               properties:

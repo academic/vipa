@@ -212,6 +212,8 @@ class NativeQueryGenerator
                 'aggs' => [
                     'journal.title',
                     'section.title',
+                    'subjects.subject',
+                    'articleType',
                 ]
             ],
             'author' => [
