@@ -1583,6 +1583,10 @@ agg.title.title: 'Title filter'
 agg.subjects.subject: 'Subject Filter'
 agg.journalUsers.journal.title: 'Journal Filter'
 agg.publisherType.name: 'Publisher Type Filter'
+agg.mandatoryLang: 'Mandatory Language Filter'
+agg.publisher.publisherType.name: 'Publisher Type Filter'
+agg.journalUsers.roles: 'Role Filter'
+agg.articleType: 'Article Type Filter'
 
 # OAuth
 linkedin: 'Linkedin'

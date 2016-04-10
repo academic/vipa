@@ -198,6 +198,8 @@ class NativeQueryGenerator
                     'subjects.subject',
                     'publisher.name',
                     'periods.period',
+                    'mandatoryLang',
+                    'publisher.publisherType.name',
                 ]
             ],
             'articles' => [
@@ -210,6 +212,8 @@ class NativeQueryGenerator
                 'aggs' => [
                     'journal.title',
                     'section.title',
+                    'subjects.subject',
+                    'articleType',
                 ]
             ],
             'author' => [
@@ -234,7 +238,8 @@ class NativeQueryGenerator
                 'aggs' => [
                     'title.title',
                     'subjects.subject',
-                    'journalUsers.journal.title'
+                    'journalUsers.journal.title',
+                    'journalUsers.roles'
                 ]
             ],
             'publisher' => [
