@@ -110,6 +110,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entity->setJournal($journal);
+            $entity->setCurrentLocale($request->getDefaultLocale());
             $em = $this->getDoctrine()->getManager();
 
             $event = new JournalItemEvent($entity);
@@ -201,7 +202,6 @@ class SectionController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's section!");
         }
 
-        $entity->setDefaultLocale($request->getDefaultLocale());
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
