@@ -2,6 +2,11 @@
 ___________________
 What is problem?
 
+### Exception Output
+--------------------
+Paste exception output like below. If issue is about bug.<br>
+`Error Exception: Output`
+
 ### Related Links
 -----------------
 Add without base domain if issue is not related domain.
