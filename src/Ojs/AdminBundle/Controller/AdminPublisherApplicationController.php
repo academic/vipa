@@ -135,7 +135,7 @@ class AdminPublisherApplicationController extends Controller
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_application' . $id);
+        $token = $csrf->getToken('ojs_admin_application_publisher' . $id);
         if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
@@ -143,7 +143,7 @@ class AdminPublisherApplicationController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->get('router')->generate('ojs_admin_application_publisher_index'));
+        return $this->redirectToRoute('ojs_admin_application_publisher_index');
     }
 
     public function saveAction($id)
