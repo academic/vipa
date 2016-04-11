@@ -85,9 +85,22 @@ class SearchController extends Controller
     public function advancedAction()
     {
         $sm = $this->get('ojs_core.search_manager');
-
+        $sectionsBag = $sm->getNativeQueryGenerator()->getSearchParamsBag();
+        $fieldList = [];
+        foreach($sectionsBag as $sectionKey => $section){
+            foreach($section['fields'] as $field){
+                if(is_string($field)){
+                    $fieldList[] = $sectionKey.'.'.$field;
+                }else{
+                    $fieldList[] = $sectionKey.'.'.$field[0];
+                }
+            }
+        }
         return $this->render(
-            "OjsSiteBundle:Search:advanced.html.twig", ['fields' => $sm->getNativeQueryGenerator()->getSearchParamsBag()]);
+            "OjsSiteBundle:Search:advanced.html.twig", [
+            'fieldList' => $fieldList
+            ]
+        );
     }
 
     /**

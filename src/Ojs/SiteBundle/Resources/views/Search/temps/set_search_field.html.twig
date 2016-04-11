@@ -13,10 +13,8 @@
         <div class="form-group">
             <label for="">{{ 'search.field'|trans }}</label>
             <select class="form-control item-search-field" onchange="OJSAdvancedSearch.updateInputQuery()">
-                {% for section,sectionArray in fields %}
-                    {% for itemKey,item in sectionArray.fields %}
-                        <option value="{{ section~'.'~item }}">{{ ('advanced.'~section~'.'~item)|trans }}</option>
-                    {% endfor %}
+                {% for field in fieldList %}
+                    <option value="{{ field }}">{{ ('advanced.'~field)|trans }}</option>
                 {% endfor %}
             </select>
         </div>
