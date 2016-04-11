@@ -19,6 +19,7 @@ var OJSAdvancedSearch = {
     addFieldItem: function(){
         this.getLastFieldItem().find('.add-field-item').addClass('hidden');
         this.searchFieldsArea.append(this.searchFieldTemplate);
+        this.normalizeFieldOptions();
     },
     removeFieldItem: function(item){
         var getItem = $(item).closest('.search-field-items');
@@ -40,16 +41,17 @@ var OJSAdvancedSearch = {
         var searchQuery,firstItem,fieldItemValue,itemSearchField,itemCondition;
         searchQuery = '';
         firstItem = false;
+        this.normalizeFieldOptions();
         $.each(this.searchFieldsArea.find('.search-field-items'), function( index, item){
             fieldItemValue = $(item).find('.field-item-value').val();
             itemSearchField = $(item).find('.item-search-field').val();
             itemCondition = $(item).find('.item-condition').val();
             if(fieldItemValue.length>0){
                 if(!firstItem){
-                    searchQuery = '('+fieldItemValue+'['+itemSearchField+'])';
+                    searchQuery = itemSearchField+':'+fieldItemValue;
                     firstItem = true;
                 }else{
-                    searchQuery = '('+searchQuery+' '+itemCondition+' '+fieldItemValue+'['+itemSearchField+'])';
+                    searchQuery = searchQuery+' '+itemCondition+' '+itemSearchField+':'+fieldItemValue;
                 }
             }
         });
@@ -60,6 +62,32 @@ var OJSAdvancedSearch = {
         if(searchQuery.length>0){
             window.location = '/search?q=advanced:'+searchQuery;
         }
+    },
+    normalizeFieldOptions: function(){
+        var itemSearchFieldValue,firstItemInputSection;
+        firstItemInputSection = this.searchFieldsArea
+            .find('.search-field-items')
+            .eq(0)
+            .find('.item-search-field')
+            .val()
+            .split('.')[0]
+            ;
+        $.each(this.searchFieldsArea.find('.search-field-items'), function( index, item){
+            if(index == 0){
+                return;
+            }
+            $.each($(item).find('.item-search-field option'), function(optionIndex, option){
+                itemSearchFieldValue = $(option).val();
+                if(itemSearchFieldValue.split('.')[0] == firstItemInputSection){
+                    $(option).show();
+                }else{
+                    $(option).hide();
+                }
+            });
+            if($(item).find('.item-search-field').val().split('.')[0] !== firstItemInputSection){
+                $(item).find('.item-search-field').val($(item).find('.item-search-field option[style="display: block;"]').val());
+            }
+        });
     }
 };
 OJSAdvancedSearch.init();
