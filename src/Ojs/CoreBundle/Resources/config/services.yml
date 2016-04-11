@@ -40,12 +40,6 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
-  ojs.journal_listener:
-    class: Ojs\CoreBundle\EventListener\JournalListener
-    arguments: ["@request_stack", "@router"]
-    tags:
-      - { name: kernel.event_subscriber }
-
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:

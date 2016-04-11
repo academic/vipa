@@ -206,7 +206,7 @@ services:
   ojs_journal.workflow_events:
     class: Ojs\JournalBundle\Event\WorkflowEvents
 
-  ojs.journal_listener:
+  ojs_journal.route_listener:
     class: Ojs\JournalBundle\EventListener\JournalListener
     arguments: ["@request_stack", "@router"]
     tags:
