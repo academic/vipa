@@ -137,6 +137,7 @@ class JournalPostController extends OjsController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $entity->setCurrentLocale($request->getDefaultLocale());
             $entity->setJournal($journal);
 
             $em = $this->getDoctrine()->getManager();
