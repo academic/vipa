@@ -131,5 +131,10 @@ class JournalAnnouncement implements JournalItemInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
 
