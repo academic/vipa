@@ -107,17 +107,14 @@ class ManagerController extends Controller
     }
 
     /**
-     * @param  Request $request
-     * @param  integer $journalId
+     * @param Request $request
      * @return Response
      */
-    public function journalSettingsSubmissionAction(Request $request, $journalId = null)
+    public function journalSettingsSubmissionAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $journal  Journal */
-        $journal = !$journalId ?
-            $this->get("ojs.journal_service")->getSelectedJournal() :
-            $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
 
         if (!$this->isGranted('EDIT', $journal, 'submissionSettings')) {
             throw new AccessDeniedException("You not authorized for this page!");
