@@ -9,8 +9,8 @@ Ojs\UserBundle\Entity\User:
       - NotBlank: { groups: [ojs_register] }
       - Length: { min: 6, groups: [ojs_register] }
     email:
-      - NotBlank: { groups: [ojs_register] }
-      - Email: { groups: [ojs_register] }
+      - NotBlank: { groups: [ojs_register,editProfile] }
+      - Email: { groups: [ojs_register,editProfile] }
     firstName:
       - NotBlank: { groups: [ojs_register, editProfile] }
     lastName:

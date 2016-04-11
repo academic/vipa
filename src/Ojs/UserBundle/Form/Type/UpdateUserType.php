@@ -21,6 +21,10 @@ class UpdateUserType extends AbstractType
                 'label' => 'user',
                 'required' => true
             ])
+            ->add('email', 'email', [
+                'label' => 'email',
+                'required' => true
+            ])
             ->add(
                 'firstName',
                 'text',
