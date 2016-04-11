@@ -1566,6 +1566,9 @@ status.doi.waiting: 'Beklemede'
 doi.status: 'Doi Durumu'
 get.doi: 'DOI Al'
 show.mail: 'E-posta Adresini Göster'
+width: 'Genişlik'
+height: 'Yükseklik'
+you.can.crop.after.upload: 'Yükledikten sonra da kırpma işlemini yapabilirsiniz.'
 
 #search system translations
 agg.subjects.subject: 'Konu Filtresi'

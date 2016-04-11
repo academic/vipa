@@ -1573,6 +1573,9 @@ status.doi.waiting: 'Waiting'
 doi.status: 'Doi Status'
 get.doi: 'Get DOI'
 show.mail: 'Show Mail Adress'
+width: 'Width'
+height: 'Height'
+you.can.crop.after.upload: 'You can crop image after upload'
 
 #search system translations
 agg.periods.period: 'Period Filter'

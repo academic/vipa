@@ -78,6 +78,10 @@ Same thing for all classes starting with jb_
     <div class="row">
         <div class="col-xs-12">
             <div class="jb_crop_upload">
+                {% if img_width is defined and img_height is defined %}
+                    <span>{{ 'width'|trans~': '~img_width }}px <b>x</b> {{ 'height'|trans~': '~img_height }}px</span>
+                {% endif %}
+                <p>{{ 'you.can.crop.after.upload'|trans }}</p>
                 {{ block('jb_image_ajax_widget') }}
             </div>
             <div class="jb_crop_tool" style="display: none;">
