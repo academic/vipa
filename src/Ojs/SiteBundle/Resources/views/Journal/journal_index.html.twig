@@ -149,10 +149,12 @@
                         </a>
 
                         {% for journalPage in journalPages %}
-                            <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug, publisher: journal.publisher.slug}) }}"
-                               class="list-group-item ">
-                                <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
-                            </a>
+                            {% if journalPage.visible == true %}
+                                <a href="{{ url('ojs_site_journal_page', {slug: journalPage.slug, journal_slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                                   class="list-group-item ">
+                                    <h5><i class="fa fa-file-o"></i> {{ journalPage.title }}</h5>
+                                </a>
+                            {% endif %}
                         {% endfor %}
 
                         <div class="list-group-item ">
