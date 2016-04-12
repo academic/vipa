@@ -40,12 +40,6 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
-  ojs.journal_listener:
-    class: Ojs\CoreBundle\EventListener\JournalListener
-    arguments: ["@request_stack", "@router"]
-    tags:
-      - { name: kernel.event_subscriber }
-
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:
@@ -154,7 +148,7 @@ services:
 
   ojs_core.delete.service:
     class: Ojs\CoreBundle\Service\DeleteService
-    arguments: ["@doctrine", "@annotation_reader", "@translator", "%kernel.root_dir%", "%kernel.bundles%"]
+    arguments: ["@doctrine", "@annotation_reader", "@translator", %kernel.root_dir%, %kernel.bundles%]
 
   ojs_core.sitemap.listener:
     class: "%ojs_core.sitemap.listener.class%"

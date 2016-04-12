@@ -77,6 +77,8 @@ class JournalService
     public function setSelectedJournal(Journal $journal = null)
     {
         if ($journal) {
+            $this->session->set('selectedJournalId', $journal->getId());
+
             return $journal;
         }
         $token = $this->tokenStorage->getToken();
@@ -91,6 +93,7 @@ class JournalService
         if (!$journal instanceof Journal) {
             return false;
         }
+        $this->session->set('selectedJournalId', $journal->getId());
 
         return $journal;
     }
