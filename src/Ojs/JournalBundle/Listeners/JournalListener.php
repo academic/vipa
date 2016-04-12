@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Listeners;
+namespace Ojs\JournalBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
