@@ -142,6 +142,9 @@ fos_user:
   resetting:
     form:
       validation_groups:  [ResetPassword]
+  change_password:
+    form:
+      validation_groups:  [ChangePassword]
   service:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
