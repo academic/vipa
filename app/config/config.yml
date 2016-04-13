@@ -139,6 +139,9 @@ fos_user:
       from_email:
         address: "%system_email%"
         sender_name: "%project_name%"
+  resetting:
+    form:
+      validation_groups:  [ResetPassword]
   service:
     mailer: fos_user.mailer.twig_swift
     user_manager: ojs_user.manager
