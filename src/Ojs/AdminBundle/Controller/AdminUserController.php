@@ -385,27 +385,32 @@ class AdminUserController extends Controller
         /** @var User $user */
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
+        $this->throw404IfNotFound($user);
 
         if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
-        $form = $this->createForm(new ChangePasswordType());
+        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        $formFactory = $this->get('fos_user.resetting.form.factory');
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+
+        $form = $formFactory->createForm();
+        $form->setData($user);
+        $form->add('submit', 'submit');
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $password = $form->get('password')->getData();
-            $manipulator = $this->get('fos_user.util.user_manipulator');
-            $manipulator->changePassword($user->getUsername(), $password);
+
+            $userManager->updateUser($user);
             $this->successFlashBag('successful.update');
-            $event = new GetResponseUserEvent($user, $request);
-            $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, $event);
-        } elseif ($request->isMethod('POST')) {
-            $this->successFlashBag('user.change_password_fail');
         }
 
-        return $this->render('OjsAdminBundle:AdminUser:password.html.twig', ['form' => $form->createView()]);
+        return $this->render('OjsAdminBundle:AdminUser:password.html.twig', [
+            'form' => $form->createView()
+            ]
+        );
     }
 }
