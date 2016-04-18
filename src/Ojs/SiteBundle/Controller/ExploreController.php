@@ -97,6 +97,7 @@ class ExploreController extends Controller
             'publisher_filters' => $publisherFilters,
             'pagerfanta'        => $pagerfanta,
             'page'              => 'explore',
+            'search_section'    => 'journal',
         ];
 
         return $this->render('OjsSiteBundle:Explore:index.html.twig', $data);
@@ -135,11 +136,12 @@ class ExploreController extends Controller
         $types = $adapter->getResultSet()->getAggregation('types')['buckets'];
 
         $data = [
-            'types'        => $types,
-            'page'         => 'ojs_site_explore_publisher',
-            'publishers'   => $publishers,
-            'pagerfanta'   => $pagerfanta,
-            'type_filters' => $typeFilters,
+            'types'          => $types,
+            'page'           => 'ojs_site_explore_publisher',
+            'publishers'     => $publishers,
+            'pagerfanta'     => $pagerfanta,
+            'type_filters'   => $typeFilters,
+            'search_section' => 'publisher',
         ];
 
         return $this->render('OjsSiteBundle:Explore:publisher.html.twig', $data);

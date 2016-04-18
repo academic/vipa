@@ -81,15 +81,16 @@ class PeopleController extends Controller
         $journals = $adapter->getResultSet()->getAggregation('journals')['buckets'];
 
         $data = [
-            'people' => $people,
-            'roles' => $roles,
-            'subjects' => $subjects,
-            'journals' => $journals,
-            'pagerfanta' => $pagerfanta,
-            'role_filters' => $roleFilters,
+            'people'          => $people,
+            'roles'           => $roles,
+            'subjects'        => $subjects,
+            'journals'        => $journals,
+            'pagerfanta'      => $pagerfanta,
+            'role_filters'    => $roleFilters,
             'subject_filters' => $subjectFilters,
             'journal_filters' => $journalFilters,
-            'page' => 'ojs_site_people_index'
+            'page'            => 'ojs_site_people_index',
+            'search_section'  => 'user',
         ];
 
         return $this->render('OjsSiteBundle:People:index.html.twig', $data);
