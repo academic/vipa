@@ -73,14 +73,11 @@
                 <h4 class="text-center">{{ 'journals'|trans }}</h4>
                 <div class="col-sm-12">
                     {% for user in journalUsers %}
-
                         {% set journal = user.journal %}
                         <div class="grid-item journal-item">
                             <div class="views-field-field-journal-cover-fid">
                                 <span class="field-content">
-                                    {% if url is not defined or url is empty %}
-                                        {% set url =  path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) %}
-                                    {% endif %}
+                                    {% set url =  path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) %}
                                     <a href="{{ url }}">
                                         {% if journal.image is defined and journal.image is not null %}
                                             {% set src = journal.image|imagine_filter('journal_croped') %}
