@@ -1621,3 +1621,4 @@ deletion.issue: 'The issue has been removed successfully but its articles preser
 deletion.section: 'The section has been removed successfully but its articles preserved so you can add them to another section.'
 
 review_form.missing_label: 'Label field of one of the elements is missing.'
+delete.journal_user: 'Are you sure you want to remove the user from the journal?'

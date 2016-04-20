@@ -261,11 +261,12 @@ class GridAction
 
     /**
      * @param string $route
-     * @param $key
-     * @param  null $role
+     * @param string $key
+     * @param mixed $role
+     * @param string $confirmMessage
      * @return RowAction
      */
-    public function deleteAction($route, $key = 'id', $role = null)
+    public function deleteAction($route, $key = 'id', $role = null, $confirmMessage = 'sure')
     {
         $rowAction = new RowAction('<i class="fa fa-trash-o"></i>', $route);
         $rowAction->setRouteParameters($key);
@@ -276,7 +277,7 @@ class GridAction
         /**
          * @param string $action
          */
-            function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route) {
+            function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route, $confirmMessage) {
                 $route = str_replace('_delete', '', $route);
                 $token = $csrfTokenManager->getToken($route.$row->getPrimaryFieldValue());
                 $action->setAttributes(
@@ -286,7 +287,7 @@ class GridAction
                         'title' => $translator->trans("delete"),
                         'data-token' => $token,
                         'data-method' => 'delete',
-                        'data-confirm' => $this->translator->trans("sure")
+                        'data-confirm' => $this->translator->trans($confirmMessage)
                     ]
                 );
 

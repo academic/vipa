@@ -1615,3 +1615,4 @@ deletion.issue: 'Sayı başarıyla silindi lakin makaleleri başka sayılara dah
 deletion.section: 'Bölüm başarıyla silindi lakin makaleleri bölümlere sayılara dahil edebilmeniz için korundu.'
 
 review_form.missing_label: 'Form elemanlarından birisinin etiket alanı boş.'
+delete.journal_user: 'Kullanıcıyı dergiden silmek istediğinize emin misiniz?'
