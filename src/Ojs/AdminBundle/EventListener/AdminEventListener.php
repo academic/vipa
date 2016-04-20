@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\CoreBundle\Service\OjsMailer;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -114,13 +115,16 @@ class AdminEventListener implements EventSubscriberInterface
      */
     public function onJournalApplicationHappen(AdminEvent $event)
     {
+        /** @var Journal $journal */
+        $journal = $event->getEntity();
         $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::JOURNAL_APPLICATION_HAPPEN);
         if(!$getMailEvent){
-            return;
+            goto lookforapplicationuser;
         }
+        //send to admin user group
         foreach ($this->ojsMailer->getAdminUsers() as $user) {
             $transformParams = [
-                'journal.title'     => $event->getEntity()->getTitle(),
+                'journal.title'     => $journal->getTitle(),
                 'receiver.username' => $user->getUsername(),
                 'receiver.fullName' => $user->getFullName(),
             ];
@@ -131,6 +135,33 @@ class AdminEventListener implements EventSubscriberInterface
                 $template
             );
         }
+        lookforapplicationuser:
+
+        //send to applier user
+        $getMailEvent = $this->ojsMailer->getEventByName(AdminEvents::JOURNAL_APPLICATION_HAPPEN.'.application.user');
+        if(!$getMailEvent){
+            return;
+        }
+        $transformParams = [
+            'journal.title'     => $journal->getTitle(),
+            'journal.phone' => $journal->getPhone(),
+            'journal.address' => $journal->getAddress(),
+        ];
+        if($this->ojsMailer->currentUser()){
+            $user = $this->ojsMailer->currentUser();
+        }else{
+            $user = new User();
+            $user
+                ->setEmail($journal->getEmail())
+                ->setUsername($this->ojsMailer->translator->trans('journal.manager'))
+                ;
+        }
+        $template = $this->ojsMailer->transformTemplate($getMailEvent->getTemplate(), $transformParams);
+        $this->ojsMailer->sendToUser(
+            $user,
+            $getMailEvent->getSubject(),
+            $template
+        );
     }
 
     /**
