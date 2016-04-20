@@ -1074,7 +1074,8 @@ title.design_show: 'Show Design'
 title.designs: Designs
 title.editor_dashboard: 'Editor Dashboard'
 title.editor_myjournals: 'My Journals'
-title.explore: Explore
+title.explore: Journals
+title.explore.publisher: Publishers
 title.file_edit: 'Edit File'
 title.file_new: 'New File'
 title.file_show: 'Show File'

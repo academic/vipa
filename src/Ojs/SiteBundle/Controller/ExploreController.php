@@ -114,13 +114,13 @@ class ExploreController extends Controller
         if (!empty($typeFilters)) {
             foreach ($typeFilters as $type) {
                 $match = new Query\Match();
-                $match->setField('publisherType', $type);
+                $match->setField('publisher.publisherType.name', $type);
                 $boolQuery->addMust($match);
             }
         }
 
         $publisherQuery = new Query($boolQuery);
-        $publisherQuery->setSort(['name.raw' => ['order' => 'asc']]);
+        $publisherQuery->setSort(['name' => ['order' => 'asc']]);
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('publisher.publisherType.name');
