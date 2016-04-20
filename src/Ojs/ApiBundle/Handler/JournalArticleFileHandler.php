@@ -3,6 +3,7 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Form\Type\ArticleFileType;
@@ -170,6 +171,14 @@ class JournalArticleFileHandler
         if ($form->isValid()) {
             $entity->setArticle($this->getArticle());
             $this->om->persist($entity);
+
+            $history = new FileHistory();
+            $history->setFileName($entity->getFile());
+            $history->setOriginalName($entity->getFile());
+            $history->setType('article');
+            $history->setUserId(null); // TODO: Set user
+            $this->om->persist($history);
+
             $this->om->flush();
             return $formData;
         }
