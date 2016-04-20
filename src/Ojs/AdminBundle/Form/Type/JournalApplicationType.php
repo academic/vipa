@@ -168,6 +168,7 @@ class JournalApplicationType extends AbstractType
             )
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'journal',
+                'required' => false,
                 'label' => 'Header Image',
                 'img_width' => 960,
                 'img_height' => 200,
@@ -177,6 +178,7 @@ class JournalApplicationType extends AbstractType
                 )
             ))
             ->add('image', 'jb_crop_image_ajax', array(
+                'required' => false,
                 'endpoint' => 'journal',
                 'label' => 'Cover Image',
                 'img_width' => 200,
