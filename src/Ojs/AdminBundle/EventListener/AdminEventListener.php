@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\EventListener;
 
 use Doctrine\ORM\EntityManager;
+use FOS\UserBundle\Model\UserInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\CoreBundle\Service\OjsMailer;
@@ -147,7 +148,7 @@ class AdminEventListener implements EventSubscriberInterface
             'journal.phone' => $journal->getPhone(),
             'journal.address' => $journal->getAddress(),
         ];
-        if($this->ojsMailer->currentUser()){
+        if($this->ojsMailer->currentUser() instanceof UserInterface){
             $user = $this->ojsMailer->currentUser();
         }else{
             $user = new User();
