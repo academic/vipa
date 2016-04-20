@@ -39,8 +39,7 @@ class JournalArticleRestControllerTest extends BaseTestCase
             'translations' => [
                 'en' => [
                     'title' => 'PHPUnit Test Title Field en - POST',
-                    'subjects' => 'PHPUnit Test Subjects Field en - POST',
-                    'keywords' => 'PHPUnit Test Keywords Field en - POST',
+                    'keywords' => ['PHPUnit Test Keywords Field en - POST', 'New Keyword'],
                     'abstract' => 'PHPUnit Test Abstract Field en - POST'
                 ]
             ],
@@ -92,8 +91,7 @@ class JournalArticleRestControllerTest extends BaseTestCase
             'translations' => [
                 'en' => [
                     'title' => 'PHPUnit Test Title Field en - PUT',
-                    'subjects' => 'PHPUnit Test Subjects Field en - PUT',
-                    'keywords' => 'PHPUnit Test Keywords Field en - PUT',
+                    'keywords' => ['PHPUnit Test Keywords Field en - PUT'],
                     'abstract' => 'PHPUnit Test Abstract Field en - PUT'
                 ]
             ],

@@ -197,7 +197,7 @@ class ArticleType extends AbstractType
             $data = $event->getData();
             /** @var Article $article */
             $article = $event->getForm()->getData();
-            if($data['doi'] !== $article->getDoi()) {
+            if(isset($data['doi']) && $data['doi'] !== $article->getDoi()) {
 
                 try {
                     $client = new Client();
