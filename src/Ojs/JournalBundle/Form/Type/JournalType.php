@@ -52,8 +52,9 @@ class JournalType extends AbstractType
                     'required' => true,
                     'label' => 'publisher',
                     'attr' => [
-                        'class' => 'select2-element validate[required]',
+                        'class' => 'select2-element',
                     ],
+                    'class' => 'OjsJournalBundle:Publisher',
                     'query_builder' => function(PublisherRepository $er) {
                         return $er->createQueryBuilder('publisher')
                             ->andWhere('publisher.status = :status')
@@ -61,7 +62,7 @@ class JournalType extends AbstractType
                             ->setParameter('status', PublisherStatuses::STATUS_COMPLETE)
                             ->setParameter('verified', true)
                             ;
-                    },
+                    }
                 ]
             )
             ->add(
