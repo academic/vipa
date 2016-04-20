@@ -45,21 +45,22 @@ class PublisherType extends AbstractType
                     ],
                 ]
             )
-            ->add('translations', 'a2lix_translations')
+            ->add('translations', 'a2lix_translations', [
+                'required' => false
+            ])
             ->add(
                 'slug',
                 'text',
                 [
                     'label' => 'publisher.slug',
-                    'attr' => [
-                        'class' => "validate[required]",
-                    ],
+                    'required' => true,
                 ]
             )
             ->add(
                 'publisherType',
                 'entity',
                 [
+                    'required' => true,
                     'label' => 'publishertype',
                     'class' => 'Ojs\JournalBundle\Entity\PublisherTypes',
                     'attr' => [
@@ -71,6 +72,7 @@ class PublisherType extends AbstractType
                 'status',
                 'choice',
                 [
+                    'required' => true,
                     'label' => 'status',
                     'choices' => Publisher::$statuses,
                 ]
@@ -144,14 +146,35 @@ class PublisherType extends AbstractType
                     'error_bubbling'=>true,
                 )
             )
-            ->add('address', 'textarea', ['label' => 'address'])
-            ->add('phone', 'text', ['label' => 'phone'])
-            ->add('fax', 'text', ['label' => 'fax'])
-            ->add('email', 'email', ['label' => 'email'])
-            ->add('wiki')
-            ->add('tags', 'tags')
+            ->add('address', 'textarea', [
+                'required' => false,
+                'label' => 'address',
+                ]
+            )
+            ->add('phone', 'text', [
+                'label' => 'phone',
+                'required' => false,
+                ]
+            )
+            ->add('fax', 'text', [
+                'label' => 'fax',
+                'required' => false,
+                ]
+            )
+            ->add('email', 'email', [
+                'label' => 'email',
+                'required'=> false,
+                ]
+            )
+            ->add('wiki', null, [
+                'required'=> false,
+            ])
+            ->add('tags', 'tags', [
+                'required'=> false,
+            ])
             ->add('logo', 'jb_crop_image_ajax', array(
                 'endpoint' => 'publisher',
+                'required'=> false,
                 'img_width' => 200,
                 'img_height' => 200,
                 'crop_options' => array(
@@ -159,9 +182,12 @@ class PublisherType extends AbstractType
                     'maxSize' => "[200, 200]"
                 )
             ))
-            ->add('domain')
+            ->add('domain', null, [
+                'required'=> false,
+            ])
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'publisher',
+                'required'=> false,
                 'img_width' => 960,
                 'img_height' => 200,
                 'crop_options' => array(
@@ -180,8 +206,20 @@ class PublisherType extends AbstractType
                     ],
                 ]
             )
-            ->add('addressLat', 'text', ['label' => 'addressLat', 'attr' => ['data-id' => 'addressLat']])
-            ->add('addressLong', 'text', ['label' => 'addressLong', 'attr' => ['data-id' => 'addressLong']])
+            ->add('addressLat', 'text', [
+                'label' => 'addressLat',
+                'required'=> false,
+                'attr' => [
+                    'data-id' => 'addressLat'
+                ]
+            ])
+            ->add('addressLong', 'text', [
+                'label' => 'addressLong',
+                'required'=> false,
+                'attr' => [
+                    'data-id' => 'addressLong'
+                ]
+            ])
             ->add('country', 'entity', array(
                 'class'         => 'BulutYazilim\LocationBundle\Entity\Country',
                 'required'      => false,
