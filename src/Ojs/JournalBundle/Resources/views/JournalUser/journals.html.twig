@@ -14,7 +14,7 @@
 {% block body -%}
     <h3>{{ 'title.journal_role_myjournals'|trans }}</h3>
         {% for user in journalUsers %}
-        <div class="panel panel-danger">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <a href="{{ path('ojs_journal_user_leave', {'journalId': user.journal.id}) }}"
                    class="btn btn-danger btn-labeled pull-right">
@@ -28,7 +28,7 @@
             <div class="panel-body">
                 {% for role in user.roles %}
                     <a href="{{ path('ojs_journal_user_leave_role', {'journalId': user.journal.id, 'roleId': role.id}) }}"
-                       class="btn btn-primary btn-labeled">
+                       class="btn btn-danger btn-labeled confirmation">
                         <span class="btn-label">
                             <i class="fa fa-trash"></i>
                         </span>
@@ -38,4 +38,16 @@
             </div>
         </div>
     {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.confirmation').on('click', function () {
+                return confirm('{{ 'delete.journal_user_role'|trans }}');
+            });
+        });
+    </script>
 {% endblock %}

@@ -1622,3 +1622,4 @@ deletion.section: 'The section has been removed successfully but its articles pr
 
 review_form.missing_label: 'Label field of one of the elements is missing.'
 delete.journal_user: 'Are you sure you want to remove the user from the journal?'
+delete.journal_user_role: 'ATTENTION: Are you sure you want to remove this role from yourself?'
