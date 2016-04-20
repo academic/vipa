@@ -5,6 +5,7 @@ parameters:
   security.acl.object_identity_retrieval_strategy.class: Ojs\CoreBundle\Acl\ObjectIdentityRetrievalStrategy
   ojs_core.sitemap.listener.class: Ojs\CoreBundle\EventListener\SitemapListener
   prezent_doctrine_translatable.listener.class: Ojs\CoreBundle\EventListener\TranslatableCacheListener
+
 services:
   app.routing_loader:
     class: Ojs\CoreBundle\Routing\ThirdPartyRouteLoader
@@ -33,6 +34,7 @@ services:
       - "@doctrine"
       - "@security.token_storage"
       - "%locale%"
+      - "@translator"
 
   ojs_locale.locale_listener:
     class: Ojs\CoreBundle\Service\LocaleListener

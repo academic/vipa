@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class OjsMailer
 {
@@ -32,11 +33,20 @@ class OjsMailer
      */
     private $em;
 
-    /** @var  TokenStorageInterface */
+    /**
+     * @var  TokenStorageInterface
+     */
     private $tokenStorage;
 
-    /** @var  string */
+    /**
+     * @var  string
+     */
     public $locale;
+
+    /**
+     * @var TranslatorInterface
+     */
+    public $translator;
 
     /**
      * OjsMailer constructor.
@@ -46,6 +56,7 @@ class OjsMailer
      * @param RegistryInterface $registry
      * @param TokenStorageInterface $tokenStorage
      * @param $locale
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         \Swift_Mailer $mailer,
@@ -53,14 +64,17 @@ class OjsMailer
         $mailSenderName,
         RegistryInterface $registry,
         TokenStorageInterface $tokenStorage,
-        $locale)
+        $locale,
+        TranslatorInterface $translator
+    )
     {
-        $this->mailer = $mailer;
-        $this->mailSender = $mailSender;
-        $this->mailSenderName = $mailSenderName;
-        $this->em = $registry->getManager();
-        $this->tokenStorage = $tokenStorage;
-        $this->locale = $locale;
+        $this->mailer           = $mailer;
+        $this->mailSender       = $mailSender;
+        $this->mailSenderName   = $mailSenderName;
+        $this->em               = $registry->getManager();
+        $this->tokenStorage     = $tokenStorage;
+        $this->locale           = $locale;
+        $this->translator       = $translator;
     }
 
     /**
