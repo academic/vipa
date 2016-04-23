@@ -16,7 +16,7 @@ class ArticlePreviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('note', 'textarea', array('label' => 'notes'))
+            ->add('note', 'textarea', array('label' => 'notes_to_editor'))
         ;
     }
 
