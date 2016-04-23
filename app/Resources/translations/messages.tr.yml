@@ -278,15 +278,15 @@ citation.editor: 'Atıf Editörü'
 citation.id: 'Atıf No'
 citation.list: 'Atıf Listesi'
 citation.new: 'Yeni Atıf'
-citation.paste_extract: 'Atıfları Yapıştır'
+citation.paste_extract: 'Kaynakça Yapıştır'
 citation.setting: 'Atıf Ayarları'
 citation.setting.edit: 'Ayarları Düzenle'
 citation.setting.list: 'Ayar Listesi'
 citation.setting.new: 'Yeni Atıf Ayarı'
 citation.type: 'Atıf Tipi'
-citation.raw: 'Ham Atıflar'
-citation.raw.help: 'Atıflarınızı buraya işlenmesi için onar onar girip, parçalanması için beklemelisiniz.'
-citations: Atıflar
+citation.raw: 'Ham Kaynakça'
+citation.raw.help: 'Kaynakçanızı buraya işlenmesi için onar onar girip, parçalanması için beklemelisiniz.'
+citations: Kaynakça
 city: Şehir
 cms: İYS
 collapse: Kapat
@@ -1052,7 +1052,7 @@ title.citation_setting_new: 'Yeni Atıf Ayarı'
 title.citation_setting_show: 'Atıf Ayarını Göster'
 title.citation_settings: 'Atıf Ayarları'
 title.citation_show: 'Atıf Göster'
-title.citations: Atıflar
+title.citations: Kaynakça
 title.connected_account: 'Bağlı Hesap'
 title.connected_account_add: 'Bağlı Hesap Ekle'
 title.contact_edit: 'İletişim Düzenle'
