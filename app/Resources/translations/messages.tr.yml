@@ -268,25 +268,25 @@ canOnlyReply: 'Kullanıcı sonraki adıma karar veremez, sadece cevaplayabilir.'
 cancel: Vazgeç
 check: 'Kontrol Et'
 children: 'Alt Öge'
-citation: Referans
-citation.add: 'Referans Ekle'
-citation.citation: Referans
-citation.clear: 'Referans Sil'
-citation.create: 'Referans Oluştur'
-citation.edit: 'Referans Düzenle'
-citation.editor: 'Referans Editörü'
-citation.id: 'Ref. No'
-citation.list: 'Referans Listesi'
-citation.new: 'Yeni Referans'
-citation.paste_extract: 'Referansları Yapıştır'
-citation.setting: 'Referans Ayarları'
+citation: Atıf
+citation.add: 'Atıf Ekle'
+citation.citation: Atıf
+citation.clear: 'Atıf Sil'
+citation.create: 'Atıf Oluştur'
+citation.edit: 'Atıf Düzenle'
+citation.editor: 'Atıf Editörü'
+citation.id: 'Atıf No'
+citation.list: 'Atıf Listesi'
+citation.new: 'Yeni Atıf'
+citation.paste_extract: 'Atıfları Yapıştır'
+citation.setting: 'Atıf Ayarları'
 citation.setting.edit: 'Ayarları Düzenle'
 citation.setting.list: 'Ayar Listesi'
-citation.setting.new: 'Yeni Referans Ayarı'
-citation.type: 'Referans Tipi'
-citation.raw: 'Ham Referanslar'
-citation.raw.help: 'Referanslarınızı buraya işlenmesi için 10ar 10ar girip, parçalanması için beklemelisiniz.'
-citations: Referanslar
+citation.setting.new: 'Yeni Atıf Ayarı'
+citation.type: 'Atıf Tipi'
+citation.raw: 'Ham Atıflar'
+citation.raw.help: 'Atıflarınızı buraya işlenmesi için onar onar girip, parçalanması için beklemelisiniz.'
+citations: Atıflar
 city: Şehir
 cms: İYS
 collapse: Kapat
@@ -1044,15 +1044,15 @@ title.board_show: 'Editör Kurulu Göster'
 title.boards: 'Editör Kurulları'
 title.browse: Gözat
 title.categories: Kategoriler
-title.citation: Referans
-title.citation_edit: 'Referansı Düzenle'
-title.citation_new: 'Yeni Referans'
-title.citation_setting_edit: 'Referans Ayarını Düzenle'
-title.citation_setting_new: 'Yeni Referans Ayarı'
-title.citation_setting_show: 'Referans Ayarını Göster'
-title.citation_settings: 'Referans Ayarları'
-title.citation_show: 'Referans Göster'
-title.citations: Referanslar
+title.citation: Atıf
+title.citation_edit: 'Atıfı Düzenle'
+title.citation_new: 'Yeni Atıf'
+title.citation_setting_edit: 'Atıf Ayarını Düzenle'
+title.citation_setting_new: 'Yeni Atıf Ayarı'
+title.citation_setting_show: 'Atıf Ayarını Göster'
+title.citation_settings: 'Atıf Ayarları'
+title.citation_show: 'Atıf Göster'
+title.citations: Atıflar
 title.connected_account: 'Bağlı Hesap'
 title.connected_account_add: 'Bağlı Hesap Ekle'
 title.contact_edit: 'İletişim Düzenle'
