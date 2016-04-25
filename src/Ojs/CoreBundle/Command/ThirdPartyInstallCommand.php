@@ -14,6 +14,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\CoreBundle\Events\CoreEvents;
 use Ojs\CoreBundle\Events\CoreEvent;
+use Symfony\Component\Console\Helper\Table;
 
 class ThirdPartyInstallCommand extends ContainerAwareCommand
 {
@@ -125,11 +126,8 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
     {
         $this
             ->setName('ojs:install:package')
-            ->setDefinition(
-                array(
-                    new InputArgument('packageName', InputArgument::REQUIRED, 'Package Name'),
-                )
-            )
+            ->addArgument('packageName', InputArgument::OPTIONAL, 'Package Name')
+            ->addOption('list', 'l', null, 'Lists all available packages', null)
             ->setDescription('OJS Package Installation');
     }
 
@@ -143,6 +141,18 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->getContainer()->get('event_dispatcher');
         $this->packageName = $input->getArgument('packageName');
+        $list = $input->getOption('list');
+        if($list){
+            $table = new Table($output);
+            $table
+                ->setHeaders(array('Package Key', 'Package Name', 'Package Description'))
+            ;
+            foreach($this->packageData as $packageKey => $packageData){
+                $table->addRow([$packageKey, $packageData['name'], $packageData['description']]);
+            }
+            $table->render();
+            return;
+        }
         if(!array_key_exists($this->packageName, $this->packageData)){
             $output->writeln(
                 '<error>Package not exists!</error>'
