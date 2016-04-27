@@ -171,17 +171,6 @@ class JournalArticleAuthorHandler
         throw new InvalidFormException('Invalid submitted data', $form);
     }
 
-    private function storeFile($file)
-    {
-        $rootDir = $this->kernel->getRootDir();
-        $articleFileDir = $rootDir . '/../web/uploads/articlefiles/';
-
-        $fs = new Filesystem();
-        $fs->mkdir($articleFileDir);
-        $fs->dumpFile($articleFileDir . $file['filename'], base64_decode($file['encoded_content']));
-        return $file['filename'];
-    }
-
     private function createArticleAuthor()
     {
         return new $this->entityClass();
