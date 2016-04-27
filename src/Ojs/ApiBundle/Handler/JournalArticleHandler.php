@@ -149,7 +149,6 @@ class JournalArticleHandler
     private function storeFile($file, $isImage = false)
     {
         $rootDir = $this->kernel->getRootDir();
-        $articleFileDir = $rootDir . '/../web/uploads/articlefiles/';
         $journalUploadDir = $rootDir . '/../web/uploads/journal/';
         if($isImage) {
             $fileHelper = new FileHelper();
@@ -162,11 +161,6 @@ class JournalArticleHandler
             file_put_contents($journalUploadDir.$filePath, base64_decode($file['encoded_content']));
             file_put_contents($journalUploadDir.'croped/'.$filePath, base64_decode($file['encoded_content']));
             return $filePath;
-        }else{
-            $fs = new Filesystem();
-            $fs->mkdir($articleFileDir);
-            $fs->dumpFile($articleFileDir . $file['filename'], base64_decode($file['encoded_content']));
-            return $file['filename'];
         }
     }
 

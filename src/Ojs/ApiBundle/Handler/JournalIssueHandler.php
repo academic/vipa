@@ -157,25 +157,21 @@ class JournalIssueHandler
 
     private function storeFile($file, $isImage = false)
     {
+        $fs = new Filesystem();
         $rootDir = $this->kernel->getRootDir();
         $issueFileDir = $rootDir . '/../web/uploads/issuefiles/';
         $journalUploadDir = $rootDir . '/../web/uploads/journal/';
+        $fileHelper = new FileHelper();
+        $randomPath = $fileHelper->generateRandomPath();
+        $generateRandomPath = $randomPath.$file['filename'];
         if($isImage) {
-            $fileHelper = new FileHelper();
-            $generatePath = $fileHelper->generatePath($file['filename'], false);
-            if(!is_dir($journalUploadDir.$generatePath) || !is_dir($journalUploadDir.'croped/'.$generatePath)){
-                mkdir($journalUploadDir.$generatePath, 0775, true);
-                mkdir($journalUploadDir.'croped/'.$generatePath, 0775, true);
-            }
-            $filePath = $generatePath . $file['filename'];
-            file_put_contents($journalUploadDir.$filePath, base64_decode($file['encoded_content']));
-            file_put_contents($journalUploadDir.'croped/'.$filePath, base64_decode($file['encoded_content']));
-            return $filePath;
+            $fs->dumpFile($journalUploadDir.$generateRandomPath, base64_decode($file['encoded_content']));
+            $fs->dumpFile($journalUploadDir.'croped/'.$generateRandomPath, base64_decode($file['encoded_content']));
+            return $generateRandomPath;
         }else{
-            $fs = new Filesystem();
-            $fs->mkdir($issueFileDir);
-            $fs->dumpFile($issueFileDir . $file['filename'], base64_decode($file['encoded_content']));
-            return $file['filename'];
+            $fs->dumpFile($issueFileDir . $generateRandomPath, base64_decode($file['encoded_content']));
+            return $generateRandomPath;
+
         }
     }
 
