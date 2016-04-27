@@ -4,6 +4,7 @@ namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
+use Ojs\CoreBundle\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Form\Type\ArticleFileType;
@@ -166,7 +167,7 @@ class JournalArticleFileHandler
 
         $file = $formData->getFile();
         if(isset($file)){
-            $entity->setFile($this->storeFile($file, false));
+            $entity->setFile($this->storeFile($file));
         }
         if ($form->isValid()) {
             $entity->setArticle($this->getArticle());
@@ -187,13 +188,15 @@ class JournalArticleFileHandler
 
     private function storeFile($file)
     {
+        $fileHelper = new FileHelper();
         $rootDir = $this->kernel->getRootDir();
         $articleFileDir = $rootDir . '/../web/uploads/articlefiles/';
+        $generateUniqueFilePath = $fileHelper->generateRandomPath() . $file['filename'];
 
         $fs = new Filesystem();
         $fs->mkdir($articleFileDir);
-        $fs->dumpFile($articleFileDir . $file['filename'], base64_decode($file['encoded_content']));
-        return $file['filename'];
+        $fs->dumpFile($articleFileDir.$generateUniqueFilePath, base64_decode($file['encoded_content']));
+        return $generateUniqueFilePath;
     }
 
     private function createArticleFile()
