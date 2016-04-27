@@ -40,7 +40,7 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
     {
         $content = [
             'file' => [
-                'filename' => rand(0,1000).'sampleArticleFile.pdf',
+                'filename' => 'sampleArticleFile.pdf',
                 'encoded_content' => $this->sampleArticleFileEncoded,
             ],
             'type' => 2,
@@ -82,7 +82,7 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
     {
         $content = [
             'file' => [
-                'filename' => rand(0,1000).'sampleArticleFile.pdf',
+                'filename' => 'sampleArticleFile.pdf',
                 'encoded_content' => $this->sampleArticleFileEncoded,
             ],
             'type' => 2,
@@ -112,7 +112,7 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
     {
         $content = [
             'file' => [
-                'filename' => rand(0,1000).'sampleArticleFile.pdf',
+                'filename' => 'sampleArticleFile.pdf',
                 'encoded_content' => $this->sampleArticleFileEncoded,
             ],
             'title' => 'PHPUnit Test Title Patch',

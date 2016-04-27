@@ -63,15 +63,15 @@ class JournalIssueRestControllerTest extends BaseTestCase
             'tags' => ['phpunit','post'],
             'published' => 1,
             'full_file' => [
-                'filename' => rand(0,1000).'samplefile.pdf',
+                'filename' => 'samplefile.pdf',
                 'encoded_content' => $this->sampleFileEncoded
             ],
             'cover' => [
-                'filename' => rand(0,1000).'sampleIssueCover.jpg',
+                'filename' => 'sampleIssueCover.jpg',
                 'encoded_content' => $this->sampleIssueCoverEncoded,
             ],
             'header' => [
-                'filename' => rand(0,1000).'sampleIssueHeader.jpg',
+                'filename' => 'sampleIssueHeader.jpg',
                 'encoded_content' => $this->sampleIssueHeaderEncoded,
             ],
         ];
@@ -116,15 +116,15 @@ class JournalIssueRestControllerTest extends BaseTestCase
             'tags' => ['phpunit','post'],
             'published' => 1,
             'full_file' => [
-                'filename' => rand(0,1000).'samplefile.pdf',
+                'filename' => 'samplefile.pdf',
                 'encoded_content' => $this->sampleFileEncoded
             ],
             'cover' => [
-                'filename' => rand(0,1000).'sampleIssueCover.jpg',
+                'filename' => 'sampleIssueCover.jpg',
                 'encoded_content' => $this->sampleIssueCoverEncoded,
             ],
             'header' => [
-                'filename' => rand(0,1000).'sampleIssueHeader.jpg',
+                'filename' => 'sampleIssueHeader.jpg',
                 'encoded_content' => $this->sampleIssueHeaderEncoded,
             ],
         ];
@@ -151,7 +151,7 @@ class JournalIssueRestControllerTest extends BaseTestCase
                 ]
             ],
             'header' => [
-                'filename' => rand(0,1000).'sampleIssueHeader.jpg',
+                'filename' => 'sampleIssueHeader.jpg',
                 'encoded_content' => $this->sampleIssueHeaderEncoded,
             ],
         ];

@@ -58,7 +58,7 @@ class JournalArticleRestControllerTest extends BaseTestCase
             'orderNum' => 2,
             'submissionDate' => '22-10-2015',
             'header' => [
-                'filename' => rand(0,1000).'sampleArticleHeader.jpg',
+                'filename' => 'sampleArticleHeader.jpg',
                 'encoded_content' => $this->sampleArticleHeaderEncoded,
             ],
         ];
@@ -110,7 +110,7 @@ class JournalArticleRestControllerTest extends BaseTestCase
             'orderNum' => 2,
             'submissionDate' => '22-10-2015',
             'header' => [
-                'filename' => rand(0,1000).'sampleArticleHeader.jpg',
+                'filename' => 'sampleArticleHeader.jpg',
                 'encoded_content' => $this->sampleArticleHeaderEncoded,
             ],
         ];
@@ -137,7 +137,7 @@ class JournalArticleRestControllerTest extends BaseTestCase
                 ]
             ],
             'header' => [
-                'filename' => rand(0,1000).'sampleArticleHeader.jpg',
+                'filename' => 'sampleArticleHeader.jpg',
                 'encoded_content' => $this->sampleArticleHeaderEncoded,
             ],
         ];
