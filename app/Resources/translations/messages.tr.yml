@@ -759,7 +759,7 @@ ojs.updater: 'OJS Güncelleyici'
 ojs.view_in_browser: 'Bunu tarayıcınızda görüntüleyin.'
 ojs.welcome_msg: 'Sisteme katıldınız.'
 onlineSubmission: 'Online Makalem'
-optional: Seçenekli
+optional: 'İsteğe Bağlı'
 orcid.login: 'ORCID ile Giriş'
 order: Sıra
 order_by: 'Sıralama Öğesi'
@@ -1433,7 +1433,7 @@ validation:
 yes: Evet
 no: Hayır
 default: Varsayılan 
-optional: Opsiyonel
+optional: 'İsteğe Bağlı'
 submission.no_file: 'Makale dosyası yok, lütfen dergi yöneticisine haber verin.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
 journal.apply.form: 'Başvuru Formu'
