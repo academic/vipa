@@ -28,4 +28,3 @@ If issue is reproduceable, list steps with descriptions.
 | Branch/Tag?        | "master" etc. or "2.2" with links
 | Bug?               | yes/no
 | New feature?       | yes/no
-| Related Issues     | comma-separated list of issues
