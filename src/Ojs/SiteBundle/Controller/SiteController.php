@@ -8,6 +8,8 @@ use Elastica\Query\MatchAll;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\TreeHelper;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\BlockRepository;
+use Ojs\JournalBundle\Entity\BoardMember;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
@@ -15,7 +17,6 @@ use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
-use Ojs\JournalBundle\Entity\BlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
@@ -236,26 +237,32 @@ class SiteController extends Controller
 
     public function journalBoardAction($slug)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
+        /**
+         * @var Journal $journal
+         * @var EntityManager $em
+         * @var BlockRepository $blockRepo
+         */
         $em = $this->getDoctrine()->getManager();
-        /** @var BlockRepository $blockRepo */
         $blockRepo = $em->getRepository('OjsJournalBundle:Block');
-        /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
-        $this->throw404IfNotFound($journal);
-        $board = $journal->getBoards();
 
-        $board_members = [];
-        foreach ($board as $board_item) {
-            $board_members[$board_item->getId()] = $board_item->getBoardMembers();
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $boards = $journal->getBoards();
+
+        $this->throw404IfNotFound($journal);
+        $boardMembers = [];
+
+        foreach ($boards as $board) {
+            $boardMembers[$board->getId()] = $em
+                ->getRepository(BoardMember::class)
+                ->findBy(['board' => $board], ['seq' => 'ASC']);
         }
 
         $data = [
-            'journal' => $journal,
-            'board' => $board,
-            'board_members' => $board_members,
-            'page' => 'journal',
-            'blocks' => $blockRepo->journalBlocks($journal),
+            'journal'       => $journal,
+            'page'          => 'journal',
+            'board'         => $boards,
+            'board_members' => $boardMembers,
+            'blocks'        => $blockRepo->journalBlocks($journal),
         ];
 
         return $this->render('OjsSiteBundle::Journal/journal_board.html.twig', $data);
