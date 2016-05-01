@@ -221,22 +221,6 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @param Journal $journal
-     * @return array
-     */
-    public function getIssuesByYear(Journal $journal)
-    {
-        $years = [];
-        foreach($journal->getIssues() as $issue){
-            if($issue->isPublished()){
-                $years[$issue->getYear()][] = $issue;
-            }
-        }
-        ksort($years);
-        return array_reverse($years, true);
-    }
-
-    /**
      * @param  array     $data
      * @return Journal[]
      */

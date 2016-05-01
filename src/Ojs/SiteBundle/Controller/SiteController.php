@@ -143,7 +143,7 @@ class SiteController extends Controller
         $journal->setPublicURI($journalService->generateUrl($journal));
         $data['design'] = $journal->getDesign();
         $data['blocks'] = $blockRepo->journalBlocks($journal);
-        $data['years'] = $this->setupIssuesURIsByYear(array_slice($journalRepo->getIssuesByYear($journal), 0, 5, true));
+        $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true));
         $data['last_issue'] = $this->setupArticleURIs($issueRepo->findOneBy([
             'lastIssue' => true,
             'journal' => $journal,

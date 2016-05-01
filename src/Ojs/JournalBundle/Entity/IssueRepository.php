@@ -78,4 +78,31 @@ class IssueRepository extends EntityRepository
 
         return $query->getArrayResult();
     }
+
+    /**
+     * @param Journal $journal
+     * @return array
+     */
+    public function getByYear(Journal $journal)
+    {
+        $query = $this
+            ->createQueryBuilder('issue')
+            ->select('issue')
+            ->where('issue.journal = :journal')
+            ->setParameter('journal', $journal)
+            ->orderBy('issue.number', 'DESC')
+            ->getQuery();
+
+        $years = [];
+
+        /** @var Issue $issue */
+        foreach ($query->getResult() as $issue){
+            if ($issue->isPublished()){
+                $years[$issue->getYear()][] = $issue;
+            }
+        }
+
+        ksort($years);
+        return array_reverse($years, true);
+    }
 }
