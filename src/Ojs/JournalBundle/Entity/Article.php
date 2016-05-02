@@ -259,7 +259,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      *     "1"="status.doi.valid"
      * })
      */
-    protected $doiStatus = DoiStatuses::WAITING;
+    protected $doiStatus = DoiStatuses::NOT_AVAILABLE;
 
     /**
      * List of Article Status
