@@ -55,3 +55,4 @@ parameters:
     project_name: OJS
     country_id: 216
     session_name: '_OJS_SESSION_'
+    doi_start_year: 2014
