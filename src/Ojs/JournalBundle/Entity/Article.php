@@ -254,8 +254,9 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var int
      * @Grid\Column(field="doiStatus", title="doi.status", filter="select", selectFrom="values", values={
-     *     "-1"="status.doi.invalid",
-     *     "0"="status.doi.waiting",
+     *     "-3"="status.doi.not_requested",
+     *     "-2"="status.doi.not_available",
+     *     "0"="status.doi.requested",
      *     "1"="status.doi.valid"
      * })
      */
