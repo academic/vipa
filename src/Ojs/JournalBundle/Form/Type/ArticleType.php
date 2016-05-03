@@ -203,12 +203,8 @@ class ArticleType extends AbstractType
                     $client = new Client();
                     $client->get('http://doi.org/api/handles/'.$data['doi']);
                     $article->setDoiStatus(DoiStatuses::VALID);
-                }
-                catch(RequestException $e){
-                    $article->setDoiStatus(DoiStatuses::INVALID);
-                }
-                catch(\Exception $e) {
-                    $article->setDoiStatus(DoiStatuses::WAITING);
+                } catch(\Exception $e) {
+                    $article->setDoi(null);
                 }
             }
         });
