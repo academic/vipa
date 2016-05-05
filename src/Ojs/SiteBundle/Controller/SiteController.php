@@ -14,6 +14,7 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\SubscribeMailList;
@@ -389,11 +390,12 @@ class SiteController extends Controller
          */
         $em = $this->getDoctrine()->getManager();
 
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        $articleRepo = $em->getRepository(Article::class);
+
         $issue = $issueRepo->find($id);
         $this->throw404IfNotFound($issue);
-
-        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
 
         $blocks = $blockRepo->journalBlocks($issue->getJournal());
 
@@ -403,13 +405,21 @@ class SiteController extends Controller
 
         $sections = $this->setupIssueSections($issue);
 
+        $articles = [];
+
+        /** @var Section $section */
+        foreach ($sections as $section) {
+            $articles[$section->getId()] = $articleRepo->getOrderedArticles($issue, $section);
+        }
+
         return $this->render(
             'OjsSiteBundle:Issue:detail.html.twig',
             [
                 'issue'     => $issue,
                 'blocks'    => $blocks,
                 'token'     => $token,
-                'sections'  => $sections
+                'sections'  => $sections,
+                'articles'  => $articles,
             ]
         );
     }

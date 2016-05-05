@@ -51,6 +51,31 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
+     * Get article list by section_id with orderNum attribute ordered
+     * @param  Section $section
+     * @param  bool $asc
+     * @param  int $status default 1 (published)  see Ojs\JournalBundle\Entity\Article
+     * @return Article[]
+     */
+    public function getOrderedArticles(Issue $issue, Section $section, $asc = true, $status = ArticleStatuses::STATUS_PUBLISHED)
+    {
+        $query = $this->createQueryBuilder('article')
+            ->select('article')
+            ->where('article.section = :section')
+            ->andWhere('article.issue = :issue')
+            ->andWhere('article.status = :status')
+            ->orderBy('article.orderNum', $asc ? 'ASC' : 'DESC')
+            ->setParameter('section', $section)
+            ->setParameter('issue', $issue)
+            ->setParameter('status', $status)
+            ->getQuery();
+
+        $articles = $query->getResult();
+
+        return $articles;
+    }
+
+    /**
      * @param $page
      * @param $limit
      * @return array
