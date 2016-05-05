@@ -54,14 +54,6 @@
                     </h2>
                 </div>
                 <div class="panel-body row">
-                    {#
-                    {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
-                    {% for board_member in board_members[board_item.id] %}
-                        {% set person = board_member.user %}
-                        {% include '::user.html.twig' %}
-                    {% endfor %}
-                    {% endif %}
-                    #}
                     {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
                         {% for board_member in board_members[board_item.id] %}
                             {% set person = board_member.user %}
