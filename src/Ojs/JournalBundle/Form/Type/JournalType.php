@@ -230,10 +230,8 @@ class JournalType extends AbstractType
                     'required' => false,
                     'query_builder' => function (EntityRepository $er) use ($journalId, $options){
                         $query = $er->createQueryBuilder('t');
-                        if(is_null($journalId)){
-                            $query->where('t.public IS NULL OR t.public = TRUE');
-                        }else{
-                            $query->where('t.public IS NULL OR t.public = TRUE OR t.owner = :journal')
+                        if($journalId !== null){
+                            $query->where('t.owner = :journal')
                                 ->setParameter('journal', $options['data']);
                         }
                         return $query;
