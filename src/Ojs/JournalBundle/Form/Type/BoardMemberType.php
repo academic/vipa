@@ -29,6 +29,7 @@ class BoardMemberType extends AbstractType
             ->add('seq', null, ['label' => 'board.order'])
             ->add('showMail', 'checkbox', [
                 'label' => 'show.mail',
+                'required' => false,
             ])
             ->add('add', 'submit', ['label' => 'board.addUser'])
         ;
