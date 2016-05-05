@@ -84,13 +84,9 @@ class AdminJournalApplicationController extends Controller
         if (!$entity) {
             throw new NotFoundHttpException();
         }
-
-        $data = [];
-        $data['entity'] = $entity;
-        $csrf = $this->get('security.csrf.token_manager');
-        $data['token'] = $csrf->getToken('ojs_admin_application' . $id);
-
-        return $this->render('OjsAdminBundle:AdminApplication:journal_detail.html.twig', $data);
+        return $this->render('OjsAdminBundle:AdminApplication:journal_detail.html.twig', [
+            'entity' => $entity,
+        ]);
     }
 
     public function editAction($id)
@@ -147,28 +143,6 @@ class AdminJournalApplicationController extends Controller
         );
 
         return $form;
-    }
-
-    public function deleteAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
-
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ojs_admin_application' . $id);
-
-        if ($token != $request->get('_token')) {
-            throw new TokenNotFoundException("Token Not Found!");
-        }
-        $this->get('ojs_core.delete.service')->check($entity);
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->redirect($this->get('router')->generate('ojs_admin_application_journal_index'));
     }
 
     public function saveAction($id)

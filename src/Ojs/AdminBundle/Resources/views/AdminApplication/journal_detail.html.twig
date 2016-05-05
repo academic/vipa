@@ -26,14 +26,6 @@
             <a class="btn btn-warning"
                href="{{ url('ojs_admin_application_journal_reject',{id: entity.id}) }}">{{ "journal.application_reject"|trans }}
             </a>
-            {{
-            actions({
-                'delete': {
-                    'href': path('ojs_admin_application_journal_delete', {'id': entity.id}),
-                    'attributes': {'data-token': token}
-                }
-            })
-            }}
         </div>
     </div>
 {% endblock %}

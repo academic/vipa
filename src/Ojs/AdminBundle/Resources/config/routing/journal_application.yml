@@ -14,11 +14,6 @@ ojs_admin_application_journal_update:
   path:     /journal/update/{id}
   defaults: { _controller: "%ojs_core.journal_application_controller.class%:update" }
 
-ojs_admin_application_journal_delete:
-  path:     /journal/delete/{id}
-  defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:delete" }
-  methods:  [DELETE]
-
 ojs_admin_application_journal_save:
   path:     /journal/{id}/save
   defaults: { _controller: "OjsAdminBundle:AdminJournalApplication:save" }
