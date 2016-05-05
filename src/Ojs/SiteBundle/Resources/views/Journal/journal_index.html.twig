@@ -246,7 +246,9 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <strong>{{ last_issue.title }}</strong>
-                                        <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
+                                        <a href="{{ last_issue.publicURI }}">
+                                            <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
+                                        </a>
                                         <br>
                                         {% if last_issue.volume is not null and last_issue.volume != 0 %}
                                             {{ "volume"|trans }} {{ last_issue.volume }}
@@ -262,8 +264,10 @@
                                                     <a href="{{ article.publicURI }}">{{ article.title }}</a>
                                                 </li>
                                             {% endfor %}
+                                            {% if last_issue.articles|length>10 %}
+                                                <a class="btn btn-xs btn-default" href="{{ last_issue.publicURI }}">{{ 'more'|trans }}...</a>
+                                            {% endif %}
                                         </ul>
-
                                     </div>
                                 </div>
                             {% endif %}
