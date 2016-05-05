@@ -37,6 +37,15 @@ class DesignController extends Controller
             throw new AccessDeniedException("You are not authorized for view this journal's designs!");
         }
         $source = new Entity('OjsJournalBundle:Design');
+        $tableAlias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias, $journal) {
+                $query
+                    ->andWhere($tableAlias . '.owner = :journal')
+                    ->setParameter('journal', $journal)
+                ;
+            }
+        );
         $source->manipulateRow(
             function (Row $row) use ($request) {
                 /* @var Design $entity */
