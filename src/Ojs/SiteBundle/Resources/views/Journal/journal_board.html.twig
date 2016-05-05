@@ -47,17 +47,65 @@
             {% for board_item in board %}
             <div class="panel panel-default">
 
-                <div class="panel-heading">
-                    <h2> {{ board_item.name }}
+                <div class="panel-heading text-center">
+                    <h2>
+                        {{ board_item.name }}
                         <small>{{ board_item.description }}</small>
                     </h2>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body row">
+                    {#
                     {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
                     {% for board_member in board_members[board_item.id] %}
                         {% set person = board_member.user %}
                         {% include '::user.html.twig' %}
                     {% endfor %}
+                    {% endif %}
+                    #}
+                    {% if board_members[board_item.id] is defined and board_members[board_item.id]|length>0 %}
+                        {% for board_member in board_members[board_item.id] %}
+                            {% set person = board_member.user %}
+                            <div class="col-sm-8 col-sm-push-2" style="margin-bottom: 20px;">
+                                <div class="col-sm-10">
+                                    <address>
+                                        <h4>
+                                            <a href="{{ path('ojs_user_profile', {slug: person.username}) }}">
+                                                {{ person.fullName }}
+                                            </a>
+                                        </h4>
+                                        {% if person.country is not empty %}
+                                            <h6>
+                                                {{ person.country }}
+                                            </h6>
+                                        {% endif %}
+                                        {% if board_member.showMail %}
+                                            <h6>
+                                                <a href="mailto:{{ person.email }}">
+                                                    {{ person.email }}
+                                                </a>
+                                            </h6>
+                                        {% endif %}
+                                        {% if person.subjects|length>0 %}
+                                            <h6>
+                                                <i>{{ 'subjects'|trans }}</i>:
+                                                {{ person.subjects|join(',') }}
+                                            </h6>
+                                        {% endif %}
+                                        {% if person.about is not empty %}
+                                            <h6>
+                                                <i>{{ 'about'|trans }}</i>:
+                                                {{ person.about }}
+                                            </h6>
+                                        {% endif %}
+                                    </address>
+                                </div>
+                                <div class="col-sm-2">
+                                    {% if person.avatar is defined and person.avatar is not null %}
+                                        <img src="{{ person.avatar|imagine_filter('user_croped') }}" style="width: 100px; height: 100px;" class="img-circle"/>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
