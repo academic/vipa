@@ -474,14 +474,17 @@ class IssueController extends Controller
             $lastPages = $request->get('lastPage');
 
             foreach ($articleIds as $i => $articleId) {
+                /** @var Article $article */
                 $article = $articleRepo->find($articleId);
                 $this->throw404IfNotFound($article);
-                $article->setOrderNum($orders[$i]);
-                $article->setFirstPage($firstPages[$i]);
-                $article->setLastPage($lastPages[$i]);
+                $article->setOrderNum((int)$orders[$i]);
+                $article->setFirstPage((int)$firstPages[$i]);
+                $article->setLastPage((int)$lastPages[$i]);
                 $em->persist($article);
             }
             $em->flush();
+
+            $this->successFlashBag('successfully.arranged.articles');
         }
 
         $articles = $articleRepo->getOrderedArticlesByIssue($issue, true);
@@ -494,7 +497,6 @@ class IssueController extends Controller
             'sections' => $sections,
             'articlesUnissued' => $articlesUnissued,
         ];
-        $this->successFlashBag('successfully.arranged.articles');
 
         return $this->render('OjsJournalBundle:Issue:arrange.html.twig', $data);
     }
