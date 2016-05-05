@@ -1156,7 +1156,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      *
      * @return string
      */
-    public function getTitle($withLocale = true)
+    public function getTitle($withLocale = false)
     {
         return $this->getLogicalFieldTranslation('title', $withLocale);
     }
