@@ -511,12 +511,12 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
 
     /**
      * Get title
-     *
+     * @param bool $withLocale
      * @return string
      */
-    public function getTitle()
+    public function getTitle($withLocale = false)
     {
-        return $this->getLogicalFieldTranslation('title');
+        return $this->getLogicalFieldTranslation('title', $withLocale);
     }
 
     /**
