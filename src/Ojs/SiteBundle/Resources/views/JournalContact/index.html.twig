@@ -14,9 +14,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
-    {'link': generateJournalUrl(journal),'title': journal.title},
-    {'title': 'journalcontact.singular'|trans}
+        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': generateJournalUrl(journal),'title': journal.title},
+        {'title': 'journalcontact.singular'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -27,11 +27,14 @@
         <br>
         <!-- The carousel -->
         <div class="page-header">
-            <img src="
-                {% if journal.issues|length and journal.issues[journal.issues|length-1].cover is not null %}
-                    {{ journal.issues[journal.issues|length-1].cover|imagine_filter('issue_cover') }}
-                {% endif %}"
-                 class="img-responsive float-left tri"/>
+            <img
+                {% if journal.image is not null %}
+                    src="{{ journal.image|imagine_filter('journal_croped') }}"
+                    class="img-responsive img-rounded float-left"
+                {% else %}
+                    src="#" class="img-responsive img-rounded float-left tri"
+                {% endif %}
+                alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
             <div>
                 <h1>{{ journal.title }}</h1>
                 <h6>{{ journal.subtitle }}</h6>
@@ -41,14 +44,12 @@
 
 
         <div class="row">
-
             <div class="col-md-9 col-sm-8">
                 <div class="panel panel-default">
                     {% for contact in contacts %}
                         <div class="panel-heading">{{ contact.contactType.name }}</div>
                         <div class="panel-body">
-                            <strong>{{ "name"|trans }}
-                                :</strong> {{ contact.title }} {{ contact.fullName }}
+                            <strong>{{ "name"|trans }}:</strong> {{ contact.title }} {{ contact.fullName }}
                             <br/>
                             {% if contact.email is not empty %}
                                 <strong>{{ "email"|trans }}:</strong> {{ contact.email }} <br/>

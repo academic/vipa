@@ -454,19 +454,16 @@ class SiteController extends Controller
     public function journalContactsAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
+
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-        $data['contacts'] = $em->getRepository("OjsJournalBundle:JournalContact")->findBy(
-            array('journal' => $journal)
-        );
-        /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
-        $data['blocks'] = $blockRepo->journalBlocks($journal);
 
-        $data['journal'] = $journal;
-
-        return $this->render("OjsSiteBundle:JournalContact:index.html.twig", $data);
+        return $this->render("OjsSiteBundle:JournalContact:index.html.twig", [
+            'contacts' => $em->getRepository("OjsJournalBundle:JournalContact")->findBy(['journal' => $journal]),
+            'blocks' => $em->getRepository('OjsJournalBundle:Block')->journalBlocks($journal),
+            'journal' => $journal,
+        ]);
     }
 
     public function journalPageDetailAction($slug, $journal_slug)
