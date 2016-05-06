@@ -303,10 +303,7 @@ class SiteController extends Controller
         $this->throw404IfNotFound($journal);
 
         /** @var Issue[] $issues */
-        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy([
-                'journal' => $journal
-            ]
-        );
+        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(['journal' => $journal], ['number' => 'DESC']);
         $groupedIssues = [];
         foreach ($issues as $issue) {
             $groupedIssues[$issue->getYear()][] = $issue;
