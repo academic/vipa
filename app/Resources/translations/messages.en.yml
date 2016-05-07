@@ -1614,6 +1614,10 @@ advanced.user.email: 'User Email'
 advanced.user.fullName: 'User Full Name'
 advanced.publisher.name: 'Publisher Name'
 clear.query: 'Clear Query'
+display_mode: 'Display Mode'
+display_mode.all: 'Title, Volume and Number'
+display_mode.title: 'Title'
+display_mode.volume_and_number: 'Volume and Number'
 
 # OAuth
 linkedin: 'Linkedin'

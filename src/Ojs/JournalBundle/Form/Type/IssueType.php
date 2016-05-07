@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Params\IssueDisplayModes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +27,16 @@ class IssueType extends AbstractType
             ])
             ->add('volume', 'integer', array('label' => 'volume', 'required' => false))
             ->add('number', 'integer', array('label' => 'number', 'required' => false))
+            ->add('display_mode', 'choice', [
+                'choices' => [
+                    'display_mode.all' => IssueDisplayModes::SHOW_ALL,
+                    'display_mode.title' => IssueDisplayModes::SHOW_TITLE,
+                    'display_mode.volume_and_number' => IssueDisplayModes::SHOW_VOLUME_AND_NUMBER,
+                ],
+                'choices_as_values' => true,
+                'label' => 'display_mode',
+                'required' => false
+            ])
             ->add('special', 'checkbox', [
                     'label' => 'special.issue',
                     'required' => false,

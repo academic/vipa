@@ -1608,6 +1608,10 @@ advanced.user.email: 'Kullanıcı Email Adresi'
 advanced.user.fullName: 'Kullanıcı Tam Adı'
 advanced.publisher.name: 'Yayıncı Adı'
 clear.query: 'Sorguyu temizle'
+display_mode: 'Görüntülenme modu'
+display_mode.all: 'Başlık, Cilt ve Sayı'
+display_mode.title: 'Başlık'
+display_mode.volume_and_number: 'Cilt ve Sayı'
 
 # OAuth
 linkedin: 'Linkedin'

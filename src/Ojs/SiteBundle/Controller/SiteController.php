@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Elastica\Query\MatchAll;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\TreeHelper;
+use Ojs\CoreBundle\Params\IssueDisplayModes;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\BoardMember;
@@ -313,6 +314,11 @@ class SiteController extends Controller
         $data['page'] = 'archive';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['journal'] = $journal;
+        $data['displayModes'] = [
+            'all' => IssueDisplayModes::SHOW_ALL,
+            'title' => IssueDisplayModes::SHOW_TITLE,
+            'volumeAndNumber' => IssueDisplayModes::SHOW_VOLUME_AND_NUMBER
+        ];
 
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
     }
@@ -409,6 +415,12 @@ class SiteController extends Controller
             $articles[$section->getId()] = $articleRepo->getOrderedArticles($issue, $section);
         }
 
+        $displayModes = [
+            'all' => IssueDisplayModes::SHOW_ALL,
+            'title' => IssueDisplayModes::SHOW_TITLE,
+            'volumeAndNumber' => IssueDisplayModes::SHOW_VOLUME_AND_NUMBER,
+        ];
+
         return $this->render(
             'OjsSiteBundle:Issue:detail.html.twig',
             [
@@ -417,6 +429,7 @@ class SiteController extends Controller
                 'token'     => $token,
                 'sections'  => $sections,
                 'articles'  => $articles,
+                'displayModes' => $displayModes,
             ]
         );
     }

@@ -9,6 +9,7 @@ use Ojs\AnalyticsBundle\Entity\IssueStatistic;
 use Ojs\CoreBundle\Annotation\Display;
 use Ojs\CoreBundle\Entity\AnalyticsTrait;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
+use Ojs\CoreBundle\Params\IssueDisplayModes;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 
@@ -179,6 +180,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      * @var integer
      */
     private $numerator;
+
+    /**
+     * @var integer
+     */
+    private $displayMode = IssueDisplayModes::SHOW_ALL;
 
     public function __construct()
     {
@@ -765,6 +771,25 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     public function setLastIssue($lastIssue)
     {
         $this->lastIssue = $lastIssue;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDisplayMode()
+    {
+        return $this->displayMode;
+    }
+
+    /**
+     * @param int $displayMode
+     * @return Issue
+     */
+    public function setDisplayMode($displayMode)
+    {
+        $this->displayMode = $displayMode;
 
         return $this;
     }

@@ -23,15 +23,30 @@
 
     <div class="container">
         <div class=" col-md-12">
-            <h1>{{ fieldDisplay(issue, 'title') }}</h1>
+            {% if issue.displayMode is null
+                or issue.displayMode == displayModes.all
+                or issue.displayMode == displayModes.title
+            %}
+                <h1>{{ fieldDisplay(issue, 'title') }}</h1>
+                <h4>
+                    {% if issue.volume is not null and issue.volume != 0 %}
+                        {{ "volume"|trans }}: {{ issue.volume }} -
+                    {% endif %}
+                    {{ "issue"|trans }}: {{ issue.number }}
+                </h4>
+            {% elseif issue.displayMode == displayModes.volumeAndNumber %}
+                <h1>
+                    {{ "volume"|trans }}: {{ issue.volume }}
+                    {{ "issue"|trans }}: {{ issue.number }}
+                </h1>
+            {% endif %}
             <h4>
                 {% if issue.special %}
                     <span class="label label-success">
-                            <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
+                        <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>
                         {{ "special.issue"|trans }}
-                        </span> &nbsp;
+                    </span>
                 {% endif %}
-                {% if issue.volume is not null and issue.volume != 0 %} {{ "volume"|trans }} : {{ issue.volume }} - {% endif %}{{ "issue"|trans }}: {{ issue.number }}
             </h4>
             <h5>
                 <i class="fa fa-eye"></i>

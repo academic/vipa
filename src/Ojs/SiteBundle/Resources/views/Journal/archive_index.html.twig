@@ -64,11 +64,19 @@
                                                  class="img-responsive tr"/>
                                         {% endif %}
 
-                                        {{ "volume"|trans }} : {{ issue.volume }}
-                                        {{ "issue"|trans }} : {{ issue.number }}
+                                        {% if issue.displayMode is null or issue.displayMode == displayModes.all %}
+                                            {{ "volume"|trans }}: {{ issue.volume }}
+                                            {{ "issue"|trans }}: {{ issue.number }}
 
-                                        {% if issue.title is not null and issue.title != '-' %}-  {{ issue.title }} {% endif %}
-
+                                            {% if issue.title is not null and issue.title != '-' %}
+                                                - {{ issue.title }}
+                                            {% endif %}
+                                        {% elseif issue.displayMode == displayModes.volumeAndNumber %}
+                                            {{ "volume"|trans }}: {{ issue.volume }}
+                                            {{ "issue"|trans }}: {{ issue.number }}
+                                        {% elseif issue.displayMode == displayModes.title %}
+                                            {{ issue.title }}
+                                        {% endif %}
                                     </a>
                                 </div>
                             {% endfor %}

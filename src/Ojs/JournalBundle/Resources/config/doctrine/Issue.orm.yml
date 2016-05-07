@@ -161,6 +161,12 @@ Ojs\JournalBundle\Entity\Issue:
     numerator:
       type: integer
       nullable: true
+    displayMode:
+      type: integer
+      nullable: true
+      column: display_mode
+      options:
+        default: 0
   gedmo:
     soft_deleteable:
       field_name: deletedAt
