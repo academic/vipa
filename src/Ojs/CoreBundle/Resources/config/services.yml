@@ -114,6 +114,11 @@ services:
       tags:
         - { name: form.type, alias: purified_textarea }
 
+  form.type.multiple_emails:
+      class: Ojs\CoreBundle\Form\Type\MultipleEmailsType
+      tags:
+        - { name: form.type, alias: ojs_multiple_emails }
+
   ojs_core.search_manager:
     class: Ojs\CoreBundle\Service\Search\SearchManager
     arguments: ["@translator", "@router", "@request_stack", "@ojs_core.search.native_query_generator", "@service_container"]

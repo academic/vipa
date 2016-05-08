@@ -87,6 +87,13 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      * @var string
      */
     protected $email;
+
+    /**
+     * @JMS\Expose
+     * @var array
+     */
+    protected $extraEmails;
+
     /**
      * @var  string
      */
@@ -606,6 +613,25 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExtraEmails()
+    {
+        return $this->extraEmails;
+    }
+
+    /**
+     * @param array $extraEmails
+     * @return User
+     */
+    public function setExtraEmails($extraEmails)
+    {
+        $this->extraEmails = $extraEmails;
 
         return $this;
     }

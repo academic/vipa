@@ -78,16 +78,20 @@ class OjsMailer
     }
 
     /**
-     * @param UserInterface $user
+     * @param UserInterface|User $user
      * @param string $subject
      * @param string $body
      */
-    public function sendToUser(UserInterface $user, $subject, $body)
+    public function sendToUser(User $user, $subject, $body)
     {
+        $email = method_exists($user, 'getExtraEmails') ?
+            array_merge([$user->getEmail()], $user->getExtraEmails()) :
+            $user->getEmail();
+
         if(
             !empty($subject)
             && !empty($body)
-            && !empty($user->getEmail())
+            && !empty($email)
             && !empty($user->getUsername())
         ){
             $this->send($subject, $body, $user->getEmail(), $user->getUsername());

@@ -25,6 +25,10 @@ class UpdateUserType extends AbstractType
                 'label' => 'email',
                 'required' => true
             ])
+            ->add('extraEmails', 'ojs_multiple_emails', [
+                'label' => 'user.extra_emails',
+                'required' => false
+            ])
             ->add(
                 'firstName',
                 'text',

@@ -48,6 +48,11 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
+    extraEmails:
+      type: simple_array
+      nullable: true
+      gedmo:
+        - versioned
     phone:
       type: string
       nullable: true
