@@ -167,6 +167,12 @@ Ojs\JournalBundle\Entity\Issue:
       column: display_mode
       options:
         default: 0
+    inPress:
+      type: boolean
+      nullable: true
+      column: in_press
+      options:
+        default: false
   gedmo:
     soft_deleteable:
       field_name: deletedAt

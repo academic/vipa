@@ -64,6 +64,11 @@
                                                  class="img-responsive tr"/>
                                         {% endif %}
 
+                                        {% if issue.inPress %}
+                                            <small>({{ 'issue.in_press'|trans }})</small>
+                                            <br>
+                                        {% endif %}
+
                                         {% if issue.displayMode is null or issue.displayMode == displayModes.all %}
                                             {{ "volume"|trans }}: {{ issue.volume }}
                                             {{ "issue"|trans }}: {{ issue.number }}

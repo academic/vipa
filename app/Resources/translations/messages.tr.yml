@@ -499,6 +499,8 @@ issue.header: Sayı Üst Resmi
 issue.full_file: Sayı Tam Dosyası
 issue.publishdate: Yayınlanma Tarihi
 issue.supplement: 'Ek Sayı'
+issue.in_press: 'Gelecek Sayı'
+issue.in_press_desc: 'Baskı hazırlığında olan gelecek sayı (sadece arşiv sayfasında gösterilecek)'
 issuefile.edit: 'Sayı Dosyasını Düzenle'
 issuefile.file: Dosya
 issuefile.type: Dosya Tipi

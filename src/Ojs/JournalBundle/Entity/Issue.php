@@ -186,6 +186,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
      */
     private $displayMode = IssueDisplayModes::SHOW_ALL;
 
+    /**
+     * @var integer
+     */
+    private $inPress = false;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -790,6 +795,25 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     public function setDisplayMode($displayMode)
     {
         $this->displayMode = $displayMode;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInPress()
+    {
+        return $this->inPress;
+    }
+
+    /**
+     * @param int $inPress
+     * @return Issue
+     */
+    public function setInPress($inPress)
+    {
+        $this->inPress = $inPress;
 
         return $this;
     }

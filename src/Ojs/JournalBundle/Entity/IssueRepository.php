@@ -81,9 +81,10 @@ class IssueRepository extends EntityRepository
 
     /**
      * @param Journal $journal
+     * @param bool $withFutureIssues
      * @return array
      */
-    public function getByYear(Journal $journal)
+    public function getByYear(Journal $journal, $withFutureIssues = false)
     {
         $query = $this
             ->createQueryBuilder('issue')
@@ -91,9 +92,13 @@ class IssueRepository extends EntityRepository
             ->where('issue.journal = :journal')
             ->andWhere('issue.published = true')
             ->setParameter('journal', $journal)
-            ->orderBy('issue.number', 'DESC')
-            ->getQuery();
+            ->orderBy('issue.number', 'DESC');
 
+        if (!$withFutureIssues) {
+            $query->andWhere('issue.inPress = false');
+        }
+
+        $query = $query->getQuery();
         $years = [];
 
         /** @var Issue $issue */

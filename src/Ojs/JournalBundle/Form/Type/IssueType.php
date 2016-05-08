@@ -47,6 +47,10 @@ class IssueType extends AbstractType
                 'required' => false,
                 )
             )
+            ->add('inPress', 'checkbox', [
+                'label'    => 'issue.in_press_desc',
+                'required' => false,
+            ])
             ->add('year', 'text', array('label' => 'year'))
             ->add(
                 'datePublished',
