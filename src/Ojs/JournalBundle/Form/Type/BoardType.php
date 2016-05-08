@@ -26,6 +26,9 @@ class BoardType extends AbstractType
                     ],
                 ]
             ])
+            ->add('boardOrder', 'integer', [
+                'label' => 'order',
+            ])
         ;
     }
 

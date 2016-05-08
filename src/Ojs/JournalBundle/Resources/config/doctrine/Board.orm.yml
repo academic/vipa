@@ -25,6 +25,9 @@ Ojs\JournalBundle\Entity\Board:
             cascade: ["persist", "merge"]
             fetch: EXTRA_LAZY
     fields:
+        boardOrder:
+            type: integer
+            column: board_order
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true

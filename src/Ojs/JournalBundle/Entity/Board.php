@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * Board
- * @GRID\Source(columns="id,translations.name,translations.description")
+ * @GRID\Source(columns="id,translations.name,translations.description, boardOrder")
  */
 class Board extends AbstractTranslatable implements JournalItemInterface
 {
@@ -30,6 +30,12 @@ class Board extends AbstractTranslatable implements JournalItemInterface
      * @GRID\Column(title="name", field="translations.name", safe=false)
      */
     private $name;
+
+    /**
+     * @var int
+     * @GRID\Column(title="order")
+     */
+    private $boardOrder = 0;
 
     /**
      * @var string
@@ -240,6 +246,25 @@ class Board extends AbstractTranslatable implements JournalItemInterface
     public function setName($name)
     {
         $this->translate()->setName($name);
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBoardOrder()
+    {
+        return $this->boardOrder;
+    }
+
+    /**
+     * @param  int $boardOrder
+     * @return $this
+     */
+    public function setBoardOrder($boardOrder)
+    {
+        $this->boardOrder = $boardOrder;
+
         return $this;
     }
 }
