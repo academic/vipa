@@ -28,6 +28,8 @@ Ojs\JournalBundle\Entity\Board:
         boardOrder:
             type: integer
             column: board_order
+            options:
+              default: 0
     lifecycleCallbacks: {  }
     gedmo:
         loggable: true
