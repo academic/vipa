@@ -258,10 +258,20 @@
                                         - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
                                     </div>
                                     <div class="panel-body">
-                                        <ul>
+                                        <ul class="list-unstyled">
                                             {% for article in last_issue.articles[:10] %}
                                                 <li>
-                                                    <a href="{{ article.publicURI }}">{{ article.title }}</a>
+                                                    <p>
+                                                        <i class="fa fa-caret-right"></i>
+                                                        <a href="{{ article.publicURI }}">{{ article.title }}</a>
+                                                    </p>
+
+                                                    <p class="text-left">
+                                                        <i class="fa fa-pencil"></i>
+                                                        {% for articleAuthor in article.articleAuthors %}
+                                                            {{ articleAuthor.author.fullName }}
+                                                        {% endfor %}
+                                                    </p>
                                                 </li>
                                             {% endfor %}
                                             {% if last_issue.articles|length>10 %}
