@@ -89,6 +89,7 @@ class IssueRepository extends EntityRepository
             ->createQueryBuilder('issue')
             ->select('issue')
             ->where('issue.journal = :journal')
+            ->andWhere('issue.published = true')
             ->setParameter('journal', $journal)
             ->orderBy('issue.number', 'DESC')
             ->getQuery();
@@ -97,9 +98,7 @@ class IssueRepository extends EntityRepository
 
         /** @var Issue $issue */
         foreach ($query->getResult() as $issue){
-            if ($issue->isPublished()){
-                $years[$issue->getYear()][] = $issue;
-            }
+            $years[$issue->getYear()][] = $issue;
         }
 
         ksort($years);
