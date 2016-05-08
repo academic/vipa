@@ -1576,6 +1576,7 @@ show.mail: 'E-posta Adresini Göster'
 width: 'Genişlik'
 height: 'Yükseklik'
 you.can.crop.after.upload: 'Yükledikten sonra da kırpma işlemini yapabilirsiniz.'
+article.acceptance: 'Makale Kabul Tarihi'
 
 #search system translations
 agg.subjects.subject: 'Konu Filtresi'

@@ -1582,6 +1582,7 @@ get.doi: 'Get DOI'
 show.mail: 'Show Mail Adress'
 width: 'Width'
 height: 'Height'
+article.acceptance: 'Article Acceptance Date'
 you.can.crop.after.upload: 'You can crop image after upload'
 
 #search system translations

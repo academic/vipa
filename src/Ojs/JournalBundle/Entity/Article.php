@@ -109,6 +109,11 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $submissionDate;
     /**
      * @var \DateTime
+     * @Expose
+     */
+    private $acceptanceDate;
+    /**
+     * @var \DateTime
      * @GRID\Column(title="pubdate")
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
@@ -875,6 +880,25 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     public function setSubmissionDate($submissionDate)
     {
         $this->submissionDate = $submissionDate;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAcceptanceDate()
+    {
+        return $this->acceptanceDate;
+    }
+
+    /**
+     * @param \DateTime $acceptanceDate
+     * @return Article
+     */
+    public function setAcceptanceDate($acceptanceDate)
+    {
+        $this->acceptanceDate = $acceptanceDate;
 
         return $this;
     }

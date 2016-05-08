@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
@@ -181,6 +180,23 @@ class ArticleType extends AbstractType
                         'autoclose' => 'true',
                     ],
                 )
+            )
+            ->add(
+                'acceptanceDate',
+                'collot_datetime',
+                [
+                    'required'      => false,
+                    'label'         => 'article.acceptance',
+                    'date_format'   => 'dd-MM-yyyy',
+                    'pickerOptions' => [
+                        'format'         => 'dd-mm-yyyy',
+                        'startView'      => 'month',
+                        'minView'        => 'month',
+                        'todayBtn'       => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose'      => 'true',
+                    ],
+                ]
             )
             ->add('header', 'jb_crop_image_ajax', array(
                 'endpoint' => 'article',

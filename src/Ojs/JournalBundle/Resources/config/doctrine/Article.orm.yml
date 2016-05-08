@@ -194,6 +194,10 @@ Ojs\JournalBundle\Entity\Article:
       column: submission_date
       type: datetime
       nullable: true
+    acceptanceDate:
+      column: acceptance_date
+      type: datetime
+      nullable: true
     pubdate:
       type: datetime
       nullable: true
