@@ -33,6 +33,7 @@
                             src="{% if user.avatar %}{{ user.avatar|imagine_filter('user_croped') }}{% endif %}"/>
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }}</h1>
+                <h4>@{{ user.username }}</h4>
                 <a href="{{ user.url }}" target="_blank">{{ user.url }}</a><br>
                 {% if user.city.country is defined %}
                     {{ user.city.country }}
