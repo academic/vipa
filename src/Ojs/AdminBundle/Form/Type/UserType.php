@@ -128,11 +128,12 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'data_class'         => 'Ojs\UserBundle\Entity\User',
                 'cascade_validation' => true,
-                'attr' => [
+                'attr'               => [
                     'class' => 'validate-form',
                 ],
+                'validation_groups'  => 'editProfile',
             ]
         );
     }

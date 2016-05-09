@@ -112,14 +112,14 @@ class UpdateUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
-                'data_class' => 'Ojs\UserBundle\Entity\User',
+            [
+                'data_class'         => 'Ojs\UserBundle\Entity\User',
                 'cascade_validation' => true,
-                'attr' => [
+                'attr'               => [
                     'class' => 'validate-form',
                 ],
-                'validation_groups' => 'editProfile'
-            )
+                'validation_groups'  => 'editProfile',
+            ]
         );
     }
 
