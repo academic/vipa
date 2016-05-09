@@ -21,3 +21,4 @@ type.field.article.files.not.be.blank: 'Type fields of article files can not be 
 language.field.article.files.not.be.blank: 'Language fields of article files can not be blank.'
 title.field.article.files.not.be.blank: 'Title fields of article files can not be blank.'
 file.field.article.files.not.be.blank: 'File fields of article files can not be blank.'
+user.extra_emails.invalid: 'One or more emails are not available'

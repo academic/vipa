@@ -21,3 +21,4 @@ type.field.article.files.not.be.blank: 'Makale dosyası için tür alanı boş o
 language.field.article.files.not.be.blank: 'Makale dosyası için dil alanı boş olmamalıdır.'
 title.field.article.files.not.be.blank: 'Makale dosyası için başlık alanı boş olmamalıdır.'
 file.field.article.files.not.be.blank: 'Makale dosyası için file alanı boş olmamalıdır.'
+user.extra_emails.invalid: 'E-posta adreslerinin biri veyahut birkaçı geçersiz ya da kullanıma müsait değil'

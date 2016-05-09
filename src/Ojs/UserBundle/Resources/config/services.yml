@@ -30,3 +30,9 @@ services:
     class: Ojs\UserBundle\Event\UserEvents
     tags:
       - { name: ojs.mail.event}
+
+  ojs.user.validation.unique_emails:
+    class: Ojs\UserBundle\Validator\UniqueEmailsValidator
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: validator.constraint_validator, alias: alias_name }
