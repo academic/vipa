@@ -39,7 +39,7 @@ class PeopleController extends Controller
 
             foreach ($subjectFilters as $subject) {
                 $match = new Query\Match();
-                $match->setField('subjects', $subject);
+                $match->setField('user.subjects.subject', $subject);
                 $boolQuery->addMust($match);
             }
 
@@ -59,7 +59,7 @@ class PeopleController extends Controller
         $userQuery->addAggregation($roleAgg);
 
         $subjectAgg = new Aggregation\Terms('subjects');
-        $subjectAgg->setField('subjects');
+        $subjectAgg->setField('user.subjects.subject');
         $subjectAgg->setOrder('_term', 'asc');
         $subjectAgg->setSize(0);
         $userQuery->addAggregation($subjectAgg);
