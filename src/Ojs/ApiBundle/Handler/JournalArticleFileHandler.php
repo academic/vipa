@@ -176,7 +176,7 @@ class JournalArticleFileHandler
             $history = new FileHistory();
             $history->setFileName($entity->getFile());
             $history->setOriginalName($entity->getFile());
-            $history->setType('article');
+            $history->setType('articlefiles');
             $history->setUserId(null); // TODO: Set user
             $this->om->persist($history);
 
