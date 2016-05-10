@@ -18,7 +18,7 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ojs:install:samples:submission-checklist')
+            ->setName('ojs:sync:submission-checklist')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Remove submission checklist if exists')
             ->setDescription('Creates sample submission checklists')
         ;
