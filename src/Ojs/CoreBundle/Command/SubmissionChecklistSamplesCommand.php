@@ -19,7 +19,9 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
     {
         $this
             ->setName('ojs:install:samples:submission-checklist')
-            ->setDescription('Creates sample submission checklists');
+            ->addOption('force', null, InputOption::VALUE_NONE, 'Remove submission checklist if exists')
+            ->setDescription('Creates sample submission checklists')
+        ;
     }
 
     /**
@@ -42,7 +44,15 @@ class SubmissionChecklistSamplesCommand extends ContainerAwareCommand
         $allJournals = $this->getAllJournals();
 
         foreach($allJournals as $journal){
-            $this->clearSubmissionChecklists($journal);
+            if($journal->getSubmissionChecklist()->count()> 0){
+                if(!$input->getOption('force')){
+                    $output->writeln('Submission checklists already exists');
+                    continue;
+                }
+            }
+            if($input->getOption('force')){
+                $this->clearSubmissionChecklists($journal);
+            }
             $output->writeln('Creating a checklist for '. $journal->getTitle());
             $this->createItem1($journal, $output);
             $this->createItem2($journal, $output);
