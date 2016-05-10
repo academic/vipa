@@ -22,10 +22,14 @@ class DownloadController extends Controller
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
+        $fileOriginalName = $fileHistory->getOriginalName();
+        if(preg_match('/\//', $fileHistory->getOriginalName())){
+            $fileOriginalName = end(explode('/', $fileHistory->getOriginalName()));
+        }
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
-            preg_replace('/[[:^print:]]/', '_', $fileHistory->getOriginalName())
+            preg_replace('/[[:^print:]]/', '_', $fileOriginalName)
         );
 
         $event = new DownloadArticleFileEvent($articleFile);
@@ -44,10 +48,14 @@ class DownloadController extends Controller
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
+        $fileOriginalName = $fileHistory->getOriginalName();
+        if(preg_match('/\//', $fileHistory->getOriginalName())){
+            $fileOriginalName = end(explode('/', $fileHistory->getOriginalName()));
+        }
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
-            preg_replace('/[[:^print:]]/', '_', $fileHistory->getOriginalName())
+            preg_replace('/[[:^print:]]/', '_', $fileOriginalName)
         );
 
         $event = new DownloadIssueFileEvent($issueFile);
