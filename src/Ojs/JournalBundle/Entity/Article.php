@@ -72,7 +72,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var \DateTime
      */
-    private $lastDoiCheck;
+    private $doiRequestTime;
 
     /**
      * Could contain any article ID used by the provider
@@ -1338,18 +1338,18 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @return \DateTime
      */
-    public function getLastDoiCheck()
+    public function getDoiRequestTime()
     {
-        return $this->lastDoiCheck;
+        return $this->doiRequestTime;
     }
 
     /**
-     * @param \DateTime $lastDoiCheck
+     * @param \DateTime $doiRequestTime
      * @return $this
      */
-    public function setLastDoiCheck($lastDoiCheck)
+    public function setDoiRequestTime($doiRequestTime)
     {
-        $this->lastDoiCheck = $lastDoiCheck;
+        $this->doiRequestTime = $doiRequestTime;
 
         return $this;
     }

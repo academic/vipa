@@ -159,7 +159,8 @@ Ojs\JournalBundle\Entity\Article:
     doiStatus:
       type: integer
       options: {"default" : 0}
-    lastDoiCheck:
+    doiRequestTime:
+      column: doi_request_time
       type: datetime
       nullable: true
     firstPage:
