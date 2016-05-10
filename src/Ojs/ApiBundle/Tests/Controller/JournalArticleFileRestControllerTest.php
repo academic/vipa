@@ -119,7 +119,7 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
         ];
         $routeParameters = $this->getRouteParams([
             'journalId' => 1,
-            'id' => 10,
+            'id' => 1,
             'articleId' => 1,
         ]);
         $url = $this->router->generate('api_1_article_patch_file', $routeParameters);
