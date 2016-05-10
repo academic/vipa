@@ -68,6 +68,12 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $doi;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastDoiCheck;
+
     /**
      * Could contain any article ID used by the provider
      * @var string
@@ -1325,6 +1331,25 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     public function setDoiStatus($doiStatus)
     {
         $this->doiStatus = $doiStatus;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastDoiCheck()
+    {
+        return $this->lastDoiCheck;
+    }
+
+    /**
+     * @param \DateTime $lastDoiCheck
+     * @return $this
+     */
+    public function setLastDoiCheck($lastDoiCheck)
+    {
+        $this->lastDoiCheck = $lastDoiCheck;
 
         return $this;
     }
