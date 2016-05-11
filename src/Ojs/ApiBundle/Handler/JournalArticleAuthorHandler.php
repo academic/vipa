@@ -45,7 +45,7 @@ class JournalArticleAuthorHandler
     {
         /** @var ArticleAuthor $entity */
         $entity = $this->repository->find($id);
-        return $this->apiHelper->normalizeEntity($entity);
+        return $entity;
     }
 
     /**

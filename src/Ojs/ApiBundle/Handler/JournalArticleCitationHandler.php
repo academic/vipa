@@ -61,7 +61,7 @@ class JournalArticleCitationHandler
     {
         /** @var Citation $entity */
         $entity = $this->repository->find($id);
-        return $this->apiHelper->normalizeEntity($entity);
+        return $entity;
     }
 
     /**
