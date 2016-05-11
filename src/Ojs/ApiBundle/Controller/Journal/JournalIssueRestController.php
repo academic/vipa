@@ -82,7 +82,7 @@ class JournalIssueRestController extends ApiController
         if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException;
         }
-        $entity = $this->getOr404($id);
+        $entity = $this->getOr404($id, true);
         return $entity;
     }
 
@@ -342,14 +342,15 @@ class JournalIssueRestController extends ApiController
      * Fetch a Issue or throw an 404 Exception.
      *
      * @param mixed $id
+     * @param bool $normalize
      *
      * @return Issue
      *
      * @throws NotFoundHttpException
      */
-    protected function getOr404($id)
+    protected function getOr404($id, $normalize = false)
     {
-        if (!($entity = $this->container->get('ojs_api.journal_issue.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.journal_issue.handler')->get($id, $normalize))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

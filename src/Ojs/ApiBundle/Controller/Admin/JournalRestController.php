@@ -75,7 +75,7 @@ class JournalRestController extends FOSRestController
      */
     public function getJournalAction($id)
     {
-        $entity = $this->getOr404($id);
+        $entity = $this->getOr404($id, true);
         if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException;
         }
@@ -268,14 +268,15 @@ class JournalRestController extends FOSRestController
      * Fetch a Journal or throw an 404 Exception.
      *
      * @param mixed $id
+     * @param bool $normalize
      *
      * @return Journal
      *
      * @throws NotFoundHttpException
      */
-    protected function getOr404($id)
+    protected function getOr404($id, $normalize = false)
     {
-        if (!($entity = $this->container->get('ojs_api.journal.handler')->get($id))) {
+        if (!($entity = $this->container->get('ojs_api.journal.handler')->get($id, $normalize))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
         return $entity;

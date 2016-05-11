@@ -39,13 +39,17 @@ class JournalIssueHandler
      * Get a Issue.
      *
      * @param mixed $id
+     * @param bool $normalize
      *
      * @return Issue
      */
-    public function get($id)
+    public function get($id, $normalize = false)
     {
         /** @var Issue $entity */
         $entity = $this->repository->find($id);
+        if(!$normalize){
+            return $entity;
+        }
         return $this->apiHelper->normalizeEntity($entity);
     }
 

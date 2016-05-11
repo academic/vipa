@@ -31,13 +31,17 @@ class JournalHandler implements JournalHandlerInterface
      * Get a Journal.
      *
      * @param mixed $id
+     * @param bool $normalize
      *
      * @return Journal
      */
-    public function get($id)
+    public function get($id, $normalize = false)
     {
         /** @var Journal $entity */
         $entity = $this->repository->find($id);
+        if(!$normalize){
+            return $entity;
+        }
         return $this->apiHelper->normalizeEntity($entity);
     }
 

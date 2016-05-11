@@ -39,13 +39,17 @@ class JournalArticleHandler
      * Get a Article.
      *
      * @param mixed $id
+     * @param bool $normalize
      *
      * @return Article
      */
-    public function get($id)
+    public function get($id, $normalize = false)
     {
         /** @var Article $entity */
         $entity = $this->repository->find($id);
+        if(!$normalize){
+            return $entity;
+        }
         return $this->apiHelper->normalizeEntity($entity);
     }
 
