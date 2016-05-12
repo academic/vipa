@@ -106,7 +106,7 @@
                                                 <br>
                                                 <span>
                                                     {% for author in article.articleAuthors %}
-                                                        {{ author }}{% if loop.last != true %} ,{% endif %}
+                                                        {{ author }}{% if loop.last != true %}, {% endif %}
                                                     {% endfor %}
                                                 </span>
                                             {% endif %}
