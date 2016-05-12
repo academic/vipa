@@ -92,7 +92,12 @@
                                     <small>
                                         <span class="author">{{ authorsInfo.author.fullName }}</span>
                                         <sup>
-                                            <a href="#author{{ authorsInfo.author.id }}" class="btn btn-link">
+                                            <a href="{{ path('ojs_article_page', {
+                                                publisher: journal.publisher.slug,
+                                                issue_id: article.issue.id,
+                                                article_id: article.id,
+                                                slug: journal.slug
+                                            }) }}#author{{ authorsInfo.author.id }}">
                                                 [{{ loop.index }}]
                                             </a>
                                         </sup>
@@ -196,7 +201,7 @@
                                     <th>{{ 'authors'|trans }}</th>
                                     <td>
                                         {% for authorsInfo in article.articleAuthors %}
-                                            <p>{{ authorsInfo.author.fullName }}</p>
+                                            <p id="author{{ authorsInfo.author.id }}">{{ authorsInfo.author.fullName }}</p>
                                         {% endfor %}
                                     </td>
                                 </tr>
