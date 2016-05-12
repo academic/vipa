@@ -264,13 +264,13 @@
                                                     <p>
                                                         <i class="fa fa-caret-right"></i>
                                                         <a href="{{ article.publicURI }}">{{ article.title }}</a>
-                                                    </p>
 
-                                                    <p class="text-left">
-                                                        <i class="fa fa-pencil"></i>
-                                                        {% for articleAuthor in article.articleAuthors %}
-                                                            {{ articleAuthor.author.fullName }}
-                                                        {% endfor %}
+                                                        <span class="clearfix">
+                                                            <i class="fa fa-pencil"></i>
+                                                            {% for articleAuthor in article.articleAuthors %}
+                                                                {{ articleAuthor.author.fullName }}{% if loop.last != true %}, {% endif %}
+                                                            {% endfor %}
+                                                        </span>
                                                     </p>
                                                 </li>
                                             {% endfor %}
