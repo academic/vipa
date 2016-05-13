@@ -24,7 +24,8 @@ class DownloadController extends Controller
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
         $fileOriginalName = $fileHistory->getOriginalName();
         if(preg_match('/\//', $fileHistory->getOriginalName())){
-            $fileOriginalName = end(explode('/', $fileHistory->getOriginalName()));
+            $explode = explode('/', $fileHistory->getOriginalName());
+            $fileOriginalName = end($explode);
         }
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
@@ -50,7 +51,8 @@ class DownloadController extends Controller
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
         $fileOriginalName = $fileHistory->getOriginalName();
         if(preg_match('/\//', $fileHistory->getOriginalName())){
-            $fileOriginalName = end(explode('/', $fileHistory->getOriginalName()));
+            $explode = explode('/', $fileHistory->getOriginalName());
+            $fileOriginalName = end($explode);
         }
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
