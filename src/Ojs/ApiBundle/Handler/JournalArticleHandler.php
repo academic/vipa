@@ -156,7 +156,7 @@ class JournalArticleHandler
         $journalUploadDir = $rootDir . '/../web/uploads/journal/';
         if($isImage) {
             $fileHelper = new FileHelper();
-            $generatePath = $fileHelper->generatePath($file['filename'], false);
+            $generatePath = $fileHelper->generateRandomPath();
             if(!is_dir($journalUploadDir.$generatePath) || !is_dir($journalUploadDir.'croped/'.$generatePath)){
                 mkdir($journalUploadDir.$generatePath, 0775, true);
                 mkdir($journalUploadDir.'croped/'.$generatePath, 0775, true);
@@ -164,6 +164,7 @@ class JournalArticleHandler
             $filePath = $generatePath . $file['filename'];
             file_put_contents($journalUploadDir.$filePath, base64_decode($file['encoded_content']));
             file_put_contents($journalUploadDir.'croped/'.$filePath, base64_decode($file['encoded_content']));
+            $this->apiHelper->createFileHistory($filePath, $filePath, 'journal', $this->om, true);
             return $filePath;
         }
     }

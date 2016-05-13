@@ -175,15 +175,8 @@ class JournalArticleFileHandler
         }
         if ($form->isValid()) {
             $entity->setArticle($this->getArticle());
+
             $this->om->persist($entity);
-
-            $history = new FileHistory();
-            $history->setFileName($entity->getFile());
-            $history->setOriginalName($entity->getFile());
-            $history->setType('articlefiles');
-            $history->setUserId(null); // TODO: Set user
-            $this->om->persist($history);
-
             $this->om->flush();
             return $formData;
         }
@@ -200,6 +193,7 @@ class JournalArticleFileHandler
         $fs = new Filesystem();
         $fs->mkdir($articleFileDir);
         $fs->dumpFile($articleFileDir.$generateUniqueFilePath, base64_decode($file['encoded_content']));
+        $this->apiHelper->createFileHistory($generateUniqueFilePath, $generateUniqueFilePath, 'articlefiles', $this->om, true);
         return $generateUniqueFilePath;
     }
 

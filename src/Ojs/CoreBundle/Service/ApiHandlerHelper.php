@@ -2,6 +2,7 @@
 
 namespace Ojs\CoreBundle\Service;
 
+use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Doctrine\Common\Annotations\Reader;
@@ -90,5 +91,30 @@ class ApiHandlerHelper
     public function getRequestStack()
     {
         return $this->requestStack;
+    }
+
+    /**
+     * @param $fileName
+     * @param $originalName
+     * @param $type
+     * @param $em
+     * @param bool $save
+     *
+     * @return FileHistory
+     */
+    public function createFileHistory($fileName, $originalName, $type, $em, $save = true)
+    {
+        $fileHistory = new FileHistory();
+        $fileHistory
+            ->setFileName($fileName)
+            ->setOriginalName($originalName)
+            ->setType($type)
+            ->setUserId(null)
+            ;
+        $em->persist($fileHistory);
+        if($save){
+            $em->flush();
+        }
+        return $fileHistory;
     }
 }

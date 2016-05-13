@@ -171,11 +171,12 @@ class JournalIssueHandler
         if($isImage) {
             $fs->dumpFile($journalUploadDir.$generateRandomPath, base64_decode($file['encoded_content']));
             $fs->dumpFile($journalUploadDir.'croped/'.$generateRandomPath, base64_decode($file['encoded_content']));
+            $this->apiHelper->createFileHistory($generateRandomPath, $generateRandomPath, 'journal', $this->om, true);
             return $generateRandomPath;
         }else{
             $fs->dumpFile($issueFileDir . $generateRandomPath, base64_decode($file['encoded_content']));
+            $this->apiHelper->createFileHistory($generateRandomPath, $generateRandomPath, 'issuefiles', $this->om, true);
             return $generateRandomPath;
-
         }
     }
 
