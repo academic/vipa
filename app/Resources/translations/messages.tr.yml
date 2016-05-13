@@ -396,7 +396,7 @@ full_file: 'Tam Dosya'
 fullname: 'Tam İsim'
 globalFooter.text: "<p>\n ojs.io  <mark>pratik</mark> ve <mark>hızlı</mark> bir dergi yönetme ve yayımlama sistemidir. Makale kabulünden yayımlamaya kadar olan tüm süreç elektronik olarak yerine getirilir. \n</p>\n<p>DergiPark tamamen <strong>ücretsizdir.</strong></p>\n"
 haveNoJournals: 'Hiç derginiz bulunmuyor.'
-help.preSubmission.header: 'Bu Makale bu dergi tarafından değerlendirilmek üzere işaretlenir. Editöre yorumlar son adımda eklenebilir.'
+help.preSubmission.header: 'Bu makale bu dergi tarafından değerlendirilmek üzere işleme alınacaktır.'
 helptext.authors.will.see: 'Yazarlar bu alanı görecek.'
 helptext.authors.wont.see: 'Yazarlar bu alanı görmeyecek.'
 hide_title: 'Başlığı Gizle'
@@ -1437,7 +1437,7 @@ yes: Evet
 no: Hayır
 default: Varsayılan 
 optional: 'İsteğe Bağlı'
-submission.no_file: 'Makale dosyası yok, lütfen dergi yöneticisine haber verin.'
+submission.no_file: 'Telif Hakkı Formu yok, lütfen dergi ile iletişime geçiniz.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
 journal.apply.form: 'Başvuru Formu'
 journal.full.title: 'Dergi Tam Adı'
