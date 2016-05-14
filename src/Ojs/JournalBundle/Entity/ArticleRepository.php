@@ -29,10 +29,10 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
-     * Get article list by issue_id with orderNum attribute ordered
-     * @param  Issue $issue
-     * @param  bool $asc
-     * @param  int $status default 1 (published)  see Ojs\JournalBundle\Entity\Article
+     * Get articles of given issue, ordered by their orderNum fields
+     * @param Issue $issue
+     * @param bool $asc
+     * @param int $status
      * @return Article[]
      */
     public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = ArticleStatuses::STATUS_PUBLISHED)
@@ -51,10 +51,11 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
-     * Get article list by section_id with orderNum attribute ordered
-     * @param  Section $section
-     * @param  bool $asc
-     * @param  int $status default 1 (published)  see Ojs\JournalBundle\Entity\Article
+     * Get articles of given issue and section, ordered by their orderNum fields
+     * @param Issue $issue
+     * @param Section $section
+     * @param bool $asc
+     * @param int $status
      * @return Article[]
      */
     public function getOrderedArticles(Issue $issue, Section $section, $asc = true, $status = ArticleStatuses::STATUS_PUBLISHED)

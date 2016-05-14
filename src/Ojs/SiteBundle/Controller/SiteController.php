@@ -147,10 +147,28 @@ class SiteController extends Controller
         $data['design'] = $journal->getDesign();
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['years'] = $this->setupIssuesURIsByYear(array_slice($issueRepo->getByYear($journal), 0, 5, true));
-        $data['last_issue'] = $this->setupArticleURIs($issueRepo->findOneBy([
-            'lastIssue' => true,
-            'journal' => $journal,
-        ]));
+
+        /** @var Issue $lastIssue */
+        $lastIssue = $issueRepo->findOneBy(['lastIssue' => true, 'journal' => $journal]);
+
+        if ($lastIssue !== null) {
+            $articles = [];
+
+            /** @var Section $section */
+            foreach ($lastIssue->getSections() as $section) {
+                $articles = array_merge($articles, $em
+                    ->getRepository(Article::class)
+                    ->getOrderedArticles($lastIssue, $section)
+                );
+            }
+
+            $data['lastIssueArticles'] = $this->setupArticleURIs($articles);
+            $data['lastIssue'] = $lastIssue;
+        } else {
+            $data['lastIssueArticles'] = [];
+            $data['lastIssue'] = null;
+        }
+
         $data['posts'] = $em->getRepository('OjsJournalBundle:JournalPost')->findBy(['journal' => $journal]);
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
 
@@ -158,7 +176,7 @@ class SiteController extends Controller
             'ojs_archive_index',
             [
                 'slug' => $journal->getSlug(),
-                'publisher' => $journal->getPublisher()->getSlug()
+                'publisher' => $journal->getPublisher()->getSlug(),
             ],
             true
         );
@@ -193,29 +211,27 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Issue $last_issue
+     * @param array $articles
      * @return Issue|null
      */
-    private function setupArticleURIs(Issue $last_issue = null)
+    private function setupArticleURIs($articles = null)
     {
-        if ($last_issue) {
-            foreach ($last_issue->getArticles() as $article) {
-                $article->setPublicURI(
-                    $this->generateUrl(
-                        'ojs_article_page',
-                        [
-                            'publisher' => $article->getIssue()->getJournal()->getPublisher()->getSlug(),
-                            'slug' => $article->getIssue()->getJournal()->getSlug(),
-                            'issue_id' => $article->getIssue()->getId(),
-                            'article_id' => $article->getId(),
-                        ],
-                        true
-                    )
-                );
-            }
-            return $last_issue;
+        /** @var Article $article */
+        foreach ($articles as $article) {
+            $article->setPublicURI(
+                $this->generateUrl(
+                    'ojs_article_page',
+                    [
+                        'publisher'  => $article->getIssue()->getJournal()->getPublisher()->getSlug(),
+                        'slug'       => $article->getIssue()->getJournal()->getSlug(),
+                        'issue_id'   => $article->getIssue()->getId(),
+                        'article_id' => $article->getId(),
+                    ]
+                )
+            );
         }
-        return null;
+
+        return $articles;
     }
 
     public function journalArticlesAction($slug)

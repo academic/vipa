@@ -29,6 +29,7 @@ Ojs\JournalBundle\Entity\Issue:
       cascade: ["persist", "remove"]
   manyToMany:
     sections:
+      orderBy: { 'sectionOrder': 'ASC' }
       targetEntity: Section
       joinTable:
         name: issue_section

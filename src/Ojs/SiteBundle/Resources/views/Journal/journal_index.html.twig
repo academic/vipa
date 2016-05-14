@@ -242,24 +242,24 @@
                             </div>
                         </div>
                         <div class="col-md-7 col-sm-12" id="issue-container">
-                            {% if last_issue %}
+                            {% if lastIssue %}
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <strong>{{ last_issue.title }}</strong>
-                                        <a href="{{ last_issue.publicURI }}">
+                                        <strong>{{ lastIssue.title }}</strong>
+                                        <a href="{{ lastIssue.publicURI }}">
                                             <span class="badge badge-warning pull-right">{{ "read.lastissue"|trans }}</span>
                                         </a>
                                         <br>
-                                        {% if last_issue.volume is not null and last_issue.volume != 0 %}
-                                            {{ "volume"|trans }} {{ last_issue.volume }}
+                                        {% if lastIssue.volume is not null and lastIssue.volume != 0 %}
+                                            {{ "volume"|trans }} {{ lastIssue.volume }}
                                             -
                                         {% endif %}
-                                        {{ "issue"|trans }} {{ last_issue.number }}
-                                        - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                                        {{ "issue"|trans }} {{ lastIssue.number }}
+                                        - {{ lastIssue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
                                     </div>
                                     <div class="panel-body">
                                         <ul class="list-unstyled">
-                                            {% for article in last_issue.articles[:10] %}
+                                            {% for article in lastIssueArticles[:10] %}
                                                 <li>
                                                     <p>
                                                         <i class="fa fa-caret-right"></i>
@@ -274,8 +274,8 @@
                                                     </p>
                                                 </li>
                                             {% endfor %}
-                                            {% if last_issue.articles|length>10 %}
-                                                <a class="btn btn-xs btn-default" href="{{ last_issue.publicURI }}">{{ 'more'|trans }}...</a>
+                                            {% if lastIssue.articles|length > 10 %}
+                                                <a class="btn btn-xs btn-default" href="{{ lastIssue.publicURI }}">{{ 'more'|trans }}...</a>
                                             {% endif %}
                                         </ul>
                                     </div>
