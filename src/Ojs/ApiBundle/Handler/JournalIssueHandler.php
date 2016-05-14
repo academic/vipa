@@ -159,6 +159,11 @@ class JournalIssueHandler
         throw new InvalidFormException('Invalid submitted data', $form);
     }
 
+    /**
+     * @param $file
+     * @param bool $isImage
+     * @return string
+     */
     private function storeFile($file, $isImage = false)
     {
         $fs = new Filesystem();

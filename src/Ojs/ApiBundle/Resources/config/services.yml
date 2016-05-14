@@ -58,7 +58,7 @@ services:
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.contact_type.class%', '@form.factory']
     ojs_api.journal.handler:
         class: "%ojs_api.journal.handler.class%"
-        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal.class%', '@form.factory', '@ojs_api_handler_helper']
+        arguments: ['@doctrine.orm.entity_manager', '%ojs_api.journal.class%', '@form.factory', '@ojs_api_handler_helper', '@kernel']
     ojs_api.publisher.handler:
         class: "%ojs_api.publisher.handler.class%"
         arguments: ['@doctrine.orm.entity_manager', '%ojs_api.publisher.class%', '@form.factory']

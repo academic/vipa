@@ -4,11 +4,14 @@ namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\AdminBundle\Form\Type\JournalType;
+use Ojs\CoreBundle\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\Journal;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 use Doctrine\Common\Annotations\Reader;
 use Ojs\CoreBundle\Service\ApiHandlerHelper;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class JournalHandler implements JournalHandlerInterface
 {
@@ -17,14 +20,16 @@ class JournalHandler implements JournalHandlerInterface
     private $repository;
     private $formFactory;
     private $apiHelper;
+    private $kernel;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, ApiHandlerHelper $apiHelper)
+    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, ApiHandlerHelper $apiHelper, KernelInterface $kernel)
     {
-        $this->om = $om;
-        $this->entityClass = $entityClass;
-        $this->repository = $this->om->getRepository($this->entityClass);
-        $this->formFactory = $formFactory;
-        $this->apiHelper = $apiHelper;
+        $this->om           = $om;
+        $this->entityClass  = $entityClass;
+        $this->repository   = $this->om->getRepository($this->entityClass);
+        $this->formFactory  = $formFactory;
+        $this->apiHelper    = $apiHelper;
+        $this->kernel       = $kernel;
     }
 
     /**
@@ -127,6 +132,20 @@ class JournalHandler implements JournalHandlerInterface
     {
         $form = $this->formFactory->create(new JournalType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
+        $formData = $form->getData();
+
+        $header = $formData->getHeader();
+        if(isset($header)){
+            $entity->setHeader($this->storeFile($header, true));
+        }
+        $image = $formData->getImage();
+        if(isset($image)){
+            $entity->setImage($this->storeFile($image, true));
+        }
+        $logo = $formData->getLogo();
+        if(isset($logo)){
+            $entity->setLogo($this->storeFile($logo, true));
+        }
         if ($form->isValid()) {
             $page = $form->getData();
             $entity->setCurrentLocale('en');
@@ -135,6 +154,27 @@ class JournalHandler implements JournalHandlerInterface
             return $page;
         }
         throw new InvalidFormException('Invalid submitted data', $form);
+    }
+
+    /**
+     * @param $file
+     * @param bool $isImage
+     * @return string
+     */
+    private function storeFile($file, $isImage = false)
+    {
+        $fs = new Filesystem();
+        $rootDir = $this->kernel->getRootDir();
+        $journalUploadDir = $rootDir . '/../web/uploads/journal/';
+        $fileHelper = new FileHelper();
+        $randomPath = $fileHelper->generateRandomPath();
+        $generateRandomPath = $randomPath.$file['filename'];
+        if($isImage) {
+            $fs->dumpFile($journalUploadDir.$generateRandomPath, base64_decode($file['encoded_content']));
+            $fs->dumpFile($journalUploadDir.'croped/'.$generateRandomPath, base64_decode($file['encoded_content']));
+            $this->apiHelper->createFileHistory($generateRandomPath, $generateRandomPath, 'journal', $this->om, true);
+            return $generateRandomPath;
+        }
     }
 
     private function createJournal()
