@@ -52,6 +52,18 @@ ojs_user_connected_account_delete:
     path: /user/connected_accounts/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteConnectedAccount"}
 
+ojs_user_multiple_mail:
+    path: /user/multiple_mails
+    defaults: { _controller: "OjsSiteBundle:User:multipleMail"}
+
+ojs_user_multiple_mail_add:
+    path: /user/multiple_mails/add
+    defaults: { _controller: "OjsSiteBundle:User:addMultipleMail"}
+
+ojs_user_multiple_mail_delete:
+    path: /user/multiple_mail/delete/{id}
+    defaults: { _controller: "OjsSiteBundle:User:deleteMultipleMail"}
+
 ojs_public_index:
     path:  /
     host: "%base_host%"

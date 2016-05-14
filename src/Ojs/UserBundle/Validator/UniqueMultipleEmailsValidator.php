@@ -3,14 +3,15 @@
 namespace Ojs\UserBundle\Validator;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\UserBundle\Validator\Constraints\UniqueEmails;
+use Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\EmailValidator;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * @Annotation
  */
-class UniqueEmailsValidator extends EmailValidator
+class UniqueMultipleEmailsValidator extends EmailValidator
 {
     /**
      * @var EntityManager
@@ -29,29 +30,19 @@ class UniqueEmailsValidator extends EmailValidator
 
     /**
      * @param mixed $value
-     * @param Constraint|UniqueEmails $constraint
+     * @param Constraint|UniqueMultipleEmails $constraint
      * @return mixed
      */
     public function validate($value, Constraint $constraint)
     {
-        $builder = $this->em->createQueryBuilder();
-        $query = $builder->from('OjsUserBundle:User', 'user')->select('user.email');
-
-        foreach ($value as $email) {
-            parent::validate($email, $constraint);
-            $query->where(
-                $query->expr()->andX(
-                    "NOT user.extraEmails LIKE '%".implode(',', $value)."%'",
-                    $query->expr()->orX(
-                        "user.email = '".$email."'",
-                        "user.extraEmails LIKE '%".$email."%'"
-                    )
-                )
-            );
-        }
+        $qb = $this->em->createQueryBuilder();
+        $query = $qb->from('OjsUserBundle:User', 'user')
+            ->select('user.email')
+            ->leftJoin('OjsUserBundle:MultipleMail', 'm', Expr\Join::WITH, 'm.mail = :mail')
+            ->where('user.email = :mail')
+            ->setParameter('mail', $value);
 
         $result = $query->getQuery()->getArrayResult();
-
         if (!empty($result)) {
             $this->context->addViolation($constraint->message);
         }

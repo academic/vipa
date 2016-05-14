@@ -1,0 +1,41 @@
+Ojs\UserBundle\Entity\MultipleMail:
+    type: entity
+    table: multiple_mail
+    repositoryClass: Ojs\UserBundle\Entity\MultipleMailRepository
+    id:
+        id:
+          type: integer
+          length: null
+          unique: false
+          nullable: false
+          precision: 0
+          id: true
+          generator:
+              strategy: IDENTITY
+    fields:
+        mail:
+          type: string
+          length: 255
+          unique: true
+          nullable: false
+        activation_code:
+          type: string
+          length: 255
+          unique: false
+          nullable: true
+        is_confirmed:
+          type: boolean
+          nullable: true
+        user_id:
+          type: integer
+          length: 11
+    manyToOne:
+        user:
+          targetEntity: Ojs\UserBundle\Entity\User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id
+          inversedBy: multipleMails
+    gedmo:
+        loggable: true
+    lifecycleCallbacks: {  }

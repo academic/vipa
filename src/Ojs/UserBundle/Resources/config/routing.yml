@@ -15,6 +15,10 @@ email_confirm:
     path: /confirm/email/{code}
     defaults: { _controller: "OjsUserBundle:Security:confirmEmail" }
 
+multiplemail_confirm:
+    path: /confirm/multiplemail/{code}
+    defaults: { _controller: "OjsUserBundle:Security:multipleMailConfirm" }
+
 logout:
     host: "%base_host%"
     path: /logout

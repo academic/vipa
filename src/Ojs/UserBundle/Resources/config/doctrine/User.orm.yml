@@ -48,11 +48,6 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
-    extraEmails:
-      type: simple_array
-      nullable: true
-      gedmo:
-        - versioned
     phone:
       type: string
       nullable: true
@@ -122,6 +117,9 @@ Ojs\UserBundle\Entity\User:
   oneToMany:
     customFields:
       targetEntity: Ojs\UserBundle\Entity\CustomField
+      mappedBy: user
+    multipleMails:
+      targetEntity: Ojs\UserBundle\Entity\MultipleMail
       mappedBy: user
     oauthAccounts:
       targetEntity: Ojs\UserBundle\Entity\UserOauthAccount

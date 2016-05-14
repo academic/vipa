@@ -11,8 +11,6 @@ Ojs\UserBundle\Entity\User:
     email:
       - NotBlank: { groups: [ojs_register,editProfile] }
       - Email: { groups: [ojs_register,editProfile] }
-    extraEmails:
-      - Ojs\UserBundle\Validator\Constraints\UniqueEmails: { message: 'user.extra_emails.invalid', groups: [ojs_register,editProfile] }
     firstName:
       - NotBlank: { groups: [ojs_register, editProfile] }
     lastName:

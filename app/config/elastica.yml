@@ -34,8 +34,6 @@ fos_elastica:
               type: string
             email:
               type: string
-            extraEmails:
-              type: string
             avatar:
               type: string
             tags:

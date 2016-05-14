@@ -21,4 +21,5 @@ type.field.article.files.not.be.blank: 'Makale dosyası için tür alanı boş o
 language.field.article.files.not.be.blank: 'Makale dosyası için dil alanı boş olmamalıdır.'
 title.field.article.files.not.be.blank: 'Makale dosyası için başlık alanı boş olmamalıdır.'
 file.field.article.files.not.be.blank: 'Makale dosyası için file alanı boş olmamalıdır.'
-user.extra_emails.invalid: 'E-posta adreslerinin biri veyahut birkaçı geçersiz ya da kullanıma müsait değil'
+user.multiple_mail.invalid: 'Girdiğiniz adres zaten sistemde kayıtlı'
+user.multiple_mail.error.not_email: 'Geçerli e-mail adresi girmelisiniz'

@@ -7,6 +7,13 @@ services:
     tags:
       - { name: doctrine.event_listener, event: preSoftDelete }
 
+  ojs_user.multiple_mail_listener:
+    class: Ojs\UserBundle\Listeners\MultipleMailListener
+    arguments:
+          - "@service_container"
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+
   ojs_user.manager:
     class: Ojs\UserBundle\Manager\UserManager
     arguments: ["@security.encoder_factory","@fos_user.util.username_canonicalizer","@fos_user.util.email_canonicalizer","@fos_user.object_manager",'Ojs\UserBundle\Entity\User']
@@ -31,8 +38,8 @@ services:
     tags:
       - { name: ojs.mail.event}
 
-  ojs.user.validation.unique_emails:
-    class: Ojs\UserBundle\Validator\UniqueEmailsValidator
+  ojs.user.validation.unique_multiple_emails:
+    class: Ojs\UserBundle\Validator\UniqueMultipleEmailsValidator
     arguments: ["@doctrine.orm.entity_manager"]
     tags:
       - { name: validator.constraint_validator, alias: alias_name }
