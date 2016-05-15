@@ -502,6 +502,9 @@ issue.publishdate: Issue Published Date
 issue.supplement: 'Supplement'
 issue.in_press: 'Future Issue'
 issue.in_press_desc: 'Will be displayed as ''future issue - in press'', visible only in archive page'
+issue.visibility.not_published: 'Not Published'
+issue.visibility.published: 'Published'
+issue.visibility.in_press: 'In Press'
 issuefile.edit: 'Edit Issue File'
 issuefile.file: File
 issuefile.type: Type
