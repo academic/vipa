@@ -319,14 +319,7 @@ class SiteController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
 
-        /** @var Issue[] $issues */
-        $issues = $em->getRepository('OjsJournalBundle:Issue')->findBy(['journal' => $journal], ['number' => 'DESC']);
-        $groupedIssues = [];
-        foreach ($issues as $issue) {
-            $groupedIssues[$issue->getYear()][] = $issue;
-        }
-        krsort($groupedIssues);
-        $data['groupedIssues'] = $groupedIssues;
+        $data['groupedIssues'] = $em->getRepository(Issue::class)->getByYear($journal, true);
         $data['page'] = 'archive';
         $data['blocks'] = $blockRepo->journalBlocks($journal);
         $data['journal'] = $journal;
