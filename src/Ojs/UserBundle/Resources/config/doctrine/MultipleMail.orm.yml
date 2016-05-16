@@ -18,12 +18,12 @@ Ojs\UserBundle\Entity\MultipleMail:
           length: 255
           unique: true
           nullable: false
-        activation_code:
+        activationCode:
           type: string
           length: 255
           unique: false
           nullable: true
-        is_confirmed:
+        isConfirmed:
           type: boolean
           nullable: true
         user_id:

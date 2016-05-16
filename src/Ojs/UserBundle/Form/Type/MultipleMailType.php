@@ -18,14 +18,8 @@ class MultipleMailType extends AbstractType
         $builder
             ->add(
                 'mail',
-                'text',
-                [
-                    'attr' => [
-                        'class' => 'validate[required,minSize[2]]',
-                    ],
-                ]
-            )
-            ->add('user_id', 'hidden', ['attr' => ['value' => $options['user']]]);
+                'text'
+            );
     }
 
     /**

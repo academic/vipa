@@ -358,12 +358,15 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /**
      * Add multipleMails
      *
-     * @param  MultipleMail $multipleMails
-     * @return User
+     * @param  MultipleMail $multipleMail
+     * @return $this
      */
-    public function addMultipleMail(MultipleMail $multipleMails)
+    public function addMultipleMail(MultipleMail $multipleMail)
     {
-        $this->multipleMails[] = $multipleMails;
+
+        if (!$this->multipleMails->contains($multipleMail)){
+            $this->multipleMails->add($multipleMail);
+        }
 
         return $this;
     }
@@ -371,11 +374,16 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /**
      * Remove multipleMails
      *
-     * @param \Ojs\UserBundle\Entity\MultipleMail $multipleMails
+     * @param MultipleMail $multipleMail
+     * @return $this
      */
-    public function removeMultipleMail(MultipleMail $multipleMails)
+    public function removeMultipleMail(MultipleMail $multipleMail)
     {
-        $this->multipleMails->removeElement($multipleMails);
+        if (!$this->multipleMails->contains($multipleMail)){
+            $this->multipleMails->add($multipleMail);
+        }
+
+       return $this;
     }
 
     /**

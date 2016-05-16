@@ -20,12 +20,12 @@ class MultipleMail
     /**
      * @var string
      */
-    private $activation_code;
+    private $activationCode;
 
     /**
      * @var boolean
      */
-    private $is_confirmed;
+    private $isConfirmed;
 
     /**
      * @var integer
@@ -52,7 +52,7 @@ class MultipleMail
      *
      * @param string $mail
      *
-     * @return MultipleMail
+     * @return $this
      */
     public function setMail($mail)
     {
@@ -76,11 +76,11 @@ class MultipleMail
      *
      * @param string $activationCode
      *
-     * @return MultipleMail
+     * @return $this
      */
     public function setActivationCode($activationCode)
     {
-        $this->activation_code = $activationCode;
+        $this->activationCode = $activationCode;
 
         return $this;
     }
@@ -92,7 +92,7 @@ class MultipleMail
      */
     public function getActivationCode()
     {
-        return $this->activation_code;
+        return $this->activationCode;
     }
 
     /**
@@ -100,11 +100,11 @@ class MultipleMail
      *
      * @param boolean $isConfirmed
      *
-     * @return MultipleMail
+     * @return $this
      */
     public function setIsConfirmed($isConfirmed)
     {
-        $this->is_confirmed = $isConfirmed;
+        $this->isConfirmed = $isConfirmed;
 
         return $this;
     }
@@ -116,7 +116,7 @@ class MultipleMail
      */
     public function getIsConfirmed()
     {
-        return $this->is_confirmed;
+        return $this->isConfirmed;
     }
 
     /**
@@ -124,7 +124,7 @@ class MultipleMail
      *
      * @param integer $userId
      *
-     * @return MultipleMail
+     * @return $this
      */
     public function setUserId($userId)
     {
@@ -146,11 +146,11 @@ class MultipleMail
     /**
      * Set user
      *
-     * @param \Ojs\UserBundle\Entity\User $user
+     * @param User $user
      *
-     * @return MultipleMail
+     * @return $this
      */
-    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -160,7 +160,7 @@ class MultipleMail
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
