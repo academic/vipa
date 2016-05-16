@@ -92,7 +92,7 @@ class IssueRepository extends EntityRepository
             ->where('issue.journal = :journal')
             ->andWhere('issue.published = true')
             ->setParameter('journal', $journal)
-            ->orderBy('issue.number', 'DESC');
+            ->orderBy('issue.datePublished', 'DESC');
 
         if (!$withFutureIssues) {
             $query->andWhere('issue.inPress = false');
