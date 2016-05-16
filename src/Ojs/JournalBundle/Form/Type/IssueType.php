@@ -152,15 +152,17 @@ class IssueType extends AbstractType
             $issue = $event->getData();
             $form = $event->getForm();
 
-            $visibility = IssueVisibilityStatuses::NOT_PUBLISHED;
+            if ($issue instanceof Issue) {
+                $visibility = IssueVisibilityStatuses::NOT_PUBLISHED;
 
-            if ($issue->getInPress() && $issue->isPublished()) {
-                $visibility = IssueVisibilityStatuses::IN_PRESS;
-            } else if ($issue->isPublished()) {
-                $visibility = IssueVisibilityStatuses::PUBLISHED;
+                if ($issue->getInPress() && $issue->isPublished()) {
+                    $visibility = IssueVisibilityStatuses::IN_PRESS;
+                } else if ($issue->isPublished()) {
+                    $visibility = IssueVisibilityStatuses::PUBLISHED;
+                }
+
+                $form->get('visibility')->setData($visibility);
             }
-
-            $form->get('visibility')->setData($visibility);
         };
     }
 
@@ -170,18 +172,21 @@ class IssueType extends AbstractType
     public static function postSubmitCallback()
     {
         return function (FormEvent $event) {
-            $form = $event->getForm();
+            /** @var Issue $issue */
             $issue = $event->getData();
+            $form = $event->getForm();
 
-            $visibility = $form->get('visibility')->getData();
+            if ($issue instanceof Issue) {
+                $visibility = $form->get('visibility')->getData();
 
-            $issue->setInPress($visibility == IssueVisibilityStatuses::IN_PRESS);
-            $issue->setPublished(
-                $visibility == IssueVisibilityStatuses::IN_PRESS ||
-                $visibility == IssueVisibilityStatuses::PUBLISHED
-            );
+                $issue->setInPress($visibility == IssueVisibilityStatuses::IN_PRESS);
+                $issue->setPublished(
+                    $visibility == IssueVisibilityStatuses::IN_PRESS ||
+                    $visibility == IssueVisibilityStatuses::PUBLISHED
+                );
 
-            $event->setData($issue);
+                $event->setData($issue);
+            }
         };
     }
 
