@@ -8,7 +8,6 @@ Ojs\UserBundle\Entity\User:
           - Default
           - ojs_register
           - editProfile
-  constraints:
     - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
         fields: emailCanonical
         errorPath: email
@@ -29,7 +28,7 @@ Ojs\UserBundle\Entity\User:
     email:
       - NotBlank: { groups: [Default, ojs_register, editProfile] }
       - Email: { groups: [Default, ojs_register, editProfile] }
-      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [ojs_register,editProfile]}
+      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [Default, ojs_register, editProfile] }
     firstName:
       - NotBlank: { groups: [Default, ojs_register, editProfile] }
     lastName:
