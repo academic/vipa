@@ -3,15 +3,16 @@
 namespace Ojs\UserBundle\Validator;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\UserBundle\Entity\MultipleMail;
 use Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\EmailValidator;
 use Doctrine\ORM\Query\Expr;
+use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * @Annotation
  */
-class UniqueMultipleEmailsValidator extends EmailValidator
+class UniqueMultipleEmailsValidator extends ConstraintValidator
 {
     /**
      * @var EntityManager
@@ -24,7 +25,6 @@ class UniqueMultipleEmailsValidator extends EmailValidator
      */
     public function __construct(EntityManager $em)
     {
-        parent::__construct();
         $this->em = $em;
     }
 
@@ -35,15 +35,7 @@ class UniqueMultipleEmailsValidator extends EmailValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $qb = $this->em->createQueryBuilder();
-        $query = $qb->from('OjsUserBundle:User', 'user')
-            ->select('user.email')
-            ->leftJoin('OjsUserBundle:MultipleMail', 'm', Expr\Join::WITH, 'm.mail = :mail')
-            ->where('user.email = :mail')
-            ->setParameter('mail', $value);
-
-        $result = $query->getQuery()->getArrayResult();
-        if (!empty($result)) {
+        if ($this->em->getRepository(MultipleMail::class)->findBy(['mail' => $value])) {
             $this->context->addViolation($constraint->message);
         }
     }
