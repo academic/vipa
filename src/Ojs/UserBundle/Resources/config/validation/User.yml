@@ -6,6 +6,9 @@ Ojs\UserBundle\Entity\User:
     username:
       - NotBlank: { groups: [ojs_register,editProfile] }
     password:
+      - NotBlank: { groups: [Default, editProfile] }
+      - Length: { min: 6, groups: [Default, editProfile] }
+    plainPassword:
       - NotBlank: { groups: [ojs_register] }
       - Length: { min: 6, groups: [ojs_register] }
     email:
