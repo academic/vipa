@@ -1,21 +1,36 @@
 Ojs\UserBundle\Entity\User:
   constraints:
-    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: usernameCanonical
+        errorPath: username
+        message: fos_user.username.already_used
+        groups:
+          - Default
+          - ojs_register
+          - editProfile
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: emailCanonical
+        errorPath: email
+        message: fos_user.email.already_used
+        groups:
+          - Default
+          - ojs_register
+          - editProfile
   properties:
     username:
-      - NotBlank: { groups: [ojs_register,editProfile] }
+      - NotBlank: { groups: [Default, ojs_register, editProfile] }
     password:
       - NotBlank: { groups: [Default, editProfile] }
       - Length: { min: 6, groups: [Default, editProfile] }
     plainPassword:
-      - NotBlank: { groups: [ojs_register] }
-      - Length: { min: 6, groups: [ojs_register] }
+      - NotBlank: { groups: [Default, ojs_register] }
+      - Length: { min: 6, groups: [Default, ojs_register] }
     email:
-      - NotBlank: { groups: [ojs_register,editProfile] }
-      - Email: { groups: [ojs_register,editProfile] }
+      - NotBlank: { groups: [Default, ojs_register, editProfile] }
+      - Email: { groups: [Default, ojs_register, editProfile] }
       - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [ojs_register,editProfile]}
     firstName:
-      - NotBlank: { groups: [ojs_register, editProfile] }
+      - NotBlank: { groups: [Default, ojs_register, editProfile] }
     lastName:
-      - NotBlank: { groups: [ojs_register] }
+      - NotBlank: { groups: [Default, ojs_register] }
