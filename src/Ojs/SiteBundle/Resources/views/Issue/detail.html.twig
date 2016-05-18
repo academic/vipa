@@ -117,6 +117,11 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
+                {%  if issue.fullFile is not empty %}
+                    <div class="panel-footer text-center">
+                        <a href="{{ path('ojs_public_index') }}uploads/issuefiles/{{ issue.fullFile }}" class="btn btn-success" target="_blank">{{ 'issue.full_file'|trans }}</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -128,7 +133,7 @@
                     <ul class="list-group">
                         {% for file in issue.issueFiles %}
                             <li class="list-group-item">
-                                <a href="{{ url('ojs_site_download_issue', {issueFile: file.id}) }}">
+                                <a href="{{ url('', {issueFile: file.id}) }}">
                                     <i class="fa fa-download"></i> {{ file.title }}
                                 </a>
                             </li>
