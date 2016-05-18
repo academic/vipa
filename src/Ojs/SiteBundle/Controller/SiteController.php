@@ -496,15 +496,6 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle:Journal:page.html.twig', ['journalPage' => $page]);
     }
 
-    public function pageDetailAction($slug)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $slug]);
-        $this->throw404IfNotFound($page);
-
-        return $this->render('OjsSiteBundle:Site:page.html.twig', ['adminPage' => $page]);
-    }
-
     public function journalPostDetailAction($slug, $journal_slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -516,14 +507,5 @@ class SiteController extends Controller
 
 
         return $this->render('OjsSiteBundle:Journal:post.html.twig', ['journalPost' => $post]);
-    }
-
-    public function postDetailAction($slug)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('OjsAdminBundle:AdminPost')->findOneBy(['slug' => $slug]);
-        $this->throw404IfNotFound($post);
-
-        return $this->render('OjsSiteBundle:Site:post.html.twig', ['post' => $post]);
     }
 }

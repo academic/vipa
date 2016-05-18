@@ -18,7 +18,7 @@
             <div class="col-md-4">
                 <ul class="list-inline text-center">
                     {% for adminPage in getAdminPages() %}
-                        <li><a href="{{ path('ojs_site_page', {'slug': adminPage.slug}) }}">{{ adminPage.translate(app.request.locale).title }}</a></li>
+                        <li><a href="{{ path('ojs_site_cms_page', {'slug': adminPage.slug}) }}">{{ adminPage.translate(app.request.locale).title }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

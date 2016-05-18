@@ -145,7 +145,7 @@
                         {% for post in posts %}
                             <li>
                                 <i class="fa-li fa fa-file-text-o"></i>
-                                <a href="{{ path('ojs_site_post', {'slug': post.slug}) }}">
+                                <a href="{{ path('ojs_site_cms_post', {'slug': post.slug}) }}">
                                     <h5>{{ post.title }}</h5>
                                 </a>
                             </li>

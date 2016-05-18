@@ -139,11 +139,5 @@ ojs_site_download:
     prefix:   /download
     resource: '@OjsSiteBundle/Resources/config/routing/download.yml'
 
-ojs_site_page:
-    path: /page/{slug}
-    host: "%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:pageDetail" }
-
-ojs_site_post:
-    path: /post/{slug}
-    defaults: { _controller: "OjsSiteBundle:Site:postDetail" }
+ojs_site_cms:
+    resource: '@OjsSiteBundle/Resources/config/routing/cms.yml'
