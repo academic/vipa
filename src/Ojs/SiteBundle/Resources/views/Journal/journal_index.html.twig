@@ -216,10 +216,7 @@
                                                 {% for issue in issues %}
                                                     <li>
                                                         <a href="{{ issue.publicURI }}">
-                                                            {% if issue.volume is not null and issue.volume != 0 %}
-                                                                {{ "volume"|trans }} {{ issue.volume }} -
-                                                            {% endif %}
-                                                                {{ "issue"|trans }} {{ issue.number }}
+                                                            {{ issueTextGenerate(issue) }}
                                                             {% if issue.special %}
                                                             <span class="label label-success">
                                                             <i class="fa fa-star" title="{{ "special.issue"|trans }}"></i>

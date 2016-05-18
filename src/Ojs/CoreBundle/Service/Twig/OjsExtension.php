@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\CoreBundle\Params\ArticleFileParams;
+use Ojs\CoreBundle\Params\IssueDisplayModes;
+use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
@@ -113,7 +115,8 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getEntity', array($this, 'getEntityObject')),
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
-            new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch'))
+            new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
+            new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate'))
         );
     }
 
@@ -472,6 +475,40 @@ class OjsExtension extends \Twig_Extension
         $eventName = constant('Ojs\CoreBundle\Events\TwigEvents::'.$options['event_name']);
         $dispatchEvent = $this->eventDispatcher->dispatch($eventName, $twigEvent);
         return $dispatchEvent->getTemplate();
+    }
+
+    /**
+     * @param Issue $issue
+     * @return string
+     */
+    public function issueTextGenerate(Issue $issue)
+    {
+        $issueText = '';
+        if($issue->getDisplayMode() == null || $issue->getDisplayMode() == IssueDisplayModes::SHOW_ALL){
+
+            if(!empty($issue->getVolume())){
+                $issueText.= $this->translator->trans('volume').': '.$issue->getVolume().' ';
+            }
+            if(!empty($issue->getNumber())){
+                $issueText.= $this->translator->trans('issue').': '.$issue->getNumber();
+            }
+            if(!empty($issue->getTitle()) && $issue->getTitle() !== '-'){
+                $issueText.= ' - '.$issue->getTitle();
+            }
+            return $issueText;
+        }elseif($issue->getDisplayMode() == IssueDisplayModes::SHOW_VOLUME_AND_NUMBER){
+
+            if(!empty($issue->getVolume())){
+                $issueText.= $this->translator->trans('volume').': '.$issue->getVolume().' ';
+            }
+            if(!empty($issue->getNumber())){
+                $issueText.= $this->translator->trans('issue').': '.$issue->getNumber();
+            }
+            return $issueText;
+        }elseif($issue->getDisplayMode() == IssueDisplayModes::SHOW_TITLE){
+            return $issue->getTitle();
+        }
+        return $issueText;
     }
 
     public function getName()
