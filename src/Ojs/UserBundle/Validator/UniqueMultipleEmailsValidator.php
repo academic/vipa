@@ -3,10 +3,10 @@
 namespace Ojs\UserBundle\Validator;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\MultipleMail;
 use Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails;
 use Symfony\Component\Validator\Constraint;
-use Doctrine\ORM\Query\Expr;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
@@ -36,6 +36,10 @@ class UniqueMultipleEmailsValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if ($this->em->getRepository(MultipleMail::class)->findBy(['mail' => $value])) {
+            $this->context->addViolation($constraint->message);
+        }
+
+        if ($this->em->getRepository(User::class)->findBy(['email' => $value])) {
             $this->context->addViolation($constraint->message);
         }
     }
