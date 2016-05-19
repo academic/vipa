@@ -390,7 +390,7 @@ class Publisher extends AbstractTranslatable
      */
     public function getName()
     {
-        return $this->getLogicalFieldTranslation('name');
+        return $this->getLogicalFieldTranslation('name', false);
     }
 
     /**
@@ -436,7 +436,7 @@ class Publisher extends AbstractTranslatable
      */
     public function getAbout()
     {
-        return $this->getLogicalFieldTranslation('about');
+        return $this->getLogicalFieldTranslation('about', false);
     }
 
     /**
