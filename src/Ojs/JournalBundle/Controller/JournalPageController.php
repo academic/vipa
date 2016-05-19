@@ -130,7 +130,6 @@ class JournalPageController extends OjsController
 
         if ($form->isValid()) {
             $entity->setJournal($journal);
-            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
             $em = $this->getDoctrine()->getManager();
 
             $event = new JournalItemEvent($entity);
