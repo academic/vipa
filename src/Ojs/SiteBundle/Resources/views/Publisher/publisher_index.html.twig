@@ -24,46 +24,63 @@
         {% if entity.design is defined and entity.design is not null %}
             {% include template_from_string(entity.design.content) %}
         {% else %}
+            {% if entity.header is not null %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="img-responsive center-block"
+                             src="{{ entity.header|imagine_filter('publisher_header') }}" />
+                    </div>
+                </div>
+            {% endif %}
             <!-- Page Content -->
             <h1 class="page-header">{{ entity.name }} </h1>
-            {% if entity.header is not null %}
-                <img class="img-responsive"
-                     src="{{ entity.header|imagine_filter('publisher_header') }}"
-                     alt=""/>
-                <div class="clearfix"></div>
-            {% endif %}
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div itemscope itemtype="http://schema.org/Organization">
-                        <span itemprop="name">{{ entity.name }}</span>
-                        Contact Details:
+                    {% if entity.logo is not empty %}
+                        <div class="col-sm-3">
+                            <img class="img-responsive center-block"
+                                 src="{{ entity.logo|imagine_filter('publisher_logo') }}" />
+                        </div>
+                    {% endif %}
+                    <div itemscope itemtype="http://schema.org/Organization" class="col-sm-9">
+                        <span itemprop="name">{{ entity.name }}</span><br>
+                        Contact Details:<br>
                         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                             Main address:
-                            <span itemprop="address">{{ entity.address }}</span>
-                            <span itemprop="addressLat">{{ entity.addressLat }}</span>
-                            <span itemprop="addressLong">{{ entity.addressLong }}</span>
+                            <span itemprop="address">{{ entity.address }}</span><br>
+                            <span itemprop="addressLat">{{ entity.addressLat }}</span><br>
+                            <span itemprop="addressLong">{{ entity.addressLong }}</span><br>
                             <span itemprop="addressLocality">{{ entity.city }},{{ entity.country }}</span>
                         </div>
-                        Tel:<span itemprop="telephone">{{ entity.phone }}</span>,
-                        Fax:<span itemprop="faxNumber">{{ entity.fax }}</span>,
-                        E-mail: <span itemprop="email">{{ entity.email }}</span>
-                        Web: <span itemprop="url">{{ entity.url }}</span>
-                        Wiki: <span itemprop="url">{{ entity.url }}</span>
+
+                        {% if entity.phone is not empty %}
+                            Tel:<span itemprop="telephone">{{ entity.phone }}</span><br>
+                        {% endif %}
+
+                        {% if entity.fax is not empty %}
+                            Fax:<span itemprop="faxNumber">{{ entity.fax }}</span><br>
+                        {% endif %}
+
+                        {% if entity.email is not empty %}
+                            E-mail: <span itemprop="email">{{ entity.email }}</span><br>
+                        {% endif %}
+
+                        {% if entity.url is not empty %}
+                            Web: <span itemprop="url">{{ entity.url }}</span><br>
+                        {% endif %}
                     </div>
-
                 </div>
 
 
-                <div class="panel-footer">
-                    {% if entity.tags %}
-                        <i class="fa fa-tags"></i> {{ "tags"|trans }}
-                        {% set tags = entity.tags|split(',') %}
-                        {% for tag in tags %}
-                            <a href="#"><span class="badge">{{ tag }}</span></a>
-                        {% endfor %}
-                    {% endif %}
-
-                </div>
+                {% if entity.tags %}
+                    <div class="panel-footer">
+                            <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                            {% set tags = entity.tags|split(',') %}
+                            {% for tag in tags %}
+                                <a href="#"><span class="badge">{{ tag }}</span></a>
+                            {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             <div class="panel panel-default">
                 <!-- Default panel contents -->
