@@ -133,7 +133,7 @@
                     <ul class="list-group">
                         {% for file in issue.issueFiles %}
                             <li class="list-group-item">
-                                <a href="{{ url('', {issueFile: file.id}) }}">
+                                <a href="{{ url('ojs_site_download_issue', {issueFile: file.id}) }}">
                                     <i class="fa fa-download"></i> {{ file.title }}
                                 </a>
                             </li>
