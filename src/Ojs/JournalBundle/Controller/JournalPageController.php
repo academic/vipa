@@ -275,7 +275,6 @@ class JournalPageController extends OjsController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->setSlug($entity->getTranslationByLocale($request->getDefaultLocale())->getTitle());
 
             $event = new JournalItemEvent($entity);
             $eventDispatcher->dispatch(JournalPageEvents::PRE_UPDATE, $event);
