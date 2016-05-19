@@ -17,8 +17,8 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Publisher
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,email,verified,status")
- * @GRID\Source(columns="id,name,status", groups={"application"})
+ * @GRID\Source(columns="id,translations.name,email,verified,status")
+ * @GRID\Source(columns="id,translations.name,status", groups={"application"})
  */
 class Publisher extends AbstractTranslatable
 {
@@ -52,7 +52,7 @@ class Publisher extends AbstractTranslatable
     /**
      * @var string
      * @Expose
-     * @GRID\Column(title="name")
+     * @Grid\Column(title="Name", field="translations.name", safe=false)
      */
     private $name;
     /**
@@ -390,7 +390,7 @@ class Publisher extends AbstractTranslatable
      */
     public function getName()
     {
-        return $this->name;
+        return $this->getLogicalFieldTranslation('name');
     }
 
     /**
@@ -401,7 +401,7 @@ class Publisher extends AbstractTranslatable
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->translate()->setName($name);
 
         return $this;
     }
@@ -473,6 +473,7 @@ class Publisher extends AbstractTranslatable
             $translation = new PublisherTranslation();
             if (!is_null($defaultTranslation)) {
                 $translation->setAbout($defaultTranslation->getAbout());
+                $translation->setName($defaultTranslation->getName());
             }
             $translation->setLocale($locale);
             $this->addTranslation($translation);
@@ -933,7 +934,7 @@ class Publisher extends AbstractTranslatable
 
     public function __toString()
     {
-        return $this->name;
+        return $this->getName();
     }
 
     /**

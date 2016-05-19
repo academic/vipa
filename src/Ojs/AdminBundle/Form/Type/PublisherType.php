@@ -34,19 +34,15 @@ class PublisherType extends AbstractType
             $publisherId = $options['data']->getId() ? $options['data']->getId() : null;
         }
         $builder
-            ->add(
-                'name',
-                'text',
-                [
-                    'label' => 'name',
-                    'required' => true,
-                    'attr' => [
-                        'class' => "validate[required]",
-                    ],
-                ]
-            )
             ->add('translations', 'a2lix_translations', [
-                'required' => false
+                'fields' => [
+                    'name' => [
+                        'required' => true,
+                    ],
+                    'about' => [
+                        'required' => false,
+                    ]
+                ]
             ])
             ->add(
                 'slug',

@@ -10,7 +10,10 @@ Ojs\JournalBundle\Entity\PublisherTranslation:
             generator:
                 strategy: AUTO
     fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
         about:
             type: text
             nullable: true
-

@@ -16,7 +16,6 @@ class PublisherApplicationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, ['label' => 'publisher.name'])
             ->add(
                 'publisherType',
                 'entity',

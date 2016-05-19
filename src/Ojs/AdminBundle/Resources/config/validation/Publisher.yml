@@ -1,9 +1,9 @@
 Ojs\JournalBundle\Entity\PublisherTranslation:
   properties:
+        name:
+          - NotBlank: ~
 
 Ojs\JournalBundle\Entity\Publisher:
     properties:
-        name:
-          - NotBlank: ~
         slug:
           - NotBlank: ~

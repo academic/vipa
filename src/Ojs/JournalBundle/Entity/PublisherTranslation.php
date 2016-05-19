@@ -21,6 +21,11 @@ class PublisherTranslation extends AbstractTranslation
     private $about;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * @return mixed
      */
     public function getAbout()
@@ -34,5 +39,24 @@ class PublisherTranslation extends AbstractTranslation
     public function setAbout($about)
     {
         $this->about = $about;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }

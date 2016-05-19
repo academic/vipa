@@ -85,11 +85,6 @@ Ojs\JournalBundle\Entity\Publisher:
            type: integer
            gedmo:
              - treeLevel
-        name:
-            type: string
-            length: 255
-            gedmo:
-                - versioned
         slug:
             type: string
             length: 255
@@ -99,7 +94,7 @@ Ojs\JournalBundle\Entity\Publisher:
                 slug:
                     seperator: _
                     fields:
-                      - name
+                      - id
         address:
             type: text
             nullable: TRUE
