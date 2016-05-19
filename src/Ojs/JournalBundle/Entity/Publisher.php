@@ -394,6 +394,21 @@ class Publisher extends AbstractTranslatable
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getNameTranslations()
+    {
+        $titles = [];
+        /** @var PublisherTranslation $translation */
+        foreach($this->translations as $translation){
+            $titles[] = $translation->getName(). ' ['.$translation->getLocale().']';
+        }
+        return implode('<br>', $titles);
+    }
+
+    /**
      * Set name
      *
      * @param  string $name

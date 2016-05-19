@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Form\Type\PublisherType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -25,13 +26,41 @@ class AdminPublisherController extends Controller
     /**
      * Lists all Publisher entities.
      *
+     * @param Request $request
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         if (!$this->isGranted('VIEW', new Publisher())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $cache = $this->get('array_cache');
+        $router = $this->get('router');
         $source = new Entity('OjsJournalBundle:Publisher');
+        $source->manipulateRow(
+            function (Row $row) use ($request, $cache, $router) {
+                /* @var Publisher $entity */
+                $entity = $row->getEntity();
+                $entity->setDefaultLocale($request->getDefaultLocale());
+                if (!is_null($entity)) {
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $publisherLinkTemplate = $entity->getNameTranslations();
+                        if($entity->isIndexable()){
+                            $generatePublisherLink = $router->generate('ojs_publisher_page', [
+                                'slug' => $entity->getSlug(),
+                            ]);
+                            $publisherLinkTemplate = '<a target="_blank" href="'.$generatePublisherLink.'">'.$entity->getNameTranslations().'</a>';
+                        }
+                        $row->setField('translations.name', $publisherLinkTemplate);
+                    }
+                }
+
+                return $row;
+            }
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
 
