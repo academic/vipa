@@ -73,6 +73,7 @@ class ApplicationController extends Controller
         }
 
         $newPublisher = new Publisher();
+        $newPublisher->setCurrentLocale($request->getDefaultLocale());
 
         $event = new TypeEvent(new JournalApplicationType());
         $dispatcher->dispatch(JournalEvents::INIT_APPLICATION_FORM, $event);
