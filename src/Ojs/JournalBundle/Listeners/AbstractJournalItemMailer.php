@@ -41,7 +41,7 @@ abstract class AbstractJournalItemMailer implements EventSubscriberInterface
     {
         $this->ojsMailer = $ojsMailer;
         $this->em = $registry->getManager();
-        $this->user = $tokenStorage->getToken()->getUser();
+        $this->user = $tokenStorage->getToken() ? $tokenStorage->getToken()->getUser(): null;
         $this->router = $router;
     }
 
