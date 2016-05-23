@@ -202,3 +202,5 @@ hwi_oauth:
       client_id:      "%linkedin.client_id%"
       client_secret:  "%linkedin.client_secret%"
       scope:          r_emailaddress
+
+gregwar_captcha: ~
