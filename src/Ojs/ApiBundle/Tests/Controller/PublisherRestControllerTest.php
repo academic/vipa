@@ -26,9 +26,9 @@ class PublisherRestControllerTest extends BaseTestCase
     public function testNewPublisherAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field - POST',
             'translations' => [
                 'en' => [
+                    'name' => 'PHPUnit Test Name Field - POST',
                     'about' => 'PHPUnit Test About Field en - POST',
                 ]
             ],
@@ -43,7 +43,7 @@ class PublisherRestControllerTest extends BaseTestCase
             'domain' => 'behram.org',
             'verified' => 1,
             'country' => 216,
-            'city' => 'Ankara'
+            'status' => 0,
 
         ];
         $routeParameters = $this->getRouteParams();
@@ -63,16 +63,16 @@ class PublisherRestControllerTest extends BaseTestCase
     public function testPutPublisherAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field - PUT',
             'translations' => [
                 'en' => [
-                    'about' => 'PHPUnit Test About Field en - PUT',
+                    'name' => 'PHPUnit Test Name Field - POST',
+                    'about' => 'PHPUnit Test About Field en - POST',
                 ]
             ],
             'slug' => 'phpunit-test',
             'tags' => ['phpunit'],
-            'publisher_type' => 3,
-            'address' => 'PHPUnit Test Adress Field - PUT',
+            'publisherType' => 3,
+            'address' => 'PHPUnit Test Adress Field - POST',
             'phone' => '12345678910',
             'fax' => '987654321',
             'email' => 'behram.celen@okulbilisim.com',
@@ -80,7 +80,7 @@ class PublisherRestControllerTest extends BaseTestCase
             'domain' => 'behram.org',
             'verified' => 1,
             'country' => 216,
-            'city' => 'Ankara'
+            'status' => 0,
 
         ];
         $routeParameters = $this->getRouteParams(['id' => 550]);

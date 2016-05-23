@@ -174,7 +174,7 @@ class Publisher extends AbstractTranslatable
      *     "1"="application.status.complete"
      * })
      */
-    private $status = 0;
+    private $status = PublisherStatuses::STATUS_ONHOLD;
     /**
      * @var ArrayCollection|User[]
      */
