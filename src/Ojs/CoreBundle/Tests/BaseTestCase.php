@@ -106,69 +106,6 @@ abstract class BaseTestCase extends WebTestCase
     }
 
     /**
-     * @param $url
-     * @param string $type
-     * @param array $data
-     * @return Response
-     * @deprecated
-     */
-    protected function apiRequest($url, $type = 'GET', $data = [])
-    {
-        $this->client->request(
-            $type,
-            $url.'?apikey=NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw==',
-            $data,
-            [],
-            ['HTTP_ACCEPT' => 'application/json']
-        );
-        /** @var Response $response */
-        $response = $this->client->getResponse();
-
-        return $response;
-    }
-
-    /**
-     * @param $input
-     * @return resource
-     * @deprecated
-     */
-    protected function getInputStream($input)
-    {
-        $stream = fopen('php://memory', 'r+', false);
-        fputs($stream, $input);
-        rewind($stream);
-
-        return $stream;
-    }
-
-    /**
-     * @param $params
-     * @param array $data
-     * @param string $type
-     * @param bool $redirectOnSuccess
-     * @return bool
-     * @deprecated
-     */
-    protected function isAccessible($params, $data = [], $type = 'GET', $redirectOnSuccess = false)
-    {
-        $this->crawler = $this->client->request(
-            $type,
-            call_user_func_array([$this->router, 'generate'], $params),
-            $data
-        );
-        /** @var Response $response */
-        $response = $this->client->getResponse();
-        if ($response->isServerError()) {
-            echo $response->getContent();
-        }
-        if ($redirectOnSuccess) {
-            return $response->isRedirection();
-        }
-
-        return $response->isSuccessful();
-    }
-
-    /**
      * @param array $parameters
      * @return array
      */
