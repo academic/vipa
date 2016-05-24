@@ -88,11 +88,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      */
     protected $email;
 
-    /**
-     * @JMS\Expose
-     * @var array
-     */
-    protected $extraEmails;
 
     /**
      * @var  string
@@ -164,6 +159,10 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /**
      * @var Collection
      */
+    private $multipleMails;
+    /**
+     * @var Collection
+     */
     private $oauthAccounts;
 
     /** @var boolean */
@@ -184,6 +183,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
         $this->authorDetails = new ArrayCollection();
+        $this->multipleMails = new ArrayCollection();
     }
 
     /**
@@ -352,6 +352,48 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     public function getCustomFields()
     {
         return $this->customFields;
+    }
+
+
+    /**
+     * Add multipleMails
+     *
+     * @param  MultipleMail $multipleMail
+     * @return $this
+     */
+    public function addMultipleMail(MultipleMail $multipleMail)
+    {
+
+        if (!$this->multipleMails->contains($multipleMail)){
+            $this->multipleMails->add($multipleMail);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove multipleMails
+     *
+     * @param MultipleMail $multipleMail
+     * @return $this
+     */
+    public function removeMultipleMail(MultipleMail $multipleMail)
+    {
+        if (!$this->multipleMails->contains($multipleMail)){
+            $this->multipleMails->add($multipleMail);
+        }
+
+       return $this;
+    }
+
+    /**
+     * Get multipleMails
+     *
+     * @return Collection
+     */
+    public function getMultipleMails()
+    {
+        return $this->multipleMails;
     }
 
     /**
@@ -613,25 +655,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     public function setUrl($url)
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getExtraEmails()
-    {
-        return $this->extraEmails;
-    }
-
-    /**
-     * @param array $extraEmails
-     * @return User
-     */
-    public function setExtraEmails($extraEmails)
-    {
-        $this->extraEmails = $extraEmails;
 
         return $this;
     }

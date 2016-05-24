@@ -1,0 +1,36 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.multiple_mail.create'|trans }} {{ parent() }}{% endblock %}
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'user'|trans},
+    { 'link': path('ojs_admin_user_index'), 'title': 'user.update_profile'|trans},
+    { 'title': 'title.multiple_mail.create'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+
+{% block body -%}
+    <div class="large-12 columns">
+        {% include 'OjsSiteBundle:User:tabs.html.twig' with {activo:6} %}
+
+        <div class="tab-content">
+            <div class="panel">
+                <div class="record_actions">
+                    {{ form_start(form) }}
+
+                    {% include '::flashbag.html.twig' %}
+                    {{ form_widget(form) }}
+
+                    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+                        {{ "c"|trans }}
+                    </button>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

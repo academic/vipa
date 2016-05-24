@@ -84,14 +84,10 @@ class OjsMailer
      */
     public function sendToUser(User $user, $subject, $body)
     {
-        $email = method_exists($user, 'getExtraEmails') ?
-            array_merge([$user->getEmail()], $user->getExtraEmails()) :
-            $user->getEmail();
-
         if(
             !empty($subject)
             && !empty($body)
-            && !empty($email)
+            && !empty($user->getEmail())
             && !empty($user->getUsername())
         ){
             $this->send($subject, $body, $user->getEmail(), $user->getUsername());

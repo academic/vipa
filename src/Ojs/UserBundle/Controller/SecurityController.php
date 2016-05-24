@@ -4,7 +4,9 @@ namespace Ojs\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
 use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\MultipleMail;
 use Ojs\UserBundle\Form\Type\CreatePasswordType;
+use PhpParser\Node\Expr\AssignOp\Mul;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,14 +42,12 @@ class SecurityController extends BaseSecurityController
         $session = $this->get('session');
         $em = $this->getDoctrine()->getManager();
 
-        /**
-         * @var User $user
-         */
+        /** @var User $user */
         $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['confirmation_token' => $code]);
         if (!$user) {
             $session->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
 
-            return $this->redirect($this->generateUrl('login'), 302);
+            return $this->redirectToRoute('login');
         }
         $flashBag = $session->getFlashBag();
         //check confirmation code
@@ -58,7 +58,7 @@ class SecurityController extends BaseSecurityController
             $em->flush();
             $flashBag->add('success', 'You\'ve confirmed your email successfully!');
 
-            return $this->redirect($this->generateUrl('myprofile'));
+            return $this->redirectToRoute('myprofile');
         }
         $flashBag->add(
             'error',
@@ -66,7 +66,42 @@ class SecurityController extends BaseSecurityController
             '<br>Your confirmation link may be expired.'
         );
 
-        return $this->redirect($this->generateUrl('confirm_email_warning'));
+        return $this->redirectToRoute('confirm_email_warning');
+    }
+    /**
+     * @param $code
+     * @return RedirectResponse
+     */
+    public function multipleMailConfirmAction($code)
+    {
+        $session = $this->get('session');
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var MultipleMail $mail */
+        $mail = $em->getRepository('OjsUserBundle:MultipleMail')->findOneBy(['activationCode' => $code]);
+        if (!$mail) {
+            $session->set('_security.main.target_path', $this->generateUrl('multiplemail_confirm', array('code' => $code)));
+
+            return $this->redirectToRoute('login');
+        }
+        $flashBag = $session->getFlashBag();
+        //check confirmation code
+        if ($mail->getActivationCode() == $code) {
+            $mail->setActivationCode(null);
+            $mail->setIsConfirmed(true);
+            $em->persist($mail);
+            $em->flush();
+            $flashBag->add('success', 'You\'ve confirmed your email successfully!');
+
+            return $this->redirectToRoute('ojs_user_multiple_mail');
+        }
+        $flashBag->add(
+            'error',
+            'There is an error while confirming your email address.'.
+            '<br>Your confirmation link may be expired.'
+        );
+
+        return $this->redirectToRoute('confirm_email_warning');
     }
 
     public function loginAction(Request $request)

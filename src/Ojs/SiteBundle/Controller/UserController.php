@@ -180,4 +180,5 @@ class UserController extends Controller
 
         return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
     }
+
 }

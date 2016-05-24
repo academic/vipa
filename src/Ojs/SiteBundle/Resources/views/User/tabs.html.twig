@@ -15,6 +15,9 @@
         <li role="presentation" {% if activo == 5 %}class="active"{% endif %}>
             <a href="{{ url('ojs_user_get_apikey') }}">{{ "user.apikey"|trans }}</a>
         </li>
+        <li role="presentation" {% if activo == 6 %}class="active"{% endif %}>
+            <a href="{{ url('ojs_user_multiple_mail') }}">{{ "user.multiple_mail"|trans }}</a>
+        </li>
         {{ twigEventDispatch({'event_name': 'OJS_USER_PROFILE_EDIT_TABS', 'active_tab': activo})|raw }}
     </ul>
 </section>

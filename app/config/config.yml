@@ -133,6 +133,7 @@ fos_user:
   registration:
     form:
       type: ojs_user_register
+      validation_groups: ['ojs_register']
   registration:
     confirmation:
       enabled: true

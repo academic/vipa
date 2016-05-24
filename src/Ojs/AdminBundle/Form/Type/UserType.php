@@ -78,7 +78,6 @@ class UserType extends AbstractType
                     'required' => false
                 ]
             )
-            ->add('extraEmails', 'ojs_multiple_emails', ['label' => 'user.extra_emails', 'required' => false])
             ->add(
                 'subjects',
                 'entity',
