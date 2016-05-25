@@ -33,8 +33,6 @@ class OjsExtension extends \Twig_Extension
     private $session;
     /** @var TranslatorInterface */
     private $translator;
-    /** @var  string */
-    private $cmsShowRoutes;
     /** @var RequestStack */
     private $requestStack;
     /** @var EventDispatcherInterface */
@@ -48,7 +46,6 @@ class OjsExtension extends \Twig_Extension
      * @param TokenStorageInterface     $tokenStorage
      * @param Session                   $session
      * @param RequestStack              $requestStack
-     * @param null                      $cmsShowRoutes
      * @param EventDispatcherInterface  $eventDispatcher
      */
     public function __construct(
@@ -59,7 +56,6 @@ class OjsExtension extends \Twig_Extension
         TokenStorageInterface $tokenStorage = null,
         Session $session = null,
         RequestStack $requestStack,
-        $cmsShowRoutes = null,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->em = $em;
@@ -68,7 +64,6 @@ class OjsExtension extends \Twig_Extension
         $this->tokenStorage = $tokenStorage;
         $this->session = $session;
         $this->translator = $translator;
-        $this->cmsShowRoutes = $cmsShowRoutes;
         $this->requestStack = $requestStack;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -105,7 +100,6 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('fileType', array($this, 'fileType'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('daysDiff', array($this, 'daysDiff'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('apiKey', array($this, 'apiKey'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('getObject', array($this, 'getObject'), []),
             new \Twig_SimpleFunction(
                 'generateJournalUrl',
                 array($this, 'generateJournalUrl'),
@@ -382,21 +376,6 @@ class OjsExtension extends \Twig_Extension
         } else {
             return false;
         }
-    }
-
-    /**
-     * @param $object
-     * @param $id
-     * @return string
-     * @throws ORMException
-     */
-    public function getObject($object, $id)
-    {
-        $objectClass = $this->decode($object);
-        $object = $this->em->find($objectClass, $id);
-        $route = $this->router->generate($this->cmsShowRoutes[$objectClass], ['id' => $id]);
-
-        return '<a href="'.$route.'" target="_blank" title="'.$object.'">'.substr($object, 0, 20).'</a>';
     }
 
     /**

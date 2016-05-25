@@ -52,7 +52,6 @@ services:
       - "@security.token_storage"
       - "@session"
       - "@request_stack"
-      - "%cms_show_routes%"
       - "@event_dispatcher"
     tags:
       - { name: twig.extension }
