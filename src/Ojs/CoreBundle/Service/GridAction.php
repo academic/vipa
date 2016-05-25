@@ -4,7 +4,6 @@ namespace Ojs\CoreBundle\Service;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Row;
-use Ojs\CmsBundle\Twig\PostExtension;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -14,28 +13,26 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class GridAction
 {
-    /** @var  CsrfTokenManager */
+    /**
+     * @var  CsrfTokenManager
+     */
     private $csrfTokenManager;
 
-    /** @var  TranslatorInterface */
+    /**
+     * @var  TranslatorInterface
+     */
     private $translator;
-
-    /** @var  PostExtension */
-    private $postExtension;
 
     /**
      * @param CsrfTokenManager    $csrfTokenManager
      * @param TranslatorInterface $translator
-     * @param PostExtension       $postExtension
      */
     public function __construct(
         CsrfTokenManager $csrfTokenManager,
-        TranslatorInterface $translator,
-        PostExtension $postExtension
+        TranslatorInterface $translator
     ) {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->translator = $translator;
-        $this->postExtension = $postExtension;
     }
 
     /**
@@ -297,35 +294,6 @@ class GridAction
         if ($role) {
             $rowAction->setRole($role);
         }
-
-        return $rowAction;
-    }
-
-    /**
-     * @param  null      $role
-     * @return RowAction
-     */
-    public function cmsAction($role = null)
-    {
-        $route = 'ojs_admin_page_index';
-        $rowAction = new RowAction('<i class="fa fa-anchor"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "CMS"]);
-
-        $rowAction->setRouteParameters(['id', 'object']);
-        $rowAction->setRoute($route);
-        if ($role) {
-            $rowAction->setRole($role);
-        }
-        $postExtension = $this->postExtension;
-        $rowAction->manipulateRender(
-            function (RowAction $action, Row $row) use ($postExtension) {
-                $entity = $row->getEntity();
-                $object = $postExtension->cmsobject($entity);
-                $action->setRouteParameters(['id', 'object' => $object]);
-
-                return $action;
-            }
-        );
 
         return $rowAction;
     }

@@ -95,7 +95,7 @@ services:
 
   grid_action:
     class: Ojs\CoreBundle\Service\GridAction
-    arguments: ["@security.csrf.token_manager", "@translator", "@ojs.cms.twig.post_extension"]
+    arguments: ["@security.csrf.token_manager", "@translator"]
 
   form.type.tags:
     class: Ojs\CoreBundle\Form\Type\TagsType

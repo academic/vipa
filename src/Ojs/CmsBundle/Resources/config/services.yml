@@ -1,6 +1,0 @@
-services:
-  ojs.cms.twig.post_extension:
-    class: Ojs\CmsBundle\Twig\PostExtension
-    tags:
-      - {name: twig.extension}
-    arguments: [ "@service_container","@doctrine.orm.default_entity_manager" ]
