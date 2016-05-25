@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\AdminBundle\Entity\AdminFile;
 use Ojs\AdminBundle\Form\Type\AdminFileType;
-use Ojs\CmsBundle\Form\Type\FileType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Symfony\Component\HttpFoundation\Request;

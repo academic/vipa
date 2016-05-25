@@ -55,7 +55,6 @@ class AppKernel extends Kernel
             new Ojs\OAIBundle\OjsOAIBundle(),
             new BulutYazilim\LocationBundle\BulutYazilimLocationBundle(),
             // new Ojs\InstallerBundle\OjsInstallerBundle(),
-            new Ojs\CmsBundle\OjsCmsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),

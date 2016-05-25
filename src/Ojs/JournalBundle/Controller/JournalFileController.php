@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\CmsBundle\Form\Type\FileType;
 use Ojs\CoreBundle\Controller\OjsController;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\JournalFile;

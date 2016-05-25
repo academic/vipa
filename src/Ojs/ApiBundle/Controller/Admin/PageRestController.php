@@ -5,7 +5,6 @@ namespace Ojs\ApiBundle\Controller\Admin;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\CmsBundle\Form\Type\PageType;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

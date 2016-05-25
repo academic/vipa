@@ -3,7 +3,6 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\CmsBundle\Form\Type\PageType;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
