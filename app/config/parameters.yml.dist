@@ -22,31 +22,15 @@ parameters:
 
     elasticsearch_host: 127.0.0.1
     elasticsearch_index_name: ojs.elastic.index
-    cms_show_routes:
-        Ojs\JournalBundle\Entity\Journal:
-            name: ojs_admin_journal_index
-            parameters:
-                - id
-        Ojs\JournalBundle\Entity\Article:
-            name: ojs_journal_article_index
-            parameters:
-                - id
-                - journalId
     orcid.client_id: 1
     orcid.client_secret: 1
     linkedin.client_id: 1
     linkedin.client_secret: 1
     https: false
     feedback_categories:
-        -
-            id: 1
-            name: "General"
-        -
-            id: 2
-            name: "Bug Report"
-        -
-            id: 3
-            name: "Idea"
+        - Genel
+        - 'Hata Bildirimi'
+        - Fikir
     defaultPublisherSlug: www
     ojs_logo: http://ojs.io/assets/app/images/logo.png
     ojs_favicon: http://ojs.io/assets/app/images/logo.png
