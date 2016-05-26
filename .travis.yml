@@ -28,8 +28,8 @@ before_script:
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer update
-  - bower install -f --silent
-  - bower update
+  - bower install --force --silent
+  - bower update --force --silent
   - chmod -R 777 app/cache app/logs
   - php app/console assets:install web --symlink --env=dev
   - php app/console assetic:dump
@@ -43,7 +43,10 @@ before_script:
   - php app/console ojs:mail:events:sync --sync-desc --env=dev
   - php app/console f:e:p --env=dev
 
+script:
+  - php app/console list
+
 notifications:
   slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs
   email:
-    - behramcelen@gmail.com
+    - behramcelen+travis@gmail.com
