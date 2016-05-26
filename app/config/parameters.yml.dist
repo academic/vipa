@@ -14,7 +14,7 @@ parameters:
     mailer_password:   ~
     mailer_port: 587
 
-    locale:            en
+    locale:            tr
     locale_support: [tr,en]
     secret:            884310f89c4aa13453c463ccae442f2e0f853503
 
