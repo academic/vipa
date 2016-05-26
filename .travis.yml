@@ -28,7 +28,7 @@ before_script:
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer update
-  - bower install -f
+  - bower install -f --silent
   - bower update
   - chmod -R 777 app/cache app/logs
   - php app/console assets:install web --symlink --env=dev
