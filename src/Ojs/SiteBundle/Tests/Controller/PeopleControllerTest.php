@@ -2,21 +2,16 @@
 
 namespace Ojs\SiteBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\CoreBundle\Tests\BaseTestCase;
 
-class PeopleControllerTest extends WebTestCase
+class PeopleControllerTest extends BaseTestCase
 {
     public function testIndex()
     {
-        $client = static::createClient();
-
-        $client->request('GET', '/index');
+        $url = $this->router->generate('ojs_site_people_index');
+        $this->client->request('GET', $url);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
     }
-
-    public function testShow()
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/show');
-    }
+    
 }
