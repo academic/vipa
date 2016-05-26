@@ -19,12 +19,6 @@
             <i class="fa fa-pencil"></i>
         </a>
     {% endif %}
-    {% if (cms_path is defined) %}
-        <a class="btn-info btn-sm" 
-           href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}" title="{{"cms"|trans}}">
-            <i class="fa fa-anchor"></i>
-        </a>
-    {% endif %}
     {% if delete_path is defined %}
         <form action="{{ path(delete_path, {'id': entity.id}) }}" method="post" style="display: inline;">
             <input type="hidden" name="_method" value="delete">
@@ -35,11 +29,6 @@
                 <i class="fa fa-trash-o"></i>
             </button>
         </form>
-    {% endif %}
-    {% if invite_user_path is defined %}
-        <a class="btn btn-danger btn-sm" href="{{ url(invite_user_path,{'id':entity.id,'object':entity|cmsobject}) }}">
-            <i class="fa fa-users"></i>
-        </a>
     {% endif %}
     {% if (block_path is defined) %}
 

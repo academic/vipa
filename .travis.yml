@@ -1,72 +1,52 @@
 language: php
+
 env:
-  - SYMFONY_VERSION="2.7.*" DB="mysql"
   - SYMFONY_VERSION="2.8.*" DB="mysql"
-  - SYMFONY_VERSION="2.7.*" DB="postgres"
   - SYMFONY_VERSION="2.8.*" DB="postgres"
+
 php:
   - 5.6
   - 7.0
 
-matrix:
-  fast_finish: true
-  allow_failures:
-    - php: 7.0
-
 addons:
   apt_packages:
     - parallel
-    - php5-memcached
-    - php5-apcu
 
 services:
   - mysql
   - postgresql
   - elasticsearch
   - memcached
+
 sudo: false
 
 before_install:
-  - composer selfupdate
-
-install:
-  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi;'
-  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ] && [ $(php -r "echo PHP_MINOR_VERSION;") -le 4 ]; then echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
-  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
-  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then echo "memory_limit = -1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi;'
-  - sh -c 'printf "\n" | pecl install imagick'
-  - gem install sass
-  - npm install bower -g
-  - phpenv config-rm xdebug.ini
-  - npm install uglify-js
-  - npm install uglifycss
+  - composer self-update
+  - npm install -g bower
 
 before_script:
-  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs;' -U postgres; fi\""
-  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'DROP DATABASE IF EXISTS ojs_tmp;' -U postgres; fi\""
-  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs;' -U postgres; fi\""
-  - "sh -c \"if [ '$DB' = 'pgsql' ]; then psql -c 'create database ojs_tmp;' -U postgres; fi\""
-  - "sh -c \"if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS ojs_tmp;create database IF NOT EXISTS ojs;'; fi\""
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - php app/console ojs:install --travis
-  - bower install -f
+  - composer update
+  - bower install --force --silent
+  - bower update --force --silent
   - chmod -R 777 app/cache app/logs
-  - php app/console --env=dev cache:warmup
-  - php app/console assets:install web --symlink
+  - php app/console assets:install web --symlink --env=dev
   - php app/console assetic:dump
-  - php app/console ojs:install:samples
-  - php app/console ojs:install:samples:submission-checklist
-  - php app/console ojs:install:samples:mail-template
-cache:
-  directories:
-    - .phpunit
+  - php app/console doctrine:database:drop --if-exists --force --env=dev
+  - php app/console doctrine:database:create --if-not-exists --env=dev
+  - php app/console ojs:install --travis --env=dev
+  - php app/console ojs:install:samples --env=dev
+  - php app/console h4cc_alice_fixtures:load:sets --env=dev
+  - php app/console ojs:normalize:translatable:objects --env=dev
+  - php app/console ojs:mail:events:sync --env=dev
+  - php app/console ojs:mail:events:sync --sync-desc --env=dev
+  - php app/console f:e:p --env=dev
+
+script:
+  - php app/console list
+
 notifications:
-  slack: "bulutyazilim:zJjSGCYwjyInYhk1cNFIuyuV"
-  webhooks:
-    on_failure: always
-    on_start: false
-    on_success: change
-    urls:
-      - "https://webhooks.gitter.im/e/fe449b96442997092a93"
-script: "phpunit -c app"
+  slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs
+  email:
+    - behramcelen+travis@gmail.com
