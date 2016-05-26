@@ -1,9 +1,7 @@
 language: php
 
 env:
-  - SYMFONY_VERSION="2.7.*" DB="mysql"
   - SYMFONY_VERSION="2.8.*" DB="mysql"
-  - SYMFONY_VERSION="2.7.*" DB="postgres"
   - SYMFONY_VERSION="2.8.*" DB="postgres"
 
 php:
@@ -35,7 +33,8 @@ before_script:
   - chmod -R 777 app/cache app/logs
   - php app/console assets:install web --symlink --env=dev
   - php app/console assetic:dump
-  - php app/console d:s:d --force --env=dev
+  - php app/console doctrine:database:drop --if-exists --force --env=dev
+  - php app/console doctrine:database:create --if-not-exists --env=dev
   - php app/console ojs:install --travis --env=dev
   - php app/console ojs:install:samples --env=dev
   - php app/console h4cc_alice_fixtures:load:sets --env=dev
