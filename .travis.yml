@@ -13,8 +13,6 @@ php:
 addons:
   apt_packages:
     - parallel
-    - php5-memcached
-    - php5-apcu
 
 services:
   - mysql
@@ -26,6 +24,7 @@ sudo: false
 
 before_install:
   - composer self-update
+  - npm install -g bower
 
 before_script:
   - composer install --no-interaction --prefer-dist
