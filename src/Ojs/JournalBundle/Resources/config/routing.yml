@@ -2,10 +2,6 @@ ojs_journal_setup:
     prefix:   /journal/setup/
     resource: "@OjsJournalBundle/Resources/config/routing/journalsetup.yml"
 
-journal_apply:
-    path:  /journal/apply
-    defaults: { _controller: "OjsJournalBundle:Journal:apply" }
-
 dashboard_routing:
     resource: "@OjsJournalBundle/Resources/config/routing/dashboard.yml"
     prefix:   /
