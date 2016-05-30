@@ -132,7 +132,14 @@ class JournalArticleHandler
      */
     private function processForm(Article $entity, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new ArticleType(), $entity, array('method' => $method, 'csrf_protection' => false));
+        $journal = $this->journalService->getSelectedJournal();
+        $form = $this->formFactory->create(new ArticleType(), $entity, [
+            'method' => $method,
+            'csrf_protection' => false,
+            'journal' => $journal,
+            'locales' => $journal->getLocaleCodeBag(),
+            'default_locale' => $journal->getMandatoryLang()->getCode(),
+        ]);
         $form->submit($parameters, 'PATCH' !== $method);
         $formData = $form->getData();
 

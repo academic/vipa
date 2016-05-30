@@ -102,7 +102,13 @@ class JournalArticleRestController extends ApiController
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             throw new AccessDeniedException;
         }
-        return $this->createForm(new ArticleType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new ArticleType(), null, [
+            'csrf_protection' => false,
+            'journal' => $journal,
+            'locales' => $journal->getLocaleCodeBag(),
+            'default_locale' => $journal->getMandatoryLang()->getCode(),
+            ]
+        );
     }
 
     /**
