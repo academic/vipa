@@ -58,12 +58,4 @@ class SystemSettingsType extends AbstractType
     {
         // It's all dark and lonely here.
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_admin_system_settings';
-    }
 }

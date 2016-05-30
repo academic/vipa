@@ -28,15 +28,4 @@ class QuickSwitchType extends AbstractType
 
         )->add('switch', 'submit', ['label' => 'switch']);
     }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'ojs_admin_quickswitch';
-    }
-
 }

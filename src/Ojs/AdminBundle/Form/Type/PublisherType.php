@@ -228,21 +228,13 @@ class PublisherType extends AbstractType
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_publisher';
-    }
-
-    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Publisher',
+                'data_class' => Publisher::class,
                 'cascade_validation' => true,
                 'publisher' => null,
                 'attr' => [

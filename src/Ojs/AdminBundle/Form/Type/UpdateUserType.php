@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,21 +20,13 @@ class UpdateUserType extends UserType
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_userbundle_updateuser';
-    }
-
-    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'data_class' => User::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'validate-form',

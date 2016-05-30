@@ -6,6 +6,7 @@ namespace Ojs\AdminBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\UserBundle\Model\User;
 
 class ChangePasswordType extends AbstractType
 {
@@ -30,21 +31,11 @@ class ChangePasswordType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'FOS\UserBundle\Model\User',
+                'data_class' => User::class,
                 'cascade_validation' => true,
                 'attr' => ['class' => 'validate-form'],
                 'validation_groups' => ['changePassword'],
             ]
         );
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'ojs_admin_changepassword';
     }
 }

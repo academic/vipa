@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\AdminBundle\Entity\AdminPage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,20 +40,12 @@ class AdminPageType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\AdminBundle\Entity\AdminPage',
+                'data_class' => AdminPage::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_adminbundle_adminpage';
     }
 }
