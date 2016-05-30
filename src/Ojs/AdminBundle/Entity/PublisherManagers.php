@@ -9,7 +9,7 @@ use Ojs\UserBundle\Entity\User;
 
 /**
  * PublisherManagers
- * @GRID\Source(columns="id, user.username, publisher.name")
+ * @GRID\Source(columns="id, user.username, publisher.translations.name")
  */
 class PublisherManagers
 {
@@ -21,7 +21,7 @@ class PublisherManagers
 
     /**
      * @var Publisher
-     * @Grid\Column(field="publisher.name",title="publisher")
+     * @Grid\Column(field="publisher.translations.name",title="publisher")
      */
     private $publisher;
 
