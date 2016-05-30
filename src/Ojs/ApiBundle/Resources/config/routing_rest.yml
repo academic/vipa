@@ -149,8 +149,6 @@ api_journal_issue:
   name_prefix:  api_1_
   options:
       api_view: "journalissue"
-  requirements:
-      journalId:  \d+
 
 api_journal_theme:
   type:         rest
@@ -159,8 +157,6 @@ api_journal_theme:
   name_prefix:  api_1_
   options:
       api_view: "journaltheme"
-  requirements:
-      journalId:  \d+
 
 api_journal_board:
   type:         rest
@@ -169,8 +165,6 @@ api_journal_board:
   name_prefix:  api_1_
   options:
       api_view: "journalboard"
-  requirements:
-      journalId:  \d+
 
 api_journal_section:
   type:         rest
@@ -179,8 +173,6 @@ api_journal_section:
   name_prefix:  api_1_
   options:
       api_view: "journalsection"
-  requirements:
-      journalId:  \d+
 
 api_journal_article:
   type:         rest
@@ -189,8 +181,6 @@ api_journal_article:
   name_prefix:  api_1_
   options:
       api_view: "journalarticle"
-  requirements:
-      journalId:  \d+
 
 api_journal_article_file:
   type:         rest
@@ -199,9 +189,6 @@ api_journal_article_file:
   name_prefix:  api_1_article_
   options:
       api_view: "articlefile"
-  requirements:
-      journalId:  \d+
-      articleId:  \d+
 
 api_journal_article_author:
   type:         rest
@@ -210,9 +197,6 @@ api_journal_article_author:
   name_prefix:  api_1_article_
   options:
       api_view: "articleauthor"
-  requirements:
-      journalId:  \d+
-      articleId:  \d+
 
 api_journal_article_citation:
   type:         rest
@@ -221,9 +205,6 @@ api_journal_article_citation:
   name_prefix:  api_1_article_
   options:
       api_view: "articlecitation"
-  requirements:
-      journalId:  \d+
-      articleId:  \d+
 
 api_analytics :
   type: rest
@@ -232,5 +213,3 @@ api_analytics :
   name_prefix:  api_1_
   options:
       expose: true
-  requirements:
-        id:  \d+
