@@ -51,7 +51,6 @@ journal.show tpl for super admin users
             actions({
                 'back': {'href': path('ojs_admin_journal_index')},
                 'edit': {'href': path('ojs_journal_settings_index', {'journalId': entity.id})},
-                'delete': {'href': path('ojs_admin_journal_delete', {'id': entity.id}), 'attributes': {'data-token': token}},
             })
         }}
     </div>
