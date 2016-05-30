@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,11 +24,6 @@ class MinimalPublisherType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class', 'Ojs\JournalBundle\Entity\Publisher');
-    }
-
-    public function getName()
-    {
-        return 'ojs_journal_minimalpublisher';
+        $resolver->setDefault('data_class', Publisher::class);
     }
 }

@@ -197,7 +197,7 @@ class IssueType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class'         => 'Ojs\JournalBundle\Entity\Issue',
+                'data_class'         => Issue::class,
                 'cascade_validation' => true,
                 'novalidate'         => 'novalidate',
                 'attr'               => [
@@ -205,13 +205,5 @@ class IssueType extends AbstractType
                 ],
             ]
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_issue';
     }
 }

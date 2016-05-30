@@ -7,10 +7,12 @@ use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\MenuEvent;
 use Ojs\JournalBundle\Event\MenuEvents;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class MenuBuilder extends ContainerAware
+class MenuBuilder
 {
+    use ContainerAwareTrait;
+
     public function leftMenu(FactoryInterface $factory)
     {
         /**

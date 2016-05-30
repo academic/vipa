@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\BoardMember;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -42,17 +43,9 @@ class BoardMemberType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\BoardMember',
+                'data_class' => BoardMember::class,
                 'cascade_validation' => true,
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_board';
     }
 }

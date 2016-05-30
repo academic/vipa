@@ -279,17 +279,9 @@ class JournalType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'cascade_validation' => true
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journal';
     }
 }

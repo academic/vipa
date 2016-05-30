@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\Board;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,17 +40,9 @@ class BoardType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Board',
+                'data_class' => Board::class,
                 'cascade_validation' => true,
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_board';
     }
 }

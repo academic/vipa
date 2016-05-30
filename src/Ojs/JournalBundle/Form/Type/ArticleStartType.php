@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\ArticleSubmissionStart;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,7 +57,7 @@ class ArticleStartType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\ArticleSubmissionStart',
+                'data_class' => ArticleSubmissionStart::class,
                 'checkListsChoices' => [],
                 'submissionFilesChoices' => [],
                 'attr' => [

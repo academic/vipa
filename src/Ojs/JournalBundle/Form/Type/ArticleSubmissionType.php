@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
@@ -105,7 +106,7 @@ class ArticleSubmissionType extends AbstractType
                 'journal' => new Journal(),
                 'validation_groups' => false,
                 'cascade_validation' => true,
-                'data_class' => 'Ojs\JournalBundle\Entity\Article',
+                'data_class' => Article::class,
                 'citationTypes' => [],
                 'attr' => [
                     'novalidate' => 'novalidate',

@@ -247,12 +247,4 @@ class ArticleType extends AbstractType
             )
         );
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_article';
-    }
 }

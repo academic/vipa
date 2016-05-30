@@ -20,13 +20,4 @@ class JournalUserEditType extends AbstractType
     {
         return 'ojs_journalbundle_journaluser';
     }
-
-    /**
-     * Returns the name of this type.
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journaluseredit';
-    }
 }
