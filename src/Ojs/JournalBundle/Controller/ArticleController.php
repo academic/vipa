@@ -138,6 +138,8 @@ class ArticleController extends Controller
                 'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
                 'journal' => $journal,
+                'default_locale' => $journal->getMandatoryLang()->getCode(),
+                'locales' => $journal->getLocaleCodeBag(),
             ]
         );
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -261,6 +263,8 @@ class ArticleController extends Controller
                 'action' => $action,
                 'method' => 'PUT',
                 'journal' => $journal,
+                'default_locale' => $journal->getMandatoryLang()->getCode(),
+                'locales' => $journal->getLocaleCodeBag(),
             ]
         );
 

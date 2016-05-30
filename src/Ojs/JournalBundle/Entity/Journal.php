@@ -464,6 +464,19 @@ class Journal extends AbstractTranslatable
     }
 
     /**
+     * @return array
+     */
+    public function getLocaleCodeBag()
+    {
+        $locales = [];
+        $submissionLangObjects = $this->getLanguages();
+        foreach ($submissionLangObjects as $submissionLangObject) {
+            $locales[] = $submissionLangObject->getCode();
+        }
+        return $locales;
+    }
+
+    /**
      * @param  Period $period
      * @return Journal
      */

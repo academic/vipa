@@ -29,6 +29,9 @@ class ArticleType extends AbstractType
         }
         $form = $builder
             ->add('translations', 'a2lix_translations',[
+                'locales' => $options['locales'],
+                'default_locale' => $options['default_locale'],
+                'required_locales' => [$options['default_locale']],
                 'fields' => [
                     'title' => [
                         'label' => 'article.title',
@@ -233,6 +236,8 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'locales' => [],
+                'default_locale' => '',
                 'journal' => new Journal(),
                 'data_class' => Article::class,
                 'cascade_validation' => true,
