@@ -5,6 +5,7 @@ Ojs\UserBundle\Entity\User:
         errorPath: username
         message: fos_user.username.already_used
         groups:
+          - journal_user
           - Default
           - ojs_register
           - editProfile
@@ -13,23 +14,24 @@ Ojs\UserBundle\Entity\User:
         errorPath: email
         message: fos_user.email.already_used
         groups:
+          - journal_user
           - Default
           - ojs_register
           - editProfile
   properties:
     username:
-      - NotBlank: { groups: [Default, ojs_register, editProfile] }
+      - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
     password:
-      - NotBlank: { groups: [Default, editProfile] }
+      - NotBlank: { groups: [Default, editProfile, journal_user] }
       - Length: { min: 6, groups: [Default, editProfile] }
     plainPassword:
       - NotBlank: { groups: [Default, ojs_register] }
       - Length: { min: 6, groups: [Default, ojs_register] }
     email:
-      - NotBlank: { groups: [Default, ojs_register, editProfile] }
-      - Email: { groups: [Default, ojs_register, editProfile] }
-      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [Default, ojs_register, editProfile] }
+      - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
+      - Email: { groups: [Default, ojs_register, editProfile, journal_user] }
+      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [Default, ojs_register, editProfile, journal_user] }
     firstName:
-      - NotBlank: { groups: [Default, ojs_register, editProfile] }
+      - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
     lastName:
-      - NotBlank: { groups: [Default, ojs_register] }
+      - NotBlank: { groups: [Default, ojs_register, journal_user] }

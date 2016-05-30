@@ -129,6 +129,7 @@ class JournalNewUserType extends AbstractType
             [
                 'data_class' => 'Ojs\UserBundle\Entity\User',
                 'cascade_validation' => true,
+                'validation_groups' => ['journal_user'],
                 'attr' => [
                     'class' => 'validate-form',
                 ],
