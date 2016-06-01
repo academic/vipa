@@ -20,22 +20,34 @@ class Author extends AbstractTranslatable
 {
     use GenericEntityTrait;
 
-    /** @var  Country */
+    /**
+     * @var  Country
+     */
     protected $country;
 
-    /** @var  string */
+    /**
+     * @var  string
+     */
     protected $city;
 
-    /** @var  string */
+    /**
+     * @var  string
+     */
     protected $url;
 
-    /** @var  string */
+    /**
+     * @var  string
+     */
     protected $phone;
 
-    /** @var  string */
+    /**
+     * @var  string
+     */
     protected $fax;
 
-    /** @var  string */
+    /**
+     * @var  string
+     */
     protected $billing_address;
 
     /**
@@ -45,10 +57,12 @@ class Author extends AbstractTranslatable
      * @GRID\Column(title="id")
      */
     protected $id;
+
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\AuthorTranslation")
      */
     protected $translations;
+
     /**
      * @var string
      * @JMS\Expose
@@ -56,6 +70,7 @@ class Author extends AbstractTranslatable
      * @GRID\Column(title="firstname")
      */
     private $firstName;
+
     /**
      * @var string
      * @JMS\Expose
@@ -63,6 +78,7 @@ class Author extends AbstractTranslatable
      * @GRID\Column(title="middlename")
      */
     private $middleName;
+
     /**
      * @var string
      * @JMS\Expose
@@ -70,27 +86,32 @@ class Author extends AbstractTranslatable
      * @GRID\Column(title="lastname")
      */
     private $lastName;
+
     /**
      * @var string
      * @JMS\Expose
      * @GRID\Column(title="email")
      */
     private $email;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $firstNameTransliterated;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $middleNameTransliterated;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $lastNameTransliterated;
+
     /**
      * @var string
      * @JMS\Expose
@@ -98,6 +119,7 @@ class Author extends AbstractTranslatable
      * @GRID\Column(title="initials")
      */
     private $initials;
+
     /**
      * @var string
      * @JMS\Expose
@@ -115,21 +137,19 @@ class Author extends AbstractTranslatable
      * @JMS\Expose
      */
     private $biography;
+
     /**
      * @var string
      * @JMS\Expose
      */
     private $authorDetails;
-    /**
-     * @var integer
-     * @JMS\Expose
-     */
-    private $userId;
+
     /**
      * @var User
      * @JMS\Expose
      */
     private $user;
+
     /**
      * title + firstname + middlename + lastname
      * @var string
@@ -138,29 +158,34 @@ class Author extends AbstractTranslatable
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
+
     /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
+
     /**
      * @var boolean
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $institutionNotListed;
+
     /**
      * @var string
      * @JMS\Expose
      * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $institutionName;
+
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Jms\Expose
      */
     private $articleAuthors;
+
     /**
      * @var PersonTitle
      *
@@ -322,26 +347,6 @@ class Author extends AbstractTranslatable
     public function setEmail($email = null)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @param  int $userId
-     * @return $this
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
 
         return $this;
     }
