@@ -133,7 +133,7 @@ class AdminJournalApplicationType extends AbstractType
                             ->setParameter('verified', true)
                             ;
                     },
-                    'attr' => ['class' => 'select2-element validate[required]'],
+                    'attr' => ['class' => 'select2-element application-publisher'],
                     'label' => 'journal.publisher',
                     'required' => true
                 )
