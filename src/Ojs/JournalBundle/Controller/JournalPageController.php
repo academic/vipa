@@ -28,20 +28,25 @@ class JournalPageController extends OjsController
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
+        $cache = $this->get('array_cache');
 
         if (!$this->isGranted('VIEW', $journal, 'pages')) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
         $source = new Entity('OjsJournalBundle:JournalPage');
-
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $cache) {
                 /* @var JournalPage $entity */
                 $entity = $row->getEntity();
                 if (!is_null($entity)) {
-                    $entity->setDefaultLocale($request->getDefaultLocale());
-                    $row->setField('translations.title', $entity->getTitleTranslations());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $entity->setDefaultLocale($request->getDefaultLocale());
+                        $row->setField('translations.title', $entity->getTitleTranslations());
+                    }
                 }
 
                 return $row;
