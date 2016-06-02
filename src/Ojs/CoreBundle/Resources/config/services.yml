@@ -42,6 +42,11 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  ojs_core.kernel_request_listener:
+    class: Ojs\CoreBundle\Service\KernelRequestListener
+    tags:
+      - { name: kernel.event_subscriber }
+
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:

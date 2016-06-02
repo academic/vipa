@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojs\CoreBundle\Service;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
