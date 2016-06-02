@@ -99,6 +99,7 @@ SQL;
                 $this->io->progressAdvance(self::STEP);
             }
         }
+        $this->io->newLine(2);
         $this->io->success('All process finished');
     }
 

@@ -90,7 +90,13 @@
                             <h4>
                                 {% for authorsInfo in article.articleAuthors %}
                                     <small>
-                                        <span class="author">{{ authorsInfo.author.fullName }}</span>
+                                        {% if authorsInfo.author.user is not empty %}
+                                            <a href="{{ path('ojs_user_profile', {slug: authorsInfo.author.user.username}) }}">
+                                                <span class="author">{{ authorsInfo.author.fullName }}</span>
+                                            </a>
+                                        {% else %}
+                                            <span class="author">{{ authorsInfo.author.fullName }}</span>
+                                        {% endif %}
                                         <sup>
                                             <a href="{{ path('ojs_article_page', {
                                                 publisher: journal.publisher.slug,
