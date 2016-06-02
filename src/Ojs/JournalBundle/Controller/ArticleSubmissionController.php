@@ -201,6 +201,17 @@ class ArticleSubmissionController extends Controller
         }
 
         $articleAuthor->setAuthor($author);
+
+        //find abstract tempalate
+        $findAbstractTemplate = $em->getRepository('OjsJournalBundle:JournalSetting')->findOneBy([
+            'setting' => 'submissionAbstractTemplate',
+        ]);
+        $abstractTemplate = '';
+        if($findAbstractTemplate){
+            $abstractTemplate = $findAbstractTemplate->getValue();
+        }
+
+
         $article
             ->setSubmitterUser($user)
             ->setStatus(ArticleStatuses::STATUS_NOT_SUBMITTED)
@@ -279,9 +290,10 @@ class ArticleSubmissionController extends Controller
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
             array(
-                'article' => $article,
-                'journal' => $journal,
-                'form' => $form->createView(),
+                'article'           => $article,
+                'journal'           => $journal,
+                'form'              => $form->createView(),
+                'abstractTemplate'  => $abstractTemplate,
             )
         );
     }
