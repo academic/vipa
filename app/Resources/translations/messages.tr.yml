@@ -568,6 +568,8 @@ journal.register: 'Dergi Kaydı'
 journal.scope: Kapsam
 journal.settings.abstractTemplate.desc: 'Butona tıklayarak öntanımlı şablonlardan yükleyebilirsiniz.'
 journal.settings.last.step.confirm: 'Makalem Son Adım Uyarı Yazısı'
+journal.settings.submission.open: 'Makale gönderim işlemi açık'
+journal.settings.submission.close.text: 'Makale gönderim kapalılık açıklaması'
 journal.settings.mail: 'e-Posta Ayarları'
 journal.settings.mail.signature: 'e-Posta İmzası'
 journal.settings.page: 'Sayfa Ayarları'

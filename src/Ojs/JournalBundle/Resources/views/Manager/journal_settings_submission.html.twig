@@ -17,18 +17,43 @@
         <form class="form" method="POST">
             <div class="form-group">
                 <fieldset>
-                    <legend>1. {{ "journal.settings.last.step.confirm"|trans }}</legend>
-                    <div class="form-row">
-                        <label>{{ "journal.settings.last.step.confirm"|trans }}</label>
-                        <textarea class="form-control" style="width:100%"
-                                  name="submissionConfirmText">{{ settings.submissionConfirmText }}</textarea>
+                    <div class="checkbox">
+                        <h4>
+                            <label>
+                                <input type="checkbox" {% if settings.submissionOpen %}checked="checked"{% endif %} name="submissionOpen">
+                                {{ "journal.settings.submission.open"|trans }}
+                            </label>
+                        </h4>
                     </div>
-                    <legend>2. {{ "journal.settings.submission.abstractTemplate"|trans }}</legend>
-                    <div class="form-row">
+                    <hr>
 
-                        <textarea id="absTemplate" class="editor form-control wysihtml5"
-                                  name="submissionAbstractTemplate">{{ settings.submissionAbstractTemplate }}</textarea>
+                    <div class="submission-close-text-div">
+                        <h5>{{ "journal.settings.submission.close.text"|trans }}</h5>
+                        <div class="form-row">
+                            <textarea class="editor form-control wysihtml5"
+                                      name="submissionCloseText">{{ settings.submissionCloseText }}</textarea>
+                        </div>
+                        <hr>
                     </div>
+
+                    <div class="last-step-confirm-div">
+                        <h5>{{ "journal.settings.last.step.confirm"|trans }}</h5>
+                        <div class="form-row">
+                            <textarea class="form-control" style="width:100%"
+                                      name="submissionConfirmText">{{ settings.submissionConfirmText }}</textarea>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="submission-abstract-template-div">
+                        <h5>{{ "journal.settings.submission.abstractTemplate"|trans }}</h5>
+                        <div class="form-row">
+
+                            <textarea id="absTemplate" class="editor form-control wysihtml5"
+                                      name="submissionAbstractTemplate">{{ settings.submissionAbstractTemplate }}</textarea>
+                        </div>
+                    </div>
+
                 </fieldset>
             </div>
             <div class="form-group">
@@ -36,4 +61,27 @@
             </div>
         </form>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            function reviseSubmissionInputs(){
+                if($('input[name="submissionOpen"]').is(':checked')){
+                    $('.submission-close-text-div').hide();
+                    $('.last-step-confirm-div').show();
+                    $('.submission-abstract-template-div').show();
+                }else{
+                    $('.submission-close-text-div').show();
+                    $('.last-step-confirm-div').hide();
+                    $('.submission-abstract-template-div').hide();
+                }
+            }
+            reviseSubmissionInputs();
+            $('input[name="submissionOpen"]').change(function(){
+               reviseSubmissionInputs();
+            });
+        });
+    </script>
 {% endblock %}

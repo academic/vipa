@@ -163,11 +163,10 @@ class ArticleSubmissionController extends Controller
      */
     public function newAction(Request $request)
     {
-        if ($this->submissionsNotAllowed()) {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if ($this->submissionsNotAllowed($journal)) {
             return $this->respondAsNotAllowed();
         }
-
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
 
@@ -298,14 +297,22 @@ class ArticleSubmissionController extends Controller
         );
     }
 
-    private function submissionsNotAllowed()
+    /**
+     * @param Journal $journal
+     * @return bool
+     */
+    private function submissionsNotAllowed(Journal $journal)
     {
         $permissionSetting = $this
             ->getDoctrine()
             ->getRepository('OjsAdminBundle:SystemSetting')
             ->findOneBy(['name' => 'article_submission']);
 
-        if ($permissionSetting && !$permissionSetting->getValue()) {
+        if (($permissionSetting
+            && !$permissionSetting->getValue())
+            || ($journal->getSetting('submissionOpen') !== null
+            && $journal->getSetting('submissionOpen')->getValue() == "0")) {
+
             return true;
         }
 
@@ -314,11 +321,18 @@ class ArticleSubmissionController extends Controller
 
     private function respondAsNotAllowed()
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $message = 'message.submission_not_available';
+        if($journal->getSetting('submissionCloseText')
+            && !empty($journal->getSetting('submissionCloseText')->getValue())){
+            $message = $journal->getSetting('submissionCloseText')->getValue();
+        }
+
         return $this->render(
             'OjsSiteBundle:Site:not_available.html.twig',
             [
                 'title' => 'title.submission_new',
-                'message' => 'message.submission_not_available',
+                'message' => $message,
             ]
         );
     }
@@ -362,10 +376,10 @@ class ArticleSubmissionController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        if ($this->submissionsNotAllowed()) {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if ($this->submissionsNotAllowed($journal)) {
             return $this->respondAsNotAllowed();
         }
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
 
         /** @var User $user */
@@ -467,10 +481,10 @@ class ArticleSubmissionController extends Controller
      */
     public function previewAction(Request $request, $articleId)
     {
-        if ($this->submissionsNotAllowed()) {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if ($this->submissionsNotAllowed($journal)) {
             return $this->respondAsNotAllowed();
         }
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $dispatcher = $this->get('event_dispatcher');
         $session = $this->get('session');

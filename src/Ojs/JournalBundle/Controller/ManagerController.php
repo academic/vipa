@@ -137,6 +137,27 @@ class ManagerController extends Controller
                     $submissionAbstractTemplate
                 );
             }
+            if($request->request->has('submissionOpen')){
+                $this->updateJournalSetting(
+                    $journal,
+                    'submissionOpen',
+                    1
+                );
+            }else{
+                $this->updateJournalSetting(
+                    $journal,
+                    'submissionOpen',
+                    0
+                );
+            }
+            $submissionCloseText = $request->get('submissionCloseText');
+            if (!empty($submissionCloseText)) {
+                $this->updateJournalSetting(
+                    $journal,
+                    'submissionCloseText',
+                    $submissionCloseText
+                );
+            }
         }
 
         $data = array(
@@ -146,6 +167,12 @@ class ManagerController extends Controller
                     null,
                 'submissionAbstractTemplate' => $journal->getSetting('submissionAbstractTemplate') ?
                     $journal->getSetting('submissionAbstractTemplate')->getValue() :
+                    null,
+                'submissionOpen' => $journal->getSetting('submissionOpen') ?
+                    $journal->getSetting('submissionOpen')->getValue() :
+                    true,
+                'submissionCloseText' => $journal->getSetting('submissionCloseText') ?
+                    $journal->getSetting('submissionCloseText')->getValue() :
                     null,
             ),
             'journal' => $journal,
@@ -192,7 +219,7 @@ class ManagerController extends Controller
             ->getRepository('OjsJournalBundle:Article')
             ->findBy(['submitterUser' => $this->getUser()], ['submissionDate' => 'DESC']);
         $journalUsers = array();
-        
+
         if ($this->getUser()->isAdmin()) {
             $switcher = $this->createForm(new QuickSwitchType(), null)->createView();
         } else {

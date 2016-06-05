@@ -417,7 +417,7 @@ class Journal extends AbstractTranslatable
      */
     public function getSetting($settingName)
     {
-        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
+        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : null;
     }
 
     /**
