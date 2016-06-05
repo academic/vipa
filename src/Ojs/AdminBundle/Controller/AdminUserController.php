@@ -253,7 +253,7 @@ class AdminUserController extends Controller
             array(
                 'action' => $this->generateUrl('ojs_admin_user_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'validation_groups' => array('ojs_register', 'editProfile'),
+                'validation_groups' => array('Default'),
             )
         );
 
