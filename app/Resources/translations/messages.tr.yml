@@ -948,7 +948,7 @@ submission.starting: Başlarken
 submission.success: 'Makale Gonderimi Tamamlandı'
 submission.continue_edit: 'Makale Gonderimi düzenlemesine devam et'
 submission.files: 'Makale Gönderimi için gerekli formlar'
-submissionDate: 'Makale Tarihi'
+submissionDate: 'Makale Gönderilme Tarihi'
 submission_checklist: 'Makale Kontrol Listesi'
 submission_checklist.create: 'Yeni Madde'
 submission_checklist.detail: Detay
