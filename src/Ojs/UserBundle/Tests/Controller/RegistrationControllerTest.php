@@ -1,15 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yazbahar
- * Date: 03.06.2016
- * Time: 11:29
- */
 
 namespace Ojs\UserBundle\Tests\Controller;
 
+use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
 
-class RegistrationController
+class RegistrationControllerTest extends BaseTestCase
 {
-
+    public function testRegister()
+    {
+        $client = $this->client;
+        $crawler = $client->request('GET', '/register');
+        $this->assertStatusCode(301, $client);
+    }
 }
