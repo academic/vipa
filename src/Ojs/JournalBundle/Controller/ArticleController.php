@@ -150,6 +150,8 @@ class ArticleController extends Controller
      *
      * @param  Request                   $request
      * @return RedirectResponse|Response
+     *
+     * @todo this function is not finished yet we must do more tests
      */
     public function createAction(Request $request)
     {
@@ -273,6 +275,8 @@ class ArticleController extends Controller
      * @param  Request                   $request
      * @param  Article                   $article
      * @return RedirectResponse|Response
+     *
+     * @todo this function is not finished yet we must do more tests
      */
     public function updateAction(Request $request, Article $article)
     {
@@ -323,6 +327,8 @@ class ArticleController extends Controller
      * @param  Request          $request
      * @param  Article          $article
      * @return RedirectResponse
+     *
+     * @todo this function is not finished yet we must do more tests
      */
     public function deleteAction(Request $request, Article $article)
     {
