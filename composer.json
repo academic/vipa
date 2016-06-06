@@ -95,7 +95,8 @@
     "wdalmut/php-deb-packager": "^0.0.13",
     "fzaninotto/faker": "~1.6",
     "nelmio/alice": "1.7.2",
-    "h4cc/alice-fixtures-bundle": "~0.5"
+    "h4cc/alice-fixtures-bundle": "~0.5",
+    "liip/functional-test-bundle": "^1.6"
   },
   "scripts": {
     "post-install-cmd": [
