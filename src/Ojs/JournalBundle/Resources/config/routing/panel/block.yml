@@ -1,5 +1,5 @@
 ojs_journal_block_index:
-    path:     /{journalId}/block/
+    path:     /{journalId}/block
     defaults: { _controller: "OjsJournalBundle:Block:index" }
 
 ojs_journal_block_show:
