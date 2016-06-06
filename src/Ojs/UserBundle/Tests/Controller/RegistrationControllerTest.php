@@ -9,7 +9,7 @@ class RegistrationControllerTest extends BaseTestCase
     public function testRegister()
     {
         $client = $this->client;
-        $crawler = $client->request('GET', '/register');
-        $this->assertStatusCode(301, $client);
+        $crawler = $client->request('GET', '/register/');
+        $this->assertStatusCode(200, $client);
     }
 }
