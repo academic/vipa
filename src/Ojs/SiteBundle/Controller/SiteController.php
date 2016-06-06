@@ -98,8 +98,7 @@ class SiteController extends Controller
 
         return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', $data);
     }
-
-
+    
     public function journalIndexAction(Request $request, $publisher, $slug)
     {
         $journalService = $this->get('ojs.journal_service');
