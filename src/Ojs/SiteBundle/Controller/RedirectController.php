@@ -44,7 +44,7 @@ class RedirectController extends Controller
 
         return $this->redirect(
             $this->generateUrl(
-                'ojs_article_page',
+                'ojs_article_withoutIssue_page',
                 array(
                     'slug' => $article->getJournal()->getSlug(),
                     'article_id' => $article->getId(),
