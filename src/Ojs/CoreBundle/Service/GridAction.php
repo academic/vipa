@@ -297,4 +297,24 @@ class GridAction
 
         return $rowAction;
     }
+
+    /**
+     * @param string $route
+     * @param $key
+     * @return RowAction
+     */
+    public function filesAction($route, $key = 'id')
+    {
+        $rowAction = new RowAction('<i class="fa fa-files-o"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans('title.issue_files'),
+            ]
+        );
+        $rowAction->setRouteParameters($key);
+        $rowAction->setRouteParametersMapping(['id' => 'issueId']);
+        return $rowAction;
+    }
 }
