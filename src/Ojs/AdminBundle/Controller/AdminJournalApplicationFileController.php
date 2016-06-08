@@ -24,9 +24,6 @@ class AdminJournalApplicationFileController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new JournalApplicationFile())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $source = new Entity('OjsJournalBundle:JournalApplicationFile');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -53,9 +50,6 @@ class AdminJournalApplicationFileController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new JournalApplicationFile())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $entity = new JournalApplicationFile();
         $form = $this->createCreateForm($entity)
             ->add('create', 'submit', array('label' => 'c'));
@@ -116,9 +110,6 @@ class AdminJournalApplicationFileController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new JournalApplicationFile())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $entity = new JournalApplicationFile();
         $form = $this->createCreateForm($entity)
             ->add('create', 'submit', array('label' => 'c'));
@@ -141,10 +132,6 @@ class AdminJournalApplicationFileController extends Controller
     public function showAction(JournalApplicationFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_application_file'.$entity->getId());
@@ -164,9 +151,6 @@ class AdminJournalApplicationFileController extends Controller
     public function editAction(JournalApplicationFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $editForm = $this->createEditForm($entity)
             ->add('save', 'submit');
 
@@ -219,9 +203,6 @@ class AdminJournalApplicationFileController extends Controller
     public function updateAction(Request $request, JournalApplicationFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity)
             ->add('save', 'submit');
@@ -257,9 +238,6 @@ class AdminJournalApplicationFileController extends Controller
     public function deleteAction(Request $request, JournalApplicationFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_application_file'.$entity->getId());

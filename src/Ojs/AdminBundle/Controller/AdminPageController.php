@@ -29,9 +29,6 @@ class AdminPageController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new AdminPage())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $cache = $this->get('array_cache');
         $source = new Entity('OjsAdminBundle:AdminPage');
         $source->manipulateRow(
@@ -70,10 +67,6 @@ class AdminPageController extends Controller
     public function newAction()
     {
         $entity = new AdminPage();
-        if (!$this->isGranted('CREATE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $form = $this->createCreateForm($entity);
 
         return $this->render(
@@ -108,10 +101,6 @@ class AdminPageController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new AdminPage())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $entity = new AdminPage();
         $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
@@ -143,11 +132,6 @@ class AdminPageController extends Controller
     public function showAction(AdminPage $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_page'.$entity->getId());
@@ -167,11 +151,6 @@ class AdminPageController extends Controller
     public function editAction(AdminPage $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_page'.$entity->getId());
@@ -220,11 +199,6 @@ class AdminPageController extends Controller
     public function updateAction(Request $request, AdminPage $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -254,11 +228,6 @@ class AdminPageController extends Controller
     public function deleteAction(Request $request, AdminPage $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_page'.$entity->getId());

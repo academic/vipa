@@ -15,10 +15,6 @@ class AdminSystemSettingsController extends OjsController
 {
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new SystemSetting())) {
-            throw new AccessDeniedException("You cannot see system settings.");
-        }
-
         $repo = $this->getDoctrine()->getRepository('OjsAdminBundle:SystemSetting');
         $form = $this->createForm(new SystemSettingsType());
 
@@ -46,10 +42,6 @@ class AdminSystemSettingsController extends OjsController
 
     public function updateAction(Request $request)
     {
-        if (!$this->isGranted('EDIT', new SystemSetting())) {
-            throw new AccessDeniedException("You cannot change system settings.");
-        }
-
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();

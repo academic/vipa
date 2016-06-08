@@ -25,9 +25,6 @@ class AdminMailTemplateController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new MailTemplate())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $source = new Entity('OjsJournalBundle:MailTemplate');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
@@ -62,9 +59,6 @@ class AdminMailTemplateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
-        if (!$this->isGranted('VIEW', $entity))
-            throw new AccessDeniedException("You are not authorized for this page!");
-
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -90,9 +84,6 @@ class AdminMailTemplateController extends Controller
         /** @var MailTemplate $entity */
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
 
         $eventDetail = $mailEventsChain->getEventOptionsByName($entity->getType());
@@ -142,9 +133,6 @@ class AdminMailTemplateController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var MailTemplate $entity */
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);

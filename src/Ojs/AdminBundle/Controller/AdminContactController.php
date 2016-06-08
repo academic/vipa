@@ -31,10 +31,6 @@ class AdminContactController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new JournalContact())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-
         $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:JournalContact', 'admin');
         $source->manipulateRow(
@@ -84,10 +80,6 @@ class AdminContactController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new JournalContact();
-
-        if (!$this->isGranted('CREATE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $form = $this->createCreateForm($entity);
@@ -146,11 +138,6 @@ class AdminContactController extends Controller
     public function newAction()
     {
         $entity = new JournalContact();
-        
-        if (!$this->isGranted('CREATE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-        
         $form = $this->createCreateForm($entity);
 
         return $this->render(
@@ -179,10 +166,6 @@ class AdminContactController extends Controller
             ->findOneBy(['id' => $id]);
 
         $this->throw404IfNotFound($entity);
-        
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         
         $entity->setDefaultLocale($request->getDefaultLocale());
         
@@ -215,11 +198,6 @@ class AdminContactController extends Controller
             ->findOneBy(['id' => $id]);
 
         $this->throw404IfNotFound($entity);
-        
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-        
         $editForm = $this->createEditForm($entity);
         $token = $this
             ->get('security.csrf.token_manager')
@@ -276,10 +254,6 @@ class AdminContactController extends Controller
             ->findOneBy(['id' => $id]);
 
         $this->throw404IfNotFound($entity);
-        
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $editForm = $this->createEditForm($entity);
@@ -325,11 +299,6 @@ class AdminContactController extends Controller
             ->findOneBy(['id' => $id]);
 
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $csrf = $this->get('security.csrf.token_manager');

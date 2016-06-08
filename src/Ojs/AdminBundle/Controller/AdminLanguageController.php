@@ -24,9 +24,6 @@ class AdminLanguageController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new Lang())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $source = new Entity('OjsJournalBundle:Lang');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -53,9 +50,6 @@ class AdminLanguageController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new Lang())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new Lang();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -127,10 +121,6 @@ class AdminLanguageController extends Controller
     public function showAction(Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_language'.$entity->getId());
@@ -149,9 +139,6 @@ class AdminLanguageController extends Controller
     public function editAction(Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -195,9 +182,6 @@ class AdminLanguageController extends Controller
     public function updateAction(Request $request, Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -226,9 +210,6 @@ class AdminLanguageController extends Controller
     public function deleteAction(Request $request, Lang $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_language'.$entity->getId());

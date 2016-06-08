@@ -25,9 +25,6 @@ class AdminPublisherDesignController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new PublisherDesign())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $source = new Entity('OjsJournalBundle:PublisherDesign');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -54,9 +51,6 @@ class AdminPublisherDesignController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new PublisherDesign())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new PublisherDesign();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -149,9 +143,6 @@ class AdminPublisherDesignController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new PublisherDesign())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new PublisherDesign();
         $form = $this->createCreateForm($entity);
 
@@ -175,9 +166,6 @@ class AdminPublisherDesignController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:PublisherDesign')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity))
-            throw new AccessDeniedException("You are not authorized for this page!");
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_publisher_Design' . $entity->getId());
@@ -200,9 +188,6 @@ class AdminPublisherDesignController extends Controller
         /** @var PublisherDesign $entity */
         $entity = $em->getRepository('OjsJournalBundle:PublisherDesign')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity->setEditableContent($this->prepareEditContent($entity->getEditableContent()));
         $editForm = $this->createEditForm($entity);
 
@@ -276,9 +261,6 @@ class AdminPublisherDesignController extends Controller
         /** @var PublisherDesign $entity */
         $entity = $em->getRepository('OjsJournalBundle:PublisherDesign')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -309,9 +291,6 @@ class AdminPublisherDesignController extends Controller
      */
     public function deleteAction(Request $request, PublisherDesign $entity)
     {
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
 

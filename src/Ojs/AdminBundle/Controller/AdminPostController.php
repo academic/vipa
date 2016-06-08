@@ -29,10 +29,6 @@ class AdminPostController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new AdminPost())) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $source = new Entity('OjsAdminBundle:AdminPost');
         $source->manipulateRow(
             function (Row $row) use ($request) {
@@ -67,11 +63,6 @@ class AdminPostController extends Controller
     public function newAction()
     {
         $entity = new AdminPost();
-
-        if (!$this->isGranted('CREATE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $form = $this->createCreateForm($entity);
 
         return $this->render(
@@ -106,10 +97,6 @@ class AdminPostController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new AdminPost())) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $entity = new AdminPost();
         $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
@@ -141,11 +128,6 @@ class AdminPostController extends Controller
     public function showAction(AdminPost $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_post'.$entity->getId());
@@ -165,11 +147,6 @@ class AdminPostController extends Controller
     public function editAction(AdminPost $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_post'.$entity->getId());
@@ -218,11 +195,6 @@ class AdminPostController extends Controller
     public function updateAction(Request $request, AdminPost $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -257,11 +229,6 @@ class AdminPostController extends Controller
     public function deleteAction(Request $request, AdminPost $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this post!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_post'.$entity->getId());

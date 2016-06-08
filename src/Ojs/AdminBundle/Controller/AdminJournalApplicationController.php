@@ -26,9 +26,6 @@ class AdminJournalApplicationController extends Controller
 {
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new Journal())) {
-            throw new AccessDeniedException("You not authorized for list journals!");
-        }
         $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Journal');
         $source->manipulateRow(
@@ -81,9 +78,7 @@ class AdminJournalApplicationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
 
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
+        $this->throw404IfNotFound($entity);
         return $this->render('OjsAdminBundle:AdminApplication:journal_detail.html.twig', [
             'entity' => $entity,
         ]);
@@ -92,11 +87,6 @@ class AdminJournalApplicationController extends Controller
     public function editAction($id)
     {
         $entity = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
-
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
-
         $form = $this->createEditForm($entity);
 
         return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', [
@@ -151,9 +141,7 @@ class AdminJournalApplicationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
 
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
+        $this->throw404IfNotFound($entity);
 
         $entity->getPublisher()->setStatus(PublisherStatuses::STATUS_COMPLETE);
         $entity->setStatus(JournalStatuses::STATUS_PREPARING);
@@ -169,9 +157,7 @@ class AdminJournalApplicationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
 
-        if (!$entity) {
-            throw new NotFoundHttpException();
-        }
+        $this->throw404IfNotFound($entity);
 
         $entity->setStatus(JournalStatuses::STATUS_REJECTED);
         $em->persist($entity);

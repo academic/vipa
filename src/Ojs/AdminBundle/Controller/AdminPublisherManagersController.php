@@ -55,9 +55,6 @@ class AdminPublisherManagersController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new PublisherManagers())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $entity = new PublisherManagers();
@@ -119,9 +116,6 @@ class AdminPublisherManagersController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new PublisherManagers())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new PublisherManagers();
         $form = $this->createCreateForm($entity);
 
@@ -143,10 +137,6 @@ class AdminPublisherManagersController extends Controller
     public function showAction(PublisherManagers $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_publisher_managers'.$entity->getId());
@@ -166,9 +156,6 @@ class AdminPublisherManagersController extends Controller
     public function editAction(PublisherManagers $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -213,9 +200,6 @@ class AdminPublisherManagersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $editForm = $this->createEditForm($entity);
@@ -249,9 +233,6 @@ class AdminPublisherManagersController extends Controller
      */
     public function deleteAction(Request $request, PublisherManagers $entity)
     {
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $this->throw404IfNotFound($entity);

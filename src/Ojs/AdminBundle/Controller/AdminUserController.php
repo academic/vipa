@@ -37,10 +37,6 @@ class AdminUserController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new User())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $source = new Entity("OjsUserBundle:User");
         $grid = $this->get('grid');
         $gridAction = $this->get('grid_action');
@@ -76,9 +72,6 @@ class AdminUserController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new User())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $entity = new User();
@@ -144,9 +137,6 @@ class AdminUserController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new User())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new User();
         $form = $this->createCreateForm($entity)
             ->add('create', 'submit', array('label' => 'c'));
@@ -170,9 +160,6 @@ class AdminUserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
-
-        if (!$this->isGranted('VIEW', $entity))
-            throw new AccessDeniedException("You are not authorized for this page!");
 
         $this->throw404IfNotFound($entity);
 
@@ -224,10 +211,6 @@ class AdminUserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $editForm = $this->createEditForm($entity)
                         ->add('save','submit');
 
@@ -273,9 +256,6 @@ class AdminUserController extends Controller
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $oldPassword = $entity->getPassword();
@@ -326,11 +306,6 @@ class AdminUserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
         $dispatcher = $this->get('event_dispatcher');
-
-        if (!$this->isGranted('EDIT', $user)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         if (!$user) {
             throw new NotFoundResourceException("User not found.");
         }
@@ -359,11 +334,6 @@ class AdminUserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
         $dispatcher = $this->get('event_dispatcher');
-
-        if (!$this->isGranted('EDIT', $user)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         if (!$user) {
             throw new NotFoundResourceException("User not found.");
         }
@@ -387,11 +357,6 @@ class AdminUserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
         $this->throw404IfNotFound($user);
-
-        if (!$this->isGranted('EDIT', $user)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.resetting.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */

@@ -29,9 +29,6 @@ class AdminContactTypeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new ContactTypes())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $source = new Entity('OjsJournalBundle:ContactTypes');
         $source->manipulateRow(
             function (Row $row) use ($request) {
@@ -72,9 +69,6 @@ class AdminContactTypeController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new ContactTypes())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new ContactTypes();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -125,9 +119,6 @@ class AdminContactTypeController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new ContactTypes())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new ContactTypes();
         $form = $this->createCreateForm($entity);
 
@@ -149,10 +140,6 @@ class AdminContactTypeController extends Controller
      */
     public function showAction(Request $request, ContactTypes $entity)
     {
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $entity->setDefaultLocale($request->getDefaultLocale());
         $this->throw404IfNotFound($entity);
 
@@ -176,9 +163,6 @@ class AdminContactTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -225,9 +209,6 @@ class AdminContactTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -258,9 +239,6 @@ class AdminContactTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
