@@ -588,11 +588,11 @@ class ArticleSubmissionController extends Controller
      */
     public function startAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine();
-        if ($this->submissionsNotAllowed()) {
+        if ($this->submissionsNotAllowed($journal)) {
             return $this->respondAsNotAllowed();
         }
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $session = $this->get('session');
 
         if (!$journal) {
