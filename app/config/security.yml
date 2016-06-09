@@ -62,14 +62,8 @@ security:
 
   access_control:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/journal, roles: IS_AUTHENTICATED_FULLY }
-    - { path: /manager, roles: [IS_AUTHENTICATED_FULLY] }
-    - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: /user, roles: IS_AUTHENTICATED_FULLY }
-    - { path: ^/author, roles: IS_AUTHENTICATED_FULLY }
-    - { path: ^/editor, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/editor, roles: IS_AUTHENTICATED_FULLY } # @todo probably deprecated we must revise and remove this line
     - { path: ^/api/*, roles: IS_AUTHENTICATED_FULLY }
-    - { path: ^/suggest, roles: IS_AUTHENTICATED_FULLY }
-    - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
