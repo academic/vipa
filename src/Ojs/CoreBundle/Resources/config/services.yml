@@ -47,6 +47,12 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  ojs_user.user_provider.username_email:
+    class: Ojs\CoreBundle\Security\EmailUserProvider
+    arguments:
+      - "@fos_user.user_manager"
+      - "@ojs.journal_service"
+
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:

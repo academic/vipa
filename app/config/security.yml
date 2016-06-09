@@ -12,7 +12,7 @@ security:
     ROLE_SUPER_ADMIN:  [ROLE_ADMIN]
   providers:
     fos_userbundle:
-      id: fos_user.user_provider.username_email
+      id: ojs_user.user_provider.username_email
   firewalls:
     dev:
       pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -61,9 +61,24 @@ security:
           service: ojs.user.oauth
 
   access_control:
-    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/admin, roles: ROLE_ADMIN }
-    - { path: ^/journal, roles: IS_AUTHENTICATED_FULLY }
-    - { path: /user, roles: IS_AUTHENTICATED_FULLY }
-    - { path: ^/editor, roles: IS_AUTHENTICATED_FULLY } # @todo probably deprecated we must revise and remove this line
-    - { path: ^/api/*, roles: IS_AUTHENTICATED_FULLY }
+    -
+      path: ^/login
+      roles: IS_AUTHENTICATED_ANONYMOUSLY
+    -
+      path: ^/admin
+      roles: ROLE_ADMIN
+    -
+      path: ^/journal/\d+/issue
+      allow_if: "user and (user.hasJournalRole('ROLE_JOURNAL_MANAGER') or user.hasJournalRole('ROLE_JOURNAL_EDITOR') or user.isAdmin())"
+    -
+      path: ^/journal
+      roles: IS_AUTHENTICATED_FULLY
+    -
+      path: /user
+      roles: IS_AUTHENTICATED_FULLY
+    -
+      path: ^/editor
+      roles: IS_AUTHENTICATED_FULLY # @todo probably deprecated we must revise and remove this line
+    -
+      path: ^/api/*
+      roles: IS_AUTHENTICATED_FULLY

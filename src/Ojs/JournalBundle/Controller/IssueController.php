@@ -40,10 +40,6 @@ class IssueController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
-
-        if (!$this->isGranted('VIEW', $journal, 'issues')) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
         $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:Issue');
         $source->manipulateRow(
@@ -130,11 +126,6 @@ class IssueController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
-
-        if (!$this->isGranted('CREATE', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
-        }
-
         $entity = new Issue();
         $form = $this->createCreateForm($entity, $journal->getId());
         $form->handleRequest($request);
@@ -202,11 +193,6 @@ class IssueController extends Controller
     public function newAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('CREATE', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
-        }
-
         $entity = new Issue();
         $form = $this->createCreateForm($entity, $journal->getId());
 
@@ -229,11 +215,6 @@ class IssueController extends Controller
     public function showAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('VIEW', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's issue!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -262,11 +243,6 @@ class IssueController extends Controller
     public function editAction($id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('EDIT', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -318,10 +294,6 @@ class IssueController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
-
-        if (!$this->isGranted('EDIT', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -369,11 +341,6 @@ class IssueController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
-
-        if (!$this->isGranted('DELETE', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
 
@@ -425,9 +392,6 @@ class IssueController extends Controller
     public function viewAction($id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('VIEW', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for view this journal's issue!");
-        }
         $em = $this->getDoctrine()->getManager();
         /** @var Issue $issue */
         $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -456,11 +420,6 @@ class IssueController extends Controller
     public function arrangeAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('EDIT', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         /** @var Issue $issue */
@@ -516,10 +475,6 @@ class IssueController extends Controller
     public function addArticleAction(Request $request, $id, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if (!$this->isGranted('EDIT', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         /** @var Issue $issue */
@@ -570,11 +525,6 @@ class IssueController extends Controller
     public function removeArticleAction(Request $request, $id, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('EDIT', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-
         $referrer = $request->headers->get('referer');
         $em = $this->getDoctrine()->getManager();
 
@@ -601,10 +551,6 @@ class IssueController extends Controller
     public function makeLastIssueAction($id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-
-        if (!$this->isGranted('EDIT', $journal, 'issues')) {
-            throw new AccessDeniedException("You are not authorized for this page");
-        }
         $em = $this->getDoctrine()->getManager();
 
         $findSelectedIssue = $em->getRepository('OjsJournalBundle:Issue')->find($id);

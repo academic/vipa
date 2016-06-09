@@ -177,6 +177,11 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     /** @var Collection */
     private $journalRoles;
 
+    /**
+     * @var Journal|null
+     */
+    private $currentJournal = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -849,7 +854,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
 
         /** @var JournalUser $journalUser */
         foreach ($journalUsers as $journalUser) {
-            if ($journalUser->getJournal() == $journal) {
+            if ($journalUser->getJournal()->getId() == $journal->getId()) {
                 foreach ($journalUser->getRoles() as $role) {
                     $journalRoles[] = [$journalUser->getJournal(), $role];
                 }
@@ -857,6 +862,19 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
         }
 
         return $journalRoles;
+    }
+
+    public function getJournalRolesBag(Journal $journal = null)
+    {
+        if (!$journal) {
+            return [];
+        }
+        $roles = [];
+        $journalRoles = $this->getJournalRoles($journal);
+        foreach($journalRoles as $journalRole){
+            $roles[] = $journalRole[1]->getRole();
+        }
+        return $roles;
     }
 
     /**
@@ -948,5 +966,46 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return null|Journal
+     */
+    public function getCurrentJournal()
+    {
+        return $this->currentJournal;
+    }
+
+    /**
+     * @param $currentJournal
+     *
+     * @return $this
+     */
+    public function setCurrentJournal($currentJournal)
+    {
+        $this->currentJournal = $currentJournal;
+
+        return $this;
+    }
+
+    /**
+     * @return array|void
+     */
+    public function getCurrentJournalRoles()
+    {
+        if(!$this->currentJournal instanceof Journal){
+            return [];
+        }
+        return $this->getJournalRolesBag($this->currentJournal);
+    }
+
+    /**
+     * @param $role
+     *
+     * @return bool
+     */
+    public function hasJournalRole($role)
+    {
+        return in_array($role, $this->getCurrentJournalRoles());
     }
 }
