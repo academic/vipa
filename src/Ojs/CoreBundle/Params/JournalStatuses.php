@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Params;
 
 class JournalStatuses
 {
+    const STATUS_EXITED = -5;
     const STATUS_APPLICATION = -4;
     const STATUS_REJECTED = -3;
     const STATUS_NAME_CHANGED = -2;

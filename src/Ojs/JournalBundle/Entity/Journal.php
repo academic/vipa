@@ -37,6 +37,7 @@ class Journal extends AbstractTranslatable
         JournalStatuses::STATUS_HOLD         => 'status.hold',
         JournalStatuses::STATUS_PREPARING    => 'status.preparing',
         JournalStatuses::STATUS_PUBLISHED    => 'status.published',
+        JournalStatuses::STATUS_EXITED       => 'status.exited',
     ];
     /** @var  boolean */
     protected $setupFinished;
