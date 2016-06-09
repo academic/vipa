@@ -12,10 +12,9 @@ class UserControllerTest extends BaseTestCase
     public function testPageIsSuccessful($url)
     {
         $client = $this->client;
-        $crawler = $client->request('GET', $url, array(), array(), array(
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW' => 'admin',
-            ));
+
+        $this->logIn();
+        $crawler = $client->request('GET', $url);
         $this->assertStatusCode(200, $client);
     }
 
