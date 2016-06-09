@@ -25,6 +25,7 @@ before_install:
   - npm install -g bower
 
 before_script:
+  - phpenv config-add travis.php.ini
   - composer install --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - composer update
