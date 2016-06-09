@@ -25,6 +25,12 @@ abstract class BaseTestSetup extends WebTestCase
         $this->client = static::makeClient(array(),array('HTTP_HOST' => $baseUrl));
     }
 
+    protected function logIn($username = 'admin', $password = 'admin')
+    {
+        $this->client->setServerParameter('PHP_AUTH_USER',$username);
+        $this->client->setServerParameter('PHP_AUTH_PW',$password);
+    }
+
     protected function tearDown()
     {
         $this->em->close();
