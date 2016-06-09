@@ -54,6 +54,7 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element',
                     ],
+                    'placeholder' => 'select.publisher',
                     'class' => 'OjsJournalBundle:Publisher',
                     'query_builder' => function(PublisherRepository $er) {
                         return $er->createQueryBuilder('publisher')

@@ -23,6 +23,7 @@ class BoardMemberType extends AbstractType
                 [
                     'required' => true,
                     'label' => 'user',
+                    'placeholder' => 'user',
                     'class' => 'Ojs\UserBundle\Entity\User',
                     'remote_route' => 'ojs_journal_user_search'
                 ]

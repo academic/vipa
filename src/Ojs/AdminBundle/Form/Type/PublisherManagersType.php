@@ -25,6 +25,7 @@ class PublisherManagersType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
+                    'placeholder' => 'select.publisher',
                     'attr' => array("class" => "select2-element"),
                 ]
             )
@@ -37,6 +38,7 @@ class PublisherManagersType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
+                    'placeholder' => 'user',
                     'attr' => array("class" => "select2-element"),
                 ]
             )

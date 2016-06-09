@@ -26,7 +26,6 @@ class InstitutionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $selfId = $this->selfId;
         $builder
             ->add(
                 'name',

@@ -95,6 +95,7 @@ class AdminJournalApplicationType extends AbstractType
                     'required' => true,
                     'multiple' => true,
                     'expanded' => false,
+                    'placeholder' => 'journal.period',
                     'attr' => [
                         'class' => 'select2-element validate[required]',
                     ]
@@ -135,7 +136,8 @@ class AdminJournalApplicationType extends AbstractType
                     },
                     'attr' => ['class' => 'select2-element application-publisher'],
                     'label' => 'journal.publisher',
-                    'required' => true
+                    'required' => true,
+                    'placeholder' => 'select.publisher',
                 )
             )
             ->add(

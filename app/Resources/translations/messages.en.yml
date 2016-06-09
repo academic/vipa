@@ -1632,6 +1632,7 @@ display_mode: 'Display Mode'
 display_mode.all: 'Title, Volume and Number'
 display_mode.title: 'Title'
 display_mode.volume_and_number: 'Volume and Number'
+select.publisher: 'Select publisher'
 
 # OAuth
 linkedin: 'Linkedin'
