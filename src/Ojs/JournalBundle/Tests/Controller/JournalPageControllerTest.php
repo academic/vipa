@@ -19,7 +19,7 @@ class JournalPageControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/journal/1/page');
+        $client->request('GET', '/journal/1/page/new');
 
         $this->assertStatusCode(200, $client);
     }
