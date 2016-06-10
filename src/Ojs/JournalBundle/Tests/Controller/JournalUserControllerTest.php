@@ -4,7 +4,7 @@ namespace Ojs\JournalBundle\Tests\Controller;
 
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
 
-class JournalUseControllerTest extends BaseTestCase
+class JournalUserControllerTest extends BaseTestCase
 {
     public function testIndex()
     {
