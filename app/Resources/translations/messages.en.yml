@@ -597,12 +597,13 @@ journal.title: Title
 journal.titleAbbr: 'Abbreviated Title'
 journal.titleTransliterated: 'Transliterated Title'
 journal.update: 'Update the Journal'
-journal.url: URL
+journal.url: 'Journal Webpage'
 journal.user: User
 journal.users: 'Journal Users'
 journal.subscribe: 'Subscribe with email'
 journal.mandatory_lang: 'Mandatory Language'
-'Mandadory Lang': 'Mandatory Language'
+mandadory.lang: 'Mandatory Language'
+select.mandadory.lang: 'Select Mandatory Language'
 journal.supported_languages: 'Supported Languages'
 journal.no_journal_you_have: 'No journal you have'
 journalContact.contact.id: 'Contact ID'
@@ -1634,6 +1635,7 @@ display_mode.all: 'Title, Volume and Number'
 display_mode.title: 'Title'
 display_mode.volume_and_number: 'Volume and Number'
 select.publisher: 'Select publisher'
+journal.application.domain.help.text: 'You can host your journal, if you specify a domain.'
 
 # OAuth
 linkedin: 'Linkedin'

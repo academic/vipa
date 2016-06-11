@@ -58,7 +58,9 @@ class JournalEditType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'required' => true,
+                    'label' => 'mandatory.lang',
+                    'placeholder' => 'select.mandatory.lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'attr' => [
                         'class' => 'select2-element ',

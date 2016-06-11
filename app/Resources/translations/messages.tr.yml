@@ -596,13 +596,14 @@ journal.title: Derginin Tam Adı
 journal.titleAbbr: 'Kısaltılmış Başlık'
 journal.titleTransliterated: 'Derginin Adı (başka alfabede)'
 journal.update: 'Dergi Güncelle'
-journal.url: URL
+journal.url: 'Dergi Web Sayfası'
 journal.user: Kullanıcı
 journal.users: 'Dergi Kullanıcıları'
 journal.subscribe: 'Email ile abone ol'
 journal.no_journal_you_have: 'Hiç derginiz bulunmuyor'
 journal.mandatory_lang: 'Dergi Zorunlu Dili'
-'Mandatory Lang': 'Zorunlu Dili'
+mandatory.lang: 'Zorunlu Dili'
+select.mandatory.lang: 'Zorunlu Dil Seçin'
 journal.supported_languages: 'Desteklediği Diller'
 journalContact.contact.id: 'İletişim ID'
 journalContact.contact.type.id: 'İletişim Türü ID'
@@ -1628,6 +1629,7 @@ display_mode.all: 'Başlık, Cilt ve Sayı'
 display_mode.title: 'Başlık'
 display_mode.volume_and_number: 'Cilt ve Sayı'
 select.publisher: 'Bir yayıncı seçin'
+journal.application.domain.help.text: 'Size ait bir domain i dergi için belirleyerek hosting hizmetinden yararlanabilirsiniz.'
 
 # OAuth
 linkedin: 'Linkedin'

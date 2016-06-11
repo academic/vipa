@@ -37,7 +37,13 @@ class JournalApplicationType extends AbstractType
                 'required' => false
             ])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
-            ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])
+            ->add('domain', null, [
+                'label' => 'journal.domain',
+                'attr' => [
+                    'help_text' => 'journal.application.domain.help.text',
+                    ]
+                ]
+            )
             ->add(
                 'country',
                 'entity',
@@ -81,8 +87,10 @@ class JournalApplicationType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'required' => true,
+                    'label' => 'mandatory.lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'placeholder' => 'select.mandatory.lang',
                     'attr' => [
                         'class' => 'select2-element ',
                     ]
@@ -119,7 +127,7 @@ class JournalApplicationType extends AbstractType
             )
             ->add('url', 'url', [
                 'label' => 'journal.url',
-                 'required' => false
+                'required' => false,
                 ]
             )
             ->add(

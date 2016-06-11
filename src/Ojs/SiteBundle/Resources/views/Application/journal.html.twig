@@ -49,9 +49,9 @@
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
                         {% for field in [form.mandatoryLang, form.title, form.subtitle,
-                        form.title_abbr, form.titleTransliterated, form.domain,
+                        form.title_abbr, form.titleTransliterated, form.url, form.domain,
                         form.country, form.issn, form.eissn, form.founded,
-                        form.periods, form.tags, form.journalIndexesBag, form.url, form.languages, form.subjects, form.accessModal] %}
+                        form.periods, form.tags, form.journalIndexesBag, form.languages, form.subjects, form.accessModal] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>
