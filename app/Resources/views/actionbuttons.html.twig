@@ -20,8 +20,8 @@
         </a>
     {% endif %}
     {% if (cms_path is defined) %}
-        <a class="btn-info btn-sm" 
-           href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}" title="{{"cms"|trans}}">
+        <a class="btn-info btn-sm"
+           href="{{ path(cms_path, {'id': entity.id, 'object': entity }) }}" title="{{"cms"|trans}}">
             <i class="fa fa-anchor"></i>
         </a>
     {% endif %}
@@ -37,7 +37,7 @@
         </form>
     {% endif %}
     {% if invite_user_path is defined %}
-        <a class="btn btn-danger btn-sm" href="{{ url(invite_user_path,{'id':entity.id,'object':entity|cmsobject}) }}">
+        <a class="btn btn-danger btn-sm" href="{{ url(invite_user_path,{'id':entity.id,'object':entity}) }}">
             <i class="fa fa-users"></i>
         </a>
     {% endif %}
