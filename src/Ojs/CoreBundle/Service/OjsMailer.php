@@ -132,7 +132,7 @@ class OjsMailer
     public function getJournalRelatedUsers()
     {
         return $this->em->getRepository('OjsUserBundle:User')->findUsersByJournalRole(
-            ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR']
+            ['ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR']
         );
     }
 

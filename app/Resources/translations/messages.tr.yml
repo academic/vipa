@@ -60,6 +60,7 @@ Pubdateseason: 'Yayın Sezonu'
 ROLE_AUTHOR: Yazar
 ROLE_COPYEDITOR: 'Sayfa Düzenleyici'
 ROLE_EDITOR: Editör
+ROLE_CO_EDITOR: Yardımcı Editör
 ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
 ROLE_LAYOUT_EDITOR: 'Mizanpajcı'
 ROLE_PROOFREADER: 'Son Okuyucu'

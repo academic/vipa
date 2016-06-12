@@ -60,6 +60,7 @@ Pubdateseason: 'Pub Date Season'
 ROLE_AUTHOR: Author
 ROLE_COPYEDITOR: Copyeditor
 ROLE_EDITOR: Editor
+ROLE_CO_EDITOR: Co-Editor
 ROLE_JOURNAL_MANAGER: 'Journal Manager'
 ROLE_LAYOUT_EDITOR: 'Layout Editor'
 ROLE_PROOFREADER: Proofreader
