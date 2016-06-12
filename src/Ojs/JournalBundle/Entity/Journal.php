@@ -256,7 +256,7 @@ class Journal extends AbstractTranslatable
      * @var Publisher
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
-     * @Grid\Column(field="publisher.translations.name", title="publisher")
+     * @Grid\Column(field="publisher.translations.name", title="publisher", safe=false)
      */
     private $publisher;
     /**

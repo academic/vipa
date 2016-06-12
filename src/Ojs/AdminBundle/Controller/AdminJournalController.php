@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
@@ -56,6 +54,9 @@ class AdminJournalController extends Controller
                             $journalLinkTemplate = '<a target="_blank" href="'.$generateJournalLink.'">'.$entity->getTitleTranslations().'</a>';
                         }
                         $row->setField('translations.title', $journalLinkTemplate);
+                        if($entity->getPublisher() !== null){
+                            $row->setField('publisher.translations.name', $entity->getPublisher()->getNameTranslations());
+                        }
                     }
                 }
 

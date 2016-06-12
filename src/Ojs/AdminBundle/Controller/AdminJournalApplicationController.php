@@ -40,6 +40,9 @@ class AdminJournalApplicationController extends Controller
                     }else{
                         $cache->save('grid_row_id_'.$entity->getId(), true);
                         $row->setField('translations.title', $entity->getTitleTranslations());
+                        if($entity->getPublisher() !== null){
+                            $row->setField('publisher.translations.name', $entity->getPublisher()->getNameTranslations());
+                        }
                     }
                 }
 
