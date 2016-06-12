@@ -63,6 +63,7 @@ class AdminJournalApplicationController extends Controller
         $rowAction = array();
         $rowAction[] = $gridAction->editAction('ojs_admin_application_journal_edit', 'id');
         $rowAction[] = $gridAction->showAction('ojs_admin_application_journal_show', 'id');
+        $rowAction[] = $gridAction->contactsAction('ojs_journal_journal_contact_index');
         $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
 

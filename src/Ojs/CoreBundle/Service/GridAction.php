@@ -150,6 +150,32 @@ class GridAction
     }
 
     /**
+     * @param string $route
+     * @param $key
+     * @param  null      $role
+     * @return RowAction
+     */
+    public function contactsAction($route, $key = 'id', $role = null)
+    {
+        $rowAction = new RowAction('<i class="fa fa-users"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("journal.contact"),
+            ]
+        );
+        $rowAction->setRouteParameters($key);
+        $rowAction->setTarget('_blank');
+        $rowAction->setRouteParametersMapping(['id' => 'journalId']);
+        if ($role) {
+            $rowAction->setRole($role);
+        }
+
+        return $rowAction;
+    }
+
+    /**
      * @param $route
      * @param  null      $role
      * @return RowAction

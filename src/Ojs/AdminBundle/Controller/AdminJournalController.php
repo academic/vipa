@@ -68,6 +68,7 @@ class AdminJournalController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
+        $rowAction[] = $gridAction->contactsAction('ojs_journal_journal_contact_index');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
             ->setRouteParameters('id')
             ->setRouteParametersMapping(array('id' => 'journalId'))
