@@ -20,7 +20,7 @@ parameters:
             desc: Editor
         -
             role: ROLE_CO_EDITOR
-            desc: Editor
+            desc: Co-Editor
         -
             role: ROLE_SECTION_EDITOR
             desc: Section Editor
