@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
 use Ojs\JournalBundle\Form\Type\JournalType;
@@ -104,108 +103,6 @@ class ManagerController extends Controller
                 'edit_form' => $editForm->createView(),
             )
         );
-    }
-
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    public function journalSettingsSubmissionAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /* @var $journal  Journal */
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal(false);
-
-        if (!$this->isGranted('EDIT', $journal, 'submissionSettings')) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
-
-        if ($request->getMethod() == 'POST') {
-            $submissionConfirmText = $request->get('submissionConfirmText');
-            if (!empty($submissionConfirmText)) {
-                $this->updateJournalSetting(
-                    $journal,
-                    'submissionConfirmText',
-                    $submissionConfirmText
-                );
-            }
-            $submissionAbstractTemplate = $request->get('submissionAbstractTemplate');
-            if (!empty($submissionAbstractTemplate)) {
-                $this->updateJournalSetting(
-                    $journal,
-                    'submissionAbstractTemplate',
-                    $submissionAbstractTemplate
-                );
-            }
-            if($request->request->has('submissionOpen')){
-                $this->updateJournalSetting(
-                    $journal,
-                    'submissionOpen',
-                    1
-                );
-            }else{
-                $this->updateJournalSetting(
-                    $journal,
-                    'submissionOpen',
-                    0
-                );
-            }
-            $submissionCloseText = $request->get('submissionCloseText');
-            if (!empty($submissionCloseText)) {
-                $this->updateJournalSetting(
-                    $journal,
-                    'submissionCloseText',
-                    $submissionCloseText
-                );
-            }
-        }
-
-        $data = array(
-            'settings' => array(
-                'submissionConfirmText' => $journal->getSetting('submissionConfirmText') ?
-                    $journal->getSetting('submissionConfirmText')->getValue() :
-                    null,
-                'submissionAbstractTemplate' => $journal->getSetting('submissionAbstractTemplate') ?
-                    $journal->getSetting('submissionAbstractTemplate')->getValue() :
-                    null,
-                'submissionOpen' => $journal->getSetting('submissionOpen') ?
-                    $journal->getSetting('submissionOpen')->getValue() :
-                    true,
-                'submissionCloseText' => $journal->getSetting('submissionCloseText') ?
-                    $journal->getSetting('submissionCloseText')->getValue() :
-                    null,
-            ),
-            'journal' => $journal,
-        );
-
-        return $this->render('OjsJournalBundle:Manager:journal_settings_submission.html.twig', $data);
-    }
-
-    /**
-     * @param  Journal $journal
-     * @param  string $settingName
-     * @param  string $settingValue if null, function will return current value
-     * @param  bool $encoded set true if setting stored as json_encoded
-     * @return array|mixed|string
-     */
-    private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var JournalSetting $setting */
-        $setting = $em->
-        getRepository('OjsJournalBundle:JournalSetting')->
-        findOneBy(array('setting' => $settingName));
-
-        $settingString = $encoded ? json_encode($settingValue) : $settingValue;
-        if ($setting) {
-            $setting->setValue($settingString);
-        } else {
-            $setting = new JournalSetting($settingName, $settingString, $journal);
-        }
-        $em->persist($setting);
-        $em->flush();
-
-        return $setting ? ($encoded ? json_decode($setting->getValue()) : $setting->getValue()) : [];
     }
 
     /**

@@ -247,12 +247,6 @@ class Journal extends AbstractTranslatable
      */
     private $sections;
     /**
-     *
-     * arbitrary settings
-     * @var ArrayCollection|JournalSetting[]
-     */
-    private $settings;
-    /**
      * @var Publisher
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
@@ -372,53 +366,6 @@ class Journal extends AbstractTranslatable
         $this->header = $header;
 
         return $this;
-    }
-
-    /**
-     * @param  string $settingName
-     * @param  string $value
-     * @return Journal
-     */
-    public function addSetting($settingName, $value)
-    {
-        $this->settings[$settingName] = new JournalSetting($settingName, $value, $this);
-
-        return $this;
-    }
-
-    /**
-     * @param  string $settingName
-     * @return bool
-     */
-    public function hasSetting($settingName)
-    {
-        foreach ($this->settings as $setting) {
-            if ($setting->getSetting() === $settingName) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * @param  string $settingName
-     * @return JournalSetting|boolean
-     */
-    public function getAttribute($settingName)
-    {
-        return $this->getSetting($settingName);
-    }
-
-    /**
-     *
-     * @param  string $settingName
-     * @return JournalSetting|boolean
-     */
-    public function getSetting($settingName)
-    {
-        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : null;
     }
 
     /**
