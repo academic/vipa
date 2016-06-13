@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Listeners;
 
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
+use JMS\Serializer\JsonSerializationVisitor;
 
 class SerializationListener implements EventSubscriberInterface
 {
@@ -24,7 +25,10 @@ class SerializationListener implements EventSubscriberInterface
             foreach($event->getObject()->display() as $itemKey => $item){
                 if(is_object($item) && method_exists($item, 'count') && !is_string($item)){
                     try{
-                        $event->getVisitor()->addData($itemKey.'_count', $item->count());
+                        $visitor = $event->getVisitor();
+                        if($visitor instanceof JsonSerializationVisitor){
+                            $event->getVisitor()->addData($itemKey.'_count', $item->count());
+                        }
                     }catch (\Exception $e){
                         return;
                     }
