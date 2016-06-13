@@ -216,8 +216,8 @@
         {{ parent() }}
         <script>
             $("form[name='ojs_article_submission']").submit(function () {
-                {% if selectedJournal().getSetting('submissionConfirmText') %}
-                return confirm("{{ selectedJournal().getSetting('submissionConfirmText').value }}");
+                {% if submissionSetting is not empty %}
+                return confirm("{{ submissionSetting.submissionConfirmText }}");
                 {% else %}
                 return confirm("{{ 'sure'|trans }}");
                 {% endif %}

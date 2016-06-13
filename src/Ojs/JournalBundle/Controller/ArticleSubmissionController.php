@@ -164,7 +164,7 @@ class ArticleSubmissionController extends Controller
     public function newAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed($journal)) {
+        if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -201,13 +201,12 @@ class ArticleSubmissionController extends Controller
 
         $articleAuthor->setAuthor($author);
 
-        //find abstract tempalate
-        $findAbstractTemplate = $em->getRepository('OjsJournalBundle:JournalSetting')->findOneBy([
-            'setting' => 'submissionAbstractTemplate',
-        ]);
-        $abstractTemplate = '';
-        if($findAbstractTemplate){
-            $abstractTemplate = $findAbstractTemplate->getValue();
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
+        $abstractTemplates = [];
+        if($submissionSetting){
+            foreach($submissionSetting->getTranslations() as $translation){
+                $abstractTemplates[$translation->getLocale()] = $translation->getSubmissionAbstractTemplate();
+            }
         }
 
 
@@ -292,26 +291,29 @@ class ArticleSubmissionController extends Controller
                 'article'           => $article,
                 'journal'           => $journal,
                 'form'              => $form->createView(),
-                'abstractTemplate'  => $abstractTemplate,
+                'abstractTemplates'  => $abstractTemplates,
             )
         );
     }
 
     /**
-     * @param Journal $journal
      * @return bool
      */
-    private function submissionsNotAllowed(Journal $journal)
+    private function submissionsNotAllowed()
     {
-        $permissionSetting = $this
-            ->getDoctrine()
+        $em = $this->getDoctrine()->getManager();
+        $permissionSetting = $em
             ->getRepository('OjsAdminBundle:SystemSetting')
             ->findOneBy(['name' => 'article_submission']);
 
+        $submissionSetting = $em
+            ->getRepository('OjsJournalBundle:SubmissionSetting')
+            ->findOneBy([]);
+
         if (($permissionSetting
             && !$permissionSetting->getValue())
-            || ($journal->getSetting('submissionOpen') !== null
-            && $journal->getSetting('submissionOpen')->getValue() == "0")) {
+            || ($submissionSetting
+            && !$submissionSetting->getSubmissionEnabled())) {
 
             return true;
         }
@@ -319,13 +321,17 @@ class ArticleSubmissionController extends Controller
         return false;
     }
 
+    /**
+     * @return Response
+     */
     private function respondAsNotAllowed()
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $em = $this->getDoctrine()->getManager();
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
         $message = 'message.submission_not_available';
-        if($journal->getSetting('submissionCloseText')
-            && !empty($journal->getSetting('submissionCloseText')->getValue())){
-            $message = $journal->getSetting('submissionCloseText')->getValue();
+        if($submissionSetting
+            && !empty($submissionSetting->getSubmissionCloseText())){
+            $message = $submissionSetting->getSubmissionCloseText();
         }
 
         return $this->render(
@@ -377,7 +383,7 @@ class ArticleSubmissionController extends Controller
     public function editAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed($journal)) {
+        if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -482,7 +488,7 @@ class ArticleSubmissionController extends Controller
     public function previewAction(Request $request, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed($journal)) {
+        if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -523,6 +529,8 @@ class ArticleSubmissionController extends Controller
 
         $validator = $this->get('validator');
         $draftErrors = $validator->validate($article, null, ['groups' => 'submission']);
+
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
 
         if ($form->isValid() && count($draftErrors) == 0) {
             if ($session->has('submissionFiles')) {
@@ -577,6 +585,7 @@ class ArticleSubmissionController extends Controller
                 'translations' => $article->getTranslations(),
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
                 'form' => $form->createView(),
+                'submissionSetting' => $submissionSetting,
                 'draftErrors' => $draftErrors,
             )
         );
@@ -590,7 +599,7 @@ class ArticleSubmissionController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine();
-        if ($this->submissionsNotAllowed($journal)) {
+        if ($this->submissionsNotAllowed()) {
             return $this->respondAsNotAllowed();
         }
         $session = $this->get('session');

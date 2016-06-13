@@ -37,14 +37,6 @@ Ojs\JournalBundle\Entity\Journal:
         name: mandatory_lang_id
         referencedColumnName: id
   oneToMany:
-    settings:
-      targetEntity: JournalSetting
-      mappedBy: journal
-      cascade: ["persist", "remove"]
-      indexBy: setting
-      fetch: EXTRA_LAZY
-      cache:
-        usage: NONSTRICT_READ_WRITE
     articles:
       targetEntity: Article
       mappedBy: journal
