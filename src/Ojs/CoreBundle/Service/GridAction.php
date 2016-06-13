@@ -150,6 +150,66 @@ class GridAction
     }
 
     /**
+     * @param $journalId
+     * @return RowAction
+     */
+    public function articleCitations($journalId)
+    {
+        $rowAction = new RowAction('<i class="fa fa-file-text"></i>', 'ojs_journal_citation_index');
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-default btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("article.citations"),
+            ]
+        );
+        $rowAction->setRouteParameters(['journalId' => $journalId, 'id']);
+        $rowAction->setRouteParametersMapping(['id' => 'articleId']);
+
+        return $rowAction;
+    }
+
+    /**
+     * @param $journalId
+     * @return RowAction
+     */
+    public function articleAuthors($journalId)
+    {
+        $rowAction = new RowAction('<i class="fa fa-users"></i>', 'ojs_journal_article_author_index');
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("article.authors"),
+            ]
+        );
+        $rowAction->setRouteParameters(['journalId' => $journalId, 'id']);
+        $rowAction->setRouteParametersMapping(['id' => 'articleId']);
+
+        return $rowAction;
+    }
+
+    /**
+     * @param $journalId
+     * @return RowAction
+     */
+    public function articleFiles($journalId)
+    {
+        $rowAction = new RowAction('<i class="fa fa-file"></i>', 'ojs_journal_article_file_index');
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-default btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("article.files"),
+            ]
+        );
+        $rowAction->setRouteParameters(['journalId' => $journalId, 'id']);
+        $rowAction->setRouteParametersMapping(['id' => 'articleId']);
+
+        return $rowAction;
+    }
+
+    /**
      * @param string $route
      * @param $key
      * @param  null      $role

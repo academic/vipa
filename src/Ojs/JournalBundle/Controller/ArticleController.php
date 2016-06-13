@@ -75,6 +75,10 @@ class ArticleController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $journal->getId()]);
         $rowAction[] = $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->articleCitations($journal->getId());
+        $rowAction[] = $gridAction->articleAuthors($journal->getId());
+        $rowAction[] = $gridAction->articleFiles($journal->getId());
+
         $rowAction[] = $gridAction->deleteAction(
             'ojs_journal_article_delete',
             ['id', 'journalId' => $journal->getId()]
