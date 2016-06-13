@@ -58,7 +58,8 @@ class MenuBuilder implements ContainerAwareInterface
             ['announcements',       'title.announcements',                  'ojs_journal_announcement_index',       'bullhorn',     true,   ],
 
             ['theme',               'title.themes',                         'ojs_journal_theme_index',              'paint-brush',  false,  ],
-            ['design',              'title.designs',                        'ojs_journal_design_index',             'bars',         true,   ],
+            //['design',              'title.designs',                        'ojs_journal_design_index',             'bars',         true,   ],
+            //disable design until to stabilized
 
             ['articles',            'title.articles',                       'ojs_journal_article_index',            'file-text',    false,  ],
             ['issues',              'title.issues',                         'ojs_journal_issue_index',              'newspaper-o',  true,   ],
