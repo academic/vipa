@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalContact
- * @GRID\Source(columns="id, title, fullName")
+ * @GRID\Source(columns="id, email, fullName, contactType.translations.name")
  * @GRID\Source(columns="id, journal.translations.title, fullName, contactType.translations.name", groups={"admin"})
  */
 class JournalContact implements JournalItemInterface
@@ -57,7 +57,7 @@ class JournalContact implements JournalItemInterface
 
     /**
      * @var ContactTypes
-     * @GRID\Column(title="contactType", field="contactType.translations.name")
+     * @GRID\Column(title="contactType", field="contactType.translations.name", safe=false)
      */
     private $contactType;
 

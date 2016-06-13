@@ -36,6 +36,7 @@ class JournalContactController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $eventDispatcher = $this->get('event_dispatcher');
+        $cache = $this->get('array_cache');
 
         if (!$this->isGranted('VIEW', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
@@ -43,13 +44,18 @@ class JournalContactController extends Controller
         $source = new Entity('OjsJournalBundle:JournalContact');
 
         $source->manipulateRow(
-            function (Row $row) use ($request) {
+            function (Row $row) use ($request, $cache) {
                 /* @var JournalContact $entity */
                 $entity = $row->getEntity();
                 $entity->setDefaultLocale($request->getDefaultLocale());
                 if (!is_null($entity)) {
-                    $row->setField('title', $entity->getTitle());
-                    $row->setField('contactTypeName', $entity->getContactType()->getName());
+                    if($cache->contains('grid_row_id_'.$entity->getId())){
+                        $row->setClass('hidden');
+                    }else{
+                        $cache->save('grid_row_id_'.$entity->getId(), true);
+                        $row->setField('title', $entity->getTitle());
+                        $row->setField('contactType.translations.name', $entity->getContactType()->getNameTranslations());
+                    }
                 }
 
                 return $row;
