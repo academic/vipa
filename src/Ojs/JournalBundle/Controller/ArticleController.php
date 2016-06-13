@@ -182,7 +182,7 @@ class ArticleController extends Controller
             $em->persist($event->getItem());
             $em->flush();
 
-            $this->successFlashBag('successful.create');
+            $this->successFlashBag('article.successful.create');
 
             $event = new JournalItemEvent($event->getItem());
             $dispatcher->dispatch(ArticleEvents::POST_CREATE, $event);

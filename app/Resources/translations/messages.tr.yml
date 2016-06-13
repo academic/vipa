@@ -404,7 +404,7 @@ hide_title: 'Başlığı Gizle'
 home: Ana Sayfa
 id: ID
 image: Görüntü
-inbook: Kitap 
+inbook: Kitap
 incollection: 'Seri Yayın'
 initials: Başharfler
 inproceedings: Bildiri
@@ -1447,7 +1447,7 @@ validation:
     abstract: 'Varsayılan dil için öz alanı zorunludur.'
 yes: Evet
 no: Hayır
-default: Varsayılan 
+default: Varsayılan
 optional: 'İsteğe Bağlı'
 submission.no_file: 'Telif Hakkı Formu yok, lütfen dergi ile iletişime geçiniz.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
@@ -1631,6 +1631,7 @@ display_mode.title: 'Başlık'
 display_mode.volume_and_number: 'Cilt ve Sayı'
 select.publisher: 'Bir yayıncı seçin'
 journal.application.domain.help.text: 'Size ait bir domain i dergi için belirleyerek hosting hizmetinden yararlanabilirsiniz.'
+article.successful.create: 'Makale başarılı bir şekilde eklendi. Üst kısımdan yazar, dosya veya referans ekleyebilirsiniz.'
 
 # OAuth
 linkedin: 'Linkedin'
