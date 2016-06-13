@@ -82,3 +82,7 @@ table.dataTable thead .sorting:after {
 .badge-inverse {
     background-color: #333333;
 }
+
+.article-show-tags li a{
+    font-size: 19px !important;
+}
