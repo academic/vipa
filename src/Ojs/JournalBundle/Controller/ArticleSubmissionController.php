@@ -217,16 +217,10 @@ class ArticleSubmissionController extends Controller
             ->addArticleFile(new ArticleFile())
             ->addArticleAuthor($articleAuthor);
 
-        $locales = [];
-        $submissionLangObjects = $journal->getLanguages();
-        foreach ($submissionLangObjects as $submissionLangObject) {
-            $locales[] = $submissionLangObject->getCode();
-        }
-
         $defaultLocale = $journal->getMandatoryLang()->getCode();
         $article->setCurrentLocale($defaultLocale);
 
-        $form = $this->createCreateForm($article, $journal, $locales, $defaultLocale);
+        $form = $this->createCreateForm($article, $journal);
         $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
@@ -346,11 +340,9 @@ class ArticleSubmissionController extends Controller
     /**
      * @param  Article       $article
      * @param  Journal       $journal
-     * @param $locales
-     * @param $defaultLocale
      * @return FormInterface
      */
-    private function createCreateForm(Article $article, Journal $journal, $locales, $defaultLocale)
+    private function createCreateForm(Article $article, Journal $journal)
     {
         $event = new TypeEvent(new ArticleSubmissionType());
         $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
@@ -364,9 +356,7 @@ class ArticleSubmissionController extends Controller
                     array('journalId' => $journal->getId())
                 ),
                 'method' => 'POST',
-                'locales' => $locales,
                 'journal' => $journal,
-                'default_locale' => $defaultLocale,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types')),
             )
         )
@@ -406,15 +396,7 @@ class ArticleSubmissionController extends Controller
         );
         $this->throw404IfNotFound($article);
 
-        $locales = [];
-        $submissionLangObjects = $journal->getLanguages();
-        foreach ($submissionLangObjects as $submissionLangObject) {
-            $locales[] = $submissionLangObject->getCode();
-        }
-        $defaultLocale = $journal->getMandatoryLang()->getCode();
-        $article->setCurrentLocale($defaultLocale);
-
-        $form = $this->createEditForm($article, $journal, $locales, $defaultLocale);
+        $form = $this->createEditForm($article, $journal);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -454,7 +436,12 @@ class ArticleSubmissionController extends Controller
         );
     }
 
-    private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
+    /**
+     * @param Article $article
+     * @param Journal $journal
+     * @return $this|FormInterface
+     */
+    private function createEditForm(Article $article, Journal $journal)
     {
         $event = new TypeEvent(new ArticleSubmissionType());
         $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
@@ -468,8 +455,6 @@ class ArticleSubmissionController extends Controller
                     array('journalId' => $journal->getId(), 'id' => $article->getId())
                 ),
                 'method' => 'POST',
-                'locales' => $locales,
-                'default_locale' => $defaultLocale,
                 'journal' => $journal,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types')),
             )

@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalLangCodeType;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Symfony\Component\Form\AbstractType;
@@ -29,9 +30,8 @@ class ArticleFileType extends AbstractType
                     'label' => 'articlefile.type'
                 ]
             )
-            ->add('langCode', 'choice',
+            ->add('langCode', JournalLangCodeType::class,
                 [
-                    'choices' => $options['locales'],
                     'label' => 'articlefile.langcode'
                 ]
             )
