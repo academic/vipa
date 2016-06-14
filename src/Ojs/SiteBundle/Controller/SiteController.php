@@ -346,7 +346,8 @@ class SiteController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
         $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(
-            ['journal' => $journal]
+            ['journal' => $journal],
+            ['id' => 'DESC']
         );
 
         $data['page'] = 'announcement';

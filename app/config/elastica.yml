@@ -32,6 +32,10 @@ fos_elastica:
               type: string
             fullName:
               type: string
+              fields:
+                raw:
+                  type: string
+                  index: not_analyzed
             email:
               type: string
             avatar:
@@ -179,6 +183,10 @@ fos_elastica:
                   type: string
             title:
               type: string
+              fields:
+                raw:
+                  type: string
+                  index: not_analyzed
             slug: { type: string }
             subtitle: { type: string }
             description: { type: string }
