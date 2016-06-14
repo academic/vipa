@@ -53,6 +53,7 @@ class ExploreController extends Controller
         }
 
         $journalQuery = new Query($boolQuery);
+        $journalQuery->setSort(['journal.title.raw' => 'asc']);
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('journal.publisher.publisherType.name');
@@ -103,6 +104,11 @@ class ExploreController extends Controller
         return $this->render('OjsSiteBundle:Explore:index.html.twig', $data);
     }
 
+    /**
+     * @param Request $request
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function publisherAction(Request $request, $page = 1)
     {
         $getTypes = $request->query->get('type_filters');
@@ -120,7 +126,7 @@ class ExploreController extends Controller
         }
 
         $publisherQuery = new Query($boolQuery);
-        $publisherQuery->setSort(['name' => ['order' => 'asc']]);
+        $publisherQuery->setSort(['name.raw' => ['order' => 'asc']]);
 
         $typeAgg = new Aggregation\Terms('types');
         $typeAgg->setField('publisher.publisherType.name');
