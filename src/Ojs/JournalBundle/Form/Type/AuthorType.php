@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\JournalBundle\Entity\Author;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +19,7 @@ class AuthorType extends AbstractType
     {
         $builder
             ->add('orcid')
-            ->add('translations', 'a2lix_translations', [
+            ->add('translations', JournalBasedTranslationsType::class, [
                 'label' => ' ',
                 'required' => false,
                 'fields' => [

@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\JournalBundle\Entity\SubmissionSetting;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +21,7 @@ class SubmissionSettingType extends AbstractType
                 'required' => false,
                 'label' => 'journal.settings.submission.open',
             ])
-            ->add('translations', 'a2lix_translations', [
+            ->add('translations', JournalBasedTranslationsType::class, [
                 'fields' => [
                     'submissionCloseText' => [
                         'required' => false,

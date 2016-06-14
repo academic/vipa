@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use GuzzleHttp\Client;
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
@@ -28,10 +29,7 @@ class ArticleType extends AbstractType
             $disabled = true;
         }
         $form = $builder
-            ->add('translations', 'a2lix_translations',[
-                'locales' => $options['locales'],
-                'default_locale' => $options['default_locale'],
-                'required_locales' => [$options['default_locale']],
+            ->add('translations', JournalBasedTranslationsType::class,[
                 'fields' => [
                     'title' => [
                         'label' => 'article.title',
@@ -220,8 +218,6 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'locales' => [],
-                'default_locale' => '',
                 'journal' => new Journal(),
                 'data_class' => Article::class,
                 'cascade_validation' => true,
