@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\JournalBundle\Entity\Block;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,7 @@ class BlockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations',[
+            ->add('translations', JournalBasedTranslationsType::class,[
                 'label' => ' ',
                 'fields' => [
                     'title' => [

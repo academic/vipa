@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleAuthorType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -18,7 +17,10 @@ class ArticleAuthorType extends AbstractType
     {
         $builder
             ->add('author', new AuthorType())
-            ->add('authorOrder', null, ['label' => 'author.order'])
+            ->add('authorOrder', null, [
+                'label' => 'author.order'
+                ]
+            )
         ;
     }
 

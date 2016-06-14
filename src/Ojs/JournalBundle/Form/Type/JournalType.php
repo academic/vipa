@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\PublisherRepository;
@@ -21,7 +22,7 @@ class JournalType extends AbstractType
     {
         $journalId = $options['data']->getId()?$options['data']->getId(): null;
         $builder
-            ->add('translations', 'a2lix_translations', [
+            ->add('translations', JournalBasedTranslationsType::class, [
                 'fields' => [
                     'title' => [
                         'label' => 'journal.title'

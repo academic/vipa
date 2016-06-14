@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Symfony\Component\Form\AbstractType;
@@ -34,7 +35,7 @@ class IssueFileType extends AbstractType
                 'label' => 'issuefile.langcode',
                 'choices'=>$languages
             ])
-            ->add('translations', 'a2lix_translations')
+            ->add('translations', JournalBasedTranslationsType::class)
         ;
     }
     

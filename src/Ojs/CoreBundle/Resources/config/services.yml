@@ -113,6 +113,12 @@ services:
     tags:
       - { name: form.type }
 
+  form.type.journal_lang_code_type:
+    class: Ojs\CoreBundle\Form\Type\JournalLangCodeType
+    arguments: [ "@ojs.journal_service"]
+    tags:
+      - { name: form.type }
+
   form.type.extended_entity:
       class: Ojs\CoreBundle\Form\Type\ExtendedEntityType
       arguments: ["@property_accessor"]
