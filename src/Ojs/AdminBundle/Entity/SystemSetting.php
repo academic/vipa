@@ -13,25 +13,32 @@ class SystemSetting
     private $id;
 
     /**
-     * @var string
+     * @var bool
      */
-    private $name;
+    private $userRegistrationActive;
+
+    /**
+     * @var bool
+     */
+    private $publisherApplicationActive;
+
+    /**
+     * @var bool
+     */
+    private $journalApplicationActive;
+
+    /**
+     * @var bool
+     */
+    private $articleSubmissionActive;
 
     /**
      * @var string
      */
-    private $value;
+    private $systemFooterScript;
 
-    /**
-     * @var string
-     */
-    private $description;
-
-    public function __construct($name = null, $value = null, $description = null)
+    public function __construct()
     {
-        $this->setName($name);
-        $this->setValue($value);
-        $this->setDescription($description);
     }
 
     /**
@@ -45,49 +52,61 @@ class SystemSetting
     }
 
     /**
-     * Get name
-     *
-     * @return string
+     * @return boolean
      */
-    public function getName()
+    public function isUserRegistrationActive()
     {
-        return $this->name;
+        return $this->userRegistrationActive;
     }
 
     /**
-     * Set name
+     * @param boolean $userRegistrationActive
      *
-     * @param string $name
-     *
-     * @return SystemSetting
+     * @return $this
      */
-    public function setName($name)
+    public function setUserRegistrationActive($userRegistrationActive)
     {
-        $this->name = $name;
+        $this->userRegistrationActive = $userRegistrationActive;
 
         return $this;
     }
 
     /**
-     * Get value
-     *
-     * @return string
+     * @return boolean
      */
-    public function getValue()
+    public function isPublisherApplicationActive()
     {
-        return $this->value;
+        return $this->publisherApplicationActive;
     }
 
     /**
-     * Set value
+     * @param boolean $publisherApplicationActive
      *
-     * @param string $value
-     *
-     * @return SystemSetting
+     * @return $this
      */
-    public function setValue($value)
+    public function setPublisherApplicationActive($publisherApplicationActive)
     {
-        $this->value = $value;
+        $this->publisherApplicationActive = $publisherApplicationActive;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isArticleSubmissionActive()
+    {
+        return $this->articleSubmissionActive;
+    }
+
+    /**
+     * @param boolean $articleSubmissionActive
+     *
+     * @return $this
+     */
+    public function setArticleSubmissionActive($articleSubmissionActive)
+    {
+        $this->articleSubmissionActive = $articleSubmissionActive;
 
         return $this;
     }
@@ -95,17 +114,41 @@ class SystemSetting
     /**
      * @return string
      */
-    public function getDescription()
+    public function getSystemFooterScript()
     {
-        return $this->description;
+        return $this->systemFooterScript;
     }
 
     /**
-     * @param string $description
+     * @param string $systemFooterScript
+     *
+     * @return $this
      */
-    public function setDescription($description)
+    public function setSystemFooterScript($systemFooterScript)
     {
-        $this->description = $description;
+        $this->systemFooterScript = $systemFooterScript;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isJournalApplicationActive()
+    {
+        return $this->journalApplicationActive;
+    }
+
+    /**
+     * @param boolean $journalApplicationActive
+     *
+     * @return $this
+     */
+    public function setJournalApplicationActive($journalApplicationActive)
+    {
+        $this->journalApplicationActive = $journalApplicationActive;
+
+        return $this;
     }
 }
 
