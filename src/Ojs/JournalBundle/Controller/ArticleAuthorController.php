@@ -98,7 +98,6 @@ class ArticleAuthorController extends Controller
      * @param  Request                   $request
      * @param  $articleId
      * @return RedirectResponse|Response
-     * @todo this function is not finished yet we must do more tests
      */
     public function createAction(Request $request, $articleId)
     {
@@ -237,7 +236,6 @@ class ArticleAuthorController extends Controller
      * @param  $id
      * @param  $articleId
      * @return Response
-     * @todo this function is not finished yet we must do more tests
      */
     public function editAction($id, $articleId)
     {
@@ -356,7 +354,6 @@ class ArticleAuthorController extends Controller
      * @param  $id
      * @param  $articleId
      * @return RedirectResponse
-     * @todo this function is not finished yet we must do more tests
      */
     public function deleteAction(Request $request, $id, $articleId)
     {
