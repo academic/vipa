@@ -56,19 +56,6 @@ class SiteController extends Controller
             'user' => 0
         ];
 
-        $journalApplications = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'journal_application']);
-
-        $publisherApplications = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'publisher_application']);
-
-        $data['journalApplicationAllowance'] = $journalApplications ? $journalApplications->getValue() : true;
-        $data['publisherApplicationAllowance'] = $publisherApplications ? $publisherApplications->getValue() : true;
-
         $data['stats']['journal'] = $this->get('fos_elastica.index.search.journal')->count(new MatchAll());
         $data['stats']['article'] = $this->get('fos_elastica.index.search.articles')->count(new MatchAll());
         $data['stats']['subject'] = $this->get('fos_elastica.index.search.subject')->count(new MatchAll());

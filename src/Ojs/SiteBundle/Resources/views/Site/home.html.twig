@@ -59,13 +59,15 @@
                 <div class="col-md-12 col-xs-12">
                     <p id="homepage-buttons" class="text-center">
                         {% if not app.user %}
-                            <a href="{{ path('fos_user_registration_register') }}"
-                               class="btn btn-primary btn-labeled">
-                                    <span class="btn-label pull-left">
-                                        <i class="fa fa-user fa-fw"></i>
-                                    </span>
-                                {{ "register"|trans }}
-                            </a>
+                            {% if app.request.attributes.get('_system_setting').userRegistrationActive %}
+                                <a href="{{ path('fos_user_registration_register') }}"
+                                   class="btn btn-primary btn-labeled">
+                                        <span class="btn-label pull-left">
+                                            <i class="fa fa-user fa-fw"></i>
+                                        </span>
+                                    {{ "register"|trans }}
+                                </a>
+                            {% endif %}
                         {% else %}
                             <a href="{{ path('fos_user_security_login') }}"
                                class="btn btn-primary btn-labeled">
@@ -76,7 +78,7 @@
                             </a>
                         {% endif %}
 
-                        {% if publisherApplicationAllowance %}
+                        {% if app.request.attributes.get('_system_setting').publisherApplicationActive %}
                             <a href="{{ url("ojs_apply_publisher") }}"
                                class="btn btn-primary  btn-labeled">
                                     <span class="btn-label pull-left">
@@ -85,7 +87,7 @@
                                 {{ 'application.publisher.apply'|trans }}
                             </a>
                         {% endif %}
-                        {% if journalApplicationAllowance %}
+                        {% if app.request.attributes.get('_system_setting').journalApplicationActive %}
                             <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled">
                                     <span class="btn-label pull-left">
                                         <i class="fa fa-book fa-fw"></i>

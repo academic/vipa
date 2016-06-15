@@ -47,6 +47,12 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  ojs_core.kernel_request_attr_loader:
+    class: Ojs\CoreBundle\Service\RequestAttrLoaderListener
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: kernel.event_subscriber }
+
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:

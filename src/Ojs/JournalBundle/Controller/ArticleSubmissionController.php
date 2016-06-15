@@ -164,7 +164,7 @@ class ArticleSubmissionController extends Controller
     public function newAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed()) {
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -291,21 +291,17 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return bool
      */
-    private function submissionsNotAllowed()
+    private function submissionsNotAllowed(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $permissionSetting = $em
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'article_submission']);
-
         $submissionSetting = $em
             ->getRepository('OjsJournalBundle:SubmissionSetting')
             ->findOneBy([]);
 
-        if (($permissionSetting
-            && !$permissionSetting->getValue())
+        if (!$request->attributes->get('_system_setting')->isArticleSubmissionActive()
             || ($submissionSetting
             && !$submissionSetting->getSubmissionEnabled())) {
 
@@ -324,7 +320,9 @@ class ArticleSubmissionController extends Controller
         $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
         $message = 'message.submission_not_available';
         if($submissionSetting
-            && !empty($submissionSetting->getSubmissionCloseText())){
+            && !empty($submissionSetting->getSubmissionCloseText())
+            && !$submissionSetting->getSubmissionEnabled()
+        ){
             $message = $submissionSetting->getSubmissionCloseText();
         }
 
@@ -373,7 +371,7 @@ class ArticleSubmissionController extends Controller
     public function editAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed()) {
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -473,7 +471,7 @@ class ArticleSubmissionController extends Controller
     public function previewAction(Request $request, $articleId)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed()) {
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -584,7 +582,7 @@ class ArticleSubmissionController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine();
-        if ($this->submissionsNotAllowed()) {
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
         $session = $this->get('session');
