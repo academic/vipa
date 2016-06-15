@@ -160,8 +160,6 @@ class ArticleSubmissionController extends Controller
     /**
      * @param  Request                   $request
      * @return RedirectResponse|Response
-     *
-     * @todo this function is not finished yet we must do more tests
      */
     public function newAction(Request $request)
     {
@@ -349,8 +347,6 @@ class ArticleSubmissionController extends Controller
      * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
-     *
-     * @todo this function is not finished yet we must do more tests
      */
     public function editAction(Request $request, $id)
     {
@@ -456,8 +452,6 @@ class ArticleSubmissionController extends Controller
      * @param $articleId
      * @return RedirectResponse|Response
      * @throws \Exception
-     *
-     * @todo this function is not finished yet we must do more tests
      */
     public function previewAction(Request $request, $articleId)
     {
@@ -667,7 +661,6 @@ class ArticleSubmissionController extends Controller
      * @return JsonResponse
      * @throws \Exception
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function getOrcidAuthorAction(Request $request)
     {
@@ -687,7 +680,6 @@ class ArticleSubmissionController extends Controller
      * @param $id
      * @return RedirectResponse
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function cancelAction($id)
     {
