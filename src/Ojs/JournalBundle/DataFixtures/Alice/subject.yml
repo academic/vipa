@@ -2,14 +2,14 @@
   subject1:
     currentLocale: en
     subject: Computer Science
-    createdBy: @user_author->username
+    createdBy: '@user_author->username'
     totalJournalCount: 1
     tags: "science, computer"
     users: <numberBetween(1, 10)>x @random_user_*
   subject2:
     currentLocale: en
     subject: Journalism
-    createdBy: @user_author->username
+    createdBy: '@user_author->username'
     totalJournalCount: 1
     tags: "journals, journalism"
     users: <numberBetween(1, 10)>x @random_user_*
