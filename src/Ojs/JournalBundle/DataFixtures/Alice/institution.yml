@@ -7,4 +7,4 @@
     about: null
     phone: '01234567810'
     address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    institutionType: @i_type0
+    institutionType: '@i_type0'
