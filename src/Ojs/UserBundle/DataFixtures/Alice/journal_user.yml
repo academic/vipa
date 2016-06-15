@@ -1,17 +1,17 @@
 Ojs\JournalBundle\Entity\JournalUser:
   manager_journal_role:
-      user: @user_journal_manager
+      user: '@user_journal_manager'
       roles: [1]
-      journal: @journal1
+      journal: '@journal1'
   author_journal_role:
-      user: @user_author
+      user: '@user_author'
       roles: [8]
-      journal: @journal1
+      journal: '@journal1'
   editor_journal_role:
-      user: @user_demo_editor
+      user: '@user_demo_editor'
       roles: [3]
-      journal: @journal1
+      journal: '@journal1'
   random_role_{1..75}:
-      user (unique): @random_user_*
+      user (unique): '@random_user_*'
       roles: <randomElements($array = array (1,2,3,4,5,6,7,8,9,10,11,12), $count = 2)>
-      journal: @journal*
+      journal: '@journal*'
