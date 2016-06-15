@@ -2,13 +2,14 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Norzechowicz\AceEditorBundle\Form\Extension\AceEditor\Type\AceEditorType;
+use Ojs\AdminBundle\Entity\SystemSetting;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SystemSettingsType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -16,33 +17,44 @@ class SystemSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user_registration', 'choice', [
+            ->add('userRegistrationActive', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                 'label'     => 'title.user_new',
                 'expanded'  => true,
                 'required'  => true
                 ]
             )
-            ->add('journal_application', 'choice', [
+            ->add('journalApplicationActive', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                 'label'     => 'title.journal_application',
                 'expanded'  => true,
                 'required'  => true
                 ]
             )
-            ->add('publisher_application', 'choice', [
+            ->add('publisherApplicationActive', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                     'label' => 'title.publisher_application',
                 'expanded'  => true,
                 'required'  => true
                 ]
             )
-            ->add('article_submission', 'choice', [
+            ->add('articleSubmissionActive', 'choice', [
                 'choices'   => ['1' => 'on', '0' => 'off'],
                 'label'     => 'title.submission_new',
                 'expanded'  => true,
                 'required'  => true
                 ]
+            )
+            ->add(
+                'systemFooterScript',
+                AceEditorType::class,
+                array(
+                    'width' => 700,
+                    'height' => 200,
+                    'font_size' => 12,
+                    'mode' => 'ace/mode/javascript', // every single default mode must have ace/mode/* prefix
+                    'theme' => 'ace/theme/chrome', // every single default theme must have ace/theme/* prefix
+                )
             )
             ->add('submit', 'submit', [
                 'label'     => 'update',
@@ -56,6 +68,11 @@ class SystemSettingsType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        // It's all dark and lonely here.
+        $resolver->setDefaults(array(
+            'data_class' => SystemSetting::class,
+            'attr' => [
+                'novalidate' => 'novalidate',
+            ],
+        ));
     }
 }
