@@ -11,5 +11,7 @@
 {% endblock %}
 
 {% block body -%}
-{{ form(form, {action: path('ojs_admin_system_setting_update')}) }}
+    <script type="text/javascript" src="{{ asset('vendor/ace-builds/src/ace.js') }}"></script>
+    {{ include('::flashbag.html.twig') }}
+    {{ form(form) }}
 {% endblock %}
