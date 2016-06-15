@@ -160,6 +160,9 @@
             $('.jb_fileupload').jbFileUpload();
         });
     </script>
+    <script>
+        {{ app.request.attributes.get('_system_setting').systemFooterScript|raw }}
+    </script>
 {% endblock %}
 {{ feedback_widget()|raw }}
 </body>
