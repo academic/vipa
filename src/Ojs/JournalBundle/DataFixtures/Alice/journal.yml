@@ -9,9 +9,9 @@
     titleTransliterated: null
     url: "http://ojs.io"
     slug: help
-    publisher: @default
-    subjects: [@subject1, @subject2]
+    publisher: '@default'
+    subjects: ['@subject1', '@subject2']
     languages: [1, 2]
     status: 1
     setupFinished: true
-    mandatoryLang: @lang1
+    mandatoryLang: '@lang1'
