@@ -84,7 +84,6 @@ class ArticleFileController extends Controller
      * @param  integer $articleId
      * @return RedirectResponse|Response
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function createAction(Request $request, $articleId)
     {
@@ -309,7 +308,6 @@ class ArticleFileController extends Controller
      * @param integer $articleId
      * @return RedirectResponse|Response
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function updateAction(Request $request, $id, $articleId)
     {
@@ -366,9 +364,6 @@ class ArticleFileController extends Controller
      * @param  integer $id
      * @param  integer $articleId
      * @return RedirectResponse
-     *
-     *
-     * @todo this function is not finished yet we must do more tests
      */
     public function deleteAction(Request $request, $id, $articleId)
     {
