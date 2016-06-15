@@ -30,9 +30,6 @@ class AdminPeriodController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new Period())) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $source = new Entity('OjsJournalBundle:Period');
         $source->manipulateRow(
             function (Row $row) use ($request) {
@@ -72,9 +69,6 @@ class AdminPeriodController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new Period())) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $entity = new Period();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -126,9 +120,6 @@ class AdminPeriodController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new Period())) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $entity = new Period();
         $form = $this->createCreateForm($entity);
 
@@ -149,9 +140,6 @@ class AdminPeriodController extends Controller
      */
     public function showAction(Period $entity)
     {
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -175,9 +163,6 @@ class AdminPeriodController extends Controller
      */
     public function editAction(Period $entity)
     {
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -223,10 +208,6 @@ class AdminPeriodController extends Controller
     public function updateAction(Request $request, Period $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $this->throw404IfNotFound($entity);
 
         $editForm = $this->createEditForm($entity);
@@ -255,10 +236,6 @@ class AdminPeriodController extends Controller
     public function deleteAction(Request $request, Period $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page");
-        }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

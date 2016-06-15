@@ -93,6 +93,14 @@
                     $authorDetails.show();
                 }
             });
+            var abstractTemplates = {{ abstractTemplates|json_encode|raw }};
+            $.each(abstractTemplates, function(locale, abstractTemplate){
+                var findRequiredLocaleAbstractInput = $('.a2lix_translationsFields-'+locale).find('.note-editable');
+                var abstractValue = findRequiredLocaleAbstractInput.html();
+                if(abstractValue == '<p><br></p>'){
+                    findRequiredLocaleAbstractInput.html(abstractTemplate);
+                }
+            });
         });
     </script>
     {{ twigEventDispatch({'event_name': 'OJS_NEW_ARTICLE_SUBMISSIN_SCRIPT'})|raw }}

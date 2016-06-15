@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\JournalApplicationFile;
 use Ojs\JournalBundle\Form\Type\JournalContactType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -57,7 +58,7 @@ class JournalApplicationFileType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalApplicationFile',
+                'data_class' => JournalApplicationFile::class,
                 'cascade_validation' => true,
                 'languages' => [],
                 'attr' => [
@@ -65,13 +66,5 @@ class JournalApplicationFileType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_adminbundle_journalapplication_file';
     }
 }

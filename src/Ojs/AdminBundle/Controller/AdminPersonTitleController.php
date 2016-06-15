@@ -20,7 +20,6 @@ use APY\DataGridBundle\Grid\Row;
  */
 class AdminPersonTitleController extends OjsController
 {
-
     /**
      * Lists all PersonTitle entities.
      *
@@ -29,9 +28,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:PersonTitle');
         $source->manipulateRow(
@@ -71,10 +67,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $entity = new PersonTitle();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -130,10 +122,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $entity = new PersonTitle();
         $form = $this->createCreateForm($entity);
 
@@ -154,10 +142,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function showAction($id)
     {
-        if (!$this->isGranted('VIEW', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:PersonTitle')->find($id);
 
@@ -186,10 +170,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function editAction($id)
     {
-        if (!$this->isGranted('EDIT', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:PersonTitle')->find($id);
 
@@ -245,10 +225,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function updateAction(Request $request, $id)
     {
-        if (!$this->isGranted('EDIT', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:PersonTitle')->find($id);
@@ -289,9 +265,6 @@ class AdminPersonTitleController extends OjsController
      */
     public function deleteAction(Request $request, $id)
     {
-        if (!$this->isGranted('DELETE', new PersonTitle())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $deleteService = $this->get('ojs_core.delete.service');
 
         $em = $this->getDoctrine()->getManager();

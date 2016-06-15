@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -59,20 +60,12 @@ class SubjectType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Subject',
+                'data_class' => Subject::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_subject';
     }
 }

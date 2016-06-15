@@ -278,9 +278,9 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @var array
      */
     public static $statuses = array(
+        ArticleStatuses::STATUS_UNPUBLISHED => 'status.unpublished',
         ArticleStatuses::STATUS_WITHDRAWN => 'status.withdrawn',
         ArticleStatuses::STATUS_REJECTED => 'status.rejected',
-        ArticleStatuses::STATUS_UNPUBLISHED => 'status.unpublished',
         ArticleStatuses::STATUS_NOT_SUBMITTED => 'status.not_submitted',
         ArticleStatuses::STATUS_INREVIEW => 'status.inreview',
         ArticleStatuses::STATUS_PUBLISHED => 'status.published',

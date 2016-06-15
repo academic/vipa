@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\JournalContact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -52,22 +53,12 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalContact',
+                'data_class' => JournalContact::class,
                 'validation_groups' => 'admin',
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return 'ojs_admin_contact';
     }
 }

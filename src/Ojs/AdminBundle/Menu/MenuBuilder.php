@@ -7,10 +7,13 @@ use Ojs\AdminBundle\Events\AdminEvents;
 use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\MenuEvent;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class MenuBuilder extends ContainerAware
+class MenuBuilder implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * @param FactoryInterface $factory
      * @return \Knp\Menu\ItemInterface

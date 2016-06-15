@@ -25,10 +25,6 @@ class AdminFileController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new AdminFile())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        
         $source = new Entity('OjsAdminBundle:AdminFile');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -55,9 +51,6 @@ class AdminFileController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new AdminFile())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new AdminFile();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -133,10 +126,6 @@ class AdminFileController extends Controller
     public function showAction(AdminFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_file'.$entity->getId());
@@ -155,11 +144,6 @@ class AdminFileController extends Controller
     public function editAction(AdminFile $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -203,9 +187,6 @@ class AdminFileController extends Controller
     public function updateAction(Request $request, AdminFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
 
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
@@ -235,9 +216,6 @@ class AdminFileController extends Controller
     public function deleteAction(Request $request, AdminFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
 
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');

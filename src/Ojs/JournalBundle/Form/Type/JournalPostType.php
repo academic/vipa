@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
+use Ojs\JournalBundle\Entity\JournalPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +17,7 @@ class JournalPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'translations',
-                'a2lix_translations',
-                array(
+            ->add('translations', JournalBasedTranslationsType::class, array(
                     'fields' => array(
                         'title' => [],
                         'content' => array(
@@ -38,20 +37,12 @@ class JournalPostType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalPost',
+                'data_class' => JournalPost::class,
                 'cascade_validation' => true,
                 'object' => null,
                 'objectId' => null,
                 'post_type' => 'default'
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journalpost';
     }
 }

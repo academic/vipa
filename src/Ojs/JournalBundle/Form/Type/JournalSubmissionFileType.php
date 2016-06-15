@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\JournalSubmissionFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -76,7 +77,7 @@ class JournalSubmissionFileType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalSubmissionFile',
+                'data_class' => JournalSubmissionFile::class,
                 'cascade_validation' => true,
                 'languages' => array(
                     array('tr' => 'Türkçe'),
@@ -88,13 +89,5 @@ class JournalSubmissionFileType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journal_submissionfile';
     }
 }

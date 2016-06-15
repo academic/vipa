@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\JournalIndex;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,19 +42,11 @@ class JournalIndexType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Ojs\JournalBundle\Entity\JournalIndex',
+                'data_class' => JournalIndex::class,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             ]
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journalindex';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,7 +47,7 @@ class SubmissionChecklistType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
+                'data_class' => SubmissionChecklist::class,
                 'cascade_validation' => true,
                 'languages' => array(
                     array('tr' => 'Türkçe'),
@@ -57,13 +58,5 @@ class SubmissionChecklistType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_submissionchecklist';
     }
 }

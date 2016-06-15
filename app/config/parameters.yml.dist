@@ -7,6 +7,7 @@ parameters:
     database_password: ~
 
     system_email:      ojs@localhost
+    feedback_email:    feedback@localhost
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~
@@ -14,7 +15,7 @@ parameters:
     mailer_password:   ~
     mailer_port: 587
 
-    locale:            en
+    locale:            tr
     locale_support: [tr,en]
     secret:            884310f89c4aa13453c463ccae442f2e0f853503
 

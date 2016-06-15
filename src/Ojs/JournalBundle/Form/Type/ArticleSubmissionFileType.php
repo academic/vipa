@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\ArticleSubmissionFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +35,7 @@ class ArticleSubmissionFileType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\ArticleSubmissionFile',
+                'data_class' => ArticleSubmissionFile::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'novalidate' => 'novalidate',
@@ -42,13 +43,5 @@ class ArticleSubmissionFileType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_article_submissionfile';
     }
 }

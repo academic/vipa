@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Ojs\JournalBundle\Entity\SubjectRepository;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -113,22 +114,15 @@ class JournalNewUserType extends AbstractType
     }
 
     /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_userbundle_user';
-    }
-
-    /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'data_class' => User::class,
                 'cascade_validation' => true,
+                'validation_groups' => ['journal_user'],
                 'attr' => [
                     'class' => 'validate-form',
                 ],

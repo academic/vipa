@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\IssueDisplayModes;
 use Ojs\CoreBundle\Params\IssueVisibilityStatuses;
 use Ojs\JournalBundle\Entity\Issue;
@@ -21,10 +22,7 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'translations',
-                'a2lix_translations',
-                [
+            ->add('translations', JournalBasedTranslationsType::class, [
                     'fields' => [
                         'title'       => [],
                         'description' => [
@@ -197,7 +195,7 @@ class IssueType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class'         => 'Ojs\JournalBundle\Entity\Issue',
+                'data_class'         => Issue::class,
                 'cascade_validation' => true,
                 'novalidate'         => 'novalidate',
                 'attr'               => [
@@ -205,13 +203,5 @@ class IssueType extends AbstractType
                 ],
             ]
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_issue';
     }
 }

@@ -60,9 +60,6 @@ class AdminController extends Controller
      */
     public function statsAction()
     {
-        if (!$this->isGranted('VIEW', new Journal())) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
         $cache = $this->get('file_cache');
         if(!$cache->contains('admin_statistics')){
             $this->cacheAdminStats();

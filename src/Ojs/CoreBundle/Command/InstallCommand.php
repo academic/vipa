@@ -97,7 +97,7 @@ class InstallCommand extends ContainerAwareCommand
             ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Without ACL Data')
             ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix ACL structure')
             ->addOption('no-page', null, InputOption::VALUE_NONE, 'Without default pages')
-            ->addOption('travis', null, InputOption::VALUE_NONE, 'Without default pages');
+            ->addOption('travis', null, InputOption::VALUE_NONE, 'Without interaction');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

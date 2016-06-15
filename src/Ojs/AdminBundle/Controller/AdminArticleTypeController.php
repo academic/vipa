@@ -28,9 +28,6 @@ class AdminArticleTypeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new ArticleTypes())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $cache = $this->get('array_cache');
         $source = new Entity('OjsJournalBundle:ArticleTypes');
         $source->manipulateRow(
@@ -76,9 +73,6 @@ class AdminArticleTypeController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new ArticleTypes())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new ArticleTypes();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -129,9 +123,6 @@ class AdminArticleTypeController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new ArticleTypes())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new ArticleTypes();
         $form = $this->createCreateForm($entity);
 
@@ -153,9 +144,6 @@ class AdminArticleTypeController extends Controller
      */
     public function showAction(Request $request , ArticleTypes $entity)
     {
-        if (!$this->isGranted('VIEW', $entity))
-            throw new AccessDeniedException("You are not authorized for this page!");
-
         $this->throw404IfNotFound($entity);
 
         $entity->setDefaultLocale($request->getDefaultLocale());
@@ -179,9 +167,6 @@ class AdminArticleTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleTypes')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -227,9 +212,6 @@ class AdminArticleTypeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleTypes')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -261,9 +243,6 @@ class AdminArticleTypeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $deleteService = $this->get('ojs_core.delete.service');
         $entity = $em->getRepository('OjsJournalBundle:ArticleTypes')->find($id);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_article_type'.$id);

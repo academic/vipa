@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Ojs\CoreBundle\Params\PublisherStatuses;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
@@ -78,7 +79,9 @@ class AdminJournalApplicationType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'required' => true,
+                    'label' => 'mandatory.lang',
+                    'placeholder' => 'select.mandatory.lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'attr' => [
                         'class' => 'select2-element ',
@@ -94,6 +97,7 @@ class AdminJournalApplicationType extends AbstractType
                     'required' => true,
                     'multiple' => true,
                     'expanded' => false,
+                    'placeholder' => 'journal.period',
                     'attr' => [
                         'class' => 'select2-element validate[required]',
                     ]
@@ -132,9 +136,10 @@ class AdminJournalApplicationType extends AbstractType
                             ->setParameter('verified', true)
                             ;
                     },
-                    'attr' => ['class' => 'select2-element validate[required]'],
+                    'attr' => ['class' => 'select2-element application-publisher'],
                     'label' => 'journal.publisher',
-                    'required' => true
+                    'required' => true,
+                    'placeholder' => 'select.publisher',
                 )
             )
             ->add(
@@ -197,7 +202,7 @@ class AdminJournalApplicationType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',

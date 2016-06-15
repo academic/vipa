@@ -24,9 +24,6 @@ class AdminIndexController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new Index())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $source = new Entity('OjsJournalBundle:Index');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -53,9 +50,6 @@ class AdminIndexController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new Index())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $entity = new Index();
         $form = $this->createCreateForm($entity)
             ->add('create', 'submit', array('label' => 'c'));
@@ -107,9 +101,6 @@ class AdminIndexController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new Index())) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $entity = new Index();
         $form = $this->createCreateForm($entity)
             ->add('create', 'submit', array('label' => 'c'));
@@ -132,10 +123,6 @@ class AdminIndexController extends Controller
     public function showAction(Index $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_index'.$entity->getId());
@@ -155,9 +142,6 @@ class AdminIndexController extends Controller
     public function editAction(Index $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $editForm = $this->createEditForm($entity)
             ->add('save', 'submit');
 
@@ -201,9 +185,6 @@ class AdminIndexController extends Controller
     public function updateAction(Request $request, Index $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity)
             ->add('save', 'submit');
@@ -237,9 +218,6 @@ class AdminIndexController extends Controller
     public function deleteAction(Request $request, Index $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for view this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_index'.$entity->getId());

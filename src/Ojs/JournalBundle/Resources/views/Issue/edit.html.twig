@@ -12,6 +12,10 @@
 
 {% block body -%}
     <h1>{{ 'title.issue_edit'|trans }}</h1>
+    <a href="{{ path('ojs_journal_issue_file_index', {journalId: entity.journal.id, issueId: entity.id}) }}" class="btn btn-primary">
+        {{ 'title.issue_files'|trans }}
+    </a>
+
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% include '::flashbag.html.twig' %}
     {{ form_errors(edit_form) }}

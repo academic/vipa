@@ -142,7 +142,7 @@ class DeleteService
      */
     private function setupYamlOptions()
     {
-        if(!key_exists($this->entityName, $this->allOptions)){
+        if(!array_key_exists($this->entityName, $this->allOptions)){
             return;
         }
         $this->deleteParams = $this->allOptions[$this->entityName];

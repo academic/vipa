@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Form\Type;
 
 use Ojs\CoreBundle\Params\PublisherStatuses;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\PublisherRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Form\Type\ApplicationJournalContactType;
@@ -36,7 +37,13 @@ class JournalApplicationType extends AbstractType
                 'required' => false
             ])
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated', 'attr' => ['class' => 'validate[required]']])
-            ->add('domain', null, ['label' => 'journal.domain', 'attr' => ['class' => 'validate[required]']])
+            ->add('domain', null, [
+                'label' => 'journal.domain',
+                'attr' => [
+                    'help_text' => 'journal.application.domain.help.text',
+                    ]
+                ]
+            )
             ->add(
                 'country',
                 'entity',
@@ -80,8 +87,10 @@ class JournalApplicationType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'required' => true,
+                    'label' => 'mandatory.lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'placeholder' => 'select.mandatory.lang',
                     'attr' => [
                         'class' => 'select2-element ',
                     ]
@@ -118,7 +127,7 @@ class JournalApplicationType extends AbstractType
             )
             ->add('url', 'url', [
                 'label' => 'journal.url',
-                 'required' => false
+                'required' => false,
                 ]
             )
             ->add(
@@ -134,9 +143,10 @@ class JournalApplicationType extends AbstractType
                             ->setParameter('verified', true)
                             ;
                     },
-                    'attr' => ['class' => 'select2-element validate[required]'],
+                    'attr' => ['class' => 'select2-element'],
                     'label' => 'journal.publisher',
-                    'required' => true
+                    'required' => true,
+                    'placeholder' => 'select.publisher',
                 )
             )
             ->add(
@@ -215,7 +225,7 @@ class JournalApplicationType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',

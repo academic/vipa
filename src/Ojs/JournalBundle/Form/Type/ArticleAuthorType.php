@@ -2,13 +2,13 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleAuthorType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -17,7 +17,10 @@ class ArticleAuthorType extends AbstractType
     {
         $builder
             ->add('author', new AuthorType())
-            ->add('authorOrder', null, ['label' => 'author.order'])
+            ->add('authorOrder', null, [
+                'label' => 'author.order'
+                ]
+            )
         ;
     }
 
@@ -28,20 +31,12 @@ class ArticleAuthorType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
+                'data_class' => ArticleAuthor::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_articleauthor';
     }
 }

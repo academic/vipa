@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Ojs\AdminBundle\Events\AdminEvent;
 use Ojs\AdminBundle\Events\AdminEvents;
@@ -34,9 +32,6 @@ class AdminJournalController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new Journal())) {
-            throw new AccessDeniedException("You not authorized for list journals!");
-        }
         $cache = $this->get('array_cache');
         $router = $this->get('router');
         $source = new Entity('OjsJournalBundle:Journal');
@@ -59,6 +54,9 @@ class AdminJournalController extends Controller
                             $journalLinkTemplate = '<a target="_blank" href="'.$generateJournalLink.'">'.$entity->getTitleTranslations().'</a>';
                         }
                         $row->setField('translations.title', $journalLinkTemplate);
+                        if($entity->getPublisher() !== null){
+                            $row->setField('publisher.translations.name', $entity->getPublisher()->getNameTranslations());
+                        }
                     }
                 }
 
@@ -71,6 +69,7 @@ class AdminJournalController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_admin_journal_show', 'id');
         $rowAction[] = $gridAction->editAction('ojs_admin_journal_edit', 'id');
+        $rowAction[] = $gridAction->contactsAction('ojs_journal_journal_contact_index');
         $rowAction[] = (new RowAction('Manage', 'ojs_journal_dashboard_index'))
             ->setRouteParameters('id')
             ->setRouteParametersMapping(array('id' => 'journalId'))
@@ -103,9 +102,6 @@ class AdminJournalController extends Controller
         /** @var Journal $entity */
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -151,9 +147,6 @@ class AdminJournalController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Journal $entity */
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
@@ -192,9 +185,6 @@ class AdminJournalController extends Controller
     {
         $entity = new Journal();
         $entity->setCurrentLocale($request->getDefaultLocale());
-        if (!$this->isGranted('CREATE', $entity)) {
-            throw new AccessDeniedException("You not authorized for create a journal!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $form = $this->createCreateForm($entity);
@@ -275,10 +265,6 @@ class AdminJournalController extends Controller
     public function showAction(Request $request, Journal $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You not authorized for view this journal!");
-        }
-
         $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')

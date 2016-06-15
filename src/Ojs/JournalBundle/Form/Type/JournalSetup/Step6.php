@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type\JournalSetup;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,20 +46,12 @@ class Step6 extends AbstractType
         $resolver->setDefaults(
             array(
                 'validation_groups' => ['setupStep6'],
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'attr' => [
                     'novalidate' => 'novalidate',
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journal';
     }
 }

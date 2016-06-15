@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\PublisherRepository;
@@ -21,7 +22,7 @@ class JournalType extends AbstractType
     {
         $journalId = $options['data']->getId()?$options['data']->getId(): null;
         $builder
-            ->add('translations', 'a2lix_translations', [
+            ->add('translations', JournalBasedTranslationsType::class, [
                 'fields' => [
                     'title' => [
                         'label' => 'journal.title'
@@ -54,6 +55,7 @@ class JournalType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element',
                     ],
+                    'placeholder' => 'select.publisher',
                     'class' => 'OjsJournalBundle:Publisher',
                     'query_builder' => function(PublisherRepository $er) {
                         return $er->createQueryBuilder('publisher')
@@ -279,17 +281,9 @@ class JournalType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'cascade_validation' => true
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_journal';
     }
 }

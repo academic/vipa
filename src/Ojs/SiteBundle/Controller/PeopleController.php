@@ -27,6 +27,7 @@ class PeopleController extends Controller
 
         $userSearcher = $this->get('fos_elastica.index.search.user');
         $userQuery = new Query('*');
+        $userQuery->setSort(['user.fullName.raw' => 'asc']);
 
         if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters)) {
             $boolQuery = new Query\BoolQuery();

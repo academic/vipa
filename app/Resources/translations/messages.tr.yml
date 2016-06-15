@@ -60,6 +60,7 @@ Pubdateseason: 'Yayın Sezonu'
 ROLE_AUTHOR: Yazar
 ROLE_COPYEDITOR: 'Sayfa Düzenleyici'
 ROLE_EDITOR: Editör
+ROLE_CO_EDITOR: Yardımcı Editör
 ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
 ROLE_LAYOUT_EDITOR: 'Mizanpajcı'
 ROLE_PROOFREADER: 'Son Okuyucu'
@@ -403,7 +404,7 @@ hide_title: 'Başlığı Gizle'
 home: Ana Sayfa
 id: ID
 image: Görüntü
-inbook: Kitap 
+inbook: Kitap
 incollection: 'Seri Yayın'
 initials: Başharfler
 inproceedings: Bildiri
@@ -568,6 +569,8 @@ journal.register: 'Dergi Kaydı'
 journal.scope: Kapsam
 journal.settings.abstractTemplate.desc: 'Butona tıklayarak öntanımlı şablonlardan yükleyebilirsiniz.'
 journal.settings.last.step.confirm: 'Makalem Son Adım Uyarı Yazısı'
+journal.settings.submission.open: 'Makale gönderim işlemi açık'
+journal.settings.submission.close.text: 'Makale gönderim kapalılık açıklaması'
 journal.settings.mail: 'e-Posta Ayarları'
 journal.settings.mail.signature: 'e-Posta İmzası'
 journal.settings.page: 'Sayfa Ayarları'
@@ -594,13 +597,14 @@ journal.title: Derginin Tam Adı
 journal.titleAbbr: 'Kısaltılmış Başlık'
 journal.titleTransliterated: 'Derginin Adı (başka alfabede)'
 journal.update: 'Dergi Güncelle'
-journal.url: URL
+journal.url: 'Dergi Web Sayfası'
 journal.user: Kullanıcı
 journal.users: 'Dergi Kullanıcıları'
 journal.subscribe: 'Email ile abone ol'
 journal.no_journal_you_have: 'Hiç derginiz bulunmuyor'
 journal.mandatory_lang: 'Dergi Zorunlu Dili'
-'Mandatory Lang': 'Zorunlu Dili'
+mandatory.lang: 'Zorunlu Dili'
+select.mandatory.lang: 'Zorunlu Dil Seçin'
 journal.supported_languages: 'Desteklediği Diller'
 journalContact.contact.id: 'İletişim ID'
 journalContact.contact.type.id: 'İletişim Türü ID'
@@ -946,7 +950,7 @@ submission.starting: Başlarken
 submission.success: 'Makale Gonderimi Tamamlandı'
 submission.continue_edit: 'Makale Gonderimi düzenlemesine devam et'
 submission.files: 'Makale Gönderimi için gerekli formlar'
-submissionDate: 'Makale Tarihi'
+submissionDate: 'Makale Gönderilme Tarihi'
 submission_checklist: 'Makale Kontrol Listesi'
 submission_checklist.create: 'Yeni Madde'
 submission_checklist.detail: Detay
@@ -1443,7 +1447,7 @@ validation:
     abstract: 'Varsayılan dil için öz alanı zorunludur.'
 yes: Evet
 no: Hayır
-default: Varsayılan 
+default: Varsayılan
 optional: 'İsteğe Bağlı'
 submission.no_file: 'Telif Hakkı Formu yok, lütfen dergi ile iletişime geçiniz.'
 submission.no_checklist: 'Kontrol listesi yok, lütfen dergi yöneticisine haber verin.'
@@ -1491,6 +1495,7 @@ status.application: 'Başvuruda'
 status.name_changed: 'İsim Değişti'
 status.hold: 'Beklemede'
 status.preparing: 'Hazırlanıyor'
+status.exited: 'Ayrıldı'
 title.blocks: 'Bloklar'
 title.block_show: 'Bloğu Göster'
 title.block: 'Blok'
@@ -1624,6 +1629,9 @@ display_mode: 'Görüntülenme modu'
 display_mode.all: 'Başlık, Cilt ve Sayı'
 display_mode.title: 'Başlık'
 display_mode.volume_and_number: 'Cilt ve Sayı'
+select.publisher: 'Bir yayıncı seçin'
+journal.application.domain.help.text: 'Size ait bir domain i dergi için belirleyerek hosting hizmetinden yararlanabilirsiniz.'
+article.successful.create: 'Makale başarılı bir şekilde eklendi. Üst kısımdan yazar, dosya veya referans ekleyebilirsiniz.'
 
 # OAuth
 linkedin: 'Linkedin'

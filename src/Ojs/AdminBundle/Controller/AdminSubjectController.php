@@ -34,9 +34,6 @@ class AdminSubjectController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if (!$this->isGranted('VIEW', new Subject())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $cache = $this->get('array_cache');
         $source = new Entity("OjsJournalBundle:Subject");
         $source->manipulateRow(
@@ -90,9 +87,6 @@ class AdminSubjectController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new Subject())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $entity = new Subject();
@@ -151,9 +145,6 @@ class AdminSubjectController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new Subject())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new Subject();
         $form = $this->createCreateForm($entity);
 
@@ -176,10 +167,6 @@ class AdminSubjectController extends Controller
     public function showAction(Request $request, Subject $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $entity->setDefaultLocale($request->getDefaultLocale());
         $token = $this
             ->get('security.csrf.token_manager')
@@ -200,9 +187,6 @@ class AdminSubjectController extends Controller
     public function editAction(Subject $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -247,9 +231,6 @@ class AdminSubjectController extends Controller
     public function updateAction(Request $request, Subject $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();
@@ -285,9 +266,6 @@ class AdminSubjectController extends Controller
     public function deleteAction(Request $request, Subject $entity)
     {
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $em = $this->getDoctrine()->getManager();

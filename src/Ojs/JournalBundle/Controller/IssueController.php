@@ -103,6 +103,10 @@ class IssueController extends Controller
                 ['id', 'journalId' => $journal->getId()]
             );
         }
+        $rowAction[] = $gridAction->filesAction(
+            'ojs_journal_issue_file_index',
+            ['journalId' => $journal->getId(), 'id']
+        );
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

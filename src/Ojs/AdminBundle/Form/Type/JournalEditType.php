@@ -31,6 +31,7 @@ class JournalEditType extends AbstractType
                     'attr' => [
                         'class' => 'select2-element',
                     ],
+                    'placeholder' => 'select.publisher',
                     'class' => 'OjsJournalBundle:Publisher',
                     'query_builder' => function(PublisherRepository $er) {
                         return $er->createQueryBuilder('publisher')
@@ -57,7 +58,9 @@ class JournalEditType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'required' => true,
+                    'label' => 'mandatory.lang',
+                    'placeholder' => 'select.mandatory.lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'attr' => [
                         'class' => 'select2-element ',
@@ -148,7 +151,7 @@ class JournalEditType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'cascade_validation' => true,
                 'validation_groups' => ['adminJournalEdit'],
             )

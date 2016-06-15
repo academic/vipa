@@ -12,7 +12,7 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
 
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs article-show-tags">
         <li role="presentation"><a href="{{ path('ojs_journal_article_show', {'id': article.id, 'journalId': selectedJournal().id}) }}">{{ "Info"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('ojs_journal_article_file_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "article.files"|trans }}</a></li>
         <li role="presentation"><a href="{{ path('ojs_journal_citation_index', {'articleId': article.id, 'journalId': selectedJournal().id}) }}">{{ "title.citations"|trans }}</a></li>

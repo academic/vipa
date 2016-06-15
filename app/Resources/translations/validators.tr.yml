@@ -23,3 +23,4 @@ title.field.article.files.not.be.blank: 'Makale dosyası için başlık alanı b
 file.field.article.files.not.be.blank: 'Makale dosyası için file alanı boş olmamalıdır.'
 user.multiple_mail.invalid: 'Girdiğiniz adres zaten sistemde kayıtlı'
 user.multiple_mail.error.not_email: 'Geçerli e-mail adresi girmelisiniz'
+article.status_can_not_be_published_without_author: 'Makale durumunu yayınlandıya almadan önce makale yazarı eklemelisiniz.'

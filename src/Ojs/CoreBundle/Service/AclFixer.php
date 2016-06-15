@@ -295,6 +295,77 @@ class AclFixer
             )
                 ->permit(MaskBuilder::MASK_OWNER)->save();
 
+            $this->aclChainManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $this->aclChainManager->on($journal)->field('adminMenu')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $this->aclChainManager->on($journal)->field('stats')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $this->aclChainManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('sections')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('block')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('issues')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('pages')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('posts')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('index')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('checklist')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('file')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('mailTemplate')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('articles')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('announcements')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('mailSettings')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('submissionSettings')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $this->aclChainManager->on($journal)->field('reviewForms')->to(
+                new JournalRoleSecurityIdentity($journal, 'ROLE_CO_EDITOR')
+            )
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+
             $this->aclChainManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $this->aclChainManager->on($journal)->field('articles')->to(
@@ -402,7 +473,7 @@ class AclFixer
         $authorRole = $this->em->getRepository('OjsUserBundle:Role')->findOneBy(['role' => 'ROLE_AUTHOR']);
         $journalUsers = $this->em
             ->getRepository('OjsJournalBundle:JournalUser')
-            ->findByRoles(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
+            ->findByRoles(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_CO_EDITOR'));
 
         foreach ($journalUsers as $journalUser) {
             if (!$journalUser->getRoles()->contains($authorRole)) {

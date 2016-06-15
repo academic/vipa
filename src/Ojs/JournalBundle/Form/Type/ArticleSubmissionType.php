@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\Form\AbstractType;
@@ -18,19 +20,13 @@ class ArticleSubmissionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'articleType',
-                'entity',
-                array(
+            ->add('articleType', 'entity', array(
                     'label' => 'article.type',
                     'class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
                     'required' => false
                 )
             )
-            ->add('translations', 'a2lix_translations',[
-                'locales' => $options['locales'],
-                'default_locale' => $options['default_locale'],
-                'required_locales' => [$options['default_locale']],
+            ->add('translations', JournalBasedTranslationsType::class,[
                 'fields' => [
                     'title' => [
                         'field_type' => 'text'
@@ -77,9 +73,6 @@ class ArticleSubmissionType extends AbstractType
                     'type' => new ArticleFileType(),
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'options' => array(
-                        'locales' => $options['locales']
-                    ),
                     'label' => 'article.files'
                 )
             )
@@ -100,12 +93,10 @@ class ArticleSubmissionType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'locales' => [],
-                'default_locale' => '',
                 'journal' => new Journal(),
                 'validation_groups' => false,
                 'cascade_validation' => true,
-                'data_class' => 'Ojs\JournalBundle\Entity\Article',
+                'data_class' => Article::class,
                 'citationTypes' => [],
                 'attr' => [
                     'novalidate' => 'novalidate',

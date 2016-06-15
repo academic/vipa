@@ -150,6 +150,92 @@ class GridAction
     }
 
     /**
+     * @param $journalId
+     * @return RowAction
+     */
+    public function articleCitations($journalId)
+    {
+        $rowAction = new RowAction('<i class="fa fa-file-text"></i>', 'ojs_journal_citation_index');
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-default btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("article.citations"),
+            ]
+        );
+        $rowAction->setRouteParameters(['journalId' => $journalId, 'id']);
+        $rowAction->setRouteParametersMapping(['id' => 'articleId']);
+
+        return $rowAction;
+    }
+
+    /**
+     * @param $journalId
+     * @return RowAction
+     */
+    public function articleAuthors($journalId)
+    {
+        $rowAction = new RowAction('<i class="fa fa-users"></i>', 'ojs_journal_article_author_index');
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("article.authors"),
+            ]
+        );
+        $rowAction->setRouteParameters(['journalId' => $journalId, 'id']);
+        $rowAction->setRouteParametersMapping(['id' => 'articleId']);
+
+        return $rowAction;
+    }
+
+    /**
+     * @param $journalId
+     * @return RowAction
+     */
+    public function articleFiles($journalId)
+    {
+        $rowAction = new RowAction('<i class="fa fa-file"></i>', 'ojs_journal_article_file_index');
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-default btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("article.files"),
+            ]
+        );
+        $rowAction->setRouteParameters(['journalId' => $journalId, 'id']);
+        $rowAction->setRouteParametersMapping(['id' => 'articleId']);
+
+        return $rowAction;
+    }
+
+    /**
+     * @param string $route
+     * @param $key
+     * @param  null      $role
+     * @return RowAction
+     */
+    public function contactsAction($route, $key = 'id', $role = null)
+    {
+        $rowAction = new RowAction('<i class="fa fa-users"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs  ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans("journal.contact"),
+            ]
+        );
+        $rowAction->setRouteParameters($key);
+        $rowAction->setTarget('_blank');
+        $rowAction->setRouteParametersMapping(['id' => 'journalId']);
+        if ($role) {
+            $rowAction->setRole($role);
+        }
+
+        return $rowAction;
+    }
+
+    /**
      * @param $route
      * @param  null      $role
      * @return RowAction
@@ -295,6 +381,26 @@ class GridAction
             $rowAction->setRole($role);
         }
 
+        return $rowAction;
+    }
+
+    /**
+     * @param string $route
+     * @param $key
+     * @return RowAction
+     */
+    public function filesAction($route, $key = 'id')
+    {
+        $rowAction = new RowAction('<i class="fa fa-files-o"></i>', $route);
+        $rowAction->setAttributes(
+            [
+                'class' => 'btn btn-primary btn-xs ',
+                'data-toggle' => 'tooltip',
+                'title' => $this->translator->trans('title.issue_files'),
+            ]
+        );
+        $rowAction->setRouteParameters($key);
+        $rowAction->setRouteParametersMapping(['id' => 'issueId']);
         return $rowAction;
     }
 }

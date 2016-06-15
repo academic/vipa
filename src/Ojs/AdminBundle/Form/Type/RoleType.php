@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\UserBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +18,8 @@ class RoleType extends AbstractType
     {
         $builder
             ->add('name', 'text', ['label' => 'name'])
-            ->add('role', 'text', ['label' => 'role.singular']);
+            ->add('role', 'text', ['label' => 'role.singular'])
+        ;
     }
 
     /**
@@ -27,20 +29,12 @@ class RoleType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\UserBundle\Entity\Role',
+                'data_class' => Role::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_userbundle_role';
     }
 }

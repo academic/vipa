@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\AdminBundle\Entity\AdminPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,20 +39,12 @@ class AdminPostType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\AdminBundle\Entity\AdminPost',
+                'data_class' => AdminPost::class,
                 'cascade_validation' => true,
                 'object' => null,
                 'objectId' => null,
                 'post_type' => 'default'
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_adminbundle_adminpost';
     }
 }

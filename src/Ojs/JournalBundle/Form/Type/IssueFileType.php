@@ -2,7 +2,9 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\ArticleFileParams;
+use Ojs\JournalBundle\Entity\IssueFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +35,7 @@ class IssueFileType extends AbstractType
                 'label' => 'issuefile.langcode',
                 'choices'=>$languages
             ])
-            ->add('translations', 'a2lix_translations')
+            ->add('translations', JournalBasedTranslationsType::class)
         ;
     }
     
@@ -43,16 +45,8 @@ class IssueFileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\IssueFile',
+            'data_class' => IssueFile::class,
             'languages'=>[]
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_issuefile';
     }
 }

@@ -14,14 +14,12 @@ PrestaSitemapBundle:
 ojs_admin:
   resource: '@OjsAdminBundle/Resources/config/routing.yml'
   prefix: admin
+  requirements:
+    id: \d+
 
 ojs_admin_root:
   resource: '@OjsAdminBundle/Resources/config/routing_root.yml'
   prefix:   /
-
-#ojs_installer:
-#  resource: '@OjsInstallerBundle/Resources/config/routing.yml'
-#  prefix:   /
 
 ojs_oai:
   resource: '@OjsOAIBundle/Resources/config/routing.yml'
@@ -30,6 +28,10 @@ ojs_oai:
 ojs_journal:
   resource: '@OjsJournalBundle/Resources/config/routing.yml'
   prefix:   /
+  requirements:
+    id: \d+
+    publisherId: \d+
+    journalId: \d+
 
 ojs_core:
   resource: '@OjsCoreBundle/Resources/config/routing.yml'
@@ -38,6 +40,13 @@ ojs_core:
 ojs_journal_panel:
   resource: '@OjsJournalBundle/Resources/config/routing_panel.yml'
   prefix: /journal
+  requirements:
+    id:           \d+
+    publisherId:  \d+
+    journalId:    \d+
+    articleId:    \d+
+    issueId:      \d+
+    boardId:      \d+
 
 auth:
   resource: '@OjsUserBundle/Resources/config/routing.yml'

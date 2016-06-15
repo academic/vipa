@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form\Type;
 
 use GuzzleHttp\Client;
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
@@ -28,7 +29,7 @@ class ArticleType extends AbstractType
             $disabled = true;
         }
         $form = $builder
-            ->add('translations', 'a2lix_translations',[
+            ->add('translations', JournalBasedTranslationsType::class,[
                 'fields' => [
                     'title' => [
                         'label' => 'article.title',
@@ -60,7 +61,19 @@ class ArticleType extends AbstractType
                     'choices' => $options['journal']->getSubjects(),
                 )
             )
-            ->add('titleTransliterated', null, ['label' => 'article.titleTransliterated'])
+            ->add('titleTransliterated', null, [
+                'label' => 'article.titleTransliterated'
+                ]
+            )
+            ->add(
+                'abstractTransliterated',
+                'textarea',
+                array(
+                    'label' => 'abstractTransliterated',
+                    'required' => false,
+                    'attr' => array('class' => ' form-control'),
+                )
+            )
             ->add(
                 'status',
                 'choice',
@@ -87,14 +100,6 @@ class ArticleType extends AbstractType
                     'label' => 'otherid',
                     'required' => false,
                     'attr' => array('class' => ' form-control'),
-                )
-            )
-            ->add(
-                'anonymous',
-                'checkbox',
-                array(
-                    'label' => 'anonymous',
-                    'required' => false,
                 )
             )
             ->add(
@@ -147,15 +152,6 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'abstractTransliterated',
-                'textarea',
-                array(
-                    'label' => 'abstractTransliterated',
-                    'required' => false,
-                    'attr' => array('class' => ' form-control'),
-                )
-            )
-            ->add(
                 'articleType',
                 'entity',
                 array(
@@ -164,7 +160,6 @@ class ArticleType extends AbstractType
                     'required' => false
                 )
             )
-            ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
             ->add(
                 'submissionDate',
                 'collot_datetime',
@@ -198,16 +193,6 @@ class ArticleType extends AbstractType
                     ],
                 ]
             )
-            ->add('header', 'jb_crop_image_ajax', array(
-                'endpoint' => 'article',
-                'label' => 'Header Image',
-                'img_width' => 960,
-                'img_height' => 200,
-                'crop_options' => array(
-                    'aspect-ratio' => 960 / 200,
-                    'maxSize' => "[960, 200]"
-                )
-            ))
             ;
         $form->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
@@ -241,13 +226,5 @@ class ArticleType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_article';
     }
 }

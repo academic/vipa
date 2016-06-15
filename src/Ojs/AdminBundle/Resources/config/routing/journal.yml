@@ -24,11 +24,6 @@ ojs_admin_journal_update:
     defaults: { _controller: "%ojs_admin.journal_controller.class%:update" }
     methods:  [PUT]
 
-ojs_admin_journal_delete:
-    path:  /{id}/delete
-    defaults: { _controller: "OjsAdminBundle:AdminJournal:delete" }
-    methods:  [DELETE]
-
 ojs_admin_journal_autocomplete:
     path:  /autocomplete
     defaults: { _controller: "OjsAdminBundle:AdminJournal:autoComplete" }

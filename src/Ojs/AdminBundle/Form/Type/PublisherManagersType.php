@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\AdminBundle\Entity\PublisherManagers;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,6 +25,7 @@ class PublisherManagersType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
+                    'placeholder' => 'select.publisher',
                     'attr' => array("class" => "select2-element"),
                 ]
             )
@@ -36,6 +38,7 @@ class PublisherManagersType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
+                    'placeholder' => 'user',
                     'attr' => array("class" => "select2-element"),
                 ]
             )
@@ -49,20 +52,12 @@ class PublisherManagersType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\AdminBundle\Entity\PublisherManagers',
+                'data_class' => PublisherManagers::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_publishermanagers';
     }
 }

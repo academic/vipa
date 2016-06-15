@@ -22,10 +22,13 @@ class DownloadController extends Controller
 
         $path = $rootDir.'/../web'.$fileManager->getUrl($fileHistory);
         $path = preg_replace('/\?'.$assetHelper->getVersion().'$/', '', $path);
-        $fileOriginalName = $fileHistory->getOriginalName();
-        if(preg_match('/\//', $fileHistory->getOriginalName())){
-            $explode = explode('/', $fileHistory->getOriginalName());
-            $fileOriginalName = end($explode);
+
+        $explode = explode('.', $fileHistory->getOriginalName());
+        $mime = end($explode);
+        if(!empty($articleFile->getArticle()->getDoi())){
+            $fileOriginalName = str_replace('/', '-', $articleFile->getArticle()->getDoi()).'-'.$articleFile->getId().'.'.$mime;
+        }else{
+            $fileOriginalName = $articleFile->getArticle().'-'.$articleFile->getId().'.'.$mime;
         }
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(

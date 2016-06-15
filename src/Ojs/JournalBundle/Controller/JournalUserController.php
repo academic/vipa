@@ -509,14 +509,17 @@ class JournalUserController extends Controller
     public function getUserByUsernameAction(Request $request)
     {
         $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.user');
-
-        $prefix = new ElasticQuery\Prefix();
-        $prefix->setPrefix('_all', strtolower($q));
-
-        $results = $search->search($prefix);
+        $queryArray['from'] = 0;
+        $queryArray['size'] = 20;
+        $userSearchService = $this->container->get('fos_elastica.index.search.user');
+        $queryArray['query']['bool']['should'][] = [
+            'query_string' => [
+                'query' => 'user.username:'.$q.' OR '.'user.email:'.$q.' OR '.'user.fullName:'.$q
+            ]
+        ];
+        $resultData = $userSearchService->search($queryArray);
         $data = [];
-        foreach ($results as $result) {
+        foreach ($resultData as $result) {
             $data[] = [
                 'id' => $result->getId(),
                 'text' => $result->getData()['username']." - ".$result->getData()['email'],

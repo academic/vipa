@@ -9,4 +9,4 @@ ojs_journal_settings_update:
 
 ojs_journal_settings_submission:
     path:  /{journalId}/settings/submission
-    defaults: { _controller: "OjsJournalBundle:Manager:journalSettingsSubmission" }
+    defaults: { _controller: "OjsJournalBundle:SubmissionSetting:edit" }

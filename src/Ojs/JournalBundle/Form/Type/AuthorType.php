@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
+use Ojs\JournalBundle\Entity\Author;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +19,7 @@ class AuthorType extends AbstractType
     {
         $builder
             ->add('orcid')
-            ->add('translations', 'a2lix_translations', [
+            ->add('translations', JournalBasedTranslationsType::class, [
                 'label' => ' ',
                 'required' => false,
                 'fields' => [
@@ -98,20 +100,12 @@ class AuthorType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Author',
+                'data_class' => Author::class,
                 'cascade_validation' => true,
                 'attr' => [
                     'class' => 'form-validate',
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_author';
     }
 }

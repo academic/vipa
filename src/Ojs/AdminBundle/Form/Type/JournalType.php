@@ -59,7 +59,8 @@ class JournalType extends AbstractType
                     },
                     'attr' => ['class' => 'select2-element validate[required]'],
                     'label' => 'journal.publisher',
-                    'required' => true
+                    'required' => true,
+                    'placeholder' => 'select.publisher',
                 )
             )
             ->add(
@@ -77,7 +78,9 @@ class JournalType extends AbstractType
                 'mandatoryLang',
                 'entity',
                 [
-                    'label' => 'Mandatory Lang',
+                    'required' => true,
+                    'label' => 'mandatory.lang',
+                    'placeholder' => 'select.mandatory.lang',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'attr' => [
                         'class' => 'select2-element ',
@@ -265,17 +268,9 @@ class JournalType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+                'data_class' => Journal::class,
                 'cascade_validation' => true
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_adminbundle_journal';
     }
 }

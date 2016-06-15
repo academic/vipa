@@ -2,6 +2,8 @@
 
 namespace Ojs\CoreBundle\Entity;
 
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\Lang;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\TranslationInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -127,6 +129,21 @@ trait TranslateableTrait
     public function getLogicalFieldTranslation($field, $withLocale = true)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
+
+        if($this instanceof Journal){
+            if($this->getMandatoryLang() instanceof Lang){
+                $this->setCurrentLocale($this->getMandatoryLang()->getCode());
+            }
+        }
+
+        if(property_exists($this, 'journal')){
+            $journal = $accessor->getValue($this, 'journal');
+            if($journal instanceof Journal){
+                if($journal->getMandatoryLang() instanceof Lang){
+                    $this->setCurrentLocale($journal->getMandatoryLang()->getCode());
+                }
+            }
+        }
 
         $fieldValue = $accessor->getValue($this->translate(), $field);
         if(!empty($fieldValue) && $fieldValue !== '-'){

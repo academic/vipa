@@ -21,3 +21,24 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            var applicationPublisher = $('.application-publisher');
+            var publisherLabel = applicationPublisher.parent().find('.control-label');
+            function revisePublisherInput(){
+                var publisherEditValue = '{{ path('ojs_admin_publisher_edit', {id: 9999}) }}'.replace('9999', applicationPublisher.val());
+                if(publisherLabel.find('a').length<1){
+                    publisherLabel.append('&nbsp;&nbsp;<a target="_blank">{{ 'publisher.edit'|trans }}</a>');
+                }
+                publisherLabel.find('a').attr('href', publisherEditValue);
+            }
+            revisePublisherInput();
+            applicationPublisher.on('change', function(){
+                revisePublisherInput();
+            });
+        });
+    </script>
+{% endblock %}

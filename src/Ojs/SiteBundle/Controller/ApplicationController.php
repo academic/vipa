@@ -42,21 +42,14 @@ class ApplicationController extends Controller
             'locale' => $request->getLocale()
         ]);
 
-        $allowanceSetting = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'journal_application']);
-
-        if ($allowanceSetting) {
-            if (!$allowanceSetting->getValue()) {
-                return $this->render(
-                    'OjsSiteBundle:Site:not_available.html.twig',
-                    [
-                        'title' => 'title.journal_application',
-                        'message' => 'message.application_not_available'
-                    ]
-                );
-            }
+        if (!$request->attributes->get('_system_setting')->isJournalApplicationActive()) {
+            return $this->render(
+                'OjsSiteBundle:Site:not_available.html.twig',
+                [
+                    'title' => 'title.journal_application',
+                    'message' => 'message.application_not_available'
+                ]
+            );
         }
 
         $application = new Journal();
@@ -151,21 +144,14 @@ class ApplicationController extends Controller
     {
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
-        $allowanceSetting = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'publisher_application']);
-
-        if ($allowanceSetting) {
-            if (!$allowanceSetting->getValue()) {
-                return $this->render(
-                    'OjsSiteBundle:Site:not_available.html.twig',
-                    [
-                        'title' => 'title.journal_application',
-                        'message' => 'message.application_not_available'
-                    ]
-                );
-            }
+        if (!$request->attributes->get('_system_setting')->isPublisherApplicationActive()) {
+            return $this->render(
+                'OjsSiteBundle:Site:not_available.html.twig',
+                [
+                    'title' => 'title.journal_application',
+                    'message' => 'message.application_not_available'
+                ]
+            );
         }
 
         $em = $this->getDoctrine()->getManager();

@@ -11,14 +11,18 @@ Ojs\AdminBundle\Entity\SystemSetting:
       generator:
         strategy: AUTO
   fields:
-    name:
-      type: string
-      length: 255
-    value:
-      type: string
-      length: 255
-    description:
-      type: string
-      length: 255
+    userRegistrationActive:
+      type: boolean
       nullable: true
-  lifecycleCallbacks: {  }
+    publisherApplicationActive:
+      type: boolean
+      nullable: true
+    journalApplicationActive:
+      type: boolean
+      nullable: true
+    articleSubmissionActive:
+      type: boolean
+      nullable: true
+    systemFooterScript:
+      type: text
+      nullable: true

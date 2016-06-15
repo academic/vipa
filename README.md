@@ -1,7 +1,7 @@
 #Open Journal Software (OJS.io)
 
-[![Build Status](https://img.shields.io/travis/bulutyazilim/ojs/master.svg?style=flat-square)](https://travis-ci.org/bulutyazilim/ojs)
-[![Quality Status](https://img.shields.io/scrutinizer/g/bulutyazilim/ojs.svg?style=flat-square)](https://scrutinizer-ci.com/g/bulutyazilim/ojs/)
+[![Build Status](https://travis-ci.org/ojs/ojs.svg?branch=master)](https://travis-ci.org/ojs/ojs)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ojs/ojs/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ojs/ojs/?branch=master)
 
 **Open Journal Software (OJS)** is a journal management and publishing software built with **Symfony 2 Framework**.
 

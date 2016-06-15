@@ -56,19 +56,6 @@ class SiteController extends Controller
             'user' => 0
         ];
 
-        $journalApplications = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'journal_application']);
-
-        $publisherApplications = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'publisher_application']);
-
-        $data['journalApplicationAllowance'] = $journalApplications ? $journalApplications->getValue() : true;
-        $data['publisherApplicationAllowance'] = $publisherApplications ? $publisherApplications->getValue() : true;
-
         $data['stats']['journal'] = $this->get('fos_elastica.index.search.journal')->count(new MatchAll());
         $data['stats']['article'] = $this->get('fos_elastica.index.search.articles')->count(new MatchAll());
         $data['stats']['subject'] = $this->get('fos_elastica.index.search.subject')->count(new MatchAll());
@@ -98,7 +85,13 @@ class SiteController extends Controller
 
         return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', $data);
     }
-    
+
+    /**
+     * @param Request $request
+     * @param $publisher
+     * @param $slug
+     * @return Response
+     */
     public function journalIndexAction(Request $request, $publisher, $slug)
     {
         $journalService = $this->get('ojs.journal_service');
@@ -116,6 +109,11 @@ class SiteController extends Controller
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity]);
         $this->throw404IfNotFound($journal);
+
+        //if system supports journal mandatory locale set locale as journal mandatory locale
+        if(in_array($journal->getMandatoryLang()->getCode(),$this->getParameter('locale_support'))){
+            $request->setLocale($journal->getMandatoryLang()->getCode());
+        }
 
         //if theme preview is active set given theme
         if(
@@ -345,7 +343,8 @@ class SiteController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
         $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(
-            ['journal' => $journal]
+            ['journal' => $journal],
+            ['id' => 'DESC']
         );
 
         $data['page'] = 'announcement';

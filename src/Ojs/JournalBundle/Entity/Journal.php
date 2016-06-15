@@ -37,6 +37,7 @@ class Journal extends AbstractTranslatable
         JournalStatuses::STATUS_HOLD         => 'status.hold',
         JournalStatuses::STATUS_PREPARING    => 'status.preparing',
         JournalStatuses::STATUS_PUBLISHED    => 'status.published',
+        JournalStatuses::STATUS_EXITED       => 'status.exited',
     ];
     /** @var  boolean */
     protected $setupFinished;
@@ -246,16 +247,10 @@ class Journal extends AbstractTranslatable
      */
     private $sections;
     /**
-     *
-     * arbitrary settings
-     * @var ArrayCollection|JournalSetting[]
-     */
-    private $settings;
-    /**
      * @var Publisher
      * @JMS\Expose
      * @JMS\Groups({"JournalDetail"})
-     * @Grid\Column(field="publisher.translations.name", title="publisher")
+     * @Grid\Column(field="publisher.translations.name", title="publisher", safe=false)
      */
     private $publisher;
     /**
@@ -374,53 +369,6 @@ class Journal extends AbstractTranslatable
     }
 
     /**
-     * @param  string $settingName
-     * @param  string $value
-     * @return Journal
-     */
-    public function addSetting($settingName, $value)
-    {
-        $this->settings[$settingName] = new JournalSetting($settingName, $value, $this);
-
-        return $this;
-    }
-
-    /**
-     * @param  string $settingName
-     * @return bool
-     */
-    public function hasSetting($settingName)
-    {
-        foreach ($this->settings as $setting) {
-            if ($setting->getSetting() === $settingName) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * @param  string $settingName
-     * @return JournalSetting|boolean
-     */
-    public function getAttribute($settingName)
-    {
-        return $this->getSetting($settingName);
-    }
-
-    /**
-     *
-     * @param  string $settingName
-     * @return JournalSetting|boolean
-     */
-    public function getSetting($settingName)
-    {
-        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
-    }
-
-    /**
      * @param  Section $section
      * @return Journal
      */
@@ -461,6 +409,19 @@ class Journal extends AbstractTranslatable
     public function getLanguages()
     {
         return $this->languages;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLocaleCodeBag()
+    {
+        $locales = [];
+        $submissionLangObjects = $this->getLanguages();
+        foreach ($submissionLangObjects as $submissionLangObject) {
+            $locales[] = $submissionLangObject->getCode();
+        }
+        return $locales;
     }
 
     /**

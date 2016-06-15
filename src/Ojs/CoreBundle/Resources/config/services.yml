@@ -42,6 +42,17 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  ojs_core.kernel_request_listener:
+    class: Ojs\CoreBundle\Service\KernelRequestListener
+    tags:
+      - { name: kernel.event_subscriber }
+
+  ojs_core.kernel_request_attr_loader:
+    class: Ojs\CoreBundle\Service\RequestAttrLoaderListener
+    arguments: ["@doctrine.orm.entity_manager"]
+    tags:
+      - { name: kernel.event_subscriber }
+
   ojs.twig.ojs_extension:
     class: Ojs\CoreBundle\Service\Twig\OjsExtension
     arguments:
@@ -101,6 +112,18 @@ services:
     arguments: [ "@router", "@translator" ]
     tags:
       - { name: form.type, alias: tags }
+
+  form.type.journal_based_translations:
+    class: Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType
+    arguments: [ "@ojs.journal_service"]
+    tags:
+      - { name: form.type }
+
+  form.type.journal_lang_code_type:
+    class: Ojs\CoreBundle\Form\Type\JournalLangCodeType
+    arguments: [ "@ojs.journal_service"]
+    tags:
+      - { name: form.type }
 
   form.type.extended_entity:
       class: Ojs\CoreBundle\Form\Type\ExtendedEntityType

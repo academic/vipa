@@ -25,9 +25,6 @@ class AdminInstitutionController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new Institution())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $source = new Entity('OjsJournalBundle:Institution');
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -55,9 +52,6 @@ class AdminInstitutionController extends Controller
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new Institution())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new Institution();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -107,9 +101,6 @@ class AdminInstitutionController extends Controller
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new Institution())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new Institution();
         $form = $this->createCreateForm($entity);
 
@@ -132,9 +123,6 @@ class AdminInstitutionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if (!$this->isGranted('VIEW', $entity))
-            throw new AccessDeniedException("You are not authorized for this page!");
-
         $this->throw404IfNotFound($entity);
 
         $token = $this
@@ -159,9 +147,6 @@ class AdminInstitutionController extends Controller
         /** @var Institution $entity */
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
@@ -206,9 +191,6 @@ class AdminInstitutionController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Institution $entity */
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -238,9 +220,6 @@ class AdminInstitutionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');

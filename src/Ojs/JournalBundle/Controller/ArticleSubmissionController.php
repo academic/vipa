@@ -163,11 +163,10 @@ class ArticleSubmissionController extends Controller
      */
     public function newAction(Request $request)
     {
-        if ($this->submissionsNotAllowed()) {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
-
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
 
@@ -201,6 +200,16 @@ class ArticleSubmissionController extends Controller
         }
 
         $articleAuthor->setAuthor($author);
+
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
+        $abstractTemplates = [];
+        if($submissionSetting){
+            foreach($submissionSetting->getTranslations() as $translation){
+                $abstractTemplates[$translation->getLocale()] = $translation->getSubmissionAbstractTemplate();
+            }
+        }
+
+
         $article
             ->setSubmitterUser($user)
             ->setStatus(ArticleStatuses::STATUS_NOT_SUBMITTED)
@@ -208,16 +217,10 @@ class ArticleSubmissionController extends Controller
             ->addArticleFile(new ArticleFile())
             ->addArticleAuthor($articleAuthor);
 
-        $locales = [];
-        $submissionLangObjects = $journal->getLanguages();
-        foreach ($submissionLangObjects as $submissionLangObject) {
-            $locales[] = $submissionLangObject->getCode();
-        }
-
         $defaultLocale = $journal->getMandatoryLang()->getCode();
         $article->setCurrentLocale($defaultLocale);
 
-        $form = $this->createCreateForm($article, $journal, $locales, $defaultLocale);
+        $form = $this->createCreateForm($article, $journal);
         $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
@@ -279,34 +282,55 @@ class ArticleSubmissionController extends Controller
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
             array(
-                'article' => $article,
-                'journal' => $journal,
-                'form' => $form->createView(),
+                'article'           => $article,
+                'journal'           => $journal,
+                'form'              => $form->createView(),
+                'abstractTemplates'  => $abstractTemplates,
             )
         );
     }
 
-    private function submissionsNotAllowed()
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    private function submissionsNotAllowed(Request $request)
     {
-        $permissionSetting = $this
-            ->getDoctrine()
-            ->getRepository('OjsAdminBundle:SystemSetting')
-            ->findOneBy(['name' => 'article_submission']);
+        $em = $this->getDoctrine()->getManager();
+        $submissionSetting = $em
+            ->getRepository('OjsJournalBundle:SubmissionSetting')
+            ->findOneBy([]);
 
-        if ($permissionSetting && !$permissionSetting->getValue()) {
+        if (!$request->attributes->get('_system_setting')->isArticleSubmissionActive()
+            || ($submissionSetting
+            && !$submissionSetting->getSubmissionEnabled())) {
+
             return true;
         }
 
         return false;
     }
 
+    /**
+     * @return Response
+     */
     private function respondAsNotAllowed()
     {
+        $em = $this->getDoctrine()->getManager();
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
+        $message = 'message.submission_not_available';
+        if($submissionSetting
+            && !empty($submissionSetting->getSubmissionCloseText())
+            && !$submissionSetting->getSubmissionEnabled()
+        ){
+            $message = $submissionSetting->getSubmissionCloseText();
+        }
+
         return $this->render(
             'OjsSiteBundle:Site:not_available.html.twig',
             [
                 'title' => 'title.submission_new',
-                'message' => 'message.submission_not_available',
+                'message' => $message,
             ]
         );
     }
@@ -314,11 +338,9 @@ class ArticleSubmissionController extends Controller
     /**
      * @param  Article       $article
      * @param  Journal       $journal
-     * @param $locales
-     * @param $defaultLocale
      * @return FormInterface
      */
-    private function createCreateForm(Article $article, Journal $journal, $locales, $defaultLocale)
+    private function createCreateForm(Article $article, Journal $journal)
     {
         $event = new TypeEvent(new ArticleSubmissionType());
         $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
@@ -332,9 +354,7 @@ class ArticleSubmissionController extends Controller
                     array('journalId' => $journal->getId())
                 ),
                 'method' => 'POST',
-                'locales' => $locales,
                 'journal' => $journal,
-                'default_locale' => $defaultLocale,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types')),
             )
         )
@@ -350,10 +370,10 @@ class ArticleSubmissionController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        if ($this->submissionsNotAllowed()) {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
 
         /** @var User $user */
@@ -374,15 +394,7 @@ class ArticleSubmissionController extends Controller
         );
         $this->throw404IfNotFound($article);
 
-        $locales = [];
-        $submissionLangObjects = $journal->getLanguages();
-        foreach ($submissionLangObjects as $submissionLangObject) {
-            $locales[] = $submissionLangObject->getCode();
-        }
-        $defaultLocale = $journal->getMandatoryLang()->getCode();
-        $article->setCurrentLocale($defaultLocale);
-
-        $form = $this->createEditForm($article, $journal, $locales, $defaultLocale);
+        $form = $this->createEditForm($article, $journal);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -422,7 +434,12 @@ class ArticleSubmissionController extends Controller
         );
     }
 
-    private function createEditForm(Article $article, Journal $journal, $locales, $defaultLocale)
+    /**
+     * @param Article $article
+     * @param Journal $journal
+     * @return $this|FormInterface
+     */
+    private function createEditForm(Article $article, Journal $journal)
     {
         $event = new TypeEvent(new ArticleSubmissionType());
         $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
@@ -436,8 +453,6 @@ class ArticleSubmissionController extends Controller
                     array('journalId' => $journal->getId(), 'id' => $article->getId())
                 ),
                 'method' => 'POST',
-                'locales' => $locales,
-                'default_locale' => $defaultLocale,
                 'journal' => $journal,
                 'citationTypes' => array_keys($this->container->getParameter('citation_types')),
             )
@@ -455,10 +470,10 @@ class ArticleSubmissionController extends Controller
      */
     public function previewAction(Request $request, $articleId)
     {
-        if ($this->submissionsNotAllowed()) {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $dispatcher = $this->get('event_dispatcher');
         $session = $this->get('session');
@@ -497,6 +512,8 @@ class ArticleSubmissionController extends Controller
 
         $validator = $this->get('validator');
         $draftErrors = $validator->validate($article, null, ['groups' => 'submission']);
+
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
 
         if ($form->isValid() && count($draftErrors) == 0) {
             if ($session->has('submissionFiles')) {
@@ -551,6 +568,7 @@ class ArticleSubmissionController extends Controller
                 'translations' => $article->getTranslations(),
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
                 'form' => $form->createView(),
+                'submissionSetting' => $submissionSetting,
                 'draftErrors' => $draftErrors,
             )
         );
@@ -562,11 +580,11 @@ class ArticleSubmissionController extends Controller
      */
     public function startAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine();
-        if ($this->submissionsNotAllowed()) {
+        if ($this->submissionsNotAllowed($request)) {
             return $this->respondAsNotAllowed();
         }
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $session = $this->get('session');
 
         if (!$journal) {

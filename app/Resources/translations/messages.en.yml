@@ -60,6 +60,7 @@ Pubdateseason: 'Pub Date Season'
 ROLE_AUTHOR: Author
 ROLE_COPYEDITOR: Copyeditor
 ROLE_EDITOR: Editor
+ROLE_CO_EDITOR: Co-Editor
 ROLE_JOURNAL_MANAGER: 'Journal Manager'
 ROLE_LAYOUT_EDITOR: 'Layout Editor'
 ROLE_PROOFREADER: Proofreader
@@ -569,6 +570,8 @@ journal.register: 'Journal Register'
 journal.scope: Scope
 journal.settings.abstractTemplate.desc: 'You can load predefined templates by clicking buttons listed above.'
 journal.settings.last.step.confirm: 'Submission last step confirm text'
+journal.settings.submission.open: 'Submission is open'
+journal.settings.submission.close.text: 'Submission close description'
 journal.settings.mail: 'Mail Settings'
 journal.settings.mail.signature: 'Email Signature'
 journal.settings.page: 'Page Settings'
@@ -595,12 +598,13 @@ journal.title: Title
 journal.titleAbbr: 'Abbreviated Title'
 journal.titleTransliterated: 'Transliterated Title'
 journal.update: 'Update the Journal'
-journal.url: URL
+journal.url: 'Journal Webpage'
 journal.user: User
 journal.users: 'Journal Users'
 journal.subscribe: 'Subscribe with email'
 journal.mandatory_lang: 'Mandatory Language'
-'Mandadory Lang': 'Mandatory Language'
+mandadory.lang: 'Mandatory Language'
+select.mandadory.lang: 'Select Mandatory Language'
 journal.supported_languages: 'Supported Languages'
 journal.no_journal_you_have: 'No journal you have'
 journalContact.contact.id: 'Contact ID'
@@ -1498,6 +1502,7 @@ status.application: 'On Application'
 status.name_changed: 'Name Changed'
 status.hold: 'On Hold'
 status.preparing: 'Preparing'
+status.exited: 'Exited'
 title.blocks: 'Blocks'
 title.block_show: 'Show Block'
 title.block: 'Block'
@@ -1630,6 +1635,9 @@ display_mode: 'Display Mode'
 display_mode.all: 'Title, Volume and Number'
 display_mode.title: 'Title'
 display_mode.volume_and_number: 'Volume and Number'
+select.publisher: 'Select publisher'
+journal.application.domain.help.text: 'You can host your journal, if you specify a domain.'
+article.successful.create: 'Article successfully created. You can add authors from top menu.'
 
 # OAuth
 linkedin: 'Linkedin'

@@ -9,3 +9,11 @@ ojs_api_home:
 ojs_rest: 
   type: rest
   resource: "@OjsApiBundle/Resources/config/routing_rest.yml"
+  requirements:
+    id:           \d+
+    publisherId:  \d+
+    journalId:    \d+
+    articleId:    \d+
+    issueId:      \d+
+    boardId:      \d+
+    sectionId:    \d+

@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Form\Type;
 
+use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,17 +33,9 @@ class AdminAnnouncementType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'Ojs\AdminBundle\Entity\AdminAnnouncement',
+            'data_class' => AdminAnnouncement::class,
             'cascade_validation' => true
             ]
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_adminbundle_adminannouncement';
     }
 }

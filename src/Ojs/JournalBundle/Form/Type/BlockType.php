@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Form\Type;
 
+use Ojs\CoreBundle\Form\Type\JournalBasedTranslationsType;
+use Ojs\JournalBundle\Entity\Block;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +17,7 @@ class BlockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations',[
+            ->add('translations', JournalBasedTranslationsType::class,[
                 'label' => ' ',
                 'fields' => [
                     'title' => [
@@ -56,7 +58,7 @@ class BlockType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Ojs\JournalBundle\Entity\Block',
+                'data_class' => Block::class,
                 'object_id' => null,
                 'object_type' => null,
                 'cascade_validation' => true,
@@ -65,13 +67,5 @@ class BlockType extends AbstractType
                 ],
             )
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ojs_journalbundle_block';
     }
 }

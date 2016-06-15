@@ -75,6 +75,10 @@ class ArticleController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->showAction('ojs_journal_article_show', ['id', 'journalId' => $journal->getId()]);
         $rowAction[] = $gridAction->editAction('ojs_journal_article_edit', ['id', 'journalId' => $journal->getId()]);
+        $rowAction[] = $gridAction->articleCitations($journal->getId());
+        $rowAction[] = $gridAction->articleAuthors($journal->getId());
+        $rowAction[] = $gridAction->articleFiles($journal->getId());
+
         $rowAction[] = $gridAction->deleteAction(
             'ojs_journal_article_delete',
             ['id', 'journalId' => $journal->getId()]
@@ -138,6 +142,8 @@ class ArticleController extends Controller
                 'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
                 'method' => 'POST',
                 'journal' => $journal,
+                'default_locale' => $journal->getMandatoryLang()->getCode(),
+                'locales' => $journal->getLocaleCodeBag(),
             ]
         );
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -177,7 +183,7 @@ class ArticleController extends Controller
             $em->persist($event->getItem());
             $em->flush();
 
-            $this->successFlashBag('successful.create');
+            $this->successFlashBag('article.successful.create');
 
             $event = new JournalItemEvent($event->getItem());
             $dispatcher->dispatch(ArticleEvents::POST_CREATE, $event);
@@ -262,6 +268,8 @@ class ArticleController extends Controller
                 'action' => $action,
                 'method' => 'PUT',
                 'journal' => $journal,
+                'default_locale' => $journal->getMandatoryLang()->getCode(),
+                'locales' => $journal->getLocaleCodeBag(),
             ]
         );
 

@@ -19,10 +19,6 @@ class AdminAnnouncementController extends OjsController
      */
     public function indexAction()
     {
-        if (!$this->isGranted('VIEW', new AdminAnnouncement())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $source = new Entity('OjsAdminBundle:AdminAnnouncement');
 
         $grid = $this->get('grid')->setSource($source);
@@ -43,9 +39,6 @@ class AdminAnnouncementController extends OjsController
      */
     public function newAction()
     {
-        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
         $entity = new AdminAnnouncement();
         $form = $this->createCreateForm($entity);
 
@@ -81,10 +74,6 @@ class AdminAnnouncementController extends OjsController
      */
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('CREATE', new AdminAnnouncement())) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $entity = new AdminAnnouncement();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -114,11 +103,6 @@ class AdminAnnouncementController extends OjsController
     public function showAction(AdminAnnouncement $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_announcement'.$entity->getId());
@@ -137,11 +121,6 @@ class AdminAnnouncementController extends OjsController
     public function editAction(AdminAnnouncement $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $token = $this
             ->get('security.csrf.token_manager')
             ->refreshToken('ojs_admin_announcement'.$entity->getId());
@@ -189,11 +168,6 @@ class AdminAnnouncementController extends OjsController
     public function updateAction(Request $request, AdminAnnouncement $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -222,11 +196,6 @@ class AdminAnnouncementController extends OjsController
     public function deleteAction(Request $request, AdminAnnouncement $entity)
     {
         $this->throw404IfNotFound($entity);
-
-        if (!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You are not authorized for this page!");
-        }
-
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('ojs_admin_announcement'.$entity->getId());
