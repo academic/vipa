@@ -58,7 +58,6 @@ class BlockController extends Controller
      * @param  Request $request
      * @return RedirectResponse|Response
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function createAction(Request $request)
     {
@@ -145,7 +144,6 @@ class BlockController extends Controller
      * @param  Block    $entity
      * @return Response
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function showAction(Block $entity)
     {
@@ -173,7 +171,6 @@ class BlockController extends Controller
      * @param  Block    $block
      * @return Response
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function editAction(Block $block)
     {
@@ -225,7 +222,6 @@ class BlockController extends Controller
      * @return RedirectResponse|Response
      *
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function updateAction(Request $request, Block $entity)
     {
@@ -268,7 +264,6 @@ class BlockController extends Controller
      * @return RedirectResponse
      *
      *
-     * @todo this function is not finished yet we must do more tests
      */
     public function deleteAction(Request $request, Block $entity)
     {
