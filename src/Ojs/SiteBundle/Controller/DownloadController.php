@@ -26,7 +26,7 @@ class DownloadController extends Controller
         $explode = explode('.', $fileHistory->getOriginalName());
         $mime = end($explode);
         if(!empty($articleFile->getArticle()->getDoi())){
-            $fileOriginalName = $articleFile->getArticle()->getDoi().'-'.$articleFile->getId().'.'.$mime;
+            $fileOriginalName = str_replace('/', '-', $articleFile->getArticle()->getDoi()).'-'.$articleFile->getId().'.'.$mime;
         }else{
             $fileOriginalName = $articleFile->getArticle().'-'.$articleFile->getId().'.'.$mime;
         }
