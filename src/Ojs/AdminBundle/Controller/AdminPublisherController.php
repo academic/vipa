@@ -87,6 +87,7 @@ class AdminPublisherController extends Controller
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
         $entity = new Publisher();
+        $entity->setCurrentLocale($request->getDefaultLocale());
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
