@@ -100,7 +100,7 @@ class ArticleFileController extends Controller
         $this->throw404IfNotFound($article);
 
         $entity = new ArticleFile();
-        $form = $this->createCreateForm($entity, $journal, $article, $journalService->getJournalLocales())
+        $form = $this->createCreateForm($entity, $journal, $article)
                      ->add('create', 'submit', ['label' => 'c']);
         $form->handleRequest($request);
 
@@ -133,10 +133,9 @@ class ArticleFileController extends Controller
      * @param   ArticleFile $entity
      * @param   Journal $journal
      * @param   Article $article
-     * @param   $locales
      * @return Form
      */
-    private function createCreateForm(ArticleFile $entity, Journal $journal, Article $article, $locales)
+    private function createCreateForm(ArticleFile $entity, Journal $journal, Article $article)
     {
         $form = $this->createForm(
             new ArticleFileType(),
@@ -147,7 +146,6 @@ class ArticleFileController extends Controller
                     ['journalId' => $journal->getId(), 'articleId' => $article->getId()]
                 ),
                 'method'  => 'POST',
-                'locales' => $locales,
             ]
         );
 
@@ -172,7 +170,7 @@ class ArticleFileController extends Controller
 
         $entity = new ArticleFile();
         $entity->setArticle($article);
-        $form = $this->createCreateForm($entity, $journal, $article, $journalService->getJournalLocales())
+        $form = $this->createCreateForm($entity, $journal, $article)
                      ->add('create', 'submit', ['label' => 'c']);
 
         return $this->render(
@@ -259,7 +257,7 @@ class ArticleFileController extends Controller
 
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity, $journal, $article, $journalService->getJournalLocales())
+        $editForm = $this->createEditForm($entity, $journal, $article)
                          ->add('save', 'submit', ['label' => 'save']);
 
         $token = $this
@@ -283,7 +281,7 @@ class ArticleFileController extends Controller
      * @param Article $article
      * @return Form The form
      */
-    private function createEditForm(ArticleFile $entity, Journal $journal, Article $article, $locales)
+    private function createEditForm(ArticleFile $entity, Journal $journal, Article $article)
     {
         $form = $this->createForm(
             new ArticleFileType(),
@@ -294,7 +292,6 @@ class ArticleFileController extends Controller
                     ['id' => $entity->getId(), 'journalId' => $journal->getId(), 'articleId' => $article->getId()]
                 ),
                 'method'  => 'PUT',
-                'locales' => $locales,
             ]
         );
 
@@ -332,7 +329,7 @@ class ArticleFileController extends Controller
         );
         $this->throw404IfNotFound($entity);
 
-        $editForm = $this->createEditForm($entity, $journal, $article, $journalService->getJournalLocales())
+        $editForm = $this->createEditForm($entity, $journal, $article)
                          ->add('save', 'submit', ['label' => 'save']);
         $editForm->handleRequest($request);
 
