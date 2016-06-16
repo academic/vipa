@@ -105,8 +105,6 @@ class JournalArticleRestController extends ApiController
         return $this->createForm(new ArticleType(), null, [
             'csrf_protection' => false,
             'journal' => $journal,
-            'locales' => $journal->getLocaleCodeBag(),
-            'default_locale' => $journal->getMandatoryLang()->getCode(),
             ]
         );
     }

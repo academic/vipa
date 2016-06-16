@@ -50,7 +50,6 @@ class ArticleFileType extends AbstractType
             array(
                 'data_class' => ArticleFile::class,
                 'cascade_validation' => true,
-                'locales' => [],
                 'attr' => [
                     'class' => 'form-validate',
                 ],

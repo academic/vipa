@@ -137,8 +137,6 @@ class JournalArticleHandler
             'method' => $method,
             'csrf_protection' => false,
             'journal' => $journal,
-            'locales' => $journal->getLocaleCodeBag(),
-            'default_locale' => $journal->getMandatoryLang()->getCode(),
         ]);
         $form->submit($parameters, 'PATCH' !== $method);
         $formData = $form->getData();

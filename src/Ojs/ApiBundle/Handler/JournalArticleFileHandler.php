@@ -164,7 +164,6 @@ class JournalArticleFileHandler
         $form = $this->formFactory->create(new ArticleFileType(), $entity, array(
             'method' => $method,
             'csrf_protection' => false,
-            'locales' => $this->journalService->getJournalLocales(),
         ));
         $form->submit($parameters, 'PATCH' !== $method);
         $formData = $form->getData();
