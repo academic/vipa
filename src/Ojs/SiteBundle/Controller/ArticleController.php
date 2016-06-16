@@ -5,7 +5,6 @@ namespace Ojs\SiteBundle\Controller;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use OpenJournalSoftware\BibtexBundle\Helper\Bibtex;
 
-
 class ArticleController extends Controller
 {
     public function articleWithoutIssuePageAction($slug, $article_id)
@@ -95,7 +94,6 @@ class ArticleController extends Controller
             }
         }
         $data['bibtex'] = ltrim(rtrim(print_r($bibtex->bibTex(), 1)));
-
 
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);

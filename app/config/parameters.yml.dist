@@ -19,7 +19,7 @@ parameters:
     locale_support: [tr,en]
     secret:            884310f89c4aa13453c463ccae442f2e0f853503
 
-    base_host: localhost
+    base_host: ojs.dev
 
     elasticsearch_host: 127.0.0.1
     elasticsearch_index_name: ojs.elastic.index

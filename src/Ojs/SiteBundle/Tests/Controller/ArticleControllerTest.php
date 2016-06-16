@@ -6,7 +6,6 @@ use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
 
 class ArticleControllerTest extends BaseTestCase
 {
-
     public function testArticlePage()
     {
         $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
