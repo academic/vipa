@@ -45,7 +45,10 @@ before_script:
   - php app/console f:e:p --env=dev
 
 script:
-  - php app/console list
+  - phpunit -c app src/Ojs/AdminBundle/
+  - phpunit -c app src/Ojs/JournalBundle/
+  - phpunit -c app src/Ojs/SiteBundle/
+  - phpunit -c app src/Ojs/UserBundle/
 
 notifications:
   slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs
