@@ -7,6 +7,7 @@ $set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet(
 );
 
 $set->addFile(__DIR__.'/subject.yml', 'yaml');
+$set->addFile(__DIR__.'/system_setting.yml', 'yaml');
 $set->addFile(__DIR__.'/lang.yml', 'yaml');
 $set->addFile(__DIR__ .'/publisher_type.yml', 'yaml');
 $set->addFile(__DIR__ .'/publisher.yml', 'yaml');
