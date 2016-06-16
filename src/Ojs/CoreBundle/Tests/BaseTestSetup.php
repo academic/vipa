@@ -10,16 +10,24 @@ use Doctrine\DBAL\Driver\PDOSqlite\Driver as SqliteDriver;
 
 abstract class BaseTestSetup extends WebTestCase
 {
-    /** @var Application */
+    /**
+     * @var Application
+     */
     protected $app;
 
-    /** @var  Client */
+    /**
+     * @var  Client
+     */
     protected $client;
 
-    /** @var  EntityManager */
+    /**
+     * @var  EntityManager
+     */
     protected $em;
 
-    /** @var bool  */
+    /**
+     * @var bool
+     */
     protected static $isFirstTest = true;
     
     protected function setUp()
@@ -40,7 +48,6 @@ abstract class BaseTestSetup extends WebTestCase
         if (!$this->useCachedDatabase()) {
             $this->databaseInit();
         }
-
     }
 
     /**
