@@ -678,6 +678,7 @@ class ArticleSubmissionController extends Controller
      * @param  Request      $request
      * @return JsonResponse
      * @throws \Exception
+     *
      */
     public function getOrcidAuthorAction(Request $request)
     {
@@ -696,6 +697,7 @@ class ArticleSubmissionController extends Controller
     /**
      * @param $id
      * @return RedirectResponse
+     *
      */
     public function cancelAction($id)
     {

@@ -7,17 +7,17 @@
                              <li>A concise and informative title</li>
                              <li>The affiliation(s) of the author(s)</li>
                              <li>The e-mail address, telephone number of the corresponding author </li></ul>
-        journal: @journal1
+        journal: '@journal1'
         visible: true
     checkItem2:
         locale: en
         label: All authors have read and approved the most recent version of the manuscript
-        journal: @journal1
+        journal: '@journal1'
         visible: true
     checkItem3:
         locale: en
         label: Ensure your manuscript has been <i>spell checked</i>
-        journal: @journal1
+        journal: '@journal1'
         visible: true
     checkItem4:
         locale: tr
@@ -27,15 +27,15 @@
                              <li>Başlık kısa bilgi niteliğinde olmalı</li>
                              <li>Yazarlar bağlantılı olmalı</li>
                              <li>Telefon ve eposta için yazarın izni olmalı.</li></ul>
-        journal: @journal1
+        journal: '@journal1'
         visible: true
     checkItem5:
         locale: tr
         label: Tüm yazarlar taslağı okumuş ve onaylamış olmalılar.
-        journal: @journal1
+        journal: '@journal1'
         visible: true
     checkItem6:
         locale: tr
         label: Taslağın gramer ve dil kontrolü yapılmış olmalı
-        journal: @journal1
+        journal: '@journal1'
         visible: true

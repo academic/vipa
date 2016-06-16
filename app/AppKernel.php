@@ -70,6 +70,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+            $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
         }
 
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -114,8 +115,9 @@ class AppKernel extends Kernel
         /**
          * look for detail
          * @link {https://github.com/FriendsOfSymfony/FOSMessageBundle/issues/255}
+         * @link {http://stackoverflow.com/a/37720827/2438520}
          */
-        if (PHP_SAPI == 'cli') {
+        if (PHP_SAPI == 'cli' && $this->getEnvironment() != 'test') {
             $this->getContainer()->enterScope('request');
             $this->getContainer()->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
         }

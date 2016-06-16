@@ -8,5 +8,5 @@
     lastName: Author
     biography: This is a virtual author for Ojs Help Journal.
     title: 1
-    institution: @institution
-    user(unique): @user_author
+    institution: '@institution'
+    user(unique): '@user_author'

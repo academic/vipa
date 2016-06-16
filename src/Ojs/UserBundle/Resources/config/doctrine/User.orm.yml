@@ -4,6 +4,10 @@ Ojs\UserBundle\Entity\User:
   repositoryClass: Ojs\UserBundle\Entity\UserRepository
   cache:
     usage: NONSTRICT_READ_WRITE
+  attributeOverride:
+    salt:
+      type: string
+      nullable: true
   id:
     id:
       type: integer

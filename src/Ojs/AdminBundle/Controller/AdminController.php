@@ -18,9 +18,9 @@ class AdminController extends Controller
     {
         if ($this->getUser()) {
             if ($this->getUser()->isAdmin()) {
-                return $this->redirect($this->generateUrl('ojs_admin_dashboard'));
+                return $this->redirectToRoute('ojs_admin_dashboard');
             } else {
-                return $this->redirect($this->generateUrl('ojs_user_index'));
+                return $this->redirectToRoute('ojs_user_index');
             }
         } else {
             throw new AccessDeniedException('You are not allowed to see this page');

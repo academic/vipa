@@ -3,10 +3,11 @@ imports:
 
 framework:
     test: ~
+    default_locale: "%locale%"
     session:
         storage_id: session.storage.mock_file
     profiler:
-        collect: true
+        collect: false
 
 web_profiler:
     toolbar: false
@@ -20,3 +21,18 @@ swiftmailer:
         path: "%kernel.root_dir%/spool" #(where to store the messages)
     #delivery_address: (an email address where to send ALL emails)
     #disable_delivery: (set to true to disable delivery completely)
+
+liip_functional_test: ~
+
+security:
+    firewalls:
+        main:
+            http_basic: ~
+
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_sqlite
+                path:     %kernel.cache_dir%/test.db

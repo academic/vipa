@@ -1,5 +1,5 @@
 ojs_journal_article_file_index:
-    path:     /{journalId}/article/{articleId}/file/
+    path:     /{journalId}/article/{articleId}/file
     defaults: { _controller: "OjsJournalBundle:ArticleFile:index" }
 
 ojs_journal_article_file_show:
@@ -7,7 +7,7 @@ ojs_journal_article_file_show:
     defaults: { _controller: "OjsJournalBundle:ArticleFile:show" }
 
 ojs_journal_article_file_new:
-    path:     /{journalId}/article/{articleId}/file/new/
+    path:     /{journalId}/article/{articleId}/file/new
     defaults: { _controller: "OjsJournalBundle:ArticleFile:new" }
 
 ojs_journal_article_file_create:

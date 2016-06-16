@@ -83,6 +83,7 @@ class ArticleFileController extends Controller
      * @param  Request $request
      * @param  integer $articleId
      * @return RedirectResponse|Response
+     *
      */
     public function createAction(Request $request, $articleId)
     {
@@ -303,6 +304,7 @@ class ArticleFileController extends Controller
      * @param integer $id
      * @param integer $articleId
      * @return RedirectResponse|Response
+     *
      */
     public function updateAction(Request $request, $id, $articleId)
     {

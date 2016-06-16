@@ -1,5 +1,5 @@
 \Ojs\JournalBundle\Entity\ArticleAttribute:
   a_attribute1:
-    article: @article1
+    article: '@article1'
     attribute: <text(20)>
     value: <text(100)>

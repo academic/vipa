@@ -57,6 +57,7 @@ class BlockController extends Controller
      *
      * @param  Request $request
      * @return RedirectResponse|Response
+     *
      */
     public function createAction(Request $request)
     {
@@ -140,8 +141,9 @@ class BlockController extends Controller
     }
 
     /**
-     * @param  Block    $block
+     * @param  Block    $entity
      * @return Response
+     *
      */
     public function showAction(Block $entity)
     {
@@ -168,6 +170,7 @@ class BlockController extends Controller
      *
      * @param  Block    $block
      * @return Response
+     *
      */
     public function editAction(Block $block)
     {
@@ -217,6 +220,8 @@ class BlockController extends Controller
      * @param  Request                   $request
      * @param  Block                     $entity
      * @return RedirectResponse|Response
+     *
+     *
      */
     public function updateAction(Request $request, Block $entity)
     {
@@ -257,6 +262,8 @@ class BlockController extends Controller
      * @param  Request          $request
      * @param  Block            $entity
      * @return RedirectResponse
+     *
+     *
      */
     public function deleteAction(Request $request, Block $entity)
     {

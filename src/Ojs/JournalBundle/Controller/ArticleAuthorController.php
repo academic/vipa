@@ -385,4 +385,5 @@ class ArticleAuthorController extends Controller
             ['articleId' => $article->getId(), 'journalId' => $journal->getId()]
         );
     }
+
 }

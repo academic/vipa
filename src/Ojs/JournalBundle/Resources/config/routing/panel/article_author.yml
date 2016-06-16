@@ -1,5 +1,5 @@
 ojs_journal_article_author_index:
-    path:     /{journalId}/article/{articleId}/author/
+    path:     /{journalId}/article/{articleId}/author
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:index" }
 
 ojs_journal_article_author_show:
@@ -7,7 +7,7 @@ ojs_journal_article_author_show:
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:show" }
 
 ojs_journal_article_author_new:
-    path:     /{journalId}/article/{articleId}/author/new/
+    path:     /{journalId}/article/{articleId}/author/new
     defaults: { _controller: "OjsJournalBundle:ArticleAuthor:new" }
 
 ojs_journal_article_author_create:

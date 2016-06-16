@@ -97,7 +97,7 @@ class InstallCommand extends ContainerAwareCommand
             ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Without ACL Data')
             ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix ACL structure')
             ->addOption('no-page', null, InputOption::VALUE_NONE, 'Without default pages')
-            ->addOption('travis', null, InputOption::VALUE_NONE, 'Without interaction');
+            ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -123,7 +123,7 @@ class InstallCommand extends ContainerAwareCommand
             '</info>'
         );
 
-        if (!$input->getOption('travis')) {
+        if (!$input->getOption('no-interaction')) {
             if (!$dialog->askConfirmation(
                 $output,
                 '<question>' .
@@ -136,7 +136,7 @@ class InstallCommand extends ContainerAwareCommand
             }
         }
 
-        if ($input->getOption('travis')) {
+        if ($input->getOption('no-interaction')) {
             $command1 = 'doctrine:schema:create';
             $output->writeln('<info>Creating db schema!</info>');
             $application->run(new StringInput($command1));
@@ -157,6 +157,9 @@ class InstallCommand extends ContainerAwareCommand
 
                 if ($driver == 'pdo_mysql') {
                     $locationSql = 'SET foreign_key_checks = 0;' . $locationSql . 'SET foreign_key_checks = 1;';
+                }elseif($driver == 'pdo_sqlite'){
+                    $locationSql = 'PRAGMA foreign_keys = OFF;' . $locationSql . 'PRAGMA foreign_keys = ON;';
+
                 }
 
                 $parameters = [
@@ -176,7 +179,7 @@ class InstallCommand extends ContainerAwareCommand
 
                 $connection->executeQuery($locationSql);
                 $output->writeln('Locations inserted.');
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $output->writeln('Location insertion failed.');
             }
         }
@@ -185,7 +188,7 @@ class InstallCommand extends ContainerAwareCommand
             $output->writeln($sb . 'Inserting roles to db' . $se);
             $this->insertRoles($output);
 
-            if (!$input->getOption('travis')) {
+            if (!$input->getOption('no-interaction')) {
 
                 if (!$input->getOption('no-admin')) {
                     $admin_username = $dialog->ask(

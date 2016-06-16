@@ -329,7 +329,7 @@ class BoardController extends Controller
      * Edits an existing Board entity.
      *
      * @param  Request                   $request
-     * @param  Board                     $board
+     * @param  Board                     $entity
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, Board $entity)
@@ -380,7 +380,7 @@ class BoardController extends Controller
      * Deletes a Board entity.
      *
      * @param  Request          $request
-     * @param  Board            $board
+     * @param  Board            $entity
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Board $entity)

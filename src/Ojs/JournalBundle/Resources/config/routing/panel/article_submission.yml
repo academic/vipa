@@ -9,12 +9,15 @@ ojs_journal_submission_all:
 ojs_journal_submission_start:
   path:     /{journalId}/submission/start
   defaults: { _controller: "OjsJournalBundle:ArticleSubmission:start" }
+
 ojs_journal_submission_new:
   path:     /{journalId}/submission/new
   defaults: { _controller: "OjsJournalBundle:ArticleSubmission:new" }
+
 ojs_journal_submission_edit:
   path:     /{journalId}/submission/edit/{id}
   defaults: { _controller: "OjsJournalBundle:ArticleSubmission:edit" }
+
 ojs_journal_submission_preview:
   path:     /{journalId}/submission/preview/{articleId}
   defaults: { _controller: "OjsJournalBundle:ArticleSubmission:preview" }
