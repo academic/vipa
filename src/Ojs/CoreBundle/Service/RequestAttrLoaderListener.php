@@ -28,10 +28,6 @@ class RequestAttrLoaderListener implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-        if (!$request->hasPreviousSession()) {
-            return;
-        }
         $attributes = $event->getRequest()->attributes;
 
         //if has system setting return

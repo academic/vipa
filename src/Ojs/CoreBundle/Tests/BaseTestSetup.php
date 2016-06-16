@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojs\CoreBundle\Tests;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
