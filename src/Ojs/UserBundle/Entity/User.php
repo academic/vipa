@@ -184,6 +184,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
         $this->oauthAccounts = new ArrayCollection();
         $this->authorDetails = new ArrayCollection();
         $this->multipleMails = new ArrayCollection();
+        $this->journalUsers = new ArrayCollection();
     }
 
     /**
