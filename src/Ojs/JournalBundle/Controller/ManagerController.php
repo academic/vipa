@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Controller;
 
 use Ojs\AdminBundle\Form\Type\QuickSwitchType;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\JournalEvent;
 use Ojs\JournalBundle\Event\JournalEvents;
@@ -124,6 +125,12 @@ class ManagerController extends Controller
                 ->getDoctrine()
                 ->getRepository('OjsJournalBundle:JournalUser')
                 ->findBy(['user' => $this->getUser()]);
+
+            foreach($journalUsers as $journalUserKey => $journalUser){
+                if($journalUser->getJournal()->getStatus() == JournalStatuses::STATUS_REJECTED){
+                    unset($journalUsers[$journalUserKey]);
+                }
+            }
         }
 
         $response = $this->render(
