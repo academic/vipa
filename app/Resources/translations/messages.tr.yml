@@ -1632,6 +1632,11 @@ display_mode.volume_and_number: 'Cilt ve Sayı'
 select.publisher: 'Bir yayıncı seçin'
 journal.application.domain.help.text: 'Size ait bir domain i dergi için belirleyerek hosting hizmetinden yararlanabilirsiniz.'
 article.successful.create: 'Makale başarılı bir şekilde eklendi. Üst kısımdan yazar, dosya veya referans ekleyebilirsiniz.'
+'Journal Manager': 'Dergi Yöneticisi'
+'Subscription Manager': 'Abonelik Yöneticisi'
+Co-Editor: 'Yardımcı Editör'
+'Section Editor': 'Bölüm Editörü'
+Secretary: 'Sekreter'
 
 # OAuth
 linkedin: 'Linkedin'
