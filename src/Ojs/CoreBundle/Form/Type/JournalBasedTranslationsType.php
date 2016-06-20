@@ -34,8 +34,12 @@ class JournalBasedTranslationsType extends AbstractType
         if(!$journal instanceof Journal){
             return;
         }
+        $journalLocaleBag = $journal->getLocaleCodeBag();
+        if(!in_array($journal->getMandatoryLang()->getCode(), $journalLocaleBag)){
+            $journalLocaleBag[] = $journal->getMandatoryLang()->getCode();
+        }
         $resolver->setDefaults(array(
-            'locales' => $journal->getLocaleCodeBag(),
+            'locales' => $journalLocaleBag,
             'default_locale' => $journal->getMandatoryLang()->getCode(),
             'required_locales' => [$journal->getMandatoryLang()->getCode()],
         ));
