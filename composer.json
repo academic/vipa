@@ -89,7 +89,8 @@
     "baskin/history-bundle": "~1.0",
     "presta/sitemap-bundle": "~1.4",
     "openjournalsoftware/bibtex": "~0.2",
-    "exercise/htmlpurifier-bundle": "~0.2"
+    "exercise/htmlpurifier-bundle": "~0.2",
+    "ojs/export-bundle": "dev-master"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
