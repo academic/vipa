@@ -23,4 +23,22 @@ class AdminInstitutionControllerTest extends BaseTestCase
 
         $this->assertStatusCode(200, $client);
     }
+
+    public function testShow()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/admin/institution/1/show');
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testEdit()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/admin/institution/1/edit');
+
+        $this->assertStatusCode(200, $client);
+    }
 }
