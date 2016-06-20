@@ -298,6 +298,7 @@ class SamplesCommand extends ContainerAwareCommand
         $journalPage = new JournalPage();
         $journalPage->setCurrentLocale($currentLocale);
         $journalPage->setTitle('Title');
+        $journalPage->setSlug('title-page');
         $journalPage->setBody('Content');
         $journalPage->setVisible(true);
         $journalPage->setTags('tag');
@@ -309,6 +310,7 @@ class SamplesCommand extends ContainerAwareCommand
         $journalPost = new JournalPost();
         $journalPost->setCurrentLocale($currentLocale);
         $journalPost->setTitle('Title');
+        $journalPost->setSlug('title-post');
         $journalPost->setContent('Content');
         $journalPost->setJournal($journal);
 
