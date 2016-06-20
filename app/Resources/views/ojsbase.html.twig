@@ -161,7 +161,9 @@
         });
     </script>
     <script>
+        {% if app.request.attributes.get('_system_setting').systemFooterScript is defined %}
         {{ app.request.attributes.get('_system_setting').systemFooterScript|raw }}
+        {% endif %}
     </script>
 {% endblock %}
 {{ feedback_widget()|raw }}
