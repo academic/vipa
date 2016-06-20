@@ -25,6 +25,7 @@ class ArticleFileControllerTest extends BaseTestCase
             array('/journal/1/article/1/file'),
             array('/journal/1/article/1/file/1/show'),
             array('/journal/1/article/1/file/new'),
+            array('/journal/1/article/1/file/1/edit'),
         );
     }
 }
