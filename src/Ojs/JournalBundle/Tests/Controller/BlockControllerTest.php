@@ -24,6 +24,8 @@ class BlockControllerTest extends BaseTestCase
         return array(
             array('/journal/1/block'),
             array('/journal/1/block/new'),
+            array('/journal/1/block/1/show'),
+            array('/journal/1/block/1/edit'),
         );
     }
 }
