@@ -11,6 +11,7 @@
                 <div class="grid_header">
                     {% if grid.massActions|length > 0 %}
                         {{ grid_actions(grid) }}
+                        <br>
                     {% endif %}
                 </div>
                 <div class="grid_body">
@@ -219,10 +220,10 @@
 {% block grid_actions %}
     <div class="mass-actions">
     <span class="grid_massactions_helper">
-        <a href="#" onclick="return {{ grid.hash }}_markVisible(true);">{{ select_visible|trans }}</a> |
-        <a href="#" onclick="return {{ grid.hash }}_markVisible(false);">{{ deselect_visible|trans }}</a> |
-        <a href="#" onclick="return {{ grid.hash }}_markAll(true);">{{ select_all|trans }}</a> |
-        <a href="#" onclick="return {{ grid.hash }}_markAll(false);">{{ deselect_all|trans }}</a>
+        <a href="#" onclick="return {{ grid.hash }}_markVisible(true);">{{ 'select_visible'|trans }}</a> |
+        <a href="#" onclick="return {{ grid.hash }}_markVisible(false);">{{ 'deselect_visible'|trans }}</a> |
+        <a href="#" onclick="return {{ grid.hash }}_markAll(true);">{{ 'select_all'|trans }}</a> |
+        <a href="#" onclick="return {{ grid.hash }}_markAll(false);">{{ 'deselect_all'|trans }}</a>
         <span class="mass-actions-selected" id="{{ grid.hash }}_mass_action_selected"></span>
     </span>
         {% spaceless %}
@@ -235,8 +236,8 @@
                         <option value="{{ key }}">{{ massAction.title|trans }}</option>
                     {% endfor %}
                 </select>
-                <input type="submit" value="{{ submit_action|trans }}"/>
-            </div>
+                <input type="submit" value="{{ 'submit_action'|trans }}"/>
+            </div><br>
         {% endspaceless %}
     </div>
 {% endblock grid_actions %}
