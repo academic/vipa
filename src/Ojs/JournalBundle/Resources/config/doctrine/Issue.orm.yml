@@ -167,7 +167,7 @@ Ojs\JournalBundle\Entity\Issue:
       nullable: true
       column: display_mode
       options:
-        default: 0
+        default: 2
     inPress:
       type: boolean
       nullable: true
