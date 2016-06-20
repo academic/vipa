@@ -11,6 +11,8 @@ $set->addFile(__DIR__.'/system_setting.yml', 'yaml');
 $set->addFile(__DIR__.'/lang.yml', 'yaml');
 $set->addFile(__DIR__ .'/publisher_type.yml', 'yaml');
 $set->addFile(__DIR__ .'/publisher.yml', 'yaml');
+$set->addFile(__DIR__ .'/publisher_design.yml', 'yaml');
+$set->addFile(__DIR__ .'/publisher_theme.yml', 'yaml');
 $set->addFile(__DIR__ .'/institution.yml', 'yaml');
 $set->addFile(__DIR__.'/journal.yml', 'yaml');
 $set->addFile(__DIR__.'/section.yml', 'yaml');
