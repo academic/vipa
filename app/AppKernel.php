@@ -53,6 +53,7 @@ class AppKernel extends Kernel
             new Ojs\JournalBundle\OjsJournalBundle(),
             new Ojs\UserBundle\OjsUserBundle(),
             new Ojs\OAIBundle\OjsOAIBundle(),
+            new Ojs\ExportBundle\OjsExportBundle(),
             new BulutYazilim\LocationBundle\BulutYazilimLocationBundle(),
             // new Ojs\InstallerBundle\OjsInstallerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
