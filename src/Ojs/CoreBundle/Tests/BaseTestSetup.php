@@ -61,6 +61,7 @@ abstract class BaseTestSetup extends WebTestCase
         $this->runConsole("ojs:install:samples");
         $this->runConsole("h4cc_alice_fixtures:load:sets");
         $this->runConsole("ojs:normalize:translatable:objects");
+        $this->runConsole("ojs:mail:events:sync", array("--sync-desc"=> null));
     }
 
     /**
