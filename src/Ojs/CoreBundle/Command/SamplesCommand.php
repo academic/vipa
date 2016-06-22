@@ -363,6 +363,25 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($journalSubmissionFileHistory);
         $em->flush();
 
+        $journalFile = new JournalFile();
+        $journalFile->setName('Journal File');
+        $journalFile->setDescription('Description of Journal');
+        $journalFile->setTags('journal, file');
+        $journalFile->setPath('journalFile.txt');
+        $journalFile->setSize('100');
+        $journalFile->setJournal($journal);
+
+        $journalFileHistory = new FileHistory();
+        $journalFileHistory->setFileName('journalFile.txt');
+        $journalFileHistory->setOriginalName('journalFile.txt');
+        $journalFileHistory->setType('files');
+
+        $em->persist($journalFile);
+        $em->persist($journalFileHistory);
+        $em->flush();
+
+
+
         $adminFile = new AdminFile();
         $adminFile->setName('Admin File');
         $adminFile->setDescription('File Description');
@@ -561,5 +580,6 @@ class SamplesCommand extends ContainerAwareCommand
         $fs->dumpFile($issueFileDir . '/issue.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
         $fs->dumpFile($adminFileDir . '/admin.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
         $fs->dumpFile($adminFileDir . '/journalApplication.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
+        $fs->dumpFile($adminFileDir . '/journalFile.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
     }
 }
