@@ -23,4 +23,22 @@ class JournalSubmissionFileControllerTest extends BaseTestCase
 
         $this->assertStatusCode(200, $client);
     }
+
+    public function testShow()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/journal/1/file/1/show');
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testEdit()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/journal/1/file/1/edit');
+
+        $this->assertStatusCode(200, $client);
+    }
 }

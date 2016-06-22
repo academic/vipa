@@ -345,6 +345,24 @@ class SamplesCommand extends ContainerAwareCommand
         $em->persist($issueFileHistory);
         $em->flush();
 
+        $journalSubmissionFile = new JournalSubmissionFile();
+        $journalSubmissionFile->setTitle('Journal File');
+        $journalSubmissionFile->setDetail('File Detail');
+        $journalSubmissionFile->setFile('journalSubmissionFile.txt');
+        $journalSubmissionFile->setLocale('en');
+        $journalSubmissionFile->setRequired(false);
+        $journalSubmissionFile->setVisible(true);
+        $journalSubmissionFile->setJournal($journal);
+
+        $journalSubmissionFileHistory = new FileHistory();
+        $journalSubmissionFileHistory->setFileName('journalSubmissionFile.txt');
+        $journalSubmissionFileHistory->setOriginalName('journalSubmissionFile.txt');
+        $journalSubmissionFileHistory->setType('submissionfiles');
+
+        $em->persist($journalSubmissionFile);
+        $em->persist($journalSubmissionFileHistory);
+        $em->flush();
+
         $adminFile = new AdminFile();
         $adminFile->setName('Admin File');
         $adminFile->setDescription('File Description');
