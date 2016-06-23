@@ -16,6 +16,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Issue
  * @GRID\Source(columns="id,volume,number,translations.title,year,datePublished,lastIssue")
+ * @GRID\Source(columns="id, translations.title, number, volume", groups={"export"})
  * @JMS\ExclusionPolicy("all")
  */
 class Issue extends AbstractTranslatable implements JournalItemInterface
