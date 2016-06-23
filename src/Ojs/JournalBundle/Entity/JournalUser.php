@@ -12,6 +12,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 /**
  * JournalUser
  * @GRID\Source(columns="id, user.email")
+ * @GRID\Source(columns="id, user.email, user.username", groups={"export"})
  */
 class JournalUser implements JournalItemInterface
 {
@@ -26,6 +27,7 @@ class JournalUser implements JournalItemInterface
     /**
      * @var User
      * @Grid\Column(field="user.email", title="user")
+     * @Grid\Column(field="user.username", title="username")
      */
     private $user;
     /**
