@@ -60,6 +60,10 @@ ojs_location:
   resource: '@BulutYazilimLocationBundle/Resources/config/routing.yml'
   prefix:   /
 
+ojs_export:
+  resource: '@OjsExportBundle/Resources/config/routing.yml'
+  prefix:   /
+
 feedback:
   resource: '@BulutYazilimFeedbackBundle/Resources/config/routing.yml'
   prefix:   /

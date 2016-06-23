@@ -2,7 +2,7 @@
 Abstract: Öz
 abstractTransliterated: 'Başka Alfabede Yazılmış Öz'
 Accept: Kabul
-Action: Aksiyon
+Action: İşlem
 Admin: Yönetici
 Arabic: Arapça
 Articles: Makaleler
@@ -961,7 +961,7 @@ submission_checklist.required: 'Makalem için gerekli mi?'
 submission_checklist.title: 'Kontrol Listesi Başlığı'
 submit: Gönder
 submitRoles: 'Makale Gönderebilen Roller'
-submit_action: 'Gönderme Aksiyonu'
+submit_action: 'Gönder'
 subtitle: Altbaşlık
 success: Başarılı
 successful.create: 'Başarıyla Oluşturuldu.'
