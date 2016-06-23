@@ -223,6 +223,8 @@ $(document).ready(function () {
         }, callback);
         e.preventDefault();
     });
+
+    $('.grid-search-reset').parent().remove();
 });
 // Returns a random integer between min (included) and max (included)
 // Using Math.round() will give you a non-uniform distribution!
