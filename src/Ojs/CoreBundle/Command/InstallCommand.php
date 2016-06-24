@@ -148,39 +148,25 @@ class InstallCommand extends ContainerAwareCommand
 
         if (!$input->getOption('no-location')) {
             try {
+                $connection = $this->getContainer()->get('doctrine')->getConnection();
+                $connectionParams = $connection->getParams();
                 $location = $this
                         ->getContainer()->get('kernel')
                         ->getRootDir() . '/../vendor/bulutyazilim/location-bundle/Resources/data/location.sql';
                 $locationSql = file_get_contents($location);
 
-                $driver = $this->getContainer()->getParameter('database_driver');
+                $driver = $connectionParams['driver'];
 
                 if ($driver == 'pdo_mysql') {
                     $locationSql = 'SET foreign_key_checks = 0;' . $locationSql . 'SET foreign_key_checks = 1;';
                 }elseif($driver == 'pdo_sqlite'){
                     $locationSql = 'PRAGMA foreign_keys = OFF;' . $locationSql . 'PRAGMA foreign_keys = ON;';
-
                 }
 
-                $parameters = [
-                    'host' => $this->getContainer()->getParameter('database_host'),
-                    'user' => $this->getContainer()->getParameter('database_user'),
-                    'password' => $this->getContainer()->getParameter('database_password'),
-                    'dbname' => $this->getContainer()->getParameter('database_name'),
-                    'driver' => $this->getContainer()->getParameter('database_driver'),
-                    'charset' => 'utf8',
-                ];
-
-
-                $connection = $this
-                    ->getContainer()
-                    ->get('doctrine.dbal.connection_factory')
-                    ->createConnection($parameters);
-
-                $connection->executeQuery($locationSql);
+                $connection->exec($locationSql);
                 $output->writeln('Locations inserted.');
             } catch (\Exception $e) {
-                $output->writeln('Location insertion failed.');
+                $output->writeln('Location insertion failed. --> '. $e->getMessage());
             }
         }
 
