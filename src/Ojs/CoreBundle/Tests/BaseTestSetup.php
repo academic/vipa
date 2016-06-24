@@ -27,6 +27,11 @@ abstract class BaseTestSetup extends WebTestCase
     protected $em;
 
     /**
+     * @var string
+     */
+    protected $locale;
+
+    /**
      * @var bool
      */
     protected static $isFirstTest = true;
@@ -40,6 +45,8 @@ abstract class BaseTestSetup extends WebTestCase
             ->get('doctrine')
             ->getManager();
 
+        $this->locale = static::$kernel->getContainer()->getParameter('locale');
+        
         $baseUrl = static::$kernel->getContainer()->getParameter('base_host');
         $this->client = static::makeClient(array(),array('HTTP_HOST' => $baseUrl));
 
