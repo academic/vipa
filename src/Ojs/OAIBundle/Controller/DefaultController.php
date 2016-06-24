@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\CoreBundle\Params\ArticleStatuses;
+use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -120,6 +122,7 @@ class DefaultController extends OAIController
         $qb = $em->createQueryBuilder();
         $qb->select("j")
             ->from("OjsJournalBundle:Journal", 'j');
+        $qb->andWhere('j.status = '. JournalStatuses::STATUS_PUBLISHED);
         if ($from) {
             $_from = new \DateTime();
             $_from->setTimestamp(strtotime($from));
@@ -178,6 +181,7 @@ class DefaultController extends OAIController
         $qb = $em->createQueryBuilder();
         $qb->select("a")
             ->from("OjsJournalBundle:Article", 'a');
+        $qb->andWhere('a.status = '.ArticleStatuses::STATUS_PUBLISHED);
         $set = $request->get("set", false);
         if ($set) {
             $qb->join("a.journal","j","WITH");
