@@ -62,11 +62,11 @@ class JournalController extends OAIController
             $builder->andWhere($comparison)->setParameter('until', $until);
         }
 
-        $session = $this->get('session');
+        $fileCache = $this->get('file_cache');
         $resumptionToken = $request->get('resumptionToken');
 
         if ($resumptionToken) {
-            $token = $session->get($resumptionToken);
+            $token = $fileCache->fetch($resumptionToken);
             $currentPage = (int) $token['page'];
             $setParam = $token['set'];
         } else {
@@ -74,7 +74,7 @@ class JournalController extends OAIController
         }
 
         $generatedToken = md5(StringHelper::generateKey());
-        $session->set($generatedToken, $currentPage + 1);
+        $fileCache->save($generatedToken, $currentPage + 1, 60*60*24);
 
         if ($setParam) {
             $builder->join('article.section', 'section', 'WITH');
@@ -117,11 +117,11 @@ class JournalController extends OAIController
 
         $builder->where($builder->expr()->eq('journal.slug', ':slug'))->setParameter('slug', $slug);
 
-        $session = $this->get('session');
+        $fileCache = $this->get('file_cache');
         $resumptionToken = $request->get('resumptionToken');
 
         if ($resumptionToken) {
-            $token = $session->get($resumptionToken);
+            $token = $fileCache->fetch($resumptionToken);
             $currentPage = (int) $token['page'];
         } else {
             $currentPage = 1;

@@ -5,6 +5,7 @@ namespace Ojs\OAIBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\StringHelper;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -30,7 +31,7 @@ class DefaultController extends OAIController
      */
     public function recordsAction(Request $request)
     {
-        $session = $this->get('session');
+        $fileCache = $this->get('file_cache');
 
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -42,6 +43,7 @@ class DefaultController extends OAIController
         $qb = $em->createQueryBuilder();
         $qb->select("a")
             ->from("OjsJournalBundle:Article", 'a');
+        $qb->andWhere('a.status = '. ArticleStatuses::STATUS_PUBLISHED);
         if ($from) {
             $_from = new \DateTime();
             $_from->setTimestamp(strtotime($from));
@@ -66,13 +68,11 @@ class DefaultController extends OAIController
             $qb->setParameter('until', $_until);
         }
 
-        $resumptionToken = $request->get('resumptionToken');
-        if($resumptionToken){
-            $token = $session->get($resumptionToken);
+        $currentPage = 1;
+        if($request->query->has('resumptionToken') && $fileCache->contains($request->get('resumptionToken'))){
+            $token = $fileCache->fetch($request->query->get('resumptionToken'));
             $currentPage = (int)$token['page'];
             $set = $token['set'];
-        }else{
-            $currentPage = 1;
         }
 
         if($set){
@@ -92,10 +92,10 @@ class DefaultController extends OAIController
         );
         $data['records'] = $records;
         $key = md5(StringHelper::generateKey());
-        $session->set($key, [
+        $fileCache->save($key, [
             'page'=>$currentPage + 1,
             'set' => $set
-        ]);
+        ], 60*60*24);
         $data['resumptionToken'] = $key;
         $data['isLast'] = $records->getTotalItemCount() >= $currentPage * 100 ? true:false;
         $data['currentPage'] = $currentPage;
@@ -110,7 +110,7 @@ class DefaultController extends OAIController
      */
     public function listSetsAction(Request $request)
     {
-        $session = $this->get('session');
+        $fileCache = $this->get('file_cache');
 
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -146,7 +146,7 @@ class DefaultController extends OAIController
         $paginator = $this->get('knp_paginator');
         $resumptionToken = $request->get('resumptionToken');
         if($resumptionToken){
-            $currentPage = (int)$session->get($resumptionToken);
+            $currentPage = (int)$fileCache->fetch($resumptionToken);
         }else{
             $currentPage = 1;
         }
@@ -157,7 +157,7 @@ class DefaultController extends OAIController
         );
         $data['records'] = $sets;
         $key = md5(StringHelper::generateKey());
-        $session->set($key, $currentPage+1);
+        $fileCache->save($key, $currentPage+1, 60*60*24);
         $data['resumptionToken'] = $key;
         $data['isLast'] = $sets->getTotalItemCount()>=$currentPage*100?true:false;
         $data['currentPage'] = $currentPage;
