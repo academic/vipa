@@ -937,7 +937,7 @@ status.rejected: Rejected
 status.spam: Spam
 status.unpublished: Unpublished
 status.unknown: Unknown
-status.withdrawn: Withdrawned
+status.withdrawn: Withdrawn
 statusText: 'Status Text'
 step.edit: 'Edit Step'
 step.new: 'New Step'
