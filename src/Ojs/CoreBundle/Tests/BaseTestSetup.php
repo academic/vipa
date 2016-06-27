@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Input\ArrayInput;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver as SqliteDriver;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class BaseTestSetup extends WebTestCase
 {
@@ -134,6 +135,11 @@ abstract class BaseTestSetup extends WebTestCase
     {
         $this->client->setServerParameter('PHP_AUTH_USER', $username);
         $this->client->setServerParameter('PHP_AUTH_PW', $password);
+    }
+
+    protected function generateToken($var)
+    {
+        return $this->client->getContainer()->get('security.csrf.token_manager')->getToken($var);
     }
 
     protected function tearDown()
