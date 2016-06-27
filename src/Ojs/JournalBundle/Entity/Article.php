@@ -41,11 +41,11 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * (optional) English transliterated abstract
      * @var string
-     * @Expose
      */
     protected $abstractTransliterated;
     /**
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\ArticleTranslation")
+     * @Expose
      */
     protected $translations;
     /**
@@ -60,6 +60,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      *     "0"="status.inreview",
      *     "1"="status.published"
      * })
+     * @Expose
      */
     private $status;
     /**
@@ -84,7 +85,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * Original article title
      * @var string
      * @GRID\Column(title="title", field="translations.title", safe=false)
-     * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $title;
@@ -97,7 +97,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $titleTransliterated;
     /**
      * @var string
-     * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $keywords;
@@ -145,7 +144,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $lastPage;
     /**
      * @var string
-     * @JMS\Expose
      */
     private $uri;
     /**
@@ -165,7 +163,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * Original abstract
      * @var string
-     * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $abstract;
@@ -176,7 +173,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $subjects;
     /**
      * @var Collection|Lang[]
-     * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $languages;
@@ -193,7 +189,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $articleType;
     /**
      * @var Collection|Citation[]
-     * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $citations;
@@ -218,17 +213,14 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Groups({"IssueDetail","ArticleDetail"})
-     * @Expose
      */
     private $articleAuthors;
     /**
      * @var Collection|ArticleFile[]
-     * @Expose
      */
     private $articleFiles;
     /**
      * @var Collection|ArticleSubmissionFile[]
-     * @Expose
      */
     private $articleSubmissionFiles;
     /**
