@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Tests\Controller;
 
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
+use Ojs\JournalBundle\Entity\ArticleTypes;
 
 class AdminArticleTypeControllerTest extends BaseTestCase
 {
@@ -68,10 +69,21 @@ class AdminArticleTypeControllerTest extends BaseTestCase
 
     public function testDelete()
     {
+        $em = $this->em;
+
+        $articleType = new ArticleTypes();
+        $articleType->setCurrentLocale($this->locale);
+        $articleType->setName('Delete Article Type Name - phpunit');
+
+        $em->persist($articleType);
+        $em->flush();
+
+        $id = $articleType->getId();
+
         $this->logIn();
         $client = $this->client;
-        $token = $client->getContainer()->get('security.csrf.token_manager')->getToken('ojs_admin_article_type2');
-        $client->request('DELETE', '/admin/article-type/2/delete', array('_token' => $token));
+        $token = $this->generateToken('ojs_admin_article_type'.$id);
+        $client->request('DELETE', '/admin/article-type/'.$id.'/delete', array('_token' => $token));
 
         $this->assertStatusCode(302, $client);
     }
