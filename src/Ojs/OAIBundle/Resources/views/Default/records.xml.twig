@@ -19,13 +19,13 @@
                                 xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
                             {% endif %}
                             xmlns:dc="http://purl.org/dc/elements/1.1/">
-                        <dc:title xml:lang="en-US">{{ record.title }}</dc:title>
+                        <dc:title xml:lang="en-US"><![CDATA[{{ record.title }}]]></dc:title>
                         {% for author in record.articleAuthors %}
-                            <dc:creator>{{ author.author.lastName }}, {{ author.author.firstName }}</dc:creator>
+                            <dc:creator><![CDATA[{{ author.author.lastName }}, {{ author.author.firstName }}]]></dc:creator>
                         {% endfor %}
-                        <dc:subject>{{ record.keywords }}</dc:subject>
+                        <dc:subject><![CDATA[{{ record.keywords }}]]></dc:subject>
                         {% for translation in record.translations %}
-                            <dc:description>{{ translation.abstract|striptags }}</dc:description>
+                            <dc:description><![CDATA[{{ translation.abstract|striptags }}]]></dc:description>
                         {% endfor %}
                         <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
                         <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
