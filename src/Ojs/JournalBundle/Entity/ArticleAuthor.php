@@ -22,7 +22,6 @@ class ArticleAuthor implements Translatable
     /**
      * @var integer
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="id")
      */
     private $id;
@@ -39,7 +38,6 @@ class ArticleAuthor implements Translatable
      * @GRID\Column(title="firstName",field="author.firstName")
      * @GRID\Column(title="lastName",field="author.lastName")
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $author;
 

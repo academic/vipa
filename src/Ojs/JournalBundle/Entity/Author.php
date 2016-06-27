@@ -53,7 +53,6 @@ class Author extends AbstractTranslatable
     /**
      * @var integer
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="id")
      */
     protected $id;
@@ -66,7 +65,6 @@ class Author extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="firstname")
      */
     private $firstName;
@@ -74,7 +72,6 @@ class Author extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="middlename")
      */
     private $middleName;
@@ -82,7 +79,6 @@ class Author extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="lastname")
      */
     private $lastName;
@@ -115,7 +111,6 @@ class Author extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="initials")
      */
     private $initials;
@@ -129,7 +124,6 @@ class Author extends AbstractTranslatable
     /**
      * @var Institution
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $institution;
     /**
@@ -154,14 +148,12 @@ class Author extends AbstractTranslatable
      * @var string
      * @GRID\Column(title="fullname",field="fullname")
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
 
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
 
@@ -173,7 +165,6 @@ class Author extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $institutionName;
 

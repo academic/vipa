@@ -35,7 +35,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * auto-incremented article unique id
      * @GRID\Column(title="id")
      * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     protected $id;
     /**
@@ -67,7 +66,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * (optional)
      * @var string
      * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $doi;
 
@@ -85,32 +83,27 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * Original article title
      * @var string
      * @GRID\Column(title="title", field="translations.title", safe=false)
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $title;
     /**
      * Roman transliterated title
      * @var string
      * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $titleTransliterated;
     /**
      * @var string
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $keywords;
     /**
      * Some articles carries no authorship
      * @var boolean
      * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $anonymous = false;
     /**
      * @var \DateTime
      * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $submissionDate;
     /**
@@ -122,7 +115,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @var \DateTime
      * @GRID\Column(title="pubdate")
      * @Expose
-     * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
     private $pubdate;
     /**
@@ -133,13 +125,11 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var integer
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $firstPage;
     /**
      * @var integer
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $lastPage;
     /**
@@ -150,20 +140,17 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      *
      * @var string
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $primaryLanguage;
     /**
      *
      * @var integer
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $orderNum;
     /**
      * Original abstract
      * @var string
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $abstract;
     /**
@@ -173,7 +160,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $subjects;
     /**
      * @var Collection|Lang[]
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $languages;
     /**
@@ -184,12 +170,10 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var ArticleTypes
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $articleType;
     /**
      * @var Collection|Citation[]
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $citations;
     /**
@@ -212,7 +196,6 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     private $attributes;
     /**
      * @var ArrayCollection|ArticleAuthor[]
-     * @Groups({"IssueDetail","ArticleDetail"})
      * @Expose
      */
     private $articleAuthors;

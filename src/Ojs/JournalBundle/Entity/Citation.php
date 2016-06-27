@@ -25,19 +25,16 @@ class Citation implements Translatable
      * @var integer
      * @GRID\Column(title="ID")
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $id;
     /**
      * @var string
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $raw;
     /**
      * @var string
      * @Expose
-     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $type;
     /**

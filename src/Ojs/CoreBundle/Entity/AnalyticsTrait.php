@@ -9,13 +9,11 @@ trait AnalyticsTrait
     /**
      * @var int
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     protected $viewCount = 0;
     /**
      * @var int
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     protected $downloadCount = 0;
 

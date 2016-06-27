@@ -48,7 +48,6 @@ class Journal extends AbstractTranslatable
     /**
      * @var integer
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     protected $id;
     /**
@@ -59,86 +58,72 @@ class Journal extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      * @Grid\Column(title="Title", field="translations.title", safe=false)
      */
     private $title;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $titleAbbr;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $titleTransliterated;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $subtitle;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $path;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $domain;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $issn;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $eissn;
     /**
      * @var \DateTime
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $founded;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $url;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $address;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $phone;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $email;
     /**
      * @var Country
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $country;
     /**
@@ -162,14 +147,12 @@ class Journal extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      * @Display\Image(filter="journal_cover")
      */
     private $image;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      * @Display\Image(filter="journal_header")
      */
     private $header;
@@ -190,13 +173,11 @@ class Journal extends AbstractTranslatable
     /**
      * @var Theme
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $theme;
     /**
      * @var Design
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $design;
     /**
@@ -207,13 +188,11 @@ class Journal extends AbstractTranslatable
     /**
      * @var ArrayCollection|Article[]
      * @JMS\Expose
-     * @JMS\Groups({"IssueDetail"})
      */
     private $articles;
     /**
      * @var ArrayCollection|Issue[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $issues;
     /**
@@ -223,13 +202,11 @@ class Journal extends AbstractTranslatable
     /**
      * @var ArrayCollection|Lang[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $languages;
     /**
      * @var ArrayCollection|Period[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $periods;
     /**
@@ -239,18 +216,15 @@ class Journal extends AbstractTranslatable
     /**
      * @var Collection
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $subjects;
     /**
      * @var Collection
-     * @JMS\Groups({"JournalDetail"})
      */
     private $sections;
     /**
      * @var Publisher
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      * @Grid\Column(field="publisher.translations.name", title="publisher", safe=false)
      */
     private $publisher;
@@ -261,44 +235,37 @@ class Journal extends AbstractTranslatable
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
     /**
      * @var string
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      * @Display\Image(filter="index_logo")
      */
     private $logo;
     /**
      * @var ArrayCollection|JournalIndex[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $journalIndexs;
     /**
      * @var ArrayCollection|SubmissionChecklist[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $submissionChecklist;
     /**
      * @var ArrayCollection|JournalSubmissionFile[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $journalSubmissionFiles;
     /**
      * @var ArrayCollection|JournalApplicationUploadFile[]
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $journalApplicationUploadFiles;
     /**
      * @var boolean
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail","IssueDetail"})
      */
     private $printed = false;
     /**
@@ -306,15 +273,18 @@ class Journal extends AbstractTranslatable
      * @var string
      */
     private $publicURI;
-    /** @var Collection */
+    /**
+     * @var Collection
+     */
     private $journalUsers;
-    /** @var ArrayCollection */
+    /**
+     * @var ArrayCollection
+     */
     private $journalContacts;
 
     /**
      * @var Lang
      * @JMS\Expose
-     * @JMS\Groups({"JournalDetail"})
      */
     private $mandatoryLang;
 
