@@ -213,6 +213,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var ArrayCollection|ArticleAuthor[]
      * @Groups({"IssueDetail","ArticleDetail"})
+     * @Expose
      */
     private $articleAuthors;
     /**

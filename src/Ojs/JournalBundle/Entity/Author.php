@@ -146,7 +146,6 @@ class Author extends AbstractTranslatable
 
     /**
      * @var User
-     * @JMS\Expose
      */
     private $user;
 
@@ -168,8 +167,6 @@ class Author extends AbstractTranslatable
 
     /**
      * @var boolean
-     * @JMS\Expose
-     * @JMS\Groups({"IssueDetail","ArticleDetail"})
      */
     private $institutionNotListed;
 
@@ -182,7 +179,6 @@ class Author extends AbstractTranslatable
 
     /**
      * @var ArrayCollection|ArticleAuthor[]
-     * @Jms\Expose
      */
     private $articleAuthors;
 
