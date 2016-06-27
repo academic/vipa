@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Tests\Controller;
 
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
+use Ojs\JournalBundle\Entity\ContactTypes;
 
 class AdminContactTypeControllerTest extends BaseTestCase
 {
@@ -71,10 +72,21 @@ class AdminContactTypeControllerTest extends BaseTestCase
 
     public function testDelete()
     {
+        $em = $this->em;
+        
+        $contactType = new ContactTypes();
+        $contactType->setCurrentLocale($this->locale);
+        $contactType->setName('Delete Contact Type - phpunit');
+
+        $em->persist($contactType);
+        $em->flush();
+
+        $id = $contactType->getId();
+        
         $this->logIn();
         $client = $this->client;
-        $token = $client->getContainer()->get('security.csrf.token_manager')->getToken('ojs_admin_contact_type2');
-        $client->request('DELETE', '/admin/contact-type/2/delete', array('_token' => $token));
+        $token = $this->generateToken('ojs_admin_contact_type'.$id);
+        $client->request('DELETE', '/admin/contact-type/'.$id.'/delete', array('_token' => $token));
 
         $this->assertStatusCode(302, $client);
     }
