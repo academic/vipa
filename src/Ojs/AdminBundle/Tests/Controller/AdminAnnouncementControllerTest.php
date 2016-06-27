@@ -2,6 +2,7 @@
 
 namespace Ojs\AdminBundle\Tests\Controller;
 
+use Ojs\AdminBundle\Entity\AdminAnnouncement;
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
 
 class AdminAnnouncementControllerTest extends BaseTestCase
@@ -69,10 +70,22 @@ class AdminAnnouncementControllerTest extends BaseTestCase
 
     public function testDelete()
     {
+
+        $em = $this->em;
+
+        $announcement = new AdminAnnouncement();
+        $announcement->setTitle('Delete Title - phpunit');
+        $announcement->setContent('Delete Content - phpunit');
+
+        $em->persist($announcement);
+        $em->flush();
+
+        $id = $announcement->getId();
+
         $this->logIn();
         $client = $this->client;
-        $token = $client->getContainer()->get('security.csrf.token_manager')->getToken('ojs_admin_announcement2');
-        $client->request('DELETE', '/admin/announcement/2/delete', array('_token' => $token));
+        $token = $this->generateToken('ojs_admin_announcement'.$id);
+        $client->request('DELETE', '/admin/announcement/'.$id.'/delete', array('_token' => $token));
 
         $this->assertStatusCode(302, $client);
     }
