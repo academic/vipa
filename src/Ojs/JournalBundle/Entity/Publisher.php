@@ -152,12 +152,10 @@ class Publisher extends AbstractTranslatable
     private $design;
     /**
      * @var PublisherTheme[]|ArrayCollection
-     * @Expose
      */
     private $publisherThemes;
     /**
      * @var PublisherDesign[]|ArrayCollection
-     * @Expose
      */
     private $publisherDesigns;
     /**

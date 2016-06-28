@@ -19,21 +19,20 @@ class Lang
 
     /**
      * @var integer
-     * @Expose()
      * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
-     * @Expose()
+     * @Expose
      * @GRID\Column(title="lang.code")
      */
     private $code;
 
     /**
      * @var string
-     * @Expose()
+     * @Expose
      * @GRID\Column(title="lang.name")
      */
     private $name;

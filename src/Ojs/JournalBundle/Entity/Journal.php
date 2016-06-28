@@ -172,12 +172,10 @@ class Journal extends AbstractTranslatable
     private $slug;
     /**
      * @var Theme
-     * @JMS\Expose
      */
     private $theme;
     /**
      * @var Design
-     * @JMS\Expose
      */
     private $design;
     /**
@@ -187,12 +185,10 @@ class Journal extends AbstractTranslatable
     private $configured = false;
     /**
      * @var ArrayCollection|Article[]
-     * @JMS\Expose
      */
     private $articles;
     /**
      * @var ArrayCollection|Issue[]
-     * @JMS\Expose
      */
     private $issues;
     /**
@@ -250,17 +246,14 @@ class Journal extends AbstractTranslatable
     private $journalIndexs;
     /**
      * @var ArrayCollection|SubmissionChecklist[]
-     * @JMS\Expose
      */
     private $submissionChecklist;
     /**
      * @var ArrayCollection|JournalSubmissionFile[]
-     * @JMS\Expose
      */
     private $journalSubmissionFiles;
     /**
      * @var ArrayCollection|JournalApplicationUploadFile[]
-     * @JMS\Expose
      */
     private $journalApplicationUploadFiles;
     /**

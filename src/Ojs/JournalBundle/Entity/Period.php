@@ -12,6 +12,7 @@ use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
 /**
  * Period
  * @GRID\Source(columns="id,translations.period")
+ * @JMS\ExclusionPolicy("all")
  */
 class Period extends AbstractTranslatable
 {

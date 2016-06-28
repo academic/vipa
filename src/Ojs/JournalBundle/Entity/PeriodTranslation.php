@@ -6,9 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * JournalPeriod
+ * @JMS\ExclusionPolicy("all")
  */
 class PeriodTranslation extends AbstractTranslation
 {
@@ -21,6 +23,7 @@ class PeriodTranslation extends AbstractTranslation
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $period;
 
