@@ -10,7 +10,7 @@ use Prezent\Doctrine\Translatable\Annotation as Prezent;
 
 /**
  * JournalContact
- * @GRID\Source(columns="id, email, fullName, contactType.translations.name")
+ * @GRID\Source(columns="id, email, fullName, contactType.translations.name, contactOrder")
  * @GRID\Source(columns="id, journal.translations.title, fullName, contactType.translations.name", groups={"admin"})
  */
 class JournalContact implements JournalItemInterface
@@ -46,6 +46,12 @@ class JournalContact implements JournalItemInterface
     private $address;
 
     /**
+     * @var int
+     * @GRID\Column(title="contact.order")
+     */
+    private $contactOrder = 0;
+
+    /**
      * @var string
      */
     private $phone;
@@ -57,7 +63,7 @@ class JournalContact implements JournalItemInterface
 
     /**
      * @var ContactTypes
-     * @GRID\Column(title="contactType", field="contactType.translations.name", safe=false)
+     * @GRID\Column(title="contact.type", field="contactType.translations.name", safe=false)
      */
     private $contactType;
 
@@ -226,6 +232,26 @@ class JournalContact implements JournalItemInterface
     public function setCountry(Country $country)
     {
         $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getContactOrder()
+    {
+        return $this->contactOrder;
+    }
+
+    /**
+     * @param int $contactOrder
+     *
+     * @return $this
+     */
+    public function setContactOrder($contactOrder)
+    {
+        $this->contactOrder = $contactOrder;
+
         return $this;
     }
 

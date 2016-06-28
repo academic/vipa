@@ -1638,6 +1638,7 @@ article.successful.create: 'Makale başarılı bir şekilde eklendi. Üst kısı
 Co-Editor: 'Yardımcı Editör'
 'Section Editor': 'Bölüm Editörü'
 Secretary: 'Sekreter'
+contact.order: 'Sıra'
 
 # OAuth
 linkedin: 'Linkedin'

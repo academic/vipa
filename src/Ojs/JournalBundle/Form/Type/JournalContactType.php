@@ -20,6 +20,9 @@ class JournalContactType extends AbstractType
             ->add('contactType', null, ['label' => 'contact.type'])
             ->add('fullName', 'text', ['label' => 'fullname'])
             ->add('title')
+            ->add('contactOrder', null, [
+                'required' => false,
+            ])
             ->add('address', 'purified_textarea', [
                 'required' => false,
                 'label' => 'address',

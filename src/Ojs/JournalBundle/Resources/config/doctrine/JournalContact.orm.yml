@@ -46,6 +46,11 @@ Ojs\JournalBundle\Entity\JournalContact:
             gedmo:
                 - versioned
             nullable: true
+        contactOrder:
+            type: integer
+            column: board_order
+            options:
+              default: 0
         affiliation:
             type: text
             nullable: true

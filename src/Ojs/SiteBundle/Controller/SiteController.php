@@ -477,7 +477,7 @@ class SiteController extends Controller
         $this->throw404IfNotFound($journal);
 
         return $this->render("OjsSiteBundle:JournalContact:index.html.twig", [
-            'contacts' => $em->getRepository("OjsJournalBundle:JournalContact")->findBy(['journal' => $journal]),
+            'contacts' => $em->getRepository("OjsJournalBundle:JournalContact")->findBy(['journal' => $journal], ['contactOrder' => 'ASC']),
             'blocks' => $em->getRepository('OjsJournalBundle:Block')->journalBlocks($journal),
             'journal' => $journal,
         ]);
