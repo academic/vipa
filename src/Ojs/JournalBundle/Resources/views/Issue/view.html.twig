@@ -28,7 +28,7 @@
             <li>{{ "volume"|trans }} : <strong>{{ issue.volume }}</strong></li>
             <li>{{ "issue.number"|trans }} : <strong>{{ issue.number }}</strong></li>
             <li>{{ "title"|trans }} : <strong>{{ issue.title }}</strong></li>
-            <li>{{ "year"|trans }} : <strong>{{ issue.year }}</strong></li>
+            <li>{{ "year"|trans }} : <strong>{{ issue.year|date('Y') }}</strong></li>
             <li>{{ "date.publish"|trans }} : {{ issue.datePublished|date('Y-m-d') }} </li>
             <li>{{ "full_file"|trans }} : <a href="{{ asset('uploads/issuefiles/'~ issue.fullFile) }}"
                                              target="_blank">{{ issue.fullFile }}</a></li>

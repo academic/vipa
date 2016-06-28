@@ -27,7 +27,7 @@
             <small>{{ "title"|trans }}  : <strong>{{ issue.title }}</strong></small>
         </li>
         <li>
-            <small>{{ "year"|trans }} : <strong>{{ issue.year }}</strong></small>
+            <small>{{ "year"|trans }} : <strong>{{ issue.year|date('Y') }}</strong></small>
         </li>
         <li>
             <small>{{ "date.publish"|trans }} : {{ issue.datePublished|date('Y-m-d') }} </small>

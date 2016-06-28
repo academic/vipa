@@ -103,7 +103,7 @@ class IssueRepository extends EntityRepository
 
         /** @var Issue $issue */
         foreach ($query->getResult() as $issue){
-            $years[$issue->getYear()][] = $issue;
+            $years[$issue->getYear()->format('Y')][] = $issue;
         }
 
         ksort($years);
