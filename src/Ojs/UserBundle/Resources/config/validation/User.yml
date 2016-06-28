@@ -30,7 +30,7 @@ Ojs\UserBundle\Entity\User:
     email:
       - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
       - Email: { groups: [Default, ojs_register, editProfile, journal_user] }
-      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [ojs_register, editProfile, journal_user] }
+      - Ojs\UserBundle\Validator\Constraints\UniqueMultipleEmails: { message: 'user.multiple_mail.invalid', groups: [ojs_register, journal_user] }
     firstName:
       - NotBlank: { groups: [Default, ojs_register, editProfile, journal_user] }
     lastName:
