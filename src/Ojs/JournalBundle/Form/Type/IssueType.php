@@ -78,7 +78,23 @@ class IssueType extends AbstractType
                     'required' => false,
                 ]
             )
-            ->add('year', 'text', ['label' => 'year'])
+            ->add(
+                'year',
+                'collot_datetime',
+                array(
+                    'label' => 'year',
+                    'date_format' => 'yyyy',
+                    'widget' => 'single_text',
+                    'pickerOptions' => [
+                        'format' => 'yyyy',
+                        'startView' => 'decade',
+                        'minView' => 'decade',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
+                )
+            )
             ->add(
                 'datePublished',
                 'collot_datetime',

@@ -360,7 +360,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     /**
      * Get year
      *
-     * @return string
+     * @return \DateTime
      */
     public function getYear()
     {
@@ -370,7 +370,7 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     /**
      * Set year
      *
-     * @param  string $year
+     * @param  \DateTime $year
      * @return Issue
      */
     public function setYear($year)

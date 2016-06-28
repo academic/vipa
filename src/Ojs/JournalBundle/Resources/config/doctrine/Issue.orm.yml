@@ -80,8 +80,7 @@ Ojs\JournalBundle\Entity\Issue:
       gedmo:
         - versioned
     year:
-      type: string
-      length: 255
+      type: datetime
       nullable: true
       gedmo:
           - versioned
