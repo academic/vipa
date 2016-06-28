@@ -76,7 +76,7 @@ class ArticleSubmissionController extends Controller
                         'notDraftStatuses',
                         [
                             ArticleStatuses::STATUS_REJECTED,
-                            ArticleStatuses::STATUS_UNPUBLISHED,
+                            ArticleStatuses::STATUS_PUBLISH_READY,
                             ArticleStatuses::STATUS_INREVIEW,
                             ArticleStatuses::STATUS_PUBLISHED,
                         ]

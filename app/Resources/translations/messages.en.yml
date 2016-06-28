@@ -936,6 +936,7 @@ status.published: Published
 status.rejected: Rejected
 status.spam: Spam
 status.unpublished: Unpublished
+status.publish_ready: 'Ready to Publish'
 status.unknown: Unknown
 status.withdrawn: Withdrawn
 statusText: 'Status Text'

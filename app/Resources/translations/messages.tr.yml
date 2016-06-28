@@ -934,6 +934,7 @@ status.published: Yayımlandı
 status.rejected: Reddedildi
 status.spam: Spam
 status.unpublished: Yayımlanmadı
+status.publish_ready: 'Yayına Hazır'
 status.unknown: Bilinmiyor
 status.withdrawn: 'Geri Çekildi'
 statusText: 'Durum Metni'
