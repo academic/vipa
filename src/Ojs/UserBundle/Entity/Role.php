@@ -5,6 +5,7 @@ namespace Ojs\UserBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Role
@@ -15,7 +16,6 @@ class Role
 {
     /**
      * @var integer
-     * @Expose
      * @GRID\Column(title="role.id")
      */
     private $id;
@@ -23,6 +23,7 @@ class Role
     /**
      * @var string
      * @Expose
+     * @JMS\Groups({"export"})
      * @GRID\Column(title="role.name")
      */
     private $name;
@@ -30,6 +31,7 @@ class Role
     /**
      * @var string
      * @Expose
+     * @JMS\Groups({"export"})
      * @GRID\Column(title="role.role")
      */
     private $role;

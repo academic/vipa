@@ -6,7 +6,12 @@ namespace Ojs\JournalBundle\Entity;
 use Ojs\CoreBundle\Entity\DisplayTrait;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslation;
+use JMS\Serializer\Annotation as JMS;
 
+/**
+ * Subject
+ * @JMS\ExclusionPolicy("all")
+ */
 class SubjectTranslation extends AbstractTranslation
 {
     use DisplayTrait;
@@ -17,6 +22,8 @@ class SubjectTranslation extends AbstractTranslation
 
     /**
      * @var string
+     * @JMS\Expose
+     * @JMS\Groups({"export"})
      */
     private $subject;
 

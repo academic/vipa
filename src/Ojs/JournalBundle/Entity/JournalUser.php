@@ -8,30 +8,42 @@ use Doctrine\Common\Collections\Collection;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * JournalUser
  * @GRID\Source(columns="id, user.email")
  * @GRID\Source(columns="id, user.email, user.username", groups={"export"})
+ * @JMS\ExclusionPolicy("all")
  */
 class JournalUser implements JournalItemInterface
 {
     /**
      * @var integer
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     private $id;
+
     /**
      * @var Journal
      */
     private $journal;
+
     /**
      * @var User
+     * @Expose
+     * @JMS\Groups({"export"})
      * @Grid\Column(field="user.email", title="user")
      * @Grid\Column(field="user.username", title="username")
      */
     private $user;
+
     /**
      * @var Collection
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     private $roles;
 

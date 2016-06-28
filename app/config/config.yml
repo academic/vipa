@@ -168,13 +168,6 @@ jms_translation:
             excluded_names: ["*TestCase.php", "*Test.php"]
             excluded_dirs: [cache, data, logs, vendor]
             extractors: [alias_of_the_extractor]
-jms_serializer:
-    metadata:
-        auto_detection: true
-        directories:
-            FOSUB:
-                namespace_prefix: "FOS\\UserBundle"
-                path: "@OjsUserBundle/Resources/config/serializer/FOSUB"
 
 presta_sitemap:
     timetolive: 3600

@@ -10,6 +10,7 @@ use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Prezent\Doctrine\Translatable\Annotation as Prezent;
 use Prezent\Doctrine\Translatable\Entity\AbstractTranslatable;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Subject
@@ -27,7 +28,9 @@ class Subject extends AbstractTranslatable
      */
     protected $id;
     /**
+     * @Expose
      * @Prezent\Translations(targetEntity="Ojs\JournalBundle\Entity\SubjectTranslation")
+     * @JMS\Groups({"export"})
      */
     protected $translations;
     private $lft;

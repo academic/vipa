@@ -10,6 +10,7 @@ use Gedmo\Translatable\Translatable;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\Author;
@@ -39,21 +40,37 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
+     * @var array
+     */
+    protected $roles;
+
+    /**
      * @var string
      * @Assert\NotBlank(message="First name can't be blank")
-     * @JMS\Expose
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     protected $firstName;
 
     /**
      * @var string
+     * @Expose
+     * @JMS\Groups({"export"})
+     */
+    protected $username;
+
+    /**
+     * @var string
      * @Assert\NotBlank(message="Last name can't be blank")
-     * @JMS\Expose
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     protected $lastName;
 
     /**
      * @var string
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     protected $avatar;
 
@@ -69,11 +86,15 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
 
     /**
      * @var  string
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     protected $gender;
 
     /**
      * @var  string
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     protected $initials;
 
@@ -83,7 +104,8 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     protected $url;
 
     /**
-     * @JMS\Expose
+     * @Expose
+     * @JMS\Groups({"export"})
      * @var string
      */
     protected $email;
@@ -121,24 +143,27 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
 
     /**
      * @var PersonTitle
+     * @Expose
      */
     private $title;
 
     /**
      * @var Collection
+     * @Expose
+     * @JMS\Groups({"export"})
      */
     private $subjects;
 
     /**
      * Json encoded settings string
      * @var String
-     * @JMS\Expose
      */
     private $settings;
 
     /**
      * @var String
      * @JMS\Expose
+     * @JMS\Groups({"export"})
      */
     private $about;
 
@@ -169,7 +194,6 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     private $privacy;
 
     /**
-     * @JMS\Expose
      * @var Collection
      */
     private $journalUsers;

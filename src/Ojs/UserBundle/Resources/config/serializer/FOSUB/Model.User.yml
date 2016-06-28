@@ -1,8 +1,0 @@
-FOS\UserBundle\Model\User:
-  exclusion_policy: ALL
-  properties:
-    id:
-      expose: true
-      groups: [Default, search]
-    username:
-      expose: true
