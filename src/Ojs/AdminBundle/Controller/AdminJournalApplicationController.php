@@ -113,7 +113,7 @@ class AdminJournalApplicationController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('ojs_admin_application_journal_edit', ['id'=> $id]));
+            return $this->redirectToRoute('ojs_admin_application_journal_edit', ['id'=> $id]);
         }
 
         return $this->render('OjsAdminBundle:AdminApplication:journal_edit.html.twig', ['entity' => $entity, 'form' => $form->createView()]);
