@@ -234,7 +234,7 @@ class SamplesCommand extends ContainerAwareCommand
         $issue->setDescription('First issue of the journal');
         $issue->setNumber(1);
         $issue->setVolume(1);
-        $issue->setYear(2015);
+        $issue->setYear(new \DateTime('01-01-2015'));
         $issue->setSpecial(1);
         $issue->setDatePublished(new \DateTime('now'));
         $issue->setTags('first, guide, tutorial');
