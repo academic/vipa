@@ -3,6 +3,7 @@
 namespace Ojs\AdminBundle\Tests\Controller;
 
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
+use Ojs\JournalBundle\Entity\Period;
 
 class AdminPeriodControllerTest extends BaseTestCase
 {
@@ -19,9 +20,21 @@ class AdminPeriodControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/admin/period/new');
+        $crawler = $client->request('GET', '/admin/period/new');
 
         $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=period]')->form();
+        $form['period[translations]['.$this->locale.'][period]'] = 'Period - phpunit';
+
+        $crawler = $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'Period - phpunit',
+            $this->client->getResponse()->getContent()
+        );
+
     }
 
     public function testShow()
@@ -37,8 +50,40 @@ class AdminPeriodControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/admin/period/1/edit');
+        $crawler = $client->request('GET', '/admin/period/1/edit');
 
         $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=period]')->form();
+        $form['period[translations]['.$this->locale.'][period]'] = 'Period Edit - phpunit';
+
+        $crawler = $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'Period Edit - phpunit',
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    public function testDelete()
+    {
+        $em = $this->em;
+
+        $entity = new Period();
+        $entity->setCurrentLocale($this->locale);
+        $entity->setPeriod('Period');
+
+        $em->persist($entity);
+        $em->flush();
+
+        $id = $entity->getId();
+
+        $this->logIn();
+        $client = $this->client;
+        $token = $this->generateToken('ojs_admin_period'.$id);
+        $client->request('DELETE', '/admin/period/'.$id.'/delete', array('_token' => $token));
+
+        $this->assertStatusCode(302, $client);
     }
 }
