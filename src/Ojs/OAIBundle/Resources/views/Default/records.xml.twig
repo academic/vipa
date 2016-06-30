@@ -25,7 +25,7 @@
                         {% endfor %}
                         <dc:subject><![CDATA[{{ record.keywords }}]]></dc:subject>
                         {% for translation in record.translations %}
-                            <dc:description><![CDATA[{{ translation.abstract|replace({'': '', '': '','': '','': ''}) }}]]></dc:description>
+                            <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''}) }}]]></dc:description>
                         {% endfor %}
                         <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
                         <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
