@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PublisherRestControllerTest extends BaseTestCase
+class PublisherRestControllerTest extends ApiBaseTestCase
 {
     public function testGetPublishersAction()
     {

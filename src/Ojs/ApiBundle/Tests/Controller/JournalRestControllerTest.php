@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class JournalRestControllerTest extends BaseTestCase
+class JournalRestControllerTest extends ApiBaseTestCase
 {
     public function testGetJournalsAction()
     {

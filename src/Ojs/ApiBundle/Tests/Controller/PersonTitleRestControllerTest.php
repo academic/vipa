@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PersonTitleRestControllerTest extends BaseTestCase
+class PersonTitleRestControllerTest extends ApiBaseTestCase
 {
     public function testGetPersonTitlesAction()
     {

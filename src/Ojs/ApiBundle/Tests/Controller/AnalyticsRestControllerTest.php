@@ -2,13 +2,13 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 /**
  * Class AnalyticsRestControllerTest
  * @package Ojs\ApiBundle\Tests\Controller
  */
-class AnalyticsRestControllerTest extends BaseTestCase
+class AnalyticsRestControllerTest extends ApiBaseTestCase
 {
     private $objectId = 1;
     private $entity = 'article';

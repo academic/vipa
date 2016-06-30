@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class IndexRestControllerTest extends BaseTestCase
+class IndexRestControllerTest extends ApiBaseTestCase
 {
     public function testGetIndexesAction()
     {

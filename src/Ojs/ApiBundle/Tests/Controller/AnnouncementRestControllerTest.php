@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class AnnouncementRestControllerTest extends BaseTestCase
+class AnnouncementRestControllerTest extends ApiBaseTestCase
 {
     public function testGetAnnouncementsAction()
     {

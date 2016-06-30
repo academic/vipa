@@ -2,11 +2,11 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class JournalThemeRestControllerTest extends BaseTestCase
+class JournalThemeRestControllerTest extends ApiBaseTestCase
 {
     public function __construct()
     {

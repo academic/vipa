@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class ContactTypesRestControllerTest extends BaseTestCase
+class ContactTypesRestControllerTest extends ApiBaseTestCase
 {
     public function testGetContacttypesAction()
     {

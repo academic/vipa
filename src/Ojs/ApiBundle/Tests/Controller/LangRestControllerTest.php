@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class LangRestControllerTest extends BaseTestCase
+class LangRestControllerTest extends ApiBaseTestCase
 {
     public function testGetLangsAction()
     {

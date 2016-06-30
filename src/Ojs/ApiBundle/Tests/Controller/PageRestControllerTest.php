@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PageRestControllerTest extends BaseTestCase
+class PageRestControllerTest extends ApiBaseTestCase
 {
     public function testGetPagesAction()
     {

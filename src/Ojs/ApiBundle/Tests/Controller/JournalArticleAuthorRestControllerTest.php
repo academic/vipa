@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class JournalArticleAuthorRestControllerTest extends BaseTestCase
+class JournalArticleAuthorRestControllerTest extends ApiBaseTestCase
 {
     public function testGetAuthorsAction()
     {

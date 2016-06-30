@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class ArticleTypeRestControllerTest extends BaseTestCase
+class ArticleTypeRestControllerTest extends ApiBaseTestCase
 {
     public function testGetArticleTypesAction()
     {

@@ -2,9 +2,9 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PeriodRestControllerTest extends BaseTestCase
+class PeriodRestControllerTest extends ApiBaseTestCase
 {
     public function testGetPeriodsAction()
     {

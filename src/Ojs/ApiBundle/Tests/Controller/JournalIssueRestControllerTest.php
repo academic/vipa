@@ -2,11 +2,11 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class JournalIssueRestControllerTest extends BaseTestCase
+class JournalIssueRestControllerTest extends ApiBaseTestCase
 {
     private $sampleFile = 'http://www.cbu.edu.zm/downloads/pdf-sample.pdf';
     private $sampleIssueCover = 'http://lorempixel.com/200/300/';
