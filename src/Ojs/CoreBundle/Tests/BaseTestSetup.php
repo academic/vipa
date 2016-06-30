@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Input\ArrayInput;
 use Doctrine\DBAL\Driver\PDOSqlite\Driver as SqliteDriver;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Routing\RouterInterface;
 
 abstract class BaseTestSetup extends WebTestCase
 {
@@ -26,6 +26,11 @@ abstract class BaseTestSetup extends WebTestCase
      * @var  EntityManager
      */
     protected $em;
+
+    /**
+     * @var  RouterInterface
+     */
+    protected $router;
 
     /**
      * @var string
@@ -47,6 +52,8 @@ abstract class BaseTestSetup extends WebTestCase
             ->getManager();
 
         $this->locale = static::$kernel->getContainer()->getParameter('locale');
+
+        $this->router = static::$kernel->getContainer()->get('router');
         
         $baseUrl = static::$kernel->getContainer()->getParameter('base_host');
         $this->client = static::makeClient(array(),array('HTTP_HOST' => $baseUrl));
