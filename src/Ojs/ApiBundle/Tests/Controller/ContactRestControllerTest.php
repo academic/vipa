@@ -6,19 +6,26 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class ContactRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetContactsAction()
+    public function testNewArticleTypeAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_contact', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/contacts/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewContactAction()
+    public function testGetContactsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/contacts?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostContactAction()
     {
         $content = [
-            'title' => '',
+            'title' => 1,
             'fullName' => 'PHPUnit Test Full Name Field en - POST',
             'address' => 'PHPUnit Test Address Field en - POST',
             'phone' => 'PHPUnit Test Phone Field en - POST',
@@ -27,35 +34,30 @@ class ContactRestControllerTest extends ApiBaseTestCase
             'contactType' => 4,
             'journal' => 1,
             'country' => 216,
-            'city' => 'Ankara'
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_contacts', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/contacts?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetContactAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_contact', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/contacts/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutContactAction()
     {
         $content = [
-            'title' => '',
+            'title' => 1,
             'fullName' => 'PHPUnit Test Full Name Field en - PUT',
             'address' => 'PHPUnit Test Address Field en - PUT',
             'phone' => 'PHPUnit Test Phone Field en - PUT',
@@ -64,20 +66,16 @@ class ContactRestControllerTest extends ApiBaseTestCase
             'contactType' => 4,
             'journal' => 1,
             'country' => 216,
-            'city' => 'Ankara'
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_contact', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/contacts/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchContactAction()
@@ -86,29 +84,24 @@ class ContactRestControllerTest extends ApiBaseTestCase
             'address' => 'PHPUnit Test Address Field en - PUT',
             'email' => 'PHPUnit Test Email Field en - PUT',
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_contact', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/contacts/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteContactAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_contact', $routeParameters);
+        $announcementId = $this->sampleObjectLoader->loadContact();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/articletypes/'.$announcementId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

@@ -63,4 +63,15 @@ class SampleObjectLoader
 
         return $articleType->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadContact()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'contact.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['contact']->getId();
+    }
 }
