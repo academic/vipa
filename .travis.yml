@@ -48,6 +48,8 @@ script:
   - phpunit -c app src/Ojs/JournalBundle/
   - phpunit -c app src/Ojs/SiteBundle/
   - phpunit -c app src/Ojs/UserBundle/
+  - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/AnalyticsRestControllerTest.php
+  - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/AnnouncementRestControllerTest.php
 
 notifications:
   slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs
