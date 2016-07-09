@@ -49,6 +49,7 @@ script:
   - phpunit -c app src/Ojs/SiteBundle/
   - phpunit -c app src/Ojs/UserBundle/
   - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/ContactTypesRestControllerTest.php
+  - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/IndexRestControllerTest.php
 
 notifications:
   slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs

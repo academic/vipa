@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\ContactTypes;
+use Ojs\JournalBundle\Entity\Index;
 
 class SampleObjectLoader
 {
@@ -86,6 +87,22 @@ class SampleObjectLoader
             ->setCurrentLocale($this->locale)
             ->setName('Sample Contact Type Name - '. $this->locale)
             ->setDescription('Sample Contact Type Description - '. $this->locale)
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadIndex()
+    {
+        $entity = new Index();
+        $entity
+            ->setName('Sample index')
+            ->setStatus(true)
         ;
         $this->em->persist($entity);
         $this->em->flush();
