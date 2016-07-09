@@ -100,7 +100,7 @@ class ContactRestControllerTest extends ApiBaseTestCase
         $announcementId = $this->sampleObjectLoader->loadContact();
         $this->client->request(
             'DELETE',
-            '/api/v1/articletypes/'.$announcementId.'?apikey='. $this->apikey
+            '/api/v1/contacts/'.$announcementId.'?apikey='. $this->apikey
         );
         $this->assertStatusCode(204, $this->client);
     }

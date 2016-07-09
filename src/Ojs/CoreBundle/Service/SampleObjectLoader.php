@@ -5,6 +5,7 @@ namespace Ojs\CoreBundle\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
 use Ojs\JournalBundle\Entity\ArticleTypes;
+use Ojs\JournalBundle\Entity\ContactTypes;
 
 class SampleObjectLoader
 {
@@ -52,16 +53,16 @@ class SampleObjectLoader
      */
     public function loadArticleType()
     {
-        $articleType = new ArticleTypes();
-        $articleType
+        $entity = new ArticleTypes();
+        $entity
             ->setCurrentLocale($this->locale)
             ->setName('Sample Article Type Name - '. $this->locale)
             ->setDescription('Sample Article Type Description - '. $this->locale)
             ;
-        $this->em->persist($articleType);
+        $this->em->persist($entity);
         $this->em->flush();
 
-        return $articleType->getId();
+        return $entity->getId();
     }
 
     /**
@@ -73,5 +74,22 @@ class SampleObjectLoader
         $this->aliceManager->persist($objects, false);
 
         return $objects['contact']->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadContactType()
+    {
+        $entity = new ContactTypes();
+        $entity
+            ->setCurrentLocale($this->locale)
+            ->setName('Sample Contact Type Name - '. $this->locale)
+            ->setDescription('Sample Contact Type Description - '. $this->locale)
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
     }
 }
