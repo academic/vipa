@@ -3,6 +3,7 @@
 namespace Ojs\CoreBundle\Tests;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use Ojs\CoreBundle\Service\SampleObjectLoader;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Doctrine\ORM\EntityManager;
@@ -38,6 +39,11 @@ abstract class BaseTestSetup extends WebTestCase
     protected $locale;
 
     /**
+     * @var SampleObjectLoader
+     */
+    protected $sampleObjectLoader;
+
+    /**
      * @var bool
      */
     protected static $isFirstTest = true;
@@ -54,6 +60,8 @@ abstract class BaseTestSetup extends WebTestCase
         $this->locale = static::$kernel->getContainer()->getParameter('locale');
 
         $this->router = static::$kernel->getContainer()->get('router');
+
+        $this->sampleObjectLoader = static::$kernel->getContainer()->get('ojs_core.sample.object_loader');
         
         $baseUrl = static::$kernel->getContainer()->getParameter('base_host');
         $this->client = static::makeClient(array(),array('HTTP_HOST' => $baseUrl));
