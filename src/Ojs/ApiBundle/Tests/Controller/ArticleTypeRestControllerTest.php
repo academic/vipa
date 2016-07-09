@@ -6,104 +6,99 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class ArticleTypeRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetArticleTypesAction()
+    public function testNewArticleTypeAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_articletypes', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/articletypes/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewArticleTypeAction()
+    public function testGetArticleTypesAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/articletypes?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostArticleTypeAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'name' => 'PHPUnit Test Name Field en - POST',
-                    'description' => 'PHPUnit Test Description Field en - POST',
+                $this->locale => [
+                    'name' => 'PHPUnit Test Name Field '.$this->locale.' - POST',
+                    'description' => 'PHPUnit Test Description Field '.$this->locale.' - POST',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_articletypes', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/articletypes?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetArticleTypeAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_articletype', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/articletypes/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutArticleTypeAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'name' => 'PHPUnit Test Name Field en - PUT',
-                    'description' => 'PHPUnit Test Description Field en - PUT',
+                $this->locale => [
+                    'name' => 'PHPUnit Test Name Field '.$this->locale.' - PUT',
+                    'description' => 'PHPUnit Test Description Field '.$this->locale.' - PUT',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_articletype', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/articletypes/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchArticleTypeAction()
     {
         $content = [
             'translations' => [
-                'tr' => [
-                    'name' => 'PHPUnit Test Name Field TR - PATCH',
+                $this->secondLocale => [
+                    'name' => 'PHPUnit Test Name Field '.$this->secondLocale.' - PATCH',
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_articletype', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/articletypes/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteArticleTypeAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_articletype', $routeParameters);
+        $announcementId = $this->sampleObjectLoader->loadArticleType();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/articletypes/'.$announcementId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

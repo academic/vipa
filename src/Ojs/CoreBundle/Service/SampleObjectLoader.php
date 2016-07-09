@@ -2,7 +2,9 @@
 
 namespace Ojs\CoreBundle\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
+use Ojs\JournalBundle\Entity\ArticleTypes;
 
 class SampleObjectLoader
 {
@@ -16,9 +18,21 @@ class SampleObjectLoader
      */
     protected $fixturesRoot;
 
-    public function __construct(FixtureManagerInterface $aliceManager)
+    /**
+     * @var string
+     */
+    protected $locale;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
+
+    public function __construct(FixtureManagerInterface $aliceManager, EntityManagerInterface $em, $locale)
     {
         $this->aliceManager = $aliceManager;
+        $this->em           = $em;
+        $this->locale       = $locale;
         $this->fixturesRoot = __DIR__.'/../Tests/DataFixtures/ORM/';
     }
 
@@ -31,5 +45,22 @@ class SampleObjectLoader
         $this->aliceManager->persist($objects, false);
 
         return $objects['announcement']->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadArticleType()
+    {
+        $articleType = new ArticleTypes();
+        $articleType
+            ->setCurrentLocale($this->locale)
+            ->setName('Sample Article Type Name - '. $this->locale)
+            ->setDescription('Sample Article Type Description - '. $this->locale)
+            ;
+        $this->em->persist($articleType);
+        $this->em->flush();
+
+        return $articleType->getId();
     }
 }

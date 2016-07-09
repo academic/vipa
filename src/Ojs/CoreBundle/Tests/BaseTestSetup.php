@@ -39,6 +39,11 @@ abstract class BaseTestSetup extends WebTestCase
     protected $locale;
 
     /**
+     * @var string
+     */
+    protected $secondLocale;
+
+    /**
      * @var SampleObjectLoader
      */
     protected $sampleObjectLoader;
@@ -52,18 +57,14 @@ abstract class BaseTestSetup extends WebTestCase
     {
         static::$kernel = static::createKernel();
         static::$kernel->boot();
+        $container = static::$kernel->getContainer();
 
-        $this->em = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-
-        $this->locale = static::$kernel->getContainer()->getParameter('locale');
-
-        $this->router = static::$kernel->getContainer()->get('router');
-
-        $this->sampleObjectLoader = static::$kernel->getContainer()->get('ojs_core.sample.object_loader');
-        
-        $baseUrl = static::$kernel->getContainer()->getParameter('base_host');
+        $this->em = $container->get('doctrine')->getManager();
+        $this->locale = $container->getParameter('locale');
+        $this->secondLocale = array_values(array_diff($container->getParameter('locale_support'), [$this->locale]))[0];
+        $this->router = $container->get('router');
+        $this->sampleObjectLoader = $container->get('ojs_core.sample.object_loader');
+        $baseUrl = $container->getParameter('base_host');
         $this->client = static::makeClient(array(),array('HTTP_HOST' => $baseUrl));
 
         $this->app = new Application($this->client->getKernel());

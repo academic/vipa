@@ -140,6 +140,8 @@ services:
       class: Ojs\CoreBundle\Service\SampleObjectLoader
       arguments:
         - '@h4cc_alice_fixtures.manager'
+        - '@doctrine.orm.entity_manager'
+        - '%locale%'
 
   ojs_core.search_manager:
     class: Ojs\CoreBundle\Service\Search\SearchManager
