@@ -61,7 +61,6 @@ class AnalyticsRestControllerTest extends ApiBaseTestCase
         );
 
         $this->assertStatusCode(200, $client);
-
     }
 
     public function testJournalViewAction()

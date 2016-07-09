@@ -6,42 +6,46 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class AnnouncementRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetAnnouncementsAction()
+    public function testNewAnnouncementsAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_announcements', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/announcements/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewAnnouncementAction()
+    public function testGetAnnouncementsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/announcements?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostAnnouncementAction()
     {
         $content = [
             'title' => 'PHPUnit Test Title Field en - POST',
             'image' => 'PHPUnit Test Image Field en - POST',
-            'content' => 'PHPUnit Test Content Field en - POST',
+            'content' => 'http://phpunit.com',
         ];
-        $url = $this->router->generate('api_1_get_announcements');
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/announcements?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetAnnouncementAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_announcement', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/announcements/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutAnnouncementAction()
@@ -49,20 +53,17 @@ class AnnouncementRestControllerTest extends ApiBaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PUT',
             'image' => 'PHPUnit Test Image Field en - PUT',
-            'content' => 'PHPUnit Test Content Field en - PUT',
+            'content' => 'http://phpunit.com',
         ];
-        $routeParameters = $this->getRouteParams(['id' => 550]);
-        $url = $this->router->generate('api_1_put_announcement', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/announcements/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchAnnouncementAction()
@@ -70,29 +71,24 @@ class AnnouncementRestControllerTest extends ApiBaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PATCH',
         ];
-        $routeParameters = $this->getRouteParams(['id' => 1]);
-        $url = $this->router->generate('api_1_patch_announcement', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/announcements/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteAnnouncementAction()
     {
-        $routeParameters = $this->getRouteParams(['id' => 1]);
-        $url = $this->router->generate('api_1_delete_announcement', $routeParameters);
+        $announcementId = $this->sampleObjectLoader->loadAnnouncement();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/announcements/'.$announcementId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

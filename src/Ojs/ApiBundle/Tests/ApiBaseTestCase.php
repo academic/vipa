@@ -2,6 +2,7 @@
 
 namespace Ojs\ApiBundle\Tests;
 
+use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\CoreBundle\Tests\BaseTestSetup;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -13,6 +14,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 abstract class ApiBaseTestCase extends BaseTestSetup
 {
+    protected $apikey;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->apikey = $this->getApiKeyParams()['apikey'];
+
+    }
+
     /**
      * @param array $parameters
      * @return array
@@ -42,7 +52,7 @@ abstract class ApiBaseTestCase extends BaseTestSetup
         /** @var User $getAdminUser */
         $getAdminUser = $getAdminUsers[0];
         if(empty($getAdminUser->getApiKey())){
-            $getAdminUser->setApiKey($getAdminUser->generateApiKey());
+            $getAdminUser->setApiKey(StringHelper::generateKey());
             $this->em->persist($getAdminUser);
             $this->em->flush();
         }
