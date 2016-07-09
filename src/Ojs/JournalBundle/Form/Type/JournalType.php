@@ -246,6 +246,7 @@ class JournalType extends AbstractType
                 'label' => 'journal.header_image',
                 'img_width' => 960,
                 'img_height' => 200,
+                'required' => false,
                 'crop_options' => array(
                     'aspect-ratio' => 960 / 200,
                     'maxSize' => "[960, 200]"
@@ -256,19 +257,10 @@ class JournalType extends AbstractType
                 'label' => 'cover_image',
                 'img_width' => 200,
                 'img_height' => 300,
+                'required' => false,
                 'crop_options' => array(
                     'aspect-ratio' => 200 / 300,
                     'maxSize' => "[200, 300]"
-                )
-            ))
-            ->add('logo', 'jb_crop_image_ajax', array(
-                'label' => 'logo',
-                'endpoint' => 'journal',
-                'img_width' => 200,
-                'img_height' => 200,
-                'crop_options' => array(
-                    'aspect-ratio' => 200 / 200,
-                    'maxSize' => "[200, 200]"
                 )
             ))
         ;

@@ -244,15 +244,6 @@ class JournalType extends AbstractType
                     'maxSize' => "[200, 300]"
                 )
             ))
-            ->add('logo', 'jb_crop_image_ajax', array(
-                'endpoint' => 'journal',
-                'img_width' => 200,
-                'img_height' => 200,
-                'crop_options' => array(
-                    'aspect-ratio' => 200 / 200,
-                    'maxSize' => "[200, 200]"
-                )
-            ))
             ->add('note', 'textarea', [
                     'label' => 'journal.note',
                     'required' => false,
