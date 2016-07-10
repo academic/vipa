@@ -50,6 +50,7 @@ script:
   - phpunit -c app src/Ojs/UserBundle/
   - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/InstitutionRestControllerTest.php
   - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/JournalArticleAuthorRestControllerTest.php
+  - phpunit -c app src/Ojs/ApiBundle/Tests/Controller/JournalArticleCitationRestControllerTest.php
 
 notifications:
   slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs

@@ -131,4 +131,15 @@ class SampleObjectLoader
 
         return $objects['article_author']->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadArticleCitation()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'article_citation.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['article_citation']->getId();
+    }
 }
