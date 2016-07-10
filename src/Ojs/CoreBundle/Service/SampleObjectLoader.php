@@ -153,4 +153,15 @@ class SampleObjectLoader
 
         return $objects['article_file']->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadArticle()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'article.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['article']->getId();
+    }
 }
