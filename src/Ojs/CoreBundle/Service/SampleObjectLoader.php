@@ -120,4 +120,15 @@ class SampleObjectLoader
 
         return $objects['institution']->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadArticleAuthor()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'article_author.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['article_author']->getId();
+    }
 }

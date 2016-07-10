@@ -6,16 +6,20 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class JournalArticleAuthorRestControllerTest extends ApiBaseTestCase
 {
+    public function testNewAuthorsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/article/1/authors/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
     public function testGetAuthorsAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_get_authors', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/article/1/authors?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPostAuthorAction()
@@ -48,34 +52,23 @@ class JournalArticleAuthorRestControllerTest extends ApiBaseTestCase
             ],
             'authorOrder' => 3,
         ];
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_post_author', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journal/1/article/1/authors?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetAuthorAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'id' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_get_author', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/article/1/authors/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutAuthorAction()
@@ -108,22 +101,15 @@ class JournalArticleAuthorRestControllerTest extends ApiBaseTestCase
             ],
             'authorOrder' => 3,
         ];
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'id' => 550,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_put_author', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journal/1/article/1/authors/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchAuthorAction()
@@ -143,37 +129,24 @@ class JournalArticleAuthorRestControllerTest extends ApiBaseTestCase
             ],
             'authorOrder' => 2,
         ];
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'id' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_patch_author', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journal/1/article/1/authors/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteAuthorAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'id' => 1,
-            'journalId' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_delete_author', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadArticleAuthor();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journal/1/article/1/authors/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

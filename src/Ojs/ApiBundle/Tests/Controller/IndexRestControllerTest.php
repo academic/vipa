@@ -84,10 +84,10 @@ class IndexRestControllerTest extends ApiBaseTestCase
 
     public function testDeleteIndexesAction()
     {
-        $announcementId = $this->sampleObjectLoader->loadIndex();
+        $entityId = $this->sampleObjectLoader->loadIndex();
         $this->client->request(
             'DELETE',
-            '/api/v1/indexes/'.$announcementId.'?apikey='. $this->apikey
+            '/api/v1/indexes/'.$entityId.'?apikey='. $this->apikey
         );
         $this->assertStatusCode(204, $this->client);
     }
