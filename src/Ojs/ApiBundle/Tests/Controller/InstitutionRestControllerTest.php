@@ -6,41 +6,44 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class InstitutionRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetInstitutionsAction()
+    public function testNewInstitutionAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_institutions', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/institutions/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewInstitutionAction()
+    public function testGetInstitutionsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/institutions?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostInstitutionAction()
     {
         $content = [
             'name' => 'PHPUnit Test Name Field - POST'
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_institutions', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/institutions?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetInstitutionAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_institution', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/institutions/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutInstitutionAction()
@@ -48,18 +51,15 @@ class InstitutionRestControllerTest extends ApiBaseTestCase
         $content = [
             'name' => 'PHPUnit Test Name Field - PUT'
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_institution', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/institutions/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchInstitutionAction()
@@ -67,29 +67,24 @@ class InstitutionRestControllerTest extends ApiBaseTestCase
         $content = [
             'name' => 'PHPUnit Test Name Field - PATCH',
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_institution', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/institutions/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteInstitutionAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_institution', $routeParameters);
+        $announcementId = $this->sampleObjectLoader->loadInstitution();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/institutions/'.$announcementId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

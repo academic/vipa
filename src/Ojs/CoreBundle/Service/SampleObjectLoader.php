@@ -109,4 +109,15 @@ class SampleObjectLoader
 
         return $entity->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadInstitution()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'institution.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['institution']->getId();
+    }
 }
