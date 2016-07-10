@@ -10,8 +10,19 @@ class AdminSystemSettingsControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/admin/settings/');
+        $crawler = $client->request('GET', '/admin/settings/');
 
         $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=system_settings]')->form();
+        $form['system_settings[userRegistrationActive]'] = '1';
+        $form['system_settings[journalApplicationActive]'] = '1';
+        $form['system_settings[publisherApplicationActive]'] = '1';
+        $form['system_settings[articleSubmissionActive]'] = '1';
+
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('.alert-success')->count());
+
+
     }
 }
