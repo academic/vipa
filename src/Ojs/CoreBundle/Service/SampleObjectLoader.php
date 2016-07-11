@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
+use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
@@ -239,6 +240,24 @@ class SampleObjectLoader
         $entity
             ->setCode('be')
             ->setName('Sample Behrami Lang')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPage()
+    {
+        $entity = new AdminPage();
+        $entity
+            ->setCurrentLocale('tr')
+            ->setTitle('Sample Page Title')
+            ->setBody('Sample Page Body')
+            ->setSlug('Sample Page Slug')
         ;
         $this->em->persist($entity);
         $this->em->flush();
