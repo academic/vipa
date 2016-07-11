@@ -18,6 +18,7 @@ use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\PublisherTheme;
 use Ojs\JournalBundle\Entity\PublisherTypes;
+use Ojs\JournalBundle\Entity\Subject;
 use Ojs\UserBundle\Entity\User;
 
 class SampleObjectLoader
@@ -377,6 +378,23 @@ class SampleObjectLoader
             ->setCurrentLocale($this->locale)
             ->setName('Sample Publisher Type Name')
             ->setDescription('Sample Publisher type Description')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadSubject()
+    {
+        $entity = new Subject();
+        $entity
+            ->setCurrentLocale($this->locale)
+            ->setSubject('Sample Subject Name')
+            ->setDescription('Sample Subject Description')
         ;
         $this->em->persist($entity);
         $this->em->flush();
