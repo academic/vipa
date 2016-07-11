@@ -36,20 +36,27 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
         $this->sampleIssueHeaderEncoded = base64_encode(file_get_contents($issueCacheDir.'sampleIssueHeader'));
     }
 
-    public function testGetJournalIssuesAction()
+    public function testNewJournalIssueAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_get_issues', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/issues/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewJournalIssueAction()
+    public function testGetJournalIssuesAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/issues?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostJournalIssueAction()
     {
         $content = [
             'translations' => [
-                'en' => [
+                'tr' => [
                     'title' => 'PHPUnit Test Title Field en - POST',
                     'description' => 'PHPUnit Test Description Field en - POST'
                 ]
@@ -61,7 +68,6 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
             'year' => 2012,
             'datePublished' => '27-09-1994',
             'tags' => ['phpunit','post'],
-            'published' => 1,
             'full_file' => [
                 'filename' => 'samplefile.pdf',
                 'encoded_content' => $this->sampleFileEncoded
@@ -75,34 +81,30 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
                 'encoded_content' => $this->sampleIssueHeaderEncoded,
             ],
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_post_issue', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journal/1/issues?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetJournalIssueAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
-        $url = $this->router->generate('api_1_get_issue', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/issues/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutJournalIssueAction()
     {
         $content = [
             'translations' => [
-                'en' => [
+                'tr' => [
                     'title' => 'PHPUnit Test Title Field en - PUT',
                     'description' => 'PHPUnit Test Description Field en - PUT'
                 ]
@@ -114,7 +116,6 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
             'year' => 2012,
             'datePublished' => '27-09-1994',
             'tags' => ['phpunit','post'],
-            'published' => 1,
             'full_file' => [
                 'filename' => 'samplefile.pdf',
                 'encoded_content' => $this->sampleFileEncoded
@@ -128,18 +129,15 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
                 'encoded_content' => $this->sampleIssueHeaderEncoded,
             ],
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 550]);
-        $url = $this->router->generate('api_1_put_issue', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journal/1/issues/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchJournalIssueAction()
@@ -155,43 +153,32 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
                 'encoded_content' => $this->sampleIssueHeaderEncoded,
             ],
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
-        $url = $this->router->generate('api_1_patch_issue', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journal/1/issues/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteJournalIssueAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
-        $url = $this->router->generate('api_1_delete_issue', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadIssue();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journal/1/issues/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testGetAddArticleAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'issueId'   => 1,
-            'articleId' => 1,
-            'sectionId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_get_add_article', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/issues/1/add/article/1/section/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 }
