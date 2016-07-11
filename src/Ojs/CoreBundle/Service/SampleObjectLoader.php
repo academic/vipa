@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
+use Ojs\JournalBundle\Entity\Lang;
 
 class SampleObjectLoader
 {
@@ -223,6 +224,21 @@ class SampleObjectLoader
             ->setJournal($journal)
             ->setPublic(true)
             ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadLang()
+    {
+        $entity = new Lang();
+        $entity
+            ->setCode('be')
+            ->setName('Sample Behrami Lang')
         ;
         $this->em->persist($entity);
         $this->em->flush();
