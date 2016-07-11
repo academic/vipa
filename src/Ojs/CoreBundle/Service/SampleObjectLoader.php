@@ -7,6 +7,8 @@ use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalTheme;
 
 class SampleObjectLoader
 {
@@ -207,5 +209,24 @@ class SampleObjectLoader
         $this->aliceManager->persist($objects, false);
 
         return $objects['section']->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadJournalTheme()
+    {
+        $journal = $this->em->getRepository(Journal::class)->find(1);
+        $entity = new JournalTheme();
+        $entity
+            ->setTitle('Sample Journal Theme')
+            ->setJournal($journal)
+            ->setPublic(true)
+            ;
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
     }
 }
