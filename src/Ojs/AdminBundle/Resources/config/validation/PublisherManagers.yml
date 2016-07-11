@@ -2,5 +2,6 @@ Ojs\AdminBundle\Entity\PublisherManagers:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [publisher, user]
+            groups: ["publisher_managers"]
             errorPath: port
             message: 'This user is already in use on that publisher.'
