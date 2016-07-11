@@ -51,8 +51,8 @@ abstract class BaseTestSetup extends WebTestCase
     /**
      * @var bool
      */
-    protected static $isFirstTest = false;
-    
+    protected static $isFirstTest = true;
+
     protected function setUp()
     {
         static::$kernel = static::createKernel();

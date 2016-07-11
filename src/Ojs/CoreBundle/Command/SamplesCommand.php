@@ -46,7 +46,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class SamplesCommand extends ContainerAwareCommand
 {
-
     protected function configure()
     {
         $this
