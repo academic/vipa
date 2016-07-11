@@ -3,7 +3,7 @@
 namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\JournalBundle\Form\Type\ThemeType;
+use Ojs\JournalBundle\Form\Type\JournalThemeType;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -28,11 +28,11 @@ class JournalThemeHandler
     }
 
     /**
-     * Get a Theme.
+     * Get a JournalTheme.
      *
      * @param mixed $id
      *
-     * @return Theme
+     * @return JournalTheme
      */
     public function get($id)
     {
@@ -40,7 +40,7 @@ class JournalThemeHandler
     }
 
     /**
-     * Get a list of Themes.
+     * Get a list of JournalThemes.
      *
      * @param int $limit  the limit of the result
      * @param int $offset starting from the offset
@@ -54,52 +54,52 @@ class JournalThemeHandler
     }
 
     /**
-     * Create a new Theme.
+     * Create a new JournalTheme.
      *
      * @param array $parameters
      *
-     * @return Theme
+     * @return JournalTheme
      */
     public function post(array $parameters)
     {
-        $entity = $this->createTheme();
+        $entity = $this->createJournalTheme();
         return $this->processForm($entity, $parameters, 'POST');
     }
 
     /**
-     * Edit a Theme.
+     * Edit a JournalTheme.
      *
-     * @param Theme $entity
+     * @param JournalTheme $entity
      * @param array         $parameters
      *
-     * @return Theme
+     * @return JournalTheme
      */
-    public function put(Theme $entity, array $parameters)
+    public function put(JournalTheme $entity, array $parameters)
     {
         return $this->processForm($entity, $parameters, 'PUT');
     }
 
     /**
-     * Partially update a Theme.
+     * Partially update a JournalTheme.
      *
-     * @param Theme $entity
+     * @param JournalTheme $entity
      * @param array         $parameters
      *
-     * @return Theme
+     * @return JournalTheme
      */
-    public function patch(Theme $entity, array $parameters)
+    public function patch(JournalTheme $entity, array $parameters)
     {
         return $this->processForm($entity, $parameters, 'PATCH');
     }
 
     /**
-     * Delete a Theme.
+     * Delete a JournalTheme.
      *
-     * @param Theme $entity
+     * @param JournalTheme $entity
      *
-     * @return Theme
+     * @return JournalTheme
      */
-    public function delete(Theme $entity)
+    public function delete(JournalTheme $entity)
     {
         $this->om->remove($entity);
         $this->om->flush();
@@ -109,23 +109,23 @@ class JournalThemeHandler
     /**
      * Processes the form.
      *
-     * @param Theme $entity
+     * @param JournalTheme $entity
      * @param array         $parameters
      * @param String        $method
      *
-     * @return Theme
+     * @return JournalTheme
      *
      * @throws \Ojs\ApiBundle\Exception\InvalidFormException
      */
-    private function processForm(Theme $entity, array $parameters, $method = "PUT")
+    private function processForm(JournalTheme $entity, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new ThemeType(), $entity, array('method' => $method, 'csrf_protection' => false));
+        $form = $this->formFactory->create(new JournalThemeType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
         $formData = $form->getData();
 
         if ($form->isValid()) {
             $entity->setCurrentLocale('en');
-            $entity->setOwner($this->journalService->getSelectedJournal());
+            $entity->setJournal($this->journalService->getSelectedJournal());
             $this->om->persist($entity);
             $this->om->flush();
             return $formData;
@@ -133,7 +133,7 @@ class JournalThemeHandler
         throw new InvalidFormException('Invalid submitted data', $form);
     }
 
-    private function createTheme()
+    private function createJournalTheme()
     {
         return new $this->entityClass();
     }

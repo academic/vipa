@@ -4,7 +4,7 @@ namespace Ojs\ApiBundle\Controller\Journal;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\JournalBundle\Form\Type\ThemeType;
+use Ojs\JournalBundle\Form\Type\JournalThemeType;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -19,7 +19,7 @@ use Ojs\ApiBundle\Controller\ApiController;
 class JournalThemeRestController extends ApiController
 {
     /**
-     * List all Themes.
+     * List all JournalThemes.
      *
      * @ApiDoc(
      *   resource = true,
@@ -30,8 +30,8 @@ class JournalThemeRestController extends ApiController
      *   section = "journaltheme",
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing Themes.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many Themes to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing JournalThemes.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many JournalThemes to return.")
      *
      *
      * @param Request               $request      the request object
@@ -52,25 +52,25 @@ class JournalThemeRestController extends ApiController
     }
 
     /**
-     * Get single Theme.
+     * Get single JournalTheme.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Theme for a given id",
-     *   output = "Ojs\ThemeBundle\Entity\Theme",
+     *   description = "Gets a JournalTheme for a given id",
+     *   output = "Ojs\JournalThemeBundle\Entity\JournalTheme",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the Theme is not found"
+     *     404 = "Returned when the JournalTheme is not found"
      *   },
      *   views = {"journaltheme"},
      *   section = "journaltheme",
      * )
      *
-     * @param int     $id      the Theme id
+     * @param int     $id      the JournalTheme id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when Theme not exist
+     * @throws NotFoundHttpException when JournalTheme not exist
      */
     public function getThemeAction($id)
     {
@@ -83,7 +83,7 @@ class JournalThemeRestController extends ApiController
     }
 
     /**
-     * Presents the form to use to create a new Theme.
+     * Presents the form to use to create a new JournalTheme.
      *
      * @ApiDoc(
      *   resource = true,
@@ -102,15 +102,15 @@ class JournalThemeRestController extends ApiController
         if (!$this->isGranted('CREATE', $journal, 'theme')) {
             throw new AccessDeniedException;
         }
-        return $this->createForm(new ThemeType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new JournalThemeType(), null, ['csrf_protection' => false]);
     }
 
     /**
-     * Create a Theme from the submitted data.
+     * Create a JournalTheme from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Theme from the submitted data.",
+     *   description = "Creates a new JournalTheme from the submitted data.",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -146,12 +146,12 @@ class JournalThemeRestController extends ApiController
     }
 
     /**
-     * Update existing Theme from the submitted data or create a new Theme at a specific location.
+     * Update existing JournalTheme from the submitted data or create a new JournalTheme at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
      *   statusCodes = {
-     *     201 = "Returned when the Theme is created",
+     *     201 = "Returned when the JournalTheme is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   },
@@ -160,11 +160,11 @@ class JournalThemeRestController extends ApiController
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the Theme id
+     * @param int     $id      the JournalTheme id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when Theme not exist
+     * @throws NotFoundHttpException when JournalTheme not exist
      */
     public function putThemeAction(Request $request, $id)
     {
@@ -246,13 +246,13 @@ class JournalThemeRestController extends ApiController
      * @return Response
      * @ApiDoc(
      *      resource = false,
-     *      description = "Delete Theme",
+     *      description = "Delete JournalTheme",
      *      requirements = {
      *          {
      *              "name" = "id",
      *              "dataType" = "integer",
      *              "requirement" = "Numeric",
-     *              "description" = "Theme ID"
+     *              "description" = "JournalTheme ID"
      *          }
      *      },
      *      statusCodes = {
@@ -276,11 +276,11 @@ class JournalThemeRestController extends ApiController
     }
 
     /**
-     * Fetch a Theme or throw an 404 Exception.
+     * Fetch a JournalTheme or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return Theme
+     * @return JournalTheme
      *
      * @throws NotFoundHttpException
      */
