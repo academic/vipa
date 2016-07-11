@@ -8,96 +8,102 @@ use Symfony\Component\Filesystem\Exception\IOException;
 
 class JournalBoardRestControllerTest extends ApiBaseTestCase
 {
-    public function __construct()
+    public function testNewJournalBoardAction()
     {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/boards/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testGetJournalBoardsAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_get_boards', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/boards?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewJournalBoardAction()
+    public function testPostJournalBoardAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field en - POST',
-            'description' => 'PHPUnit Test Description Field en - POST',
+            'translations' => [
+                'tr' => [
+                    'name' => 'PHPUnit Test Name Field en - POST',
+                    'description' => 'PHPUnit Test Description Field en - POST',
+                ]
+            ],
+            'boardOrder' => '1',
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_post_board', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journal/1/boards?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetJournalBoardAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
-        $url = $this->router->generate('api_1_get_board', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/boards/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutJournalBoardAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field en - PUT',
-            'description' => 'PHPUnit Test Description Field en - PUT',
+            'translations' => [
+                'tr' => [
+                    'name' => 'PHPUnit Test Name Field en - PUT',
+                    'description' => 'PHPUnit Test Description Field en - PUT',
+                ]
+            ],
+            'boardOrder' => '1',
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 550]);
-        $url = $this->router->generate('api_1_put_board', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journal/1/boards/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchJournalBoardAction()
     {
         $content = [
-            'name' => 'PHPUnit Test Name Field en - PATCH',
+            'translations' => [
+                'tr' => [
+                    'name' => 'PHPUnit Test Name Field en - PATCH',
+                ]
+            ],
+            'boardOrder' => '20',
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
-        $url = $this->router->generate('api_1_patch_board', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journal/1/boards/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteJournalBoardAction()
     {
-        $routeParameters = $this->getRouteParams(['id' => 1,'journalId' => 1]);
-        $url = $this->router->generate('api_1_delete_board', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadBoard();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journal/1/boards/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

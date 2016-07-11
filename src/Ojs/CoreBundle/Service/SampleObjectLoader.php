@@ -164,4 +164,15 @@ class SampleObjectLoader
 
         return $objects['article']->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadBoard()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'board.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['board']->getId();
+    }
 }
