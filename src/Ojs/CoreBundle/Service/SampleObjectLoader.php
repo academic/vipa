@@ -17,6 +17,7 @@ use Ojs\JournalBundle\Entity\Period;
 use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\Publisher;
 use Ojs\JournalBundle\Entity\PublisherTheme;
+use Ojs\JournalBundle\Entity\PublisherTypes;
 use Ojs\UserBundle\Entity\User;
 
 class SampleObjectLoader
@@ -359,6 +360,23 @@ class SampleObjectLoader
             ->setTitle('Sample Publisher Theme')
             ->setPublic(true)
             ->setCss('.sample-css{}')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPublisherType()
+    {
+        $entity = new PublisherTypes();
+        $entity
+            ->setCurrentLocale($this->locale)
+            ->setName('Sample Publisher Type Name')
+            ->setDescription('Sample Publisher type Description')
         ;
         $this->em->persist($entity);
         $this->em->flush();
