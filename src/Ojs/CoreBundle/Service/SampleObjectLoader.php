@@ -12,6 +12,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Period;
+use Ojs\JournalBundle\Entity\PersonTitle;
 
 class SampleObjectLoader
 {
@@ -275,6 +276,22 @@ class SampleObjectLoader
         $entity
             ->setCurrentLocale($this->locale)
             ->setPeriod('Sample Period')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPersonTitle()
+    {
+        $entity = new PersonTitle();
+        $entity
+            ->setCurrentLocale($this->locale)
+            ->setTitle('Sample Person Title')
         ;
         $this->em->persist($entity);
         $this->em->flush();
