@@ -3,29 +3,112 @@
 namespace Ojs\JournalBundle\Tests\Controller;
 
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
+use Ojs\JournalBundle\Entity\Article;
 
 class ArticleControllerTest extends BaseTestCase
 {
-    /**
-     * @dataProvider urlProvider
-     */
-    public function testPageIsSuccessful($url)
+    public function testIndex()
     {
+        $this->logIn();
         $client = $this->client;
-        $crawler = $client->request('GET', $url, array(), array(), array(
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW' => 'admin',
-        ));
+        $client->request('GET', '/journal/1/article');
+
         $this->assertStatusCode(200, $client);
     }
 
-    public function urlProvider()
+    public function testNew()
     {
-        return array(
-            array('/journal/1/article'),
-            array('/journal/1/article/new'),
-            array('/journal/1/article/1'),
-            array('/journal/1/article/1/edit'),
+        $this->logIn();
+        $client = $this->client;
+        $crawler = $client->request('GET', '/journal/1/article/new');
+
+        $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=article]')->form();
+        $form['article[translations][en][title]'] = 'Article Title - phpunit';
+        $form['article[translations][en][abstract]'] = 'abstract en - phpunit';
+        $form['article[translations][tr][title]'] = 'Article Title - phpunit';
+        $form['article[translations][tr][abstract]'] = 'abstract tr - phpunit';
+        $form['article[subjects]'] = ['1'];
+        $form['article[status]'] = '-2';
+        $form['article[pubdate]'] = '12-07-2016';
+        $form['article[firstPage]'] = '1';
+        $form['article[lastPage]'] = '50';
+        $form['article[articleType]'] = '1';
+        $form['article[submissionDate]'] = '13-07-2016';
+        $form['article[acceptanceDate]'] = '16-07-2016';
+
+        $crawler = $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'Article Title - phpunit',
+            $this->client->getResponse()->getContent()
         );
+
     }
+
+    public function testShow()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/journal/1/article/1');
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testEdit()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $crawler = $client->request('GET', '/journal/1/article/1/edit');
+
+        $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=article]')->form();
+        $form['article[translations][en][title]'] = 'Article Edit Title - phpunit';
+        $form['article[translations][en][abstract]'] = 'abstract en - phpunit';
+        $form['article[translations][tr][title]'] = 'Article Edit Title - phpunit';
+        $form['article[translations][tr][abstract]'] = 'abstract tr - phpunit';
+
+        $crawler = $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+        'Article Edit Title - phpunit',
+        $this->client->getResponse()->getContent()
+    );
+
+    }
+
+    public function testDelete()
+    {
+
+        $em = $this->em;
+
+
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find('1');
+
+        $entity = new Article();
+        $entity->setCurrentLocale($this->locale);
+        $entity->setAnonymous(false);
+        $entity->setTitle('Article Title Delete');
+        $entity->setStatus(1);
+        $entity->setJournal($journal);
+
+        $em->persist($entity);
+        $em->flush();
+
+        $id = $entity->getId();
+
+        $this->logIn();
+        $client = $this->client;
+        $token = $this->generateToken('ojs_journal_article'.$id);
+        $client->request('DELETE', '/journal/1/article/'.$id.'/delete', array('_token' => $token));
+
+        $this->assertStatusCode(302, $client);
+    }
+
+
 }
+
