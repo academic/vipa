@@ -11,6 +11,7 @@ use Ojs\JournalBundle\Entity\Index;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
+use Ojs\JournalBundle\Entity\Period;
 
 class SampleObjectLoader
 {
@@ -258,6 +259,22 @@ class SampleObjectLoader
             ->setTitle('Sample Page Title')
             ->setBody('Sample Page Body')
             ->setSlug('Sample Page Slug')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPeriod()
+    {
+        $entity = new Period();
+        $entity
+            ->setCurrentLocale($this->locale)
+            ->setPeriod('Sample Period')
         ;
         $this->em->persist($entity);
         $this->em->flush();

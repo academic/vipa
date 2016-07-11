@@ -6,102 +6,97 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class PeriodRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetPeriodsAction()
+    public function testNewPeriodAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_periods', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/periods/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewPeriodAction()
+    public function testGetPeriodsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/periods/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostPeriodAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'period' => 'PHPUnit Test Period Field en - POST',
+                $this->locale => [
+                    'period' => 'PHPUnit Test Period Field '.$this->locale.' - POST',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_periods', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/periods?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetPeriodAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_period', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/periods/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutPeriodAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'period' => 'PHPUnit Test Period Field en - PUT',
+                $this->locale => [
+                    'period' => 'PHPUnit Test Period Field '.$this->locale.' - PUT',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_period', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/periods/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchPeriodAction()
     {
         $content = [
             'translations' => [
-                'tr' => [
-                    'period' => 'PHPUnit Test Period Field TR - PATCH',
+                $this->secondLocale => [
+                    'period' => 'PHPUnit Test Period Field '.$this->secondLocale.' - PATCH',
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_period', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/periods/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeletePeriodAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_period', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadPeriod();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/periods/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }
