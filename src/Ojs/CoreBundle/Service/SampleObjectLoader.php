@@ -5,6 +5,7 @@ namespace Ojs\CoreBundle\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
 use Ojs\AdminBundle\Entity\AdminPage;
+use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
@@ -292,6 +293,23 @@ class SampleObjectLoader
         $entity
             ->setCurrentLocale($this->locale)
             ->setTitle('Sample Person Title')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPost()
+    {
+        $entity = new AdminPost();
+        $entity
+            ->setCurrentLocale($this->locale)
+            ->setTitle('Sample Post Title')
+            ->setContent('Sample Post Content')
         ;
         $this->em->persist($entity);
         $this->em->flush();
