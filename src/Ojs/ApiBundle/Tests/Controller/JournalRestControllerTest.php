@@ -83,11 +83,11 @@ class JournalRestControllerTest extends ApiBaseTestCase
                     'description' => 'PHPUnit Test Description Field - PUT',
                     'titleAbbr' => 'PHPUnit Test Title Abbr Field - PUT'
                 ],
-                'tr' => [
-                    'title' => 'PHPUnit Test Title Field TR - PUT',
-                    'subtitle' => 'PHPUnit Test Subtitle Field TR - PUT',
-                    'description' => 'PHPUnit Test Description Field TR - PUT',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field TR - PUT'
+                $this->secondLocale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PUT',
+                    'subtitle' => 'PHPUnit Test Subtitle Field '.$this->secondLocale.' - PUT',
+                    'description' => 'PHPUnit Test Description Field '.$this->secondLocale.' - PUT',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field '.$this->secondLocale.' - PUT'
                 ]
             ],
             'publisher' => 1,
@@ -127,10 +127,10 @@ class JournalRestControllerTest extends ApiBaseTestCase
         $content = [
             'translations' => [
                 $this->secondLocale => [
-                    'title' => 'PHPUnit Test Title Field TR - PATCH',
-                    'subtitle' => 'PHPUnit Test Subtitle Field TR - PATCH',
-                    'description' => 'PHPUnit Test Description Field TR - PATCH',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field TR - PATCH'
+                    'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PATCH',
+                    'subtitle' => 'PHPUnit Test Subtitle Field '.$this->secondLocale.' - PATCH',
+                    'description' => 'PHPUnit Test Description Field '.$this->secondLocale.' - PATCH',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field '.$this->secondLocale.' - PATCH'
                 ]
             ]
         ];

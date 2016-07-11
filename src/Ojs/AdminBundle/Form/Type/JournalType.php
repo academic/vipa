@@ -12,7 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class JournalType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
