@@ -67,7 +67,7 @@ class AdminPage extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -136,7 +136,7 @@ class AdminPage extends AbstractTranslatable
      */
     public function getBody()
     {
-        return $this->translate()->getBody();
+        return $this->getLogicalFieldTranslation('body', false);
     }
 
     /**

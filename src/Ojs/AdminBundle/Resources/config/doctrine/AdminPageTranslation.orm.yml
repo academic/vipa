@@ -13,5 +13,7 @@ Ojs\AdminBundle\Entity\AdminPageTranslation:
         title:
             type: string
             length: 255
+            nullable: true
         body:
             type: text
+            nullable: true
