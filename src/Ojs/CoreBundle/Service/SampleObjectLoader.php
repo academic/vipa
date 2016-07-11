@@ -335,4 +335,15 @@ class SampleObjectLoader
 
         return $entity->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadPublisher()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'publisher.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['publisher']->getId();
+    }
 }
