@@ -6,16 +6,23 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class UserRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetUsersAction()
+    public function testNewUserAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_users', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/users/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewUserAction()
+    public function testGetUsersAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/users?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostUserAction()
     {
         $content = [
             'username'  => $this->generateRandomString(10),
@@ -30,28 +37,24 @@ class UserRestControllerTest extends ApiBaseTestCase
             'avatar'    => '',
             'country'   => 225,
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_users', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/users?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
 
     public function testGetUserAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_user', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/users/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutUserAction()
@@ -69,18 +72,15 @@ class UserRestControllerTest extends ApiBaseTestCase
             'avatar'    => '',
             'country'   => 225,
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_user', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/users/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchUserAction()
@@ -89,17 +89,14 @@ class UserRestControllerTest extends ApiBaseTestCase
             'username'  => $this->generateRandomString(10).'Patch',
             'email'     => $this->generateRandomString(10).'Patch@'.$this->generateRandomString(5).'.com',
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_user', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/users/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }
