@@ -16,6 +16,7 @@ use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Period;
 use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\Publisher;
+use Ojs\JournalBundle\Entity\PublisherTheme;
 use Ojs\UserBundle\Entity\User;
 
 class SampleObjectLoader
@@ -345,5 +346,23 @@ class SampleObjectLoader
         $this->aliceManager->persist($objects, false);
 
         return $objects['publisher']->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPublisherTheme()
+    {
+        $entity = new PublisherTheme();
+        $entity
+            ->setPublisher($this->em->getRepository(Publisher::class)->find(1))
+            ->setTitle('Sample Publisher Theme')
+            ->setPublic(true)
+            ->setCss('.sample-css{}')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
     }
 }
