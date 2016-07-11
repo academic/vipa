@@ -6,92 +6,87 @@ use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
 class PublisherManagerRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetPublisherManagersAction()
+    public function testNewPublisherManagerAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_publishermanagers', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publishermanagers/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewPublisherManagerAction()
+    public function testGetPublisherManagersAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publishermanagers?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostPublisherManagerAction()
     {
         $content = [
             'publisher' => 1,
-            'user' => 1
+            'user' => rand(1,100),
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_publishermanagers', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/publishermanagers?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetPublisherManagerAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_publishermanager', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publishermanagers/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutPublisherManagerAction()
     {
         $content = [
             'publisher' => 1,
-            'user' => 5
+            'user' => rand(1,100),
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_publishermanager', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/publishermanagers/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchPublisherManagerAction()
     {
         $content = [
-            'user' => 2
+            'user' => rand(1,100)
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_publishermanager', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/publishermanagers/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeletePublisherManagerAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_publishermanager', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadPublisherManager();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/publishermanagers/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

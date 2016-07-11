@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use h4cc\AliceFixturesBundle\Fixtures\FixtureManagerInterface;
 use Ojs\AdminBundle\Entity\AdminPage;
 use Ojs\AdminBundle\Entity\AdminPost;
+use Ojs\AdminBundle\Entity\PublisherManagers;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
@@ -14,6 +15,8 @@ use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Period;
 use Ojs\JournalBundle\Entity\PersonTitle;
+use Ojs\JournalBundle\Entity\Publisher;
+use Ojs\UserBundle\Entity\User;
 
 class SampleObjectLoader
 {
@@ -310,6 +313,22 @@ class SampleObjectLoader
             ->setCurrentLocale($this->locale)
             ->setTitle('Sample Post Title')
             ->setContent('Sample Post Content')
+        ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadPublisherManager()
+    {
+        $entity = new PublisherManagers();
+        $entity
+            ->setPublisher($this->em->getRepository(Publisher::class)->find(1))
+            ->setUser($this->em->getRepository(User::class)->find(6))
         ;
         $this->em->persist($entity);
         $this->em->flush();
