@@ -186,4 +186,15 @@ class SampleObjectLoader
 
         return $objects['issue']->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadJournal()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'journal.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['journal']->getId();
+    }
 }
