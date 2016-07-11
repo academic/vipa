@@ -3,29 +3,111 @@
 namespace Ojs\JournalBundle\Tests\Controller;
 
 use Ojs\CoreBundle\Tests\BaseTestSetup as BaseTestCase;
+use Ojs\JournalBundle\Entity\ArticleAuthor;
+use Ojs\JournalBundle\Entity\Author;
 
 class ArticleAuthorControllerTest extends BaseTestCase
 {
-    /**
-     * @dataProvider urlProvider
-     */
-    public function testPageIsSuccessful($url)
+
+    public function testIndex()
     {
+        $this->logIn();
         $client = $this->client;
-        $crawler = $client->request('GET', $url, array(), array(), array(
-            'PHP_AUTH_USER' => 'admin',
-            'PHP_AUTH_PW' => 'admin',
-        ));
+        $client->request('GET','/journal/1/article/1/author');
+
         $this->assertStatusCode(200, $client);
     }
 
-    public function urlProvider()
+    public function testNew()
     {
-        return array(
-            array('/journal/1/article/1/author'),
-            array('/journal/1/article/1/author/new'),
-            array('/journal/1/article/1/author/1/show'),
-            array('/journal/1/article/1/author/1/edit'),
+        $this->logIn();
+        $client = $this->client;
+        $crawler = $client->request('GET', '/journal/1/article/1/author/new');
+
+        $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=article_author]')->form();
+        $form['article_author[author][translations][en][biography]'] = 'Biography En - Phpunit';
+        $form['article_author[author][translations][tr][biography]'] = 'Biography Tr - Phpunit';
+        $form['article_author[author][title]'] = '1';
+        $form['article_author[author][firstName]'] = 'FirstName phpunit';
+        $form['article_author[author][lastName]'] = 'LastName phpunit';
+        $form['article_author[author][phone]'] = '05005005050';
+        $form['article_author[author][email]'] = 'author@ojs.io';
+        $form['article_author[author][institution]'] = '1';
+        $form['article_author[authorOrder]'] = '1';
+
+        $crawler = $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'FirstName phpunit',
+            $this->client->getResponse()->getContent()
         );
+
+
     }
+
+    public function testShow()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/journal/1/article/1/author/1/show');
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testEdit()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $crawler = $client->request('GET', '/journal/1/article/1/author/1/edit');
+
+        $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=article_author]')->form();
+        $form['article_author[author][firstName]'] = 'FirstName Edit phpunit';
+
+        $crawler = $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'FirstName Edit phpunit',
+            $this->client->getResponse()->getContent()
+        );
+
+    }
+
+    public function testDelete()
+    {
+        $em = $this->em;
+
+        $author = new Author();
+        $author->setFirstName('firstName delete');
+        $author->setLastName('lastName delete');
+
+        $em->persist($author);
+        $em->flush();
+        $article = $em->getRepository('OjsJournalBundle:Article')->find('1');
+
+        $entity = new ArticleAuthor();
+        $entity->setAuthor($author);
+        $entity->setArticle($article);
+        $entity->setAuthorOrder('1');
+
+        $em->persist($entity);
+        $em->flush();
+
+        $id = $entity->getId();
+
+        $this->logIn();
+        $client = $this->client;
+        $token = $this->generateToken('ojs_journal_article_author'.$id);
+        $client->request('DELETE', '/journal/1/article/1/author/'.$id.'/delete', array('_token' => $token));
+
+        $this->assertStatusCode(302, $client);
+    }
+    
+    
 }
+
