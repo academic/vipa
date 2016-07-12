@@ -97,10 +97,6 @@ class JournalArticleFileRestControllerTest extends ApiBaseTestCase
     public function testPatchFileAction()
     {
         $content = [
-            'file' => [
-                'filename' => 'sampleArticleFile.pdf',
-                'encoded_content' => $this->sampleArticleFileEncoded,
-            ],
             'title' => 'PHPUnit Test Title Patch',
         ];
         $this->client->request(
