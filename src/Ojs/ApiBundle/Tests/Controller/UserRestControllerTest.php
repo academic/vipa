@@ -86,6 +86,7 @@ class UserRestControllerTest extends ApiBaseTestCase
     public function testPatchUserAction()
     {
         $content = [
+            'firstName' => $this->generateRandomString(10).'Patch',
             'username'  => $this->generateRandomString(10).'Patch',
             'email'     => $this->generateRandomString(10).'Patch@'.$this->generateRandomString(5).'.com',
         ];

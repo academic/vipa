@@ -309,24 +309,42 @@ class InstallCommand extends ContainerAwareCommand
     protected function createDefaultPages()
     {
         $pages = [
-            ['about', 'About', 'About page content goes here.'],
-            ['privacy', 'Privacy', 'Privacy page content goes here.'],
-            ['faq', 'FAQ', 'A list of frequently answered questions goes here.'],
-            ['tos', 'Terms of Service', 'TOS page content goes here.'],
+            [
+                ['about', 'About', 'About page content goes here.', 'en'],
+                ['about', 'Hakkında', 'Hakkında sayfası içeriği.', 'tr'],
+            ],
+            [
+                ['privacy', 'Privacy', 'Privacy page content goes here.', 'en'],
+                ['privacy', 'Privacy', 'Privacy sayfası içeriği.', 'tr'],
+            ],
+            [
+                ['faq', 'FAQ', 'A list of frequently answered questions goes here.', 'en'],
+                ['faq', 'SSS', 'Sıkça sorulan sorular içeriği.', 'tr'],
+            ],
+            [
+                ['tos', 'Terms of Service', 'TOS page content goes here.', 'en'],
+                ['tos', 'Terms of Service', 'TOS sayfası içeriği.', 'tr'],
+            ],
         ];
 
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($pages as $page) {
-            $entity = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $page[0]]);
+            $entity = $em->getRepository('OjsAdminBundle:AdminPage')->findOneBy(['slug' => $page[0][0]]);
 
             if (!$entity) {
                 $entity = new AdminPage();
                 $entity->setVisible(true);
-                $entity->setCurrentLocale($this->getContainer()->getParameter('locale'));
-                $entity->setSlug($page[0]);
-                $entity->setTitle($page[1]);
-                $entity->setBody($page[2]);
+                $entity->setCurrentLocale($page[0][3]);
+                $entity->setSlug($page[0][0]);
+                $entity->setTitle($page[0][1]);
+                $entity->setBody($page[0][2]);
+
+                $entity->setCurrentLocale($page[1][3]);
+                $entity->setSlug($page[1][0]);
+                $entity->setTitle($page[1][1]);
+                $entity->setBody($page[1][2]);
+
                 $em->persist($entity);
             }
         }
