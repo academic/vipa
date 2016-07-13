@@ -80,6 +80,9 @@ class CitationControllerTest extends BaseTestCase
         $entity->setCurrentLocale('en');
         $entity->setRaw('Citation delete title');
         $entity->setOrderNum(0);
+        
+        $article = $em->getRepository('OjsJournalBundle:Article')->find('1');
+        $entity->addArticle($article);
 
         $em->persist($entity);
         $em->flush();
