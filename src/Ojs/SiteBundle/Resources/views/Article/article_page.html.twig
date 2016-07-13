@@ -252,12 +252,10 @@
                 </div>
 
                 <a href="//{{ base_host }}{{ path('ojs_journal_submission_start',{"journalId":journal.id}) }}"
-                   class="list-group-item list-group-item-success"><h5><i
-                                class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
-                </a>
-
-
-                <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about.publisher"|trans }}</h5>
+                   class="list-group-item list-group-item-success">
+                    <h5>
+                        <i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}
+                    </h5>
                 </a>
 
                 <a href="{{ archive_uri }}"
