@@ -148,6 +148,8 @@ class JournalIssueRestControllerTest extends ApiBaseTestCase
                     'title' => 'PHPUnit Test Title Field en - PATCH',
                 ]
             ],
+            'number' => 3,
+            'volume' => 1,
         ];
         $this->client->request(
             'PATCH',

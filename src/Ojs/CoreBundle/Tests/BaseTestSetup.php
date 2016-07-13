@@ -51,7 +51,7 @@ abstract class BaseTestSetup extends WebTestCase
     /**
      * @var bool
      */
-    protected static $isFirstTest = true;
+    protected static $isFirstTest = false;
 
     protected function setUp()
     {
