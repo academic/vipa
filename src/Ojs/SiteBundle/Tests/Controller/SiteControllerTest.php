@@ -24,14 +24,14 @@ class SiteControllerTest extends BaseTestCase
     {
         $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
         $client->request('GET','/intro');
-        $this->assertStatusCode(200,$client);
+        $this->assertStatusCode(200, $client);
     }
 
     public function testJournalArticles()
     {
         $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
         $client->request('GET','/intro/articles');
-        $this->assertStatusCode(200,$client);
+        $this->assertStatusCode(200, $client);
     }
 
     public function testJournalBoard()
