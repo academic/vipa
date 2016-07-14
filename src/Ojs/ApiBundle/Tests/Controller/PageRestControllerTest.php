@@ -76,6 +76,7 @@ class PageRestControllerTest extends ApiBaseTestCase
 
     public function testPatchPageAction()
     {
+        $id = $this->sampleObjectLoader->loadPage();
         $content = [
             'translations' => [
                 $this->secondLocale => [
@@ -86,7 +87,7 @@ class PageRestControllerTest extends ApiBaseTestCase
         ];
         $this->client->request(
             'PATCH',
-            '/api/v1/pages/1?apikey='. $this->apikey,
+            '/api/v1/pages/'.$id.'?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
