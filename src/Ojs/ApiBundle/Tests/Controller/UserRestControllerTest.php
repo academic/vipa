@@ -85,6 +85,7 @@ class UserRestControllerTest extends ApiBaseTestCase
 
     public function testPatchUserAction()
     {
+        $entityId = $this->sampleObjectLoader->loadUser();
         $content = [
             'firstName' => $this->generateRandomString(10).'Patch',
             'username'  => $this->generateRandomString(10).'Patch',
@@ -92,7 +93,7 @@ class UserRestControllerTest extends ApiBaseTestCase
         ];
         $this->client->request(
             'PATCH',
-            '/api/v1/users/1?apikey='. $this->apikey,
+            '/api/v1/users/'.$entityId.'?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],

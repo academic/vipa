@@ -401,4 +401,15 @@ class SampleObjectLoader
 
         return $entity->getId();
     }
+
+    /**
+     * @return int
+     */
+    public function loadUser()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'user.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['user']->getId();
+    }
 }
