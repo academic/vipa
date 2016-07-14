@@ -162,10 +162,14 @@ class AdminPage extends AbstractTranslatable
 
     /**
      * @param string $slug
+     *
+     * @return $this
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
@@ -187,6 +191,7 @@ class AdminPage extends AbstractTranslatable
     public function setVisible($visible)
     {
         $this->visible = $visible;
+
         return $this;
     }
 

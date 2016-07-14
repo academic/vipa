@@ -74,6 +74,7 @@ class PostRestControllerTest extends ApiBaseTestCase
 
     public function testPatchPostAction()
     {
+        $id = $this->sampleObjectLoader->loadPost();
         $content = [
             'translations' => [
                 $this->secondLocale => [
@@ -84,7 +85,7 @@ class PostRestControllerTest extends ApiBaseTestCase
         ];
         $this->client->request(
             'PATCH',
-            '/api/v1/posts/1?apikey='. $this->apikey,
+            '/api/v1/posts/'.$id.'?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],

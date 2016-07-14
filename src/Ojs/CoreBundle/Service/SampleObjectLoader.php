@@ -267,6 +267,9 @@ class SampleObjectLoader
             ->setTitle('Sample Page Title')
             ->setBody('Sample Page Body')
             ->setSlug('Sample Page Slug')
+            ->setCurrentLocale('en')
+            ->setTitle('Sample Page Title en')
+            ->setBody('Sample Page Body en')
         ;
         $this->em->persist($entity);
         $this->em->flush();
@@ -313,9 +316,12 @@ class SampleObjectLoader
     {
         $entity = new AdminPost();
         $entity
-            ->setCurrentLocale($this->locale)
+            ->setCurrentLocale('tr')
             ->setTitle('Sample Post Title')
             ->setContent('Sample Post Content')
+            ->setCurrentLocale('en')
+            ->setTitle('Sample Post Title en')
+            ->setContent('Sample Post Content en')
         ;
         $this->em->persist($entity);
         $this->em->flush();
