@@ -119,6 +119,7 @@ class PostHandler
         if ($form->isValid()) {
             $page = $form->getData();
             $entity->setCurrentLocale('en');
+            $entity->setSlug($entity->getTitle());
             $this->om->persist($entity);
             $this->om->flush();
             return $page;
