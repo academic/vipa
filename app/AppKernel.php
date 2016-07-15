@@ -6,7 +6,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class AppKernel extends Kernel
 {
-
     public function registerBundles()
     {
         $bundles = array(
@@ -111,25 +110,6 @@ class AppKernel extends Kernel
 
     protected function initializeContainer()
     {
-        $isFirst = getenv(\Liuggio\Fastest\Process\EnvCommandCreator::ENV_TEST_IS_FIRST_ON_CHANNEL);
-
-        if ('test' !== $this->getEnvironment()
-            || null === $isFirst
-            || 0 !== (int)$isFirst
-        ) {
-            goto not_test_env;
-        }
-
-        $class = $this->getContainerClass();
-        $cache = new \Symfony\Component\Config\ConfigCache($this->getCacheDir().'/'.$class.'.php', $this->debug);
-
-        if(file_exists($cache)){
-            require_once $cache;
-        }
-        $this->container = new $class();
-        $this->container->set('kernel', $this);
-
-        not_test_env:
         parent::initializeContainer();
         /**
          * look for detail
