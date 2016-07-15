@@ -8,7 +8,7 @@ function executing($cmd) {
 
 function runInit($env) {
     executing('php app/console --env='. $env .' doctrine:database:drop --force');
-    executing('php app/console --env='. $env .' ojs:install');
+    executing('php app/console --env='. $env .' --no-interaction ojs:install');
     executing('php app/console --env='. $env .' ojs:install:samples');
     executing('php app/console --env='. $env .' h4cc_alice_fixtures:load:sets');
     executing('php app/console --env='. $env .' ojs:normalize:translatable:objects');
