@@ -70,9 +70,9 @@ abstract class BaseTestSetup extends WebTestCase
         $this->app = new Application($this->client->getKernel());
         $this->app->setAutoExit(false);
 
-        $isPhpunitFastest = getenv('IS_PHPUNIT_FASTEST');
+        $isPhpunitFastest = getenv('ENV_TEST_IS_FIRST_ON_CHANNEL');
 
-        if($isPhpunitFastest === '1'){
+        if($isPhpunitFastest !== false){
             return;
         }
 
