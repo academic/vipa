@@ -5,6 +5,7 @@ env:
 
 php:
   - 7.0
+  - 5.6
 
 addons:
   apt_packages:
