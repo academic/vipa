@@ -96,7 +96,8 @@
     "fzaninotto/faker": "~1.6",
     "nelmio/alice": "1.7.2",
     "h4cc/alice-fixtures-bundle": "~0.5",
-    "liip/functional-test-bundle": "^1.6"
+    "liip/functional-test-bundle": "^1.6",
+    "liuggio/fastest": "dev-master"
   },
   "scripts": {
     "post-install-cmd": [
