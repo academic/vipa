@@ -123,7 +123,9 @@ class AppKernel extends Kernel
         $class = $this->getContainerClass();
         $cache = new \Symfony\Component\Config\ConfigCache($this->getCacheDir().'/'.$class.'.php', $this->debug);
 
-        require_once $cache;
+        if(file_exists($cache)){
+            require_once $cache;
+        }
         $this->container = new $class();
         $this->container->set('kernel', $this);
 
