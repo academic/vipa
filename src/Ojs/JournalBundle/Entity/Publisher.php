@@ -748,6 +748,9 @@ class Publisher extends AbstractTranslatable
      */
     public function isVerified()
     {
+        if($this->verified == 1){
+            return true;
+        }
         return $this->verified;
     }
 
