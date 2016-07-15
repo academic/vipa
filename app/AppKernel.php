@@ -6,7 +6,6 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class AppKernel extends Kernel
 {
-
     public function registerBundles()
     {
         $bundles = array(

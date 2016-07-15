@@ -26,7 +26,7 @@ class PublisherManagerRestControllerTest extends ApiBaseTestCase
     {
         $content = [
             'publisher' => 1,
-            'user' => rand(1,100),
+            'user' => rand(1,25),
         ];
         $this->client->request(
             'POST',
@@ -51,7 +51,7 @@ class PublisherManagerRestControllerTest extends ApiBaseTestCase
     {
         $content = [
             'publisher' => 1,
-            'user' => rand(1,100),
+            'user' => rand(25,50),
         ];
         $this->client->request(
             'PUT',
@@ -67,7 +67,7 @@ class PublisherManagerRestControllerTest extends ApiBaseTestCase
     public function testPatchPublisherManagerAction()
     {
         $content = [
-            'user' => rand(1,100)
+            'user' => rand(50,75)
         ];
         $this->client->request(
             'PATCH',
