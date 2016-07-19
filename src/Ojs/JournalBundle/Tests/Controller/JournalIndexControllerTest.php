@@ -19,9 +19,21 @@ class JournalIndexControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/journal/1/index/new/');
+        $crawler = $client->request('GET', '/journal/1/index/new/');
 
         $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=journal_index]')->form();
+        $form['journal_index[index]'] = '3';
+        $form['journal_index[link]'] = 'http://phpunit-ojs.io';
+
+        $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'http://phpunit-ojs.io',
+            $this->client->getResponse()->getContent()
+        );
     }
 
     public function testShow()
@@ -37,8 +49,32 @@ class JournalIndexControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/journal/1/index/1/edit');
+        $id = $this->sampleObjectLoader->loadJournalIndex();
+        $crawler = $client->request('GET', '/journal/1/index/' . $id . '/edit');
 
         $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=journal_index]')->form();
+        $form['journal_index[link]'] = 'http://phpunit-edit-ojs.io';
+
+        $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $this->assertContains(
+            'http://phpunit-edit-ojs.io',
+            $this->client->getResponse()->getContent()
+        );
+    }
+
+    public function testDelete()
+    {
+        $id = $this->sampleObjectLoader->loadJournalIndex();
+
+        $this->logIn();
+        $client = $this->client;
+        $token = $this->generateToken('ojs_journal_index' . $id);
+        $client->request('DELETE', '/journal/1/index/' . $id . '/delete', array('_token' => $token));
+
+        $this->assertStatusCode(302, $client);
     }
 }
