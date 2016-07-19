@@ -205,6 +205,12 @@ Ojs\JournalBundle\Entity\Journal:
       nullable: true
       gedmo:
         - versioned
+    totalArticleView:
+      type: integer
+      nullable: true
+      column: total_article_view
+      options:
+        default: 0
     eissn:
       type: string
       length: 11

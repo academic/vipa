@@ -261,15 +261,23 @@ class Journal extends AbstractTranslatable
      * @JMS\Expose
      */
     private $printed = false;
+
+    /**
+     * @var int
+     */
+    private $totalArticleView;
+
     /**
      * Object public URI
      * @var string
      */
     private $publicURI;
+
     /**
      * @var Collection
      */
     private $journalUsers;
+
     /**
      * @var ArrayCollection
      */
@@ -1555,6 +1563,26 @@ class Journal extends AbstractTranslatable
     public function setJournalIndexesBag($journalIndexesBag)
     {
         $this->journalIndexesBag = $journalIndexesBag;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalArticleView()
+    {
+        return $this->totalArticleView;
+    }
+
+    /**
+     * @param int $totalArticleView
+     *
+     * @return $this
+     */
+    public function setTotalArticleView($totalArticleView)
+    {
+        $this->totalArticleView = $totalArticleView;
 
         return $this;
     }
