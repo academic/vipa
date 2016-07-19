@@ -1,10 +1,9 @@
 <?php
 
-namespace Ojs\JournalBundle\Command;
+namespace Ojs\AnalyticsBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
-use Ojs\JournalBundle\Entity\Author;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,10 +13,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class GuessAuthorUserCommand
+ * Class StatsNormalizeCommand
  * @package Ojs\JournalBundle\Command
  */
-class GuessAuthorUserCommand extends ContainerAwareCommand
+class StatsNormalizeCommand extends ContainerAwareCommand
 {
     const STEP = 50000;
 
@@ -42,8 +41,8 @@ class GuessAuthorUserCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ojs:guess:author:user')
-            ->setDescription('Guess author user and synchronize')
+            ->setName('ojs:normalize:stats')
+            ->setDescription('Normalize article, issue and journal stats')
         ;
     }
 
@@ -67,41 +66,46 @@ class GuessAuthorUserCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->io->title($this->getDescription());
-        $totalAuthorCount = $this->getAuthorCount();
-        $this->io->progressStart($totalAuthorCount);
-        $rsm = new ResultSetMapping();
 
-        for ($count = 0; $count <= $totalAuthorCount; $count+=self::STEP){
-            $sql = <<<SQL
-        UPDATE author
-        SET user_id = users.id
-        FROM users
-        WHERE author.email = users.email
-        AND author.id > ?
-        and author.id < ?
-        and author.user_id is null
-SQL;
-            $query = $this->em->createNativeQuery($sql, $rsm);
-            $query->setParameter(1, $count);
-            $query->setParameter(2, $count+self::STEP);
-            $query->getResult();
+        $this->io->text('Issue Normalize Started');
+        $this->normalizeIssueTotalArticleView();
+        $this->io->text('Issue Normalize Finished');
 
-            if(self::STEP> $totalAuthorCount){
-                $this->io->progressFinish();
-            }else{
-                $this->io->progressAdvance(self::STEP);
-            }
-        }
+        $this->io->newLine();
+
+        $this->io->text('Journal Normalize Started');
+        $this->normalizeJournalTotalArticleView();
+        $this->io->text('Journal Normalize Finished');
+
         $this->io->newLine(2);
         $this->io->success('All process finished');
     }
 
-    private function getAuthorCount()
+    public function normalizeIssueTotalArticleView()
     {
-        return $this->em->getRepository('OjsJournalBundle:Author')
-            ->createQueryBuilder('a')
-            ->select('COUNT(a)')
-            ->getQuery()
-            ->getSingleScalarResult();
+        $rsm = new ResultSetMapping();
+        $sql = <<<SQL
+UPDATE issue
+SET total_article_view =
+  (SELECT SUM(t2.view_count)
+   FROM article t2
+   WHERE t2.issue_id = issue.id)
+SQL;
+        $query = $this->em->createNativeQuery($sql, $rsm);
+        $query->getResult();
+    }
+
+    public function normalizeJournalTotalArticleView()
+    {
+        $rsm = new ResultSetMapping();
+        $sql = <<<SQL
+UPDATE journal
+SET total_article_view =
+  (SELECT SUM(t2.view_count)
+   FROM article t2
+   WHERE t2.issue_id = journal.id)
+SQL;
+        $query = $this->em->createNativeQuery($sql, $rsm);
+        $query->getResult();
     }
 }
