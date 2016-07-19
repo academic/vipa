@@ -64,6 +64,11 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     private $title;
 
     /**
+     * @var int
+     */
+    private $totalArticleView;
+
+    /**
      * @var string cover image path
      * @JMS\Expose
      * @Display\Image(filter="issue_cover")
@@ -798,6 +803,26 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     public function setInPress($inPress)
     {
         $this->inPress = $inPress;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalArticleView()
+    {
+        return $this->totalArticleView;
+    }
+
+    /**
+     * @param int $totalArticleView
+     *
+     * @return $this
+     */
+    public function setTotalArticleView($totalArticleView)
+    {
+        $this->totalArticleView = $totalArticleView;
 
         return $this;
     }
