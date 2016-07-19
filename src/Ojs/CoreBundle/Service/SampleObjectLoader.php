@@ -11,6 +11,7 @@ use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalIndex;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Period;
@@ -117,6 +118,26 @@ class SampleObjectLoader
             ->setName('Sample index')
             ->setStatus(true)
         ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadJournalIndex()
+    {
+
+        $journal = $this->em->getRepository(Journal::class)->find(1);
+        $index = $this->em->getRepository(Index::class)->find(1);
+
+        $entity = new JournalIndex();
+        $entity->setIndex($index);
+        $entity->setLink('http://ojs.io');
+        $entity->setJournal($journal);
+
         $this->em->persist($entity);
         $this->em->flush();
 
