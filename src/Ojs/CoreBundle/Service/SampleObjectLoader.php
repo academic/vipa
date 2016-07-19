@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Entity\Index;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalIndex;
 use Ojs\JournalBundle\Entity\JournalPage;
+use Ojs\JournalBundle\Entity\JournalPost;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Period;
@@ -314,6 +315,27 @@ class SampleObjectLoader
             ->setBody('Content')
             ->setVisible(true)
             ->setTags('tag')
+            ->setJournal($journal);
+
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadJournalPost()
+    {
+
+        $journal = $this->em->getRepository(Journal::class)->find(1);
+        $entity = new JournalPost();
+        $entity
+            ->setCurrentLocale('tr')
+            ->setTitle('Post Title')
+            ->setSlug('post-title')
+            ->setContent('Content')
             ->setJournal($journal);
 
         $this->em->persist($entity);
