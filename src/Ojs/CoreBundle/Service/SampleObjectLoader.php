@@ -12,6 +12,7 @@ use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Entity\Index;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalIndex;
+use Ojs\JournalBundle\Entity\JournalPage;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Period;
@@ -292,6 +293,29 @@ class SampleObjectLoader
             ->setTitle('Sample Page Title en')
             ->setBody('Sample Page Body en')
         ;
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity->getId();
+    }
+
+    /**
+     * @return int
+     */
+    public function loadJournalPage()
+    {
+
+        $journal = $this->em->getRepository(Journal::class)->find(1);
+        $entity = new JournalPage();
+        $entity
+            ->setCurrentLocale('tr')
+            ->setTitle('Title')
+            ->setSlug('title-page')
+            ->setBody('Content')
+            ->setVisible(true)
+            ->setTags('tag')
+            ->setJournal($journal);
+
         $this->em->persist($entity);
         $this->em->flush();
 
