@@ -152,6 +152,12 @@ Ojs\JournalBundle\Entity\Issue:
       column: view_count
       options:
         default: 0
+    totalArticleView:
+      type: integer
+      nullable: true
+      column: total_article_view
+      options:
+        default: 0
     downloadCount:
       type: integer
       nullable: true

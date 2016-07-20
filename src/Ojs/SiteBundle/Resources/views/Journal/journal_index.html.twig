@@ -83,21 +83,14 @@
                             {% endif %}
                             alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
 
-                    <div class="list-group-item ">
-                        <span class="row-fluid text-center">
-                            <span class="col-md-6 nopadding">
-                                <span class="list-group-item-heading count"><i
-                                            class="fa fa-eye"></i> {{ journal.viewCount|number_format(0,'.','.') }}</span>
-                            </span>
-                            <span class="col-md-6 nopadding">
-                                <span class="list-group-item-heading count"><i
-                                            class="fa fa-download"></i> {{ journal.downloadCount|number_format(0,'.','.') }} </span>
-                            </span>
-                            <span class="clearfix"></span>
-                        </span>
+                    <div class="text-center list-group-item">
+                        <i class="fa fa-eye" class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view' }}"></i>
+                        {{ journal.totalArticleView|number_format(0,'.','.') }}
                     </div>
-                    <a href="#" data-href="#issuetree" class="js-scroll-to btn btn-default btn-block"><i
-                                class="fa fa-search"></i> {{ "journal.issues"|trans }}</a>
+                    <a href="#" data-href="#issuetree" class="js-scroll-to btn btn-default btn-block">
+                        <i class="fa fa-search"></i>
+                        {{ "journal.issues"|trans }}
+                    </a>
                 </div>
                 <div class="col-md-7 col-sm-5 margin-bot">
                     {% if journal.url %}
