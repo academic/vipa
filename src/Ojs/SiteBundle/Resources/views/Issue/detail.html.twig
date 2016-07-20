@@ -49,7 +49,7 @@
                 {% endif %}
             </h4>
             <h5>
-                <i class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view' }}"></i>
+                <i class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view'|trans }}"></i>
                 {% if issue.totalArticleView is null %} 0 {% else %} {{ issue.totalArticleView|number_format }} {% endif %}
             </h5>
         </div>
