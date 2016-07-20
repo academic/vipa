@@ -149,6 +149,17 @@ class SampleObjectLoader
     /**
      * @return int
      */
+    public function loadJournalSubmissionFile()
+    {
+        $objects = $this->aliceManager->loadFiles([$this->fixturesRoot . 'submission_file.yml']);
+        $this->aliceManager->persist($objects, false);
+
+        return $objects['submission_file']->getId();
+    }
+
+    /**
+     * @return int
+     */
     public function loadInstitution()
     {
         $objects = $this->aliceManager->loadFiles([$this->fixturesRoot.'institution.yml']);
