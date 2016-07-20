@@ -49,10 +49,8 @@
                 {% endif %}
             </h4>
             <h5>
-                <i class="fa fa-eye"></i>
-                {% if issue.viewCount is null %} 0 {% else %} {{ issue.viewCount|number_format }} {% endif %}
-                <i class="fa fa-download"></i>
-                {% if issue.downloadCount is null %} 0 {% else %} {{ issue.downloadCount|number_format }} {% endif %}
+                <i class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view' }}"></i>
+                {% if issue.totalArticleView is null %} 0 {% else %} {{ issue.totalArticleView|number_format }} {% endif %}
             </h5>
         </div>
 

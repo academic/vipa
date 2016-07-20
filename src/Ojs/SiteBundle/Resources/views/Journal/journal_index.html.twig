@@ -84,7 +84,7 @@
                             alt="{{ 'cover_image'|trans }} " width="200" height="300"/>
 
                     <div class="text-center list-group-item">
-                        <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye" class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view' }}"></i>
                         {{ journal.totalArticleView|number_format(0,'.','.') }}
                     </div>
                     <a href="#" data-href="#issuetree" class="js-scroll-to btn btn-default btn-block">
