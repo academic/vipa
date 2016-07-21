@@ -38,8 +38,4 @@ doctrine:
         connections:
             default:
                 driver:   pdo_sqlite
-<<<<<<< HEAD
-                path:     '%kernel.cache_dir%/test.db'
-=======
                 path:     '%kernel.cache_dir%/__DBNAME__.db'
->>>>>>> origin/iss1517
