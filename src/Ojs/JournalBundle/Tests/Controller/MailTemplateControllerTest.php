@@ -28,8 +28,19 @@ class MailTemplateControllerTest extends BaseTestCase
     {
         $this->logIn();
         $client = $this->client;
-        $client->request('GET', '/journal/1/mail-template/22/edit');
+        $crawler = $client->request('GET', '/journal/1/mail-template/22/edit');
 
         $this->assertStatusCode(200, $client);
+
+        $form = $crawler->filter('form[name=mail_template]')->form();
+        $form['mail_template[useJournalDefault]'] = '1';
+        $form['mail_template[subject]'] = 'Mail Template Edit - phpunit';
+        $form['mail_template[template]'] = 'Mail Template phpunit';
+
+        $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $client->followRedirect();
+        $crawler = $client->getCrawler();
+        $this->assertEquals(1, $crawler->filter('.alert-success')->count());
     }
 }
