@@ -107,26 +107,7 @@ class IssueControllerTest extends BaseTestCase
 
     public function testDelete()
     {
-        $em = $this->em;
-
-        $entity = new Issue();
-        $entity->setCurrentLocale('en');
-        $entity->setTitle('Issue title delete - phpunit');
-        $entity->setDescription('description delete issue');
-        $entity->setNumber(1);
-        $entity->setVolume(1);
-        $entity->setYear(2015);
-        $entity->setSpecial(1);
-        $entity->setDatePublished(new \DateTime('now'));
-
-
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find('1');
-        $entity->setJournal($journal);
-
-        $em->persist($entity);
-        $em->flush();
-
-        $id = $entity->getId();
+        $id = $this->sampleObjectLoader->loadIssue();
 
         $this->logIn();
         $client = $this->client;

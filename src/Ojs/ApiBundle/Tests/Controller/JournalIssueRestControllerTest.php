@@ -8,7 +8,7 @@ use Symfony\Component\Filesystem\Exception\IOException;
 
 class JournalIssueRestControllerTest extends ApiBaseTestCase
 {
-    private $sampleFile = 'http://www.cbu.edu.zm/downloads/pdf-sample.pdf';
+    private $sampleFile = __DIR__.'/../../../CoreBundle/Tests/Resources/pdf/pdf-sample.pdf';
     private $sampleIssueCover = 'http://lorempixel.com/200/300/';
     private $sampleIssueHeader = 'http://lorempixel.com/960/200/';
     private $sampleFileEncoded;

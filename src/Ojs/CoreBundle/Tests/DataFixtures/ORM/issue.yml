@@ -5,7 +5,7 @@ Ojs\JournalBundle\Entity\Issue:
     number: 1
     title: Issue 1
     volume: 1
-    year: 2015
+    year: <dateTimeThisYear()>
     journal: 1
     special: 0
     tags: "fisrt issue, ojs"
