@@ -2,33 +2,39 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class JournalRestControllerTest extends BaseTestCase
+class JournalRestControllerTest extends ApiBaseTestCase
 {
+    public function testNewJournalAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journals/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
     public function testGetJournalsAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_journals', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journals?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testGetJournalAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_journal', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journals/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewJournalAction()
+    public function testPostJournalAction()
     {
         $content = [
             'translations' => [
-                'en' => [
+                $this->locale => [
                     'title' => 'PHPUnit Test Title Field - POST',
                     'subtitle' => 'PHPUnit Test Subtitle Field - POST',
                     'description' => 'PHPUnit Test Description Field - POST',
@@ -47,45 +53,41 @@ class JournalRestControllerTest extends BaseTestCase
                 1,2
             ],
             'domain' => 'domain.com',
-            'issn' => '2147-9488',
-            'eissn' => '2147-9488',
+            'issn' => '',
+            'eissn' => '',
             'founded' => 2016,
             'googleAnalyticsId' => 'Google Ana. ID',
             'country' => 2,
             'footer_text' => 'footer_text',
-            'printed' => 1,
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_journals', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journals?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPutJournalAction()
     {
         $content = [
             'translations' => [
-                'en' => [
+                $this->locale => [
                     'title' => 'PHPUnit Test Title Field - PUT',
                     'subtitle' => 'PHPUnit Test Subtitle Field - PUT',
                     'description' => 'PHPUnit Test Description Field - PUT',
                     'titleAbbr' => 'PHPUnit Test Title Abbr Field - PUT'
                 ],
-                'tr' => [
-                    'title' => 'PHPUnit Test Title Field TR - PUT',
-                    'subtitle' => 'PHPUnit Test Subtitle Field TR - PUT',
-                    'description' => 'PHPUnit Test Description Field TR - PUT',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field TR - PUT'
+                $this->secondLocale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PUT',
+                    'subtitle' => 'PHPUnit Test Subtitle Field '.$this->secondLocale.' - PUT',
+                    'description' => 'PHPUnit Test Description Field '.$this->secondLocale.' - PUT',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field '.$this->secondLocale.' - PUT'
                 ]
             ],
             'publisher' => 1,
@@ -100,65 +102,56 @@ class JournalRestControllerTest extends BaseTestCase
                 1,2
             ],
             'domain' => 'domain.com',
-            'issn' => '2147-9488',
-            'eissn' => '2147-9488',
+            'issn' => '',
+            'eissn' => '',
             'founded' => 2016,
             'googleAnalyticsId' => 'Google Ana. ID',
             'country' => 2,
             'footer_text' => 'footer_text',
-            'printed' => 1,
             'slug' => 'phpunit-test',
             'tags' => ['phpunit']
         ];
-        $routeParameters = $this->getRouteParams(['id' => 550]);
-        $url = $this->router->generate('api_1_put_journal', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journals/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchJournalAction()
     {
         $content = [
             'translations' => [
-                'tr' => [
-                    'title' => 'PHPUnit Test Title Field TR - PATCH',
-                    'subtitle' => 'PHPUnit Test Subtitle Field TR - PATCH',
-                    'description' => 'PHPUnit Test Description Field TR - PATCH',
-                    'titleAbbr' => 'PHPUnit Test Title Abbr Field TR - PATCH'
+                $this->secondLocale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PATCH',
+                    'subtitle' => 'PHPUnit Test Subtitle Field '.$this->secondLocale.' - PATCH',
+                    'description' => 'PHPUnit Test Description Field '.$this->secondLocale.' - PATCH',
+                    'titleAbbr' => 'PHPUnit Test Title Abbr Field '.$this->secondLocale.' - PATCH'
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['id' => 1]);
-        $url = $this->router->generate('api_1_patch_journal', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journals/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteJournalAction()
     {
-        $routeParameters = $this->getRouteParams(['id' => 1]);
-        $url = $this->router->generate('api_1_delete_journal', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadJournal();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journals/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

@@ -44,20 +44,22 @@
 
                     <ul class="list-group">
                         {% for article in articles %}
-                            <li class="list-group-item list-group-item-default">
-                                <a href="{{ url('ojs_article_page',{article_id: article.id,slug: journal.slug,publisher: journal.publisher.slug, issue_id: article.issue.id}) }}">
-                                    <i class="fa fa-file-text"></i> {{ article.title }}
-                                </a>
-                                <br/>
-                                <i class="fa fa-users"></i>
-                                <span class="text-muted">
-                                    (
-                                    {% if article.created.date %}
-                                        {{ article.created.date|date('Y-m-d') }}
-                                    {% endif %}
-                                    )
-                                </span>
-                            </li>
+                            {% if article.issue is not empty %}
+                                <li class="list-group-item list-group-item-default">
+                                    <a href="{{ url('ojs_article_page',{article_id: article.id,slug: journal.slug,publisher: journal.publisher.slug, issue_id: article.issue.id}) }}">
+                                        <i class="fa fa-file-text"></i> {{ article.title }}
+                                    </a>
+                                    <br/>
+                                    <i class="fa fa-users"></i>
+                                    <span class="text-muted">
+                                        (
+                                        {% if article.created.date %}
+                                            {{ article.created.date|date('Y-m-d') }}
+                                        {% endif %}
+                                        )
+                                    </span>
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </div>

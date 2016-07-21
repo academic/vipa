@@ -4,8 +4,8 @@ env:
   - SYMFONY_VERSION="2.8.*" DB="postgres"
 
 php:
-  - 5.6
   - 7.0
+  - 5.6
 
 addons:
   apt_packages:
@@ -44,10 +44,7 @@ before_script:
   - php app/console f:e:p --env=test
 
 script:
-  - phpunit -c app src/Ojs/AdminBundle/
-  - phpunit -c app src/Ojs/JournalBundle/
-  - phpunit -c app src/Ojs/SiteBundle/
-  - phpunit -c app src/Ojs/UserBundle/
+  - ./etc/bin/parallel_phpunit.sh
 
 notifications:
   slack: bulutyazilim:8GtvUiq3935dZRc1SObHJVcR#ojs

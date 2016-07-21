@@ -54,6 +54,7 @@ class PublisherManagersType extends AbstractType
             array(
                 'data_class' => PublisherManagers::class,
                 'cascade_validation' => true,
+                'validation_groups' => 'publisher_managers',
                 'attr' => [
                     'class' => 'form-validate',
                 ],

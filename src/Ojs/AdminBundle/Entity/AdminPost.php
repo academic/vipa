@@ -74,7 +74,7 @@ class AdminPost extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -147,7 +147,7 @@ class AdminPost extends AbstractTranslatable
      */
     public function getContent()
     {
-        return $this->translate()->getContent();
+        return $this->getLogicalFieldTranslation('content', false);
     }
 
     /**

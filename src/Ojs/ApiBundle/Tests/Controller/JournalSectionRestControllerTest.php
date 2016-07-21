@@ -2,26 +2,29 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class JournalSectionRestControllerTest extends BaseTestCase
+class JournalSectionRestControllerTest extends ApiBaseTestCase
 {
-    public function __construct()
+    public function testNewJournalSectionAction()
     {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/sections/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testGetJournalSectionsAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_get_sections', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/sections?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewJournalSectionAction()
+    public function testPostJournalSectionAction()
     {
         $content = [
             'translations' => [
@@ -30,29 +33,26 @@ class JournalSectionRestControllerTest extends BaseTestCase
                 ]
             ],
             'allowIndex' => true,
-            'hideTitle' => false
+            'hideTitle' => false,
+            'sectionOrder' => 8,
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_post_section', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journal/1/sections?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetJournalSectionAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
-        $url = $this->router->generate('api_1_get_section', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/sections/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutJournalSectionAction()
@@ -64,20 +64,18 @@ class JournalSectionRestControllerTest extends BaseTestCase
                 ]
             ],
             'allowIndex' => true,
-            'hideTitle' => false
+            'hideTitle' => false,
+            'sectionOrder' => 8,
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 550]);
-        $url = $this->router->generate('api_1_put_section', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journal/1/sections/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchJournalSectionAction()
@@ -89,29 +87,24 @@ class JournalSectionRestControllerTest extends BaseTestCase
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
-        $url = $this->router->generate('api_1_patch_section', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journal/1/sections/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteJournalSectionAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
-        $url = $this->router->generate('api_1_delete_section', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadSection();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journal/1/sections/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

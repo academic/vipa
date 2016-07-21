@@ -23,4 +23,13 @@ class AdminFileControllerTest extends BaseTestCase
 
         $this->assertStatusCode(200, $client);
     }
+
+    public function testShow()
+    {
+        $this->logIn();
+        $client = $this->client;
+        $client->request('GET', '/admin/file/1/show');
+
+        $this->assertStatusCode(200, $client);
+    }
 }

@@ -2,20 +2,27 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PublisherThemeRestControllerTest extends BaseTestCase
+class PublisherThemeRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetPublisherThemesAction()
+    public function testNewPublisherThemeAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_publisherthemes', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publisherthemes/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewPublisherThemeAction()
+    public function testGetPublisherThemesAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publisherthemes?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostPublisherThemeAction()
     {
         $content = [
             'publisher' => 1,
@@ -23,27 +30,23 @@ class PublisherThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => '*{color: red;}'
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_publisherthemes', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/publisherthemes?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetPublisherThemeAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_publishertheme', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publisherthemes/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutPublisherThemeAction()
@@ -54,18 +57,15 @@ class PublisherThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => '*{color: red;}'
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_publishertheme', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/publisherthemes/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchPublisherThemeAction()
@@ -73,29 +73,24 @@ class PublisherThemeRestControllerTest extends BaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PATCH',
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_publishertheme', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/publisherthemes/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeletePublisherThemeAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_publishertheme', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadPublisherTheme();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/publisherthemes/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

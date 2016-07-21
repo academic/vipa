@@ -4,6 +4,7 @@ namespace Ojs\ApiBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\AdminBundle\Entity\AdminPage;
+use Ojs\AdminBundle\Form\Type\AdminPageType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ojs\ApiBundle\Exception\InvalidFormException;
 
@@ -113,11 +114,12 @@ class PageHandler
      */
     private function processForm(AdminPage $entity, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new PageType(), $entity, array('method' => $method, 'csrf_protection' => false));
+        $form = $this->formFactory->create(new AdminPageType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();
             $entity->setCurrentLocale('en');
+            $entity->setSlug($entity->getTitle());
             $this->om->persist($entity);
             $this->om->flush();
             return $page;

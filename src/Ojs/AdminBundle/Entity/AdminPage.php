@@ -67,7 +67,7 @@ class AdminPage extends AbstractTranslatable
      */
     public function getTitle()
     {
-        return $this->translate()->getTitle();
+        return $this->getLogicalFieldTranslation('title', false);
     }
 
     /**
@@ -136,7 +136,7 @@ class AdminPage extends AbstractTranslatable
      */
     public function getBody()
     {
-        return $this->translate()->getBody();
+        return $this->getLogicalFieldTranslation('body', false);
     }
 
     /**
@@ -162,10 +162,14 @@ class AdminPage extends AbstractTranslatable
 
     /**
      * @param string $slug
+     *
+     * @return $this
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     /**
@@ -187,6 +191,7 @@ class AdminPage extends AbstractTranslatable
     public function setVisible($visible)
     {
         $this->visible = $visible;
+
         return $this;
     }
 

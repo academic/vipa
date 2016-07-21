@@ -2,110 +2,105 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class ContactTypesRestControllerTest extends BaseTestCase
+class ContactTypesRestControllerTest extends ApiBaseTestCase
 {
+    public function testNewContacttypeAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/contacttypes/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
     public function testGetContacttypesAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_contacttypes', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/contacttypes?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testGetContacttypeAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_contacttype', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/contacttypes/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewContacttypeAction()
+    public function testPostContacttypeAction()
     {
         $content = [];
         $content['translations'] = [
-            'en' => [
+            $this->locale => [
                 'name' => 'PHPUnit Test Name Field - POST',
                 'description' => 'PHPUnit Test Description Field - POST'
             ]
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_contacttypes', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/contacttypes?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPutContacttypeAction()
     {
         $content = [];
         $content['translations'] = [
-            'en' => [
+            $this->locale => [
                 'name' => 'PHPUnit Test Name Field - Put',
                 'description' => 'PHPUnit Test Description Field - Put'
             ],
-            'tr' => [
-                'name' => 'PHPUnit Test Name Field tr - Put',
-                'description' => 'PHPUnit Test Description Field tr - Put'
+            $this->secondLocale => [
+                'name' => 'PHPUnit Test Name Field '.$this->secondLocale.' - Put',
+                'description' => 'PHPUnit Test Description Field '.$this->secondLocale.' - Put'
             ],
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_contacttype', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/contacttypes/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchContacttypeAction()
     {
         $content = [];
         $content['translations'] = [
-            'tr' => [
-                'name' => 'PHPUnit Test Name Field tr - Patch',
-                'description' => 'PHPUnit Test Description Field tr - Patch'
+            $this->locale => [
+                'name' => 'PHPUnit Test Name Field '.$this->locale.' - Patch',
+                'description' => 'PHPUnit Test Description Field '.$this->locale.' - Patch'
             ],
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_contacttype', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/contacttypes/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteContacttypeAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_contacttype', $routeParameters);
+        $announcementId = $this->sampleObjectLoader->loadContactType();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/contacttypes/'.$announcementId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

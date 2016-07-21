@@ -136,6 +136,13 @@ services:
       tags:
         - { name: form.type, alias: purified_textarea }
 
+  ojs_core.sample.object_loader:
+      class: Ojs\CoreBundle\Service\SampleObjectLoader
+      arguments:
+        - '@h4cc_alice_fixtures.manager'
+        - '@doctrine.orm.entity_manager'
+        - '%locale%'
+
   ojs_core.search_manager:
     class: Ojs\CoreBundle\Service\Search\SearchManager
     arguments: ["@translator", "@router", "@request_stack", "@ojs_core.search.native_query_generator", "@service_container"]

@@ -2,53 +2,52 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class JournalThemeRestControllerTest extends BaseTestCase
+class JournalThemeRestControllerTest extends ApiBaseTestCase
 {
-    public function __construct()
+    public function testNewJournalThemeAction()
     {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/themes/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testGetJournalThemesAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_get_themes', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/themes/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewJournalThemeAction()
+    public function testPostJournalThemeAction()
     {
         $content = [
             'title' => 'PHPUnit Test Title Field en - POST',
             'public' => 1,
             'css' => 'body{color: red;.post{}}'
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1]);
-        $url = $this->router->generate('api_1_post_theme', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journal/1/themes?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetJournalThemeAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1, 'id'=> 1]);
-        $url = $this->router->generate('api_1_get_theme', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/themes/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutJournalThemeAction()
@@ -58,18 +57,15 @@ class JournalThemeRestControllerTest extends BaseTestCase
             'public' => 1,
             'css' => 'body{color: red;.post{}}'
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 550]);
-        $url = $this->router->generate('api_1_put_theme', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journal/1/themes/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchJournalThemeAction()
@@ -77,29 +73,24 @@ class JournalThemeRestControllerTest extends BaseTestCase
         $content = [
             'title' => 'PHPUnit Test Title Field en - PATCH'
         ];
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
-        $url = $this->router->generate('api_1_patch_theme', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journal/1/themes/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteJournalThemeAction()
     {
-        $routeParameters = $this->getRouteParams(['journalId' => 1,'id' => 1]);
-        $url = $this->router->generate('api_1_delete_theme', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadJournalTheme();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journal/1/themes/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

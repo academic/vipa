@@ -29,8 +29,7 @@ class AdminPageType extends AbstractType
             )
             ->add('visible', 'checkbox', [
                 'required' => false
-            ])
-            ->add('tags', 'tags');
+            ]);
     }
 
     /**

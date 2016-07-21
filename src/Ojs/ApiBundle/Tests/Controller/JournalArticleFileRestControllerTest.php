@@ -2,11 +2,11 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
-class JournalArticleFileRestControllerTest extends BaseTestCase
+class JournalArticleFileRestControllerTest extends ApiBaseTestCase
 {
     private $sampleArticleFile = 'http://www.cbu.edu.zm/downloads/pdf-sample.pdf';
     private $sampleArticleFileEncoded;
@@ -24,16 +24,20 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
         $this->sampleArticleFileEncoded = base64_encode(file_get_contents($articleFileCacheDir.'sampleArticleFile'));
     }
 
+    public function testNewAuthorsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/article/1/files/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
     public function testGetFilesAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_get_files', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/article/1/files?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPostFileAction()
@@ -48,34 +52,23 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
             'title' => 'PHPUnit Test Title',
             'description' => 'PHPUnit Test Title',
         ];
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_post_file', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/journal/1/article/1/files?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetFileAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'id' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_get_file', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/journal/1/article/1/files/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutFileAction()
@@ -90,64 +83,40 @@ class JournalArticleFileRestControllerTest extends BaseTestCase
             'title' => 'PHPUnit Test Title Put',
             'description' => 'PHPUnit Test description Put',
         ];
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'id' => 550,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_put_file', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/journal/1/article/1/files/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchFileAction()
     {
         $content = [
-            'file' => [
-                'filename' => 'sampleArticleFile.pdf',
-                'encoded_content' => $this->sampleArticleFileEncoded,
-            ],
             'title' => 'PHPUnit Test Title Patch',
         ];
-        $routeParameters = $this->getRouteParams([
-            'journalId' => 1,
-            'id' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_patch_file', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/journal/1/article/1/files/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteFileAction()
     {
-        $routeParameters = $this->getRouteParams([
-            'id' => 1,
-            'journalId' => 1,
-            'articleId' => 1,
-        ]);
-        $url = $this->router->generate('api_1_article_delete_file', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadArticleFile();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/journal/1/article/1/files/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

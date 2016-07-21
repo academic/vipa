@@ -1,6 +1,9 @@
 imports:
     - { resource: config_dev.yml }
 
+parameters:
+    doctrine.dbal.connection_factory.class: Liuggio\Fastest\Doctrine\DBAL\ConnectionFactory
+
 framework:
     test: ~
     default_locale: "%locale%"
@@ -35,4 +38,8 @@ doctrine:
         connections:
             default:
                 driver:   pdo_sqlite
+<<<<<<< HEAD
                 path:     '%kernel.cache_dir%/test.db'
+=======
+                path:     '%kernel.cache_dir%/__DBNAME__.db'
+>>>>>>> origin/iss1517

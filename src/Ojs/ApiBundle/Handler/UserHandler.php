@@ -116,10 +116,10 @@ class UserHandler
     {
         $form = $this->formFactory->create(new UserType(), $entity, array('method' => $method, 'csrf_protection' => false));
         $form->remove('password');
+        $entity->setPassword($this->generateRandomString());
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $page = $form->getData();
-            $entity->setPassword($this->generateRandomString());
             $this->om->persist($entity);
             $this->om->flush();
             return $page;

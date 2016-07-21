@@ -93,6 +93,9 @@ class OjsController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
+        if($user === null){
+            return false;
+        }
         if ($user->isAdmin()) {
             return true;
         }

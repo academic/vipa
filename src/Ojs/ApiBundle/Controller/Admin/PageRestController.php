@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\AdminBundle\Entity\AdminPage;
+use Ojs\AdminBundle\Form\Type\AdminPageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -98,7 +99,7 @@ class PageRestController extends FOSRestController
         if (!$this->isGranted('CREATE', new AdminPage())) {
             throw new AccessDeniedException;
         }
-        return $this->createForm(new PageType(), null, ['csrf_protection' => false]);
+        return $this->createForm(new AdminPageType(), null, ['csrf_protection' => false]);
     }
 
     /**

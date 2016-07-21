@@ -13,7 +13,7 @@ Ojs\AdminBundle\Entity\AdminPostTranslation:
         title:
           type: string
           length: 255
-          nullable: false
+          nullable: true
         content:
           type: text
-          nullable: false
+          nullable: true

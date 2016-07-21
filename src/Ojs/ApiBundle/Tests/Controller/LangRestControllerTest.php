@@ -2,99 +2,94 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class LangRestControllerTest extends BaseTestCase
+class LangRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetLangsAction()
-    {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_langs', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
     public function testNewLangAction()
     {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/langs/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testGetLangsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/langs?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostLangAction()
+    {
         $content = [
-            'code' => 'PHPUnit',
+            'code' => 'ph',
             'name' => 'PHPUnit Name Field - POST',
             'rtl' => false,
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_langs', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/langs?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetLangAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_lang', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/langs/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutLangAction()
     {
         $content = [
-            'code' => 'PHPUnit',
+            'code' => 'bc',
             'name' => 'PHPUnit Name Field - PUT',
             'rtl' => true,
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_lang', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/langs/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchLangAction()
     {
         $content = [
-            'code' => 'PHPUnit',
+            'code' => 'en',
             'name' => 'PHPUnit Name Field - PATCH',
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_lang', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/langs/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteLangAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_lang', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadLang();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/langs/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

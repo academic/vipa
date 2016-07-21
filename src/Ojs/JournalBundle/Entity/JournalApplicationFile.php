@@ -97,7 +97,7 @@ class JournalApplicationFile
      * Set title
      *
      * @param  string $title
-     * @return SubmissionFile
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -120,7 +120,7 @@ class JournalApplicationFile
      * Set detail
      *
      * @param  string $detail
-     * @return SubmissionFile
+     * @return $this
      */
     public function setDetail($detail)
     {
@@ -143,7 +143,7 @@ class JournalApplicationFile
      * Set visible
      *
      * @param  boolean $visible
-     * @return SubmissionFile
+     * @return $this
      */
     public function setVisible($visible)
     {
@@ -166,7 +166,7 @@ class JournalApplicationFile
      * Set required
      *
      * @param  boolean $required
-     * @return SubmissionFile
+     * @return $this
      */
     public function setRequired($required)
     {
@@ -189,7 +189,7 @@ class JournalApplicationFile
      * Set deletedAt
      *
      * @param  \DateTime $deletedAt
-     * @return SubmissionFile
+     * @return $this
      */
     public function setDeletedAt($deletedAt)
     {
@@ -212,7 +212,7 @@ class JournalApplicationFile
      * Set locale
      *
      * @param  string $locale
-     * @return SubmissionFile
+     * @return $this
      */
     public function setLocale($locale)
     {

@@ -2,47 +2,50 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class IndexRestControllerTest extends BaseTestCase
+class IndexRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetIndexesAction()
+    public function testNewIndexesAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_indexes', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/indexes/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewIndexesAction()
+    public function testGetIndexesAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/indexes?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostIndexesAction()
     {
         $content = [
             'name' => 'PHPUnitTest Name Field - POST',
             'logo' => 'http://logo.com/POST',
             'status' => true,
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_indexes', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/indexes?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetIndexsAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_indexes', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/indexs/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutIndexesAction()
@@ -52,18 +55,15 @@ class IndexRestControllerTest extends BaseTestCase
             'logo' => 'http://logo.com/PUT',
             'status' => true,
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_indexes', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/indexes/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchIndexesAction()
@@ -71,29 +71,24 @@ class IndexRestControllerTest extends BaseTestCase
         $content = [
             'name' => 'PHPUnitTest Name Field - PATCH',
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_indexes', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/indexes/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeleteIndexesAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_indexes', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadIndex();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/indexes/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

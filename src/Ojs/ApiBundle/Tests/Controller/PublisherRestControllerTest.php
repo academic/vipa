@@ -2,32 +2,39 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PublisherRestControllerTest extends BaseTestCase
+class PublisherRestControllerTest extends ApiBaseTestCase
 {
+    public function testNewPublisherAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publishers/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
     public function testGetPublishersAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_publishers', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publishers?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testGetPublisherAction()
     {
-        $url = $this->router->generate('api_1_get_publisher', ['id'=> 1]);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/publishers/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewPublisherAction()
+    public function testPostPublisherAction()
     {
         $content = [
             'translations' => [
-                'en' => [
+                $this->locale => [
                     'name' => 'PHPUnit Test Name Field - POST',
                     'about' => 'PHPUnit Test About Field en - POST',
                 ]
@@ -46,25 +53,22 @@ class PublisherRestControllerTest extends BaseTestCase
             'status' => 0,
 
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_publishers', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/publishers?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPutPublisherAction()
     {
         $content = [
             'translations' => [
-                'en' => [
+                $this->locale => [
                     'name' => 'PHPUnit Test Name Field - POST',
                     'about' => 'PHPUnit Test About Field en - POST',
                 ]
@@ -83,52 +87,44 @@ class PublisherRestControllerTest extends BaseTestCase
             'status' => 0,
 
         ];
-        $routeParameters = $this->getRouteParams(['id' => 550]);
-        $url = $this->router->generate('api_1_put_publisher', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/publishers/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchPublisherAction()
     {
         $content = [
             'translations' => [
-                'tr' => [
-                    'about' => 'PHPUnit Test About Field TR - PATCH',
+                $this->secondLocale => [
+                    'about' => 'PHPUnit Test About Field '.$this->secondLocale.' - PATCH',
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['id' => 1]);
-        $url = $this->router->generate('api_1_patch_publisher', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/publishers/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeletePublisherAction()
     {
-        $routeParameters = $this->getRouteParams(['id' => 1]);
-        $url = $this->router->generate('api_1_delete_publisher', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadPublisher();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/publishers/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

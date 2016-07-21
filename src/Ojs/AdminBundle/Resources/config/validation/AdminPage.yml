@@ -9,5 +9,3 @@ Ojs\AdminBundle\Entity\AdminPage:
     properties:
         translations:
             - Valid: ~
-        tags:
-            - NotBlank: ~

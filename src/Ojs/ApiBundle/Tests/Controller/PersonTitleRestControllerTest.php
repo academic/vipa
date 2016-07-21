@@ -2,106 +2,101 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PersonTitleRestControllerTest extends BaseTestCase
+class PersonTitleRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetPersonTitlesAction()
+    public function testNewPersonTitleAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_persontitles', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/persontitles/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewPersonTitleAction()
+    public function testGetPersonTitlesAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/persontitles?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostPersonTitleAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'title' => 'PHPUnit Test Title Field en - POST',
+                $this->locale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->locale.' - POST',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_persontitles', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/persontitles?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetPersonTitleAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_get_persontitle', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/persontitles/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutPersonTitleAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'title' => 'PHPUnit Test Title Field en - PUT',
+                $this->locale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->locale.' - PUT',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_persontitle', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/persontitles/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchPersonTitleAction()
     {
         $content = [
             'translations' => [
-                'tr' => [
-                    'title' => 'PHPUnit Test Title Field TR - PATCH',
+                $this->secondLocale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PATCH',
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_persontitle', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/persontitles/1?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeletePersonTitleAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_persontitle', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadPersonTitle();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/persontitles/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }

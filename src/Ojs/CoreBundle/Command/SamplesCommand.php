@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Command;
 
 use Jb\Bundle\FileUploaderBundle\Entity\FileHistory;
 use Ojs\AdminBundle\Entity\AdminAnnouncement;
+use Ojs\AdminBundle\Entity\AdminFile;
 use Ojs\AdminBundle\Entity\AdminPost;
 use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Params\JournalStatuses;
@@ -13,11 +14,23 @@ use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\ArticleTypes;
 use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Block;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\ContactTypes;
+use Ojs\JournalBundle\Entity\Design;
+use Ojs\JournalBundle\Entity\Index;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueFile;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalAnnouncement;
+use Ojs\JournalBundle\Entity\JournalApplicationFile;
+use Ojs\JournalBundle\Entity\JournalContact;
+use Ojs\JournalBundle\Entity\JournalFile;
+use Ojs\JournalBundle\Entity\JournalIndex;
+use Ojs\JournalBundle\Entity\JournalPage;
+use Ojs\JournalBundle\Entity\JournalPost;
+use Ojs\JournalBundle\Entity\JournalSubmissionFile;
+use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Entity\Period;
 use Ojs\JournalBundle\Entity\PersonTitle;
 use Ojs\JournalBundle\Entity\PublisherTypes;
@@ -33,7 +46,6 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class SamplesCommand extends ContainerAwareCommand
 {
-
     protected function configure()
     {
         $this
@@ -100,6 +112,20 @@ class SamplesCommand extends ContainerAwareCommand
         $publisher->setPublisherType($publisherType);
 
         $em->persist($publisher);
+        $em->flush();
+
+        $publisher2 = new Publisher();
+        $publisher2->setCurrentLocale('en');
+        $publisher2->setName('Publisher');
+        $publisher2->setSlug('www2');
+        $publisher2->setEmail('publisher@ojs.io');
+        $publisher2->setAddress('Address');
+        $publisher2->setPhone('+908501234567');
+        $publisher2->setVerified(1);
+        $publisher2->setStatus(PublisherStatuses::STATUS_ONHOLD);
+        $publisher2->setPublisherType($publisherType);
+
+        $em->persist($publisher2);
         $em->flush();
 
         $subject1 = new Subject();
@@ -186,11 +212,13 @@ class SamplesCommand extends ContainerAwareCommand
 
         $journal = new Journal();
         $journal->setCurrentLocale('en');
-        $journal->setPublisher($publisher);
         $journal->setTitle('Introduction to OJS');
         $journal->setSubtitle('How to use OJS');
         $journal->setDescription('A journal about OJS');
         $journal->setTitleAbbr('INTROJS');
+        $journal->setCurrentLocale('tr');
+        $journal->setTitle('OJS Tanıtım');
+        $journal->setPublisher($publisher);
         $journal->setUrl('http://ojs.io');
         $journal->setSlug('intro');
         $journal->addSubject($subject1);
@@ -207,6 +235,97 @@ class SamplesCommand extends ContainerAwareCommand
         $em->flush();
 
         $this->createDemoFiles();
+
+        $block = new Block();
+        $block->setCurrentLocale('en');
+        $block->setTitle('Block');
+        $block->setBlockOrder(1);
+        $block->setColor('success');
+        $block->setJournal($journal);
+
+        $em->persist($block);
+        $em->flush();
+        
+        $design = new Design();
+        $design->setCurrentLocale('en');
+        $design->setTitle('Design');
+        $design->setEditableContent('html{}');
+        $design->setContent('html{}');
+        $design->setPublic(false);
+        $design->setOwner($journal);
+
+        $em->persist($design);
+        $em->flush();
+
+
+        $journalAnnouncement = new JournalAnnouncement();
+        $journalAnnouncement->setTitle('Announcement');
+        $journalAnnouncement->setContent('Content');
+        $journalAnnouncement->setJournal($journal);
+
+        $em->persist($journalAnnouncement);
+        $em->flush();
+
+        $contactType = $em->getRepository('OjsJournalBundle:ContactTypes')->find(1);
+
+        $contact = new JournalContact();
+        $contact->setFullName('Contact');
+        $contact->setAddress('Adress');
+        $contact->setPhone('05001001010');
+        $contact->setEmail('contact@ojs.io');
+        $contact->setContactType($contactType);
+        $contact->setJournal($journal);
+
+        $em->persist($contact);
+        $em->flush();
+
+
+        $index = new Index();
+        $index->setName('Index');
+        $index->setStatus(1);
+
+        $em->persist($index);
+        $em->flush();
+
+        $journalIndex = new JournalIndex();
+        $journalIndex->setIndex($index);
+        $journalIndex->setLink('http://ojs.io');
+        $journalIndex->setJournal($journal);
+
+        $em->persist($journalIndex);
+        $em->flush();
+
+        $currentLocale = $this->getContainer()->getParameter('locale');
+        $journalPage = new JournalPage();
+        $journalPage->setCurrentLocale($currentLocale);
+        $journalPage->setTitle('Title');
+        $journalPage->setSlug('title-page');
+        $journalPage->setBody('Content');
+        $journalPage->setVisible(true);
+        $journalPage->setTags('tag');
+        $journalPage->setJournal($journal);
+
+        $em->persist($journalPage);
+        $em->flush();
+
+        $journalPost = new JournalPost();
+        $journalPost->setCurrentLocale($currentLocale);
+        $journalPost->setTitle('Title');
+        $journalPost->setSlug('title-post');
+        $journalPost->setContent('Content');
+        $journalPost->setJournal($journal);
+
+        $em->persist($journalPost);
+        $em->flush();
+
+        $journalTheme = new JournalTheme();
+        $journalTheme->setTitle('Title');
+        $journalTheme->setCss('html{}');
+        $journalTheme->setPublic(true);
+        $journalTheme->setJournal($journal);
+
+        $em->persist($journalTheme);
+        $em->flush();
 
         $issueFile = new IssueFile();
         $issueFile->setCurrentLocale('en');
@@ -225,6 +344,75 @@ class SamplesCommand extends ContainerAwareCommand
 
         $em->persist($issueFile);
         $em->persist($issueFileHistory);
+        $em->flush();
+
+        $journalSubmissionFile = new JournalSubmissionFile();
+        $journalSubmissionFile->setTitle('Journal File');
+        $journalSubmissionFile->setDetail('File Detail');
+        $journalSubmissionFile->setFile('journalSubmissionFile.txt');
+        $journalSubmissionFile->setLocale('en');
+        $journalSubmissionFile->setRequired(false);
+        $journalSubmissionFile->setVisible(true);
+        $journalSubmissionFile->setJournal($journal);
+
+        $journalSubmissionFileHistory = new FileHistory();
+        $journalSubmissionFileHistory->setFileName('journalSubmissionFile.txt');
+        $journalSubmissionFileHistory->setOriginalName('journalSubmissionFile.txt');
+        $journalSubmissionFileHistory->setType('submissionfiles');
+
+        $em->persist($journalSubmissionFile);
+        $em->persist($journalSubmissionFileHistory);
+        $em->flush();
+
+        $journalFile = new JournalFile();
+        $journalFile->setName('Journal File');
+        $journalFile->setDescription('Description of Journal');
+        $journalFile->setTags('journal, file');
+        $journalFile->setPath('journalFile.txt');
+        $journalFile->setSize('100');
+        $journalFile->setJournal($journal);
+
+        $journalFileHistory = new FileHistory();
+        $journalFileHistory->setFileName('journalFile.txt');
+        $journalFileHistory->setOriginalName('journalFile.txt');
+        $journalFileHistory->setType('files');
+
+        $em->persist($journalFile);
+        $em->persist($journalFileHistory);
+        $em->flush();
+
+
+
+        $adminFile = new AdminFile();
+        $adminFile->setName('Admin File');
+        $adminFile->setDescription('File Description');
+        $adminFile->setPath('admin.txt');
+        $adminFile->setSize('100');
+
+        $adminFileHistory = new FileHistory();
+        $adminFileHistory->setFileName('admin.txt');
+        $adminFileHistory->setOriginalName('admin.txt');
+        $adminFileHistory->setType('adminfiles');
+
+        $em->persist($adminFile);
+        $em->persist($adminFileHistory);
+        $em->flush();
+
+        $journalApplicationFile = new JournalApplicationFile();
+        $journalApplicationFile->setTitle('Title');
+        $journalApplicationFile->setDetail('Detail');
+        $journalApplicationFile->setLocale('en');
+        $journalApplicationFile->setVisible(true);
+        $journalApplicationFile->setRequired(false);
+        $journalApplicationFile->setFile('journalApplication.txt');
+
+        $journalApplicationFileHistory = new FileHistory();
+        $journalApplicationFileHistory->setFileName('journalApplication.txt');
+        $journalApplicationFileHistory->setOriginalName('journalApplication.txt');
+        $journalApplicationFileHistory->setType('submissionfiles');
+
+        $em->persist($journalApplicationFile);
+        $em->persist($journalApplicationFileHistory);
         $em->flush();
 
         $issue = new Issue();
@@ -383,11 +571,16 @@ class SamplesCommand extends ContainerAwareCommand
         $rootDir = $this->getContainer()->get('kernel')->getRootDir();
         $articleFileDir = $rootDir . '/../web/uploads/articlefiles';
         $issueFileDir = $rootDir . '/../web/uploads/issuefiles';
+        $adminFileDir = $rootDir . '/../web/uploads/files';
 
         $fs = new Filesystem();
         $fs->mkdir($articleFileDir);
         $fs->mkdir($issueFileDir);
+        $fs->mkdir($adminFileDir);
         $fs->dumpFile($articleFileDir . '/article.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
         $fs->dumpFile($issueFileDir . '/issue.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
+        $fs->dumpFile($adminFileDir . '/admin.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
+        $fs->dumpFile($adminFileDir . '/journalApplication.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
+        $fs->dumpFile($adminFileDir . '/journalFile.txt', 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...');
     }
 }

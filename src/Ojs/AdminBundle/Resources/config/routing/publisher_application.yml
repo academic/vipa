@@ -25,5 +25,5 @@ ojs_admin_application_publisher_save:
   defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:save" }
 
 ojs_admin_application_publisher_reject:
-  path:  /publisher/{id}/save
+  path:  /publisher/{id}/reject
   defaults: { _controller: "OjsAdminBundle:AdminPublisherApplication:reject" }

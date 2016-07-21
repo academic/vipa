@@ -184,6 +184,9 @@ class JournalArticleFileHandler
 
     private function storeFile($file)
     {
+        if(!is_array($file)){
+            return $file;
+        }
         $fileHelper = new FileHelper();
         $rootDir = $this->kernel->getRootDir();
         $articleFileDir = $rootDir . '/../web/uploads/articlefiles/';

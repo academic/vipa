@@ -2,108 +2,105 @@
 
 namespace Ojs\ApiBundle\Tests\Controller;
 
-use Ojs\CoreBundle\Tests\BaseTestCase;
+use Ojs\ApiBundle\Tests\ApiBaseTestCase;
 
-class PostRestControllerTest extends BaseTestCase
+class PostRestControllerTest extends ApiBaseTestCase
 {
-    public function testGetPostsAction()
+    public function testNewPostAction()
     {
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_posts', $routeParameters);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/posts/new?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
-    public function testNewPostAction()
+    public function testGetPostsAction()
+    {
+        $client = $this->client;
+        $client->request('GET', '/api/v1/posts?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
+    }
+
+    public function testPostPostAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'title' => 'PHPUnit Test Title Field en - POST',
-                    'content' => 'PHPUnit Test Content Field en - POST',
+                $this->locale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->locale.' - POST',
+                    'content' => 'PHPUnit Test Content Field '.$this->locale.' - POST',
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams();
-        $url = $this->router->generate('api_1_get_posts', $routeParameters);
         $this->client->request(
             'POST',
-            $url,
+            '/api/v1/posts?apikey='.$this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testGetPostAction()
     {
-        $url = $this->router->generate('api_1_get_post', ['id'=> 1]);
-        $this->client->request('GET', $url);
-        $response = $this->client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $client = $this->client;
+        $client->request('GET', '/api/v1/posts/1?apikey='.$this->apikey);
+
+        $this->assertStatusCode(200, $client);
     }
 
     public function testPutPostAction()
     {
         $content = [
             'translations' => [
-                'en' => [
-                    'title' => 'PHPUnit Test Title Field en - PUT',
-                    'content' => 'PHPUnit Test Content Field en - PUT',
+                $this->locale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->locale.' - PUT',
+                    'content' => 'PHPUnit Test Content Field '.$this->locale.' - PUT',
                 ]
             ],
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 550]);
-        $url = $this->router->generate('api_1_put_post', $routeParameters);
         $this->client->request(
             'PUT',
-            $url,
+            '/api/v1/posts/550?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertStatusCode(201, $this->client);
     }
 
     public function testPatchPostAction()
     {
+        $id = $this->sampleObjectLoader->loadPost();
         $content = [
             'translations' => [
-                'tr' => [
-                    'title' => 'PHPUnit Test Title Field TR - PATCH',
-                    'content' => 'PHPUnit Test Content Field TR - PATCH',
+                $this->secondLocale => [
+                    'title' => 'PHPUnit Test Title Field '.$this->secondLocale.' - PATCH',
+                    'content' => 'PHPUnit Test Content Field '.$this->secondLocale.' - PATCH',
                 ]
             ]
         ];
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_patch_post', $routeParameters);
         $this->client->request(
             'PATCH',
-            $url,
+            '/api/v1/posts/'.$id.'?apikey='. $this->apikey,
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             json_encode($content)
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 
     public function testDeletePostAction()
     {
-        $routeParameters = $this->getRouteParams(['id'=> 1]);
-        $url = $this->router->generate('api_1_delete_post', $routeParameters);
+        $entityId = $this->sampleObjectLoader->loadPost();
         $this->client->request(
             'DELETE',
-            $url
+            '/api/v1/posts/'.$entityId.'?apikey='. $this->apikey
         );
-        $response = $this->client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertStatusCode(204, $this->client);
     }
 }
