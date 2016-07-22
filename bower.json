@@ -16,10 +16,6 @@
     "test",
     "tests"
   ],
-  "resolutions": {
-    "jquery": "*",
-    "font-awesome": "4.4.0"
-  },
   "dependencies": {
     "jquery": "*",
     "bootstrap": "3.3.5",
