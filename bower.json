@@ -1,5 +1,5 @@
 {
-  "name": "Ojs",
+  "name": "ojs",
   "version": "0.0.1",
   "homepage": "http://bulutyazilim.com",
   "authors": [
@@ -37,8 +37,9 @@
     "livestamp": "*",
     "formbuilder": "~0.2.1",
     "sweetalert": "v1.1.0",
-    "bxslider-4":"4.2.5",
+    "bxslider-4": "4.2.5",
     "list.js": "*",
-    "downloadjs": "*"
+    "downloadjs": "*",
+    "fancybox": "^2.1.5"
   }
 }
