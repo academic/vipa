@@ -26,4 +26,3 @@ Font Awesome(Fa) is a css library for icons.
 > Fa gives you scalable vector icons that can instantly be customized.
 
 Documentation http://nakupanda.github.io/bootstrap3-dialog/
-
