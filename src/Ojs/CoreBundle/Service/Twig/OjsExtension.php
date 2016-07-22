@@ -3,7 +3,6 @@
 namespace Ojs\CoreBundle\Service\Twig;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
 use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\IssueDisplayModes;
@@ -17,25 +16,47 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Ojs\CoreBundle\Events\TwigEvents;
 
 class OjsExtension extends \Twig_Extension
 {
-    /** @var EntityManager */
+    /**
+     * @var EntityManager
+     */
     private $em;
-    /** @var RouterInterface */
+
+    /**
+     * @var RouterInterface
+     */
     private $router;
-    /** @var JournalService */
+
+    /**
+     * @var JournalService
+     */
     private $journalService;
-    /** @var TokenStorageInterface */
+
+    /**
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
-    /** @var Session */
+
+    /**
+     * @var Session
+     */
     private $session;
-    /** @var TranslatorInterface */
+
+    /**
+     * @var TranslatorInterface
+     */
     private $translator;
-    /** @var RequestStack */
+
+    /**
+     * @var RequestStack
+     */
     private $requestStack;
-    /** @var EventDispatcherInterface */
+
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
 
     /**
@@ -110,7 +131,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getAdminPages', array($this, 'getAdminPages')),
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
-            new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate'))
+            new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate')),
         );
     }
 
