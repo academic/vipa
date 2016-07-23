@@ -74,7 +74,7 @@ ojs_journal_index:
 ojs_journal_index_articles:
     path: /{slug}/articles
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:journalArticles" }
+    defaults: { _controller: "OjsSiteBundle:Article:journalArticles" }
 
 ojs_journal_index_board:
     path: /{slug}/board
@@ -114,7 +114,7 @@ ojs_journal_subscribe:
 ojs_issue_page:
     path: /{journal_slug}/issue/{id}
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:issuePage" }
+    defaults: { _controller: "OjsSiteBundle:Issue:issuePage" }
 
 ojs_article_page:
     path:  /{slug}/issue/{issue_id}/{article_id}

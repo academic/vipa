@@ -20,18 +20,4 @@ class SiteControllerTest extends BaseTestCase
         $this->assertStatusCode(200,$client);
     }
 
-    public function testJournalArticles()
-    {
-        $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
-        $client->request('GET','/intro/articles');
-        $this->assertStatusCode(200, $client);
-    }
-
-    public function TestIssuePage()
-    {
-        $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
-        $client->request('GET','/intro/issue/1');
-        $this->assertStatusCode(200,$client);
-    }
-
 }

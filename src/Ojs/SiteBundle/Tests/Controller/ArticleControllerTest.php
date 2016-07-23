@@ -20,4 +20,11 @@ class ArticleControllerTest extends BaseTestCase
         $this->assertStatusCode(302,$client);
     }
 
+    public function testJournalArticles()
+    {
+        $client = static::makeClient(array(), array('HTTP_HOST' => 'www.ojs.dev'));
+        $client->request('GET', '/intro/articles');
+        $this->assertStatusCode(200, $client);
+    }
+
 }
