@@ -84,12 +84,12 @@ ojs_journal_index_board:
 ojs_site_journal_page:
     path: /{journal_slug}/page/{slug}
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:journalPageDetail" }
+    defaults: { _controller: "OjsSiteBundle:JournalCms:journalPageDetail" }
 
 ojs_site_journal_post:
     path: /{journal_slug}/post/{slug}
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:journalPostDetail" }
+    defaults: { _controller: "OjsSiteBundle:JournalCms:journalPostDetail" }
 
 ojs_last_articles_index:
     path:  /{slug}/last
@@ -104,7 +104,7 @@ ojs_archive_index:
 ojs_announcement_index:
     path:  /{slug}/announcements
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:announcementIndex" }
+    defaults: { _controller: "OjsSiteBundle:JournalCms:announcementIndex" }
 
 ojs_journal_subscribe:
     path:  /{slug}/subscribe
