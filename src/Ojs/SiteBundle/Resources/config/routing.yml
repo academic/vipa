@@ -69,7 +69,7 @@ ojs_publisher_page:
 ojs_journal_index:
     path:  /{slug}
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:journalIndex" }
+    defaults: { _controller: "OjsSiteBundle:Journal:journalIndex" }
 
 ojs_journal_index_articles:
     path: /{slug}/articles
@@ -79,7 +79,7 @@ ojs_journal_index_articles:
 ojs_journal_index_board:
     path: /{slug}/board
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:journalBoard" }
+    defaults: { _controller: "OjsSiteBundle:Journal:journalBoard" }
 
 ojs_site_journal_page:
     path: /{journal_slug}/page/{slug}
@@ -94,12 +94,12 @@ ojs_site_journal_post:
 ojs_last_articles_index:
     path:  /{slug}/last
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:lastArticlesIndex" }
+    defaults: { _controller: "OjsSiteBundle:Journal:lastArticlesIndex" }
 
 ojs_archive_index:
     path:  /{slug}/archive
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:archiveIndex" }
+    defaults: { _controller: "OjsSiteBundle:Journal:archiveIndex" }
 
 ojs_announcement_index:
     path:  /{slug}/announcements
@@ -109,7 +109,7 @@ ojs_announcement_index:
 ojs_journal_subscribe:
     path:  /{slug}/subscribe
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:subscribe" }
+    defaults: { _controller: "OjsSiteBundle:Journal:subscribe" }
 
 ojs_issue_page:
     path: /{journal_slug}/issue/{id}
@@ -129,7 +129,7 @@ ojs_article_withoutIssue_page:
 ojs_journal_contacts:
     path: /{slug}/contacts
     host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Site:journalContacts" }
+    defaults: { _controller: "OjsSiteBundle:Journal:journalContacts" }
 
 ojs_people:
     resource: "@OjsSiteBundle/Resources/config/routing/people.yml"
