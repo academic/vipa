@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Block;
@@ -18,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Ojs\JournalBundle\Entity\Section;
 use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
-use Ojs\JournalBundle\Entity\SubscribeMailList;
 
 class JournalController extends Controller
 {
@@ -113,7 +113,7 @@ class JournalController extends Controller
         $this->throw404IfNotFound($publisherEntity);
 
         /** @var Journal $journal */
-        $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity]);
+        $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity, 'status' => JournalStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($journal);
 
         //if system supports journal mandatory locale set locale as journal mandatory locale

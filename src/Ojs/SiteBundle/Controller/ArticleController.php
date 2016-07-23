@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use OpenJournalSoftware\BibtexBundle\Helper\Bibtex;
 use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\Journal;
@@ -38,7 +39,7 @@ class ArticleController extends Controller
 
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
+        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['id' => $article_id, 'status' => ArticleStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($data['article']);
         //log article view event
 

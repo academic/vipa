@@ -28,7 +28,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = ($slug == "me") ?
             $this->getUser() :
-            $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $slug]);
+            $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $slug, 'enabled' => true]);
         $this->throw404IfNotFound($user);
 
         $data = [];

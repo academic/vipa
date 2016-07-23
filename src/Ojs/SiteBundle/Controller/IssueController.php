@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\IssueVisibilityStatuses;
 use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Issue;
@@ -26,7 +27,7 @@ class IssueController extends Controller
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
         $articleRepo = $em->getRepository(Article::class);
 
-        $issue = $issueRepo->find($id);
+        $issue = $issueRepo->findOneBy(['id' => $id, 'published' => IssueVisibilityStatuses::PUBLISHED]);
         $this->throw404IfNotFound($issue);
 
         $blocks = $blockRepo->journalBlocks($issue->getJournal());

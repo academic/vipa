@@ -421,6 +421,7 @@ class SamplesCommand extends ContainerAwareCommand
         $issue->setTitle('First Issue: Hello OJS!');
         $issue->setDescription('First issue of the journal');
         $issue->setNumber(1);
+        $issue->setPublished(true);
         $issue->setVolume(1);
         $issue->setYear(new \DateTime('01-01-2015'));
         $issue->setSpecial(1);
