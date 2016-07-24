@@ -13,6 +13,10 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class DownloadController extends Controller
 {
+    /**
+     * @param ArticleFile $articleFile
+     * @return BinaryFileResponse
+     */
     public function articleFileAction(ArticleFile $articleFile)
     {
         $fileManager = $this->get('jb_fileuploader.file_history.manager');
@@ -43,6 +47,10 @@ class DownloadController extends Controller
         return $response;
     }
 
+    /**
+     * @param IssueFile $issueFile
+     * @return BinaryFileResponse
+     */
     public function issueFileAction(IssueFile $issueFile)
     {
         $fileManager = $this->get('jb_fileuploader.file_history.manager');

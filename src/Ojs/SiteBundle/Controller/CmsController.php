@@ -18,9 +18,12 @@ class CmsController extends OjsController
     {
         return $this->render(
             'OjsSiteBundle:Cms:page.html.twig',
-            ['page' => $page]
+            [
+                'page' => $page,
+            ]
         );
     }
+
     /**
      * @param AdminPost $page
      * @return \Symfony\Component\HttpFoundation\Response
@@ -30,7 +33,9 @@ class CmsController extends OjsController
     {
         return $this->render(
             'OjsSiteBundle:Cms:post.html.twig',
-            ['post' => $page]
+            [
+                'post' => $page,
+            ]
         );
     }
 }

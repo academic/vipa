@@ -16,10 +16,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-
+    /**
+     * @param $slug
+     * @return Response
+     */
     public function profileAction($slug)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -56,6 +60,10 @@ class UserController extends Controller
         return $this->render('OjsSiteBundle:User:profile_index.html.twig', $data);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function editProfileAction(Request $request)
     {
         $em = $this->get('doctrine')->getManager();
@@ -87,6 +95,9 @@ class UserController extends Controller
         return $this->render('OjsSiteBundle:User:update_profile.html.twig', $data);
     }
 
+    /**
+     * @return Response
+     */
     public function customFieldAction()
     {
         /** @var User $user */
@@ -98,6 +109,11 @@ class UserController extends Controller
         return $this->render('OjsSiteBundle:User:custom_field.html.twig', array('user' => $user));
     }
 
+    /**
+     * @param Request $request
+     * @param null $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
     public function createCustomFieldAction(Request $request, $id = null)
     {
         /** @var User $user */
@@ -139,6 +155,11 @@ class UserController extends Controller
         return $this->render("OjsSiteBundle:User:create_custom_field.html.twig", $data);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteCustomFieldAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -153,6 +174,9 @@ class UserController extends Controller
         return $this->redirect($this->get('router')->generate('ojs_user_custom_field'));
     }
 
+    /**
+     * @return Response
+     */
     public function connectedAccountAction()
     {
         /** @var User $user */
@@ -166,11 +190,18 @@ class UserController extends Controller
         return $this->render('OjsSiteBundle:User:connected_account.html.twig', $data);
     }
 
+    /**
+     * @return Response
+     */
     public function addConnectedAccountAction()
     {
         return $this->render('OjsSiteBundle:User:add_connected_account.html.twig');
     }
 
+    /**
+     * @param UserOauthAccount $userOauthAccount
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function deleteConnectedAccountAction(UserOauthAccount $userOauthAccount)
     {
         $em = $this->getDoctrine()->getManager();

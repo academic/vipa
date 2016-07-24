@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Block;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Journal;
@@ -20,7 +21,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HostingController extends Controller
 {
-
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -30,13 +30,13 @@ class HostingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $currentHost = $request->getHttpHost();
         /** @var Publisher $getPublisherByDomain */
-        $getPublisherByDomain = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(
+        $getPublisherByDomain = $em->getRepository(Publisher::class)->findOneBy(
             array('domain' => $currentHost)
         );
         $this->throw404IfNotFound($getPublisherByDomain);
         if (!$getPublisherByDomain) {
             /** @var Journal $getJournalByDomain */
-            $getJournalByDomain = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(
+            $getJournalByDomain = $em->getRepository(Journal::class)->findOneBy(
                 array('domain' => $currentHost)
             );
             $this->throw404IfNotFound($getJournalByDomain);
@@ -49,8 +49,9 @@ class HostingController extends Controller
             ],true);
             $journal->setPublicURI($journalPublicURI);
         }
+
         return $this->render('OjsSiteBundle::Publisher/publisher_index.html.twig', [
-            'entity' => $getPublisherByDomain
+            'entity' => $getPublisherByDomain,
         ]);
     }
 
@@ -66,9 +67,9 @@ class HostingController extends Controller
         /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
         /** @var IssueRepository $issueRepo */
-        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        $issueRepo = $em->getRepository(Issue::class);
         /** @var BlockRepository $blockRepo */
-        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
+        $blockRepo = $em->getRepository(Block::class);
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
@@ -114,6 +115,7 @@ class HostingController extends Controller
                 );
             }
         }
+
         return $lastIssue;
     }
 

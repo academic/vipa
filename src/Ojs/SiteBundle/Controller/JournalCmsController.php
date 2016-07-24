@@ -55,7 +55,6 @@ class JournalCmsController extends Controller
         $post = $em->getRepository('OjsJournalBundle:JournalPost')->findOneBy(['journal' => $journal, 'slug' => $slug]);
         $this->throw404IfNotFound($post);
 
-
         return $this->render('OjsSiteBundle:JournalCms:post.html.twig', ['post' => $post]);
     }
 

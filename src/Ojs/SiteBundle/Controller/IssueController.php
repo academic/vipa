@@ -4,6 +4,7 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\IssueVisibilityStatuses;
+use Ojs\JournalBundle\Entity\Block;
 use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\IssueRepository;
 use Ojs\JournalBundle\Entity\Issue;
@@ -23,8 +24,8 @@ class IssueController extends Controller
          */
         $em = $this->getDoctrine()->getManager();
 
-        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
-        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        $blockRepo = $em->getRepository(Block::class);
+        $issueRepo = $em->getRepository(Issue::class);
         $articleRepo = $em->getRepository(Article::class);
 
         $issue = $issueRepo->findOneBy(['id' => $id, 'published' => IssueVisibilityStatuses::PUBLISHED]);
@@ -88,6 +89,7 @@ class IssueController extends Controller
         uasort($sections, function ($a, $b) {
             return ((int)$a->getSectionOrder() > (int)$b->getSectionOrder()) ? 1 : -1;
         });
+
         return $sections;
     }
 }

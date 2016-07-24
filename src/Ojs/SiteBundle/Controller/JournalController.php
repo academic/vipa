@@ -22,6 +22,10 @@ use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
 
 class JournalController extends Controller
 {
+    /**
+     * @param string $slug
+     * @return Response
+     */
     public function archiveIndexAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -44,6 +48,10 @@ class JournalController extends Controller
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
     }
 
+    /**
+     * @param string $slug
+     * @return Response
+     */
     public function journalBoardAction($slug)
     {
         /**
@@ -77,6 +85,10 @@ class JournalController extends Controller
         return $this->render('OjsSiteBundle::Journal/journal_board.html.twig', $data);
     }
 
+    /**
+     * @param $slug
+     * @return Response
+     */
     public function journalContactsAction($slug)
     {
         $em = $this->getDoctrine()->getManager();

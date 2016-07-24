@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SiteController extends Controller
 {
-
     /**
      * Global index page
      * @return Response
