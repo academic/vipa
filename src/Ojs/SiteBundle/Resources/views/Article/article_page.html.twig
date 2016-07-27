@@ -207,7 +207,7 @@
                                     <th>{{ 'authors'|trans }}</th>
                                     <td>
                                         {% for authorsInfo in article.articleAuthors %}
-                                            <p id="author{{ authorsInfo.author.id }}">{{ authorsInfo.author.fullName }}</p>
+                                            <p id="author{{ authorsInfo.author.id }}">{{ authorsInfo.author.fullName }}, {{ authorsInfo.author.email }}, {{ authorsInfo.author.institution }},  {{ authorsInfo.author.city }} - {{ authorsInfo.author.country }}</p>
                                         {% endfor %}
                                     </td>
                                 </tr>
