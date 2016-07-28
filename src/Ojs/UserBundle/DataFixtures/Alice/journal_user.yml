@@ -5,7 +5,7 @@ Ojs\JournalBundle\Entity\JournalUser:
       journal: '@journal1'
   author_journal_role:
       user: '@user_author'
-      roles: [8]
+      roles: [10]
       journal: '@journal1'
   editor_journal_role:
       user: '@user_demo_editor'
