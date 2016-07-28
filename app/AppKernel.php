@@ -54,7 +54,6 @@ class AppKernel extends Kernel
             new Ojs\OAIBundle\OjsOAIBundle(),
             new Ojs\ExportBundle\OjsExportBundle(),
             new BulutYazilim\LocationBundle\BulutYazilimLocationBundle(),
-            // new Ojs\InstallerBundle\OjsInstallerBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
@@ -62,13 +61,13 @@ class AppKernel extends Kernel
             new Ojs\ImportBundle\ImportBundle(),
             new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
         }
