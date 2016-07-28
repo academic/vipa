@@ -38,4 +38,3 @@ doctrine:
         connections:
             default:
                 driver:   pdo_sqlite
-                path:     '%kernel.cache_dir%/__DBNAME__.db'
