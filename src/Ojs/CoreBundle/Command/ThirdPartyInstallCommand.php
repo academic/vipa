@@ -67,9 +67,6 @@ class ThirdPartyInstallCommand extends ContainerAwareCommand
             ),
             'extra' => array(
                 'bundle-class' => 'BulutYazilim\\OjsDoiBundle\\OjsDoiBundle',
-                "other-bundle-classes" => array(
-                    "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
-                )
             ),
         ),
         'advanced-citation' => array(
