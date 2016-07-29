@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\CoreBundle\Params\ArticleFileParams;
 use Ojs\CoreBundle\Params\IssueDisplayModes;
+use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
@@ -132,6 +133,7 @@ class OjsExtension extends \Twig_Extension
             new \Twig_SimpleFunction('isGrantedForPublisher', array($this, 'isGrantedForPublisher')),
             new \Twig_SimpleFunction('twigEventDispatch', array($this, 'twigEventDispatch')),
             new \Twig_SimpleFunction('issueTextGenerate', array($this, 'issueTextGenerate')),
+            new \Twig_SimpleFunction('getAuthorsInfo', array($this, 'getAuthorsInfo'), array('is_safe' => array('html'))),
         );
     }
 
@@ -509,6 +511,29 @@ class OjsExtension extends \Twig_Extension
             return $issue->getTitle();
         }
         return $issueText;
+    }
+
+    /**
+     * @param Author $author
+     * @return string
+     */
+    public function getAuthorsInfo(Author $author)
+    {
+
+        $institution = (!empty($author->getInstitution())) ? $author->getInstitution() : $author->getInstitutionName();
+        $email = (empty($author->getUser())) ? $author->getEmail() : $author->getUser()->getEmail();
+        $fullName = (empty($author->getUser())) ? $author->getFullName() : $author->getUser()->getFullName();
+
+        $text = '
+        <p id="author$' . $author->getId() . '">
+        <b>' . $this->translator->trans('author') . ': </b>' . $fullName . '</br>
+        <b>' . $this->translator->trans('email') . ': </b>' . $email . '</br>
+        <b>' . $this->translator->trans('institution') . ': </b>' . $institution . '</br>
+        <b>' . $this->translator->trans('country') . ': </b>' . $author->getCountry() . '</p><hr>';
+
+        return $text;
+
+
     }
 
     public function getName()
