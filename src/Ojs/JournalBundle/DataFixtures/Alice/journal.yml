@@ -14,4 +14,4 @@
     languages: [1, 2]
     status: 1
     setupFinished: true
-    mandatoryLang: '@lang1'
+    mandatoryLang: 2
