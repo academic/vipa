@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    $('#ojs_admin_quickswitch_switch').click(function(e) {
+    $('#quick_switch_switch').click(function(e) {
         e.preventDefault();
-        var id = $('#ojs_admin_quickswitch_journal').val();
+        var id = $('#quick_switch_journal').val();
         window.location.href = Routing.generate('ojs_journal_dashboard_index', {'journalId': id});
     });
 });
