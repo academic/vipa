@@ -33,6 +33,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/jquery-locationpicker-plugin/dist/locationpicker.jquery.min.js'
         - '%kernel.root_dir%/../web/vendor/select2/dist/js/select2.full.min.js'
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.min.js'
+        - '%kernel.root_dir%/../web/vendor/fancybox/source/jquery.fancybox.pack.js'
         - '%kernel.root_dir%/../web/assets/app/js/plugins/highlight/highlight.js'
         - '%kernel.root_dir%/../web/vendor/list.js/dist/list.min.js'
         - '%kernel.root_dir%/../web/vendor/downloadjs/download.min.js'
@@ -56,6 +57,7 @@ assetic:
         - '%kernel.root_dir%/../web/assets/app/css/_history.css'
         - '@BulutYazilimFeedbackBundle/Resources/public/css/feedback.css'
         - '%kernel.root_dir%/../web/vendor/sweetalert/dist/sweetalert.css'
+        - '%kernel.root_dir%/../web/vendor/fancybox/source/jquery.fancybox.css'
     advanced_search_js:
       inputs: ['@OjsCoreBundle/Resources/public/js/search.js']
     submission_js:
