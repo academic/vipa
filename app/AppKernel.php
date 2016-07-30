@@ -62,6 +62,7 @@ class AppKernel extends Kernel
             new \OpenJournalSoftware\BibtexBundle\OpenJournalSoftwareBibtexBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
             new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle(),
+            new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

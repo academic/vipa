@@ -45,6 +45,7 @@ assetic:
         - '@A2lixTranslationFormBundle/Resources/public/js/a2lix_translation_bootstrap.js'
         - '@TetranzSelect2EntityBundle/Resources/public/js/select2entity.js'
         - '@OjsAdminBundle/Resources/public/js/dashboard.js'
+        - '%kernel.root_dir%/../web/bundles/bazingajstranslation/js/translator.min.js'
     admin_main_css:
       inputs:
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css'

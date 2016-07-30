@@ -2,7 +2,7 @@
     {% set page = "index" %}
 {% endif %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale|split('_')[0] }}">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">

@@ -90,7 +90,8 @@
     "presta/sitemap-bundle": "~1.4",
     "openjournalsoftware/bibtex": "~0.2",
     "exercise/htmlpurifier-bundle": "~0.2",
-    "ojs/export-bundle": "dev-master"
+    "ojs/export-bundle": "dev-master",
+    "willdurand/js-translation-bundle": "^2.5"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",
