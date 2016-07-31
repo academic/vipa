@@ -886,6 +886,23 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     }
 
     /**
+     * @param Journal|null $journal
+     * @return array
+     */
+    public function getJournalRolesBag(Journal $journal = null)
+    {
+        if (!$journal) {
+            return [];
+        }
+        $roles = [];
+        $journalRoles = $this->getJournalRoles($journal);
+        foreach($journalRoles as $journalRole){
+            $roles[] = $journalRole[1]->getRole();
+        }
+        return $roles;
+    }
+
+    /**
      * @param Role[]|Collection $roles
      * @return $this
      */
