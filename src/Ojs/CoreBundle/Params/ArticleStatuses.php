@@ -4,6 +4,7 @@ namespace Ojs\CoreBundle\Params;
 
 class ArticleStatuses
 {
+    const STATUS_EARLY_PREVIEW = -5;
     const STATUS_WITHDRAWN = -4;
     const STATUS_REJECTED = -3;
     const STATUS_PUBLISH_READY = -2;

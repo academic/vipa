@@ -52,6 +52,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @Expose
      * @GRID\Column(type="text", groups={"submission"})
      * @Grid\Column(field="status", title="status", filter="select", selectFrom="values", values={
+     *     "-5"="status.early_preview",
      *     "-4"="status.withdrawn",
      *     "-3"="status.rejected",
      *     "-2"="status.publish_ready",
@@ -255,6 +256,7 @@ class Article extends AbstractTranslatable implements JournalItemInterface
      * @var array
      */
     public static $statuses = array(
+        ArticleStatuses::STATUS_EARLY_PREVIEW => 'status.early_preview',
         ArticleStatuses::STATUS_PUBLISH_READY => 'status.publish_ready',
         ArticleStatuses::STATUS_WITHDRAWN => 'status.withdrawn',
         ArticleStatuses::STATUS_REJECTED => 'status.rejected',

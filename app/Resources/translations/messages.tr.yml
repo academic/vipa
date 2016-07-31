@@ -928,6 +928,7 @@ stats.downloads: İndirilmeler
 stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
 status: Durum
+status.early_preview: 'Erken Görünüm'
 status.inreview: İncelemede
 status.not_submitted: Gönderilmedi
 status.published: Yayımlandı

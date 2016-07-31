@@ -930,6 +930,7 @@ stats.downloads: Downloads
 stats.this_month: 'This Month'
 stats.all_time: 'All Time'
 status: Status
+status.early_preview: 'Early Preview'
 status.inreview: in-Review
 status.not_submitted: 'Not Submitted'
 status.published: Published
