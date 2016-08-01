@@ -13,15 +13,22 @@ class ArticleRepository extends EntityRepository
 {
     /**
      * Get articles that has no issue_id
-     * @param  int $status
+     * @param  array $statuses
      * @return Article[]
      */
-    public function getArticlesUnissued($status = ArticleStatuses::STATUS_PUBLISHED)
+    public function getArticlesUnissued($statuses = [
+        ArticleStatuses::STATUS_PUBLISHED,
+        ArticleStatuses::STATUS_EARLY_PREVIEW,
+    ])
     {
+        $statusBag = [];
+        foreach($statuses as $status){
+            $statusBag[] = 'a.status = '.$status;
+        }
+        $statusDql = '('.implode(' OR ', $statusBag).')';
         $q = $this->createQueryBuilder('a')
             ->select('a')
-            ->where('a.issue IS NULL AND a.status = :status')
-            ->setParameter('status', $status)
+            ->where('a.issue IS NULL AND '.$statusDql)
             ->getQuery();
         $articles = $q->getResult();
 
