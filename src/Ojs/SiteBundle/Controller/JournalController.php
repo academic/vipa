@@ -112,6 +112,7 @@ class JournalController extends Controller
      */
     public function journalIndexAction(Request $request, $publisher, $slug)
     {
+        $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
@@ -130,7 +131,13 @@ class JournalController extends Controller
 
         //if system supports journal mandatory locale set locale as journal mandatory locale
         if(in_array($journal->getMandatoryLang()->getCode(),$this->getParameter('locale_support'))){
-            $request->setLocale($journal->getMandatoryLang()->getCode());
+            /**
+             * if user is prefered a locale pass this logic then
+             * @look for CommonController change locale function
+             */
+            if(!$session->has('_locale_prefered')){
+                $request->setLocale($journal->getMandatoryLang()->getCode());
+            }
         }
 
         //if theme preview is active set given theme

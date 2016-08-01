@@ -13,8 +13,10 @@ class CommonController extends Controller
 {
     public function changeLocaleAction($code, Request $request)
     {
+        $session = $this->get('session');
         $request->setLocale($code);
-        $this->get('session')->set('_locale', $code);
+        $session->set('_locale', $code);
+        $session->set('_locale_prefered', new \DateTime());
         $referer = $request->headers->get('referer');
 
         return $this->redirect(empty($referer) ? "/" : $referer);
