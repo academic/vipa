@@ -160,9 +160,11 @@
             $('.jb_fileupload').jbFileUpload();
         });
     </script>
+    {% if app.request.attributes.get('_system_setting') is not null %}
     <script>
         {{ app.request.attributes.get('_system_setting').systemFooterScript|raw }}
     </script>
+    {% endif %}
 {% endblock %}
 {{ feedback_widget()|raw }}
 </body>
