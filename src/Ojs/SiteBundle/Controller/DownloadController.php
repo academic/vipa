@@ -29,11 +29,16 @@ class DownloadController extends Controller
 
         $explode = explode('.', $fileHistory->getOriginalName());
         $mime = end($explode);
-        if(!empty($articleFile->getArticle()->getDoi())){
-            $fileOriginalName = str_replace('/', '-', $articleFile->getArticle()->getDoi()).'-'.$articleFile->getId().'.'.$mime;
-        }else{
+
+        if (!empty($articleFile->getArticle()->getDoi())){
+            $fileOriginalName = $articleFile->getArticle()->getDoi().'-'.$articleFile->getId().'.'.$mime;
+        } else {
             $fileOriginalName = $articleFile->getArticle().'-'.$articleFile->getId().'.'.$mime;
         }
+
+        $fileOriginalName = str_replace('/', '-', $fileOriginalName);
+        $fileOriginalName = str_replace('\\', '-', $fileOriginalName);
+
         $response = new BinaryFileResponse($path);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_INLINE,
