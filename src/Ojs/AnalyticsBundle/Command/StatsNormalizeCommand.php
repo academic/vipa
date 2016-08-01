@@ -103,7 +103,7 @@ UPDATE journal
 SET total_article_view =
   (SELECT SUM(t2.view_count)
    FROM article t2
-   WHERE t2.issue_id = journal.id)
+   WHERE t2.journal_id = journal.id)
 SQL;
         $query = $this->em->createNativeQuery($sql, $rsm);
         $query->getResult();
