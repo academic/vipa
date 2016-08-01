@@ -38,10 +38,11 @@ class IssueType extends AbstractType
                 'choice',
                 [
                     'choices'           => [
-                        'display_mode.all'               => IssueDisplayModes::SHOW_ALL,
-                        'display_mode.title'             => IssueDisplayModes::SHOW_TITLE,
                         'display_mode.volume_and_number' => IssueDisplayModes::SHOW_VOLUME_AND_NUMBER,
+                        'display_mode.title'             => IssueDisplayModes::SHOW_TITLE,
+                        'display_mode.all'               => IssueDisplayModes::SHOW_ALL,
                     ],
+                    'data'              => IssueDisplayModes::SHOW_VOLUME_AND_NUMBER,
                     'choices_as_values' => true,
                     'label'             => 'display_mode',
                     'required'          => false,
