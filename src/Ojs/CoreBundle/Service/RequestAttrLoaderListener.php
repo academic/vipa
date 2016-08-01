@@ -3,6 +3,7 @@
 namespace Ojs\CoreBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Ojs\AdminBundle\Entity\SystemSetting;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -36,7 +37,16 @@ class RequestAttrLoaderListener implements EventSubscriberInterface
         }
         $systemSetting = $this->em->getRepository('OjsAdminBundle:SystemSetting')->findOneBy([]);
         if(!$systemSetting){
-            return;
+            $systemSetting = new SystemSetting();
+            $systemSetting
+                ->setArticleSubmissionActive(true)
+                ->setJournalApplicationActive(true)
+                ->setPublisherApplicationActive(true)
+                ->setUserRegistrationActive(true)
+                ->setSystemFooterScript('')
+            ;
+            $this->em->persist($systemSetting);
+            $this->em->flush();
         }
         $attributes->set('_system_setting', $systemSetting);
 
