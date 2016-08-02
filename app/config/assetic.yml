@@ -18,7 +18,7 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/c3/c3.min.css'
     main_js:
       inputs:
-        - '%kernel.root_dir%/../web/vendor/jquery/jquery.min.js'
+        - '%kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js'
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js'
         - '%kernel.root_dir%/../web/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.js'
         - '%kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js'
@@ -81,10 +81,6 @@ assetic:
     hovercard_js:
       inputs:
         - '%kernel.root_dir%/../web/assets/app/js/plugins/hovercard/hovercard.min.js'
-    formbuilder_js:
-      inputs:
-        - '%kernel.root_dir%/../web/vendor/formbuilder/vendor/js/vendor.js'
-        - '%kernel.root_dir%/../web/vendor/formbuilder/dist/formbuilder.js'
     ace_js:
       inputs:
         - '%kernel.root_dir%/../web/vendor/ace-builds/src-min-noconflict/ace.js'
