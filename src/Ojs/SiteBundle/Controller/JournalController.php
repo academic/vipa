@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
@@ -318,4 +319,32 @@ class JournalController extends Controller
 
         return $this->redirect($referer);
     }
+
+    /**
+     * @param string $slug
+     * @return Response
+     */
+    public function earlyPreviewIndexAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var BlockRepository $blockRepo */
+        $blockRepo = $em->getRepository('OjsJournalBundle:Block');
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($journal);
+        $articles = $em->getRepository(Article::class)->findBy(['journal' => $journal, 'status' => ArticleStatuses::STATUS_EARLY_PREVIEW]);
+
+        $data = [
+            'journal' => $journal,
+            'articles' => $articles,
+            'page' => 'journal',
+            'blocks' => $blockRepo->journalBlocks($journal),
+        ];
+
+        return $this->render('OjsSiteBundle::Article/journal_articles.html.twig', $data);
+
+    }
+
+
+
 }

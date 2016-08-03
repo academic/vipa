@@ -39,7 +39,7 @@ class ArticleController extends Controller
 
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['id' => $article_id, 'status' => ArticleStatuses::STATUS_PUBLISHED]);
+        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['id' => $article_id, 'status' => ArticleStatuses::STATUS_PUBLISHED, 'status' => ArticleStatuses::STATUS_EARLY_PREVIEW]);
         $this->throw404IfNotFound($data['article']);
         //log article view event
 
