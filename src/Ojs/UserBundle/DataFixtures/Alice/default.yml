@@ -12,6 +12,97 @@
     credentialsExpired: 0
     title: 1
     tags: <text(20)>, <text(10)>
+  user_demo_grammer_editor:
+    username (unique): user_demo_grammer_editor
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Grammer
+    lastName: Editor
+    email (unique): user_demo_grammer_editor@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
+  user_demo_spelling_editor:
+    username (unique): user_demo_spelling_editor
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Spelling
+    lastName: Editor
+    email (unique): user_demo_spelling_editor@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
+  user_demo_section_editor:
+    username (unique): user_demo_section_editor
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Section
+    lastName: Editor
+    email (unique): user_demo_section_editor@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
+  user_demo_reviewer:
+    username (unique): user_demo_reviewer
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Reviewer
+    lastName: Reviewer
+    email (unique): user_demo_reviewer@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
+  user_demo_layout_editor:
+    username (unique): user_demo_layout_editor
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Layout
+    lastName: Editor
+    email (unique): user_demo_layout_editor@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
+  user_demo_copy_editor:
+    username (unique): user_demo_copy_editor
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Copy
+    lastName: Editor
+    email (unique): user_demo_copy_editor@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
+  user_demo_proof_reader:
+    username (unique): user_demo_proof_reader
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Proof
+    lastName: Reader
+    email (unique): user_demo_proof_reader@ojs.io
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    enabled: 1
+    locked: 0
+    expired: 0
+    credentialsExpired: 0
+    title: 1
+    tags: <text(20)>, <text(10)>
   user_journal_manager:
     username (unique): demo_journal_manager
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'

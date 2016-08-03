@@ -11,6 +11,34 @@ Ojs\JournalBundle\Entity\JournalUser:
       user: '@user_demo_editor'
       roles: [3]
       journal: '@journal1'
+  grammer_editor_role:
+      user: '@user_demo_grammer_editor'
+      roles: [11]
+      journal: '@journal1'
+  spelling_editor_role:
+      user: '@user_demo_spelling_editor'
+      roles: [11]
+      journal: '@journal1'
+  section_editor_role:
+      user: '@user_demo_section_editor'
+      roles: [5]
+      journal: '@journal1'
+  reviewer_role:
+      user: '@user_demo_reviewer'
+      roles: [7]
+      journal: '@journal1'
+  layout_editor_role:
+      user: '@user_demo_layout_editor'
+      roles: [6]
+      journal: '@journal1'
+  copy_editor_role:
+      user: '@user_demo_copy_editor'
+      roles: [8]
+      journal: '@journal1'
+  proof_reader_role:
+      user: '@user_demo_proof_reader'
+      roles: [9]
+      journal: '@journal1'
   random_role_{1..75}:
       user (unique): '@random_user_*'
       roles: <randomElements($array = array (1,2,3,4,5,6,7,8,9,10,11,12), $count = 2)>
