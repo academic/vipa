@@ -13,7 +13,7 @@ trait ArticleTrait
     protected $article;
 
     /**
-     * @return $this
+     * @return Article
      */
     public function getArticle()
     {
