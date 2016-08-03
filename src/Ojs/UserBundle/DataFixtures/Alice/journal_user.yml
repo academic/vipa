@@ -39,6 +39,10 @@ Ojs\JournalBundle\Entity\JournalUser:
       user: '@user_demo_proof_reader'
       roles: [9]
       journal: '@journal1'
+  secretary_role:
+      user: '@user_demo_secretary'
+      roles: [13]
+      journal: '@journal1'
   random_role_{1..75}:
       user (unique): '@random_user_*'
       roles: <randomElements($array = array (1,2,3,4,5,6,7,8,9,10,11,12), $count = 2)>
