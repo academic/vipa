@@ -3,14 +3,23 @@
 {% set hideleft = 1 %}
 
 {% block breadcrumb %}
+    {% if article.issue %}
     {% set list = [
-    {'link': path('ojs_public_index'), 'title': project_name},
-    {'link': journal.publicURI,'title': article.journal.title},
-    {'link': archive_uri, 'title': "archive"|trans },
-    {'link': path('ojs_issue_page',
-    {journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}),
-    'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number }
-    ] %}
+        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': journal.publicURI,'title': article.journal.title},
+        {'link': archive_uri, 'title': "archive"|trans},
+        {'link': path('ojs_issue_page',
+        {journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}),
+        'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number },
+        ] %}
+    {% else %}
+        {% set list = [
+        {'link': path('ojs_public_index'), 'title': project_name},
+        {'link': journal.publicURI,'title': article.journal.title},
+        {'link': archive_uri, 'title': "archive"|trans}
+
+        ] %}
+    {% endif %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
@@ -19,9 +28,11 @@
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    {% if article.issue %}
                     <a href="{{ url('ojs_issue_page', {journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}) }}">
                         {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
                     </a>
+                    {% endif %}
                     {% if article.firstPage is not null and article.lastPage is not null %}
                         {{ "page.plural"|trans }}
                         <span title="{{ "first_page"|trans }}">{{ article.firstPage }}</span> -
@@ -97,6 +108,8 @@
                                         {% else %}
                                             <span class="author">{{ authorsInfo.author.fullName }}</span>
                                         {% endif %}
+
+                                        {% if article.issue %}
                                         <sup>
                                             <a href="{{ path('ojs_article_page', {
                                                 publisher: journal.publisher.slug,
@@ -107,6 +120,7 @@
                                                 [{{ loop.index }}]
                                             </a>
                                         </sup>
+                                        {% endif %}
                                     </small>
                                     {% if not loop.last %}, {% endif %}
                                 {% endfor %}
