@@ -39,7 +39,8 @@
     "bxslider-4": "4.2.5",
     "list.js": "*",
     "downloadjs": "*",
-    "fancybox": "^2.1.5"
+    "fancybox": "^2.1.5",
+    "formBuilder": "*"
   },
   "resolutions": {
     "font-awesome": "4.4.0"
