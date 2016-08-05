@@ -19,6 +19,7 @@ assetic:
     main_js:
       inputs:
         - '%kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js'
+        - '%kernel.root_dir%/../web/vendor/jquery-ui/jquery-ui.min.js'
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js'
         - '%kernel.root_dir%/../web/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.js'
         - '%kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js'
