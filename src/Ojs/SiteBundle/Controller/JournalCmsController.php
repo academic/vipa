@@ -4,6 +4,8 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Doctrine\ORM\EntityManager;
+use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +25,12 @@ class JournalCmsController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         $data['announcements'] = $em->getRepository('OjsJournalBundle:JournalAnnouncement')->findBy(
             ['journal' => $journal],
             ['id' => 'DESC']
@@ -40,6 +48,12 @@ class JournalCmsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         $page = $em->getRepository('OjsJournalBundle:JournalPage')->findOneBy(['journal' => $journal, 'slug' => $slug]);
         $this->throw404IfNotFound($page);
 
@@ -51,6 +65,12 @@ class JournalCmsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
 
         $post = $em->getRepository('OjsJournalBundle:JournalPost')->findOneBy(['journal' => $journal, 'slug' => $slug]);
         $this->throw404IfNotFound($post);

@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Elastica\Query\MatchAll;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\TreeHelper;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\SubjectRepository;
@@ -61,7 +62,7 @@ class SiteController extends Controller
         $data['page'] = 'organizations';
         $journalService = $this->get('ojs.journal_service');
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $slug]);
+        $entity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $slug, 'status' => PublisherStatuses::STATUS_COMPLETE]);
         $this->throw404IfNotFound($entity);
         $data['entity'] = $entity;
         /** @var Journal $journal */

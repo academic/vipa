@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Block;
@@ -35,6 +36,11 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
 
         $data['groupedIssues'] = $em->getRepository(Issue::class)->getByYear($journal, true);
         $data['page'] = 'archive';
@@ -67,6 +73,12 @@ class JournalController extends Controller
         $boards = $journal->getBoards();
 
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         $boardMembers = [];
 
         foreach ($boards as $board) {
@@ -98,6 +110,11 @@ class JournalController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
 
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         return $this->render("OjsSiteBundle:JournalContact:index.html.twig", [
             'contacts' => $em->getRepository("OjsJournalBundle:JournalContact")->findBy(['journal' => $journal], ['contactOrder' => 'ASC']),
             'blocks' => $em->getRepository('OjsJournalBundle:Block')->journalBlocks($journal),
@@ -123,7 +140,7 @@ class JournalController extends Controller
         /** @var IssueRepository $issueRepo */
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
 
-        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $publisher]);
+        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $publisher, 'status' => PublisherStatuses::STATUS_COMPLETE]);
         $this->throw404IfNotFound($publisherEntity);
 
         /** @var Journal $journal */
@@ -273,6 +290,12 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findBy(
             array('journal' => $journal)
         );
@@ -296,6 +319,13 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(array('slug' => $slug));
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
+
         $email = $request->get('mail');
 
         $emailConstraint = new EmailConstraint();
@@ -332,6 +362,12 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         $articles = $em->getRepository(Article::class)->findBy(['journal' => $journal, 'status' => ArticleStatuses::STATUS_EARLY_PREVIEW]);
 
         $data = [

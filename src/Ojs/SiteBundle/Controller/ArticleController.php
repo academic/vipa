@@ -4,6 +4,8 @@ namespace Ojs\SiteBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\ArticleStatuses;
+use Ojs\CoreBundle\Params\JournalStatuses;
+use Ojs\CoreBundle\Params\PublisherStatuses;
 use OpenJournalSoftware\BibtexBundle\Helper\Bibtex;
 use Ojs\JournalBundle\Entity\BlockRepository;
 use Ojs\JournalBundle\Entity\Journal;
@@ -15,6 +17,13 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
         $this->throw404IfNotFound($article);
+
+        $journal = $article->getJournal();
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
 
         if($article->getStatus() == ArticleStatuses::STATUS_EARLY_PREVIEW){
             $journalService = $this->get('ojs.journal_service');
@@ -119,6 +128,15 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['id' => $article_id, 'status' => ArticleStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($data['article']);
+
+
+        $journal = $data['article']->getJournal();
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
         //log article view event
 
         $bibtex = new Bibtex();
@@ -202,6 +220,13 @@ class ArticleController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
+
+        if($journal->getStatus() !== JournalStatuses::STATUS_PUBLISHED || $journal->getPublisher()->getStatus() !== PublisherStatuses::STATUS_COMPLETE ){
+            $journal = null;
+            $this->throw404IfNotFound($journal);
+        }
+
+
         $articles = $journal->getArticles();
         $data = [
             'journal' => $journal,
