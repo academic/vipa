@@ -77,6 +77,34 @@ var analytics = {
         });
     },
 
+
+
+    createApplicationChart : function (id, column) {
+        var chart = c3.generate({
+            bindto: id,
+            data: {
+                x: 'x',
+                columns: [
+                    column[0],
+                    column[1]
+                ]
+            },
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%Y-%m'
+                    }
+                }
+            },
+            bar: {
+                width: {
+                    ratio: 0.6
+                }
+            }
+        });
+    },
+
     createPieChart: function (id, columns) {
         var newNames = {};
         columns['mainChartNames'].forEach(function (article) {

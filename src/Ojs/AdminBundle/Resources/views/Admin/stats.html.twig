@@ -23,6 +23,7 @@
         <li role="presentation"><a href="#article" aria-controls="home" role="tab" data-toggle="tab">{{ "title.articles"|trans }}</a></li>
         <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
+        <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
     </ul>
 
     <div id="statistics" class="tab-content">
@@ -210,6 +211,52 @@
                 </div>
             </div>
         </div>
+        <div role="tabpanel" class="tab-pane fade" id="applications">
+            <div id="application"></div>
+            <h3>{{ "title.journal_application"|trans }}</h3>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#applicationMonthly" aria-controls="home" role="tab" data-toggle="tab">{{ "monthly"|trans }}</a></li>
+                <li role="presentation"><a href="#applicationYearly" aria-controls="profile" role="tab" data-toggle="tab">{{ "yearly"|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="applicationMonthly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.application"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for application in applicationMonthly %}
+                            <tr>
+                                <td>{{ application.month|slice(0,7) }}</td>
+                                <td>{{ application.result_count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="applicationYearly">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats.application"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for application in applicationYearly %}
+                            <tr>
+                                <td>{{ application.year|slice(0,4) }}</td>
+                                <td>{{ application.result_count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
@@ -224,5 +271,6 @@
         analytics.createChart('#articles', data['articleViews']);
         analytics.createChart('#articleFiles', data['articleFileDownloads']);
         analytics.createChart('#issueFiles', data['issueFileDownloads']);
+        analytics.createApplicationChart('#application', data['application']);
     </script>
 {% endblock %}

@@ -703,6 +703,7 @@ message.submission_not_available: 'Üzgünüz ama şimdilik Makale göndermeniz 
 mimetype: 'MIME Tipi'
 misc: Çeşitli
 mission: Misyon
+monthly: 'Aylık'
 more: 'Daha Fazla'
 name: Ad
 namesurname: 'Ad ve Soyad'
@@ -926,6 +927,7 @@ stats.most_viewed_articles: 'En Çok Görüntülenen Makaleler'
 stats.most_viewed_journals: 'En Çok Görüntülenen Dergiler'
 stats.views: Görüntülemeler
 stats.downloads: İndirilmeler
+stats.application: 'Başvuru'
 stats.this_month: 'Bu Ay'
 stats.all_time: 'Tüm Zamanlar'
 status: Durum
@@ -1417,6 +1419,7 @@ workflow: 'İş Akışı'
 workflow.steps: 'İş Akışı ve Hakem Raporları'
 workflows: 'İş Akışları'
 year: Yıl
+yearly: Yıllık
 you: Sen
 404: Bulunamadı
 title.publisher_theme_edit: 'Yayıncı Temasını Düzenle'

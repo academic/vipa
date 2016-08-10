@@ -77,13 +77,13 @@ class AdminController extends Controller
             $lastMonth[] = date($generator->getDateFormat(), strtotime('-' . $i . ' days'));
         }
         $slicedLastMonth = array_slice($lastMonth, 1);
-
         $json = [
             'dates' => $lastMonth,
             'journalViews' => $generator->generateJournalBarChartData($slicedLastMonth),
             'articleViews' => $generator->generateArticleBarChartData($slicedLastMonth),
             'issueFileDownloads' => $generator->generateIssueFilePieChartData($slicedLastMonth),
             'articleFileDownloads' => $generator->generateArticleFilePieChartData($slicedLastMonth),
+            'application' => $generator->generateApplicationBarChartData($slicedLastMonth),
         ];
 
         $data = [
@@ -94,6 +94,8 @@ class AdminController extends Controller
             'articleFiles' => $generator->generateArticleFileDownloadsData(),
             'journalsMonthly' => $generator->generateJournalViewsData($slicedLastMonth),
             'articlesMonthly' => $generator->generateArticleViewsData($slicedLastMonth),
+            'applicationMonthly' => $generator->generateApplicationMonthlyData(),
+            'applicationYearly' => $generator->generateApplicationYearlyData(),
             'issueFilesMonthly' => $generator->generateIssueFileDownloadsData($slicedLastMonth),
             'articleFilesMonthly' => $generator->generateArticleFileDownloadsData($slicedLastMonth),
         ];

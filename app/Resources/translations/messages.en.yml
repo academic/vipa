@@ -705,6 +705,7 @@ message.submission_not_available: 'Sorry, you can create a new submission.'
 mimetype: 'Mime Type'
 misc: Miscellaneous
 mission: Mission
+monthly: Monthly
 more: More
 name: Name
 namesurname: 'Name Surname'
@@ -928,6 +929,7 @@ stats.most_viewed_articles: 'Most Viewed Submissions'
 stats.most_viewed_journals: 'Most Viewed Journals'
 stats.views: Views
 stats.downloads: Downloads
+stats.application: Application
 stats.this_month: 'This Month'
 stats.all_time: 'All Time'
 status: Status

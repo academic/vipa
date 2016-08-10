@@ -87,7 +87,30 @@ class GraphDataGenerator
         }
         return $journalViews;
     }
-    
+
+
+    /**
+     * @return array
+     */
+    public function generateApplicationBarChartData()
+    {
+        $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('result_count','result_count');
+        $rsm->addScalarResult('month','month');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        $applicationDataX = ['x'];
+        $applicationDataCount = ['Application'];
+
+        foreach($results as $result){
+            $applicationDataX[] = substr($result['month'], 0, 10);
+            $applicationDataCount[] = $result['result_count'];
+        }
+        return [$applicationDataX,$applicationDataCount];
+    }
+
     /**
      * Returns an array which can be passed to C3.js for bar chart graph creation
      *
@@ -293,6 +316,36 @@ class GraphDataGenerator
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('title', 'title');
         $rsm->addScalarResult('sum_view', 'view');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     * @return array
+     */
+    public function generateApplicationMonthlyData()
+    {
+        $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('result_count','result_count');
+        $rsm->addScalarResult('month','month');
+        $query = $this->manager->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     * @return array
+     */
+    public function generateApplicationYearlyData()
+    {
+        $sql = 'SELECT count(id) as result_count , date_trunc(\'year\', created) as year FROM journal GROUP BY year';
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('result_count','result_count');
+        $rsm->addScalarResult('year','year');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
