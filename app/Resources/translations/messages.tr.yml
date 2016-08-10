@@ -269,22 +269,22 @@ canOnlyReply: 'Kullanıcı sonraki adıma karar veremez, sadece cevaplayabilir.'
 cancel: Vazgeç
 check: 'Kontrol Et'
 children: 'Alt Öge'
-citation: Atıf
-citation.add: 'Atıf Ekle'
-citation.citation: Atıf
-citation.clear: 'Atıf Sil'
-citation.create: 'Atıf Oluştur'
-citation.edit: 'Atıf Düzenle'
-citation.editor: 'Atıf Editörü'
-citation.id: 'Atıf No'
-citation.list: 'Atıf Listesi'
-citation.new: 'Yeni Atıf'
+citation: Kaynakça
+citation.add: 'Kaynakça Ekle'
+citation.citation: Kaynakça
+citation.clear: 'Kaynakça Sil'
+citation.create: 'Kaynakça Oluştur'
+citation.edit: 'Kaynakça Düzenle'
+citation.editor: 'Kaynakça Editörü'
+citation.id: 'Kaynakça No'
+citation.list: 'Kaynakça Listesi'
+citation.new: 'Yeni Kaynakça'
 citation.paste_extract: 'Kaynakça Yapıştır'
-citation.setting: 'Atıf Ayarları'
+citation.setting: 'Kaynakça Ayarları'
 citation.setting.edit: 'Ayarları Düzenle'
 citation.setting.list: 'Ayar Listesi'
-citation.setting.new: 'Yeni Atıf Ayarı'
-citation.type: 'Atıf Tipi'
+citation.setting.new: 'Yeni Kaynakça Ayarı'
+citation.type: 'Kaynakça Tipi'
 citation.raw: 'Ham Kaynakça'
 citation.raw.help: 'Kaynakçanızı buraya işlenmesi için onar onar girip, parçalanması için beklemelisiniz.'
 citations: Kaynakça
@@ -1055,14 +1055,14 @@ title.board_show: 'Editör Kurulu Göster'
 title.boards: 'Editör Kurulları'
 title.browse: Gözat
 title.categories: Kategoriler
-title.citation: Atıf
-title.citation_edit: 'Atıfı Düzenle'
-title.citation_new: 'Yeni Atıf'
-title.citation_setting_edit: 'Atıf Ayarını Düzenle'
-title.citation_setting_new: 'Yeni Atıf Ayarı'
-title.citation_setting_show: 'Atıf Ayarını Göster'
-title.citation_settings: 'Atıf Ayarları'
-title.citation_show: 'Atıf Göster'
+title.citation: Kaynakça
+title.citation_edit: 'Kaynakçayı Düzenle'
+title.citation_new: 'Yeni Kaynakça'
+title.citation_setting_edit: 'Kaynakça Ayarını Düzenle'
+title.citation_setting_new: 'Yeni Kaynakça Ayarı'
+title.citation_setting_show: 'Kaynakça Ayarını Göster'
+title.citation_settings: 'Kaynakça Ayarları'
+title.citation_show: 'Kaynakçayı Göster'
 title.citations: Kaynakça
 title.connected_account: 'Bağlı Hesap'
 title.connected_account_add: 'Bağlı Hesap Ekle'
