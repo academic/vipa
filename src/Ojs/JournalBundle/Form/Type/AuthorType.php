@@ -19,15 +19,6 @@ class AuthorType extends AbstractType
     {
         $builder
             ->add('orcid')
-            ->add('translations', JournalBasedTranslationsType::class, [
-                'label' => ' ',
-                'required' => false,
-                'fields' => [
-                    'biography' => [
-                        'label' => 'author.biography'
-                    ]
-                ]
-            ])
             ->add('title', null, [
                 'label'     => 'user.title',
                 'required'  => false,
@@ -90,6 +81,15 @@ class AuthorType extends AbstractType
             ])
             ->add('authorDetails', 'textarea', [
                 'required' => false
+            ])
+            ->add('translations', JournalBasedTranslationsType::class, [
+                'label' => ' ',
+                'required' => false,
+                'fields' => [
+                    'biography' => [
+                        'label' => 'author.biography'
+                    ]
+                ]
             ]);
     }
 
