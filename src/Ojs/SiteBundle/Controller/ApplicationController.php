@@ -78,11 +78,14 @@ class ApplicationController extends Controller
             $form->handleRequest($request);
             $publisherForm->handleRequest($request);
 
-            if ($publisherForm->isSubmitted() && $publisherForm->isValid()) {
-                $application->setPublisher($newPublisher);
-            }
+            $publisherFormIsOk = !$publisherForm->isSubmitted() || $publisherForm->isValid();
 
-            if ($form->isValid() && $form->isSubmitted()) {
+            if ($form->isValid() && $form->isSubmitted() && $publisherFormIsOk) {
+                if ($publisherForm->isSubmitted()) {
+                    $application->setPublisher($newPublisher);
+                    $em->persist($newPublisher);
+                }
+
                 $application->setStatus(JournalStatuses::STATUS_APPLICATION);
 
                 $application->getCurrentTranslation()->setLocale($application->getMandatoryLang()->getCode());
