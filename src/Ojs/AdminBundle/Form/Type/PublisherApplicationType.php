@@ -4,6 +4,7 @@ namespace Ojs\AdminBundle\Form\Type;
 
 use Ojs\JournalBundle\Entity\Publisher;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,6 +27,7 @@ class PublisherApplicationType extends AbstractType
                 )
             )
             ->add('translations', 'a2lix_translations', ['label' => 'publisher.about'])
+            ->add('slug', TextType::class, ['label' => 'publisher.slug'])
             ->add('address', 'textarea', ['label' => 'publisher.address'])
             ->add('addressLat', null, ['label' => 'publisher.lat'])
             ->add('addressLong', null, ['label' => 'publisher.lon'])

@@ -4,6 +4,10 @@ Ojs\JournalBundle\Entity\PublisherTranslation:
           - NotBlank: ~
 
 Ojs\JournalBundle\Entity\Publisher:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
     properties:
+        translations:
+            - Valid: ~
         slug:
-          - NotBlank: ~
+            - NotBlank: ~

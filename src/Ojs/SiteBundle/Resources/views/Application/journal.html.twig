@@ -68,7 +68,12 @@
                         </span>
 
                         <div id="publisher-form">
-                            {{ form(publisherForm) }}
+                            <label for="publisher-form-prototype">
+                                {{ "application.journal.new_publisher"|trans }}
+                            </label>
+                            <textarea id="publisher-form-prototype">
+                                {{ form(publisherForm) }}
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -180,10 +185,22 @@
 
             newPublisherButton.on('click', function() {
                 newPublisherForm.css('visibility', 'visible');
+                newPublisherForm.html($('#publisher-form-prototype').value);
+
                 newPublisherButton.hide();
-                $('#ojs_journalbundle_journalapplication_publisher').removeAttr('required');
                 publisherSelector.hide();
+
+                $('#ojs_journalbundle_journalapplication_publisher').removeAttr('required');
             });
+
+            newPublisherForm.find('input:not([type="hidden"]),select').each(function(item) {
+                if (this.value != false) {
+                    console.log(this.value);
+                    newPublisherButton.click();
+                    return false;
+                }
+            });
+
             $('.journalContact .remove_contact').on('click', function() {
                 $(this).parent().remove();
             });
