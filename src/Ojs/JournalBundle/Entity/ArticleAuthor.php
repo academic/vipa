@@ -48,6 +48,11 @@ class ArticleAuthor implements Translatable
     private $article;
 
     /**
+     * @var bool
+     */
+    private $correspondenceAuthor;
+
+    /**
      * Get id
      *
      * @return integer
@@ -126,6 +131,25 @@ class ArticleAuthor implements Translatable
     public function setAuthor(Author $author)
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCorrespondenceAuthor()
+    {
+        return $this->correspondenceAuthor;
+    }
+
+    /**
+     * @param boolean $correspondenceAuthor
+     * @return ArticleAuthor
+     */
+    public function setCorrespondenceAuthor($correspondenceAuthor)
+    {
+        $this->correspondenceAuthor = $correspondenceAuthor;
 
         return $this;
     }

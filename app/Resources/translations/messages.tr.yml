@@ -208,6 +208,7 @@ articles_in_history: 'Geçmişteki Makaleler'
 author: Yazar
 author.add: 'Yazar Ekle'
 author.creation: 'Yazar Oluşturma'
+author.correspondence_author: 'İrtibat Kurulacak Yazar'
 author.details: 'Yazar Detayları'
 author.edit: 'Yazar Düzenle'
 author.firstname: 'Adı'

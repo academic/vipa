@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Form\Type;
 
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,11 +18,12 @@ class ArticleAuthorType extends AbstractType
     {
         $builder
             ->add('author', new AuthorType())
-            ->add('authorOrder', null, [
-                'label' => 'author.order'
-                ]
+            ->add(
+                'correspondenceAuthor',
+                CheckboxType::class,
+                ['required' => false, 'label' => 'author.correspondence_author']
             )
-        ;
+            ->add('authorOrder', null, ['label' => 'author.order']);
     }
 
     /**
