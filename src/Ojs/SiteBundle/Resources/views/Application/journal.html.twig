@@ -169,7 +169,6 @@
         var newPublisherButton = $('#new-publisher');
         var newPublisherForm = $('#publisher-form');
         var publisherSelector = $('#ojs_journalbundle_journalapplication_publisher').parent().parent();
-        var applicationForm = $('form[name=ojs_journalbundle_journalapplication]');
 
         $(document).ready(function() {
             collectionHolder = $('#contacts');
@@ -182,6 +181,7 @@
             newPublisherButton.on('click', function() {
                 newPublisherForm.css('visibility', 'visible');
                 newPublisherButton.hide();
+                $('#ojs_journalbundle_journalapplication_publisher').removeAttr('required');
                 publisherSelector.hide();
             });
             $('.journalContact .remove_contact').on('click', function() {
