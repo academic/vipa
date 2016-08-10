@@ -18,6 +18,7 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
         correspondenceAuthor:
             type: boolean
             column: correspondence_author
+            nullable: true
             options:
                 default: false
         createdBy:
