@@ -19,15 +19,31 @@
                                 xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
                             {% endif %}
                             xmlns:dc="http://purl.org/dc/elements/1.1/">
-                        <dc:title xml:lang="en-US"><![CDATA[{{ record.title }}]]></dc:title>
-                        {% for author in record.articleAuthors %}
-                            <dc:creator><![CDATA[{{ author.author.lastName }}, {{ author.author.firstName }}]]></dc:creator>
-                        {% endfor %}
-                        <dc:subject><![CDATA[{{ record.keywords }}]]></dc:subject>
                         {% for translation in record.translations %}
-                            <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''}) }}]]></dc:description>
+                            {% if translation.title is not empty and translation.title != '-' %}
+                                <dc:title xml:lang="en-US"><![CDATA[{{ translation.title }}]]></dc:title>
+                            {% endif %}
                         {% endfor %}
-                        <dc:publisher>{{ record.journal.publisher.name }}</dc:publisher>
+                        {% for author in record.articleAuthors %}
+                            <dc:creator>
+                                <![CDATA[{{ author.author.lastName }}, {{ author.author.firstName }}]]>{% if author.author.institution %}; {{ author.author.institution.name }}{% endif %}
+                            </dc:creator>
+                        {% endfor %}
+                        {% for translation in record.translations %}
+                            {% if translation.keywords is not empty and translation.keywords != '-' %}
+                                <dc:subject><![CDATA[{{ record.keywords }}]]></dc:subject>
+                            {% endif %}
+                        {% endfor %}
+                        {% for translation in record.translations %}
+                            {% if translation.abstract is not empty and translation.abstract != '-' %}
+                                <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''}) }}]]></dc:description>
+                            {% endif %}
+                        {% endfor %}
+                        {% for translation in record.journal.publisher.translations %}
+                            {% if translation.name is not empty and translation.name != '-' %}
+                                <dc:publisher>{{ translation.name }}</dc:publisher>
+                            {% endif %}
+                        {% endfor %}
                         <dc:date>{{ record.pubDate|date("Y-m-d\\TH:i:s\\Z") }}</dc:date>
                         <dc:type>info:eu-repo/semantics/article</dc:type>
                         <dc:format>application/pdf</dc:format>
@@ -38,10 +54,19 @@
                         {% endif %}
                         <dc:identifier>{{ record.doi }}</dc:identifier>
                         {% if record.issue %}
-                            <dc:source xml:lang="en-US">{{ record.issue.title }}</dc:source>
+                            <dc:source xml:lang="en-US">
+                                {{ record.issue.title }}{% if record.firstPage and record.lastPage %}{{ record.firstPage }} - {{ record.lastPage }}{% endif %}
+                            </dc:source>
                         {% endif %}
-                        <dc:source>{{ record.journal.eissn }}</dc:source>
-                        <dc:language>{{ record.primaryLanguage }}</dc:language>
+                        {% if record.journal.issn %}
+                            <dc:source>{{ record.journal.issn }}</dc:source>
+                        {% endif %}
+                        {% if record.journal.eissn %}
+                            <dc:source>{{ record.journal.eissn }}</dc:source>
+                        {% endif %}
+                        {% if record.primaryLanguage %}
+                            <dc:language>{{ record.primaryLanguage }}</dc:language>
+                        {% endif %}
                         {% for file in record.articleFiles %}
                             <dc:relation>{{ url('ojs_site_download_article', {articleFile: file.id}) }}</dc:relation>
                         {% endfor %}
