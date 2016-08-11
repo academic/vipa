@@ -305,6 +305,7 @@ fos_elastica:
             listener: ~
             finder: ~
         author:
+          indexable_callback: 'isIndexable'
           mappings:
             id:
               type: integer

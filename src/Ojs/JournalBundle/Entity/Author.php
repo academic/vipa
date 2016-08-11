@@ -791,4 +791,15 @@ class Author extends AbstractTranslatable
     {
         return $this->getFirstName().' '.$this->getLastName();
     }
+
+    /**
+     * @return bool
+     */
+    public function isIndexable()
+    {
+        if($this->getArticleAuthors()->count() > 0){
+            return true;
+        }
+        return false;
+    }
 }
