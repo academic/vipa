@@ -152,7 +152,7 @@ class AdminJournalApplicationController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirectToRoute('ojs_admin_journal_index');
+        return $this->redirectToRoute('ojs_admin_application_journal_index');
     }
 
     public function rejectAction($id)
@@ -168,6 +168,6 @@ class AdminJournalApplicationController extends Controller
         $em->flush();
 
         $this->successFlashBag('successfully.rejected.journal');
-        return $this->redirectToRoute('ojs_admin_journal_index');
+        return $this->redirectToRoute('ojs_admin_application_journal_index');
     }
 }
