@@ -35,7 +35,7 @@ services:
       - "@security.token_storage"
       - "%locale%"
       - "@translator"
-      - "%kernel.environment%"
+      - "%prevent_mail_merge%"
 
   ojs_locale.locale_listener:
     class: Ojs\CoreBundle\Service\LocaleListener

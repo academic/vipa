@@ -49,20 +49,21 @@ class OjsMailer
     public $translator;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $env;
+    public $preventMailMerge;
 
     /**
      * OjsMailer constructor.
-     * @param \Swift_Mailer $mailer
-     * @param $mailSender
-     * @param $mailSenderName
-     * @param RegistryInterface $registry
+     *
+     * @param \Swift_Mailer         $mailer
+     * @param string                $mailSender
+     * @param string                $mailSenderName
+     * @param RegistryInterface     $registry
      * @param TokenStorageInterface $tokenStorage
-     * @param $locale
-     * @param TranslatorInterface $translator
-     * @param $env
+     * @param string                $locale
+     * @param TranslatorInterface   $translator
+     * @param bool                  $preventMailMerge
      */
     public function __construct(
         \Swift_Mailer $mailer,
@@ -72,7 +73,7 @@ class OjsMailer
         TokenStorageInterface $tokenStorage,
         $locale,
         TranslatorInterface $translator,
-        $env
+        $preventMailMerge = false
     )
     {
         $this->mailer           = $mailer;
@@ -82,7 +83,7 @@ class OjsMailer
         $this->tokenStorage     = $tokenStorage;
         $this->locale           = $locale;
         $this->translator       = $translator;
-        $this->env              = $env;
+        $this->preventMailMerge = $preventMailMerge;
     }
 
     /**
@@ -98,8 +99,8 @@ class OjsMailer
             && !empty($user->getEmail())
             && !empty($user->getUsername())
         ){
-            if($this->env == 'dev'){
-                $subject = $subject.' rand:'.rand(0,1000);
+            if($this->preventMailMerge){
+                $subject = $subject.' rand:'.rand(0,10000);
             }
             $this->send($subject, $body, $user->getEmail(), $user->getUsername());
         }

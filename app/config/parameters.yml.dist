@@ -41,3 +41,4 @@ parameters:
     country_id: 216
     session_name: '_OJS_SESSION_'
     doi_start_year: 2014
+    prevent_mail_merge: false
