@@ -49,6 +49,11 @@ class OjsMailer
     public $translator;
 
     /**
+     * @var string
+     */
+    public $env;
+
+    /**
      * OjsMailer constructor.
      * @param \Swift_Mailer $mailer
      * @param $mailSender
@@ -57,6 +62,7 @@ class OjsMailer
      * @param TokenStorageInterface $tokenStorage
      * @param $locale
      * @param TranslatorInterface $translator
+     * @param $env
      */
     public function __construct(
         \Swift_Mailer $mailer,
@@ -65,7 +71,8 @@ class OjsMailer
         RegistryInterface $registry,
         TokenStorageInterface $tokenStorage,
         $locale,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        $env
     )
     {
         $this->mailer           = $mailer;
@@ -75,6 +82,7 @@ class OjsMailer
         $this->tokenStorage     = $tokenStorage;
         $this->locale           = $locale;
         $this->translator       = $translator;
+        $this->env              = $env;
     }
 
     /**
@@ -90,6 +98,9 @@ class OjsMailer
             && !empty($user->getEmail())
             && !empty($user->getUsername())
         ){
+            if($this->env == 'dev'){
+                $subject = $subject.' rand:'.rand(0,1000);
+            }
             $this->send($subject, $body, $user->getEmail(), $user->getUsername());
         }
     }
@@ -145,11 +156,15 @@ class OjsMailer
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function currentUser()
     {
-        return $this->tokenStorage->getToken()->getUser();
+        $token = $this->tokenStorage->getToken();
+        if(!$token){
+            throw new \LogicException('i can not find current user token :/');
+        }
+        return $token->getUser();
     }
 
     /**
