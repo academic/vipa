@@ -68,14 +68,6 @@
                                     {{ "register"|trans }}
                                 </a>
                             {% endif %}
-                        {% else %}
-                            <a href="{{ path('fos_user_security_login') }}"
-                               class="btn btn-primary btn-labeled">
-                                    <span class="btn-label pull-left">
-                                        <i class="fa fa-user fa-fw"></i>
-                                    </span>
-                                {{ "login"|trans }}
-                            </a>
                         {% endif %}
 
                         {% if app.request.attributes.get('_system_setting').publisherApplicationActive %}
