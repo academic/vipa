@@ -127,16 +127,9 @@ class IssueFileController extends Controller
      */
     private function createCreateForm(IssueFile $entity, $journalId)
     {
-        $languages = $this->container->getParameter('languages');
-        $langs = [];
-        foreach ($languages as $key => $lang) {
-            $langs[$lang['code']] = $lang['name'];
-        }
-
         $form = $this->createForm(new IssueFileType(), $entity, [
             'action' => $this->generateUrl('ojs_journal_issue_file_create', array('journalId' => $journalId, 'issueId' => $entity->getIssue()->getId())),
             'method' => 'POST',
-            'languages' => $langs,
         ]);
 
         return $form;
@@ -248,15 +241,9 @@ class IssueFileController extends Controller
      */
     private function createEditForm(IssueFile $entity)
     {
-        $languages = $this->container->getParameter('languages');
-        $langs = [];
-        foreach ($languages as $key => $lang) {
-            $langs[$lang['code']] = $lang['name'];
-        }
         $form = $this->createForm(new IssueFileType(), $entity, [
             'action' => $this->generateUrl('ojs_journal_issue_file_update', ['id' => $entity->getId(), 'journalId' => $entity->getIssue()->getJournal()->getId(), 'issueId' => $entity->getIssue()->getId()]),
             'method' => 'PUT',
-            'languages' => $langs,
         ]);
 
         return $form;

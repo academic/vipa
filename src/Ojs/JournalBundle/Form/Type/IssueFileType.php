@@ -8,6 +8,7 @@ use Ojs\JournalBundle\Entity\IssueFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ojs\CoreBundle\Form\Type\JournalLangCodeType;
 
 class IssueFileType extends AbstractType
 {
@@ -17,8 +18,6 @@ class IssueFileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $languages = $options["languages"];
-
         $builder
             ->add('file', 'jb_file_ajax', array(
                 'label' => 'issuefile.file',
@@ -31,10 +30,11 @@ class IssueFileType extends AbstractType
                     'choices' => ArticleFileParams::$FILE_TYPES,
                 ])
             ->add('version', null, ['label' => 'issuefile.version'])
-            ->add('langCode','choice',[
-                'label' => 'issuefile.langcode',
-                'choices'=>$languages
-            ])
+            ->add('langCode', JournalLangCodeType::class,
+                [
+                    'label' => 'issuefile.langcode'
+                ]
+            )
             ->add('translations', JournalBasedTranslationsType::class)
         ;
     }
@@ -45,8 +45,7 @@ class IssueFileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => IssueFile::class,
-            'languages'=>[]
+            'data_class' => IssueFile::class
         ));
     }
 }

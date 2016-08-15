@@ -150,6 +150,14 @@ api_journal_issue:
   options:
       api_view: "journalissue"
 
+api_journal_issue_file:
+  type:         rest
+  resource:     "@OjsApiBundle/Controller/Journal/JournalIssueFileRestController.php"
+  prefix:       /v1/journal/{journalId}/issue/{issueId}
+  name_prefix:  api_1_issue_
+  options:
+      api_view: "issuefile"
+
 api_journal_theme:
   type:         rest
   resource:     "@OjsApiBundle/Controller/Journal/JournalThemeRestController.php"
