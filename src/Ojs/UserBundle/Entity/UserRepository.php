@@ -26,7 +26,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->andWhere('u.username LIKE :query OR u.email LIKE :query')
             ->andWhere('u.enabled = :enabled')
             ->setParameter('journal', $journal)
-            ->setParameter('query', $query.'%')
+            ->setParameter('query', '%'.$query.'%')
             ->setParameter('enabled', true)
             ->setMaxResults($limit)
             ->getQuery();
