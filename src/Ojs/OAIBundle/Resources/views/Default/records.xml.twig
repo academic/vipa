@@ -55,7 +55,9 @@
                         <dc:identifier>{{ record.doi }}</dc:identifier>
                         {% if record.issue %}
                             <dc:source xml:lang="en-US">
-                                {{ record.issue.title }}{% if record.firstPage and record.lastPage %}{{ record.firstPage }} - {{ record.lastPage }}{% endif %}
+                                {{ record.issue.title }};
+                                Issue: {{ record.issue.number }},
+                                Volume: {{ record.issue.volume }}{% if record.firstPage and record.lastPage %}; {{ record.firstPage }}-{{ record.lastPage }}{% endif %}
                             </dc:source>
                         {% endif %}
                         {% if record.journal.issn %}
