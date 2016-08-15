@@ -94,7 +94,14 @@ class GraphDataGenerator
      */
     public function generateApplicationBarChartData()
     {
-        $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = 'SELECT count(id) as result_count , strftime("%m-%Y", created) as month  FROM journal GROUP BY month';
+        }else{
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+        }
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
         $rsm->addScalarResult('month','month');
@@ -327,7 +334,14 @@ class GraphDataGenerator
      */
     public function generateApplicationMonthlyData()
     {
-        $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = 'SELECT count(id) as result_count , strftime("%Y-%m", created) as month  FROM journal GROUP BY month';
+        }else{
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+        }
+
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
         $rsm->addScalarResult('month','month');
@@ -342,7 +356,14 @@ class GraphDataGenerator
      */
     public function generateApplicationYearlyData()
     {
-        $sql = 'SELECT count(id) as result_count , date_trunc(\'year\', created) as year FROM journal GROUP BY year';
+        $connectionParams = $this->manager->getConnection()->getParams();
+
+        if ($connectionParams['driver'] == 'pdo_sqlite') {
+            $sql = 'SELECT count(id) as result_count , strftime("%Y", created) as year  FROM journal GROUP BY year';
+        }else{
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'year\', created) as year FROM journal GROUP BY year';
+        }
+
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('result_count','result_count');
         $rsm->addScalarResult('year','year');
