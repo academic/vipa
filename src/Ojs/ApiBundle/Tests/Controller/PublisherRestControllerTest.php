@@ -73,7 +73,7 @@ class PublisherRestControllerTest extends ApiBaseTestCase
                     'about' => 'PHPUnit Test About Field en - POST',
                 ]
             ],
-            'slug' => 'phpunit-test',
+            'slug' => 'phpunit-test-put',
             'tags' => ['phpunit'],
             'publisherType' => 3,
             'address' => 'PHPUnit Test Adress Field - POST',
