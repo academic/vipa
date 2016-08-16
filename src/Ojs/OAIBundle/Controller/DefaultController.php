@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\CoreBundle\Params\ArticleStatuses;
+use Ojs\CoreBundle\Params\IssueDisplayModes;
 use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +103,7 @@ class DefaultController extends OAIController
         $data['isLast'] = $records->getTotalItemCount() >= $currentPage * 100 ? true:false;
         $data['currentPage'] = $currentPage;
         $data['metadataPrefix'] = $request->get('metadataPrefix', 'oai_dc');
-
+        $data['displayModes'] = IssueDisplayModes::getDisplayModes();
         return $this->response('OjsOAIBundle:Default:records.xml.twig', $data);
     }
 

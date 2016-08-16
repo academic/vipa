@@ -55,9 +55,16 @@
                         <dc:identifier>{{ record.doi }}</dc:identifier>
                         {% if record.issue %}
                             <dc:source xml:lang="en-US">
-                                {{ record.issue.title }};
-                                Issue: {{ record.issue.number }},
-                                Volume: {{ record.issue.volume }}{% if record.firstPage and record.lastPage %}; {{ record.firstPage }}-{{ record.lastPage }}{% endif %}
+                                {% if record.issue.displayMode is null or record.issue.displayMode == displayModes.all %}
+                                    {{ record.issue.title }}; Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
+                                {% elseif record.issue.displayMode == displayModes.title %}
+                                    {{ record.issue.title }}
+                                {% elseif record.issue.displayMode == displayModes.volumeAndNumber %}
+                                    Volume: {{ record.issue.volume }}, Issue: {{ record.issue.number }}
+                                {% endif %}
+                                {% if record.firstPage and record.lastPage %}
+                                    {{ record.firstPage }}-{{ record.lastPage }}
+                                {% endif %}
                             </dc:source>
                         {% endif %}
                         {% if record.journal.issn %}
