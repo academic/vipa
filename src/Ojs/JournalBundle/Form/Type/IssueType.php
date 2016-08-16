@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class IssueType extends AbstractType
 {
@@ -24,7 +25,7 @@ class IssueType extends AbstractType
         $builder
             ->add('translations', JournalBasedTranslationsType::class, [
                     'fields' => [
-                        'title'       => [],
+                        'title'       => ['required' => false],
                         'description' => [
                             'required' => false,
                         ],
@@ -154,6 +155,7 @@ class IssueType extends AbstractType
             );
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, self::postSetDataCallback());
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, self::preSubmitCallback());
         $builder->addEventListener(FormEvents::POST_SUBMIT, self::postSubmitCallback());
     }
 
@@ -178,6 +180,29 @@ class IssueType extends AbstractType
 
                 $form->get('visibility')->setData($visibility);
             }
+        };
+    }
+
+    public static function preSubmitCallback()
+    {
+        return function (FormEvent $event) {
+            $data = $event->getData();
+            $isTitleEmpty = false;
+
+            foreach ($data['translations'] as $translation) {
+                $isTitleEmpty = $isTitleEmpty || $translation['title'] === '';
+            }
+
+            $displayMode = PropertyAccess::createPropertyAccessor()->getValue($data, '[display_mode]');
+            $isTitleDisplayed = $displayMode == IssueDisplayModes::SHOW_ALL || $displayMode == IssueDisplayModes::SHOW_TITLE;
+
+            if ($isTitleEmpty && !$isTitleDisplayed) {
+                foreach ($data['translations'] as &$translation) {
+                    $translation['title'] = '-';
+                }
+            }
+
+            $event->setData($data);
         };
     }
 
