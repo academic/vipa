@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Events\TypeEvent;
@@ -394,6 +395,12 @@ class ArticleSubmissionController extends Controller
         );
         $this->throw404IfNotFound($article);
 
+        $originalFiles = new ArrayCollection();
+
+        foreach ($article->getArticleFiles() as $file) {
+            $originalFiles->add($file);
+        }
+
         $form = $this->createEditForm($article, $journal);
 
         $form->handleRequest($request);
@@ -408,6 +415,12 @@ class ArticleSubmissionController extends Controller
             foreach ($article->getCitations() as $f_citations) {
                 $f_citations->setOrderNum($i);
                 $i++;
+            }
+
+            foreach ($originalFiles as $file) {
+                if ($article->getArticleFiles()->contains($file) === false) {
+                    $em->remove($file);
+                }
             }
 
             foreach ($article->getArticleFiles() as $f_articleFile) {

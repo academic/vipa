@@ -97,6 +97,7 @@ class ArticleSubmissionType extends AbstractType
                 'validation_groups' => false,
                 'cascade_validation' => true,
                 'data_class' => Article::class,
+                'allow_delete' => true,
                 'citationTypes' => [],
                 'attr' => [
                     'novalidate' => 'novalidate',
