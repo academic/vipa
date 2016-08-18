@@ -530,10 +530,10 @@ class JournalUserController extends Controller
     }
 
     /**
-     * Search users based journal
+     * Search journal based users
      *
-     * @param  Request                                                                                     $request
-     * @return \Ojs\UserBundle\Entity\User[]|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @param Request $request
+     * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException|static
      */
     public function getUserBasedJournalAction(Request $request)
     {
@@ -549,10 +549,15 @@ class JournalUserController extends Controller
             $request->get('page_limit') :
             $defaultLimit;
 
+        $roles = [];
+        if($request->query->has('roles')){
+            $roles = explode(',', $request->get('roles'));
+        }
         $journalUsers = $em->getRepository('OjsUserBundle:User')->searchJournalUser(
             $request->get('q'),
             $journal,
-            $limit
+            $limit,
+            $roles
         );
         $data = [];
         if (count($journalUsers) > 0) {

@@ -14,10 +14,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     /**
      * @param $query
      * @param Journal $journal
-     * @param integer $limit
-     * @return User[]
+     * @param $limit
+     * @param array $roles
+     *
+     * @return array|User[]
      */
-    public function searchJournalUser($query, Journal $journal, $limit)
+    public function searchJournalUser($query, Journal $journal, $limit, $roles = [])
     {
         $query = $this->createQueryBuilder('u')
             ->select('PARTIAL u.{id,username,email,firstName,lastName}')
@@ -28,10 +30,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->setParameter('journal', $journal)
             ->setParameter('query', '%'.$query.'%')
             ->setParameter('enabled', true)
-            ->setMaxResults($limit)
-            ->getQuery();
+            ->setMaxResults($limit);
 
-        return $query->getResult();
+        if(!empty($roles)){
+            $query
+                ->join('ju.roles', 'jur')
+                ->andWhere('jur.role IN (:roles)')
+                ->setParameter('roles', $roles);
+        }
+
+        return $query->getQuery()->getResult();
     }
     /**
      * @param  string                      $username
