@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Event\JournalItemEvent;
@@ -174,6 +175,7 @@ class ArticleController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setCurrentLocale($request->getDefaultLocale());
+            $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
 
             $event = new JournalItemEvent($entity);
             $dispatcher->dispatch(ArticleEvents::PRE_CREATE, $event);

@@ -18,6 +18,7 @@ class ArticleRepository extends EntityRepository
      */
     public function getArticlesUnissued($statuses = [
         ArticleStatuses::STATUS_PUBLISHED,
+        ArticleStatuses::STATUS_PUBLISH_READY,
         ArticleStatuses::STATUS_EARLY_PREVIEW,
     ])
     {

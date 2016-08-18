@@ -36,7 +36,6 @@ Ojs\JournalBundle\Entity\Article:
                 minMessage: "must.specify.least.one.article.citation"
                 maxMessage: "You cannot specify more than {{ limit }} citation"
         status:
-            - NotBlank: ~
             - Ojs\JournalBundle\Validator\Constraints\ArticleStatus: { message: 'article.status_can_not_be_published_without_author'}
         submissionDate:
             - NotBlank: ~
