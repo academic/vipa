@@ -34,6 +34,13 @@
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }}</h1>
                 <h4>@{{ user.username }}</h4>
+                <h4>
+                    {% if user.institutionNotListed %}
+                        {{ user.institutionName }}
+                    {% else %}
+                        {{ user.institution }}
+                    {% endif %}
+                </h4>
                 <a href="{{ user.url }}" target="_blank">{{ user.url }}</a><br>
                 {% if user.city.country is defined %}
                     {{ user.city.country }}

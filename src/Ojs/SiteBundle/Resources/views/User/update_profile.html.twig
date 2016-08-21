@@ -23,3 +23,37 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            function reviseInstitutionInputs(){
+                $.each($('.institutionNotListed'), function (index, value) {
+                    var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                    var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
+                    if(this.checked){
+                        $institutionName.parent().removeClass('hidden');
+                        $institutionSelect.parent().addClass('hidden');
+                    }else{
+                        $institutionName.parent().addClass('hidden');
+                        $institutionSelect.parent().removeClass('hidden');
+                    }
+                });
+            }
+            reviseInstitutionInputs();
+            setInterval(function(){ reviseInstitutionInputs(); }, 1000);
+            $(document).on('change', '.institutionNotListed', function () {
+                var $institutionSelect = $(this).parent().parent().parent().parent().find('.institution');
+                var $institutionName = $(this).parent().parent().parent().parent().find('.institutionName');
+                if(this.checked){
+                    $institutionName.parent().removeClass('hidden');
+                    $institutionSelect.parent().addClass('hidden');
+                }else{
+                    $institutionName.parent().addClass('hidden');
+                    $institutionSelect.parent().removeClass('hidden');
+                }
+            });
+        });
+    </script>
+{% endblock %}

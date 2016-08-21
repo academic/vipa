@@ -89,6 +89,16 @@
                                                 {{ person.about }}
                                             </h6>
                                         {% endif %}
+                                        {% if (person.institutionNotListed == true) or (person.institution is not empty)  %}
+                                            <h6>
+                                                <i>{{ 'institution'|trans }}</i>:
+                                                {% if person.institutionNotListed %}
+                                                    {{ person.institutionName }}
+                                                {% else %}
+                                                    {{ person.institution }}
+                                                {% endif %}
+                                            </h6>
+                                        {% endif %}
                                     </address>
                                 </div>
                                 <div class="col-sm-2">

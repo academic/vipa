@@ -14,6 +14,7 @@ use JMS\Serializer\Annotation\Expose;
 use Ojs\CoreBundle\Entity\GenericEntityTrait;
 use Ojs\CoreBundle\Helper\StringHelper;
 use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalUser;
 use Ojs\JournalBundle\Entity\PersonTitle;
@@ -146,6 +147,23 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      * @Expose
      */
     private $title;
+
+    /**
+     * @var Institution
+     * @Expose
+     */
+    private $institution;
+
+    /**
+     * @var boolean
+     */
+    private $institutionNotListed;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $institutionName;
 
     /**
      * @var Collection
@@ -772,6 +790,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
             'full_name' => $this->getFullName(),
             'header' => $this->getHeader(),
             'title' => $this->getTitle(),
+            'institution' => $this->getInstitution(),
             'city' => $this->getCity()
         ];
         if ($this->getCountry() instanceof Country) {
@@ -834,6 +853,65 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
     public function setTitle(PersonTitle $title = null)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return Institution
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+
+    /**
+     * @param  Institution $institution
+     * @return $this
+     */
+    public function setInstitution(Institution $institution = null)
+    {
+        $this->institution = $institution;
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getInstitutionName()
+    {
+        return $this->institutionName;
+    }
+
+    /**
+     * @param string $institutionName
+     * @return $this
+     */
+    public function setInstitutionName($institutionName)
+    {
+        $this->institutionName = $institutionName;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInstitutionNotListed()
+    {
+        return $this->institutionNotListed;
+    }
+
+    /**
+     * @param boolean $institutionNotListed
+     * @return $this
+     */
+    public function setInstitutionNotListed($institutionNotListed)
+    {
+        $this->institutionNotListed = $institutionNotListed;
 
         return $this;
     }

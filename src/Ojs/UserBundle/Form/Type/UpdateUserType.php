@@ -99,6 +99,24 @@ class UpdateUserType extends AbstractType
                     'class' => 'select2-element',
                 ),
             ))
+            ->add('institution', null, [
+                'attr' => [
+                    'class' => 'institution'
+                ],
+                'label' => 'author.institution'
+            ])
+            ->add('institutionNotListed', null, [
+                'attr' => [
+                    'class' => 'institutionNotListed'
+                ],
+                'label' => 'author.institution_not_listed'
+            ])
+            ->add('institutionName', null, [
+                'attr' => [
+                    'class' => 'institutionName'
+                ],
+                'label' => 'institute.name'
+            ])
         ;
     }
 

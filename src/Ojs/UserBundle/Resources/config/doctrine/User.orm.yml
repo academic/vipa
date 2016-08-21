@@ -47,6 +47,16 @@ Ojs\UserBundle\Entity\User:
       nullable: true
       gedmo:
         - versioned
+    institutionNotListed:
+      type: boolean
+      nullable: true
+      gedmo:
+        - versioned
+    institutionName:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
     url:
       type: string
       nullable: true
@@ -148,6 +158,11 @@ Ojs\UserBundle\Entity\User:
       targetEntity: BulutYazilim\LocationBundle\Entity\Country
       joinColumn:
         name: country_id
+        referencedColumnName: id
+    institution:
+      targetEntity: Ojs\JournalBundle\Entity\Institution
+      joinColumn:
+        name: institution_id
         referencedColumnName: id
   manyToMany:
     subjects:
