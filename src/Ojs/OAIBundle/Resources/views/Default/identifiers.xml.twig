@@ -7,7 +7,7 @@
         {% for record in articles %}
             <header>
                 <identifier>oai:{{ base_host }}:record/{{ record.id }}</identifier>
-                <datestamp>{{ record.submissionDate|date }}2015-06-22T16:19:54Z</datestamp>
+                <datestamp>{{ record.submissionDate|date("Y-m-d\\TH:i:s\\Z") }}</datestamp>
                 <setSpec>{{ record.journal.slug }}</setSpec>
             </header>
         {% endfor %}
