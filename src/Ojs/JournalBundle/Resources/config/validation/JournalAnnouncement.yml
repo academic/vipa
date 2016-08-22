@@ -3,4 +3,4 @@ Ojs\JournalBundle\Entity\JournalAnnouncement:
         title:
             - NotBlank: ~
         content:
-            - Url: ~
+            - NotBlank: ~

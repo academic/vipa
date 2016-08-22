@@ -17,9 +17,10 @@ class JournalAnnouncementType extends AbstractType
     {
         $builder
             ->add('title', 'text')
-            ->add('content', 'url', array(
+            ->add('content', 'purified_textarea', array(
                 'required' => false,
-                'label' => 'url',
+                'attr' => array('class' => ' form-control wysihtml5'),
+                'label' => 'content',
             ))
             ->add('image', 'jb_image_ajax', array(
                 'endpoint' => 'announcement'
