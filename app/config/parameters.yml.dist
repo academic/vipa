@@ -28,10 +28,6 @@ parameters:
     linkedin.client_id: 1
     linkedin.client_secret: 1
     https: false
-    feedback_categories:
-        - Genel
-        - 'Hata Bildirimi'
-        - Fikir
     defaultPublisherSlug: www
     ojs_logo: http://ojs.io/assets/app/images/logo.png
     ojs_favicon: http://ojs.io/assets/app/images/logo.png

@@ -43,8 +43,6 @@ class AppKernel extends Kernel
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Baskin\HistoryBundle\BaskinHistoryBundle(),
-            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
-            new BulutYazilim\FeedbackBundle\BulutYazilimFeedbackBundle(),
             new Ojs\CoreBundle\OjsCoreBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
             new Ojs\AdminBundle\OjsAdminBundle(),

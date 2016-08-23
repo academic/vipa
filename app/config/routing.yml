@@ -64,10 +64,6 @@ ojs_export:
   resource: '@OjsExportBundle/Resources/config/routing.yml'
   prefix:   /
 
-feedback:
-  resource: '@BulutYazilimFeedbackBundle/Resources/config/routing.yml'
-  prefix:   /
-
 oneup_uploader:
   resource: .
   type: uploader
@@ -104,9 +100,6 @@ rest:
   type: rest
   resource: routing_rest.yml
   prefix: /api/
-
-gregwar_captcha_routing:
-    resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"
 
 _bazinga_jstranslation:
     resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
