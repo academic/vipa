@@ -177,16 +177,20 @@ presta_sitemap:
 hwi_oauth:
   connect:
     account_connector: ojs.user.oauth
-  firewall_name: main
+  firewall_names: [main]
   resource_owners:
     orcid:
-      type:                oauth2
+      type:                orcid
       client_id:           "%orcid.client_id%"
       client_secret:       "%orcid.client_secret%"
-      access_token_url:    https://pub.orcid.org/oauth/token
-      authorization_url:   https://orcid.org/oauth/authorize
-      infos_url:           http://pub.orcid.org/v1.2
-      scope:               "/authenticate"
+    academicid:
+      type:                oauth2
+      client_id:           "%academicid.client_id%"
+      client_secret:       "%academicid.client_secret%"
+      access_token_url:    http://id.academic.io/access_token
+      authorization_url:   http://id.academic.io/authorize
+      infos_url:           http://id.academic.io/api/profile
+      scope:               "basic"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
         identifier: "orcid-profile.orcid-identifier.path"

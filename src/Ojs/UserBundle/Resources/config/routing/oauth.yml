@@ -1,6 +1,9 @@
 ojs_user_oauth_orcid:
   path: /login/check-orcid
 
+ojs_user_oauth_academicid:
+  path: /login/check-academicid
+
 ojs_user_oauth_linkedin:
   path: /login/check-linkedin
 

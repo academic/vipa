@@ -54,6 +54,7 @@ security:
       oauth:
         resource_owners:
           orcid: /oauth/login/check-orcid
+          academicid: /oauth/login/check-academicid
           linkedin: /oauth/login/check-linkedin
         login_path:   /login
         use_forward:  false
