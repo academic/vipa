@@ -59,7 +59,7 @@
                             {{ knp_menu_render('OjsAdminBundle:MenuBuilder:adminLeftMenu', {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                         <div class="col-md-6 col-xs-12">
-                            {% set menuItem = knp_menu_get('OjsAdminBundle:MenuBuilder:adminRightMenu', [], {'unreadFeedbacks': unreadFeedbacks}) %}
+                            {% set menuItem = knp_menu_get('OjsAdminBundle:MenuBuilder:adminRightMenu') %}
                             {{ knp_menu_render(menuItem, {'template': 'OjsAdminBundle:Menu:knp_menu.html.twig'}) }}
                         </div>
                     </div>

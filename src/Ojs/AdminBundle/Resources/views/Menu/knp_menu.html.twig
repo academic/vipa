@@ -6,8 +6,5 @@
             <i class="fa fa-{{ item.extras.icon }}"></i>
         </span>
         {{ block('label')|trans }}
-        {% if item.extras.unreadFeedbackCount is defined and item.extras.unreadFeedbackCount > 0 %}
-            <span class="badge">{{ item.extras.unreadFeedbackCount }}</span>
-        {% endif %}
     </a>
 {% endblock %}

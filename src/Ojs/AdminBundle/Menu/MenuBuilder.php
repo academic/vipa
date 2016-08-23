@@ -55,7 +55,6 @@ class MenuBuilder implements ContainerAwareInterface
             ['title.publisher_design',          'ojs_admin_publisher_design_index',         'wrench'],
             ['title.publisher_managers',        'ojs_admin_publisher_managers_index',       'users'],
             ['title.default_journal_theme',     'ojs_admin_journal_theme_index',            'css3'],
-            ['feedback',                        'bulutyazilim_feedback_homepage',            'envelope',         $options['unreadFeedbacks']],
             ['title.system_settings',           'ojs_admin_system_setting_index',           'gears'],
             ['stats',                           'ojs_admin_stats',                          'bar-chart'],
             ['period',                          'ojs_admin_period_index',                   'calendar-check-o'],
@@ -99,16 +98,11 @@ class MenuBuilder implements ContainerAwareInterface
             $label = $item[0];
             $path = $item[1];
             $icon = $item[2];
-            $unreadFeedbackCount = 0;
-            if(isset($item[3])){
-                $unreadFeedbackCount = $item[3];
-            }
 
             $menu->addChild($label, [
                 'route' => $path,
                 'extras' => [
-                    'icon' => $icon,
-                    'unreadFeedbackCount' => $unreadFeedbackCount
+                    'icon' => $icon
                 ],
             ]);
         }
