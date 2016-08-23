@@ -190,7 +190,7 @@ hwi_oauth:
       access_token_url:    http://id.academic.io/access_token
       authorization_url:   http://id.academic.io/authorize
       infos_url:           http://id.academic.io/api/profile
-      scope:               "basic"
+      scope:               "name photo"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
         identifier: "orcid-profile.orcid-identifier.path"
