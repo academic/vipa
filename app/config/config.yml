@@ -193,11 +193,10 @@ hwi_oauth:
       scope:               "name"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
-        identifier: "orcid-profile.orcid-identifier.path"
-        nickname: "orcid-profile.orcid-identifier.path"
-        lastname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
-        firstname:   "orcid-profile.orcid-bio.personal-details.given-names.value"
-        realname:   "orcid-profile.orcid-bio.personal-details.family-name.value"
+        identifier: "id"
+        nickname: "username"
+        realname:   "fullName"
+        email: "email"
     linkedin:
       type:           linkedin
       client_id:      "%linkedin.client_id%"
