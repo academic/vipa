@@ -194,6 +194,7 @@ hwi_oauth:
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
         identifier: "username"
+        nickname: "username"
         realname:   "fullName"
         email: "email"
     linkedin:
