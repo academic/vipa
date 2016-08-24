@@ -202,13 +202,10 @@ class JournalService
      */
     public function generateUrl(Journal $journal)
     {
-        $publisher = $journal->getPublisher();
-        $publisherSlug = $publisher ? $publisher->getSlug() : $this->defaultPublisherSlug;
-
         return $this->router
             ->generate(
-                'ojs_journal_index',
-                array('slug' => $journal->getSlug(), 'publisher' => $publisherSlug),
+                'ojs_journal_index_without_publisher',
+                array('slug' => $journal->getSlug()),
                 Router::ABSOLUTE_URL
             );
     }

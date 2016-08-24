@@ -128,7 +128,7 @@ class JournalController extends Controller
      * @param $slug
      * @return Response
      */
-    public function journalIndexAction(Request $request, $publisher, $slug)
+    public function journalIndexAction(Request $request, $publisher = null, $slug)
     {
         $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
@@ -139,13 +139,13 @@ class JournalController extends Controller
         $blockRepo = $em->getRepository('OjsJournalBundle:Block');
         /** @var IssueRepository $issueRepo */
         $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        /** @var Journal $journal */
+        $journal = $journalRepo->findOneBy(['slug' => $slug, 'status' => JournalStatuses::STATUS_PUBLISHED]);
+        $this->throw404IfNotFound($journal);
 
-        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $publisher, 'status' => PublisherStatuses::STATUS_COMPLETE]);
+        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $journal->getPublisher()->getSlug(), 'status' => PublisherStatuses::STATUS_COMPLETE]);
         $this->throw404IfNotFound($publisherEntity);
 
-        /** @var Journal $journal */
-        $journal = $journalRepo->findOneBy(['slug' => $slug, 'publisher' => $publisherEntity, 'status' => JournalStatuses::STATUS_PUBLISHED]);
-        $this->throw404IfNotFound($journal);
 
         //if system supports journal mandatory locale set locale as journal mandatory locale
         if(in_array($journal->getMandatoryLang()->getCode(),$this->getParameter('locale_support'))){

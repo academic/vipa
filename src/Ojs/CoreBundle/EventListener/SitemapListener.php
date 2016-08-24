@@ -79,8 +79,7 @@ class SitemapListener implements SitemapListenerInterface
             }
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
-                    $this->router->generate('ojs_journal_index', [
-                        'publisher'     => $journal->getPublisher()->getSlug(),
+                    $this->router->generate('ojs_journal_index_without_publisher', [
                         'slug'          => $journal->getSlug()
                     ], true),
                     new \DateTime(),

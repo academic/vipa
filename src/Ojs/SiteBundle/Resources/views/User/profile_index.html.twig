@@ -85,7 +85,7 @@
                         <div class="grid-item journal-item">
                             <div class="views-field-field-journal-cover-fid">
                                 <span class="field-content">
-                                    {% set url =  path('ojs_journal_index', {slug: journal.slug, publisher: journal.publisher.slug}) %}
+                                    {% set url =  path('ojs_journal_index_without_publisher', {slug: journal.slug}) %}
                                     <a href="{{ url }}">
                                         {% if journal.image is defined and journal.image is not null %}
                                             {% set src = journal.image|imagine_filter('journal_croped') %}
@@ -150,8 +150,7 @@
                                         }) }}">
                                             <span>{{ article.title(false) }}</span>
                                         </a>@
-                                        <a href="{{ path('ojs_journal_index', {
-                                            publisher: article.journal.publisher.slug,
+                                        <a href="{{ path('ojs_journal_index_without_publisher', {
                                             slug: article.journal.slug
                                         }) }}">
                                             <span>{{ article.journal.title }}</span>
