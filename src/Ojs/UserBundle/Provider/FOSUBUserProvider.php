@@ -88,14 +88,14 @@ class FOSUBUserProvider extends BaseProvider
             $parts = explode(" ", $fullName);
             $lastname = array_pop($parts);
             $firstname = implode(" ", $parts);
-            $user = new User();
+            $user = $this->userManager->createUser();
             $user->setEnabled(true);
             $user->setUsername($response->getUsername());
             $user->setEmail($response->getEmail());
             $user->setPlainPassword(var_dump(bin2hex(random_bytes(5))));
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
-            $this->em->persist($user);
+            $this->userManager->updateUser($user);
 
             $connection = new UserOauthAccount();
             $connection->setUser($user);
