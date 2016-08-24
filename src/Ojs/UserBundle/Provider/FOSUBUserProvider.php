@@ -92,7 +92,7 @@ class FOSUBUserProvider extends BaseProvider
             $user->setEnabled(true);
             $user->setUsername($response->getUsername());
             $user->setEmail($response->getEmail());
-            $user->setPlainPassword(var_dump(bin2hex(random_bytes(5))));
+            $user->setPlainPassword(bin2hex(random_bytes(5)));
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
             $this->userManager->updateUser($user);
