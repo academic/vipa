@@ -79,7 +79,7 @@ class FOSUBUserProvider extends BaseProvider
         }
 
         if (!$connection || $connection->getUser() === null) {
-            dump($response);
+            var_dump($response->getResponse());
             die();
             $user = new User();
             $user->setEnabled(true);
