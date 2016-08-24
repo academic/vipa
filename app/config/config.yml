@@ -193,8 +193,7 @@ hwi_oauth:
       scope:               "name email"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
       paths:
-        identifier: "id"
-        nickname: "username"
+        identifier: "username"
         realname:   "fullName"
         email: "email"
     linkedin:

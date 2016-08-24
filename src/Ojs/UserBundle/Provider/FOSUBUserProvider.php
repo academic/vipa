@@ -7,6 +7,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseProvider;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -79,25 +80,28 @@ class FOSUBUserProvider extends BaseProvider
         }
 
         if (!$connection || $connection->getUser() === null) {
-            var_dump($response->getResponse());
-            die();
+            if(!empty($response->getEmail())) {
+                $message = sprintf("User not found. Please register first and then connect the account from your profile.", $username);
+                throw new AccountNotLinkedException($message);
+            }
+            $fullName = $response->getRealName();
+            $parts = explode(" ", $fullName);
+            $lastname = array_pop($parts);
+            $firstname = implode(" ", $parts);
             $user = new User();
             $user->setEnabled(true);
-            if(!empty($response->getEmail())) {
-                $user->setEmail($response->getEmail());
-            }
-            if(!empty($response->getNickname())) {
-                $user->setUsername($response->getNickname());
-            }
-            if(!empty($response->getUsername())) {
-                $user->setUsername($response->getUsername());
-            }
+            $user->setUsername($response->getUsername());
+            $user->setEmail($response->getEmail());
+            $user->setPlainPassword(var_dump(bin2hex(random_bytes(5))));
+            $user->setFirstName($firstname);
+            $user->setLastName($lastname);
+            $this->em->persist($connection);
+
             $connection = new UserOauthAccount();
             $connection->setUser($user);
             $connection->setProvider($service);
             $connection->setProviderId($response->getUsername());
-            $message = sprintf("User not found. Please register first and then connect the account from your profile.", $username);
-            throw new AccountNotLinkedException($message);
+
         }
 
         $connection->setToken($response->getAccessToken());
