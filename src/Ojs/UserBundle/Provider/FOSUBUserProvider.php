@@ -95,7 +95,7 @@ class FOSUBUserProvider extends BaseProvider
             $user->setPlainPassword(var_dump(bin2hex(random_bytes(5))));
             $user->setFirstName($firstname);
             $user->setLastName($lastname);
-            $this->em->persist($connection);
+            $this->em->persist($user);
 
             $connection = new UserOauthAccount();
             $connection->setUser($user);
