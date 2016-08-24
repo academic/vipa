@@ -79,6 +79,23 @@ class FOSUBUserProvider extends BaseProvider
         }
 
         if (!$connection || $connection->getUser() === null) {
+            var_dump($response);
+            die();
+            $user = new User();
+            $user->setEnabled(true);
+            if(!empty($response->getEmail())) {
+                $user->setEmail($response->getEmail());
+            }
+            if(!empty($response->getNickname())) {
+                $user->setUsername($response->getNickname());
+            }
+            if(!empty($response->getUsername())) {
+                $user->setUsername($response->getUsername());
+            }
+            $connection = new UserOauthAccount();
+            $connection->setUser($user);
+            $connection->setProvider($service);
+            $connection->setProviderId($response->getUsername());
             $message = sprintf("User not found. Please register first and then connect the account from your profile.", $username);
             throw new AccountNotLinkedException($message);
         }
