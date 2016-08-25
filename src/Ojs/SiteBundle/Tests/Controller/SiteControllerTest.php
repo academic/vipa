@@ -15,7 +15,7 @@ class SiteControllerTest extends BaseTestCase
 
     public function testPublisherPage()
     {
-        $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
+        $client = $this->client;
         $client->request('GET','/');
         $this->assertStatusCode(200,$client);
     }

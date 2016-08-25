@@ -9,7 +9,7 @@ class PeopleControllerTest extends BaseTestCase
     public function testIndex()
     {
         $client = $this->client;
-        $crawler = $client->request('GET', '/people');
+        $crawler = $client->request('GET', '/explore/people');
         $this->assertStatusCode(200, $client);
     }
 

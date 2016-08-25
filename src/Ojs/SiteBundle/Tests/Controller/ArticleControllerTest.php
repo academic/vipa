@@ -8,21 +8,21 @@ class ArticleControllerTest extends BaseTestCase
 {
     public function testArticlePage()
     {
-        $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
+        $client = $this->client;
         $client->request('GET','/intro/issue/1/1');
         $this->assertStatusCode(200,$client);
     }
 
     public function testArticleWithoutIssuePage()
     {
-        $client = static::makeClient(array(),array('HTTP_HOST' => 'www.ojs.dev'));
+        $client = $this->client;
         $client->request('GET','/intro/article/1');
         $this->assertStatusCode(302,$client);
     }
 
     public function testJournalArticles()
     {
-        $client = static::makeClient(array(), array('HTTP_HOST' => 'www.ojs.dev'));
+        $client = $this->client;
         $client->request('GET', '/intro/articles');
         $this->assertStatusCode(200, $client);
     }
