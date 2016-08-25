@@ -48,9 +48,9 @@
                         <dc:type>info:eu-repo/semantics/article</dc:type>
                         <dc:format>application/pdf</dc:format>
                         {% if record.issue %}
-                            <dc:identifier>{{ url('ojs_article_page', {article_id: record.id, issue_id: record.issue.id, slug: record.journal.slug,publisher:record.journal.publisher.slug}) }}</dc:identifier>
+                            <dc:identifier>{{ url('ojs_article_page_without_publisher', {article_id: record.id, issue_id: record.issue.id, slug: record.journal.slug}) }}</dc:identifier>
                         {% else %}
-                            <dc:identifier>{{ url('ojs_article_page', {article_id: record.id, issue_id: 0, slug: record.journal.slug, publisher:record.journal.publisher.slug}) }}</dc:identifier>
+                            <dc:identifier>{{ url('ojs_article_page_without_publisher', {article_id: record.id, issue_id: 0, slug: record.journal.slug}) }}</dc:identifier>
                         {% endif %}
                         <dc:identifier>{{ record.doi }}</dc:identifier>
                         {% if record.issue %}

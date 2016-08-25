@@ -213,10 +213,9 @@ class JournalController extends Controller
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
 
         $data['archive_uri'] = $this->generateUrl(
-            'ojs_archive_index',
+            'ojs_archive_index_without_publisher',
             [
-                'slug' => $journal->getSlug(),
-                'publisher' => $journal->getPublisher()->getSlug(),
+                'slug' => $journal->getSlug()
             ],
             true
         );
@@ -237,9 +236,8 @@ class JournalController extends Controller
             foreach ($year as $issue) {
                 $issue->setPublicURI(
                     $this->generateUrl(
-                        'ojs_issue_page',
+                        'ojs_issue_page_without_publisher',
                         [
-                            'publisher' => $issue->getJournal()->getPublisher()->getSlug(),
                             'journal_slug' => $issue->getJournal()->getSlug(),
                             'id' => $issue->getId(),
                         ],
@@ -262,9 +260,8 @@ class JournalController extends Controller
         foreach ($articles as $article) {
             $article->setPublicURI(
                 $this->generateUrl(
-                    'ojs_article_page',
+                    'ojs_article_page_without_publisher',
                     [
-                        'publisher'  => $article->getIssue()->getJournal()->getPublisher()->getSlug(),
                         'slug'       => $article->getIssue()->getJournal()->getSlug(),
                         'issue_id'   => $article->getIssue()->getId(),
                         'article_id' => $article->getId(),

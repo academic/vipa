@@ -127,20 +127,20 @@
                            class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_journal_index_board',{slug: journal.slug, publisher: journal.publisher.slug})  }}"
+                        <a href="{{ url('ojs_journal_index_board_without_publisher',{slug: journal.slug})  }}"
                            class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "board"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_early_preview_index',{slug: journal.slug, publisher: journal.publisher.slug})  }}"
+                        <a href="{{ url('ojs_early_preview_index_without_publisher',{slug: journal.slug})  }}"
                            class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "status.early_preview"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                        <a href="{{ url('ojs_journal_contacts_without_publisher',{slug: journal.slug}) }}"
                            class="list-group-item ">
                             <h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
                         </a>
 
-                        <a href="{{ url('ojs_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                        <a href="{{ url('ojs_announcement_index_without_publisher',{slug: journal.slug}) }}"
                            class="list-group-item ">
                             <h5><i class="fa fa-bullhorn"></i> {{ "announcements"|trans }}</h5>
                         </a>
@@ -156,7 +156,7 @@
 
                         <div class="list-group-item ">
                             <form role="search"
-                                  action="{{ path('ojs_journal_subscribe',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                                  action="{{ path('ojs_journal_subscribe_without_publisher',{slug: journal.slug}) }}"
                                   method="post">
                                 <div class="input-group">
                                     <input type="text" class="form-control"
@@ -289,8 +289,8 @@
                     <ul>
                         {% for post in posts %}
                             <li>
-                                <a href="{{ path('ojs_site_journal_post',
-                                {'slug': post.slug, 'publisher': journal.publisher.slug, 'journal_slug': journal.slug}) }}">
+                                <a href="{{ path('ojs_site_journal_post_without_publisher',
+                                {'slug': post.slug, 'journal_slug': journal.slug}) }}">
                                     {{ post.title }}</a>
                             </li>
                         {% endfor %}

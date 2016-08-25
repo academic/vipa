@@ -8,8 +8,8 @@
         {'link': path('ojs_public_index'), 'title': project_name},
         {'link': journal.publicURI,'title': article.journal.title},
         {'link': archive_uri, 'title': "archive"|trans},
-        {'link': path('ojs_issue_page',
-        {journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}),
+        {'link': path('ojs_issue_page_without_publisher',
+        {journal_slug:journal.slug,id: article.issue.id}),
         'title': "volume"|trans ~ " " ~ article.issue.volume ~ ", " ~ "issue"|trans ~ " " ~ article.issue.number },
         ] %}
     {% else %}
@@ -29,7 +29,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     {% if article.issue %}
-                    <a href="{{ url('ojs_issue_page', {journal_slug:journal.slug,id: article.issue.id, publisher: journal.publisher.slug}) }}">
+                    <a href="{{ url('ojs_issue_page_without_publisher', {journal_slug:journal.slug,id: article.issue.id}) }}">
                         {{ "volume"|trans }} {{ article.issue.volume }}, {{ "issue"|trans }} {{ article.issue.number }},
                     </a>
                     {% endif %}
@@ -111,8 +111,7 @@
 
                                         {% if article.issue %}
                                         <sup>
-                                            <a href="{{ path('ojs_article_page', {
-                                                publisher: journal.publisher.slug,
+                                            <a href="{{ path('ojs_article_page_without_publisher', {
                                                 issue_id: article.issue.id,
                                                 article_id: article.id,
                                                 slug: journal.slug
@@ -276,11 +275,11 @@
                    class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                 </a>
 
-                <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                <a href="{{ url('ojs_journal_contacts_without_publisher',{slug: journal.slug}) }}"
                    class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}
                     </h5>
                 </a>
-                <a href="{{ url('ojs_announcement_index',{slug: journal.slug, publisher: journal.publisher.slug}) }}"
+                <a href="{{ url('ojs_announcement_index_without_publisher',{slug: journal.slug}) }}"
                    class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
                 </a>
 

@@ -235,11 +235,10 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_issue_page',
+                'ojs_issue_page_without_publisher',
                 [
                     'id' => $issueObject->getId(),
-                    'journal_slug' => $source['journal']['slug'],
-                    'publisher' => $source['journal']['publisher']['slug'],
+                    'journal_slug' => $source['journal']['slug']
                 ],
                 true
             );
@@ -276,12 +275,11 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_article_page',
+                'ojs_article_page_without_publisher',
                 [
                     'slug' => $source['journal']['slug'],
                     'article_id' => $articleObject->getId(),
-                    'issue_id' => $source['issue']['id'],
-                    'publisher' => $source['journal']['publisher']['slug'],
+                    'issue_id' => $source['issue']['id']
                 ],
                 true
             );
@@ -325,12 +323,11 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_article_page',
+                'ojs_article_page_without_publisher',
                 [
                     'slug' => $journal['slug'],
                     'article_id' => $article['id'],
                     'issue_id' => $issue['id'],
-                    'publisher' => $publisher['slug'],
                 ],
                 true
             );
@@ -373,12 +370,11 @@ class SearchManager
         }
         return $this->router
             ->generate(
-                'ojs_article_page',
+                'ojs_article_page_without_publisher',
                 [
                     'slug' => $journal['slug'],
                     'article_id' => $article['id'],
                     'issue_id' => $issue['id'],
-                    'publisher' => $publisher['slug'],
                 ],
                 true
             );

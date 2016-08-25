@@ -44,11 +44,10 @@ class RedirectController extends Controller
 
         return $this->redirect(
             $this->generateUrl(
-                'ojs_article_withoutIssue_page',
+                'ojs_article_withoutIssue_page_without_publisher',
                 array(
                     'slug' => $article->getJournal()->getSlug(),
-                    'article_id' => $article->getId(),
-                    'publisher' => $article->getJournal()->getPublisher()->getSlug(),
+                    'article_id' => $article->getId()
                 )
             )
         );

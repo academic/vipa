@@ -105,8 +105,7 @@ class SitemapListener implements SitemapListenerInterface
         foreach($issues as $issue){
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
-                    $this->router->generate('ojs_issue_page', [
-                        'publisher'     => $journal->getPublisher()->getSlug(),
+                    $this->router->generate('ojs_issue_page_without_publisher', [
                         'journal_slug'  => $journal->getSlug(),
                         'id'            => $issue->getId()
                     ], true),
@@ -133,8 +132,7 @@ class SitemapListener implements SitemapListenerInterface
         foreach($articles as $article){
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
-                    $this->router->generate('ojs_article_page', [
-                        'publisher'     => $journal->getPublisher()->getSlug(),
+                    $this->router->generate('ojs_article_page_without_publisher', [
                         'slug'          => $journal->getSlug(),
                         'issue_id'      => $issue->getId(),
                         'article_id'    => $article->getId()

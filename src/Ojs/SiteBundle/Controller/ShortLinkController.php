@@ -10,9 +10,8 @@ class ShortLinkController extends Controller
     public function articleIdAction(Article $article)
     {
         return $this->redirectToRoute(
-            'ojs_article_page',
+            'ojs_article_page_without_publisher',
             [
-                'publisher' => $article->getJournal()->getPublisher()->getSlug(),
                 'slug' => $article->getJournal()->getSlug(),
                 'article_id' => $article->getId(),
                 'issue_id'   => $article->getIssue()->getId()
@@ -34,9 +33,8 @@ class ShortLinkController extends Controller
         $this->throw404IfNotFound($article->getIssue());
 
         return $this->redirectToRoute(
-            'ojs_article_page',
+            'ojs_article_page_without_publisher',
             [
-                'publisher' => $article->getJournal()->getPublisher()->getSlug(),
                 'slug' => $article->getJournal()->getSlug(),
                 'article_id' => $article->getId(),
                 'issue_id'   => $article->getIssue()->getId()

@@ -56,7 +56,7 @@
                                         {% elseif isJournalHosting is defined %}
                                             {{ url('journal_hosting_issue',{id: issue.id}) }}
                                         {% else %}
-                                            {{ url('ojs_issue_page',{journal_slug:journal.slug,publisher:journal.publisher.slug,id:issue.id}) }}
+                                            {{ url('ojs_issue_page_without_publisher',{journal_slug:journal.slug,id:issue.id}) }}
                                         {% endif %}">
 
                                         {% if issue.cover is not null %}

@@ -40,7 +40,7 @@
                     <a title="{{ "page.plural"|trans }}" class="label label-default">{{ article.firstPage }}
                         - {{ article.lastPage }}</a>
                     <a target="_blank"
-                       href="{{ path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'publisher' : article.journal.publisher.slug  } ) }}">
+                       href="{{ path('ojs_article_page_without_publisher', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id  } ) }}">
                         {{ article.title }}
                     </a>
                 </div>

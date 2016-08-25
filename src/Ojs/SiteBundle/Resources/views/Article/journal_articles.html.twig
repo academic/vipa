@@ -47,11 +47,11 @@
                                 <li class="list-group-item list-group-item-default">
 
                                     {% if article.issue is not empty %}
-                                        <a href="{{ url('ojs_article_page',{article_id: article.id,slug: journal.slug,publisher: journal.publisher.slug, issue_id: article.issue.id}) }}">
+                                        <a href="{{ url('ojs_article_page_without_publisher',{article_id: article.id,slug: journal.slug, issue_id: article.issue.id}) }}">
                                             <i class="fa fa-file-text"></i> {{ article.title }}
                                         </a>
                                     {% else %}
-                                        <a href="{{ url('ojs_article_withoutIssue_page',{article_id: article.id,slug: journal.slug,publisher: journal.publisher.slug}) }}">
+                                        <a href="{{ url('ojs_article_withoutIssue_page_without_publisher',{article_id: article.id,slug: journal.slug}) }}">
                                             <i class="fa fa-file-text"></i> {{ article.title }}
                                         </a>
                                     {% endif %}

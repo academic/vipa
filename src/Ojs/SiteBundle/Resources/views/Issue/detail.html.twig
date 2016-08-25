@@ -79,10 +79,9 @@
                                                             slug: issue.journal.slug,
                                                             issue_id: issue.id}) }}
                                                 {% else %}
-                                                    {{ url('ojs_article_page', {article_id: article.id,
+                                                    {{ url('ojs_article_page_without_publisher', {article_id: article.id,
                                                         slug: issue.journal.slug,
-                                                        issue_id: issue.id,
-                                                        publisher: issue.journal.publisher.slug}) }}
+                                                        issue_id: issue.id}) }}
                                                 {% endif %}">
                                                 <i class="fa fa-file-text"></i> {{ article.title }}
                                             </a>

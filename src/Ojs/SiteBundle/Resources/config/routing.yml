@@ -11,6 +11,7 @@ site_shortlink_doi:
 ojs_application:
     resource: "@OjsSiteBundle/Resources/config/routing/application.yml"
     prefix: /apply
+
 ojs_explore:
     resource: "@OjsSiteBundle/Resources/config/routing/explore.yml"
     prefix: /explore
@@ -208,7 +209,7 @@ ojs_journal_contacts_without_publisher:
 
 ojs_people:
     resource: "@OjsSiteBundle/Resources/config/routing/people.yml"
-    prefix: /people
+    prefix: /explore/people
 
 ojs_site_download:
     prefix:   /download

@@ -104,7 +104,7 @@
                                            href="{{ path('ojs_journal_issue_article_remove', {'id':issue.id, 'journalId': issue.journal.id, 'articleId': article.id}) }}">
                                             <i class="fa fa-remove"></i>
                                         </a>
-                                        <a href="{{ path('ojs_article_page', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id, 'publisher' : article.journal.publisher.slug  } ) }}">
+                                        <a href="{{ path('ojs_article_page_without_publisher', {'issue_id': issue.id,'slug': article.journal.slug, 'article_id' : article.id  } ) }}">
                                             <small>{{ article.title }}</small>
                                         </a>
                                     </td>
