@@ -32,8 +32,8 @@ class IssueType extends AbstractType
                     ],
                 ]
             )
-            ->add('volume', 'integer', ['label' => 'volume', 'required' => false])
-            ->add('number', 'integer', ['label' => 'number', 'required' => false])
+            ->add('volume', 'text', ['label' => 'volume', 'required' => false])
+            ->add('number', 'text', ['label' => 'number', 'required' => false])
             ->add(
                 'display_mode',
                 'choice',

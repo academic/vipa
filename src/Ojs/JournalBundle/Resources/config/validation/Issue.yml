@@ -10,6 +10,6 @@ Ojs\JournalBundle\Entity\Issue:
         year:
             - NotBlank: ~
         number:
-            - Type: integer
+            - Regex: '/[0-9-]+/'
         volume:
-            - Type: integer
+            - Regex: '/[0-9-]+/'
