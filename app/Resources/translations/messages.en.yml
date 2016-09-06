@@ -547,6 +547,7 @@ journal.editor_surname: 'Editor Surname'
 journal.eissn: 'eISSN'
 journal.email: 'Journal''s Contact E-mail'
 journal.founded: 'Founded'
+journal.endingDate: 'End Date (new submissions will not be accepted)'
 journal.file: 'Required Files'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Header Image'
@@ -701,7 +702,7 @@ mastersthesis: 'Master Thesis'
 messages: Messages
 message.application_not_available: 'Sorry, you can not make a new application'
 message.registration_not_available: 'Sorry, you can not make a new registration.'
-message.submission_not_available: 'Sorry, you can create a new submission.'
+message.submission_not_available: 'Sorry, you can not create a new submission.'
 mimetype: 'Mime Type'
 misc: Miscellaneous
 mission: Mission

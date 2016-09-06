@@ -160,6 +160,24 @@ class JournalType extends AbstractType
                     ],
                 )
             )
+            ->add(
+                'endingDate',
+                'collot_datetime',
+                array(
+                    'required' => false,
+                    'label' => 'journal.endingDate',
+                    'date_format' => 'yyyy',
+                    'widget' => 'single_text',
+                    'pickerOptions' => [
+                        'format' => 'yyyy',
+                        'startView' => 'decade',
+                        'minView' => 'decade',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
+                )
+            )
             ->add('domain', null, ['label' => 'journal.domain'])
             ->add(
                 'googleAnalyticsId',

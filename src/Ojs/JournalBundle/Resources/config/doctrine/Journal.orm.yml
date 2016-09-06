@@ -221,6 +221,10 @@ Ojs\JournalBundle\Entity\Journal:
       type: datetime
       column: founded
       nullable: true
+    endingDate:
+      type: datetime
+      column: ending_date
+      nullable: true
     url:
       type: string
       length: 255
