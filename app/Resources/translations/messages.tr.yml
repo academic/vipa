@@ -772,6 +772,7 @@ ojs.welcome_msg: 'Sisteme katıldınız.'
 onlineSubmission: 'Online Makalem'
 optional: 'İsteğe Bağlı'
 orcid.login: 'ORCID ile Giriş'
+academicid.login: 'Akademic ID ile Giriş'
 order: Sıra
 order_by: 'Sıralama Öğesi'
 otherid: 'Diğer ID'
@@ -1330,6 +1331,7 @@ user.connected_accounts: 'İlişkili Hesaplar'
 user.connected_accounts.action: Hareketler
 user.connected_accounts.add: 'Hesap Ekle'
 user.connected_accounts.add_orcid_account: 'ORCID''e Bağlan'
+user.connected_accounts.add_academicid_account: 'Akademik ID''ye Bağlan'
 user.connected_accounts.provider: Sağlayıcı
 user.connected_accounts.provider_user_id: 'Sağlayıcı ID''si'
 user.current_roles: 'Aktif Roller'
@@ -1649,6 +1651,7 @@ articles.total.view: 'Makalelerin Toplam Gösterim Sayısı'
 # OAuth
 linkedin: 'Linkedin'
 orcid: 'ORCID'
+academicid: 'Akademik ID'
 oauth.login_with: 'Sosyal Hesap ile Giriş'
 oauth.connect_before: 'Bu özelliği kullanmanız için hesabınızı önceden bağlamış olmanız gerekir.'
 

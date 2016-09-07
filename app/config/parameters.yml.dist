@@ -25,6 +25,8 @@ parameters:
     elasticsearch_index_name: ojs.elastic.index
     orcid.client_id: 1
     orcid.client_secret: 1
+    academicid.client_id: 1
+    academicid.client_secret: 1
     linkedin.client_id: 1
     linkedin.client_secret: 1
     https: false

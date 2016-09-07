@@ -7,6 +7,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\Exception\AccountNotLinkedException;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseProvider;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -79,8 +80,28 @@ class FOSUBUserProvider extends BaseProvider
         }
 
         if (!$connection || $connection->getUser() === null) {
-            $message = sprintf("User not found. Please register first and then connect the account from your profile.", $username);
-            throw new AccountNotLinkedException($message);
+            if(empty($response->getEmail())) {
+                $message = sprintf("User not found. Please register first and then connect the account from your profile.", $username);
+                throw new AccountNotLinkedException($message);
+            }
+            $fullName = $response->getRealName();
+            $parts = explode(" ", $fullName);
+            $lastname = array_pop($parts);
+            $firstname = implode(" ", $parts);
+            $user = $this->userManager->createUser();
+            $user->setEnabled(true);
+            $user->setUsername($response->getUsername());
+            $user->setEmail($response->getEmail());
+            $user->setPlainPassword(bin2hex(random_bytes(5)));
+            $user->setFirstName($firstname);
+            $user->setLastName($lastname);
+            $this->userManager->updateUser($user);
+
+            $connection = new UserOauthAccount();
+            $connection->setUser($user);
+            $connection->setProvider($service);
+            $connection->setProviderId($response->getUsername());
+
         }
 
         $connection->setToken($response->getAccessToken());

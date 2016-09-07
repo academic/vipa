@@ -774,6 +774,7 @@ ojs.welcome_msg: 'You have joined to OJS'
 onlineSubmission: 'Online Submission'
 optional: Optional
 orcid.login: 'Orcid login'
+academicid.login: 'Academic ID login'
 order: Order
 order_by: 'Order by'
 otherid: 'Other ID'
@@ -1335,6 +1336,7 @@ user.connected_accounts: 'Connected Accounts'
 user.connected_accounts.action: Actions
 user.connected_accounts.add: 'Add Account'
 user.connected_accounts.add_orcid_account: 'Connect ORCID'
+user.connected_accounts.add_academicid_account: 'Connect Academic Id'
 user.connected_accounts.provider: Provider
 user.connected_accounts.provider_user_id: 'Provider User ID'
 user.current_roles: 'Current Roles'
@@ -1649,6 +1651,7 @@ articles.total.view: 'Articles Total View Count'
 # OAuth
 linkedin: 'Linkedin'
 orcid: 'ORCID'
+academicid: 'Academic ID'
 oauth.login_with: 'Login with...'
 oauth.connect_before: 'You need to connect your account before using this.'
 
