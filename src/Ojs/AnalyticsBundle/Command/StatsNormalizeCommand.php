@@ -18,8 +18,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class StatsNormalizeCommand extends ContainerAwareCommand
 {
-    const STEP = 50000;
-
     /**
      * @var EntityManager
      */
@@ -74,8 +72,12 @@ class StatsNormalizeCommand extends ContainerAwareCommand
         $this->io->newLine();
 
         $this->io->text('Journal Normalize Started');
+
         $this->normalizeJournalTotalArticleView();
-        $this->io->text('Journal Normalize Finished');
+        $this->io->text('Journal Total View Normalize Finished');
+
+        $this->normalizeJournalTotalArticleDownload();
+        $this->io->text('Journal Total Download Normalize Finished');
 
         $this->io->newLine(2);
         $this->io->success('All process finished');
@@ -102,6 +104,20 @@ SQL;
 UPDATE journal
 SET total_article_view =
   (SELECT SUM(t2.view_count)
+   FROM article t2
+   WHERE t2.journal_id = journal.id)
+SQL;
+        $query = $this->em->createNativeQuery($sql, $rsm);
+        $query->getResult();
+    }
+
+    public function normalizeJournalTotalArticleDownload()
+    {
+        $rsm = new ResultSetMapping();
+        $sql = <<<SQL
+UPDATE journal
+SET total_article_download =
+  (SELECT SUM(t2.download_count)
    FROM article t2
    WHERE t2.journal_id = journal.id)
 SQL;
