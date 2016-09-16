@@ -211,6 +211,12 @@ Ojs\JournalBundle\Entity\Journal:
       column: total_article_view
       options:
         default: 0
+    totalArticleDownload:
+      type: integer
+      nullable: true
+      column: total_article_download
+      options:
+        default: 0
     eissn:
       type: string
       length: 11

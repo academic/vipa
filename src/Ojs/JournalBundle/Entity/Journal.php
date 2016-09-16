@@ -268,6 +268,11 @@ class Journal extends AbstractTranslatable
     private $totalArticleView;
 
     /**
+     * @var int
+     */
+    private $totalArticleDownload;
+
+    /**
      * Object public URI
      * @var string
      */
@@ -1583,6 +1588,26 @@ class Journal extends AbstractTranslatable
     public function setTotalArticleView($totalArticleView)
     {
         $this->totalArticleView = $totalArticleView;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalArticleDownload()
+    {
+        return $this->totalArticleDownload;
+    }
+
+    /**
+     * @param int $totalArticleDownload
+     *
+     * @return $this
+     */
+    public function setTotalArticleDownload($totalArticleDownload)
+    {
+        $this->totalArticleDownload = $totalArticleDownload;
 
         return $this;
     }
