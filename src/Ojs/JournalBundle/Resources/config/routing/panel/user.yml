@@ -54,5 +54,5 @@ ojs_journal_user_search:
     defaults: { _controller: "OjsJournalBundle:JournalUser:getUserByUsername" }
 
 ojs_journal_user_search_based_journal:
-    path: /journal/{journalId}/user/search
+    path: /{journalId}/user/search
     defaults: { _controller: "OjsJournalBundle:JournalUser:getUserBasedJournal" }
