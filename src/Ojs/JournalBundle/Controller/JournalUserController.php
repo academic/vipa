@@ -551,7 +551,9 @@ class JournalUserController extends Controller
 
         $roles = [];
         if($request->query->has('roles')){
-            $roles = explode(',', $request->get('roles'));
+            if(!empty($request->get('roles'))){
+                $roles = explode(',', $request->get('roles'));
+            }
         }
         $journalUsers = $em->getRepository('OjsUserBundle:User')->searchJournalUser(
             $request->get('q'),
