@@ -1647,6 +1647,7 @@ Co-Editor: 'Editör Yardımcısı'
 Secretary: 'Sekreter'
 contact.order: 'Sıra'
 articles.total.view: 'Makalelerin Toplam Gösterim Sayısı'
+articles.total.downlaod: 'Makalelerin Toplam İndirilme Sayısı'
 
 # OAuth
 linkedin: 'Linkedin'

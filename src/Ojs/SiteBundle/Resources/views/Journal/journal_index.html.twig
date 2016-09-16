@@ -86,6 +86,9 @@
                     <div class="text-center list-group-item">
                         <i class="fa fa-eye" class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view'|trans }}"></i>
                         {{ journal.totalArticleView|number_format(0,'.','.') }}
+                        &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                        <i class="fa fa-download" class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.download'|trans }}"></i>
+                        {{ journal.totalArticleDownload|number_format(0,'.','.') }}
                     </div>
                     <a href="#" data-href="#issuetree" class="js-scroll-to btn btn-default btn-block">
                         <i class="fa fa-search"></i>

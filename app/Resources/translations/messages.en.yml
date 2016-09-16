@@ -1647,6 +1647,7 @@ journal.application.domain.help.text: 'You can host your journal, if you specify
 article.successful.create: 'Article successfully created. You can add authors from top menu.'
 contact.order: 'Order'
 articles.total.view: 'Articles Total View Count'
+articles.total.download: 'Articles Total Download Count'
 
 # OAuth
 linkedin: 'Linkedin'
