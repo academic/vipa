@@ -4,7 +4,6 @@ ojs_search_advanced:
 
 ojs_search_index:
     path:     /search/{page}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Search:index",page: 1 }
 
 ojs_tags_cloud:

@@ -1,4 +1,3 @@
 dashboard:
     path:  /dashboard
-    host: "%base_host%"
     defaults: { _controller: "OjsAdminBundle:Admin:dashboardCheck" }
