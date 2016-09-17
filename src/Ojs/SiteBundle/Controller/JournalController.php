@@ -124,11 +124,11 @@ class JournalController extends Controller
 
     /**
      * @param Request $request
-     * @param $publisher
      * @param $slug
+     *
      * @return Response
      */
-    public function journalIndexAction(Request $request, $publisher = null, $slug)
+    public function journalIndexAction(Request $request, $slug)
     {
         $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
@@ -142,10 +142,6 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'status' => JournalStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($journal);
-
-        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $journal->getPublisher()->getSlug(), 'status' => PublisherStatuses::STATUS_COMPLETE]);
-        $this->throw404IfNotFound($publisherEntity);
-
 
         //if system supports journal mandatory locale set locale as journal mandatory locale
         if(in_array($journal->getMandatoryLang()->getCode(),$this->getParameter('locale_support'))){

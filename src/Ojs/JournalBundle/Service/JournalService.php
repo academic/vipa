@@ -204,7 +204,7 @@ class JournalService
     {
         return $this->router
             ->generate(
-                'ojs_journal_index_without_publisher',
+                'ojs_journal_index',
                 array('slug' => $journal->getSlug()),
                 Router::ABSOLUTE_URL
             );
