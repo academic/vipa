@@ -254,7 +254,7 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_journal_index_without_publisher',
+                'ojs_journal_index',
                 [
                     'slug' => $source['slug']
                 ],
