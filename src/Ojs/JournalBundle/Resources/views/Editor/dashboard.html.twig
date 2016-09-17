@@ -33,7 +33,7 @@
             {% set article = stats.article.mostViewedArticle %}
             <h2>{{ "stats.most.viewed.article"|trans }}<span
                         class="badge">{{ stats.article.mostViewedArticleCount }}</span></h2>
-            <a href="{{ url('ojs_article_page_without_publisher',{article_id: article.id,slug: article.journal.slug}) }}">
+            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug}) }}">
                 {{ article.title }}
             </a>
         {% else %}
@@ -45,11 +45,11 @@
             {% set article = stats.article.mostDownloadedArticle %}
             <h2>{{ "stats.most.downloaded.article"|trans }}<span
                         class="badge">{{ stats.article.mostDownloadedArticleCount }}</span></h2>
-            <a href="{{ url('ojs_article_page_without_publisher',{article_id: article.id,slug: article.journal.slug}) }}">
+            <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug}) }}">
                 {{ article.title }}
             </a>
         {% else %}
-            <h2>{{ "Any article downloaded yet"|trans }}</h2>
+            <h2>{{ "any.article.downloaded.yet"|trans }}</h2>
         {% endif %}
     </div>
 {% endblock %}
