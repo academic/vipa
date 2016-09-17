@@ -111,7 +111,7 @@ class ArticleController extends Controller
             'slug' => $article->getJournal()->getSlug(),
             'issue_id' => $article->getIssue()->getId()
         );
-        return $this->redirectToRoute('ojs_article_page_without_publisher', $routeParams);
+        return $this->redirectToRoute('ojs_article_page', $routeParams);
     }
 
     /**

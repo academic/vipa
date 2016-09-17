@@ -1,9 +1,7 @@
 ojs_site_cms_page:
     path: /page/{slug}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Cms:page" }
 
 ojs_site_cms_post:
     path: /post/{slug}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Cms:post" }

@@ -6,7 +6,7 @@
                     <div class="panel-heading">
                         {{ selectedJournal().title }}
                         {% if selectedJournal().isIndexable() %}
-                            {% set journalPublicLink = path('ojs_journal_index_without_publisher', {slug: selectedJournal().slug})  %}
+                            {% set journalPublicLink = path('ojs_journal_index', {slug: selectedJournal().slug})  %}
                         {% else %}
                             {% set journalPublicLink = '#'  %}
                         {% endif %}

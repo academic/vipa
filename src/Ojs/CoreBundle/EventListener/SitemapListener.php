@@ -79,7 +79,7 @@ class SitemapListener implements SitemapListenerInterface
             }
             $event->getUrlContainer()->addUrl(
                 new UrlConcrete(
-                    $this->router->generate('ojs_journal_index_without_publisher', [
+                    $this->router->generate('ojs_journal_index', [
                         'slug'          => $journal->getSlug()
                     ], true),
                     new \DateTime(),
@@ -105,7 +105,7 @@ class SitemapListener implements SitemapListenerInterface
         foreach($issues as $issue){
             $event->getGenerator()->addUrl(
                 new UrlConcrete(
-                    $this->router->generate('ojs_issue_page_without_publisher', [
+                    $this->router->generate('ojs_issue_page', [
                         'journal_slug'  => $journal->getSlug(),
                         'id'            => $issue->getId()
                     ], true),
@@ -132,7 +132,7 @@ class SitemapListener implements SitemapListenerInterface
         foreach($articles as $article){
             $event->getUrlContainer()->addUrl(
                 new UrlConcrete(
-                    $this->router->generate('ojs_article_page_without_publisher', [
+                    $this->router->generate('ojs_article_page', [
                         'slug'          => $journal->getSlug(),
                         'issue_id'      => $issue->getId(),
                         'article_id'    => $article->getId()

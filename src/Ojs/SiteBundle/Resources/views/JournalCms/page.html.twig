@@ -6,7 +6,7 @@
 
     <div class="container">
         {% set list = [
-        {'link': path('ojs_journal_index_without_publisher', {'slug': journalPage.journal.slug}), 'title': journalPage.journal.title},
+        {'link': path('ojs_journal_index', {'slug': journalPage.journal.slug}), 'title': journalPage.journal.title},
             {'title': journalPage.title }
         ] %}
         {{ breadcrumb(list) }}

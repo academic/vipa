@@ -21,12 +21,10 @@ redirect:
 
 ojs_user_profile:
     path: /@{slug}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:User:profile" }
 
 ojs_user_edit_profile:
     path: /user/update
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:User:editProfile"}
 
 ojs_user_custom_field:
@@ -55,7 +53,6 @@ ojs_user_connected_account_delete:
 
 ojs_public_index:
     path:  /
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Site:index" }
 
 ojs_search:
@@ -64,147 +61,62 @@ ojs_search:
 #publisher subdomain
 ojs_publisher_page:
     path:  /
-    host: "{slug}.%base_host%"
     defaults: { _controller: "OjsSiteBundle:Site:publisherPage" }
 
 ojs_journal_index:
     path:  /{slug}
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:journalIndex" }
-
-ojs_journal_index_without_publisher:
-    path:  /{slug}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:journalIndex" }
 
 ojs_journal_index_articles:
     path: /{slug}/articles
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Article:journalArticles" }
-
-ojs_journal_index_articles_without_publisher:
-    path: /{slug}/articles
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Article:journalArticles" }
 
 ojs_journal_index_board:
     path: /{slug}/board
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:journalBoard" }
-
-ojs_journal_index_board_without_publisher:
-    path: /{slug}/board
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:journalBoard" }
 
 ojs_site_journal_page:
     path: /{journal_slug}/page/{slug}
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:JournalCms:journalPageDetail" }
-
-ojs_site_journal_page_without_publisher:
-    path: /{journal_slug}/page/{slug}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:JournalCms:journalPageDetail" }
 
 ojs_site_journal_post:
     path: /{journal_slug}/post/{slug}
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:JournalCms:journalPostDetail" }
-
-ojs_site_journal_post_without_publisher:
-    path: /{journal_slug}/post/{slug}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:JournalCms:journalPostDetail" }
 
 ojs_last_articles_index:
     path:  /{slug}/last
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:lastArticlesIndex" }
-
-ojs_last_articles_index_without_publisher:
-    path:  /{slug}/last
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:lastArticlesIndex" }
 
 ojs_archive_index:
     path:  /{slug}/archive
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:archiveIndex" }
-
-ojs_archive_index_without_publisher:
-    path:  /{slug}/archive
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:archiveIndex" }
 
 ojs_early_preview_index:
     path:  /{slug}/early_preview
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:earlyPreviewIndex" }
-
-ojs_early_preview_index_without_publisher:
-    path:  /{slug}/early_preview
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:earlyPreviewIndex" }
 
 ojs_announcement_index:
     path:  /{slug}/announcements
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:JournalCms:announcementIndex" }
-
-ojs_announcement_index_without_publisher:
-    path:  /{slug}/announcements
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:JournalCms:announcementIndex" }
 
 ojs_journal_subscribe:
     path:  /{slug}/subscribe
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:subscribe" }
-
-ojs_journal_subscribe_without_publisher:
-    path:  /{slug}/subscribe
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:subscribe" }
 
 ojs_issue_page:
     path: /{journal_slug}/issue/{id}
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Issue:issuePage" }
-
-ojs_issue_page_without_publisher:
-    path: /{journal_slug}/issue/{id}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Issue:issuePage" }
 
 ojs_article_page:
     path:  /{slug}/issue/{issue_id}/{article_id}
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Article:articlePage", issue_id: null}
-
-ojs_article_page_without_publisher:
-    path:  /{slug}/issue/{issue_id}/{article_id}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Article:articlePage", issue_id: null}
 
 ojs_article_withoutIssue_page:
     path:  /{slug}/article/{article_id}
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Article:articleWithoutIssuePage"}
-
-ojs_article_withoutIssue_page_without_publisher:
-    path:  /{slug}/article/{article_id}
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Article:articleWithoutIssuePage"}
 
 ojs_journal_contacts:
     path: /{slug}/contacts
-    host: "{publisher}.%base_host%"
-    defaults: { _controller: "OjsSiteBundle:Journal:journalContacts" }
-
-ojs_journal_contacts_without_publisher:
-    path: /{slug}/contacts
-    host: "%base_host%"
     defaults: { _controller: "OjsSiteBundle:Journal:journalContacts" }
 
 ojs_people:

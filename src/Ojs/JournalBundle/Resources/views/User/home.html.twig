@@ -91,7 +91,7 @@
                                     {{ twigEventDispatch({'event_name': 'OJS_USER_ARTICLE_ACTIONS', 'article': article})|raw }}
                                 {% elseif article.statusText ==  'status.published' %}
                                     {% if article.issue is not null %}
-                                        <a href="{{ path('ojs_article_page_without_publisher', {
+                                        <a href="{{ path('ojs_article_page', {
                                             slug: article.journal.slug,
                                             issue_id: article.issue.id,
                                             article_id: article.id

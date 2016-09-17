@@ -124,11 +124,11 @@ class JournalController extends Controller
 
     /**
      * @param Request $request
-     * @param $publisher
      * @param $slug
+     *
      * @return Response
      */
-    public function journalIndexAction(Request $request, $publisher = null, $slug)
+    public function journalIndexAction(Request $request, $slug)
     {
         $session = $this->get('session');
         $journalService = $this->get('ojs.journal_service');
@@ -142,10 +142,6 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'status' => JournalStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($journal);
-
-        $publisherEntity = $em->getRepository('OjsJournalBundle:Publisher')->findOneBy(['slug' => $journal->getPublisher()->getSlug(), 'status' => PublisherStatuses::STATUS_COMPLETE]);
-        $this->throw404IfNotFound($publisherEntity);
-
 
         //if system supports journal mandatory locale set locale as journal mandatory locale
         if(in_array($journal->getMandatoryLang()->getCode(),$this->getParameter('locale_support'))){
@@ -213,7 +209,7 @@ class JournalController extends Controller
         $data['journalPages'] = $em->getRepository('OjsJournalBundle:JournalPage')->findBy(['journal' => $journal]);
 
         $data['archive_uri'] = $this->generateUrl(
-            'ojs_archive_index_without_publisher',
+            'ojs_archive_index',
             [
                 'slug' => $journal->getSlug()
             ],
@@ -236,7 +232,7 @@ class JournalController extends Controller
             foreach ($year as $issue) {
                 $issue->setPublicURI(
                     $this->generateUrl(
-                        'ojs_issue_page_without_publisher',
+                        'ojs_issue_page',
                         [
                             'journal_slug' => $issue->getJournal()->getSlug(),
                             'id' => $issue->getId(),
@@ -260,7 +256,7 @@ class JournalController extends Controller
         foreach ($articles as $article) {
             $article->setPublicURI(
                 $this->generateUrl(
-                    'ojs_article_page_without_publisher',
+                    'ojs_article_page',
                     [
                         'slug'       => $article->getIssue()->getJournal()->getSlug(),
                         'issue_id'   => $article->getIssue()->getId(),

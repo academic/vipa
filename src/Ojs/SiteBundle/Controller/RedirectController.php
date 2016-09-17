@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class RedirectController extends Controller
 {
-
     /**
      * /redirect/{type}/id  will redirect to related page after checking user login status
      * @param  string $type
@@ -44,7 +43,7 @@ class RedirectController extends Controller
 
         return $this->redirect(
             $this->generateUrl(
-                'ojs_article_withoutIssue_page_without_publisher',
+                'ojs_article_withoutIssue_page',
                 array(
                     'slug' => $article->getJournal()->getSlug(),
                     'article_id' => $article->getId()

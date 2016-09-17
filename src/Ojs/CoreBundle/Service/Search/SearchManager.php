@@ -235,7 +235,7 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_issue_page_without_publisher',
+                'ojs_issue_page',
                 [
                     'id' => $issueObject->getId(),
                     'journal_slug' => $source['journal']['slug']
@@ -254,7 +254,7 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_journal_index_without_publisher',
+                'ojs_journal_index',
                 [
                     'slug' => $source['slug']
                 ],
@@ -275,7 +275,7 @@ class SearchManager
 
         return $this->router
             ->generate(
-                'ojs_article_page_without_publisher',
+                'ojs_article_page',
                 [
                     'slug' => $source['journal']['slug'],
                     'article_id' => $articleObject->getId(),
@@ -314,16 +314,10 @@ class SearchManager
         }else{
             return false;
         }
-        //check journal publisher is exists
-        if (isset($journal['publisher'])) {
-            $publisher = $journal['publisher'];
-        }else{
-            return false;
-        }
 
         return $this->router
             ->generate(
-                'ojs_article_page_without_publisher',
+                'ojs_article_page',
                 [
                     'slug' => $journal['slug'],
                     'article_id' => $article['id'],
@@ -362,15 +356,10 @@ class SearchManager
         }else{
             return false;
         }
-        //check journal publisher is exists
-        if (isset($journal['publisher'])) {
-            $publisher = $journal['publisher'];
-        }else{
-            return false;
-        }
+
         return $this->router
             ->generate(
-                'ojs_article_page_without_publisher',
+                'ojs_article_page',
                 [
                     'slug' => $journal['slug'],
                     'article_id' => $article['id'],

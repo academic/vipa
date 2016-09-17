@@ -2,7 +2,7 @@
     <div class="views-field-field-journal-cover-fid">
         <span class="field-content">
             {% if url is not defined or url is empty %}
-                {% set url =  path('ojs_journal_index_without_publisher', {slug: journal.slug}) %}
+                {% set url =  path('ojs_journal_index', {slug: journal.slug}) %}
             {% endif %}
             <a href="{{ url }}">
                 {% if journal.image is defined and journal.image is not null %}
