@@ -100,6 +100,25 @@
                         <a href="{{ journal.url }}" target="_blank">
                             <small>{{ journal.url }}</small>
                         </a>
+                        <br>
+                    {% endif %}
+                    {% if journal.formerlyKnownAsJournal is not empty %}
+                        <b>
+                            {{ 'formerly.known.as'|trans }}:
+                            <a href="{{ path('ojs_journal_index', {slug: journal.formerlyKnownAsJournal.slug }) }}">
+                                {{ journal.formerlyKnownAsJournal.title }}
+                            </a>
+                        </b>
+                        <br>
+                    {% endif %}
+                    {% if journal.continuedAsJournal is not empty %}
+                        <b>
+                            {{ 'continued.as.journal'|trans }}:
+                            <a href="{{ path('ojs_journal_index', {slug: journal.continuedAsJournal.slug }) }}">
+                                {{ journal.continuedAsJournal.title }}
+                            </a>
+                        </b>
+                        <br>
                     {% endif %}
                     {{ journal.description|raw }}
                 </div>
