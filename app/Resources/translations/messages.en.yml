@@ -1648,6 +1648,8 @@ article.successful.create: 'Article successfully created. You can add authors fr
 contact.order: 'Order'
 articles.total.view: 'Articles Total View Count'
 articles.total.download: 'Articles Total Download Count'
+formerly.known.as: 'Formerly known as'
+continued.as.journal: 'Continued as'
 
 # OAuth
 linkedin: 'Linkedin'

@@ -136,6 +136,25 @@ class JournalEditType extends AbstractType
                 'required' => false,
                 ]
             )
+            ->add(
+                'continuedAsJournal',
+                'tetranz_select2entity',
+                [
+                    'empty_data' => null,
+                    'remote_route' => 'ojs_admin_journal_autocomplete',
+                    'class' => 'Ojs\JournalBundle\Entity\Journal',
+                    'label' => 'continuedAsJournal',
+                    'attr' => [
+                        'class' => 'select2-element',
+                    ],
+                    'allow_clear' => true,
+                    'remote_params' => [
+                        'notCollectJournals' => [
+                            $builder->getData()->getId()
+                        ]
+                    ]
+                ]
+            )
             ->add('note', 'textarea', [
                     'label' => 'journal.note',
                     'required' => false,
