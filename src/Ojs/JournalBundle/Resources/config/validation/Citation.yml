@@ -4,5 +4,3 @@ Ojs\JournalBundle\Entity\Citation:
             - NotBlank: { groups: [submission], message: 'Raw fields of citations can not be blank.' }
         type:
             - NotBlank: { groups: [submission], message: 'Type fields of citations can not be blank.' }
-        orderNum:
-            - NotBlank: { groups: [submission], message: 'Order number fields of citations can not be blank.' }

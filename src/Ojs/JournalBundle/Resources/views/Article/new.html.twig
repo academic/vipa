@@ -25,5 +25,10 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+
+    <script>
+        setupSubmissionForm({{ abstractTemplates|json_encode|raw }});
+    </script>
+
     {{ twigEventDispatch({'event_name': 'OJS_NEW_ARTICLE_SUBMISSIN_SCRIPT'})|raw }}
 {% endblock %}

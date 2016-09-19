@@ -1642,7 +1642,7 @@ display_mode.title: 'Title'
 display_mode.volume_and_number: 'Volume and Number'
 select.publisher: 'Select publisher'
 journal.application.domain.help.text: 'You can host your journal, if you specify a domain.'
-article.successful.create: 'Article successfully created. You can add authors from top menu.'
+article.successful.create: 'Article successfully created.'
 contact.order: 'Order'
 articles.total.view: 'Articles Total View Count'
 
