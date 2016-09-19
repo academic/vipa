@@ -165,7 +165,8 @@ class ArticleSubmissionController extends Controller
     public function newAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if ($this->submissionsNotAllowed($request)) {
+        $currentTime = date('H:i:s \O\n d/m/Y');
+        if ($this->submissionsNotAllowed($request) || ($journal->getEndingDate() !== null && $currentTime<$journal->getEndingDate()))  {
             return $this->respondAsNotAllowed();
         }
         $em = $this->getDoctrine()->getManager();
@@ -595,7 +596,8 @@ class ArticleSubmissionController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine();
-        if ($this->submissionsNotAllowed($request)) {
+        $currentTime = date('H:i:s \O\n d/m/Y');
+        if ($this->submissionsNotAllowed($request) || ($journal->getEndingDate() !== null && $currentTime<$journal->getEndingDate()))  {
             return $this->respondAsNotAllowed();
         }
         $session = $this->get('session');

@@ -102,6 +102,11 @@ class Journal extends AbstractTranslatable
      */
     private $founded;
     /**
+     * @var \DateTime
+     * @JMS\Expose
+     */
+    private $endingDate;
+    /**
      * @var string
      * @JMS\Expose
      */
@@ -703,6 +708,22 @@ class Journal extends AbstractTranslatable
         $this->founded = $founded;
 
         return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndingDate()
+    {
+        return $this->endingDate;
+    }
+
+    /**
+     * @param \DateTime $endingDate
+     */
+    public function setEndingDate($endingDate)
+    {
+        $this->endingDate = $endingDate;
     }
 
     /**

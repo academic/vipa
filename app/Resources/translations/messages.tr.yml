@@ -545,7 +545,8 @@ journal.editor_phone: Telefon
 journal.editor_surname: 'Editör Soyadı'
 journal.eissn: e-ISSN
 journal.email: 'İletişim e-Postası'
-journal.founded: 'Başlangıç'
+journal.founded: 'Başlangıç Tarihi'
+journal.endingDate: 'Bitiş Tarihi (yeni makale kabul edilmeyecektir)'
 journal.file: 'Gerekli Dosyalar'
 journal.google.analytics.id: 'Google Analytics ID'
 journal.header_image: 'Başlık Resmi'
@@ -699,7 +700,7 @@ mastersthesis: 'Yüksek Lisans Tezi'
 messages: Mesajlar
 message.application_not_available: 'Üzgünüz ama şimdilik başvuru yapmanız mümkün değil.'
 message.registration_not_available: 'Üzgünüz ama şimdilik kaydolmanız mümkün değil.'
-message.submission_not_available: 'Üzgünüz ama şimdilik Makale göndermeniz mümkün değil.'
+message.submission_not_available: 'Üzgünüz ama şimdilik makale göndermeniz mümkün değil.'
 mimetype: 'MIME Tipi'
 misc: Çeşitli
 mission: Misyon
