@@ -220,6 +220,7 @@ class ArticleController extends Controller
 
         if ($violations->count() == 0) {
             $entity->setCurrentLocale($request->getDefaultLocale());
+            $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
 
             $event = new JournalItemEvent($entity);
             $dispatcher->dispatch(ArticleEvents::PRE_CREATE, $event);

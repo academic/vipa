@@ -75,15 +75,6 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'status',
-                'choice',
-                array(
-                    'label' => 'status',
-                    'attr' => array('class' => ' form-control'),
-                    'choices' => Article::$statuses,
-                )
-            )
-            ->add(
                 'doi',
                 'text',
                 array(

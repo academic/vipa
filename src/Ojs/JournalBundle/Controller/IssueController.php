@@ -8,6 +8,7 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleRepository;
 use Ojs\JournalBundle\Entity\Issue;
@@ -542,6 +543,7 @@ class IssueController extends Controller
         }
 
         $article->setIssue($issue);
+        $article->setStatus(ArticleStatuses::STATUS_PUBLISHED);
 
         if ($section) {
             $sections = $issue->getSections();

@@ -533,7 +533,8 @@ class ArticleSubmissionController extends Controller
             if ($session->has('submissionFiles')) {
                 $session->remove('submissionFiles');
             }
-            $article->setStatus(ArticleStatuses::STATUS_INREVIEW);
+
+            $article->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
             $article->setSubmissionDate(new \DateTime());
             $em->persist($article);
 
