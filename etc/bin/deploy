@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 git pull origin master &&
-rm -Rf app/cache/* &&
+find ./app/cache -type f -delete &&
 rm -rf app/logs/* &&
 composer update &&
 php app/console cache:clear &&
