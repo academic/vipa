@@ -7,6 +7,9 @@ journal_publisher_hosting:
   resource: '@OjsSiteBundle/Resources/config/routing/hosting.yml'
   condition: 'not (context.getHost() matches "/%base_host%/")'
 
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+
 PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
     prefix:   /
@@ -100,6 +103,3 @@ rest:
   type: rest
   resource: routing_rest.yml
   prefix: /api/
-
-_bazinga_jstranslation:
-    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
