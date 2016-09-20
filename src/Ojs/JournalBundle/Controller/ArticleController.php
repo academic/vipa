@@ -6,12 +6,16 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Events\TypeEvent;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Event\JournalItemEvent;
+use Ojs\JournalBundle\Entity\SubmissionSettingTranslation;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Event\ListEvent;
+use Ojs\JournalBundle\Form\Type\ArticleSubmissionType;
 use Ojs\JournalBundle\Form\Type\ArticleType;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
@@ -117,13 +121,28 @@ class ArticleController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
+
         $entity = new Article();
         $form = $this->createCreateForm($entity, $journal);
 
-        return $this->render(
-            'OjsJournalBundle:Article:new.html.twig',
-            ['entity' => $entity, 'form' => $form->createView()]
-        );
+        $em = $this->getDoctrine()->getManager();
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
+        $abstractTemplates = [];
+
+        if ($submissionSetting) {
+            /** @var SubmissionSettingTranslation $translation */
+            foreach ($submissionSetting->getTranslations() as $translation){
+                $abstractTemplates[$translation->getLocale()] = $translation->getSubmissionAbstractTemplate();
+            }
+        }
+
+        $data = [
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'abstractTemplates' => $abstractTemplates,
+        ];
+
+        return $this->render('OjsJournalBundle:Article:new.html.twig', $data);
     }
 
     /**
@@ -135,16 +154,18 @@ class ArticleController extends Controller
      */
     private function createCreateForm(Article $entity, Journal $journal)
     {
-        $form = $this->createForm(
-            new ArticleType(),
-            $entity,
-            [
-                'action' => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
-                'method' => 'POST',
-                'journal' => $journal,
-            ]
-        );
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $event = new TypeEvent(new ArticleSubmissionType());
+        $this->get('event_dispatcher')->dispatch(ArticleEvents::INIT_SUBMIT_FORM, $event);
+
+        $form = $this->createForm($event->getType(), $entity, [
+            'action'  => $this->generateUrl('ojs_journal_article_create', ['journalId' => $journal->getId()]),
+            'method'  => 'POST',
+            'journal' => $journal,
+            'validation_groups' => ['submission'],
+        ])->add('save', 'submit', [
+             'label' => 'save',
+             'attr'  => ['class' => 'btn-block'],
+        ]);
 
         return $form;
     }
@@ -171,8 +192,33 @@ class ArticleController extends Controller
         $form = $this->createCreateForm($entity, $journal);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted()) {
+            $authorOrder = 1;
+            $citationOrder = 1;
+
+            foreach ($entity->getArticleAuthors() as $author) {
+                $author->setAuthorOrder($authorOrder++);
+                $author->setArticle($entity);
+            }
+
+            foreach ($entity->getCitations() as $citation) {
+                $citation->setOrderNum($citationOrder++);
+            }
+
+            foreach ($entity->getArticleFiles() as $file) {
+                $file->setVersion(0);
+                $file->setArticle($entity);
+            }
+
+            $entity->setStatus(ArticleStatuses::STATUS_PUBLISH_READY);
+            $entity->setSubmissionDate(new \DateTime());
+        }
+
+        $violations = $this->get('validator')->validate($entity, null, ['submission']);
+
+        if ($violations->count() == 0) {
             $entity->setCurrentLocale($request->getDefaultLocale());
 
             $event = new JournalItemEvent($entity);
@@ -196,10 +242,24 @@ class ArticleController extends Controller
             );
         }
 
-        return $this->render(
-            'OjsJournalBundle:Article:new.html.twig',
-            ['entity' => $entity, 'form' => $form->createView()]
-        );
+
+        $submissionSetting = $em->getRepository('OjsJournalBundle:SubmissionSetting')->findOneBy([]);
+        $abstractTemplates = [];
+
+        if ($submissionSetting) {
+            /** @var SubmissionSettingTranslation $translation */
+            foreach ($submissionSetting->getTranslations() as $translation){
+                $abstractTemplates[$translation->getLocale()] = $translation->getSubmissionAbstractTemplate();
+            }
+        }
+
+        $data = [
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'abstractTemplates' => $abstractTemplates
+        ];
+
+        return $this->render('OjsJournalBundle:Article:new.html.twig', $data);
     }
 
     /**

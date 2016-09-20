@@ -20,8 +20,12 @@ class ArticleStatusValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /** @var Article $article */
-        $article = $this->context->getRoot()->getData();
+        $article = $this->context->getRoot();
+
+        if (!$article instanceof Article) {
+            $article = $article->getData();
+        }
+
         if($article->getId() == null){
             return;
         }

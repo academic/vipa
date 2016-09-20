@@ -14,11 +14,21 @@
     <h1>{{ "article.add"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
 
-    {{ form(form) }}
+    {% include '@OjsJournal/ArticleSubmission/_form.html.twig' %}
 
     <div class="record_actions">
         <a class="button success" href="{{ path('ojs_journal_article_index', {'journalId': selectedJournal().id}) }}">
             {{ "b"|trans }}
         </a>
     </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        setupSubmissionForm({{ abstractTemplates|json_encode|raw }});
+    </script>
+
+    {{ twigEventDispatch({'event_name': 'OJS_NEW_ARTICLE_SUBMISSIN_SCRIPT'})|raw }}
 {% endblock %}

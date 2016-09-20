@@ -46,6 +46,7 @@ assetic:
         - '%kernel.root_dir%/../web/bundles/bazingajstranslation/js/translator.min.js'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-builder.min.js'
         - '%kernel.root_dir%/../web/vendor/formBuilder/dist/form-render.min.js'
+        - '@OjsJournalBundle/Resources/public/js/submission.js'
     admin_main_css:
       inputs:
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css'
