@@ -281,6 +281,14 @@ class AdminJournalController extends Controller
         $q = filter_var($request->get('q'), FILTER_SANITIZE_STRING);
         $search = $this->get('fos_elastica.index.search.journal');
 
+        $notCollectJournals = [];
+        if($request->query->has('notCollectJournals')){
+            $notCollectJournalsParam = $request->query->get('notCollectJournals');
+            if(!empty($notCollectJournalsParam) && is_array($notCollectJournalsParam)){
+                $notCollectJournals = $notCollectJournalsParam;
+            }
+        }
+
         $searchQuery = new Query('_all');
 
         $boolQuery = new Query\BoolQuery();
@@ -298,10 +306,12 @@ class AdminJournalController extends Controller
         $results = $search->search($searchQuery);
         $data = [];
         foreach ($results as $result) {
-            $data[] = [
-                'id' => $result->getId(),
-                'text' => $result->getData()['title'],
-            ];
+            if(!in_array($result->getId(), $notCollectJournals)){
+                $data[] = [
+                    'id' => $result->getId(),
+                    'text' => $result->getData()['title'],
+                ];
+            }
         }
 
         return new JsonResponse($data);

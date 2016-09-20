@@ -20,6 +20,18 @@ Ojs\JournalBundle\Entity\Journal:
       joinColumn:
         name: theme_id
         referencedColumnName: id
+    continuedAsJournal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      joinColumn:
+        name: continued_as_journal_id
+        referencedColumnName: id
+        nullable: true
+    formerlyKnownAsJournal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      joinColumn:
+        name: formerly_known_as_journal_id
+        referencedColumnName: id
+        nullable: true
     design:
       targetEntity: Ojs\JournalBundle\Entity\Design
       joinColumn:

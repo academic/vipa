@@ -315,6 +315,16 @@ class Journal extends AbstractTranslatable
     private $extraFields;
 
     /**
+     * @var Journal
+     */
+    private $continuedAsJournal;
+
+    /**
+     * @var Journal
+     */
+    private $formerlyKnownAsJournal;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1629,6 +1639,60 @@ class Journal extends AbstractTranslatable
     public function setTotalArticleDownload($totalArticleDownload)
     {
         $this->totalArticleDownload = $totalArticleDownload;
+
+        return $this;
+    }
+
+    /**
+     * @return Journal
+     */
+    public function getContinuedAsJournal()
+    {
+        return $this->continuedAsJournal;
+    }
+
+    /**
+     * @param Journal $continuedAsJournal
+     *
+     * @return $this
+     */
+    public function setContinuedAsJournal($continuedAsJournal)
+    {
+        $oldContinuedAsJournal = $this->continuedAsJournal;
+        $this->continuedAsJournal = $continuedAsJournal;
+        if($continuedAsJournal instanceof Journal
+            && empty($continuedAsJournal->getFormerlyKnownAsJournal())){
+            $continuedAsJournal->setFormerlyKnownAsJournal($this);
+        }elseif(empty($continuedAsJournal) && !empty($oldContinuedAsJournal)){
+            $continuedAsJournal->setFormerlyKnownAsJournal(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Journal
+     */
+    public function getFormerlyKnownAsJournal()
+    {
+        return $this->formerlyKnownAsJournal;
+    }
+
+    /**
+     * @param Journal $formerlyKnownAsJournal
+     *
+     * @return $this
+     */
+    public function setFormerlyKnownAsJournal($formerlyKnownAsJournal)
+    {
+        $oldFormerlyKnownAsJournal = $this->formerlyKnownAsJournal;
+        $this->formerlyKnownAsJournal = $formerlyKnownAsJournal;
+        if($formerlyKnownAsJournal instanceof Journal
+            && empty($formerlyKnownAsJournal->getContinuedAsJournal())){
+            $formerlyKnownAsJournal->setContinuedAsJournal($this);
+        }elseif(empty($formerlyKnownAsJournal) && !empty($oldFormerlyKnownAsJournal)){
+            $formerlyKnownAsJournal->setContinuedAsJournal(null);
+        }
 
         return $this;
     }
