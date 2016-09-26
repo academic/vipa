@@ -4,4 +4,6 @@ find ./app/cache -type f -delete &&
 rm -rf app/logs/* &&
 composer update &&
 php app/console cache:clear &&
-php app/console assetic:dump
+php app/console assetic:dump &&
+php app/console d:s:u --env=dev --dump-sql &&
+echo 'Deploy Successful you can. run app/console d:s:u --env=dev --force for database update. Be careful!'
