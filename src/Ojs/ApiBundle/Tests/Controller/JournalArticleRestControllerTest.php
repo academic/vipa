@@ -35,7 +35,6 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
                 ]
             ],
             'titleTransliterated' => 'PHPUnit Test Title Transliterated Field en - POST',
-            'status' => 1,
             'doi' => 'PHPUnit Test Doi Field en - POST',
             'pubdate' => '29-10-2015',
             'pubdateSeason' => 8,
@@ -76,7 +75,6 @@ class JournalArticleRestControllerTest extends ApiBaseTestCase
                 ]
             ],
             'titleTransliterated' => 'PHPUnit Test Title Transliterated Field en - PUT',
-            'status' => 1,
             'doi' => 'PHPUnit Test Doi Field en - POST',
             'otherId' => 'PHPUnit Test Other ID Field en - PUT',
             'pubdate' => '29-10-2015',
