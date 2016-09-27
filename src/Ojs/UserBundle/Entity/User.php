@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @JMS\ExclusionPolicy("all")
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
- * @GRID\Source(columns="id,username,email,enabled")
+ * @GRID\Source(columns="id,username,firstName,lastName,email,enabled")
  */
 class User extends BaseUser implements Translatable, OAuthAwareUserProviderInterface
 {
@@ -50,6 +50,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      * @Assert\NotBlank(message="First name can't be blank")
      * @Expose
      * @JMS\Groups({"export"})
+     * @GRID\Column(title="firstname")
      */
     protected $firstName;
 
@@ -65,6 +66,7 @@ class User extends BaseUser implements Translatable, OAuthAwareUserProviderInter
      * @Assert\NotBlank(message="Last name can't be blank")
      * @Expose
      * @JMS\Groups({"export"})
+     * @GRID\Column(title="lastname")
      */
     protected $lastName;
 
