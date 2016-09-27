@@ -24,28 +24,6 @@ class ArticleControllerTest extends BaseTestCase
 
         $this->assertStatusCode(200, $client);
 
-        $form = $crawler->filter('form[name=article]')->form();
-        $form['article[translations][en][title]'] = 'Article Title - phpunit';
-        $form['article[translations][en][abstract]'] = 'abstract en - phpunit';
-        $form['article[translations][tr][title]'] = 'Article Title - phpunit';
-        $form['article[translations][tr][abstract]'] = 'abstract tr - phpunit';
-        $form['article[subjects]'] = ['1'];
-        $form['article[status]'] = '-2';
-        $form['article[pubdate]'] = '12-07-2016';
-        $form['article[firstPage]'] = '1';
-        $form['article[lastPage]'] = '50';
-        $form['article[articleType]'] = '1';
-        $form['article[submissionDate]'] = '13-07-2016';
-        $form['article[acceptanceDate]'] = '16-07-2016';
-
-        $crawler = $client->submit($form);
-        $this->assertTrue($client->getResponse()->isRedirect());
-        $client->followRedirect();
-        $this->assertContains(
-            'Article Title - phpunit',
-            $this->client->getResponse()->getContent()
-        );
-
     }
 
     public function testShow()
