@@ -13,8 +13,8 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * JournalUser
- * @GRID\Source(columns="id, user.email")
- * @GRID\Source(columns="id, user.email, user.username", groups={"export"})
+ * @GRID\Source(columns="id,user.email,user.firstName,user.lastName")
+ * @GRID\Source(columns="id,user.email,user.username,user.firstName,user.lastName", groups={"export"})
  * @JMS\ExclusionPolicy("all")
  */
 class JournalUser implements JournalItemInterface
@@ -37,6 +37,8 @@ class JournalUser implements JournalItemInterface
      * @JMS\Groups({"export"})
      * @Grid\Column(field="user.email", title="user")
      * @Grid\Column(field="user.username", title="username")
+     * @Grid\Column(field="user.firstName", title="firstname")
+     * @Grid\Column(field="user.lastName", title="lastname")
      */
     private $user;
 
