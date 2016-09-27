@@ -143,14 +143,34 @@ class JournalController extends Controller
         $journal = $journalRepo->findOneBy(['slug' => $slug, 'status' => JournalStatuses::STATUS_PUBLISHED]);
         $this->throw404IfNotFound($journal);
 
+        $journalLocale = $journal->getMandatoryLang()->getCode();
         //if system supports journal mandatory locale set locale as journal mandatory locale
-        if(in_array($journal->getMandatoryLang()->getCode(),$this->getParameter('locale_support'))){
+        if(in_array($journalLocale,$this->getParameter('locale_support'))){
             /**
              * if user is prefered a locale pass this logic then
              * @look for CommonController change locale function
              */
             if(!$session->has('_locale_prefered')){
-                $request->setLocale($journal->getMandatoryLang()->getCode());
+                /**
+                 * if session is fresh locale is not exists
+                 * set journal locale and redirect to this action then
+                 */
+                if(!$session->has('_locale')){
+                    $session->set('_locale', $journalLocale);
+
+                    return $this->redirect($request->getRequestUri());
+                }else{
+                    /**
+                     * if session is not fresh but session locale is
+                     * not equal to journal locale set journal locale
+                     * and redirect to this action then
+                     */
+                    if($session->get('_locale') !== $journalLocale){
+                        $session->set('_locale', $journalLocale);
+
+                        return $this->redirect($request->getRequestUri());
+                    }
+                }
             }
         }
 
