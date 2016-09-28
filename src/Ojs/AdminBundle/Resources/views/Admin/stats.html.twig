@@ -24,6 +24,7 @@
         <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
         <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
+        <li role="presentation"><a href="#other" aria-controls="messages" role="tab" data-toggle="tab">{{ "other.statistics"|trans }}</a></li>
     </ul>
 
     <div id="statistics" class="tab-content">
@@ -256,6 +257,23 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="other">
+            <h3>{{ "other.statistics"|trans }}</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ "status.exited.count"|trans }}</td>
+                                <td>{{ exitedJournal.count }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
         </div>
     </div>
 {% endblock %}

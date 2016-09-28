@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Ojs\AnalyticsBundle\Entity\ArticleFileStatistic;
 use Ojs\AnalyticsBundle\Entity\ArticleStatistic;
+use Ojs\CoreBundle\Params\JournalStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 
@@ -447,6 +448,22 @@ class GraphDataGenerator
         $rsm->addScalarResult('sum_download', 'download');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
+
+        return $results;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function generateExitedJournalData()
+    {
+        $sql = "SELECT count(journal.id) as count FROM journal WHERE status = '".JournalStatuses::STATUS_EXITED."'";
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('count', 'count');
+        $query = $this->manager->createNativeQuery($sql,$rsm);
+        $results = $query->getSingleResult();
 
         return $results;
     }

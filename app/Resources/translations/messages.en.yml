@@ -50,6 +50,7 @@ Name: Name
 'No': 'No'
 'No data': 'No Data'
 Other: Other
+other.statistics: 'Other Statistics'
 Page: Page
 Password: Password
 Pictures: Pictures
@@ -1511,6 +1512,7 @@ status.name_changed: 'Name Changed'
 status.hold: 'On Hold'
 status.preparing: 'Preparing'
 status.exited: 'Exited'
+status.exited.count: 'Count Of Journals Left'
 title.blocks: 'Blocks'
 title.block_show: 'Show Block'
 title.block: 'Block'
