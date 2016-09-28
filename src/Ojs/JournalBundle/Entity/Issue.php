@@ -66,7 +66,12 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     /**
      * @var int
      */
-    private $totalArticleView;
+    private $totalArticleView = 0;
+
+    /**
+     * @var int
+     */
+    private $totalArticleDownload = 0;
 
     /**
      * @var string cover image path
@@ -823,6 +828,26 @@ class Issue extends AbstractTranslatable implements JournalItemInterface
     public function setTotalArticleView($totalArticleView)
     {
         $this->totalArticleView = $totalArticleView;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalArticleDownload()
+    {
+        return $this->totalArticleDownload;
+    }
+
+    /**
+     * @param int $totalArticleDownload
+     *
+     * @return $this
+     */
+    public function setTotalArticleDownload($totalArticleDownload)
+    {
+        $this->totalArticleDownload = $totalArticleDownload;
 
         return $this;
     }
