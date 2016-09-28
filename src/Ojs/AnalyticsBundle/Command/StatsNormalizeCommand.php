@@ -65,9 +65,11 @@ class StatsNormalizeCommand extends ContainerAwareCommand
     {
         $this->io->title($this->getDescription());
 
-        $this->io->text('Issue Normalize Started');
+        $this->io->text('Issue Total View Normalize Started');
         $this->normalizeIssueTotalArticleView();
-        $this->io->text('Issue Normalize Finished');
+
+        $this->io->text('Issue Total Download Normalize Started');
+        $this->normalizeIssueTotalArticleDownload();
 
         $this->io->newLine();
 
@@ -90,6 +92,20 @@ class StatsNormalizeCommand extends ContainerAwareCommand
 UPDATE issue
 SET total_article_view =
   (SELECT SUM(t2.view_count)
+   FROM article t2
+   WHERE t2.issue_id = issue.id)
+SQL;
+        $query = $this->em->createNativeQuery($sql, $rsm);
+        $query->getResult();
+    }
+
+    public function normalizeIssueTotalArticleDownload()
+    {
+        $rsm = new ResultSetMapping();
+        $sql = <<<SQL
+UPDATE issue
+SET total_article_download =
+  (SELECT SUM(t2.download_count)
    FROM article t2
    WHERE t2.issue_id = issue.id)
 SQL;
