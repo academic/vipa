@@ -62,6 +62,11 @@
                                         {% endfor %}
                                     </dd>
                                 {% endif %}
+
+                                {% if journal.publisher %}
+                                    <dt>{{ "publisher"|trans }}</dt>
+                                    <dd>{{ journal.publisher.name }}</dd>
+                                {% endif %}
                                 <!--
                             {% if journal.country %}
                             <dt>{{ "country"|trans }}</dt>
