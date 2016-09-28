@@ -21,22 +21,22 @@
                             xmlns:dc="http://purl.org/dc/elements/1.1/">
                         {% for translation in record.translations %}
                             {% if translation.title is not empty and translation.title != '-' %}
-                                <dc:title xml:lang="en-US"><![CDATA[{{ translation.title }}]]></dc:title>
+                                <dc:title xml:lang="en-US"><![CDATA[{{ translation.title|stripInvalidXml }}]]></dc:title>
                             {% endif %}
                         {% endfor %}
                         {% for author in record.articleAuthors %}
                             <dc:creator>
-                                <![CDATA[{{ author.author.lastName }}, {{ author.author.firstName }}]]>{% if author.author.institution %}; {{ author.author.institution.name }}{% endif %}
+                                <![CDATA[{{ author.author.lastName|stripInvalidXml }}, {{ author.author.firstName|stripInvalidXml }}]]>{% if author.author.institution %}; {{ author.author.institution.name }}{% endif %}
                             </dc:creator>
                         {% endfor %}
                         {% for translation in record.translations %}
                             {% if translation.keywords is not empty and translation.keywords != '-' %}
-                                <dc:subject><![CDATA[{{ record.keywords }}]]></dc:subject>
+                                <dc:subject><![CDATA[{{ record.keywords|stripInvalidXml }}]]></dc:subject>
                             {% endif %}
                         {% endfor %}
                         {% for translation in record.translations %}
                             {% if translation.abstract is not empty and translation.abstract != '-' %}
-                                <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''}) }}]]></dc:description>
+                                <dc:description><![CDATA[{{ translation.abstract|striptags|replace({'': '', '': '','': '','': ''})|stripInvalidXml }}]]></dc:description>
                             {% endif %}
                         {% endfor %}
                         {% for translation in record.journal.publisher.translations %}
