@@ -51,6 +51,9 @@
             <h5>
                 <i class="fa fa-eye" data-toggle="tooltip" title="{{ 'articles.total.view'|trans }}"></i>
                 {% if issue.totalArticleView is null %} 0 {% else %} {{ issue.totalArticleView|number_format }} {% endif %}
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-download" data-toggle="tooltip" title="{{ 'articles.total.download'|trans }}"></i>
+                {% if issue.totalArticleDownload is null %} 0 {% else %} {{ issue.totalArticleDownload|number_format }} {% endif %}
             </h5>
         </div>
 
