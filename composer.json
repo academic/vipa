@@ -89,7 +89,7 @@
     "jms/translation-bundle": "~2.0",
     "bulutyazilim/location-bundle": "~1.0",
     "tetranz/select2entity-bundle": "~2.3",
-    "baskin/history-bundle": "~1.0",
+    "baskin/history-bundle": "dev-master",
     "presta/sitemap-bundle": "~1.4",
     "openjournalsoftware/bibtex": "~0.2",
     "exercise/htmlpurifier-bundle": "~0.2",
