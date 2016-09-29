@@ -94,7 +94,8 @@
     "openjournalsoftware/bibtex": "~0.2",
     "exercise/htmlpurifier-bundle": "~0.2",
     "ojs/export-bundle": "dev-master",
-    "willdurand/js-translation-bundle": "^2.5"
+    "willdurand/js-translation-bundle": "^2.5",
+    "neitanod/forceutf8": "^2.0"
   },
   "require-dev": {
     "wdalmut/php-deb-packager": "^0.0.13",

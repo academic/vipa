@@ -2,6 +2,8 @@
 
 namespace Ojs\OAIBundle\Twig;
 
+use ForceUTF8\Encoding;
+
 class OaiExtension extends \Twig_Extension
 {
     /**
@@ -10,37 +12,13 @@ class OaiExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('stripInvalidXml', [$this, 'stripInvalidXmlFilter'])
+            new \Twig_SimpleFilter('fixEncoding', [$this, 'fixEncoding'])
         ];
     }
 
-    public function stripInvalidXmlFilter($value)
+    public function fixEncoding($value)
     {
-        $result = "";
-
-        if (empty($value)) {
-            return $result;
-        }
-
-        $length = strlen($value);
-
-        for ($i = 0; $i < $length; $i++) {
-            $current = ord($value{$i});
-
-            if (($current == 0x9) ||
-                ($current == 0xA) ||
-                ($current == 0xD) ||
-                (($current >= 0x20) && ($current <= 0xD7FF)) ||
-                (($current >= 0xE000) && ($current <= 0xFFFD)) ||
-                (($current >= 0x10000) && ($current <= 0x10FFFF))
-            ) {
-                $result .= chr($current);
-            } else {
-                $result .= " ";
-            }
-        }
-
-        return $result;
+        return Encoding::toUTF8($value);
     }
 
     /**
