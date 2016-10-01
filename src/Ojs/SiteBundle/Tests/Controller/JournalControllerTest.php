@@ -30,8 +30,12 @@ class JournalControllerTest extends BaseTestCase
     public function testJournalIndex()
     {
         $client = $this->client;
+        $session = $client->getContainer()->get('session');
+        $session->set('_locale','tr');
+        $session->save();
         $client->request('GET','/intro');
         $this->assertStatusCode(200, $client);
+
     }
 
     public function testLastArticles()
