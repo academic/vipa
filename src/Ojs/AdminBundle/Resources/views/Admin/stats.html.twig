@@ -24,6 +24,7 @@
         <li role="presentation"><a href="#articleFile" aria-controls="profile" role="tab" data-toggle="tab">{{ "title.article_files"|trans }}</a></li>
         <li role="presentation"><a href="#issueFile" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.issue_files"|trans }}</a></li>
         <li role="presentation"><a href="#applications" aria-controls="messages" role="tab" data-toggle="tab">{{ "title.journal_application"|trans }}</a></li>
+        <li role="presentation"><a href="#other" aria-controls="messages" role="tab" data-toggle="tab">{{ "other.statistics"|trans }}</a></li>
     </ul>
 
     <div id="statistics" class="tab-content">
@@ -46,7 +47,7 @@
                         <tbody>
                         {% for journal in journalsMonthly %}
                             <tr>
-                                <td>{{ journal.title }}</td>
+                                <td><a href="{{ path('ojs_journal_index',{slug:journal.slug}) }}">{{ journal.title }}</a></td>
                                 <td>{{ journal.view }}</td>
                             </tr>
                         {% endfor %}
@@ -64,7 +65,7 @@
                         <tbody>
                         {% for journal in journals %}
                             <tr>
-                                <td>{{ journal.title }}</td>
+                                <td><a href="{{ path('ojs_journal_index',{slug:journal.slug}) }}">{{ journal.title }}</a></td>
                                 <td>{{ journal.view }}</td>
                             </tr>
                         {% endfor %}
@@ -138,7 +139,7 @@
                         <tbody>
                         {% for articleFile in articleFilesMonthly %}
                             <tr>
-                                <td>{{ articleFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
                                 <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -156,7 +157,7 @@
                         <tbody>
                         {% for articleFile in articleFiles %}
                             <tr>
-                                <td>{{ articleFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_article', {articleFile: articleFile.id}) }}">{{ articleFile.title }}</a></td>
                                 <td>{{ articleFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -184,7 +185,7 @@
                         <tbody>
                         {% for issueFile in issueFilesMonthly %}
                             <tr>
-                                <td>{{ issueFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
                                 <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -202,7 +203,7 @@
                         <tbody>
                         {% for issueFile in issueFiles %}
                             <tr>
-                                <td>{{ issueFile.title }}</td>
+                                <td><a href="{{ path('ojs_site_download_issue',{issueFile: issueFile.id}) }}"></a>{{ issueFile.title }}</td>
                                 <td>{{ issueFile.download }}</td>
                             </tr>
                         {% endfor %}
@@ -256,6 +257,23 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="other">
+            <h3>{{ "other.statistics"|trans }}</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td>{{ "stats"|trans }}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ "status.exited.count"|trans }}</td>
+                                <td>{{ exitedJournal.count }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
         </div>
     </div>
 {% endblock %}
