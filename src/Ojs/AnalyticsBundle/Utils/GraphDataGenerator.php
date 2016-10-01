@@ -272,19 +272,20 @@ class GraphDataGenerator
             $lastMonthToday = end($dates);
             $whereDate = "AND statistic.date BETWEEN '".$lastMonthToday."' AND '".$today."' ";
         }
-        $sql = "SELECT journal_translations.title, SUM(statistic.view) as sum_view FROM statistic "
+        $sql = "SELECT journal_translations.title, SUM(statistic.view) as sum_view,journal.slug FROM statistic "
                 ."join journal on statistic.journal_id = journal.id "
                 ."join journal_translations on journal.id = journal_translations.translatable_id "
 	                ."and journal_translations.locale = '".$this->locale."' "
                 ."WHERE journal_id IS NOT NULL "
                 .$whereDate
-                ."group by journal_id,journal_translations.title "
+                ."group by journal_id,journal_translations.title,journal.slug "
                 ."ORDER BY sum_view DESC "
                 ."LIMIT 20; ";
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('title', 'title');
         $rsm->addScalarResult('sum_view', 'view');
+        $rsm->addScalarResult('slug', 'slug');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
@@ -338,9 +339,9 @@ class GraphDataGenerator
         $connectionParams = $this->manager->getConnection()->getParams();
 
         if ($connectionParams['driver'] == 'pdo_sqlite') {
-            $sql = 'SELECT count(id) as result_count , strftime("%Y-%m", created) as month  FROM journal GROUP BY month';
+            $sql = 'SELECT count(id) as result_count , strftime("%Y-%m", created) as month  FROM journal GROUP BY month ORDER BY month DESC ';
         }else{
-            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month';
+            $sql = 'SELECT count(id) as result_count , date_trunc(\'month\', created) as month FROM journal GROUP BY month ORDER BY month DESC';
         }
 
         $rsm = new ResultSetMapping();
@@ -393,7 +394,7 @@ class GraphDataGenerator
         if($journal){
             $journalWhereQuery = 'AND issue.journal_id = '.$journal->getId().' ';
         }
-        $sql = "SELECT issue_file_translations.title, SUM(statistic.download) as sum_download FROM statistic "
+        $sql = "SELECT issue_file_translations.title, SUM(statistic.download) as sum_download, statistic.issue_file_id FROM statistic "
             ."join issue_file on statistic.issue_file_id = issue_file.id "
             ."join issue_file_translations on issue_file.id = issue_file_translations.translatable_id "
             ."join issue on issue_file.issue_id = issue.id "
@@ -401,13 +402,14 @@ class GraphDataGenerator
             ."WHERE issue_file_id IS NOT NULL "
             .$whereDate
             .$journalWhereQuery
-            ."group by issue_file_id,issue_file_translations.title "
+            ."group by issue_file_id,issue_file_translations.title,statistic.issue_file_id "
             ."ORDER BY sum_download DESC "
             ."LIMIT 20; ";
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('title', 'title');
         $rsm->addScalarResult('sum_download', 'download');
+        $rsm->addScalarResult('issue_file_id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
@@ -433,19 +435,20 @@ class GraphDataGenerator
         if($journal){
             $journalWhereQuery = 'AND article.journal_id = '.$journal->getId().' ';
         }
-        $sql = "SELECT article_file.title, SUM(statistic.download) as sum_download FROM statistic "
+        $sql = "SELECT article_file.title, SUM(statistic.download) as sum_download, article_file.id FROM statistic "
                 ."join article_file on statistic.article_file_id = article_file.id "
                 ."join article on article_file.article_id = article.id "
                 ."WHERE article_file_id IS NOT NULL "
                 .$whereDate
                 .$journalWhereQuery
-                ."group by article_file_id ,article_file.title "
+                ."group by article_file_id ,article_file.title, article_file.id "
                 ."ORDER BY sum_download DESC "
                 ."LIMIT 20 ";
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('title', 'title');
         $rsm->addScalarResult('sum_download', 'download');
+        $rsm->addScalarResult('id', 'id');
         $query = $this->manager->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
