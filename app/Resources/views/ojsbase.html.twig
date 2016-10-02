@@ -134,7 +134,7 @@
 
 {% block javascripts %}
 
-    {% javascripts '@main_js' filter='uglifyjs' output="assets/prod/js/appmain.js" %}
+    {% javascripts '@main_js'%}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% if currentJournal is defined and journal.theme %}
