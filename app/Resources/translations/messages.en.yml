@@ -157,6 +157,7 @@ apply.for.new.journal: 'Apply as a New Journal'
 archive: Archive
 article: Submissions
 article.abstract: 'Abstract'
+article.cite: Cite
 article.add: 'New Submission'
 article.edit: 'Submission Edit'
 article.all: 'All Submissions'

@@ -186,11 +186,13 @@ class ArticleController extends Controller
 
                 }
                 arsort($addarray['author']);
+                $bibtex_data[] = $addarray;
                 $bibtex->addEntry($addarray);
 
                 unset($addarray);
             }
         }
+        $data['bibtex_data'] = $bibtex_data[0];
         $data['bibtex'] = ltrim(rtrim(print_r($bibtex->bibTex(), 1)));
 
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';

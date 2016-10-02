@@ -105,6 +105,7 @@ ojs.password_reset_requested: 'Şifre Sıfırlama Talebiniz Var.'
 about: Hakkında
 abstract: Öz
 article.abstract: Öz
+article.cite: Kaynak Göster
 abstract.transliterated: 'Başka Alfabe İle Yazılmış Öz'
 accept: Kabul Et
 accepted: Kabul Edilmiş
