@@ -9,96 +9,179 @@
     {% endstylesheets %}
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <section role="presentation">
+    <div class="header" style="margin:140px 0 0px 0; min-height: 150px">
+        <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-md-4  col-md-offset-2">
                     <a href="{{ path("ojs_public_index") }}"><img id="logo" src="{{ ojs_logo }}"/></a>
                 </div>
+                <div class="col-md-6">
+                    <div class="brand">
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a href="#dashboard">
+                                    <i class="fa fa-book"></i>
+                                    {{ stats.journal|number_format(0,'.','.') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#schedule">
+                                    <i class="fa fa-file-text"></i>
+                                    {{ stats.article|number_format(0,'.','.') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tasks">
+                                    <i class="fa fa-user"></i>
+                                     {{ stats.user|number_format(0,'.','.') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </section>
+
+        </div>
+    </div>
+
+    <div class="main main-raised">
         <section role="search" id="search_section">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+
                     <form action="{{ path('ojs_search_index') }}" method="get">
-                        <div class="input-group">
+
+                        <div class="form-group">
+
+                            <div class="col-md-8 col-md-offset-2">
                             <input type="text" name="q" class="form-control" value=""
                                    placeholder="{{ "search.on.everywhere" | trans({'%project_name%' : project_name}) }}"
                                    id="q"/>
+
+                             </div>
+                            <div class="col-md-1">
                             <span class="input-group-btn">
                                         <button class="btn btn-primary" type="submit" title="{{ "search"|trans }}"><i
                                                     class="fa fa-search"></i></button>
                                     </span>
+                            </div>
                         </div>
                         <input type="hidden" name="type" value="basic" id="search-type">
                     </form>
-                    <div id="stats">
-                        <dl class="home-stats">
-                            <dd>
-                                <span>{{ stats.journal|number_format(0,'.','.') }}</span>
-                                <br>
-                                {{ "journal"|trans }}
-                            </dd>
-                            <dd>
-                                <span>{{ stats.article|number_format(0,'.','.') }}</span>
-                                <br>
-                                {{ "article"|trans }}
-                            </dd>
-                            <dd>
-                                <span>{{ stats.user|number_format(0,'.','.') }}</span>
-                                <br>
-                                {{ "user"|trans }}
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
             </div>
         </section>
         <section role="actions">
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <p id="homepage-buttons" class="text-center">
+                    <div id="homepage-buttons" class="text-center">
                         {% if not app.user %}
                             {% if app.request.attributes.get('_system_setting').userRegistrationActive %}
                                 <a href="{{ path('fos_user_registration_register') }}"
-                                   class="btn btn-primary btn-labeled">
-                                        <span class="btn-label pull-left">
-                                            <i class="fa fa-user fa-fw"></i>
-                                        </span>
+                                   class="btn btn-primary btn-round">
+                                    <i class="fa fa-user"></i>
                                     {{ "register"|trans }}
+                                    <div class="ripple-container"></div>
                                 </a>
                             {% endif %}
                         {% endif %}
 
                         {% if app.request.attributes.get('_system_setting').publisherApplicationActive %}
                             <a href="{{ url("ojs_apply_publisher") }}"
-                               class="btn btn-primary  btn-labeled">
-                                    <span class="btn-label pull-left">
-                                        <i class="fa fa-institution fa-fw"></i>
-                                    </span>
+                               class="btn btn-primary btn-round">
+                                <i class="fa fa-institution"></i>
                                 {{ 'application.publisher.apply'|trans }}
+                                <div class="ripple-container"></div>
                             </a>
                         {% endif %}
                         {% if app.request.attributes.get('_system_setting').journalApplicationActive %}
-                            <a href="{{ url('ojs_apply_journal') }}" class="btn btn-primary btn-labeled">
-                                    <span class="btn-label pull-left">
-                                        <i class="fa fa-book fa-fw"></i>
-                                    </span>
-                                {{ "apply"|trans }}
+                            <a href="{{ url('ojs_apply_journal') }}"
+                               class="btn btn-primary btn-round">
+                                <i class="fa fa-book"></i>
+                                {{ "journal.apply"|trans }}
+                                <div class="ripple-container"></div>
                             </a>
                         {% endif %}
-                    </p>
+                    </div>
                 </div>
             </div>
         </section>
+        <div class="section section-notifications" id="notifications">
+            <div class="alert alert-info">
+                <div class="container-fluid">
+                    <div class="alert-icon">
+                        <i class="fa fa-info"></i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="fa fa-check"></i></span>
+                    </button>
+
+                    <b>bilgi</b> asdğaps ğpdağsdp ğapsdğüpa ğpü
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="section" id="carousel">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+
+                        <!-- Carousel Card -->
+                        <div class="card card-raised card-carousel">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <div class="carousel slide" data-ride="carousel">
+
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img src="{{ asset('assets/app/img/bg2.jpeg') }}" alt="Awesome Image">
+                                            <div class="carousel-caption">
+                                                <h4><i class="fa fa-globe"></i> Yellowstone National Park, United States</h4>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img src="{{ asset('assets/app/img/bg3.jpeg') }}" alt="Awesome Image">
+                                            <div class="carousel-caption">
+                                                <h4><i class="fa fa-rocket"></i> Somewhere Beyond, United States</h4>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img src="{{ asset('assets/app/img/bg4.jpeg') }}" alt="Awesome Image">
+                                            <div class="carousel-caption">
+                                                <h4><i class="fa fa-star"></i> Yellowstone National Park, United States</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                        <i class="material-icons">keyboard_arrow_left</i>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                        <i class="material-icons">keyboard_arrow_right</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Carousel Card -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
         {% if announcements is defined and announcements is not empty %}
-        <section role="presentation">
-            <div class="row">
-                <div class="col-xs-12">
-                    {% include '::slider.html.twig' %}
+            <section role="presentation">
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% include '::slider.html.twig' %}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         {% endif %}
         <section role="featured">
             <h4 class="page-header text-success"><i class="fa fa-trophy"></i> {{ 'featured'|trans }}</h4>
@@ -149,19 +232,5 @@
             </section>
         {% endif %}
     </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts "@bxslider_js" output="assets/prod/js/bxslider.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script>
-        $(function () {
-            $('.bxslider').bxSlider({
-                video: false,
-                useCSS: false,
-                autoStart: false
-            });
-        });
-    </script>
+
 {% endblock %}

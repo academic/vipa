@@ -25,6 +25,10 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/trianglify/dist/trianglify.min.js'
         - '%kernel.root_dir%/../web/vendor/select2/dist/js/select2.min.js'
         - '%kernel.root_dir%/../web/assets/app/js/common.js'
+        - '%kernel.root_dir%/../web/assets/app/js/nouislider.min.js'
+        - '%kernel.root_dir%/../web/assets/app/js/ojs-ma.min.js'
+        - '%kernel.root_dir%/../web/assets/app/js/ojs-ma.js'
+        - '%kernel.root_dir%/../web/assets/app/js/bootstrap-datepicker.js'
         - '%kernel.root_dir%/../web/vendor/moment/min/moment-with-locales.min.js'
         - '%kernel.root_dir%/../web/vendor/livestamp/livestamp.min.js'
         - '%kernel.root_dir%/../web/assets/app/js/plugins/analytics/analytics.js'
@@ -53,6 +57,8 @@ assetic:
         - '%kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css'
         - '%kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css'
         - '%kernel.root_dir%/../web/assets/app/css/app.css'
+        - '%kernel.root_dir%/../web/assets/app/css/ojs-ma.css'
+        - '%kernel.root_dir%/../web/assets/app/css/ojs-ma-helper.css'
         - '%kernel.root_dir%/../web/vendor/select2/dist/css/select2.min.css'
         - '%kernel.root_dir%/../web/assets/app/css/admin.css'
         - '%kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css'
@@ -87,14 +93,6 @@ assetic:
     ace_js:
       inputs:
         - '%kernel.root_dir%/../web/vendor/ace-builds/src-min-noconflict/ace.js'
-    bxslider_js:
-      inputs:
-        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/vendor/jquery.easing.1.3.js'
-        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/vendor/jquery.fitvids.js'
-        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/jquery.bxslider.min.js'
-    bxslider_css:
-      inputs:
-        - '%kernel.root_dir%/../web/vendor/bxslider-4/dist/jquery.bxslider.min.css'
 braincrafted_bootstrap:
   auto_configure:
     assetic: false

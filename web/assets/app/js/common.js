@@ -2,6 +2,13 @@ $(document).ready(function () {
     moment.locale(current_language);
 
 
+    window_width = $(window).width();
+
+    if (window_width >= 992){
+        big_image = $('.wrapper > .header');
+
+        $(window).on('scroll', materialKitDemo.checkScrollForParallax);
+    }
     /**
      * Usage of abbr ago
      *<abbr title="{{ post.created|date('Y-m-d H:i:s') }}"  class="ago">{{ post.created|date('Y-m-d H:i:s') }}</abbr>
@@ -21,9 +28,6 @@ $(document).ready(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-    $('.fab').hover(function () {
-        $(this).toggleClass('active');
-    });
 
     $(".js-scroll-to").click(function (e) {
         var destination = $(this).data('href');
